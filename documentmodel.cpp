@@ -30,6 +30,7 @@ bool DocumentModel::load(const QString &filePath)
         m_document = document;
         for(int index=0;index<document->numPages();index++) { m_pageList.append(document->page(index)); }
 
+        document->setRenderBackend(Poppler::Document::ArthurBackend);
         document->setRenderHint(Poppler::Document::Antialiasing);
         document->setRenderHint(Poppler::Document::TextAntialiasing);
 
