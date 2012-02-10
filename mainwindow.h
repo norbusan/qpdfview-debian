@@ -16,8 +16,10 @@ public:
 
 private slots:
     void open();
+    void addTab();
     void closeTab();
 
+    void reload();
     void save();
     void print();
 
@@ -26,21 +28,46 @@ private slots:
     void firstPage();
     void lastPage();
 
+    void selectScaleMode(QAction *scaleModeAction);
+    void selectDisplayMode(QAction *displayModeAction);
+
+    void fullscreen();
+
+    void changeCurrent(const int &index);
+    void requestTabClose(const int &index);
+
 private:
     QTabWidget *m_tabWidget;
 
     QAction *m_openAction;
+    QAction *m_addTabAction;
     QAction *m_closeTabAction;
 
+    QAction *m_reloadAction;
     QAction *m_saveAction;
     QAction *m_printAction;
 
     QAction *m_exitAction;
 
+    QLineEdit *m_pageLineEdit;
+
     QAction *m_previousPageAction;
     QAction *m_nextPageAction;
     QAction *m_firstPageAction;
     QAction *m_lastPageAction;
+
+    QAction *m_scaleFactorAction;
+    QAction *m_fitToPageAction;
+    QAction *m_fitToPageWidthAction;
+    QActionGroup *m_scaleModeGroup;
+
+    QAction *m_pagingAction;
+    QAction *m_scrollingAction;
+    QAction *m_doublePagingAction;
+    QAction *m_doubleScrollingAction;
+    QActionGroup *m_displayModeGroup;
+
+    QAction *m_fullscreenAction;
 
 };
 

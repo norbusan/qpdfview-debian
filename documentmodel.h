@@ -16,6 +16,7 @@ public:
     ~DocumentModel();
 
     bool load(const QString &filePath);
+    bool reload();
     bool save(const QString &filePath) const;
 
     const QString &filePath() const { return m_filePath; }

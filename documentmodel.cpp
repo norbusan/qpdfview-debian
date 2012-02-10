@@ -44,6 +44,35 @@ bool DocumentModel::load(const QString &filePath)
     return !document;
 }
 
+bool DocumentModel::reload() {
+    if(m_document) {
+        Poppler::Document *document = Poppler::Document::load(m_filePath);
+
+        if(document) {
+            if(m_document) { delete m_document; }
+            while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
+
+            m_document = document;
+            for(int index=0;index<document->numPages();index++) { m_pageList.append(document->page(index)); }
+
+            document->setRenderBackend(Poppler::Document::ArthurBackend);
+            document->setRenderHint(Poppler::Document::Antialiasing);
+            document->setRenderHint(Poppler::Document::TextAntialiasing);
+
+            if(m_index > m_pageList.size()) {
+                m_index = 1;
+            }
+
+            emit documentChanged(m_filePath);
+            emit indexChanged(m_index);
+        }
+
+        return !document;
+    } else {
+        return false;
+    }
+}
+
 bool DocumentModel::save(const QString &filePath) const {
     if(m_document) {
         Poppler::PDFConverter *pdfConverter = m_document->pdfConverter();

@@ -1,18 +1,19 @@
 #ifndef PAGEITEM_H
 #define PAGEITEM_H
 
-#include <QGraphicsItem>
+#include <QtCore>
+#include <QtGui>
+
+#include "documentmodel.h"
 
 class PageItem : public QGraphicsItem
 {
-    Q_OBJECT
 public:
-    explicit PageItem(QObject *parent = 0);
-    
-signals:
-    
-public slots:
-    
+    PageItem(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
 };
 
 #endif // PAGEITEM_H

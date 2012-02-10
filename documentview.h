@@ -5,6 +5,7 @@
 #include <QtGui>
 
 #include "documentmodel.h"
+#include "pageitem.h"
 
 class DocumentView : public QGraphicsView
 {
@@ -25,8 +26,8 @@ public slots:
     void changeScaleFactor(const qreal &scaleFactor);
 
 private:
-    QGraphicsScene m_graphicsScene;
-    QMap<int, QGraphicsItem*> m_itemMap;
+    QGraphicsScene m_scene;
+    QMap<int, PageItem*> m_itemMap;
     
 };
 
