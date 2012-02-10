@@ -48,19 +48,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
     connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
 
-    m_scaleFactorAction = new QAction(tr("Use scale factor"), this);
-    m_scaleFactorAction->setCheckable(true);
-    m_fitToPageAction = new QAction(tr("Fit to page"), this);
-    m_fitToPageAction->setCheckable(true);
-    m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
-    m_fitToPageWidthAction->setCheckable(true);
-
-    m_scaleModeGroup = new QActionGroup(this);
-    m_scaleModeGroup->addAction(m_scaleFactorAction);
-    m_scaleModeGroup->addAction(m_fitToPageAction);
-    m_scaleModeGroup->addAction(m_fitToPageWidthAction);
-    connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaleMode(QAction*)));
-
     m_pagingAction = new QAction(tr("Paging display"), this);
     m_pagingAction->setCheckable(true);
     m_scrollingAction = new QAction(tr("Scrolling display"), this);
@@ -76,6 +63,19 @@ MainWindow::MainWindow(QWidget *parent)
     m_displayModeGroup->addAction(m_doublePagingAction);
     m_displayModeGroup->addAction(m_doubleScrollingAction);
     connect(m_displayModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectDisplayMode(QAction*)));
+
+    m_scaleFactorAction = new QAction(tr("Use scale factor"), this);
+    m_scaleFactorAction->setCheckable(true);
+    m_fitToPageAction = new QAction(tr("Fit to page"), this);
+    m_fitToPageAction->setCheckable(true);
+    m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
+    m_fitToPageWidthAction->setCheckable(true);
+
+    m_scaleModeGroup = new QActionGroup(this);
+    m_scaleModeGroup->addAction(m_scaleFactorAction);
+    m_scaleModeGroup->addAction(m_fitToPageAction);
+    m_scaleModeGroup->addAction(m_fitToPageWidthAction);
+    connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaleMode(QAction*)));
 
     m_fullscreenAction = new QAction(QIcon::fromTheme("view-fullscreen"), tr("Fullscreen"), this);
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
@@ -103,14 +103,14 @@ MainWindow::MainWindow(QWidget *parent)
     viewMenu->addAction(m_firstPageAction);
     viewMenu->addAction(m_lastPageAction);
     viewMenu->addSeparator();
-    viewMenu->addAction(m_scaleFactorAction);
-    viewMenu->addAction(m_fitToPageAction);
-    viewMenu->addAction(m_fitToPageWidthAction);
-    viewMenu->addSeparator();
     viewMenu->addAction(m_pagingAction);
     viewMenu->addAction(m_scrollingAction);
     viewMenu->addAction(m_doublePagingAction);
     viewMenu->addAction(m_doubleScrollingAction);
+    viewMenu->addSeparator();
+    viewMenu->addAction(m_scaleFactorAction);
+    viewMenu->addAction(m_fitToPageAction);
+    viewMenu->addAction(m_fitToPageWidthAction);
     viewMenu->addSeparator();
     viewMenu->addAction(m_fullscreenAction);
 
@@ -184,16 +184,16 @@ MainWindow::~MainWindow()
     delete m_firstPageAction;
     delete m_lastPageAction;
 
-    delete m_scaleFactorAction;
-    delete m_fitToPageAction;
-    delete m_fitToPageWidthAction;
-    delete m_scaleModeGroup;
-
     delete m_pagingAction;
     delete m_scrollingAction;
     delete m_doublePagingAction;
     delete m_doubleScrollingAction;
     delete m_displayModeGroup;
+
+    delete m_scaleFactorAction;
+    delete m_fitToPageAction;
+    delete m_fitToPageWidthAction;
+    delete m_scaleModeGroup;
 
     delete m_fullscreenAction;
 }
