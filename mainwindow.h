@@ -4,6 +4,8 @@
 #include <QtCore>
 #include <QtGui>
 
+#include "documentview.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -30,8 +32,8 @@ private slots:
     void firstPage();
     void lastPage();
 
-    void selectScaleMode(QAction *scaleModeAction);
     void selectDisplayMode(QAction *displayModeAction);
+    void selectScaleMode(QAction *scaleModeAction);
 
     void fullscreen();
 
@@ -64,16 +66,16 @@ private:
     QAction *m_firstPageAction;
     QAction *m_lastPageAction;
 
-    QAction *m_scaleFactorAction;
-    QAction *m_fitToPageAction;
-    QAction *m_fitToPageWidthAction;
-    QActionGroup *m_scaleModeGroup;
-
     QAction *m_pagingAction;
     QAction *m_scrollingAction;
     QAction *m_doublePagingAction;
     QAction *m_doubleScrollingAction;
     QActionGroup *m_displayModeGroup;
+
+    QAction *m_scaleFactorAction;
+    QAction *m_fitToPageAction;
+    QAction *m_fitToPageWidthAction;
+    QActionGroup *m_scaleModeGroup;
 
     QAction *m_fullscreenAction;
 

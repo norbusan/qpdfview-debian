@@ -202,6 +202,15 @@ void MainWindow::open()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
+
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(documentView->load(filePath))
+        {
+            m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+        }
     }
     else
     {
@@ -211,6 +220,21 @@ void MainWindow::open()
 
 void MainWindow::addTab()
 {
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open document"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
+
+    foreach(QString filePath, filePaths) {
+        DocumentView *documentView = new DocumentView();
+
+        if(documentView->load(filePath)) {
+            int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).baseName());
+            m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
+            m_tabWidget->setCurrentIndex(index);
+
+            documentView->show();
+        } else {
+            delete documentView;
+        }
+    }
 }
 
 void MainWindow::previousTab()
