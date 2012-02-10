@@ -9,12 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_addTabAction = new QAction(QIcon::fromTheme("window-new"), tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
     connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
+    m_previousTabAction = new QAction(tr("Previous tab"), this);
+    m_previousTabAction->setShortcut(QKeySequence::PreviousChild);
+    connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(previousTab()));
+    m_nextTabAction = new QAction(tr("Next tab"), this);
+    m_nextTabAction->setShortcut(QKeySequence::NextChild);
+    connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
     m_closeTabAction = new QAction(QIcon::fromTheme("window-close"), tr("&Close Tab"), this);
     m_closeTabAction->setShortcut(QKeySequence::Close);
     connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
-
-    m_openAction->setEnabled(false);
-    m_closeTabAction->setEnabled(false);
 
     m_reloadAction = new QAction(QIcon::fromTheme("view-refresh"), tr("&Reload"), this);
     m_reloadAction->setShortcut(QKeySequence::Refresh);
@@ -26,16 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_printAction->setShortcut(QKeySequence::Print);
     connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
 
-    m_reloadAction->setEnabled(false);
-    m_saveAction->setEnabled(false);
-    m_printAction->setEnabled(false);
-
     m_exitAction = new QAction(QIcon::fromTheme("application-exit"), tr("&Exit"), this);
     m_exitAction->setShortcut(QKeySequence::Quit);
     connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
     m_pageLineEdit = new QLineEdit();
-    m_pageLineEdit->setEnabled(false);
 
     m_previousPageAction = new QAction(QIcon::fromTheme("go-previous"), tr("&Previous page"), this);
     m_previousPageAction->setShortcut(QKeySequence::MoveToPreviousPage);
@@ -50,11 +48,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
     connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
 
-    m_previousPageAction->setEnabled(false);
-    m_nextPageAction->setEnabled(false);
-    m_firstPageAction->setEnabled(false);
-    m_lastPageAction->setEnabled(false);
-
     m_scaleFactorAction = new QAction(tr("Use scale factor"), this);
     m_scaleFactorAction->setCheckable(true);
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
@@ -66,10 +59,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_scaleModeGroup->addAction(m_scaleFactorAction);
     m_scaleModeGroup->addAction(m_fitToPageAction);
     m_scaleModeGroup->addAction(m_fitToPageWidthAction);
-
-    m_scaleFactorAction->setChecked(true);
-    m_scaleModeGroup->setEnabled(false);
-
     connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaleMode(QAction*)));
 
     m_pagingAction = new QAction(tr("Paging display"), this);
@@ -86,13 +75,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_displayModeGroup->addAction(m_scrollingAction);
     m_displayModeGroup->addAction(m_doublePagingAction);
     m_displayModeGroup->addAction(m_doubleScrollingAction);
-
-    m_pagingAction->setChecked(true);
-    m_displayModeGroup->setEnabled(false);
-
     connect(m_displayModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectDisplayMode(QAction*)));
 
     m_fullscreenAction = new QAction(QIcon::fromTheme("view-fullscreen"), tr("Fullscreen"), this);
+    m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
     m_fullscreenAction->setCheckable(true);
     connect(m_fullscreenAction, SIGNAL(triggered()), this, SLOT(fullscreen()));
 
@@ -101,10 +87,9 @@ MainWindow::MainWindow(QWidget *parent)
     QMenu *fileMenu = this->menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(m_openAction);
     fileMenu->addAction(m_addTabAction);
+    fileMenu->addAction(m_previousTabAction);
+    fileMenu->addAction(m_nextTabAction);
     fileMenu->addAction(m_closeTabAction);
-    // separator
-    // previous tab
-    // next tab
     fileMenu->addSeparator();
     fileMenu->addAction(m_reloadAction);
     fileMenu->addAction(m_saveAction);
@@ -132,6 +117,7 @@ MainWindow::MainWindow(QWidget *parent)
     // toolBar
 
     QToolBar *fileToolBar = this->addToolBar(tr("&File"));
+    fileToolBar->setObjectName("FileToolBar");
     fileToolBar->addAction(m_openAction);
     fileToolBar->addSeparator();
     fileToolBar->addAction(m_reloadAction);
@@ -139,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
     fileToolBar->addAction(m_printAction);
 
     QToolBar *viewToolBar = this->addToolBar(tr("&View"));
+    viewToolBar->setObjectName("ViewToolBar");
     viewToolBar->addAction(m_firstPageAction);
     viewToolBar->addAction(m_previousPageAction);
     viewToolBar->addWidget(m_pageLineEdit);
@@ -151,16 +138,39 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrent(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
 
     this->setCentralWidget(m_tabWidget);
+    this->changeCurrent(-1);
+
+    // geometry
+
+    QSettings settings;
+
+    this->restoreGeometry(settings.value("MainWindow/geometry").toByteArray());
+    this->restoreState(settings.value("MainWindow/state").toByteArray());
+
+    // drag and drop
+
+    this->setAcceptDrops(true);
+
+    // arguments
+
+    QStringList arguments = QCoreApplication::arguments();
+
+    foreach(QString argument, arguments)
+    {
+    }
 }
 
 MainWindow::~MainWindow()
 {
     delete m_openAction;
     delete m_addTabAction;
+    delete m_previousTabAction;
+    delete m_nextTabAction;
     delete m_closeTabAction;
 
     delete m_reloadAction;
@@ -190,9 +200,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::open()
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+    }
+    else
+    {
+        this->addTab();
+    }
 }
 
 void MainWindow::addTab()
+{
+}
+
+void MainWindow::previousTab()
+{
+}
+
+void MainWindow::nextTab()
 {
 }
 
@@ -242,13 +267,65 @@ void MainWindow::selectDisplayMode(QAction *displayModeAction)
 
 void MainWindow::fullscreen()
 {
+    if(m_fullscreenAction->isChecked())
+    {
+        this->showFullScreen();
+    }
+    else
+    {
+        this->showNormal();
+    }
 }
 
 
 void MainWindow::changeCurrent(const int &index)
 {
+    if(index != -1)
+    {
+    }
+    else
+    {
+        m_previousTabAction->setEnabled(false);
+        m_nextTabAction->setEnabled(false);
+        m_closeTabAction->setEnabled(false);
+
+        m_reloadAction->setEnabled(false);
+        m_saveAction->setEnabled(false);
+        m_printAction->setEnabled(false);
+
+        m_pageLineEdit->setEnabled(false);
+
+        m_previousPageAction->setEnabled(false);
+        m_nextPageAction->setEnabled(false);
+        m_firstPageAction->setEnabled(false);
+        m_lastPageAction->setEnabled(false);
+
+        m_scaleFactorAction->setChecked(true);
+        m_scaleModeGroup->setEnabled(false);
+
+        m_pagingAction->setChecked(true);
+        m_displayModeGroup->setEnabled(false);
+    }
 }
 
 void MainWindow::requestTabClose(const int &index)
 {
+}
+
+
+void MainWindow::dropEvent(QDropEvent *dropEvent)
+{
+}
+
+void MainWindow::closeEvent(QCloseEvent *closeEvent)
+{
+    QSettings settings;
+
+    if(!m_fullscreenAction->isChecked())
+    {
+        settings.setValue("MainWindow/geometry", this->saveGeometry());
+        settings.setValue("MainWindow/state", this->saveState());
+    }
+
+    QMainWindow::closeEvent(closeEvent);
 }

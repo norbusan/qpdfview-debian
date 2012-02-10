@@ -27,7 +27,7 @@ public slots:
 
 private:
     QGraphicsScene m_scene;
-    QMap<int, PageItem*> m_itemMap;
+    QList<PageItem*> m_itemList;
     
 };
 

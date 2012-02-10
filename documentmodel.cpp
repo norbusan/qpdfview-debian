@@ -23,7 +23,8 @@ bool DocumentModel::load(const QString &filePath)
 {
     Poppler::Document *document = Poppler::Document::load(filePath);
 
-    if(document) {
+    if(document)
+    {
         if(m_document) { delete m_document; }
         while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
 
@@ -45,10 +46,12 @@ bool DocumentModel::load(const QString &filePath)
 }
 
 bool DocumentModel::reload() {
-    if(m_document) {
+    if(m_document)
+    {
         Poppler::Document *document = Poppler::Document::load(m_filePath);
 
-        if(document) {
+        if(document)
+        {
             if(m_document) { delete m_document; }
             while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
 
@@ -59,7 +62,8 @@ bool DocumentModel::reload() {
             document->setRenderHint(Poppler::Document::Antialiasing);
             document->setRenderHint(Poppler::Document::TextAntialiasing);
 
-            if(m_index > m_pageList.size()) {
+            if(m_index > m_pageList.size())
+            {
                 m_index = 1;
             }
 
@@ -68,13 +72,17 @@ bool DocumentModel::reload() {
         }
 
         return !document;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
 
-bool DocumentModel::save(const QString &filePath) const {
-    if(m_document) {
+bool DocumentModel::save(const QString &filePath) const
+{
+    if(m_document)
+    {
         Poppler::PDFConverter *pdfConverter = m_document->pdfConverter();
         pdfConverter->setOutputFileName(filePath);
 
@@ -83,7 +91,9 @@ bool DocumentModel::save(const QString &filePath) const {
         delete pdfConverter;
 
         return result;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -91,17 +101,22 @@ bool DocumentModel::save(const QString &filePath) const {
 
 void DocumentModel::setIndex(const int &index)
 {
-    if(m_document && m_index != index && index >= 1 &&  index <= m_pageList.size()) {
-        switch(m_displayMode) {
+    if(m_document && m_index != index && index >= 1 &&  index <= m_pageList.size())
+    {
+        switch(m_displayMode)
+        {
         case PagingMode:
         case ScrollingMode:
             m_index = index;
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(index%2==0) {
+            if(index%2==0)
+            {
                 m_index = index-1;
-            } else {
+            }
+            else
+            {
                 m_index = index;
             }
             break;
@@ -113,11 +128,14 @@ void DocumentModel::setIndex(const int &index)
 
 void DocumentModel::previousPage()
 {
-    if(m_document) {
-        switch(m_displayMode) {
+    if(m_document)
+    {
+        switch(m_displayMode)
+        {
         case PagingMode:
         case ScrollingMode:
-            if(m_index > 1) {
+            if(m_index > 1)
+            {
                 m_index -= 1;
 
                 emit indexChanged(m_index);
@@ -125,7 +143,8 @@ void DocumentModel::previousPage()
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(m_index > 2) {
+            if(m_index > 2)
+            {
                 m_index -= 2;
 
                 emit indexChanged(m_index);
@@ -137,11 +156,14 @@ void DocumentModel::previousPage()
 
 void DocumentModel::nextPage()
 {
-    if(m_document) {
-        switch(m_displayMode) {
+    if(m_document)
+    {
+        switch(m_displayMode)
+        {
         case PagingMode:
         case ScrollingMode:
-            if(m_index <= m_pageList.size()-1) {
+            if(m_index <= m_pageList.size()-1)
+            {
                 m_index += 1;
 
                 emit indexChanged(m_index);
@@ -149,7 +171,8 @@ void DocumentModel::nextPage()
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(m_index <= m_pageList.size()-2) {
+            if(m_index <= m_pageList.size()-2)
+            {
                 m_index += 2;
 
                 emit indexChanged(m_index);
@@ -161,7 +184,8 @@ void DocumentModel::nextPage()
 
 void DocumentModel::firstPage()
 {
-    if(m_document && m_index != 1) {
+    if(m_document && m_index != 1)
+    {
         m_index = 1;
 
         emit indexChanged(m_index);
@@ -170,11 +194,14 @@ void DocumentModel::firstPage()
 
 void DocumentModel::lastPage()
 {
-    if(m_document) {
-        switch(m_displayMode) {
+    if(m_document)
+    {
+        switch(m_displayMode)
+        {
         case PagingMode:
         case ScrollingMode:
-            if(m_index != m_pageList.size()) {
+            if(m_index != m_pageList.size())
+            {
                 m_index = m_pageList.size();
 
                 emit indexChanged(m_index);
@@ -182,14 +209,19 @@ void DocumentModel::lastPage()
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(m_pageList.size()%2==0) {
-                if(m_index != m_pageList.size()-1) {
+            if(m_pageList.size()%2==0)
+            {
+                if(m_index != m_pageList.size()-1)
+                {
                     m_index = m_pageList.size()-1;
 
                     emit indexChanged(m_index);
                 }
-            } else {
-                if(m_index != m_pageList.size()) {
+            }
+            else
+            {
+                if(m_index != m_pageList.size())
+                {
                     m_index = m_pageList.size();
 
                     emit indexChanged(m_index);
@@ -203,13 +235,16 @@ void DocumentModel::lastPage()
 
 void DocumentModel::setDisplayMode(const DocumentModel::DisplayModes &displayMode)
 {
-    if(m_displayMode != displayMode) {
+    if(m_displayMode != displayMode)
+    {
         m_displayMode = displayMode;
 
         emit displayModeChanged(m_displayMode);
 
-        if(m_displayMode == DoublePagingMode || m_displayMode == DoubleScrollingMode) {
-            if(m_index%2==0) {
+        if(m_displayMode == DoublePagingMode || m_displayMode == DoubleScrollingMode)
+        {
+            if(m_index%2==0)
+            {
                 m_index = m_index-1;
 
                 emit indexChanged(m_index);
@@ -221,7 +256,8 @@ void DocumentModel::setDisplayMode(const DocumentModel::DisplayModes &displayMod
 
 void DocumentModel::setScaleMode(const DocumentModel::ScaleModes &scaleMode)
 {
-    if(m_scaleMode != scaleMode) {
+    if(m_scaleMode != scaleMode)
+    {
         m_scaleMode = scaleMode;
 
         emit scaleModeChanged(m_scaleMode);
@@ -230,7 +266,8 @@ void DocumentModel::setScaleMode(const DocumentModel::ScaleModes &scaleMode)
 
 void DocumentModel::setScaleFactor(const qreal &scaleFactor)
 {
-    if(m_scaleFactor != scaleFactor && scaleFactor >= 0.25 && scaleFactor <= 4.0) {
+    if(m_scaleFactor != scaleFactor && scaleFactor >= 0.25 && scaleFactor <= 4.0)
+    {
         m_scaleFactor = scaleFactor;
 
         emit scaleFactorChanged(m_scaleFactor);

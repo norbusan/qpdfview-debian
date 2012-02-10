@@ -17,6 +17,8 @@ public:
 private slots:
     void open();
     void addTab();
+    void previousTab();
+    void nextTab();
     void closeTab();
 
     void reload();
@@ -36,11 +38,17 @@ private slots:
     void changeCurrent(const int &index);
     void requestTabClose(const int &index);
 
+protected:
+    void dropEvent(QDropEvent *dropEvent);
+    void closeEvent(QCloseEvent *closeEvent);
+
 private:
     QTabWidget *m_tabWidget;
 
     QAction *m_openAction;
     QAction *m_addTabAction;
+    QAction *m_previousTabAction;
+    QAction *m_nextTabAction;
     QAction *m_closeTabAction;
 
     QAction *m_reloadAction;

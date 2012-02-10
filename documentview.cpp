@@ -3,7 +3,7 @@
 DocumentView::DocumentView(QWidget *parent) :
     QGraphicsView(parent),
     m_scene(),
-    m_itemMap()
+    m_itemList()
 {
 }
 
