@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -77,6 +98,22 @@ MainWindow::MainWindow(QWidget *parent)
     m_scaleModeGroup->addAction(m_fitToPageWidthAction);
     connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaleMode(QAction*)));
 
+    m_doNotRotateAction = new QAction(tr("Do not rotate"), this);
+    m_doNotRotateAction->setCheckable(true);
+    m_rotateBy90Action = new QAction(tr("Rotate by 90 degrees"), this);
+    m_rotateBy90Action->setCheckable(true);
+    m_rotateBy180Action = new QAction(tr("Rotate by 180 degrees"), this);
+    m_rotateBy180Action->setCheckable(true);
+    m_rotateBy270Action = new QAction(tr("Rotate by 270 degrees"), this);
+    m_rotateBy270Action->setCheckable(true);
+
+    m_rotationModeGroup = new QActionGroup(this);
+    m_rotationModeGroup->addAction(m_doNotRotateAction);
+    m_rotationModeGroup->addAction(m_rotateBy90Action);
+    m_rotationModeGroup->addAction(m_rotateBy180Action);
+    m_rotationModeGroup->addAction(m_rotateBy270Action);
+    connect(m_rotationModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotationMode(QAction*)));
+
     m_fullscreenAction = new QAction(QIcon::fromTheme("view-fullscreen"), tr("Fullscreen"), this);
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
     m_fullscreenAction->setCheckable(true);
@@ -111,6 +148,11 @@ MainWindow::MainWindow(QWidget *parent)
     viewMenu->addAction(m_scaleFactorAction);
     viewMenu->addAction(m_fitToPageAction);
     viewMenu->addAction(m_fitToPageWidthAction);
+    viewMenu->addSeparator();
+    viewMenu->addAction(m_doNotRotateAction);
+    viewMenu->addAction(m_rotateBy90Action);
+    viewMenu->addAction(m_rotateBy180Action);
+    viewMenu->addAction(m_rotateBy270Action);
     viewMenu->addSeparator();
     viewMenu->addAction(m_fullscreenAction);
 
@@ -194,6 +236,12 @@ MainWindow::~MainWindow()
     delete m_fitToPageAction;
     delete m_fitToPageWidthAction;
     delete m_scaleModeGroup;
+
+    delete m_doNotRotateAction;
+    delete m_rotateBy90Action;
+    delete m_rotateBy180Action;
+    delete m_rotateBy270Action;
+    delete m_rotationModeGroup;
 
     delete m_fullscreenAction;
 }
@@ -284,6 +332,10 @@ void MainWindow::selectScaleMode(QAction *scaleModeAction)
 {
 }
 
+void MainWindow::selectRotationMode(QAction *rotationModeAction)
+{
+}
+
 void MainWindow::selectDisplayMode(QAction *displayModeAction)
 {
 }
@@ -324,11 +376,14 @@ void MainWindow::changeCurrent(const int &index)
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
 
+        m_pagingAction->setChecked(true);
+        m_displayModeGroup->setEnabled(false);
+
         m_scaleFactorAction->setChecked(true);
         m_scaleModeGroup->setEnabled(false);
 
-        m_pagingAction->setChecked(true);
-        m_displayModeGroup->setEnabled(false);
+        m_doNotRotateAction->setChecked(true);
+        m_rotationModeGroup->setEnabled(false);
     }
 }
 

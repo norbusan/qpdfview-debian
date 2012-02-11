@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #ifndef DOCUMENTVIEW_H
 #define DOCUMENTVIEW_H
 
@@ -12,6 +33,7 @@ class DocumentView : public QGraphicsView
 public:
     enum DisplayModes { PagingMode, ScrollingMode, DoublePagingMode, DoubleScrollingMode };
     enum ScaleModes { ScaleFactorMode, FitToPageMode, FitToPageWidthMode };
+    enum RotationModes { DoNotRotateMode, RotateBy90Mode, RotateBy180Mode, RotateBy270Mode };
 
     explicit DocumentView(QWidget *parent = 0);
     ~DocumentView();
@@ -29,9 +51,8 @@ public:
     const ScaleModes &scaleMode() const { return m_scaleMode; }
     const qreal &scaleFactor() const { return m_scaleFactor; }
 
-    int pageCount() const { return m_pageList.size(); }
-    Poppler::Page *page(int index) const { return m_pageList[index-1]; }
-    
+    const RotationModes &rotationMode() const { return m_rotationMode; }
+
 signals:
     void documentChanged(QString);
 
@@ -41,6 +62,8 @@ signals:
 
     void scaleModeChanged(DocumentView::ScaleModes);
     void scaleFactorChanged(qreal);
+
+    void rotationModeChanged(DocumentView::RotationModes);
     
 public slots:
     void setIndex(const int &index);
@@ -51,8 +74,10 @@ public slots:
 
     void setDisplayMode(const DisplayModes &displayMode);
 
-    void setScaleMode(const ScaleModes &scaleModes);
+    void setScaleMode(const ScaleModes &scaleMode);
     void setScaleFactor(const qreal &scaleFactor);
+
+    void setRotationMode(const RotationModes &rotationMode);
 
 protected:
     void layout();
@@ -84,6 +109,8 @@ private:
 
     ScaleModes m_scaleMode;
     qreal m_scaleFactor;
+
+    RotationModes m_rotationMode;
 
 };
 
