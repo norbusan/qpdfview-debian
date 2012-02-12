@@ -83,19 +83,6 @@ protected:
     void layout();
 
 private:
-    class PageItem : public QGraphicsItem
-    {
-    public:
-        PageItem(Poppler::Page *page, QGraphicsItem *parent = 0, QGraphicsScene *scene = 0) : m_page(page) {}
-
-        QRectF boundingRect() const { return QRectF(0.0, 0.0, 72.0 * m_page->pageSizeF().width(), 72.0 * m_page->pageSizeF().height()); }
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) { m_page->renderToPainter(painter, 72.0, 72.0); }
-
-    private:
-        Poppler::Page *m_page;
-
-    };
-
     QGraphicsScene *m_graphicsScene;
 
     Poppler::Document *m_document;
@@ -111,6 +98,32 @@ private:
     qreal m_scaleFactor;
 
     RotationModes m_rotationMode;
+
+};
+
+class PageItem : public QGraphicsItem
+{
+public:
+    PageItem(Poppler::Page *page, QGraphicsItem *parent = 0, QGraphicsScene *scene = 0) : QGraphicsItem(parent, scene), m_page(page) {}
+
+    QRectF boundingRect() const { return QRectF(0.0, 0.0, 72.0 * m_page->pageSizeF().width(), 72.0 * m_page->pageSizeF().height()); }
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) { m_page->renderToPainter(painter, 72.0, 72.0); }
+
+private:
+    Poppler::Page *m_page;
+
+};
+
+class PrinterThread : public QThread
+{
+    Q_OBJECT
+public:
+    explicit PrinterThread(Poppler::Document *document, QObject *parent = 0, QPrinter *printer = 0) : QThread(parent), m_document(document) {}
+
+    void run() {}
+
+private:
+    Poppler::Document *m_document;
 
 };
 
