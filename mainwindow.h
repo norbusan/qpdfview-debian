@@ -81,7 +81,13 @@ private:
 
     QAction *m_exitAction;
 
+    QWidget *m_pageWidget;
+    QLabel *m_pageLabel;
     QLineEdit *m_pageLineEdit;
+
+    QWidget *m_scalingWidget;
+    QLabel *m_scalingLabel;
+    QComboBox *m_scalingComboBox;
 
     QAction *m_previousPageAction;
     QAction *m_nextPageAction;

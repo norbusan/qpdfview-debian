@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_openAction = new QAction(QIcon::fromTheme("document-open"), tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
-    m_addTabAction = new QAction(QIcon::fromTheme("window-new"), tr("&Add tab..."), this);
+    m_addTabAction = new QAction(QIcon::fromTheme("tab-new"), tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
     connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
     m_previousTabAction = new QAction(tr("Previous tab"), this);
@@ -53,8 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_exitAction = new QAction(QIcon::fromTheme("application-exit"), tr("&Exit"), this);
     m_exitAction->setShortcut(QKeySequence::Quit);
     connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
-
-    m_pageLineEdit = new QLineEdit();
 
     m_previousPageAction = new QAction(QIcon::fromTheme("go-previous"), tr("&Previous page"), this);
     m_previousPageAction->setShortcut(QKeySequence::MoveToPreviousPage);
@@ -158,6 +156,24 @@ MainWindow::MainWindow(QWidget *parent)
 
     // toolBar
 
+    m_pageWidget = new QWidget();
+    m_pageLabel = new QLabel(tr("Page:"));
+    m_pageLineEdit = new QLineEdit();
+
+    m_pageWidget->setLayout(new QHBoxLayout());
+    m_pageWidget->layout()->addWidget(m_pageLabel);
+    m_pageWidget->layout()->addWidget(m_pageLineEdit);
+    m_pageWidget->setMaximumWidth(100);
+
+    m_scalingWidget = new QWidget();
+    m_scalingLabel = new QLabel(tr("Scaling:"));
+    m_scalingComboBox = new QComboBox();
+
+    m_scalingWidget->setLayout(new QHBoxLayout());
+    m_scalingWidget->layout()->addWidget(m_scalingLabel);
+    m_scalingWidget->layout()->addWidget(m_scalingComboBox);
+    m_scalingWidget->setMaximumWidth(300);
+
     QToolBar *fileToolBar = this->addToolBar(tr("&File"));
     fileToolBar->setObjectName("FileToolBar");
     fileToolBar->addAction(m_openAction);
@@ -170,9 +186,10 @@ MainWindow::MainWindow(QWidget *parent)
     viewToolBar->setObjectName("ViewToolBar");
     viewToolBar->addAction(m_firstPageAction);
     viewToolBar->addAction(m_previousPageAction);
-    viewToolBar->addWidget(m_pageLineEdit);
+    viewToolBar->addWidget(m_pageWidget);
     viewToolBar->addAction(m_nextPageAction);
     viewToolBar->addAction(m_lastPageAction);
+    viewToolBar->addWidget(m_scalingWidget);
 
     // centralWidget
 
@@ -201,6 +218,7 @@ MainWindow::MainWindow(QWidget *parent)
     // arguments
 
     QStringList arguments = QCoreApplication::arguments();
+    arguments.removeFirst();
 
     foreach(QString argument, arguments)
     {
@@ -260,6 +278,12 @@ MainWindow::~MainWindow()
     delete m_rotationModeGroup;
 
     delete m_fullscreenAction;
+
+    delete m_pageLabel;
+    delete m_pageLineEdit;
+
+    delete m_scalingLabel;
+    delete m_scalingComboBox;
 }
 
 void MainWindow::open()
@@ -389,8 +413,6 @@ void MainWindow::changeCurrent(const int &index)
         m_saveAction->setEnabled(false);
         m_printAction->setEnabled(false);
 
-        m_pageLineEdit->setEnabled(false);
-
         m_previousPageAction->setEnabled(false);
         m_nextPageAction->setEnabled(false);
         m_firstPageAction->setEnabled(false);
@@ -404,6 +426,9 @@ void MainWindow::changeCurrent(const int &index)
 
         m_doNotRotateAction->setChecked(true);
         m_rotationModeGroup->setEnabled(false);
+
+        m_pageLineEdit->setEnabled(false);
+        m_scalingComboBox->setEnabled(false);
     }
 }
 

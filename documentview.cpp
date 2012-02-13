@@ -74,6 +74,7 @@ bool DocumentView::load(const QString &filePath)
     return document != 0;
 }
 
+
 bool DocumentView::reload() {
     if(m_document)
     {
@@ -127,6 +128,10 @@ bool DocumentView::save(const QString &filePath) const
     {
         return false;
     }
+}
+
+void DocumentView::print() const
+{
 }
 
 
@@ -333,8 +338,11 @@ void DocumentView::layout()
         PageItem *pageItem = new PageItem(page);
         m_graphicsScene->addItem(pageItem);
 
-        pageItem->setPos(x, y);
+        pageItem->setPos(0.0, y);
 
+        x = qMax(x, 1.05 * page->pageSizeF().width());
         y += 1.05 * page->pageSizeF().height();
     }
+
+    m_graphicsScene->setSceneRect(0.0, 0.0, x, y);
 }

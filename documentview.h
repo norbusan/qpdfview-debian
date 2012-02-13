@@ -39,8 +39,10 @@ public:
     ~DocumentView();
 
     bool load(const QString &filePath);
+
     bool reload();
     bool save(const QString &filePath) const;
+    void print() const;
 
     const QString &filePath() const { return m_filePath; }
 
@@ -121,6 +123,8 @@ public:
     explicit PrinterThread(Poppler::Document *document, QObject *parent = 0, QPrinter *printer = 0) : QThread(parent), m_document(document) {}
 
     void run() {}
+
+signals:
 
 private:
     Poppler::Document *m_document;
