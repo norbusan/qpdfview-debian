@@ -198,11 +198,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrent(int)));
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
 
     this->setCentralWidget(m_tabWidget);
-    this->changeCurrent(-1);
+    this->changeCurrentTab(-1);
 
     // geometry
 
@@ -378,6 +378,27 @@ void MainWindow::selectRotationMode(QAction *rotationModeAction)
 
 void MainWindow::selectDisplayMode(QAction *displayModeAction)
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(displayModeAction == m_pagingAction)
+        {
+            documentView->setDisplayMode(DocumentView::PagingMode);
+        }
+        else if(displayModeAction == m_scrollingAction)
+        {
+            documentView->setDisplayMode(DocumentView::ScrollingMode);
+        }
+        else if(displayModeAction == m_doublePagingAction)
+        {
+            documentView->setDisplayMode(DocumentView::DoublePagingMode);
+        }
+        else if(displayModeAction == m_doubleScrollingAction)
+        {
+            documentView->setDisplayMode(DocumentView::DoubleScrollingMode);
+        }
+    }
 }
 
 
@@ -394,10 +415,29 @@ void MainWindow::fullscreen()
 }
 
 
-void MainWindow::changeCurrent(const int &index)
+void MainWindow::changeCurrentTab(const int &index)
 {
     if(index != -1)
     {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        m_displayModeGroup->setEnabled(true);
+
+        switch(documentView->displayMode())
+        {
+        case DocumentView::PagingMode:
+            m_pagingAction->setChecked(true);
+            break;
+        case DocumentView::ScrollingMode:
+            m_scrollingAction->setChecked(true);
+            break;
+        case DocumentView::DoublePagingMode:
+            m_doublePagingAction->setChecked(true);
+            break;
+        case DocumentView::DoubleScrollingMode:
+            m_doubleScrollingAction->setChecked(true);
+            break;
+        }
     }
     else
     {

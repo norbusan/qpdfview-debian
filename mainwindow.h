@@ -59,7 +59,7 @@ private slots:
 
     void fullscreen();
 
-    void changeCurrent(const int &index);
+    void changeCurrentTab(const int &index);
     void requestTabClose(const int &index);
 
 protected:

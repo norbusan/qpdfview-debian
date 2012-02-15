@@ -122,11 +122,9 @@ void PageItem::run()
     }
     else
     {
-        QMap<int, QImage>::iterator lowerBound = m_pageCache.lowerBound(m_index);
-
-        if(lowerBound != m_pageCache.end())
+        if(m_pageCache.lowerBound(m_index) != m_pageCache.end())
         {
-            m_pageCache.remove(lowerBound.key());
+            m_pageCache.remove((--m_pageCache.end()).key());
         }
         else
         {
