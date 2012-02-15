@@ -13,9 +13,10 @@ PageItem::PageItem(QGraphicsItem *parent) :
     this->setAutoDelete(false);
 }
 
-const int PageItem::m_pageCacheCapacity = 16;
-QMap<int, QImage> PageItem::m_pageCache;
-QMutex PageItem::m_pageCacheMutex;
+QMap<int, QImage> PageItem::s_pageCache;
+QMutex PageItem::s_pageCacheMutex;
+
+const int PageItem::maximumPageCacheSize = 16;
 
 QRectF PageItem::boundingRect() const
 {
@@ -41,11 +42,11 @@ void PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget
 
         break;
     case Finished:
-        m_pageCacheMutex.lock();
+        s_pageCacheMutex.lock();
 
-        if(m_pageCache.contains(m_index))
+        if(s_pageCache.contains(m_index))
         {
-            painter->drawImage(0, 0, m_pageCache.value(m_index));
+            painter->drawImage(0, 0, s_pageCache.value(m_index));
         }
         else
         {
@@ -56,7 +57,7 @@ void PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget
             painter->fillRect(boundingRect(), QBrush(Qt::white));
         }
 
-        m_pageCacheMutex.unlock();
+        s_pageCacheMutex.unlock();
 
         break;
     }
@@ -114,27 +115,27 @@ void PageItem::run()
 
     QImage image = page->renderToImage(m_resolutionX, m_resolutionY);
 
-    m_pageCacheMutex.lock();
+    s_pageCacheMutex.lock();
 
-    if(m_pageCache.size() < m_pageCacheCapacity)
+    if(s_pageCache.size() < maximumPageCacheSize)
     {
-        m_pageCache.insert(m_index, image);
+        s_pageCache.insert(m_index, image);
     }
     else
     {
-        if(m_pageCache.lowerBound(m_index) != m_pageCache.end())
+        if(s_pageCache.lowerBound(m_index) != s_pageCache.end())
         {
-            m_pageCache.remove((--m_pageCache.end()).key());
+            s_pageCache.remove((--s_pageCache.end()).key());
         }
         else
         {
-            m_pageCache.remove(m_pageCache.begin().key());
+            s_pageCache.remove(s_pageCache.begin().key());
         }
 
-        m_pageCache.insert(m_index, image);
+        s_pageCache.insert(m_index, image);
     }
 
-    m_pageCacheMutex.unlock();
+    s_pageCacheMutex.unlock();
 
     m_stateMutex.lock();
     m_state  = Finished;

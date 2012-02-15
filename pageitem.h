@@ -24,13 +24,14 @@ public:
     QString m_filePath;
     int m_index;
 
-    enum State { Dummy, Running, Finished };
-    State m_state;
+    enum States { Dummy, Running, Finished };
+    States m_state;
     QMutex m_stateMutex;
 
-    static const int m_pageCacheCapacity;
-    static QMap<int, QImage> m_pageCache;
-    static QMutex m_pageCacheMutex;
+    static QMap<int, QImage> s_pageCache;
+    static QMutex s_pageCacheMutex;
+
+    static const int maximumPageCacheSize;
 
 };
 

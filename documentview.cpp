@@ -344,7 +344,7 @@ void DocumentView::setRotationMode(const DocumentView::RotationModes &rotationMo
 
 void DocumentView::layoutPages()
 {
-    PageItem::m_pageCache.clear();
+    PageItem::s_pageCache.clear();
     m_graphicsScene->clear();
 
     qreal sceneWidth = 0.0, sceneHeight = 0.0;
