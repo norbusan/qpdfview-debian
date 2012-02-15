@@ -84,7 +84,7 @@ public slots:
     void setRotationMode(const RotationModes &rotationMode);
 
 protected:
-    void layout();
+    void layoutPages();
 
 private:
     QGraphicsScene *m_graphicsScene;

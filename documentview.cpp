@@ -70,7 +70,7 @@ bool DocumentView::load(const QString &filePath)
         emit documentChanged(m_filePath);
         emit indexChanged(m_index);
 
-        layout();
+        layoutPages();
     }
 
     return document != 0;
@@ -102,7 +102,7 @@ bool DocumentView::reload() {
             emit documentChanged(m_filePath);
             emit indexChanged(m_index);
 
-            layout();
+            layoutPages();
         }
 
         return document != 0;
@@ -297,7 +297,7 @@ void DocumentView::setDisplayMode(const DocumentView::DisplayModes &displayMode)
             }
         }
 
-        layout();
+        layoutPages();
     }
 }
 
@@ -334,7 +334,7 @@ void DocumentView::setRotationMode(const DocumentView::RotationModes &rotationMo
 }
 
 
-void DocumentView::layout()
+void DocumentView::layoutPages()
 {
     m_graphicsScene->clear();
 

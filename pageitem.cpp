@@ -13,7 +13,7 @@ PageItem::PageItem(QGraphicsItem *parent) :
     this->setAutoDelete(false);
 }
 
-const int PageItem::m_pageCacheCapacity = 16;
+const int PageItem::m_pageCacheCapacity = 2;
 QMap<int, QImage> PageItem::m_pageCache;
 QMutex PageItem::m_pageCacheMutex;
 
@@ -29,8 +29,6 @@ void PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget
     switch(m_state)
     {
     case Dummy:
-        qDebug() << "job dispatched: " << m_page->label();
-
         m_state = Running;
 
         QThreadPool::globalInstance()->start(this);
@@ -47,14 +45,10 @@ void PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget
 
         if(m_pageCache.contains(m_index))
         {
-            qDebug() << "cache hit";
-
             painter->drawImage(0, 0, m_pageCache.value(m_index));
         }
         else
         {
-            qDebug() << "cache miss";
-
             m_state = Running;
 
             QThreadPool::globalInstance()->start(this);
@@ -75,8 +69,6 @@ void PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget
 
 void PageItem::run()
 {
-    qDebug() << "job started:" << m_page->label();
-
     QGraphicsScene *scene = this->scene();
     QGraphicsView *view = this->scene()->views().first();
 
@@ -85,8 +77,6 @@ void PageItem::run()
 
     if(!viewRect.intersects(sceneRect))
     {
-        qDebug() << "viewRect does not intersec sceneRect:" << m_page->label();
-
         m_stateMutex.lock();
         m_state = Dummy;
         m_stateMutex.unlock();
@@ -132,15 +122,15 @@ void PageItem::run()
     }
     else
     {
-        qDebug() << "cache shrink";
+        QMap<int, QImage>::iterator lowerBound = m_pageCache.lowerBound(m_index);
 
-        if(m_pageCache.upperBound(m_index) != m_pageCache.end())
+        if(lowerBound != m_pageCache.end())
         {
-            m_pageCache.remove(m_pageCache.upperBound(m_index).key());
+            m_pageCache.remove(lowerBound.key());
         }
         else
         {
-            m_pageCache.remove(m_pageCache.lowerBound(m_index).key());
+            m_pageCache.remove(m_pageCache.begin().key());
         }
 
         m_pageCache.insert(m_index, image);
@@ -154,6 +144,4 @@ void PageItem::run()
 
     scene->update(sceneRect);
     view->update();
-
-    qDebug() << "job finished" << m_page->label();
 }
