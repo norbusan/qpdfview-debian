@@ -27,7 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-qt4.h>
 
-#include "renderthread.h"
+#include "pageitem.h"
 
 class DocumentView : public QGraphicsView
 {
@@ -83,17 +83,11 @@ public slots:
 
     void setRotationMode(const RotationModes &rotationMode);
 
-private slots:
-    void dequeueJob(PageItem *job);
-
 protected:
     void layout();
 
 private:
     QGraphicsScene *m_graphicsScene;
-
-    RenderThread *m_renderThread;
-    QMutex *m_documentMutex;
 
     Poppler::Document *m_document;
     QList<Poppler::Page*> m_pageList;

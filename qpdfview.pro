@@ -8,8 +8,8 @@ LIBS         += -L/usr/lib -lpoppler-qt4
 
 SOURCES += main.cpp mainwindow.cpp \
     documentview.cpp \
-    renderthread.cpp
+    pageitem.cpp
 
 HEADERS  += mainwindow.h \
     documentview.h \
-    renderthread.h
+    pageitem.h

@@ -34,29 +34,22 @@ DocumentView::DocumentView(QWidget *parent) :
     m_graphicsScene = new QGraphicsScene();
     m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
     this->setScene(m_graphicsScene);
-
-    m_renderThread = new RenderThread();
-    m_documentMutex = new QMutex(QMutex::Recursive);
-
-    connect(m_renderThread, SIGNAL(jobFinished(PageItem*)), this, SLOT(dequeueJob(PageItem*)));
-    m_renderThread->setDocumentMutex(m_documentMutex);
-    m_renderThread->start();
+    this->setInteractive(false);
 }
 
 DocumentView::~DocumentView()
 {
+    QThreadPool::globalInstance()->waitForDone();
+
     if(m_document) { delete m_document; }
     while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
 
-    delete m_renderThread;
-    delete m_documentMutex;
+    delete m_graphicsScene;
 }
 
 
 bool DocumentView::load(const QString &filePath)
 {
-    QMutexLocker mutexLocker(m_documentMutex);
-
     Poppler::Document *document = Poppler::Document::load(filePath);
 
     if(document)
@@ -71,6 +64,7 @@ bool DocumentView::load(const QString &filePath)
         document->setRenderHint(Poppler::Document::TextAntialiasing);
 
         m_filePath = filePath;
+
         m_index = 1;
 
         emit documentChanged(m_filePath);
@@ -84,8 +78,6 @@ bool DocumentView::load(const QString &filePath)
 
 
 bool DocumentView::reload() {
-    QMutexLocker mutexLocker(m_documentMutex);
-
     if(m_document)
     {    
         Poppler::Document *document = Poppler::Document::load(m_filePath);
@@ -96,7 +88,7 @@ bool DocumentView::reload() {
             while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
 
             m_document = document;
-            for(int index=0;index<document->numPages();index++) { m_pageList.append(document->page(index)); }
+            for(int index=1;index<=document->numPages();index++) { m_pageList.append(document->page(index-1)); }
 
             document->setRenderBackend(Poppler::Document::ArthurBackend);
             document->setRenderHint(Poppler::Document::Antialiasing);
@@ -123,8 +115,6 @@ bool DocumentView::reload() {
 
 bool DocumentView::save(const QString &filePath) const
 {
-    QMutexLocker mutexLocker(m_documentMutex);
-
     if(m_document)
     {
         Poppler::PDFConverter *pdfConverter = m_document->pdfConverter();
@@ -144,8 +134,6 @@ bool DocumentView::save(const QString &filePath) const
 
 bool DocumentView::print() const
 {
-    QMutexLocker mutexLocker(m_documentMutex);
-
     if(m_document)
     {
         return false;
@@ -345,33 +333,25 @@ void DocumentView::setRotationMode(const DocumentView::RotationModes &rotationMo
     }
 }
 
-void DocumentView::dequeueJob(PageItem *job)
-{
-    qDebug() << "dequeued job:" << job->page()->label();
-
-    job->setJobFinished(true);
-    job->update();
-}
-
 
 void DocumentView::layout()
 {
-    QMutexLocker mutexLocker(m_documentMutex);
-
     m_graphicsScene->clear();
 
     qreal x = 0.0;
     qreal y = 0.0;
 
-    for(int index=0;index<m_pageList.size();index++)
+    for(int index=1;index<=m_pageList.size();index++)
     {
-        Poppler::Page *page = m_pageList[index];
+        Poppler::Page *page = m_pageList[index-1];
 
         PageItem *pageItem = new PageItem();
-        pageItem->setPageSize(this->physicalDpiX() / 72.0 * page->pageSizeF().width(), this->physicalDpiX() / 72.0 * page->pageSizeF().height());
-        pageItem->setResolution(this->physicalDpiX(), this->physicalDpiY());
-        pageItem->setPage(page);
-        pageItem->setRenderThread(m_renderThread);
+        pageItem->m_resolutionX = this->physicalDpiX();
+        pageItem->m_resolutionY = this->physicalDpiY();
+        pageItem->m_page = page;
+
+        pageItem->m_filePath = m_filePath;
+        pageItem->m_index = index;
 
         m_graphicsScene->addItem(pageItem);
         pageItem->setPos(0.0, y);
