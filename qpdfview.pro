@@ -7,7 +7,9 @@ INCLUDEPATH  += /usr/include/poppler/qt4
 LIBS         += -L/usr/lib -lpoppler-qt4
 
 SOURCES += main.cpp mainwindow.cpp \
-    documentview.cpp
+    documentview.cpp \
+    renderthread.cpp
 
 HEADERS  += mainwindow.h \
-    documentview.h
+    documentview.h \
+    renderthread.h

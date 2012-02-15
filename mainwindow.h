@@ -81,14 +81,6 @@ private:
 
     QAction *m_exitAction;
 
-    QWidget *m_pageWidget;
-    QLabel *m_pageLabel;
-    QLineEdit *m_pageLineEdit;
-
-    QWidget *m_scalingWidget;
-    QLabel *m_scalingLabel;
-    QComboBox *m_scalingComboBox;
-
     QAction *m_previousPageAction;
     QAction *m_nextPageAction;
     QAction *m_firstPageAction;
@@ -112,6 +104,14 @@ private:
     QActionGroup *m_rotationModeGroup;
 
     QAction *m_fullscreenAction;
+
+    QWidget *m_pageWidget;
+    QLabel *m_pageLabel;
+    QLineEdit *m_pageLineEdit;
+
+    QWidget *m_scalingWidget;
+    QLabel *m_scalingLabel;
+    QComboBox *m_scalingComboBox;
 
 };
 

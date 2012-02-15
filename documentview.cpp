@@ -32,9 +32,15 @@ DocumentView::DocumentView(QWidget *parent) :
     m_scaleFactor(1.0)
 {
     m_graphicsScene = new QGraphicsScene();
-    m_graphicsScene->setBackgroundBrush(QBrush(QColor("darkgrey")));
-
+    m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
     this->setScene(m_graphicsScene);
+
+    m_renderThread = new RenderThread();
+    m_documentMutex = new QMutex(QMutex::Recursive);
+
+    connect(m_renderThread, SIGNAL(jobFinished(PageItem*)), this, SLOT(dequeueJob(PageItem*)));
+    m_renderThread->setDocumentMutex(m_documentMutex);
+    m_renderThread->start();
 }
 
 DocumentView::~DocumentView()
@@ -42,12 +48,15 @@ DocumentView::~DocumentView()
     if(m_document) { delete m_document; }
     while(!m_pageList.isEmpty()) { delete m_pageList.takeFirst(); }
 
-    delete m_graphicsScene;
+    delete m_renderThread;
+    delete m_documentMutex;
 }
 
 
 bool DocumentView::load(const QString &filePath)
 {
+    QMutexLocker mutexLocker(m_documentMutex);
+
     Poppler::Document *document = Poppler::Document::load(filePath);
 
     if(document)
@@ -58,7 +67,6 @@ bool DocumentView::load(const QString &filePath)
         m_document = document;
         for(int index=0;index<document->numPages();index++) { m_pageList.append(document->page(index)); }
 
-        document->setRenderBackend(Poppler::Document::ArthurBackend);
         document->setRenderHint(Poppler::Document::Antialiasing);
         document->setRenderHint(Poppler::Document::TextAntialiasing);
 
@@ -76,8 +84,10 @@ bool DocumentView::load(const QString &filePath)
 
 
 bool DocumentView::reload() {
+    QMutexLocker mutexLocker(m_documentMutex);
+
     if(m_document)
-    {
+    {    
         Poppler::Document *document = Poppler::Document::load(m_filePath);
 
         if(document)
@@ -113,6 +123,8 @@ bool DocumentView::reload() {
 
 bool DocumentView::save(const QString &filePath) const
 {
+    QMutexLocker mutexLocker(m_documentMutex);
+
     if(m_document)
     {
         Poppler::PDFConverter *pdfConverter = m_document->pdfConverter();
@@ -130,8 +142,18 @@ bool DocumentView::save(const QString &filePath) const
     }
 }
 
-void DocumentView::print() const
+bool DocumentView::print() const
 {
+    QMutexLocker mutexLocker(m_documentMutex);
+
+    if(m_document)
+    {
+        return false;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -147,7 +169,7 @@ void DocumentView::setIndex(const int &index)
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(index%2==0)
+            if(index % 2 == 0)
             {
                 m_index = index-1;
             }
@@ -245,7 +267,7 @@ void DocumentView::lastPage()
             break;
         case DoublePagingMode:
         case DoubleScrollingMode:
-            if(m_pageList.size()%2==0)
+            if(m_pageList.size() % 2 == 0)
             {
                 if(m_index != m_pageList.size()-1)
                 {
@@ -279,7 +301,7 @@ void DocumentView::setDisplayMode(const DocumentView::DisplayModes &displayMode)
 
         if(m_displayMode == DoublePagingMode || m_displayMode == DoubleScrollingMode)
         {
-            if(m_index%2==0)
+            if(m_index % 2 == 0)
             {
                 m_index = m_index-1;
 
@@ -323,9 +345,19 @@ void DocumentView::setRotationMode(const DocumentView::RotationModes &rotationMo
     }
 }
 
+void DocumentView::dequeueJob(PageItem *job)
+{
+    qDebug() << "dequeued job:" << job->page()->label();
+
+    job->setJobFinished(true);
+    job->update();
+}
+
 
 void DocumentView::layout()
 {
+    QMutexLocker mutexLocker(m_documentMutex);
+
     m_graphicsScene->clear();
 
     qreal x = 0.0;
@@ -335,13 +367,17 @@ void DocumentView::layout()
     {
         Poppler::Page *page = m_pageList[index];
 
-        PageItem *pageItem = new PageItem(page);
-        m_graphicsScene->addItem(pageItem);
+        PageItem *pageItem = new PageItem();
+        pageItem->setPageSize(this->physicalDpiX() / 72.0 * page->pageSizeF().width(), this->physicalDpiX() / 72.0 * page->pageSizeF().height());
+        pageItem->setResolution(this->physicalDpiX(), this->physicalDpiY());
+        pageItem->setPage(page);
+        pageItem->setRenderThread(m_renderThread);
 
+        m_graphicsScene->addItem(pageItem);
         pageItem->setPos(0.0, y);
 
-        x = qMax(x, 1.05 * page->pageSizeF().width());
-        y += 1.05 * page->pageSizeF().height();
+        x = qMax(x, 1.05 * pageItem->boundingRect().width());
+        y += 1.05 * pageItem->boundingRect().height();
     }
 
     m_graphicsScene->setSceneRect(0.0, 0.0, x, y);

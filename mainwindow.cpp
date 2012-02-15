@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_openAction = new QAction(QIcon::fromTheme("document-open"), tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
-    m_addTabAction = new QAction(QIcon::fromTheme("tab-new"), tr("&Add tab..."), this);
+    m_addTabAction = new QAction(tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
     connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
     m_previousTabAction = new QAction(tr("Previous tab"), this);
@@ -215,7 +215,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setAcceptDrops(true);
 
-    // arguments
+    // command line arguments
 
     QStringList arguments = QCoreApplication::arguments();
     arguments.removeFirst();
@@ -443,10 +443,10 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
-    QSettings settings;
-
     if(!m_fullscreenAction->isChecked())
     {
+        QSettings settings;
+
         settings.setValue("MainWindow/geometry", this->saveGeometry());
         settings.setValue("MainWindow/state", this->saveState());
     }
