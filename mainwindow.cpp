@@ -230,8 +230,6 @@ MainWindow::MainWindow(QWidget *parent)
                 int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
                 m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
                 m_tabWidget->setCurrentIndex(index);
-
-                documentView->show();
             }
             else
             {
@@ -319,8 +317,6 @@ void MainWindow::addTab()
             int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
             m_tabWidget->setCurrentIndex(index);
-
-            documentView->show();
         }
         else
         {

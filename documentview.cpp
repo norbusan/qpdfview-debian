@@ -34,7 +34,9 @@ DocumentView::DocumentView(QWidget *parent) :
     m_graphicsScene = new QGraphicsScene();
     m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
     this->setScene(m_graphicsScene);
+
     this->setInteractive(false);
+    this->show();
 }
 
 DocumentView::~DocumentView()
@@ -309,6 +311,8 @@ void DocumentView::setScaleMode(const DocumentView::ScaleModes &scaleMode)
         m_scaleMode = scaleMode;
 
         emit scaleModeChanged(m_scaleMode);
+
+        layoutPages();
     }
 }
 
@@ -319,6 +323,8 @@ void DocumentView::setScaleFactor(const qreal &scaleFactor)
         m_scaleFactor = scaleFactor;
 
         emit scaleFactorChanged(m_scaleFactor);
+
+        layoutPages();
     }
 }
 
@@ -330,35 +336,86 @@ void DocumentView::setRotationMode(const DocumentView::RotationModes &rotationMo
         m_rotationMode = rotationMode;
 
         emit rotationModeChanged(m_rotationMode);
+
+        layoutPages();
     }
 }
 
 
 void DocumentView::layoutPages()
 {
+    PageItem::m_pageCache.clear();
     m_graphicsScene->clear();
 
-    qreal x = 0.0;
-    qreal y = 0.0;
+    qreal sceneWidth = 0.0, sceneHeight = 0.0;
 
-    for(int index=1;index<=m_pageList.size();index++)
+    qreal pageY = 0.0, pageWidth = 0.0, pageHeight = 0.0;
+
+    switch(m_displayMode)
     {
-        Poppler::Page *page = m_pageList[index-1];
+    case PagingMode:
+    case ScrollingMode:
+        for(int index=1;index<=m_pageList.size();index++)
+        {
+            Poppler::Page *page = m_pageList[index-1];
 
-        PageItem *pageItem = new PageItem();
-        pageItem->m_resolutionX = this->physicalDpiX();
-        pageItem->m_resolutionY = this->physicalDpiY();
-        pageItem->m_page = page;
+            PageItem *pageItem = new PageItem();
+            pageItem->m_resolutionX = this->physicalDpiX();
+            pageItem->m_resolutionY = this->physicalDpiY();
+            pageItem->m_page = page;
 
-        pageItem->m_filePath = m_filePath;
-        pageItem->m_index = index;
+            pageItem->m_filePath = m_filePath;
+            pageItem->m_index = index;
 
-        m_graphicsScene->addItem(pageItem);
-        pageItem->setPos(0.0, y);
+            m_graphicsScene->addItem(pageItem);
+            pageItem->setPos(0.0, sceneHeight);
 
-        x = qMax(x, 1.05 * pageItem->boundingRect().width());
-        y += 1.05 * pageItem->boundingRect().height();
+            sceneWidth = qMax(sceneWidth, 1.05 * pageItem->boundingRect().width());
+            sceneHeight += 1.05 * pageItem->boundingRect().height();
+
+            if(index == m_index)
+            {
+                pageY = pageItem->y();
+                pageWidth = pageItem->boundingRect().width();
+                pageHeight = pageItem->boundingRect().height();
+            }
+        }
+        break;
+    case DoublePagingMode:
+    case DoubleScrollingMode:
+        if(m_pageList.size() % 2 == 0)
+        {
+            for(int index=1;index<=m_pageList.size();index+=2)
+            {
+                // TODO
+            }
+        }
+        else
+        {
+            for(int index=1;index<=m_pageList.size()-1;index+=2)
+            {
+                // TODO
+            }
+
+            // TODO
+        }
+        break;
     }
 
-    m_graphicsScene->setSceneRect(0.0, 0.0, x, y);
+    switch(m_displayMode)
+    {
+    case PagingMode:
+        m_graphicsScene->setSceneRect(0.0, pageY, 1.05 * pageWidth, 1.05 * pageHeight);
+        break;
+    case ScrollingMode:
+        m_graphicsScene->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
+        this->ensureVisible(0.0, pageY, this->width(), this->height(), 0);
+        break;
+    case DoublePagingMode:
+        // TODO
+        break;
+    case DoubleScrollingMode:
+        // TODO
+        break;
+    }
 }

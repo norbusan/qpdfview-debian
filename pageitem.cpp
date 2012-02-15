@@ -13,7 +13,7 @@ PageItem::PageItem(QGraphicsItem *parent) :
     this->setAutoDelete(false);
 }
 
-const int PageItem::m_pageCacheCapacity = 2;
+const int PageItem::m_pageCacheCapacity = 16;
 QMap<int, QImage> PageItem::m_pageCache;
 QMutex PageItem::m_pageCacheMutex;
 
