@@ -25,83 +25,76 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include <poppler-qt4.h>
+#include "pageobject.h"
 
-#include "pageitem.h"
-
-class DocumentView : public QGraphicsView
+class DocumentView : public QWidget
 {
     Q_OBJECT
-public:
-    enum DisplayModes { PagingMode, ScrollingMode, DoublePagingMode, DoubleScrollingMode };
-    enum ScaleModes { ScaleFactorMode, FitToPageMode, FitToPageWidthMode };
-    enum RotationModes { DoNotRotateMode, RotateBy90Mode, RotateBy180Mode, RotateBy270Mode };
+    Q_PROPERTY(QString filePath READ filePath NOTIFY filePathChanged)
+    Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
+    Q_PROPERTY(int numberOfPages READ numberOfPages NOTIFY numberOfPagesChanged)
+    Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
+    Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
+    Q_PROPERTY(bool twoPageSpread READ twoPageSpread WRITE setTwoPageSpread NOTIFY twoPageSpreadChanged)
+    Q_ENUMS(Scaling Rotation)
 
+public:
     explicit DocumentView(QWidget *parent = 0);
     ~DocumentView();
 
-    bool load(const QString &filePath);
 
-    bool reload();
-    bool save(const QString &filePath) const;
-    bool print() const;
+    QString filePath() const;
 
-    const QString &filePath() const { return m_filePath; }
+    int currentPage() const;
+    void setCurrentPage(const int &currentPage);
 
-    const int &index() const { return m_index; }
+    int numberOfPages() const;
 
-    const DisplayModes &displayMode() const { return m_displayMode; }
+    enum Scaling { FitToPage, FitToPageWidth, ScaleTo25, ScaleTo50, ScaleTo100, ScaleTo200, ScaleTo400 };
+    Scaling scaling() const;
+    void setScaling(const Scaling &scaling);
 
-    const ScaleModes &scaleMode() const { return m_scaleMode; }
-    const qreal &scaleFactor() const { return m_scaleFactor; }
+    enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
+    Rotation rotation() const;
+    void setRotation(const Rotation &rotation);
 
-    const RotationModes &rotationMode() const { return m_rotationMode; }
+    bool twoPageSpread() const;
+    void setTwoPageSpread(const bool &twoPageSpread);
 
-signals:
-    void documentChanged(QString);
 
-    void indexChanged(int);
+    bool open(const QString &filePath);
+    bool refresh();
 
-    void displayModeChanged(DocumentView::DisplayModes);
-
-    void scaleModeChanged(DocumentView::ScaleModes);
-    void scaleFactorChanged(qreal);
-
-    void rotationModeChanged(DocumentView::RotationModes);
-    
-public slots:
-    void setIndex(const int &index);
     void previousPage();
     void nextPage();
     void firstPage();
     void lastPage();
 
-    void setDisplayMode(const DisplayModes &displayMode);
-
-    void setScaleMode(const ScaleModes &scaleMode);
-    void setScaleFactor(const qreal &scaleFactor);
-
-    void setRotationMode(const RotationModes &rotationMode);
-
-protected:
-    void layoutPages();
-
 private:
     QGraphicsScene *m_graphicsScene;
+    QGraphicsView *m_graphicsView;
 
     Poppler::Document *m_document;
-    QList<Poppler::Page*> m_pageList;
 
     QString m_filePath;
+    int m_currentPage;
+    int m_numberOfPages;
+    Scaling m_scaling;
+    Rotation m_rotation;
+    bool m_twoPageSpread;
 
-    int m_index;
+    void preparePages();
 
-    DisplayModes m_displayMode;
+signals:
+    void filePathChanged(QString);
+    void currentPageChanged(int);
+    void numberOfPagesChanged(int);
+    void scalingChanged(DocumentView::Scaling);
+    void rotationChanged(DocumentView::Rotation);
+    void twoPageSpreadChanged(bool);
 
-    ScaleModes m_scaleMode;
-    qreal m_scaleFactor;
-
-    RotationModes m_rotationMode;
+protected:
+    void wheelEvent(QWheelEvent *wheelEvent);
 
 };
 

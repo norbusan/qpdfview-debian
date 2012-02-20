@@ -30,53 +30,23 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    
+
 public:
-    MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QSize sizeHint() const { return QSize(500,700); }
-
-private slots:
-    void open();
-    void addTab();
-    void previousTab();
-    void nextTab();
-    void closeTab();
-
-    void reload();
-    void save();
-    void print();
-
-    void previousPage();
-    void nextPage();
-    void firstPage();
-    void lastPage();
-
-    void selectDisplayMode(QAction *displayModeAction);
-    void selectScaleMode(QAction *scaleModeAction);
-    void selectRotationMode(QAction *rotationModeAction);
-
-    void fullscreen();
-
-    void changeCurrentTab(const int &index);
-    void requestTabClose(const int &index);
-
-protected:
-    void dropEvent(QDropEvent *dropEvent);
-    void closeEvent(QCloseEvent *closeEvent);
+    QSize sizeHint() const;
 
 private:
+    QMenu *m_fileMenu;
+    QMenu *m_viewMenu;
+    QMenu *m_tabMenu;
+    QMenu *m_helpMenu;
+
     QTabWidget *m_tabWidget;
 
     QAction *m_openAction;
-    QAction *m_addTabAction;
-    QAction *m_previousTabAction;
-    QAction *m_nextTabAction;
-    QAction *m_closeTabAction;
-
-    QAction *m_reloadAction;
-    QAction *m_saveAction;
+    QAction *m_refreshAction;
     QAction *m_printAction;
 
     QAction *m_exitAction;
@@ -86,32 +56,80 @@ private:
     QAction *m_firstPageAction;
     QAction *m_lastPageAction;
 
-    QAction *m_pagingAction;
-    QAction *m_scrollingAction;
-    QAction *m_doublePagingAction;
-    QAction *m_doubleScrollingAction;
-    QActionGroup *m_displayModeGroup;
-
-    QAction *m_scaleFactorAction;
     QAction *m_fitToPageAction;
     QAction *m_fitToPageWidthAction;
-    QActionGroup *m_scaleModeGroup;
+    QAction *m_scaleTo25Action;
+    QAction *m_scaleTo50Action;
+    QAction *m_scaleTo100Action;
+    QAction *m_scaleTo200Action;
+    QAction *m_scaleTo400Action;
+    QActionGroup *m_scalingGroup;
 
-    QAction *m_doNotRotateAction;
+    QAction *m_rotateBy0Action;
     QAction *m_rotateBy90Action;
     QAction *m_rotateBy180Action;
     QAction *m_rotateBy270Action;
-    QActionGroup *m_rotationModeGroup;
+    QActionGroup *m_rotationGroup;
 
-    QAction *m_fullscreenAction;
+    QAction *m_twoPageSpreadAction;
 
-    QWidget *m_pageWidget;
-    QLabel *m_pageLabel;
-    QLineEdit *m_pageLineEdit;
+    QAction *m_addTabAction;
+    QAction *m_previousTabAction;
+    QAction *m_nextTabAction;
+    QAction *m_closeTabAction;
+
+    QAction *m_aboutAction;
+
+    QWidget *m_currentPageWidget;
+    QLabel *m_currentPageLabel;
+    QLineEdit *m_currentPageLineEdit;
+    QIntValidator *m_currentPageValidator;
+    QLabel *m_numberOfPagesLabel;
 
     QWidget *m_scalingWidget;
     QLabel *m_scalingLabel;
     QComboBox *m_scalingComboBox;
+
+    QWidget *m_rotationWidget;
+    QLabel *m_rotationLabel;
+    QComboBox *m_rotationComboBox;
+
+private slots:
+    void open();
+    void refresh();
+    void print();
+
+    void previousPage();
+    void nextPage();
+    void firstPage();
+    void lastPage();
+
+    void selectScaling(QAction *scalingAction);
+    void changeScalingIndex(const int &index);
+    void selectRotation(QAction *rotationAction);
+    void changeRotationIndex(const int &index);
+    void changeTwoPageSpread();
+
+    void addTab();
+    void previousTab();
+    void nextTab();
+    void closeTab();
+
+    void changeCurrentTab(const int &index);
+    void requestTabClose(const int &index);
+
+    void about();
+
+    void updateFilePath(const QString &filePath);
+    void updateCurrentPage(const int &currentPage);
+    void updateNumberOfPages(const int &numberOfPages);
+    void updateScaling(const DocumentView::Scaling &scaling);
+    void updateRotation(const DocumentView::Rotation &rotation);
+    void updateTwoPageSpread(const bool &twoPageSpread);
+
+protected:
+    void dropEvent(QDropEvent *dropEvent);
+    void closeEvent(QCloseEvent *closeEvent);
 
 };
 

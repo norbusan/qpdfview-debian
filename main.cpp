@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("qpdfview");
     QCoreApplication::setApplicationName("qpdfview");
+    QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
 
     MainWindow w;
     w.show();

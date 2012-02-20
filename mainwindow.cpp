@@ -21,201 +21,277 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    m_openAction = new QAction(QIcon::fromTheme("document-open"), tr("&Open..."), this);
+    m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
-    connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
-    m_addTabAction = new QAction(tr("&Add tab..."), this);
-    m_addTabAction->setShortcut(QKeySequence::AddTab);
-    connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
-    m_previousTabAction = new QAction(tr("Previous tab"), this);
-    m_previousTabAction->setShortcut(QKeySequence::PreviousChild);
-    connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(previousTab()));
-    m_nextTabAction = new QAction(tr("Next tab"), this);
-    m_nextTabAction->setShortcut(QKeySequence::NextChild);
-    connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
-    m_closeTabAction = new QAction(QIcon::fromTheme("window-close"), tr("&Close Tab"), this);
-    m_closeTabAction->setShortcut(QKeySequence::Close);
-    connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
-
-    m_reloadAction = new QAction(QIcon::fromTheme("view-refresh"), tr("&Reload"), this);
-    m_reloadAction->setShortcut(QKeySequence::Refresh);
-    connect(m_reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
-    m_saveAction = new QAction(QIcon::fromTheme("document-save"), tr("&Save..."), this);
-    m_saveAction->setShortcut(QKeySequence::Save);
-    connect(m_saveAction, SIGNAL(triggered()), this, SLOT(save()));
-    m_printAction = new QAction(QIcon::fromTheme("document-print"), tr("&Print..."), this);
+    if(QIcon::hasThemeIcon("document-open"))
+    {
+        m_openAction->setIcon(QIcon::fromTheme("document-open"));
+    }
+    else
+    {
+        m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
+    }
+    m_refreshAction = new QAction(tr("&Refresh"), this);
+    m_refreshAction->setShortcut(QKeySequence::Refresh);
+    m_refreshAction->setIcon(QIcon::fromTheme("view-refresh"));
+    m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
+    m_printAction->setIcon(QIcon::fromTheme("document-print"));
+
+    connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
+    connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
     connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
 
-    m_exitAction = new QAction(QIcon::fromTheme("application-exit"), tr("&Exit"), this);
+    m_exitAction = new QAction(tr("&Exit"), this);
     m_exitAction->setShortcut(QKeySequence::Quit);
+    m_exitAction->setIcon(QIcon::fromTheme("application-exit"));
+
     connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    m_previousPageAction = new QAction(QIcon::fromTheme("go-previous"), tr("&Previous page"), this);
+    m_previousPageAction = new QAction(tr("&Previous page"), this);
     m_previousPageAction->setShortcut(QKeySequence::MoveToPreviousPage);
-    connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
-    m_nextPageAction = new QAction(QIcon::fromTheme("go-next"), tr("&Next page"), this);
+    if(QIcon::hasThemeIcon("go-previous"))
+    {
+        m_previousPageAction->setIcon(QIcon::fromTheme("go-previous"));
+    }
+    else
+    {
+        m_previousPageAction->setIcon(QIcon(":/icons/go-previous.svg"));
+    }
+    m_nextPageAction = new QAction(tr("&Next page"), this);
     m_nextPageAction->setShortcut(QKeySequence::MoveToNextPage);
-    connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(nextPage()));
-    m_firstPageAction = new QAction(QIcon::fromTheme("go-first"), tr("&First page"), this);
+    if(QIcon::hasThemeIcon("go-next"))
+    {
+        m_nextPageAction->setIcon(QIcon::fromTheme("go-next"));
+    }
+    else
+    {
+        m_nextPageAction->setIcon(QIcon(":/icons/go-next.svg"));
+    }
+    m_firstPageAction = new QAction(tr("&First page"), this);
     m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
-    connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(firstPage()));
-    m_lastPageAction = new QAction(QIcon::fromTheme("go-last"), tr("&Last page"), this);
+    if(QIcon::hasThemeIcon("go-first"))
+    {
+        m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
+    }
+    else
+    {
+        m_firstPageAction->setIcon(QIcon(":/icons/go-first.svg"));
+    }
+    m_lastPageAction = new QAction(tr("&Last page"), this);
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
+    if(QIcon::hasThemeIcon("go-last"))
+    {
+        m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
+    }
+    else
+    {
+        m_lastPageAction->setIcon(QIcon(":/icons/go-last.svg"));
+    }
+
+    connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
+    connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(nextPage()));
+    connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(firstPage()));
     connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
 
-    m_pagingAction = new QAction(tr("Paging display"), this);
-    m_pagingAction->setCheckable(true);
-    m_scrollingAction = new QAction(tr("Scrolling display"), this);
-    m_scrollingAction->setCheckable(true);
-    m_doublePagingAction = new QAction(tr("Double paging display"), this);
-    m_doublePagingAction->setCheckable(true);
-    m_doubleScrollingAction = new QAction(tr("Double scrolling display"), this);
-    m_doubleScrollingAction->setCheckable(true);
-
-    m_displayModeGroup = new QActionGroup(this);
-    m_displayModeGroup->addAction(m_pagingAction);
-    m_displayModeGroup->addAction(m_scrollingAction);
-    m_displayModeGroup->addAction(m_doublePagingAction);
-    m_displayModeGroup->addAction(m_doubleScrollingAction);
-    connect(m_displayModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectDisplayMode(QAction*)));
-
-    m_scaleFactorAction = new QAction(tr("Use scale factor"), this);
-    m_scaleFactorAction->setCheckable(true);
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setCheckable(true);
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
+    m_scaleTo25Action = new QAction(tr("Scale to 25%"), this);
+    m_scaleTo25Action->setCheckable(true);
+    m_scaleTo50Action = new QAction(tr("Scale to 50%"), this);
+    m_scaleTo50Action->setCheckable(true);
+    m_scaleTo100Action = new QAction(tr("Scale to 100%"), this);
+    m_scaleTo100Action->setCheckable(true);
+    m_scaleTo200Action = new QAction(tr("Scale to 200%"), this);
+    m_scaleTo200Action->setCheckable(true);
+    m_scaleTo400Action = new QAction(tr("Scale to 400%"), this);
+    m_scaleTo400Action->setCheckable(true);
 
-    m_scaleModeGroup = new QActionGroup(this);
-    m_scaleModeGroup->addAction(m_scaleFactorAction);
-    m_scaleModeGroup->addAction(m_fitToPageAction);
-    m_scaleModeGroup->addAction(m_fitToPageWidthAction);
-    connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaleMode(QAction*)));
+    m_scalingGroup = new QActionGroup(this);
+    m_scalingGroup->addAction(m_fitToPageAction);
+    m_scalingGroup->addAction(m_fitToPageWidthAction);
+    m_scalingGroup->addAction(m_scaleTo25Action);
+    m_scalingGroup->addAction(m_scaleTo50Action);
+    m_scalingGroup->addAction(m_scaleTo100Action);
+    m_scalingGroup->addAction(m_scaleTo200Action);
+    m_scalingGroup->addAction(m_scaleTo400Action);
 
-    m_doNotRotateAction = new QAction(tr("Do not rotate"), this);
-    m_doNotRotateAction->setCheckable(true);
-    m_rotateBy90Action = new QAction(tr("Rotate by 90 degrees"), this);
+    m_rotateBy0Action = new QAction(tr("Rotate by 0°"), this);
+    m_rotateBy0Action->setCheckable(true);
+    m_rotateBy90Action = new QAction(tr("Rotate by 90°"), this);
     m_rotateBy90Action->setCheckable(true);
-    m_rotateBy180Action = new QAction(tr("Rotate by 180 degrees"), this);
+    m_rotateBy180Action = new QAction(tr("Rotate by 180°"), this);
     m_rotateBy180Action->setCheckable(true);
-    m_rotateBy270Action = new QAction(tr("Rotate by 270 degrees"), this);
+    m_rotateBy270Action = new QAction(tr("Rotate by 270°"), this);
     m_rotateBy270Action->setCheckable(true);
 
-    m_rotationModeGroup = new QActionGroup(this);
-    m_rotationModeGroup->addAction(m_doNotRotateAction);
-    m_rotationModeGroup->addAction(m_rotateBy90Action);
-    m_rotationModeGroup->addAction(m_rotateBy180Action);
-    m_rotationModeGroup->addAction(m_rotateBy270Action);
-    connect(m_rotationModeGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotationMode(QAction*)));
+    m_rotationGroup = new QActionGroup(this);
+    m_rotationGroup->addAction(m_rotateBy0Action);
+    m_rotationGroup->addAction(m_rotateBy90Action);
+    m_rotationGroup->addAction(m_rotateBy180Action);
+    m_rotationGroup->addAction(m_rotateBy270Action);
 
-    m_fullscreenAction = new QAction(QIcon::fromTheme("view-fullscreen"), tr("Fullscreen"), this);
-    m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
-    m_fullscreenAction->setCheckable(true);
-    connect(m_fullscreenAction, SIGNAL(triggered()), this, SLOT(fullscreen()));
+    connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotation(QAction*)));
+
+    m_twoPageSpreadAction = new QAction(tr("Two-page spread"), this);
+    m_twoPageSpreadAction->setCheckable(true);
+
+    connect(m_twoPageSpreadAction, SIGNAL(changed()), this, SLOT(changeTwoPageSpread()));
+
+    m_addTabAction = new QAction(tr("&Add tab..."), this);
+    m_addTabAction->setShortcut(QKeySequence::AddTab);
+    m_previousTabAction = new QAction(tr("&Previous tab"), this);
+    m_previousTabAction->setShortcut(QKeySequence::PreviousChild);
+    m_nextTabAction = new QAction(tr("&Next tab"), this);
+    m_nextTabAction->setShortcut(QKeySequence::NextChild);
+    m_closeTabAction = new QAction(tr("&Close tab"), this);
+    m_closeTabAction->setShortcut(QKeySequence::Close);
+    m_closeTabAction->setIcon(QIcon::fromTheme("window-close"));
+
+    connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
+    connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(previousTab()));
+    connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
+    connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
+
+    m_aboutAction = new QAction(tr("&About"), this);
+
+    connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
     // menuBar
 
-    QMenu *fileMenu = this->menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(m_openAction);
-    fileMenu->addAction(m_addTabAction);
-    fileMenu->addAction(m_previousTabAction);
-    fileMenu->addAction(m_nextTabAction);
-    fileMenu->addAction(m_closeTabAction);
-    fileMenu->addSeparator();
-    fileMenu->addAction(m_reloadAction);
-    fileMenu->addAction(m_saveAction);
-    fileMenu->addAction(m_printAction);
-    fileMenu->addSeparator();
-    fileMenu->addAction(m_exitAction);
+    m_fileMenu = this->menuBar()->addMenu(tr("&File"));
+    m_fileMenu->addAction(m_openAction);
+    m_fileMenu->addAction(m_refreshAction);
+    m_fileMenu->addAction(m_printAction);
+    m_fileMenu->addSeparator();
+    m_fileMenu->addAction(m_exitAction);
 
-    QMenu *viewMenu = this->menuBar()->addMenu(tr("&View"));
-    viewMenu->addAction(m_previousPageAction);
-    viewMenu->addAction(m_nextPageAction);
-    viewMenu->addAction(m_firstPageAction);
-    viewMenu->addAction(m_lastPageAction);
-    viewMenu->addSeparator();
-    viewMenu->addAction(m_pagingAction);
-    viewMenu->addAction(m_scrollingAction);
-    viewMenu->addAction(m_doublePagingAction);
-    viewMenu->addAction(m_doubleScrollingAction);
-    viewMenu->addSeparator();
-    viewMenu->addAction(m_scaleFactorAction);
-    viewMenu->addAction(m_fitToPageAction);
-    viewMenu->addAction(m_fitToPageWidthAction);
-    viewMenu->addSeparator();
-    viewMenu->addAction(m_doNotRotateAction);
-    viewMenu->addAction(m_rotateBy90Action);
-    viewMenu->addAction(m_rotateBy180Action);
-    viewMenu->addAction(m_rotateBy270Action);
-    viewMenu->addSeparator();
-    viewMenu->addAction(m_fullscreenAction);
+    m_viewMenu = this->menuBar()->addMenu(tr("&View"));
+    m_viewMenu->addAction(m_nextPageAction);
+    m_viewMenu->addAction(m_previousPageAction);
+    m_viewMenu->addAction(m_firstPageAction);
+    m_viewMenu->addAction(m_lastPageAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_fitToPageAction);
+    m_viewMenu->addAction(m_fitToPageWidthAction);
+    m_viewMenu->addAction(m_scaleTo25Action);
+    m_viewMenu->addAction(m_scaleTo50Action);
+    m_viewMenu->addAction(m_scaleTo100Action);
+    m_viewMenu->addAction(m_scaleTo200Action);
+    m_viewMenu->addAction(m_scaleTo400Action);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_rotateBy0Action);
+    m_viewMenu->addAction(m_rotateBy90Action);
+    m_viewMenu->addAction(m_rotateBy180Action);
+    m_viewMenu->addAction(m_rotateBy270Action);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_twoPageSpreadAction);
+
+    m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
+    m_tabMenu->addAction(m_addTabAction);
+    m_tabMenu->addAction(m_previousTabAction);
+    m_tabMenu->addAction(m_nextTabAction);
+    m_tabMenu->addAction(m_closeTabAction);
+    m_tabMenu->addSeparator();
+
+    m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAction);
 
     // toolBar
 
-    m_pageWidget = new QWidget();
-    m_pageLabel = new QLabel(tr("Page:"));
-    m_pageLineEdit = new QLineEdit();
+    m_currentPageWidget = new QWidget();
+    m_currentPageLabel = new QLabel(tr("Page:"));
+    m_currentPageLineEdit = new QLineEdit();
+    m_currentPageValidator = new QIntValidator();
+    m_numberOfPagesLabel = new QLabel();
 
-    m_pageWidget->setLayout(new QHBoxLayout());
-    m_pageWidget->layout()->addWidget(m_pageLabel);
-    m_pageWidget->layout()->addWidget(m_pageLineEdit);
-    m_pageWidget->setMaximumWidth(100);
+    m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
+    m_currentPageLineEdit->setValidator(m_currentPageValidator);
+
+    m_currentPageWidget->setLayout(new QHBoxLayout());
+    m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
+    m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
+    m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
+    m_currentPageWidget->setMaximumWidth(150);
 
     m_scalingWidget = new QWidget();
     m_scalingLabel = new QLabel(tr("Scaling:"));
     m_scalingComboBox = new QComboBox();
+
+    m_scalingComboBox->addItem(tr("Fit to page"), DocumentView::FitToPage);
+    m_scalingComboBox->addItem(tr("Fit to page width"), DocumentView::FitToPageWidth);
+    m_scalingComboBox->addItem(tr("Scale to 25%"), DocumentView::ScaleTo25);
+    m_scalingComboBox->addItem(tr("Scale to 50%"), DocumentView::ScaleTo50);
+    m_scalingComboBox->addItem(tr("Scale to 100%"), DocumentView::ScaleTo100);
+    m_scalingComboBox->addItem(tr("Scale to 200%"), DocumentView::ScaleTo200);
+    m_scalingComboBox->addItem(tr("Scale to 400%"), DocumentView::ScaleTo400);
+
+    connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeScalingIndex(int)));
 
     m_scalingWidget->setLayout(new QHBoxLayout());
     m_scalingWidget->layout()->addWidget(m_scalingLabel);
     m_scalingWidget->layout()->addWidget(m_scalingComboBox);
     m_scalingWidget->setMaximumWidth(300);
 
+    m_rotationWidget = new QWidget();
+    m_rotationLabel = new QLabel(tr("Rotation:"));
+    m_rotationComboBox = new QComboBox();
+
+    m_rotationComboBox->addItem(tr("Rotate by 0°"), DocumentView::RotateBy0);
+    m_rotationComboBox->addItem(tr("Rotate by 90°"), DocumentView::RotateBy90);
+    m_rotationComboBox->addItem(tr("Rotate by 180°"), DocumentView::RotateBy180);
+    m_rotationComboBox->addItem(tr("Rotate by 270°"), DocumentView::RotateBy270);
+
+    connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRotationIndex(int)));
+
+    m_rotationWidget->setLayout(new QHBoxLayout());
+    m_rotationWidget->layout()->addWidget(m_rotationLabel);
+    m_rotationWidget->layout()->addWidget(m_rotationComboBox);
+    m_rotationWidget->setMaximumWidth(300);
+
     QToolBar *fileToolBar = this->addToolBar(tr("&File"));
-    fileToolBar->setObjectName("FileToolBar");
+    fileToolBar->setObjectName("fileToolBar");
     fileToolBar->addAction(m_openAction);
-    fileToolBar->addSeparator();
-    fileToolBar->addAction(m_reloadAction);
-    fileToolBar->addAction(m_saveAction);
+    fileToolBar->addAction(m_refreshAction);
     fileToolBar->addAction(m_printAction);
 
     QToolBar *viewToolBar = this->addToolBar(tr("&View"));
-    viewToolBar->setObjectName("ViewToolBar");
+    viewToolBar->setObjectName("viewToolBar");
     viewToolBar->addAction(m_firstPageAction);
     viewToolBar->addAction(m_previousPageAction);
-    viewToolBar->addWidget(m_pageWidget);
+    viewToolBar->addWidget(m_currentPageWidget);
     viewToolBar->addAction(m_nextPageAction);
     viewToolBar->addAction(m_lastPageAction);
     viewToolBar->addWidget(m_scalingWidget);
+    viewToolBar->addWidget(m_rotationWidget);
 
-    // centralWidget
+    // tabWidget
 
-    m_tabWidget = new QTabWidget();
+    m_tabWidget = new QTabWidget(this);
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
-    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
-
     this->setCentralWidget(m_tabWidget);
     this->changeCurrentTab(-1);
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
+    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
 
     // geometry
 
     QSettings settings;
 
-    this->restoreGeometry(settings.value("MainWindow/geometry").toByteArray());
-    this->restoreState(settings.value("MainWindow/state").toByteArray());
+    this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
+    this->restoreState(settings.value("mainWindow/state").toByteArray());
 
-    // drag and drop
+    // miscellaneous
 
     this->setAcceptDrops(true);
-
-    // command line arguments
 
     QStringList arguments = QCoreApplication::arguments();
     arguments.removeFirst();
@@ -225,11 +301,18 @@ MainWindow::MainWindow(QWidget *parent)
         if(QFile(argument).exists()) {
             DocumentView *documentView = new DocumentView();
 
-            if(documentView->load(argument))
+            if(documentView->open(argument))
             {
                 int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
                 m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
                 m_tabWidget->setCurrentIndex(index);
+
+                connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
+                connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
+                connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+                connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
+                connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+                connect(documentView, SIGNAL(twoPageSpreadChanged(bool)), this, SLOT(updateTwoPageSpread(bool)));
             }
             else
             {
@@ -242,13 +325,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete m_openAction;
-    delete m_addTabAction;
-    delete m_previousTabAction;
-    delete m_nextTabAction;
-    delete m_closeTabAction;
-
-    delete m_reloadAction;
-    delete m_saveAction;
+    delete m_refreshAction;
     delete m_printAction;
 
     delete m_exitAction;
@@ -258,31 +335,48 @@ MainWindow::~MainWindow()
     delete m_firstPageAction;
     delete m_lastPageAction;
 
-    delete m_pagingAction;
-    delete m_scrollingAction;
-    delete m_doublePagingAction;
-    delete m_doubleScrollingAction;
-    delete m_displayModeGroup;
-
-    delete m_scaleFactorAction;
     delete m_fitToPageAction;
     delete m_fitToPageWidthAction;
-    delete m_scaleModeGroup;
+    delete m_scaleTo25Action;
+    delete m_scaleTo50Action;
+    delete m_scaleTo100Action;
+    delete m_scaleTo200Action;
+    delete m_scaleTo400Action;
 
-    delete m_doNotRotateAction;
+    delete m_scalingGroup;
+
+    delete m_rotateBy0Action;
     delete m_rotateBy90Action;
     delete m_rotateBy180Action;
     delete m_rotateBy270Action;
-    delete m_rotationModeGroup;
 
-    delete m_fullscreenAction;
+    delete m_rotationGroup;
 
-    delete m_pageLabel;
-    delete m_pageLineEdit;
+    delete m_twoPageSpreadAction;
+
+    delete m_addTabAction;
+    delete m_previousTabAction;
+    delete m_nextTabAction;
+    delete m_closeTabAction;
+
+    delete m_aboutAction;
+
+    delete m_currentPageLabel;
+    delete m_currentPageLineEdit;
+    delete m_numberOfPagesLabel;
 
     delete m_scalingLabel;
     delete m_scalingComboBox;
+
+    delete m_rotationLabel;
+    delete m_rotationWidget;
 }
+
+QSize MainWindow::sizeHint() const
+{
+    return QSize(500,700);
+}
+
 
 void MainWindow::open()
 {
@@ -292,7 +386,7 @@ void MainWindow::open()
 
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        if(documentView->load(filePath))
+        if(documentView->open(filePath))
         {
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
@@ -304,19 +398,138 @@ void MainWindow::open()
     }
 }
 
+void MainWindow::refresh()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->refresh();
+    }
+}
+
+void MainWindow::print()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        // TODO
+    }
+}
+
+void MainWindow::previousPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->previousPage();
+    }
+}
+
+void MainWindow::nextPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->nextPage();
+    }
+}
+
+void MainWindow::firstPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->firstPage();
+    }
+}
+
+void MainWindow::lastPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->lastPage();
+    }
+}
+
+
+void MainWindow::selectScaling(QAction *scalingAction)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        // TODO
+    }
+}
+
+void MainWindow::changeScalingIndex(const int &index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setScaling(static_cast<DocumentView::Scaling>(m_rotationComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::selectRotation(QAction *rotationAction)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        // TODO
+    }
+}
+
+void MainWindow::changeRotationIndex(const int &index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setRotation(static_cast<DocumentView::Rotation>(m_rotationComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::changeTwoPageSpread()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setTwoPageSpread(m_twoPageSpreadAction->isChecked());
+    }
+}
+
+
 void MainWindow::addTab()
 {
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open document"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
 
     foreach(QString filePath, filePaths)
     {
         DocumentView *documentView = new DocumentView();
 
-        if(documentView->load(filePath))
+        if(documentView->open(filePath))
         {
             int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
             m_tabWidget->setCurrentIndex(index);
+
+            connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
+            connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
+            connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+            connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
+            connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+            connect(documentView, SIGNAL(twoPageSpreadChanged(bool)), this, SLOT(updateTwoPageSpread(bool)));
         }
         else
         {
@@ -327,90 +540,39 @@ void MainWindow::addTab()
 
 void MainWindow::previousTab()
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_tabWidget->currentIndex() > 0)
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()-1);
+        }
+        else
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->count()-1);
+        }
+    }
 }
 
 void MainWindow::nextTab()
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_tabWidget->currentIndex() < m_tabWidget->count()-1)
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()+1);
+        }
+        else
+        {
+            m_tabWidget->setCurrentIndex(0);
+        }
+    }
 }
 
 void MainWindow::closeTab()
 {
-}
-
-
-void MainWindow::reload()
-{
-}
-
-void MainWindow::save()
-{
-}
-
-void MainWindow::print()
-{
-}
-
-
-void MainWindow::previousPage()
-{
-}
-
-void MainWindow::nextPage()
-{
-}
-
-void MainWindow::firstPage()
-{
-}
-
-void MainWindow::lastPage()
-{
-}
-
-
-void MainWindow::selectScaleMode(QAction *scaleModeAction)
-{
-}
-
-void MainWindow::selectRotationMode(QAction *rotationModeAction)
-{
-}
-
-void MainWindow::selectDisplayMode(QAction *displayModeAction)
-{
     if(m_tabWidget->currentIndex() != -1)
     {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        if(displayModeAction == m_pagingAction)
-        {
-            documentView->setDisplayMode(DocumentView::PagingMode);
-        }
-        else if(displayModeAction == m_scrollingAction)
-        {
-            documentView->setDisplayMode(DocumentView::ScrollingMode);
-        }
-        else if(displayModeAction == m_doublePagingAction)
-        {
-            documentView->setDisplayMode(DocumentView::DoublePagingMode);
-        }
-        else if(displayModeAction == m_doubleScrollingAction)
-        {
-            documentView->setDisplayMode(DocumentView::DoubleScrollingMode);
-        }
-    }
-}
-
-
-void MainWindow::fullscreen()
-{
-    if(m_fullscreenAction->isChecked())
-    {
-        this->showFullScreen();
-    }
-    else
-    {
-        this->showNormal();
+        delete m_tabWidget->currentWidget();
     }
 }
 
@@ -421,32 +583,35 @@ void MainWindow::changeCurrentTab(const int &index)
     {
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        m_displayModeGroup->setEnabled(true);
+        m_refreshAction->setEnabled(true);
+        m_printAction->setEnabled(true);
 
-        switch(documentView->displayMode())
-        {
-        case DocumentView::PagingMode:
-            m_pagingAction->setChecked(true);
-            break;
-        case DocumentView::ScrollingMode:
-            m_scrollingAction->setChecked(true);
-            break;
-        case DocumentView::DoublePagingMode:
-            m_doublePagingAction->setChecked(true);
-            break;
-        case DocumentView::DoubleScrollingMode:
-            m_doubleScrollingAction->setChecked(true);
-            break;
-        }
+        m_previousPageAction->setEnabled(true);
+        m_nextPageAction->setEnabled(true);
+        m_firstPageAction->setEnabled(true);
+        m_lastPageAction->setEnabled(true);
+
+        m_scalingGroup->setEnabled(true);
+        m_rotationGroup->setEnabled(true);
+        m_twoPageSpreadAction->setEnabled(true);
+
+        m_currentPageLineEdit->setEnabled(true);
+        m_scalingComboBox->setEnabled(true);
+        m_rotationComboBox->setEnabled(true);
+
+        m_previousTabAction->setEnabled(true);
+        m_nextTabAction->setEnabled(true);
+        m_closeTabAction->setEnabled(true);
+
+        this->updateCurrentPage(documentView->currentPage());
+        this->updateNumberOfPages(documentView->numberOfPages());
+        this->updateScaling(documentView->scaling());
+        this->updateRotation(documentView->rotation());
+        this->updateTwoPageSpread(documentView->twoPageSpread());
     }
     else
     {
-        m_previousTabAction->setEnabled(false);
-        m_nextTabAction->setEnabled(false);
-        m_closeTabAction->setEnabled(false);
-
-        m_reloadAction->setEnabled(false);
-        m_saveAction->setEnabled(false);
+        m_refreshAction->setEnabled(false);
         m_printAction->setEnabled(false);
 
         m_previousPageAction->setEnabled(false);
@@ -454,22 +619,136 @@ void MainWindow::changeCurrentTab(const int &index)
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
 
-        m_pagingAction->setChecked(true);
-        m_displayModeGroup->setEnabled(false);
+        m_scaleTo100Action->setChecked(true);
+        m_scalingGroup->setEnabled(false);
 
-        m_scaleFactorAction->setChecked(true);
-        m_scaleModeGroup->setEnabled(false);
+        m_rotateBy0Action->setChecked(true);
+        m_rotationGroup->setEnabled(false);
 
-        m_doNotRotateAction->setChecked(true);
-        m_rotationModeGroup->setEnabled(false);
+        m_twoPageSpreadAction->setChecked(false);
+        m_twoPageSpreadAction->setEnabled(false);
 
-        m_pageLineEdit->setEnabled(false);
+        m_currentPageLineEdit->setText("");
+        m_currentPageLineEdit->setEnabled(false);
+
+        m_scalingComboBox->setCurrentIndex(4);
         m_scalingComboBox->setEnabled(false);
+
+        m_rotationComboBox->setCurrentIndex(0);
+        m_rotationComboBox->setEnabled(false);
+
+        m_previousTabAction->setEnabled(false);
+        m_nextTabAction->setEnabled(false);
+        m_closeTabAction->setEnabled(false);
     }
 }
 
 void MainWindow::requestTabClose(const int &index)
 {
+    delete m_tabWidget->widget(index);
+}
+
+
+void MainWindow::about()
+{
+}
+
+void MainWindow::updateFilePath(const QString &filePath)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+    }
+}
+
+void MainWindow::updateCurrentPage(const int &currentPage)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
+    }
+}
+
+void MainWindow::updateNumberOfPages(const int &numberOfPages)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_currentPageValidator->setRange(1, numberOfPages);
+        m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
+    }
+}
+
+void MainWindow::updateScaling(const DocumentView::Scaling &scaling)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        switch(scaling)
+        {
+        case DocumentView::FitToPage:
+            m_fitToPageAction->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(0);
+            break;
+        case DocumentView::FitToPageWidth:
+            m_fitToPageWidthAction->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(1);
+            break;
+        case DocumentView::ScaleTo25:
+            m_scaleTo25Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(2);
+            break;
+        case DocumentView::ScaleTo50:
+            m_scaleTo50Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(3);
+            break;
+        case DocumentView::ScaleTo100:
+            m_scaleTo100Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(4);
+            break;
+        case DocumentView::ScaleTo200:
+            m_scaleTo200Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(5);
+            break;
+        case DocumentView::ScaleTo400:
+            m_scaleTo400Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(6);
+            break;
+        }
+    }
+}
+
+void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        switch(rotation)
+        {
+        case DocumentView::RotateBy0:
+            m_rotateBy0Action->setChecked(true);
+            m_rotationComboBox->setCurrentIndex(0);
+            break;
+        case DocumentView::RotateBy90:
+            m_rotateBy90Action->setChecked(true);
+            m_rotationComboBox->setCurrentIndex(1);
+            break;
+        case DocumentView::RotateBy180:
+            m_rotateBy180Action->setChecked(true);
+            m_rotationComboBox->setCurrentIndex(2);
+            break;
+        case DocumentView::RotateBy270:
+            m_rotateBy270Action->setChecked(true);
+            m_rotationComboBox->setCurrentIndex(3);
+            break;
+        }
+    }
+}
+
+void MainWindow::updateTwoPageSpread(const bool &twoPageSpread)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_twoPageSpreadAction->setChecked(twoPageSpread);
+    }
 }
 
 
@@ -479,13 +758,10 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
-    if(!m_fullscreenAction->isChecked())
-    {
-        QSettings settings;
+    QSettings settings;
 
-        settings.setValue("MainWindow/geometry", this->saveGeometry());
-        settings.setValue("MainWindow/state", this->saveState());
-    }
+    settings.setValue("mainWindow/geometry", this->saveGeometry());
+    settings.setValue("mainWindow/state", this->saveState());
 
     QMainWindow::closeEvent(closeEvent);
 }

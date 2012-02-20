@@ -1,6 +1,44 @@
-#include "pageitem.h"
+#include "pageobject.h"
 
-PageItem::PageItem(QGraphicsItem *parent) :
+PageObject::PageObject(QGraphicsItem *parent) : QGraphicsObject(parent),
+    m_page(0),m_resolutionX(-1.0),m_resolutionY(-1.0)
+{
+}
+
+PageObject::~PageObject()
+{
+}
+
+
+qreal PageObject::resolutionX() const
+{
+    return m_resolutionX;
+}
+
+void PageObject::setResolutionX(const qreal &resolutionX)
+{
+}
+
+qreal PageObject::resolutionY() const
+{
+    return m_resolutionY;
+}
+
+void PageObject::setResolutionY(const qreal &resolutionY)
+{
+}
+
+
+QRectF PageObject::boundingRect() const
+{
+    return QRectF(0.0, 0.0, m_resolutionX / 72.0 * m_page->pageSizeF().width(), m_resolutionY / 72.0 * m_page->pageSizeF().height());
+}
+
+void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+}
+
+/*PageItem::PageItem(QGraphicsItem *parent) :
     QGraphicsItem(parent),
     m_resolutionX(-1.0),
     m_resolutionY(-1.0),
@@ -143,4 +181,4 @@ void PageItem::run()
 
     scene->update(sceneRect);
     view->update();
-}
+}*/
