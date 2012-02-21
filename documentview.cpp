@@ -773,7 +773,8 @@ void DocumentView::changeCurrentPage(const int &value)
             break;
         case OneColumn:
         case TwoColumns:
-            visiblePage = m_heightToNumber.lowerBound(static_cast<qreal>(-value)).value();
+            QMap<qreal, int>::iterator lowerBound = m_heightToNumber.lowerBound(static_cast<qreal>(-value));
+            visiblePage = lowerBound != m_heightToNumber.end() ? lowerBound.value() : 1;
 
             if(m_currentPage != visiblePage) {
                 m_currentPage = visiblePage;

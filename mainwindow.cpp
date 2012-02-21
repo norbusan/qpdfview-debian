@@ -277,7 +277,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
     m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
     m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
-    m_currentPageWidget->setMaximumWidth(150);
+    m_currentPageWidget->setMaximumWidth(200);
 
     m_pageLayoutWidget = new QWidget();
     m_pageLayoutLabel = new QLabel(tr("Page layout:"));
