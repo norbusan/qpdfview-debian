@@ -388,12 +388,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             if(documentView->open(argument))
             {
-                QSettings settings;
-
-                documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
-                documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
-                documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
-
                 int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
                 m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
                 m_tabWidget->setCurrentIndex(index);
@@ -720,11 +714,6 @@ void MainWindow::addTab()
 
         if(documentView->open(filePath))
         {
-            settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-            documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
-            documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
-            documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
-
             int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
             m_tabWidget->setCurrentIndex(index);
@@ -778,12 +767,6 @@ void MainWindow::closeTab()
     if(m_tabWidget->currentIndex() != -1)
     {
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        QSettings settings;
-
-        settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
-        settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
-        settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
 
         delete documentView;
     }
@@ -867,12 +850,6 @@ void MainWindow::changeCurrentTab(const int &index)
 void MainWindow::requestTabClose(const int &index)
 {
     DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->widget(index));
-
-    QSettings settings;
-
-    settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
-    settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
-    settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
 
     delete documentView;
 }
@@ -1022,12 +999,6 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
                 if(documentView->open(url.path()))
                 {
-                    QSettings settings;
-
-                    documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
-                    documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
-                    documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
-
                     int index = m_tabWidget->addTab(documentView, QFileInfo(url.path()).baseName());
                     m_tabWidget->setTabToolTip(index, QFileInfo(url.path()).baseName());
                     m_tabWidget->setCurrentIndex(index);
@@ -1061,15 +1032,6 @@ void MainWindow::closeEvent(QCloseEvent *closeEvent)
         settings.setValue("mainWindow/geometry", this->saveGeometry());
     }
     settings.setValue("mainWindow/state", this->saveState());
-
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
-        settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
-        settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
-    }
 
     QMainWindow::closeEvent(closeEvent);
 }
