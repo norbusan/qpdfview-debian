@@ -6,6 +6,25 @@
 
 #include <poppler-qt4.h>
 
+const int PageCacheLimit = 16;
+
+class PageCache
+{
+public:
+    explicit PageCache();
+    ~PageCache();
+
+    bool contains(int page);
+    QImage retrieve(int page);
+
+    void clear();
+    void insert(int page, QImage image);
+
+private:
+    QMap<int, QImage> m_map;
+    QMutex m_mutex;
+};
+
 class PageObject : public QGraphicsObject
 {
     Q_OBJECT
@@ -15,9 +34,12 @@ class PageObject : public QGraphicsObject
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
 
 public:
-    explicit PageObject(Poppler::Page *page, Poppler::Page::Rotation rotation = Poppler::Page::Rotate0, QGraphicsItem *parent = 0);
+    explicit PageObject(Poppler::Page *page, PageCache *pageCache, QGraphicsItem *parent = 0);
     ~PageObject();
 
+
+    Poppler::Page::Rotation rotation() const;
+    void setRotation(const Poppler::Page::Rotation &rotation);
 
     qreal resolutionX() const;
     void setResolutionX(const qreal &resolutionX);
@@ -37,14 +59,11 @@ public:
 
     void prefetch();
 
-    static QMap<int, QImage> pageCache;
-    static QMutex pageCacheMutex;
-    static const int maximumPageCacheSize;
-
 private:
     Poppler::Page *m_page;
-    Poppler::Page::Rotation m_rotation;
+    PageCache *m_pageCache;
 
+    Poppler::Page::Rotation m_rotation;
     qreal m_resolutionX;
     qreal m_resolutionY;
     QString m_filePath;
@@ -54,6 +73,7 @@ private:
     QImage renderPage(bool prefetch);
 
 signals:
+    void rotationChanged(Poppler::Page::Rotation);
     void resolutionXChanged(qreal);
     void resolutionYChanged(qreal);
     void filePathChanged(QString);

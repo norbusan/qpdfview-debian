@@ -1,7 +1,59 @@
 #include "pageobject.h"
 
-PageObject::PageObject(Poppler::Page *page, Poppler::Page::Rotation rotation, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_rotation(rotation),m_resolutionX(72.0),m_resolutionY(72.0),m_filePath(),m_currentPage(-1),m_futureWatcher()
+PageCache::PageCache() : m_map(),m_mutex()
+{
+}
+
+PageCache::~PageCache()
+{
+}
+
+void PageCache::clear()
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    m_map.clear();
+}
+
+bool PageCache::contains(int page)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    return m_map.contains(page);
+}
+
+QImage PageCache::retrieve(int page)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    return m_map.value(page);
+}
+
+void PageCache::insert(int page, QImage image)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    if(m_map.size() < PageCacheLimit)
+    {
+        m_map.insert(page, image);
+    }
+    else
+    {
+        if(m_map.lowerBound(page) != m_map.end())
+        {
+            m_map.remove((--m_map.end()).key());
+        }
+        else
+        {
+            m_map.remove(m_map.begin().key());
+        }
+
+        m_map.insert(page, image);
+    }
+}
+
+PageObject::PageObject(Poppler::Page *page, PageCache *pageCache, QGraphicsItem *parent) : QGraphicsObject(parent),
+    m_page(page),m_pageCache(pageCache),m_rotation(Poppler::Page::Rotate0),m_resolutionX(72.0),m_resolutionY(72.0),m_filePath(),m_currentPage(-1),m_futureWatcher()
 {
     connect(&m_futureWatcher, SIGNAL(finished()), this, SLOT(updatePageCache()));
 }
@@ -20,6 +72,20 @@ PageObject::~PageObject()
     }
 }
 
+Poppler::Page::Rotation PageObject::rotation() const
+{
+    return m_rotation;
+}
+
+void PageObject::setRotation(const Poppler::Page::Rotation &rotation)
+{
+    if(m_rotation != rotation)
+    {
+        m_rotation = rotation;
+
+        emit rotationChanged(m_rotation);
+    }
+}
 
 qreal PageObject::resolutionX() const
 {
@@ -96,11 +162,9 @@ QRectF PageObject::boundingRect() const
 
 void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    pageCacheMutex.lock();
-
-    if(pageCache.contains(m_currentPage))
+    if(m_pageCache->contains(m_currentPage))
     {
-        painter->drawImage(QPointF(0.0, 0.0), pageCache.value(m_currentPage));
+        painter->drawImage(QPointF(0.0, 0.0), m_pageCache->retrieve(m_currentPage));
     }
     else
     {
@@ -112,22 +176,16 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
         }
     }
 
-    pageCacheMutex.unlock();
-
     painter->setPen(QPen(Qt::black));
     painter->drawRect(boundingRect());
 }
 
 void PageObject::prefetch()
 {
-    pageCacheMutex.lock();
-
-    if(!pageCache.contains(m_currentPage) && !m_futureWatcher.isRunning())
+    if(!m_pageCache->contains(m_currentPage) && !m_futureWatcher.isRunning())
     {
         m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
     }
-
-    pageCacheMutex.unlock();
 }
 
 QImage PageObject::renderPage(bool prefetch)
@@ -163,41 +221,15 @@ QImage PageObject::renderPage(bool prefetch)
     return page->renderToImage(m_resolutionX, m_resolutionY, -1, -1, -1, -1, m_rotation);
 }
 
-QMap<int, QImage> PageObject::pageCache;
-QMutex PageObject::pageCacheMutex;
-const int PageObject::maximumPageCacheSize = 16;
-
 void PageObject::updatePageCache()
 {
-    if(m_futureWatcher.result().isNull())
+    if(!m_futureWatcher.result().isNull())
     {
-        return;
+        m_pageCache->insert(m_currentPage, m_futureWatcher.result());
+
+        QRectF pageRect = boundingRect(); pageRect.translate(x(),y());
+
+        this->scene()->update(pageRect);
+        this->scene()->views().first()->update();
     }
-
-    pageCacheMutex.lock();
-
-    if(pageCache.size() < maximumPageCacheSize)
-    {
-        pageCache.insert(m_currentPage, m_futureWatcher.result());
-    }
-    else
-    {
-        if(pageCache.lowerBound(m_currentPage) != pageCache.end())
-        {
-            pageCache.remove((--pageCache.end()).key());
-        }
-        else
-        {
-            pageCache.remove(pageCache.begin().key());
-        }
-
-        pageCache.insert(m_currentPage, m_futureWatcher.result());
-    }
-
-    pageCacheMutex.unlock();
-
-    QRectF pageRect = boundingRect(); pageRect.translate(x(),y());
-
-    this->scene()->update(pageRect);
-    this->scene()->views().first()->update();
 }

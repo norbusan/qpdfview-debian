@@ -79,6 +79,7 @@ private:
 
     QMap<int, PageObject*> m_numberToObject;
     QMap<qreal, int> m_heightToNumber;
+    PageCache *m_pageCache;
 
     QString m_filePath;
     int m_currentPage;

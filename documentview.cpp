@@ -36,12 +36,16 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     this->layout()->addWidget(m_graphicsView);
 
     m_graphicsView->show();
+
+    m_pageCache = new PageCache();
 }
 
 DocumentView::~DocumentView()
 {
     delete m_graphicsScene;
     delete m_graphicsView;
+
+    delete m_pageCache;
 
     if(m_document)
     {
@@ -368,25 +372,25 @@ void DocumentView::prepareScene()
     m_numberToObject.clear();
     m_heightToNumber.clear();
 
-    PageObject::pageCache.clear();
+    m_pageCache->clear();
 
     if(m_document)
     {
-        Poppler::Page::Rotation pageRotation = Poppler::Page::Rotate0;
+        Poppler::Page::Rotation rotation = Poppler::Page::Rotate0;
 
         switch(m_rotation)
         {
         case RotateBy0:
-            pageRotation = Poppler::Page::Rotate0;
+            rotation = Poppler::Page::Rotate0;
             break;
         case RotateBy90:
-            pageRotation = Poppler::Page::Rotate90;
+            rotation = Poppler::Page::Rotate90;
             break;
         case RotateBy180:
-            pageRotation = Poppler::Page::Rotate180;
+            rotation = Poppler::Page::Rotate180;
             break;
         case RotateBy270:
-            pageRotation = Poppler::Page::Rotate270;
+            rotation = Poppler::Page::Rotate270;
             break;
         }
 
@@ -405,7 +409,7 @@ void DocumentView::prepareScene()
                     qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
                     Poppler::Page *currentPage = m_document->page(i);
 
-                    if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
+                    if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
                     {
                         currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
                         currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
@@ -437,7 +441,7 @@ void DocumentView::prepareScene()
                         qreal nextPageWidth = 0.0, nextPageHeight = 0.0;
                         Poppler::Page *nextPage = m_document->page(i+1);
 
-                        if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
+                        if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
                         {
                             currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
                             currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
@@ -472,7 +476,7 @@ void DocumentView::prepareScene()
                         qreal nextPageWidth = 0.0, nextPageHeight = 0.0;
                         Poppler::Page *nextPage = m_document->page(i+1);
 
-                        if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
+                        if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
                         {
                             currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
                             currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
@@ -500,7 +504,7 @@ void DocumentView::prepareScene()
                     qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
                     Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
 
-                    if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
+                    if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
                     {
                         currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
                         currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
@@ -551,8 +555,9 @@ void DocumentView::prepareScene()
             for(int i = 0; i < m_document->numPages(); i++)
             {
                 Poppler::Page *currentPage = m_document->page(i);
-                PageObject *currentPageObject = new PageObject(currentPage, pageRotation);
+                PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
 
+                currentPageObject->setRotation(rotation);
                 currentPageObject->setResolutionX(resolutionX);
                 currentPageObject->setResolutionY(resolutionY);
                 currentPageObject->setFilePath(m_filePath);
@@ -576,8 +581,9 @@ void DocumentView::prepareScene()
                 for(int i = 0; i < m_numberOfPages; i += 2)
                 {
                     Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage, pageRotation);
+                    PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
 
+                    currentPageObject->setRotation(rotation);
                     currentPageObject->setResolutionX(resolutionX);
                     currentPageObject->setResolutionY(resolutionY);
                     currentPageObject->setFilePath(m_filePath);
@@ -591,8 +597,9 @@ void DocumentView::prepareScene()
                     m_heightToNumber.insert(-currentPageObject->y(), i+1);
 
                     Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage, pageRotation);
+                    PageObject *nextPageObject = new PageObject(nextPage, m_pageCache);
 
+                    nextPageObject->setRotation(rotation);
                     nextPageObject->setResolutionX(resolutionX);
                     nextPageObject->setResolutionY(resolutionY);
                     nextPageObject->setFilePath(m_filePath);
@@ -613,8 +620,9 @@ void DocumentView::prepareScene()
                 for(int i=0;i<m_numberOfPages-1;i+=2)
                 {
                     Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage, pageRotation);
+                    PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
 
+                    currentPageObject->setRotation(rotation);
                     currentPageObject->setResolutionX(resolutionX);
                     currentPageObject->setResolutionY(resolutionY);
                     currentPageObject->setFilePath(m_filePath);
@@ -628,8 +636,9 @@ void DocumentView::prepareScene()
                     m_heightToNumber.insert(-currentPageObject->y(), i+1);
 
                     Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage, pageRotation);
+                    PageObject *nextPageObject = new PageObject(nextPage, m_pageCache);
 
+                    nextPageObject->setRotation(rotation);
                     nextPageObject->setResolutionX(resolutionX);
                     nextPageObject->setResolutionY(resolutionY);
                     nextPageObject->setFilePath(m_filePath);
@@ -646,8 +655,9 @@ void DocumentView::prepareScene()
                 }
 
                 Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
-                PageObject *currentPageObject = new PageObject(currentPage, pageRotation);
+                PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
 
+                currentPageObject->setRotation(rotation);
                 currentPageObject->setResolutionX(resolutionX);
                 currentPageObject->setResolutionY(resolutionY);
                 currentPageObject->setFilePath(m_filePath);
