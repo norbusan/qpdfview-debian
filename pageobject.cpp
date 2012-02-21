@@ -108,7 +108,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
         if(!m_futureWatcher.isRunning())
         {
-            m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage));
+            m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
         }
     }
 
@@ -118,12 +118,24 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     painter->drawRect(boundingRect());
 }
 
-QImage PageObject::renderPage()
+void PageObject::prefetch()
 {
-    QRectF visibleRect = this->scene()->views().first()->mapToScene(this->scene()->views().first()->rect()).boundingRect();
+    pageCacheMutex.lock();
+
+    if(!pageCache.contains(m_currentPage) && !m_futureWatcher.isRunning())
+    {
+        m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
+    }
+
+    pageCacheMutex.unlock();
+}
+
+QImage PageObject::renderPage(bool prefetch)
+{
+    QRectF viewRect = this->scene()->views().first()->mapToScene(this->scene()->views().first()->rect()).boundingRect();
     QRectF pageRect = boundingRect(); pageRect.translate(x(),y());
 
-    if(!visibleRect.intersects(pageRect))
+    if(!viewRect.intersects(pageRect) && !prefetch)
     {
         return QImage();
     }

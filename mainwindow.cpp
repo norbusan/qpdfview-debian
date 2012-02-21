@@ -153,13 +153,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_scalingGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaling(QAction*)));
 
-    m_rotateBy0Action = new QAction(tr("Rotate by 0°"), this);
+    m_rotateBy0Action = new QAction(trUtf8("Rotate by 0°"), this);
     m_rotateBy0Action->setCheckable(true);
-    m_rotateBy90Action = new QAction(tr("Rotate by 90°"), this);
+    m_rotateBy90Action = new QAction(trUtf8("Rotate by 90°"), this);
     m_rotateBy90Action->setCheckable(true);
-    m_rotateBy180Action = new QAction(tr("Rotate by 180°"), this);
+    m_rotateBy180Action = new QAction(trUtf8("Rotate by 180°"), this);
     m_rotateBy180Action->setCheckable(true);
-    m_rotateBy270Action = new QAction(tr("Rotate by 270°"), this);
+    m_rotateBy270Action = new QAction(trUtf8("Rotate by 270°"), this);
     m_rotateBy270Action->setCheckable(true);
 
     m_rotationGroup = new QActionGroup(this);
@@ -289,10 +289,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_rotationLabel = new QLabel(tr("Rotation:"));
     m_rotationComboBox = new QComboBox();
 
-    m_rotationComboBox->addItem(tr("Rotate by 0°"), DocumentView::RotateBy0);
-    m_rotationComboBox->addItem(tr("Rotate by 90°"), DocumentView::RotateBy90);
-    m_rotationComboBox->addItem(tr("Rotate by 180°"), DocumentView::RotateBy180);
-    m_rotationComboBox->addItem(tr("Rotate by 270°"), DocumentView::RotateBy270);
+    m_rotationComboBox->addItem(trUtf8("Rotate by 0°"), DocumentView::RotateBy0);
+    m_rotationComboBox->addItem(trUtf8("Rotate by 90°"), DocumentView::RotateBy90);
+    m_rotationComboBox->addItem(trUtf8("Rotate by 180°"), DocumentView::RotateBy180);
+    m_rotationComboBox->addItem(trUtf8("Rotate by 270°"), DocumentView::RotateBy270);
 
     connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRotationIndex(int)));
 
@@ -790,6 +790,7 @@ void MainWindow::requestTabClose(const int &index)
 
 void MainWindow::about()
 {
+    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library.</p><p>&copy; 2012 Adam Reichold</p>"));
 }
 
 void MainWindow::updateFilePath(const QString &filePath)

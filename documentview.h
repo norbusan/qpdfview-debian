@@ -89,6 +89,7 @@ private:
 
     void prepareScene();
     void prepareView();
+    void prefetch();
 
 signals:
     void filePathChanged(QString);
@@ -102,6 +103,7 @@ private slots:
     void changeCurrentPage(const int &value);
 
 protected:
+    void resizeEvent(QResizeEvent *resizeEvent);
     void wheelEvent(QWheelEvent *wheelEvent);
 
 };

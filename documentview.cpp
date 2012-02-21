@@ -88,6 +88,7 @@ void DocumentView::setCurrentPage(const int &currentPage)
             emit currentPageChanged(m_currentPage);
 
             prepareView();
+            prefetch();
         }
     }
 }
@@ -119,6 +120,7 @@ void DocumentView::setPageLayout(const DocumentView::PageLayout &pageLayout)
 
         prepareScene();
         prepareView();
+        prefetch();
     }
 }
 
@@ -137,6 +139,7 @@ void DocumentView::setScaling(const Scaling &scaling)
 
         prepareScene();
         prepareView();
+        prefetch();
     }
 }
 
@@ -155,6 +158,7 @@ void DocumentView::setRotation(const Rotation &rotation)
 
         prepareScene();
         prepareView();
+        prefetch();
     }
 }
 
@@ -181,6 +185,7 @@ bool DocumentView::open(const QString &filePath)
 
         prepareScene();
         prepareView();
+        prefetch();
     }
 
     return document != 0;
@@ -212,6 +217,7 @@ bool DocumentView::refresh()
 
             prepareScene();
             prepareView();
+            prefetch();
         }
 
         return document != 0;
@@ -237,6 +243,7 @@ void DocumentView::previousPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
+                prefetch();
             }
             break;
         case TwoPages:
@@ -248,6 +255,7 @@ void DocumentView::previousPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
+                prefetch();
             }
             break;
         }
@@ -269,6 +277,7 @@ void DocumentView::nextPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
+                prefetch();
             }
             break;
         case TwoPages:
@@ -280,6 +289,7 @@ void DocumentView::nextPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
+                prefetch();
             }
             break;
         }
@@ -297,6 +307,7 @@ void DocumentView::firstPage()
             emit currentPageChanged(m_currentPage);
 
             prepareView();
+            prefetch();
         }
     }
 }
@@ -316,6 +327,7 @@ void DocumentView::lastPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
+                prefetch();
             }
             break;
         case TwoPages:
@@ -329,6 +341,7 @@ void DocumentView::lastPage()
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
+                    prefetch();
                 }
             }
             else
@@ -340,6 +353,7 @@ void DocumentView::lastPage()
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
+                    prefetch();
                 }
             }
             break;
@@ -393,13 +407,13 @@ void DocumentView::prepareScene()
 
                     if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
                     {
-                        currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().height() / 72.0);
-                        currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().width() / 72.0);
+                        currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
+                        currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().width() / 72.0);
-                        currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().height() / 72.0);
+                        currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
+                        currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
                     }
 
                     delete currentPage;
@@ -425,17 +439,17 @@ void DocumentView::prepareScene()
 
                         if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
                         {
-                            currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().height() / 72.0);
-                            currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().width() / 72.0);
-                            nextPageWidth = qCeil(resolutionX * nextPage->pageSizeF().height() / 72.0);
-                            nextPageHeight = qCeil(resolutionY * nextPage->pageSizeF().width() / 72.0);
+                            currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
+                            currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
+                            nextPageWidth = resolutionX * nextPage->pageSizeF().height() / 72.0;
+                            nextPageHeight = resolutionY * nextPage->pageSizeF().width() / 72.0;
                         }
                         else
                         {
-                            currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().width() / 72.0);
-                            currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().height() / 72.0);
-                            nextPageWidth = qCeil(resolutionX * nextPage->pageSizeF().width() / 72.0);
-                            nextPageHeight = qCeil(resolutionY * nextPage->pageSizeF().height() / 72.0);
+                            currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
+                            currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
+                            nextPageWidth = resolutionX * nextPage->pageSizeF().width() / 72.0;
+                            nextPageHeight = resolutionY * nextPage->pageSizeF().height() / 72.0;
                         }
 
                         delete currentPage;
@@ -460,17 +474,17 @@ void DocumentView::prepareScene()
 
                         if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
                         {
-                            currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().height() / 72.0);
-                            currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().width() / 72.0);
-                            nextPageWidth = qCeil(resolutionX * nextPage->pageSizeF().height() / 72.0);
-                            nextPageHeight = qCeil(resolutionY * nextPage->pageSizeF().width() / 72.0);
+                            currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
+                            currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
+                            nextPageWidth = resolutionX * nextPage->pageSizeF().height() / 72.0;
+                            nextPageHeight = resolutionY * nextPage->pageSizeF().width() / 72.0;
                         }
                         else
                         {
-                            currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().width() / 72.0);
-                            currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().height() / 72.0);
-                            nextPageWidth = qCeil(resolutionX * nextPage->pageSizeF().width() / 72.0);
-                            nextPageHeight = qCeil(resolutionY * nextPage->pageSizeF().height() / 72.0);
+                            currentPageWidth =resolutionX * currentPage->pageSizeF().width() / 72.0;
+                            currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
+                            nextPageWidth = resolutionX * nextPage->pageSizeF().width() / 72.0;
+                            nextPageHeight = resolutionY * nextPage->pageSizeF().height() / 72.0;
                         }
 
                         delete currentPage;
@@ -488,13 +502,13 @@ void DocumentView::prepareScene()
 
                     if(pageRotation == Poppler::Page::Rotate90 || pageRotation == Poppler::Page::Rotate270)
                     {
-                        currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().height() / 72.0);
-                        currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().width() / 72.0);
+                        currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
+                        currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        currentPageWidth = qCeil(resolutionX * currentPage->pageSizeF().width() / 72.0);
-                        currentPageHeight = qCeil(resolutionY * currentPage->pageSizeF().height() / 72.0);
+                        currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
+                        currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
                     }
 
                     delete currentPage;
@@ -619,7 +633,7 @@ void DocumentView::prepareScene()
                     nextPageObject->setResolutionX(resolutionX);
                     nextPageObject->setResolutionY(resolutionY);
                     nextPageObject->setFilePath(m_filePath);
-                    nextPageObject->setCurrentPage(i+1);
+                    nextPageObject->setCurrentPage(i+2);
 
                     nextPageObject->setX(currentPageObject->boundingRect().width() + 20.0);
                     nextPageObject->setY(sceneHeight+10.0);
@@ -658,8 +672,8 @@ void DocumentView::prepareScene()
 
 void DocumentView::prepareView()
 {
-    PageObject *currentPageObject = m_numberToObject.value(m_currentPage);
-    PageObject *nextPageObject = m_numberToObject.value(m_currentPage+1);
+    PageObject *currentPageObject = m_numberToObject.value(m_currentPage, 0);
+    PageObject *nextPageObject = m_numberToObject.value(m_currentPage+1, 0);
 
     switch(m_pageLayout)
     {
@@ -715,6 +729,20 @@ void DocumentView::prepareView()
     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 }
 
+void DocumentView::prefetch()
+{
+    if(m_document)
+    {
+        for(int i = -2; i <= 4; i++)
+        {
+            if(m_numberToObject.contains(m_currentPage + i))
+            {
+                m_numberToObject.value(m_currentPage + i)->prefetch();
+            }
+        }
+    }
+}
+
 
 void DocumentView::changeCurrentPage(const int &value)
 {
@@ -735,12 +763,79 @@ void DocumentView::changeCurrentPage(const int &value)
                 m_currentPage = visiblePage;
 
                 emit currentPageChanged(m_currentPage);
+
+                prefetch();
             }
         }
     }
 }
 
 
+void DocumentView::resizeEvent(QResizeEvent*)
+{
+    if(m_document)
+    {
+        if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
+        {
+            prepareScene();
+            prepareView();
+        }
+    }
+}
+
 void DocumentView::wheelEvent(QWheelEvent *wheelEvent)
 {
+    if(m_document)
+    {
+        switch(m_pageLayout)
+        {
+        case OnePage:
+            if(wheelEvent->delta() > 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                wheelEvent->accept();
+
+                m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->maximum());
+
+                this->previousPage();
+            }
+            else if(wheelEvent->delta() < 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->maximum() && m_currentPage != m_numberOfPages)
+            {
+                wheelEvent->accept();
+
+                m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->minimum());
+
+                this->nextPage();
+            }
+            else
+            {
+                wheelEvent->ignore();
+            }
+            break;
+        case TwoPages:
+            if(wheelEvent->delta() > 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                wheelEvent->accept();
+
+                m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->maximum());
+
+                this->previousPage();
+            }
+            else if(wheelEvent->delta() < 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->maximum() && m_currentPage != (m_numberOfPages % 2 == 0 ? m_numberOfPages-1 : m_numberOfPages))
+            {
+                wheelEvent->accept();
+
+                m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->minimum());
+
+                this->nextPage();
+            }
+            else
+            {
+                wheelEvent->ignore();
+            }
+            break;
+        case OneColumn:
+        case TwoColumns:
+            break;
+        }
+    }
 }
