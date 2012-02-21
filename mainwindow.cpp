@@ -35,10 +35,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
     m_refreshAction = new QAction(tr("&Refresh"), this);
     m_refreshAction->setShortcut(QKeySequence::Refresh);
-    m_refreshAction->setIcon(QIcon::fromTheme("view-refresh"));
+    if(QIcon::hasThemeIcon("view-refresh"))
+    {
+        m_refreshAction->setIcon(QIcon::fromTheme("view-refresh"));
+    }
+    else
+    {
+        m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
+    }
     m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
-    m_printAction->setIcon(QIcon::fromTheme("document-print"));
+    if(QIcon::hasThemeIcon(("document-print")))
+    {
+        m_printAction->setIcon(QIcon::fromTheme("document-print"));
+    }
+    else
+    {
+        m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
+    }
 
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
     connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
@@ -96,6 +110,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(firstPage()));
     connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
 
+    m_onePageAction = new QAction(tr("One page"), this);
+    m_onePageAction->setCheckable(true);
+    m_twoPagesAction = new QAction(tr("Two pages"), this);
+    m_twoPagesAction->setCheckable(true);
+    m_oneColumnAction = new QAction(tr("One column"), this);
+    m_oneColumnAction->setCheckable(true);
+    m_twoColumnsAction = new QAction(tr("Two columns"), this);
+    m_twoColumnsAction->setCheckable(true);
+
+    m_pageLayoutGroup = new QActionGroup(this);
+    m_pageLayoutGroup->addAction(m_onePageAction);
+    m_pageLayoutGroup->addAction(m_twoPagesAction);
+    m_pageLayoutGroup->addAction(m_oneColumnAction);
+    m_pageLayoutGroup->addAction(m_twoColumnsAction);
+
+    connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), this, SLOT(selectPageLayout(QAction*)));
+
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setCheckable(true);
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
@@ -120,6 +151,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_scalingGroup->addAction(m_scaleTo200Action);
     m_scalingGroup->addAction(m_scaleTo400Action);
 
+    connect(m_scalingGroup, SIGNAL(selected(QAction*)), this, SLOT(selectScaling(QAction*)));
+
     m_rotateBy0Action = new QAction(tr("Rotate by 0°"), this);
     m_rotateBy0Action->setCheckable(true);
     m_rotateBy90Action = new QAction(tr("Rotate by 90°"), this);
@@ -136,11 +169,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_rotationGroup->addAction(m_rotateBy270Action);
 
     connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotation(QAction*)));
-
-    m_twoPageSpreadAction = new QAction(tr("Two-page spread"), this);
-    m_twoPageSpreadAction->setCheckable(true);
-
-    connect(m_twoPageSpreadAction, SIGNAL(changed()), this, SLOT(changeTwoPageSpread()));
 
     m_addTabAction = new QAction(tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
@@ -176,6 +204,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_viewMenu->addAction(m_firstPageAction);
     m_viewMenu->addAction(m_lastPageAction);
     m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_onePageAction);
+    m_viewMenu->addAction(m_twoPagesAction);
+    m_viewMenu->addAction(m_oneColumnAction);
+    m_viewMenu->addAction(m_twoColumnsAction);
+    m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_fitToPageAction);
     m_viewMenu->addAction(m_fitToPageWidthAction);
     m_viewMenu->addAction(m_scaleTo25Action);
@@ -188,15 +221,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_viewMenu->addAction(m_rotateBy90Action);
     m_viewMenu->addAction(m_rotateBy180Action);
     m_viewMenu->addAction(m_rotateBy270Action);
-    m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_twoPageSpreadAction);
 
     m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
     m_tabMenu->addAction(m_addTabAction);
     m_tabMenu->addAction(m_previousTabAction);
     m_tabMenu->addAction(m_nextTabAction);
     m_tabMenu->addAction(m_closeTabAction);
-    m_tabMenu->addSeparator();
 
     m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);
@@ -212,11 +242,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
     m_currentPageLineEdit->setValidator(m_currentPageValidator);
 
+    connect(m_currentPageLineEdit, SIGNAL(editingFinished()), this, SLOT(changeCurrentPage()));
+
     m_currentPageWidget->setLayout(new QHBoxLayout());
     m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
     m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
     m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
     m_currentPageWidget->setMaximumWidth(150);
+
+    m_pageLayoutWidget = new QWidget();
+    m_pageLayoutLabel = new QLabel(tr("Page layout:"));
+    m_pageLayoutComboBox = new QComboBox();
+
+    m_pageLayoutComboBox->addItem(tr("One page"), DocumentView::OnePage);
+    m_pageLayoutComboBox->addItem(tr("Two pages"), DocumentView::TwoPages);
+    m_pageLayoutComboBox->addItem(tr("One column"), DocumentView::OneColumn);
+    m_pageLayoutComboBox->addItem(tr("Two columns"), DocumentView::TwoColumns);
+
+    connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changePageLayoutIndex(int)));
+
+    m_pageLayoutWidget->setLayout(new QHBoxLayout());
+    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutLabel);
+    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
+    m_pageLayoutWidget->setMaximumWidth(300);
 
     m_scalingWidget = new QWidget();
     m_scalingLabel = new QLabel(tr("Scaling:"));
@@ -266,6 +314,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     viewToolBar->addWidget(m_currentPageWidget);
     viewToolBar->addAction(m_nextPageAction);
     viewToolBar->addAction(m_lastPageAction);
+    viewToolBar->addWidget(m_pageLayoutWidget);
     viewToolBar->addWidget(m_scalingWidget);
     viewToolBar->addWidget(m_rotationWidget);
 
@@ -310,9 +359,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                 connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
                 connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
                 connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+                connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
                 connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
                 connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
-                connect(documentView, SIGNAL(twoPageSpreadChanged(bool)), this, SLOT(updateTwoPageSpread(bool)));
             }
             else
             {
@@ -335,6 +384,13 @@ MainWindow::~MainWindow()
     delete m_firstPageAction;
     delete m_lastPageAction;
 
+    delete m_onePageAction;
+    delete m_twoPagesAction;
+    delete m_oneColumnAction;
+    delete m_twoColumnsAction;
+
+    delete m_pageLayoutGroup;
+
     delete m_fitToPageAction;
     delete m_fitToPageWidthAction;
     delete m_scaleTo25Action;
@@ -352,8 +408,6 @@ MainWindow::~MainWindow()
 
     delete m_rotationGroup;
 
-    delete m_twoPageSpreadAction;
-
     delete m_addTabAction;
     delete m_previousTabAction;
     delete m_nextTabAction;
@@ -364,6 +418,9 @@ MainWindow::~MainWindow()
     delete m_currentPageLabel;
     delete m_currentPageLineEdit;
     delete m_numberOfPagesLabel;
+
+    delete m_pageLayoutLabel;
+    delete m_pageLayoutComboBox;
 
     delete m_scalingLabel;
     delete m_scalingComboBox;
@@ -418,6 +475,17 @@ void MainWindow::print()
     }
 }
 
+
+void MainWindow::changeCurrentPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+    }
+}
+
 void MainWindow::previousPage()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -458,6 +526,41 @@ void MainWindow::lastPage()
     }
 }
 
+void MainWindow::selectPageLayout(QAction *pageLayoutAction)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(pageLayoutAction == m_onePageAction)
+        {
+            documentView->setPageLayout(DocumentView::OnePage);
+        }
+        else if(pageLayoutAction == m_twoPagesAction)
+        {
+            documentView->setPageLayout(DocumentView::TwoPages);
+        }
+        else if(pageLayoutAction == m_oneColumnAction)
+        {
+            documentView->setPageLayout(DocumentView::OneColumn);
+        }
+        else if(pageLayoutAction == m_twoColumnsAction)
+        {
+            documentView->setPageLayout(DocumentView::TwoColumns);
+        }
+    }
+}
+
+void MainWindow::changePageLayoutIndex(const int &index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setPageLayout(static_cast<DocumentView::PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
+    }
+}
+
 
 void MainWindow::selectScaling(QAction *scalingAction)
 {
@@ -465,7 +568,34 @@ void MainWindow::selectScaling(QAction *scalingAction)
     {
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        // TODO
+        if(scalingAction == m_fitToPageAction)
+        {
+            documentView->setScaling(DocumentView::FitToPage);
+        }
+        else if(scalingAction == m_fitToPageWidthAction)
+        {
+            documentView->setScaling(DocumentView::FitToPageWidth);
+        }
+        else if(scalingAction == m_scaleTo25Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo25);
+        }
+        else if(scalingAction == m_scaleTo50Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo50);
+        }
+        else if(scalingAction == m_scaleTo100Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo100);
+        }
+        else if(scalingAction == m_scaleTo200Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo200);
+        }
+        else if(scalingAction == m_scaleTo400Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo400);
+        }
     }
 }
 
@@ -475,7 +605,7 @@ void MainWindow::changeScalingIndex(const int &index)
     {
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        documentView->setScaling(static_cast<DocumentView::Scaling>(m_rotationComboBox->itemData(index).toUInt()));
+        documentView->setScaling(static_cast<DocumentView::Scaling>(m_scalingComboBox->itemData(index).toUInt()));
     }
 }
 
@@ -485,7 +615,22 @@ void MainWindow::selectRotation(QAction *rotationAction)
     {
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        // TODO
+        if(rotationAction == m_rotateBy0Action)
+        {
+            documentView->setRotation(DocumentView::RotateBy0);
+        }
+        else if(rotationAction == m_rotateBy90Action)
+        {
+            documentView->setRotation(DocumentView::RotateBy90);
+        }
+        else if(rotationAction == m_rotateBy180Action)
+        {
+            documentView->setRotation(DocumentView::RotateBy180);
+        }
+        else if(rotationAction == m_rotateBy270Action)
+        {
+            documentView->setRotation(DocumentView::RotateBy270);
+        }
     }
 }
 
@@ -496,16 +641,6 @@ void MainWindow::changeRotationIndex(const int &index)
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         documentView->setRotation(static_cast<DocumentView::Rotation>(m_rotationComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::changeTwoPageSpread()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setTwoPageSpread(m_twoPageSpreadAction->isChecked());
     }
 }
 
@@ -527,9 +662,9 @@ void MainWindow::addTab()
             connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
             connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
             connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+            connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
             connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
             connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
-            connect(documentView, SIGNAL(twoPageSpreadChanged(bool)), this, SLOT(updateTwoPageSpread(bool)));
         }
         else
         {
@@ -591,11 +726,12 @@ void MainWindow::changeCurrentTab(const int &index)
         m_firstPageAction->setEnabled(true);
         m_lastPageAction->setEnabled(true);
 
+        m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
         m_rotationGroup->setEnabled(true);
-        m_twoPageSpreadAction->setEnabled(true);
 
         m_currentPageLineEdit->setEnabled(true);
+        m_pageLayoutComboBox->setEnabled(true);
         m_scalingComboBox->setEnabled(true);
         m_rotationComboBox->setEnabled(true);
 
@@ -605,9 +741,9 @@ void MainWindow::changeCurrentTab(const int &index)
 
         this->updateCurrentPage(documentView->currentPage());
         this->updateNumberOfPages(documentView->numberOfPages());
+        this->updatePageLayout(documentView->pageLayout());
         this->updateScaling(documentView->scaling());
         this->updateRotation(documentView->rotation());
-        this->updateTwoPageSpread(documentView->twoPageSpread());
     }
     else
     {
@@ -619,17 +755,20 @@ void MainWindow::changeCurrentTab(const int &index)
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
 
+        m_onePageAction->setChecked(true);
+        m_pageLayoutGroup->setEnabled(false);
+
         m_scaleTo100Action->setChecked(true);
         m_scalingGroup->setEnabled(false);
 
         m_rotateBy0Action->setChecked(true);
         m_rotationGroup->setEnabled(false);
 
-        m_twoPageSpreadAction->setChecked(false);
-        m_twoPageSpreadAction->setEnabled(false);
-
         m_currentPageLineEdit->setText("");
         m_currentPageLineEdit->setEnabled(false);
+
+        m_pageLayoutComboBox->setCurrentIndex(0);
+        m_pageLayoutComboBox->setEnabled(false);
 
         m_scalingComboBox->setCurrentIndex(4);
         m_scalingComboBox->setEnabled(false);
@@ -676,6 +815,32 @@ void MainWindow::updateNumberOfPages(const int &numberOfPages)
     {
         m_currentPageValidator->setRange(1, numberOfPages);
         m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
+    }
+}
+
+void MainWindow::updatePageLayout(const DocumentView::PageLayout &pageLayout)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        switch(pageLayout)
+        {
+        case DocumentView::OnePage:
+            m_onePageAction->setChecked(true);
+            m_pageLayoutComboBox->setCurrentIndex(0);
+            break;
+        case DocumentView::TwoPages:
+            m_twoPagesAction->setChecked(true);
+            m_pageLayoutComboBox->setCurrentIndex(1);
+            break;
+        case DocumentView::OneColumn:
+            m_oneColumnAction->setChecked(true);
+            m_pageLayoutComboBox->setCurrentIndex(2);
+            break;
+        case DocumentView::TwoColumns:
+            m_twoColumnsAction->setChecked(true);
+            m_pageLayoutComboBox->setCurrentIndex(3);
+            break;
+        }
     }
 }
 
@@ -740,14 +905,6 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
             m_rotationComboBox->setCurrentIndex(3);
             break;
         }
-    }
-}
-
-void MainWindow::updateTwoPageSpread(const bool &twoPageSpread)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        m_twoPageSpreadAction->setChecked(twoPageSpread);
     }
 }
 

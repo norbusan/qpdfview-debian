@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
-PageObject::PageObject(QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(0),m_resolutionX(-1.0),m_resolutionY(-1.0)
+PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
+    m_page(page),m_resolutionX(-1.0),m_resolutionY(-1.0)
 {
 }
 
@@ -17,6 +17,12 @@ qreal PageObject::resolutionX() const
 
 void PageObject::setResolutionX(const qreal &resolutionX)
 {
+    if(m_resolutionX != resolutionX)
+    {
+        m_resolutionX = resolutionX;
+
+        emit resolutionXChanged(m_resolutionX);
+    }
 }
 
 qreal PageObject::resolutionY() const
@@ -26,16 +32,27 @@ qreal PageObject::resolutionY() const
 
 void PageObject::setResolutionY(const qreal &resolutionY)
 {
+    if(m_resolutionY != resolutionY)
+    {
+        m_resolutionY = resolutionY;
+
+        emit resolutionYChanged(m_resolutionY);
+    }
 }
 
 
 QRectF PageObject::boundingRect() const
 {
-    return QRectF(0.0, 0.0, m_resolutionX / 72.0 * m_page->pageSizeF().width(), m_resolutionY / 72.0 * m_page->pageSizeF().height());
+    return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().width() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().height() / 72.0));
 }
 
-void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
+    QImage image = m_page->renderToImage(m_resolutionX, m_resolutionY);
+    painter->drawImage(QPointF(0.0, 0.0), image);
+
+    painter->setPen(QPen(Qt::black));
+    painter->drawRect(boundingRect());
 }
 
 /*PageItem::PageItem(QGraphicsItem *parent) :

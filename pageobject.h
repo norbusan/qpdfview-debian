@@ -1,5 +1,5 @@
-#ifndef RENDERTHREAD_H
-#define RENDERTHREAD_H
+#ifndef PAGEOBJECT_H
+#define PAGEOBJECT_H
 
 #include <QtCore>
 #include <QtGui>
@@ -13,7 +13,7 @@ class PageObject : public QGraphicsObject
     Q_PROPERTY(qreal resolutionY READ resolutionY WRITE setResolutionY NOTIFY resolutionYChanged)
 
 public:
-    explicit PageObject(QGraphicsItem *parent = 0);
+    explicit PageObject(Poppler::Page *page, QGraphicsItem *parent = 0);
     ~PageObject();
 
 
@@ -32,8 +32,6 @@ private:
 
     qreal m_resolutionX;
     qreal m_resolutionY;
-
-    QImage m_image;
 
 signals:
     void resolutionXChanged(qreal);
@@ -70,4 +68,4 @@ public:
 
 };*/
 
-#endif // RENDERTHREAD_H
+#endif // PAGEOBJECT_H

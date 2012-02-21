@@ -56,6 +56,12 @@ private:
     QAction *m_firstPageAction;
     QAction *m_lastPageAction;
 
+    QAction *m_onePageAction;
+    QAction *m_twoPagesAction;
+    QAction *m_oneColumnAction;
+    QAction *m_twoColumnsAction;
+    QActionGroup *m_pageLayoutGroup;
+
     QAction *m_fitToPageAction;
     QAction *m_fitToPageWidthAction;
     QAction *m_scaleTo25Action;
@@ -71,8 +77,6 @@ private:
     QAction *m_rotateBy270Action;
     QActionGroup *m_rotationGroup;
 
-    QAction *m_twoPageSpreadAction;
-
     QAction *m_addTabAction;
     QAction *m_previousTabAction;
     QAction *m_nextTabAction;
@@ -85,6 +89,10 @@ private:
     QLineEdit *m_currentPageLineEdit;
     QIntValidator *m_currentPageValidator;
     QLabel *m_numberOfPagesLabel;
+
+    QWidget *m_pageLayoutWidget;
+    QLabel *m_pageLayoutLabel;
+    QComboBox *m_pageLayoutComboBox;
 
     QWidget *m_scalingWidget;
     QLabel *m_scalingLabel;
@@ -99,16 +107,18 @@ private slots:
     void refresh();
     void print();
 
+    void changeCurrentPage();
     void previousPage();
     void nextPage();
     void firstPage();
     void lastPage();
 
+    void selectPageLayout(QAction *pageLayoutAction);
+    void changePageLayoutIndex(const int &index);
     void selectScaling(QAction *scalingAction);
     void changeScalingIndex(const int &index);
     void selectRotation(QAction *rotationAction);
     void changeRotationIndex(const int &index);
-    void changeTwoPageSpread();
 
     void addTab();
     void previousTab();
@@ -123,9 +133,9 @@ private slots:
     void updateFilePath(const QString &filePath);
     void updateCurrentPage(const int &currentPage);
     void updateNumberOfPages(const int &numberOfPages);
+    void updatePageLayout(const DocumentView::PageLayout &pageLayout);
     void updateScaling(const DocumentView::Scaling &scaling);
     void updateRotation(const DocumentView::Rotation &rotation);
-    void updateTwoPageSpread(const bool &twoPageSpread);
 
 protected:
     void dropEvent(QDropEvent *dropEvent);

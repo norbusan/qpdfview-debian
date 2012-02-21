@@ -33,10 +33,10 @@ class DocumentView : public QWidget
     Q_PROPERTY(QString filePath READ filePath NOTIFY filePathChanged)
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
     Q_PROPERTY(int numberOfPages READ numberOfPages NOTIFY numberOfPagesChanged)
+    Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
     Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
     Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
-    Q_PROPERTY(bool twoPageSpread READ twoPageSpread WRITE setTwoPageSpread NOTIFY twoPageSpreadChanged)
-    Q_ENUMS(Scaling Rotation)
+    Q_ENUMS(PageLayout Scaling Rotation)
 
 public:
     explicit DocumentView(QWidget *parent = 0);
@@ -50,6 +50,10 @@ public:
 
     int numberOfPages() const;
 
+    enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
+    PageLayout pageLayout() const;
+    void setPageLayout(const PageLayout &pageLayout);
+
     enum Scaling { FitToPage, FitToPageWidth, ScaleTo25, ScaleTo50, ScaleTo100, ScaleTo200, ScaleTo400 };
     Scaling scaling() const;
     void setScaling(const Scaling &scaling);
@@ -57,9 +61,6 @@ public:
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
     Rotation rotation() const;
     void setRotation(const Rotation &rotation);
-
-    bool twoPageSpread() const;
-    void setTwoPageSpread(const bool &twoPageSpread);
 
 
     bool open(const QString &filePath);
@@ -76,22 +77,29 @@ private:
 
     Poppler::Document *m_document;
 
+    QMap<int, PageObject*> m_numberToObject;
+    QMap<qreal, int> m_heightToNumber;
+
     QString m_filePath;
     int m_currentPage;
     int m_numberOfPages;
+    PageLayout m_pageLayout;
     Scaling m_scaling;
     Rotation m_rotation;
-    bool m_twoPageSpread;
 
-    void preparePages();
+    void prepareScene();
+    void prepareView();
 
 signals:
     void filePathChanged(QString);
     void currentPageChanged(int);
     void numberOfPagesChanged(int);
+    void pageLayoutChanged(DocumentView::PageLayout);
     void scalingChanged(DocumentView::Scaling);
     void rotationChanged(DocumentView::Rotation);
-    void twoPageSpreadChanged(bool);
+
+private slots:
+    void changeCurrentPage(const int &value);
 
 protected:
     void wheelEvent(QWheelEvent *wheelEvent);
