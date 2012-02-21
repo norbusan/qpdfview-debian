@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
     }
+    m_openAction->setIconVisibleInMenu(true);
     m_refreshAction = new QAction(tr("&Refresh"), this);
     m_refreshAction->setShortcut(QKeySequence::Refresh);
     if(QIcon::hasThemeIcon("view-refresh"))
@@ -43,24 +44,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
     }
-    m_printAction = new QAction(tr("&Print..."), this);
-    m_printAction->setShortcut(QKeySequence::Print);
-    if(QIcon::hasThemeIcon(("document-print")))
-    {
-        m_printAction->setIcon(QIcon::fromTheme("document-print"));
-    }
-    else
-    {
-        m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
-    }
+    m_refreshAction->setIconVisibleInMenu(true);
 
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
     connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
-    connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
 
     m_exitAction = new QAction(tr("&Exit"), this);
     m_exitAction->setShortcut(QKeySequence::Quit);
     m_exitAction->setIcon(QIcon::fromTheme("application-exit"));
+    m_exitAction->setIconVisibleInMenu(true);
 
     connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -74,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_previousPageAction->setIcon(QIcon(":/icons/go-previous.svg"));
     }
+    m_previousPageAction->setIconVisibleInMenu(true);
     m_nextPageAction = new QAction(tr("&Next page"), this);
     m_nextPageAction->setShortcut(QKeySequence::MoveToNextPage);
     if(QIcon::hasThemeIcon("go-next"))
@@ -84,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_nextPageAction->setIcon(QIcon(":/icons/go-next.svg"));
     }
+    m_nextPageAction->setIconVisibleInMenu(true);
     m_firstPageAction = new QAction(tr("&First page"), this);
     m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
     if(QIcon::hasThemeIcon("go-first"))
@@ -94,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_firstPageAction->setIcon(QIcon(":/icons/go-first.svg"));
     }
+    m_firstPageAction->setIconVisibleInMenu(true);
     m_lastPageAction = new QAction(tr("&Last page"), this);
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
     if(QIcon::hasThemeIcon("go-last"))
@@ -104,6 +99,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         m_lastPageAction->setIcon(QIcon(":/icons/go-last.svg"));
     }
+    m_lastPageAction->setIconVisibleInMenu(true);
 
     connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
     connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(nextPage()));
@@ -179,6 +175,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_closeTabAction = new QAction(tr("&Close tab"), this);
     m_closeTabAction->setShortcut(QKeySequence::Close);
     m_closeTabAction->setIcon(QIcon::fromTheme("window-close"));
+    m_closeTabAction->setIconVisibleInMenu(true);
 
     connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
     connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(previousTab()));
@@ -186,6 +183,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
 
     m_aboutAction = new QAction(tr("&About"), this);
+    m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
+    m_aboutAction->setIconVisibleInMenu(true);
 
     connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
@@ -194,7 +193,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_openAction);
     m_fileMenu->addAction(m_refreshAction);
-    m_fileMenu->addAction(m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
@@ -305,7 +303,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     fileToolBar->setObjectName("fileToolBar");
     fileToolBar->addAction(m_openAction);
     fileToolBar->addAction(m_refreshAction);
-    fileToolBar->addAction(m_printAction);
 
     QToolBar *viewToolBar = this->addToolBar(tr("&View"));
     viewToolBar->setObjectName("viewToolBar");
@@ -375,7 +372,6 @@ MainWindow::~MainWindow()
 {
     delete m_openAction;
     delete m_refreshAction;
-    delete m_printAction;
 
     delete m_exitAction;
 
@@ -462,16 +458,6 @@ void MainWindow::refresh()
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         documentView->refresh();
-    }
-}
-
-void MainWindow::print()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        // TODO
     }
 }
 
@@ -719,7 +705,6 @@ void MainWindow::changeCurrentTab(const int &index)
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         m_refreshAction->setEnabled(true);
-        m_printAction->setEnabled(true);
 
         m_previousPageAction->setEnabled(true);
         m_nextPageAction->setEnabled(true);
@@ -748,7 +733,6 @@ void MainWindow::changeCurrentTab(const int &index)
     else
     {
         m_refreshAction->setEnabled(false);
-        m_printAction->setEnabled(false);
 
         m_previousPageAction->setEnabled(false);
         m_nextPageAction->setEnabled(false);
@@ -910,8 +894,46 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 }
 
 
+void MainWindow::dragEnterEvent(QDragEnterEvent *dragEnterEvent)
+{
+    if(dragEnterEvent->mimeData()->hasUrls())
+    {
+        dragEnterEvent->acceptProposedAction();
+    }
+}
+
 void MainWindow::dropEvent(QDropEvent *dropEvent)
 {
+    if(dropEvent->mimeData()->hasUrls())
+    {
+        dropEvent->acceptProposedAction();
+
+        foreach(QUrl url, dropEvent->mimeData()->urls())
+        {
+            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
+            {
+                DocumentView *documentView = new DocumentView();
+
+                if(documentView->open(url.path()))
+                {
+                    int index = m_tabWidget->addTab(documentView, QFileInfo(url.path()).baseName());
+                    m_tabWidget->setTabToolTip(index, QFileInfo(url.path()).baseName());
+                    m_tabWidget->setCurrentIndex(index);
+
+                    connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
+                    connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
+                    connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+                    connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
+                    connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
+                    connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+                }
+                else
+                {
+                    delete documentView;
+                }
+            }
+        }
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)

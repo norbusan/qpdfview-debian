@@ -36,7 +36,6 @@ public:
     ~MainWindow();
 
     QSize sizeHint() const;
-
 private:
     QMenu *m_fileMenu;
     QMenu *m_viewMenu;
@@ -47,7 +46,6 @@ private:
 
     QAction *m_openAction;
     QAction *m_refreshAction;
-    QAction *m_printAction;
 
     QAction *m_exitAction;
 
@@ -105,7 +103,6 @@ private:
 private slots:
     void open();
     void refresh();
-    void print();
 
     void changeCurrentPage();
     void previousPage();
@@ -138,6 +135,7 @@ private slots:
     void updateRotation(const DocumentView::Rotation &rotation);
 
 protected:
+    void dragEnterEvent(QDragEnterEvent *dragEnterEvent);
     void dropEvent(QDropEvent *dropEvent);
     void closeEvent(QCloseEvent *closeEvent);
 

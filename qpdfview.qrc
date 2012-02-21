@@ -6,7 +6,6 @@
         <file>icons/go-next.svg</file>
         <file>icons/go-previous.svg</file>
         <file>icons/qpdfview.svg</file>
-        <file>icons/document-print.svg</file>
         <file>icons/view-refresh.svg</file>
     </qresource>
 </RCC>
