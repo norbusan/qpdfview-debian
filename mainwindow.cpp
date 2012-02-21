@@ -166,6 +166,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotation(QAction*)));
 
+    m_fullscreenAction = new QAction(tr("Fullscreen"), this);
+    m_fullscreenAction->setCheckable(true);
+    m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
+    m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
+    m_fullscreenAction->setIconVisibleInMenu(true);
+
+    connect(m_fullscreenAction, SIGNAL(changed()), this, SLOT(changeFullscreen()));
+
     m_addTabAction = new QAction(tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
     m_previousTabAction = new QAction(tr("&Previous tab"), this);
@@ -219,12 +227,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_viewMenu->addAction(m_rotateBy90Action);
     m_viewMenu->addAction(m_rotateBy180Action);
     m_viewMenu->addAction(m_rotateBy270Action);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_fullscreenAction);
 
     m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
     m_tabMenu->addAction(m_addTabAction);
     m_tabMenu->addAction(m_previousTabAction);
     m_tabMenu->addAction(m_nextTabAction);
     m_tabMenu->addAction(m_closeTabAction);
+    m_tabMenu->addSeparator();
 
     m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAction);
@@ -335,6 +346,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(settings.value("mainWindow/state").toByteArray());
 
+    m_normalGeometry = this->saveGeometry();
+
     // miscellaneous
 
     this->setAcceptDrops(true);
@@ -349,6 +362,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             if(documentView->open(argument))
             {
+                QSettings settings;
+
+                documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
+                documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
+                documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
+
                 int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
                 m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
                 m_tabWidget->setCurrentIndex(index);
@@ -404,6 +423,8 @@ MainWindow::~MainWindow()
 
     delete m_rotationGroup;
 
+    delete m_fullscreenAction;
+
     delete m_addTabAction;
     delete m_previousTabAction;
     delete m_nextTabAction;
@@ -435,7 +456,8 @@ void MainWindow::open()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
+        QSettings settings;
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
 
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
@@ -443,6 +465,8 @@ void MainWindow::open()
         {
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+
+            settings.setValue("mainWindow/path", QFileInfo(filePath).path());
         }
     }
     else
@@ -630,10 +654,26 @@ void MainWindow::changeRotationIndex(const int &index)
     }
 }
 
+void MainWindow::changeFullscreen()
+{
+    if(m_fullscreenAction->isChecked())
+    {
+        m_normalGeometry = this->saveGeometry();
+        this->showFullScreen();
+    }
+    else
+    {
+        this->restoreGeometry(m_normalGeometry);
+        this->showNormal();
+        this->restoreGeometry(m_normalGeometry);
+    }
+}
+
 
 void MainWindow::addTab()
 {
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), QDir::homePath(), tr("Portable Document Format (*.pdf)"));
+    QSettings settings;
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
 
     foreach(QString filePath, filePaths)
     {
@@ -641,6 +681,11 @@ void MainWindow::addTab()
 
         if(documentView->open(filePath))
         {
+            settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
+            documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
+            documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
+
             int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
             m_tabWidget->setCurrentIndex(index);
@@ -693,7 +738,15 @@ void MainWindow::closeTab()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        delete m_tabWidget->currentWidget();
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        QSettings settings;
+
+        settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
+        settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
+        settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
+
+        delete documentView;
     }
 }
 
@@ -768,7 +821,15 @@ void MainWindow::changeCurrentTab(const int &index)
 
 void MainWindow::requestTabClose(const int &index)
 {
-    delete m_tabWidget->widget(index);
+    DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->widget(index));
+
+    QSettings settings;
+
+    settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
+    settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
+    settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
+
+    delete documentView;
 }
 
 
@@ -916,6 +977,12 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
                 if(documentView->open(url.path()))
                 {
+                    QSettings settings;
+
+                    documentView->setPageLayout(static_cast<DocumentView::PageLayout>(settings.value("documentView/pageLayout", 0).toUInt()));
+                    documentView->setScaling(static_cast<DocumentView::Scaling>(settings.value("documentView/scaling", 4).toUInt()));
+                    documentView->setRotation(static_cast<DocumentView::Rotation>(settings.value("documentView/rotation", 0).toUInt()));
+
                     int index = m_tabWidget->addTab(documentView, QFileInfo(url.path()).baseName());
                     m_tabWidget->setTabToolTip(index, QFileInfo(url.path()).baseName());
                     m_tabWidget->setCurrentIndex(index);
@@ -940,8 +1007,24 @@ void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
     QSettings settings;
 
-    settings.setValue("mainWindow/geometry", this->saveGeometry());
+    if(m_fullscreenAction->isChecked())
+    {
+        settings.setValue("mainWindow/geometry", m_normalGeometry);
+    }
+    else
+    {
+        settings.setValue("mainWindow/geometry", this->saveGeometry());
+    }
     settings.setValue("mainWindow/state", this->saveState());
+
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        settings.setValue("documentView/pageLayout", static_cast<uint>(documentView->pageLayout()));
+        settings.setValue("documentView/scaling", static_cast<uint>(documentView->scaling()));
+        settings.setValue("documentView/rotation", static_cast<uint>(documentView->rotation()));
+    }
 
     QMainWindow::closeEvent(closeEvent);
 }

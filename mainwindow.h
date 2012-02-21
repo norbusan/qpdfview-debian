@@ -75,6 +75,8 @@ private:
     QAction *m_rotateBy270Action;
     QActionGroup *m_rotationGroup;
 
+    QAction *m_fullscreenAction;
+
     QAction *m_addTabAction;
     QAction *m_previousTabAction;
     QAction *m_nextTabAction;
@@ -100,6 +102,8 @@ private:
     QLabel *m_rotationLabel;
     QComboBox *m_rotationComboBox;
 
+    QByteArray m_normalGeometry;
+
 private slots:
     void open();
     void refresh();
@@ -116,6 +120,8 @@ private slots:
     void changeScalingIndex(const int &index);
     void selectRotation(QAction *rotationAction);
     void changeRotationIndex(const int &index);
+
+    void changeFullscreen();
 
     void addTab();
     void previousTab();
