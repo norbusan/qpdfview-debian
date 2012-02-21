@@ -15,3 +15,5 @@ HEADERS  += mainwindow.h \
     pageobject.h
 
 RESOURCES += qpdfview.qrc
+
+TRANSLATIONS += translations/qpdfview_de.ts

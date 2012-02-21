@@ -38,14 +38,20 @@ public:
     QSize sizeHint() const;
 private:
     QMenu *m_fileMenu;
+    QMenu *m_editMenu;
     QMenu *m_viewMenu;
     QMenu *m_tabMenu;
     QMenu *m_helpMenu;
+
+    QToolBar *m_fileToolBar;
+    QToolBar *m_editToolBar;
+    QToolBar *m_viewToolBar;
 
     QTabWidget *m_tabWidget;
 
     QAction *m_openAction;
     QAction *m_refreshAction;
+    QAction *m_printAction;
 
     QAction *m_exitAction;
 
@@ -53,6 +59,8 @@ private:
     QAction *m_nextPageAction;
     QAction *m_firstPageAction;
     QAction *m_lastPageAction;
+
+    QAction *m_searchAction;
 
     QAction *m_onePageAction;
     QAction *m_twoPagesAction;
@@ -107,12 +115,15 @@ private:
 private slots:
     void open();
     void refresh();
+    void print();
 
-    void changeCurrentPage();
     void previousPage();
     void nextPage();
     void firstPage();
     void lastPage();
+    void changeCurrentPage();
+
+    void search();
 
     void selectPageLayout(QAction *pageLayoutAction);
     void changePageLayoutIndex(const int &index);

@@ -32,6 +32,12 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("qpdfview");
     QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
 
+    QTranslator t;
+    if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name() + QString(".qm")))
+    {
+        a.installTranslator(&t);
+    }
+
     MainWindow w;
     w.show();
     

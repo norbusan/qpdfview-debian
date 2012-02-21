@@ -45,6 +45,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
     }
     m_refreshAction->setIconVisibleInMenu(true);
+    m_printAction = new QAction(tr("&Print..."), this);
+    m_printAction->setShortcut(QKeySequence::Print);
+    if(QIcon::hasThemeIcon("document-print"))
+    {
+        m_printAction->setIcon(QIcon::fromTheme("document-print"));
+    }
+    else
+    {
+        m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
+    }
+    m_printAction->setIconVisibleInMenu(true);
 
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
     connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
@@ -106,6 +117,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(firstPage()));
     connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
 
+    m_searchAction = new QAction(tr("&Search..."), this);
+    m_searchAction->setShortcut(QKeySequence::Find);
+    m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
+    m_searchAction->setIconVisibleInMenu(true);
+
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
     m_twoPagesAction = new QAction(tr("Two pages"), this);
@@ -166,7 +182,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(selectRotation(QAction*)));
 
-    m_fullscreenAction = new QAction(tr("Fullscreen"), this);
+    m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
     m_fullscreenAction->setCheckable(true);
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
     m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
@@ -201,15 +217,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_openAction);
     m_fileMenu->addAction(m_refreshAction);
+    m_fileMenu->addAction(m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
+    m_editMenu = this->menuBar()->addMenu(tr("&Edit"));
+    m_editMenu->addAction(m_nextPageAction);
+    m_editMenu->addAction(m_previousPageAction);
+    m_editMenu->addAction(m_firstPageAction);
+    m_editMenu->addAction(m_lastPageAction);
+    m_editMenu->addSeparator();
+    m_editMenu->addAction(m_searchAction);
+
     m_viewMenu = this->menuBar()->addMenu(tr("&View"));
-    m_viewMenu->addAction(m_nextPageAction);
-    m_viewMenu->addAction(m_previousPageAction);
-    m_viewMenu->addAction(m_firstPageAction);
-    m_viewMenu->addAction(m_lastPageAction);
-    m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_onePageAction);
     m_viewMenu->addAction(m_twoPagesAction);
     m_viewMenu->addAction(m_oneColumnAction);
@@ -310,21 +330,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_rotationWidget->layout()->addWidget(m_rotationComboBox);
     m_rotationWidget->setMaximumWidth(300);
 
-    QToolBar *fileToolBar = this->addToolBar(tr("&File"));
-    fileToolBar->setObjectName("fileToolBar");
-    fileToolBar->addAction(m_openAction);
-    fileToolBar->addAction(m_refreshAction);
+    m_fileToolBar = this->addToolBar(tr("&File"));
+    m_fileToolBar->setObjectName("fileToolBar");
+    m_fileToolBar->addAction(m_openAction);
+    m_fileToolBar->addAction(m_refreshAction);
+    m_fileToolBar->addAction(m_printAction);
 
-    QToolBar *viewToolBar = this->addToolBar(tr("&View"));
-    viewToolBar->setObjectName("viewToolBar");
-    viewToolBar->addAction(m_firstPageAction);
-    viewToolBar->addAction(m_previousPageAction);
-    viewToolBar->addWidget(m_currentPageWidget);
-    viewToolBar->addAction(m_nextPageAction);
-    viewToolBar->addAction(m_lastPageAction);
-    viewToolBar->addWidget(m_pageLayoutWidget);
-    viewToolBar->addWidget(m_scalingWidget);
-    viewToolBar->addWidget(m_rotationWidget);
+    m_editToolBar = this->addToolBar(tr("&Edit"));
+    m_editToolBar->setObjectName("editToolBar");
+    m_editToolBar->addAction(m_firstPageAction);
+    m_editToolBar->addAction(m_previousPageAction);
+    m_editToolBar->addWidget(m_currentPageWidget);
+    m_editToolBar->addAction(m_nextPageAction);
+    m_editToolBar->addAction(m_lastPageAction);
+
+    m_viewToolBar = this->addToolBar(tr("&View"));
+    m_viewToolBar->setObjectName("viewToolBar");
+    m_viewToolBar->addWidget(m_pageLayoutWidget);
+    m_viewToolBar->addWidget(m_scalingWidget);
+    m_viewToolBar->addWidget(m_rotationWidget);
+
+    m_viewToolBar->setVisible(false);
 
     // tabWidget
 
@@ -391,6 +417,7 @@ MainWindow::~MainWindow()
 {
     delete m_openAction;
     delete m_refreshAction;
+    delete m_printAction;
 
     delete m_exitAction;
 
@@ -398,6 +425,8 @@ MainWindow::~MainWindow()
     delete m_nextPageAction;
     delete m_firstPageAction;
     delete m_lastPageAction;
+
+    delete m_searchAction;
 
     delete m_onePageAction;
     delete m_twoPagesAction;
@@ -485,16 +514,15 @@ void MainWindow::refresh()
     }
 }
 
-
-void MainWindow::changeCurrentPage()
+void MainWindow::print()
 {
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
-    }
 }
+
+
+void MainWindow::search()
+{
+}
+
 
 void MainWindow::previousPage()
 {
@@ -535,6 +563,17 @@ void MainWindow::lastPage()
         documentView->lastPage();
     }
 }
+
+void MainWindow::changeCurrentPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+    }
+}
+
 
 void MainWindow::selectPageLayout(QAction *pageLayoutAction)
 {
@@ -758,11 +797,14 @@ void MainWindow::changeCurrentTab(const int &index)
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         m_refreshAction->setEnabled(true);
+        m_printAction->setEnabled(true);
 
         m_previousPageAction->setEnabled(true);
         m_nextPageAction->setEnabled(true);
         m_firstPageAction->setEnabled(true);
         m_lastPageAction->setEnabled(true);
+
+        m_searchAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
@@ -786,11 +828,14 @@ void MainWindow::changeCurrentTab(const int &index)
     else
     {
         m_refreshAction->setEnabled(false);
+        m_printAction->setEnabled(false);
 
         m_previousPageAction->setEnabled(false);
         m_nextPageAction->setEnabled(false);
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
+
+        m_searchAction->setEnabled(false);
 
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);

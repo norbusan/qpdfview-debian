@@ -1,11 +1,13 @@
 <RCC>
     <qresource prefix="/">
+        <file>icons/qpdfview.svg</file>
         <file>icons/document-open.svg</file>
+        <file>icons/view-refresh.svg</file>
+        <file>icons/document-print.svg</file>
         <file>icons/go-first.svg</file>
         <file>icons/go-last.svg</file>
         <file>icons/go-next.svg</file>
         <file>icons/go-previous.svg</file>
-        <file>icons/qpdfview.svg</file>
-        <file>icons/view-refresh.svg</file>
+        <file>translations/qpdfview_de.qm</file>
     </qresource>
 </RCC>

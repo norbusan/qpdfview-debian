@@ -672,12 +672,16 @@ void DocumentView::prepareScene()
 
 void DocumentView::prepareView()
 {
-    PageObject *currentPageObject = m_numberToObject.value(m_currentPage, 0);
-    PageObject *nextPageObject = m_numberToObject.value(m_currentPage+1, 0);
+    PageObject *currentPageObject = m_numberToObject.value(m_currentPage);
+    PageObject *nextPageObject = m_numberToObject.value(m_currentPage+1);
 
     switch(m_pageLayout)
     {
     case OnePage:
+        if(!m_numberToObject.contains(m_currentPage))
+        {
+            return;
+        }
         m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
                                      currentPageObject->boundingRect().width()+20.0,
                                      currentPageObject->boundingRect().height()+20.0);
@@ -691,6 +695,11 @@ void DocumentView::prepareView()
     case TwoPages:
         if(m_numberOfPages % 2 == 0)
         {
+            if(!m_numberToObject.contains(m_currentPage) || !m_numberToObject.contains(m_currentPage+1))
+            {
+                return;
+            }
+
             m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
                                          currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0,
                                          qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0);
@@ -699,12 +708,22 @@ void DocumentView::prepareView()
         {
             if(m_currentPage < m_numberOfPages)
             {
+                if(!m_numberToObject.contains(m_currentPage) || !m_numberToObject.contains(m_currentPage+1))
+                {
+                    return;
+                }
+
                 m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
                                              currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0,
                                              qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0);
             }
             else
             {
+                if(!m_numberToObject.contains(m_currentPage))
+                {
+                    return;
+                }
+
                 m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
                                              currentPageObject->boundingRect().width()+20.0,
                                              currentPageObject->boundingRect().height()+20.0);
@@ -731,14 +750,11 @@ void DocumentView::prepareView()
 
 void DocumentView::prefetch()
 {
-    if(m_document)
+    for(int i = -2; i <= 4; i++)
     {
-        for(int i = -2; i <= 4; i++)
+        if(m_numberToObject.contains(m_currentPage + i))
         {
-            if(m_numberToObject.contains(m_currentPage + i))
-            {
-                m_numberToObject.value(m_currentPage + i)->prefetch();
-            }
+            m_numberToObject.value(m_currentPage + i)->prefetch();
         }
     }
 }
