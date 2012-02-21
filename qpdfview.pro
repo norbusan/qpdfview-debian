@@ -17,3 +17,7 @@ HEADERS  += mainwindow.h \
 RESOURCES += qpdfview.qrc
 
 TRANSLATIONS += translations/qpdfview_de.ts
+
+target.path = /usr/bin
+
+INSTALLS += target
