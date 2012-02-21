@@ -13,7 +13,7 @@ class PageObject : public QGraphicsObject
     Q_PROPERTY(qreal resolutionY READ resolutionY WRITE setResolutionY NOTIFY resolutionYChanged)
 
 public:
-    explicit PageObject(Poppler::Page *page, QGraphicsItem *parent = 0);
+    explicit PageObject(Poppler::Page *page, Poppler::Page::Rotation rotation = Poppler::Page::Rotate0, QGraphicsItem *parent = 0);
     ~PageObject();
 
 
@@ -29,6 +29,7 @@ public:
 
 private:
     Poppler::Page *m_page;
+    Poppler::Page::Rotation m_rotation;
 
     qreal m_resolutionX;
     qreal m_resolutionY;

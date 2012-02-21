@@ -357,6 +357,132 @@ void DocumentView::prepareScene()
     if(m_document)
     {
         qreal sceneWidth = 20.0, sceneHeight = 10.0;
+        qreal resolutionX = this->physicalDpiX(), resolutionY = this->physicalDpiX();
+        Poppler::Page::Rotation rotation = Poppler::Page::Rotate0;
+
+        switch(m_rotation)
+        {
+        case RotateBy0:
+            rotation = Poppler::Page::Rotate0;
+            break;
+        case RotateBy90:
+            rotation = Poppler::Page::Rotate90;
+            break;
+        case RotateBy180:
+            rotation = Poppler::Page::Rotate180;
+            break;
+        case RotateBy270:
+            rotation = Poppler::Page::Rotate270;
+            break;
+        }
+
+        qreal scaleFactor = 4.0;
+
+        switch(m_scaling)
+        {
+        case FitToPage:
+        case FitToPageWidth:
+            switch(m_pageLayout)
+            {
+            case OnePage:
+            case OneColumn:
+                for(int i = 0; i < m_numberOfPages; i++)
+                {
+                    Poppler::Page *currentPage = m_document->page(m_currentPage-1);
+                    PageObject *currentPageObject = new PageObject(currentPage, rotation);
+
+                    currentPageObject->setResolutionX(resolutionX);
+                    currentPageObject->setResolutionY(resolutionY);
+
+                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageObject->boundingRect().width() + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (currentPageObject->boundingRect().height() + 20.0));
+                    }
+                }
+                break;
+            case TwoPages:
+            case TwoColumns:
+                if(m_numberOfPages % 2 == 0)
+                {
+                    for(int i = 0; i < m_numberOfPages; i += 2)
+                    {
+                        Poppler::Page *currentPage = m_document->page(i);
+                        PageObject *currentPageObject = new PageObject(currentPage, rotation);
+
+                        currentPageObject->setResolutionX(resolutionX);
+                        currentPageObject->setResolutionY(resolutionY);
+
+                        Poppler::Page *nextPage = m_document->page(i+1);
+                        PageObject *nextPageObject = new PageObject(nextPage, rotation);
+
+                        nextPageObject->setResolutionX(resolutionX);
+                        nextPageObject->setResolutionY(resolutionY);
+
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0));
+                        if(m_scaling == FitToPage)
+                        {
+                            scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0));
+                        }
+                    }
+                }
+                else
+                {
+                    for(int i=0;i<m_numberOfPages-1;i+=2)
+                    {
+                        Poppler::Page *currentPage = m_document->page(i);
+                        PageObject *currentPageObject = new PageObject(currentPage, rotation);
+
+                        currentPageObject->setResolutionX(resolutionX);
+                        currentPageObject->setResolutionY(resolutionY);
+
+                        Poppler::Page *nextPage = m_document->page(i+1);
+                        PageObject *nextPageObject = new PageObject(nextPage, rotation);
+
+                        nextPageObject->setResolutionX(resolutionX);
+                        nextPageObject->setResolutionY(resolutionY);
+
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0));
+                        if(m_scaling == FitToPage)
+                        {
+                            scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0));
+                        }
+                    }
+
+                    Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
+                    PageObject *currentPageObject = new PageObject(currentPage, rotation);
+
+                    currentPageObject->setResolutionX(resolutionX);
+                    currentPageObject->setResolutionY(resolutionY);
+
+                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageObject->boundingRect().width() + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (currentPageObject->boundingRect().height() + 20.0));
+                    }
+                }
+                break;
+            }
+            break;
+        case ScaleTo25:
+            scaleFactor = 0.25;
+            break;
+        case ScaleTo50:
+            scaleFactor = 0.50;
+            break;
+        case ScaleTo100:
+            scaleFactor = 1.00;
+            break;
+        case ScaleTo200:
+            scaleFactor = 2.00;
+            break;
+        case ScaleTo400:
+            scaleFactor = 4.00;
+            break;
+        }
+
+        resolutionX *= scaleFactor;
+        resolutionY *= scaleFactor;
 
         switch(m_pageLayout)
         {
@@ -365,10 +491,10 @@ void DocumentView::prepareScene()
             for(int i = 0; i < m_document->numPages(); i++)
             {
                 Poppler::Page *currentPage = m_document->page(i);
-                PageObject *currentPageObject = new PageObject(currentPage);
+                PageObject *currentPageObject = new PageObject(currentPage, rotation);
 
-                currentPageObject->setResolutionX(this->physicalDpiX());
-                currentPageObject->setResolutionY(this->physicalDpiY());
+                currentPageObject->setResolutionX(resolutionX);
+                currentPageObject->setResolutionY(resolutionY);
 
                 currentPageObject->setX(10.0);
                 currentPageObject->setY(sceneHeight+10.0);
@@ -388,10 +514,10 @@ void DocumentView::prepareScene()
                 for(int i = 0; i < m_numberOfPages; i += 2)
                 {
                     Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage);
+                    PageObject *currentPageObject = new PageObject(currentPage, rotation);
 
-                    currentPageObject->setResolutionX(this->physicalDpiX());
-                    currentPageObject->setResolutionY(this->physicalDpiY());
+                    currentPageObject->setResolutionX(resolutionX);
+                    currentPageObject->setResolutionY(resolutionY);
 
                     currentPageObject->setX(10.0);
                     currentPageObject->setY(sceneHeight+10.0);
@@ -401,10 +527,10 @@ void DocumentView::prepareScene()
                     m_heightToNumber.insert(-currentPageObject->y(), i+1);
 
                     Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage);
+                    PageObject *nextPageObject = new PageObject(nextPage, rotation);
 
-                    nextPageObject->setResolutionX(this->physicalDpiX());
-                    nextPageObject->setResolutionY(this->physicalDpiY());
+                    nextPageObject->setResolutionX(resolutionX);
+                    nextPageObject->setResolutionY(resolutionY);
 
                     nextPageObject->setX(currentPageObject->boundingRect().width() + 20.0);
                     nextPageObject->setY(sceneHeight+10.0);
@@ -421,10 +547,10 @@ void DocumentView::prepareScene()
                 for(int i=0;i<m_numberOfPages-1;i+=2)
                 {
                     Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage);
+                    PageObject *currentPageObject = new PageObject(currentPage, rotation);
 
-                    currentPageObject->setResolutionX(this->physicalDpiX());
-                    currentPageObject->setResolutionY(this->physicalDpiY());
+                    currentPageObject->setResolutionX(resolutionX);
+                    currentPageObject->setResolutionY(resolutionY);
 
                     currentPageObject->setX(10.0);
                     currentPageObject->setY(sceneHeight+10.0);
@@ -434,10 +560,10 @@ void DocumentView::prepareScene()
                     m_heightToNumber.insert(-currentPageObject->y(), i+1);
 
                     Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage);
+                    PageObject *nextPageObject = new PageObject(nextPage, rotation);
 
-                    nextPageObject->setResolutionX(this->physicalDpiX());
-                    nextPageObject->setResolutionY(this->physicalDpiY());
+                    nextPageObject->setResolutionX(resolutionX);
+                    nextPageObject->setResolutionY(resolutionY);
 
                     nextPageObject->setX(currentPageObject->boundingRect().width() + 20.0);
                     nextPageObject->setY(sceneHeight+10.0);
@@ -450,10 +576,10 @@ void DocumentView::prepareScene()
                 }
 
                 Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
-                PageObject *currentPageObject = new PageObject(currentPage);
+                PageObject *currentPageObject = new PageObject(currentPage, rotation);
 
-                currentPageObject->setResolutionX(this->physicalDpiX());
-                currentPageObject->setResolutionY(this->physicalDpiY());
+                currentPageObject->setResolutionX(resolutionX);
+                currentPageObject->setResolutionY(resolutionY);
 
                 currentPageObject->setX(10.0);
                 currentPageObject->setY(sceneHeight+10.0);

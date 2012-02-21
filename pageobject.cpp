@@ -1,12 +1,16 @@
 #include "pageobject.h"
 
-PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_resolutionX(-1.0),m_resolutionY(-1.0)
+PageObject::PageObject(Poppler::Page *page, Poppler::Page::Rotation rotation, QGraphicsItem *parent) : QGraphicsObject(parent),
+    m_page(page),m_rotation(rotation),m_resolutionX(72.0),m_resolutionY(72.0)
 {
 }
 
 PageObject::~PageObject()
 {
+    if(m_page)
+    {
+        delete m_page;
+    }
 }
 
 
@@ -43,12 +47,19 @@ void PageObject::setResolutionY(const qreal &resolutionY)
 
 QRectF PageObject::boundingRect() const
 {
-    return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().width() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().height() / 72.0));
+    if(m_rotation == Poppler::Page::Rotate90 || m_rotation == Poppler::Page::Rotate270)
+    {
+        return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().height() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().width() / 72.0));
+    }
+    else
+    {
+        return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().width() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().height() / 72.0));
+    }
 }
 
 void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    QImage image = m_page->renderToImage(m_resolutionX, m_resolutionY);
+    QImage image = m_page->renderToImage(m_resolutionX, m_resolutionY, -1, -1, -1, -1, m_rotation);
     painter->drawImage(QPointF(0.0, 0.0), image);
 
     painter->setPen(QPen(Qt::black));
