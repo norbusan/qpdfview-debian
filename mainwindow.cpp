@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
     connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
+    connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
 
     m_exitAction = new QAction(tr("&Exit"), this);
     m_exitAction->setShortcut(QKeySequence::Quit);
@@ -559,6 +560,12 @@ void MainWindow::refresh()
 
 void MainWindow::print()
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->print();
+    }
 }
 
 

@@ -209,7 +209,7 @@ QImage PageObject::renderPage(bool prefetch)
 
     if(document == 0)
     {
-        qDebug() << "document == 0:" << m_filePath << m_currentPage;
+        qDebug() << "document == 0:" << m_filePath;
 
         return QImage();
     }

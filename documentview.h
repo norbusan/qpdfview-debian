@@ -65,6 +65,7 @@ public:
 
     bool open(const QString &filePath);
     bool refresh();
+    void print();
 
     void previousPage();
     void nextPage();
@@ -77,6 +78,12 @@ public:
 private:
     QGraphicsScene *m_graphicsScene;
     QGraphicsView *m_graphicsView;
+
+    QPrinter *m_printer;
+    QPrintDialog *m_printDialog;
+    QProgressDialog *m_progressDialog;
+
+    QFutureWatcher<void> m_futureWatcher;
 
     QSettings m_settings;
 
@@ -104,8 +111,14 @@ signals:
     void scalingChanged(DocumentView::Scaling);
     void rotationChanged(DocumentView::Rotation);
 
+    void printingProgressed(int);
+    void printingCanceled();
+    void printingFinished();
+
 private slots:
     void changeCurrentPage(const int &value);
+
+    void printDocument(int fromPage, int toPage);
 
 protected:
     void resizeEvent(QResizeEvent *resizeEvent);

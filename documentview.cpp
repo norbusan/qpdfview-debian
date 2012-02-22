@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_settings(),m_document(0),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_futureWatcher(),m_settings(),m_document(0),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
@@ -37,6 +37,15 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
+    m_printer = new QPrinter();
+    m_printer->setFullPage(true);
+    m_printDialog = new QPrintDialog(m_printer, this);
+    m_progressDialog = new QProgressDialog(this);
+
+    connect(this, SIGNAL(printingProgressed(int)), m_progressDialog, SLOT(setValue(int)));
+    connect(this, SIGNAL(printingCanceled()), m_progressDialog, SLOT(close()));
+    connect(this, SIGNAL(printingFinished()), m_progressDialog, SLOT(close()));
+
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
     m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
     m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
@@ -48,6 +57,15 @@ DocumentView::~DocumentView()
 
     delete m_graphicsView;
     delete m_graphicsScene;
+
+    if(m_futureWatcher.isRunning())
+    {
+        m_futureWatcher.waitForFinished();
+    }
+
+    delete m_progressDialog;
+    delete m_printDialog;
+    delete m_printer;
 
     if(m_document)
     {
@@ -239,6 +257,33 @@ bool DocumentView::refresh()
         return false;
     }
 }
+
+void DocumentView::print()
+{
+    m_printDialog->setMinMax(1, m_numberOfPages);
+
+    if(m_printDialog->exec() == QDialog::Accepted)
+    {
+        int fromPage = m_printDialog->fromPage() != 0 ? m_printDialog->fromPage() : 1;
+        int toPage = m_printDialog->toPage() != 0 ? m_printDialog->toPage() : m_numberOfPages;
+
+        if(m_futureWatcher.isRunning())
+        {
+            m_futureWatcher.waitForFinished();
+        }
+
+        m_progressDialog->reset();
+
+        m_progressDialog->setLabelText(tr("Printing pages %1 to %2 of file %3...").arg(fromPage).arg(toPage).arg(m_filePath));
+        m_progressDialog->setRange(fromPage-1, toPage);
+        m_progressDialog->setValue(fromPage-1);
+
+        m_futureWatcher.setFuture(QtConcurrent::run(this, &DocumentView::printDocument, fromPage, toPage));
+
+        m_progressDialog->exec();
+    }
+}
+
 
 void DocumentView::previousPage()
 {
@@ -766,6 +811,76 @@ void DocumentView::changeCurrentPage(const int &value)
             }
         }
     }
+}
+
+
+void DocumentView::printDocument(int fromPage, int toPage)
+{
+    Poppler::Document *document = Poppler::Document::load(m_filePath);
+
+    if(document == 0)
+    {
+        qDebug() << "document == 0:" << m_filePath;
+
+        emit printingCanceled();
+
+        return;
+    }
+
+    QPainter *painter = new QPainter();
+
+    painter->begin(m_printer);
+
+    for(int currentPage = fromPage; currentPage <= toPage; currentPage++)
+    {
+        Poppler::Page *page = document->page(currentPage-1);
+
+        if(page == 0)
+        {
+            qDebug() << "page == 0:" << m_filePath << currentPage;
+
+            emit printingCanceled();
+
+            delete document;
+            delete painter;
+            return;
+        }
+
+        qreal fitToWidth = static_cast<qreal>(m_printer->width()) / (m_printer->physicalDpiX() * page->pageSizeF().width() / 72.0);
+        qreal fitToHeight = static_cast<qreal>(m_printer->height()) / (m_printer->physicalDpiY() * page->pageSizeF().height() / 72.0);
+        qreal fit = qMin(fitToWidth, fitToHeight);
+
+        painter->resetTransform();
+        painter->scale(fit, fit);
+        painter->drawImage(QPointF(0.0, 0.0), page->renderToImage(m_printer->physicalDpiX(), m_printer->physicalDpiY()));
+
+        delete page;
+
+        if(currentPage != toPage)
+        {
+            m_printer->newPage();
+        }
+
+        if(m_progressDialog->wasCanceled())
+        {
+            emit printingCanceled();
+
+            delete document;
+            delete painter;
+            return;
+        }
+        else
+        {
+            emit printingProgressed(currentPage);
+        }
+    }
+
+    painter->end();
+
+    emit printingFinished();
+
+    delete painter;
+    delete document;
 }
 
 
