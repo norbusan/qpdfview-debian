@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_futureWatcher()
+    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_highlight(),m_filePath(),m_currentPage(-1),m_futureWatcher()
 {
     connect(&m_futureWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
 }
@@ -133,6 +133,18 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     mutexLocker.unlock();
 
+    if(!m_highlight.isNull())
+    {
+        QRect highlight;
+
+        highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
+        highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
+        highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
+        highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
+
+        painter->fillRect(highlight, QColor(0,0,0,31));
+    }
+
     painter->setPen(QPen(Qt::black));
     painter->drawRect(boundingRect());
 }
@@ -147,6 +159,41 @@ void PageObject::prefetch()
     }
 
     mutexLocker.unlock();
+}
+
+bool PageObject::findNext(const QString &text)
+{
+    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(m_rotation));
+
+    if(result)
+    {
+        QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+        this->scene()->update(pageRect);
+        this->scene()->views().first()->update();
+    }
+
+    return result;
+}
+
+
+QRectF PageObject::highlight() const
+{
+    QRectF highlight;
+
+    highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
+    highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
+    highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
+    highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
+
+    highlight.translate(pos());
+
+    return highlight;
+}
+
+void PageObject::clearHighlight()
+{
+    m_highlight = QRectF();
 }
 
 QImage PageObject::renderPage(bool prefetch)
@@ -213,7 +260,7 @@ void PageObject::insertPage()
 
         mutexLocker.unlock();
 
-        QRectF pageRect = boundingRect(); pageRect.translate(x(),y());
+        QRectF pageRect = boundingRect(); pageRect.translate(pos());
 
         this->scene()->update(pageRect);
         this->scene()->views().first()->update();

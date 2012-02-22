@@ -41,12 +41,18 @@ public:
 
     void prefetch();
 
+    bool findNext(const QString &text);
+    QRectF highlight() const;
+    void clearHighlight();
+
 private:
     Poppler::Page *m_page;
 
     qreal m_resolutionX;
     qreal m_resolutionY;
     uint m_rotation;
+
+    QRectF m_highlight;
 
     QString m_filePath;
     int m_currentPage;

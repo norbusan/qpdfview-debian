@@ -125,6 +125,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
     m_searchAction->setIconVisibleInMenu(true);
 
+    m_findNextAction = new QAction(tr("Find next"), this);
+    m_findNextAction->setShortcut(QKeySequence::FindNext);
+
+    connect(m_searchAction, SIGNAL(triggered()), this, SLOT(search()));
+    connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
+
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
     m_twoPagesAction = new QAction(tr("Two pages"), this);
@@ -231,6 +237,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_editMenu->addAction(m_lastPageAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_searchAction);
+    m_editMenu->addAction(m_findNextAction);
 
     m_viewMenu = this->menuBar()->addMenu(tr("&View"));
     m_viewMenu->addAction(m_onePageAction);
@@ -265,6 +272,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     // toolBar
 
+    // currentPageWidget
+
     m_currentPageWidget = new QWidget();
     m_currentPageLabel = new QLabel(tr("Page:"));
     m_currentPageLineEdit = new QLineEdit();
@@ -274,13 +283,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
     m_currentPageLineEdit->setValidator(m_currentPageValidator);
 
-    connect(m_currentPageLineEdit, SIGNAL(editingFinished()), this, SLOT(changeCurrentPage()));
+    connect(m_currentPageLineEdit, SIGNAL(returnPressed()), this, SLOT(changeCurrentPage()));
 
     m_currentPageWidget->setLayout(new QHBoxLayout());
     m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
     m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
     m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
     m_currentPageWidget->setMaximumWidth(200);
+
+    // pageLayoutWidget
 
     m_pageLayoutWidget = new QWidget();
     m_pageLayoutLabel = new QLabel(tr("Page layout:"));
@@ -297,6 +308,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_pageLayoutWidget->layout()->addWidget(m_pageLayoutLabel);
     m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
     m_pageLayoutWidget->setMaximumWidth(300);
+
+    // scalingWidget
 
     m_scalingWidget = new QWidget();
     m_scalingLabel = new QLabel(tr("Scaling:"));
@@ -317,6 +330,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_scalingWidget->layout()->addWidget(m_scalingComboBox);
     m_scalingWidget->setMaximumWidth(300);
 
+    // rotationWidget
+
     m_rotationWidget = new QWidget();
     m_rotationLabel = new QLabel(tr("Rotation:"));
     m_rotationComboBox = new QComboBox();
@@ -333,27 +348,59 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_rotationWidget->layout()->addWidget(m_rotationComboBox);
     m_rotationWidget->setMaximumWidth(300);
 
-    m_fileToolBar = this->addToolBar(tr("&File"));
+    // searchWidget
+
+    m_searchWidget = new QWidget();
+    m_searchLabel = new QLabel(tr("Search:"));
+    m_searchLineEdit = new QLineEdit();
+    m_findNextButton = new QPushButton(tr("Find next"));
+
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
+
+    m_searchWidget->setLayout(new QHBoxLayout());
+    m_searchWidget->layout()->addWidget(m_searchLabel);
+    m_searchWidget->layout()->addWidget(m_searchLineEdit);
+    m_searchWidget->layout()->addWidget(m_findNextButton);
+
+    // fileToolBar
+
+    m_fileToolBar = new QToolBar(tr("&File"));
     m_fileToolBar->setObjectName("fileToolBar");
     m_fileToolBar->addAction(m_openAction);
     m_fileToolBar->addAction(m_refreshAction);
     m_fileToolBar->addAction(m_printAction);
+    this->addToolBar(Qt::TopToolBarArea, m_fileToolBar);
 
-    m_editToolBar = this->addToolBar(tr("&Edit"));
+    // editToolBar
+
+    m_editToolBar = new QToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
+    m_editToolBar->setEnabled(false);
     m_editToolBar->addAction(m_firstPageAction);
     m_editToolBar->addAction(m_previousPageAction);
     m_editToolBar->addWidget(m_currentPageWidget);
     m_editToolBar->addAction(m_nextPageAction);
     m_editToolBar->addAction(m_lastPageAction);
+    this->addToolBar(Qt::TopToolBarArea, m_editToolBar);
 
-    m_viewToolBar = this->addToolBar(tr("&View"));
+    // searchToolBar
+
+    m_searchToolBar = new QToolBar(tr("&Search"));
+    m_searchToolBar->setObjectName("searchToolBar");
+    m_searchToolBar->setHidden(true);
+    m_searchToolBar->addWidget(m_searchWidget);
+    this->addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
+
+    // viewToolBar
+
+    m_viewToolBar = new QToolBar(tr("&View"));
     m_viewToolBar->setObjectName("viewToolBar");
+    m_viewToolBar->setHidden(true);
     m_viewToolBar->addWidget(m_pageLayoutWidget);
     m_viewToolBar->addWidget(m_scalingWidget);
     m_viewToolBar->addWidget(m_rotationWidget);
-
-    m_viewToolBar->setVisible(false);
+    this->addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 
     // tabWidget
 
@@ -422,6 +469,7 @@ MainWindow::~MainWindow()
     delete m_lastPageAction;
 
     delete m_searchAction;
+    delete m_findNextAction;
 
     delete m_onePageAction;
     delete m_twoPagesAction;
@@ -468,6 +516,10 @@ MainWindow::~MainWindow()
 
     delete m_rotationLabel;
     delete m_rotationWidget;
+
+    delete m_searchLabel;
+    delete m_searchLineEdit;
+    delete m_findNextButton;
 }
 
 QSize MainWindow::sizeHint() const
@@ -516,6 +568,33 @@ void MainWindow::print()
 
 void MainWindow::search()
 {
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->setHidden(false);
+
+            m_searchLineEdit->setFocus();
+        }
+        else
+        {
+            m_searchToolBar->setHidden(true);
+
+            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            documentView->clearHighlights();
+        }
+    }
+}
+
+void MainWindow::findNext()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->findNext(m_searchLineEdit->text());
+    }
 }
 
 
@@ -792,19 +871,19 @@ void MainWindow::changeCurrentTab(const int &index)
         m_lastPageAction->setEnabled(true);
 
         m_searchAction->setEnabled(true);
+        m_findNextAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
         m_rotationGroup->setEnabled(true);
 
-        m_currentPageLineEdit->setEnabled(true);
-        m_pageLayoutComboBox->setEnabled(true);
-        m_scalingComboBox->setEnabled(true);
-        m_rotationComboBox->setEnabled(true);
-
         m_previousTabAction->setEnabled(true);
         m_nextTabAction->setEnabled(true);
         m_closeTabAction->setEnabled(true);
+
+        m_editToolBar->setEnabled(true);
+        m_searchToolBar->setEnabled(true);
+        m_viewToolBar->setEnabled(true);
 
         this->updateCurrentPage(documentView->currentPage());
         this->updateNumberOfPages(documentView->numberOfPages());
@@ -823,6 +902,7 @@ void MainWindow::changeCurrentTab(const int &index)
         m_lastPageAction->setEnabled(false);
 
         m_searchAction->setEnabled(false);
+        m_findNextAction->setEnabled(false);
 
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);
@@ -833,22 +913,20 @@ void MainWindow::changeCurrentTab(const int &index)
         m_rotateBy0Action->setChecked(true);
         m_rotationGroup->setEnabled(false);
 
-        m_currentPageLineEdit->setText("");
-        m_numberOfPagesLabel->setText("");
-        m_currentPageLineEdit->setEnabled(false);
-
-        m_pageLayoutComboBox->setCurrentIndex(0);
-        m_pageLayoutComboBox->setEnabled(false);
-
-        m_scalingComboBox->setCurrentIndex(4);
-        m_scalingComboBox->setEnabled(false);
-
-        m_rotationComboBox->setCurrentIndex(0);
-        m_rotationComboBox->setEnabled(false);
-
         m_previousTabAction->setEnabled(false);
         m_nextTabAction->setEnabled(false);
         m_closeTabAction->setEnabled(false);
+
+        m_currentPageLineEdit->setText("");
+        m_numberOfPagesLabel->setText("");
+        m_editToolBar->setEnabled(false);
+
+        m_searchToolBar->setEnabled(false);
+
+        m_pageLayoutComboBox->setCurrentIndex(0);
+        m_scalingComboBox->setCurrentIndex(4);
+        m_rotationComboBox->setCurrentIndex(0);
+        m_viewToolBar->setEnabled(false);
     }
 }
 
@@ -1034,6 +1112,8 @@ void MainWindow::closeEvent(QCloseEvent *closeEvent)
     {
         m_settings.setValue("mainWindow/geometry", this->saveGeometry());
     }
+
+    m_searchToolBar->setHidden(true);
 
     m_settings.setValue("mainWindow/state", this->saveState());
 

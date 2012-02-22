@@ -45,6 +45,7 @@ private:
 
     QToolBar *m_fileToolBar;
     QToolBar *m_editToolBar;
+    QToolBar *m_searchToolBar;
     QToolBar *m_viewToolBar;
 
     QTabWidget *m_tabWidget;
@@ -61,6 +62,7 @@ private:
     QAction *m_lastPageAction;
 
     QAction *m_searchAction;
+    QAction *m_findNextAction;
 
     QAction *m_onePageAction;
     QAction *m_twoPagesAction;
@@ -110,6 +112,11 @@ private:
     QLabel *m_rotationLabel;
     QComboBox *m_rotationComboBox;
 
+    QWidget *m_searchWidget;
+    QLabel *m_searchLabel;
+    QLineEdit *m_searchLineEdit;
+    QPushButton *m_findNextButton;
+
     QSettings m_settings;
     QByteArray m_normalGeometry;
 
@@ -125,6 +132,7 @@ private slots:
     void changeCurrentPage();
 
     void search();
+    void findNext();
 
     void selectPageLayout(QAction *pageLayoutAction);
     void changePageLayoutIndex(const int &index);

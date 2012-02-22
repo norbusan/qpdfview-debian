@@ -71,6 +71,9 @@ public:
     void firstPage();
     void lastPage();
 
+    bool findNext(const QString &text);
+    void clearHighlights();
+
 private:
     QGraphicsScene *m_graphicsScene;
     QGraphicsView *m_graphicsView;

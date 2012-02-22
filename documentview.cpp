@@ -373,6 +373,79 @@ void DocumentView::lastPage()
     }
 }
 
+bool DocumentView::findNext(const QString &text)
+{
+    if(m_document)
+    {
+        bool result = false;
+
+        for(int page = m_currentPage; page <= m_numberOfPages; page++)
+        {
+            qDebug() << "search from the current page:" << page;
+
+            PageObject *pageObject = m_pageToPageObject.value(page);
+            result = pageObject->findNext(text);
+
+            if(result)
+            {
+                if(page != m_currentPage) { m_pageToPageObject.value(m_currentPage)->clearHighlight(); }
+
+                this->setCurrentPage(page);
+
+                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+                m_graphicsView->centerOn(pageObject->highlight().center());
+
+                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+                break;
+            }
+        }
+
+        if(!result)
+        {
+            for(int page = 1; page < m_currentPage; page++)
+            {
+                qDebug() << "search up to the current page:" << page;
+
+                PageObject *pageObject = m_pageToPageObject.value(page);
+                result = pageObject->findNext(text);
+
+                if(result)
+                {
+                    if(page != m_currentPage) { m_pageToPageObject.value(m_currentPage)->clearHighlight(); }
+
+                    this->setCurrentPage(page);
+
+                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+                    m_graphicsView->centerOn(pageObject->highlight().center());
+
+                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void DocumentView::clearHighlights()
+{
+    for(int page = 1; page <= m_numberOfPages; page++)
+    {
+        PageObject *pageObject = m_pageToPageObject.value(page);
+
+        pageObject->clearHighlight();
+    }
+}
+
 
 void DocumentView::prepareScene()
 {
