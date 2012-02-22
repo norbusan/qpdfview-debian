@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_document(0),m_numberToObject(),m_heightToNumber(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_settings(),m_document(0),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
@@ -30,22 +30,24 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
     m_graphicsView->setInteractive(false);
 
-    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
-
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_graphicsView);
 
     m_graphicsView->show();
 
-    m_pageCache = new PageCache();
+    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+    m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
+    m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
+    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
 }
 
 DocumentView::~DocumentView()
 {
-    delete m_graphicsScene;
-    delete m_graphicsView;
+    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-    delete m_pageCache;
+    delete m_graphicsView;
+    delete m_graphicsScene;
 
     if(m_document)
     {
@@ -125,6 +127,8 @@ void DocumentView::setPageLayout(const DocumentView::PageLayout &pageLayout)
         prepareScene();
         prepareView();
         prefetch();
+
+        m_settings.setValue("documentView/pageLayout", static_cast<uint>(m_pageLayout));
     }
 }
 
@@ -144,6 +148,8 @@ void DocumentView::setScaling(const Scaling &scaling)
         prepareScene();
         prepareView();
         prefetch();
+
+        m_settings.setValue("documentView/scaling", static_cast<uint>(m_scaling));
     }
 }
 
@@ -163,6 +169,8 @@ void DocumentView::setRotation(const Rotation &rotation)
         prepareScene();
         prepareView();
         prefetch();
+
+        m_settings.setValue("documentView/rotation", static_cast<uint>(m_rotation));
     }
 }
 
@@ -369,32 +377,15 @@ void DocumentView::lastPage()
 void DocumentView::prepareScene()
 {
     m_graphicsScene->clear();
-    m_numberToObject.clear();
-    m_heightToNumber.clear();
 
-    m_pageCache->clear();
+    m_pageToPageObject.clear();
+    m_valueToPage.clear();
 
     if(m_document)
     {
-        Poppler::Page::Rotation rotation = Poppler::Page::Rotate0;
-
-        switch(m_rotation)
-        {
-        case RotateBy0:
-            rotation = Poppler::Page::Rotate0;
-            break;
-        case RotateBy90:
-            rotation = Poppler::Page::Rotate90;
-            break;
-        case RotateBy180:
-            rotation = Poppler::Page::Rotate180;
-            break;
-        case RotateBy270:
-            rotation = Poppler::Page::Rotate270;
-            break;
-        }
-
+        qreal pageWidth = 0.0, pageHeight = 0.0;
         qreal resolutionX = this->physicalDpiX(), resolutionY = this->physicalDpiX(), scaleFactor = 4.0;
+        qreal sceneWidth = 0.0, sceneHeight = 0.0;
 
         switch(m_scaling)
         {
@@ -406,121 +397,90 @@ void DocumentView::prepareScene()
             case OneColumn:
                 for(int i = 0; i < m_numberOfPages; i++)
                 {
-                    qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
-                    Poppler::Page *currentPage = m_document->page(i);
+                    Poppler::Page *page = m_document->page(i);
 
-                    if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
+                    if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
-                        currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
+                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
-                        currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
+                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
                     }
 
-                    delete currentPage;
+                    delete page;
 
-                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageWidth + 20.0));
+                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (pageWidth + 20.0));
                     if(m_scaling == FitToPage)
                     {
-                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (currentPageHeight + 20.0));
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (pageHeight + 20.0));
                     }
                 }
                 break;
             case TwoPages:
             case TwoColumns:
-                if(m_numberOfPages % 2 == 0)
+                for(int i = 0; i < (m_numberOfPages % 2 != 0 ? m_numberOfPages-1 : m_numberOfPages); i += 2)
                 {
-                    for(int i = 0; i < m_numberOfPages; i += 2)
+                    Poppler::Page *page = m_document->page(i);
+
+                    if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
-                        Poppler::Page *currentPage = m_document->page(i);
-
-                        qreal nextPageWidth = 0.0, nextPageHeight = 0.0;
-                        Poppler::Page *nextPage = m_document->page(i+1);
-
-                        if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
-                        {
-                            currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
-                            currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
-                            nextPageWidth = resolutionX * nextPage->pageSizeF().height() / 72.0;
-                            nextPageHeight = resolutionY * nextPage->pageSizeF().width() / 72.0;
-                        }
-                        else
-                        {
-                            currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
-                            currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
-                            nextPageWidth = resolutionX * nextPage->pageSizeF().width() / 72.0;
-                            nextPageHeight = resolutionY * nextPage->pageSizeF().height() / 72.0;
-                        }
-
-                        delete currentPage;
-                        delete nextPage;
-
-                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageWidth + nextPageWidth + 30.0));
-                        if(m_scaling == FitToPage)
-                        {
-                            scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (qMax(currentPageHeight, nextPageHeight) + 20.0));
-                        }
-                    }
-                }
-                else
-                {
-                    for(int i=0;i<m_numberOfPages-1;i+=2)
-                    {
-                        qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
-                        Poppler::Page *currentPage = m_document->page(i);
-
-                        qreal nextPageWidth = 0.0, nextPageHeight = 0.0;
-                        Poppler::Page *nextPage = m_document->page(i+1);
-
-                        if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
-                        {
-                            currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
-                            currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
-                            nextPageWidth = resolutionX * nextPage->pageSizeF().height() / 72.0;
-                            nextPageHeight = resolutionY * nextPage->pageSizeF().width() / 72.0;
-                        }
-                        else
-                        {
-                            currentPageWidth =resolutionX * currentPage->pageSizeF().width() / 72.0;
-                            currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
-                            nextPageWidth = resolutionX * nextPage->pageSizeF().width() / 72.0;
-                            nextPageHeight = resolutionY * nextPage->pageSizeF().height() / 72.0;
-                        }
-
-                        delete currentPage;
-                        delete nextPage;
-
-                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageWidth + nextPageWidth + 30.0));
-                        if(m_scaling == FitToPage)
-                        {
-                            scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (qMax(currentPageHeight, nextPageHeight) + 20.0));
-                        }
-                    }
-
-                    qreal currentPageWidth = 0.0, currentPageHeight = 0.0;
-                    Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
-
-                    if(rotation == Poppler::Page::Rotate90 || rotation == Poppler::Page::Rotate270)
-                    {
-                        currentPageWidth = resolutionX * currentPage->pageSizeF().height() / 72.0;
-                        currentPageHeight = resolutionY * currentPage->pageSizeF().width() / 72.0;
+                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        currentPageWidth = resolutionX * currentPage->pageSizeF().width() / 72.0;
-                        currentPageHeight = resolutionY * currentPage->pageSizeF().height() / 72.0;
+                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
                     }
 
-                    delete currentPage;
+                    delete page;
 
-                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (currentPageWidth + 20.0));
+                    page = m_document->page(i+1);
+
+                    if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
+                    {
+                        pageWidth += resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = qMax(pageHeight, resolutionY * page->pageSizeF().width() / 72.0);
+                    }
+                    else
+                    {
+                        pageWidth += resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight += qMax(pageHeight, resolutionY * page->pageSizeF().height() / 72.0);
+                    }
+
+                    delete page;
+
+                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (pageWidth + 30.0));
                     if(m_scaling == FitToPage)
                     {
-                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (currentPageHeight + 20.0));
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (pageHeight + 20.0));
+                    }
+                }
+
+                if(m_numberOfPages % 2 != 0)
+                {
+                    Poppler::Page *page = m_document->page(m_numberOfPages-1);
+
+                    if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
+                    {
+                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
+                    }
+                    else
+                    {
+                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
+                    }
+
+                    delete page;
+
+                    scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->width()) / (pageWidth + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scaleFactor = qMin(scaleFactor, 0.95 * static_cast<qreal>(m_graphicsView->height()) / (pageHeight + 20.0));
                     }
                 }
                 break;
@@ -546,132 +506,87 @@ void DocumentView::prepareScene()
         resolutionX *= scaleFactor;
         resolutionY *= scaleFactor;
 
-        qreal sceneWidth = 20.0, sceneHeight = 10.0;
-
         switch(m_pageLayout)
         {
         case OnePage:
         case OneColumn:
-            for(int i = 0; i < m_document->numPages(); i++)
+            for(int i = 0; i < m_numberOfPages; i++)
             {
-                Poppler::Page *currentPage = m_document->page(i);
-                PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
+                PageObject *page = new PageObject(m_document->page(i));
 
-                currentPageObject->setRotation(rotation);
-                currentPageObject->setResolutionX(resolutionX);
-                currentPageObject->setResolutionY(resolutionY);
-                currentPageObject->setFilePath(m_filePath);
-                currentPageObject->setCurrentPage(i+1);
+                page->setResolutionX(resolutionX);
+                page->setResolutionY(resolutionY);
+                page->setRotation(static_cast<uint>(m_rotation));
+                page->setFilePath(m_filePath);
+                page->setCurrentPage(i+1);
 
-                currentPageObject->setX(10.0);
-                currentPageObject->setY(sceneHeight+10.0);
+                page->setX(10.0);
+                page->setY(sceneHeight+10.0);
 
-                m_graphicsScene->addItem(currentPageObject);
-                m_numberToObject.insert(i+1, currentPageObject);
-                m_heightToNumber.insert(-currentPageObject->y(), i+1);
+                m_graphicsScene->addItem(page);
+                m_pageToPageObject.insert(i+1, page);
+                m_valueToPage.insert(-static_cast<int>(page->y()), i+1);
 
-                sceneWidth = qMax(sceneWidth, currentPageObject->boundingRect().width() + 20.0);
-                sceneHeight += currentPageObject->boundingRect().height() + 10.0;
+                sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
+                sceneHeight += page->boundingRect().height() + 10.0;
             }
             break;
         case TwoPages:
         case TwoColumns:
-            if(m_numberOfPages % 2 == 0)
+            for(int i = 0; i < (m_numberOfPages % 2 != 0 ? m_numberOfPages-1 : m_numberOfPages); i += 2)
             {
-                for(int i = 0; i < m_numberOfPages; i += 2)
-                {
-                    Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
+                PageObject *leftPage = new PageObject(m_document->page(i));
 
-                    currentPageObject->setRotation(rotation);
-                    currentPageObject->setResolutionX(resolutionX);
-                    currentPageObject->setResolutionY(resolutionY);
-                    currentPageObject->setFilePath(m_filePath);
-                    currentPageObject->setCurrentPage(i+1);
+                leftPage->setResolutionX(resolutionX);
+                leftPage->setResolutionY(resolutionY);
+                leftPage->setRotation(static_cast<uint>(m_rotation));
+                leftPage->setFilePath(m_filePath);
+                leftPage->setCurrentPage(i+1);
 
-                    currentPageObject->setX(10.0);
-                    currentPageObject->setY(sceneHeight+10.0);
+                leftPage->setX(10.0);
+                leftPage->setY(sceneHeight+10.0);
 
-                    m_graphicsScene->addItem(currentPageObject);
-                    m_numberToObject.insert(i+1, currentPageObject);
-                    m_heightToNumber.insert(-currentPageObject->y(), i+1);
+                m_graphicsScene->addItem(leftPage);
+                m_pageToPageObject.insert(i+1, leftPage);
+                m_valueToPage.insert(-static_cast<int>(leftPage->y()), i+1);
 
-                    Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage, m_pageCache);
+                PageObject *rightPage = new PageObject(m_document->page(i+1));
 
-                    nextPageObject->setRotation(rotation);
-                    nextPageObject->setResolutionX(resolutionX);
-                    nextPageObject->setResolutionY(resolutionY);
-                    nextPageObject->setFilePath(m_filePath);
-                    nextPageObject->setCurrentPage(i+2);
+                rightPage->setResolutionX(resolutionX);
+                rightPage->setResolutionY(resolutionY);
+                rightPage->setRotation(static_cast<uint>(m_rotation));
+                rightPage->setFilePath(m_filePath);
+                rightPage->setCurrentPage(i+2);
 
-                    nextPageObject->setX(currentPageObject->boundingRect().width() + 20.0);
-                    nextPageObject->setY(sceneHeight+10.0);
+                rightPage->setX(leftPage->boundingRect().width() + 20.0);
+                rightPage->setY(sceneHeight+10.0);
 
-                    m_graphicsScene->addItem(nextPageObject);
-                    m_numberToObject.insert(i+2, nextPageObject);
+                m_graphicsScene->addItem(rightPage);
+                m_pageToPageObject.insert(i+2, rightPage);
 
-                    sceneWidth = qMax(sceneWidth, currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0);
-                    sceneHeight += qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 10.0;
-                }
+                sceneWidth = qMax(sceneWidth, leftPage->boundingRect().width() + rightPage->boundingRect().width() + 30.0);
+                sceneHeight += qMax(leftPage->boundingRect().height(), rightPage->boundingRect().height()) + 10.0;
             }
-            else
+
+            if(m_numberOfPages % 2 != 0)
             {
-                for(int i=0;i<m_numberOfPages-1;i+=2)
-                {
-                    Poppler::Page *currentPage = m_document->page(i);
-                    PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
+                PageObject *leftPage = new PageObject(m_document->page(m_numberOfPages-1));
 
-                    currentPageObject->setRotation(rotation);
-                    currentPageObject->setResolutionX(resolutionX);
-                    currentPageObject->setResolutionY(resolutionY);
-                    currentPageObject->setFilePath(m_filePath);
-                    currentPageObject->setCurrentPage(i+1);
+                leftPage->setResolutionX(resolutionX);
+                leftPage->setResolutionY(resolutionY);
+                leftPage->setRotation(static_cast<uint>(m_rotation));
+                leftPage->setFilePath(m_filePath);
+                leftPage->setCurrentPage(m_numberOfPages);
 
-                    currentPageObject->setX(10.0);
-                    currentPageObject->setY(sceneHeight+10.0);
+                leftPage->setX(10.0);
+                leftPage->setY(sceneHeight+10.0);
 
-                    m_graphicsScene->addItem(currentPageObject);
-                    m_numberToObject.insert(i+1, currentPageObject);
-                    m_heightToNumber.insert(-currentPageObject->y(), i+1);
+                m_graphicsScene->addItem(leftPage);
+                m_pageToPageObject.insert(m_numberOfPages, leftPage);
+                m_valueToPage.insert(-leftPage->y(), m_numberOfPages);
 
-                    Poppler::Page *nextPage = m_document->page(i+1);
-                    PageObject *nextPageObject = new PageObject(nextPage, m_pageCache);
-
-                    nextPageObject->setRotation(rotation);
-                    nextPageObject->setResolutionX(resolutionX);
-                    nextPageObject->setResolutionY(resolutionY);
-                    nextPageObject->setFilePath(m_filePath);
-                    nextPageObject->setCurrentPage(i+2);
-
-                    nextPageObject->setX(currentPageObject->boundingRect().width() + 20.0);
-                    nextPageObject->setY(sceneHeight+10.0);
-
-                    m_graphicsScene->addItem(nextPageObject);
-                    m_numberToObject.insert(i+2, nextPageObject);
-
-                    sceneWidth = qMax(sceneWidth, currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0);
-                    sceneHeight += qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 10.0;
-                }
-
-                Poppler::Page *currentPage = m_document->page(m_numberOfPages-1);
-                PageObject *currentPageObject = new PageObject(currentPage, m_pageCache);
-
-                currentPageObject->setRotation(rotation);
-                currentPageObject->setResolutionX(resolutionX);
-                currentPageObject->setResolutionY(resolutionY);
-                currentPageObject->setFilePath(m_filePath);
-                currentPageObject->setCurrentPage(m_numberOfPages);
-
-                currentPageObject->setX(10.0);
-                currentPageObject->setY(sceneHeight+10.0);
-
-                m_graphicsScene->addItem(currentPageObject);
-                m_numberToObject.insert(m_numberOfPages, currentPageObject);
-                m_heightToNumber.insert(-currentPageObject->y(), m_numberOfPages);
-
-                sceneWidth = qMax(sceneWidth, currentPageObject->boundingRect().width() + 20.0);
-                sceneHeight += currentPageObject->boundingRect().height() + 10.0;
+                sceneWidth = qMax(sceneWidth, leftPage->boundingRect().width() + 20.0);
+                sceneHeight += leftPage->boundingRect().height() + 10.0;
             }
             break;
         }
@@ -682,70 +597,49 @@ void DocumentView::prepareScene()
 
 void DocumentView::prepareView()
 {
-    PageObject *currentPageObject = m_numberToObject.value(m_currentPage);
-    PageObject *nextPageObject = m_numberToObject.value(m_currentPage+1);
+    PageObject *page = m_pageToPageObject.value(m_currentPage);
+
 
     switch(m_pageLayout)
     {
     case OnePage:
-        if(!m_numberToObject.contains(m_currentPage))
-        {
-            return;
-        }
-        m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
-                                     currentPageObject->boundingRect().width()+20.0,
-                                     currentPageObject->boundingRect().height()+20.0);
-
         foreach(QGraphicsItem *item, m_graphicsScene->items())
         {
             item->setVisible(false);
         }
-        currentPageObject->setVisible(true);
+
+        m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
+                                     page->boundingRect().width()+20.0,
+                                     page->boundingRect().height()+20.0);
+
+        page->setVisible(true);
         break;
     case TwoPages:
-        if(m_numberOfPages % 2 == 0)
+        foreach(QGraphicsItem *item, m_graphicsScene->items())
         {
-            if(!m_numberToObject.contains(m_currentPage) || !m_numberToObject.contains(m_currentPage+1))
-            {
-                return;
-            }
+            item->setVisible(false);
+        }
 
-            m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
-                                         currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0,
-                                         qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0);
+        if(m_pageToPageObject.contains(m_currentPage+1))
+        {
+            PageObject *nextPage = m_pageToPageObject.value(m_currentPage+1);
+
+            m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
+                                         page->boundingRect().width() + nextPage->boundingRect().width() + 30.0,
+                                         qMax(page->boundingRect().height(), nextPage->boundingRect().height()) + 20.0);
+
+            page->setVisible(true);
+            nextPage->setVisible(true);
         }
         else
         {
-            if(m_currentPage < m_numberOfPages)
-            {
-                if(!m_numberToObject.contains(m_currentPage) || !m_numberToObject.contains(m_currentPage+1))
-                {
-                    return;
-                }
+            m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
+                                         page->boundingRect().width()+20.0,
+                                         page->boundingRect().height()+20.0);
 
-                m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
-                                             currentPageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0,
-                                             qMax(currentPageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 20.0);
-            }
-            else
-            {
-                if(!m_numberToObject.contains(m_currentPage))
-                {
-                    return;
-                }
-
-                m_graphicsView->setSceneRect(currentPageObject->x()-10.0, currentPageObject->y()-10.0,
-                                             currentPageObject->boundingRect().width()+20.0,
-                                             currentPageObject->boundingRect().height()+20.0);
-            }
+            page->setVisible(true);
         }
 
-        foreach(QGraphicsItem *item, m_graphicsScene->items())
-        {
-            item->setVisible(false);
-        }
-        currentPageObject->setVisible(true);
-        nextPageObject->setVisible(true);
         break;
     case OneColumn:
     case TwoColumns:
@@ -754,17 +648,19 @@ void DocumentView::prepareView()
     }
 
     disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
-    m_graphicsView->centerOn(currentPageObject);
+
+    m_graphicsView->centerOn(page);
+
     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 }
 
 void DocumentView::prefetch()
 {
-    for(int i = -2; i <= 4; i++)
+    for(int i = -2; i < 4; i++)
     {
-        if(m_numberToObject.contains(m_currentPage + i))
+        if(m_pageToPageObject.contains(m_currentPage + i))
         {
-            m_numberToObject.value(m_currentPage + i)->prefetch();
+            m_pageToPageObject.value(m_currentPage + i)->prefetch();
         }
     }
 }
@@ -774,7 +670,7 @@ void DocumentView::changeCurrentPage(const int &value)
 {
     if(m_document)
     {
-        int visiblePage = -1;
+        int visiblePage = 1;
 
         switch(m_pageLayout)
         {
@@ -783,8 +679,10 @@ void DocumentView::changeCurrentPage(const int &value)
             break;
         case OneColumn:
         case TwoColumns:
-            QMap<qreal, int>::iterator lowerBound = m_heightToNumber.lowerBound(static_cast<qreal>(-value));
-            visiblePage = lowerBound != m_heightToNumber.end() ? lowerBound.value() : 1;
+            if(m_valueToPage.lowerBound(-value) != m_valueToPage.end())
+            {
+                visiblePage = m_valueToPage.lowerBound(-value).value();
+            }
 
             if(m_currentPage != visiblePage) {
                 m_currentPage = visiblePage;
@@ -806,6 +704,7 @@ void DocumentView::resizeEvent(QResizeEvent*)
         {
             prepareScene();
             prepareView();
+            prefetch();
         }
     }
 }
@@ -819,45 +718,29 @@ void DocumentView::wheelEvent(QWheelEvent *wheelEvent)
         case OnePage:
             if(wheelEvent->delta() > 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->minimum() && m_currentPage != 1)
             {
-                wheelEvent->accept();
+                this->previousPage();
 
                 m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->maximum());
-
-                this->previousPage();
             }
             else if(wheelEvent->delta() < 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->maximum() && m_currentPage != m_numberOfPages)
             {
-                wheelEvent->accept();
+                this->nextPage();
 
                 m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->minimum());
-
-                this->nextPage();
-            }
-            else
-            {
-                wheelEvent->ignore();
             }
             break;
         case TwoPages:
             if(wheelEvent->delta() > 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->minimum() && m_currentPage != 1)
             {
-                wheelEvent->accept();
+                this->previousPage();
 
                 m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->maximum());
-
-                this->previousPage();
             }
             else if(wheelEvent->delta() < 0 && m_graphicsView->verticalScrollBar()->value() == m_graphicsView->verticalScrollBar()->maximum() && m_currentPage != (m_numberOfPages % 2 == 0 ? m_numberOfPages-1 : m_numberOfPages))
             {
-                wheelEvent->accept();
+                this->nextPage();
 
                 m_graphicsView->verticalScrollBar()->setValue(m_graphicsView->verticalScrollBar()->minimum());
-
-                this->nextPage();
-            }
-            else
-            {
-                wheelEvent->ignore();
             }
             break;
         case OneColumn:

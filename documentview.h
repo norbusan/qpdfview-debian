@@ -75,11 +75,12 @@ private:
     QGraphicsScene *m_graphicsScene;
     QGraphicsView *m_graphicsView;
 
+    QSettings m_settings;
+
     Poppler::Document *m_document;
 
-    QMap<int, PageObject*> m_numberToObject;
-    QMap<qreal, int> m_heightToNumber;
-    PageCache *m_pageCache;
+    QMap<int, PageObject*> m_pageToPageObject;
+    QMap<int, int> m_valueToPage;
 
     QString m_filePath;
     int m_currentPage;

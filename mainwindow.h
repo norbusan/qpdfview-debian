@@ -110,6 +110,7 @@ private:
     QLabel *m_rotationLabel;
     QComboBox *m_rotationComboBox;
 
+    QSettings m_settings;
     QByteArray m_normalGeometry;
 
 private slots:

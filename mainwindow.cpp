@@ -21,8 +21,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+    m_settings(),m_normalGeometry()
 {
+    // actions
+
     m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
     if(QIcon::hasThemeIcon("document-open"))
@@ -372,8 +375,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(settings.value("mainWindow/state").toByteArray());
 
-    m_normalGeometry = this->saveGeometry();
-
     // miscellaneous
 
     this->setAcceptDrops(true);
@@ -692,12 +693,15 @@ void MainWindow::changeFullscreen()
     if(m_fullscreenAction->isChecked())
     {
         m_normalGeometry = this->saveGeometry();
+
         this->showFullScreen();
     }
     else
     {
         this->restoreGeometry(m_normalGeometry);
+
         this->showNormal();
+
         this->restoreGeometry(m_normalGeometry);
     }
 }
@@ -830,6 +834,7 @@ void MainWindow::changeCurrentTab(const int &index)
         m_rotationGroup->setEnabled(false);
 
         m_currentPageLineEdit->setText("");
+        m_numberOfPagesLabel->setText("");
         m_currentPageLineEdit->setEnabled(false);
 
         m_pageLayoutComboBox->setCurrentIndex(0);
@@ -1021,17 +1026,16 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
-    QSettings settings;
-
     if(m_fullscreenAction->isChecked())
     {
-        settings.setValue("mainWindow/geometry", m_normalGeometry);
+        m_settings.setValue("mainWindow/geometry", m_normalGeometry);
     }
     else
     {
-        settings.setValue("mainWindow/geometry", this->saveGeometry());
+        m_settings.setValue("mainWindow/geometry", this->saveGeometry());
     }
-    settings.setValue("mainWindow/state", this->saveState());
+
+    m_settings.setValue("mainWindow/state", this->saveState());
 
     QMainWindow::closeEvent(closeEvent);
 }
