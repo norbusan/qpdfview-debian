@@ -101,6 +101,41 @@ void PageObject::setCurrentPage(const int &currentPage)
 }
 
 
+bool PageObject::findNext(const QString &text)
+{
+    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(m_rotation));
+
+    if(result)
+    {
+        QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+        this->scene()->update(pageRect);
+        this->scene()->views().first()->update();
+    }
+
+    return result;
+}
+
+void PageObject::clearHighlight()
+{
+    m_highlight = QRectF();
+}
+
+QRectF PageObject::highlight() const
+{
+    QRectF highlight;
+
+    highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
+    highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
+    highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
+    highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
+
+    highlight.translate(pos());
+
+    return highlight;
+}
+
+
 QRectF PageObject::boundingRect() const
 {
     if(m_rotation == 1 || m_rotation == 3)
@@ -115,20 +150,18 @@ QRectF PageObject::boundingRect() const
 
 void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
+    painter->fillRect(boundingRect(), QBrush(Qt::white));
+
     QMutexLocker mutexLocker(&s_mutex);
 
-    if(s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)))
+    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_futureWatcher.isRunning())
     {
-        painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(QPair<QString, int>(m_filePath, m_currentPage)));
+        m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
+
     }
     else
     {
-        painter->fillRect(boundingRect(), QBrush(Qt::white));
-
-        if(!m_futureWatcher.isRunning())
-        {
-            m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
-        }
+        painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(QPair<QString, int>(m_filePath, m_currentPage)));
     }
 
     mutexLocker.unlock();
@@ -142,7 +175,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
         highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
         highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
 
-        painter->fillRect(highlight, QColor(0,0,0,31));
+        painter->fillRect(highlight, QBrush(QColor(0,0,0,31)));
     }
 
     painter->setPen(QPen(Qt::black));
@@ -161,40 +194,6 @@ void PageObject::prefetch()
     mutexLocker.unlock();
 }
 
-bool PageObject::findNext(const QString &text)
-{
-    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(m_rotation));
-
-    if(result)
-    {
-        QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-        this->scene()->update(pageRect);
-        this->scene()->views().first()->update();
-    }
-
-    return result;
-}
-
-
-QRectF PageObject::highlight() const
-{
-    QRectF highlight;
-
-    highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
-    highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
-    highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
-    highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
-
-    highlight.translate(pos());
-
-    return highlight;
-}
-
-void PageObject::clearHighlight()
-{
-    m_highlight = QRectF();
-}
 
 QImage PageObject::renderPage(bool prefetch)
 {

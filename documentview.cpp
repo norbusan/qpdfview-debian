@@ -381,14 +381,15 @@ bool DocumentView::findNext(const QString &text)
 
         for(int page = m_currentPage; page <= m_numberOfPages; page++)
         {
-            qDebug() << "search from the current page:" << page;
-
             PageObject *pageObject = m_pageToPageObject.value(page);
             result = pageObject->findNext(text);
 
             if(result)
             {
-                if(page != m_currentPage) { m_pageToPageObject.value(m_currentPage)->clearHighlight(); }
+                if(page != m_currentPage)
+                {
+                    m_pageToPageObject.value(m_currentPage)->clearHighlight();
+                }
 
                 this->setCurrentPage(page);
 
@@ -406,14 +407,15 @@ bool DocumentView::findNext(const QString &text)
         {
             for(int page = 1; page < m_currentPage; page++)
             {
-                qDebug() << "search up to the current page:" << page;
-
                 PageObject *pageObject = m_pageToPageObject.value(page);
                 result = pageObject->findNext(text);
 
                 if(result)
                 {
-                    if(page != m_currentPage) { m_pageToPageObject.value(m_currentPage)->clearHighlight(); }
+                    if(page != m_currentPage)
+                    {
+                        m_pageToPageObject.value(m_currentPage)->clearHighlight();
+                    }
 
                     this->setCurrentPage(page);
 
@@ -436,13 +438,11 @@ bool DocumentView::findNext(const QString &text)
     }
 }
 
-void DocumentView::clearHighlights()
+void DocumentView::clearHighlight()
 {
-    for(int page = 1; page <= m_numberOfPages; page++)
+    if(m_document)
     {
-        PageObject *pageObject = m_pageToPageObject.value(page);
-
-        pageObject->clearHighlight();
+        m_pageToPageObject.value(m_currentPage)->clearHighlight();
     }
 }
 

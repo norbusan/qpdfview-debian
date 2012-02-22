@@ -353,15 +353,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_searchWidget = new QWidget();
     m_searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit();
-    m_findNextButton = new QPushButton(tr("Find next"));
 
     connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
-    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
     m_searchWidget->layout()->addWidget(m_searchLineEdit);
-    m_searchWidget->layout()->addWidget(m_findNextButton);
 
     // fileToolBar
 
@@ -519,7 +516,6 @@ MainWindow::~MainWindow()
 
     delete m_searchLabel;
     delete m_searchLineEdit;
-    delete m_findNextButton;
 }
 
 QSize MainWindow::sizeHint() const
@@ -582,7 +578,7 @@ void MainWindow::search()
 
             DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-            documentView->clearHighlights();
+            documentView->clearHighlight();
         }
     }
 }
@@ -591,9 +587,12 @@ void MainWindow::findNext()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isNull())
+        {
+            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        documentView->findNext(m_searchLineEdit->text());
+            documentView->findNext(m_searchLineEdit->text());
+        }
     }
 }
 
@@ -917,8 +916,8 @@ void MainWindow::changeCurrentTab(const int &index)
         m_nextTabAction->setEnabled(false);
         m_closeTabAction->setEnabled(false);
 
-        m_currentPageLineEdit->setText("");
-        m_numberOfPagesLabel->setText("");
+        m_currentPageLineEdit->setText(QString());
+        m_numberOfPagesLabel->setText(QString());
         m_editToolBar->setEnabled(false);
 
         m_searchToolBar->setEnabled(false);

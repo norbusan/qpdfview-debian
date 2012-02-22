@@ -36,14 +36,16 @@ public:
     void setCurrentPage(const int &currentPage);
 
 
+    bool findNext(const QString &text);
+    void clearHighlight();
+
+    QRectF highlight() const;
+
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void prefetch();
-
-    bool findNext(const QString &text);
-    QRectF highlight() const;
-    void clearHighlight();
 
 private:
     Poppler::Page *m_page;

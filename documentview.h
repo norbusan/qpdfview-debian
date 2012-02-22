@@ -72,7 +72,7 @@ public:
     void lastPage();
 
     bool findNext(const QString &text);
-    void clearHighlights();
+    void clearHighlight();
 
 private:
     QGraphicsScene *m_graphicsScene;

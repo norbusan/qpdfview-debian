@@ -115,7 +115,6 @@ private:
     QWidget *m_searchWidget;
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
-    QPushButton *m_findNextButton;
 
     QSettings m_settings;
     QByteArray m_normalGeometry;
