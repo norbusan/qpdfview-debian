@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=qpdfview
+Icon=/usr/share/pixmaps/qpdfview.svg
+GenericName=PDF viewer
+GenericName[de]=PDF-Betrachter
+Comment=A tabbed PDF viewer using the poppler library.
+Comment[de]=Stellt PDF-Dateien mit Hilfe der Poppler-Bibliothek dar.
+Categories=Viewer;Office;
+Exec=qpdfview %f
+MimeType=application/pdf;
