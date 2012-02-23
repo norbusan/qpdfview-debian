@@ -16,6 +16,8 @@ HEADERS  += mainwindow.h \
 
 RESOURCES += qpdfview.qrc
 
+ICON = icons/qpdfview.svg
+
 TRANSLATIONS += translations/qpdfview_de.ts
 
 target.path = /usr/bin

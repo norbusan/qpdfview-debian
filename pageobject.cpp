@@ -140,11 +140,11 @@ QRectF PageObject::boundingRect() const
 {
     if(m_rotation == 1 || m_rotation == 3)
     {
-        return QRectF(0.0, 0.0, m_resolutionX * m_page->pageSizeF().height() / 72.0, m_resolutionY * m_page->pageSizeF().width() / 72.0);
+        return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().height() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().width() / 72.0));
     }
     else
     {
-        return QRectF(0.0, 0.0, m_resolutionX * m_page->pageSizeF().width() / 72.0, m_resolutionY * m_page->pageSizeF().height() / 72.0);
+        return QRectF(0.0, 0.0, qCeil(m_resolutionX * m_page->pageSizeF().width() / 72.0), qCeil(m_resolutionY * m_page->pageSizeF().height() / 72.0));
     }
 }
 
