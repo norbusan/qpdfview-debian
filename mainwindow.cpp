@@ -594,11 +594,20 @@ void MainWindow::findNext()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isNull())
+        if(m_searchToolBar->isHidden())
         {
-            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+            m_searchToolBar->setHidden(false);
 
-            documentView->findNext(m_searchLineEdit->text());
+            m_searchLineEdit->setFocus();
+        }
+        else
+        {
+            if(!m_searchLineEdit->text().isEmpty())
+            {
+                DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+                documentView->findNext(m_searchLineEdit->text());
+            }
         }
     }
 }
