@@ -274,7 +274,7 @@ void DocumentView::print()
 
         m_progressDialog->reset();
 
-        m_progressDialog->setLabelText(tr("Printing pages %1 to %2 of file %3...").arg(fromPage).arg(toPage).arg(m_filePath));
+        m_progressDialog->setLabelText(tr("Printing pages %1 to %2 of file \"%3\"...").arg(fromPage).arg(toPage).arg(QFileInfo(m_filePath).fileName()));
         m_progressDialog->setRange(fromPage-1, toPage);
         m_progressDialog->setValue(fromPage-1);
 
@@ -503,7 +503,9 @@ void DocumentView::prepareScene()
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
         qreal resolutionX = this->physicalDpiX(), resolutionY = this->physicalDpiX(), scaleFactor = 4.0;
-        qreal sceneWidth = 0.0, sceneHeight = 0.0;
+        qreal sceneWidth = 0.0, sceneHeight = 10.0;
+
+        // calculate scale factor
 
         switch(m_scaling)
         {
@@ -624,6 +626,8 @@ void DocumentView::prepareScene()
         resolutionX *= scaleFactor;
         resolutionY *= scaleFactor;
 
+        // prepare scene
+
         switch(m_pageLayout)
         {
         case OnePage:
@@ -638,8 +642,7 @@ void DocumentView::prepareScene()
                 page->setFilePath(m_filePath);
                 page->setCurrentPage(i+1);
 
-                page->setX(10.0);
-                page->setY(sceneHeight+10.0);
+                page->setPos(10.0, sceneHeight);
 
                 m_graphicsScene->addItem(page);
                 m_pageToPageObject.insert(i+1, page);
@@ -661,8 +664,7 @@ void DocumentView::prepareScene()
                 leftPage->setFilePath(m_filePath);
                 leftPage->setCurrentPage(i+1);
 
-                leftPage->setX(10.0);
-                leftPage->setY(sceneHeight+10.0);
+                leftPage->setPos(10.0, sceneHeight);
 
                 m_graphicsScene->addItem(leftPage);
                 m_pageToPageObject.insert(i+1, leftPage);
@@ -676,8 +678,7 @@ void DocumentView::prepareScene()
                 rightPage->setFilePath(m_filePath);
                 rightPage->setCurrentPage(i+2);
 
-                rightPage->setX(leftPage->boundingRect().width() + 20.0);
-                rightPage->setY(sceneHeight+10.0);
+                rightPage->setPos(leftPage->boundingRect().width() + 20.0, sceneHeight);
 
                 m_graphicsScene->addItem(rightPage);
                 m_pageToPageObject.insert(i+2, rightPage);
@@ -696,8 +697,7 @@ void DocumentView::prepareScene()
                 leftPage->setFilePath(m_filePath);
                 leftPage->setCurrentPage(m_numberOfPages);
 
-                leftPage->setX(10.0);
-                leftPage->setY(sceneHeight+10.0);
+                leftPage->setPos(10.0, sceneHeight);
 
                 m_graphicsScene->addItem(leftPage);
                 m_pageToPageObject.insert(m_numberOfPages, leftPage);
@@ -716,7 +716,6 @@ void DocumentView::prepareScene()
 void DocumentView::prepareView()
 {
     PageObject *page = m_pageToPageObject.value(m_currentPage);
-
 
     switch(m_pageLayout)
     {

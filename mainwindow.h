@@ -36,6 +36,8 @@ public:
     ~MainWindow();
 
     QSize sizeHint() const;
+    QMenu *createPopupMenu();
+
 private:
     QMenu *m_fileMenu;
     QMenu *m_editMenu;

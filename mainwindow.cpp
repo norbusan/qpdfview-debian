@@ -374,7 +374,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     m_editToolBar = new QToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
-    m_editToolBar->setEnabled(false);
     m_editToolBar->addAction(m_firstPageAction);
     m_editToolBar->addAction(m_previousPageAction);
     m_editToolBar->addWidget(m_currentPageWidget);
@@ -387,6 +386,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_searchToolBar = new QToolBar(tr("&Search"));
     m_searchToolBar->setObjectName("searchToolBar");
     m_searchToolBar->setHidden(true);
+    m_searchToolBar->setMovable(false);
     m_searchToolBar->addWidget(m_searchWidget);
     this->addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
 
@@ -524,13 +524,23 @@ QSize MainWindow::sizeHint() const
     return QSize(500,700);
 }
 
+QMenu *MainWindow::createPopupMenu()
+{
+    QMenu *popupMenu = new QMenu(tr("Show toolbar"));
+
+    popupMenu->addAction(m_fileToolBar->toggleViewAction());
+    popupMenu->addAction(m_editToolBar->toggleViewAction());
+    popupMenu->addAction(m_viewToolBar->toggleViewAction());
+
+    return popupMenu;
+}
+
 
 void MainWindow::open()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QSettings settings;
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
 
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
@@ -539,7 +549,11 @@ void MainWindow::open()
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
 
-            settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
         }
     }
     else
@@ -803,8 +817,7 @@ void MainWindow::changeFullscreen()
 
 void MainWindow::addTab()
 {
-    QSettings settings;
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
 
     foreach(QString filePath, filePaths)
     {
@@ -821,11 +834,15 @@ void MainWindow::addTab()
             connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
             connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
             connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
-            connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));            
+            connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+
+            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
         }
         else
         {
             delete documentView;
+
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
         }
     }
 }
