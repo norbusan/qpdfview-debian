@@ -911,6 +911,7 @@ void MainWindow::closeAllTabs()
 {
     while(m_tabWidget->count() > 0)
     {
+
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->widget(0));
 
         delete documentView;

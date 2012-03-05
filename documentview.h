@@ -75,6 +75,7 @@ public:
     bool findNext(const QString &text);
     void clearHighlight();
 
+
     QAction *tabMenuAction() const;
 
 private:
@@ -83,11 +84,8 @@ private:
 
     QAction *m_tabMenuAction;
 
-    QPrinter *m_printer;
-    QPrintDialog *m_printDialog;
     QProgressDialog *m_progressDialog;
-
-    QFutureWatcher<void> m_futureWatcher;
+    QFutureWatcher<void> *m_futureWatcher;
 
     QSettings m_settings;
 
@@ -122,7 +120,7 @@ signals:
 private slots:
     void changeCurrentPage(const int &value);
 
-    void printDocument(int fromPage, int toPage);
+    void printDocument(QPrinter *printer, int fromPage, int toPage);
 
     void tabMenuActionTriggered();
 
