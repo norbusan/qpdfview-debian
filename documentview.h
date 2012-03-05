@@ -75,9 +75,13 @@ public:
     bool findNext(const QString &text);
     void clearHighlight();
 
+    QAction *tabMenuAction() const;
+
 private:
     QGraphicsScene *m_graphicsScene;
     QGraphicsView *m_graphicsView;
+
+    QAction *m_tabMenuAction;
 
     QPrinter *m_printer;
     QPrintDialog *m_printDialog;
@@ -119,6 +123,8 @@ private slots:
     void changeCurrentPage(const int &value);
 
     void printDocument(int fromPage, int toPage);
+
+    void tabMenuActionTriggered();
 
 protected:
     void resizeEvent(QResizeEvent *resizeEvent);

@@ -216,6 +216,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
     connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
 
+    m_closeAllTabsAction = new QAction(tr("Close all tabs"), this);
+    m_closeAllTabsButCurrentAction = new QAction(tr("Close all tabs but current"), this);
+
+    connect(m_closeAllTabsAction, SIGNAL(triggered()), this, SLOT(closeAllTabs()));
+    connect(m_closeAllTabsButCurrentAction, SIGNAL(triggered()), this, SLOT(closeAllTabsButCurrent()));
+
     m_aboutAction = new QAction(tr("&About"), this);
     m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
     m_aboutAction->setIconVisibleInMenu(true);
@@ -266,6 +272,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_tabMenu->addAction(m_previousTabAction);
     m_tabMenu->addAction(m_nextTabAction);
     m_tabMenu->addAction(m_closeTabAction);
+    m_tabMenu->addSeparator();
+    m_tabMenu->addAction(m_closeAllTabsAction);
+    m_tabMenu->addAction(m_closeAllTabsButCurrentAction);
     m_tabMenu->addSeparator();
 
     m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
@@ -438,6 +447,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                 m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
                 m_tabWidget->setCurrentIndex(index);
 
+                m_tabMenu->addAction(documentView->tabMenuAction());
+
                 connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
                 connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
                 connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
@@ -500,6 +511,9 @@ MainWindow::~MainWindow()
     delete m_nextTabAction;
     delete m_closeTabAction;
 
+    delete m_closeAllTabsAction;
+    delete m_closeAllTabsButCurrentAction;
+
     delete m_aboutAction;
 
     delete m_currentPageLabel;
@@ -542,18 +556,21 @@ void MainWindow::open()
     {
         QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
 
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        if(documentView->open(filePath))
+        if(!filePath.isEmpty())
         {
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
-            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+            if(documentView->open(filePath))
+            {
+                m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+                m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).baseName());
+
+                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            }
+            else
+            {
+                QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+            }
         }
     }
     else
@@ -829,6 +846,8 @@ void MainWindow::addTab()
             m_tabWidget->setTabToolTip(index, QFileInfo(filePath).baseName());
             m_tabWidget->setCurrentIndex(index);
 
+            m_tabMenu->addAction(documentView->tabMenuAction());
+
             connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
             connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
             connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
@@ -884,6 +903,33 @@ void MainWindow::closeTab()
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         delete documentView;
+    }
+}
+
+
+void MainWindow::closeAllTabs()
+{
+    while(m_tabWidget->count() > 0)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->widget(0));
+
+        delete documentView;
+    }
+}
+
+void MainWindow::closeAllTabsButCurrent()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        m_tabWidget->removeTab(m_tabWidget->currentIndex());
+
+        closeAllTabs();
+
+        int index = m_tabWidget->addTab(documentView, QFileInfo(documentView->filePath()).baseName());
+        m_tabWidget->setTabToolTip(index, QFileInfo(documentView->filePath()).baseName());
+        m_tabWidget->setCurrentIndex(index);
     }
 }
 
@@ -1117,6 +1163,8 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
                     int index = m_tabWidget->addTab(documentView, QFileInfo(url.path()).baseName());
                     m_tabWidget->setTabToolTip(index, QFileInfo(url.path()).baseName());
                     m_tabWidget->setCurrentIndex(index);
+
+                    m_tabMenu->addAction(documentView->tabMenuAction());
 
                     connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
                     connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));

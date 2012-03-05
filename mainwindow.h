@@ -94,6 +94,9 @@ private:
     QAction *m_nextTabAction;
     QAction *m_closeTabAction;
 
+    QAction *m_closeAllTabsAction;
+    QAction *m_closeAllTabsButCurrentAction;
+
     QAction *m_aboutAction;
 
     QWidget *m_currentPageWidget;
@@ -148,6 +151,9 @@ private slots:
     void previousTab();
     void nextTab();
     void closeTab();
+
+    void closeAllTabs();
+    void closeAllTabsButCurrent();
 
     void changeCurrentTab(const int &index);
     void requestTabClose(const int &index);

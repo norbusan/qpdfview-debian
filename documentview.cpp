@@ -37,6 +37,10 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
+    m_tabMenuAction = new QAction(this);
+
+    connect(m_tabMenuAction, SIGNAL(triggered()), this, SLOT(tabMenuActionTriggered()));
+
     m_printer = new QPrinter();
     m_printer->setFullPage(true);
     m_printDialog = new QPrintDialog(m_printer, this);
@@ -57,6 +61,8 @@ DocumentView::~DocumentView()
 
     delete m_graphicsView;
     delete m_graphicsScene;
+
+    delete m_tabMenuAction;
 
     if(m_futureWatcher.isRunning())
     {
@@ -216,6 +222,8 @@ bool DocumentView::open(const QString &filePath)
         prepareScene();
         prepareView();
         prefetch();
+
+        m_tabMenuAction->setText(QFileInfo(m_filePath).baseName());
     }
 
     return document != 0;
@@ -489,6 +497,12 @@ void DocumentView::clearHighlight()
     {
         m_pageToPageObject.value(m_currentPage)->clearHighlight();
     }
+}
+
+
+QAction *DocumentView::tabMenuAction() const
+{
+    return m_tabMenuAction;
 }
 
 
@@ -880,6 +894,22 @@ void DocumentView::printDocument(int fromPage, int toPage)
 
     delete painter;
     delete document;
+}
+
+
+void DocumentView::tabMenuActionTriggered()
+{
+    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent());
+
+    if(tabWidget != 0)
+    {
+        int index = tabWidget->indexOf(this);
+
+        if(index != -1)
+        {
+            tabWidget->setCurrentIndex(index);
+        }
+    }
 }
 
 
