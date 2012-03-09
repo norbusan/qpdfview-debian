@@ -121,6 +121,10 @@ private:
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
 
+    void createActions();
+    void createToolbars();
+    void createMenus();
+
     QSettings m_settings;
     QByteArray m_normalGeometry;
 

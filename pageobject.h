@@ -35,17 +35,16 @@ public:
     int currentPage() const;
     void setCurrentPage(const int &currentPage);
 
-
     bool findNext(const QString &text);
     void clearHighlight();
 
-    QRectF highlight() const;
+    QRectF highlightedArea() const;
+    QString highlightedText() const;
 
+    void prefetch();
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    void prefetch();
 
 private:
     Poppler::Page *m_page;
@@ -54,15 +53,17 @@ private:
     qreal m_resolutionY;
     uint m_rotation;
 
-    QRectF m_highlight;
-
     QString m_filePath;
     int m_currentPage;
 
-    static QMap<QPair<QString, int>, QImage> s_pageCache;
+    QList<Poppler::LinkGoto*> m_links;
+    QRectF m_highlight;
 
-    QFutureWatcher<QImage> m_futureWatcher;
+    QFutureWatcher<QImage> m_renderWatcher;
+    QImage renderPage(bool prefetch);
+
     static QMutex s_mutex;
+    static QMap<QPair<QString, int>, QImage> s_pageCache;
 
 signals:
     void rotationChanged(uint);
@@ -71,9 +72,15 @@ signals:
     void filePathChanged(QString);
     void currentPageChanged(int);
 
+    void linkClicked(int gotoPage);
+
 private slots:
-    QImage renderPage(bool prefetch);
-    void insertPage();
+    void renderFinished();
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 };
 

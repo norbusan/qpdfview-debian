@@ -62,6 +62,8 @@ public:
     Rotation rotation() const;
     void setRotation(const Rotation &rotation);
 
+    QAction *tabMenuAction() const;
+
 
     bool open(const QString &filePath);
     bool refresh();
@@ -75,21 +77,18 @@ public:
     bool findNext(const QString &text);
     void clearHighlight();
 
-
-    QAction *tabMenuAction() const;
-
 private:
+    Poppler::Document *m_document;
+
     QGraphicsScene *m_graphicsScene;
     QGraphicsView *m_graphicsView;
 
     QAction *m_tabMenuAction;
 
     QProgressDialog *m_progressDialog;
-    QFutureWatcher<void> *m_futureWatcher;
+    QFutureWatcher<void> *m_progressWatcher;
 
     QSettings m_settings;
-
-    Poppler::Document *m_document;
 
     QMap<int, PageObject*> m_pageToPageObject;
     QMap<int, int> m_valueToPage;
@@ -105,6 +104,8 @@ private:
     void prepareView();
     void prefetch();
 
+    void printDocument(QPrinter *printer, int fromPage, int toPage);
+
 signals:
     void filePathChanged(QString);
     void currentPageChanged(int);
@@ -119,8 +120,7 @@ signals:
 
 private slots:
     void changeCurrentPage(const int &value);
-
-    void printDocument(QPrinter *printer, int fromPage, int toPage);
+    void followLink(int gotoPage);
 
     void tabMenuActionTriggered();
 

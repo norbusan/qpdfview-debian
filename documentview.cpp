@@ -22,13 +22,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_settings(),m_document(0),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
 
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
-    m_graphicsView->setInteractive(false);
+    m_graphicsView->setInteractive(true);
 
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_graphicsView);
@@ -41,7 +41,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     connect(m_tabMenuAction, SIGNAL(triggered()), this, SLOT(tabMenuActionTriggered()));
 
     m_progressDialog = new QProgressDialog(this);
-    m_futureWatcher = new QFutureWatcher<void>();
+    m_progressWatcher = new QFutureWatcher<void>();
 
     connect(this, SIGNAL(printingProgressed(int)), m_progressDialog, SLOT(setValue(int)));
     connect(this, SIGNAL(printingCanceled()), m_progressDialog, SLOT(close()));
@@ -54,21 +54,17 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
 DocumentView::~DocumentView()
 {
-    m_graphicsView->hide();
-
-    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
-
     delete m_graphicsView;
     delete m_graphicsScene;
 
     delete m_tabMenuAction;
 
-    if(m_futureWatcher->isRunning())
+    if(m_progressWatcher->isRunning())
     {
-        m_futureWatcher->waitForFinished();
+        m_progressWatcher->waitForFinished();
     }
 
-    delete m_futureWatcher;
+    delete m_progressWatcher;
     delete m_progressDialog;
 
     if(m_document)
@@ -196,6 +192,27 @@ void DocumentView::setRotation(const Rotation &rotation)
     }
 }
 
+QAction *DocumentView::tabMenuAction() const
+{
+    return m_tabMenuAction;
+}
+
+void DocumentView::tabMenuActionTriggered()
+{
+    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent());
+
+    if(tabWidget != 0)
+    {
+        int index = tabWidget->indexOf(this);
+
+        if(index != -1)
+        {
+            tabWidget->setCurrentIndex(index);
+        }
+    }
+}
+
+
 bool DocumentView::open(const QString &filePath)
 {
     Poppler::Document *document = Poppler::Document::load(filePath);
@@ -277,9 +294,9 @@ void DocumentView::print()
         int fromPage = printDialog.fromPage() != 0 ? printDialog.fromPage() : 1;
         int toPage = printDialog.toPage() != 0 ? printDialog.toPage() : m_numberOfPages;
 
-        if(m_futureWatcher->isRunning())
+        if(m_progressWatcher->isRunning())
         {
-            m_futureWatcher->waitForFinished();
+            m_progressWatcher->waitForFinished();
         }
 
         m_progressDialog->reset();
@@ -288,10 +305,86 @@ void DocumentView::print()
         m_progressDialog->setRange(fromPage-1, toPage);
         m_progressDialog->setValue(fromPage-1);
 
-        m_futureWatcher->setFuture(QtConcurrent::run(this, &DocumentView::printDocument, printer, fromPage, toPage));
+        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::printDocument, printer, fromPage, toPage));
 
         m_progressDialog->exec();
     }
+}
+
+void DocumentView::printDocument(QPrinter *printer, int fromPage, int toPage)
+{
+    Poppler::Document *document = Poppler::Document::load(m_filePath);
+
+    if(document == 0)
+    {
+        qDebug() << "document == 0:" << m_filePath;
+
+        emit printingCanceled();
+
+        delete printer;
+
+        return;
+    }
+
+    QPainter *painter = new QPainter();
+
+    painter->begin(printer);
+
+    for(int currentPage = fromPage; currentPage <= toPage; currentPage++)
+    {
+        Poppler::Page *page = document->page(currentPage-1);
+
+        if(page == 0)
+        {
+            qDebug() << "page == 0:" << m_filePath << currentPage;
+
+            emit printingCanceled();
+
+            delete document;
+            delete painter;
+            delete printer;
+
+            return;
+        }
+
+        qreal fitToWidth = static_cast<qreal>(printer->width()) / (printer->physicalDpiX() * page->pageSizeF().width() / 72.0);
+        qreal fitToHeight = static_cast<qreal>(printer->height()) / (printer->physicalDpiY() * page->pageSizeF().height() / 72.0);
+        qreal fit = qMin(fitToWidth, fitToHeight);
+
+        painter->resetTransform();
+        painter->scale(fit, fit);
+        painter->drawImage(QPointF(0.0, 0.0), page->renderToImage(printer->physicalDpiX(), printer->physicalDpiY()));
+
+        delete page;
+
+        if(currentPage != toPage)
+        {
+            printer->newPage();
+        }
+
+        if(m_progressDialog->wasCanceled())
+        {
+            emit printingCanceled();
+
+            delete document;
+            delete painter;
+            delete printer;
+
+            return;
+        }
+        else
+        {
+            emit printingProgressed(currentPage);
+        }
+    }
+
+    painter->end();
+
+    emit printingFinished();
+
+    delete document;
+    delete painter;
+    delete printer;
 }
 
 
@@ -444,13 +537,13 @@ bool DocumentView::findNext(const QString &text)
                 if(page != m_currentPage)
                 {
                     m_pageToPageObject.value(m_currentPage)->clearHighlight();
-                }
 
-                this->setCurrentPage(page);
+                    this->setCurrentPage(page);
+                }
 
                 disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-                m_graphicsView->centerOn(pageObject->highlight().center());
+                m_graphicsView->centerOn(pageObject->highlightedArea().center());
 
                 connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
@@ -470,13 +563,13 @@ bool DocumentView::findNext(const QString &text)
                     if(page != m_currentPage)
                     {
                         m_pageToPageObject.value(m_currentPage)->clearHighlight();
-                    }
 
-                    this->setCurrentPage(page);
+                        this->setCurrentPage(page);
+                    }
 
                     disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-                    m_graphicsView->centerOn(pageObject->highlight().center());
+                    m_graphicsView->centerOn(pageObject->highlightedArea().center());
 
                     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
@@ -499,12 +592,6 @@ void DocumentView::clearHighlight()
     {
         m_pageToPageObject.value(m_currentPage)->clearHighlight();
     }
-}
-
-
-QAction *DocumentView::tabMenuAction() const
-{
-    return m_tabMenuAction;
 }
 
 
@@ -660,6 +747,8 @@ void DocumentView::prepareScene()
 
                 page->setPos(10.0, sceneHeight);
 
+                connect(page, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
+
                 m_graphicsScene->addItem(page);
                 m_pageToPageObject.insert(i+1, page);
                 m_valueToPage.insert(-static_cast<int>(page->y()), i+1);
@@ -682,6 +771,8 @@ void DocumentView::prepareScene()
 
                 leftPage->setPos(10.0, sceneHeight);
 
+                connect(leftPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
+
                 m_graphicsScene->addItem(leftPage);
                 m_pageToPageObject.insert(i+1, leftPage);
                 m_valueToPage.insert(-static_cast<int>(leftPage->y()), i+1);
@@ -695,6 +786,8 @@ void DocumentView::prepareScene()
                 rightPage->setCurrentPage(i+2);
 
                 rightPage->setPos(leftPage->boundingRect().width() + 20.0, sceneHeight);
+
+                connect(rightPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
 
                 m_graphicsScene->addItem(rightPage);
                 m_pageToPageObject.insert(i+2, rightPage);
@@ -714,6 +807,8 @@ void DocumentView::prepareScene()
                 leftPage->setCurrentPage(m_numberOfPages);
 
                 leftPage->setPos(10.0, sceneHeight);
+
+                connect(leftPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
 
                 m_graphicsScene->addItem(leftPage);
                 m_pageToPageObject.insert(m_numberOfPages, leftPage);
@@ -828,97 +923,9 @@ void DocumentView::changeCurrentPage(const int &value)
     }
 }
 
-
-void DocumentView::printDocument(QPrinter *printer, int fromPage, int toPage)
+void DocumentView::followLink(int gotoPage)
 {
-    Poppler::Document *document = Poppler::Document::load(m_filePath);
-
-    if(document == 0)
-    {
-        qDebug() << "document == 0:" << m_filePath;
-
-        emit printingCanceled();
-
-        delete printer;
-
-        return;
-    }
-
-    QPainter *painter = new QPainter();
-
-    painter->begin(printer);
-
-    for(int currentPage = fromPage; currentPage <= toPage; currentPage++)
-    {
-        Poppler::Page *page = document->page(currentPage-1);
-
-        if(page == 0)
-        {
-            qDebug() << "page == 0:" << m_filePath << currentPage;
-
-            emit printingCanceled();
-
-            delete document;
-            delete painter;
-            delete printer;
-
-            return;
-        }
-
-        qreal fitToWidth = static_cast<qreal>(printer->width()) / (printer->physicalDpiX() * page->pageSizeF().width() / 72.0);
-        qreal fitToHeight = static_cast<qreal>(printer->height()) / (printer->physicalDpiY() * page->pageSizeF().height() / 72.0);
-        qreal fit = qMin(fitToWidth, fitToHeight);
-
-        painter->resetTransform();
-        painter->scale(fit, fit);
-        painter->drawImage(QPointF(0.0, 0.0), page->renderToImage(printer->physicalDpiX(), printer->physicalDpiY()));
-
-        delete page;
-
-        if(currentPage != toPage)
-        {
-            printer->newPage();
-        }
-
-        if(m_progressDialog->wasCanceled())
-        {
-            emit printingCanceled();
-
-            delete document;
-            delete painter;
-            delete printer;
-
-            return;
-        }
-        else
-        {
-            emit printingProgressed(currentPage);
-        }
-    }
-
-    painter->end();
-
-    emit printingFinished();
-
-    delete document;
-    delete painter;
-    delete printer;
-}
-
-
-void DocumentView::tabMenuActionTriggered()
-{
-    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent());
-
-    if(tabWidget != 0)
-    {
-        int index = tabWidget->indexOf(this);
-
-        if(index != -1)
-        {
-            tabWidget->setCurrentIndex(index);
-        }
-    }
+    this->setCurrentPage(gotoPage);
 }
 
 

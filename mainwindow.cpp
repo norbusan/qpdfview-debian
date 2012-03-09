@@ -24,8 +24,150 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_settings(),m_normalGeometry()
 {
-    // actions
+    this->createActions();
+    this->createToolbars();
+    this->createMenus();
 
+    m_tabWidget = new QTabWidget(this);
+    m_tabWidget->setTabsClosable(true);
+    m_tabWidget->setMovable(true);
+    m_tabWidget->setDocumentMode(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
+    this->setCentralWidget(m_tabWidget);
+    this->changeCurrentTab(-1);
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
+    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
+
+    // geometry
+
+    QSettings settings;
+
+    this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
+    this->restoreState(settings.value("mainWindow/state").toByteArray());
+
+    // miscellaneous
+
+    this->setAcceptDrops(true);
+
+    QStringList arguments = QCoreApplication::arguments();
+    arguments.removeFirst();
+
+    foreach(QString argument, arguments)
+    {
+        if(QFile(argument).exists()) {
+            DocumentView *documentView = new DocumentView();
+
+            if(documentView->open(argument))
+            {
+                int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
+                m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
+                m_tabWidget->setCurrentIndex(index);
+
+                m_tabMenu->addAction(documentView->tabMenuAction());
+
+                connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
+                connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
+                connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
+                connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
+                connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
+                connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+            }
+            else
+            {
+                delete documentView;
+            }
+        }
+    }
+}
+
+MainWindow::~MainWindow()
+{
+    delete m_openAction;
+    delete m_refreshAction;
+    delete m_printAction;
+
+    delete m_exitAction;
+
+    delete m_previousPageAction;
+    delete m_nextPageAction;
+    delete m_firstPageAction;
+    delete m_lastPageAction;
+
+    delete m_searchAction;
+    delete m_findNextAction;
+
+    delete m_onePageAction;
+    delete m_twoPagesAction;
+    delete m_oneColumnAction;
+    delete m_twoColumnsAction;
+
+    delete m_pageLayoutGroup;
+
+    delete m_fitToPageAction;
+    delete m_fitToPageWidthAction;
+    delete m_scaleTo25Action;
+    delete m_scaleTo50Action;
+    delete m_scaleTo100Action;
+    delete m_scaleTo200Action;
+    delete m_scaleTo400Action;
+
+    delete m_scalingGroup;
+
+    delete m_rotateBy0Action;
+    delete m_rotateBy90Action;
+    delete m_rotateBy180Action;
+    delete m_rotateBy270Action;
+
+    delete m_rotationGroup;
+
+    delete m_fullscreenAction;
+
+    delete m_addTabAction;
+    delete m_previousTabAction;
+    delete m_nextTabAction;
+    delete m_closeTabAction;
+
+    delete m_closeAllTabsAction;
+    delete m_closeAllTabsButCurrentAction;
+
+    delete m_aboutAction;
+
+    delete m_currentPageLabel;
+    delete m_currentPageLineEdit;
+    delete m_numberOfPagesLabel;
+
+    delete m_pageLayoutLabel;
+    delete m_pageLayoutComboBox;
+
+    delete m_scalingLabel;
+    delete m_scalingComboBox;
+
+    delete m_rotationLabel;
+    delete m_rotationWidget;
+
+    delete m_searchLabel;
+    delete m_searchLineEdit;
+}
+
+QSize MainWindow::sizeHint() const
+{
+    return QSize(500,700);
+}
+
+QMenu *MainWindow::createPopupMenu()
+{
+    QMenu *popupMenu = new QMenu(tr("Toolbars"));
+
+    popupMenu->addAction(m_fileToolBar->toggleViewAction());
+    popupMenu->addAction(m_editToolBar->toggleViewAction());
+    popupMenu->addAction(m_viewToolBar->toggleViewAction());
+
+    return popupMenu;
+}
+
+void MainWindow::createActions()
+{
     m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
     if(QIcon::hasThemeIcon("document-open"))
@@ -227,61 +369,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_aboutAction->setIconVisibleInMenu(true);
 
     connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+}
 
-    // menuBar
-
-    m_fileMenu = this->menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addAction(m_openAction);
-    m_fileMenu->addAction(m_refreshAction);
-    m_fileMenu->addAction(m_printAction);
-    m_fileMenu->addSeparator();
-    m_fileMenu->addAction(m_exitAction);
-
-    m_editMenu = this->menuBar()->addMenu(tr("&Edit"));
-    m_editMenu->addAction(m_nextPageAction);
-    m_editMenu->addAction(m_previousPageAction);
-    m_editMenu->addAction(m_firstPageAction);
-    m_editMenu->addAction(m_lastPageAction);
-    m_editMenu->addSeparator();
-    m_editMenu->addAction(m_searchAction);
-    m_editMenu->addAction(m_findNextAction);
-
-    m_viewMenu = this->menuBar()->addMenu(tr("&View"));
-    m_viewMenu->addAction(m_onePageAction);
-    m_viewMenu->addAction(m_twoPagesAction);
-    m_viewMenu->addAction(m_oneColumnAction);
-    m_viewMenu->addAction(m_twoColumnsAction);
-    m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_fitToPageAction);
-    m_viewMenu->addAction(m_fitToPageWidthAction);
-    m_viewMenu->addAction(m_scaleTo25Action);
-    m_viewMenu->addAction(m_scaleTo50Action);
-    m_viewMenu->addAction(m_scaleTo100Action);
-    m_viewMenu->addAction(m_scaleTo200Action);
-    m_viewMenu->addAction(m_scaleTo400Action);
-    m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_rotateBy0Action);
-    m_viewMenu->addAction(m_rotateBy90Action);
-    m_viewMenu->addAction(m_rotateBy180Action);
-    m_viewMenu->addAction(m_rotateBy270Action);
-    m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_fullscreenAction);
-
-    m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
-    m_tabMenu->addAction(m_addTabAction);
-    m_tabMenu->addAction(m_previousTabAction);
-    m_tabMenu->addAction(m_nextTabAction);
-    m_tabMenu->addAction(m_closeTabAction);
-    m_tabMenu->addSeparator();
-    m_tabMenu->addAction(m_closeAllTabsAction);
-    m_tabMenu->addAction(m_closeAllTabsButCurrentAction);
-    m_tabMenu->addSeparator();
-
-    m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
-    m_helpMenu->addAction(m_aboutAction);
-
-    // toolBar
-
+void MainWindow::createToolbars()
+{
     // currentPageWidget
 
     m_currentPageWidget = new QWidget();
@@ -408,145 +499,60 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_viewToolBar->addWidget(m_scalingWidget);
     m_viewToolBar->addWidget(m_rotationWidget);
     this->addToolBar(Qt::TopToolBarArea, m_viewToolBar);
-
-    // tabWidget
-
-    m_tabWidget = new QTabWidget(this);
-    m_tabWidget->setTabsClosable(true);
-    m_tabWidget->setMovable(true);
-    m_tabWidget->setDocumentMode(true);
-    m_tabWidget->setElideMode(Qt::ElideRight);
-    this->setCentralWidget(m_tabWidget);
-    this->changeCurrentTab(-1);
-
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
-    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(requestTabClose(int)));
-
-    // geometry
-
-    QSettings settings;
-
-    this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
-    this->restoreState(settings.value("mainWindow/state").toByteArray());
-
-    // miscellaneous
-
-    this->setAcceptDrops(true);
-
-    QStringList arguments = QCoreApplication::arguments();
-    arguments.removeFirst();
-
-    foreach(QString argument, arguments)
-    {
-        if(QFile(argument).exists()) {
-            DocumentView *documentView = new DocumentView();
-
-            if(documentView->open(argument))
-            {
-                int index = m_tabWidget->addTab(documentView, QFileInfo(argument).baseName());
-                m_tabWidget->setTabToolTip(index, QFileInfo(argument).baseName());
-                m_tabWidget->setCurrentIndex(index);
-
-                m_tabMenu->addAction(documentView->tabMenuAction());
-
-                connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
-                connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
-                connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(updateNumberOfPages(int)));
-                connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
-                connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
-                connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
-            }
-            else
-            {
-                delete documentView;
-            }
-        }
-    }
 }
 
-MainWindow::~MainWindow()
+void MainWindow::createMenus()
 {
-    delete m_openAction;
-    delete m_refreshAction;
-    delete m_printAction;
+    m_fileMenu = this->menuBar()->addMenu(tr("&File"));
+    m_fileMenu->addAction(m_openAction);
+    m_fileMenu->addAction(m_refreshAction);
+    m_fileMenu->addAction(m_printAction);
+    m_fileMenu->addSeparator();
+    m_fileMenu->addAction(m_exitAction);
 
-    delete m_exitAction;
+    m_editMenu = this->menuBar()->addMenu(tr("&Edit"));
+    m_editMenu->addAction(m_nextPageAction);
+    m_editMenu->addAction(m_previousPageAction);
+    m_editMenu->addAction(m_firstPageAction);
+    m_editMenu->addAction(m_lastPageAction);
+    m_editMenu->addSeparator();
+    m_editMenu->addAction(m_searchAction);
+    m_editMenu->addAction(m_findNextAction);
 
-    delete m_previousPageAction;
-    delete m_nextPageAction;
-    delete m_firstPageAction;
-    delete m_lastPageAction;
+    m_viewMenu = this->menuBar()->addMenu(tr("&View"));
+    m_viewMenu->addAction(m_onePageAction);
+    m_viewMenu->addAction(m_twoPagesAction);
+    m_viewMenu->addAction(m_oneColumnAction);
+    m_viewMenu->addAction(m_twoColumnsAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_fitToPageAction);
+    m_viewMenu->addAction(m_fitToPageWidthAction);
+    m_viewMenu->addAction(m_scaleTo25Action);
+    m_viewMenu->addAction(m_scaleTo50Action);
+    m_viewMenu->addAction(m_scaleTo100Action);
+    m_viewMenu->addAction(m_scaleTo200Action);
+    m_viewMenu->addAction(m_scaleTo400Action);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_rotateBy0Action);
+    m_viewMenu->addAction(m_rotateBy90Action);
+    m_viewMenu->addAction(m_rotateBy180Action);
+    m_viewMenu->addAction(m_rotateBy270Action);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addMenu(this->createPopupMenu());
+    m_viewMenu->addAction(m_fullscreenAction);
 
-    delete m_searchAction;
-    delete m_findNextAction;
+    m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
+    m_tabMenu->addAction(m_addTabAction);
+    m_tabMenu->addAction(m_previousTabAction);
+    m_tabMenu->addAction(m_nextTabAction);
+    m_tabMenu->addAction(m_closeTabAction);
+    m_tabMenu->addSeparator();
+    m_tabMenu->addAction(m_closeAllTabsAction);
+    m_tabMenu->addAction(m_closeAllTabsButCurrentAction);
+    m_tabMenu->addSeparator();
 
-    delete m_onePageAction;
-    delete m_twoPagesAction;
-    delete m_oneColumnAction;
-    delete m_twoColumnsAction;
-
-    delete m_pageLayoutGroup;
-
-    delete m_fitToPageAction;
-    delete m_fitToPageWidthAction;
-    delete m_scaleTo25Action;
-    delete m_scaleTo50Action;
-    delete m_scaleTo100Action;
-    delete m_scaleTo200Action;
-    delete m_scaleTo400Action;
-
-    delete m_scalingGroup;
-
-    delete m_rotateBy0Action;
-    delete m_rotateBy90Action;
-    delete m_rotateBy180Action;
-    delete m_rotateBy270Action;
-
-    delete m_rotationGroup;
-
-    delete m_fullscreenAction;
-
-    delete m_addTabAction;
-    delete m_previousTabAction;
-    delete m_nextTabAction;
-    delete m_closeTabAction;
-
-    delete m_closeAllTabsAction;
-    delete m_closeAllTabsButCurrentAction;
-
-    delete m_aboutAction;
-
-    delete m_currentPageLabel;
-    delete m_currentPageLineEdit;
-    delete m_numberOfPagesLabel;
-
-    delete m_pageLayoutLabel;
-    delete m_pageLayoutComboBox;
-
-    delete m_scalingLabel;
-    delete m_scalingComboBox;
-
-    delete m_rotationLabel;
-    delete m_rotationWidget;
-
-    delete m_searchLabel;
-    delete m_searchLineEdit;
-}
-
-QSize MainWindow::sizeHint() const
-{
-    return QSize(500,700);
-}
-
-QMenu *MainWindow::createPopupMenu()
-{
-    QMenu *popupMenu = new QMenu(tr("Show toolbar"));
-
-    popupMenu->addAction(m_fileToolBar->toggleViewAction());
-    popupMenu->addAction(m_editToolBar->toggleViewAction());
-    popupMenu->addAction(m_viewToolBar->toggleViewAction());
-
-    return popupMenu;
+    m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAction);
 }
 
 

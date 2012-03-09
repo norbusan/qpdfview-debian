@@ -1,9 +1,22 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_highlight(),m_filePath(),m_currentPage(-1),m_futureWatcher()
+    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_renderWatcher()
 {
-    connect(&m_futureWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
+    connect(&m_renderWatcher, SIGNAL(finished()), this, SLOT(renderFinished()));
+
+    foreach(Poppler::Link *link, m_page->links())
+    {
+        if(link->linkType() == Poppler::Link::Goto)
+        {
+            Poppler::LinkGoto *linkGoto = static_cast<Poppler::LinkGoto*>(link);
+
+            if(!linkGoto->isExternal())
+            {
+                m_links.append(linkGoto);
+            }
+        }
+    }
 }
 
 QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
@@ -11,9 +24,9 @@ QMutex PageObject::s_mutex;
 
 PageObject::~PageObject()
 {
-    if(m_futureWatcher.isRunning())
+    if(m_renderWatcher.isRunning())
     {
-        m_futureWatcher.waitForFinished();
+        m_renderWatcher.waitForFinished();
     }
 
     QMutexLocker mutexLocker(&s_mutex);
@@ -111,6 +124,8 @@ bool PageObject::findNext(const QString &text)
 
         this->scene()->update(pageRect);
         this->scene()->views().first()->update();
+
+        qDebug() << "found:" << highlightedText();
     }
 
     return result;
@@ -121,18 +136,37 @@ void PageObject::clearHighlight()
     m_highlight = QRectF();
 }
 
-QRectF PageObject::highlight() const
+QRectF PageObject::highlightedArea() const
 {
     QRectF highlight;
 
-    highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
-    highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
-    highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
-    highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
+    highlight.setX(m_resolutionX * m_highlight.x() / 72.0);
+    highlight.setY(m_resolutionY * m_highlight.y() / 72.0);
+    highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0);
+    highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0);
 
-    highlight.translate(pos());
+    highlight.adjust(-5.0, -5.0, 5.0, 5.0);
+    highlight.translate(this->pos());
 
     return highlight;
+}
+
+QString PageObject::highlightedText() const
+{
+    return m_page->text(m_highlight);
+}
+
+
+void PageObject::prefetch()
+{
+    QMutexLocker mutexLocker(&s_mutex);
+
+    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher.isRunning())
+    {
+        m_renderWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
+    }
+
+    mutexLocker.unlock();
 }
 
 
@@ -150,13 +184,15 @@ QRectF PageObject::boundingRect() const
 
 void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
+    // draw page
+
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
     QMutexLocker mutexLocker(&s_mutex);
 
-    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_futureWatcher.isRunning())
+    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher.isRunning())
     {
-        m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
+        m_renderWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
 
     }
     else
@@ -166,32 +202,52 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     mutexLocker.unlock();
 
+    painter->setPen(QPen(Qt::black));
+    painter->drawRect(boundingRect());
+
+    // draw links
+
+    painter->setPen(QPen(Qt::red));
+
+    foreach(Poppler::LinkGoto *link, m_links)
+    {
+        QRectF linkArea;
+
+        linkArea.setX(m_resolutionX * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setY(m_resolutionY * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
+        linkArea.setWidth(m_resolutionX * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setHeight(m_resolutionY * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+
+        if(linkArea.width() < 0.0)
+        {
+            linkArea.translate(linkArea.width(), 0.0);
+            linkArea.setWidth(-linkArea.width());
+        }
+
+        if(linkArea.height() < 0.0)
+        {
+            linkArea.translate(0.0, linkArea.height());
+            linkArea.setHeight(-linkArea.height());
+        }
+
+        painter->drawRect(linkArea);
+    }
+
+    // draw highlight
+
     if(!m_highlight.isNull())
     {
-        QRect highlight;
+        QRectF highlight;
 
-        highlight.setX(m_resolutionX * m_highlight.x() / 72.0 - 5.0);
-        highlight.setY(m_resolutionY * m_highlight.y() / 72.0 - 5.0);
-        highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0 + 10.0);
-        highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0 + 10.0);
+        highlight.setX(m_resolutionX * m_highlight.x() / 72.0);
+        highlight.setY(m_resolutionY * m_highlight.y() / 72.0);
+        highlight.setWidth(m_resolutionX * m_highlight.width() / 72.0);
+        highlight.setHeight(m_resolutionY * m_highlight.height() / 72.0);
+
+        highlight.adjust(-5.0,-5.0,5.0,5.0);
 
         painter->fillRect(highlight, QBrush(QColor(0,0,0,31)));
     }
-
-    painter->setPen(QPen(Qt::black));
-    painter->drawRect(boundingRect());
-}
-
-void PageObject::prefetch()
-{
-    QMutexLocker mutexLocker(&s_mutex);
-
-    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_futureWatcher.isRunning())
-    {
-        m_futureWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
-    }
-
-    mutexLocker.unlock();
 }
 
 
@@ -233,15 +289,15 @@ QImage PageObject::renderPage(bool prefetch)
     return image;
 }
 
-void PageObject::insertPage()
+void PageObject::renderFinished()
 {
-    if(!m_futureWatcher.result().isNull())
+    if(!m_renderWatcher.result().isNull())
     {
         QMutexLocker mutexLocker(&s_mutex);
 
         if(s_pageCache.size() < 32)
         {
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_futureWatcher.result());
+            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
         }
         else
         {
@@ -254,7 +310,7 @@ void PageObject::insertPage()
                 s_pageCache.remove(s_pageCache.begin().key());
             }
 
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_futureWatcher.result());
+            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
         }
 
         mutexLocker.unlock();
@@ -264,4 +320,77 @@ void PageObject::insertPage()
         this->scene()->update(pageRect);
         this->scene()->views().first()->update();
     }
+}
+
+
+void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    foreach(Poppler::LinkGoto *link, m_links)
+    {
+        QRectF linkArea;
+
+        linkArea.setX(m_resolutionX * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setY(m_resolutionY * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
+        linkArea.setWidth(m_resolutionX * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setHeight(m_resolutionY * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+
+        if(linkArea.width() < 0.0)
+        {
+            linkArea.translate(linkArea.width(), 0.0);
+            linkArea.setWidth(-linkArea.width());
+        }
+
+        if(linkArea.height() < 0.0)
+        {
+            linkArea.translate(0.0, linkArea.height());
+            linkArea.setHeight(-linkArea.height());
+        }
+
+        if(linkArea.contains(event->scenePos() - this->pos()))
+        {
+            event->accept();
+            return;
+        }
+    }
+
+    event->ignore();
+}
+
+void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    foreach(Poppler::LinkGoto *link, m_links)
+    {
+        QRectF linkArea;
+
+        linkArea.setX(m_resolutionX * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setY(m_resolutionY * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
+        linkArea.setWidth(m_resolutionX * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
+        linkArea.setHeight(m_resolutionY * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+
+        if(linkArea.width() < 0.0)
+        {
+            linkArea.translate(linkArea.width(), 0.0);
+            linkArea.setWidth(-linkArea.width());
+        }
+
+        if(linkArea.height() < 0.0)
+        {
+            linkArea.translate(0.0, linkArea.height());
+            linkArea.setHeight(-linkArea.height());
+        }
+
+        if(linkArea.contains(event->scenePos() - this->pos()))
+        {
+            emit linkClicked(link->destination().pageNumber());
+
+            event->accept();
+            return;
+        }
+    }
+
+    event->ignore();
+}
+
+void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
 }
