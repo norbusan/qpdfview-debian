@@ -65,6 +65,7 @@ private:
 
     QAction *m_searchAction;
     QAction *m_findNextAction;
+    QAction *m_copyTextAction;
 
     QAction *m_onePageAction;
     QAction *m_twoPagesAction;
@@ -141,6 +142,7 @@ private slots:
 
     void search();
     void findNext();
+    void copyText();
 
     void selectPageLayout(QAction *pageLayoutAction);
     void changePageLayoutIndex(const int &index);

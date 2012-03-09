@@ -36,8 +36,8 @@ public:
     void setCurrentPage(const int &currentPage);
 
     bool findNext(const QString &text);
-    void clearHighlight();
 
+    void clearHighlight();
     QRectF highlightedArea() const;
     QString highlightedText() const;
 
@@ -58,9 +58,11 @@ private:
 
     QList<Poppler::LinkGoto*> m_links;
     QRectF m_highlight;
+    QRectF m_selection;
 
     QFutureWatcher<QImage> m_renderWatcher;
     QImage renderPage(bool prefetch);
+    void updatePage();
 
     static QMutex s_mutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;

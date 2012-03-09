@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_renderWatcher()
+    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_selection(),m_renderWatcher()
 {
     connect(&m_renderWatcher, SIGNAL(finished()), this, SLOT(renderFinished()));
 
@@ -120,20 +120,18 @@ bool PageObject::findNext(const QString &text)
 
     if(result)
     {
-        QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-        this->scene()->update(pageRect);
-        this->scene()->views().first()->update();
-
-        qDebug() << "found:" << highlightedText();
+        this->updatePage();
     }
 
     return result;
 }
 
+
 void PageObject::clearHighlight()
 {
     m_highlight = QRectF();
+
+    this->updatePage();
 }
 
 QRectF PageObject::highlightedArea() const
@@ -248,6 +246,18 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
         painter->fillRect(highlight, QBrush(QColor(0,0,0,31)));
     }
+
+    // draw selection
+
+    if(!m_selection.isNull())
+    {
+        QPen pen;
+        pen.setColor(Qt::black);
+        pen.setStyle(Qt::DashLine);
+        painter->setPen(pen);
+
+        painter->drawRect(m_selection);
+    }
 }
 
 
@@ -289,6 +299,14 @@ QImage PageObject::renderPage(bool prefetch)
     return image;
 }
 
+void PageObject::updatePage()
+{
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    this->scene()->update(pageRect);
+    this->scene()->views().first()->update();
+}
+
 void PageObject::renderFinished()
 {
     if(!m_renderWatcher.result().isNull())
@@ -315,10 +333,7 @@ void PageObject::renderFinished()
 
         mutexLocker.unlock();
 
-        QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-        this->scene()->update(pageRect);
-        this->scene()->views().first()->update();
+        this->updatePage();
     }
 }
 
@@ -348,16 +363,27 @@ void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         if(linkArea.contains(event->scenePos() - this->pos()))
         {
-            event->accept();
             return;
         }
     }
 
-    event->ignore();
+    m_selection = QRectF(event->scenePos() - this->pos(), QSizeF());
 }
 
 void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_selection.isNull())
+    {
+        m_highlight.setX(72.0 * m_selection.x() / m_resolutionX);
+        m_highlight.setY(72.0 * m_selection.y() / m_resolutionY);
+        m_highlight.setWidth(72.0 * m_selection.width() / m_resolutionX);
+        m_highlight.setHeight(72.0 * m_selection.height() / m_resolutionY);
+
+        m_selection = QRectF();
+
+        this->updatePage();
+    }
+
     foreach(Poppler::LinkGoto *link, m_links)
     {
         QRectF linkArea;
@@ -383,14 +409,17 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         {
             emit linkClicked(link->destination().pageNumber());
 
-            event->accept();
             return;
         }
     }
-
-    event->ignore();
 }
 
 void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_selection.isNull())
+    {
+        m_selection.setBottomRight(event->scenePos() - this->pos());
+
+        this->updatePage();
+    }
 }

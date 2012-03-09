@@ -74,8 +74,10 @@ public:
     void firstPage();
     void lastPage();
 
-    bool findNext(const QString &text);
     void clearHighlight();
+
+    bool findNext(const QString &text);
+    void copyText();
 
 private:
     Poppler::Document *m_document;
@@ -119,7 +121,7 @@ signals:
     void printingFinished();
 
 private slots:
-    void changeCurrentPage(const int &value);
+    void scrollToPage(const int &value);
     void followLink(int gotoPage);
 
     void tabMenuActionTriggered();

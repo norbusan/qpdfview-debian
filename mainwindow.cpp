@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->createToolbars();
     this->createMenus();
 
+    // tabWidget
+
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
@@ -271,8 +273,14 @@ void MainWindow::createActions()
     m_findNextAction = new QAction(tr("Find next"), this);
     m_findNextAction->setShortcut(QKeySequence::FindNext);
 
+    m_copyTextAction = new QAction(tr("&Copy text"), this);
+    m_copyTextAction->setShortcut(QKeySequence::Copy);
+    m_copyTextAction->setIcon(QIcon::fromTheme("edit-copy"));
+    m_copyTextAction->setIconVisibleInMenu(true);
+
     connect(m_searchAction, SIGNAL(triggered()), this, SLOT(search()));
     connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
+    connect(m_copyTextAction, SIGNAL(triggered()), this, SLOT(copyText()));
 
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
@@ -518,6 +526,7 @@ void MainWindow::createMenus()
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_searchAction);
     m_editMenu->addAction(m_findNextAction);
+    m_editMenu->addAction(m_copyTextAction);
 
     m_viewMenu = this->menuBar()->addMenu(tr("&View"));
     m_viewMenu->addAction(m_onePageAction);
@@ -646,6 +655,16 @@ void MainWindow::findNext()
                 documentView->findNext(m_searchLineEdit->text());
             }
         }
+    }
+}
+
+void MainWindow::copyText()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->copyText();
     }
 }
 
@@ -957,6 +976,7 @@ void MainWindow::changeCurrentTab(const int &index)
 
         m_searchAction->setEnabled(true);
         m_findNextAction->setEnabled(true);
+        m_copyTextAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
@@ -988,6 +1008,7 @@ void MainWindow::changeCurrentTab(const int &index)
 
         m_searchAction->setEnabled(false);
         m_findNextAction->setEnabled(false);
+        m_copyTextAction->setEnabled(false);
 
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);

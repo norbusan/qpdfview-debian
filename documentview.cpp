@@ -35,7 +35,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     m_graphicsView->show();
 
-    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
     m_tabMenuAction = new QAction(this);
     connect(m_tabMenuAction, SIGNAL(triggered()), this, SLOT(tabMenuActionTriggered()));
@@ -113,6 +113,8 @@ void DocumentView::setCurrentPage(const int &currentPage)
 
             prepareView();
             prefetch();
+
+            clearHighlight();
         }
     }
 }
@@ -404,6 +406,8 @@ void DocumentView::previousPage()
 
                 prepareView();
                 prefetch();
+
+                clearHighlight();
             }
             break;
         case TwoPages:
@@ -416,6 +420,8 @@ void DocumentView::previousPage()
 
                 prepareView();
                 prefetch();
+
+                clearHighlight();
             }
             break;
         }
@@ -438,6 +444,8 @@ void DocumentView::nextPage()
 
                 prepareView();
                 prefetch();
+
+                clearHighlight();
             }
             break;
         case TwoPages:
@@ -450,6 +458,8 @@ void DocumentView::nextPage()
 
                 prepareView();
                 prefetch();
+
+                clearHighlight();
             }
             break;
         }
@@ -468,6 +478,8 @@ void DocumentView::firstPage()
 
             prepareView();
             prefetch();
+
+            clearHighlight();
         }
     }
 }
@@ -488,6 +500,8 @@ void DocumentView::lastPage()
 
                 prepareView();
                 prefetch();
+
+                clearHighlight();
             }
             break;
         case TwoPages:
@@ -502,6 +516,8 @@ void DocumentView::lastPage()
 
                     prepareView();
                     prefetch();
+
+                    clearHighlight();
                 }
             }
             else
@@ -514,12 +530,26 @@ void DocumentView::lastPage()
 
                     prepareView();
                     prefetch();
+
+                    clearHighlight();
                 }
             }
             break;
         }
     }
 }
+
+
+void DocumentView::clearHighlight()
+{
+    if(m_document)
+    {
+        PageObject *pageObject = m_pageToPageObject.value(m_currentPage);
+
+        pageObject->clearHighlight();
+    }
+}
+
 
 bool DocumentView::findNext(const QString &text)
 {
@@ -534,18 +564,13 @@ bool DocumentView::findNext(const QString &text)
 
             if(result)
             {
-                if(page != m_currentPage)
-                {
-                    m_pageToPageObject.value(m_currentPage)->clearHighlight();
+                this->setCurrentPage(page);
 
-                    this->setCurrentPage(page);
-                }
-
-                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
                 m_graphicsView->centerOn(pageObject->highlightedArea().center());
 
-                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
                 break;
             }
@@ -560,18 +585,13 @@ bool DocumentView::findNext(const QString &text)
 
                 if(result)
                 {
-                    if(page != m_currentPage)
-                    {
-                        m_pageToPageObject.value(m_currentPage)->clearHighlight();
+                    this->setCurrentPage(page);
 
-                        this->setCurrentPage(page);
-                    }
-
-                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
                     m_graphicsView->centerOn(pageObject->highlightedArea().center());
 
-                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
                     break;
                 }
@@ -586,11 +606,16 @@ bool DocumentView::findNext(const QString &text)
     }
 }
 
-void DocumentView::clearHighlight()
+void DocumentView::copyText()
 {
     if(m_document)
     {
-        m_pageToPageObject.value(m_currentPage)->clearHighlight();
+        PageObject *pageObject = m_pageToPageObject.value(m_currentPage);
+
+        if(!pageObject->highlightedText().isEmpty())
+        {
+            QApplication::clipboard()->setText(pageObject->highlightedText());
+        }
     }
 }
 
@@ -875,11 +900,11 @@ void DocumentView::prepareView()
         break;
     }
 
-    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
     m_graphicsView->centerOn(page);
 
-    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 }
 
 void DocumentView::prefetch()
@@ -894,7 +919,7 @@ void DocumentView::prefetch()
 }
 
 
-void DocumentView::changeCurrentPage(const int &value)
+void DocumentView::scrollToPage(const int &value)
 {
     if(m_document)
     {
@@ -918,6 +943,8 @@ void DocumentView::changeCurrentPage(const int &value)
                 emit currentPageChanged(m_currentPage);
 
                 prefetch();
+
+                clearHighlight();
             }
         }
     }
