@@ -25,15 +25,12 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
-    m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
-
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
-    m_graphicsView->setInteractive(true);
+
+    m_graphicsScene->setBackgroundBrush(QBrush(Qt::darkGray));
 
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_graphicsView);
-
-    m_graphicsView->show();
 
     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
@@ -194,6 +191,7 @@ void DocumentView::setRotation(const Rotation &rotation)
     }
 }
 
+
 QAction *DocumentView::tabMenuAction() const
 {
     return m_tabMenuAction;
@@ -285,31 +283,34 @@ bool DocumentView::refresh()
 
 void DocumentView::print()
 {
-    QPrinter *printer = new QPrinter();
-    printer->setFullPage(true);
-
-    QPrintDialog printDialog(printer, this);
-    printDialog.setMinMax(1, m_numberOfPages);
-
-    if(printDialog.exec() == QDialog::Accepted)
+    if(m_document)
     {
-        int fromPage = printDialog.fromPage() != 0 ? printDialog.fromPage() : 1;
-        int toPage = printDialog.toPage() != 0 ? printDialog.toPage() : m_numberOfPages;
+        QPrinter *printer = new QPrinter();
+        printer->setFullPage(true);
 
-        if(m_progressWatcher->isRunning())
+        QPrintDialog printDialog(printer, this);
+        printDialog.setMinMax(1, m_numberOfPages);
+
+        if(printDialog.exec() == QDialog::Accepted)
         {
-            m_progressWatcher->waitForFinished();
+            int fromPage = printDialog.fromPage() != 0 ? printDialog.fromPage() : 1;
+            int toPage = printDialog.toPage() != 0 ? printDialog.toPage() : m_numberOfPages;
+
+            if(m_progressWatcher->isRunning())
+            {
+                m_progressWatcher->waitForFinished();
+            }
+
+            m_progressDialog->reset();
+
+            m_progressDialog->setLabelText(tr("Printing pages %1 to %2 of file \"%3\"...").arg(fromPage).arg(toPage).arg(QFileInfo(m_filePath).fileName()));
+            m_progressDialog->setRange(fromPage-1, toPage);
+            m_progressDialog->setValue(fromPage-1);
+
+            m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::printDocument, printer, fromPage, toPage));
+
+            m_progressDialog->exec();
         }
-
-        m_progressDialog->reset();
-
-        m_progressDialog->setLabelText(tr("Printing pages %1 to %2 of file \"%3\"...").arg(fromPage).arg(toPage).arg(QFileInfo(m_filePath).fileName()));
-        m_progressDialog->setRange(fromPage-1, toPage);
-        m_progressDialog->setValue(fromPage-1);
-
-        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::printDocument, printer, fromPage, toPage));
-
-        m_progressDialog->exec();
     }
 }
 
@@ -851,60 +852,69 @@ void DocumentView::prepareScene()
 
 void DocumentView::prepareView()
 {
-    PageObject *page = m_pageToPageObject.value(m_currentPage);
-
-    switch(m_pageLayout)
+    if(m_document)
     {
-    case OnePage:
-        foreach(QGraphicsItem *item, m_graphicsScene->items())
+        m_graphicsView->show();
+
+        PageObject *page = m_pageToPageObject.value(m_currentPage);
+
+        switch(m_pageLayout)
         {
-            item->setVisible(false);
-        }
+        case OnePage:
+            foreach(QGraphicsItem *item, m_graphicsScene->items())
+            {
+                item->setVisible(false);
+            }
 
-        m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
-                                     page->boundingRect().width()+20.0,
-                                     page->boundingRect().height()+20.0);
-
-        page->setVisible(true);
-        break;
-    case TwoPages:
-        foreach(QGraphicsItem *item, m_graphicsScene->items())
-        {
-            item->setVisible(false);
-        }
-
-        if(m_pageToPageObject.contains(m_currentPage+1))
-        {
-            PageObject *nextPage = m_pageToPageObject.value(m_currentPage+1);
-
-            m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
-                                         page->boundingRect().width() + nextPage->boundingRect().width() + 30.0,
-                                         qMax(page->boundingRect().height(), nextPage->boundingRect().height()) + 20.0);
-
-            page->setVisible(true);
-            nextPage->setVisible(true);
-        }
-        else
-        {
             m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
                                          page->boundingRect().width()+20.0,
                                          page->boundingRect().height()+20.0);
 
             page->setVisible(true);
+            break;
+        case TwoPages:
+            foreach(QGraphicsItem *item, m_graphicsScene->items())
+            {
+                item->setVisible(false);
+            }
+
+            if(m_pageToPageObject.contains(m_currentPage+1))
+            {
+                PageObject *nextPage = m_pageToPageObject.value(m_currentPage+1);
+
+                m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
+                                             page->boundingRect().width() + nextPage->boundingRect().width() + 30.0,
+                                             qMax(page->boundingRect().height(), nextPage->boundingRect().height()) + 20.0);
+
+                page->setVisible(true);
+                nextPage->setVisible(true);
+            }
+            else
+            {
+                m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
+                                             page->boundingRect().width()+20.0,
+                                             page->boundingRect().height()+20.0);
+
+                page->setVisible(true);
+            }
+
+            break;
+        case OneColumn:
+        case TwoColumns:
+            m_graphicsView->setSceneRect(QRectF());
+            break;
         }
 
-        break;
-    case OneColumn:
-    case TwoColumns:
-        m_graphicsView->setSceneRect(QRectF());
-        break;
+        disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+        m_graphicsView->centerOn(page);
+
+        connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
     }
-
-    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-    m_graphicsView->centerOn(page);
-
-    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+    else
+    {
+        m_graphicsView->hide();
+    }
 }
 
 void DocumentView::prefetch()
@@ -952,7 +962,10 @@ void DocumentView::scrollToPage(const int &value)
 
 void DocumentView::followLink(int gotoPage)
 {
-    this->setCurrentPage(gotoPage);
+    if(m_document)
+    {
+        this->setCurrentPage(gotoPage);
+    }
 }
 
 

@@ -35,6 +35,7 @@ public:
     int currentPage() const;
     void setCurrentPage(const int &currentPage);
 
+
     bool findNext(const QString &text);
 
     void clearHighlight();
@@ -66,6 +67,7 @@ private:
 
     static QMutex s_mutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;
+    static int s_maximumPageCacheSize;
 
 signals:
     void rotationChanged(uint);
@@ -77,7 +79,7 @@ signals:
     void linkClicked(int gotoPage);
 
 private slots:
-    void renderFinished();
+    void insertPage();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

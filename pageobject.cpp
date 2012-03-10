@@ -3,8 +3,6 @@
 PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
     m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_selection(),m_renderWatcher()
 {
-    connect(&m_renderWatcher, SIGNAL(finished()), this, SLOT(renderFinished()));
-
     foreach(Poppler::Link *link, m_page->links())
     {
         if(link->linkType() == Poppler::Link::Goto)
@@ -14,13 +12,20 @@ PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsOb
             if(!linkGoto->isExternal())
             {
                 m_links.append(linkGoto);
+
+                continue;
             }
         }
+
+        delete link;
     }
+
+    connect(&m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
 }
 
-QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
 QMutex PageObject::s_mutex;
+QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
+int PageObject::s_maximumPageCacheSize = QSettings("qpdfview","qpdfview").value("pageObject/maximumPageCacheSize", 32).toInt();
 
 PageObject::~PageObject()
 {
@@ -34,6 +39,8 @@ PageObject::~PageObject()
     s_pageCache.remove(QPair<QString, int>(m_filePath, m_currentPage));
 
     mutexLocker.unlock();
+
+    while(!m_links.isEmpty()) { delete m_links.takeFirst(); }
 
     delete m_page;
 }
@@ -299,21 +306,15 @@ QImage PageObject::renderPage(bool prefetch)
     return image;
 }
 
-void PageObject::updatePage()
-{
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-    this->scene()->update(pageRect);
-    this->scene()->views().first()->update();
-}
-
-void PageObject::renderFinished()
+void PageObject::insertPage()
 {
     if(!m_renderWatcher.result().isNull())
     {
         QMutexLocker mutexLocker(&s_mutex);
 
-        if(s_pageCache.size() < 32)
+        qDebug() << s_pageCache.size();
+
+        if(s_pageCache.size() < s_maximumPageCacheSize)
         {
             s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
         }
@@ -331,10 +332,19 @@ void PageObject::renderFinished()
             s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
         }
 
+        qDebug() << s_pageCache.size();
+
         mutexLocker.unlock();
 
         this->updatePage();
     }
+}
+
+void PageObject::updatePage()
+{
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    this->scene()->update(pageRect);
 }
 
 

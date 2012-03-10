@@ -41,6 +41,7 @@ public:
 private:
     QMenu *m_fileMenu;
     QMenu *m_editMenu;
+    QMenu *m_toolbarMenu;
     QMenu *m_viewMenu;
     QMenu *m_tabMenu;
     QMenu *m_helpMenu;

@@ -62,6 +62,7 @@ public:
     Rotation rotation() const;
     void setRotation(const Rotation &rotation);
 
+
     QAction *tabMenuAction() const;
 
 

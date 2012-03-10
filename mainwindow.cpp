@@ -137,6 +137,7 @@ MainWindow::~MainWindow()
 
     delete m_currentPageLabel;
     delete m_currentPageLineEdit;
+    delete m_currentPageValidator;
     delete m_numberOfPagesLabel;
 
     delete m_pageLayoutLabel;
@@ -159,7 +160,7 @@ QSize MainWindow::sizeHint() const
 
 QMenu *MainWindow::createPopupMenu()
 {
-    QMenu *popupMenu = new QMenu(tr("Toolbars"));
+    QMenu *popupMenu = new QMenu();
 
     popupMenu->addAction(m_fileToolBar->toggleViewAction());
     popupMenu->addAction(m_editToolBar->toggleViewAction());
@@ -547,7 +548,10 @@ void MainWindow::createMenus()
     m_viewMenu->addAction(m_rotateBy180Action);
     m_viewMenu->addAction(m_rotateBy270Action);
     m_viewMenu->addSeparator();
-    m_viewMenu->addMenu(this->createPopupMenu());
+    QMenu *toolbarMenu = m_viewMenu->addMenu(tr("Toolbars"));
+    toolbarMenu->addAction(m_fileToolBar->toggleViewAction());
+    toolbarMenu->addAction(m_editToolBar->toggleViewAction());
+    toolbarMenu->addAction(m_viewToolBar->toggleViewAction());
     m_viewMenu->addAction(m_fullscreenAction);
 
     m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
