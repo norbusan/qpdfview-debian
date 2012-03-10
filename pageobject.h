@@ -43,6 +43,7 @@ public:
     QString highlightedText() const;
 
     void prefetch();
+    void updateScene();
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -61,10 +62,8 @@ private:
     QRectF m_highlight;
     QRectF m_selection;
 
-    QFutureWatcher<QImage> *m_renderWatcher;
-    QImage dummyFuture() const;
-    QImage renderPage(bool prefetch);
-    void updatePage();
+    QFutureWatcher<void> *m_renderWatcher;
+    void renderPage(bool prefetch);
 
     static QMutex s_mutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;
@@ -78,9 +77,6 @@ signals:
     void currentPageChanged(int);
 
     void linkClicked(int gotoPage);
-
-private slots:
-    void insertPage();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

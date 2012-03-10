@@ -20,9 +20,7 @@ PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsOb
         delete link;
     }
 
-    m_renderWatcher = new QFutureWatcher<QImage>();
-
-    connect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
+    m_renderWatcher = new QFutureWatcher<void>();
 }
 
 QMutex PageObject::s_mutex;
@@ -131,7 +129,7 @@ bool PageObject::findNext(const QString &text)
 
     if(result)
     {
-        this->updatePage();
+        this->updateScene();
     }
 
     return result;
@@ -142,7 +140,7 @@ void PageObject::clearHighlight()
 {
     m_highlight = QRectF();
 
-    this->updatePage();
+    this->updateScene();
 }
 
 QRectF PageObject::highlightedArea() const
@@ -176,6 +174,13 @@ void PageObject::prefetch()
     }
 
     mutexLocker.unlock();
+}
+
+void PageObject::updateScene()
+{
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    this->scene()->update(pageRect);
 }
 
 
@@ -270,12 +275,8 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     }
 }
 
-QImage PageObject::dummyFuture() const
-{
-    return QImage();
-}
 
-QImage PageObject::renderPage(bool prefetch)
+void PageObject::renderPage(bool prefetch)
 {
 
     QRectF pageRect = boundingRect(); pageRect.translate(pos());
@@ -291,7 +292,7 @@ QImage PageObject::renderPage(bool prefetch)
 
     if(!visible && !prefetch)
     {
-        return QImage();
+        return;
     }
 
     Poppler::Document *document = Poppler::Document::load(m_filePath);
@@ -300,7 +301,7 @@ QImage PageObject::renderPage(bool prefetch)
     {
         qDebug() << "document == 0:" << m_filePath;
 
-        return QImage();
+        return;
     }
 
     Poppler::Page *page = document->page(m_currentPage-1);
@@ -308,7 +309,7 @@ QImage PageObject::renderPage(bool prefetch)
     if(page == 0) {
         qDebug() << "page == 0:" << m_filePath << m_currentPage;
 
-        return QImage();
+        return;
     }
 
     document->setRenderHint(Poppler::Document::Antialiasing);
@@ -316,56 +317,32 @@ QImage PageObject::renderPage(bool prefetch)
 
     QImage image = page->renderToImage(m_resolutionX, m_resolutionY, -1, -1, -1, -1, static_cast<Poppler::Page::Rotation>(m_rotation));
 
-    delete page;
-    delete document;
+    QMutexLocker mutexLocker(&s_mutex);
 
-    return image;
-}
-
-void PageObject::insertPage()
-{
-    if(!m_renderWatcher->result().isNull())
+    if(s_pageCache.size() < s_maximumPageCacheSize)
     {
-        QMutexLocker mutexLocker(&s_mutex);
-
-        if(s_pageCache.size() < s_maximumPageCacheSize)
+        s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), image);
+    }
+    else
+    {
+        if(s_pageCache.lowerBound(QPair<QString, int>(m_filePath, m_currentPage)) != s_pageCache.end())
         {
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher->result());
+            s_pageCache.remove((--s_pageCache.end()).key());
         }
         else
         {
-            if(s_pageCache.lowerBound(QPair<QString, int>(m_filePath, m_currentPage)) != s_pageCache.end())
-            {
-                s_pageCache.remove((--s_pageCache.end()).key());
-            }
-            else
-            {
-                s_pageCache.remove(s_pageCache.begin().key());
-            }
-
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher->result());
+            s_pageCache.remove(s_pageCache.begin().key());
         }
 
-        qDebug() << s_pageCache.size();
-
-        mutexLocker.unlock();
-
-        disconnect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
-
-        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::dummyFuture));
-        m_renderWatcher->waitForFinished();
-
-        connect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
-
-        this->updatePage();
+        s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), image);
     }
-}
 
-void PageObject::updatePage()
-{
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+    mutexLocker.unlock();
 
-    this->scene()->update(pageRect);
+    this->updateScene();
+
+    delete page;
+    delete document;
 }
 
 
@@ -412,7 +389,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
         m_selection = QRectF();
 
-        this->updatePage();
+        this->updateScene();
     }
 
     foreach(Poppler::LinkGoto *link, m_links)
@@ -451,6 +428,6 @@ void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
         m_selection.setBottomRight(event->scenePos() - this->pos());
 
-        this->updatePage();
+        this->updateScene();
     }
 }
