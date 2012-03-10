@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_selection(),m_renderWatcher()
+    m_page(page),m_resolutionX(72.0),m_resolutionY(72.0),m_rotation(0),m_filePath(),m_currentPage(-1),m_links(),m_highlight(),m_selection()
 {
     foreach(Poppler::Link *link, m_page->links())
     {
@@ -20,7 +20,9 @@ PageObject::PageObject(Poppler::Page *page, QGraphicsItem *parent) : QGraphicsOb
         delete link;
     }
 
-    connect(&m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
+    m_renderWatcher = new QFutureWatcher<QImage>();
+
+    connect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
 }
 
 QMutex PageObject::s_mutex;
@@ -29,10 +31,12 @@ int PageObject::s_maximumPageCacheSize = QSettings("qpdfview","qpdfview").value(
 
 PageObject::~PageObject()
 {
-    if(m_renderWatcher.isRunning())
+    if(m_renderWatcher->isRunning())
     {
-        m_renderWatcher.waitForFinished();
+        m_renderWatcher->waitForFinished();
     }
+
+    delete m_renderWatcher;
 
     QMutexLocker mutexLocker(&s_mutex);
 
@@ -166,9 +170,9 @@ void PageObject::prefetch()
 {
     QMutexLocker mutexLocker(&s_mutex);
 
-    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher.isRunning())
+    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher->isRunning())
     {
-        m_renderWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
+        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
     }
 
     mutexLocker.unlock();
@@ -195,10 +199,9 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     QMutexLocker mutexLocker(&s_mutex);
 
-    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher.isRunning())
+    if(!s_pageCache.contains(QPair<QString, int>(m_filePath, m_currentPage)) && !m_renderWatcher->isRunning())
     {
-        m_renderWatcher.setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
-
+        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
     }
     else
     {
@@ -267,13 +270,26 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     }
 }
 
+QImage PageObject::dummyFuture() const
+{
+    return QImage();
+}
 
 QImage PageObject::renderPage(bool prefetch)
 {
-    QRectF viewRect = this->scene()->views().first()->mapToScene(this->scene()->views().first()->rect()).boundingRect();
-    QRectF pageRect = boundingRect(); pageRect.translate(x(),y());
 
-    if(!viewRect.intersects(pageRect) && !prefetch)
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    bool visible = false;
+
+    foreach(QGraphicsView *view, this->scene()->views())
+    {
+        QRectF viewRect = view->mapToScene(view->rect()).boundingRect();
+
+        visible = viewRect.intersects(pageRect);
+    }
+
+    if(!visible && !prefetch)
     {
         return QImage();
     }
@@ -308,15 +324,13 @@ QImage PageObject::renderPage(bool prefetch)
 
 void PageObject::insertPage()
 {
-    if(!m_renderWatcher.result().isNull())
+    if(!m_renderWatcher->result().isNull())
     {
         QMutexLocker mutexLocker(&s_mutex);
 
-        qDebug() << s_pageCache.size();
-
         if(s_pageCache.size() < s_maximumPageCacheSize)
         {
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
+            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher->result());
         }
         else
         {
@@ -329,12 +343,19 @@ void PageObject::insertPage()
                 s_pageCache.remove(s_pageCache.begin().key());
             }
 
-            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher.result());
+            s_pageCache.insert(QPair<QString, int>(m_filePath, m_currentPage), m_renderWatcher->result());
         }
 
         qDebug() << s_pageCache.size();
 
         mutexLocker.unlock();
+
+        disconnect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
+
+        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::dummyFuture));
+        m_renderWatcher->waitForFinished();
+
+        connect(m_renderWatcher, SIGNAL(finished()), this, SLOT(insertPage()));
 
         this->updatePage();
     }

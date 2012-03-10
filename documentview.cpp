@@ -51,6 +51,8 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
 DocumentView::~DocumentView()
 {
+    m_graphicsScene->clear();
+
     delete m_graphicsView;
     delete m_graphicsScene;
 

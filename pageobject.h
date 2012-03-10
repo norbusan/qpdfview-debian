@@ -61,7 +61,8 @@ private:
     QRectF m_highlight;
     QRectF m_selection;
 
-    QFutureWatcher<QImage> m_renderWatcher;
+    QFutureWatcher<QImage> *m_renderWatcher;
+    QImage dummyFuture() const;
     QImage renderPage(bool prefetch);
     void updatePage();
 
