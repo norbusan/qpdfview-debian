@@ -25,6 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+class DocumentView;
+
 #include "pageobject.h"
 
 class DocumentView : public QWidget
@@ -36,6 +38,8 @@ class DocumentView : public QWidget
     Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
     Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
     Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
+    Q_PROPERTY(qreal resolutionX READ resolutionX)
+    Q_PROPERTY(qreal resolutionX READ resolutionY)
     Q_ENUMS(PageLayout Scaling Rotation)
 
 public:
@@ -61,6 +65,9 @@ public:
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
     Rotation rotation() const;
     void setRotation(const Rotation &rotation);
+
+    qreal resolutionX() const;
+    qreal resolutionY() const;
 
 
     QAction *tabMenuAction() const;
@@ -102,6 +109,8 @@ private:
     PageLayout m_pageLayout;
     Scaling m_scaling;
     Rotation m_rotation;
+    qreal m_resolutionX;
+    qreal m_resolutionY;
 
     void prepareScene();
     void prepareView();

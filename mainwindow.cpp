@@ -271,7 +271,7 @@ void MainWindow::createActions()
     m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
     m_searchAction->setIconVisibleInMenu(true);
 
-    m_findNextAction = new QAction(tr("Find next"), this);
+    m_findNextAction = new QAction(tr("F&ind next"), this);
     m_findNextAction->setShortcut(QKeySequence::FindNext);
 
     m_copyTextAction = new QAction(tr("&Copy text"), this);
@@ -367,8 +367,10 @@ void MainWindow::createActions()
     connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
     connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
 
-    m_closeAllTabsAction = new QAction(tr("Close all tabs"), this);
-    m_closeAllTabsButCurrentAction = new QAction(tr("Close all tabs but current"), this);
+    m_closeAllTabsAction = new QAction(tr("Close all &tabs"), this);
+    m_closeAllTabsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W));
+    m_closeAllTabsButCurrentAction = new QAction(tr("Close all tabs &but current"), this);
+    m_closeAllTabsButCurrentAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
 
     connect(m_closeAllTabsAction, SIGNAL(triggered()), this, SLOT(closeAllTabs()));
     connect(m_closeAllTabsButCurrentAction, SIGNAL(triggered()), this, SLOT(closeAllTabsButCurrent()));
@@ -548,7 +550,7 @@ void MainWindow::createMenus()
     m_viewMenu->addAction(m_rotateBy180Action);
     m_viewMenu->addAction(m_rotateBy270Action);
     m_viewMenu->addSeparator();
-    QMenu *toolbarMenu = m_viewMenu->addMenu(tr("Toolbars"));
+    QMenu *toolbarMenu = m_viewMenu->addMenu(tr("&Toolbars"));
     toolbarMenu->addAction(m_fileToolBar->toggleViewAction());
     toolbarMenu->addAction(m_editToolBar->toggleViewAction());
     toolbarMenu->addAction(m_viewToolBar->toggleViewAction());

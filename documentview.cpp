@@ -89,6 +89,8 @@ void DocumentView::setCurrentPage(const int &currentPage)
     {
         if(m_currentPage != currentPage && currentPage >= 1 &&  currentPage <= m_numberOfPages)
         {
+            clearHighlight();
+
             switch(m_pageLayout)
             {
             case OnePage:
@@ -112,8 +114,6 @@ void DocumentView::setCurrentPage(const int &currentPage)
 
             prepareView();
             prefetch();
-
-            clearHighlight();
         }
     }
 }
@@ -191,6 +191,16 @@ void DocumentView::setRotation(const Rotation &rotation)
 
         m_settings.setValue("documentView/rotation", static_cast<uint>(m_rotation));
     }
+}
+
+qreal DocumentView::resolutionX() const
+{
+    return m_resolutionX;
+}
+
+qreal DocumentView::resolutionY() const
+{
+    return m_resolutionY;
 }
 
 
@@ -403,28 +413,28 @@ void DocumentView::previousPage()
         case OneColumn:
             if(m_currentPage > 1)
             {
+                clearHighlight();
+
                 m_currentPage -= 1;
 
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
                 prefetch();
-
-                clearHighlight();
             }
             break;
         case TwoPages:
         case TwoColumns:
             if(m_currentPage > 2)
             {
+                clearHighlight();
+
                 m_currentPage -= 2;
 
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
                 prefetch();
-
-                clearHighlight();
             }
             break;
         }
@@ -441,28 +451,28 @@ void DocumentView::nextPage()
         case OneColumn:
             if(m_currentPage <= m_numberOfPages-1)
             {
+                clearHighlight();
+
                 m_currentPage += 1;
 
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
                 prefetch();
-
-                clearHighlight();
             }
             break;
         case TwoPages:
         case TwoColumns:
             if(m_currentPage <= m_numberOfPages-2)
             {
+                clearHighlight();
+
                 m_currentPage += 2;
 
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
                 prefetch();
-
-                clearHighlight();
             }
             break;
         }
@@ -475,14 +485,14 @@ void DocumentView::firstPage()
     {
         if(m_currentPage != 1)
         {
+            clearHighlight();
+
             m_currentPage = 1;
 
             emit currentPageChanged(m_currentPage);
 
             prepareView();
             prefetch();
-
-            clearHighlight();
         }
     }
 }
@@ -497,14 +507,14 @@ void DocumentView::lastPage()
         case OneColumn:
             if(m_currentPage != m_numberOfPages)
             {
+                clearHighlight();
+
                 m_currentPage = m_numberOfPages;
 
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
                 prefetch();
-
-                clearHighlight();
             }
             break;
         case TwoPages:
@@ -513,28 +523,28 @@ void DocumentView::lastPage()
             {
                 if(m_currentPage != m_numberOfPages-1)
                 {
+                    clearHighlight();
+
                     m_currentPage = m_numberOfPages-1;
 
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
                     prefetch();
-
-                    clearHighlight();
                 }
             }
             else
             {
                 if(m_currentPage != m_numberOfPages)
                 {
+                    clearHighlight();
+
                     m_currentPage = m_numberOfPages;
 
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
                     prefetch();
-
-                    clearHighlight();
                 }
             }
             break;
@@ -633,10 +643,14 @@ void DocumentView::prepareScene()
     if(m_document)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        qreal resolutionX = this->physicalDpiX(), resolutionY = this->physicalDpiX(), scaleFactor = 4.0;
         qreal sceneWidth = 0.0, sceneHeight = 10.0;
 
         // calculate scale factor
+
+        qreal scaleFactor = 4.0;
+
+        m_resolutionX = this->physicalDpiX();
+        m_resolutionY = this->physicalDpiX();
 
         switch(m_scaling)
         {
@@ -652,13 +666,13 @@ void DocumentView::prepareScene()
 
                     if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().height() / 72.0;
                     }
 
                     delete page;
@@ -678,13 +692,13 @@ void DocumentView::prepareScene()
 
                     if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().height() / 72.0;
                     }
 
                     delete page;
@@ -693,13 +707,13 @@ void DocumentView::prepareScene()
 
                     if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        pageWidth += resolutionX * page->pageSizeF().height() / 72.0;
-                        pageHeight = qMax(pageHeight, resolutionY * page->pageSizeF().width() / 72.0);
+                        pageWidth += m_resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = qMax(pageHeight, m_resolutionY * page->pageSizeF().width() / 72.0);
                     }
                     else
                     {
-                        pageWidth += resolutionX * page->pageSizeF().width() / 72.0;
-                        pageHeight += qMax(pageHeight, resolutionY * page->pageSizeF().height() / 72.0);
+                        pageWidth += m_resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight += qMax(pageHeight, m_resolutionY * page->pageSizeF().height() / 72.0);
                     }
 
                     delete page;
@@ -717,13 +731,13 @@ void DocumentView::prepareScene()
 
                     if(m_rotation == RotateBy90 || m_rotation == RotateBy270)
                     {
-                        pageWidth = resolutionX * page->pageSizeF().height() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().width() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().height() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().width() / 72.0;
                     }
                     else
                     {
-                        pageWidth = resolutionX * page->pageSizeF().width() / 72.0;
-                        pageHeight = resolutionY * page->pageSizeF().height() / 72.0;
+                        pageWidth = m_resolutionX * page->pageSizeF().width() / 72.0;
+                        pageHeight = m_resolutionY * page->pageSizeF().height() / 72.0;
                     }
 
                     delete page;
@@ -754,8 +768,8 @@ void DocumentView::prepareScene()
             break;
         }
 
-        resolutionX *= scaleFactor;
-        resolutionY *= scaleFactor;
+        m_resolutionX *= scaleFactor;
+        m_resolutionY *= scaleFactor;
 
         // prepare scene
 
@@ -765,14 +779,7 @@ void DocumentView::prepareScene()
         case OneColumn:
             for(int i = 0; i < m_numberOfPages; i++)
             {
-                PageObject *page = new PageObject(m_document->page(i));
-
-                page->setResolutionX(resolutionX);
-                page->setResolutionY(resolutionY);
-                page->setRotation(static_cast<uint>(m_rotation));
-                page->setFilePath(m_filePath);
-                page->setCurrentPage(i+1);
-
+                PageObject *page = new PageObject(m_document->page(i),i,this);
                 page->setPos(10.0, sceneHeight);
 
                 connect(page, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
@@ -789,14 +796,7 @@ void DocumentView::prepareScene()
         case TwoColumns:
             for(int i = 0; i < (m_numberOfPages % 2 != 0 ? m_numberOfPages-1 : m_numberOfPages); i += 2)
             {
-                PageObject *leftPage = new PageObject(m_document->page(i));
-
-                leftPage->setResolutionX(resolutionX);
-                leftPage->setResolutionY(resolutionY);
-                leftPage->setRotation(static_cast<uint>(m_rotation));
-                leftPage->setFilePath(m_filePath);
-                leftPage->setCurrentPage(i+1);
-
+                PageObject *leftPage = new PageObject(m_document->page(i),i,this);
                 leftPage->setPos(10.0, sceneHeight);
 
                 connect(leftPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
@@ -805,14 +805,7 @@ void DocumentView::prepareScene()
                 m_pageToPageObject.insert(i+1, leftPage);
                 m_valueToPage.insert(-static_cast<int>(leftPage->y()), i+1);
 
-                PageObject *rightPage = new PageObject(m_document->page(i+1));
-
-                rightPage->setResolutionX(resolutionX);
-                rightPage->setResolutionY(resolutionY);
-                rightPage->setRotation(static_cast<uint>(m_rotation));
-                rightPage->setFilePath(m_filePath);
-                rightPage->setCurrentPage(i+2);
-
+                PageObject *rightPage = new PageObject(m_document->page(i+1),i+1,this);
                 rightPage->setPos(leftPage->boundingRect().width() + 20.0, sceneHeight);
 
                 connect(rightPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
@@ -826,14 +819,7 @@ void DocumentView::prepareScene()
 
             if(m_numberOfPages % 2 != 0)
             {
-                PageObject *leftPage = new PageObject(m_document->page(m_numberOfPages-1));
-
-                leftPage->setResolutionX(resolutionX);
-                leftPage->setResolutionY(resolutionY);
-                leftPage->setRotation(static_cast<uint>(m_rotation));
-                leftPage->setFilePath(m_filePath);
-                leftPage->setCurrentPage(m_numberOfPages);
-
+                PageObject *leftPage = new PageObject(m_document->page(m_numberOfPages-1),m_numberOfPages-1,this);
                 leftPage->setPos(10.0, sceneHeight);
 
                 connect(leftPage, SIGNAL(linkClicked(int)), this, SLOT(followLink(int)));
@@ -950,13 +936,13 @@ void DocumentView::scrollToPage(const int &value)
             }
 
             if(m_currentPage != visiblePage) {
+                clearHighlight();
+
                 m_currentPage = visiblePage;
 
                 emit currentPageChanged(m_currentPage);
 
                 prefetch();
-
-                clearHighlight();
             }
         }
     }
