@@ -44,6 +44,9 @@ private:
     int m_index;
     DocumentView *m_view;
 
+    QMatrix m_matrix1;
+    QMatrix m_matrix2;
+
     QList<Poppler::LinkGoto*> m_links;
     QRectF m_highlight;
     QRectF m_selection;

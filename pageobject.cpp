@@ -1,8 +1,26 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_links(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_highlight(),m_selection()
 {
+    m_matrix1.scale(resolutionX() / 72.0, resolutionY() / 72.0);
+    m_matrix2.scale(resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
+
+    switch(rotation())
+    {
+    case Poppler::Page::Rotate0:
+        break;
+    case Poppler::Page::Rotate90:
+        // TODO
+        break;
+    case Poppler::Page::Rotate180:
+        // TODO
+        break;
+    case Poppler::Page::Rotate270:
+        // TODO
+        break;
+    }
+
     foreach(Poppler::Link *link, m_page->links())
     {
         if(link->linkType() == Poppler::Link::Goto)
@@ -105,15 +123,10 @@ void PageObject::clearHighlight()
 
 QRectF PageObject::highlightedArea() const
 {
-    QRectF highlight;
-
-    highlight.setX(resolutionX() * m_highlight.x() / 72.0);
-    highlight.setY(resolutionY() * m_highlight.y() / 72.0);
-    highlight.setWidth(resolutionX() * m_highlight.width() / 72.0);
-    highlight.setHeight(resolutionY() * m_highlight.height() / 72.0);
+    QRectF highlight = m_matrix1.mapRect(m_highlight);
 
     highlight.adjust(-5.0, -5.0, 5.0, 5.0);
-    highlight.translate(this->pos());
+    highlight.translate(pos());
 
     return highlight;
 }
@@ -184,12 +197,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     foreach(Poppler::LinkGoto *link, m_links)
     {
-        QRectF linkArea;
-
-        linkArea.setX(resolutionX() * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setY(resolutionY() * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
-        linkArea.setWidth(resolutionX() * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setHeight(resolutionY() * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
 
         if(linkArea.width() < 0.0)
         {
@@ -210,12 +218,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     if(!m_highlight.isNull())
     {
-        QRectF highlight;
-
-        highlight.setX(resolutionX() * m_highlight.x() / 72.0);
-        highlight.setY(resolutionY() * m_highlight.y() / 72.0);
-        highlight.setWidth(resolutionX() * m_highlight.width() / 72.0);
-        highlight.setHeight(resolutionY() * m_highlight.height() / 72.0);
+        QRectF highlight = m_matrix1.mapRect(m_highlight);
 
         highlight.adjust(-5.0,-5.0,5.0,5.0);
 
@@ -310,12 +313,7 @@ void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     foreach(Poppler::LinkGoto *link, m_links)
     {
-        QRectF linkArea;
-
-        linkArea.setX(resolutionX() * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setY(resolutionY() * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
-        linkArea.setWidth(resolutionX() * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setHeight(resolutionY() * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
 
         if(linkArea.width() < 0.0)
         {
@@ -329,24 +327,20 @@ void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
             linkArea.setHeight(-linkArea.height());
         }
 
-        if(linkArea.contains(event->scenePos() - this->pos()))
+        if(linkArea.contains(event->scenePos() - pos()))
         {
             return;
         }
     }
 
-    m_selection = QRectF(event->scenePos() - this->pos(), QSizeF());
+    m_selection = QRectF(event->scenePos() - pos(), QSizeF());
 }
 
 void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_selection.isNull())
     {
-        m_highlight.setX(72.0 * m_selection.x() / resolutionX());
-        m_highlight.setY(72.0 * m_selection.y() / resolutionY());
-        m_highlight.setWidth(72.0 * m_selection.width() / resolutionX());
-        m_highlight.setHeight(72.0 * m_selection.height() / resolutionY());
-
+        m_highlight = m_matrix1.inverted().mapRect(m_selection);
         m_selection = QRectF();
 
         this->updateScene();
@@ -354,12 +348,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     foreach(Poppler::LinkGoto *link, m_links)
     {
-        QRectF linkArea;
-
-        linkArea.setX(resolutionX() * link->linkArea().x() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setY(resolutionY() * link->linkArea().y() * m_page->pageSizeF().height() / 72.0);
-        linkArea.setWidth(resolutionX() * link->linkArea().width() * m_page->pageSizeF().width() / 72.0);
-        linkArea.setHeight(resolutionY() * link->linkArea().height() * m_page->pageSizeF().height() / 72.0);
+        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
 
         if(linkArea.width() < 0.0)
         {
@@ -373,7 +362,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             linkArea.setHeight(-linkArea.height());
         }
 
-        if(linkArea.contains(event->scenePos() - this->pos()))
+        if(linkArea.contains(event->scenePos() - pos()))
         {
             emit linkClicked(link->destination().pageNumber());
 
@@ -386,7 +375,7 @@ void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!m_selection.isNull())
     {
-        m_selection.setBottomRight(event->scenePos() - this->pos());
+        m_selection.setBottomRight(event->scenePos() - pos());
 
         this->updateScene();
     }
