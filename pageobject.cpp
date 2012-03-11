@@ -293,8 +293,6 @@ void PageObject::renderPage()
         s_pageCache.insert(QPair<QString, int>(filePath(), index()), image);
     }
 
-    qDebug() << s_pageCache.size();
-
     mutexLocker.unlock();
 
     this->updateScene();
