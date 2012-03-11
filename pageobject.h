@@ -33,9 +33,6 @@ public:
     QRectF highlightedArea() const;
     QString highlightedText() const;
 
-    void prefetch();
-    void updateScene();
-
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -53,7 +50,11 @@ private:
     QRectF m_selection;
 
     QFutureWatcher<void> *m_renderWatcher;
-    void renderPage(bool prefetch);
+
+    void updateScene();
+
+    void renderPage();
+
 
     static QMutex s_mutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;

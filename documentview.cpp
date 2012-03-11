@@ -113,7 +113,6 @@ void DocumentView::setCurrentPage(const int &currentPage)
             emit currentPageChanged(m_currentPage);
 
             prepareView();
-            prefetch();
         }
     }
 }
@@ -145,7 +144,6 @@ void DocumentView::setPageLayout(const DocumentView::PageLayout &pageLayout)
 
         prepareScene();
         prepareView();
-        prefetch();
 
         m_settings.setValue("documentView/pageLayout", static_cast<uint>(m_pageLayout));
     }
@@ -166,7 +164,6 @@ void DocumentView::setScaling(const Scaling &scaling)
 
         prepareScene();
         prepareView();
-        prefetch();
 
         m_settings.setValue("documentView/scaling", static_cast<uint>(m_scaling));
     }
@@ -187,7 +184,6 @@ void DocumentView::setRotation(const Rotation &rotation)
 
         prepareScene();
         prepareView();
-        prefetch();
 
         m_settings.setValue("documentView/rotation", static_cast<uint>(m_rotation));
     }
@@ -248,7 +244,6 @@ bool DocumentView::open(const QString &filePath)
 
         prepareScene();
         prepareView();
-        prefetch();
 
         m_tabMenuAction->setText(QFileInfo(m_filePath).baseName());
     }
@@ -282,7 +277,6 @@ bool DocumentView::refresh()
 
             prepareScene();
             prepareView();
-            prefetch();
         }
 
         return document != 0;
@@ -420,7 +414,6 @@ void DocumentView::previousPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
-                prefetch();
             }
             break;
         case TwoPages:
@@ -434,7 +427,6 @@ void DocumentView::previousPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
-                prefetch();
             }
             break;
         }
@@ -458,7 +450,6 @@ void DocumentView::nextPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
-                prefetch();
             }
             break;
         case TwoPages:
@@ -472,7 +463,6 @@ void DocumentView::nextPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
-                prefetch();
             }
             break;
         }
@@ -492,7 +482,6 @@ void DocumentView::firstPage()
             emit currentPageChanged(m_currentPage);
 
             prepareView();
-            prefetch();
         }
     }
 }
@@ -514,7 +503,6 @@ void DocumentView::lastPage()
                 emit currentPageChanged(m_currentPage);
 
                 prepareView();
-                prefetch();
             }
             break;
         case TwoPages:
@@ -530,7 +518,6 @@ void DocumentView::lastPage()
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
-                    prefetch();
                 }
             }
             else
@@ -544,7 +531,6 @@ void DocumentView::lastPage()
                     emit currentPageChanged(m_currentPage);
 
                     prepareView();
-                    prefetch();
                 }
             }
             break;
@@ -905,18 +891,6 @@ void DocumentView::prepareView()
     }
 }
 
-void DocumentView::prefetch()
-{
-    for(int i = -2; i < 4; i++)
-    {
-        if(m_pageToPageObject.contains(m_currentPage + i))
-        {
-            m_pageToPageObject.value(m_currentPage + i)->prefetch();
-        }
-    }
-}
-
-
 void DocumentView::scrollToPage(const int &value)
 {
     if(m_document)
@@ -941,8 +915,6 @@ void DocumentView::scrollToPage(const int &value)
                 m_currentPage = visiblePage;
 
                 emit currentPageChanged(m_currentPage);
-
-                prefetch();
             }
         }
     }
@@ -965,7 +937,6 @@ void DocumentView::resizeEvent(QResizeEvent*)
         {
             prepareScene();
             prepareView();
-            prefetch();
         }
     }
 }

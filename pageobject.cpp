@@ -158,26 +158,6 @@ QString PageObject::highlightedText() const
 }
 
 
-void PageObject::prefetch()
-{
-    QMutexLocker mutexLocker(&s_mutex);
-
-    if(!s_pageCache.contains(QPair<QString, int>(filePath(), index())) && !m_renderWatcher->isRunning())
-    {
-        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage, true));
-    }
-
-    mutexLocker.unlock();
-}
-
-void PageObject::updateScene()
-{
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-    this->scene()->update(pageRect);
-}
-
-
 QRectF PageObject::boundingRect() const
 {
     if(rotation() == Poppler::Page::Rotate90 || rotation() == Poppler::Page::Rotate270)
@@ -200,7 +180,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     if(!s_pageCache.contains(QPair<QString, int>(filePath(), index())) && !m_renderWatcher->isRunning())
     {
-        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage, false));
+        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage));
     }
     else
     {
@@ -246,7 +226,14 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 }
 
 
-void PageObject::renderPage(bool prefetch)
+void PageObject::updateScene()
+{
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    this->scene()->update(pageRect);
+}
+
+void PageObject::renderPage()
 {
     QRectF pageRect = boundingRect(); pageRect.translate(pos());
 
@@ -259,7 +246,7 @@ void PageObject::renderPage(bool prefetch)
         visible = viewRect.intersects(pageRect);
     }
 
-    if(!visible && !prefetch)
+    if(!visible)
     {
         return;
     }
@@ -305,6 +292,8 @@ void PageObject::renderPage(bool prefetch)
 
         s_pageCache.insert(QPair<QString, int>(filePath(), index()), image);
     }
+
+    qDebug() << s_pageCache.size();
 
     mutexLocker.unlock();
 

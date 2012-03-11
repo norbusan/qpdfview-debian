@@ -114,7 +114,6 @@ private:
 
     void prepareScene();
     void prepareView();
-    void prefetch();
 
     void printDocument(QPrinter *printer, int fromPage, int toPage);
 
