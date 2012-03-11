@@ -1,23 +1,31 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_destinations(),m_highlight(),m_selection()
 {
     m_matrix1.scale(resolutionX() / 72.0, resolutionY() / 72.0);
-    m_matrix2.scale(resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
 
     switch(rotation())
     {
     case Poppler::Page::Rotate0:
+        m_matrix2.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().height(),
+                            0.0, 0.0);
         break;
     case Poppler::Page::Rotate90:
-        // TODO
+        m_matrix2.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
+                            -1.0 * resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
+                            resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
         break;
     case Poppler::Page::Rotate180:
-        // TODO
+        m_matrix2.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+                            0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().height(),
+                            resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
         break;
     case Poppler::Page::Rotate270:
-        // TODO
+        m_matrix2.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
+                            resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
+                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
         break;
     }
 
@@ -29,9 +37,24 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
 
             if(!linkGoto->isExternal())
             {
-                m_links.append(linkGoto);
+                QRectF linkArea = link->linkArea();
 
-                continue;
+                if(linkArea.width() < 0.0)
+                {
+                    linkArea.translate(linkArea.width(), 0.0);
+                    linkArea.setWidth(-linkArea.width());
+                }
+
+                if(linkArea.height() < 0.0)
+                {
+                    linkArea.translate(0.0, linkArea.height());
+                    linkArea.setHeight(-linkArea.height());
+                }
+
+                linkArea = m_matrix2.mapRect(linkArea);
+
+                m_links.append(linkArea);
+                m_destinations.append(linkGoto->destination().pageNumber());
             }
         }
 
@@ -59,8 +82,6 @@ PageObject::~PageObject()
     s_pageCache.remove(QPair<QString, int>(filePath(), index()));
 
     mutexLocker.unlock();
-
-    while(!m_links.isEmpty()) { delete m_links.takeFirst(); }
 
     delete m_page;
 }
@@ -195,23 +216,9 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->setPen(QPen(Qt::red));
 
-    foreach(Poppler::LinkGoto *link, m_links)
+    foreach(QRectF link, m_links)
     {
-        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
-
-        if(linkArea.width() < 0.0)
-        {
-            linkArea.translate(linkArea.width(), 0.0);
-            linkArea.setWidth(-linkArea.width());
-        }
-
-        if(linkArea.height() < 0.0)
-        {
-            linkArea.translate(0.0, linkArea.height());
-            linkArea.setHeight(-linkArea.height());
-        }
-
-        painter->drawRect(linkArea);
+        painter->drawRect(link);
     }
 
     // draw highlight
@@ -241,7 +248,6 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
 void PageObject::renderPage(bool prefetch)
 {
-
     QRectF pageRect = boundingRect(); pageRect.translate(pos());
 
     bool visible = false;
@@ -311,23 +317,9 @@ void PageObject::renderPage(bool prefetch)
 
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    foreach(Poppler::LinkGoto *link, m_links)
+    foreach(QRectF link, m_links)
     {
-        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
-
-        if(linkArea.width() < 0.0)
-        {
-            linkArea.translate(linkArea.width(), 0.0);
-            linkArea.setWidth(-linkArea.width());
-        }
-
-        if(linkArea.height() < 0.0)
-        {
-            linkArea.translate(0.0, linkArea.height());
-            linkArea.setHeight(-linkArea.height());
-        }
-
-        if(linkArea.contains(event->scenePos() - pos()))
+        if(link.contains(event->scenePos() - pos()))
         {
             return;
         }
@@ -346,25 +338,11 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->updateScene();
     }
 
-    foreach(Poppler::LinkGoto *link, m_links)
+    for(int i = 0; i < m_links.size(); i++)
     {
-        QRectF linkArea = m_matrix2.mapRect(link->linkArea());
-
-        if(linkArea.width() < 0.0)
+        if(m_links[i].contains(event->scenePos() - pos()))
         {
-            linkArea.translate(linkArea.width(), 0.0);
-            linkArea.setWidth(-linkArea.width());
-        }
-
-        if(linkArea.height() < 0.0)
-        {
-            linkArea.translate(0.0, linkArea.height());
-            linkArea.setHeight(-linkArea.height());
-        }
-
-        if(linkArea.contains(event->scenePos() - pos()))
-        {
-            emit linkClicked(link->destination().pageNumber());
+            emit linkClicked(m_destinations[i]);
 
             return;
         }

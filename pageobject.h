@@ -47,7 +47,8 @@ private:
     QMatrix m_matrix1;
     QMatrix m_matrix2;
 
-    QList<Poppler::LinkGoto*> m_links;
+    QList<QRectF> m_links;
+    QList<int> m_destinations;
     QRectF m_highlight;
     QRectF m_selection;
 
