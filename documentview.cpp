@@ -752,14 +752,20 @@ void DocumentView::prepareScene()
                 break;
             }
             break;
-        case ScaleTo25:
-            scaleFactor = 0.25;
-            break;
         case ScaleTo50:
             scaleFactor = 0.50;
             break;
+        case ScaleTo75:
+            scaleFactor = 0.75;
+            break;
         case ScaleTo100:
             scaleFactor = 1.00;
+            break;
+        case ScaleTo125:
+            scaleFactor = 1.25;
+            break;
+        case ScaleTo150:
+            scaleFactor = 1.50;
             break;
         case ScaleTo200:
             scaleFactor = 2.00;

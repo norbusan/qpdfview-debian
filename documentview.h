@@ -58,7 +58,7 @@ public:
     PageLayout pageLayout() const;
     void setPageLayout(const PageLayout &pageLayout);
 
-    enum Scaling { FitToPage, FitToPageWidth, ScaleTo25, ScaleTo50, ScaleTo100, ScaleTo200, ScaleTo400 };
+    enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400 };
     Scaling scaling() const;
     void setScaling(const Scaling &scaling);
 

@@ -76,9 +76,11 @@ private:
 
     QAction *m_fitToPageAction;
     QAction *m_fitToPageWidthAction;
-    QAction *m_scaleTo25Action;
     QAction *m_scaleTo50Action;
+    QAction *m_scaleTo75Action;
     QAction *m_scaleTo100Action;
+    QAction *m_scaleTo125Action;
+    QAction *m_scaleTo150Action;
     QAction *m_scaleTo200Action;
     QAction *m_scaleTo400Action;
     QActionGroup *m_scalingGroup;

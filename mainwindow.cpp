@@ -108,9 +108,11 @@ MainWindow::~MainWindow()
 
     delete m_fitToPageAction;
     delete m_fitToPageWidthAction;
-    delete m_scaleTo25Action;
     delete m_scaleTo50Action;
+    delete m_scaleTo75Action;
     delete m_scaleTo100Action;
+    delete m_scaleTo125Action;
+    delete m_scaleTo150Action;
     delete m_scaleTo200Action;
     delete m_scaleTo400Action;
 
@@ -304,12 +306,16 @@ void MainWindow::createActions()
     m_fitToPageAction->setCheckable(true);
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
-    m_scaleTo25Action = new QAction(tr("Scale to 25%"), this);
-    m_scaleTo25Action->setCheckable(true);
     m_scaleTo50Action = new QAction(tr("Scale to 50%"), this);
     m_scaleTo50Action->setCheckable(true);
+    m_scaleTo75Action = new QAction(tr("Scale to 75%"), this);
+    m_scaleTo75Action->setCheckable(true);
     m_scaleTo100Action = new QAction(tr("Scale to 100%"), this);
     m_scaleTo100Action->setCheckable(true);
+    m_scaleTo125Action = new QAction(tr("Scale to 125%"), this);
+    m_scaleTo125Action->setCheckable(true);
+    m_scaleTo150Action = new QAction(tr("Scale to 150%"), this);
+    m_scaleTo150Action->setCheckable(true);
     m_scaleTo200Action = new QAction(tr("Scale to 200%"), this);
     m_scaleTo200Action->setCheckable(true);
     m_scaleTo400Action = new QAction(tr("Scale to 400%"), this);
@@ -318,9 +324,11 @@ void MainWindow::createActions()
     m_scalingGroup = new QActionGroup(this);
     m_scalingGroup->addAction(m_fitToPageAction);
     m_scalingGroup->addAction(m_fitToPageWidthAction);
-    m_scalingGroup->addAction(m_scaleTo25Action);
     m_scalingGroup->addAction(m_scaleTo50Action);
+    m_scalingGroup->addAction(m_scaleTo75Action);
     m_scalingGroup->addAction(m_scaleTo100Action);
+    m_scalingGroup->addAction(m_scaleTo125Action);
+    m_scalingGroup->addAction(m_scaleTo150Action);
     m_scalingGroup->addAction(m_scaleTo200Action);
     m_scalingGroup->addAction(m_scaleTo400Action);
 
@@ -429,9 +437,11 @@ void MainWindow::createToolbars()
 
     m_scalingComboBox->addItem(tr("Fit to page"), DocumentView::FitToPage);
     m_scalingComboBox->addItem(tr("Fit to page width"), DocumentView::FitToPageWidth);
-    m_scalingComboBox->addItem(tr("Scale to 25%"), DocumentView::ScaleTo25);
     m_scalingComboBox->addItem(tr("Scale to 50%"), DocumentView::ScaleTo50);
+    m_scalingComboBox->addItem(tr("Scale to 75%"), DocumentView::ScaleTo75);
     m_scalingComboBox->addItem(tr("Scale to 100%"), DocumentView::ScaleTo100);
+    m_scalingComboBox->addItem(tr("Scale to 125%"), DocumentView::ScaleTo125);
+    m_scalingComboBox->addItem(tr("Scale to 150%"), DocumentView::ScaleTo150);
     m_scalingComboBox->addItem(tr("Scale to 200%"), DocumentView::ScaleTo200);
     m_scalingComboBox->addItem(tr("Scale to 400%"), DocumentView::ScaleTo400);
 
@@ -539,9 +549,11 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_fitToPageAction);
     m_viewMenu->addAction(m_fitToPageWidthAction);
-    m_viewMenu->addAction(m_scaleTo25Action);
     m_viewMenu->addAction(m_scaleTo50Action);
+    m_viewMenu->addAction(m_scaleTo75Action);
     m_viewMenu->addAction(m_scaleTo100Action);
+    m_viewMenu->addAction(m_scaleTo125Action);
+    m_viewMenu->addAction(m_scaleTo150Action);
     m_viewMenu->addAction(m_scaleTo200Action);
     m_viewMenu->addAction(m_scaleTo400Action);
     m_viewMenu->addSeparator();
@@ -776,17 +788,25 @@ void MainWindow::selectScaling(QAction *scalingAction)
         {
             documentView->setScaling(DocumentView::FitToPageWidth);
         }
-        else if(scalingAction == m_scaleTo25Action)
-        {
-            documentView->setScaling(DocumentView::ScaleTo25);
-        }
         else if(scalingAction == m_scaleTo50Action)
         {
-            documentView->setScaling(DocumentView::ScaleTo50);
+            documentView->setScaling(DocumentView::ScaleTo50);            
+        }
+        else if(scalingAction == m_scaleTo75Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo75);
         }
         else if(scalingAction == m_scaleTo100Action)
         {
             documentView->setScaling(DocumentView::ScaleTo100);
+        }
+        else if(scalingAction == m_scaleTo125Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo125);
+        }
+        else if(scalingAction == m_scaleTo150Action)
+        {
+            documentView->setScaling(DocumentView::ScaleTo150);
         }
         else if(scalingAction == m_scaleTo200Action)
         {
@@ -1121,25 +1141,33 @@ void MainWindow::updateScaling(const DocumentView::Scaling &scaling)
             m_fitToPageWidthAction->setChecked(true);
             m_scalingComboBox->setCurrentIndex(1);
             break;
-        case DocumentView::ScaleTo25:
-            m_scaleTo25Action->setChecked(true);
-            m_scalingComboBox->setCurrentIndex(2);
-            break;
         case DocumentView::ScaleTo50:
             m_scaleTo50Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(2);
+            break;
+        case DocumentView::ScaleTo75:
+            m_scaleTo75Action->setChecked(true);
             m_scalingComboBox->setCurrentIndex(3);
             break;
         case DocumentView::ScaleTo100:
             m_scaleTo100Action->setChecked(true);
             m_scalingComboBox->setCurrentIndex(4);
             break;
+        case DocumentView::ScaleTo125:
+            m_scaleTo125Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(5);
+            break;
+        case DocumentView::ScaleTo150:
+            m_scaleTo150Action->setChecked(true);
+            m_scalingComboBox->setCurrentIndex(6);
+            break;
         case DocumentView::ScaleTo200:
             m_scaleTo200Action->setChecked(true);
-            m_scalingComboBox->setCurrentIndex(5);
+            m_scalingComboBox->setCurrentIndex(7);
             break;
         case DocumentView::ScaleTo400:
             m_scaleTo400Action->setChecked(true);
-            m_scalingComboBox->setCurrentIndex(6);
+            m_scalingComboBox->setCurrentIndex(8);
             break;
         }
     }
