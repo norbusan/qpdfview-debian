@@ -58,7 +58,9 @@ private:
 
     static QMutex s_mutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;
-    static int s_maximumPageCacheSize;
+
+    static uint s_pageCacheByteCount;
+    static uint s_maximumPageCacheByteCount;
 
 signals:
     void indexChanged(int);

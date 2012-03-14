@@ -82,7 +82,7 @@ public:
     void firstPage();
     void lastPage();
 
-    void clearHighlight();
+    void clearHighlights();
 
     bool findNext(const QString &text);
     void copyText();

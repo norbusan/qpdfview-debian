@@ -89,7 +89,7 @@ void DocumentView::setCurrentPage(const int &currentPage)
     {
         if(m_currentPage != currentPage && currentPage >= 1 &&  currentPage <= m_numberOfPages)
         {
-            clearHighlight();
+            clearHighlights();
 
             switch(m_pageLayout)
             {
@@ -407,7 +407,7 @@ void DocumentView::previousPage()
         case OneColumn:
             if(m_currentPage > 1)
             {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage -= 1;
 
@@ -420,7 +420,7 @@ void DocumentView::previousPage()
         case TwoColumns:
             if(m_currentPage > 2)
             {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage -= 2;
 
@@ -443,7 +443,7 @@ void DocumentView::nextPage()
         case OneColumn:
             if(m_currentPage <= m_numberOfPages-1)
             {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage += 1;
 
@@ -456,7 +456,7 @@ void DocumentView::nextPage()
         case TwoColumns:
             if(m_currentPage <= m_numberOfPages-2)
             {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage += 2;
 
@@ -475,7 +475,7 @@ void DocumentView::firstPage()
     {
         if(m_currentPage != 1)
         {
-            clearHighlight();
+            clearHighlights();
 
             m_currentPage = 1;
 
@@ -496,7 +496,7 @@ void DocumentView::lastPage()
         case OneColumn:
             if(m_currentPage != m_numberOfPages)
             {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage = m_numberOfPages;
 
@@ -511,7 +511,7 @@ void DocumentView::lastPage()
             {
                 if(m_currentPage != m_numberOfPages-1)
                 {
-                    clearHighlight();
+                    clearHighlights();
 
                     m_currentPage = m_numberOfPages-1;
 
@@ -524,7 +524,7 @@ void DocumentView::lastPage()
             {
                 if(m_currentPage != m_numberOfPages)
                 {
-                    clearHighlight();
+                    clearHighlights();
 
                     m_currentPage = m_numberOfPages;
 
@@ -539,13 +539,28 @@ void DocumentView::lastPage()
 }
 
 
-void DocumentView::clearHighlight()
+void DocumentView::clearHighlights()
 {
     if(m_document)
     {
-        PageObject *pageObject = m_pageToPageObject.value(m_currentPage);
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            m_pageToPageObject.value(m_currentPage)->clearHighlight();
 
-        pageObject->clearHighlight();
+            break;
+        case TwoPages:
+        case TwoColumns:
+            m_pageToPageObject.value(m_currentPage)->clearHighlight();
+
+            if(m_pageToPageObject.contains(m_currentPage+1))
+            {
+                m_pageToPageObject.value(m_currentPage+1)->clearHighlight();
+            }
+
+            break;
+        }
     }
 }
 
@@ -910,7 +925,7 @@ void DocumentView::scrollToPage(const int &value)
             }
 
             if(m_currentPage != visiblePage) {
-                clearHighlight();
+                clearHighlights();
 
                 m_currentPage = visiblePage;
 

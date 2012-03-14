@@ -64,10 +64,6 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
     m_renderWatcher = new QFutureWatcher<void>();
 }
 
-QMutex PageObject::s_mutex;
-QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
-int PageObject::s_maximumPageCacheSize = QSettings("qpdfview","qpdfview").value("pageObject/maximumPageCacheSize", 32).toInt();
-
 PageObject::~PageObject()
 {
     if(m_renderWatcher->isRunning())
@@ -79,12 +75,26 @@ PageObject::~PageObject()
 
     QMutexLocker mutexLocker(&s_mutex);
 
-    s_pageCache.remove(QPair<QString, int>(filePath(), index()));
+    QPair<QString, int> key(filePath(), index());
+
+    if(s_pageCache.contains(key))
+    {
+        s_pageCacheByteCount -= s_pageCache.value(key).byteCount();
+        s_pageCache.remove(key);
+    }
 
     mutexLocker.unlock();
 
     delete m_page;
 }
+
+
+QMutex PageObject::s_mutex;
+QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
+
+uint PageObject::s_pageCacheByteCount = 0;
+uint PageObject::s_maximumPageCacheByteCount = QSettings("qpdfview","qpdfview").value("pageObject/maximumPageCacheByteCount", 134217728).toUInt();
+
 
 int PageObject::index() const
 {
@@ -241,7 +251,7 @@ void PageObject::renderPage()
 
     foreach(QGraphicsView *view, this->scene()->views())
     {
-        QRectF viewRect = view->mapToScene(view->rect()).boundingRect();
+        QRectF viewRect = view->mapToScene(view->viewport()->rect()).boundingRect();
 
         visible = viewRect.intersects(pageRect);
     }
@@ -275,22 +285,28 @@ void PageObject::renderPage()
 
     QMutexLocker mutexLocker(&s_mutex);
 
-    if(s_pageCache.size() < s_maximumPageCacheSize)
+    QPair<QString, int> key(filePath(), index());
+
+    if(s_pageCacheByteCount < s_maximumPageCacheByteCount)
     {
-        s_pageCache.insert(QPair<QString, int>(filePath(), index()), image);
+        s_pageCache.insert(key, image);
+        s_pageCacheByteCount += image.byteCount();
     }
     else
     {
-        if(s_pageCache.lowerBound(QPair<QString, int>(filePath(), index())) != s_pageCache.end())
+        if(s_pageCache.lowerBound(key) != s_pageCache.end())
         {
+            s_pageCacheByteCount -= (--s_pageCache.end()).value().byteCount();
             s_pageCache.remove((--s_pageCache.end()).key());
         }
         else
         {
+            s_pageCacheByteCount -= s_pageCache.begin().value().byteCount();
             s_pageCache.remove(s_pageCache.begin().key());
         }
 
-        s_pageCache.insert(QPair<QString, int>(filePath(), index()), image);
+        s_pageCache.insert(key, image);
+        s_pageCacheByteCount += image.byteCount();
     }
 
     mutexLocker.unlock();

@@ -637,7 +637,7 @@ void MainWindow::search()
 
             DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-            documentView->clearHighlight();
+            documentView->clearHighlights();
         }
     }
 }
