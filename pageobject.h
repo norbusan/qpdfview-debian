@@ -44,8 +44,9 @@ private:
     QMatrix m_matrix1;
     QMatrix m_matrix2;
 
-    QList<QRectF> m_links;
-    QList<int> m_destinations;
+    typedef QPair<QRectF, int> Link;
+    QList<Link> m_links;
+
     QRectF m_highlight;
     QRectF m_selection;
 

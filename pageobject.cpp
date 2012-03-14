@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_destinations(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_highlight(),m_selection()
 {
     m_matrix1.scale(resolutionX() / 72.0, resolutionY() / 72.0);
 
@@ -53,8 +53,7 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
 
                 linkArea = m_matrix2.mapRect(linkArea);
 
-                m_links.append(linkArea);
-                m_destinations.append(linkGoto->destination().pageNumber());
+                m_links.append(Link(linkArea, linkGoto->destination().pageNumber()));
             }
         }
 
@@ -206,9 +205,9 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->setPen(QPen(Qt::red));
 
-    foreach(QRectF link, m_links)
+    foreach(Link link, m_links)
     {
-        painter->drawRect(link);
+        painter->drawRect(link.first);
     }
 
     // draw highlight
@@ -320,9 +319,9 @@ void PageObject::renderPage()
 
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    foreach(QRectF link, m_links)
+    foreach(Link link, m_links)
     {
-        if(link.contains(event->scenePos() - pos()))
+        if(link.first.contains(event->scenePos() - pos()))
         {
             return;
         }
@@ -341,11 +340,11 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         this->updateScene();
     }
 
-    for(int i = 0; i < m_links.size(); i++)
+    foreach(Link link, m_links)
     {
-        if(m_links[i].contains(event->scenePos() - pos()))
+        if(link.first.contains(event->scenePos() - pos()))
         {
-            emit linkClicked(m_destinations[i]);
+            emit linkClicked(link.second);
 
             return;
         }
