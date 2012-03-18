@@ -3,6 +3,7 @@
         <file>icons/qpdfview.svg</file>
         <file>icons/document-open.svg</file>
         <file>icons/view-refresh.svg</file>
+	<file>icons/document-save.svg</file>
         <file>icons/document-print.svg</file>
         <file>icons/go-first.svg</file>
         <file>icons/go-last.svg</file>

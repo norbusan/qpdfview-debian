@@ -26,6 +26,6 @@ launcher.path = /usr/share/applications
 launcher.files = miscellaneous/qpdfview.desktop
 
 pixmap.path = /usr/share/pixmaps
-pixmap.files = icons/qpdfview.svg
+pixmap.files = icons/qpdfview.png
 
 INSTALLS += target launcher pixmap
