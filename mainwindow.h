@@ -125,6 +125,7 @@ private:
     QWidget *m_searchWidget;
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
+    QCheckBox *m_matchCaseCheckBox;
 
     void createActions();
     void createToolbars();
@@ -179,6 +180,7 @@ private slots:
     void updateRotation(const DocumentView::Rotation &rotation);
 
 protected:
+    void keyPressEvent(QKeyEvent *keyEvent);
     void dragEnterEvent(QDragEnterEvent *dragEnterEvent);
     void dropEvent(QDropEvent *dropEvent);
     void closeEvent(QCloseEvent *closeEvent);

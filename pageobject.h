@@ -28,7 +28,7 @@ public:
     Poppler::Page::Rotation rotation() const;
 
 
-    bool findNext(const QString &text);
+    bool findNext(const QString &text, const bool &matchCase);
 
     void clearHighlight();
     QRectF highlightedArea() const;
@@ -68,7 +68,8 @@ private:
 signals:
     void indexChanged(int);
 
-    void linkClicked(int gotoPage);
+    void linkClicked(int pageNumber);
+    void linkClicked(QString fileName, int pageNumber);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -85,7 +85,7 @@ public:
 
     void clearHighlights();
 
-    bool findNext(const QString &text);
+    bool findNext(const QString &text, const bool &matchCase);
     void copyText();
 
 private:
@@ -132,7 +132,7 @@ signals:
 
 private slots:
     void scrollToPage(const int &value);
-    void followLink(int gotoPage);
+    void followLink(int pageNumber);
 
     void tabMenuActionTriggered();
 

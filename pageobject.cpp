@@ -154,9 +154,9 @@ Poppler::Page::Rotation PageObject::rotation() const
 }
 
 
-bool PageObject::findNext(const QString &text)
+bool PageObject::findNext(const QString &text, const bool &matchCase)
 {
-    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, Poppler::Page::CaseInsensitive, rotation());
+    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
 
     if(result)
     {
@@ -241,7 +241,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
         highlight.adjust(-5.0,-5.0,5.0,5.0);
 
-        painter->fillRect(highlight, QBrush(QColor(0,0,0,31)));
+        painter->fillRect(highlight, QBrush(QColor(0,0,255,127)));
     }
 
     // draw selection

@@ -584,7 +584,7 @@ void DocumentView::clearHighlights()
 }
 
 
-bool DocumentView::findNext(const QString &text)
+bool DocumentView::findNext(const QString &text, const bool &matchCase)
 {
     if(m_document)
     {
@@ -593,7 +593,7 @@ bool DocumentView::findNext(const QString &text)
         for(int page = m_currentPage; page <= m_numberOfPages; page++)
         {
             PageObject *pageObject = m_pageToPageObject.value(page);
-            result = pageObject->findNext(text);
+            result = pageObject->findNext(text, matchCase);
 
             if(result)
             {
@@ -614,7 +614,7 @@ bool DocumentView::findNext(const QString &text)
             for(int page = 1; page < m_currentPage; page++)
             {
                 PageObject *pageObject = m_pageToPageObject.value(page);
-                result = pageObject->findNext(text);
+                result = pageObject->findNext(text, matchCase);
 
                 if(result)
                 {
@@ -643,11 +643,31 @@ void DocumentView::copyText()
 {
     if(m_document)
     {
-        PageObject *pageObject = m_pageToPageObject.value(m_currentPage);
-
-        if(!pageObject->highlightedText().isEmpty())
+        switch(m_pageLayout)
         {
-            QApplication::clipboard()->setText(pageObject->highlightedText());
+        case OnePage:
+        case OneColumn:
+            if(!m_pageToPageObject.value(m_currentPage)->highlightedText().isEmpty())
+            {
+                QApplication::clipboard()->setText(m_pageToPageObject.value(m_currentPage)->highlightedText());
+            }
+
+            break;
+        case TwoPages:
+        case TwoColumns:
+            if(!m_pageToPageObject.value(m_currentPage)->highlightedText().isEmpty())
+            {
+                QApplication::clipboard()->setText(m_pageToPageObject.value(m_currentPage)->highlightedText());
+            }
+            else if(m_pageToPageObject.contains(m_currentPage+1))
+            {
+                if(!m_pageToPageObject.value(m_currentPage+1)->highlightedText().isEmpty())
+                {
+                    QApplication::clipboard()->setText(m_pageToPageObject.value(m_currentPage+1)->highlightedText());
+                }
+            }
+
+            break;
         }
     }
 }
@@ -960,11 +980,11 @@ void DocumentView::scrollToPage(const int &value)
     }
 }
 
-void DocumentView::followLink(int gotoPage)
+void DocumentView::followLink(int pageNumber)
 {
     if(m_document)
     {
-        this->setCurrentPage(gotoPage);
+        this->setCurrentPage(pageNumber);
     }
 }
 

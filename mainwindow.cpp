@@ -153,6 +153,7 @@ MainWindow::~MainWindow()
 
     delete m_searchLabel;
     delete m_searchLineEdit;
+    delete m_matchCaseCheckBox;
 }
 
 QSize MainWindow::sizeHint() const
@@ -487,12 +488,15 @@ void MainWindow::createToolbars()
     m_searchWidget = new QWidget();
     m_searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit();
+    m_matchCaseCheckBox = new QCheckBox(tr("Match &case"));
+    m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
 
     connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
     m_searchWidget->layout()->addWidget(m_searchLineEdit);
+    m_searchWidget->layout()->addWidget(m_matchCaseCheckBox);
 
     // fileToolBar
 
@@ -672,17 +676,13 @@ void MainWindow::search()
         if(m_searchToolBar->isHidden())
         {
             m_searchToolBar->setHidden(false);
-
-            m_searchLineEdit->setFocus();
         }
         else
         {
-            m_searchToolBar->setHidden(true);
-
-            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-            documentView->clearHighlights();
+            m_searchLineEdit->selectAll();
         }
+
+        m_searchLineEdit->setFocus();
     }
 }
 
@@ -702,7 +702,7 @@ void MainWindow::findNext()
             {
                 DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-                documentView->findNext(m_searchLineEdit->text());
+                documentView->findNext(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
             }
         }
     }
@@ -1088,6 +1088,7 @@ void MainWindow::changeCurrentTab(const int &index)
         m_editToolBar->setEnabled(false);
 
         m_searchToolBar->setEnabled(false);
+        m_searchToolBar->setHidden(true);
 
         m_pageLayoutComboBox->setCurrentIndex(0);
         m_scalingComboBox->setCurrentIndex(4);
@@ -1234,6 +1235,17 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 }
 
 
+void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if(keyEvent->key() == Qt::Key_Escape)
+    {
+        if(!m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->setHidden(true);
+        }
+    }
+}
+
 void MainWindow::dragEnterEvent(QDragEnterEvent *dragEnterEvent)
 {
     if(dragEnterEvent->mimeData()->hasUrls())
@@ -1280,6 +1292,9 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
+    m_searchToolBar->setHidden(true);
+    m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
+
     if(m_fullscreenAction->isChecked())
     {
         m_settings.setValue("mainWindow/geometry", m_normalGeometry);
@@ -1288,8 +1303,6 @@ void MainWindow::closeEvent(QCloseEvent *closeEvent)
     {
         m_settings.setValue("mainWindow/geometry", this->saveGeometry());
     }
-
-    m_searchToolBar->setHidden(true);
 
     m_settings.setValue("mainWindow/state", this->saveState());
 
