@@ -55,6 +55,7 @@ private:
 
     QAction *m_openAction;
     QAction *m_refreshAction;
+    QAction *m_saveCopyAction;
     QAction *m_printAction;
 
     QAction *m_exitAction;
@@ -135,6 +136,7 @@ private:
 private slots:
     void open();
     void refresh();
+    void saveCopy();
     void print();
 
     void previousPage();

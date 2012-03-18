@@ -287,6 +287,25 @@ bool DocumentView::refresh()
     }
 }
 
+bool DocumentView::saveCopy(const QString &filePath)
+{
+    if(m_document)
+    {
+            Poppler::PDFConverter *converter = m_document->pdfConverter();
+
+            converter->setOutputFileName(filePath);
+            bool result = converter->convert();
+
+            delete converter;
+
+            return result;
+    }
+    else
+    {
+            return false;
+    }
+}
+
 void DocumentView::print()
 {
     if(m_document)

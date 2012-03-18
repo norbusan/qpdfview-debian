@@ -1,31 +1,54 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_links(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix3(),m_matrix2(),m_links(),m_highlight(),m_selection()
 {
-    m_matrix1.scale(resolutionX() / 72.0, resolutionY() / 72.0);
+    m_matrix1.setMatrix(resolutionX() / 72.0, 0.0,
+                        0.0, resolutionY() / 72.0,
+                        0.0, 0.0);
 
     switch(rotation())
     {
     case Poppler::Page::Rotate0:
-        m_matrix2.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+        m_matrix2.setMatrix(1.0, 0.0,
+                            0.0, 1.0,
+                            0.0, 0.0);
+
+        m_matrix3.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
                             0.0, resolutionY() / 72.0 * m_page->pageSizeF().height(),
                             0.0, 0.0);
+
+
         break;
     case Poppler::Page::Rotate90:
-        m_matrix2.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
+        m_matrix2.setMatrix(0.0, 1.0,
+                            -1.0, 0.0,
+                            m_page->pageSizeF().height(), 0.0);
+
+        m_matrix3.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
                             -1.0 * resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
                             resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
+
         break;
     case Poppler::Page::Rotate180:
-        m_matrix2.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+        m_matrix2.setMatrix(-1.0, 0.0,
+                            0.0, -1.0,
+                            m_page->pageSizeF().width(), m_page->pageSizeF().height());
+
+        m_matrix3.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
                             0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().height(),
                             resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
+
         break;
     case Poppler::Page::Rotate270:
-        m_matrix2.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
+        m_matrix2.setMatrix(0.0, -1.0,
+                            1.0, 0.0,
+                            0.0, m_page->pageSizeF().width());
+
+        m_matrix3.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
                             resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
                             0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
+
         break;
     }
 
@@ -51,7 +74,7 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
                     linkArea.setHeight(-linkArea.height());
                 }
 
-                linkArea = m_matrix2.mapRect(linkArea);
+                linkArea = m_matrix3.mapRect(linkArea);
 
                 m_links.append(Link(linkArea, linkGoto->destination().pageNumber()));
             }
@@ -163,7 +186,7 @@ QRectF PageObject::highlightedArea() const
 
 QString PageObject::highlightedText() const
 {
-    return m_page->text(m_highlight);
+    return m_page->text(m_matrix2.inverted().mapRect(m_highlight));
 }
 
 

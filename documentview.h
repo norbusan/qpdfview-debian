@@ -75,6 +75,7 @@ public:
 
     bool open(const QString &filePath);
     bool refresh();
+    bool saveCopy(const QString &filePath);
     void print();
 
     void previousPage();

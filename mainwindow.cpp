@@ -195,6 +195,17 @@ void MainWindow::createActions()
         m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
     }
     m_refreshAction->setIconVisibleInMenu(true);
+    m_saveCopyAction = new QAction(tr("&Save copy..."), this);
+    m_saveCopyAction->setShortcut(QKeySequence::Save);
+    if(QIcon::hasThemeIcon("document-save"))
+    {
+        m_saveCopyAction->setIcon(QIcon::fromTheme("document-save"));
+    }
+    else
+    {
+        m_saveCopyAction->setIcon(QIcon(":/icons/document-save.svg"));
+    }
+    m_saveCopyAction->setIconVisibleInMenu(true);
     m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
     if(QIcon::hasThemeIcon("document-print"))
@@ -209,6 +220,7 @@ void MainWindow::createActions()
 
     connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
     connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
+    connect(m_saveCopyAction, SIGNAL(triggered()), this, SLOT(saveCopy()));
     connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
 
     m_exitAction = new QAction(tr("&Exit"), this);
@@ -488,6 +500,7 @@ void MainWindow::createToolbars()
     m_fileToolBar->setObjectName("fileToolBar");
     m_fileToolBar->addAction(m_openAction);
     m_fileToolBar->addAction(m_refreshAction);
+    m_fileToolBar->addAction(m_saveCopyAction);
     m_fileToolBar->addAction(m_printAction);
     this->addToolBar(Qt::TopToolBarArea, m_fileToolBar);
 
@@ -527,6 +540,7 @@ void MainWindow::createMenus()
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_openAction);
     m_fileMenu->addAction(m_refreshAction);
+    m_fileMenu->addAction(m_saveCopyAction);
     m_fileMenu->addAction(m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
@@ -619,6 +633,24 @@ void MainWindow::refresh()
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         documentView->refresh();
+    }
+}
+
+void MainWindow::saveCopy()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+
+        if(!filePath.isEmpty())
+        {
+            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            if(!documentView->saveCopy(filePath))
+            {
+                QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at \"%1\".").arg(QFileInfo(filePath).fileName()));
+            }
+        }
     }
 }
 
@@ -993,6 +1025,7 @@ void MainWindow::changeCurrentTab(const int &index)
         DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         m_refreshAction->setEnabled(true);
+        m_saveCopyAction->setEnabled(true);
         m_printAction->setEnabled(true);
 
         m_previousPageAction->setEnabled(true);
@@ -1025,6 +1058,7 @@ void MainWindow::changeCurrentTab(const int &index)
     else
     {
         m_refreshAction->setEnabled(false);
+        m_saveCopyAction->setEnabled(false);
         m_printAction->setEnabled(false);
 
         m_previousPageAction->setEnabled(false);

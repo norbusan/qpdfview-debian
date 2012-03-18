@@ -13,6 +13,7 @@ class PageObject;
 class PageObject : public QGraphicsObject
 {
     Q_OBJECT
+    Q_PROPERTY(int index READ index WRITE setIndex NOTIFY indexChanged)
 
 public:
     explicit PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent = 0);
@@ -43,6 +44,7 @@ private:
 
     QMatrix m_matrix1;
     QMatrix m_matrix2;
+    QMatrix m_matrix3;
 
     typedef QPair<QRectF, int> Link;
     QList<Link> m_links;
