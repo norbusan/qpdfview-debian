@@ -22,11 +22,11 @@ TRANSLATIONS += translations/qpdfview_de.ts
 
 target.path = /usr/bin
 
-launcher.path = /usr/share/applications
-launcher.files = miscellaneous/qpdfview.desktop
-
 pixmap.path = /usr/share/pixmaps
 pixmap.files = icons/qpdfview.png
+
+launcher.path = /usr/share/applications
+launcher.files = miscellaneous/qpdfview.desktop
 
 manpage.path = /usr/man/man1
 manpage.files = miscellaneous/qpdfview.1
