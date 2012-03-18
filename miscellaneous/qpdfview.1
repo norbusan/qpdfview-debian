@@ -1,0 +1,24 @@
+.\" Process this file with
+.\" groff -man -Tascii qpdfview.1
+.\"
+.TH QPDFVIEW 1 "MARCH 2012" Linux "User Manuals"
+.SH NAME
+qpdfview \- tabbed PDF viewer
+.SH SYNOPSIS
+.B qpdfview
+.I file(s)
+.SH DESCRIPTION
+.B qpdfview
+is a simple document viewer for files in the PDF format.
+It uses the poppler library for rendering.
+.SH OPTIONS
+.IP filename(s)...
+Specifies the files to open when qpdfview starts. If this
+is not specified, qpdfview will open a blank window.
+Multiple files can be loaded in separate tabs if the file
+names are separated by spaces.
+.SH BUGS
+If you find a bug, please report it at
+https://launchpad.net/qpdfview.
+.SH AUTHOR
+Benjamin Eltzner <b.eltzner@gmx.de>

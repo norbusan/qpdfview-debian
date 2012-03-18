@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix3(),m_matrix2(),m_links(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_matrix3(),m_links(),m_highlight(),m_selection()
 {
     m_matrix1.setMatrix(resolutionX() / 72.0, 0.0,
                         0.0, resolutionY() / 72.0,

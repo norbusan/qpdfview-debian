@@ -28,4 +28,7 @@ launcher.files = miscellaneous/qpdfview.desktop
 pixmap.path = /usr/share/pixmaps
 pixmap.files = icons/qpdfview.png
 
-INSTALLS += target launcher pixmap
+manpage.path = /usr/man/man1
+manpage.files = miscellaneous/qpdfview.1
+
+INSTALLS += target launcher pixmap manpage
