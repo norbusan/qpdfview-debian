@@ -2,7 +2,7 @@
 Type=Application
 Terminal=false
 Name=qpdfview
-Icon=/usr/share/pixmaps/qpdfview.svg
+Icon=/usr/share/pixmaps/qpdfview.png
 GenericName=PDF viewer
 GenericName[de]=PDF-Betrachter
 Comment=A tabbed PDF viewer using the poppler library.
