@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_matrix3(),m_links(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_matrix3(),m_links(),m_externalLinks(),m_highlight(),m_selection()
 {
     m_matrix1.setMatrix(resolutionX() / 72.0, 0.0,
                         0.0, resolutionY() / 72.0,
@@ -58,24 +58,28 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
         {
             Poppler::LinkGoto *linkGoto = static_cast<Poppler::LinkGoto*>(link);
 
-            if(!linkGoto->isExternal())
+            QRectF linkArea = link->linkArea();
+
+            if(linkArea.width() < 0.0)
             {
-                QRectF linkArea = link->linkArea();
+                linkArea.translate(linkArea.width(), 0.0);
+                linkArea.setWidth(-linkArea.width());
+            }
 
-                if(linkArea.width() < 0.0)
-                {
-                    linkArea.translate(linkArea.width(), 0.0);
-                    linkArea.setWidth(-linkArea.width());
-                }
+            if(linkArea.height() < 0.0)
+            {
+                linkArea.translate(0.0, linkArea.height());
+                linkArea.setHeight(-linkArea.height());
+            }
 
-                if(linkArea.height() < 0.0)
-                {
-                    linkArea.translate(0.0, linkArea.height());
-                    linkArea.setHeight(-linkArea.height());
-                }
+            linkArea = m_matrix3.mapRect(linkArea);
 
-                linkArea = m_matrix3.mapRect(linkArea);
-
+            if(linkGoto->isExternal())
+            {
+                m_externalLinks.append(ExternalLink(linkArea, linkGoto->fileName(), linkGoto->destination().pageNumber()));
+            }
+            else
+            {
                 m_links.append(Link(linkArea, linkGoto->destination().pageNumber()));
             }
         }
@@ -226,11 +230,20 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     // draw links
 
-    painter->setPen(QPen(Qt::red));
+    painter->setPen(QPen(QColor(255,0,0,127)));
 
     foreach(Link link, m_links)
     {
-        painter->drawRect(link.first);
+        painter->drawRect(link.area);
+    }
+
+    // draw external links
+
+    painter->setPen(QPen(QColor(0,255,0,127)));
+
+    foreach(ExternalLink link, m_externalLinks)
+    {
+        painter->drawRect(link.area);
     }
 
     // draw highlight
@@ -342,34 +355,58 @@ void PageObject::renderPage()
 
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    foreach(Link link, m_links)
+    if(event->button() == Qt::LeftButton)
     {
-        if(link.first.contains(event->scenePos() - pos()))
+        foreach(Link link, m_links)
         {
-            return;
+            if(link.area.contains(event->scenePos() - pos()))
+            {
+                return;
+            }
         }
-    }
 
-    m_selection = QRectF(event->scenePos() - pos(), QSizeF());
+        foreach(ExternalLink link, m_externalLinks)
+        {
+            if(link.area.contains(event->scenePos() - pos()))
+            {
+                return;
+            }
+        }
+
+        m_selection = QRectF(event->scenePos() - pos(), QSizeF());
+    }
 }
 
 void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(!m_selection.isNull())
+    if(event->button() == Qt::LeftButton)
     {
-        m_highlight = m_matrix1.inverted().mapRect(m_selection);
-        m_selection = QRectF();
-
-        this->updateScene();
-    }
-
-    foreach(Link link, m_links)
-    {
-        if(link.first.contains(event->scenePos() - pos()))
+        if(!m_selection.isNull())
         {
-            emit linkClicked(link.second);
+            m_highlight = m_matrix1.inverted().mapRect(m_selection);
+            m_selection = QRectF();
 
-            return;
+            this->updateScene();
+        }
+
+        foreach(Link link, m_links)
+        {
+            if(link.area.contains(event->scenePos() - pos()))
+            {
+                emit linkClicked(link.pageNumber);
+
+                return;
+            }
+        }
+
+        foreach(ExternalLink link, m_externalLinks)
+        {
+            if(link.area.contains(event->scenePos() - pos()))
+            {
+                emit linkClicked(link.fileName, link.pageNumber);
+
+                return;
+            }
         }
     }
 }

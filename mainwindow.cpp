@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 {
     this->createActions();
     this->createToolbars();
+    this->createDocks();
     this->createMenus();
 
     // tabWidget
@@ -154,6 +155,9 @@ MainWindow::~MainWindow()
     delete m_searchLabel;
     delete m_searchLineEdit;
     delete m_matchCaseCheckBox;
+
+    delete m_outlineView;
+    delete m_thumbnailsView;
 }
 
 QSize MainWindow::sizeHint() const
@@ -539,6 +543,21 @@ void MainWindow::createToolbars()
     this->addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 }
 
+void MainWindow::createDocks()
+{
+    // outlineView
+
+    m_outlineView = new OutlineView(this);
+    this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineView);
+    m_outlineView->close();
+
+    // thumbnailsView
+
+    m_thumbnailsView = new ThumbnailsView(this);
+    this->addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsView);
+    m_thumbnailsView->close();
+}
+
 void MainWindow::createMenus()
 {
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
@@ -584,6 +603,9 @@ void MainWindow::createMenus()
     toolbarMenu->addAction(m_fileToolBar->toggleViewAction());
     toolbarMenu->addAction(m_editToolBar->toggleViewAction());
     toolbarMenu->addAction(m_viewToolBar->toggleViewAction());
+    QMenu *dockMenu = m_viewMenu->addMenu(tr("&Docks"));
+    dockMenu->addAction(m_outlineView->toggleViewAction());
+    dockMenu->addAction(m_thumbnailsView->toggleViewAction());
     m_viewMenu->addAction(m_fullscreenAction);
 
     m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
@@ -605,7 +627,9 @@ void MainWindow::open()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"),
+                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                        tr("Portable Document Format (*.pdf)"));
 
         if(!filePath.isEmpty())
         {
@@ -644,7 +668,9 @@ void MainWindow::saveCopy()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+        QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"),
+                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                        tr("Portable Document Format (*.pdf)"));
 
         if(!filePath.isEmpty())
         {
@@ -917,7 +943,9 @@ void MainWindow::changeFullscreen()
 
 void MainWindow::addTab()
 {
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"), m_settings.value("mainWindow/path", QDir::homePath()).toString(), tr("Portable Document Format (*.pdf)"));
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
+                                                          m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                          tr("Portable Document Format (*.pdf)"));
 
     foreach(QString filePath, filePaths)
     {

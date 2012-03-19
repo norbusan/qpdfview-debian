@@ -8,11 +8,15 @@ LIBS         += -L/usr/lib -lpoppler-qt4
 
 SOURCES += main.cpp mainwindow.cpp \
     documentview.cpp \
-    pageobject.cpp
+    pageobject.cpp \
+    outlineview.cpp \
+    thumbnailsview.cpp
 
 HEADERS  += mainwindow.h \
     documentview.h \
-    pageobject.h
+    pageobject.h \
+    outlineview.h \
+    thumbnailsview.h
 
 RESOURCES += qpdfview.qrc
 

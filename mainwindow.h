@@ -26,6 +26,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 
 #include "documentview.h"
+#include "outlineview.h"
+#include "thumbnailsview.h"
 
 class MainWindow : public QMainWindow
 {
@@ -41,7 +43,6 @@ public:
 private:
     QMenu *m_fileMenu;
     QMenu *m_editMenu;
-    QMenu *m_toolbarMenu;
     QMenu *m_viewMenu;
     QMenu *m_tabMenu;
     QMenu *m_helpMenu;
@@ -52,6 +53,9 @@ private:
     QToolBar *m_viewToolBar;
 
     QTabWidget *m_tabWidget;
+
+    OutlineView *m_outlineView;
+    ThumbnailsView *m_thumbnailsView;
 
     QAction *m_openAction;
     QAction *m_refreshAction;
@@ -129,6 +133,7 @@ private:
 
     void createActions();
     void createToolbars();
+    void createDocks();
     void createMenus();
 
     QSettings m_settings;

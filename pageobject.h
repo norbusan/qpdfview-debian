@@ -22,11 +22,6 @@ public:
     int index() const;
     void setIndex(const int &index);
 
-    QString filePath() const;
-    qreal resolutionX() const;
-    qreal resolutionY() const;
-    Poppler::Page::Rotation rotation() const;
-
 
     bool findNext(const QString &text, const bool &matchCase);
 
@@ -46,8 +41,24 @@ private:
     QMatrix m_matrix2;
     QMatrix m_matrix3;
 
-    typedef QPair<QRectF, int> Link;
+    struct Link
+    {
+        QRectF area;
+        int pageNumber;
+
+        Link(const QRectF &_area, const int &_pageNumber) : area(_area), pageNumber(_pageNumber) {}
+    };
     QList<Link> m_links;
+
+    struct ExternalLink
+    {
+        QRectF area;
+        QString fileName;
+        int pageNumber;
+
+        ExternalLink(const QRectF &_area, const QString &_fileName, const int &_pageNumber) : area(_area), fileName(_fileName), pageNumber(_pageNumber) {}
+    };
+    QList<ExternalLink> m_externalLinks;
 
     QRectF m_highlight;
     QRectF m_selection;
@@ -72,6 +83,11 @@ signals:
     void linkClicked(QString fileName, int pageNumber);
 
 protected:
+    QString filePath() const;
+    qreal resolutionX() const;
+    qreal resolutionY() const;
+    Poppler::Page::Rotation rotation() const;
+
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
