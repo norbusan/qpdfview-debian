@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_resultsMutex(),m_results(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
@@ -544,6 +544,68 @@ void DocumentView::lastPage()
     }
 }
 
+
+void DocumentView::find(const QString &text, bool matchCase)
+{
+    if(m_document)
+    {
+        if(m_progressWatcher->isRunning())
+        {
+            m_progressWatcher->waitForFinished();
+        }
+
+        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::searchDocument, text, matchCase));
+    }
+}
+
+void DocumentView::searchDocument(const QString &text, bool matchCase)
+{
+    Poppler::Document *document = Poppler::Document::load(m_filePath);
+
+    if(document == 0)
+    {
+        qDebug() << "document == 0:" << m_filePath;
+
+        return;
+    }
+
+    QMutexLocker mutexLocker(&m_resultsMutex);
+
+    m_results.clear();
+
+    mutexLocker.unlock();
+
+    for(int currentPage = 1; currentPage <= m_numberOfPages; currentPage++)
+    {
+        Poppler::Page *page = document->page(currentPage-1);
+
+        if(page == 0)
+        {
+            qDebug() << "page == 0:" << m_filePath << currentPage;
+
+            delete document;
+
+            return;
+        }
+
+        QRectF rect;
+
+        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        {
+            mutexLocker.relock();
+
+            m_results.insertMulti(currentPage, rect);
+
+            mutexLocker.unlock();
+        }
+
+        delete page;
+
+        emit searchingProgressed(currentPage,m_numberOfPages);
+    }
+
+    delete document;
+}
 
 bool DocumentView::findPrevious(const QString &text, bool matchCase)
 {

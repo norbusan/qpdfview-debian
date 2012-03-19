@@ -59,6 +59,10 @@ void ThumbnailsView::updateThumbnails()
                 item = new QListWidgetItem(m_listWidget);
 
                 item->setIcon(QIcon(QPixmap::fromImage(thumbnail)));
+
+                item->setText(tr("%1").arg(index+1));
+                item->setToolTip(page->label());
+
                 item->setData(Qt::UserRole, index+1);
 
                 itemWidth = qMax(itemWidth, thumbnail.width());

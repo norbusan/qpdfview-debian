@@ -94,7 +94,7 @@ PageObject::~PageObject()
 
     delete m_renderWatcher;
 
-    QMutexLocker mutexLocker(&s_mutex);
+    QMutexLocker mutexLocker(&s_pageCacheMutex);
 
     QPair<QString, int> key(filePath(), index());
 
@@ -110,11 +110,11 @@ PageObject::~PageObject()
 }
 
 
-QMutex PageObject::s_mutex;
+QMutex PageObject::s_pageCacheMutex;
 QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
 
 uint PageObject::s_pageCacheByteCount = 0;
-uint PageObject::s_maximumPageCacheByteCount = QSettings("qpdfview","qpdfview").value("pageObject/maximumPageCacheByteCount", 134217728).toUInt();
+uint PageObject::s_maximumPageCacheByteCount = 134217728;
 
 
 int PageObject::index() const
@@ -192,7 +192,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    QMutexLocker mutexLocker(&s_mutex);
+    QMutexLocker mutexLocker(&s_pageCacheMutex);
 
     if(!s_pageCache.contains(QPair<QString, int>(filePath(), index())) && !m_renderWatcher->isRunning())
     {
@@ -252,6 +252,12 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 }
 
 
+void PageObject::setPageCacheSize(uint pageCacheSize)
+{
+    s_maximumPageCacheByteCount = pageCacheSize;
+}
+
+
 void PageObject::updateScene()
 {
     QRectF pageRect = boundingRect(); pageRect.translate(pos());
@@ -299,7 +305,7 @@ void PageObject::renderPage()
 
     QImage image = page->renderToImage(resolutionX(), resolutionY(), -1, -1, -1, -1, rotation());
 
-    QMutexLocker mutexLocker(&s_mutex);
+    QMutexLocker mutexLocker(&s_pageCacheMutex);
 
     QPair<QString, int> key(filePath(), index());
 

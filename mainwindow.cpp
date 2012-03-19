@@ -44,12 +44,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     // geometry
 
-    QSettings settings;
-
-    this->restoreGeometry(settings.value("mainWindow/geometry").toByteArray());
-    this->restoreState(settings.value("mainWindow/state").toByteArray());
+    this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
+    this->restoreState(m_settings.value("mainWindow/state").toByteArray());
 
     // miscellaneous
+
+    PageObject::setPageCacheSize(m_settings.value("pageObject/pageCacheSize", 134217728).toUInt());
 
     this->setAcceptDrops(true);
 
@@ -75,6 +75,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                 connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
                 connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
                 connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+
+                connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
             }
             else
             {
@@ -157,6 +159,8 @@ MainWindow::~MainWindow()
     delete m_searchLabel;
     delete m_searchLineEdit;
     delete m_matchCaseCheckBox;
+    delete m_findPreviousButton;
+    delete m_findNextButton;
 
     delete m_outlineView;
     delete m_thumbnailsView;
@@ -302,10 +306,13 @@ void MainWindow::createActions()
     m_copyTextAction->setIcon(QIcon::fromTheme("edit-copy"));
     m_copyTextAction->setIconVisibleInMenu(true);
 
+    m_editSettingsAction = new QAction(tr("Edit settings..."), this);
+
     connect(m_searchAction, SIGNAL(triggered()), this, SLOT(search()));
     connect(m_findPreviousAction, SIGNAL(triggered()), this, SLOT(findPrevious()));
     connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
     connect(m_copyTextAction, SIGNAL(triggered()), this, SLOT(copyText()));
+    connect(m_editSettingsAction, SIGNAL(triggered()), this, SLOT(editSettings()));
 
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
@@ -498,14 +505,21 @@ void MainWindow::createToolbars()
     m_searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit();
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"));
+    m_findPreviousButton = new QPushButton(tr("Find &previous"));
+    m_findNextButton = new QPushButton(tr("Find &next"));
+
     m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
 
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(find()));
+    connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
+    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
     m_searchWidget->layout()->addWidget(m_searchLineEdit);
     m_searchWidget->layout()->addWidget(m_matchCaseCheckBox);
+    m_searchWidget->layout()->addWidget(m_findPreviousButton);
+    m_searchWidget->layout()->addWidget(m_findNextButton);
 
     // fileToolBar
 
@@ -583,6 +597,8 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_findPreviousAction);
     m_editMenu->addAction(m_findNextAction);
     m_editMenu->addAction(m_copyTextAction);
+    m_editMenu->addSeparator();
+    m_editMenu->addAction(m_editSettingsAction);
 
     m_viewMenu = this->menuBar()->addMenu(tr("&View"));
     m_viewMenu->addAction(m_onePageAction);
@@ -718,6 +734,19 @@ void MainWindow::search()
     }
 }
 
+void MainWindow::find()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isEmpty())
+        {
+            DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            documentView->find(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+        }
+    }
+}
+
 void MainWindow::findPrevious()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -770,6 +799,13 @@ void MainWindow::copyText()
 
         documentView->copyText();
     }
+}
+
+void MainWindow::editSettings()
+{
+    SettingsDialog settingsDialog;
+
+    settingsDialog.exec();
 }
 
 
@@ -993,6 +1029,8 @@ void MainWindow::addTab()
             connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
             connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
             connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+
+            connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
 
             m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
         }
@@ -1299,6 +1337,17 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 }
 
 
+void MainWindow::updateSearchProgress(int currentPage, int numberOfPages)
+{
+    this->statusBar()->showMessage(tr("Searched page %1 of %2...").arg(currentPage).arg(numberOfPages));
+
+    if(currentPage == numberOfPages)
+    {
+        this->statusBar()->clearMessage();
+        this->statusBar()->hide();
+    }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
     if(keyEvent->key() == Qt::Key_Escape)
@@ -1344,6 +1393,8 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
                     connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
                     connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
                     connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+
+                    connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
                 }
                 else
                 {

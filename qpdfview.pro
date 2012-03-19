@@ -10,13 +10,15 @@ SOURCES += main.cpp mainwindow.cpp \
     documentview.cpp \
     pageobject.cpp \
     outlineview.cpp \
-    thumbnailsview.cpp
+    thumbnailsview.cpp \
+    settingsdialog.cpp
 
 HEADERS  += mainwindow.h \
     documentview.h \
     pageobject.h \
     outlineview.h \
-    thumbnailsview.h
+    thumbnailsview.h \
+    settingsdialog.h
 
 RESOURCES += qpdfview.qrc
 

@@ -34,6 +34,9 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+
+    static void setPageCacheSize(uint pageCacheSize);
+
 private:
     Poppler::Page *m_page;
     int m_index;
@@ -74,7 +77,7 @@ private:
     void renderPage();
 
 
-    static QMutex s_mutex;
+    static QMutex s_pageCacheMutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;
 
     static uint s_pageCacheByteCount;

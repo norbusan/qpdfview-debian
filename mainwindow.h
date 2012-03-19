@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+#include "settingsdialog.h"
 #include "documentview.h"
 #include "outlineview.h"
 #include "thumbnailsview.h"
@@ -73,6 +74,7 @@ private:
     QAction *m_findPreviousAction;
     QAction *m_findNextAction;
     QAction *m_copyTextAction;
+    QAction *m_editSettingsAction;
 
     QAction *m_onePageAction;
     QAction *m_twoPagesAction;
@@ -131,6 +133,8 @@ private:
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
     QCheckBox *m_matchCaseCheckBox;
+    QPushButton *m_findPreviousButton;
+    QPushButton *m_findNextButton;
 
     void createActions();
     void createToolbars();
@@ -153,9 +157,11 @@ private slots:
     void changeCurrentPage();
 
     void search();
+    void find();
     void findPrevious();
     void findNext();
     void copyText();
+    void editSettings();
 
     void selectPageLayout(QAction *pageLayoutAction);
     void changePageLayoutIndex(const int &index);
@@ -185,6 +191,8 @@ private slots:
     void updatePageLayout(const DocumentView::PageLayout &pageLayout);
     void updateScaling(const DocumentView::Scaling &scaling);
     void updateRotation(const DocumentView::Rotation &rotation);
+
+    void updateSearchProgress(int currentPage, int numberOfPages);
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
