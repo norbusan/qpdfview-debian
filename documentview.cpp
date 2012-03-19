@@ -263,12 +263,17 @@ bool DocumentView::refresh()
 
             m_document = document;
 
-            if(m_currentPage > document->numPages())
+            if(m_numberOfPages != document->numPages())
             {
-                m_currentPage = 1;
-            }
-            m_numberOfPages = document->numPages();
+                m_numberOfPages = document->numPages();
 
+                if(m_currentPage > m_numberOfPages)
+                {
+                    m_currentPage = m_numberOfPages;
+                }
+            }
+
+            emit filePathChanged(m_filePath);
             emit currentPageChanged(m_currentPage);
             emit numberOfPagesChanged(m_numberOfPages);
 

@@ -1,7 +1,7 @@
 TARGET = qpdfview
 TEMPLATE = app
 
-QT       += core gui
+QT       += core xml gui
 
 INCLUDEPATH  += /usr/include/poppler/qt4
 LIBS         += -L/usr/lib -lpoppler-qt4
@@ -29,10 +29,10 @@ target.path = /usr/bin
 pixmap.path = /usr/share/pixmaps
 pixmap.files = icons/qpdfview.png
 
-launcher.path = /usr/share/applications
-launcher.files = miscellaneous/qpdfview.desktop
-
 manpage.path = /usr/man/man1
 manpage.files = miscellaneous/qpdfview.1
 
-INSTALLS += target launcher pixmap manpage
+launcher.path = /usr/share/applications
+launcher.files = miscellaneous/qpdfview.desktop
+
+INSTALLS += target pixmap manpage launcher

@@ -26,6 +26,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 
 class DocumentView;
+class OutlineView;
+class ThumbnailsView;
 
 #include "pageobject.h"
 
@@ -46,6 +48,8 @@ public:
     explicit DocumentView(QWidget *parent = 0);
     ~DocumentView();
 
+    friend class OutlineView;
+    friend class ThumbnailsView;
 
     QString filePath() const;
 

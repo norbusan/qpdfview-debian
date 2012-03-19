@@ -1082,6 +1082,9 @@ void MainWindow::changeCurrentTab(const int &index)
         this->updatePageLayout(documentView->pageLayout());
         this->updateScaling(documentView->scaling());
         this->updateRotation(documentView->rotation());
+
+        m_outlineView->setDocumentView(documentView);
+        m_thumbnailsView->setDocumentView(documentView);
     }
     else
     {
@@ -1122,6 +1125,9 @@ void MainWindow::changeCurrentTab(const int &index)
         m_scalingComboBox->setCurrentIndex(4);
         m_rotationComboBox->setCurrentIndex(0);
         m_viewToolBar->setEnabled(false);
+
+        m_outlineView->setDocumentView(0);
+        m_thumbnailsView->setDocumentView(0);
     }
 }
 
