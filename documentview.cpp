@@ -89,8 +89,6 @@ void DocumentView::setCurrentPage(const int &currentPage)
     {
         if(m_currentPage != currentPage && currentPage >= 1 &&  currentPage <= m_numberOfPages)
         {
-            clearHighlights();
-
             switch(m_pageLayout)
             {
             case OnePage:
@@ -431,8 +429,6 @@ void DocumentView::previousPage()
         case OneColumn:
             if(m_currentPage > 1)
             {
-                clearHighlights();
-
                 m_currentPage -= 1;
 
                 emit currentPageChanged(m_currentPage);
@@ -444,8 +440,6 @@ void DocumentView::previousPage()
         case TwoColumns:
             if(m_currentPage > 2)
             {
-                clearHighlights();
-
                 m_currentPage -= 2;
 
                 emit currentPageChanged(m_currentPage);
@@ -467,8 +461,6 @@ void DocumentView::nextPage()
         case OneColumn:
             if(m_currentPage <= m_numberOfPages-1)
             {
-                clearHighlights();
-
                 m_currentPage += 1;
 
                 emit currentPageChanged(m_currentPage);
@@ -480,8 +472,6 @@ void DocumentView::nextPage()
         case TwoColumns:
             if(m_currentPage <= m_numberOfPages-2)
             {
-                clearHighlights();
-
                 m_currentPage += 2;
 
                 emit currentPageChanged(m_currentPage);
@@ -499,8 +489,6 @@ void DocumentView::firstPage()
     {
         if(m_currentPage != 1)
         {
-            clearHighlights();
-
             m_currentPage = 1;
 
             emit currentPageChanged(m_currentPage);
@@ -520,8 +508,6 @@ void DocumentView::lastPage()
         case OneColumn:
             if(m_currentPage != m_numberOfPages)
             {
-                clearHighlights();
-
                 m_currentPage = m_numberOfPages;
 
                 emit currentPageChanged(m_currentPage);
@@ -535,8 +521,6 @@ void DocumentView::lastPage()
             {
                 if(m_currentPage != m_numberOfPages-1)
                 {
-                    clearHighlights();
-
                     m_currentPage = m_numberOfPages-1;
 
                     emit currentPageChanged(m_currentPage);
@@ -548,8 +532,6 @@ void DocumentView::lastPage()
             {
                 if(m_currentPage != m_numberOfPages)
                 {
-                    clearHighlights();
-
                     m_currentPage = m_numberOfPages;
 
                     emit currentPageChanged(m_currentPage);
@@ -563,33 +545,70 @@ void DocumentView::lastPage()
 }
 
 
-void DocumentView::clearHighlights()
+bool DocumentView::findPrevious(const QString &text, bool matchCase)
 {
     if(m_document)
     {
-        switch(m_pageLayout)
+        bool result = false;
+
+        for(int page = m_currentPage; page >= 1; page--)
         {
-        case OnePage:
-        case OneColumn:
-            m_pageToPageObject.value(m_currentPage)->clearHighlight();
+            qDebug() << "findPrevious:" << page;
 
-            break;
-        case TwoPages:
-        case TwoColumns:
-            m_pageToPageObject.value(m_currentPage)->clearHighlight();
+            PageObject *pageObject = m_pageToPageObject.value(page);
+            result = pageObject->findPrevious(text, matchCase);
 
-            if(m_pageToPageObject.contains(m_currentPage+1))
+            if(result)
             {
-                m_pageToPageObject.value(m_currentPage+1)->clearHighlight();
-            }
+                qDebug() << "result:" << page;
 
-            break;
+                this->setCurrentPage(page);
+
+                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+                m_graphicsView->centerOn(pageObject->lastResult().center());
+
+                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+                break;
+            }
         }
+
+        if(!result)
+        {
+            for(int page = m_numberOfPages; page > m_currentPage; page--)
+            {
+                qDebug() << "findPrevious:" << page;
+
+                PageObject *pageObject = m_pageToPageObject.value(page);
+                result = pageObject->findPrevious(text, matchCase);
+
+                if(result)
+                {
+                    qDebug() << "result:" << page;
+
+                    this->setCurrentPage(page);
+
+                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+                    m_graphicsView->centerOn(pageObject->lastResult().center());
+
+                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+    else
+    {
+        return false;
     }
 }
 
-
-bool DocumentView::findNext(const QString &text, const bool &matchCase)
+bool DocumentView::findNext(const QString &text, bool matchCase)
 {
     if(m_document)
     {
@@ -597,16 +616,20 @@ bool DocumentView::findNext(const QString &text, const bool &matchCase)
 
         for(int page = m_currentPage; page <= m_numberOfPages; page++)
         {
+            qDebug() << "findNext:" << page;
+
             PageObject *pageObject = m_pageToPageObject.value(page);
             result = pageObject->findNext(text, matchCase);
 
             if(result)
             {
+                qDebug() << "result:" << page;
+
                 this->setCurrentPage(page);
 
                 disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
-                m_graphicsView->centerOn(pageObject->highlightedArea().center());
+                m_graphicsView->centerOn(pageObject->lastResult().center());
 
                 connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
@@ -618,16 +641,20 @@ bool DocumentView::findNext(const QString &text, const bool &matchCase)
         {
             for(int page = 1; page < m_currentPage; page++)
             {
+                qDebug() << "findNext:" << page;
+
                 PageObject *pageObject = m_pageToPageObject.value(page);
                 result = pageObject->findNext(text, matchCase);
 
                 if(result)
                 {
+                    qDebug() << "result:" << page;
+
                     this->setCurrentPage(page);
 
                     disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
-                    m_graphicsView->centerOn(pageObject->highlightedArea().center());
+                    m_graphicsView->centerOn(pageObject->lastResult().center());
 
                     connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
@@ -975,8 +1002,6 @@ void DocumentView::scrollToPage(const int &value)
             }
 
             if(m_currentPage != visiblePage) {
-                clearHighlights();
-
                 m_currentPage = visiblePage;
 
                 emit currentPageChanged(m_currentPage);

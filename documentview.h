@@ -87,9 +87,8 @@ public:
     void firstPage();
     void lastPage();
 
-    void clearHighlights();
-
-    bool findNext(const QString &text, const bool &matchCase);
+    bool findPrevious(const QString &text, bool matchCase);
+    bool findNext(const QString &text, bool matchCase);
     void copyText();
 
 private:

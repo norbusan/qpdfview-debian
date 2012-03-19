@@ -98,7 +98,9 @@ MainWindow::~MainWindow()
     delete m_lastPageAction;
 
     delete m_searchAction;
+    delete m_findPreviousAction;
     delete m_findNextAction;
+    delete m_copyTextAction;
 
     delete m_onePageAction;
     delete m_twoPagesAction;
@@ -290,7 +292,9 @@ void MainWindow::createActions()
     m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
     m_searchAction->setIconVisibleInMenu(true);
 
-    m_findNextAction = new QAction(tr("F&ind next"), this);
+    m_findPreviousAction = new QAction(tr("Find previous"), this);
+    m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
+    m_findNextAction = new QAction(tr("Find next"), this);
     m_findNextAction->setShortcut(QKeySequence::FindNext);
 
     m_copyTextAction = new QAction(tr("&Copy text"), this);
@@ -299,6 +303,7 @@ void MainWindow::createActions()
     m_copyTextAction->setIconVisibleInMenu(true);
 
     connect(m_searchAction, SIGNAL(triggered()), this, SLOT(search()));
+    connect(m_findPreviousAction, SIGNAL(triggered()), this, SLOT(findPrevious()));
     connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
     connect(m_copyTextAction, SIGNAL(triggered()), this, SLOT(copyText()));
 
@@ -575,6 +580,7 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_lastPageAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_searchAction);
+    m_editMenu->addAction(m_findPreviousAction);
     m_editMenu->addAction(m_findNextAction);
     m_editMenu->addAction(m_copyTextAction);
 
@@ -709,6 +715,28 @@ void MainWindow::search()
         }
 
         m_searchLineEdit->setFocus();
+    }
+}
+
+void MainWindow::findPrevious()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->setHidden(false);
+
+            m_searchLineEdit->setFocus();
+        }
+        else
+        {
+            if(!m_searchLineEdit->text().isEmpty())
+            {
+                DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+                documentView->findPrevious(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+            }
+        }
     }
 }
 
@@ -1062,6 +1090,7 @@ void MainWindow::changeCurrentTab(const int &index)
         m_lastPageAction->setEnabled(true);
 
         m_searchAction->setEnabled(true);
+        m_findPreviousAction->setEnabled(true);
         m_findNextAction->setEnabled(true);
         m_copyTextAction->setEnabled(true);
 
@@ -1098,6 +1127,7 @@ void MainWindow::changeCurrentTab(const int &index)
         m_lastPageAction->setEnabled(false);
 
         m_searchAction->setEnabled(false);
+        m_findPreviousAction->setEnabled(false);
         m_findNextAction->setEnabled(false);
         m_copyTextAction->setEnabled(false);
 

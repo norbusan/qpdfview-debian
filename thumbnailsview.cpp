@@ -3,7 +3,7 @@
 ThumbnailsView::ThumbnailsView(QWidget *parent) : QDockWidget(parent),
     m_documentView(0)
 {
-    this->setWindowTitle(tr("Thumbnails"));
+    this->setWindowTitle(tr("&Thumbnails"));
     this->setObjectName("thumbnailsView");
 
     this->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);

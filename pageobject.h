@@ -23,11 +23,13 @@ public:
     void setIndex(const int &index);
 
 
-    bool findNext(const QString &text, const bool &matchCase);
-
-    void clearHighlight();
     QRectF highlightedArea() const;
     QString highlightedText() const;
+
+    QRectF lastResult() const;
+    bool findPrevious(const QString &text, bool matchCase);
+    bool findNext(const QString &text, bool matchCase);
+
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -35,11 +37,11 @@ public:
 private:
     Poppler::Page *m_page;
     int m_index;
+
     DocumentView *m_view;
 
-    QMatrix m_matrix1;
-    QMatrix m_matrix2;
-    QMatrix m_matrix3;
+    QMatrix m_linkTransform;
+    QMatrix m_highlightTransform;
 
     struct Link
     {
@@ -61,7 +63,9 @@ private:
     QList<ExternalLink> m_externalLinks;
 
     QRectF m_highlight;
-    QRectF m_selection;
+    QRectF m_lastResult;
+
+    QRectF m_rubberBand;
 
     QFutureWatcher<void> *m_renderWatcher;
 

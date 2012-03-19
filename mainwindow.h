@@ -70,6 +70,7 @@ private:
     QAction *m_lastPageAction;
 
     QAction *m_searchAction;
+    QAction *m_findPreviousAction;
     QAction *m_findNextAction;
     QAction *m_copyTextAction;
 
@@ -152,6 +153,7 @@ private slots:
     void changeCurrentPage();
 
     void search();
+    void findPrevious();
     void findNext();
     void copyText();
 

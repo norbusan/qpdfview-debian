@@ -1,51 +1,46 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_matrix1(),m_matrix2(),m_matrix3(),m_links(),m_externalLinks(),m_highlight(),m_selection()
+    m_page(page),m_index(index),m_view(view),m_linkTransform(),m_highlightTransform(),m_links(),m_externalLinks(),m_highlight(),m_lastResult(),m_rubberBand()
 {
-    m_matrix1.setMatrix(resolutionX() / 72.0, 0.0,
-                        0.0, resolutionY() / 72.0,
-                        0.0, 0.0);
-
     switch(rotation())
     {
     case Poppler::Page::Rotate0:
-        m_matrix2.setMatrix(1.0, 0.0,
-                            0.0, 1.0,
-                            0.0, 0.0);
+        m_highlightTransform.setMatrix(resolutionX() / 72.0, 0.0,
+                                       0.0, resolutionY() / 72.0,
+                                       0.0, 0.0);
 
-        m_matrix3.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
-                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().height(),
-                            0.0, 0.0);
-
+        m_linkTransform.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+                                  0.0, resolutionY() / 72.0 * m_page->pageSizeF().height(),
+                                  0.0, 0.0);
 
         break;
     case Poppler::Page::Rotate90:
-        m_matrix2.setMatrix(0.0, 1.0,
-                            -1.0, 0.0,
-                            m_page->pageSizeF().height(), 0.0);
+        m_highlightTransform.setMatrix(0.0, resolutionX() / 72.0,
+                                       -1.0 * resolutionY() / 72.0, 0.0,
+                                       resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
 
-        m_matrix3.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
-                            -1.0 * resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
-                            resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
+        m_linkTransform.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
+                                  -1.0 * resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
+                                  resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
 
         break;
     case Poppler::Page::Rotate180:
-        m_matrix2.setMatrix(-1.0, 0.0,
-                            0.0, -1.0,
-                            m_page->pageSizeF().width(), m_page->pageSizeF().height());
+        m_highlightTransform.setMatrix(-1.0 * resolutionX() / 72.0, 0.0,
+                                       0.0, -1.0 * resolutionY() / 72.0,
+                                       resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
 
-        m_matrix3.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
+        m_linkTransform.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
                             0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().height(),
                             resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
 
         break;
     case Poppler::Page::Rotate270:
-        m_matrix2.setMatrix(0.0, -1.0,
-                            1.0, 0.0,
-                            0.0, m_page->pageSizeF().width());
+        m_highlightTransform.setMatrix(0.0, -1.0 * resolutionX() / 72.0,
+                            resolutionY() / 72.0, 0.0,
+                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
 
-        m_matrix3.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
+        m_linkTransform.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
                             resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
                             0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
 
@@ -72,7 +67,7 @@ PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGrap
                 linkArea.setHeight(-linkArea.height());
             }
 
-            linkArea = m_matrix3.mapRect(linkArea);
+            linkArea = m_linkTransform.mapRect(linkArea);
 
             if(linkGoto->isExternal())
             {
@@ -137,30 +132,26 @@ void PageObject::setIndex(const int &index)
     }
 }
 
-QString PageObject::filePath() const
+
+QRectF PageObject::highlightedArea() const
 {
-    return m_view->filePath();
+    return m_highlight.translated(pos());
 }
 
-qreal PageObject::resolutionX() const
+QString PageObject::highlightedText() const
 {
-    return m_view->resolutionX();
-}
-
-qreal PageObject::resolutionY() const
-{
-    return m_view->resolutionY();
-}
-
-Poppler::Page::Rotation PageObject::rotation() const
-{
-    return static_cast<Poppler::Page::Rotation>(m_view->rotation());
+    return m_page->text(m_highlightTransform.inverted().mapRect(m_highlight));
 }
 
 
-bool PageObject::findNext(const QString &text, const bool &matchCase)
+QRectF PageObject::lastResult() const
 {
-    bool result = m_page->search(text, m_highlight, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
+    return QMatrix().scale(resolutionX() / 72.0, resolutionY() / 72.0).mapRect(m_lastResult).translated(pos()).adjusted(-5.0, -5.0, 5.0, 5.0);
+}
+
+bool PageObject::findPrevious(const QString &text, bool matchCase)
+{
+    bool result = m_page->search(text, m_lastResult, Poppler::Page::PreviousResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
 
     if(result)
     {
@@ -170,27 +161,16 @@ bool PageObject::findNext(const QString &text, const bool &matchCase)
     return result;
 }
 
-
-void PageObject::clearHighlight()
+bool PageObject::findNext(const QString &text, bool matchCase)
 {
-    m_highlight = QRectF();
+    bool result = m_page->search(text, m_lastResult, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
 
-    this->updateScene();
-}
+    if(result)
+    {
+        this->updateScene();
+    }
 
-QRectF PageObject::highlightedArea() const
-{
-    QRectF highlight = m_matrix1.mapRect(m_highlight);
-
-    highlight.adjust(-5.0, -5.0, 5.0, 5.0);
-    highlight.translate(pos());
-
-    return highlight;
-}
-
-QString PageObject::highlightedText() const
-{
-    return m_page->text(m_matrix2.inverted().mapRect(m_highlight));
+    return result;
 }
 
 
@@ -239,8 +219,6 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     // draw external links
 
-    painter->setPen(QPen(QColor(0,255,0,127)));
-
     foreach(ExternalLink link, m_externalLinks)
     {
         painter->drawRect(link.area);
@@ -250,23 +228,26 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     if(!m_highlight.isNull())
     {
-        QRectF highlight = m_matrix1.mapRect(m_highlight);
-
-        highlight.adjust(-5.0,-5.0,5.0,5.0);
-
-        painter->fillRect(highlight, QBrush(QColor(0,0,255,127)));
+        painter->fillRect(m_highlight, QBrush(QColor(0,0,255,127)));
     }
 
-    // draw selection
+    // draw rubber band
 
-    if(!m_selection.isNull())
+    if(!m_rubberBand.isNull())
     {
         QPen pen;
         pen.setColor(Qt::black);
         pen.setStyle(Qt::DashLine);
         painter->setPen(pen);
 
-        painter->drawRect(m_selection);
+        painter->drawRect(m_rubberBand);
+    }
+
+    // draw last result
+
+    if(!m_lastResult.isNull())
+    {
+        painter->fillRect(QMatrix().scale(resolutionX() / 72.0, resolutionY() / 72.0).mapRect(m_lastResult).adjusted(-5.0, -5.0, 5.0, 5.0), QBrush(QColor(0,255,0,127)));
     }
 }
 
@@ -353,6 +334,26 @@ void PageObject::renderPage()
 }
 
 
+QString PageObject::filePath() const
+{
+    return m_view->filePath();
+}
+
+qreal PageObject::resolutionX() const
+{
+    return m_view->resolutionX();
+}
+
+qreal PageObject::resolutionY() const
+{
+    return m_view->resolutionY();
+}
+
+Poppler::Page::Rotation PageObject::rotation() const
+{
+    return static_cast<Poppler::Page::Rotation>(m_view->rotation());
+}
+
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
@@ -373,7 +374,7 @@ void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
         }
 
-        m_selection = QRectF(event->scenePos() - pos(), QSizeF());
+        m_rubberBand = QRectF(event->scenePos() - pos(), QSizeF());
     }
 }
 
@@ -381,10 +382,10 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
     {
-        if(!m_selection.isNull())
+        if(!m_rubberBand.isNull())
         {
-            m_highlight = m_matrix1.inverted().mapRect(m_selection);
-            m_selection = QRectF();
+            m_highlight = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
+            m_rubberBand = QRectF();
 
             this->updateScene();
         }
@@ -409,13 +410,22 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             }
         }
     }
+    else if(event->button() == Qt::RightButton)
+    {
+        if(!m_highlight.isNull())
+        {
+            m_highlight = QRectF();
+
+            this->updateScene();
+        }
+    }
 }
 
 void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(!m_selection.isNull())
+    if(!m_rubberBand.isNull())
     {
-        m_selection.setBottomRight(event->scenePos() - pos());
+        m_rubberBand.setBottomRight(event->scenePos() - pos());
 
         this->updateScene();
     }

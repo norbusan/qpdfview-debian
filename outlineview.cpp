@@ -3,7 +3,7 @@
 OutlineView::OutlineView(QWidget *parent) : QDockWidget(parent),
     m_documentView(0), m_outline(0)
 {
-    this->setWindowTitle(tr("Outline"));
+    this->setWindowTitle(tr("&Outline"));
     this->setObjectName("outlineView");
 
     this->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
