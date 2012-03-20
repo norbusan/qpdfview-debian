@@ -6,19 +6,19 @@ QT       += core xml gui
 INCLUDEPATH  += /usr/include/poppler/qt4
 LIBS         += -L/usr/lib -lpoppler-qt4
 
-SOURCES += main.cpp mainwindow.cpp \
-    documentview.cpp \
-    pageobject.cpp \
-    outlineview.cpp \
-    thumbnailsview.cpp \
-    settingsdialog.cpp
+SOURCES += sources/main.cpp sources/mainwindow.cpp \
+    sources/documentview.cpp \
+    sources/pageobject.cpp \
+    sources/outlineview.cpp \
+    sources/thumbnailsview.cpp \
+    sources/settingsdialog.cpp
 
-HEADERS  += mainwindow.h \
-    documentview.h \
-    pageobject.h \
-    outlineview.h \
-    thumbnailsview.h \
-    settingsdialog.h
+HEADERS  += sources/mainwindow.h \
+    sources/documentview.h \
+    sources/pageobject.h \
+    sources/outlineview.h \
+    sources/thumbnailsview.h \
+    sources/settingsdialog.h
 
 RESOURCES += qpdfview.qrc
 
