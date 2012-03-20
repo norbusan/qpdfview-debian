@@ -88,7 +88,6 @@ public:
     void lastPage();
 
     void search(const QString &text, bool matchCase, bool highlightAll);
-    void prepareResults();
     void clearResults();
 
     void findPrevious();
@@ -155,6 +154,8 @@ signals:
 private slots:
     void scrollToPage(const int &value);
     void followLink(int pageNumber);
+
+    void showResults();
 
     void tabMenuActionTriggered();
 
