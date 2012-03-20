@@ -24,7 +24,7 @@ RESOURCES += qpdfview.qrc
 
 ICON = icons/qpdfview.svg
 
-TRANSLATIONS += translations/qpdfview_de.ts
+TRANSLATIONS += translations/qpdfview_be.ts translations/qpdfview_de.ts translations/qpdfview_ru.ts translations/qpdfview_uk.ts
 
 target.path = /usr/bin
 
