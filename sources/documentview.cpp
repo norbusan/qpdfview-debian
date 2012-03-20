@@ -723,13 +723,32 @@ void DocumentView::findPrevious()
                 m_lastResult.value()->setVisible(false);
             }
 
-            if(m_lastResult.key() != m_currentPage)
+            switch(m_pageLayout)
             {
-                m_lastResult = m_results.lowerBound(m_currentPage);
-            }
-            else
-            {
-                --m_lastResult;
+            case OnePage:
+            case OneColumn:
+                if(m_lastResult.key() != m_currentPage)
+                {
+                    m_lastResult = m_results.lowerBound(m_currentPage);
+                }
+                else
+                {
+                    --m_lastResult;
+                }
+
+                break;
+            case TwoPages:
+            case TwoColumns:
+                if(m_lastResult.key() != m_currentPage && m_lastResult.key() != m_currentPage+1)
+                {
+                    m_lastResult = m_results.lowerBound(m_currentPage);
+                }
+                else
+                {
+                    --m_lastResult;
+                }
+
+                break;
             }
         }
         else
@@ -772,13 +791,37 @@ void DocumentView::findNext()
                 m_lastResult.value()->setVisible(false);
             }
 
-            if(m_lastResult.key() != m_currentPage)
+            switch(m_pageLayout)
             {
-                m_lastResult = m_results.lowerBound(m_currentPage);
-            }
-            else
-            {
-                ++m_lastResult;
+            case OnePage:
+            case OneColumn:
+                if(m_lastResult.key() != m_currentPage)
+                {
+                    m_lastResult = m_results.lowerBound(m_currentPage);
+                }
+                else
+                {
+                    ++m_lastResult;
+                }
+
+                break;
+            case TwoPages:
+            case TwoColumns:
+                if(m_lastResult.key() != m_currentPage && m_lastResult.key() != m_currentPage+1)
+                {
+                    m_lastResult = m_results.lowerBound(m_currentPage);
+                }
+                else
+                {
+                    ++m_lastResult;
+
+                    if(m_lastResult == m_results.end())
+                    {
+                        m_lastResult = m_results.lowerBound(1);
+                    }
+                }
+
+                break;
             }
         }
         else
