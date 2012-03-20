@@ -87,7 +87,10 @@ public:
     void firstPage();
     void lastPage();
 
-    void search(const QString &text, bool matchCase);
+    void search(const QString &text, bool matchCase, bool highlightAll);
+    void clearResults();
+    void findPrevious();
+    void findNext();
     bool findPrevious(const QString &text, bool matchCase);
     bool findNext(const QString &text, bool matchCase);
     void copyText();
@@ -109,7 +112,10 @@ private:
     QMap<int, int> m_valueToPage;
 
     QMutex m_resultsMutex;
-    QMap<int, QRectF> m_results;
+    QMap<int, QGraphicsRectItem*> m_results;
+    QMap<int, QGraphicsRectItem*>::iterator m_lastResult;
+    bool m_matchCase;
+    bool m_highlightAll;
 
     QString m_filePath;
     int m_currentPage;
@@ -124,7 +130,7 @@ private:
     void prepareView();
 
     void printDocument(QPrinter *printer, int fromPage, int toPage);
-    void searchDocument(const QString &text, bool matchCase);
+    void searchDocument(const QString &text, int beginWithPageNumber);
 
 signals:
     void filePathChanged(QString);

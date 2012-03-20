@@ -109,6 +109,7 @@ PageObject::~PageObject()
     delete m_page;
 }
 
+bool PageObject::s_concurrentPageCache = true;
 
 QMutex PageObject::s_pageCacheMutex;
 QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
@@ -192,18 +193,34 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    QMutexLocker mutexLocker(&s_pageCacheMutex);
+    QPair<QString, int> key(filePath(), index());
 
-    if(!s_pageCache.contains(QPair<QString, int>(filePath(), index())) && !m_renderWatcher->isRunning())
+    if(s_concurrentPageCache)
     {
-        m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage));
+        QMutexLocker mutexLocker(&s_pageCacheMutex);
+
+        if(!s_pageCache.contains(key) && !m_renderWatcher->isRunning())
+        {
+            m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage));
+        }
+        else
+        {
+            painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(key));
+        }
+
+        mutexLocker.unlock();
     }
     else
     {
-        painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(QPair<QString, int>(filePath(), index())));
-    }
+        if(!s_pageCache.contains(key))
+        {
+            QImage image = m_page->renderToImage(resolutionX(), resolutionY(), -1, -1, -1, -1, rotation());
 
-    mutexLocker.unlock();
+            this->updatePageCache(key, image);
+        }
+
+        painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(key));
+    }
 
     painter->setPen(QPen(Qt::black));
     painter->drawRect(boundingRect());
@@ -252,19 +269,6 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 }
 
 
-void PageObject::setPageCacheSize(uint pageCacheSize)
-{
-    s_maximumPageCacheByteCount = pageCacheSize;
-}
-
-
-void PageObject::updateScene()
-{
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-    this->scene()->update(pageRect);
-}
-
 void PageObject::renderPage()
 {
     QRectF pageRect = boundingRect(); pageRect.translate(pos());
@@ -309,6 +313,25 @@ void PageObject::renderPage()
 
     QPair<QString, int> key(filePath(), index());
 
+    this->updatePageCache(key, image);
+
+    mutexLocker.unlock();
+
+    this->updateScene();
+
+    delete page;
+    delete document;
+}
+
+void PageObject::updateScene()
+{
+    QRectF pageRect = boundingRect(); pageRect.translate(pos());
+
+    this->scene()->update(pageRect);
+}
+
+void PageObject::updatePageCache(QPair<QString, int> key, QImage image)
+{
     if(s_pageCacheByteCount < s_maximumPageCacheByteCount)
     {
         s_pageCache.insert(key, image);
@@ -330,13 +353,26 @@ void PageObject::renderPage()
         s_pageCache.insert(key, image);
         s_pageCacheByteCount += image.byteCount();
     }
+}
 
-    mutexLocker.unlock();
+bool PageObject::pageCacheThreading()
+{
+    return s_concurrentPageCache;
+}
 
-    this->updateScene();
+void PageObject::setPageCacheThreading(bool threading)
+{
+    s_concurrentPageCache = threading;
+}
 
-    delete page;
-    delete document;
+uint PageObject::pageCacheSize()
+{
+    return s_maximumPageCacheByteCount;
+}
+
+void PageObject::setPageCacheSize(uint size)
+{
+    s_maximumPageCacheByteCount = size;
 }
 
 

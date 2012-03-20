@@ -4,6 +4,8 @@
 #include <QtCore>
 #include <QtGui>
 
+#include "pageobject.h"
+
 class SettingsDialog : public QDialog
 {
     Q_OBJECT
@@ -19,6 +21,9 @@ private:
     QGridLayout *m_gridLayout;
 
     QDialogButtonBox *m_buttonBox;
+
+    QLabel *m_pageCacheThreadingLabel;
+    QCheckBox *m_pageCacheThreadingCheckBox;
 
     QLabel *m_pageCacheSizeLabel;
     QLineEdit *m_pageCacheSizeLineEdit;

@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_resultsMutex(),m_results(),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_resultsMutex(),m_results(),m_lastResult(m_results.end()),m_matchCase(true),m_highlightAll(false),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
@@ -545,7 +545,7 @@ void DocumentView::lastPage()
 }
 
 
-void DocumentView::search(const QString &text, bool matchCase)
+void DocumentView::search(const QString &text, bool matchCase, bool highlightAll)
 {
     if(m_document)
     {
@@ -554,14 +554,29 @@ void DocumentView::search(const QString &text, bool matchCase)
             m_progressWatcher->waitForFinished();
         }
 
-        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::searchDocument, text, matchCase));
+        m_matchCase = matchCase;
+        m_highlightAll = highlightAll;
+
+        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::searchDocument, text, m_currentPage));
     }
 }
 
-void DocumentView::searchDocument(const QString &text, bool matchCase)
+void DocumentView::clearResults()
 {
-    qDebug() << "searching for:" << text;
+    QMutexLocker mutexLocker(&m_resultsMutex);
 
+    foreach(QGraphicsRectItem *item, m_results.values())
+    {
+        m_graphicsScene->removeItem(item);
+    }
+    m_results.clear();
+    m_lastResult = m_results.end();
+
+    mutexLocker.unlock();
+}
+
+void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
+{
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
     if(document == 0)
@@ -573,13 +588,12 @@ void DocumentView::searchDocument(const QString &text, bool matchCase)
         return;
     }
 
-    QMutexLocker mutexLocker(&m_resultsMutex);
+    QMatrix matrix;
+    matrix.scale(resolutionX() / 72.0, resolutionY() / 72.0);
 
-    m_results.clear();
+    this->clearResults();
 
-    mutexLocker.unlock();
-
-    for(int pageNumber = m_currentPage; pageNumber <= m_numberOfPages; pageNumber++)
+    for(int pageNumber = beginWithPageNumber; pageNumber <= m_numberOfPages; pageNumber++)
     {
         Poppler::Page *page = document->page(pageNumber-1);
 
@@ -594,20 +608,32 @@ void DocumentView::searchDocument(const QString &text, bool matchCase)
             return;
         }
 
+        QPointF point = m_pageToPageObject.value(pageNumber)->pos();
         QRectF rect;
+        QList<QGraphicsRectItem*> list;
 
-        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
-            mutexLocker.relock();
+            QMutexLocker mutexLocker(&m_resultsMutex);
 
-            m_results.insertMulti(pageNumber, rect);
+            QGraphicsRectItem *item = m_graphicsScene->addRect(matrix.mapRect(rect).translated(point).adjusted(-5.0, -5.0, 5.0, 5.0));
+            item->setPen(QPen(QColor(0,0,0,0)));
+            item->setBrush(QBrush(QColor(0,255,0,127)));
+            item->setVisible(m_highlightAll);
+
+            list.append(item);
 
             mutexLocker.unlock();
         }
 
+        for(int i=list.size()-1;i>=0;--i)
+        {
+            m_results.insertMulti(pageNumber, list[i]);
+        }
+
         delete page;
 
-        emit searchingProgressed(( 100 * (pageNumber-m_currentPage+1) ) / m_numberOfPages);
+        emit searchingProgressed(( 100 * (pageNumber-beginWithPageNumber+1) ) / m_numberOfPages);
     }
 
     for(int pageNumber = 1; pageNumber < m_currentPage; pageNumber++)
@@ -625,27 +651,103 @@ void DocumentView::searchDocument(const QString &text, bool matchCase)
             return;
         }
 
+        QPointF point = m_pageToPageObject.value(pageNumber)->pos();
         QRectF rect;
 
-        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
-            mutexLocker.relock();
+            QMutexLocker mutexLocker(&m_resultsMutex);
 
-            m_results.insertMulti(pageNumber, rect);
+            QGraphicsRectItem *item = m_graphicsScene->addRect(matrix.mapRect(rect).translated(point).adjusted(-5.0, -5.0, 5.0, 5.0));
+            item->setPen(QPen(QColor(0,0,0,0)));
+            item->setBrush(QBrush(QColor(0,255,0,127)));
+            item->setVisible(m_highlightAll);
+
+            m_results.insertMulti(pageNumber, item);
 
             mutexLocker.unlock();
         }
 
         delete page;
 
-        emit searchingProgressed(( 100 * (pageNumber+m_numberOfPages-m_currentPage+1) ) / m_numberOfPages);
+        emit searchingProgressed(( 100 * (pageNumber-beginWithPageNumber+1+m_numberOfPages) ) / m_numberOfPages);
     }
-
-    qDebug() << "number of results:" << m_results.size();
 
     emit searchingFinished();
 
     delete document;
+}
+
+void DocumentView::findPrevious()
+{
+    if(m_document)
+    {
+        QMutexLocker mutexLocker(&m_resultsMutex);
+
+        if(m_lastResult != m_results.end())
+        {
+            if(!m_highlightAll)
+            {
+                m_lastResult.value()->setVisible(false);
+            }
+
+            --m_lastResult;
+        }
+        else
+        {
+            m_lastResult = m_results.lowerBound(m_currentPage);
+        }
+
+        if(m_lastResult != m_results.end())
+        {
+            if(!m_highlightAll)
+            {
+                m_lastResult.value()->setVisible(true);
+            }
+
+            m_graphicsView->centerOn(m_lastResult.value());
+        }
+
+        mutexLocker.unlock();
+
+        m_graphicsView->update();
+    }
+}
+
+void DocumentView::findNext()
+{
+    if(m_document)
+    {
+        QMutexLocker mutexLocker(&m_resultsMutex);
+
+        if(m_lastResult != m_results.end())
+        {
+            if(!m_highlightAll)
+            {
+                m_lastResult.value()->setVisible(false);
+            }
+
+            ++m_lastResult;
+        }
+        else
+        {
+            m_lastResult = m_results.lowerBound(m_currentPage);
+        }
+
+        if(m_lastResult != m_results.end())
+        {
+            if(!m_highlightAll)
+            {
+                m_lastResult.value()->setVisible(true);
+            }
+
+            m_graphicsView->centerOn(m_lastResult.value());
+        }
+
+        mutexLocker.unlock();
+
+        m_graphicsView->update();
+    }
 }
 
 bool DocumentView::findPrevious(const QString &text, bool matchCase)

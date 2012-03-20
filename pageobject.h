@@ -35,7 +35,11 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 
-    static void setPageCacheSize(uint pageCacheSize);
+    static bool pageCacheThreading();
+    static void setPageCacheThreading(bool threading);
+
+    static uint pageCacheSize();
+    static void setPageCacheSize(uint size);
 
 private:
     Poppler::Page *m_page;
@@ -70,12 +74,14 @@ private:
 
     QRectF m_rubberBand;
 
+
     QFutureWatcher<void> *m_renderWatcher;
 
-    void updateScene();
-
     void renderPage();
+    void updateScene();
+    static void updatePageCache(QPair<QString, int> key, QImage image);
 
+    static bool s_concurrentPageCache;
 
     static QMutex s_pageCacheMutex;
     static QMap<QPair<QString, int>, QImage> s_pageCache;

@@ -133,6 +133,7 @@ private:
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
     QCheckBox *m_matchCaseCheckBox;
+    QCheckBox *m_highlightAllCheckBox;
     QTimer *m_searchTimer;
     QPushButton *m_findPreviousButton;
     QPushButton *m_findNextButton;

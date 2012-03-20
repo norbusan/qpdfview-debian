@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     // miscellaneous
 
+    PageObject::setPageCacheThreading(m_settings.value("pageObject/pageCacheThreading", true).toBool());
     PageObject::setPageCacheSize(m_settings.value("pageObject/pageCacheSize", 134217728).toUInt());
 
     this->setAcceptDrops(true);
@@ -161,6 +162,7 @@ MainWindow::~MainWindow()
     delete m_searchLabel;
     delete m_searchLineEdit;
     delete m_matchCaseCheckBox;
+    delete m_highlightAllCheckBox;
     delete m_searchTimer;
     delete m_findPreviousButton;
     delete m_findNextButton;
@@ -508,11 +510,13 @@ void MainWindow::createToolbars()
     m_searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit();
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"));
+    m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"));
     m_searchTimer = new QTimer(this);
     m_findPreviousButton = new QPushButton(tr("Find &previous"));
     m_findNextButton = new QPushButton(tr("Find &next"));
 
     m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
+    m_highlightAllCheckBox->setChecked(m_settings.value("mainWindow/highlightAll", false).toBool());
 
     m_searchTimer->setInterval(1000);
     m_searchTimer->setSingleShot(true);
@@ -526,6 +530,7 @@ void MainWindow::createToolbars()
     m_searchWidget->layout()->addWidget(m_searchLabel);
     m_searchWidget->layout()->addWidget(m_searchLineEdit);
     m_searchWidget->layout()->addWidget(m_matchCaseCheckBox);
+    m_searchWidget->layout()->addWidget(m_highlightAllCheckBox);
     m_searchWidget->layout()->addWidget(m_findPreviousButton);
     m_searchWidget->layout()->addWidget(m_findNextButton);
 
@@ -761,7 +766,7 @@ void MainWindow::searchTimeout()
         {
             DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-            documentView->search(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+            documentView->search(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked(), m_highlightAllCheckBox->isChecked());
 
             this->statusBar()->show();
         }
@@ -784,7 +789,7 @@ void MainWindow::findPrevious()
             {
                 DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-                documentView->findPrevious(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+                documentView->findPrevious();
             }
         }
     }
@@ -806,7 +811,7 @@ void MainWindow::findNext()
             {
                 DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-                documentView->findNext(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+                documentView->findNext();
             }
         }
     }
@@ -1376,9 +1381,18 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
     if(keyEvent->key() == Qt::Key_Escape)
     {
-        if(!m_searchToolBar->isHidden())
+        if(m_tabWidget->currentIndex() != -1)
         {
-            m_searchToolBar->setHidden(true);
+            if(!m_searchToolBar->isHidden())
+            {
+                m_searchToolBar->setHidden(true);
+
+                m_searchLineEdit->clear();
+
+                DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+                documentView->clearResults();
+            }
         }
     }
 }
@@ -1434,6 +1448,7 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
+    m_settings.setValue("mainWindow/highlightAll", m_highlightAllCheckBox->isChecked());
 
     if(m_fullscreenAction->isChecked())
     {
