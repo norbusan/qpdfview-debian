@@ -1078,7 +1078,7 @@ void DocumentView::copyText()
 
 void DocumentView::prepareScene()
 {
-    this->clearResults();
+    this->cancelSearch();
 
     m_graphicsScene->clear();
 
