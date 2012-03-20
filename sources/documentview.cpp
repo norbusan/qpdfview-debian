@@ -561,6 +561,10 @@ void DocumentView::search(const QString &text, bool matchCase, bool highlightAll
     }
 }
 
+void DocumentView::prepareResults()
+{
+}
+
 void DocumentView::clearResults()
 {
     QMutexLocker mutexLocker(&m_resultsMutex);
@@ -678,6 +682,7 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
     delete document;
 }
 
+
 void DocumentView::findPrevious()
 {
     if(m_document)
@@ -749,6 +754,7 @@ void DocumentView::findNext()
         m_graphicsView->update();
     }
 }
+
 
 bool DocumentView::findPrevious(const QString &text, bool matchCase)
 {

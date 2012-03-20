@@ -88,11 +88,15 @@ public:
     void lastPage();
 
     void search(const QString &text, bool matchCase, bool highlightAll);
+    void prepareResults();
     void clearResults();
+
     void findPrevious();
     void findNext();
+
     bool findPrevious(const QString &text, bool matchCase);
     bool findNext(const QString &text, bool matchCase);
+
     void copyText();
 
 private:
