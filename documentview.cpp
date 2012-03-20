@@ -545,7 +545,7 @@ void DocumentView::lastPage()
 }
 
 
-void DocumentView::find(const QString &text, bool matchCase)
+void DocumentView::search(const QString &text, bool matchCase)
 {
     if(m_document)
     {
@@ -560,11 +560,15 @@ void DocumentView::find(const QString &text, bool matchCase)
 
 void DocumentView::searchDocument(const QString &text, bool matchCase)
 {
+    qDebug() << "searching for:" << text;
+
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
     if(document == 0)
     {
         qDebug() << "document == 0:" << m_filePath;
+
+        emit searchingCanceled();
 
         return;
     }
@@ -575,13 +579,15 @@ void DocumentView::searchDocument(const QString &text, bool matchCase)
 
     mutexLocker.unlock();
 
-    for(int currentPage = 1; currentPage <= m_numberOfPages; currentPage++)
+    for(int pageNumber = m_currentPage; pageNumber <= m_numberOfPages; pageNumber++)
     {
-        Poppler::Page *page = document->page(currentPage-1);
+        Poppler::Page *page = document->page(pageNumber-1);
 
         if(page == 0)
         {
-            qDebug() << "page == 0:" << m_filePath << currentPage;
+            qDebug() << "page == 0:" << m_filePath << pageNumber;
+
+            emit searchingCanceled();
 
             delete document;
 
@@ -594,15 +600,50 @@ void DocumentView::searchDocument(const QString &text, bool matchCase)
         {
             mutexLocker.relock();
 
-            m_results.insertMulti(currentPage, rect);
+            m_results.insertMulti(pageNumber, rect);
 
             mutexLocker.unlock();
         }
 
         delete page;
 
-        emit searchingProgressed(currentPage,m_numberOfPages);
+        emit searchingProgressed(( 100 * (pageNumber-m_currentPage+1) ) / m_numberOfPages);
     }
+
+    for(int pageNumber = 1; pageNumber < m_currentPage; pageNumber++)
+    {
+        Poppler::Page *page = document->page(pageNumber-1);
+
+        if(page == 0)
+        {
+            qDebug() << "page == 0:" << m_filePath << pageNumber;
+
+            emit searchingCanceled();
+
+            delete document;
+
+            return;
+        }
+
+        QRectF rect;
+
+        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        {
+            mutexLocker.relock();
+
+            m_results.insertMulti(pageNumber, rect);
+
+            mutexLocker.unlock();
+        }
+
+        delete page;
+
+        emit searchingProgressed(( 100 * (pageNumber+m_numberOfPages-m_currentPage+1) ) / m_numberOfPages);
+    }
+
+    qDebug() << "number of results:" << m_results.size();
+
+    emit searchingFinished();
 
     delete document;
 }

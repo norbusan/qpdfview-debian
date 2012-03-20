@@ -25,10 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include "settingsdialog.h"
 #include "documentview.h"
 #include "outlineview.h"
 #include "thumbnailsview.h"
+#include "settingsdialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -133,6 +133,7 @@ private:
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
     QCheckBox *m_matchCaseCheckBox;
+    QTimer *m_searchTimer;
     QPushButton *m_findPreviousButton;
     QPushButton *m_findNextButton;
 
@@ -157,7 +158,8 @@ private slots:
     void changeCurrentPage();
 
     void search();
-    void find();
+    void searchStart();
+    void searchTimeout();
     void findPrevious();
     void findNext();
     void copyText();
@@ -192,7 +194,8 @@ private slots:
     void updateScaling(const DocumentView::Scaling &scaling);
     void updateRotation(const DocumentView::Rotation &rotation);
 
-    void updateSearchProgress(int currentPage, int numberOfPages);
+    void updateSearchProgress(int value);
+    void updateSearchProgress();
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);

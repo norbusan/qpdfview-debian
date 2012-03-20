@@ -76,7 +76,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                 connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
                 connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
 
-                connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
+                connect(documentView, SIGNAL(searchingProgressed(int)), this, SLOT(updateSearchProgress(int)));
+                connect(documentView, SIGNAL(searchingCanceled()), this, SLOT(updateSearchProgress()));
+                connect(documentView, SIGNAL(searchingFinished()), this, SLOT(updateSearchProgress()));
             }
             else
             {
@@ -159,6 +161,7 @@ MainWindow::~MainWindow()
     delete m_searchLabel;
     delete m_searchLineEdit;
     delete m_matchCaseCheckBox;
+    delete m_searchTimer;
     delete m_findPreviousButton;
     delete m_findNextButton;
 
@@ -505,12 +508,17 @@ void MainWindow::createToolbars()
     m_searchLabel = new QLabel(tr("Search:"));
     m_searchLineEdit = new QLineEdit();
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"));
+    m_searchTimer = new QTimer(this);
     m_findPreviousButton = new QPushButton(tr("Find &previous"));
     m_findNextButton = new QPushButton(tr("Find &next"));
 
     m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
 
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(find()));
+    m_searchTimer->setInterval(1000);
+    m_searchTimer->setSingleShot(true);
+
+    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), this, SLOT(searchStart()));
+    connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(searchTimeout()));
     connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
     connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
@@ -734,7 +742,18 @@ void MainWindow::search()
     }
 }
 
-void MainWindow::find()
+void MainWindow::searchStart()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isEmpty())
+        {
+            m_searchTimer->start();
+        }
+    }
+}
+
+void MainWindow::searchTimeout()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
@@ -742,7 +761,9 @@ void MainWindow::find()
         {
             DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-            documentView->find(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+            documentView->search(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+
+            this->statusBar()->show();
         }
     }
 }
@@ -1030,7 +1051,9 @@ void MainWindow::addTab()
             connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
             connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
 
-            connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
+            connect(documentView, SIGNAL(searchingProgressed(int)), this, SLOT(updateSearchProgress(int)));
+            connect(documentView, SIGNAL(searchingCanceled()), this, SLOT(updateSearchProgress()));
+            connect(documentView, SIGNAL(searchingFinished()), this, SLOT(updateSearchProgress()));
 
             m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
         }
@@ -1337,15 +1360,16 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 }
 
 
-void MainWindow::updateSearchProgress(int currentPage, int numberOfPages)
+void MainWindow::updateSearchProgress(int value)
 {
-    this->statusBar()->showMessage(tr("Searched page %1 of %2...").arg(currentPage).arg(numberOfPages));
+    this->statusBar()->showMessage(tr("Searched %1% of the current document...").arg(value));
+}
 
-    if(currentPage == numberOfPages)
-    {
-        this->statusBar()->clearMessage();
-        this->statusBar()->hide();
-    }
+void MainWindow::updateSearchProgress()
+{
+    this->statusBar()->clearMessage();
+
+    this->statusBar()->hide();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
@@ -1394,7 +1418,9 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
                     connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
                     connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
 
-                    connect(documentView, SIGNAL(searchingProgressed(int,int)), this, SLOT(updateSearchProgress(int,int)));
+                    connect(documentView, SIGNAL(searchingProgressed(int)), this, SLOT(updateSearchProgress(int)));
+                    connect(documentView, SIGNAL(searchingCanceled()), this, SLOT(updateSearchProgress()));
+                    connect(documentView, SIGNAL(searchingFinished()), this, SLOT(updateSearchProgress()));
                 }
                 else
                 {
@@ -1407,7 +1433,6 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
 
 void MainWindow::closeEvent(QCloseEvent *closeEvent)
 {
-    m_searchToolBar->setHidden(true);
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
 
     if(m_fullscreenAction->isChecked())
@@ -1418,6 +1443,8 @@ void MainWindow::closeEvent(QCloseEvent *closeEvent)
     {
         m_settings.setValue("mainWindow/geometry", this->saveGeometry());
     }
+
+    m_searchToolBar->setHidden(true);
 
     m_settings.setValue("mainWindow/state", this->saveState());
 

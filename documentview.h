@@ -87,7 +87,7 @@ public:
     void firstPage();
     void lastPage();
 
-    void find(const QString &text, bool matchCase);
+    void search(const QString &text, bool matchCase);
     bool findPrevious(const QString &text, bool matchCase);
     bool findNext(const QString &text, bool matchCase);
     void copyText();
@@ -138,7 +138,9 @@ signals:
     void printingCanceled();
     void printingFinished();
 
-    void searchingProgressed(int,int);
+    void searchingProgressed(int);
+    void searchingCanceled();
+    void searchingFinished();
 
 private slots:
     void scrollToPage(const int &value);
