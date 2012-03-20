@@ -522,6 +522,7 @@ void MainWindow::createToolbars()
     m_searchTimer->setSingleShot(true);
 
     connect(m_searchLineEdit, SIGNAL(textEdited(QString)), this, SLOT(searchStart()));
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(searchTimeout()));
     connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(searchTimeout()));
     connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
     connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));

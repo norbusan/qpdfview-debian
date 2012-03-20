@@ -76,7 +76,7 @@ public:
 
     QAction *tabMenuAction() const;
 
-
+public slots:
     bool open(const QString &filePath);
     bool refresh();
     bool saveCopy(const QString &filePath);
