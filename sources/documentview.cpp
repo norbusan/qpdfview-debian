@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
-    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_resultsMutex(),m_results(),m_lastResult(m_results.end()),m_matchCase(true),m_highlightAll(false),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
+    m_document(0),m_settings(),m_pageToPageObject(),m_valueToPage(),m_resultsMutex(),m_results(),m_lastResult(m_results.end()),m_matchCase(true),m_highlightAll(false),m_searchCanceled(false),m_filePath(),m_currentPage(-1),m_numberOfPages(-1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0)
 {
     m_graphicsScene = new QGraphicsScene(this);
     m_graphicsView = new QGraphicsView(m_graphicsScene, this);
@@ -62,8 +62,12 @@ DocumentView::~DocumentView()
 
     if(m_progressWatcher->isRunning())
     {
+        m_searchCanceled = true;
+
         m_progressWatcher->waitForFinished();
     }
+
+    this->clearResults();
 
     delete m_progressWatcher;
     delete m_progressDialog;
@@ -551,33 +555,36 @@ void DocumentView::search(const QString &text, bool matchCase, bool highlightAll
 {
     if(m_document)
     {
-        if(!m_progressWatcher->isRunning())
+        if(m_progressWatcher->isRunning())
         {
-            this->clearResults();
+            m_searchCanceled = true;
 
-            m_matchCase = matchCase;
-            m_highlightAll = highlightAll;
-
-            m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::searchDocument, text, m_currentPage));
+            m_progressWatcher->waitForFinished();
         }
+
+        this->clearResults();
+
+        m_matchCase = matchCase;
+        m_highlightAll = highlightAll;
+        m_searchCanceled = false;
+
+        m_progressWatcher->setFuture(QtConcurrent::run(this, &DocumentView::searchDocument, text, m_currentPage));
     }
 }
 
-void DocumentView::clearResults()
+void DocumentView::cancelSearch()
 {
-    QMutexLocker mutexLocker(&m_resultsMutex);
-
-    foreach(QGraphicsRectItem *item, m_results.values())
+    if(m_document)
     {
-        m_graphicsScene->removeItem(item);
+        if(m_progressWatcher->isRunning())
+        {
+           m_searchCanceled = true;
 
-        delete item;
+           m_progressWatcher->waitForFinished();
+        }
+
+        this->clearResults();
     }
-
-    m_results.clear();
-    m_lastResult = m_results.end();
-
-    mutexLocker.unlock();
 }
 
 void DocumentView::showResults()
@@ -597,6 +604,26 @@ void DocumentView::showResults()
     mutexLocker.unlock();
 
     this->findNext();
+}
+
+void DocumentView::clearResults()
+{
+    QMutexLocker mutexLocker(&m_resultsMutex);
+
+    foreach(QGraphicsRectItem *item, m_results.values())
+    {
+        if(m_graphicsScene == item->scene())
+        {
+            m_graphicsScene->removeItem(item);
+        }
+
+        delete item;
+    }
+
+    m_results.clear();
+    m_lastResult = m_results.end();
+
+    mutexLocker.unlock();
 }
 
 void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
@@ -639,6 +666,18 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
 
         while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
+            if(m_searchCanceled)
+            {
+                qDebug() << "searchDocument canceled!";
+
+                emit searchingCanceled();
+
+                delete page;
+                delete document;
+
+                return;
+            }
+
             QGraphicsRectItem *item = new QGraphicsRectItem(matrix.mapRect(rect).adjusted(-5.0, -5.0, 5.0, 5.0));
             item->setPen(QPen(QColor(0,0,0,0)));
             item->setBrush(QBrush(QColor(0,255,0,127)));
@@ -680,6 +719,18 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
 
         while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
+            if(m_searchCanceled)
+            {
+                qDebug() << "searchDocument canceled!";
+
+                emit searchingCanceled();
+
+                delete page;
+                delete document;
+
+                return;
+            }
+
             QGraphicsRectItem *item = new QGraphicsRectItem(matrix.mapRect(rect).adjusted(-5.0, -5.0, 5.0, 5.0));
             item->setPen(QPen(QColor(0,0,0,0)));
             item->setBrush(QBrush(QColor(0,255,0,127)));
@@ -1332,7 +1383,7 @@ void DocumentView::scrollToPage(const int &value)
     }
 }
 
-void DocumentView::followLink(int pageNumber)
+void DocumentView::followLink(const int &pageNumber)
 {
     if(m_document)
     {

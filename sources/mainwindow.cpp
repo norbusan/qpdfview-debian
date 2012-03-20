@@ -163,7 +163,6 @@ MainWindow::~MainWindow()
     delete m_searchLineEdit;
     delete m_matchCaseCheckBox;
     delete m_highlightAllCheckBox;
-    delete m_searchTimer;
     delete m_findPreviousButton;
     delete m_findNextButton;
 
@@ -511,19 +510,13 @@ void MainWindow::createToolbars()
     m_searchLineEdit = new QLineEdit();
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"));
     m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"));
-    m_searchTimer = new QTimer(this);
     m_findPreviousButton = new QPushButton(tr("Find &previous"));
     m_findNextButton = new QPushButton(tr("Find &next"));
 
     m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
     m_highlightAllCheckBox->setChecked(m_settings.value("mainWindow/highlightAll", false).toBool());
 
-    m_searchTimer->setInterval(1000);
-    m_searchTimer->setSingleShot(true);
-
-    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), this, SLOT(searchStart()));
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(searchTimeout()));
-    connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(searchTimeout()));
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(startSearch()));
     connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
     connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
 
@@ -748,18 +741,7 @@ void MainWindow::search()
     }
 }
 
-void MainWindow::searchStart()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isEmpty())
-        {
-            m_searchTimer->start();
-        }
-    }
-}
-
-void MainWindow::searchTimeout()
+void MainWindow::startSearch()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
@@ -768,8 +750,6 @@ void MainWindow::searchTimeout()
             DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
             documentView->search(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked(), m_highlightAllCheckBox->isChecked());
-
-            this->statusBar()->show();
         }
     }
 }
@@ -1368,6 +1348,8 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 
 void MainWindow::updateSearchProgress(int value)
 {
+    this->statusBar()->show();
+
     this->statusBar()->showMessage(tr("Searched %1% of the current document...").arg(value));
 }
 
@@ -1392,7 +1374,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 
                 DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-                documentView->clearResults();
+                documentView->cancelSearch();
             }
         }
     }

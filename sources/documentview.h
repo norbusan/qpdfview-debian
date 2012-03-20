@@ -88,7 +88,7 @@ public slots:
     void lastPage();
 
     void search(const QString &text, bool matchCase, bool highlightAll);
-    void clearResults();
+    void cancelSearch();
 
     void findPrevious();
     void findNext();
@@ -119,6 +119,7 @@ private:
     QMap<int, QGraphicsRectItem*>::iterator m_lastResult;
     bool m_matchCase;
     bool m_highlightAll;
+    bool m_searchCanceled;
 
     QString m_filePath;
     int m_currentPage;
@@ -153,9 +154,10 @@ signals:
 
 private slots:
     void scrollToPage(const int &value);
-    void followLink(int pageNumber);
+    void followLink(const int &pageNumber);
 
     void showResults();
+    void clearResults();
 
     void tabMenuActionTriggered();
 
