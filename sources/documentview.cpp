@@ -53,13 +53,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
 DocumentView::~DocumentView()
 {
-    m_graphicsScene->clear();
-
-    delete m_graphicsView;
-    delete m_graphicsScene;
-
-    delete m_tabMenuAction;
-
     if(m_progressWatcher->isRunning())
     {
         m_searchCanceled = true;
@@ -68,6 +61,13 @@ DocumentView::~DocumentView()
     }
 
     this->clearResults();
+
+    m_graphicsScene->clear();
+
+    delete m_graphicsView;
+    delete m_graphicsScene;
+
+    delete m_tabMenuAction;
 
     delete m_progressWatcher;
     delete m_progressDialog;
