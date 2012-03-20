@@ -10,5 +10,6 @@
         <file>icons/go-next.svg</file>
         <file>icons/go-previous.svg</file>
         <file>translations/qpdfview_de.qm</file>
+	<file>translations/qpdfview_ru.qm</file>
     </qresource>
 </RCC>
