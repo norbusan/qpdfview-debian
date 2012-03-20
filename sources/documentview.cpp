@@ -551,8 +551,6 @@ void DocumentView::search(const QString &text, bool matchCase, bool highlightAll
 {
     if(m_document)
     {
-        qDebug() << "search...";
-
         if(!m_progressWatcher->isRunning())
         {
             this->clearResults();
@@ -603,7 +601,7 @@ void DocumentView::showResults()
 
 void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
 {
-    qDebug() << "searchDoc started";
+    qDebug() << "searchDocument started...";
 
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
@@ -706,7 +704,7 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
 
     delete document;
 
-    qDebug() << "searchDoc finished";
+    qDebug() << "searchDocument finished.";
 }
 
 
@@ -734,6 +732,11 @@ void DocumentView::findPrevious()
                 else
                 {
                     --m_lastResult;
+
+                    if(m_lastResult == m_results.end())
+                    {
+                        m_lastResult = --m_results.upperBound(m_numberOfPages);
+                    }
                 }
 
                 break;
@@ -746,6 +749,11 @@ void DocumentView::findPrevious()
                 else
                 {
                     --m_lastResult;
+
+                    if(m_lastResult == m_results.end())
+                    {
+                        m_lastResult = --m_results.upperBound(m_numberOfPages);
+                    }
                 }
 
                 break;
@@ -753,7 +761,7 @@ void DocumentView::findPrevious()
         }
         else
         {
-            m_lastResult = m_results.lowerBound(m_currentPage);
+            m_lastResult = --m_results.upperBound(m_currentPage);
         }
 
         if(m_lastResult != m_results.end())
@@ -802,6 +810,11 @@ void DocumentView::findNext()
                 else
                 {
                     ++m_lastResult;
+
+                    if(m_lastResult == m_results.end())
+                    {
+                        m_lastResult = m_results.lowerBound(1);
+                    }
                 }
 
                 break;
