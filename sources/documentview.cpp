@@ -1236,7 +1236,7 @@ void DocumentView::prepareView()
         switch(m_pageLayout)
         {
         case OnePage:
-            foreach(QGraphicsItem *item, m_graphicsScene->items())
+            foreach(QGraphicsItem *item, m_pageToPageObject.values())
             {
                 item->setVisible(false);
             }
@@ -1248,7 +1248,7 @@ void DocumentView::prepareView()
             page->setVisible(true);
             break;
         case TwoPages:
-            foreach(QGraphicsItem *item, m_graphicsScene->items())
+            foreach(QGraphicsItem *item, m_pageToPageObject.values())
             {
                 item->setVisible(false);
             }
