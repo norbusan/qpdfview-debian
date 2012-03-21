@@ -1,7 +1,7 @@
 #include "pageobject.h"
 
 PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_linkTransform(),m_highlightTransform(),m_links(),m_externalLinks(),m_highlight(),m_lastResult(),m_rubberBand()
+    m_page(page),m_index(index),m_view(view),m_linkTransform(),m_highlightTransform(),m_links(),m_externalLinks(),m_highlight(),m_rubberBand()
 {
     switch(rotation())
     {
@@ -145,36 +145,6 @@ QString PageObject::highlightedText() const
 }
 
 
-QRectF PageObject::lastResult() const
-{
-    return QMatrix().scale(resolutionX() / 72.0, resolutionY() / 72.0).mapRect(m_lastResult).translated(pos()).adjusted(-5.0, -5.0, 5.0, 5.0);
-}
-
-bool PageObject::findPrevious(const QString &text, bool matchCase)
-{
-    bool result = m_page->search(text, m_lastResult, Poppler::Page::PreviousResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
-
-    if(result)
-    {
-        this->updateScene();
-    }
-
-    return result;
-}
-
-bool PageObject::findNext(const QString &text, bool matchCase)
-{
-    bool result = m_page->search(text, m_lastResult, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, rotation());
-
-    if(result)
-    {
-        this->updateScene();
-    }
-
-    return result;
-}
-
-
 QRectF PageObject::boundingRect() const
 {
     if(rotation() == Poppler::Page::Rotate90 || rotation() == Poppler::Page::Rotate270)
@@ -258,13 +228,6 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
         painter->setPen(pen);
 
         painter->drawRect(m_rubberBand);
-    }
-
-    // draw last result
-
-    if(!m_lastResult.isNull())
-    {
-        painter->fillRect(QMatrix().scale(resolutionX() / 72.0, resolutionY() / 72.0).mapRect(m_lastResult).adjusted(-5.0, -5.0, 5.0, 5.0), QBrush(QColor(0,255,0,127)));
     }
 }
 

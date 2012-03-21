@@ -93,9 +93,6 @@ public slots:
     void findPrevious();
     void findNext();
 
-    bool findPrevious(const QString &text, bool matchCase);
-    bool findNext(const QString &text, bool matchCase);
-
     void copyText();
 
 private:

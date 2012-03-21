@@ -593,12 +593,11 @@ void DocumentView::showResults()
 
     for(QMap<int, QGraphicsRectItem*>::iterator i = m_results.begin(); i != m_results.end(); i++)
     {
+        m_graphicsScene->addItem(i.value());
+
         qreal dx = m_pageToPageObject.value(i.key())->x();
         qreal dy = m_pageToPageObject.value(i.key())->y();
-
         i.value()->translate(dx, dy);
-
-        m_graphicsScene->addItem(i.value());
     }
 
     mutexLocker.unlock();
@@ -661,10 +660,12 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
         QMatrix matrix;
         matrix.scale(resolutionX() / 72.0, resolutionY() / 72.0);
 
-        QRectF rect;
         QList<QGraphicsRectItem*> list;
 
-        while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        double rectLeft = 0.0, rectTop = 0.0, rectRight = 0.0, rectBottom = 0.0;
+
+        while(page->search(text, rectLeft, rectTop, rectRight, rectBottom, Poppler::Page::NextResult,
+                           m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
             if(m_searchCanceled)
             {
@@ -678,10 +679,30 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
                 return;
             }
 
+            QRectF rect;
+            rect.setLeft(rectLeft);
+            rect.setTop(rectTop);
+            rect.setRight(rectRight);
+            rect.setBottom(rectBottom);
+
             QGraphicsRectItem *item = new QGraphicsRectItem(matrix.mapRect(rect).adjusted(-5.0, -5.0, 5.0, 5.0));
             item->setPen(QPen(QColor(0,0,0,0)));
             item->setBrush(QBrush(QColor(0,255,0,127)));
-            item->setVisible(m_highlightAll);
+
+            switch(m_pageLayout)
+            {
+            case OnePage:
+                item->setVisible(pageNumber == m_currentPage);
+                break;
+            case TwoPages:
+                item->setVisible(pageNumber == m_currentPage || pageNumber == m_currentPage+1);
+                break;
+            case OneColumn:
+            case TwoColumns:
+                item->setVisible(m_highlightAll);
+
+                break;
+            }
 
             list.append(item);
         }
@@ -714,10 +735,12 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
         QMatrix matrix;
         matrix.scale(resolutionX() / 72.0, resolutionY() / 72.0);
 
-        QRectF rect;
         QList<QGraphicsRectItem*> list;
 
-        while(page->search(text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
+        double rectLeft = 0.0, rectTop = 0.0, rectRight = 0.0, rectBottom = 0.0;
+
+        while(page->search(text, rectLeft, rectTop, rectRight, rectBottom, Poppler::Page::NextResult,
+                           m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive, static_cast<Poppler::Page::Rotation>(rotation())))
         {
             if(m_searchCanceled)
             {
@@ -731,10 +754,30 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
                 return;
             }
 
+            QRectF rect;
+            rect.setLeft(rectLeft);
+            rect.setTop(rectTop);
+            rect.setRight(rectRight);
+            rect.setBottom(rectBottom);
+
             QGraphicsRectItem *item = new QGraphicsRectItem(matrix.mapRect(rect).adjusted(-5.0, -5.0, 5.0, 5.0));
             item->setPen(QPen(QColor(0,0,0,0)));
             item->setBrush(QBrush(QColor(0,255,0,127)));
-            item->setVisible(m_highlightAll);
+
+            switch(m_pageLayout)
+            {
+            case OnePage:
+                item->setVisible(pageNumber == m_currentPage);
+                break;
+            case TwoPages:
+                item->setVisible(pageNumber == m_currentPage || pageNumber == m_currentPage+1);
+                break;
+            case OneColumn:
+            case TwoColumns:
+                item->setVisible(m_highlightAll);
+
+                break;
+            }
 
             list.append(item);
         }
@@ -771,6 +814,8 @@ void DocumentView::findPrevious()
             {
                 m_lastResult.value()->setVisible(false);
             }
+            m_lastResult.value()->setPen(QPen(QColor(0,0,0,0)));
+            m_lastResult.value()->setBrush(QBrush(QColor(0,255,0,127)));
 
             switch(m_pageLayout)
             {
@@ -821,6 +866,10 @@ void DocumentView::findPrevious()
             {
                 m_lastResult.value()->setVisible(true);
             }
+            m_lastResult.value()->setPen(QPen(QColor(0,255,0,255)));
+            m_lastResult.value()->setBrush(QBrush(QColor(0,255,0,191)));
+
+            mutexLocker.unlock();
 
             this->setCurrentPage(m_lastResult.key());
 
@@ -830,8 +879,6 @@ void DocumentView::findPrevious()
 
             connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
         }
-
-        mutexLocker.unlock();
 
         m_graphicsView->update();
     }
@@ -849,6 +896,8 @@ void DocumentView::findNext()
             {
                 m_lastResult.value()->setVisible(false);
             }
+            m_lastResult.value()->setPen(QPen(QColor(0,0,0,0)));
+            m_lastResult.value()->setBrush(QBrush(QColor(0,255,0,127)));
 
             switch(m_pageLayout)
             {
@@ -899,6 +948,10 @@ void DocumentView::findNext()
             {
                 m_lastResult.value()->setVisible(true);
             }
+            m_lastResult.value()->setPen(QPen(QColor(0,255,0,255)));
+            m_lastResult.value()->setBrush(QBrush(QColor(0,255,0,191)));
+
+            mutexLocker.unlock();
 
             this->setCurrentPage(m_lastResult.key());
 
@@ -909,138 +962,10 @@ void DocumentView::findNext()
             connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
         }
 
-        mutexLocker.unlock();
-
         m_graphicsView->update();
     }
 }
 
-
-bool DocumentView::findPrevious(const QString &text, bool matchCase)
-{
-    if(m_document)
-    {
-        bool result = false;
-
-        for(int page = m_currentPage; page >= 1; page--)
-        {
-            qDebug() << "findPrevious:" << page;
-
-            PageObject *pageObject = m_pageToPageObject.value(page);
-            result = pageObject->findPrevious(text, matchCase);
-
-            if(result)
-            {
-                qDebug() << "result:" << page;
-
-                this->setCurrentPage(page);
-
-                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                m_graphicsView->centerOn(pageObject->lastResult().center());
-
-                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                break;
-            }
-        }
-
-        if(!result)
-        {
-            for(int page = m_numberOfPages; page > m_currentPage; page--)
-            {
-                qDebug() << "findPrevious:" << page;
-
-                PageObject *pageObject = m_pageToPageObject.value(page);
-                result = pageObject->findPrevious(text, matchCase);
-
-                if(result)
-                {
-                    qDebug() << "result:" << page;
-
-                    this->setCurrentPage(page);
-
-                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                    m_graphicsView->centerOn(pageObject->lastResult().center());
-
-                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                    break;
-                }
-            }
-        }
-
-        return result;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-bool DocumentView::findNext(const QString &text, bool matchCase)
-{
-    if(m_document)
-    {
-        bool result = false;
-
-        for(int page = m_currentPage; page <= m_numberOfPages; page++)
-        {
-            qDebug() << "findNext:" << page;
-
-            PageObject *pageObject = m_pageToPageObject.value(page);
-            result = pageObject->findNext(text, matchCase);
-
-            if(result)
-            {
-                qDebug() << "result:" << page;
-
-                this->setCurrentPage(page);
-
-                disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                m_graphicsView->centerOn(pageObject->lastResult().center());
-
-                connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                break;
-            }
-        }
-
-        if(!result)
-        {
-            for(int page = 1; page < m_currentPage; page++)
-            {
-                qDebug() << "findNext:" << page;
-
-                PageObject *pageObject = m_pageToPageObject.value(page);
-                result = pageObject->findNext(text, matchCase);
-
-                if(result)
-                {
-                    qDebug() << "result:" << page;
-
-                    this->setCurrentPage(page);
-
-                    disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                    m_graphicsView->centerOn(pageObject->lastResult().center());
-
-                    connect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-
-                    break;
-                }
-            }
-        }
-
-        return result;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 void DocumentView::copyText()
 {
@@ -1297,12 +1222,22 @@ void DocumentView::prepareView()
 
         PageObject *page = m_pageToPageObject.value(m_currentPage);
 
+        QMutexLocker mutexLocker(&m_resultsMutex);
+
         switch(m_pageLayout)
         {
         case OnePage:
             foreach(QGraphicsItem *item, m_pageToPageObject.values())
             {
                 item->setVisible(false);
+            }
+
+            if(m_highlightAll)
+            {
+                for(QMap<int, QGraphicsRectItem*>::iterator i = m_results.begin(); i != m_results.end(); i++)
+                {
+                    i.value()->setVisible(i.key() == m_currentPage);
+                }
             }
 
             m_graphicsView->setSceneRect(page->x()-10.0, page->y()-10.0,
@@ -1315,6 +1250,14 @@ void DocumentView::prepareView()
             foreach(QGraphicsItem *item, m_pageToPageObject.values())
             {
                 item->setVisible(false);
+            }
+
+            if(m_highlightAll)
+            {
+                for(QMap<int, QGraphicsRectItem*>::iterator i = m_results.begin(); i != m_results.end(); i++)
+                {
+                    i.value()->setVisible(i.key() == m_currentPage || i.key() == m_currentPage+1);
+                }
             }
 
             if(m_pageToPageObject.contains(m_currentPage+1))
@@ -1343,6 +1286,8 @@ void DocumentView::prepareView()
             m_graphicsView->setSceneRect(QRectF());
             break;
         }
+
+        mutexLocker.unlock();
 
         disconnect(m_graphicsView->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 

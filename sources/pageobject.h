@@ -26,10 +26,6 @@ public:
     QRectF highlightedArea() const;
     QString highlightedText() const;
 
-    QRectF lastResult() const;
-    bool findPrevious(const QString &text, bool matchCase);
-    bool findNext(const QString &text, bool matchCase);
-
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -70,8 +66,6 @@ private:
     QList<ExternalLink> m_externalLinks;
 
     QRectF m_highlight;
-    QRectF m_lastResult;
-
     QRectF m_rubberBand;
 
 
