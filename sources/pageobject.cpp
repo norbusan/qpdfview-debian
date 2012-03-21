@@ -393,6 +393,8 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_rubberBand = QRectF();
 
             this->updateScene();
+
+            return;
         }
 
         foreach(Link link, m_links)
