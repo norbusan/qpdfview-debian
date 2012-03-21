@@ -692,10 +692,10 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
             switch(m_pageLayout)
             {
             case OnePage:
-                item->setVisible(pageNumber == m_currentPage);
+                item->setVisible(m_highlightAll && ( pageNumber == m_currentPage ));
                 break;
             case TwoPages:
-                item->setVisible(pageNumber == m_currentPage || pageNumber == m_currentPage+1);
+                item->setVisible(m_highlightAll && ( pageNumber == m_currentPage || pageNumber == m_currentPage+1 ));
                 break;
             case OneColumn:
             case TwoColumns:
@@ -767,10 +767,10 @@ void DocumentView::searchDocument(const QString &text, int beginWithPageNumber)
             switch(m_pageLayout)
             {
             case OnePage:
-                item->setVisible(pageNumber == m_currentPage);
+                item->setVisible(m_highlightAll && ( pageNumber == m_currentPage ));
                 break;
             case TwoPages:
-                item->setVisible(pageNumber == m_currentPage || pageNumber == m_currentPage+1);
+                item->setVisible(m_highlightAll && ( pageNumber == m_currentPage || pageNumber == m_currentPage+1 ));
                 break;
             case OneColumn:
             case TwoColumns:

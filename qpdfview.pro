@@ -31,7 +31,7 @@ target.path = /usr/bin
 pixmap.path = /usr/share/pixmaps
 pixmap.files = icons/qpdfview.png
 
-manpage.path = /usr/man/man1
+manpage.path = /usr/share/man/man1
 manpage.files = miscellaneous/qpdfview.1
 
 launcher.path = /usr/share/applications

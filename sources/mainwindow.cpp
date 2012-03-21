@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->createDocks();
     this->createMenus();
 
+    this->statusBar()->show();
+
     // tabWidget
 
     m_tabWidget = new QTabWidget(this);
@@ -1348,7 +1350,7 @@ void MainWindow::updateRotation(const DocumentView::Rotation &rotation)
 
 void MainWindow::updateSearchProgress(int value)
 {
-    this->statusBar()->show();
+    //this->statusBar()->show();
 
     this->statusBar()->showMessage(tr("Searched %1% of the current document...").arg(value));
 }
@@ -1357,7 +1359,7 @@ void MainWindow::updateSearchProgress()
 {
     this->statusBar()->clearMessage();
 
-    this->statusBar()->hide();
+    //this->statusBar()->hide();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
