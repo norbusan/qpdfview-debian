@@ -310,6 +310,8 @@ void DocumentView::updateResults()
     m_currentResult = m_results.end();
 
     this->prepareHighlight();
+
+    this->findNext();
 }
 
 void DocumentView::findPrevious()
@@ -702,9 +704,10 @@ void DocumentView::prepareScene()
     m_highlight = new QGraphicsRectItem();
     m_highlight->setPen(QPen(QColor(0,255,0,255)));
     m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
-    m_highlight->setVisible(false);
 
     m_scene->addItem(m_highlight);
+
+    this->prepareHighlight();
 }
 
 void DocumentView::prepareView()
