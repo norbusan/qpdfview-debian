@@ -1106,6 +1106,7 @@ void MainWindow::changeCurrentTab(int index)
         this->updateHighlightAll(view->highlightAll());
 
         m_outlineView->attachView(view);
+        m_thumbnailsView->attachView(view);
     }
     else
     {
@@ -1150,6 +1151,7 @@ void MainWindow::changeCurrentTab(int index)
         m_searchToolBar->hide();
 
         m_outlineView->attachView(0);
+        m_thumbnailsView->attachView(0);
     }
 }
 
@@ -1405,7 +1407,7 @@ void MainWindow::updateHighlightAll(bool highlightAll)
 void MainWindow::searchProgressed(int value)
 {
     this->statusBar()->show();
-    this->statusBar()->showMessage(tr("Searched page %1% of the current document...").arg(value));
+    this->statusBar()->showMessage(tr("Searched %1% of the current document...").arg(value));
 }
 
 void MainWindow::searchCanceled()
