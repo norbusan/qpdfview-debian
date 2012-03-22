@@ -25,38 +25,23 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-class DocumentView;
-class OutlineView;
-class ThumbnailsView;
-
-#include "pageobject.h"
+class DocumentModel;
+class PageObject;
 
 class DocumentView : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QString filePath READ filePath NOTIFY filePathChanged)
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
-    Q_PROPERTY(int numberOfPages READ numberOfPages NOTIFY numberOfPagesChanged)
     Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
     Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
     Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
-    Q_PROPERTY(qreal resolutionX READ resolutionX)
-    Q_PROPERTY(qreal resolutionX READ resolutionY)
+    Q_PROPERTY(bool highlightAll READ highlightAll WRITE setHighlightAll NOTIFY highlightAllChanged)
     Q_ENUMS(PageLayout Scaling Rotation)
 
 public:
-    explicit DocumentView(QWidget *parent = 0);
-    ~DocumentView();
-
-    friend class OutlineView;
-    friend class ThumbnailsView;
-
-    QString filePath() const;
+    explicit DocumentView(DocumentModel *model, QWidget *parent = 0);
 
     int currentPage() const;
-    void setCurrentPage(const int &currentPage);
-
-    int numberOfPages() const;
 
     enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
     PageLayout pageLayout() const;
@@ -70,93 +55,85 @@ public:
     Rotation rotation() const;
     void setRotation(const Rotation &rotation);
 
-    qreal resolutionX() const;
-    qreal resolutionY() const;
+    bool highlightAll() const;
+    void setHighlightAll(bool highlightAll);
 
+    DocumentModel *model() const
+    {
+        return m_model;
+    }
+    qreal resolutionX() const
+    {
+        return m_resolutionX;
+    }
+    qreal resolutionY() const
+    {
+        return m_resolutionY;
+    }
 
-    QAction *tabMenuAction() const;
+    QAction *makeCurrentTabAction() const
+    {
+        return m_makeCurrentTabAction;
+    }
+
+private:
+    DocumentModel *m_model;
+    qreal m_resolutionX;
+    qreal m_resolutionY;
+
+    QAction *m_makeCurrentTabAction;
+
+    QGraphicsScene *m_scene;
+    QGraphicsView *m_view;
+
+    QGraphicsRectItem *m_highlight;
+
+    QMap<int, PageObject*> m_pageToPageObject;
+    QMap<int, int> m_heightToPage;
+
+    QMap<int, QRectF> m_results;
+    QMap<int, QRectF>::iterator m_currentResult;
+
+    QSettings m_settings;
+
+    int m_currentPage;
+    PageLayout m_pageLayout;
+    Scaling m_scaling;
+    Rotation m_rotation;
+    bool m_highlightAll;
+
+    void prepareScene();
+    void prepareView();
+    void prepareHighlight();
+
+signals:
+    void currentPageChanged(int);
+    void pageLayoutChanged(DocumentView::PageLayout);
+    void scalingChanged(DocumentView::Scaling);
+    void rotationChanged(DocumentView::Rotation);
+    void highlightAllChanged(bool);
 
 public slots:
-    bool open(const QString &filePath);
-    bool refresh();
-    bool saveCopy(const QString &filePath);
-    void print();
+    void setCurrentPage(int currentPage);
 
     void previousPage();
     void nextPage();
     void firstPage();
     void lastPage();
 
-    void search(const QString &text, bool matchCase, bool highlightAll);
-    void cancelSearch();
+    void clearResults();
+    void updateResults();
 
     void findPrevious();
     void findNext();
 
     void copyText();
 
-private:
-    Poppler::Document *m_document;
-
-    QGraphicsScene *m_graphicsScene;
-    QGraphicsView *m_graphicsView;
-
-    QAction *m_tabMenuAction;
-
-    QProgressDialog *m_progressDialog;
-    QFutureWatcher<void> *m_progressWatcher;
-
-    QSettings m_settings;
-
-    QMap<int, PageObject*> m_pageToPageObject;
-    QMap<int, int> m_valueToPage;
-
-    QMutex m_resultsMutex;
-    QMap<int, QGraphicsRectItem*> m_results;
-    QMap<int, QGraphicsRectItem*>::iterator m_lastResult;
-    bool m_matchCase;
-    bool m_highlightAll;
-    bool m_searchCanceled;
-
-    QString m_filePath;
-    int m_currentPage;
-    int m_numberOfPages;
-    PageLayout m_pageLayout;
-    Scaling m_scaling;
-    Rotation m_rotation;
-    qreal m_resolutionX;
-    qreal m_resolutionY;
-
-    void prepareScene();
-    void prepareView();
-
-    void printDocument(QPrinter *printer, int fromPage, int toPage);
-    void searchDocument(const QString &text, int beginWithPageNumber);
-
-signals:
-    void filePathChanged(QString);
-    void currentPageChanged(int);
-    void numberOfPagesChanged(int);
-    void pageLayoutChanged(DocumentView::PageLayout);
-    void scalingChanged(DocumentView::Scaling);
-    void rotationChanged(DocumentView::Rotation);
-
-    void printingProgressed(int);
-    void printingCanceled();
-    void printingFinished();
-
-    void searchingProgressed(int);
-    void searchingCanceled();
-    void searchingFinished();
-
 private slots:
-    void scrollToPage(const int &value);
-    void followLink(const int &pageNumber);
+    void makeCurrentTab();
+    void scrollToPage(int value);
 
-    void showResults();
-    void clearResults();
-
-    void tabMenuActionTriggered();
+    void updateFilePath(const QString &filePath);
 
 protected:
     void resizeEvent(QResizeEvent *resizeEvent);

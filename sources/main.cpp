@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     QTranslator t;
     if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name() + QString(".qm")))
     {
-        a.installTranslator(&t);
+        //a.installTranslator(&t);
     }
 
     MainWindow w;

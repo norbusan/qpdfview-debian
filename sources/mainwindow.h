@@ -25,10 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+#include "documentmodel.h"
 #include "documentview.h"
-#include "outlineview.h"
-#include "thumbnailsview.h"
-#include "settingsdialog.h"
+
+#include "miscellaneous.h"
 
 class MainWindow : public QMainWindow
 {
@@ -36,27 +36,16 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
 
-    QSize sizeHint() const;
+    QSize sizeHint() const
+    {
+        return QSize(500,700);
+    }
+
     QMenu *createPopupMenu();
 
 private:
-    QMenu *m_fileMenu;
-    QMenu *m_editMenu;
-    QMenu *m_viewMenu;
-    QMenu *m_tabMenu;
-    QMenu *m_helpMenu;
-
-    QToolBar *m_fileToolBar;
-    QToolBar *m_editToolBar;
-    QToolBar *m_searchToolBar;
-    QToolBar *m_viewToolBar;
-
-    QTabWidget *m_tabWidget;
-
-    OutlineView *m_outlineView;
-    ThumbnailsView *m_thumbnailsView;
+    // actions
 
     QAction *m_openAction;
     QAction *m_refreshAction;
@@ -74,7 +63,7 @@ private:
     QAction *m_findPreviousAction;
     QAction *m_findNextAction;
     QAction *m_copyTextAction;
-    QAction *m_editSettingsAction;
+    QAction *m_settingsAction;
 
     QAction *m_onePageAction;
     QAction *m_twoPagesAction;
@@ -111,6 +100,10 @@ private:
 
     QAction *m_aboutAction;
 
+    // widgets
+
+    QTabWidget *m_tabWidget;
+
     QWidget *m_currentPageWidget;
     QLabel *m_currentPageLabel;
     QLineEdit *m_currentPageLineEdit;
@@ -137,8 +130,33 @@ private:
     QPushButton *m_findPreviousButton;
     QPushButton *m_findNextButton;
 
+    // toolBars
+
+    QToolBar *m_fileToolBar;
+    QToolBar *m_editToolBar;
+    QToolBar *m_viewToolBar;
+
+    QToolBar *m_searchToolBar;
+
+    // docks
+
+    QDockWidget *m_outlineDock;
+    OutlineView *m_outlineView;
+
+    QDockWidget *m_thumbnailsDock;
+    ThumbnailsView *m_thumbnailsView;
+
+    // menus
+
+    QMenu *m_fileMenu;
+    QMenu *m_editMenu;
+    QMenu *m_viewMenu;
+    QMenu *m_tabMenu;
+    QMenu *m_helpMenu;
+
     void createActions();
-    void createToolbars();
+    void createWidgets();
+    void createToolBars();
     void createDocks();
     void createMenus();
 
@@ -155,23 +173,13 @@ private slots:
     void nextPage();
     void firstPage();
     void lastPage();
-    void changeCurrentPage();
 
     void search();
     void startSearch();
     void findPrevious();
     void findNext();
     void copyText();
-    void editSettings();
-
-    void selectPageLayout(QAction *pageLayoutAction);
-    void changePageLayoutIndex(const int &index);
-    void selectScaling(QAction *scalingAction);
-    void changeScalingIndex(const int &index);
-    void selectRotation(QAction *rotationAction);
-    void changeRotationIndex(const int &index);
-
-    void changeFullscreen();
+    void settings();
 
     void addTab();
     void previousTab();
@@ -181,26 +189,41 @@ private slots:
     void closeAllTabs();
     void closeAllTabsButCurrent();
 
-    void changeCurrentTab(const int &index);
-    void requestTabClose(const int &index);
-
     void about();
 
-    void updateFilePath(const QString &filePath);
-    void updateCurrentPage(const int &currentPage);
-    void updateNumberOfPages(const int &numberOfPages);
-    void updatePageLayout(const DocumentView::PageLayout &pageLayout);
-    void updateScaling(const DocumentView::Scaling &scaling);
-    void updateRotation(const DocumentView::Rotation &rotation);
+    void changeFullscreen();
+    void changeHighlightAll();
 
-    void updateSearchProgress(int value);
-    void updateSearchProgress();
+    int addTab(DocumentModel *model, DocumentView *view);
+    void closeTab(int index);
+
+    void changeCurrentTab(int index);
+    void changeCurrentPage();
+
+    void changePageLayout(QAction *action);
+    void changePageLayout(int index);
+    void changeScaling(QAction *sction);
+    void changeScalingIndex(int index);
+    void changeRotation(QAction *action);
+    void changeRotationIndex(int index);
+
+    void updateFilePath(const QString &filePath);
+    void updateCurrentPage(int currentPage);
+    void updateNumberOfPages(int numberOfPages);
+    void updatePageLayout(DocumentView::PageLayout pageLayout);
+    void updateScaling(DocumentView::Scaling scaling);
+    void updateRotation(DocumentView::Rotation rotation);
+    void updateHighlightAll(bool highlightAll);
+
+    void searchProgressed(int value);
+    void searchCanceled();
+    void searchFinished();
 
 protected:
-    void keyPressEvent(QKeyEvent *keyEvent);
-    void dragEnterEvent(QDragEnterEvent *dragEnterEvent);
-    void dropEvent(QDropEvent *dropEvent);
-    void closeEvent(QCloseEvent *closeEvent);
+    void keyPressEvent(QKeyEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 };
 

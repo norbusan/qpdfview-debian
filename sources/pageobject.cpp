@@ -1,122 +1,62 @@
 #include "pageobject.h"
 
-PageObject::PageObject(Poppler::Page *page, int index, DocumentView *view, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_page(page),m_index(index),m_view(view),m_linkTransform(),m_highlightTransform(),m_links(),m_externalLinks(),m_highlight(),m_rubberBand()
+PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGraphicsItem *parent) : QGraphicsObject(parent),
+    m_index(index),m_size(),m_links(),m_selection(),m_rubberBand(),m_render()
 {
-    switch(rotation())
+    m_model = model;
+    m_view = view;
+
+    m_size = m_model->pageSize(m_index);
+    m_links = m_model->links(m_index);
+    m_results = m_model->results(index);
+
+    qreal scaleX = m_view->resolutionX() / 72.0;
+    qreal scaleY = m_view->resolutionY() / 72.0;
+    qreal width = m_size.width();
+    qreal height = m_size.height();
+
+    switch(m_view->rotation())
     {
-    case Poppler::Page::Rotate0:
-        m_highlightTransform.setMatrix(resolutionX() / 72.0, 0.0,
-                                       0.0, resolutionY() / 72.0,
-                                       0.0, 0.0);
-
-        m_linkTransform.setMatrix(resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
-                                  0.0, resolutionY() / 72.0 * m_page->pageSizeF().height(),
-                                  0.0, 0.0);
+    case DocumentView::RotateBy0:
+        m_pageTransform = QTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+        m_linkTransform = QTransform(scaleX * width, 0.0, 0.0, scaleY * height, 0.0, 0.0);
+        m_resultsTransform = QTransform(scaleX, 0.0, 0.0, scaleY, 0.0, 0.0);
 
         break;
-    case Poppler::Page::Rotate90:
-        m_highlightTransform.setMatrix(0.0, resolutionX() / 72.0,
-                                       -1.0 * resolutionY() / 72.0, 0.0,
-                                       resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
-
-        m_linkTransform.setMatrix(0.0, resolutionY() / 72.0 * m_page->pageSizeF().width(),
-                                  -1.0 * resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
-                                  resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0);
+    case DocumentView::RotateBy90:
+        m_pageTransform = QTransform(0.0, 1.0, -1.0, 0.0, scaleX * height, 0.0);
+        m_linkTransform = QTransform(0.0, scaleY * width, -scaleX * height, 0.0, scaleX * height, 0.0);
+        m_resultsTransform = QTransform(0.0, scaleY, -scaleX, 0.0, scaleX * height, 0.0);
 
         break;
-    case Poppler::Page::Rotate180:
-        m_highlightTransform.setMatrix(-1.0 * resolutionX() / 72.0, 0.0,
-                                       0.0, -1.0 * resolutionY() / 72.0,
-                                       resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
-
-        m_linkTransform.setMatrix(-1.0 * resolutionX() / 72.0 * m_page->pageSizeF().width(), 0.0,
-                            0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().height(),
-                            resolutionX() / 72.0 * m_page->pageSizeF().width(), resolutionY() / 72.0 * m_page->pageSizeF().height());
+    case DocumentView::RotateBy180:
+        m_pageTransform = QTransform(-1.0, 0.0, 0.0, -1.0, scaleX * width, scaleY * height);
+        m_linkTransform = QTransform(-scaleX * width, 0.0, 0.0, -scaleY * height, scaleX * width, scaleY * height);
+        m_resultsTransform = QTransform(-scaleX, 0.0, 0.0, -scaleY, scaleX * width, scaleY * height);
 
         break;
-    case Poppler::Page::Rotate270:
-        m_highlightTransform.setMatrix(0.0, -1.0 * resolutionX() / 72.0,
-                            resolutionY() / 72.0, 0.0,
-                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
-
-        m_linkTransform.setMatrix(0.0, -1.0 * resolutionY() / 72.0 * m_page->pageSizeF().width(),
-                            resolutionX() / 72.0 * m_page->pageSizeF().height(), 0.0,
-                            0.0, resolutionY() / 72.0 * m_page->pageSizeF().width());
+    case DocumentView::RotateBy270:
+        m_pageTransform = QTransform(0.0, -1.0, 1.0, 0.0, 0.0, scaleX * width);
+        m_linkTransform = QTransform(0.0, -scaleY * width, scaleX * height, 0.0, 0.0, scaleY * width);
+        m_resultsTransform = QTransform(0.0, -scaleY, scaleX, 0.0, 0.0, scaleY * width);
 
         break;
     }
 
-    foreach(Poppler::Link *link, m_page->links())
-    {
-        if(link->linkType() == Poppler::Link::Goto)
-        {
-            Poppler::LinkGoto *linkGoto = static_cast<Poppler::LinkGoto*>(link);
-
-            QRectF linkArea = link->linkArea();
-
-            if(linkArea.width() < 0.0)
-            {
-                linkArea.translate(linkArea.width(), 0.0);
-                linkArea.setWidth(-linkArea.width());
-            }
-
-            if(linkArea.height() < 0.0)
-            {
-                linkArea.translate(0.0, linkArea.height());
-                linkArea.setHeight(-linkArea.height());
-            }
-
-            linkArea = m_linkTransform.mapRect(linkArea);
-
-            if(linkGoto->isExternal())
-            {
-                m_externalLinks.append(ExternalLink(linkArea, linkGoto->fileName(), linkGoto->destination().pageNumber()));
-            }
-            else
-            {
-                m_links.append(Link(linkArea, linkGoto->destination().pageNumber()));
-            }
-        }
-
-        delete link;
-    }
-
-    m_renderWatcher = new QFutureWatcher<void>();
+    connect(&m_render, SIGNAL(finished()), this, SLOT(pageRendered()));
+    connect(m_model, SIGNAL(pageSearched(int)), this, SLOT(pageSearched(int)));
+    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(highlightAllChanged()));
 }
 
 PageObject::~PageObject()
 {
-    if(m_renderWatcher->isRunning())
+    if(m_render.isRunning())
     {
-        m_renderWatcher->waitForFinished();
+        m_render.waitForFinished();
     }
 
-    delete m_renderWatcher;
-
-    QMutexLocker mutexLocker(&s_pageCacheMutex);
-
-    QPair<QString, int> key(filePath(), index());
-
-    if(s_pageCache.contains(key))
-    {
-        s_pageCacheByteCount -= s_pageCache.value(key).byteCount();
-        s_pageCache.remove(key);
-    }
-
-    mutexLocker.unlock();
-
-    delete m_page;
+    m_model->dropPage(m_index, m_view->resolutionX(), m_view->resolutionY());
 }
-
-bool PageObject::s_concurrentPageCache = true;
-
-QMutex PageObject::s_pageCacheMutex;
-QMap<QPair<QString, int>, QImage> PageObject::s_pageCache;
-
-uint PageObject::s_pageCacheByteCount = 0;
-uint PageObject::s_maximumPageCacheByteCount = 134217728;
-
 
 int PageObject::index() const
 {
@@ -133,28 +73,58 @@ void PageObject::setIndex(const int &index)
     }
 }
 
-
-QRectF PageObject::highlightedArea() const
+qreal PageObject::pageWidth() const
 {
-    return m_highlight.translated(pos());
+    return m_size.width();
 }
 
-QString PageObject::highlightedText() const
+qreal PageObject::pageHeight() const
 {
-    return m_page->text(m_highlightTransform.inverted().mapRect(m_highlight));
+    return m_size.height();
+}
+
+QRectF PageObject::selectedArea() const
+{
+    return m_resultsTransform.inverted().mapRect(m_selection);
+}
+
+QString PageObject::selectedText() const
+{
+    QString text;
+
+    if(!m_selection.isNull())
+    {
+        text = m_model->text(m_index, this->selectedArea());
+    }
+
+    return text;
 }
 
 
 QRectF PageObject::boundingRect() const
 {
-    if(rotation() == Poppler::Page::Rotate90 || rotation() == Poppler::Page::Rotate270)
+    QRectF result;
+
+    qreal scaleX = m_view->resolutionX() / 72.0;
+    qreal scaleY = m_view->resolutionY() / 72.0;
+    qreal width = m_size.width();
+    qreal height = m_size.height();
+
+    switch(m_view->rotation())
     {
-        return QRectF(0.0, 0.0, qCeil(resolutionX() * m_page->pageSizeF().height() / 72.0), qCeil(resolutionY() * m_page->pageSizeF().width() / 72.0));
+    case DocumentView::RotateBy0:
+    case DocumentView::RotateBy180:
+        result = QRectF(0.0, 0.0, qCeil(scaleX * width), qCeil(scaleY * height));
+
+        break;
+    case DocumentView::RotateBy90:
+    case DocumentView::RotateBy270:
+        result = QRectF(0.0, 0.0, qCeil(scaleX * height), qCeil(scaleY * width));
+
+        break;
     }
-    else
-    {
-        return QRectF(0.0, 0.0, qCeil(resolutionX() * m_page->pageSizeF().width() / 72.0), qCeil(resolutionY() * m_page->pageSizeF().height() / 72.0));
-    }
+
+    return result;
 }
 
 void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -163,33 +133,20 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    QPair<QString, int> key(filePath(), index());
+    QImage image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
 
-    if(s_concurrentPageCache)
+    if(!image.isNull())
     {
-        QMutexLocker mutexLocker(&s_pageCacheMutex);
-
-        if(!s_pageCache.contains(key) && !m_renderWatcher->isRunning())
-        {
-            m_renderWatcher->setFuture(QtConcurrent::run(this, &PageObject::renderPage));
-        }
-        else
-        {
-            painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(key));
-        }
-
-        mutexLocker.unlock();
+        painter->setTransform(m_pageTransform, true);
+        painter->drawImage(QPointF(0.0, 0.0), image);
+        painter->setTransform(m_pageTransform.inverted(), true);
     }
     else
     {
-        if(!s_pageCache.contains(key))
+        if(!m_render.isRunning())
         {
-            QImage image = m_page->renderToImage(resolutionX(), resolutionY(), -1, -1, -1, -1, rotation());
-
-            this->updatePageCache(key, image);
+            m_render.setFuture(QtConcurrent::run(this, &PageObject::render));
         }
-
-        painter->drawImage(QPointF(0.0, 0.0), s_pageCache.value(key));
     }
 
     painter->setPen(QPen(Qt::black));
@@ -198,24 +155,34 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     // draw links
 
     painter->setPen(QPen(QColor(255,0,0,127)));
+    painter->setTransform(m_linkTransform, true);
 
-    foreach(Link link, m_links)
+    foreach(DocumentModel::Link link, m_links)
     {
         painter->drawRect(link.area);
     }
 
-    // draw external links
+    painter->setTransform(m_linkTransform.inverted(), true);
 
-    foreach(ExternalLink link, m_externalLinks)
+    // draw results
+
+    if(m_view->highlightAll())
     {
-        painter->drawRect(link.area);
+        painter->setTransform(m_resultsTransform, true);
+
+        foreach(QRectF result, m_results)
+        {
+            painter->fillRect(result.adjusted(-1.0, -1.0, 1.0, 1.0), QBrush(QColor(0,255,0,127)));
+        }
+
+        painter->setTransform(m_resultsTransform.inverted(), true);
     }
 
-    // draw highlight
+    // draw selection
 
-    if(!m_highlight.isNull())
+    if(!m_selection.isNull())
     {
-        painter->fillRect(m_highlight, QBrush(QColor(0,0,255,127)));
+        painter->fillRect(m_selection, QBrush(QColor(0,0,255,127)));
     }
 
     // draw rubber band
@@ -231,149 +198,67 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     }
 }
 
-
-void PageObject::renderPage()
+void PageObject::render()
 {
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
     bool visible = false;
+
+    QRectF pageRect = boundingRect().translated(pos());
 
     foreach(QGraphicsView *view, this->scene()->views())
     {
-        QRectF viewRect = view->mapToScene(view->viewport()->rect()).boundingRect();
+       QRectF viewRect = view->mapToScene(view->rect()).boundingRect();
 
-        visible = viewRect.intersects(pageRect);
+       visible = visible || viewRect.intersects(pageRect);
     }
 
-    if(!visible)
+    if(visible)
     {
-        return;
+       switch(m_view->rotation())
+       {
+       case DocumentView::RotateBy0:
+       case DocumentView::RotateBy180:
+           m_model->pushPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+
+           break;
+       case DocumentView::RotateBy90:
+       case DocumentView::RotateBy270:
+           m_model->pushPage(m_index, m_view->resolutionY(), m_view->resolutionX());
+
+           break;
+       }
     }
+}
 
-    Poppler::Document *document = Poppler::Document::load(filePath());
+void PageObject::pageRendered()
+{
+    this->scene()->update(boundingRect().translated(pos()));
+}
 
-    if(document == 0)
+void PageObject::pageSearched(int index)
+{
+    if(m_index == index)
     {
-        qDebug() << "document == 0:" << filePath();
+        m_results = m_model->results(index);
 
-        return;
+        this->scene()->update(boundingRect().translated(pos()));
     }
-
-    Poppler::Page *page = document->page(index());
-
-    if(page == 0) {
-        qDebug() << "page == 0:" << filePath() << index();
-
-        return;
-    }
-
-    document->setRenderHint(Poppler::Document::Antialiasing);
-    document->setRenderHint(Poppler::Document::TextAntialiasing);
-
-    QImage image = page->renderToImage(resolutionX(), resolutionY(), -1, -1, -1, -1, rotation());
-
-    QMutexLocker mutexLocker(&s_pageCacheMutex);
-
-    QPair<QString, int> key(filePath(), index());
-
-    this->updatePageCache(key, image);
-
-    mutexLocker.unlock();
-
-    this->updateScene();
-
-    delete page;
-    delete document;
 }
 
-void PageObject::updateScene()
+void PageObject::highlightAllChanged()
 {
-    QRectF pageRect = boundingRect(); pageRect.translate(pos());
-
-    this->scene()->update(pageRect);
-}
-
-void PageObject::updatePageCache(QPair<QString, int> key, QImage image)
-{
-    if(s_pageCacheByteCount < s_maximumPageCacheByteCount)
+    if(m_results.count() > 0)
     {
-        s_pageCache.insert(key, image);
-        s_pageCacheByteCount += image.byteCount();
+        this->scene()->update(boundingRect().translated(pos()));
     }
-    else
-    {
-        if(s_pageCache.lowerBound(key) != s_pageCache.end())
-        {
-            s_pageCacheByteCount -= (--s_pageCache.end()).value().byteCount();
-            s_pageCache.remove((--s_pageCache.end()).key());
-        }
-        else
-        {
-            s_pageCacheByteCount -= s_pageCache.begin().value().byteCount();
-            s_pageCache.remove(s_pageCache.begin().key());
-        }
-
-        s_pageCache.insert(key, image);
-        s_pageCacheByteCount += image.byteCount();
-    }
-}
-
-bool PageObject::pageCacheThreading()
-{
-    return s_concurrentPageCache;
-}
-
-void PageObject::setPageCacheThreading(bool threading)
-{
-    s_concurrentPageCache = threading;
-}
-
-uint PageObject::pageCacheSize()
-{
-    return s_maximumPageCacheByteCount;
-}
-
-void PageObject::setPageCacheSize(uint size)
-{
-    s_maximumPageCacheByteCount = size;
-}
-
-
-QString PageObject::filePath() const
-{
-    return m_view->filePath();
-}
-
-qreal PageObject::resolutionX() const
-{
-    return m_view->resolutionX();
-}
-
-qreal PageObject::resolutionY() const
-{
-    return m_view->resolutionY();
-}
-
-Poppler::Page::Rotation PageObject::rotation() const
-{
-    return static_cast<Poppler::Page::Rotation>(m_view->rotation());
 }
 
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton)
+   if(event->button() == Qt::LeftButton)
     {
-        foreach(Link link, m_links)
+        foreach(DocumentModel::Link link, m_links)
         {
-            if(link.area.contains(event->scenePos() - pos()))
-            {
-                return;
-            }
-        }
-
-        foreach(ExternalLink link, m_externalLinks)
-        {
-            if(link.area.contains(event->scenePos() - pos()))
+            if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
                 return;
             }
@@ -389,29 +274,19 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         if(!m_rubberBand.isNull())
         {
-            m_highlight = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
+            m_selection = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
             m_rubberBand = QRectF();
 
-            this->updateScene();
+            this->scene()->update(boundingRect().translated(pos()));
 
             return;
         }
 
-        foreach(Link link, m_links)
+        foreach(DocumentModel::Link link, m_links)
         {
-            if(link.area.contains(event->scenePos() - pos()))
+            if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
-                emit linkClicked(link.pageNumber);
-
-                return;
-            }
-        }
-
-        foreach(ExternalLink link, m_externalLinks)
-        {
-            if(link.area.contains(event->scenePos() - pos()))
-            {
-                emit linkClicked(link.fileName, link.pageNumber);
+                emit linkClicked(link.index+1);
 
                 return;
             }
@@ -419,11 +294,11 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
     else if(event->button() == Qt::RightButton)
     {
-        if(!m_highlight.isNull())
+        if(!m_selection.isNull())
         {
-            m_highlight = QRectF();
+            m_selection = QRectF();
 
-            this->updateScene();
+            this->scene()->update(boundingRect().translated(pos()));
         }
     }
 }
@@ -434,6 +309,6 @@ void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
         m_rubberBand.setBottomRight(event->scenePos() - pos());
 
-        this->updateScene();
+        this->scene()->update(boundingRect().translated(pos()));
     }
 }

@@ -6,19 +6,20 @@ QT       += core xml gui
 INCLUDEPATH  += /usr/include/poppler/qt4
 LIBS         += -L/usr/lib -lpoppler-qt4
 
-SOURCES += sources/main.cpp sources/mainwindow.cpp \
+SOURCES += \
+    sources/documentmodel.cpp \
     sources/documentview.cpp \
     sources/pageobject.cpp \
-    sources/outlineview.cpp \
-    sources/thumbnailsview.cpp \
-    sources/settingsdialog.cpp
+    sources/miscellaneous.cpp \
+    sources/mainwindow.cpp \
+    sources/main.cpp
 
-HEADERS  += sources/mainwindow.h \
+HEADERS  += \
+    sources/documentmodel.h \
     sources/documentview.h \
     sources/pageobject.h \
-    sources/outlineview.h \
-    sources/thumbnailsview.h \
-    sources/settingsdialog.h
+    sources/miscellaneous.h \
+    sources/mainwindow.h
 
 RESOURCES += qpdfview.qrc
 
@@ -31,10 +32,10 @@ target.path = /usr/bin
 pixmap.path = /usr/share/pixmaps
 pixmap.files = icons/qpdfview.png
 
-manpage.path = /usr/share/man/man1
-manpage.files = miscellaneous/qpdfview.1
-
 launcher.path = /usr/share/applications
 launcher.files = miscellaneous/qpdfview.desktop
 
-INSTALLS += target pixmap manpage launcher
+manual.path = /usr/share/man/man1
+manual.files = miscellaneous/qpdfview.1
+
+INSTALLS += target pixmap launcher manual
