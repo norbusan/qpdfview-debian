@@ -45,6 +45,19 @@ public:
     qreal pageWidth() const;
     qreal pageHeight() const;
 
+    const QTransform &pageTransform() const
+    {
+        return m_pageTransform;
+    }
+    const QTransform &linkTransform() const
+    {
+        return m_linkTransform;
+    }
+    const QTransform &resultsTransform() const
+    {
+        return m_resultsTransform;
+    }
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

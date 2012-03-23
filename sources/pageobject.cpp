@@ -296,7 +296,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         {
             if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
-                m_view->setCurrentPage(link.index+1);
+                m_view->setCurrentPage(link.pageNumber);
 
                 return;
             }

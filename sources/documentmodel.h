@@ -48,7 +48,7 @@ public:
     struct Link
     {
         QRectF area;
-        int index;
+        int pageNumber;
     };
 
     QList<Link> links(int index);

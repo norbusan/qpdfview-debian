@@ -345,9 +345,9 @@ void DocumentView::findPrevious()
 
     if(m_currentResult != m_results.end())
     {
-        this->prepareHighlight();
-
         this->setCurrentPage(m_currentResult.key()+1);
+
+        this->prepareView(false);
 
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
@@ -406,9 +406,9 @@ void DocumentView::findNext()
 
     if(m_currentResult != m_results.end())
     {
-        this->prepareHighlight();
-
         this->setCurrentPage(m_currentResult.key()+1);
+
+        this->prepareView(false);
 
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
@@ -643,11 +643,9 @@ void DocumentView::prepareScene()
     m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
 
     m_scene->addItem(m_highlight);
-
-    this->prepareHighlight();
 }
 
-void DocumentView::prepareView()
+void DocumentView::prepareView(bool ensureVisible)
 {
     PageObject *page = m_pageToPageObject.value(m_currentPage), *nextPage = 0;
 
@@ -701,41 +699,15 @@ void DocumentView::prepareView()
         break;
     }
 
-    disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+    // highlight
 
-    QRectF pageRect = page->boundingRect().translated(page->pos());
-    QRectF viewRect = m_view->mapToScene(m_view->rect()).boundingRect();
-
-    viewRect.translate(page->pos() - viewRect.topLeft());
-
-    m_view->ensureVisible(viewRect.intersected(pageRect), 0, 0);
-
-    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
-}
-
-void DocumentView::prepareHighlight()
-{
     if(m_currentResult != m_results.end())
     {
         PageObject *page = m_pageToPageObject.value(m_currentResult.key()+1);
 
-        switch(m_rotation)
-        {
-        case RotateBy0:
-            m_highlight->setTransform(QTransform(m_resolutionX / 72.0, 0.0, 0.0, m_resolutionY / 72.0, 0.0, 0.0));
-            break;
-        case RotateBy90:
-            m_highlight->setTransform(QTransform(0.0, m_resolutionY / 72.0, -m_resolutionX / 72.0, 0.0, m_resolutionX / 72.0 * page->pageHeight(), 0.0));
-            break;
-        case RotateBy180:
-            m_highlight->setTransform(QTransform(-m_resolutionX / 72., 0.0, 0.0, -m_resolutionY / 72.0, m_resolutionY / 72.0 * page->pageWidth(), m_resolutionY / 72.0 * page->pageHeight()));
-            break;
-        case RotateBy270:
-            m_highlight->setTransform(QTransform(0.0, -m_resolutionY / 72.0, m_resolutionX / 72., 0.0, 0.0, m_resolutionY / 72.0 * page->pageWidth()));
-            break;
-        }
-
         m_highlight->setPos(page->pos());
+        m_highlight->setTransform(page->resultsTransform());
+
         m_highlight->setRect(m_currentResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
 
         m_highlight->setVisible(true);
@@ -743,6 +715,22 @@ void DocumentView::prepareHighlight()
     else
     {
         m_highlight->setVisible(false);
+    }
+
+    // ensureVisible
+
+    if(ensureVisible)
+    {
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+
+        QRectF pageRect = page->boundingRect().translated(page->pos());
+        QRectF viewRect = m_view->mapToScene(m_view->rect()).boundingRect();
+
+        viewRect.translate(page->pos() - viewRect.topLeft());
+
+        m_view->ensureVisible(viewRect.intersected(pageRect), 0, 0);
+
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
     }
 }
 
@@ -803,7 +791,7 @@ void DocumentView::updateResults()
     m_results = m_model->results();
     m_currentResult = m_results.end();
 
-    this->prepareHighlight();
+    this->prepareView(false);
 }
 
 void DocumentView::resizeEvent(QResizeEvent*)

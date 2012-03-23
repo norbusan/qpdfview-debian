@@ -103,8 +103,7 @@ private:
     bool m_highlightAll;
 
     void prepareScene();
-    void prepareView();
-    void prepareHighlight();
+    void prepareView(bool ensureVisible = true);
 
 signals:
     void currentPageChanged(int);

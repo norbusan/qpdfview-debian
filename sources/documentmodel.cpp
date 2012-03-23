@@ -85,11 +85,11 @@ QList<DocumentModel::Link> DocumentModel::links(int index)
             if(link->linkType() == Poppler::Link::Goto)
             {
                 QRectF linkArea = link->linkArea().normalized();
-                int linkIndex = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber()-1;
+                int linkPageNumber = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
 
                 Link result;
                 result.area = linkArea;
-                result.index = linkIndex;
+                result.pageNumber = linkPageNumber;
 
                 results.append(result);
             }
