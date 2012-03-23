@@ -467,7 +467,7 @@ void MainWindow::createWidgets()
 
     m_searchLabel->setBuddy(m_searchLineEdit);
     m_searchTimer->setSingleShot(true);
-    m_searchTimer->setInterval(1000);
+    m_searchTimer->setInterval(2000);
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
