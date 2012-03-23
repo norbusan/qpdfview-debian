@@ -495,7 +495,7 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                pageSize = m_model->pageSize(index);
+                pageSize = m_model->pageSize(index+1);
 
                 switch(m_rotation)
                 {

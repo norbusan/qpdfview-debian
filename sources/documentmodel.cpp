@@ -235,6 +235,28 @@ QImage DocumentModel::thumbnail(int index)
 
 // page cache
 
+uint DocumentModel::pageCacheSize()
+{
+    return s_pageCacheSize;
+}
+
+void DocumentModel::setPageCacheSize(uint pageCacheSize)
+{
+    s_maximumPageCacheSize = pageCacheSize;
+
+    s_pageCacheMutex.lock();
+
+    while(s_pageCacheSize > s_maximumPageCacheSize)
+    {
+        QMap<PageCacheKey, QImage>::iterator first = s_pageCache.begin();
+
+        s_pageCacheSize -= first.value().byteCount();
+        s_pageCache.remove(first.key());
+    }
+
+    s_pageCacheMutex.unlock();
+}
+
 QImage DocumentModel::pullPage(int index, qreal resolutionX, qreal resolutionY)
 {
     PageCacheKey key(m_filePath, index, resolutionX, resolutionY);

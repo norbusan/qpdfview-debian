@@ -42,21 +42,9 @@ public:
     int index() const;
     void setIndex(const int &index);
 
-    qreal pageWidth() const;
-    qreal pageHeight() const;
-
-    const QTransform &pageTransform() const
-    {
-        return m_pageTransform;
-    }
-    const QTransform &linkTransform() const
-    {
-        return m_linkTransform;
-    }
-    const QTransform &resultsTransform() const
-    {
-        return m_resultsTransform;
-    }
+    const QTransform &pageTransform() const;
+    const QTransform &linkTransform() const;
+    const QTransform &resultsTransform() const;
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

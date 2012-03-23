@@ -98,14 +98,8 @@ public:
 
     // page cache
 
-    static uint pageCacheSize()
-    {
-        return s_maximumPageCacheSize;
-    }
-    static void setPageCacheSize(uint pageCacheSize)
-    {
-        s_maximumPageCacheSize = pageCacheSize;
-    }
+    static uint pageCacheSize();
+    static void setPageCacheSize(uint pageCacheSize);
 
     QImage pullPage(int index, qreal resolutionX, qreal resolutionY);
     void pushPage(int index, qreal resolutionX, qreal resolutionY);

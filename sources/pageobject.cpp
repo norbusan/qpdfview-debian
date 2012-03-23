@@ -94,14 +94,19 @@ void PageObject::setIndex(const int &index)
     }
 }
 
-qreal PageObject::pageWidth() const
+const QTransform &PageObject::pageTransform() const
 {
-    return m_size.width();
+    return m_pageTransform;
 }
 
-qreal PageObject::pageHeight() const
+const QTransform &PageObject::linkTransform() const
 {
-    return m_size.height();
+    return m_linkTransform;
+}
+
+const QTransform &PageObject::resultsTransform() const
+{
+    return m_resultsTransform;
 }
 
 QRectF PageObject::boundingRect() const
