@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
 
-    DocumentModel::setPageCacheSize(m_settings.value("documentModel/pageCacheSize", 134217728).toUInt());
+    DocumentModel::setMaximumPageCacheSize(m_settings.value("documentModel/maximumPageCacheSize", 134217728u).toUInt());
 
     // command line arguments
 

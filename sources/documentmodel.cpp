@@ -235,12 +235,12 @@ QImage DocumentModel::thumbnail(int index)
 
 // page cache
 
-uint DocumentModel::pageCacheSize()
+uint DocumentModel::maximumPageCacheSize()
 {
-    return s_pageCacheSize;
+    return s_maximumPageCacheSize;
 }
 
-void DocumentModel::setPageCacheSize(uint pageCacheSize)
+void DocumentModel::setMaximumPageCacheSize(uint pageCacheSize)
 {
     s_maximumPageCacheSize = pageCacheSize;
 

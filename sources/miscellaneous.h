@@ -95,8 +95,7 @@ private:
     QFormLayout *m_layout;
     QDialogButtonBox *m_buttonBox;
 
-    QLineEdit *m_pageCacheSizeLineEdit;
-    QIntValidator *m_pageCacheSizeValidator;
+    QComboBox *m_pageCacheSizeComboBox;
 
     QSettings m_settings;
 
