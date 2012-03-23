@@ -43,9 +43,9 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
         break;
     }
 
-    connect(&m_render, SIGNAL(finished()), this, SLOT(pageRendered()));
-    connect(m_model, SIGNAL(pageSearched(int)), this, SLOT(pageSearched(int)));
-    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(highlightAllChanged()));
+    connect(&m_render, SIGNAL(finished()), this, SLOT(updatePage()));
+    connect(m_model, SIGNAL(resultsChanged(int)), this, SLOT(updateResults(int)));
+    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updatePage()));
 }
 
 PageObject::~PageObject()
@@ -229,26 +229,18 @@ void PageObject::render()
     }
 }
 
-void PageObject::pageRendered()
+void PageObject::updatePage()
 {
     this->scene()->update(boundingRect().translated(pos()));
 }
 
-void PageObject::pageSearched(int index)
+void PageObject::updateResults(int index)
 {
     if(m_index == index)
     {
         m_results = m_model->results(index);
 
-        this->scene()->update(boundingRect().translated(pos()));
-    }
-}
-
-void PageObject::highlightAllChanged()
-{
-    if(m_results.count() > 0)
-    {
-        this->scene()->update(boundingRect().translated(pos()));
+        this->updatePage();
     }
 }
 
@@ -277,7 +269,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_selection = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
             m_rubberBand = QRectF();
 
-            this->scene()->update(boundingRect().translated(pos()));
+            this->updatePage();
 
             return;
         }
@@ -298,7 +290,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         {
             m_selection = QRectF();
 
-            this->scene()->update(boundingRect().translated(pos()));
+            this->updatePage();
         }
     }
 }
@@ -309,6 +301,6 @@ void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
         m_rubberBand.setBottomRight(event->scenePos() - pos());
 
-        this->scene()->update(boundingRect().translated(pos()));
+        this->updatePage();
     }
 }

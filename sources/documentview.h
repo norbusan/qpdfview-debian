@@ -121,9 +121,6 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void clearResults();
-    void updateResults();
-
     void findPrevious();
     void findNext();
 
@@ -134,6 +131,7 @@ private slots:
     void scrollToPage(int value);
 
     void updateFilePath(const QString &filePath);
+    void updateResults();
 
 protected:
     void resizeEvent(QResizeEvent *resizeEvent);

@@ -465,14 +465,17 @@ void MainWindow::createWidgets()
     // search
 
     m_searchWidget = new QWidget();
-    m_searchLabel = new QLabel(tr("&Search:"), m_searchWidget);
+    m_searchLabel = new QLabel(tr("Se&arch:"), m_searchWidget);
     m_searchLineEdit = new QLineEdit(m_searchWidget);
+    m_searchTimer = new QTimer(this);
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), m_searchWidget);
-    m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"), m_searchWidget);
+    m_highlightAllCheckBox = new QCheckBox(tr("H&ighlight all"), m_searchWidget);
     m_findPreviousButton = new QPushButton(tr("Find &previous"), m_searchWidget);
     m_findNextButton = new QPushButton(tr("Find &next"), m_searchWidget);
 
     m_searchLabel->setBuddy(m_searchLineEdit);
+    m_searchTimer->setSingleShot(true);
+    m_searchTimer->setInterval(1000);
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
@@ -482,7 +485,9 @@ void MainWindow::createWidgets()
     m_searchWidget->layout()->addWidget(m_findPreviousButton);
     m_searchWidget->layout()->addWidget(m_findNextButton);
 
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), this, SLOT(searchStart()));
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(searchTimeout()));
+    connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(searchTimeout()));
     connect(m_highlightAllCheckBox, SIGNAL(toggled(bool)), this, SLOT(changeHighlightAll()));
     connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
     connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
@@ -786,16 +791,33 @@ void MainWindow::search()
     }
 }
 
-void MainWindow::startSearch()
+void MainWindow::searchStart()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        if(!m_searchToolBar->isHidden() && !m_searchLineEdit->text().isEmpty())
+        m_searchTimer->start();
+    }
+}
+
+void MainWindow::searchTimeout()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_searchTimer->stop();
+
+        for(int index = 0; index < m_tabWidget->count(); index++)
+        {
+            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+            DocumentModel *model = view->model();
+
+            model->cancelSearch();
+        }
+
+        if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
         {
             DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
             DocumentModel *model = view->model();
 
-            view->clearResults();
             model->startSearch(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
         }
     }
@@ -1420,6 +1442,8 @@ void MainWindow::searchFinished()
 {
     this->statusBar()->clearMessage();
     this->statusBar()->hide();
+
+    this->findNext();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
@@ -1433,10 +1457,13 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
                 m_searchToolBar->hide();
                 m_searchLineEdit->clear();
 
-                DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-                DocumentModel *model = view->model();
+                for(int index = 0; index < m_tabWidget->count(); index++)
+                {
+                    DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+                    DocumentModel *model = view->model();
 
-                model->cancelSearch();
+                    model->cancelSearch();
+                }
             }
         }
     }

@@ -30,7 +30,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     m_model = model;
 
     connect(m_model, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
-    connect(m_model, SIGNAL(searchFinished()), this, SLOT(updateResults()));
+    connect(m_model, SIGNAL(resultsChanged()), this, SLOT(updateResults()));
 
     // makeCurrentTab
 
@@ -294,24 +294,6 @@ void DocumentView::lastPage()
         }
         break;
     }
-}
-
-void DocumentView::clearResults()
-{
-    m_results.clear();
-    m_currentResult = m_results.end();
-
-    this->prepareHighlight();
-}
-
-void DocumentView::updateResults()
-{
-    m_results = m_model->results();
-    m_currentResult = m_results.end();
-
-    this->prepareHighlight();
-
-    this->findNext();
 }
 
 void DocumentView::findPrevious()
@@ -854,6 +836,14 @@ void DocumentView::updateFilePath(const QString &filePath)
 
     this->prepareScene();
     this->prepareView();
+}
+
+void DocumentView::updateResults()
+{
+    m_results = m_model->results();
+    m_currentResult = m_results.end();
+
+    this->prepareHighlight();
 }
 
 void DocumentView::resizeEvent(QResizeEvent*)

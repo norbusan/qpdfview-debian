@@ -201,6 +201,16 @@
         <translation>О про&amp;грамме</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="468"/>
+        <source>Se&amp;arch:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="471"/>
+        <source>H&amp;ighlight all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="495"/>
         <location filename="../sources/mainwindow.cpp" line="579"/>
         <source>&amp;File</source>
@@ -218,7 +228,7 @@
         <translation>По&amp;иск</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1410"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Searched %1% of the current document...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -264,18 +274,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="468"/>
-        <source>&amp;Search:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="470"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="471"/>
-        <source>Highlight &amp;all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -326,20 +326,20 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="676"/>
         <location filename="../sources/mainwindow.cpp" line="716"/>
-        <location filename="../sources/mainwindow.cpp" line="907"/>
+        <location filename="../sources/mainwindow.cpp" line="906"/>
         <source>Portable Document Format (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
         <location filename="../sources/mainwindow.cpp" line="729"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation>Не удалось открыть документ &quot;%1&quot;.</translation>
     </message>
@@ -359,27 +359,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="905"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Open documents</source>
         <translation>Открыть документы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>About qpdfview</source>
         <translation>О qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview это программа просмотра PDF документов с вкладками и использованием библиотеки poppler.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1304"/>
+        <location filename="../sources/mainwindow.cpp" line="1303"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1309"/>
         <source> of %1</source>
         <translation> из %1</translation>
     </message>

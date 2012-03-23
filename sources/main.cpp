@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
 
     QTranslator t;
-    if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name() + QString(".qm")))
+    if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name()))
     {
         a.installTranslator(&t);
     }

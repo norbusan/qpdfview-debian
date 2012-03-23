@@ -211,18 +211,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1410"/>
+        <location filename="../sources/mainwindow.cpp" line="468"/>
+        <source>Se&amp;arch:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="471"/>
+        <source>H&amp;ighlight all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Searched %1% of the current document...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="470"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="471"/>
-        <source>Highlight &amp;all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -284,11 +289,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="468"/>
-        <source>&amp;Search:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="548"/>
         <source>&amp;Outline</source>
         <translation type="unfinished"></translation>
@@ -326,20 +326,20 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="676"/>
         <location filename="../sources/mainwindow.cpp" line="716"/>
-        <location filename="../sources/mainwindow.cpp" line="907"/>
+        <location filename="../sources/mainwindow.cpp" line="906"/>
         <source>Portable Document Format (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
         <location filename="../sources/mainwindow.cpp" line="729"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -359,27 +359,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="905"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Open documents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>About qpdfview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1304"/>
+        <location filename="../sources/mainwindow.cpp" line="1303"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1309"/>
         <source> of %1</source>
         <translation type="unfinished"></translation>
     </message>

@@ -213,22 +213,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="403"/>
         <source>Page &amp;layout:</source>
-        <translation>&amp;Anordnung:</translation>
+        <translation>An&amp;ordnung:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="423"/>
         <source>&amp;Scaling:</source>
-        <translation>&amp;Vergrößerung:</translation>
+        <translation>Ver&amp;größerung:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="448"/>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Drehung:</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="468"/>
-        <source>&amp;Search:</source>
-        <translation>&amp;Suchen:</translation>
+        <translation>D&amp;rehung:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="470"/>
@@ -236,14 +231,9 @@
         <translation>Groß-/&amp;Kleinschreibung beachten</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="471"/>
-        <source>Highlight &amp;all</source>
-        <translation>Alle her&amp;vorheben</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="472"/>
         <source>Find &amp;previous</source>
-        <translation>&amp;Rückwärts suchen</translation>
+        <translation>Rüc&amp;kwärts suchen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="473"/>
@@ -294,7 +284,7 @@
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1410"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Searched %1% of the current document...</source>
         <translation>%1% des aktuellen Dokuments durchsucht...</translation>
     </message>
@@ -309,9 +299,19 @@
         <translation>Weitersuchen</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="468"/>
+        <source>Se&amp;arch:</source>
+        <translation>S&amp;uchen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="471"/>
+        <source>H&amp;ighlight all</source>
+        <translation>Alle her&amp;vorheben</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="533"/>
         <source>&amp;Search</source>
-        <translation>&amp;Suchen</translation>
+        <translation>S&amp;uchen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="628"/>
@@ -326,20 +326,20 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="676"/>
         <location filename="../sources/mainwindow.cpp" line="716"/>
-        <location filename="../sources/mainwindow.cpp" line="907"/>
+        <location filename="../sources/mainwindow.cpp" line="906"/>
         <source>Portable Document Format (*.pdf)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
         <location filename="../sources/mainwindow.cpp" line="729"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="689"/>
-        <location filename="../sources/mainwindow.cpp" line="925"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation>Konnte die Datei &quot;%1&quot; nicht öffnen.</translation>
     </message>
@@ -359,27 +359,27 @@
         <translation>Drucken Seiten %1 bis %2...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="905"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Open documents</source>
         <translation>Dokumente öffnen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>About qpdfview</source>
         <translation>Über qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mit Hifle der poppler-Bibliothek dar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1304"/>
+        <location filename="../sources/mainwindow.cpp" line="1303"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1309"/>
         <source> of %1</source>
         <translation>von %1</translation>
     </message>

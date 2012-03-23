@@ -62,8 +62,8 @@ public:
 
     QString text(int index, QRectF area);
 
-    QMap<int, QRectF> results();
     QList<QRectF> results(int index);
+    QMap<int, QRectF> results();
 
     static uint pageCacheSize()
     {
@@ -82,7 +82,8 @@ signals:
     void filePathChanged(QString);
     void pageCountChanged(int);
 
-    void pageSearched(int);
+    void resultsChanged(int);
+    void resultsChanged();
 
     void searchProgressed(int);
     void searchCanceled();

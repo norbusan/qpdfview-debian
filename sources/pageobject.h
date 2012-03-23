@@ -56,10 +56,8 @@ signals:
     void linkClicked(int pageNumber);
 
 private slots:
-    void pageRendered();
-    void pageSearched(int index);
-
-    void highlightAllChanged();
+    void updatePage();
+    void updateResults(int index);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

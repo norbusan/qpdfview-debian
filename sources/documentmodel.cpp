@@ -180,22 +180,6 @@ QString DocumentModel::text(int index, QRectF area)
     return result;
 }
 
-QMap<int, QRectF> DocumentModel::results()
-{
-    QMap<int, QRectF> results;
-
-    if(m_document)
-    {
-        m_resultsMutex.lock();
-
-        results = m_results;
-
-        m_resultsMutex.unlock();
-    }
-
-    return results;
-}
-
 QList<QRectF> DocumentModel::results(int index)
 {
     QList<QRectF> results;
@@ -208,6 +192,22 @@ QList<QRectF> DocumentModel::results(int index)
         {
             results = m_results.values(index);
         }
+
+        m_resultsMutex.unlock();
+    }
+
+    return results;
+}
+
+QMap<int, QRectF> DocumentModel::results()
+{
+    QMap<int, QRectF> results;
+
+    if(m_document)
+    {
+        m_resultsMutex.lock();
+
+        results = m_results;
 
         m_resultsMutex.unlock();
     }
@@ -419,6 +419,13 @@ void DocumentModel::cancelSearch()
     m_results.clear();
 
     m_resultsMutex.unlock();
+
+    for(int index = 0; index < m_pageCount; index++)
+    {
+        emit resultsChanged(index);
+    }
+
+    emit resultsChanged();
 }
 
 void DocumentModel::startPrint(QPrinter *printer, int fromPage, int toPage)
@@ -499,12 +506,14 @@ void DocumentModel::search(const QString &text, bool matchCase)
 
         delete page;
 
-        emit pageSearched(index);
+        emit resultsChanged(index);
 
         emit searchProgressed((100*(index+1))/m_pageCount);
     }
 
     delete document;
+
+    emit resultsChanged();
 
     emit searchFinished();
 }

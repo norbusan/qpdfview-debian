@@ -125,6 +125,7 @@ private:
     QWidget *m_searchWidget;
     QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
+    QTimer *m_searchTimer;
     QCheckBox *m_matchCaseCheckBox;
     QCheckBox *m_highlightAllCheckBox;
     QPushButton *m_findPreviousButton;
@@ -175,7 +176,8 @@ private slots:
     void lastPage();
 
     void search();
-    void startSearch();
+    void searchStart();
+    void searchTimeout();
     void findPrevious();
     void findNext();
     void copyText();
