@@ -1456,6 +1456,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
             {
                 m_searchToolBar->hide();
                 m_searchLineEdit->clear();
+                m_searchTimer->stop();
 
                 for(int index = 0; index < m_tabWidget->count(); index++)
                 {
