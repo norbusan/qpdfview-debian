@@ -803,15 +803,7 @@ void MainWindow::searchTimeout()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        m_searchTimer->stop();
-
-        for(int index = 0; index < m_tabWidget->count(); index++)
-        {
-            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
-            DocumentModel *model = view->model();
-
-            model->cancelSearch();
-        }
+        this->invalidateSearches();
 
         if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
         {
@@ -1127,6 +1119,13 @@ void MainWindow::changeCurrentTab(int index)
         this->updateRotation(view->rotation());
         this->updateHighlightAll(view->highlightAll());
 
+        if(m_searchToolBar->isVisible())
+        {
+            this->invalidateSearches();
+
+            m_searchLineEdit->clear();
+        }
+
         m_outlineView->attachView(view);
         m_thumbnailsView->attachView(view);
     }
@@ -1170,7 +1169,13 @@ void MainWindow::changeCurrentTab(int index)
 
         m_highlightAllCheckBox->setChecked(false);
         m_searchToolBar->setEnabled(false);
-        m_searchToolBar->hide();
+
+        if(m_searchToolBar->isVisible())
+        {
+            m_searchLineEdit->clear();
+
+            m_searchToolBar->hide();
+        }
 
         m_outlineView->attachView(0);
         m_thumbnailsView->attachView(0);
@@ -1446,26 +1451,30 @@ void MainWindow::searchFinished()
     this->findNext();
 }
 
+void MainWindow::invalidateSearches()
+{
+    m_searchTimer->stop();
+
+    for(int index = 0; index < m_tabWidget->count(); index++)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+        DocumentModel *model = view->model();
+
+        model->cancelSearch();
+    }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
     if(keyEvent->key() == Qt::Key_Escape)
     {
-        if(m_tabWidget->currentIndex() != -1)
+        if(m_searchToolBar->isVisible())
         {
-            if(m_searchToolBar->isVisible())
-            {
-                m_searchToolBar->hide();
-                m_searchLineEdit->clear();
-                m_searchTimer->stop();
+            this->invalidateSearches();
 
-                for(int index = 0; index < m_tabWidget->count(); index++)
-                {
-                    DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
-                    DocumentModel *model = view->model();
+            m_searchLineEdit->clear();
 
-                    model->cancelSearch();
-                }
-            }
+            m_searchToolBar->hide();
         }
     }
 }

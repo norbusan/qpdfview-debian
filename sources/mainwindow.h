@@ -221,6 +221,8 @@ private slots:
     void searchCanceled();
     void searchFinished();
 
+    void invalidateSearches();
+
 protected:
     void keyPressEvent(QKeyEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
