@@ -418,44 +418,6 @@ void DocumentView::findNext()
     }
 }
 
-void DocumentView::copyText()
-{
-    QString text;
-
-    switch(m_pageLayout)
-    {
-    case OnePage:
-    case OneColumn:
-        text = m_pageToPageObject.value(m_currentPage)->selectedText();
-
-        if(!text.isEmpty())
-        {
-            QApplication::clipboard()->setText(text);
-        }
-
-        break;
-    case TwoPages:
-    case TwoColumns:
-        text = m_pageToPageObject.value(m_currentPage)->selectedText();
-
-        if(!text.isEmpty())
-        {
-            QApplication::clipboard()->setText(text);
-        }
-        else if(m_pageToPageObject.contains(m_currentPage+1))
-        {
-            text = m_pageToPageObject.value(m_currentPage+1)->selectedText();
-
-            if(!text.isEmpty())
-            {
-                QApplication::clipboard()->setText(text);
-            }
-        }
-
-        break;
-    }
-}
-
 void DocumentView::prepareScene()
 {
     m_scene->clear();
@@ -632,8 +594,6 @@ void DocumentView::prepareScene()
 
             sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
             sceneHeight += page->boundingRect().height() + 10.0;
-
-            connect(page, SIGNAL(linkClicked(int)), this, SLOT(setCurrentPage(int)));
         }
 
         break;
@@ -656,9 +616,6 @@ void DocumentView::prepareScene()
 
             sceneWidth = qMax(sceneWidth, leftPage->boundingRect().width() + rightPage->boundingRect().width() + 30.0);
             sceneHeight += qMax(leftPage->boundingRect().height(), rightPage->boundingRect().height()) + 10.0;
-
-            connect(leftPage, SIGNAL(linkClicked(int)), this, SLOT(setCurrentPage(int)));
-            connect(rightPage, SIGNAL(linkClicked(int)), this, SLOT(setCurrentPage(int)));
         }
 
         if(pageCount % 2 != 0)
@@ -672,8 +629,6 @@ void DocumentView::prepareScene()
 
             sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
             sceneHeight += page->boundingRect().height() + 10.0;
-
-            connect(page, SIGNAL(linkClicked(int)), this, SLOT(setCurrentPage(int)));
         }
 
         break;
@@ -748,7 +703,12 @@ void DocumentView::prepareView()
 
     disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 
-    m_view->centerOn(page);
+    QRectF pageRect = page->boundingRect().translated(page->pos());
+    QRectF viewRect = m_view->mapToScene(m_view->rect()).boundingRect();
+
+    viewRect.translate(page->pos() - viewRect.topLeft());
+
+    m_view->ensureVisible(viewRect.intersected(pageRect), 0, 0);
 
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
 }

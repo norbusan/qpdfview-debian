@@ -226,14 +226,6 @@ void MainWindow::createActions()
     m_findNextAction->setShortcut(QKeySequence::FindNext);
     connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
 
-    // copyText
-
-    m_copyTextAction = new QAction(tr("&Copy text"), this);
-    m_copyTextAction->setShortcut(QKeySequence::Copy);
-    m_copyTextAction->setIcon(QIcon::fromTheme("edit-copy"));
-    m_copyTextAction->setIconVisibleInMenu(true);
-    connect(m_copyTextAction, SIGNAL(triggered()), this, SLOT(copyText()));
-
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
@@ -600,7 +592,6 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_searchAction);
     m_editMenu->addAction(m_findPreviousAction);
     m_editMenu->addAction(m_findNextAction);
-    m_editMenu->addAction(m_copyTextAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_settingsAction);
 
@@ -857,16 +848,6 @@ void MainWindow::findNext()
     }
 }
 
-void MainWindow::copyText()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->copyText();
-    }
-}
-
 void MainWindow::settings()
 {
     SettingsDialog settingsDialog;
@@ -1097,7 +1078,6 @@ void MainWindow::changeCurrentTab(int index)
         m_searchAction->setEnabled(true);
         m_findPreviousAction->setEnabled(true);
         m_findNextAction->setEnabled(true);
-        m_copyTextAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
@@ -1126,8 +1106,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchLineEdit->clear();
         }
 
-        m_outlineView->attachView(view);
-        m_thumbnailsView->attachView(view);
+        m_outlineView->attachTo(view);
+        m_thumbnailsView->attachTo(view);
     }
     else
     {
@@ -1143,7 +1123,6 @@ void MainWindow::changeCurrentTab(int index)
         m_searchAction->setEnabled(false);
         m_findPreviousAction->setEnabled(false);
         m_findNextAction->setEnabled(false);
-        m_copyTextAction->setEnabled(false);
 
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);
@@ -1177,8 +1156,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchToolBar->hide();
         }
 
-        m_outlineView->attachView(0);
-        m_thumbnailsView->attachView(0);
+        m_outlineView->attachTo(0);
+        m_thumbnailsView->attachTo(0);
     }
 }
 

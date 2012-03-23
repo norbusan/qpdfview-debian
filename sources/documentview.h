@@ -124,8 +124,6 @@ public slots:
     void findPrevious();
     void findNext();
 
-    void copyText();
-
 private slots:
     void makeCurrentTab();
     void scrollToPage(int value);

@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "pageobject.h"
 
 PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGraphicsItem *parent) : QGraphicsObject(parent),
@@ -45,7 +66,7 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
 
     connect(&m_render, SIGNAL(finished()), this, SLOT(updatePage()));
     connect(m_model, SIGNAL(resultsChanged(int)), this, SLOT(updateResults(int)));
-    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updatePage()));
+    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlights()));
 }
 
 PageObject::~PageObject()
@@ -82,24 +103,6 @@ qreal PageObject::pageHeight() const
 {
     return m_size.height();
 }
-
-QRectF PageObject::selectedArea() const
-{
-    return m_resultsTransform.inverted().mapRect(m_selection);
-}
-
-QString PageObject::selectedText() const
-{
-    QString text;
-
-    if(!m_selection.isNull())
-    {
-        text = m_model->text(m_index, this->selectedArea());
-    }
-
-    return text;
-}
-
 
 QRectF PageObject::boundingRect() const
 {
@@ -164,7 +167,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->setTransform(m_linkTransform.inverted(), true);
 
-    // draw results
+    // draw highlights
 
     if(m_view->highlightAll())
     {
@@ -244,6 +247,14 @@ void PageObject::updateResults(int index)
     }
 }
 
+void PageObject::updateHighlights()
+{
+    if(!m_results.isEmpty())
+    {
+        this->updatePage();
+    }
+}
+
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
    if(event->button() == Qt::LeftButton)
@@ -269,6 +280,13 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_selection = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
             m_rubberBand = QRectF();
 
+            QString text = m_model->text(m_index, m_resultsTransform.inverted().mapRect(m_selection));
+
+            if(!text.isEmpty())
+            {
+                QApplication::clipboard()->setText(text);
+            }
+
             this->updatePage();
 
             return;
@@ -278,7 +296,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         {
             if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
-                emit linkClicked(link.index+1);
+                m_view->setCurrentPage(link.index+1);
 
                 return;
             }

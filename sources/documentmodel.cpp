@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "documentmodel.h"
 
 QMap<DocumentModel::PageCacheKey, QImage> DocumentModel::s_pageCache;
@@ -32,6 +53,112 @@ int DocumentModel::pageCount() const
 {
     return m_pageCount;
 }
+
+QSizeF DocumentModel::pageSize(int index)
+{
+    QSizeF result;
+
+    if(m_document != 0 && index >= 0 && index < m_pageCount)
+    {
+        Poppler::Page *page = m_document->page(index);
+
+        result = page->pageSizeF();
+
+        delete page;
+    }
+
+    return result;
+}
+
+// links
+
+QList<DocumentModel::Link> DocumentModel::links(int index)
+{
+    QList<Link> results;
+
+    if(m_document != 0  && index >= 0 && index < m_pageCount)
+    {
+        Poppler::Page *page = m_document->page(index);
+
+        foreach(Poppler::Link *link, page->links())
+        {
+            if(link->linkType() == Poppler::Link::Goto)
+            {
+                QRectF linkArea = link->linkArea().normalized();
+                int linkIndex = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber()-1;
+
+                Link result;
+                result.area = linkArea;
+                result.index = linkIndex;
+
+                results.append(result);
+            }
+
+            delete link;
+        }
+
+        delete page;
+    }
+
+    return results;
+}
+
+// results
+
+QList<QRectF> DocumentModel::results(int index)
+{
+    QList<QRectF> results;
+
+    if(m_document != 0 && index >= 0 &&  index < m_pageCount)
+    {
+        m_resultsMutex.lock();
+
+        if(m_results.contains(index))
+        {
+            results = m_results.values(index);
+        }
+
+        m_resultsMutex.unlock();
+    }
+
+    return results;
+}
+
+QMap<int, QRectF> DocumentModel::results()
+{
+    QMap<int, QRectF> results;
+
+    if(m_document)
+    {
+        m_resultsMutex.lock();
+
+        results = m_results;
+
+        m_resultsMutex.unlock();
+    }
+
+    return results;
+}
+
+// text
+
+QString DocumentModel::text(int index, QRectF area)
+{
+    QString result;
+
+    if(m_document != 0 && index >= 0 && index < m_pageCount)
+    {
+        Poppler::Page *page = m_document->page(index);
+
+        result = page->text(area);
+
+        delete page;
+    }
+
+    return result;
+}
+
+// outline
 
 static DocumentModel::Outline *domNodeToOutline(const QDomNode &domNode)
 {
@@ -88,21 +215,7 @@ int DocumentModel::destination(const QString &destinationName)
     return pageNumber;
 }
 
-QSizeF DocumentModel::pageSize(int index)
-{
-    QSizeF result;
-
-    if(m_document != 0 && index >= 0 && index < m_pageCount)
-    {
-        Poppler::Page *page = m_document->page(index);
-
-        result = page->pageSizeF();
-
-        delete page;
-    }
-
-    return result;
-}
+// thumbnail
 
 QImage DocumentModel::thumbnail(int index)
 {
@@ -120,100 +233,7 @@ QImage DocumentModel::thumbnail(int index)
     return result;
 }
 
-QList<DocumentModel::Link> DocumentModel::links(int index)
-{
-    QList<Link> results;
-
-    if(m_document != 0  && index >= 0 && index < m_pageCount)
-    {
-        Poppler::Page *page = m_document->page(index);
-
-        foreach(Poppler::Link *link, page->links())
-        {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                QRectF linkArea = link->linkArea();
-
-                if(linkArea.width() < 0.0)
-                {
-                    linkArea.translate(linkArea.width(), 0.0);
-                    linkArea.setWidth(-linkArea.width());
-                }
-
-                if(linkArea.height() < 0.0)
-                {
-                    linkArea.translate(0.0, linkArea.height());
-                    linkArea.setHeight(-linkArea.height());
-                }
-
-                int linkIndex = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber()-1;
-
-                Link result;
-                result.area = linkArea;
-                result.index = linkIndex;
-
-                results.append(result);
-            }
-
-            delete link;
-        }
-
-        delete page;
-    }
-
-    return results;
-}
-
-QString DocumentModel::text(int index, QRectF area)
-{
-    QString result;
-
-    if(m_document != 0 && index >= 0 && index < m_pageCount)
-    {
-        Poppler::Page *page = m_document->page(index);
-
-        result = page->text(area);
-
-        delete page;
-    }
-
-    return result;
-}
-
-QList<QRectF> DocumentModel::results(int index)
-{
-    QList<QRectF> results;
-
-    if(m_document != 0 && index >= 0 &&  index < m_pageCount)
-    {
-        m_resultsMutex.lock();
-
-        if(m_results.contains(index))
-        {
-            results = m_results.values(index);
-        }
-
-        m_resultsMutex.unlock();
-    }
-
-    return results;
-}
-
-QMap<int, QRectF> DocumentModel::results()
-{
-    QMap<int, QRectF> results;
-
-    if(m_document)
-    {
-        m_resultsMutex.lock();
-
-        results = m_results;
-
-        m_resultsMutex.unlock();
-    }
-
-    return results;
-}
+// page cache
 
 QImage DocumentModel::pullPage(int index, qreal resolutionX, qreal resolutionY)
 {
@@ -492,7 +512,7 @@ void DocumentModel::search(const QString &text, bool matchCase)
             rect.setRight(rectRight);
             rect.setBottom(rectBottom);
 
-            results.append(rect);
+            results.append(rect.normalized());
         }
 
         m_resultsMutex.lock();

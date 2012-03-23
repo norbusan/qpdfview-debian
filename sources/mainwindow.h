@@ -62,7 +62,7 @@ private:
     QAction *m_searchAction;
     QAction *m_findPreviousAction;
     QAction *m_findNextAction;
-    QAction *m_copyTextAction;
+
     QAction *m_settingsAction;
 
     QAction *m_onePageAction;
@@ -180,7 +180,7 @@ private slots:
     void searchTimeout();
     void findPrevious();
     void findNext();
-    void copyText();
+
     void settings();
 
     void addTab();

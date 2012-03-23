@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #ifndef DOCUMENTMODEL_H
 #define DOCUMENTMODEL_H
 
@@ -19,6 +40,29 @@ public:
 
     const QString &filePath() const;
     int pageCount() const;
+
+    QSizeF pageSize(int index);
+
+    // links
+
+    struct Link
+    {
+        QRectF area;
+        int index;
+    };
+
+    QList<Link> links(int index);
+
+    // results
+
+    QList<QRectF> results(int index);
+    QMap<int, QRectF> results();
+
+    // text
+
+    QString text(int index, QRectF area);
+
+    // outline
 
     struct Outline
     {
@@ -48,22 +92,11 @@ public:
 
     int destination(const QString &destinationName);
 
-    QSizeF pageSize(int index);
+    // thumbnail
 
     QImage thumbnail(int index);
 
-    struct Link
-    {
-        QRectF area;
-        int index;
-    };
-
-    QList<Link> links(int index);
-
-    QString text(int index, QRectF area);
-
-    QList<QRectF> results(int index);
-    QMap<int, QRectF> results();
+    // page cache
 
     static uint pageCacheSize()
     {

@@ -1,6 +1,50 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "miscellaneous.h"
 
-// outline
+// auxiliary view
+
+AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent)
+{
+    m_view = 0;
+}
+
+void AuxiliaryView::attachTo(DocumentView *view)
+{
+    m_view = view;
+
+    if(view)
+    {
+        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateContent()));
+    }
+
+    this->updateContent();
+}
+
+void AuxiliaryView::updateContent()
+{
+}
+
+// outline view
 
 static void outlineToTree(DocumentModel::Outline *node, QTreeWidget *tree, QTreeWidgetItem *parentItem)
 {
@@ -31,7 +75,7 @@ static void outlineToTree(DocumentModel::Outline *node, QTreeWidget *tree, QTree
     }
 }
 
-OutlineView::OutlineView(QWidget *parent) : QWidget(parent)
+OutlineView::OutlineView(QWidget *parent) : AuxiliaryView(parent)
 {
     m_treeWidget = new QTreeWidget(this);
 
@@ -43,7 +87,6 @@ OutlineView::OutlineView(QWidget *parent) : QWidget(parent)
 
     connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(followLink(QTreeWidgetItem*,int)));
 
-    m_view = 0;
     m_outline = 0;
 }
 
@@ -55,19 +98,7 @@ OutlineView::~OutlineView()
     }
 }
 
-void OutlineView::attachView(DocumentView *view)
-{
-    m_view = view;
-
-    if(view)
-    {
-        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateView()));
-    }
-
-    this->updateView();
-}
-
-void OutlineView::updateView()
+void OutlineView::updateContent()
 {
     m_treeWidget->clear();
 
@@ -99,9 +130,9 @@ void OutlineView::followLink(QTreeWidgetItem *item, int column)
     }
 }
 
-// thumbnails
+// thumbnails view
 
-ThumbnailsView::ThumbnailsView(QWidget *parent) : QWidget(parent)
+ThumbnailsView::ThumbnailsView(QWidget *parent) : AuxiliaryView(parent)
 {
     m_listWidget = new QListWidget();
 
@@ -113,23 +144,9 @@ ThumbnailsView::ThumbnailsView(QWidget *parent) : QWidget(parent)
     this->layout()->addWidget(m_listWidget);
 
     connect(m_listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(followLink(QListWidgetItem*)));
-
-    m_view = 0;
 }
 
-void ThumbnailsView::attachView(DocumentView *view)
-{
-    m_view = view;
-
-    if(view)
-    {
-        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateView()));
-    }
-
-    this->updateView();
-}
-
-void ThumbnailsView::updateView()
+void ThumbnailsView::updateContent()
 {
     m_listWidget->clear();
 
@@ -168,7 +185,7 @@ void ThumbnailsView::followLink(QListWidgetItem *item)
     }
 }
 
-// settings
+// settings dialog
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_settings()
