@@ -59,7 +59,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     this->prepareScene();
     this->prepareView();
 
-    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 }
 
 int DocumentView::currentPage() const
@@ -149,6 +149,26 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         m_settings.setValue("documentView/highlightAll", m_highlightAll);
     }
+}
+
+DocumentModel *DocumentView::model() const
+{
+    return m_model;
+}
+
+qreal DocumentView::resolutionX() const
+{
+    return m_resolutionX;
+}
+
+qreal DocumentView::resolutionY() const
+{
+    return m_resolutionY;
+}
+
+QAction *DocumentView::makeCurrentTabAction() const
+{
+    return m_makeCurrentTabAction;
 }
 
 void DocumentView::setCurrentPage(int currentPage)
@@ -349,11 +369,11 @@ void DocumentView::findPrevious()
 
         this->prepareView(false);
 
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
         m_view->centerOn(m_highlight);
 
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
     }
 }
 
@@ -410,11 +430,11 @@ void DocumentView::findNext()
 
         this->prepareView(false);
 
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
         m_view->centerOn(m_highlight);
 
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
     }
 }
 
@@ -645,7 +665,7 @@ void DocumentView::prepareScene()
     m_scene->addItem(m_highlight);
 }
 
-void DocumentView::prepareView(bool ensureVisible)
+void DocumentView::prepareView(bool scroll)
 {
     PageObject *page = m_pageToPageObject.value(m_currentPage), *nextPage = 0;
 
@@ -717,20 +737,13 @@ void DocumentView::prepareView(bool ensureVisible)
         m_highlight->setVisible(false);
     }
 
-    // ensureVisible
-
-    if(ensureVisible)
+    if(scroll)
     {
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-        QRectF pageRect = page->boundingRect().translated(page->pos());
-        QRectF viewRect = m_view->mapToScene(m_view->rect()).boundingRect();
+        m_view->verticalScrollBar()->setValue(qCeil(page->y()));
 
-        viewRect.translate(page->pos() - viewRect.topLeft());
-
-        m_view->ensureVisible(viewRect.intersected(pageRect), 0, 0);
-
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(scrollToPage(int)));
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
     }
 }
 
@@ -749,7 +762,7 @@ void DocumentView::makeCurrentTab()
     }
 }
 
-void DocumentView::scrollToPage(int value)
+void DocumentView::changeCurrentPage(int value)
 {
     int visiblePage = 1;
 

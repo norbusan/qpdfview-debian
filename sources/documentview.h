@@ -58,23 +58,11 @@ public:
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
-    DocumentModel *model() const
-    {
-        return m_model;
-    }
-    qreal resolutionX() const
-    {
-        return m_resolutionX;
-    }
-    qreal resolutionY() const
-    {
-        return m_resolutionY;
-    }
+    DocumentModel *model() const;
+    qreal resolutionX() const;
+    qreal resolutionY() const;
 
-    QAction *makeCurrentTabAction() const
-    {
-        return m_makeCurrentTabAction;
-    }
+    QAction *makeCurrentTabAction() const;
 
 private:
     DocumentModel *m_model;
@@ -103,7 +91,7 @@ private:
     bool m_highlightAll;
 
     void prepareScene();
-    void prepareView(bool ensureVisible = true);
+    void prepareView(bool scroll = true);
 
 signals:
     void currentPageChanged(int);
@@ -123,9 +111,10 @@ public slots:
     void findPrevious();
     void findNext();
 
-private slots:
     void makeCurrentTab();
-    void scrollToPage(int value);
+
+private slots:
+    void changeCurrentPage(int value);
 
     void updateFilePath(const QString &filePath);
     void updateResults();
