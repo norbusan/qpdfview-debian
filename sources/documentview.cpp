@@ -331,11 +331,11 @@ void DocumentView::findPrevious()
             else
             {
                 --m_currentResult;
+            }
 
-                if(m_currentResult == m_results.end())
-                {
-                    m_currentResult = --m_results.upperBound(m_model->pageCount()-1);
-                }
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = --m_results.upperBound(m_model->pageCount()-1);
             }
 
             break;
@@ -348,11 +348,11 @@ void DocumentView::findPrevious()
             else
             {
                 --m_currentResult;
+            }
 
-                if(m_currentResult == m_results.end())
-                {
-                    m_currentResult = --m_results.upperBound(m_model->pageCount()-1);
-                }
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = --m_results.upperBound(m_model->pageCount()-1);
             }
 
             break;
@@ -361,6 +361,11 @@ void DocumentView::findPrevious()
     else
     {
         m_currentResult = --m_results.upperBound(m_currentPage-1);
+
+        if(m_currentResult == m_results.end())
+        {
+            m_currentResult = --m_results.upperBound(m_model->pageCount()-1);
+        }
     }
 
     if(m_currentResult != m_results.end())

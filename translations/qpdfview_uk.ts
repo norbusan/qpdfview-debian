@@ -192,13 +192,13 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="492"/>
-        <location filename="../sources/mainwindow.cpp" line="576"/>
+        <location filename="../sources/mainwindow.cpp" line="578"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="504"/>
-        <location filename="../sources/mainwindow.cpp" line="586"/>
+        <location filename="../sources/mainwindow.cpp" line="588"/>
         <source>&amp;Edit</source>
         <translation>&amp;Зміни</translation>
     </message>
@@ -209,7 +209,7 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="517"/>
-        <location filename="../sources/mainwindow.cpp" line="600"/>
+        <location filename="../sources/mainwindow.cpp" line="602"/>
         <source>&amp;View</source>
         <translation>&amp;Вигляд</translation>
     </message>
@@ -284,97 +284,97 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="559"/>
+        <location filename="../sources/mainwindow.cpp" line="560"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="624"/>
+        <location filename="../sources/mainwindow.cpp" line="626"/>
         <source>&amp;Toolbars</source>
         <translation>Панель &amp;інструментів</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="631"/>
+        <location filename="../sources/mainwindow.cpp" line="633"/>
         <source>&amp;Docks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="639"/>
+        <location filename="../sources/mainwindow.cpp" line="641"/>
         <source>&amp;Tab</source>
         <translation>В&amp;кладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="651"/>
+        <location filename="../sources/mainwindow.cpp" line="653"/>
         <source>&amp;Help</source>
         <translation>Довідк&amp;а</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="670"/>
+        <location filename="../sources/mainwindow.cpp" line="675"/>
         <source>Open document</source>
         <translation>Відкрити документ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="672"/>
-        <location filename="../sources/mainwindow.cpp" line="712"/>
-        <location filename="../sources/mainwindow.cpp" line="902"/>
+        <location filename="../sources/mainwindow.cpp" line="677"/>
+        <location filename="../sources/mainwindow.cpp" line="717"/>
+        <location filename="../sources/mainwindow.cpp" line="907"/>
         <source>Portable Document Format (*.pdf)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="685"/>
-        <location filename="../sources/mainwindow.cpp" line="725"/>
-        <location filename="../sources/mainwindow.cpp" line="920"/>
+        <location filename="../sources/mainwindow.cpp" line="690"/>
+        <location filename="../sources/mainwindow.cpp" line="730"/>
+        <location filename="../sources/mainwindow.cpp" line="925"/>
         <source>Warning</source>
         <translation>Увага</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="685"/>
-        <location filename="../sources/mainwindow.cpp" line="920"/>
+        <location filename="../sources/mainwindow.cpp" line="690"/>
+        <location filename="../sources/mainwindow.cpp" line="925"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation>Не вдалося відкрити документ &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="710"/>
+        <location filename="../sources/mainwindow.cpp" line="715"/>
         <source>Save copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="725"/>
+        <location filename="../sources/mainwindow.cpp" line="730"/>
         <source>Could not save copy at &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="751"/>
+        <location filename="../sources/mainwindow.cpp" line="756"/>
         <source>Printing pages %1 to %2...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="900"/>
+        <location filename="../sources/mainwindow.cpp" line="905"/>
         <source>Open documents</source>
         <translation>Відкрити документи</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="992"/>
+        <location filename="../sources/mainwindow.cpp" line="995"/>
         <source>About qpdfview</source>
         <translation>Про qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="992"/>
+        <location filename="../sources/mainwindow.cpp" line="995"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview це програма перегляду PDF документів з вкладками і використанням бібліотеки poppler.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1309"/>
         <source>%1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1316"/>
+        <location filename="../sources/mainwindow.cpp" line="1304"/>
         <source> of %1</source>
         <translation> з %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1416"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Searched %1% of the current document...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -382,15 +382,55 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="204"/>
+        <location filename="../sources/miscellaneous.cpp" line="195"/>
+        <source>32 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="196"/>
+        <source>64 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="197"/>
+        <source>128 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="198"/>
+        <source>256 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="199"/>
+        <source>512 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="200"/>
+        <source>1024 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="201"/>
+        <source>2048 MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="206"/>
         <source>Page cache &amp;size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="229"/>
+        <source>%1 MB</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ThumbnailsView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="166"/>
+        <location filename="../sources/miscellaneous.cpp" line="163"/>
         <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
