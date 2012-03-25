@@ -28,28 +28,27 @@ AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent)
     m_view = 0;
 }
 
-void AuxiliaryView::showEvent(QShowEvent*)
-{
-    this->updateContent();
-}
-
-void AuxiliaryView::attachTo(DocumentView *view)
+void AuxiliaryView::changeView(DocumentView *view)
 {
     m_view = view;
 
     if(view)
     {
-        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateContent()));
+        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateModel()));
     }
 
     if(this->isVisible())
     {
-        this->updateContent();
+        this->updateModel();
     }
 }
 
-void AuxiliaryView::updateContent()
+void AuxiliaryView::changeVisibility(bool visible)
 {
+    if(visible)
+    {
+        this->updateModel();
+    }
 }
 
 // outline view
@@ -97,7 +96,7 @@ OutlineView::OutlineView(QWidget *parent) : AuxiliaryView(parent)
     connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(followLink(QTreeWidgetItem*,int)));
 }
 
-void OutlineView::updateContent()
+void OutlineView::updateModel()
 {
     m_treeWidget->clear();
 
@@ -140,7 +139,7 @@ ThumbnailsView::ThumbnailsView(QWidget *parent) : AuxiliaryView(parent)
     connect(m_listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(followLink(QListWidgetItem*)));
 }
 
-void ThumbnailsView::updateContent()
+void ThumbnailsView::updateModel()
 {
     m_listWidget->clear();
 

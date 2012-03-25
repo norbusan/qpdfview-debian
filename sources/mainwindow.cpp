@@ -550,6 +550,7 @@ void MainWindow::createDocks()
     m_outlineView = new OutlineView(m_outlineDock);
     m_outlineDock->setWidget(m_outlineView);
 
+    connect(m_outlineDock, SIGNAL(visibilityChanged(bool)), m_outlineView, SLOT(changeVisibility(bool)));
     m_outlineDock->hide();
 
     this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
@@ -564,6 +565,7 @@ void MainWindow::createDocks()
     m_thumbnailsView = new ThumbnailsView(m_thumbnailsDock);
     m_thumbnailsDock->setWidget(m_thumbnailsView);
 
+    connect(m_thumbnailsDock, SIGNAL(visibilityChanged(bool)), m_thumbnailsView, SLOT(changeVisibility(bool)));
     m_thumbnailsDock->hide();
 
     this->addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
@@ -1107,8 +1109,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchLineEdit->clear();
         }
 
-        m_outlineView->attachTo(view);
-        m_thumbnailsView->attachTo(view);
+        m_outlineView->changeView(view);
+        m_thumbnailsView->changeView(view);
     }
     else
     {
@@ -1157,8 +1159,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchToolBar->hide();
         }
 
-        m_outlineView->attachTo(0);
-        m_thumbnailsView->attachTo(0);
+        m_outlineView->changeView(0);
+        m_thumbnailsView->changeView(0);
     }
 }
 

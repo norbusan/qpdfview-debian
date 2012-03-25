@@ -38,11 +38,11 @@ public:
 protected:
     DocumentView *m_view;
 
-    void showEvent(QShowEvent*);
-
 public slots:
-    void attachTo(DocumentView *view);
-    virtual void updateContent();
+    void changeView(DocumentView *view);
+    void changeVisibility(bool visible);
+
+    virtual void updateModel() = 0;
 };
 
 // outline view
@@ -58,7 +58,7 @@ private:
     QTreeWidget *m_treeWidget;
 
 public slots:
-    void updateContent();
+    void updateModel();
 
 private slots:
     void followLink(QTreeWidgetItem *item, int column);
@@ -78,7 +78,7 @@ private:
     QListWidget *m_listWidget;
 
 public slots:
-    void updateContent();
+    void updateModel();
 
 private slots:
     void followLink(QListWidgetItem *item);
