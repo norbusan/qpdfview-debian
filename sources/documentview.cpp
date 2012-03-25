@@ -788,8 +788,6 @@ void DocumentView::changeCurrentPage(int value)
 
 void DocumentView::updateFilePath(const QString &filePath)
 {
-    m_makeCurrentTabAction->setText(QFileInfo(filePath).completeBaseName());
-
     if(m_currentPage > m_model->pageCount())
     {
         m_currentPage = 1;
@@ -797,6 +795,21 @@ void DocumentView::updateFilePath(const QString &filePath)
 
     this->prepareScene();
     this->prepareView();
+
+    m_makeCurrentTabAction->setText(QFileInfo(filePath).completeBaseName());
+
+    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent());
+
+    if(tabWidget != 0)
+    {
+        int index = tabWidget->indexOf(this);
+
+        if(index != -1)
+        {
+            tabWidget->setTabText(index, QFileInfo(filePath).completeBaseName());
+            tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
+        }
+    }
 }
 
 void DocumentView::updateResults()

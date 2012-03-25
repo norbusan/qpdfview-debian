@@ -209,9 +209,8 @@ private slots:
     void changeRotation(QAction *action);
     void changeRotationIndex(int index);
 
-    void updateFilePath(const QString &filePath);
-    void updateCurrentPage(int currentPage);
     void updateNumberOfPages(int numberOfPages);
+    void updateCurrentPage(int currentPage);
     void updatePageLayout(DocumentView::PageLayout pageLayout);
     void updateScaling(DocumentView::Scaling scaling);
     void updateRotation(DocumentView::Rotation rotation);

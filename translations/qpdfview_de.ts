@@ -366,7 +366,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="992"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mit Hifle der poppler-Bibliothek dar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mit Hilfe der poppler-Bibliothek dar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1310"/>

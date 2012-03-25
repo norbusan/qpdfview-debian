@@ -550,7 +550,7 @@ void MainWindow::createDocks()
     m_outlineView = new OutlineView(m_outlineDock);
     m_outlineDock->setWidget(m_outlineView);
 
-    connect(m_outlineDock, SIGNAL(visibilityChanged(bool)), m_outlineView, SLOT(changeVisibility(bool)));
+    connect(m_outlineDock, SIGNAL(visibilityChanged(bool)), m_outlineView, SLOT(updateVisibility(bool)));
     m_outlineDock->hide();
 
     this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
@@ -565,7 +565,7 @@ void MainWindow::createDocks()
     m_thumbnailsView = new ThumbnailsView(m_thumbnailsDock);
     m_thumbnailsDock->setWidget(m_thumbnailsView);
 
-    connect(m_thumbnailsDock, SIGNAL(visibilityChanged(bool)), m_thumbnailsView, SLOT(changeVisibility(bool)));
+    connect(m_thumbnailsDock, SIGNAL(visibilityChanged(bool)), m_thumbnailsView, SLOT(updateVisibility(bool)));
     m_thumbnailsDock->hide();
 
     this->addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
@@ -1033,7 +1033,6 @@ int MainWindow::addTab(DocumentModel *model, DocumentView *view)
 
     m_tabMenu->addAction(view->makeCurrentTabAction());
 
-    connect(model, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
     connect(model, SIGNAL(pageCountChanged(int)), this, SLOT(updateNumberOfPages(int)));
 
     connect(model, SIGNAL(searchProgressed(int)), this, SLOT(searchProgressed(int)));
@@ -1299,24 +1298,15 @@ void MainWindow::changeRotationIndex(int index)
     }
 }
 
-void MainWindow::updateFilePath(const QString &filePath)
+void MainWindow::updateNumberOfPages(int numberOfPages)
 {
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
-        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
-    }
+    m_currentPageValidator->setRange(1, numberOfPages);
+    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
 }
 
 void MainWindow::updateCurrentPage(int currentPage)
 {
     m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
-}
-
-void MainWindow::updateNumberOfPages(int numberOfPages)
-{
-    m_currentPageValidator->setRange(1, numberOfPages);
-    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
 }
 
 void MainWindow::updatePageLayout(DocumentView::PageLayout pageLayout)
