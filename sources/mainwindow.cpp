@@ -959,9 +959,7 @@ void MainWindow::closeTab()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        DocumentView *documentView = static_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        delete documentView;
+        this->closeTab(m_tabWidget->currentIndex());
     }
 }
 

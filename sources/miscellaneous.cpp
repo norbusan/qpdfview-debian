@@ -230,7 +230,6 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
 
 void SettingsDialog::accept()
 {
-
     DocumentModel::setMaximumPageCacheSize(m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
 
     m_settings.setValue("documentModel/maximumPageCacheSize", m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
