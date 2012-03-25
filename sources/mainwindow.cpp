@@ -1109,8 +1109,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchLineEdit->clear();
         }
 
-        m_outlineView->changeView(view);
-        m_thumbnailsView->changeView(view);
+        m_outlineView->setView(view);
+        m_thumbnailsView->setView(view);
     }
     else
     {
@@ -1159,8 +1159,8 @@ void MainWindow::changeCurrentTab(int index)
             m_searchToolBar->hide();
         }
 
-        m_outlineView->changeView(0);
-        m_thumbnailsView->changeView(0);
+        m_outlineView->setView(0);
+        m_thumbnailsView->setView(0);
     }
 }
 

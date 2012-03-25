@@ -28,11 +28,16 @@ AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent)
     m_view = 0;
 }
 
-void AuxiliaryView::changeView(DocumentView *view)
+DocumentView *AuxiliaryView::view() const
+{
+    return m_view;
+}
+
+void AuxiliaryView::setView(DocumentView *view)
 {
     m_view = view;
 
-    if(view)
+    if(m_view)
     {
         connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateModel()));
     }
@@ -43,7 +48,7 @@ void AuxiliaryView::changeView(DocumentView *view)
     }
 }
 
-void AuxiliaryView::changeVisibility(bool visible)
+void AuxiliaryView::updateVisibility(bool visible)
 {
     if(visible)
     {
@@ -100,9 +105,9 @@ void OutlineView::updateModel()
 {
     m_treeWidget->clear();
 
-    if(m_view)
+    if(this->view())
     {
-        DocumentModel::Outline *outline = m_view->model()->outline();
+        DocumentModel::Outline *outline = this->view()->model()->outline();
 
         if(outline)
         {
@@ -119,7 +124,7 @@ void OutlineView::followLink(QTreeWidgetItem *item, int column)
 
     if(pageNumber != -1)
     {
-        m_view->setCurrentPage(pageNumber);
+        this->view()->setCurrentPage(pageNumber);
     }
 }
 
@@ -143,14 +148,14 @@ void ThumbnailsView::updateModel()
 {
     m_listWidget->clear();
 
-    if(m_view)
+    if(this->view())
     {
         QListWidgetItem *item = 0;
         int itemWidth = 0.0, itemHeight = 0.0;
 
-        for(int index = 0; index < m_view->model()->pageCount(); index++)
+        for(int index = 0; index < this->view()->model()->pageCount(); index++)
         {
-            QImage thumbnail = m_view->model()->thumbnail(index);
+            QImage thumbnail = this->view()->model()->thumbnail(index);
 
             if(!thumbnail.isNull())
             {
@@ -174,7 +179,7 @@ void ThumbnailsView::followLink(QListWidgetItem *item)
 
     if(pageNumber != -1)
     {
-        m_view->setCurrentPage(pageNumber);
+        this->view()->setCurrentPage(pageNumber);
     }
 }
 

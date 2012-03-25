@@ -35,14 +35,18 @@ class AuxiliaryView : public QWidget
 public:
     explicit AuxiliaryView(QWidget *parent);
 
-protected:
+    DocumentView *view() const;
+    void setView(DocumentView *view);
+
+private:
     DocumentView *m_view;
 
 public slots:
-    void changeView(DocumentView *view);
-    void changeVisibility(bool visible);
+    void updateVisibility(bool visible);
 
+private slots:
     virtual void updateModel() = 0;
+
 };
 
 // outline view
