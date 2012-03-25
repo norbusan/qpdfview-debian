@@ -392,11 +392,11 @@ void DocumentView::findNext()
             else
             {
                 ++m_currentResult;
+            }
 
-                if(m_currentResult == m_results.end())
-                {
-                    m_currentResult = m_results.lowerBound(0);
-                }
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = m_results.lowerBound(0);
             }
 
             break;
@@ -409,11 +409,11 @@ void DocumentView::findNext()
             else
             {
                 ++m_currentResult;
+            }
 
-                if(m_currentResult == m_results.end())
-                {
-                    m_currentResult = m_results.lowerBound(0);
-                }
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = m_results.lowerBound(0);
             }
 
             break;
@@ -422,6 +422,11 @@ void DocumentView::findNext()
     else
     {
         m_currentResult = m_results.lowerBound(m_currentPage-1);
+
+        if(m_currentResult == m_results.end())
+        {
+            m_currentResult = m_results.lowerBound(0);
+        }
     }
 
     if(m_currentResult != m_results.end())
