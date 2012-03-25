@@ -1,9 +1,10 @@
-- improve text-selection support
-
-- improve link support
-- improve thumbnails and outline view
-
 - add annotation support
+- add a pan tool
+
+- rewrite the thumbnails view as a simplifed version of the document view
+
+- improve text-selection support
+- improve link support
 
 - improve print support
 
