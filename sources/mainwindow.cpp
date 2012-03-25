@@ -659,6 +659,9 @@ QMenu *MainWindow::createPopupMenu()
     menu->addAction(m_fileToolBar->toggleViewAction());
     menu->addAction(m_editToolBar->toggleViewAction());
     menu->addAction(m_viewToolBar->toggleViewAction());
+    menu->addSeparator();
+    menu->addAction(m_outlineDock->toggleViewAction());
+    menu->addAction(m_thumbnailsDock->toggleViewAction());
 
     return menu;
 }
