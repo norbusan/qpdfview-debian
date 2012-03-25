@@ -278,6 +278,11 @@ QImage DocumentModel::pullPage(int index, qreal resolutionX, qreal resolutionY)
 
 void DocumentModel::pushPage(int index, qreal resolutionX, qreal resolutionY)
 {
+    if(m_document == 0 || index < 0 || index >= m_pageCount)
+    {
+        return;
+    }
+
     PageCacheKey key(m_filePath, index, resolutionX, resolutionY);
     QImage value;
 
