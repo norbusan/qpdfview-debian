@@ -28,6 +28,11 @@ AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent)
     m_view = 0;
 }
 
+void AuxiliaryView::showEvent(QShowEvent*)
+{
+    this->updateContent();
+}
+
 void AuxiliaryView::attachTo(DocumentView *view)
 {
     m_view = view;
@@ -37,7 +42,10 @@ void AuxiliaryView::attachTo(DocumentView *view)
         connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateContent()));
     }
 
-    this->updateContent();
+    if(this->isVisible())
+    {
+        this->updateContent();
+    }
 }
 
 void AuxiliaryView::updateContent()
@@ -62,11 +70,12 @@ static void outlineToTree(DocumentModel::Outline *node, QTreeWidget *tree, QTree
         }
 
         item->setText(0, nextNode->text);
+        item->setData(0, Qt::UserRole, nextNode->pageNumber);
+
         if(nextNode->isOpen)
         {
             tree->expandItem(item);
         }
-        item->setData(0, Qt::UserRole, nextNode->destinationName);
 
         if(nextNode->child)
         {
@@ -86,16 +95,6 @@ OutlineView::OutlineView(QWidget *parent) : AuxiliaryView(parent)
     this->layout()->addWidget(m_treeWidget);
 
     connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(followLink(QTreeWidgetItem*,int)));
-
-    m_outline = 0;
-}
-
-OutlineView::~OutlineView()
-{
-    if(m_outline)
-    {
-        delete m_outline;
-    }
 }
 
 void OutlineView::updateContent()
@@ -104,25 +103,20 @@ void OutlineView::updateContent()
 
     if(m_view)
     {
-        if(m_outline)
-        {
-            delete m_outline;
-        }
+        DocumentModel::Outline *outline = m_view->model()->outline();
 
-        m_outline = m_view->model()->outline();
-
-        if(m_outline)
+        if(outline)
         {
-            outlineToTree(m_outline, m_treeWidget, 0);
+            outlineToTree(outline, m_treeWidget, 0);
+
+            delete outline;
         }
     }
 }
 
 void OutlineView::followLink(QTreeWidgetItem *item, int column)
 {
-    QString destinationName = item->data(column, Qt::UserRole).toString();
-
-    int pageNumber = m_view->model()->destination(destinationName);
+    int pageNumber = item->data(column, Qt::UserRole).toInt();
 
     if(pageNumber != -1)
     {
@@ -162,8 +156,8 @@ void ThumbnailsView::updateContent()
             if(!thumbnail.isNull())
             {
                 item = new QListWidgetItem(m_listWidget);
-                item->setIcon(QIcon(QPixmap::fromImage(thumbnail)));
                 item->setText(tr("%1").arg(index+1));
+                item->setIcon(QIcon(QPixmap::fromImage(thumbnail)));
                 item->setData(Qt::UserRole, index+1);
 
                 itemWidth = qMax(itemWidth, thumbnail.width());

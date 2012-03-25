@@ -67,13 +67,14 @@ public:
     struct Outline
     {
         QString text;
+        int pageNumber;
+
         bool isOpen;
-        QString destinationName;
 
         Outline *sibling;
         Outline *child;
 
-        Outline() : text(""), isOpen(false), destinationName(""), sibling(0), child(0) {}
+        Outline() : text(""), pageNumber(-1), isOpen(false), sibling(0), child(0) {}
         ~Outline()
         {
             if(sibling)
@@ -89,8 +90,6 @@ public:
     };
 
     Outline *outline();
-
-    int destination(const QString &destinationName);
 
     // thumbnail
 

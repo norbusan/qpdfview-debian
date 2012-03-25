@@ -160,24 +160,37 @@ QString DocumentModel::text(int index, QRectF area)
 
 // outline
 
-static DocumentModel::Outline *domNodeToOutline(const QDomNode &domNode)
+static DocumentModel::Outline *domNodeToOutline(Poppler::Document *document, const QDomNode &domNode)
 {
     DocumentModel::Outline *result = new DocumentModel::Outline;
 
     result->text = domNode.toElement().tagName();
+
+    if(domNode.toElement().hasAttribute("Destination"))
+    {
+        Poppler::LinkDestination linkDestination(domNode.toElement().attribute("Destination"));
+
+        result->pageNumber = linkDestination.pageNumber();
+    }
+    else
+    {
+        Poppler::LinkDestination *linkDestination = document->linkDestination(domNode.toElement().attribute("DestinationName"));
+
+        result->pageNumber = linkDestination ? linkDestination->pageNumber() : -1;
+    }
+
     result->isOpen = QVariant(domNode.toElement().attribute("Open")).toBool();
-    result->destinationName = domNode.toElement().attribute("DestinationName");
 
     QDomNode siblingNode = domNode.nextSibling();
     if(!siblingNode.isNull())
     {
-        result->sibling = domNodeToOutline(siblingNode);
+        result->sibling = domNodeToOutline(document, siblingNode);
     }
 
     QDomNode childNode = domNode.firstChild();
     if(!childNode.isNull())
     {
-        result->child = domNodeToOutline(childNode);
+        result->child = domNodeToOutline(document, childNode);
     }
 
     return result;
@@ -189,7 +202,7 @@ DocumentModel::Outline *DocumentModel::outline()
 
     if(document)
     {
-        Outline *result = domNodeToOutline(document->firstChild());
+        Outline *result = domNodeToOutline(m_document, document->firstChild());
 
         delete document;
 
@@ -199,20 +212,6 @@ DocumentModel::Outline *DocumentModel::outline()
     {
         return 0;
     }
-}
-
-int DocumentModel::destination(const QString &destinationName)
-{
-    int pageNumber = -1;
-
-    Poppler::LinkDestination *linkDestination = m_document->linkDestination(destinationName);
-
-    if(linkDestination)
-    {
-        pageNumber = linkDestination->pageNumber();
-    }
-
-    return pageNumber;
 }
 
 // thumbnail

@@ -38,10 +38,14 @@ public:
 protected:
     DocumentView *m_view;
 
+    void showEvent(QShowEvent*);
+
 public slots:
     void attachTo(DocumentView *view);
     virtual void updateContent();
 };
+
+// outline view
 
 class OutlineView : public AuxiliaryView
 {
@@ -49,11 +53,9 @@ class OutlineView : public AuxiliaryView
 
 public:
     explicit OutlineView(QWidget *parent = 0);
-    ~OutlineView();
 
 private:
     QTreeWidget *m_treeWidget;
-    DocumentModel::Outline *m_outline;
 
 public slots:
     void updateContent();
@@ -62,6 +64,8 @@ private slots:
     void followLink(QTreeWidgetItem *item, int column);
 
 };
+
+// thumbnails view
 
 class ThumbnailsView : public AuxiliaryView
 {
@@ -80,6 +84,8 @@ private slots:
     void followLink(QListWidgetItem *item);
 
 };
+
+// settings dialog
 
 class SettingsDialog : public QDialog
 {
