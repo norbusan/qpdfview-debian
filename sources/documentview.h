@@ -120,6 +120,7 @@ private slots:
     void updateResults();
 
 protected:
+    bool eventFilter(QObject *object, QEvent *event);
     void resizeEvent(QResizeEvent *resizeEvent);
     void wheelEvent(QWheelEvent *wheelEvent);
 

@@ -59,6 +59,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     this->prepareScene();
     this->prepareView();
 
+    m_view->verticalScrollBar()->installEventFilter(this);
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 }
 
@@ -830,6 +831,20 @@ void DocumentView::updateResults()
     this->prepareView(false);
 }
 
+bool DocumentView::eventFilter(QObject *object, QEvent *event)
+{
+    if(event->type() == QEvent::Wheel)
+    {
+        QWheelEvent *wheelEvent = static_cast<QWheelEvent*>(event);
+
+        return wheelEvent->modifiers() == Qt::ControlModifier;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void DocumentView::resizeEvent(QResizeEvent*)
 {
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
@@ -841,40 +856,108 @@ void DocumentView::resizeEvent(QResizeEvent*)
 
 void DocumentView::wheelEvent(QWheelEvent *wheelEvent)
 {
-    switch(m_pageLayout)
+    if(wheelEvent->modifiers() == Qt::ControlModifier)
     {
-    case OnePage:
-        if(wheelEvent->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(wheelEvent->delta() > 0)
         {
-            this->previousPage();
-
-            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            // zoom in
+            switch(m_scaling)
+            {
+            case FitToPage:
+            case FitToPageWidth:
+                break;
+            case ScaleTo50:
+                this->setScaling(ScaleTo75);
+                break;
+            case ScaleTo75:
+                this->setScaling(ScaleTo100);
+                break;
+            case ScaleTo100:
+                this->setScaling(ScaleTo125);
+                break;
+            case ScaleTo125:
+                this->setScaling(ScaleTo150);
+                break;
+            case ScaleTo150:
+                this->setScaling(ScaleTo200);
+                break;
+            case ScaleTo200:
+                this->setScaling(ScaleTo400);
+                break;
+            case ScaleTo400:
+                break;
+            }
         }
-        else if(wheelEvent->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage != m_model->pageCount())
+        else if(wheelEvent->delta() < 0)
         {
-            this->nextPage();
-
-            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            // zoom out
+            switch(m_scaling)
+            {
+            case FitToPage:
+            case FitToPageWidth:
+                break;
+            case ScaleTo50:
+                break;
+            case ScaleTo75:
+                this->setScaling(ScaleTo50);
+                break;
+            case ScaleTo100:
+                this->setScaling(ScaleTo75);
+                break;
+            case ScaleTo125:
+                this->setScaling(ScaleTo100);
+                break;
+            case ScaleTo150:
+                this->setScaling(ScaleTo125);
+                break;
+            case ScaleTo200:
+                this->setScaling(ScaleTo150);
+                break;
+            case ScaleTo400:
+                this->setScaling(ScaleTo200);
+                break;
+            }
         }
 
-        break;
-    case TwoPages:
-        if(wheelEvent->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage != 1)
+
+    }
+    else
+    {
+        switch(m_pageLayout)
         {
-            this->previousPage();
+        case OnePage:
+            if(wheelEvent->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                this->previousPage();
 
-            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+            else if(wheelEvent->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage != m_model->pageCount())
+            {
+                this->nextPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+
+            break;
+        case TwoPages:
+            if(wheelEvent->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                this->previousPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+            else if(wheelEvent->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage != (m_model->pageCount() % 2 == 0 ? m_model->pageCount()-1 : m_model->pageCount()))
+            {
+                this->nextPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+
+            break;
+        case OneColumn:
+        case TwoColumns:
+            break;
         }
-        else if(wheelEvent->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage != (m_model->pageCount() % 2 == 0 ? m_model->pageCount()-1 : m_model->pageCount()))
-        {
-            this->nextPage();
-
-            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
-        }
-
-        break;
-    case OneColumn:
-    case TwoColumns:
-        break;
     }
 }
