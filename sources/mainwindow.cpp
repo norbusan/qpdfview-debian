@@ -912,7 +912,8 @@ void MainWindow::presentation()
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
         PresentationView *presentationView = new PresentationView(documentView->model(), documentView->currentPage());
 
-        presentationView->showFullScreen();
+        presentationView->show();
+
         presentationView->setAttribute(Qt::WA_DeleteOnClose);
     }
 }

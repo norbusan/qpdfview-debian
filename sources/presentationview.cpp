@@ -33,6 +33,14 @@ PresentationView::PresentationView(DocumentModel *model, int currentPage) : QWid
     m_linkTransform(),
     m_render()
 {
+    Qt::WindowFlags flags = this->windowFlags();
+    flags = flags | Qt::FramelessWindowHint;
+    this->setWindowFlags(flags);
+
+    Qt::WindowStates states = this->windowState();
+    states = states | Qt::WindowFullScreen;
+    this->setWindowState(states);
+
     QPalette palette = this->palette();
     palette.setColor(QPalette::Window, Qt::black);
     this->setPalette(palette);

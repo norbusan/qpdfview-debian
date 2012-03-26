@@ -271,8 +271,7 @@ void RecentlyUsedAction::addFilePath(const QString &filePath)
 
 // settings dialog
 
-SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
-    m_settings()
+SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 {
     m_layout = new QFormLayout(this);
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);

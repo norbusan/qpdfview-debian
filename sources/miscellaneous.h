@@ -113,6 +113,7 @@ signals:
 
 private slots:
     void selectFilePath(QAction *action);
+
     void clearList();
 
 public slots:
@@ -140,8 +141,6 @@ private:
     QCheckBox *m_antialiasingCheckBox;
     QCheckBox *m_textAntialiasingCheckBox;
     QComboBox *m_pageCacheSizeComboBox;
-
-    QSettings m_settings;
 
 };
 
