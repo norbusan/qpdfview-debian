@@ -153,7 +153,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     {
         if(!m_render.isRunning())
         {
-            m_render.setFuture(QtConcurrent::run(this, &PageObject::render));
+            m_render.setFuture(QtConcurrent::run(this, &PageObject::render, false));
         }
     }
 
@@ -206,7 +206,7 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
     }
 }
 
-void PageObject::render()
+void PageObject::render(bool prefetch)
 {
     bool visible = false;
 
@@ -219,7 +219,7 @@ void PageObject::render()
        visible = visible || viewRect.intersects(pageRect);
     }
 
-    if(visible)
+    if(visible || prefetch)
     {
        switch(m_view->rotation())
        {
@@ -234,6 +234,19 @@ void PageObject::render()
 
            break;
        }
+    }
+}
+
+void PageObject::prefetch()
+{
+    QImage image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+
+    if(image.isNull())
+    {
+        if(!m_render.isRunning())
+        {
+            m_render.setFuture(QtConcurrent::run(this, &PageObject::render, true));
+        }
     }
 }
 

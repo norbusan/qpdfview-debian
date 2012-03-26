@@ -38,6 +38,15 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     connect(m_makeCurrentTabAction, SIGNAL(triggered()), this, SLOT(makeCurrentTab()));
 
+    // prefetchTimer
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setSingleShot(true);
+    m_prefetchTimer->setInterval(500);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetch()));
+
     // settings
 
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
@@ -58,6 +67,8 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     this->prepareScene();
     this->prepareView();
+
+    m_prefetchTimer->start();
 
     m_view->verticalScrollBar()->installEventFilter(this);
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
@@ -769,6 +780,17 @@ void DocumentView::makeCurrentTab()
         if(index != -1)
         {
             tabWidget->setCurrentIndex(index);
+        }
+    }
+}
+
+void DocumentView::prefetch()
+{
+    for(int page = m_currentPage-2; page <= m_currentPage+3; page++)
+    {
+        if(m_pageToPageObject.contains(page))
+        {
+            m_pageToPageObject.value(page)->prefetch();
         }
     }
 }

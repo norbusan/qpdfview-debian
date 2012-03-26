@@ -71,6 +71,8 @@ private:
 
     QAction *m_makeCurrentTabAction;
 
+    QTimer *m_prefetchTimer;
+
     QGraphicsScene *m_scene;
     QGraphicsView *m_view;
 
@@ -112,6 +114,8 @@ public slots:
     void findNext();
 
     void makeCurrentTab();
+
+    void prefetch();
 
 private slots:
     void changeCurrentPage(int value);

@@ -67,10 +67,13 @@ private:
     QRectF m_rubberBand;
 
     QFutureWatcher<void> m_render;
-    void render();
+    void render(bool prefetch = false);
 
 signals:
     void indexChanged(int);
+
+public slots:
+    void prefetch();
 
 private slots:
     void updatePage();

@@ -1,5 +1,3 @@
-- timer-based page prefetch
-
 - add a presentation view (implement link actions)
 - rewrite the thumbnails view as a simplifed version of the document view
 
