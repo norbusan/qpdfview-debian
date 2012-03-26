@@ -620,7 +620,7 @@ void DocumentView::prepareScene()
 
             m_scene->addItem(page);
             m_pageToPageObject.insert(index+1, page);
-            m_heightToPage.insert(-qFloor(page->y()), index+1);
+            m_heightToPage.insert(-qFloor(page->y() - 0.4 * page->boundingRect().height()), index+1);
 
             sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
             sceneHeight += page->boundingRect().height() + 10.0;
@@ -636,7 +636,7 @@ void DocumentView::prepareScene()
 
             m_scene->addItem(leftPage);
             m_pageToPageObject.insert(index+1, leftPage);
-            m_heightToPage.insert(-qFloor(leftPage->y()), index+1);
+            m_heightToPage.insert(-qFloor(leftPage->y() - 0.4 * leftPage->boundingRect().height()), index+1);
 
             PageObject *rightPage = new PageObject(m_model, this, index+1);
             rightPage->setPos(leftPage->boundingRect().width() + 20.0, sceneHeight);
@@ -655,7 +655,7 @@ void DocumentView::prepareScene()
 
             m_scene->addItem(page);
             m_pageToPageObject.insert(pageCount, page);
-            m_heightToPage.insert(-qFloor(page->y()), pageCount);
+            m_heightToPage.insert(-qFloor(page->y() - 0.4 * page->boundingRect().height()), pageCount);
 
             sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
             sceneHeight += page->boundingRect().height() + 10.0;
