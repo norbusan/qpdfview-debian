@@ -40,6 +40,9 @@ public:
 
     const QString &filePath() const;
 
+    static bool watchFilePath();
+    static void setWatchFilePath(bool watchFilePath);
+
     // pages
 
     int pageCount() const;
@@ -98,6 +101,14 @@ public:
 
     QImage thumbnail(int index);
 
+    // render hints
+
+    static bool antialiasing();
+    static void setAntialiasing(bool antialiasing);
+
+    static bool textAntialiasing();
+    static void setTextAntialiasing(bool textAntialiasing);
+
     // page cache
 
     static uint maximumPageCacheSize();
@@ -137,6 +148,7 @@ private:
     Poppler::Document *m_document;
 
     QString m_filePath;
+    QFileSystemWatcher *m_filePathWatcher;
 
     int m_pageCount;
 
@@ -178,6 +190,13 @@ private:
 
     static QMap<PageCacheKey, QImage> s_pageCache;
     static QMutex s_pageCacheMutex;
+
+    static QSettings s_settings;
+
+    static bool s_watchFilePath;
+
+    static bool s_antialiasing;
+    static bool s_textAntialiasing;
 
     static uint s_pageCacheSize;
     static uint s_maximumPageCacheSize;

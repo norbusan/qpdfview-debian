@@ -1,6 +1,4 @@
 - ability to change scaling using the mouse wheel
-- add recently used menu
-- reload files if changed on disk
 - timer-based page prefetch
 
 - add a presentation view (implement link actions)

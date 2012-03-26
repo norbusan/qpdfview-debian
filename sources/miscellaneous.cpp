@@ -183,6 +183,92 @@ void ThumbnailsView::followLink(QListWidgetItem *item)
     }
 }
 
+// recently used action
+
+RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &used"), parent),
+    m_actionGroup(), m_settings()
+{
+    m_menu = new QMenu();
+    this->setMenu(m_menu);
+
+    m_actionGroup = new QActionGroup(this);
+    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(selectFilePath(QAction*)));
+
+    m_clearListAction = new QAction(tr("Clear list"), this);
+    connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+
+    m_separator = m_menu->addSeparator();
+    m_menu->addAction(m_clearListAction);
+
+    QStringList filePaths = m_settings.value("mainWindow/recentlyUsed").toStringList();
+
+    foreach(QString filePath, filePaths)
+    {
+        QAction *action = new QAction(this);
+        action->setText(filePath);
+        action->setData(filePath);
+
+        m_actionGroup->addAction(action);
+        m_menu->insertAction(m_separator, action);
+    }
+}
+
+RecentlyUsedAction::~RecentlyUsedAction()
+{
+    QStringList filePaths;
+
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        filePaths.append(action->data().toString());
+    }
+
+    m_settings.setValue("mainWindow/recentlyUsed", filePaths);
+
+    delete m_menu;
+}
+
+void RecentlyUsedAction::selectFilePath(QAction *action)
+{
+    emit filePathSelected(action->data().toString());
+}
+
+void RecentlyUsedAction::clearList()
+{
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        m_actionGroup->removeAction(action);
+        m_menu->removeAction(action);
+    }
+}
+
+void RecentlyUsedAction::addFilePath(const QString &filePath)
+{
+    bool addItem = true;
+
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        addItem = addItem && action->data().toString() != filePath;
+    }
+
+    if(addItem)
+    {
+        QAction *action = new QAction(this);
+        action->setText(filePath);
+        action->setData(filePath);
+
+        m_actionGroup->addAction(action);
+        m_menu->insertAction(m_separator, action);
+    }
+
+    if(m_actionGroup->actions().size() > 5)
+    {
+        QAction *first = m_actionGroup->actions().first();
+
+        m_actionGroup->removeAction(first);
+        m_menu->removeAction(first);
+    }
+}
+
 // settings dialog
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
@@ -191,7 +277,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_layout = new QFormLayout(this);
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
-    m_pageCacheSizeComboBox = new QComboBox();
+    m_refreshAutomaticallyCheckBox = new QCheckBox(this);
+
+    m_antialiasingCheckBox = new QCheckBox(this);
+    m_textAntialiasingCheckBox = new QCheckBox(this);
+
+    m_pageCacheSizeComboBox = new QComboBox(this);
     m_pageCacheSizeComboBox->addItem(tr("32 MB"), QVariant(33554432u));
     m_pageCacheSizeComboBox->addItem(tr("64 MB"), QVariant(67108864u));
     m_pageCacheSizeComboBox->addItem(tr("128 MB"), QVariant(134217728u));
@@ -203,10 +294,18 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
+    m_layout->addRow(tr("&Refresh automatically:"), m_refreshAutomaticallyCheckBox);
+    m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
+    m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Page cache &size:"), m_pageCacheSizeComboBox);
     m_layout->addRow(m_buttonBox);
 
     this->setLayout(m_layout);
+
+    m_refreshAutomaticallyCheckBox->setChecked(DocumentModel::watchFilePath());
+
+    m_antialiasingCheckBox->setChecked(DocumentModel::antialiasing());
+    m_textAntialiasingCheckBox->setChecked(DocumentModel::textAntialiasing());
 
     // maximumPageCacheSize
 
@@ -234,9 +333,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
 
 void SettingsDialog::accept()
 {
-    DocumentModel::setMaximumPageCacheSize(m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
+    DocumentModel::setWatchFilePath(m_refreshAutomaticallyCheckBox->isChecked());
 
-    m_settings.setValue("documentModel/maximumPageCacheSize", m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
+    DocumentModel::setAntialiasing(m_antialiasingCheckBox->isChecked());
+    DocumentModel::setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());
+
+    DocumentModel::setMaximumPageCacheSize(m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
 
     QDialog::accept();
 }

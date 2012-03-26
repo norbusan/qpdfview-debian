@@ -89,6 +89,37 @@ private slots:
 
 };
 
+// recently used action
+
+class RecentlyUsedAction : public QAction
+{
+    Q_OBJECT
+
+public:
+    RecentlyUsedAction(QObject *parent = 0);
+    ~RecentlyUsedAction();
+
+private:
+    QMenu *m_menu;
+    QActionGroup *m_actionGroup;
+    QAction *m_separator;
+
+    QAction *m_clearListAction;
+
+    QSettings m_settings;
+
+signals:
+    void filePathSelected(QString);
+
+private slots:
+    void selectFilePath(QAction *action);
+    void clearList();
+
+public slots:
+    void addFilePath(const QString &filePath);
+
+};
+
 // settings dialog
 
 class SettingsDialog : public QDialog
@@ -105,6 +136,9 @@ private:
     QFormLayout *m_layout;
     QDialogButtonBox *m_buttonBox;
 
+    QCheckBox *m_refreshAutomaticallyCheckBox;
+    QCheckBox *m_antialiasingCheckBox;
+    QCheckBox *m_textAntialiasingCheckBox;
     QComboBox *m_pageCacheSizeComboBox;
 
     QSettings m_settings;

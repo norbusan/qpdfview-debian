@@ -42,8 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
 
-    DocumentModel::setMaximumPageCacheSize(m_settings.value("documentModel/maximumPageCacheSize", 134217728u).toUInt());
-
     // command line arguments
 
     QStringList arguments = QCoreApplication::arguments();
@@ -51,19 +49,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     foreach(QString argument, arguments)
     {
-        if(QFile(argument).exists()) {
-            DocumentModel *model = new DocumentModel();
-
-            if(model->open(argument))
-            {
-                DocumentView *view = new DocumentView(model);
-
-                this->addTab(model, view);
-            }
-            else
-            {
-                delete model;
-            }
+        if(QFileInfo(argument).exists()) {
+            this->addTab(argument);
         }
     }
 }
@@ -85,6 +72,13 @@ void MainWindow::createActions()
     {
         m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
     }
+
+    // recently used
+
+    m_recentlyUsedAction = new RecentlyUsedAction(this);
+    m_recentlyUsedAction->setIcon(QIcon::fromTheme("document-open-recent"));
+    m_recentlyUsedAction->setIconVisibleInMenu(true);
+    connect(m_recentlyUsedAction, SIGNAL(filePathSelected(QString)), this, SLOT(openRecentlyUsed(QString)));
 
     // refresh
 
@@ -577,6 +571,7 @@ void MainWindow::createMenus()
 
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_openAction);
+    m_fileMenu->addAction(m_recentlyUsedAction);
     m_fileMenu->addAction(m_refreshAction);
     m_fileMenu->addAction(m_saveCopyAction);
     m_fileMenu->addAction(m_printAction);
@@ -683,6 +678,8 @@ void MainWindow::open()
 
             if(model->open(filePath))
             {
+                m_recentlyUsedAction->addFilePath(filePath);
+
                 m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
             }
             else
@@ -908,20 +905,12 @@ void MainWindow::addTab()
 
     foreach(QString filePath, filePaths)
     {
-        DocumentModel *model = new DocumentModel();
-
-        if(model->open(filePath))
+        if(this->addTab(filePath))
         {
-            DocumentView *view = new DocumentView(model);
-
-            this->addTab(model, view);
-
             m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
         }
         else
         {
-            delete model;
-
             QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
         }
     }
@@ -1024,28 +1013,42 @@ void MainWindow::changeHighlightAll()
     }
 }
 
-
-int MainWindow::addTab(DocumentModel *model, DocumentView *view)
+bool MainWindow::addTab(const QString &filePath)
 {
-    int index = m_tabWidget->addTab(view, QFileInfo(model->filePath()).completeBaseName());
-    m_tabWidget->setTabToolTip(index, QFileInfo(model->filePath()).completeBaseName());
-    m_tabWidget->setCurrentIndex(index);
+    DocumentModel *model = new DocumentModel();
 
-    m_tabMenu->addAction(view->makeCurrentTabAction());
+    if(model->open(filePath))
+    {
+        DocumentView *view = new DocumentView(model);
 
-    connect(model, SIGNAL(pageCountChanged(int)), this, SLOT(updateNumberOfPages(int)));
+        int index = m_tabWidget->addTab(view, QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setCurrentIndex(index);
 
-    connect(model, SIGNAL(searchProgressed(int)), this, SLOT(searchProgressed(int)));
-    connect(model, SIGNAL(searchCanceled()), this, SLOT(searchCanceled()));
-    connect(model, SIGNAL(searchFinished()), this, SLOT(searchFinished()));
+        m_tabMenu->addAction(view->makeCurrentTabAction());
 
-    connect(view, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
-    connect(view, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
-    connect(view, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
-    connect(view, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
-    connect(view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlightAll(bool)));
+        m_recentlyUsedAction->addFilePath(filePath);
 
-    return index;
+        connect(model, SIGNAL(pageCountChanged(int)), this, SLOT(updateNumberOfPages(int)));
+
+        connect(model, SIGNAL(searchProgressed(int)), this, SLOT(searchProgressed(int)));
+        connect(model, SIGNAL(searchCanceled()), this, SLOT(searchCanceled()));
+        connect(model, SIGNAL(searchFinished()), this, SLOT(searchFinished()));
+
+        connect(view, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
+        connect(view, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
+        connect(view, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
+        connect(view, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
+        connect(view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlightAll(bool)));
+
+        return true;
+    }
+    else
+    {
+        delete model;
+
+        return false;
+    }
 }
 
 void MainWindow::closeTab(int index)
@@ -1058,6 +1061,21 @@ void MainWindow::closeTab(int index)
 
         delete view;
         delete model;
+    }
+}
+
+void MainWindow::openRecentlyUsed(const QString &filePath)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        DocumentModel *model = view->model();
+
+        model->open(filePath);
+    }
+    else
+    {
+        this->addTab(filePath);
     }
 }
 
@@ -1469,18 +1487,7 @@ void MainWindow::dropEvent(QDropEvent *dropEvent)
         {
             if(url.scheme() == "file" && QFileInfo(url.path()).exists())
             {
-                DocumentModel *model = new DocumentModel();
-
-                if(model->open(url.path()))
-                {
-                    DocumentView *view = new DocumentView(model);
-
-                    this->addTab(model, view);
-                }
-                else
-                {
-                    delete model;
-                }
+                this->addTab(url.path());
             }
         }
     }

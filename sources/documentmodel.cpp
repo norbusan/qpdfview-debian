@@ -24,13 +24,21 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 QMap<DocumentModel::PageCacheKey, QImage> DocumentModel::s_pageCache;
 QMutex DocumentModel::s_pageCacheMutex;
 
+QSettings DocumentModel::s_settings("qpdfview", "qpdfview");
+
+bool DocumentModel::s_watchFilePath = DocumentModel::s_settings.value("documentModel/watchFilePath", false).toBool();
+
+bool DocumentModel::s_antialiasing = DocumentModel::s_settings.value("documentModel/antialiasing", true).toBool();
+bool DocumentModel::s_textAntialiasing = DocumentModel::s_settings.value("documentModel/textAntialiasing", true).toBool();
+
 uint DocumentModel::s_pageCacheSize = 0;
-uint DocumentModel::s_maximumPageCacheSize = 134217728;
+uint DocumentModel::s_maximumPageCacheSize = DocumentModel::s_settings.value("documentModel/maximumPageCacheSize", 134217728u).toUInt();
 
 DocumentModel::DocumentModel(QObject *parent) : QObject(parent),
     m_filePath(""),m_pageCount(-1),m_results(),m_resultsMutex(),m_search(),m_print()
 {
     m_document = 0;
+    m_filePathWatcher = 0;
 }
 
 DocumentModel::~DocumentModel()
@@ -42,11 +50,31 @@ DocumentModel::~DocumentModel()
     {
         delete m_document;
     }
+
+    if(m_filePathWatcher)
+    {
+        delete m_filePathWatcher;
+    }
 }
 
 const QString &DocumentModel::filePath() const
 {
     return m_filePath;
+}
+
+bool DocumentModel::watchFilePath()
+{
+    return s_watchFilePath;
+}
+
+void DocumentModel::setWatchFilePath(bool watchFilePath)
+{
+    if(s_watchFilePath != watchFilePath)
+    {
+        s_watchFilePath = watchFilePath;
+
+        s_settings.setValue("documentModel/watchFilePath", s_watchFilePath);
+    }
 }
 
 // pages
@@ -234,6 +262,52 @@ QImage DocumentModel::thumbnail(int index)
     return result;
 }
 
+// render hints
+
+bool DocumentModel::antialiasing()
+{
+    return s_antialiasing;
+}
+
+void DocumentModel::setAntialiasing(bool antialiasing)
+{
+    if(s_antialiasing != antialiasing)
+    {
+        s_antialiasing = antialiasing;
+
+        s_settings.setValue("documentModel/antialiasing", s_antialiasing);
+
+        s_pageCacheMutex.lock();
+
+        s_pageCacheSize = 0;
+        s_pageCache.clear();
+
+        s_pageCacheMutex.unlock();
+    }
+}
+
+bool DocumentModel::textAntialiasing()
+{
+    return s_textAntialiasing;
+}
+
+void DocumentModel::setTextAntialiasing(bool textAntialiasing)
+{
+    if(s_textAntialiasing != textAntialiasing)
+    {
+        s_textAntialiasing = textAntialiasing;
+
+        s_settings.setValue("documentModel/textAntialiasing", s_textAntialiasing);
+
+        s_pageCacheMutex.lock();
+
+        s_pageCacheSize = 0;
+        s_pageCache.clear();
+
+        s_pageCacheMutex.unlock();
+    }
+}
+
 // page cache
 
 uint DocumentModel::maximumPageCacheSize()
@@ -241,21 +315,26 @@ uint DocumentModel::maximumPageCacheSize()
     return s_maximumPageCacheSize;
 }
 
-void DocumentModel::setMaximumPageCacheSize(uint pageCacheSize)
+void DocumentModel::setMaximumPageCacheSize(uint maximumPageCacheSize)
 {
-    s_maximumPageCacheSize = pageCacheSize;
-
-    s_pageCacheMutex.lock();
-
-    while(s_pageCacheSize > s_maximumPageCacheSize)
+    if(s_maximumPageCacheSize != maximumPageCacheSize)
     {
-        QMap<PageCacheKey, QImage>::iterator first = s_pageCache.begin();
+        s_maximumPageCacheSize = maximumPageCacheSize;
 
-        s_pageCacheSize -= first.value().byteCount();
-        s_pageCache.remove(first.key());
+        s_settings.setValue("documentModel/maximumPageCacheSize", s_maximumPageCacheSize);
+
+        s_pageCacheMutex.lock();
+
+        while(s_pageCacheSize > s_maximumPageCacheSize)
+        {
+            QMap<PageCacheKey, QImage>::iterator first = s_pageCache.begin();
+
+            s_pageCacheSize -= first.value().byteCount();
+            s_pageCache.remove(first.key());
+        }
+
+        s_pageCacheMutex.unlock();
     }
-
-    s_pageCacheMutex.unlock();
 }
 
 QImage DocumentModel::pullPage(int index, qreal resolutionX, qreal resolutionY)
@@ -298,8 +377,8 @@ void DocumentModel::pushPage(int index, qreal resolutionX, qreal resolutionY)
         return;
     }
 
-    document->setRenderHint(Poppler::Document::Antialiasing);
-    document->setRenderHint(Poppler::Document::TextAntialiasing);
+    document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
+    document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
 
     Poppler::Page *page = document->page(index);
 
@@ -380,9 +459,22 @@ bool DocumentModel::open(const QString &filePath)
             delete m_document;
         }
 
+        if(m_filePathWatcher)
+        {
+            delete m_filePathWatcher;
+        }
+
         m_document = document;
 
         m_filePath = filePath;
+
+        if(s_watchFilePath)
+        {
+            m_filePathWatcher = new QFileSystemWatcher(this);
+            m_filePathWatcher->addPath(m_filePath);
+            connect(m_filePathWatcher, SIGNAL(fileChanged(QString)), this, SLOT(refresh()));
+        }
+
         m_pageCount = m_document->numPages();
 
         emit filePathChanged(m_filePath);
@@ -592,8 +684,8 @@ void DocumentModel::print(QPrinter *printer, int fromPage, int toPage)
         return;
     }
 
-    document->setRenderHint(Poppler::Document::Antialiasing);
-    document->setRenderHint(Poppler::Document::TextAntialiasing);
+    document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
+    document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
 
     QPainter *painter = new QPainter();
     painter->begin(printer);

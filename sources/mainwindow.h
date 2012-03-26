@@ -48,6 +48,7 @@ private:
     // actions
 
     QAction *m_openAction;
+    RecentlyUsedAction *m_recentlyUsedAction;
     QAction *m_refreshAction;
     QAction *m_saveCopyAction;
     QAction *m_printAction;
@@ -196,8 +197,10 @@ private slots:
     void changeFullscreen();
     void changeHighlightAll();
 
-    int addTab(DocumentModel *model, DocumentView *view);
+    bool addTab(const QString &filePath);
     void closeTab(int index);
+
+    void openRecentlyUsed(const QString &filePath);
 
     void changeCurrentTab(int index);
     void changeCurrentPage();
