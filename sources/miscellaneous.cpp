@@ -191,7 +191,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_layout = new QFormLayout(this);
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
-    m_pageCacheSizeComboBox = new QComboBox();
+    m_pageCacheSizeComboBox = new QComboBox(this);
     m_pageCacheSizeComboBox->addItem(tr("32 MB"), QVariant(33554432u));
     m_pageCacheSizeComboBox->addItem(tr("64 MB"), QVariant(67108864u));
     m_pageCacheSizeComboBox->addItem(tr("128 MB"), QVariant(134217728u));

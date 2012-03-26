@@ -1,10 +1,9 @@
-- ability to change scaling using the mouse wheel
-- add recently used menu
+- change scaling using the mouse wheel
+- recently used menu
 - reload files if changed on disk
-- timer-based page prefetch
+- timer-based prefetch
 
-- add a presentation view (implement link actions)
-- rewrite the thumbnails view as a simplifed version of the document view
+- add a presentation view
 
 - add a pan tool
 - add a magnify tool
@@ -17,4 +16,6 @@
 - improve text-selection support
 - improve link support
 - improve print support
+
+- improve thumbnails view
 

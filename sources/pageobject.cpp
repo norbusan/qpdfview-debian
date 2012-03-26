@@ -141,7 +141,21 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    QImage image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+    QImage image;
+
+    switch(m_view->rotation())
+    {
+    case DocumentView::RotateBy0:
+    case DocumentView::RotateBy180:
+        image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+
+        break;
+    case DocumentView::RotateBy90:
+    case DocumentView::RotateBy270:
+        image = m_model->pullPage(m_index, m_view->resolutionY(), m_view->resolutionX());
+
+        break;
+    }
 
     if(!image.isNull())
     {
