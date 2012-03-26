@@ -128,6 +128,17 @@ QList<DocumentModel::Link> DocumentModel::links(int index)
 
                 results.append(result);
             }
+            else if(link->linkType() == Poppler::Link::Browse)
+            {
+                QRectF linkArea = link->linkArea().normalized();
+                QString linkUrl = static_cast<Poppler::LinkBrowse*>(link)->url();
+
+                Link result;
+                result.area = linkArea;
+                result.url = linkUrl;
+
+                results.append(result);
+            }
 
             delete link;
         }
@@ -482,7 +493,7 @@ bool DocumentModel::open(const QString &filePath)
 
         m_pageCount = m_document->numPages();
 
-        emit filePathChanged(m_filePath);
+        emit filePathChanged(m_filePath, false);
         emit pageCountChanged(m_pageCount);
     }
 
@@ -504,7 +515,7 @@ bool DocumentModel::refresh()
 
             m_document = document;
 
-            emit filePathChanged(m_filePath);
+            emit filePathChanged(m_filePath, true);
 
             if(m_pageCount != document->numPages())
             {

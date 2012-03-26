@@ -27,7 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentmodel.h"
 #include "documentview.h"
-
+#include "presentationview.h"
 #include "miscellaneous.h"
 
 class MainWindow : public QMainWindow
@@ -89,6 +89,7 @@ private:
     QAction *m_rotateBy270Action;
     QActionGroup *m_rotationGroup;
 
+    QAction *m_presentationAction;
     QAction *m_fullscreenAction;
 
     QAction *m_addTabAction;
@@ -183,6 +184,8 @@ private slots:
     void findNext();
 
     void settings();
+
+    void presentation();
 
     void addTab();
     void previousTab();

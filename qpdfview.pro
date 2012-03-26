@@ -12,14 +12,16 @@ SOURCES += \
     sources/pageobject.cpp \
     sources/miscellaneous.cpp \
     sources/mainwindow.cpp \
-    sources/main.cpp
+    sources/main.cpp \
+    sources/presentationview.cpp
 
 HEADERS  += \
     sources/documentmodel.h \
     sources/documentview.h \
     sources/pageobject.h \
     sources/miscellaneous.h \
-    sources/mainwindow.h
+    sources/mainwindow.h \
+    sources/presentationview.h
 
 RESOURCES += qpdfview.qrc
 

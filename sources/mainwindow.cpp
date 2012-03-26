@@ -295,6 +295,12 @@ void MainWindow::createActions()
     m_rotationGroup->addAction(m_rotateBy270Action);
     connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(changeRotation(QAction*)));
 
+    // presentation
+
+    m_presentationAction = new QAction(tr("Presentation..."), this);
+    m_presentationAction->setShortcut(QKeySequence(Qt::Key_F5));
+    connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(presentation()));
+
     // fullscreen
 
     m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
@@ -630,6 +636,7 @@ void MainWindow::createMenus()
     dockMenu->addAction(m_outlineDock->toggleViewAction());
     dockMenu->addAction(m_thumbnailsDock->toggleViewAction());
 
+    m_viewMenu->addAction(m_presentationAction);
     m_viewMenu->addAction(m_fullscreenAction);
 
     // tab
@@ -768,6 +775,46 @@ void MainWindow::print()
     }
 }
 
+void MainWindow::previousPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        view->previousPage();
+    }
+}
+
+void MainWindow::nextPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        view->nextPage();
+    }
+}
+
+void MainWindow::firstPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        view->firstPage();
+    }
+}
+
+void MainWindow::lastPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        view->lastPage();
+    }
+}
+
 void MainWindow::search()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -858,43 +905,15 @@ void MainWindow::settings()
     settingsDialog.exec();
 }
 
-void MainWindow::previousPage()
+void MainWindow::presentation()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        PresentationView *presentationView = new PresentationView(documentView->model(), documentView->currentPage());
 
-        view->previousPage();
-    }
-}
-
-void MainWindow::nextPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->nextPage();
-    }
-}
-
-void MainWindow::firstPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->firstPage();
-    }
-}
-
-void MainWindow::lastPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->lastPage();
+        presentationView->showFullScreen();
+        presentationView->setAttribute(Qt::WA_DeleteOnClose);
     }
 }
 
@@ -1104,6 +1123,8 @@ void MainWindow::changeCurrentTab(int index)
         m_scalingGroup->setEnabled(true);
         m_rotationGroup->setEnabled(true);
 
+        m_presentationAction->setEnabled(true);
+
         m_previousTabAction->setEnabled(true);
         m_nextTabAction->setEnabled(true);
         m_closeTabAction->setEnabled(true);
@@ -1153,6 +1174,8 @@ void MainWindow::changeCurrentTab(int index)
 
         m_rotateBy0Action->setChecked(true);
         m_rotationGroup->setEnabled(false);
+
+        m_presentationAction->setEnabled(false);
 
         m_previousTabAction->setEnabled(false);
         m_nextTabAction->setEnabled(false);

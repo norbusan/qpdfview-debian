@@ -44,7 +44,7 @@ public:
 
     const QTransform &pageTransform() const;
     const QTransform &linkTransform() const;
-    const QTransform &resultsTransform() const;
+    const QTransform &resultTransform() const;
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -61,7 +61,7 @@ private:
 
     QTransform m_pageTransform;
     QTransform m_linkTransform;
-    QTransform m_resultsTransform;
+    QTransform m_resultTransform;
 
     QRectF m_selection;
     QRectF m_rubberBand;
@@ -84,6 +84,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
 };
 

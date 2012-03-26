@@ -40,7 +40,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 {
     m_model = model;
 
-    connect(m_model, SIGNAL(filePathChanged(QString)), this, SLOT(updateFilePath(QString)));
+    connect(m_model, SIGNAL(filePathChanged(QString, bool)), this, SLOT(updateFilePath(QString, bool)));
     connect(m_model, SIGNAL(resultsChanged()), this, SLOT(updateResults()));
 
     // makeCurrentTab
@@ -759,7 +759,7 @@ void DocumentView::prepareView(bool scroll)
         PageObject *page = m_pageToPageObject.value(m_currentResult.key()+1);
 
         m_highlight->setPos(page->pos());
-        m_highlight->setTransform(page->resultsTransform());
+        m_highlight->setTransform(page->resultTransform());
 
         m_highlight->setRect(m_currentResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
 
@@ -830,12 +830,18 @@ void DocumentView::changeCurrentPage(int value)
     }
 }
 
-void DocumentView::updateFilePath(const QString &filePath)
+void DocumentView::updateFilePath(const QString &filePath, bool refresh)
 {
-    if(m_currentPage > m_model->pageCount())
+    if(refresh)
+    {
+        m_currentPage = m_currentPage > m_model->pageCount() ? 1 : m_currentPage;
+    }
+    else
     {
         m_currentPage = 1;
     }
+
+    emit currentPageChanged(m_currentPage);
 
     this->prepareScene();
     this->prepareView();

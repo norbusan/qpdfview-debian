@@ -46,25 +46,25 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
     case DocumentView::RotateBy0:
         m_pageTransform = QTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
         m_linkTransform = QTransform(scaleX * width, 0.0, 0.0, scaleY * height, 0.0, 0.0);
-        m_resultsTransform = QTransform(scaleX, 0.0, 0.0, scaleY, 0.0, 0.0);
+        m_resultTransform = QTransform(scaleX, 0.0, 0.0, scaleY, 0.0, 0.0);
 
         break;
     case DocumentView::RotateBy90:
         m_pageTransform = QTransform(0.0, 1.0, -1.0, 0.0, scaleX * height, 0.0);
         m_linkTransform = QTransform(0.0, scaleY * width, -scaleX * height, 0.0, scaleX * height, 0.0);
-        m_resultsTransform = QTransform(0.0, scaleY, -scaleX, 0.0, scaleX * height, 0.0);
+        m_resultTransform = QTransform(0.0, scaleY, -scaleX, 0.0, scaleX * height, 0.0);
 
         break;
     case DocumentView::RotateBy180:
         m_pageTransform = QTransform(-1.0, 0.0, 0.0, -1.0, scaleX * width, scaleY * height);
         m_linkTransform = QTransform(-scaleX * width, 0.0, 0.0, -scaleY * height, scaleX * width, scaleY * height);
-        m_resultsTransform = QTransform(-scaleX, 0.0, 0.0, -scaleY, scaleX * width, scaleY * height);
+        m_resultTransform = QTransform(-scaleX, 0.0, 0.0, -scaleY, scaleX * width, scaleY * height);
 
         break;
     case DocumentView::RotateBy270:
         m_pageTransform = QTransform(0.0, -1.0, 1.0, 0.0, 0.0, scaleX * width);
         m_linkTransform = QTransform(0.0, -scaleY * width, scaleX * height, 0.0, 0.0, scaleY * width);
-        m_resultsTransform = QTransform(0.0, -scaleY, scaleX, 0.0, 0.0, scaleY * width);
+        m_resultTransform = QTransform(0.0, -scaleY, scaleX, 0.0, 0.0, scaleY * width);
 
         break;
     }
@@ -72,6 +72,8 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
     connect(&m_render, SIGNAL(finished()), this, SLOT(updatePage()));
     connect(m_model, SIGNAL(resultsChanged(int)), this, SLOT(updateResults(int)));
     connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlights()));
+
+    this->setAcceptHoverEvents(true);
 }
 
 PageObject::~PageObject()
@@ -109,9 +111,9 @@ const QTransform &PageObject::linkTransform() const
     return m_linkTransform;
 }
 
-const QTransform &PageObject::resultsTransform() const
+const QTransform &PageObject::resultTransform() const
 {
-    return m_resultsTransform;
+    return m_resultTransform;
 }
 
 QRectF PageObject::boundingRect() const
@@ -146,7 +148,21 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    QImage image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+    QImage image;
+
+    switch(m_view->rotation())
+    {
+    case DocumentView::RotateBy0:
+    case DocumentView::RotateBy180:
+        image = m_model->pullPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+
+        break;
+    case DocumentView::RotateBy90:
+    case DocumentView::RotateBy270:
+        image = m_model->pullPage(m_index, m_view->resolutionY(), m_view->resolutionX());
+
+        break;
+    }
 
     if(!image.isNull())
     {
@@ -181,14 +197,14 @@ void PageObject::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
     if(m_view->highlightAll())
     {
-        painter->setTransform(m_resultsTransform, true);
+        painter->setTransform(m_resultTransform, true);
 
         foreach(QRectF result, m_results)
         {
             painter->fillRect(result.adjusted(-1.0, -1.0, 1.0, 1.0), QBrush(QColor(0,255,0,127)));
         }
 
-        painter->setTransform(m_resultsTransform.inverted(), true);
+        painter->setTransform(m_resultTransform.inverted(), true);
     }
 
     // draw selection
@@ -280,7 +296,7 @@ void PageObject::updateHighlights()
 
 void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-   if(event->button() == Qt::LeftButton)
+    if(event->button() == Qt::LeftButton)
     {
         foreach(DocumentModel::Link link, m_links)
         {
@@ -291,6 +307,8 @@ void PageObject::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
 
         m_rubberBand = QRectF(event->scenePos() - pos(), QSizeF());
+
+        return;
     }
 }
 
@@ -303,7 +321,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_selection = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
             m_rubberBand = QRectF();
 
-            QString text = m_model->text(m_index, m_resultsTransform.inverted().mapRect(m_selection));
+            QString text = m_model->text(m_index, m_resultTransform.inverted().mapRect(m_selection));
 
             if(!text.isEmpty())
             {
@@ -311,7 +329,6 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             }
 
             this->updatePage();
-
             return;
         }
 
@@ -319,7 +336,14 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         {
             if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
-                m_view->setCurrentPage(link.pageNumber);
+                if(link.pageNumber != -1)
+                {
+                    m_view->setCurrentPage(link.pageNumber);
+                }
+                else if(!link.url.isEmpty())
+                {
+                    QDesktopServices::openUrl(QUrl(link.url));
+                }
 
                 return;
             }
@@ -332,6 +356,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             m_selection = QRectF();
 
             this->updatePage();
+            return;
         }
     }
 }
@@ -343,5 +368,32 @@ void PageObject::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         m_rubberBand.setBottomRight(event->scenePos() - pos());
 
         this->updatePage();
+        return;
     }
+}
+
+void PageObject::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    QApplication::restoreOverrideCursor();
+
+    foreach(DocumentModel::Link link, m_links)
+    {
+        if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
+        {
+            QApplication::setOverrideCursor(Qt::PointingHandCursor);
+
+            if(link.pageNumber != -1)
+            {
+                QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link.pageNumber));
+            }
+            else if(!link.url.isEmpty())
+            {
+                QToolTip::showText(event->screenPos(), tr("Open URL %1.").arg(link.url));
+            }
+
+            return;
+        }
+    }
+
+    QToolTip::hideText();
 }

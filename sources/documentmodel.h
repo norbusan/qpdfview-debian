@@ -55,6 +55,9 @@ public:
     {
         QRectF area;
         int pageNumber;
+        QString url;
+
+        Link() : area(), pageNumber(-1), url() {}
     };
 
     QList<Link> links(int index);
@@ -119,7 +122,7 @@ public:
     void dropPage(int index, qreal resolutionX, qreal resolutionY);
 
 signals:
-    void filePathChanged(QString);
+    void filePathChanged(QString, bool);
     void pageCountChanged(int);
 
     void resultsChanged(int);

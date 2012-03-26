@@ -39,7 +39,7 @@ void AuxiliaryView::setView(DocumentView *view)
 
     if(m_view)
     {
-        connect(m_view->model(), SIGNAL(filePathChanged(QString)), this, SLOT(updateModel()));
+        connect(m_view->model(), SIGNAL(filePathChanged(QString, bool)), this, SLOT(updateModel()));
     }
 
     if(this->isVisible())

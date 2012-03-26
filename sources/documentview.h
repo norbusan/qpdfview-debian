@@ -120,7 +120,7 @@ public slots:
 private slots:
     void changeCurrentPage(int value);
 
-    void updateFilePath(const QString &filePath);
+    void updateFilePath(const QString &filePath, bool refresh);
     void updateResults();
 
 protected:
