@@ -186,7 +186,7 @@ void ThumbnailsView::followLink(QListWidgetItem *item)
 // recently used action
 
 RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &used"), parent),
-    m_actionGroup(), m_settings()
+    m_settings()
 {
     m_menu = new QMenu();
     this->setMenu(m_menu);

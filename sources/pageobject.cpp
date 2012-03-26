@@ -22,7 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageobject.h"
 
 PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGraphicsItem *parent) : QGraphicsObject(parent),
-    m_index(index),m_size(),m_links(),m_selection(),m_rubberBand(),m_render()
+    m_index(index),
+    m_size(),
+    m_links(),
+    m_selection(),
+    m_rubberBand(),
+    m_render()
 {
     m_model = model;
     m_view = view;

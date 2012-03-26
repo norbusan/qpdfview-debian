@@ -25,7 +25,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageobject.h"
 
 DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(parent),
-    m_resolutionX(72.0),m_resolutionY(72.0),m_pageToPageObject(),m_heightToPage(),m_results(),m_currentResult(m_results.end()),m_settings(),m_currentPage(1),m_pageLayout(OnePage),m_scaling(ScaleTo100),m_rotation(RotateBy0),m_highlightAll(false)
+    m_resolutionX(72.0),
+    m_resolutionY(72.0),
+    m_pageToPageObject(),
+    m_heightToPage(),
+    m_results(),
+    m_currentResult(m_results.end()),
+    m_settings(),
+    m_currentPage(1),
+    m_pageLayout(OnePage),
+    m_scaling(ScaleTo100),
+    m_rotation(RotateBy0),
+    m_highlightAll(false)
 {
     m_model = model;
 
@@ -853,7 +864,7 @@ void DocumentView::updateResults()
     this->prepareView(false);
 }
 
-bool DocumentView::eventFilter(QObject *object, QEvent *event)
+bool DocumentView::eventFilter(QObject*, QEvent *event)
 {
     if(event->type() == QEvent::Wheel)
     {

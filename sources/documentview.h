@@ -124,7 +124,7 @@ private slots:
     void updateResults();
 
 protected:
-    bool eventFilter(QObject *object, QEvent *event);
+    bool eventFilter(QObject*, QEvent *event);
     void resizeEvent(QResizeEvent *resizeEvent);
     void wheelEvent(QWheelEvent *wheelEvent);
 

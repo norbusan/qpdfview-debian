@@ -35,7 +35,12 @@ uint DocumentModel::s_pageCacheSize = 0;
 uint DocumentModel::s_maximumPageCacheSize = DocumentModel::s_settings.value("documentModel/maximumPageCacheSize", 134217728u).toUInt();
 
 DocumentModel::DocumentModel(QObject *parent) : QObject(parent),
-    m_filePath(""),m_pageCount(-1),m_results(),m_resultsMutex(),m_search(),m_print()
+    m_filePath(""),
+    m_pageCount(-1),
+    m_results(),
+    m_resultsMutex(),
+    m_search(),
+    m_print()
 {
     m_document = 0;
     m_filePathWatcher = 0;

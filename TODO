@@ -1,5 +1,4 @@
-- add a presentation view (implement link actions)
-- rewrite the thumbnails view as a simplifed version of the document view
+- add a presentation view
 
 - add a pan tool
 - add a magnify tool
@@ -13,3 +12,4 @@
 - improve link support
 - improve print support
 
+- improve thumbnails view
