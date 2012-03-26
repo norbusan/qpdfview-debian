@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
 
+    //this->menuBar()->setVisible(m_settings.value("mainWindow/menuBar", true).toBool());
+
     // command line arguments
 
     QStringList arguments = QCoreApplication::arguments();
@@ -298,7 +300,7 @@ void MainWindow::createActions()
     // presentation
 
     m_presentationAction = new QAction(tr("Presentation..."), this);
-    m_presentationAction->setShortcut(QKeySequence(Qt::Key_F5));
+    m_presentationAction->setShortcut(QKeySequence(Qt::Key_F10));
     connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(presentation()));
 
     // fullscreen
@@ -1492,6 +1494,32 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
             m_searchToolBar->hide();
         }
     }
+    /*else if(keyEvent->modifiers() == Qt::ALT && keyEvent->key() == Qt::Key_M)
+    {
+        this->menuBar()->setVisible(!this->menuBar()->isVisible());
+
+        m_settings.setValue("mainWindow/menuBar", this->menuBar()->isVisible());
+    }
+    else
+    {
+        if(this->menuBar()->isHidden())
+        {
+            QKeySequence shortcut(keyEvent->modifiers() + keyEvent->key());
+
+            foreach(QObject *object, this->children())
+            {
+                QAction *action = qobject_cast<QAction*>(object);
+
+                if(action)
+                {
+                    if(action->shortcut() == shortcut)
+                    {
+                        action->trigger();
+                    }
+                }
+            }
+        }
+    }*/
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *dragEnterEvent)

@@ -231,16 +231,15 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
         this->nextPage();
 
         break;
-    case Qt::Key_Control+Qt::Key_Home:
     case Qt::Key_Home:
         this->firstPage();
 
         break;
-    case Qt::Key_Control+Qt::Key_End:
     case Qt::Key_End:
         this->lastPage();
 
         break;
+    case Qt::Key_F10:
     case Qt::Key_Escape:
         this->close();
 
