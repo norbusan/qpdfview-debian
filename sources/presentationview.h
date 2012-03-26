@@ -49,8 +49,13 @@ private:
     QList<DocumentModel::Link> m_links;
     QTransform m_linkTransform;
 
+    QTimer *m_prefetchTimer;
+
     QFuture<void> m_render;
     void render();
+
+    QFuture<void> m_prefetch;
+    void prefetch();
 
     void preparePage();
     
@@ -61,6 +66,9 @@ public slots:
     void lastPage();
 
     void gotoPage(int pageNumber);
+
+private slots:
+    void prefetchTimeout();
 
 protected:
     void paintEvent(QPaintEvent *event);

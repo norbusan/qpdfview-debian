@@ -40,6 +40,14 @@ PresentationView::PresentationView(DocumentModel *model, int currentPage) : QWid
     this->setMouseTracking(true);
 
     this->preparePage();
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setSingleShot(true);
+    m_prefetchTimer->setInterval(500);
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
+
+    m_prefetchTimer->start();
 }
 
 PresentationView::~PresentationView()
@@ -47,6 +55,11 @@ PresentationView::~PresentationView()
     if(m_render.isRunning())
     {
         m_render.waitForFinished();
+    }
+
+    if(m_prefetch.isRunning())
+    {
+        m_prefetch.waitForFinished();
     }
 }
 
@@ -66,12 +79,27 @@ void PresentationView::preparePage()
     m_boundingRect.setHeight(m_resolutionY / 72.0 * m_size.height());
 
     m_links = m_model->links(m_currentPage-1);
-    m_linkTransform = QTransform(m_resolutionX / 72.0 * m_size.width(), 0.0, 0.0, m_resolutionY / 72.0 * m_size.height(), 0.0, 0.0);
+    m_linkTransform = QTransform(m_resolutionX / 72.0 * m_size.width(), 0.0, 0.0, m_resolutionY / 72.0 * m_size.height(), m_boundingRect.left(), m_boundingRect.top());
 }
 
 void PresentationView::render()
 {
     m_model->pushPage(m_currentPage-1, m_resolutionX, m_resolutionY);
+
+    this->update();
+}
+
+void PresentationView::prefetch()
+{
+    for(int pageNumber = m_currentPage-1; pageNumber <= m_currentPage+2; pageNumber++)
+    {
+        QImage image = m_model->pullPage(pageNumber-1, m_resolutionX, m_resolutionY);
+
+        if(image.isNull())
+        {
+            m_model->pushPage(pageNumber-1, m_resolutionX, m_resolutionY);
+        }
+    }
 
     this->update();
 }
@@ -84,6 +112,7 @@ void PresentationView::previousPage()
 
         this->preparePage();
 
+        m_prefetchTimer->start();
         this->update();
     }
 }
@@ -96,6 +125,7 @@ void PresentationView::nextPage()
 
         this->preparePage();
 
+        m_prefetchTimer->start();
         this->update();
     }
 }
@@ -108,6 +138,7 @@ void PresentationView::firstPage()
 
         this->preparePage();
 
+        m_prefetchTimer->start();
         this->update();
     }
 }
@@ -120,6 +151,7 @@ void PresentationView::lastPage()
 
         this->preparePage();
 
+        m_prefetchTimer->start();
         this->update();
     }
 }
@@ -132,7 +164,16 @@ void PresentationView::gotoPage(int pageNumber)
 
         this->preparePage();
 
+        m_prefetchTimer->start();
         this->update();
+    }
+}
+
+void PresentationView::prefetchTimeout()
+{
+    if(!m_prefetch.isRunning())
+    {
+        m_prefetch = QtConcurrent::run(this, &PresentationView::prefetch);
     }
 }
 
@@ -165,7 +206,15 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     // draw links
 
-    // TODO
+    painter.setPen(QPen(QColor(255,0,0,127)));
+    painter.setTransform(m_linkTransform);
+
+    foreach(DocumentModel::Link link, m_links)
+    {
+        painter.drawRect(link.area);
+    }
+
+    painter.resetTransform();
 
     painter.end();
 }
@@ -207,10 +256,46 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
 
 void PresentationView::mousePressEvent(QMouseEvent *event)
 {
-    // TODO
+    foreach(DocumentModel::Link link, m_links)
+    {
+        if(m_linkTransform.mapRect(link.area).contains(event->posF()))
+        {
+            if(link.pageNumber != -1)
+            {
+                this->gotoPage(link.pageNumber);
+            }
+            else if(!link.url.isEmpty())
+            {
+                QDesktopServices::openUrl(QUrl(link.url));
+            }
+
+            return;
+        }
+    }
 }
 
 void PresentationView::mouseMoveEvent(QMouseEvent *event)
 {
-    // TODO
+    QApplication::restoreOverrideCursor();
+
+    foreach(DocumentModel::Link link, m_links)
+    {
+        if(m_linkTransform.mapRect(link.area).contains(event->posF()))
+        {
+            QApplication::setOverrideCursor(Qt::PointingHandCursor);
+
+            if(link.pageNumber != -1)
+            {
+                QToolTip::showText(event->pos(), tr("Go to page %1.").arg(link.pageNumber));
+            }
+            else if(!link.url.isEmpty())
+            {
+                QToolTip::showText(event->pos(), tr("Open URL %1.").arg(link.url));
+            }
+
+            return;
+        }
+    }
+
+    QToolTip::hideText();
 }
