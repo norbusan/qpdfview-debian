@@ -49,6 +49,8 @@ const QString &DocumentModel::filePath() const
     return m_filePath;
 }
 
+// pages
+
 int DocumentModel::pageCount() const
 {
     return m_pageCount;
@@ -214,7 +216,7 @@ DocumentModel::Outline *DocumentModel::outline()
     }
 }
 
-// thumbnail
+// thumbnails
 
 QImage DocumentModel::thumbnail(int index)
 {
@@ -413,6 +415,19 @@ bool DocumentModel::refresh()
 
                 emit pageCountChanged(m_pageCount);
             }
+
+            s_pageCacheMutex.lock();
+
+            for(QMap<PageCacheKey, QImage>::iterator i =s_pageCache.begin(); i != s_pageCache.end(); i++)
+            {
+                if(i.key().filePath == m_filePath)
+                {
+                    s_pageCacheSize -= i.value().byteCount();
+                    s_pageCache.remove(i.key());
+                }
+            }
+
+            s_pageCacheMutex.unlock();
         }
 
         return document != 0;

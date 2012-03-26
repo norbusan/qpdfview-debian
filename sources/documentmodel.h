@@ -39,6 +39,9 @@ public:
     ~DocumentModel();
 
     const QString &filePath() const;
+
+    // pages
+
     int pageCount() const;
 
     QSizeF pageSize(int index);
@@ -91,7 +94,7 @@ public:
 
     Outline *outline();
 
-    // thumbnail
+    // thumbnails
 
     QImage thumbnail(int index);
 
@@ -134,6 +137,7 @@ private:
     Poppler::Document *m_document;
 
     QString m_filePath;
+
     int m_pageCount;
 
     struct PageCacheKey
