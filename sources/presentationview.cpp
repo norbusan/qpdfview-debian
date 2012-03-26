@@ -183,8 +183,6 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
 
-    // draw page
-
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
     QImage image = m_model->pullPage(m_currentPage-1, m_resolutionX, m_resolutionY);
@@ -203,18 +201,6 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     painter.setPen(QPen(Qt::black));
     painter.drawRect(m_boundingRect);
-
-    // draw links
-
-    painter.setPen(QPen(QColor(255,0,0,127)));
-    painter.setTransform(m_linkTransform);
-
-    foreach(DocumentModel::Link link, m_links)
-    {
-        painter.drawRect(link.area);
-    }
-
-    painter.resetTransform();
 
     painter.end();
 }
