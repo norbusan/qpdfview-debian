@@ -60,6 +60,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
 void MainWindow::createActions()
 {
+#ifdef DATA_INSTALL_PATH
+    QString dataInstallPath(DATA_INSTALL_PATH);
+#endif
+
     // open
 
     m_openAction = new QAction(tr("&Open..."), this);
@@ -73,7 +77,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_openAction->setIcon(QIcon(dataInstallPath + "/document-open.svg"));
+#else
         m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
+#endif
     }
 
     // recently used
@@ -96,7 +104,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_refreshAction->setIcon(QIcon(dataInstallPath + "/view-refresh.svg"));
+#else
         m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
+#endif
     }
 
     // saveCopy
@@ -112,7 +124,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_saveCopyAction->setIcon(QIcon(dataInstallPath + "/document-save.svg"));
+#else
         m_saveCopyAction->setIcon(QIcon(":/icons/document-save.svg"));
+#endif
     }
 
     // print
@@ -128,7 +144,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_printAction->setIcon(QIcon(dataInstallPath + "/document-print.svg"));
+#else
         m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
+#endif
     }
 
     // exit
@@ -152,7 +172,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_previousPageAction->setIcon(QIcon(dataInstallPath + "/go-previous.svg"));
+#else
         m_previousPageAction->setIcon(QIcon(":/icons/go-previous.svg"));
+#endif
     }
 
     // nextPage
@@ -168,7 +192,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_nextPageAction->setIcon(QIcon(dataInstallPath + "/go-next.svg"));
+#else
         m_nextPageAction->setIcon(QIcon(":/icons/go-next.svg"));
+#endif
     }
 
     // firstPage
@@ -184,7 +212,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_firstPageAction->setIcon(QIcon(dataInstallPath + "/go-first.svg"));
+#else
         m_firstPageAction->setIcon(QIcon(":/icons/go-first.svg"));
+#endif
     }
 
     // lastPage
@@ -200,7 +232,11 @@ void MainWindow::createActions()
     }
     else
     {
+#ifdef DATA_INSTALL_PATH
+        m_lastPageAction->setIcon(QIcon(dataInstallPath + "/go-last.svg"));
+#else
         m_lastPageAction->setIcon(QIcon(":/icons/go-last.svg"));
+#endif
     }
 
     // search

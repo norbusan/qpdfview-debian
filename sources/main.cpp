@@ -28,12 +28,24 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+#ifdef DATA_INSTALL_PATH
+    QString dataInstallPath(DATA_INSTALL_PATH);
+#endif
+
     QCoreApplication::setOrganizationName("qpdfview");
     QCoreApplication::setApplicationName("qpdfview");
+#ifdef DATA_INSTALL_PATH
+    QApplication::setWindowIcon(QIcon(dataInstallPath + "/qpdfview.svg"));
+#else
     QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
+#endif
 
     QTranslator t;
+#ifdef DATA_INSTALL_PATH
+    if(t.load(QString(dataInstallPath + "/qpdfview_") + QLocale::system().name()))
+#else
     if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name()))
+#endif
     {
         a.installTranslator(&t);
     }

@@ -1,10 +1,17 @@
+include(qpdfview.pri)
+
 TARGET = qpdfview
 TEMPLATE = app
 
-QT       += core xml gui
+QT += core xml gui
 
-INCLUDEPATH  += /usr/include/poppler/qt4
-LIBS         += -L/usr/lib -lpoppler-qt4
+# append the poppler headers and libraries manually or use pkgconfig
+
+# INCLUDEPATH += /usr/include/poppler/qt4
+# LIBS += -L/usr/lib -lpoppler-qt4
+
+CONFIG += link_pkgconfig
+PKGCONFIG += poppler-qt4
 
 SOURCES += \
     sources/documentmodel.cpp \
@@ -15,7 +22,7 @@ SOURCES += \
     sources/main.cpp \
     sources/presentationview.cpp
 
-HEADERS  += \
+HEADERS += \
     sources/documentmodel.h \
     sources/documentview.h \
     sources/pageobject.h \
@@ -23,21 +30,28 @@ HEADERS  += \
     sources/mainwindow.h \
     sources/presentationview.h
 
-RESOURCES += qpdfview.qrc
+# use the Qt resource system or the installed data files
+    
+# RESOURCES += qpdfview.qrc
 
-ICON = icons/qpdfview.svg
+DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
 
-TRANSLATIONS += translations/qpdfview_be.ts translations/qpdfview_de.ts translations/qpdfview_fr.ts translations/qpdfview_ru.ts translations/qpdfview_uk.ts
+TRANSLATIONS += \
+    translations/qpdfview_be.ts \
+    translations/qpdfview_de.ts \
+    translations/qpdfview_fr.ts \
+    translations/qpdfview_ru.ts \
+    translations/qpdfview_uk.ts
 
-target.path = /usr/bin
+target.path = $${TARGET_INSTALL_PATH}
 
-pixmap.path = /usr/share/pixmaps
-pixmap.files = icons/qpdfview.png
+data.path = $${DATA_INSTALL_PATH}
+data.files = icons/*.svg translations/*.qm
 
-launcher.path = /usr/share/applications
+launcher.path = $${LAUNCHER_INSTALL_PATH}
 launcher.files = miscellaneous/qpdfview.desktop
 
-manual.path = /usr/share/man/man1
+manual.path = $${MANUAL_INSTALL_PATH}
 manual.files = miscellaneous/qpdfview.1
 
-INSTALLS += target pixmap launcher manual
+INSTALLS += target data launcher manual
