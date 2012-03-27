@@ -136,6 +136,7 @@ private:
     QAction *m_addEntryAction;
     QAction *m_selectPreviousEntryAction;
     QAction *m_selectNextEntryAction;
+    QAction *m_removeEntriesOnCurrentPageAction;
     QAction *m_clearListAction;
 
     int m_currentPage;
@@ -151,6 +152,7 @@ public slots:
     void addEntry();
     void selectPreviousEntry();
     void selectNextEntry();
+    void removeEntriesOnCurrentPage();
     void clearList();
 
     void updateCurrrentPage(int currentPage, qreal top = 0.0);

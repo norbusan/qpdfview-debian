@@ -292,12 +292,17 @@ BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
     m_selectNextEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     connect(m_selectNextEntryAction, SIGNAL(triggered()), this, SLOT(selectNextEntry()));
 
+    m_removeEntriesOnCurrentPageAction = new QAction(tr("&Remove entries on current page"), this);
+    m_removeEntriesOnCurrentPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    connect(m_removeEntriesOnCurrentPageAction, SIGNAL(triggered()), this, SLOT(removeEntriesOnCurrentPage()));
+
     m_clearListAction = new QAction(tr("&Clear list"), this);
     connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
 
     this->addAction(m_addEntryAction);
     this->addAction(m_selectPreviousEntryAction);
     this->addAction(m_selectNextEntryAction);
+    this->addAction(m_removeEntriesOnCurrentPageAction);
     this->addAction(m_clearListAction);
     this->addSeparator();
 }
@@ -382,6 +387,20 @@ void BookmarksMenu::selectPreviousEntry()
     {
         previous->trigger();
     }
+    else if(!m_actionGroup->actions().isEmpty())
+    {
+        QAction *last = m_actionGroup->actions().last();
+
+        foreach(QAction *action, m_actionGroup->actions())
+        {
+            if(action->data().toReal() > last->data().toReal())
+            {
+                last = action;
+            }
+        }
+
+        last->trigger();
+    }
 }
 
 void BookmarksMenu::selectNextEntry()
@@ -407,6 +426,32 @@ void BookmarksMenu::selectNextEntry()
     if(next)
     {
         next->trigger();
+    }
+    else if(!m_actionGroup->actions().isEmpty())
+    {
+        QAction *first = m_actionGroup->actions().first();
+
+        foreach(QAction *action, m_actionGroup->actions())
+        {
+            if(action->data().toReal() < first->data().toReal())
+            {
+                first = action;
+            }
+        }
+
+        first->trigger();
+    }
+}
+
+void BookmarksMenu::removeEntriesOnCurrentPage()
+{
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(qFloor(action->data().toReal()) == m_currentPage)
+        {
+            m_actionGroup->removeAction(action);
+            this->removeAction(action);
+        }
     }
 }
 
