@@ -56,11 +56,11 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     m_scene = new QGraphicsScene(this);
     m_view = new QGraphicsView(m_scene, this);
 
-    m_scene->setBackgroundBrush(QBrush(Qt::darkGray));
-    m_view->show();
-
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_view);
+
+    m_scene->setBackgroundBrush(QBrush(Qt::darkGray));
+    m_view->show();
 
     // makeCurrentTab
 
@@ -87,15 +87,28 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
 
+    m_view->verticalScrollBar()->installEventFilter(this);
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+    // load pages
+
+    m_scene->clear();
+    m_pageToPageObject.clear();
+
+    for(int index = 0; index < m_model->pageCount(); index++)
+    {
+        PageObject *page = new PageObject(m_model, this, index);
+
+        m_scene->addItem(page);
+        m_pageToPageObject.insert(index+1, page);
+    }
+
     // prepare
 
     this->prepareScene();
     this->prepareView();
 
     m_prefetchTimer->start();
-
-    m_view->verticalScrollBar()->installEventFilter(this);
-    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 }
 
 int DocumentView::currentPage() const
@@ -486,19 +499,11 @@ void DocumentView::findNext()
 
 void DocumentView::prepareScene()
 {
-    m_scene->clear();
-
-    m_pageToPageObject.clear();
-    m_heightToPage.clear();
-
-    int pageCount = m_model->pageCount();
-
     // calculate scale factor
 
     QSizeF pageSize;
     qreal pageWidth = 0.0, pageHeight = 0.0;
-    qreal viewWidth = static_cast<qreal>(m_view->width());
-    qreal viewHeight = static_cast<qreal>(m_view->height());
+    qreal viewWidth = static_cast<qreal>(m_view->width()), viewHeight = static_cast<qreal>(m_view->height());
     qreal scaleFactor = 4.0;
 
     m_resolutionX = this->physicalDpiX();
@@ -512,9 +517,9 @@ void DocumentView::prepareScene()
         {
         case OnePage:
         case OneColumn:
-            for(int index = 0; index < pageCount; index++)
+            for(int page = 1; page <= m_model->pageCount(); page++)
             {
-                pageSize = m_model->pageSize(index);
+                pageSize = m_pageToPageObject.value(page)->size();
 
                 switch(m_rotation)
                 {
@@ -541,9 +546,9 @@ void DocumentView::prepareScene()
             break;
         case TwoPages:
         case TwoColumns:
-            for(int index = 0; index < (pageCount % 2 != 0 ? pageCount-1 : pageCount); index += 2)
+            for(int page = 1; page <= (m_model->pageCount() % 2 != 0 ? m_model->pageCount()-1 : m_model->pageCount()); page += 2)
             {
-                pageSize = m_model->pageSize(index);
+                pageSize = m_pageToPageObject.value(page)->size();
 
                 switch(m_rotation)
                 {
@@ -561,7 +566,7 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                pageSize = m_model->pageSize(index+1);
+                pageSize = m_pageToPageObject.value(page+1)->size();
 
                 switch(m_rotation)
                 {
@@ -586,9 +591,9 @@ void DocumentView::prepareScene()
                 }
             }
 
-            if(pageCount % 2 != 0)
+            if(m_model->pageCount() % 2 != 0)
             {
-                pageSize = m_model->pageSize(pageCount-1);
+                pageSize = m_pageToPageObject.value(m_model->pageCount())->size();
 
                 switch(m_rotation)
                 {
@@ -641,60 +646,61 @@ void DocumentView::prepareScene()
     m_resolutionX *= scaleFactor;
     m_resolutionY *= scaleFactor;
 
-    // populate scene
+    // arrange pages
 
     qreal sceneWidth = 0.0, sceneHeight = 10.0;
+
+    m_heightToPage.clear();
 
     switch(m_pageLayout)
     {
     case OnePage:
     case OneColumn:
-        for(int index = 0; index < pageCount; index++)
+        for(int page = 1; page <= m_model->pageCount(); page++)
         {
-            PageObject *page = new PageObject(m_model, this, index);
-            page->setPos(10.0, sceneHeight);
+            PageObject *pageObject = m_pageToPageObject.value(page);
 
-            m_scene->addItem(page);
-            m_pageToPageObject.insert(index+1, page);
-            m_heightToPage.insert(-qFloor(page->y() - 0.4 * page->boundingRect().height()), index+1);
+            pageObject->prepareTransforms();
+            pageObject->setPos(10.0, sceneHeight);
 
-            sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
-            sceneHeight += page->boundingRect().height() + 10.0;
+            m_heightToPage.insert(-qFloor(pageObject->y() - 0.4 * pageObject->boundingRect().height()), page);
+
+            sceneWidth = qMax(sceneWidth, pageObject->boundingRect().width() + 20.0);
+            sceneHeight += pageObject->boundingRect().height() + 10.0;
         }
 
         break;
     case TwoPages:
     case TwoColumns:
-        for(int index = 0; index < (pageCount % 2 != 0 ? pageCount-1 : pageCount); index += 2)
+        for(int page = 1; page <= (m_model->pageCount() % 2 != 0 ? m_model->pageCount()-1 : m_model->pageCount()); page += 2)
         {
-            PageObject *leftPage = new PageObject(m_model, this, index);
-            leftPage->setPos(10.0, sceneHeight);
+            PageObject *pageObject = m_pageToPageObject.value(page);
 
-            m_scene->addItem(leftPage);
-            m_pageToPageObject.insert(index+1, leftPage);
-            m_heightToPage.insert(-qFloor(leftPage->y() - 0.4 * leftPage->boundingRect().height()), index+1);
+            pageObject->prepareTransforms();
+            pageObject->setPos(10.0, sceneHeight);
 
-            PageObject *rightPage = new PageObject(m_model, this, index+1);
-            rightPage->setPos(leftPage->boundingRect().width() + 20.0, sceneHeight);
+            m_heightToPage.insert(-qFloor(pageObject->y() - 0.4 * pageObject->boundingRect().height()), page);
 
-            m_scene->addItem(rightPage);
-            m_pageToPageObject.insert(index+2, rightPage);
+            PageObject *nextPageObject = m_pageToPageObject.value(page+1);
 
-            sceneWidth = qMax(sceneWidth, leftPage->boundingRect().width() + rightPage->boundingRect().width() + 30.0);
-            sceneHeight += qMax(leftPage->boundingRect().height(), rightPage->boundingRect().height()) + 10.0;
+            nextPageObject->prepareTransforms();
+            nextPageObject->setPos(pageObject->boundingRect().width() + 20.0, sceneHeight);
+
+            sceneWidth = qMax(sceneWidth, pageObject->boundingRect().width() + nextPageObject->boundingRect().width() + 30.0);
+            sceneHeight += qMax(pageObject->boundingRect().height(), nextPageObject->boundingRect().height()) + 10.0;
         }
 
-        if(pageCount % 2 != 0)
+        if(m_model->pageCount() % 2 != 0)
         {
-            PageObject *page = new PageObject(m_model, this, pageCount-1);
-            page->setPos(10.0, sceneHeight);
+            PageObject *pageObject = m_pageToPageObject.value(m_model->pageCount());
 
-            m_scene->addItem(page);
-            m_pageToPageObject.insert(pageCount, page);
-            m_heightToPage.insert(-qFloor(page->y() - 0.4 * page->boundingRect().height()), pageCount);
+            pageObject->prepareTransforms();
+            pageObject->setPos(10.0, sceneHeight);
 
-            sceneWidth = qMax(sceneWidth, page->boundingRect().width() + 20.0);
-            sceneHeight += page->boundingRect().height() + 10.0;
+            m_heightToPage.insert(-qFloor(pageObject->y() - 0.4 * pageObject->boundingRect().height()), m_model->pageCount());
+
+            sceneWidth = qMax(sceneWidth, pageObject->boundingRect().width() + 20.0);
+            sceneHeight += pageObject->boundingRect().height() + 10.0;
         }
 
         break;
@@ -764,6 +770,11 @@ void DocumentView::prepareView(bool scroll, qreal top)
         break;
     case OneColumn:
     case TwoColumns:
+        foreach(PageObject *page, m_pageToPageObject.values())
+        {
+            page->setVisible(true);
+        }
+
         m_view->setSceneRect(QRectF());
 
         break;
@@ -794,11 +805,11 @@ void DocumentView::prepareView(bool scroll, qreal top)
         m_view->verticalScrollBar()->setValue(qCeil(page->y() + page->boundingRect().height() * top));
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+        // bookmarks
+
+        m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
     }
-
-    // bookmarks
-
-    m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }
 
 void DocumentView::makeCurrentTab()
@@ -857,13 +868,15 @@ void DocumentView::changeCurrentPage(int value)
     // bookmarks
 
     PageObject *page = m_pageToPageObject.value(m_currentPage);
-    qreal top = qMax(0.0, value - page->y()) / page->boundingRect().height();
+    qreal top = qMax(0.0, static_cast<qreal>(value) - page->y()) / page->boundingRect().height();
 
     m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }
 
 void DocumentView::updateFilePath(const QString &filePath, bool refresh)
 {
+    // currentPage
+
     if(refresh)
     {
         m_currentPage = m_currentPage > m_model->pageCount() ? 1 : m_currentPage;
@@ -875,8 +888,7 @@ void DocumentView::updateFilePath(const QString &filePath, bool refresh)
 
     emit currentPageChanged(m_currentPage);
 
-    this->prepareScene();
-    this->prepareView();
+    // makeCurrentTab
 
     m_makeCurrentTabAction->setText(QFileInfo(filePath).completeBaseName());
 
@@ -892,6 +904,26 @@ void DocumentView::updateFilePath(const QString &filePath, bool refresh)
             tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
         }
     }
+
+    // load pages
+
+    m_scene->clear();
+    m_pageToPageObject.clear();
+
+    for(int index = 0; index < m_model->pageCount(); index++)
+    {
+        PageObject *page = new PageObject(m_model, this, index);
+
+        m_scene->addItem(page);
+        m_pageToPageObject.insert(index+1, page);
+    }
+
+    // prepare
+
+    this->prepareScene();
+    this->prepareView();
+
+    m_prefetchTimer->start();
 }
 
 void DocumentView::updateResults()

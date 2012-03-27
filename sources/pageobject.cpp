@@ -38,6 +38,55 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
     m_links = m_model->links(m_index);
     m_results = m_model->results(index);
 
+    connect(&m_render, SIGNAL(finished()), this, SLOT(updatePage()));
+    connect(m_model, SIGNAL(resultsChanged(int)), this, SLOT(updateResults(int)));
+    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlights()));
+
+    this->setAcceptHoverEvents(true);
+}
+
+PageObject::~PageObject()
+{
+    if(m_render.isRunning())
+    {
+        m_render.waitForFinished();
+    }
+
+    m_model->dropPage(m_index, m_view->resolutionX(), m_view->resolutionY());
+}
+
+int PageObject::index() const
+{
+    return m_index;
+}
+
+void PageObject::setIndex(const int &index)
+{
+    if(m_index != index)
+    {
+        m_index = index;
+
+        emit indexChanged(m_index);
+    }
+}
+
+const QSizeF &PageObject::size() const
+{
+    return m_size;
+}
+
+const QList<DocumentModel::Link> &PageObject::links() const
+{
+    return m_links;
+}
+
+const QList<QRectF> &PageObject::results() const
+{
+    return m_results;
+}
+
+void PageObject::prepareTransforms()
+{
     qreal scaleX = m_view->resolutionX() / 72.0;
     qreal scaleY = m_view->resolutionY() / 72.0;
     qreal width = m_size.width();
@@ -69,37 +118,6 @@ PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGra
         m_resultTransform = QTransform(0.0, -scaleY, scaleX, 0.0, 0.0, scaleY * width);
 
         break;
-    }
-
-    connect(&m_render, SIGNAL(finished()), this, SLOT(updatePage()));
-    connect(m_model, SIGNAL(resultsChanged(int)), this, SLOT(updateResults(int)));
-    connect(m_view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlights()));
-
-    this->setAcceptHoverEvents(true);
-}
-
-PageObject::~PageObject()
-{
-    if(m_render.isRunning())
-    {
-        m_render.waitForFinished();
-    }
-
-    m_model->dropPage(m_index, m_view->resolutionX(), m_view->resolutionY());
-}
-
-int PageObject::index() const
-{
-    return m_index;
-}
-
-void PageObject::setIndex(const int &index)
-{
-    if(m_index != index)
-    {
-        m_index = index;
-
-        emit indexChanged(m_index);
     }
 }
 

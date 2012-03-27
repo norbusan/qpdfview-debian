@@ -42,6 +42,12 @@ public:
     int index() const;
     void setIndex(const int &index);
 
+    const QSizeF &size() const;
+    const QList<DocumentModel::Link> &links() const;
+    const QList<QRectF> &results() const;
+
+    void prepareTransforms();
+
     const QTransform &pageTransform() const;
     const QTransform &linkTransform() const;
     const QTransform &resultTransform() const;
