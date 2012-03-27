@@ -448,11 +448,18 @@ void PageObject::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
             if(link.pageNumber != -1)
             {
-                QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link.pageNumber));
+                if(link.filePath.isEmpty())
+                {
+                    QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link.pageNumber));
+                }
+                else
+                {
+                    QToolTip::showText(event->screenPos(), tr("Go to page %1 in document \"%2\".").arg(link.pageNumber).arg(link.filePath));
+                }
             }
             else if(!link.url.isEmpty())
             {
-                QToolTip::showText(event->screenPos(), tr("Open URL %1.").arg(link.url));
+                QToolTip::showText(event->screenPos(), tr("Open URL \"%1\".").arg(link.url));
             }
 
             return;

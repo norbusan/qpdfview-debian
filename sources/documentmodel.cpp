@@ -157,6 +157,14 @@ QList<DocumentModel::Link> DocumentModel::links(int index)
                 qreal linkTop = static_cast<Poppler::LinkGoto*>(link)->destination().top();
                 QString linkFilePath = static_cast<Poppler::LinkGoto*>(link)->isExternal() ? static_cast<Poppler::LinkGoto*>(link)->fileName() : QString();
 
+                if(!linkFilePath.isEmpty())
+                {
+                    if(QFileInfo(linkFilePath).isRelative())
+                    {
+                        linkFilePath = QFileInfo(m_filePath).path() + "/" + linkFilePath;
+                    }
+                }
+
                 Link result;
                 result.area = linkArea;
                 result.pageNumber = linkPageNumber;
