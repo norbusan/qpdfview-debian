@@ -55,9 +55,10 @@ public:
     {
         QRectF area;
         int pageNumber;
+        qreal top;
         QString url;
 
-        Link() : area(), pageNumber(-1), url() {}
+        Link() : area(), pageNumber(-1), top(0.0), url() {}
     };
 
     QList<Link> links(int index);
@@ -77,13 +78,14 @@ public:
     {
         QString text;
         int pageNumber;
+        qreal top;
 
         bool isOpen;
 
         Outline *sibling;
         Outline *child;
 
-        Outline() : text(""), pageNumber(-1), isOpen(false), sibling(0), child(0) {}
+        Outline() : text(""), pageNumber(-1), top(0.0), isOpen(false), sibling(0), child(0) {}
         ~Outline()
         {
             if(sibling)

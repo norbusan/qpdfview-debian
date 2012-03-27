@@ -338,7 +338,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             {
                 if(link.pageNumber != -1)
                 {
-                    m_view->setCurrentPage(link.pageNumber);
+                    m_view->setCurrentPage(link.pageNumber, link.top);
                 }
                 else if(!link.url.isEmpty())
                 {

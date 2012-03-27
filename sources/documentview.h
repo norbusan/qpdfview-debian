@@ -93,7 +93,7 @@ private:
     bool m_highlightAll;
 
     void prepareScene();
-    void prepareView(bool scroll = true);
+    void prepareView(bool scroll = true, qreal top = 0.0);
 
 signals:
     void currentPageChanged(int);
@@ -103,7 +103,7 @@ signals:
     void highlightAllChanged(bool);
 
 public slots:
-    void setCurrentPage(int currentPage);
+    void setCurrentPage(int currentPage, qreal top = 0.0);
 
     void previousPage();
     void nextPage();

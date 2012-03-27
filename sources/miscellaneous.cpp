@@ -75,6 +75,7 @@ static void outlineToTree(DocumentModel::Outline *node, QTreeWidget *tree, QTree
 
         item->setText(0, nextNode->text);
         item->setData(0, Qt::UserRole, nextNode->pageNumber);
+        item->setData(0, Qt::UserRole+1, nextNode->top);
 
         if(nextNode->isOpen)
         {
@@ -121,10 +122,11 @@ void OutlineView::updateModel()
 void OutlineView::followLink(QTreeWidgetItem *item, int column)
 {
     int pageNumber = item->data(column, Qt::UserRole).toInt();
+    qreal top = item->data(column, Qt::UserRole+1).toReal();
 
     if(pageNumber != -1)
     {
-        this->view()->setCurrentPage(pageNumber);
+        this->view()->setCurrentPage(pageNumber, top);
     }
 }
 

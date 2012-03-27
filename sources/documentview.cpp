@@ -194,7 +194,7 @@ QAction *DocumentView::makeCurrentTabAction() const
     return m_makeCurrentTabAction;
 }
 
-void DocumentView::setCurrentPage(int currentPage)
+void DocumentView::setCurrentPage(int currentPage, qreal top)
 {
     if(m_currentPage != currentPage && currentPage >= 1 &&  currentPage <= m_model->pageCount())
     {
@@ -221,7 +221,7 @@ void DocumentView::setCurrentPage(int currentPage)
 
         emit currentPageChanged(m_currentPage);
 
-        this->prepareView();
+        this->prepareView(true, top);
     }
 }
 
@@ -698,7 +698,7 @@ void DocumentView::prepareScene()
     m_scene->addItem(m_highlight);
 }
 
-void DocumentView::prepareView(bool scroll)
+void DocumentView::prepareView(bool scroll, qreal top)
 {
     PageObject *page = m_pageToPageObject.value(m_currentPage), *nextPage = 0;
 
@@ -774,7 +774,7 @@ void DocumentView::prepareView(bool scroll)
     {
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-        m_view->verticalScrollBar()->setValue(qCeil(page->y()));
+        m_view->verticalScrollBar()->setValue(qCeil(page->y() + page->boundingRect().height() * top));
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
     }

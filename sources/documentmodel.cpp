@@ -122,10 +122,12 @@ QList<DocumentModel::Link> DocumentModel::links(int index)
             {
                 QRectF linkArea = link->linkArea().normalized();
                 int linkPageNumber = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
+                qreal linkTop = static_cast<Poppler::LinkGoto*>(link)->destination().top();
 
                 Link result;
                 result.area = linkArea;
                 result.pageNumber = linkPageNumber;
+                result.top = linkTop;
 
                 results.append(result);
             }
@@ -218,12 +220,14 @@ static DocumentModel::Outline *domNodeToOutline(Poppler::Document *document, con
         Poppler::LinkDestination linkDestination(domNode.toElement().attribute("Destination"));
 
         result->pageNumber = linkDestination.pageNumber();
+        result->top = linkDestination.top();
     }
     else
     {
         Poppler::LinkDestination *linkDestination = document->linkDestination(domNode.toElement().attribute("DestinationName"));
 
         result->pageNumber = linkDestination ? linkDestination->pageNumber() : -1;
+        result->top = linkDestination ? linkDestination->top() : 0.0;
 
         delete linkDestination;
     }
