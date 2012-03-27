@@ -67,6 +67,7 @@ PresentationView::~PresentationView()
 
     if(m_prefetch.isRunning())
     {
+        m_prefetch.cancel();
         m_prefetch.waitForFinished();
     }
 }
@@ -104,6 +105,11 @@ void PresentationView::prefetch()
 
     for(int page = fromPage; page <= toPage; page++)
     {
+        if(m_prefetch.isCanceled())
+        {
+            return;
+        }
+
         QImage image = m_model->pullPage(page-1, m_resolutionX, m_resolutionY);
 
         if(image.isNull())

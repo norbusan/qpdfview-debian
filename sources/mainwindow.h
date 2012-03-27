@@ -100,6 +100,7 @@ private:
     QAction *m_closeAllTabsAction;
     QAction *m_closeAllTabsButCurrentAction;
 
+    QAction *m_contentsAction;
     QAction *m_aboutAction;
 
     // widgets
@@ -195,6 +196,7 @@ private slots:
     void closeAllTabs();
     void closeAllTabsButCurrent();
 
+    void contents();
     void about();
 
     void changeFullscreen();

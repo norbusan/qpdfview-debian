@@ -187,4 +187,19 @@ private:
 
 };
 
+// help dialog
+
+class HelpDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit HelpDialog(QWidget *parent = 0);
+
+private:
+    QTextBrowser *m_textBrowser;
+    QDialogButtonBox *m_buttonBox;
+
+};
+
 #endif // MISCELLANEOUS_H

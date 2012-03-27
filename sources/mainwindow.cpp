@@ -386,6 +386,14 @@ void MainWindow::createActions()
     m_closeAllTabsButCurrentAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
     connect(m_closeAllTabsButCurrentAction, SIGNAL(triggered()), this, SLOT(closeAllTabsButCurrent()));
 
+    // contents
+
+    m_contentsAction = new QAction(tr("&Contents"), this);
+    m_contentsAction->setShortcut(QKeySequence::HelpContents);
+    m_contentsAction->setIcon(QIcon::fromTheme("help-contents"));
+    m_contentsAction->setIconVisibleInMenu(true);
+    connect(m_contentsAction, SIGNAL(triggered()), this, SLOT(contents()));
+
     // about
 
     m_aboutAction = new QAction(tr("&About"), this);
@@ -692,6 +700,7 @@ void MainWindow::createMenus()
     // help
 
     m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_contentsAction);
     m_helpMenu->addAction(m_aboutAction);
 }
 
@@ -1036,6 +1045,13 @@ void MainWindow::closeAllTabsButCurrent()
         m_tabWidget->setTabToolTip(index, QFileInfo(model->filePath()).completeBaseName());
         m_tabWidget->setCurrentIndex(index);
     }
+}
+
+void MainWindow::contents()
+{
+    HelpDialog helpDialog;
+
+    helpDialog.exec();
 }
 
 void MainWindow::about()

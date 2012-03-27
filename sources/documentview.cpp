@@ -72,7 +72,6 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     m_bookmarksMenu = new BookmarksMenu(this);
 
-    connect(this, SIGNAL(currentPageChanged(int)), m_bookmarksMenu, SLOT(updateCurrrentPage(int)));
     connect(m_bookmarksMenu, SIGNAL(entrySelected(int,qreal)), this, SLOT(setCurrentPage(int,qreal)));
 
     // prefetchTimer
@@ -796,6 +795,10 @@ void DocumentView::prepareView(bool scroll, qreal top)
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
     }
+
+    // bookmarks
+
+    m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }
 
 void DocumentView::makeCurrentTab()
@@ -813,7 +816,7 @@ void DocumentView::makeCurrentTab()
     }
     else
     {
-        qFatal("!tabWidget");
+        qCritical("!tabWidget");
     }
 }
 
@@ -854,7 +857,7 @@ void DocumentView::changeCurrentPage(int value)
     // bookmarks
 
     PageObject *page = m_pageToPageObject.value(m_currentPage);
-    qreal top = qMax(0.0, (static_cast<qreal>(value) - page->y()) / page->boundingRect().height());
+    qreal top = qMax(0.0, value - page->y()) / page->boundingRect().height();
 
     m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }

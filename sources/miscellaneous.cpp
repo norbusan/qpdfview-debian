@@ -335,7 +335,7 @@ void BookmarksMenu::addEntry()
         {
             if(before)
             {
-                before = before->data().toReal() < action->data().toReal() ? before : action;
+                before = action->data().toReal() < before->data().toReal() ? action : before;
             }
             else
             {
@@ -374,7 +374,7 @@ void BookmarksMenu::selectPreviousEntry()
         {
             if(previous)
             {
-                previous = previous->data().toReal() > action->data().toReal() ? previous : action;
+                previous = action->data().toReal() > previous->data().toReal() ? action : previous;
             }
             else
             {
@@ -414,7 +414,7 @@ void BookmarksMenu::selectNextEntry()
         {
             if(next)
             {
-                next = next->data().toReal() < action->data().toReal() ? next : action;
+                next = action->data().toReal() < next->data().toReal() ? action : next;
             }
             else
             {
@@ -553,5 +553,15 @@ void SettingsDialog::accept()
     DocumentModel::setMaximumPageCacheSize(m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
 
     QDialog::accept();
+}
+
+HelpDialog::HelpDialog(QWidget *parent) : QDialog(parent)
+{
+    m_textBrowser = new QTextBrowser(this);
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, this);
+
+    this->setLayout(new QVBoxLayout());
+    this->layout()->addWidget(m_textBrowser);
+    this->layout()->addWidget(m_buttonBox);
 }
 

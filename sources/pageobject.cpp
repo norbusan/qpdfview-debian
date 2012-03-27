@@ -360,7 +360,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                             }
                             else
                             {
-                                qFatal("!mainWindow");
+                                qCritical("!mainWindow");
                             }
                         }
                         else
@@ -415,7 +415,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                         }
                         else
                         {
-                            qFatal("!mainWindow");
+                            qCritical("!mainWindow");
                         }
                     }
                     else
@@ -430,7 +430,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                             }
                             else
                             {
-                                qFatal("!mainWindow");
+                                qCritical("!mainWindow");
                             }
                         }
                         else
