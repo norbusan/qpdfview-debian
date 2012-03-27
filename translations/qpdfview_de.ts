@@ -455,8 +455,8 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="455"/>
-        <source>&amp;Refresh automatically:</source>
-        <translation>Automatisch &amp;aktualisieren:</translation>
+        <source>Automatic &amp;refresh:</source>
+        <translation>&amp;Automatisches Aktualisieren:</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="456"/>

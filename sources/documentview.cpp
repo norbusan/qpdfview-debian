@@ -811,6 +811,10 @@ void DocumentView::makeCurrentTab()
             tabWidget->setCurrentIndex(index);
         }
     }
+    else
+    {
+        qFatal("!tabWidget");
+    }
 }
 
 void DocumentView::prefetchTimeout()

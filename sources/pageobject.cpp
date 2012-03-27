@@ -358,6 +358,10 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                             {
                                 mainWindow->openExternalLink(link.filePath, link.pageNumber, link.top, false);
                             }
+                            else
+                            {
+                                qFatal("!mainWindow");
+                            }
                         }
                         else
                         {
@@ -393,7 +397,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             return;
         }
 
-        // external links
+        // links
 
         foreach(DocumentModel::Link link, m_links)
         {
@@ -401,7 +405,20 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             {
                 if(link.pageNumber != -1)
                 {
-                    if(!link.filePath.isEmpty())
+                    if(link.filePath.isEmpty())
+                    {
+                        MainWindow *mainWindow = qobject_cast<MainWindow*>(m_view->parent()->parent()->parent());
+
+                        if(mainWindow)
+                        {
+                            mainWindow->openExternalLink(m_view->model()->filePath(), link.pageNumber, link.top, true);
+                        }
+                        else
+                        {
+                            qFatal("!mainWindow");
+                        }
+                    }
+                    else
                     {
                         if(DocumentModel::openExternalLinks())
                         {
@@ -410,6 +427,10 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                             if(mainWindow)
                             {
                                 mainWindow->openExternalLink(link.filePath, link.pageNumber, link.top, true);
+                            }
+                            else
+                            {
+                                qFatal("!mainWindow");
                             }
                         }
                         else

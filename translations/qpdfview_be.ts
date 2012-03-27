@@ -455,7 +455,7 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="455"/>
-        <source>&amp;Refresh automatically:</source>
+        <source>Automatic &amp;refresh:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

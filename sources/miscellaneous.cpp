@@ -452,7 +452,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    m_layout->addRow(tr("&Refresh automatically:"), m_watchFilePathCheckBox);
+    m_layout->addRow(tr("Automatic &refresh:"), m_watchFilePathCheckBox);
     m_layout->addRow(tr("Open links to &URL:"), m_openUrlLinksCheckBox);
     m_layout->addRow(tr("Open &external links:"), m_openExternalLinksCheckBox);
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
