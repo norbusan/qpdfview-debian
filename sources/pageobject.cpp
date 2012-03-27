@@ -349,7 +349,7 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             }
         }
     }
-    else if(event->button() == Qt::RightButton)
+    else if(event->button() == Qt::MiddleButton)
     {
         if(!m_selection.isNull())
         {

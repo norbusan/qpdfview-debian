@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class DocumentModel;
 class PageObject;
+class BookmarksMenu;
 
 class DocumentView : public QWidget
 {
@@ -70,6 +71,8 @@ private:
     qreal m_resolutionY;
 
     QAction *m_makeCurrentTabAction;
+
+    BookmarksMenu *m_bookmarksMenu;
 
     QTimer *m_prefetchTimer;
 
@@ -127,6 +130,8 @@ protected:
     bool eventFilter(QObject*, QEvent *event);
     void resizeEvent(QResizeEvent *resizeEvent);
     void wheelEvent(QWheelEvent *wheelEvent);
+    void keyPressEvent(QKeyEvent *keyEvent);
+    void contextMenuEvent(QContextMenuEvent *contextMenuEvent);
 
 };
 

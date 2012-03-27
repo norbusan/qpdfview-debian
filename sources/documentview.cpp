@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentmodel.h"
 #include "pageobject.h"
+#include "miscellaneous.h"
 
 DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(parent),
     m_resolutionX(72.0),
@@ -43,21 +44,6 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     connect(m_model, SIGNAL(filePathChanged(QString, bool)), this, SLOT(updateFilePath(QString, bool)));
     connect(m_model, SIGNAL(resultsChanged()), this, SLOT(updateResults()));
 
-    // makeCurrentTab
-
-    m_makeCurrentTabAction = new QAction(QFileInfo(m_model->filePath()).completeBaseName(), this);
-
-    connect(m_makeCurrentTabAction, SIGNAL(triggered()), this, SLOT(makeCurrentTab()));
-
-    // prefetchTimer
-
-    m_prefetchTimer = new QTimer(this);
-    m_prefetchTimer->setSingleShot(true);
-    m_prefetchTimer->setInterval(500);
-
-    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
-    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
-
     // settings
 
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
@@ -75,6 +61,34 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_view);
+
+    // makeCurrentTab
+
+    m_makeCurrentTabAction = new QAction(QFileInfo(m_model->filePath()).completeBaseName(), this);
+
+    connect(m_makeCurrentTabAction, SIGNAL(triggered()), this, SLOT(makeCurrentTab()));
+
+    // bookmarks
+
+    m_bookmarksMenu = new BookmarksMenu(this);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_bookmarksMenu, SLOT(updateCurrrentPage(int)));
+    connect(m_bookmarksMenu, SIGNAL(entrySelected(int,qreal)), this, SLOT(setCurrentPage(int,qreal)));
+
+    // prefetchTimer
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setSingleShot(true);
+    m_prefetchTimer->setInterval(500);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scalingChanged(DocumentView::Scaling)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(rotationChanged(DocumentView::Rotation)), m_prefetchTimer, SLOT(start()));
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
+
+    // prepare
 
     this->prepareScene();
     this->prepareView();
@@ -196,7 +210,7 @@ QAction *DocumentView::makeCurrentTabAction() const
 
 void DocumentView::setCurrentPage(int currentPage, qreal top)
 {
-    if(m_currentPage != currentPage && currentPage >= 1 &&  currentPage <= m_model->pageCount())
+    if(currentPage >= 1 && currentPage <= m_model->pageCount())
     {
         switch(m_pageLayout)
         {
@@ -696,6 +710,10 @@ void DocumentView::prepareScene()
     m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
 
     m_scene->addItem(m_highlight);
+
+    // bookmarks
+
+    m_bookmarksMenu->clearList();
 }
 
 void DocumentView::prepareView(bool scroll, qreal top)
@@ -828,6 +846,13 @@ void DocumentView::changeCurrentPage(int value)
             emit currentPageChanged(m_currentPage);
         }
     }
+
+    // bookmarks
+
+    PageObject *page = m_pageToPageObject.value(m_currentPage);
+    qreal top = qMax(0.0, (static_cast<qreal>(value) - page->y()) / page->boundingRect().height());
+
+    m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }
 
 void DocumentView::updateFilePath(const QString &filePath, bool refresh)
@@ -876,7 +901,7 @@ bool DocumentView::eventFilter(QObject*, QEvent *event)
     {
         QWheelEvent *wheelEvent = static_cast<QWheelEvent*>(event);
 
-        return wheelEvent->modifiers() == Qt::ControlModifier;
+        return wheelEvent->modifiers() == Qt::CTRL;
     }
     else
     {
@@ -999,4 +1024,22 @@ void DocumentView::wheelEvent(QWheelEvent *wheelEvent)
             break;
         }
     }
+}
+
+void DocumentView::keyPressEvent(QKeyEvent *keyEvent)
+{
+    QKeySequence shortcut(keyEvent->modifiers() + keyEvent->key());
+
+    foreach(QAction *action, m_bookmarksMenu->actions())
+    {
+        if(action->shortcut() == shortcut)
+        {
+            action->trigger();
+        }
+    }
+}
+
+void DocumentView::contextMenuEvent(QContextMenuEvent *contextMenuEvent)
+{
+    m_bookmarksMenu->exec(contextMenuEvent->globalPos());
 }

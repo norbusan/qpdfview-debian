@@ -282,11 +282,11 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
 
             if(link.pageNumber != -1)
             {
-                QToolTip::showText(event->pos(), tr("Go to page %1.").arg(link.pageNumber));
+                QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link.pageNumber));
             }
             else if(!link.url.isEmpty())
             {
-                QToolTip::showText(event->pos(), tr("Open URL %1.").arg(link.url));
+                QToolTip::showText(event->globalPos(), tr("Open URL %1.").arg(link.url));
             }
 
             return;

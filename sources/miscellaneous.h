@@ -109,15 +109,51 @@ private:
     QSettings m_settings;
 
 signals:
-    void filePathSelected(QString);
+    void entrySelected(QString);
 
 private slots:
-    void selectFilePath(QAction *action);
+    void selectEntry(QAction *action);
 
     void clearList();
 
 public slots:
-    void addFilePath(const QString &filePath);
+    void addEntry(const QString &filePath);
+
+};
+
+// bookmarks menu
+
+class BookmarksMenu : public QMenu
+{
+    Q_OBJECT
+
+public:
+    BookmarksMenu(QWidget *parent = 0);
+
+private:
+    QActionGroup *m_actionGroup;
+
+    QAction *m_addEntryAction;
+    QAction *m_selectPreviousEntryAction;
+    QAction *m_selectNextEntryAction;
+    QAction *m_clearListAction;
+
+    int m_currentPage;
+    qreal m_top;
+
+signals:
+    void entrySelected(int currentPage, qreal top);
+
+private slots:
+    void selectEntry(QAction *action);
+
+public slots:
+    void addEntry();
+    void selectPreviousEntry();
+    void selectNextEntry();
+    void clearList();
+
+    void updateCurrrentPage(int currentPage, qreal top = 0.0);
 
 };
 

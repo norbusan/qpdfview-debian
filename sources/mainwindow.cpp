@@ -89,7 +89,7 @@ void MainWindow::createActions()
     m_recentlyUsedAction = new RecentlyUsedAction(this);
     m_recentlyUsedAction->setIcon(QIcon::fromTheme("document-open-recent"));
     m_recentlyUsedAction->setIconVisibleInMenu(true);
-    connect(m_recentlyUsedAction, SIGNAL(filePathSelected(QString)), this, SLOT(openRecentlyUsed(QString)));
+    connect(m_recentlyUsedAction, SIGNAL(entrySelected(QString)), this, SLOT(openRecentlyUsed(QString)));
 
     // refresh
 
@@ -724,7 +724,7 @@ void MainWindow::open()
 
             if(model->open(filePath))
             {
-                m_recentlyUsedAction->addFilePath(filePath);
+                m_recentlyUsedAction->addEntry(filePath);
 
                 m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
             }
@@ -1086,7 +1086,7 @@ bool MainWindow::addTab(const QString &filePath)
 
         m_tabMenu->addAction(view->makeCurrentTabAction());
 
-        m_recentlyUsedAction->addFilePath(filePath);
+        m_recentlyUsedAction->addEntry(filePath);
 
         connect(model, SIGNAL(pageCountChanged(int)), this, SLOT(updateNumberOfPages(int)));
 
@@ -1556,6 +1556,11 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
             }
         }
     }*/
+
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        QApplication::sendEvent(m_tabWidget->currentWidget(), keyEvent);
+    }
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *dragEnterEvent)

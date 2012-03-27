@@ -229,10 +229,10 @@ private slots:
     void invalidateSearches();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dropEvent(QDropEvent *event);
-    void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *keyEvent);
+    void dragEnterEvent(QDragEnterEvent *dragEnterEvent);
+    void dropEvent(QDropEvent *dropEvent);
+    void closeEvent(QCloseEvent *closeEvent);
 
 };
 
