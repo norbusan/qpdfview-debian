@@ -5,11 +5,13 @@ TEMPLATE = app
 
 QT += core xml gui
 
-# append the poppler headers and libraries manually or use pkgconfig
-
+# uncomment to append the poppler headers and libraries manually
+#
 # INCLUDEPATH += /usr/include/poppler/qt4
 # LIBS += -L/usr/lib -lpoppler-qt4
 
+# uncomment to use pkgconfig to find the poppler headers and libraries
+#
 CONFIG += link_pkgconfig
 PKGCONFIG += poppler-qt4
 
@@ -30,12 +32,6 @@ HEADERS += \
     sources/mainwindow.h \
     sources/presentationview.h
 
-# use the Qt resource system or the installed data files
-    
-# RESOURCES += qpdfview.qrc
-
-DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
-
 TRANSLATIONS += \
     translations/qpdfview_be.ts \
     translations/qpdfview_de.ts \
@@ -45,13 +41,24 @@ TRANSLATIONS += \
 
 target.path = $${TARGET_INSTALL_PATH}
 
-data.path = $${DATA_INSTALL_PATH}
-data.files = icons/*.svg translations/*.qm
-
 launcher.path = $${LAUNCHER_INSTALL_PATH}
 launcher.files = miscellaneous/qpdfview.desktop
 
 manual.path = $${MANUAL_INSTALL_PATH}
 manual.files = miscellaneous/qpdfview.1
 
-INSTALLS += target data launcher manual
+data.path = $${DATA_INSTALL_PATH}
+
+INSTALLS += target launcher manual data
+
+# uncomment to use the Qt resource system for data files
+#
+# data.files = icons/qpdfview.svg
+# 
+# RESOURCES += qpdfview.qrc
+
+# uncomment to install data files into DATA_INSTALL_PATH
+#
+data.files = icons/*.svg translations/*.qm
+
+DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"

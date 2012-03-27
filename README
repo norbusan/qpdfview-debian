@@ -1,6 +1,6 @@
 qpdfview is a tabbed PDF viewer using the poppler library.
 
-It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4 (version 0.14 or higher). It is built using "qmake" and "make". It is installed using "make install".
+It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4 (version 0.14 or higher). It is built using "qmake" and "make". It is installed using "make install". (The paths can be changed by editing "qpdfview.pri".)
 
 The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
