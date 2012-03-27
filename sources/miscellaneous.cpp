@@ -196,7 +196,7 @@ RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &
     m_actionGroup = new QActionGroup(this);
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(selectEntry(QAction*)));
 
-    m_clearListAction = new QAction(tr("Clear list"), this);
+    m_clearListAction = new QAction(tr("&Clear list"), this);
     connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
 
     m_separator = m_menu->addSeparator();
@@ -280,19 +280,19 @@ BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
     m_actionGroup = new QActionGroup(this);
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(selectEntry(QAction*)));
 
-    m_addEntryAction = new QAction(tr("Add entry"), this);
+    m_addEntryAction = new QAction(tr("&Add entry"), this);
     m_addEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
     connect(m_addEntryAction, SIGNAL(triggered()), this, SLOT(addEntry()));
 
-    m_selectPreviousEntryAction = new QAction(tr("Go to previous"), this);
+    m_selectPreviousEntryAction = new QAction(tr("Go to &previous entry"), this);
     m_selectPreviousEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
     connect(m_selectPreviousEntryAction, SIGNAL(triggered()), this, SLOT(selectPreviousEntry()));
 
-    m_selectNextEntryAction = new QAction(tr("Go to next"), this);
+    m_selectNextEntryAction = new QAction(tr("Go to &next entry"), this);
     m_selectNextEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     connect(m_selectNextEntryAction, SIGNAL(triggered()), this, SLOT(selectNextEntry()));
 
-    m_clearListAction = new QAction(tr("Clear list"), this);
+    m_clearListAction = new QAction(tr("&Clear list"), this);
     connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
 
     this->addAction(m_addEntryAction);
@@ -454,7 +454,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     m_layout->addRow(tr("&Refresh automatically:"), m_watchFilePathCheckBox);
     m_layout->addRow(tr("Open links to &URL:"), m_openUrlLinksCheckBox);
-    m_layout->addRow(tr("Open external links"), m_openExternalLinksCheckBox);
+    m_layout->addRow(tr("Open &external links:"), m_openExternalLinksCheckBox);
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
