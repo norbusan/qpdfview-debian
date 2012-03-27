@@ -51,14 +51,22 @@ public:
 
     // links
 
+    static bool openUrlLinks();
+    static void setOpenUrlLinks(bool openUrlLinks);
+
+    static bool openExternalLinks();
+    static void setOpenExternalLinks(bool openExternalLinks);
+
     struct Link
     {
         QRectF area;
         int pageNumber;
         qreal top;
-        QString url;
 
-        Link() : area(), pageNumber(-1), top(0.0), url() {}
+        QString url;
+        QString filePath;
+
+        Link() : area(), pageNumber(-1), top(0.0), url(), filePath() {}
     };
 
     QList<Link> links(int index);
@@ -202,6 +210,8 @@ private:
     static QSettings s_settings;
 
     static bool s_watchFilePath;
+    static bool s_openUrlLinks;
+    static bool s_openExternalLinks;
 
     static bool s_antialiasing;
     static bool s_textAntialiasing;

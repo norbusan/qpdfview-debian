@@ -1123,21 +1123,6 @@ void MainWindow::closeTab(int index)
     }
 }
 
-void MainWindow::openRecentlyUsed(const QString &filePath)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        model->open(filePath);
-    }
-    else
-    {
-        this->addTab(filePath);
-    }
-}
-
 void MainWindow::changeCurrentTab(int index)
 {
     if(index != -1)
@@ -1514,6 +1499,58 @@ void MainWindow::invalidateSearches()
         DocumentModel *model = view->model();
 
         model->cancelSearch();
+    }
+}
+
+void MainWindow::openRecentlyUsed(const QString &filePath)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        DocumentModel *model = view->model();
+
+        if(!model->open(filePath))
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+        }
+    }
+    else
+    {
+        if(!this->addTab(filePath))
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+        }
+    }
+}
+
+void MainWindow::openExternalLink(const QString &filePath, int pageNumber, qreal top, bool addTab)
+{
+    if(m_tabWidget->currentIndex() != -1 && !addTab)
+    {
+        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        DocumentModel *model = view->model();
+
+        if(model->open(filePath))
+        {
+            view->setCurrentPage(pageNumber, top);
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+        }
+    }
+    else
+    {
+        if(this->addTab(filePath))
+        {
+            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            view->setCurrentPage(pageNumber, top);
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+        }
     }
 }
 

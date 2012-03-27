@@ -203,8 +203,6 @@ private slots:
     bool addTab(const QString &filePath);
     void closeTab(int index);
 
-    void openRecentlyUsed(const QString &filePath);
-
     void changeCurrentTab(int index);
     void changeCurrentPage();
 
@@ -227,6 +225,10 @@ private slots:
     void searchFinished();
 
     void invalidateSearches();
+
+public slots:
+    void openRecentlyUsed(const QString &filePath);
+    void openExternalLink(const QString &filePath, int pageNumber, qreal top = 0.0, bool addTab = false);
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);

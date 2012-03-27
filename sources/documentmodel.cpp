@@ -27,6 +27,8 @@ QMutex DocumentModel::s_pageCacheMutex;
 QSettings DocumentModel::s_settings("qpdfview", "qpdfview");
 
 bool DocumentModel::s_watchFilePath = DocumentModel::s_settings.value("documentModel/watchFilePath", false).toBool();
+bool DocumentModel::s_openUrlLinks = DocumentModel::s_settings.value("documentModel/openUrlLinks", false).toBool();
+bool DocumentModel::s_openExternalLinks = DocumentModel::s_settings.value("documentModel/openExternalLinks", false).toBool();
 
 bool DocumentModel::s_antialiasing = DocumentModel::s_settings.value("documentModel/antialiasing", true).toBool();
 bool DocumentModel::s_textAntialiasing = DocumentModel::s_settings.value("documentModel/textAntialiasing", true).toBool();
@@ -108,6 +110,36 @@ QSizeF DocumentModel::pageSize(int index)
 
 // links
 
+bool DocumentModel::openUrlLinks()
+{
+    return s_openUrlLinks;
+}
+
+void DocumentModel::setOpenUrlLinks(bool openUrlLinks)
+{
+    if(s_openUrlLinks != openUrlLinks)
+    {
+        s_openUrlLinks = openUrlLinks;
+
+        DocumentModel::s_settings.setValue("documentModel/openUrlLinks", s_openUrlLinks);
+    }
+}
+
+bool DocumentModel::openExternalLinks()
+{
+    return s_openExternalLinks;
+}
+
+void DocumentModel::setOpenExternalLinks(bool openExternalLinks)
+{
+    if(s_openExternalLinks != openExternalLinks)
+    {
+        s_openExternalLinks = openExternalLinks;
+
+        DocumentModel::s_settings.setValue("documentModel/openExternalLinks", s_openExternalLinks);
+    }
+}
+
 QList<DocumentModel::Link> DocumentModel::links(int index)
 {
     QList<Link> results;
@@ -123,11 +155,13 @@ QList<DocumentModel::Link> DocumentModel::links(int index)
                 QRectF linkArea = link->linkArea().normalized();
                 int linkPageNumber = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
                 qreal linkTop = static_cast<Poppler::LinkGoto*>(link)->destination().top();
+                QString linkFilePath = static_cast<Poppler::LinkGoto*>(link)->isExternal() ? static_cast<Poppler::LinkGoto*>(link)->fileName() : QString();
 
                 Link result;
                 result.area = linkArea;
                 result.pageNumber = linkPageNumber;
                 result.top = linkTop;
+                result.filePath = linkFilePath;
 
                 results.append(result);
             }

@@ -173,10 +173,14 @@ private:
     QFormLayout *m_layout;
     QDialogButtonBox *m_buttonBox;
 
-    QCheckBox *m_refreshAutomaticallyCheckBox;
+    QCheckBox *m_watchFilePathCheckBox;
+    QCheckBox *m_openUrlLinksCheckBox;
+    QCheckBox *m_openExternalLinksCheckBox;
+
     QCheckBox *m_antialiasingCheckBox;
     QCheckBox *m_textAntialiasingCheckBox;
     QCheckBox *m_textHintingCheckBox;
+
     QComboBox *m_pageCacheSizeComboBox;
 
 };

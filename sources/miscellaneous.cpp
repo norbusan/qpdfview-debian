@@ -432,7 +432,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     m_layout = new QFormLayout(this);
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
-    m_refreshAutomaticallyCheckBox = new QCheckBox(this);
+    m_watchFilePathCheckBox = new QCheckBox(this);
+    m_openUrlLinksCheckBox = new QCheckBox(this);
+    m_openExternalLinksCheckBox = new QCheckBox(this);
 
     m_antialiasingCheckBox = new QCheckBox(this);
     m_textAntialiasingCheckBox = new QCheckBox(this);
@@ -450,7 +452,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    m_layout->addRow(tr("&Refresh automatically:"), m_refreshAutomaticallyCheckBox);
+    m_layout->addRow(tr("&Refresh automatically:"), m_watchFilePathCheckBox);
+    m_layout->addRow(tr("Open links to &URL:"), m_openUrlLinksCheckBox);
+    m_layout->addRow(tr("Open external links"), m_openExternalLinksCheckBox);
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
@@ -459,7 +463,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     this->setLayout(m_layout);
 
-    m_refreshAutomaticallyCheckBox->setChecked(DocumentModel::watchFilePath());
+    m_watchFilePathCheckBox->setChecked(DocumentModel::watchFilePath());
+    m_openUrlLinksCheckBox->setChecked(DocumentModel::openUrlLinks());
+    m_openExternalLinksCheckBox->setChecked(DocumentModel::openExternalLinks());
 
     m_antialiasingCheckBox->setChecked(DocumentModel::antialiasing());
     m_textAntialiasingCheckBox->setChecked(DocumentModel::textAntialiasing());
@@ -491,7 +497,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
 void SettingsDialog::accept()
 {
-    DocumentModel::setWatchFilePath(m_refreshAutomaticallyCheckBox->isChecked());
+    DocumentModel::setWatchFilePath(m_watchFilePathCheckBox->isChecked());
+    DocumentModel::setOpenUrlLinks(m_openUrlLinksCheckBox->isChecked());
+    DocumentModel::setOpenExternalLinks(m_openExternalLinksCheckBox->isChecked());
 
     DocumentModel::setAntialiasing(m_antialiasingCheckBox->isChecked());
     DocumentModel::setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());

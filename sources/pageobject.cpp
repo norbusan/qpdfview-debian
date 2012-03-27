@@ -21,6 +21,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pageobject.h"
 
+#include "mainwindow.h"
+
 PageObject::PageObject(DocumentModel *model, DocumentView *view, int index, QGraphicsItem *parent) : QGraphicsObject(parent),
     m_index(index),
     m_size(),
@@ -316,6 +318,8 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
     {
+        // rubber band
+
         if(!m_rubberBand.isNull())
         {
             m_selection = m_rubberBand.adjusted(-5.0, -5.0, 5.0, 5.0);
@@ -332,17 +336,45 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             return;
         }
 
+        // links
+
         foreach(DocumentModel::Link link, m_links)
         {
             if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
             {
                 if(link.pageNumber != -1)
                 {
-                    m_view->setCurrentPage(link.pageNumber, link.top);
+                    if(link.filePath.isEmpty())
+                    {
+                        m_view->setCurrentPage(link.pageNumber, link.top);
+                    }
+                    else
+                    {
+                        if(DocumentModel::openExternalLinks())
+                        {
+                            MainWindow *mainWindow = qobject_cast<MainWindow*>(m_view->parent()->parent()->parent());
+
+                            if(mainWindow)
+                            {
+                                mainWindow->openExternalLink(link.filePath, link.pageNumber, link.top, false);
+                            }
+                        }
+                        else
+                        {
+                            QMessageBox::information(0, tr("Information"), tr("Opening external links is disabled in the settings."));
+                        }
+                    }
                 }
                 else if(!link.url.isEmpty())
                 {
-                    QDesktopServices::openUrl(QUrl(link.url));
+                    if(DocumentModel::openUrlLinks())
+                    {
+                        QDesktopServices::openUrl(QUrl(link.url));
+                    }
+                    else
+                    {
+                        QMessageBox::information(0, tr("Information"), tr("Opening links to URL is disabled in the settings."));
+                    }
                 }
 
                 return;
@@ -351,12 +383,44 @@ void PageObject::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
     else if(event->button() == Qt::MiddleButton)
     {
+        // rubber band
+
         if(!m_selection.isNull())
         {
             m_selection = QRectF();
 
             this->updatePage();
             return;
+        }
+
+        // external links
+
+        foreach(DocumentModel::Link link, m_links)
+        {
+            if(m_linkTransform.mapRect(link.area).contains(event->scenePos() - pos()))
+            {
+                if(link.pageNumber != -1)
+                {
+                    if(!link.filePath.isEmpty())
+                    {
+                        if(DocumentModel::openExternalLinks())
+                        {
+                            MainWindow *mainWindow = qobject_cast<MainWindow*>(m_view->parent()->parent()->parent());
+
+                            if(mainWindow)
+                            {
+                                mainWindow->openExternalLink(link.filePath, link.pageNumber, link.top, true);
+                            }
+                        }
+                        else
+                        {
+                            QMessageBox::information(0, tr("Information"), tr("Opening external links is disabled in the settings."));
+                        }
+                    }
+                }
+
+                return;
+            }
         }
     }
 }
