@@ -25,8 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include "documentmodel.h"
-#include "documentview.h"
+class DocumentView;
 
 class AuxiliaryView : public QWidget
 {

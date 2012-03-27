@@ -26,7 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtXml>
 #include <QtGui>
 
-#include <poppler-qt4.h>
+namespace Poppler
+{
+    class Document;
+}
 
 class DocumentModel : public QObject
 {

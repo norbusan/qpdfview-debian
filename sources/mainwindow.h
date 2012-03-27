@@ -25,10 +25,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include "documentmodel.h"
 #include "documentview.h"
-#include "presentationview.h"
-#include "miscellaneous.h"
+
+class PresentationView;
+class OutlineView;
+class ThumbnailsView;
+class RecentlyUsedAction;
+class SettingsDialog;
+class HelpDialog;
 
 class MainWindow : public QMainWindow
 {

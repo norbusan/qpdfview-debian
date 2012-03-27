@@ -25,10 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include <poppler-qt4.h>
-
 #include "documentmodel.h"
-#include "documentview.h"
+class DocumentView;
 
 class PageObject : public QGraphicsObject
 {

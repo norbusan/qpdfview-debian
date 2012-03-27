@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "miscellaneous.h"
 
+#include "documentmodel.h"
+#include "documentview.h"
+
 // auxiliary view
 
 AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent)

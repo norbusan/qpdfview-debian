@@ -21,6 +21,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentmodel.h"
 
+#include <poppler-qt4.h>
+
 QMap<DocumentModel::PageCacheKey, QImage> DocumentModel::s_pageCache;
 QMutex DocumentModel::s_pageCacheMutex;
 

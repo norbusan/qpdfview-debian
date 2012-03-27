@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#include "presentationview.h"
+#include "miscellaneous.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_settings(),
     m_normalGeometry()
