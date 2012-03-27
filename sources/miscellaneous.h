@@ -140,6 +140,7 @@ private:
     QCheckBox *m_refreshAutomaticallyCheckBox;
     QCheckBox *m_antialiasingCheckBox;
     QCheckBox *m_textAntialiasingCheckBox;
+    QCheckBox *m_textHintingCheckBox;
     QComboBox *m_pageCacheSizeComboBox;
 
 };

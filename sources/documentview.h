@@ -115,7 +115,7 @@ public slots:
 
     void makeCurrentTab();
 
-    void prefetch();
+    void prefetchTimeout();
 
 private slots:
     void changeCurrentPage(int value);

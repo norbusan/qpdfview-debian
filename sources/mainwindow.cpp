@@ -252,19 +252,19 @@ void MainWindow::createActions()
     m_fitToPageAction->setCheckable(true);
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
-    m_scaleTo50Action = new QAction(tr("Scale to 50%"), this);
+    m_scaleTo50Action = new QAction(tr("Scale to %1%").arg(50), this);
     m_scaleTo50Action->setCheckable(true);
-    m_scaleTo75Action = new QAction(tr("Scale to 75%"), this);
+    m_scaleTo75Action = new QAction(tr("Scale to %1%").arg(75), this);
     m_scaleTo75Action->setCheckable(true);
-    m_scaleTo100Action = new QAction(tr("Scale to 100%"), this);
+    m_scaleTo100Action = new QAction(tr("Scale to %1%").arg(100), this);
     m_scaleTo100Action->setCheckable(true);
-    m_scaleTo125Action = new QAction(tr("Scale to 125%"), this);
+    m_scaleTo125Action = new QAction(tr("Scale to %1%").arg(125), this);
     m_scaleTo125Action->setCheckable(true);
-    m_scaleTo150Action = new QAction(tr("Scale to 150%"), this);
+    m_scaleTo150Action = new QAction(tr("Scale to %1%").arg(150), this);
     m_scaleTo150Action->setCheckable(true);
-    m_scaleTo200Action = new QAction(tr("Scale to 200%"), this);
+    m_scaleTo200Action = new QAction(tr("Scale to %1%").arg(200), this);
     m_scaleTo200Action->setCheckable(true);
-    m_scaleTo400Action = new QAction(tr("Scale to 400%"), this);
+    m_scaleTo400Action = new QAction(tr("Scale to %1%").arg(400), this);
     m_scaleTo400Action->setCheckable(true);
 
     m_scalingGroup = new QActionGroup(this);
@@ -281,13 +281,13 @@ void MainWindow::createActions()
 
     // rotation
 
-    m_rotateBy0Action = new QAction(trUtf8("Rotate by 0°"), this);
+    m_rotateBy0Action = new QAction(trUtf8("Rotate by %1°").arg(0), this);
     m_rotateBy0Action->setCheckable(true);
-    m_rotateBy90Action = new QAction(trUtf8("Rotate by 90°"), this);
+    m_rotateBy90Action = new QAction(trUtf8("Rotate by %1°").arg(90), this);
     m_rotateBy90Action->setCheckable(true);
-    m_rotateBy180Action = new QAction(trUtf8("Rotate by 180°"), this);
+    m_rotateBy180Action = new QAction(trUtf8("Rotate by %1°").arg(180), this);
     m_rotateBy180Action->setCheckable(true);
-    m_rotateBy270Action = new QAction(trUtf8("Rotate by 270°"), this);
+    m_rotateBy270Action = new QAction(trUtf8("Rotate by %1°").arg(270), this);
     m_rotateBy270Action->setCheckable(true);
 
     m_rotationGroup = new QActionGroup(this);
@@ -423,13 +423,13 @@ void MainWindow::createWidgets()
 
     m_scalingComboBox->addItem(tr("Fit to page"), DocumentView::FitToPage);
     m_scalingComboBox->addItem(tr("Fit to page width"), DocumentView::FitToPageWidth);
-    m_scalingComboBox->addItem(tr("Scale to 50%"), DocumentView::ScaleTo50);
-    m_scalingComboBox->addItem(tr("Scale to 75%"), DocumentView::ScaleTo75);
-    m_scalingComboBox->addItem(tr("Scale to 100%"), DocumentView::ScaleTo100);
-    m_scalingComboBox->addItem(tr("Scale to 125%"), DocumentView::ScaleTo125);
-    m_scalingComboBox->addItem(tr("Scale to 150%"), DocumentView::ScaleTo150);
-    m_scalingComboBox->addItem(tr("Scale to 200%"), DocumentView::ScaleTo200);
-    m_scalingComboBox->addItem(tr("Scale to 400%"), DocumentView::ScaleTo400);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), DocumentView::ScaleTo50);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), DocumentView::ScaleTo75);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), DocumentView::ScaleTo100);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), DocumentView::ScaleTo125);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), DocumentView::ScaleTo150);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), DocumentView::ScaleTo200);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), DocumentView::ScaleTo400);
 
     m_scalingWidget->setLayout(new QHBoxLayout());
     m_scalingWidget->layout()->addWidget(m_scalingLabel);
@@ -446,10 +446,10 @@ void MainWindow::createWidgets()
     m_rotationWidget->setMaximumWidth(300);
     m_rotationLabel->setBuddy(m_rotationComboBox);
 
-    m_rotationComboBox->addItem(trUtf8("Rotate by 0°"), DocumentView::RotateBy0);
-    m_rotationComboBox->addItem(trUtf8("Rotate by 90°"), DocumentView::RotateBy90);
-    m_rotationComboBox->addItem(trUtf8("Rotate by 180°"), DocumentView::RotateBy180);
-    m_rotationComboBox->addItem(trUtf8("Rotate by 270°"), DocumentView::RotateBy270);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), DocumentView::RotateBy0);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), DocumentView::RotateBy90);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), DocumentView::RotateBy180);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), DocumentView::RotateBy270);
 
     m_rotationWidget->setLayout(new QHBoxLayout());
     m_rotationWidget->layout()->addWidget(m_rotationLabel);

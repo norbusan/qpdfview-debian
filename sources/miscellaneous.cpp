@@ -98,7 +98,7 @@ OutlineView::OutlineView(QWidget *parent) : AuxiliaryView(parent)
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_treeWidget);
 
-    connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(followLink(QTreeWidgetItem*,int)));
+    connect(m_treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(followLink(QTreeWidgetItem*,int)));
 }
 
 void OutlineView::updateModel()
@@ -141,7 +141,7 @@ ThumbnailsView::ThumbnailsView(QWidget *parent) : AuxiliaryView(parent)
     this->setLayout(new QHBoxLayout());
     this->layout()->addWidget(m_listWidget);
 
-    connect(m_listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(followLink(QListWidgetItem*)));
+    connect(m_listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(followLink(QListWidgetItem*)));
 }
 
 void ThumbnailsView::updateModel()
@@ -280,15 +280,16 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     m_antialiasingCheckBox = new QCheckBox(this);
     m_textAntialiasingCheckBox = new QCheckBox(this);
+    m_textHintingCheckBox = new QCheckBox(this);
 
     m_pageCacheSizeComboBox = new QComboBox(this);
-    m_pageCacheSizeComboBox->addItem(tr("32 MB"), QVariant(33554432u));
-    m_pageCacheSizeComboBox->addItem(tr("64 MB"), QVariant(67108864u));
-    m_pageCacheSizeComboBox->addItem(tr("128 MB"), QVariant(134217728u));
-    m_pageCacheSizeComboBox->addItem(tr("256 MB"), QVariant(268435456u));
-    m_pageCacheSizeComboBox->addItem(tr("512 MB"), QVariant(536870912u));
-    m_pageCacheSizeComboBox->addItem(tr("1024 MB"), QVariant(1073741824u));
-    m_pageCacheSizeComboBox->addItem(tr("2048 MB"), QVariant(2147483648u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(32), QVariant(33554432u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(64), QVariant(67108864u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(128), QVariant(134217728u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(256), QVariant(268435456u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(512), QVariant(536870912u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(1024), QVariant(1073741824u));
+    m_pageCacheSizeComboBox->addItem(tr("%1 MB").arg(2048), QVariant(2147483648u));
 
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -296,6 +297,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     m_layout->addRow(tr("&Refresh automatically:"), m_refreshAutomaticallyCheckBox);
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
+    m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
     m_layout->addRow(tr("Page cache &size:"), m_pageCacheSizeComboBox);
     m_layout->addRow(m_buttonBox);
 
@@ -305,6 +307,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     m_antialiasingCheckBox->setChecked(DocumentModel::antialiasing());
     m_textAntialiasingCheckBox->setChecked(DocumentModel::textAntialiasing());
+    m_textHintingCheckBox->setChecked(DocumentModel::textHinting());
 
     // maximumPageCacheSize
 
@@ -336,6 +339,7 @@ void SettingsDialog::accept()
 
     DocumentModel::setAntialiasing(m_antialiasingCheckBox->isChecked());
     DocumentModel::setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());
+    DocumentModel::setTextHinting(m_textHintingCheckBox->isChecked());
 
     DocumentModel::setMaximumPageCacheSize(m_pageCacheSizeComboBox->itemData(m_pageCacheSizeComboBox->currentIndex()).toUInt());
 

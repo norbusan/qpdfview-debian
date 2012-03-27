@@ -99,13 +99,16 @@ void PresentationView::render()
 
 void PresentationView::prefetch()
 {
-    for(int pageNumber = m_currentPage-1; pageNumber <= m_currentPage+2; pageNumber++)
+    int fromPage = qMax(m_currentPage-1, 1);
+    int toPage = qMin(m_currentPage+2, m_model->pageCount());
+
+    for(int page = fromPage; page <= toPage; page++)
     {
-        QImage image = m_model->pullPage(pageNumber-1, m_resolutionX, m_resolutionY);
+        QImage image = m_model->pullPage(page-1, m_resolutionX, m_resolutionY);
 
         if(image.isNull())
         {
-            m_model->pushPage(pageNumber-1, m_resolutionX, m_resolutionY);
+            m_model->pushPage(page-1, m_resolutionX, m_resolutionY);
         }
     }
 

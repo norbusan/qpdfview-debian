@@ -112,6 +112,9 @@ public:
     static bool textAntialiasing();
     static void setTextAntialiasing(bool textAntialiasing);
 
+    static bool textHinting();
+    static void setTextHinting(bool textHinting);
+
     // page cache
 
     static uint maximumPageCacheSize();
@@ -200,6 +203,7 @@ private:
 
     static bool s_antialiasing;
     static bool s_textAntialiasing;
+    static bool s_textHinting;
 
     static uint s_pageCacheSize;
     static uint s_maximumPageCacheSize;

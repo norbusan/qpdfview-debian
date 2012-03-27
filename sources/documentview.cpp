@@ -56,7 +56,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     m_prefetchTimer->setInterval(500);
 
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
-    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetch()));
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
 
     // settings
 
@@ -795,14 +795,14 @@ void DocumentView::makeCurrentTab()
     }
 }
 
-void DocumentView::prefetch()
+void DocumentView::prefetchTimeout()
 {
-    for(int page = m_currentPage-2; page <= m_currentPage+3; page++)
+    int fromPage = qMax(m_currentPage-2, 1);
+    int toPage = qMin(m_currentPage+3, m_model->pageCount());
+
+    for(int page = fromPage; page <= toPage; page++)
     {
-        if(m_pageToPageObject.contains(page))
-        {
-            m_pageToPageObject.value(page)->prefetch();
-        }
+        m_pageToPageObject.value(page)->prefetch();
     }
 }
 

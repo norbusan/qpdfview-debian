@@ -30,6 +30,7 @@ bool DocumentModel::s_watchFilePath = DocumentModel::s_settings.value("documentM
 
 bool DocumentModel::s_antialiasing = DocumentModel::s_settings.value("documentModel/antialiasing", true).toBool();
 bool DocumentModel::s_textAntialiasing = DocumentModel::s_settings.value("documentModel/textAntialiasing", true).toBool();
+bool DocumentModel::s_textHinting = DocumentModel::s_settings.value("documentModel/textHinting", false).toBool();
 
 uint DocumentModel::s_pageCacheSize = 0;
 uint DocumentModel::s_maximumPageCacheSize = DocumentModel::s_settings.value("documentModel/maximumPageCacheSize", 134217728u).toUInt();
@@ -223,6 +224,8 @@ static DocumentModel::Outline *domNodeToOutline(Poppler::Document *document, con
         Poppler::LinkDestination *linkDestination = document->linkDestination(domNode.toElement().attribute("DestinationName"));
 
         result->pageNumber = linkDestination ? linkDestination->pageNumber() : -1;
+
+        delete linkDestination;
     }
 
     result->isOpen = QVariant(domNode.toElement().attribute("Open")).toBool();
@@ -324,6 +327,28 @@ void DocumentModel::setTextAntialiasing(bool textAntialiasing)
     }
 }
 
+bool DocumentModel::textHinting()
+{
+    return s_textHinting;
+}
+
+void DocumentModel::setTextHinting(bool textHinting)
+{
+    if(s_textHinting != textHinting)
+    {
+        s_textHinting = textHinting;
+
+        s_settings.setValue("documentModel/textHinting", s_textHinting);
+
+        s_pageCacheMutex.lock();
+
+        s_pageCacheSize = 0;
+        s_pageCache.clear();
+
+        s_pageCacheMutex.unlock();
+    }
+}
+
 // page cache
 
 uint DocumentModel::maximumPageCacheSize()
@@ -395,6 +420,7 @@ void DocumentModel::pushPage(int index, qreal resolutionX, qreal resolutionY)
 
     document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
     document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
+    document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
 
     Poppler::Page *page = document->page(index);
 
@@ -702,6 +728,7 @@ void DocumentModel::print(QPrinter *printer, int fromPage, int toPage)
 
     document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
     document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
+    document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
 
     QPainter *painter = new QPainter();
     painter->begin(printer);

@@ -11,6 +11,7 @@
         <file>icons/go-previous.svg</file>
         <file>translations/qpdfview_be.qm</file>
         <file>translations/qpdfview_de.qm</file>
+        <file>translations/qpdfview_fr.qm</file>
         <file>translations/qpdfview_ru.qm</file>
         <file>translations/qpdfview_uk.qm</file>
     </qresource>
