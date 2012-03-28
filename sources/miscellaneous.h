@@ -195,6 +195,11 @@ class HelpDialog : public QDialog
 public:
     explicit HelpDialog(QWidget *parent = 0);
 
+    QSize sizeHint() const
+    {
+        return QSize(500, 700);
+    }
+
 private:
     QTextBrowser *m_textBrowser;
     QDialogButtonBox *m_buttonBox;

@@ -561,7 +561,15 @@ void SettingsDialog::accept()
 HelpDialog::HelpDialog(QWidget *parent) : QDialog(parent)
 {
     m_textBrowser = new QTextBrowser(this);
+#ifdef DATA_INSTALL_PATH
+    m_textBrowser->setSource(QUrl(QString(DATA_INSTALL_PATH) + "/help.html"));
+#else
+    m_textBrowser->setSource(QUrl("qrc:/miscellaneous/help.html"));
+#endif
+
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, this);
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
     this->setLayout(new QVBoxLayout());
     this->layout()->addWidget(m_textBrowser);

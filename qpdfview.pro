@@ -7,8 +7,8 @@ QT += core xml gui
 
 # uncomment to append the poppler headers and libraries manually
 #
-# INCLUDEPATH += /usr/include/poppler/qt4
-# LIBS += -L/usr/lib -lpoppler-qt4
+#INCLUDEPATH += /usr/include/poppler/qt4
+#LIBS += -L/usr/lib -lpoppler-qt4
 
 # uncomment to use pkgconfig to find the poppler headers and libraries
 #
@@ -53,12 +53,11 @@ INSTALLS += target launcher manual data
 
 # uncomment to use the Qt resource system for data files
 #
-# data.files = icons/qpdfview.svg
-# 
-# RESOURCES += qpdfview.qrc
+#data.files = icons/qpdfview.svg
+#
+#RESOURCES += qpdfview.qrc
 
 # uncomment to install data files into DATA_INSTALL_PATH
 #
-data.files = icons/*.svg translations/*.qm
-
+data.files = icons/*.svg translations/*.qm miscellaneous/help.html
 DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"

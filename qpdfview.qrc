@@ -14,5 +14,6 @@
         <file>translations/qpdfview_fr.qm</file>
         <file>translations/qpdfview_ru.qm</file>
         <file>translations/qpdfview_uk.qm</file>
+        <file>miscellaneous/help.html</file>
     </qresource>
 </RCC>
