@@ -88,6 +88,8 @@ const QList<QRectF> &PageObject::results() const
 
 void PageObject::prepareTransforms()
 {
+    this->prepareGeometryChange();
+
     qreal scaleX = m_view->resolutionX() / 72.0;
     qreal scaleY = m_view->resolutionY() / 72.0;
     qreal width = m_size.width();
@@ -120,8 +122,6 @@ void PageObject::prepareTransforms()
 
         break;
     }
-
-    this->prepareGeometryChange();
 }
 
 const QTransform &PageObject::pageTransform() const

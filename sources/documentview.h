@@ -95,9 +95,9 @@ private:
     Rotation m_rotation;
     bool m_highlightAll;
 
-    void prepare();
+    void preparePages();
     void prepareScene();
-    void prepareView(bool scroll = true, qreal top = 0.0);
+    void prepareView(qreal top = 0.0);
 
 signals:
     void currentPageChanged(int);

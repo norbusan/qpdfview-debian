@@ -92,7 +92,7 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
     m_view->verticalScrollBar()->installEventFilter(this);
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-    this->prepare();
+    this->preparePages();
 }
 
 int DocumentView::currentPage() const
@@ -231,7 +231,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
 
         emit currentPageChanged(m_currentPage);
 
-        this->prepareView(true, top);
+        this->prepareView(top);
     }
 }
 
@@ -247,7 +247,7 @@ void DocumentView::previousPage(qreal top)
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView(true, top);
+            this->prepareView(top);
         }
         break;
     case TwoPages:
@@ -258,7 +258,7 @@ void DocumentView::previousPage(qreal top)
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView(true, top);
+            this->prepareView(top);
         }
         break;
     }
@@ -276,7 +276,7 @@ void DocumentView::nextPage(qreal top)
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView(true, top);
+            this->prepareView(top);
         }
         break;
     case TwoPages:
@@ -287,7 +287,7 @@ void DocumentView::nextPage(qreal top)
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView(true, top);
+            this->prepareView(top);
         }
         break;
     }
@@ -301,7 +301,7 @@ void DocumentView::firstPage(qreal top)
 
         emit currentPageChanged(m_currentPage);
 
-        this->prepareView(true, top);
+        this->prepareView(top);
     }
 }
 
@@ -317,7 +317,7 @@ void DocumentView::lastPage(qreal top)
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView(true, top);
+            this->prepareView(top);
         }
 
         break;
@@ -331,7 +331,7 @@ void DocumentView::lastPage(qreal top)
 
                 emit currentPageChanged(m_currentPage);
 
-                this->prepareView(true, top);
+                this->prepareView(top);
             }
         }
         else
@@ -342,7 +342,7 @@ void DocumentView::lastPage(qreal top)
 
                 emit currentPageChanged(m_currentPage);
 
-                this->prepareView(true, top);
+                this->prepareView(top);
             }
         }
         break;
@@ -491,7 +491,7 @@ void DocumentView::findNext()
     }
 }
 
-void DocumentView::prepare()
+void DocumentView::preparePages()
 {
     // load pages
 
@@ -738,7 +738,7 @@ void DocumentView::prepareScene()
     m_bookmarksMenu->clearList();
 }
 
-void DocumentView::prepareView(bool scroll, qreal top)
+void DocumentView::prepareView(qreal top)
 {
     PageObject *page = m_pageToPageObject.value(m_currentPage), *nextPage = 0;
 
@@ -815,18 +815,17 @@ void DocumentView::prepareView(bool scroll, qreal top)
         m_highlight->setVisible(false);
     }
 
-    if(scroll)
-    {
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+    // verticalScrollBar
 
-        m_view->verticalScrollBar()->setValue(qCeil(page->y() + page->boundingRect().height() * top));
+    disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+    m_view->verticalScrollBar()->setValue(qCeil(page->y() + page->boundingRect().height() * top));
 
-        // bookmarks
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-        m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
-    }
+    // bookmarks
+
+    m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
 }
 
 void DocumentView::makeCurrentTab()
@@ -922,7 +921,7 @@ void DocumentView::updateFilePath(const QString &filePath, bool refresh)
         }
     }
 
-    this->prepare();
+    this->preparePages();
 }
 
 void DocumentView::updateResults()
