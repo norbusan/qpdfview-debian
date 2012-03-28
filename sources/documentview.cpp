@@ -87,28 +87,12 @@ DocumentView::DocumentView(DocumentModel *model, QWidget *parent) : QWidget(pare
 
     connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(prefetchTimeout()));
 
+    // verticalScrollBar
+
     m_view->verticalScrollBar()->installEventFilter(this);
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
-    // load pages
-
-    m_scene->clear();
-    m_pageToPageObject.clear();
-
-    for(int index = 0; index < m_model->pageCount(); index++)
-    {
-        PageObject *page = new PageObject(m_model, this, index);
-
-        m_scene->addItem(page);
-        m_pageToPageObject.insert(index+1, page);
-    }
-
-    // prepare
-
-    this->prepareScene();
-    this->prepareView();
-
-    m_prefetchTimer->start();
+    this->prepare();
 }
 
 int DocumentView::currentPage() const
@@ -251,7 +235,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
     }
 }
 
-void DocumentView::previousPage()
+void DocumentView::previousPage(qreal top)
 {
     switch(m_pageLayout)
     {
@@ -263,7 +247,7 @@ void DocumentView::previousPage()
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView();
+            this->prepareView(true, top);
         }
         break;
     case TwoPages:
@@ -274,13 +258,13 @@ void DocumentView::previousPage()
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView();
+            this->prepareView(true, top);
         }
         break;
     }
 }
 
-void DocumentView::nextPage()
+void DocumentView::nextPage(qreal top)
 {
     switch(m_pageLayout)
     {
@@ -292,7 +276,7 @@ void DocumentView::nextPage()
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView();
+            this->prepareView(true, top);
         }
         break;
     case TwoPages:
@@ -303,13 +287,13 @@ void DocumentView::nextPage()
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView();
+            this->prepareView(true, top);
         }
         break;
     }
 }
 
-void DocumentView::firstPage()
+void DocumentView::firstPage(qreal top)
 {
     if(m_currentPage != 1)
     {
@@ -317,11 +301,11 @@ void DocumentView::firstPage()
 
         emit currentPageChanged(m_currentPage);
 
-        this->prepareView();
+        this->prepareView(true, top);
     }
 }
 
-void DocumentView::lastPage()
+void DocumentView::lastPage(qreal top)
 {
     switch(m_pageLayout)
     {
@@ -333,7 +317,7 @@ void DocumentView::lastPage()
 
             emit currentPageChanged(m_currentPage);
 
-            this->prepareView();
+            this->prepareView(true, top);
         }
 
         break;
@@ -347,7 +331,7 @@ void DocumentView::lastPage()
 
                 emit currentPageChanged(m_currentPage);
 
-                this->prepareView();
+                this->prepareView(true, top);
             }
         }
         else
@@ -358,7 +342,7 @@ void DocumentView::lastPage()
 
                 emit currentPageChanged(m_currentPage);
 
-                this->prepareView();
+                this->prepareView(true, top);
             }
         }
         break;
@@ -421,13 +405,18 @@ void DocumentView::findPrevious()
     {
         this->setCurrentPage(m_currentResult.key()+1);
 
-        this->prepareView(false);
-
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
         m_view->centerOn(m_highlight);
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+        // bookmarks
+
+        PageObject *page = m_pageToPageObject.value(m_currentPage);
+        qreal top = qMax(0.0, static_cast<qreal>(m_view->verticalScrollBar()->value()) - page->y()) / page->boundingRect().height();
+
+        m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
     }
 }
 
@@ -487,21 +476,57 @@ void DocumentView::findNext()
     {
         this->setCurrentPage(m_currentResult.key()+1);
 
-        this->prepareView(false);
-
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
 
         m_view->centerOn(m_highlight);
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(changeCurrentPage(int)));
+
+        // bookmarks
+
+        PageObject *page = m_pageToPageObject.value(m_currentPage);
+        qreal top = qMax(0.0, static_cast<qreal>(m_view->verticalScrollBar()->value()) - page->y()) / page->boundingRect().height();
+
+        m_bookmarksMenu->updateCurrrentPage(m_currentPage, top);
     }
+}
+
+void DocumentView::prepare()
+{
+    // load pages
+
+    m_scene->clear();
+    m_pageToPageObject.clear();
+
+    for(int index = 0; index < m_model->pageCount(); index++)
+    {
+        PageObject *page = new PageObject(m_model, this, index);
+
+        m_scene->addItem(page);
+        m_pageToPageObject.insert(index+1, page);
+    }
+
+    // highlight
+
+    m_highlight = new QGraphicsRectItem();
+    m_highlight->setPen(QPen(QColor(0,255,0,255)));
+    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
+
+    m_scene->addItem(m_highlight);
+
+    // prepare
+
+    this->prepareScene();
+    this->prepareView();
+
+    m_prefetchTimer->start();
 }
 
 void DocumentView::prepareScene()
 {
     // calculate scale factor
 
-    QSizeF pageSize;
+    QSizeF size;
     qreal pageWidth = 0.0, pageHeight = 0.0;
     qreal viewWidth = static_cast<qreal>(m_view->width()), viewHeight = static_cast<qreal>(m_view->height());
     qreal scaleFactor = 4.0;
@@ -519,20 +544,20 @@ void DocumentView::prepareScene()
         case OneColumn:
             for(int page = 1; page <= m_model->pageCount(); page++)
             {
-                pageSize = m_pageToPageObject.value(page)->size();
+                size = m_pageToPageObject.value(page)->size();
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.width();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.height();
+                    pageWidth = m_resolutionX / 72.0 * size.width();
+                    pageHeight = m_resolutionY / 72.0 * size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.height();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.width();
+                    pageWidth = m_resolutionX / 72.0 * size.height();
+                    pageHeight = m_resolutionY / 72.0 * size.width();
 
                     break;
                 }
@@ -548,38 +573,38 @@ void DocumentView::prepareScene()
         case TwoColumns:
             for(int page = 1; page <= (m_model->pageCount() % 2 != 0 ? m_model->pageCount()-1 : m_model->pageCount()); page += 2)
             {
-                pageSize = m_pageToPageObject.value(page)->size();
+                size = m_pageToPageObject.value(page)->size();
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.width();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.height();
+                    pageWidth = m_resolutionX / 72.0 * size.width();
+                    pageHeight = m_resolutionY / 72.0 * size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.height();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.width();
+                    pageWidth = m_resolutionX / 72.0 * size.height();
+                    pageHeight = m_resolutionY / 72.0 * size.width();
 
                     break;
                 }
 
-                pageSize = m_pageToPageObject.value(page+1)->size();
+                size = m_pageToPageObject.value(page+1)->size();
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth += m_resolutionX / 72.0 * pageSize.width();
-                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * pageSize.height());
+                    pageWidth += m_resolutionX / 72.0 * size.width();
+                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth += m_resolutionX / 72.0 * pageSize.height();
-                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * pageSize.width());
+                    pageWidth += m_resolutionX / 72.0 * size.height();
+                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * size.width());
 
                     break;
                 }
@@ -593,20 +618,20 @@ void DocumentView::prepareScene()
 
             if(m_model->pageCount() % 2 != 0)
             {
-                pageSize = m_pageToPageObject.value(m_model->pageCount())->size();
+                size = m_pageToPageObject.value(m_model->pageCount())->size();
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.width();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.height();
+                    pageWidth = m_resolutionX / 72.0 * size.width();
+                    pageHeight = m_resolutionY / 72.0 * size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = m_resolutionX / 72.0 * pageSize.height();
-                    pageHeight = m_resolutionY / 72.0 * pageSize.width();
+                    pageWidth = m_resolutionX / 72.0 * size.height();
+                    pageHeight = m_resolutionY / 72.0 * size.width();
 
                     break;
                 }
@@ -707,14 +732,6 @@ void DocumentView::prepareScene()
     }
 
     m_scene->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
-
-    // highlight
-
-    m_highlight = new QGraphicsRectItem();
-    m_highlight->setPen(QPen(QColor(0,255,0,255)));
-    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
-
-    m_scene->addItem(m_highlight);
 
     // bookmarks
 
@@ -905,25 +922,7 @@ void DocumentView::updateFilePath(const QString &filePath, bool refresh)
         }
     }
 
-    // load pages
-
-    m_scene->clear();
-    m_pageToPageObject.clear();
-
-    for(int index = 0; index < m_model->pageCount(); index++)
-    {
-        PageObject *page = new PageObject(m_model, this, index);
-
-        m_scene->addItem(page);
-        m_pageToPageObject.insert(index+1, page);
-    }
-
-    // prepare
-
-    this->prepareScene();
-    this->prepareView();
-
-    m_prefetchTimer->start();
+    this->prepare();
 }
 
 void DocumentView::updateResults()

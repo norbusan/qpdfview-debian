@@ -95,6 +95,7 @@ private:
     Rotation m_rotation;
     bool m_highlightAll;
 
+    void prepare();
     void prepareScene();
     void prepareView(bool scroll = true, qreal top = 0.0);
 
@@ -108,10 +109,10 @@ signals:
 public slots:
     void setCurrentPage(int currentPage, qreal top = 0.0);
 
-    void previousPage();
-    void nextPage();
-    void firstPage();
-    void lastPage();
+    void previousPage(qreal top = 0.0);
+    void nextPage(qreal top = 0.0);
+    void firstPage(qreal top = 0.0);
+    void lastPage(qreal top = 0.0);
 
     void findPrevious();
     void findNext();

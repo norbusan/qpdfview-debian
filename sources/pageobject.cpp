@@ -120,6 +120,8 @@ void PageObject::prepareTransforms()
 
         break;
     }
+
+    this->prepareGeometryChange();
 }
 
 const QTransform &PageObject::pageTransform() const

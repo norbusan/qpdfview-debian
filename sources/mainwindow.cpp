@@ -1591,10 +1591,15 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         this->menuBar()->setVisible(!this->menuBar()->isVisible());
 
         m_settings.setValue("mainWindow/menuBar", this->menuBar()->isVisible());
-    }
+    }*/
     else
     {
-        if(this->menuBar()->isHidden())
+        if(m_tabWidget->currentIndex() != -1)
+        {
+            QApplication::sendEvent(m_tabWidget->currentWidget(), keyEvent);
+        }
+
+        /*if(this->menuBar()->isHidden())
         {
             QKeySequence shortcut(keyEvent->modifiers() + keyEvent->key());
 
@@ -1610,12 +1615,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
                     }
                 }
             }
-        }
-    }*/
-
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        QApplication::sendEvent(m_tabWidget->currentWidget(), keyEvent);
+        }*/
     }
 }
 
