@@ -25,6 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+struct Link;
+struct Outline;
 class DocumentView;
 
 class AuxiliaryView : public QWidget
@@ -32,19 +34,19 @@ class AuxiliaryView : public QWidget
     Q_OBJECT
 
 public:
-    explicit AuxiliaryView(QWidget *parent);
+    explicit AuxiliaryView(QWidget *parent = 0);
 
-    DocumentView *view() const;
-    void setView(DocumentView *view);
+    DocumentView *documentView() const;
+    void setDocumentView(DocumentView *documentView);
+
+protected:
+    void showEvent(QShowEvent *event);
+
+protected slots:
+    virtual void slotDocumentChanged() = 0;
 
 private:
-    DocumentView *m_view;
-
-public slots:
-    void updateVisibility(bool visible);
-
-private slots:
-    virtual void updateModel() = 0;
+    DocumentView *m_documentView;
 
 };
 
@@ -57,14 +59,15 @@ class OutlineView : public AuxiliaryView
 public:
     explicit OutlineView(QWidget *parent = 0);
 
+protected slots:
+    void slotDocumentChanged();
+
+    void slotItemClicked(QTreeWidgetItem *item, int column);
+
 private:
     QTreeWidget *m_treeWidget;
 
-public slots:
-    void updateModel();
-
-private slots:
-    void followLink(QTreeWidgetItem *item, int column);
+    void prepareOutline(Outline *outline, QTreeWidgetItem *parent, QTreeWidgetItem *sibling);
 
 };
 
@@ -77,15 +80,60 @@ class ThumbnailsView : public AuxiliaryView
 public:
     explicit ThumbnailsView(QWidget *parent = 0);
 
+protected slots:
+    void slotDocumentChanged();
+
+    void slotItemClicked(QListWidgetItem *item);
+
 private:
     QListWidget *m_listWidget;
 
+};
+
+// presentation view
+
+class PresentationView : public AuxiliaryView
+{
+    Q_OBJECT
+
+public:
+    explicit PresentationView();
+    ~PresentationView();
+
 public slots:
-    void updateModel();
+    void setCurrentPage(int currentPage);
 
-private slots:
-    void followLink(QListWidgetItem *item);
+    void previousPage();
+    void nextPage();
+    void firstPage();
+    void lastPage();
 
+protected:
+    void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent*);
+    void keyPressEvent(QKeyEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
+protected slots:
+    void slotDocumentChanged();
+
+private:
+    int m_currentPage;
+
+    QSizeF m_size;
+    qreal m_scaleFactor;
+    QRectF m_boundingRect;
+
+    QList<Link> m_links;
+    QTransform m_linkTransform;
+
+    // internal methods
+
+    void prepareView();
+
+    QFuture<void> m_render;
+    void render();
 };
 
 // recently used action
@@ -98,6 +146,17 @@ public:
     RecentlyUsedAction(QObject *parent = 0);
     ~RecentlyUsedAction();
 
+public slots:
+    void addEntry(const QString &filePath);
+
+    void clearList();
+
+signals:
+    void entrySelected(QString filePath);
+
+protected slots:
+    void slotActionGroupTriggered(QAction *action);
+
 private:
     QMenu *m_menu;
     QActionGroup *m_actionGroup;
@@ -105,19 +164,9 @@ private:
 
     QAction *m_clearListAction;
 
+    // settings
+
     QSettings m_settings;
-
-signals:
-    void entrySelected(QString);
-
-private slots:
-    void selectEntry(QAction *action);
-
-    void clearList();
-
-public slots:
-    void addEntry(const QString &filePath);
-
 };
 
 // bookmarks menu
@@ -129,32 +178,36 @@ class BookmarksMenu : public QMenu
 public:
     BookmarksMenu(QWidget *parent = 0);
 
+public slots:
+    void addEntry();
+
+    void goToPreviousEntry();
+    void goToNextEntry();
+
+    void setPosition(int page, qreal top);
+
+    void clearPage();
+    void clearDocument();
+
+signals:
+    void entrySelected(int page, qreal top);
+
+protected slots:
+    void slotActionGroupTriggered(QAction *action);
+
 private:
     QActionGroup *m_actionGroup;
 
     QAction *m_addEntryAction;
-    QAction *m_selectPreviousEntryAction;
-    QAction *m_selectNextEntryAction;
-    QAction *m_removeEntriesOnCurrentPageAction;
-    QAction *m_clearListAction;
 
-    int m_currentPage;
+    QAction *m_goToPreviousEntryAction;
+    QAction *m_goToNextEntryAction;
+
+    QAction *m_clearPageAction;
+    QAction *m_clearDocumentAction;
+
+    int m_page;
     qreal m_top;
-
-signals:
-    void entrySelected(int currentPage, qreal top);
-
-private slots:
-    void selectEntry(QAction *action);
-
-public slots:
-    void addEntry();
-    void selectPreviousEntry();
-    void selectNextEntry();
-    void removeEntriesOnCurrentPage();
-    void clearList();
-
-    void updateCurrrentPage(int currentPage, qreal top = 0.0);
 
 };
 
@@ -169,20 +222,18 @@ public:
 
 public slots:
     void accept();
-    
+
 private:
     QFormLayout *m_layout;
     QDialogButtonBox *m_buttonBox;
 
-    QCheckBox *m_watchFilePathCheckBox;
-    QCheckBox *m_openUrlLinksCheckBox;
-    QCheckBox *m_openExternalLinksCheckBox;
+    QCheckBox *m_automaticRefreshCheckBox;
+    QCheckBox *m_openUrlCheckBox;
 
     QCheckBox *m_antialiasingCheckBox;
     QCheckBox *m_textAntialiasingCheckBox;
-    QCheckBox *m_textHintingCheckBox;
 
-    QComboBox *m_pageCacheSizeComboBox;
+    QComboBox *m_maximumPageCacheSizeComboBox;
 
 };
 

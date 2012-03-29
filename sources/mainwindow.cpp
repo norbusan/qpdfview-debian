@@ -19,14 +19,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "mainwindow.h"
-
-#include "presentationview.h"
+#include "documentview.h"
 #include "miscellaneous.h"
+#include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     m_settings(),
-    m_normalGeometry()
+    m_geometry()
 {
     this->createActions();
     this->createWidgets();
@@ -37,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->setCentralWidget(m_tabWidget);
     this->setAcceptDrops(true);
 
-    this->changeCurrentTab(-1);
+    this->slotTabWidgetCurrentChanged(-1);
 
     // settings
 
@@ -45,8 +44,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
-
-    //this->menuBar()->setVisible(m_settings.value("mainWindow/menuBar", true).toBool());
 
     // command line arguments
 
@@ -61,6 +58,890 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     }
 }
 
+QMenu *MainWindow::createPopupMenu()
+{
+    QMenu *menu = new QMenu();
+
+    menu->addAction(m_fileToolBar->toggleViewAction());
+    menu->addAction(m_editToolBar->toggleViewAction());
+    menu->addAction(m_viewToolBar->toggleViewAction());
+    menu->addSeparator();
+    menu->addAction(m_outlineDock->toggleViewAction());
+    menu->addAction(m_thumbnailsDock->toggleViewAction());
+
+    return menu;
+}
+
+bool MainWindow::open(const QString &filePath, int page, qreal top)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(documentView->open(filePath))
+        {
+            documentView->setCurrentPage(page, top);
+
+            return true;
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+
+            return false;
+        }
+    }
+    else
+    {
+        return this->addTab(filePath, page, top);
+    }
+}
+
+bool MainWindow::addTab(const QString &filePath, int page, qreal top)
+{
+    DocumentView *documentView = new DocumentView();
+
+    if(documentView->open(filePath))
+    {
+        int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setCurrentIndex(index);
+
+        m_tabMenu->addAction(documentView->makeCurrentTabAction());
+
+        connect(documentView, SIGNAL(searchProgressed(int)), this, SLOT(slotSearchProgressed(int)));
+        connect(documentView, SIGNAL(searchCanceled()), this, SLOT(slotSearchCanceled()));
+        connect(documentView, SIGNAL(searchFinished()), this, SLOT(slotSearchFinished()));
+
+        connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(slotNumberOfPagesChanged(int)));
+        connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(slotCurrentPageChanged(int)));
+        connect(documentView, SIGNAL(pageLayoutChanged(PageLayout)), this, SLOT(slotPageLayoutChanged(PageLayout)));
+        connect(documentView, SIGNAL(scalingChanged(Scaling)), this, SLOT(slotScalingChanged(Scaling)));
+        connect(documentView, SIGNAL(rotationChanged(Rotation)), this, SLOT(slotRotationChanged(Rotation)));
+        connect(documentView, SIGNAL(highlightAllChanged(bool)), this, SLOT(slotHighlightAllChanged(bool)));
+
+        documentView->setCurrentPage(page, top);
+
+        return true;
+    }
+    else
+    {
+        delete documentView;
+
+        QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+
+        return false;
+    }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        if(m_searchToolBar->isVisible())
+        {
+            this->slotCancelSearch();
+
+            m_searchLineEdit->clear();
+
+            m_searchToolBar->hide();
+        }
+    }
+    else
+    {
+        if(m_tabWidget->currentIndex() != -1)
+        {
+            QApplication::sendEvent(m_tabWidget->currentWidget(), event);
+        }
+    }
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if(event->mimeData()->hasUrls())
+    {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    if(event->mimeData()->hasUrls())
+    {
+        event->acceptProposedAction();
+
+        foreach(QUrl url, event->mimeData()->urls())
+        {
+            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
+            {
+                this->addTab(url.path());
+            }
+        }
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    while(m_tabWidget->count() > 0)
+    {
+        delete m_tabWidget->widget(0);
+    }
+
+    m_searchToolBar->hide();
+
+    m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
+
+    if(m_fullscreenAction->isChecked())
+    {
+        m_settings.setValue("mainWindow/geometry", m_geometry);
+    }
+    else
+    {
+        m_settings.setValue("mainWindow/geometry", this->saveGeometry());
+    }
+
+    m_settings.setValue("mainWindow/state", this->saveState());
+
+    QMainWindow::closeEvent(event);
+}
+
+void MainWindow::slotOpen()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"),
+                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                        tr("Portable Document Format (*.pdf)"));
+
+        if(!filePath.isEmpty())
+        {
+            if(this->open(filePath))
+            {
+                m_recentlyUsedAction->addEntry(filePath);
+
+                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            }
+        }
+    }
+    else
+    {
+        this->slotAddTab();
+    }
+}
+
+void MainWindow::slotRefresh()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->refresh();
+    }
+}
+
+void MainWindow::slotSaveCopy()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"),
+                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                        tr("Portable Document Format (*.pdf)"));
+
+        if(!filePath.isEmpty())
+        {
+            DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            if(documentView->saveCopy(filePath))
+            {
+                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            }
+            else
+            {
+                QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at \"%1\".").arg(QFileInfo(filePath).fileName()));
+            }
+        }
+    }
+}
+
+void MainWindow::slotPrint()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        QPrinter *printer = new QPrinter();
+        printer->setFullPage(true);
+
+        QPrintDialog printDialog(printer, this);
+        printDialog.setMinMax(1, documentView->numberOfPages());
+
+        if(printDialog.exec() == QDialog::Accepted)
+        {
+            int fromPage = printDialog.fromPage() != 0 ? printDialog.fromPage() : 1;
+            int toPage = printDialog.toPage() != 0 ? printDialog.toPage() : documentView->numberOfPages();
+
+            QProgressDialog progressDialog;
+
+            progressDialog.setLabelText(tr("Printing pages %1 to %2...").arg(fromPage).arg(toPage));
+            progressDialog.setRange(0, 100);
+            progressDialog.setValue(0);
+
+            connect(documentView, SIGNAL(printProgressed(int)), &progressDialog, SLOT(setValue(int)));
+            connect(documentView, SIGNAL(printCanceled()), &progressDialog, SLOT(close()));
+            connect(documentView, SIGNAL(printFinished()), &progressDialog, SLOT(close()));
+
+            connect(&progressDialog, SIGNAL(canceled()), documentView, SLOT(cancelPrint()));
+
+            documentView->startPrint(printer, fromPage, toPage);
+
+            progressDialog.exec();
+        }
+    }
+}
+
+void MainWindow::slotPreviousPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->previousPage();
+    }
+}
+
+void MainWindow::slotNextPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->nextPage();
+    }
+}
+
+void MainWindow::slotFirstPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->firstPage();
+    }
+}
+
+void MainWindow::slotLastPage()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->lastPage();
+    }
+}
+
+void MainWindow::slotSearch()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->show();
+        }
+        else
+        {
+            m_searchLineEdit->selectAll();
+        }
+
+        m_searchLineEdit->setFocus();
+    }
+}
+
+void MainWindow::slotStartSearch()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        this->slotCancelSearch();
+
+        if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
+        {
+            DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+            documentView->startSearch(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
+        }
+    }
+}
+
+void MainWindow::slotCancelSearch()
+{
+    m_searchTimer->stop();
+
+    for(int index = 0; index < m_tabWidget->count(); index++)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+
+        documentView->cancelSearch();
+    }
+}
+
+void MainWindow::slotSearchProgressed(int value)
+{
+    this->statusBar()->show();
+    this->statusBar()->showMessage(tr("Searched %1% of the the current document...").arg(value));
+}
+
+void MainWindow::slotSearchCanceled()
+{
+    this->statusBar()->clearMessage();
+    this->statusBar()->hide();
+}
+
+void MainWindow::slotSearchFinished()
+{
+    this->statusBar()->clearMessage();
+    this->statusBar()->hide();
+}
+
+void MainWindow::slotFindPrevious()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->show();
+            m_searchLineEdit->setFocus();
+        }
+        else
+        {
+            if(!m_searchLineEdit->text().isEmpty())
+            {
+                DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+                documentView->findPrevious();
+            }
+        }
+    }
+}
+
+void MainWindow::slotFindNext()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_searchToolBar->isHidden())
+        {
+            m_searchToolBar->show();
+            m_searchLineEdit->setFocus();
+        }
+        else
+        {
+            if(!m_searchLineEdit->text().isEmpty())
+            {
+                DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+                documentView->findNext();
+            }
+        }
+    }
+}
+
+void MainWindow::slotSettings()
+{
+    SettingsDialog settingsDialog;
+
+    settingsDialog.exec();
+}
+
+void MainWindow::slotPresentation()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        PresentationView *presentationView = new PresentationView();
+        presentationView->setDocumentView(documentView);
+
+        presentationView->show();
+
+        presentationView->setAttribute(Qt::WA_DeleteOnClose);
+    }
+}
+
+void MainWindow::slotFullscreen()
+{
+    if(m_fullscreenAction->isChecked())
+    {
+        m_geometry = this->saveGeometry();
+
+        this->showFullScreen();
+    }
+    else
+    {
+        this->restoreGeometry(m_geometry);
+
+        this->showNormal();
+
+        this->restoreGeometry(m_geometry);
+    }
+}
+
+void MainWindow::slotAddTab()
+{
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
+                                                          m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                          tr("Portable Document Format (*.pdf)"));
+
+    foreach(QString filePath, filePaths)
+    {
+        if(!filePath.isEmpty())
+        {
+            if(this->addTab(filePath))
+            {
+                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+
+                m_recentlyUsedAction->addEntry(filePath);
+            }
+        }
+    }
+}
+
+void MainWindow::slotPreviousTab()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_tabWidget->currentIndex() > 0)
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()-1);
+        }
+        else
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->count()-1);
+        }
+    }
+}
+
+void MainWindow::slotNextTab()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        if(m_tabWidget->currentIndex() < m_tabWidget->count()-1)
+        {
+            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()+1);
+        }
+        else
+        {
+            m_tabWidget->setCurrentIndex(0);
+        }
+    }
+}
+
+void MainWindow::slotCloseTab()
+{
+    delete m_tabWidget->currentWidget();
+}
+
+void MainWindow::slotCloseAllTabs()
+{
+    while(m_tabWidget->count() > 0)
+    {
+        delete m_tabWidget->widget(0);
+    }
+}
+
+void MainWindow::slotCloseAllTabsButCurrentTab()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        m_tabWidget->removeTab(m_tabWidget->currentIndex());
+
+        while(m_tabWidget->count() > 0)
+        {
+            delete m_tabWidget->widget(0);
+        }
+
+        int index = m_tabWidget->addTab(documentView, QFileInfo(documentView->filePath()).completeBaseName());
+        m_tabWidget->setTabToolTip(index, QFileInfo(documentView->filePath()).completeBaseName());
+        m_tabWidget->setCurrentIndex(index);
+    }
+}
+
+void MainWindow::slotContents()
+{
+    HelpDialog helpDialog;
+
+    helpDialog.exec();
+}
+
+void MainWindow::slotAbout()
+{
+    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library.</p><p>&copy; 2012 Adam Reichold</p>"));
+}
+
+void MainWindow::slotTabWidgetCurrentChanged(int index)
+{
+    if(index != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        m_refreshAction->setEnabled(true);
+        m_saveCopyAction->setEnabled(true);
+        m_printAction->setEnabled(true);
+
+        m_previousPageAction->setEnabled(true);
+        m_nextPageAction->setEnabled(true);
+        m_firstPageAction->setEnabled(true);
+        m_lastPageAction->setEnabled(true);
+
+        m_searchAction->setEnabled(true);
+        m_findPreviousAction->setEnabled(true);
+        m_findNextAction->setEnabled(true);
+
+        m_pageLayoutGroup->setEnabled(true);
+        m_scalingGroup->setEnabled(true);
+        m_rotationGroup->setEnabled(true);
+
+        m_presentationAction->setEnabled(true);
+
+        m_previousTabAction->setEnabled(true);
+        m_nextTabAction->setEnabled(true);
+        m_closeTabAction->setEnabled(true);
+
+        m_editToolBar->setEnabled(true);
+        m_viewToolBar->setEnabled(true);
+
+        m_searchToolBar->setEnabled(true);
+
+        this->slotCurrentPageChanged(documentView->currentPage());
+        this->slotNumberOfPagesChanged(documentView->numberOfPages());
+        this->slotPageLayoutChanged(documentView->pageLayout());
+        this->slotScalingChanged(documentView->scaling());
+        this->slotRotationChanged(documentView->rotation());
+        this->slotHighlightAllChanged(documentView->highlightAll());
+
+        if(m_searchToolBar->isVisible())
+        {
+            this->slotCancelSearch();
+
+            m_searchLineEdit->clear();
+        }
+
+        m_outlineView->setDocumentView(documentView);
+        m_thumbnailsView->setDocumentView(documentView);
+    }
+    else
+    {
+        m_refreshAction->setEnabled(false);
+        m_saveCopyAction->setEnabled(false);
+        m_printAction->setEnabled(false);
+
+        m_previousPageAction->setEnabled(false);
+        m_nextPageAction->setEnabled(false);
+        m_firstPageAction->setEnabled(false);
+        m_lastPageAction->setEnabled(false);
+
+        m_searchAction->setEnabled(false);
+        m_findPreviousAction->setEnabled(false);
+        m_findNextAction->setEnabled(false);
+
+        m_onePageAction->setChecked(true);
+        m_pageLayoutGroup->setEnabled(false);
+
+        m_scaleTo100Action->setChecked(true);
+        m_scalingGroup->setEnabled(false);
+
+        m_rotateBy0Action->setChecked(true);
+        m_rotationGroup->setEnabled(false);
+
+        m_presentationAction->setEnabled(false);
+
+        m_previousTabAction->setEnabled(false);
+        m_nextTabAction->setEnabled(false);
+        m_closeTabAction->setEnabled(false);
+
+        m_currentPageLineEdit->setText(QString());
+        m_numberOfPagesLabel->setText(QString());
+        m_editToolBar->setEnabled(false);
+
+        m_pageLayoutComboBox->setCurrentIndex(0);
+        m_scalingComboBox->setCurrentIndex(4);
+        m_rotationComboBox->setCurrentIndex(0);
+        m_viewToolBar->setEnabled(false);
+
+        m_highlightAllCheckBox->setChecked(false);
+        m_searchToolBar->setEnabled(false);
+
+        if(m_searchToolBar->isVisible())
+        {
+            m_searchLineEdit->clear();
+
+            m_searchToolBar->hide();
+        }
+
+        m_outlineView->setDocumentView(0);
+        m_thumbnailsView->setDocumentView(0);
+    }
+}
+
+void MainWindow::slotTabWidgetTabCloseRequested(int index)
+{
+    delete m_tabWidget->widget(index);
+}
+
+void MainWindow::slotCurrentPageLineEditReturnPressed()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+    }
+}
+
+void MainWindow::slotHighlightAllCheckBoxToggled()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setHighlightAll(m_highlightAllCheckBox->isChecked());
+    }
+}
+
+void MainWindow::slotRecentyUsedEntrySelected(const QString &filePath)
+{
+    this->open(filePath);
+}
+
+void MainWindow::slotPageLayoutTriggered(QAction *action)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(action == m_onePageAction)
+        {
+            documentView->setPageLayout(OnePage);
+        }
+        else if(action == m_twoPagesAction)
+        {
+            documentView->setPageLayout(TwoPages);
+        }
+        else if(action == m_oneColumnAction)
+        {
+            documentView->setPageLayout(OneColumn);
+        }
+        else if(action == m_twoColumnsAction)
+        {
+            documentView->setPageLayout(TwoColumns);
+        }
+    }
+}
+
+void MainWindow::slotPageLayoutCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setPageLayout(static_cast<PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotScalingTriggered(QAction *action)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(action == m_fitToPageAction)
+        {
+            documentView->setScaling(FitToPage);
+        }
+        else if(action == m_fitToPageWidthAction)
+        {
+            documentView->setScaling(FitToPageWidth);
+        }
+        else if(action == m_scaleTo50Action)
+        {
+            documentView->setScaling(ScaleTo50);
+        }
+        else if(action == m_scaleTo75Action)
+        {
+            documentView->setScaling(ScaleTo75);
+        }
+        else if(action == m_scaleTo100Action)
+        {
+            documentView->setScaling(ScaleTo100);
+        }
+        else if(action == m_scaleTo125Action)
+        {
+            documentView->setScaling(ScaleTo125);
+        }
+        else if(action == m_scaleTo150Action)
+        {
+            documentView->setScaling(ScaleTo150);
+        }
+        else if(action == m_scaleTo200Action)
+        {
+            documentView->setScaling(ScaleTo200);
+        }
+        else if(action == m_scaleTo400Action)
+        {
+            documentView->setScaling(ScaleTo400);
+        }
+    }
+}
+
+void MainWindow::slotScalingCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setScaling(static_cast<Scaling>(m_scalingComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotRotationTriggered(QAction *action)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+       DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        if(action == m_rotateBy0Action)
+        {
+            documentView->setRotation(RotateBy0);
+        }
+        else if(action == m_rotateBy90Action)
+        {
+            documentView->setRotation(RotateBy90);
+        }
+        else if(action == m_rotateBy180Action)
+        {
+            documentView->setRotation(RotateBy180);
+        }
+        else if(action == m_rotateBy270Action)
+        {
+            documentView->setRotation(RotateBy270);
+        }
+    }
+}
+
+void MainWindow::slotRotationCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setRotation(static_cast<Rotation>(m_rotationComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
+{
+    m_currentPageValidator->setRange(1, numberOfPages);
+    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
+}
+
+void MainWindow::slotCurrentPageChanged(int currentPage)
+{
+    m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
+}
+
+void MainWindow::slotPageLayoutChanged(PageLayout pageLayout)
+{
+    switch(pageLayout)
+    {
+    case OnePage:
+        m_onePageAction->setChecked(true);
+        m_pageLayoutComboBox->setCurrentIndex(0);
+        break;
+    case TwoPages:
+        m_twoPagesAction->setChecked(true);
+        m_pageLayoutComboBox->setCurrentIndex(1);
+        break;
+    case OneColumn:
+        m_oneColumnAction->setChecked(true);
+        m_pageLayoutComboBox->setCurrentIndex(2);
+        break;
+    case TwoColumns:
+        m_twoColumnsAction->setChecked(true);
+        m_pageLayoutComboBox->setCurrentIndex(3);
+        break;
+    }
+}
+
+void MainWindow::slotScalingChanged(Scaling scaling)
+{
+    switch(scaling)
+    {
+    case FitToPage:
+        m_fitToPageAction->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(0);
+        break;
+    case FitToPageWidth:
+        m_fitToPageWidthAction->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(1);
+        break;
+    case ScaleTo50:
+        m_scaleTo50Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(2);
+        break;
+    case ScaleTo75:
+        m_scaleTo75Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(3);
+        break;
+    case ScaleTo100:
+        m_scaleTo100Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(4);
+        break;
+    case ScaleTo125:
+        m_scaleTo125Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(5);
+        break;
+    case ScaleTo150:
+        m_scaleTo150Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(6);
+        break;
+    case ScaleTo200:
+        m_scaleTo200Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(7);
+        break;
+    case ScaleTo400:
+        m_scaleTo400Action->setChecked(true);
+        m_scalingComboBox->setCurrentIndex(8);
+        break;
+    }
+}
+
+void MainWindow::slotRotationChanged(Rotation rotation)
+{
+    switch(rotation)
+    {
+    case RotateBy0:
+        m_rotateBy0Action->setChecked(true);
+        m_rotationComboBox->setCurrentIndex(0);
+        break;
+    case RotateBy90:
+        m_rotateBy90Action->setChecked(true);
+        m_rotationComboBox->setCurrentIndex(1);
+        break;
+    case RotateBy180:
+        m_rotateBy180Action->setChecked(true);
+        m_rotationComboBox->setCurrentIndex(2);
+        break;
+    case RotateBy270:
+        m_rotateBy270Action->setChecked(true);
+        m_rotationComboBox->setCurrentIndex(3);
+        break;
+    }
+}
+
+void MainWindow::slotHighlightAllChanged(bool highlightAll)
+{
+    m_highlightAllCheckBox->setChecked(highlightAll);
+}
+
 void MainWindow::createActions()
 {
 #ifdef DATA_INSTALL_PATH
@@ -72,7 +953,7 @@ void MainWindow::createActions()
     m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
     m_openAction->setIconVisibleInMenu(true);
-    connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
+    connect(m_openAction, SIGNAL(triggered()), this, SLOT(slotOpen()));
 
     if(QIcon::hasThemeIcon("document-open"))
     {
@@ -92,14 +973,14 @@ void MainWindow::createActions()
     m_recentlyUsedAction = new RecentlyUsedAction(this);
     m_recentlyUsedAction->setIcon(QIcon::fromTheme("document-open-recent"));
     m_recentlyUsedAction->setIconVisibleInMenu(true);
-    connect(m_recentlyUsedAction, SIGNAL(entrySelected(QString)), this, SLOT(openRecentlyUsed(QString)));
+    connect(m_recentlyUsedAction, SIGNAL(entrySelected(QString)), this, SLOT(slotRecentyUsedEntrySelected(QString)));
 
     // refresh
 
     m_refreshAction = new QAction(tr("&Refresh"), this);
     m_refreshAction->setShortcut(QKeySequence::Refresh);
     m_refreshAction->setIconVisibleInMenu(true);
-    connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(refresh()));
+    connect(m_refreshAction, SIGNAL(triggered()), this, SLOT(slotRefresh()));
 
     if(QIcon::hasThemeIcon("view-refresh"))
     {
@@ -119,7 +1000,7 @@ void MainWindow::createActions()
     m_saveCopyAction = new QAction(tr("&Save copy..."), this);
     m_saveCopyAction->setShortcut(QKeySequence::Save);
     m_saveCopyAction->setIconVisibleInMenu(true);
-    connect(m_saveCopyAction, SIGNAL(triggered()), this, SLOT(saveCopy()));
+    connect(m_saveCopyAction, SIGNAL(triggered()), this, SLOT(slotSaveCopy()));
 
     if(QIcon::hasThemeIcon("document-save"))
     {
@@ -139,7 +1020,7 @@ void MainWindow::createActions()
     m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
     m_printAction->setIconVisibleInMenu(true);
-    connect(m_printAction, SIGNAL(triggered()), this, SLOT(print()));
+    connect(m_printAction, SIGNAL(triggered()), this, SLOT(slotPrint()));
 
     if(QIcon::hasThemeIcon("document-print"))
     {
@@ -167,7 +1048,7 @@ void MainWindow::createActions()
     m_previousPageAction = new QAction(tr("&Previous page"), this);
     m_previousPageAction->setShortcut(QKeySequence::MoveToPreviousPage);
     m_previousPageAction->setIconVisibleInMenu(true);
-    connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
+    connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(slotPreviousPage()));
 
     if(QIcon::hasThemeIcon("go-previous"))
     {
@@ -187,7 +1068,7 @@ void MainWindow::createActions()
     m_nextPageAction = new QAction(tr("&Next page"), this);
     m_nextPageAction->setShortcut(QKeySequence::MoveToNextPage);
     m_nextPageAction->setIconVisibleInMenu(true);
-    connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(nextPage()));
+    connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(slotNextPage()));
 
     if(QIcon::hasThemeIcon("go-next"))
     {
@@ -207,7 +1088,7 @@ void MainWindow::createActions()
     m_firstPageAction = new QAction(tr("&First page"), this);
     m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
     m_firstPageAction->setIconVisibleInMenu(true);
-    connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(firstPage()));
+    connect(m_firstPageAction, SIGNAL(triggered()), this, SLOT(slotFirstPage()));
 
     if(QIcon::hasThemeIcon("go-first"))
     {
@@ -227,7 +1108,7 @@ void MainWindow::createActions()
     m_lastPageAction = new QAction(tr("&Last page"), this);
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
     m_lastPageAction->setIconVisibleInMenu(true);
-    connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(lastPage()));
+    connect(m_lastPageAction, SIGNAL(triggered()), this, SLOT(slotLastPage()));
 
     if(QIcon::hasThemeIcon("go-last"))
     {
@@ -248,24 +1129,24 @@ void MainWindow::createActions()
     m_searchAction->setShortcut(QKeySequence::Find);
     m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
     m_searchAction->setIconVisibleInMenu(true);
-    connect(m_searchAction, SIGNAL(triggered()), this, SLOT(search()));
+    connect(m_searchAction, SIGNAL(triggered()), this, SLOT(slotSearch()));
 
     // findPrevious
 
     m_findPreviousAction = new QAction(tr("Find previous"), this);
     m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
-    connect(m_findPreviousAction, SIGNAL(triggered()), this, SLOT(findPrevious()));
+    connect(m_findPreviousAction, SIGNAL(triggered()), this, SLOT(slotFindPrevious()));
 
     // findNext
 
     m_findNextAction = new QAction(tr("Find next"), this);
     m_findNextAction->setShortcut(QKeySequence::FindNext);
-    connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(findNext()));
+    connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(slotFindNext()));
 
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
-    connect(m_settingsAction, SIGNAL(triggered()), this, SLOT(settings()));
+    connect(m_settingsAction, SIGNAL(triggered()), this, SLOT(slotSettings()));
 
     // pageLayout
 
@@ -283,7 +1164,7 @@ void MainWindow::createActions()
     m_pageLayoutGroup->addAction(m_twoPagesAction);
     m_pageLayoutGroup->addAction(m_oneColumnAction);
     m_pageLayoutGroup->addAction(m_twoColumnsAction);
-    connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), this, SLOT(changePageLayout(QAction*)));
+    connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), this, SLOT(slotPageLayoutTriggered(QAction*)));
 
     // scaling
 
@@ -316,7 +1197,7 @@ void MainWindow::createActions()
     m_scalingGroup->addAction(m_scaleTo150Action);
     m_scalingGroup->addAction(m_scaleTo200Action);
     m_scalingGroup->addAction(m_scaleTo400Action);
-    connect(m_scalingGroup, SIGNAL(selected(QAction*)), this, SLOT(changeScaling(QAction*)));
+    connect(m_scalingGroup, SIGNAL(selected(QAction*)), this, SLOT(slotScalingTriggered(QAction*)));
 
     // rotation
 
@@ -334,13 +1215,13 @@ void MainWindow::createActions()
     m_rotationGroup->addAction(m_rotateBy90Action);
     m_rotationGroup->addAction(m_rotateBy180Action);
     m_rotationGroup->addAction(m_rotateBy270Action);
-    connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(changeRotation(QAction*)));
+    connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(slotRotationTriggered(QAction*)));
 
     // presentation
 
     m_presentationAction = new QAction(tr("Presentation..."), this);
     m_presentationAction->setShortcut(QKeySequence(Qt::Key_F10));
-    connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(presentation()));
+    connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(slotPresentation()));
 
     // fullscreen
 
@@ -349,25 +1230,25 @@ void MainWindow::createActions()
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
     m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
     m_fullscreenAction->setIconVisibleInMenu(true);
-    connect(m_fullscreenAction, SIGNAL(changed()), this, SLOT(changeFullscreen()));
+    connect(m_fullscreenAction, SIGNAL(triggered()), this, SLOT(slotFullscreen()));
 
     // addTab
 
     m_addTabAction = new QAction(tr("&Add tab..."), this);
     m_addTabAction->setShortcut(QKeySequence::AddTab);
-    connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(addTab()));
+    connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(slotAddTab()));
 
     // previousTab
 
     m_previousTabAction = new QAction(tr("&Previous tab"), this);
     m_previousTabAction->setShortcut(QKeySequence::PreviousChild);
-    connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(previousTab()));
+    connect(m_previousTabAction, SIGNAL(triggered()), this, SLOT(slotPreviousTab()));
 
     // nextTab
 
     m_nextTabAction = new QAction(tr("&Next tab"), this);
     m_nextTabAction->setShortcut(QKeySequence::NextChild);
-    connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(nextTab()));
+    connect(m_nextTabAction, SIGNAL(triggered()), this, SLOT(slotNextTab()));
 
     // closeTab
 
@@ -375,19 +1256,19 @@ void MainWindow::createActions()
     m_closeTabAction->setShortcut(QKeySequence::Close);
     m_closeTabAction->setIcon(QIcon::fromTheme("window-close"));
     m_closeTabAction->setIconVisibleInMenu(true);
-    connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(closeTab()));
+    connect(m_closeTabAction, SIGNAL(triggered()), this, SLOT(slotCloseTab()));
 
     // closeAllTabs
 
     m_closeAllTabsAction = new QAction(tr("Close all &tabs"), this);
     m_closeAllTabsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W));
-    connect(m_closeAllTabsAction, SIGNAL(triggered()), this, SLOT(closeAllTabs()));
+    connect(m_closeAllTabsAction, SIGNAL(triggered()), this, SLOT(slotCloseAllTabs()));
 
     // closeAllTabsButCurrent
 
-    m_closeAllTabsButCurrentAction = new QAction(tr("Close all tabs &but current"), this);
-    m_closeAllTabsButCurrentAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
-    connect(m_closeAllTabsButCurrentAction, SIGNAL(triggered()), this, SLOT(closeAllTabsButCurrent()));
+    m_closeAllTabsButCurrentTabAction = new QAction(tr("Close all tabs &but current tab"), this);
+    m_closeAllTabsButCurrentTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
+    connect(m_closeAllTabsButCurrentTabAction, SIGNAL(triggered()), this, SLOT(slotCloseAllTabsButCurrentTab()));
 
     // contents
 
@@ -395,14 +1276,14 @@ void MainWindow::createActions()
     m_contentsAction->setShortcut(QKeySequence::HelpContents);
     m_contentsAction->setIcon(QIcon::fromTheme("help-contents"));
     m_contentsAction->setIconVisibleInMenu(true);
-    connect(m_contentsAction, SIGNAL(triggered()), this, SLOT(contents()));
+    connect(m_contentsAction, SIGNAL(triggered()), this, SLOT(slotContents()));
 
     // about
 
     m_aboutAction = new QAction(tr("&About"), this);
     m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
     m_aboutAction->setIconVisibleInMenu(true);
-    connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(slotAbout()));
 }
 
 void MainWindow::createWidgets()
@@ -416,8 +1297,8 @@ void MainWindow::createWidgets()
     m_tabWidget->setDocumentMode(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changeCurrentTab(int)));
-    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
+    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(slotTabWidgetTabCloseRequested(int)));
 
     // currentPage
 
@@ -437,7 +1318,7 @@ void MainWindow::createWidgets()
     m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
     m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
 
-    connect(m_currentPageLineEdit, SIGNAL(returnPressed()), this, SLOT(changeCurrentPage()));
+    connect(m_currentPageLineEdit, SIGNAL(returnPressed()), this, SLOT(slotCurrentPageLineEditReturnPressed()));
 
     // pageLayout
 
@@ -448,16 +1329,16 @@ void MainWindow::createWidgets()
     m_pageLayoutWidget->setMaximumWidth(300);
     m_pageLayoutLabel->setBuddy(m_pageLayoutComboBox);
 
-    m_pageLayoutComboBox->addItem(tr("One page"), DocumentView::OnePage);
-    m_pageLayoutComboBox->addItem(tr("Two pages"), DocumentView::TwoPages);
-    m_pageLayoutComboBox->addItem(tr("One column"), DocumentView::OneColumn);
-    m_pageLayoutComboBox->addItem(tr("Two columns"), DocumentView::TwoColumns);
+    m_pageLayoutComboBox->addItem(tr("One page"), OnePage);
+    m_pageLayoutComboBox->addItem(tr("Two pages"), TwoPages);
+    m_pageLayoutComboBox->addItem(tr("One column"), OneColumn);
+    m_pageLayoutComboBox->addItem(tr("Two columns"), TwoColumns);
 
     m_pageLayoutWidget->setLayout(new QHBoxLayout());
     m_pageLayoutWidget->layout()->addWidget(m_pageLayoutLabel);
     m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
 
-    connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changePageLayout(int)));
+    connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLayoutCurrentIndexChanged(int)));
 
     // scaling
 
@@ -468,21 +1349,21 @@ void MainWindow::createWidgets()
     m_scalingWidget->setMaximumWidth(300);
     m_scalingLabel->setBuddy(m_scalingComboBox);
 
-    m_scalingComboBox->addItem(tr("Fit to page"), DocumentView::FitToPage);
-    m_scalingComboBox->addItem(tr("Fit to page width"), DocumentView::FitToPageWidth);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), DocumentView::ScaleTo50);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), DocumentView::ScaleTo75);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), DocumentView::ScaleTo100);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), DocumentView::ScaleTo125);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), DocumentView::ScaleTo150);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), DocumentView::ScaleTo200);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), DocumentView::ScaleTo400);
+    m_scalingComboBox->addItem(tr("Fit to page"), FitToPage);
+    m_scalingComboBox->addItem(tr("Fit to page width"), FitToPageWidth);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), ScaleTo50);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), ScaleTo75);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), ScaleTo100);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), ScaleTo125);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), ScaleTo150);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), ScaleTo200);
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), ScaleTo400);
 
     m_scalingWidget->setLayout(new QHBoxLayout());
     m_scalingWidget->layout()->addWidget(m_scalingLabel);
     m_scalingWidget->layout()->addWidget(m_scalingComboBox);
 
-    connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeScalingIndex(int)));
+    connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotScalingCurrentIndexChanged(int)));
 
     // rotationWidget
 
@@ -493,16 +1374,16 @@ void MainWindow::createWidgets()
     m_rotationWidget->setMaximumWidth(300);
     m_rotationLabel->setBuddy(m_rotationComboBox);
 
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), DocumentView::RotateBy0);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), DocumentView::RotateBy90);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), DocumentView::RotateBy180);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), DocumentView::RotateBy270);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), RotateBy0);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), RotateBy90);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), RotateBy180);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), RotateBy270);
 
     m_rotationWidget->setLayout(new QHBoxLayout());
     m_rotationWidget->layout()->addWidget(m_rotationLabel);
     m_rotationWidget->layout()->addWidget(m_rotationComboBox);
 
-    connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRotationIndex(int)));
+    connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRotationCurrentIndexChanged(int)));
 
     // search
 
@@ -527,12 +1408,14 @@ void MainWindow::createWidgets()
     m_searchWidget->layout()->addWidget(m_findPreviousButton);
     m_searchWidget->layout()->addWidget(m_findNextButton);
 
-    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), this, SLOT(searchStart()));
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(searchTimeout()));
-    connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(searchTimeout()));
-    connect(m_highlightAllCheckBox, SIGNAL(toggled(bool)), this, SLOT(changeHighlightAll()));
-    connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
-    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(findNext()));
+    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
+    connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(slotStartSearch()));
+    connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(slotStartSearch()));
+
+    connect(m_highlightAllCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotHighlightAllCheckBoxToggled()));
+
+    connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(slotFindPrevious()));
+    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(slotFindNext()));
 }
 
 void MainWindow::createToolBars()
@@ -599,8 +1482,6 @@ void MainWindow::createDocks()
 
     m_outlineView = new OutlineView(m_outlineDock);
     m_outlineDock->setWidget(m_outlineView);
-
-    connect(m_outlineDock, SIGNAL(visibilityChanged(bool)), m_outlineView, SLOT(updateVisibility(bool)));
     m_outlineDock->hide();
 
     this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
@@ -614,8 +1495,6 @@ void MainWindow::createDocks()
 
     m_thumbnailsView = new ThumbnailsView(m_thumbnailsDock);
     m_thumbnailsDock->setWidget(m_thumbnailsView);
-
-    connect(m_thumbnailsDock, SIGNAL(visibilityChanged(bool)), m_thumbnailsView, SLOT(updateVisibility(bool)));
     m_thumbnailsDock->hide();
 
     this->addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
@@ -697,7 +1576,7 @@ void MainWindow::createMenus()
     m_tabMenu->addAction(m_closeTabAction);
     m_tabMenu->addSeparator();
     m_tabMenu->addAction(m_closeAllTabsAction);
-    m_tabMenu->addAction(m_closeAllTabsButCurrentAction);
+    m_tabMenu->addAction(m_closeAllTabsButCurrentTabAction);
     m_tabMenu->addSeparator();
 
     // help
@@ -705,962 +1584,4 @@ void MainWindow::createMenus()
     m_helpMenu = this->menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_contentsAction);
     m_helpMenu->addAction(m_aboutAction);
-}
-
-QMenu *MainWindow::createPopupMenu()
-{
-    QMenu *menu = new QMenu();
-
-    menu->addAction(m_fileToolBar->toggleViewAction());
-    menu->addAction(m_editToolBar->toggleViewAction());
-    menu->addAction(m_viewToolBar->toggleViewAction());
-    menu->addSeparator();
-    menu->addAction(m_outlineDock->toggleViewAction());
-    menu->addAction(m_thumbnailsDock->toggleViewAction());
-
-    return menu;
-}
-
-void MainWindow::open()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"),
-                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                        tr("Portable Document Format (*.pdf)"));
-
-        if(!filePath.isEmpty())
-        {
-            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-            DocumentModel *model = view->model();
-
-            if(model->open(filePath))
-            {
-                m_recentlyUsedAction->addEntry(filePath);
-
-                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-            }
-            else
-            {
-                QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-            }
-        }
-    }
-    else
-    {
-        this->addTab();
-    }
-}
-
-void MainWindow::refresh()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        model->refresh();
-    }
-}
-
-void MainWindow::saveCopy()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"),
-                                                        m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                        tr("Portable Document Format (*.pdf)"));
-
-        if(!filePath.isEmpty())
-        {
-            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-            DocumentModel *model = view->model();
-
-            if(model->saveCopy(filePath))
-            {
-                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-            }
-            else
-            {
-                QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at \"%1\".").arg(QFileInfo(filePath).fileName()));
-            }
-        }
-    }
-}
-
-void MainWindow::print()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        QPrinter *printer = new QPrinter();
-        printer->setFullPage(true);
-
-        QPrintDialog printDialog(printer, this);
-        printDialog.setMinMax(1, model->pageCount());
-
-        if(printDialog.exec() == QDialog::Accepted)
-        {
-            int fromPage = printDialog.fromPage() != 0 ? printDialog.fromPage() : 1;
-            int toPage = printDialog.toPage() != 0 ? printDialog.toPage() : model->pageCount();
-
-            QProgressDialog progressDialog;
-
-            progressDialog.setLabelText(tr("Printing pages %1 to %2...").arg(fromPage).arg(toPage));
-            progressDialog.setRange(0, 100);
-            progressDialog.setValue(0);
-
-            connect(model, SIGNAL(printProgressed(int)), &progressDialog, SLOT(setValue(int)));
-            connect(model, SIGNAL(printCanceled()), &progressDialog, SLOT(close()));
-            connect(model, SIGNAL(printFinished()), &progressDialog, SLOT(close()));
-
-            connect(&progressDialog, SIGNAL(canceled()), model, SLOT(cancelPrint()));
-
-            model->startPrint(printer, fromPage, toPage);
-
-            progressDialog.exec();
-        }
-    }
-}
-
-void MainWindow::previousPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->previousPage();
-    }
-}
-
-void MainWindow::nextPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->nextPage();
-    }
-}
-
-void MainWindow::firstPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->firstPage();
-    }
-}
-
-void MainWindow::lastPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->lastPage();
-    }
-}
-
-void MainWindow::search()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(m_searchToolBar->isHidden())
-        {
-            m_searchToolBar->show();
-        }
-        else
-        {
-            m_searchLineEdit->selectAll();
-        }
-
-        m_searchLineEdit->setFocus();
-    }
-}
-
-void MainWindow::searchStart()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        m_searchTimer->start();
-    }
-}
-
-void MainWindow::searchTimeout()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        this->invalidateSearches();
-
-        if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
-        {
-            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-            DocumentModel *model = view->model();
-
-            model->startSearch(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
-        }
-    }
-}
-
-void MainWindow::findPrevious()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(m_searchToolBar->isHidden())
-        {
-            m_searchToolBar->show();
-            m_searchLineEdit->setFocus();
-        }
-        else
-        {
-            if(!m_searchLineEdit->text().isEmpty())
-            {
-                DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-                view->findPrevious();
-            }
-        }
-    }
-}
-
-void MainWindow::findNext()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(m_searchToolBar->isHidden())
-        {
-            m_searchToolBar->show();
-            m_searchLineEdit->setFocus();
-        }
-        else
-        {
-            if(!m_searchLineEdit->text().isEmpty())
-            {
-                DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-                view->findNext();
-            }
-        }
-    }
-}
-
-void MainWindow::settings()
-{
-    SettingsDialog settingsDialog;
-
-    settingsDialog.exec();
-}
-
-void MainWindow::presentation()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        PresentationView *presentationView = new PresentationView(documentView->model(), documentView->currentPage());
-
-        presentationView->show();
-
-        presentationView->setAttribute(Qt::WA_DeleteOnClose);
-    }
-}
-
-void MainWindow::addTab()
-{
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
-                                                          m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                          tr("Portable Document Format (*.pdf)"));
-
-    foreach(QString filePath, filePaths)
-    {
-        if(this->addTab(filePath))
-        {
-            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-        }
-    }
-}
-
-void MainWindow::previousTab()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(m_tabWidget->currentIndex() > 0)
-        {
-            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()-1);
-        }
-        else
-        {
-            m_tabWidget->setCurrentIndex(m_tabWidget->count()-1);
-        }
-    }
-}
-
-void MainWindow::nextTab()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        if(m_tabWidget->currentIndex() < m_tabWidget->count()-1)
-        {
-            m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex()+1);
-        }
-        else
-        {
-            m_tabWidget->setCurrentIndex(0);
-        }
-    }
-}
-
-void MainWindow::closeTab()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        this->closeTab(m_tabWidget->currentIndex());
-    }
-}
-
-void MainWindow::closeAllTabs()
-{
-    while(m_tabWidget->count() > 0)
-    {
-        this->closeTab(0);
-    }
-}
-
-void MainWindow::closeAllTabsButCurrent()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        m_tabWidget->removeTab(m_tabWidget->currentIndex());
-
-        closeAllTabs();
-
-        int index = m_tabWidget->addTab(view, QFileInfo(model->filePath()).completeBaseName());
-        m_tabWidget->setTabToolTip(index, QFileInfo(model->filePath()).completeBaseName());
-        m_tabWidget->setCurrentIndex(index);
-    }
-}
-
-void MainWindow::contents()
-{
-    HelpDialog helpDialog;
-
-    helpDialog.exec();
-}
-
-void MainWindow::about()
-{
-    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library.</p><p>&copy; 2012 Adam Reichold</p>"));
-}
-
-
-void MainWindow::changeFullscreen()
-{
-    if(m_fullscreenAction->isChecked())
-    {
-        m_normalGeometry = this->saveGeometry();
-
-        this->showFullScreen();
-    }
-    else
-    {
-        this->restoreGeometry(m_normalGeometry);
-
-        this->showNormal();
-
-        this->restoreGeometry(m_normalGeometry);
-    }
-}
-
-void MainWindow::changeHighlightAll()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->setHighlightAll(m_highlightAllCheckBox->isChecked());
-    }
-}
-
-bool MainWindow::addTab(const QString &filePath)
-{
-    DocumentModel *model = new DocumentModel();
-
-    if(model->open(filePath))
-    {
-        DocumentView *view = new DocumentView(model);
-
-        int index = m_tabWidget->addTab(view, QFileInfo(filePath).completeBaseName());
-        m_tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
-        m_tabWidget->setCurrentIndex(index);
-
-        m_tabMenu->addAction(view->makeCurrentTabAction());
-
-        m_recentlyUsedAction->addEntry(filePath);
-
-        connect(model, SIGNAL(pageCountChanged(int)), this, SLOT(updateNumberOfPages(int)));
-
-        connect(model, SIGNAL(searchProgressed(int)), this, SLOT(searchProgressed(int)));
-        connect(model, SIGNAL(searchCanceled()), this, SLOT(searchCanceled()));
-        connect(model, SIGNAL(searchFinished()), this, SLOT(searchFinished()));
-
-        connect(view, SIGNAL(currentPageChanged(int)), this, SLOT(updateCurrentPage(int)));
-        connect(view, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(updatePageLayout(DocumentView::PageLayout)));
-        connect(view, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(updateScaling(DocumentView::Scaling)));
-        connect(view, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(updateRotation(DocumentView::Rotation)));
-        connect(view, SIGNAL(highlightAllChanged(bool)), this, SLOT(updateHighlightAll(bool)));
-
-        return true;
-    }
-    else
-    {
-        delete model;
-
-        return false;
-    }
-}
-
-void MainWindow::closeTab(int index)
-{
-    DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
-
-    if(view)
-    {
-        DocumentModel *model = view->model();
-
-        delete view;
-        delete model;
-    }
-}
-
-void MainWindow::changeCurrentTab(int index)
-{
-    if(index != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        m_refreshAction->setEnabled(true);
-        m_saveCopyAction->setEnabled(true);
-        m_printAction->setEnabled(true);
-
-        m_previousPageAction->setEnabled(true);
-        m_nextPageAction->setEnabled(true);
-        m_firstPageAction->setEnabled(true);
-        m_lastPageAction->setEnabled(true);
-
-        m_searchAction->setEnabled(true);
-        m_findPreviousAction->setEnabled(true);
-        m_findNextAction->setEnabled(true);
-
-        m_pageLayoutGroup->setEnabled(true);
-        m_scalingGroup->setEnabled(true);
-        m_rotationGroup->setEnabled(true);
-
-        m_presentationAction->setEnabled(true);
-
-        m_previousTabAction->setEnabled(true);
-        m_nextTabAction->setEnabled(true);
-        m_closeTabAction->setEnabled(true);
-
-        m_editToolBar->setEnabled(true);
-        m_viewToolBar->setEnabled(true);
-
-        m_searchToolBar->setEnabled(true);
-
-        this->updateCurrentPage(view->currentPage());
-        this->updateNumberOfPages(model->pageCount());
-        this->updatePageLayout(view->pageLayout());
-        this->updateScaling(view->scaling());
-        this->updateRotation(view->rotation());
-        this->updateHighlightAll(view->highlightAll());
-
-        if(m_searchToolBar->isVisible())
-        {
-            this->invalidateSearches();
-
-            m_searchLineEdit->clear();
-        }
-
-        m_outlineView->setView(view);
-        m_thumbnailsView->setView(view);
-    }
-    else
-    {
-        m_refreshAction->setEnabled(false);
-        m_saveCopyAction->setEnabled(false);
-        m_printAction->setEnabled(false);
-
-        m_previousPageAction->setEnabled(false);
-        m_nextPageAction->setEnabled(false);
-        m_firstPageAction->setEnabled(false);
-        m_lastPageAction->setEnabled(false);
-
-        m_searchAction->setEnabled(false);
-        m_findPreviousAction->setEnabled(false);
-        m_findNextAction->setEnabled(false);
-
-        m_onePageAction->setChecked(true);
-        m_pageLayoutGroup->setEnabled(false);
-
-        m_scaleTo100Action->setChecked(true);
-        m_scalingGroup->setEnabled(false);
-
-        m_rotateBy0Action->setChecked(true);
-        m_rotationGroup->setEnabled(false);
-
-        m_presentationAction->setEnabled(false);
-
-        m_previousTabAction->setEnabled(false);
-        m_nextTabAction->setEnabled(false);
-        m_closeTabAction->setEnabled(false);
-
-        m_currentPageLineEdit->setText(QString());
-        m_numberOfPagesLabel->setText(QString());
-        m_editToolBar->setEnabled(false);
-
-        m_pageLayoutComboBox->setCurrentIndex(0);
-        m_scalingComboBox->setCurrentIndex(4);
-        m_rotationComboBox->setCurrentIndex(0);
-        m_viewToolBar->setEnabled(false);
-
-        m_highlightAllCheckBox->setChecked(false);
-        m_searchToolBar->setEnabled(false);
-
-        if(m_searchToolBar->isVisible())
-        {
-            m_searchLineEdit->clear();
-
-            m_searchToolBar->hide();
-        }
-
-        m_outlineView->setView(0);
-        m_thumbnailsView->setView(0);
-    }
-}
-
-void MainWindow::changeCurrentPage()
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->setCurrentPage(m_currentPageLineEdit->text().toInt());
-    }
-}
-
-void MainWindow::changePageLayout(QAction *action)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        if(action == m_onePageAction)
-        {
-            view->setPageLayout(DocumentView::OnePage);
-        }
-        else if(action == m_twoPagesAction)
-        {
-            view->setPageLayout(DocumentView::TwoPages);
-        }
-        else if(action == m_oneColumnAction)
-        {
-            view->setPageLayout(DocumentView::OneColumn);
-        }
-        else if(action == m_twoColumnsAction)
-        {
-            view->setPageLayout(DocumentView::TwoColumns);
-        }
-    }
-}
-
-void MainWindow::changePageLayout(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->setPageLayout(static_cast<DocumentView::PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::changeScaling(QAction *action)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        if(action == m_fitToPageAction)
-        {
-            view->setScaling(DocumentView::FitToPage);
-        }
-        else if(action == m_fitToPageWidthAction)
-        {
-            view->setScaling(DocumentView::FitToPageWidth);
-        }
-        else if(action == m_scaleTo50Action)
-        {
-            view->setScaling(DocumentView::ScaleTo50);
-        }
-        else if(action == m_scaleTo75Action)
-        {
-            view->setScaling(DocumentView::ScaleTo75);
-        }
-        else if(action == m_scaleTo100Action)
-        {
-            view->setScaling(DocumentView::ScaleTo100);
-        }
-        else if(action == m_scaleTo125Action)
-        {
-            view->setScaling(DocumentView::ScaleTo125);
-        }
-        else if(action == m_scaleTo150Action)
-        {
-            view->setScaling(DocumentView::ScaleTo150);
-        }
-        else if(action == m_scaleTo200Action)
-        {
-            view->setScaling(DocumentView::ScaleTo200);
-        }
-        else if(action == m_scaleTo400Action)
-        {
-            view->setScaling(DocumentView::ScaleTo400);
-        }
-    }
-}
-
-void MainWindow::changeScalingIndex(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->setScaling(static_cast<DocumentView::Scaling>(m_scalingComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::changeRotation(QAction *rotationAction)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-       DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        if(rotationAction == m_rotateBy0Action)
-        {
-            view->setRotation(DocumentView::RotateBy0);
-        }
-        else if(rotationAction == m_rotateBy90Action)
-        {
-            view->setRotation(DocumentView::RotateBy90);
-        }
-        else if(rotationAction == m_rotateBy180Action)
-        {
-            view->setRotation(DocumentView::RotateBy180);
-        }
-        else if(rotationAction == m_rotateBy270Action)
-        {
-            view->setRotation(DocumentView::RotateBy270);
-        }
-    }
-}
-
-void MainWindow::changeRotationIndex(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        view->setRotation(static_cast<DocumentView::Rotation>(m_rotationComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::updateNumberOfPages(int numberOfPages)
-{
-    m_currentPageValidator->setRange(1, numberOfPages);
-    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
-}
-
-void MainWindow::updateCurrentPage(int currentPage)
-{
-    m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
-}
-
-void MainWindow::updatePageLayout(DocumentView::PageLayout pageLayout)
-{
-    switch(pageLayout)
-    {
-    case DocumentView::OnePage:
-        m_onePageAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(0);
-        break;
-    case DocumentView::TwoPages:
-        m_twoPagesAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(1);
-        break;
-    case DocumentView::OneColumn:
-        m_oneColumnAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(2);
-        break;
-    case DocumentView::TwoColumns:
-        m_twoColumnsAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(3);
-        break;
-    }
-}
-
-void MainWindow::updateScaling(DocumentView::Scaling scaling)
-{
-    switch(scaling)
-    {
-    case DocumentView::FitToPage:
-        m_fitToPageAction->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(0);
-        break;
-    case DocumentView::FitToPageWidth:
-        m_fitToPageWidthAction->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(1);
-        break;
-    case DocumentView::ScaleTo50:
-        m_scaleTo50Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(2);
-        break;
-    case DocumentView::ScaleTo75:
-        m_scaleTo75Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(3);
-        break;
-    case DocumentView::ScaleTo100:
-        m_scaleTo100Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(4);
-        break;
-    case DocumentView::ScaleTo125:
-        m_scaleTo125Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(5);
-        break;
-    case DocumentView::ScaleTo150:
-        m_scaleTo150Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(6);
-        break;
-    case DocumentView::ScaleTo200:
-        m_scaleTo200Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(7);
-        break;
-    case DocumentView::ScaleTo400:
-        m_scaleTo400Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(8);
-        break;
-    }
-}
-
-void MainWindow::updateRotation(DocumentView::Rotation rotation)
-{
-    switch(rotation)
-    {
-    case DocumentView::RotateBy0:
-        m_rotateBy0Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(0);
-        break;
-    case DocumentView::RotateBy90:
-        m_rotateBy90Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(1);
-        break;
-    case DocumentView::RotateBy180:
-        m_rotateBy180Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(2);
-        break;
-    case DocumentView::RotateBy270:
-        m_rotateBy270Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(3);
-        break;
-    }
-}
-
-void MainWindow::updateHighlightAll(bool highlightAll)
-{
-    m_highlightAllCheckBox->setChecked(highlightAll);
-}
-
-void MainWindow::searchProgressed(int value)
-{
-    this->statusBar()->show();
-    this->statusBar()->showMessage(tr("Searched %1% of the current document...").arg(value));
-}
-
-void MainWindow::searchCanceled()
-{
-    this->statusBar()->clearMessage();
-    this->statusBar()->hide();
-}
-
-void MainWindow::searchFinished()
-{
-    this->statusBar()->clearMessage();
-    this->statusBar()->hide();
-
-    this->findNext();
-}
-
-void MainWindow::invalidateSearches()
-{
-    m_searchTimer->stop();
-
-    for(int index = 0; index < m_tabWidget->count(); index++)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
-        DocumentModel *model = view->model();
-
-        model->cancelSearch();
-    }
-}
-
-void MainWindow::openRecentlyUsed(const QString &filePath)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        if(!model->open(filePath))
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-        }
-    }
-    else
-    {
-        if(!this->addTab(filePath))
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-        }
-    }
-}
-
-void MainWindow::openExternalLink(const QString &filePath, int pageNumber, qreal top, bool addTab)
-{
-    if(m_tabWidget->currentIndex() != -1 && !addTab)
-    {
-        DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        DocumentModel *model = view->model();
-
-        if(model->open(filePath))
-        {
-            view->setCurrentPage(pageNumber, top);
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-        }
-    }
-    else
-    {
-        if(this->addTab(filePath))
-        {
-            DocumentView *view = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-            view->setCurrentPage(pageNumber, top);
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
-        }
-    }
-}
-
-void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
-{
-    if(keyEvent->key() == Qt::Key_Escape)
-    {
-        if(m_searchToolBar->isVisible())
-        {
-            this->invalidateSearches();
-
-            m_searchLineEdit->clear();
-
-            m_searchToolBar->hide();
-        }
-    }
-    /*else if(keyEvent->modifiers() == Qt::ALT && keyEvent->key() == Qt::Key_M)
-    {
-        this->menuBar()->setVisible(!this->menuBar()->isVisible());
-
-        m_settings.setValue("mainWindow/menuBar", this->menuBar()->isVisible());
-    }*/
-    else
-    {
-        if(m_tabWidget->currentIndex() != -1)
-        {
-            QApplication::sendEvent(m_tabWidget->currentWidget(), keyEvent);
-        }
-
-        /*if(this->menuBar()->isHidden())
-        {
-            QKeySequence shortcut(keyEvent->modifiers() + keyEvent->key());
-
-            foreach(QObject *object, this->children())
-            {
-                QAction *action = qobject_cast<QAction*>(object);
-
-                if(action)
-                {
-                    if(action->shortcut() == shortcut)
-                    {
-                        action->trigger();
-                    }
-                }
-            }
-        }*/
-    }
-}
-
-void MainWindow::dragEnterEvent(QDragEnterEvent *dragEnterEvent)
-{
-    if(dragEnterEvent->mimeData()->hasUrls())
-    {
-        dragEnterEvent->acceptProposedAction();
-    }
-}
-
-void MainWindow::dropEvent(QDropEvent *dropEvent)
-{
-    if(dropEvent->mimeData()->hasUrls())
-    {
-        dropEvent->acceptProposedAction();
-
-        foreach(QUrl url, dropEvent->mimeData()->urls())
-        {
-            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
-            {
-                this->addTab(url.path());
-            }
-        }
-    }
-}
-
-void MainWindow::closeEvent(QCloseEvent *closeEvent)
-{
-    this->closeAllTabs();
-
-    m_searchToolBar->hide();
-
-    m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
-
-    if(m_fullscreenAction->isChecked())
-    {
-        m_settings.setValue("mainWindow/geometry", m_normalGeometry);
-    }
-    else
-    {
-        m_settings.setValue("mainWindow/geometry", this->saveGeometry());
-    }
-
-    m_settings.setValue("mainWindow/state", this->saveState());
-
-    QMainWindow::closeEvent(closeEvent);
 }

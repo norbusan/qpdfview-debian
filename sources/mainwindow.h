@@ -25,14 +25,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#include "documentview.h"
+#ifndef QPDFVIEW_ENUMS
+#define QPDFVIEW_ENUMS
 
-class PresentationView;
+enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
+enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
+enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400 };
+
+#endif
+
 class OutlineView;
 class ThumbnailsView;
 class RecentlyUsedAction;
-class SettingsDialog;
-class HelpDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -48,7 +52,84 @@ public:
 
     QMenu *createPopupMenu();
 
+public slots:
+    bool open(const QString &filePath, int page = 1, qreal top = 0.0);
+    bool addTab(const QString &filePath, int page = 1, qreal top = 0.0);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+    void closeEvent(QCloseEvent *event);
+
+protected slots:
+    void slotOpen();
+    void slotRefresh();
+    void slotSaveCopy();
+    void slotPrint();
+
+    void slotPreviousPage();
+    void slotNextPage();
+    void slotFirstPage();
+    void slotLastPage();
+
+    void slotSearch();
+
+    void slotStartSearch();
+    void slotCancelSearch();
+
+    void slotSearchProgressed(int value);
+    void slotSearchCanceled();
+    void slotSearchFinished();
+
+    void slotFindPrevious();
+    void slotFindNext();
+
+    void slotSettings();
+
+    void slotPresentation();
+    void slotFullscreen();
+
+    void slotAddTab();
+    void slotPreviousTab();
+    void slotNextTab();
+    void slotCloseTab();
+
+    void slotCloseAllTabs();
+    void slotCloseAllTabsButCurrentTab();
+
+    void slotContents();
+    void slotAbout();
+
+    void slotTabWidgetCurrentChanged(int index);
+    void slotTabWidgetTabCloseRequested(int index);
+
+    void slotCurrentPageLineEditReturnPressed();
+
+    void slotHighlightAllCheckBoxToggled();
+
+    void slotRecentyUsedEntrySelected(const QString &filePath);
+
+    void slotPageLayoutTriggered(QAction *action);
+    void slotPageLayoutCurrentIndexChanged(int index);
+    void slotScalingTriggered(QAction *action);
+    void slotScalingCurrentIndexChanged(int index);
+    void slotRotationTriggered(QAction *action);
+    void slotRotationCurrentIndexChanged(int index);
+
+    void slotNumberOfPagesChanged(int numberOfPages);
+    void slotCurrentPageChanged(int currentPage);
+    void slotPageLayoutChanged(PageLayout pageLayout);
+    void slotScalingChanged(Scaling scaling);
+    void slotRotationChanged(Rotation rotation);
+    void slotHighlightAllChanged(bool highlightAll);
+
 private:
+    // settings
+
+    QSettings m_settings;
+    QByteArray m_geometry;
+
     // actions
 
     QAction *m_openAction;
@@ -102,7 +183,7 @@ private:
     QAction *m_closeTabAction;
 
     QAction *m_closeAllTabsAction;
-    QAction *m_closeAllTabsButCurrentAction;
+    QAction *m_closeAllTabsButCurrentTabAction;
 
     QAction *m_contentsAction;
     QAction *m_aboutAction;
@@ -162,85 +243,13 @@ private:
     QMenu *m_tabMenu;
     QMenu *m_helpMenu;
 
+    // internal methods
+
     void createActions();
     void createWidgets();
     void createToolBars();
     void createDocks();
     void createMenus();
-
-    QSettings m_settings;
-    QByteArray m_normalGeometry;
-
-private slots:
-    void open();
-    void refresh();
-    void saveCopy();
-    void print();
-
-    void previousPage();
-    void nextPage();
-    void firstPage();
-    void lastPage();
-
-    void search();
-    void searchStart();
-    void searchTimeout();
-    void findPrevious();
-    void findNext();
-
-    void settings();
-
-    void presentation();
-
-    void addTab();
-    void previousTab();
-    void nextTab();
-    void closeTab();
-
-    void closeAllTabs();
-    void closeAllTabsButCurrent();
-
-    void contents();
-    void about();
-
-    void changeFullscreen();
-    void changeHighlightAll();
-
-    bool addTab(const QString &filePath);
-    void closeTab(int index);
-
-    void changeCurrentTab(int index);
-    void changeCurrentPage();
-
-    void changePageLayout(QAction *action);
-    void changePageLayout(int index);
-    void changeScaling(QAction *sction);
-    void changeScalingIndex(int index);
-    void changeRotation(QAction *action);
-    void changeRotationIndex(int index);
-
-    void updateNumberOfPages(int numberOfPages);
-    void updateCurrentPage(int currentPage);
-    void updatePageLayout(DocumentView::PageLayout pageLayout);
-    void updateScaling(DocumentView::Scaling scaling);
-    void updateRotation(DocumentView::Rotation rotation);
-    void updateHighlightAll(bool highlightAll);
-
-    void searchProgressed(int value);
-    void searchCanceled();
-    void searchFinished();
-
-    void invalidateSearches();
-
-public slots:
-    void openRecentlyUsed(const QString &filePath);
-    void openExternalLink(const QString &filePath, int pageNumber, qreal top = 0.0, bool addTab = false);
-
-protected:
-    void keyPressEvent(QKeyEvent *keyEvent);
-    void dragEnterEvent(QDragEnterEvent *dragEnterEvent);
-    void dropEvent(QDropEvent *dropEvent);
-    void closeEvent(QCloseEvent *closeEvent);
 
 };
 

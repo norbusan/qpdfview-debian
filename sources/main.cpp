@@ -19,9 +19,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include <QtCore>
-#include <QtGui>
-
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])

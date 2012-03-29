@@ -16,21 +16,19 @@ CONFIG += link_pkgconfig
 PKGCONFIG += poppler-qt4
 
 SOURCES += \
-    sources/documentmodel.cpp \
+    sources/document.cpp \
+    sources/pageview.cpp \
     sources/documentview.cpp \
-    sources/pageobject.cpp \
     sources/miscellaneous.cpp \
     sources/mainwindow.cpp \
-    sources/main.cpp \
-    sources/presentationview.cpp
+    sources/main.cpp
 
 HEADERS += \
-    sources/documentmodel.h \
+    sources/document.h \
+    sources/pageview.h \
     sources/documentview.h \
-    sources/pageobject.h \
     sources/miscellaneous.h \
-    sources/mainwindow.h \
-    sources/presentationview.h
+    sources/mainwindow.h
 
 TRANSLATIONS += \
     translations/qpdfview_be.ts \
