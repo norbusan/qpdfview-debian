@@ -723,22 +723,7 @@ void MainWindow::slotPageLayoutTriggered(QAction *action)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        if(action == m_onePageAction)
-        {
-            documentView->setPageLayout(OnePage);
-        }
-        else if(action == m_twoPagesAction)
-        {
-            documentView->setPageLayout(TwoPages);
-        }
-        else if(action == m_oneColumnAction)
-        {
-            documentView->setPageLayout(OneColumn);
-        }
-        else if(action == m_twoColumnsAction)
-        {
-            documentView->setPageLayout(TwoColumns);
-        }
+        documentView->setPageLayout(static_cast<PageLayout>(action->data().toUInt()));
     }
 }
 
@@ -758,42 +743,7 @@ void MainWindow::slotScalingTriggered(QAction *action)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        if(action == m_fitToPageAction)
-        {
-            documentView->setScaling(FitToPage);
-        }
-        else if(action == m_fitToPageWidthAction)
-        {
-            documentView->setScaling(FitToPageWidth);
-        }
-        else if(action == m_scaleTo50Action)
-        {
-            documentView->setScaling(ScaleTo50);
-        }
-        else if(action == m_scaleTo75Action)
-        {
-            documentView->setScaling(ScaleTo75);
-        }
-        else if(action == m_scaleTo100Action)
-        {
-            documentView->setScaling(ScaleTo100);
-        }
-        else if(action == m_scaleTo125Action)
-        {
-            documentView->setScaling(ScaleTo125);
-        }
-        else if(action == m_scaleTo150Action)
-        {
-            documentView->setScaling(ScaleTo150);
-        }
-        else if(action == m_scaleTo200Action)
-        {
-            documentView->setScaling(ScaleTo200);
-        }
-        else if(action == m_scaleTo400Action)
-        {
-            documentView->setScaling(ScaleTo400);
-        }
+        documentView->setScaling(static_cast<Scaling>(action->data().toUInt()));
     }
 }
 
@@ -811,24 +761,9 @@ void MainWindow::slotRotationTriggered(QAction *action)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-       DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        if(action == m_rotateBy0Action)
-        {
-            documentView->setRotation(RotateBy0);
-        }
-        else if(action == m_rotateBy90Action)
-        {
-            documentView->setRotation(RotateBy90);
-        }
-        else if(action == m_rotateBy180Action)
-        {
-            documentView->setRotation(RotateBy180);
-        }
-        else if(action == m_rotateBy270Action)
-        {
-            documentView->setRotation(RotateBy270);
-        }
+        documentView->setRotation(static_cast<Rotation>(action->data().toUInt()));
     }
 }
 
@@ -1157,12 +1092,16 @@ void MainWindow::createActions()
 
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
+    m_onePageAction->setData(OnePage);
     m_twoPagesAction = new QAction(tr("Two pages"), this);
     m_twoPagesAction->setCheckable(true);
+    m_twoPagesAction->setData(TwoPages);
     m_oneColumnAction = new QAction(tr("One column"), this);
     m_oneColumnAction->setCheckable(true);
+    m_oneColumnAction->setData(OneColumn);
     m_twoColumnsAction = new QAction(tr("Two columns"), this);
     m_twoColumnsAction->setCheckable(true);
+    m_twoColumnsAction->setData(TwoColumns);
 
     m_pageLayoutGroup = new QActionGroup(this);
     m_pageLayoutGroup->addAction(m_onePageAction);
@@ -1175,22 +1114,31 @@ void MainWindow::createActions()
 
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setCheckable(true);
+    m_fitToPageAction->setData(FitToPage);
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
+    m_fitToPageWidthAction->setData(FitToPageWidth);
     m_scaleTo50Action = new QAction(tr("Scale to %1%").arg(50), this);
     m_scaleTo50Action->setCheckable(true);
+    m_scaleTo50Action->setData(ScaleTo50);
     m_scaleTo75Action = new QAction(tr("Scale to %1%").arg(75), this);
     m_scaleTo75Action->setCheckable(true);
+    m_scaleTo75Action->setData(ScaleTo75);
     m_scaleTo100Action = new QAction(tr("Scale to %1%").arg(100), this);
     m_scaleTo100Action->setCheckable(true);
+    m_scaleTo100Action->setData(ScaleTo100);
     m_scaleTo125Action = new QAction(tr("Scale to %1%").arg(125), this);
     m_scaleTo125Action->setCheckable(true);
+    m_scaleTo125Action->setData(ScaleTo125);
     m_scaleTo150Action = new QAction(tr("Scale to %1%").arg(150), this);
     m_scaleTo150Action->setCheckable(true);
+    m_scaleTo150Action->setData(ScaleTo150);
     m_scaleTo200Action = new QAction(tr("Scale to %1%").arg(200), this);
     m_scaleTo200Action->setCheckable(true);
+    m_scaleTo200Action->setData(ScaleTo200);
     m_scaleTo400Action = new QAction(tr("Scale to %1%").arg(400), this);
     m_scaleTo400Action->setCheckable(true);
+    m_scaleTo400Action->setData(ScaleTo400);
 
     m_scalingGroup = new QActionGroup(this);
     m_scalingGroup->addAction(m_fitToPageAction);
@@ -1208,12 +1156,16 @@ void MainWindow::createActions()
 
     m_rotateBy0Action = new QAction(trUtf8("Rotate by %1°").arg(0), this);
     m_rotateBy0Action->setCheckable(true);
+    m_rotateBy0Action->setData(RotateBy0);
     m_rotateBy90Action = new QAction(trUtf8("Rotate by %1°").arg(90), this);
     m_rotateBy90Action->setCheckable(true);
+    m_rotateBy90Action->setData(RotateBy90);
     m_rotateBy180Action = new QAction(trUtf8("Rotate by %1°").arg(180), this);
     m_rotateBy180Action->setCheckable(true);
+    m_rotateBy180Action->setData(RotateBy180);
     m_rotateBy270Action = new QAction(trUtf8("Rotate by %1°").arg(270), this);
     m_rotateBy270Action->setCheckable(true);
+    m_rotateBy270Action->setData(RotateBy270);
 
     m_rotationGroup = new QActionGroup(this);
     m_rotationGroup->addAction(m_rotateBy0Action);
