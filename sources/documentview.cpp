@@ -682,13 +682,54 @@ void DocumentView::wheelEvent(QWheelEvent *event)
 
 void DocumentView::keyPressEvent(QKeyEvent *event)
 {
-    QKeySequence shortcut(event->modifiers() + event->key());
-
-    foreach(QAction *action, m_bookmarksMenu->actions())
+    if(event->modifiers() == Qt::ShiftModifier && event->key() == Qt::Key_X)
     {
-        if(action->shortcut() == shortcut)
+        // rotate clockwise
+        switch(m_rotation)
         {
-            action->trigger();
+        case RotateBy0:
+            this->setRotation(RotateBy90);
+            break;
+        case RotateBy90:
+            this->setRotation(RotateBy180);
+            break;
+        case RotateBy180:
+            this->setRotation(RotateBy270);
+            break;
+        case RotateBy270:
+            this->setRotation(RotateBy0);
+            break;
+        }
+    }
+    else if(event->modifiers() == Qt::ShiftModifier && event->key() == Qt::Key_Y)
+    {
+        // rotate counter-clockwise
+        switch(m_rotation)
+        {
+        case RotateBy0:
+            this->setRotation(RotateBy270);
+            break;
+        case RotateBy90:
+            this->setRotation(RotateBy0);
+            break;
+        case RotateBy180:
+            this->setRotation(RotateBy90);
+            break;
+        case RotateBy270:
+            this->setRotation(RotateBy180);
+            break;
+        }
+    }
+    else
+    {
+        QKeySequence shortcut(event->modifiers() + event->key());
+
+        foreach(QAction *action, m_bookmarksMenu->actions())
+        {
+            if(action->shortcut() == shortcut)
+            {
+                action->trigger();
+            }
         }
     }
 }

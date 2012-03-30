@@ -326,6 +326,10 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
         this->close();
 
         break;
+    default:
+        QWidget::keyPressEvent(event);
+
+        break;
     }
 }
 
