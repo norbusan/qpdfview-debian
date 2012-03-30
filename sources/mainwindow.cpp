@@ -134,6 +134,17 @@ bool MainWindow::addTab(const QString &filePath, int page, qreal top)
     }
 }
 
+void MainWindow::closeTab(int index)
+{
+    if(index >= 0 && index < m_tabWidget->count())
+    {
+        QWidget *widget = m_tabWidget->widget(index);
+        m_tabWidget->removeTab(index);
+
+        delete widget;
+    }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Escape)
@@ -182,10 +193,7 @@ void MainWindow::dropEvent(QDropEvent *event)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    while(m_tabWidget->count() > 0)
-    {
-        delete m_tabWidget->widget(0);
-    }
+    this->slotCloseAllTabs();
 
     m_searchToolBar->hide();
 
@@ -535,14 +543,14 @@ void MainWindow::slotNextTab()
 
 void MainWindow::slotCloseTab()
 {
-    delete m_tabWidget->currentWidget();
+    this->closeTab(m_tabWidget->currentIndex());
 }
 
 void MainWindow::slotCloseAllTabs()
 {
     while(m_tabWidget->count() > 0)
     {
-        delete m_tabWidget->widget(0);
+        this->closeTab(0);
     }
 }
 
@@ -554,10 +562,7 @@ void MainWindow::slotCloseAllTabsButCurrentTab()
 
         m_tabWidget->removeTab(m_tabWidget->currentIndex());
 
-        while(m_tabWidget->count() > 0)
-        {
-            delete m_tabWidget->widget(0);
-        }
+        this->slotCloseAllTabs();
 
         int index = m_tabWidget->addTab(documentView, QFileInfo(documentView->filePath()).completeBaseName());
         m_tabWidget->setTabToolTip(index, QFileInfo(documentView->filePath()).completeBaseName());

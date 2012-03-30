@@ -54,6 +54,8 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     // verticalScrollBar
 
+    m_view->verticalScrollBar()->installEventFilter(this);
+
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 
     // prefetchTimer
@@ -229,7 +231,7 @@ void DocumentView::startSearch(const QString &text, bool matchCase)
 
     m_highlight->setVisible(false);
 
-    m_document->startSearch(text, matchCase);
+    m_document->startSearch(text, matchCase, m_currentPage);
 }
 
 void DocumentView::cancelSearch()
@@ -470,7 +472,7 @@ void DocumentView::findPrevious()
         // bookmarksMenu
 
         PageView *pageView = m_pageToPageView.value(m_currentPage);
-        qreal top = qMax(0.0, static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageView->y()) / pageView->boundingRect().height();
+        qreal top = (static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageView->y()) / pageView->boundingRect().height();
 
         m_bookmarksMenu->setPosition(m_currentPage, top);
     }
@@ -543,7 +545,7 @@ void DocumentView::findNext()
         // bookmarksMenu
 
         PageView *pageView = m_pageToPageView.value(m_currentPage);
-        qreal top = qMax(0.0, static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageView->y()) / pageView->boundingRect().height();
+        qreal top = (static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageView->y()) / pageView->boundingRect().height();
 
         m_bookmarksMenu->setPosition(m_currentPage, top);
     }
@@ -838,7 +840,7 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
     // bookmarksMenu
 
     PageView *pageView = m_pageToPageView.value(m_currentPage);
-    qreal top = qMax(0.0, static_cast<qreal>(value) - pageView->y()) / pageView->boundingRect().height();
+    qreal top = (static_cast<qreal>(value) - pageView->y()) / pageView->boundingRect().height();
 
     m_bookmarksMenu->setPosition(m_currentPage, top);
 }

@@ -80,14 +80,15 @@ void OutlineView::slotDocumentChanged()
 
     if(documentView())
     {
-        Outline *outline = documentView()->m_document->outline();
+        TocNode *node = documentView()->m_document->toc();
 
-        if(outline)
+        if(node)
         {
-            prepareOutline(outline, 0, 0);
+            prepareOutline(node, 0, 0);
 
-            delete outline;
+            delete node;
         }
+
     }
 }
 
@@ -99,7 +100,7 @@ void OutlineView::slotItemClicked(QTreeWidgetItem *item, int column)
     documentView()->setCurrentPage(page, top);
 }
 
-void OutlineView::prepareOutline(Outline *outline, QTreeWidgetItem *parent, QTreeWidgetItem *sibling)
+void OutlineView::prepareOutline(TocNode *node, QTreeWidgetItem *parent, QTreeWidgetItem *sibling)
 {
     QTreeWidgetItem *item = 0;
 
@@ -112,18 +113,18 @@ void OutlineView::prepareOutline(Outline *outline, QTreeWidgetItem *parent, QTre
         item = new QTreeWidgetItem(m_treeWidget, sibling);
     }
 
-    item->setText(0, outline->text);
-    item->setData(0, Qt::UserRole, outline->page);
-    item->setData(0, Qt::UserRole+1, outline->top);
+    item->setText(0, node->text);
+    item->setData(0, Qt::UserRole, node->page);
+    item->setData(0, Qt::UserRole+1, node->top);
 
-    if(outline->child)
+    if(node->child)
     {
-        prepareOutline(outline->child, item, 0);
+        prepareOutline(node->child, item, 0);
     }
 
-    if(outline->sibling)
+    if(node->sibling)
     {
-        prepareOutline(outline->sibling, parent, item);
+        prepareOutline(node->sibling, parent, item);
     }
 }
 

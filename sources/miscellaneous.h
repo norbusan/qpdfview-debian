@@ -26,7 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 
 struct Link;
-struct Outline;
+struct TocNode;
 class DocumentView;
 
 class AuxiliaryView : public QWidget
@@ -67,7 +67,7 @@ protected slots:
 private:
     QTreeWidget *m_treeWidget;
 
-    void prepareOutline(Outline *outline, QTreeWidgetItem *parent, QTreeWidgetItem *sibling);
+    void prepareOutline(TocNode *node, QTreeWidgetItem *parent, QTreeWidgetItem *sibling);
 
 };
 

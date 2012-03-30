@@ -264,11 +264,11 @@ QList<Link> Document::links(int index)
     return results;
 }
 
-// outline
+// toc
 
-Outline *Document::outline()
+TocNode *Document::toc()
 {
-    Outline *result = 0;
+    TocNode *result = 0;
 
     if(m_document)
     {
@@ -276,7 +276,7 @@ Outline *Document::outline()
 
         if(toc)
         {
-            result = domNodeToOutline(*static_cast<QDomNode*>(toc));
+            result = domNodeToTocNode(toc->firstChild());
 
             delete toc;
         }
@@ -495,13 +495,13 @@ void Document::startRender(int index, qreal scaleFactor)
     }
 }
 
-void Document::startSearch(const QString &text, bool matchCase)
+void Document::startSearch(const QString &text, bool matchCase, int beginWithPage)
 {
     this->cancelSearch();
 
     if(m_document != 0 && !text.isEmpty())
     {
-        m_search = QtConcurrent::run(this, &Document::search, text, matchCase);
+        m_search = QtConcurrent::run(this, &Document::search, text, matchCase, beginWithPage);
     }
 }
 
@@ -546,9 +546,9 @@ void Document::cancelPrint()
 
 // internal methods
 
-Outline *Document::domNodeToOutline(const QDomNode &domNode)
+TocNode *Document::domNodeToTocNode(const QDomNode &domNode)
 {
-    Outline *result = new Outline();
+    TocNode *result = new TocNode();
 
     result->text = domNode.toElement().tagName();
 
@@ -572,13 +572,13 @@ Outline *Document::domNodeToOutline(const QDomNode &domNode)
     QDomNode siblingNode = domNode.nextSibling();
     if(!siblingNode.isNull())
     {
-        result->sibling = domNodeToOutline(siblingNode);
+        result->sibling = domNodeToTocNode(siblingNode);
     }
 
     QDomNode childNode = domNode.firstChild();
     if(!childNode.isNull())
     {
-        result->child = domNodeToOutline(childNode);
+        result->child = domNodeToTocNode(childNode);
     }
 
     return result;
@@ -654,7 +654,7 @@ void Document::render(int index, qreal scaleFactor)
     emit pageRendered(index);
 }
 
-void Document::search(const QString &text, bool matchCase)
+void Document::search(const QString &text, bool matchCase, int beginWithPage)
 {
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
@@ -666,7 +666,19 @@ void Document::search(const QString &text, bool matchCase)
         return;
     }
 
-    for(int index = 0; index < m_numberOfPages; index++)
+    QList<int> indices;
+
+    for(int index = beginWithPage-1; index < m_numberOfPages; index++)
+    {
+        indices.append(index);
+    }
+
+    for(int index = 0; index < beginWithPage-1; index++)
+    {
+        indices.append(index);
+    }
+
+    foreach(int index, indices)
     {
         if(m_search.isCanceled())
         {

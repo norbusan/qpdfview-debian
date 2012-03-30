@@ -55,6 +55,7 @@ public:
 public slots:
     bool open(const QString &filePath, int page = 1, qreal top = 0.0);
     bool addTab(const QString &filePath, int page = 1, qreal top = 0.0);
+    void closeTab(int index);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

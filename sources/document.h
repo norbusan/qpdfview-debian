@@ -41,20 +41,21 @@ struct Link
     QString url;
 
     Link() : area(), page(1), top(0.0), url() {}
+
 };
 
-struct Outline
+struct TocNode
 {
     QString text;
 
     int page;
     qreal top;
 
-    Outline *sibling;
-    Outline *child;
+    TocNode *sibling;
+    TocNode *child;
 
-    Outline() : text(), page(1), top(0.0), sibling(0), child(0) {}
-    ~Outline()
+    TocNode() : text(), page(1), top(0.0), sibling(0), child(0) {}
+    ~TocNode()
     {
         if(sibling)
         {
@@ -66,6 +67,7 @@ struct Outline
             delete child;
         }
     }
+
 };
 
 class Document : public QObject
@@ -107,9 +109,9 @@ public:
 
     QList<Link> links(int index);
 
-    // outline
+    // toc
 
-    Outline *outline();
+    TocNode *toc();
 
     // page cache
 
@@ -131,7 +133,7 @@ public slots:
 
     void startRender(int index, qreal scaleFactor);
 
-    void startSearch(const QString &text, bool matchCase = true);
+    void startSearch(const QString &text, bool matchCase = true, int beginWithPage = 1);
     void cancelSearch();
 
     void startPrint(QPrinter *printer, int fromPage, int toPage);
@@ -224,13 +226,13 @@ private:
 
     // internal methods
 
-    Outline *domNodeToOutline(const QDomNode &domNode);
+    TocNode *domNodeToTocNode(const QDomNode &domNode);
 
     QFuture<void> m_render;
     void render(int index, qreal scaleFactor);
 
     QFuture<void> m_search;
-    void search(const QString &text, bool matchCase);
+    void search(const QString &text, bool matchCase, int beginWithPage);
 
     QFuture<void> m_print;
     void print(QPrinter *printer, int fromPage, int toPage);
