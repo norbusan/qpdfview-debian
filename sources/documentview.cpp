@@ -557,12 +557,10 @@ bool DocumentView::eventFilter(QObject*, QEvent *event)
     {
         QWheelEvent *wheelEvent = static_cast<QWheelEvent*>(event);
 
-        return wheelEvent->modifiers() == Qt::ControlModifier;
+        return wheelEvent->modifiers() == Qt::ControlModifier || wheelEvent->modifiers() == Qt::ShiftModifier;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 void DocumentView::resizeEvent(QResizeEvent*)
@@ -677,6 +675,13 @@ void DocumentView::wheelEvent(QWheelEvent *event)
                 break;
             }
         }
+    }
+    else if(event->modifiers() == Qt::ShiftModifier)
+    {
+        QWheelEvent wheelEvent(*event);
+        wheelEvent.setModifiers(Qt::NoModifier);
+
+        QApplication::sendEvent(m_view->horizontalScrollBar(), &wheelEvent);
     }
 }
 
