@@ -36,8 +36,8 @@ class AuxiliaryView : public QWidget
 public:
     explicit AuxiliaryView(QWidget *parent = 0);
 
-    DocumentView *documentView() const;
-    void setDocumentView(DocumentView *documentView);
+    DocumentView *mainView() const;
+    void setMainView(DocumentView *mainView);
 
 protected:
     void showEvent(QShowEvent *event);
@@ -46,7 +46,7 @@ protected slots:
     virtual void slotDocumentChanged() = 0;
 
 private:
-    DocumentView *m_documentView;
+    DocumentView *m_mainView;
 
 };
 

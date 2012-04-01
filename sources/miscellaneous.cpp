@@ -26,22 +26,22 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 // auxiliary view
 
 AuxiliaryView::AuxiliaryView(QWidget *parent) : QWidget(parent),
-    m_documentView(0)
+    m_mainView(0)
 {
 }
 
-DocumentView *AuxiliaryView::documentView() const
+DocumentView *AuxiliaryView::mainView() const
 {
-    return m_documentView;
+    return m_mainView;
 }
 
-void AuxiliaryView::setDocumentView(DocumentView *documentView)
+void AuxiliaryView::setMainView(DocumentView *mainView)
 {
-    m_documentView = documentView;
+    m_mainView = mainView;
 
-    if(m_documentView)
+    if(m_mainView)
     {
-        connect(m_documentView->m_document, SIGNAL(documentChanged()), this, SLOT(slotDocumentChanged()));
+        connect(m_mainView->m_document, SIGNAL(documentChanged()), this, SLOT(slotDocumentChanged()));
     }
 
     if(this->isVisible())
@@ -78,9 +78,9 @@ void OutlineView::slotDocumentChanged()
 {
     m_treeWidget->clear();
 
-    if(documentView())
+    if(mainView())
     {
-        TocNode *node = documentView()->m_document->toc();
+        TocNode *node = mainView()->m_document->toc();
 
         if(node)
         {
@@ -97,7 +97,7 @@ void OutlineView::slotItemClicked(QTreeWidgetItem *item, int column)
     int page = item->data(column, Qt::UserRole).toInt();
     qreal top = item->data(column, Qt::UserRole+1).toReal();
 
-    documentView()->setCurrentPage(page, top);
+    mainView()->setCurrentPage(page, top);
 }
 
 void OutlineView::prepareOutline(TocNode *node, QTreeWidgetItem *parent, QTreeWidgetItem *sibling)
@@ -148,14 +148,14 @@ void ThumbnailsView::slotDocumentChanged()
 {
     m_listWidget->clear();
 
-    if(documentView())
+    if(mainView())
     {
         QListWidgetItem *item = 0;
         int itemWidth = 0.0, itemHeight = 0.0;
 
-        for(int index = 0; index < documentView()->m_document->numberOfPages(); index++)
+        for(int index = 0; index < mainView()->m_document->numberOfPages(); index++)
         {
-            QImage thumbnail = documentView()->m_document->thumbnail(index);
+            QImage thumbnail = mainView()->m_document->thumbnail(index);
 
             if(!thumbnail.isNull())
             {
@@ -177,7 +177,7 @@ void ThumbnailsView::slotItemClicked(QListWidgetItem *item)
 {
     int page = item->data(Qt::UserRole).toInt();
 
-    documentView()->setCurrentPage(page);
+    mainView()->setCurrentPage(page);
 }
 
 // presentation view
@@ -216,7 +216,7 @@ PresentationView::~PresentationView()
 
 void PresentationView::setCurrentPage(int currentPage)
 {
-    if(m_currentPage != currentPage && currentPage >= 1 && currentPage <= documentView()->m_document->numberOfPages())
+    if(m_currentPage != currentPage && currentPage >= 1 && currentPage <= mainView()->m_document->numberOfPages())
     {
         m_currentPage = currentPage;
 
@@ -236,7 +236,7 @@ void PresentationView::previousPage()
 
 void PresentationView::nextPage()
 {
-    if(m_currentPage < documentView()->m_document->numberOfPages())
+    if(m_currentPage < mainView()->m_document->numberOfPages())
     {
         m_currentPage++;
 
@@ -256,9 +256,9 @@ void PresentationView::firstPage()
 
 void PresentationView::lastPage()
 {
-    if(m_currentPage != documentView()->m_document->numberOfPages())
+    if(m_currentPage != mainView()->m_document->numberOfPages())
     {
-        m_currentPage = documentView()->m_document->numberOfPages();
+        m_currentPage = mainView()->m_document->numberOfPages();
 
         this->prepareView();
     }
@@ -272,7 +272,7 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
-    QImage image = documentView()->m_document->pullPage(m_currentPage-1, m_scaleFactor);
+    QImage image = mainView()->m_document->pullPage(m_currentPage-1, m_scaleFactor);
 
     if(image.isNull())
     {
@@ -384,14 +384,14 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
 
 void PresentationView::slotDocumentChanged()
 {
-    m_currentPage = documentView()->currentPage();
+    m_currentPage = mainView()->currentPage();
 
     this->prepareView();
 }
 
 void PresentationView::prepareView()
 {
-    m_size = documentView()->m_document->size(m_currentPage-1);
+    m_size = mainView()->m_document->size(m_currentPage-1);
 
     m_scaleFactor = qMin(static_cast<qreal>(this->width()) / m_size.width(), static_cast<qreal>(this->height()) / m_size.height());
 
@@ -400,7 +400,7 @@ void PresentationView::prepareView()
     m_boundingRect.setWidth(m_scaleFactor * m_size.width());
     m_boundingRect.setHeight(m_scaleFactor * m_size.height());
 
-    m_links = documentView()->m_document->links(m_currentPage-1);
+    m_links = mainView()->m_document->links(m_currentPage-1);
     m_linkTransform = QTransform(m_scaleFactor * m_size.width(), 0.0, 0.0, m_scaleFactor * m_size.height(), m_boundingRect.left(), m_boundingRect.top());
 
     this->update();
@@ -408,7 +408,7 @@ void PresentationView::prepareView()
 
 void PresentationView::render()
 {
-    documentView()->m_document->pushPage(m_currentPage-1, m_scaleFactor);
+    mainView()->m_document->pushPage(m_currentPage-1, m_scaleFactor);
 
     this->update();
 }
