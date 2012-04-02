@@ -235,6 +235,8 @@ private:
 
     QComboBox *m_maximumPageCacheSizeComboBox;
 
+    QSpinBox *m_prefetchDistanceSpinBox;
+
 };
 
 // help dialog

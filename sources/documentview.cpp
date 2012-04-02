@@ -10,12 +10,12 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_scaling(ScaleTo100),
     m_rotation(RotateBy0),
     m_highlightAll(false),
-    m_searchResults(),
-    m_searchPosition(m_searchResults.end()),
     m_settings(),
-    m_highlight(0),
     m_pageToPageView(),
-    m_heightToPage()
+    m_heightToPage(),
+    m_highlight(0),
+    m_searchResults(),
+    m_searchPosition(m_searchResults.end())
 {
     m_document = new Document(this);
 

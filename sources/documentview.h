@@ -147,9 +147,6 @@ private:
     Rotation m_rotation;
     bool m_highlightAll;
 
-    QMap<int, QRectF> m_searchResults;
-    QMap<int, QRectF>::iterator m_searchPosition;
-
     // settings
 
     QSettings m_settings;
@@ -159,10 +156,13 @@ private:
     QGraphicsView *m_view;
     QGraphicsScene *m_scene;
 
-    QGraphicsRectItem *m_highlight;
-
     QMap<int, PageView*> m_pageToPageView;
     QMap<int, int> m_heightToPage;
+
+    QGraphicsRectItem *m_highlight;
+
+    QMap<int, QRectF> m_searchResults;
+    QMap<int, QRectF>::iterator m_searchPosition;
 
     QTimer *m_prefetchTimer;
 

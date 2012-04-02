@@ -138,7 +138,8 @@ ThumbnailsView::ThumbnailsView(QWidget *parent) : AuxiliaryView(parent)
     m_listWidget->setResizeMode(QListView::Adjust);
     m_listWidget->setMovement(QListView::Static);
 
-    this->setLayout(new QHBoxLayout());
+    this->setLayout(new QVBoxLayout());
+    this->layout()->setContentsMargins(0, 0, 0, 0);
     this->layout()->addWidget(m_listWidget);
 
     connect(m_listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(slotItemClicked(QListWidgetItem*)));
@@ -722,6 +723,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(1024), 1073741824u);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(2048), 2147483648u);
 
+    m_prefetchDistanceSpinBox = new QSpinBox(this);
+
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -734,6 +737,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
+    m_layout->addRow(tr("&Prefetch distance:"), m_prefetchDistanceSpinBox);
     m_layout->addRow(m_buttonBox);
 
     m_automaticRefreshCheckBox->setChecked(Document::automaticRefresh());
@@ -741,6 +745,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)
 
     m_antialiasingCheckBox->setChecked(Document::antialiasing());
     m_textAntialiasingCheckBox->setChecked(Document::textAntialiasing());
+
+    m_prefetchDistanceSpinBox->setValue(Document::prefetchDistance());
+    m_prefetchDistanceSpinBox->setRange(0, 10);
 
     // maximumPageCacheSize
 
@@ -775,6 +782,7 @@ void SettingsDialog::accept()
     Document::setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());
 
     Document::setMaximumPageCacheSize(m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()).toUInt());
+    Document::setPrefetchDistance(m_prefetchDistanceSpinBox->value());
 
     QDialog::accept();
 }
