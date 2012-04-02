@@ -4,37 +4,37 @@
 <context>
     <name>BookmarksMenu</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="504"/>
+        <location filename="../sources/miscellaneous.cpp" line="505"/>
         <source>Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="511"/>
+        <location filename="../sources/miscellaneous.cpp" line="512"/>
         <source>&amp;Add entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="515"/>
+        <location filename="../sources/miscellaneous.cpp" line="516"/>
         <source>Go to &amp;previous entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="519"/>
+        <location filename="../sources/miscellaneous.cpp" line="520"/>
         <source>Go to &amp;next entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="523"/>
+        <location filename="../sources/miscellaneous.cpp" line="524"/>
         <source>&amp;Clear page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="527"/>
+        <location filename="../sources/miscellaneous.cpp" line="528"/>
         <source>Clear &amp;document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="570"/>
+        <location filename="../sources/miscellaneous.cpp" line="571"/>
         <source>Page %1 at %2%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -42,12 +42,12 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="936"/>
+        <location filename="../sources/documentview.cpp" line="929"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="936"/>
+        <location filename="../sources/documentview.cpp" line="929"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -420,12 +420,12 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="371"/>
+        <location filename="../sources/miscellaneous.cpp" line="372"/>
         <source>Open URL &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="375"/>
+        <location filename="../sources/miscellaneous.cpp" line="376"/>
         <source>Go to page %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -433,12 +433,12 @@
 <context>
     <name>RecentlyUsedAction</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="418"/>
+        <location filename="../sources/miscellaneous.cpp" line="419"/>
         <source>Recently &amp;used</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="427"/>
+        <location filename="../sources/miscellaneous.cpp" line="428"/>
         <source>&amp;Clear list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -446,47 +446,52 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="717"/>
         <location filename="../sources/miscellaneous.cpp" line="718"/>
         <location filename="../sources/miscellaneous.cpp" line="719"/>
         <location filename="../sources/miscellaneous.cpp" line="720"/>
         <location filename="../sources/miscellaneous.cpp" line="721"/>
         <location filename="../sources/miscellaneous.cpp" line="722"/>
         <location filename="../sources/miscellaneous.cpp" line="723"/>
-        <location filename="../sources/miscellaneous.cpp" line="763"/>
+        <location filename="../sources/miscellaneous.cpp" line="724"/>
+        <location filename="../sources/miscellaneous.cpp" line="770"/>
         <source>%1 MB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="732"/>
+        <location filename="../sources/miscellaneous.cpp" line="735"/>
         <source>Automatic &amp;refresh:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="733"/>
+        <location filename="../sources/miscellaneous.cpp" line="736"/>
         <source>Open &amp;URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="734"/>
+        <location filename="../sources/miscellaneous.cpp" line="737"/>
         <source>&amp;Antialiasing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="735"/>
+        <location filename="../sources/miscellaneous.cpp" line="738"/>
         <source>&amp;Text antialiasing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="736"/>
+        <location filename="../sources/miscellaneous.cpp" line="739"/>
         <source>Maximum page cache &amp;size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="740"/>
+        <source>&amp;Prefetch distance:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ThumbnailsView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="163"/>
+        <location filename="../sources/miscellaneous.cpp" line="164"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
