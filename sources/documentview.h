@@ -104,7 +104,7 @@ signals:
 
 protected:
     bool eventFilter(QObject*, QEvent *event);
-    void resizeEvent(QResizeEvent*);
+    void resizeEvent(QResizeEvent* event);
     void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void contextMenuEvent(QContextMenuEvent *event);

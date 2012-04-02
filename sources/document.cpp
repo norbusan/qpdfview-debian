@@ -37,6 +37,8 @@ QMutex Document::s_pageCacheMutex;
 uint Document::s_pageCacheSize = 0;
 uint Document::s_maximumPageCacheSize = Document::s_settings.value("document/maximumPageCacheSize", 134217728u).toUInt();
 
+int Document::s_prefetchDistance = Document::s_settings.value("document/prefetchDistance", 2).toInt();
+
 Document::Document(QObject *parent) : QObject(parent),
     m_document(0),
     m_filePath(),
@@ -105,7 +107,7 @@ void Document::setAutomaticRefresh(bool automaticRefresh)
     {
         s_automaticRefresh = automaticRefresh;
 
-        s_settings.setValue("documentModel/automaticRefresh", s_automaticRefresh);
+        s_settings.setValue("document/automaticRefresh", s_automaticRefresh);
     }
 }
 
@@ -120,7 +122,7 @@ void Document::setOpenUrl(bool openUrl)
     {
         s_openUrl = openUrl;
 
-        s_settings.setValue("documentModel/openUrl", s_openUrl);
+        s_settings.setValue("document/openUrl", s_openUrl);
     }
 }
 
@@ -135,7 +137,7 @@ void Document::setAntialiasing(bool antialiasing)
     {
         s_antialiasing = antialiasing;
 
-        s_settings.setValue("documentModel/antialiasing", s_antialiasing);
+        s_settings.setValue("document/antialiasing", s_antialiasing);
 
         s_pageCacheMutex.lock();
 
@@ -157,7 +159,7 @@ void Document::setTextAntialiasing(bool textAntialiasing)
     {
         s_textAntialiasing = textAntialiasing;
 
-        s_settings.setValue("documentModel/textAntialiasing", s_textAntialiasing);
+        s_settings.setValue("document/textAntialiasing", s_textAntialiasing);
 
         s_pageCacheMutex.lock();
 
@@ -349,7 +351,7 @@ void Document::setMaximumPageCacheSize(uint maximumPageCacheSize)
     {
         s_maximumPageCacheSize = maximumPageCacheSize;
 
-        s_settings.setValue("documentModel/maximumPageCacheSize", s_maximumPageCacheSize);
+        s_settings.setValue("document/maximumPageCacheSize", s_maximumPageCacheSize);
 
         s_pageCacheMutex.lock();
 
@@ -362,6 +364,21 @@ void Document::setMaximumPageCacheSize(uint maximumPageCacheSize)
         }
 
         s_pageCacheMutex.unlock();
+    }
+}
+
+int Document::prefetchDistance()
+{
+    return s_prefetchDistance;
+}
+
+void Document::setPrefetchDistance(int prefetchDistance)
+{
+    if(s_prefetchDistance != prefetchDistance)
+    {
+        s_prefetchDistance = prefetchDistance;
+
+        s_settings.setValue("document/prefetchDistance", s_prefetchDistance);
     }
 }
 

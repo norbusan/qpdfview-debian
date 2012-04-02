@@ -122,6 +122,9 @@ public:
     static uint maximumPageCacheSize();
     static void setMaximumPageCacheSize(uint maximumPageCacheSize);
 
+    static int prefetchDistance();
+    static void setPrefetchDistance(int prefetchDistance);
+
     // search results
 
     QList<QRectF> searchResults(int index);
@@ -218,6 +221,8 @@ private:
 
     static uint s_pageCacheSize;
     static uint s_maximumPageCacheSize;
+
+    static int s_prefetchDistance;
 
     // search results
 

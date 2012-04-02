@@ -48,10 +48,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     m_scene->setBackgroundBrush(QBrush(Qt::darkGray));
 
-    this->setLayout(new QVBoxLayout());
-    this->layout()->setContentsMargins(0, 0, 0, 0);
-    this->layout()->addWidget(m_view);
-
     // verticalScrollBar
 
     m_view->verticalScrollBar()->installEventFilter(this);
@@ -210,13 +206,8 @@ bool DocumentView::saveCopy(const QString &filePath)
 
 void DocumentView::prefetch()
 {
-    if(m_document->numberOfPages() == -1)
-    {
-        return;
-    }
-
-    int fromPage = qMax(m_currentPage-2, 1);
-    int toPage = qMin(m_currentPage+3, m_document->numberOfPages());
+    int fromPage = qMax(m_currentPage - Document::prefetchDistance() + 1, 1);
+    int toPage = qMin(m_currentPage + Document::prefetchDistance(), m_document->numberOfPages());
 
     for(int page = fromPage; page <= toPage; page++)
     {
@@ -563,8 +554,10 @@ bool DocumentView::eventFilter(QObject*, QEvent *event)
     return false;
 }
 
-void DocumentView::resizeEvent(QResizeEvent*)
+void DocumentView::resizeEvent(QResizeEvent *event)
 {
+    m_view->resize(event->size());
+
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
         this->prepareScene();
