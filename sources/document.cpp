@@ -466,7 +466,7 @@ bool Document::refresh()
 
             s_pageCacheMutex.lock();
 
-            for(QMap<PageCacheKey, QImage>::iterator i =s_pageCache.begin(); i != s_pageCache.end(); i++)
+            for(QMap<PageCacheKey, QImage>::iterator i = s_pageCache.begin(); i != s_pageCache.end(); i++)
             {
                 if(i.key().filePath == m_filePath)
                 {

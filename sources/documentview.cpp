@@ -869,7 +869,8 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
             visiblePage = m_heightToPage.lowerBound(-value).value();
         }
 
-        if(m_currentPage != visiblePage) {
+        if(m_currentPage != visiblePage)
+        {
             m_currentPage = visiblePage;
 
             emit currentPageChanged(m_currentPage);

@@ -8,8 +8,8 @@
 #define QPDFVIEW_ENUMS
 
 enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
-enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
 enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400 };
+enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
 
 #endif
 

@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->createDocks();
     this->createMenus();
 
-    this->setCentralWidget(m_tabWidget);
     this->setAcceptDrops(true);
 
     this->slotTabWidgetCurrentChanged(-1);
@@ -44,18 +43,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     this->restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
-
-    // command line arguments
-
-    QStringList arguments = QCoreApplication::arguments();
-    arguments.removeFirst();
-
-    foreach(QString argument, arguments)
-    {
-        if(QFileInfo(argument).exists()) {
-            this->addTab(argument);
-        }
-    }
 }
 
 QMenu *MainWindow::createPopupMenu()
@@ -790,90 +777,58 @@ void MainWindow::slotCurrentPageChanged(int currentPage)
 
 void MainWindow::slotPageLayoutChanged(PageLayout pageLayout)
 {
-    switch(pageLayout)
+    foreach(QAction* action, m_pageLayoutGroup->actions())
     {
-    case OnePage:
-        m_onePageAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(0);
-        break;
-    case TwoPages:
-        m_twoPagesAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(1);
-        break;
-    case OneColumn:
-        m_oneColumnAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(2);
-        break;
-    case TwoColumns:
-        m_twoColumnsAction->setChecked(true);
-        m_pageLayoutComboBox->setCurrentIndex(3);
-        break;
+        if(action->data().toUInt() == static_cast<uint>(pageLayout))
+        {
+            action->setChecked(true);
+        }
+    }
+
+    for(int index = 0; index < m_pageLayoutComboBox->count(); index++)
+    {
+        if(m_pageLayoutComboBox->itemData(index).toUInt() == static_cast<uint>(pageLayout))
+        {
+            m_pageLayoutComboBox->setCurrentIndex(index);
+        }
     }
 }
 
 void MainWindow::slotScalingChanged(Scaling scaling)
 {
-    switch(scaling)
+    foreach(QAction* action, m_scalingGroup->actions())
     {
-    case FitToPage:
-        m_fitToPageAction->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(0);
-        break;
-    case FitToPageWidth:
-        m_fitToPageWidthAction->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(1);
-        break;
-    case ScaleTo50:
-        m_scaleTo50Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(2);
-        break;
-    case ScaleTo75:
-        m_scaleTo75Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(3);
-        break;
-    case ScaleTo100:
-        m_scaleTo100Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(4);
-        break;
-    case ScaleTo125:
-        m_scaleTo125Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(5);
-        break;
-    case ScaleTo150:
-        m_scaleTo150Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(6);
-        break;
-    case ScaleTo200:
-        m_scaleTo200Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(7);
-        break;
-    case ScaleTo400:
-        m_scaleTo400Action->setChecked(true);
-        m_scalingComboBox->setCurrentIndex(8);
-        break;
+        if(action->data().toUInt() == static_cast<uint>(scaling))
+        {
+            action->setChecked(true);
+        }
+    }
+
+    for(int index = 0; index < m_scalingComboBox->count(); index++)
+    {
+        if(m_scalingComboBox->itemData(index).toUInt() == static_cast<uint>(scaling))
+        {
+            m_scalingComboBox->setCurrentIndex(index);
+        }
     }
 }
 
 void MainWindow::slotRotationChanged(Rotation rotation)
 {
-    switch(rotation)
+    foreach(QAction* action, m_rotationGroup->actions())
     {
-    case RotateBy0:
-        m_rotateBy0Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(0);
-        break;
-    case RotateBy90:
-        m_rotateBy90Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(1);
-        break;
-    case RotateBy180:
-        m_rotateBy180Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(2);
-        break;
-    case RotateBy270:
-        m_rotateBy270Action->setChecked(true);
-        m_rotationComboBox->setCurrentIndex(3);
-        break;
+        if(action->data().toUInt() == static_cast<uint>(rotation))
+        {
+            action->setChecked(true);
+        }
+    }
+
+    for(int index = 0; index < m_rotationComboBox->count(); index++)
+    {
+        if(m_rotationComboBox->itemData(index).toUInt() == static_cast<uint>(rotation))
+        {
+            m_rotationComboBox->setCurrentIndex(index);
+        }
     }
 }
 
@@ -1254,6 +1209,8 @@ void MainWindow::createWidgets()
     m_tabWidget->setDocumentMode(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
 
+    this->setCentralWidget(m_tabWidget);
+
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(slotTabWidgetTabCloseRequested(int)));
 
@@ -1322,7 +1279,7 @@ void MainWindow::createWidgets()
 
     connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotScalingCurrentIndexChanged(int)));
 
-    // rotationWidget
+    // rotation
 
     m_rotationWidget = new QWidget();
     m_rotationLabel = new QLabel(tr("&Rotation:"), m_rotationWidget);
@@ -1402,7 +1359,7 @@ void MainWindow::createToolBars()
 
     this->addToolBar(Qt::TopToolBarArea, m_editToolBar);
 
-    // viewToolBar
+    // view
 
     m_viewToolBar = new QToolBar(tr("&View"));
     m_viewToolBar->setObjectName("viewToolBar");
@@ -1510,16 +1467,16 @@ void MainWindow::createMenus()
 
     // toolBar
 
-    QMenu *toolBarMenu = m_viewMenu->addMenu(tr("&Toolbars"));
-    toolBarMenu->addAction(m_fileToolBar->toggleViewAction());
-    toolBarMenu->addAction(m_editToolBar->toggleViewAction());
-    toolBarMenu->addAction(m_viewToolBar->toggleViewAction());
+    QMenu *toolBarsMenu = m_viewMenu->addMenu(tr("&Toolbars"));
+    toolBarsMenu->addAction(m_fileToolBar->toggleViewAction());
+    toolBarsMenu->addAction(m_editToolBar->toggleViewAction());
+    toolBarsMenu->addAction(m_viewToolBar->toggleViewAction());
 
     // dock
 
-    QMenu *dockMenu = m_viewMenu->addMenu(tr("&Docks"));
-    dockMenu->addAction(m_outlineDock->toggleViewAction());
-    dockMenu->addAction(m_thumbnailsDock->toggleViewAction());
+    QMenu *docksMenu = m_viewMenu->addMenu(tr("&Docks"));
+    docksMenu->addAction(m_outlineDock->toggleViewAction());
+    docksMenu->addAction(m_thumbnailsDock->toggleViewAction());
 
     m_viewMenu->addAction(m_presentationAction);
     m_viewMenu->addAction(m_fullscreenAction);

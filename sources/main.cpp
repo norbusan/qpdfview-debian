@@ -50,5 +50,35 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    // command line arguments
+
+    QStringList arguments = QCoreApplication::arguments();
+    arguments.removeFirst();
+
+    foreach(QString argument, arguments)
+    {
+        QString filePath;
+        int page = 1;
+        float top = 0.0;
+
+        QStringList fields = argument.split('#');
+
+        if(fields.count() > 1)
+        {
+            page = fields.at(1).toInt();
+        }
+        if(fields.count() > 2)
+        {
+            top = fields.at(2).toFloat();
+        }
+
+        filePath = fields.at(0);
+
+        if(QFileInfo(filePath).exists())
+        {
+            w.addTab(filePath, page, top);
+        }
+    }
+
     return a.exec();
 }
