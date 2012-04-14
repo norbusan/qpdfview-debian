@@ -19,8 +19,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "documentview.h"
-#include "miscellaneous.h"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
@@ -45,20 +43,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     this->restoreState(m_settings.value("mainWindow/state").toByteArray());
 }
 
-QMenu *MainWindow::createPopupMenu()
-{
-    QMenu *menu = new QMenu();
-
-    menu->addAction(m_fileToolBar->toggleViewAction());
-    menu->addAction(m_editToolBar->toggleViewAction());
-    menu->addAction(m_viewToolBar->toggleViewAction());
-    menu->addSeparator();
-    menu->addAction(m_outlineDock->toggleViewAction());
-    menu->addAction(m_thumbnailsDock->toggleViewAction());
-
-    return menu;
-}
-
 bool MainWindow::open(const QString &filePath, int page, qreal top)
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -80,11 +64,11 @@ bool MainWindow::open(const QString &filePath, int page, qreal top)
     }
     else
     {
-        return this->addTab(filePath, page, top);
+        return this->openInNewTab(filePath, page, top);
     }
 }
 
-bool MainWindow::addTab(const QString &filePath, int page, qreal top)
+bool MainWindow::openInNewTab(const QString &filePath, int page, qreal top)
 {
     DocumentView *documentView = new DocumentView();
 
@@ -94,17 +78,21 @@ bool MainWindow::addTab(const QString &filePath, int page, qreal top)
         m_tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
         m_tabWidget->setCurrentIndex(index);
 
-        m_tabMenu->addAction(documentView->makeCurrentTabAction());
+        m_tabMenu->addAction(documentView->tabAction());
+
+        connect(documentView, SIGNAL(filePathChanged(QString)), this, SLOT(slotFilePathChanged(QString)));
+        connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(slotNumberOfPagesChanged(int)));
+
+        connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(slotCurrentPageChanged(int)));
 
         connect(documentView, SIGNAL(searchProgressed(int)), this, SLOT(slotSearchProgressed(int)));
         connect(documentView, SIGNAL(searchCanceled()), this, SLOT(slotSearchCanceled()));
         connect(documentView, SIGNAL(searchFinished()), this, SLOT(slotSearchFinished()));
 
-        connect(documentView, SIGNAL(numberOfPagesChanged(int)), this, SLOT(slotNumberOfPagesChanged(int)));
-        connect(documentView, SIGNAL(currentPageChanged(int)), this, SLOT(slotCurrentPageChanged(int)));
-        connect(documentView, SIGNAL(pageLayoutChanged(PageLayout)), this, SLOT(slotPageLayoutChanged(PageLayout)));
-        connect(documentView, SIGNAL(scalingChanged(Scaling)), this, SLOT(slotScalingChanged(Scaling)));
-        connect(documentView, SIGNAL(rotationChanged(Rotation)), this, SLOT(slotRotationChanged(Rotation)));
+        connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), this, SLOT(slotPageLayoutChanged(DocumentView::PageLayout)));
+        connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), this, SLOT(slotScalingChanged(DocumentView::Scaling)));
+        connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), this, SLOT(slotRotationChanged(DocumentView::Rotation)));
+
         connect(documentView, SIGNAL(highlightAllChanged(bool)), this, SLOT(slotHighlightAllChanged(bool)));
 
         documentView->setCurrentPage(page, top);
@@ -121,17 +109,6 @@ bool MainWindow::addTab(const QString &filePath, int page, qreal top)
     }
 }
 
-void MainWindow::closeTab(int index)
-{
-    if(index >= 0 && index < m_tabWidget->count())
-    {
-        QWidget *widget = m_tabWidget->widget(index);
-        m_tabWidget->removeTab(index);
-
-        delete widget;
-    }
-}
-
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Escape)
@@ -143,37 +120,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             m_searchLineEdit->clear();
 
             m_searchToolBar->hide();
-        }
-    }
-    else
-    {
-        if(m_tabWidget->currentIndex() != -1)
-        {
-            QApplication::sendEvent(m_tabWidget->currentWidget(), event);
-        }
-    }
-}
-
-void MainWindow::dragEnterEvent(QDragEnterEvent *event)
-{
-    if(event->mimeData()->hasUrls())
-    {
-        event->acceptProposedAction();
-    }
-}
-
-void MainWindow::dropEvent(QDropEvent *event)
-{
-    if(event->mimeData()->hasUrls())
-    {
-        event->acceptProposedAction();
-
-        foreach(QUrl url, event->mimeData()->urls())
-        {
-            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
-            {
-                this->addTab(url.path());
-            }
         }
     }
 }
@@ -200,6 +146,30 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if(event->mimeData()->hasUrls())
+    {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    if(event->mimeData()->hasUrls())
+    {
+        event->acceptProposedAction();
+
+        foreach(QUrl url, event->mimeData()->urls())
+        {
+            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
+            {
+                this->openInNewTab(url.path());
+            }
+        }
+    }
+}
+
 void MainWindow::slotOpen()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -220,7 +190,24 @@ void MainWindow::slotOpen()
     }
     else
     {
-        this->slotAddTab();
+        this->slotOpenInNewTab();
+    }
+}
+
+void MainWindow::slotOpenInNewTab()
+{
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
+                                                          m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
+                                                          tr("Portable Document Format (*.pdf)"));
+
+    foreach(QString filePath, filePaths)
+    {
+        if(this->openInNewTab(filePath))
+        {
+            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+
+            m_recentlyUsedAction->addEntry(filePath);
+        }
     }
 }
 
@@ -440,9 +427,8 @@ void MainWindow::slotFindNext()
 
 void MainWindow::slotSettings()
 {
-    SettingsDialog settingsDialog;
-
-    settingsDialog.exec();
+    //SettingsDialog settingsDialog;
+    //settingsDialog.exec();
 }
 
 void MainWindow::slotPresentation()
@@ -450,13 +436,6 @@ void MainWindow::slotPresentation()
     if(m_tabWidget->currentIndex() != -1)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-        PresentationView *presentationView = new PresentationView();
-
-        presentationView->setMainView(documentView);
-
-        presentationView->show();
-
-        presentationView->setAttribute(Qt::WA_DeleteOnClose);
     }
 }
 
@@ -475,26 +454,6 @@ void MainWindow::slotFullscreen()
         this->showNormal();
 
         this->restoreGeometry(m_geometry);
-    }
-}
-
-void MainWindow::slotAddTab()
-{
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
-                                                          m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                          tr("Portable Document Format (*.pdf)"));
-
-    foreach(QString filePath, filePaths)
-    {
-        if(!filePath.isEmpty())
-        {
-            if(this->addTab(filePath))
-            {
-                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
-
-                m_recentlyUsedAction->addEntry(filePath);
-            }
-        }
     }
 }
 
@@ -530,14 +489,14 @@ void MainWindow::slotNextTab()
 
 void MainWindow::slotCloseTab()
 {
-    this->closeTab(m_tabWidget->currentIndex());
+    delete m_tabWidget->currentWidget();
 }
 
 void MainWindow::slotCloseAllTabs()
 {
     while(m_tabWidget->count() > 0)
     {
-        this->closeTab(0);
+        delete m_tabWidget->widget(0);
     }
 }
 
@@ -560,7 +519,6 @@ void MainWindow::slotCloseAllTabsButCurrentTab()
 void MainWindow::slotContents()
 {
     HelpDialog helpDialog;
-
     helpDialog.exec();
 }
 
@@ -617,8 +575,8 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
             m_searchLineEdit->clear();
         }
 
-        m_outlineView->setMainView(documentView);
-        m_thumbnailsView->setMainView(documentView);
+        m_outlineDock->setWidget(documentView->outlineTreeWidget());
+        m_thumbnailsDock->setWidget(documentView->thumbnailsView());
     }
     else
     {
@@ -669,14 +627,29 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
             m_searchToolBar->hide();
         }
 
-        m_outlineView->setMainView(0);
-        m_thumbnailsView->setMainView(0);
+        m_outlineDock->setWidget(0);
+        m_thumbnailsDock->setWidget(0);
     }
 }
 
 void MainWindow::slotTabWidgetTabCloseRequested(int index)
 {
     delete m_tabWidget->widget(index);
+}
+
+void MainWindow::slotFilePathChanged(const QString &filePath)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+    }
+}
+
+void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
+{
+    m_currentPageValidator->setRange(1, numberOfPages);
+    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
 }
 
 void MainWindow::slotCurrentPageLineEditReturnPressed()
@@ -689,19 +662,9 @@ void MainWindow::slotCurrentPageLineEditReturnPressed()
     }
 }
 
-void MainWindow::slotHighlightAllCheckBoxToggled()
+void MainWindow::slotCurrentPageChanged(int currentPage)
 {
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setHighlightAll(m_highlightAllCheckBox->isChecked());
-    }
-}
-
-void MainWindow::slotRecentyUsedEntrySelected(const QString &filePath)
-{
-    this->open(filePath);
+    m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
 }
 
 void MainWindow::slotPageLayoutTriggered(QAction *action)
@@ -710,7 +673,7 @@ void MainWindow::slotPageLayoutTriggered(QAction *action)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        documentView->setPageLayout(static_cast<PageLayout>(action->data().toUInt()));
+        documentView->setPageLayout(static_cast<DocumentView::PageLayout>(action->data().toUInt()));
     }
 }
 
@@ -720,62 +683,11 @@ void MainWindow::slotPageLayoutCurrentIndexChanged(int index)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        documentView->setPageLayout(static_cast<PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
+        documentView->setPageLayout(static_cast<DocumentView::PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
     }
 }
 
-void MainWindow::slotScalingTriggered(QAction *action)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setScaling(static_cast<Scaling>(action->data().toUInt()));
-    }
-}
-
-void MainWindow::slotScalingCurrentIndexChanged(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setScaling(static_cast<Scaling>(m_scalingComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::slotRotationTriggered(QAction *action)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setRotation(static_cast<Rotation>(action->data().toUInt()));
-    }
-}
-
-void MainWindow::slotRotationCurrentIndexChanged(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
-
-        documentView->setRotation(static_cast<Rotation>(m_rotationComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
-{
-    m_currentPageValidator->setRange(1, numberOfPages);
-    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
-}
-
-void MainWindow::slotCurrentPageChanged(int currentPage)
-{
-    m_currentPageLineEdit->setText(tr("%1").arg(currentPage));
-}
-
-void MainWindow::slotPageLayoutChanged(PageLayout pageLayout)
+void MainWindow::slotPageLayoutChanged(DocumentView::PageLayout pageLayout)
 {
     foreach(QAction* action, m_pageLayoutGroup->actions())
     {
@@ -794,7 +706,27 @@ void MainWindow::slotPageLayoutChanged(PageLayout pageLayout)
     }
 }
 
-void MainWindow::slotScalingChanged(Scaling scaling)
+void MainWindow::slotScalingTriggered(QAction *action)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setScaling(static_cast<DocumentView::Scaling>(action->data().toUInt()));
+    }
+}
+
+void MainWindow::slotScalingCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setScaling(static_cast<DocumentView::Scaling>(m_scalingComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotScalingChanged(DocumentView::Scaling scaling)
 {
     foreach(QAction* action, m_scalingGroup->actions())
     {
@@ -813,7 +745,27 @@ void MainWindow::slotScalingChanged(Scaling scaling)
     }
 }
 
-void MainWindow::slotRotationChanged(Rotation rotation)
+void MainWindow::slotRotationTriggered(QAction *action)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setRotation(static_cast<DocumentView::Rotation>(action->data().toUInt()));
+    }
+}
+
+void MainWindow::slotRotationCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setRotation(static_cast<DocumentView::Rotation>(m_rotationComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotRotationChanged(DocumentView::Rotation rotation)
 {
     foreach(QAction* action, m_rotationGroup->actions())
     {
@@ -832,9 +784,24 @@ void MainWindow::slotRotationChanged(Rotation rotation)
     }
 }
 
+void MainWindow::slotHighlightAllCheckBoxToggled()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        documentView->setHighlightAll(m_highlightAllCheckBox->isChecked());
+    }
+}
+
 void MainWindow::slotHighlightAllChanged(bool highlightAll)
 {
     m_highlightAllCheckBox->setChecked(highlightAll);
+}
+
+void MainWindow::slotRecentyUsedEntrySelected(const QString &filePath)
+{
+    this->open(filePath);
 }
 
 void MainWindow::createActions()
@@ -862,6 +829,12 @@ void MainWindow::createActions()
         m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
 #endif
     }
+
+    // openInNewTab
+
+    m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
+    m_openInNewTabAction->setShortcut(QKeySequence::AddTab);
+    connect(m_openInNewTabAction, SIGNAL(triggered()), this, SLOT(slotOpenInNewTab()));
 
     // recently used
 
@@ -1047,16 +1020,16 @@ void MainWindow::createActions()
 
     m_onePageAction = new QAction(tr("One page"), this);
     m_onePageAction->setCheckable(true);
-    m_onePageAction->setData(OnePage);
+    m_onePageAction->setData(static_cast<uint>(DocumentView::OnePage));
     m_twoPagesAction = new QAction(tr("Two pages"), this);
     m_twoPagesAction->setCheckable(true);
-    m_twoPagesAction->setData(TwoPages);
+    m_twoPagesAction->setData(static_cast<uint>(DocumentView::TwoPages));
     m_oneColumnAction = new QAction(tr("One column"), this);
     m_oneColumnAction->setCheckable(true);
-    m_oneColumnAction->setData(OneColumn);
+    m_oneColumnAction->setData(static_cast<uint>(DocumentView::OneColumn));
     m_twoColumnsAction = new QAction(tr("Two columns"), this);
     m_twoColumnsAction->setCheckable(true);
-    m_twoColumnsAction->setData(TwoColumns);
+    m_twoColumnsAction->setData(static_cast<uint>(DocumentView::TwoColumns));
 
     m_pageLayoutGroup = new QActionGroup(this);
     m_pageLayoutGroup->addAction(m_onePageAction);
@@ -1069,31 +1042,31 @@ void MainWindow::createActions()
 
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setCheckable(true);
-    m_fitToPageAction->setData(FitToPage);
+    m_fitToPageAction->setData(static_cast<uint>(DocumentView::FitToPage));
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
-    m_fitToPageWidthAction->setData(FitToPageWidth);
+    m_fitToPageWidthAction->setData(static_cast<uint>(DocumentView::FitToPageWidth));
     m_scaleTo50Action = new QAction(tr("Scale to %1%").arg(50), this);
     m_scaleTo50Action->setCheckable(true);
-    m_scaleTo50Action->setData(ScaleTo50);
+    m_scaleTo50Action->setData(static_cast<uint>(DocumentView::ScaleTo50));
     m_scaleTo75Action = new QAction(tr("Scale to %1%").arg(75), this);
     m_scaleTo75Action->setCheckable(true);
-    m_scaleTo75Action->setData(ScaleTo75);
+    m_scaleTo75Action->setData(static_cast<uint>(DocumentView::ScaleTo75));
     m_scaleTo100Action = new QAction(tr("Scale to %1%").arg(100), this);
     m_scaleTo100Action->setCheckable(true);
-    m_scaleTo100Action->setData(ScaleTo100);
+    m_scaleTo100Action->setData(static_cast<uint>(DocumentView::ScaleTo100));
     m_scaleTo125Action = new QAction(tr("Scale to %1%").arg(125), this);
     m_scaleTo125Action->setCheckable(true);
-    m_scaleTo125Action->setData(ScaleTo125);
+    m_scaleTo125Action->setData(static_cast<uint>(DocumentView::ScaleTo125));
     m_scaleTo150Action = new QAction(tr("Scale to %1%").arg(150), this);
     m_scaleTo150Action->setCheckable(true);
-    m_scaleTo150Action->setData(ScaleTo150);
+    m_scaleTo150Action->setData(static_cast<uint>(DocumentView::ScaleTo150));
     m_scaleTo200Action = new QAction(tr("Scale to %1%").arg(200), this);
     m_scaleTo200Action->setCheckable(true);
-    m_scaleTo200Action->setData(ScaleTo200);
+    m_scaleTo200Action->setData(static_cast<uint>(DocumentView::ScaleTo200));
     m_scaleTo400Action = new QAction(tr("Scale to %1%").arg(400), this);
     m_scaleTo400Action->setCheckable(true);
-    m_scaleTo400Action->setData(ScaleTo400);
+    m_scaleTo400Action->setData(static_cast<uint>(DocumentView::ScaleTo400));
 
     m_scalingGroup = new QActionGroup(this);
     m_scalingGroup->addAction(m_fitToPageAction);
@@ -1111,16 +1084,16 @@ void MainWindow::createActions()
 
     m_rotateBy0Action = new QAction(trUtf8("Rotate by %1°").arg(0), this);
     m_rotateBy0Action->setCheckable(true);
-    m_rotateBy0Action->setData(RotateBy0);
+    m_rotateBy0Action->setData(static_cast<uint>(DocumentView::RotateBy0));
     m_rotateBy90Action = new QAction(trUtf8("Rotate by %1°").arg(90), this);
     m_rotateBy90Action->setCheckable(true);
-    m_rotateBy90Action->setData(RotateBy90);
+    m_rotateBy90Action->setData(static_cast<uint>(DocumentView::RotateBy90));
     m_rotateBy180Action = new QAction(trUtf8("Rotate by %1°").arg(180), this);
     m_rotateBy180Action->setCheckable(true);
-    m_rotateBy180Action->setData(RotateBy180);
+    m_rotateBy180Action->setData(static_cast<uint>(DocumentView::RotateBy180));
     m_rotateBy270Action = new QAction(trUtf8("Rotate by %1°").arg(270), this);
     m_rotateBy270Action->setCheckable(true);
-    m_rotateBy270Action->setData(RotateBy270);
+    m_rotateBy270Action->setData(static_cast<uint>(DocumentView::RotateBy270));
 
     m_rotationGroup = new QActionGroup(this);
     m_rotationGroup->addAction(m_rotateBy0Action);
@@ -1143,12 +1116,6 @@ void MainWindow::createActions()
     m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
     m_fullscreenAction->setIconVisibleInMenu(true);
     connect(m_fullscreenAction, SIGNAL(triggered()), this, SLOT(slotFullscreen()));
-
-    // addTab
-
-    m_addTabAction = new QAction(tr("&Add tab..."), this);
-    m_addTabAction->setShortcut(QKeySequence::AddTab);
-    connect(m_addTabAction, SIGNAL(triggered()), this, SLOT(slotAddTab()));
 
     // previousTab
 
@@ -1200,7 +1167,7 @@ void MainWindow::createActions()
 
 void MainWindow::createWidgets()
 {
-    // tabWidget
+    // central
 
     m_tabWidget = new QTabWidget(this);
 
@@ -1243,10 +1210,10 @@ void MainWindow::createWidgets()
     m_pageLayoutWidget->setMaximumWidth(300);
     m_pageLayoutLabel->setBuddy(m_pageLayoutComboBox);
 
-    m_pageLayoutComboBox->addItem(tr("One page"), OnePage);
-    m_pageLayoutComboBox->addItem(tr("Two pages"), TwoPages);
-    m_pageLayoutComboBox->addItem(tr("One column"), OneColumn);
-    m_pageLayoutComboBox->addItem(tr("Two columns"), TwoColumns);
+    m_pageLayoutComboBox->addItem(tr("One page"), static_cast<uint>(DocumentView::OnePage));
+    m_pageLayoutComboBox->addItem(tr("Two pages"), static_cast<uint>(DocumentView::TwoPages));
+    m_pageLayoutComboBox->addItem(tr("One column"), static_cast<uint>(DocumentView::OneColumn));
+    m_pageLayoutComboBox->addItem(tr("Two columns"), static_cast<uint>(DocumentView::TwoColumns));
 
     m_pageLayoutWidget->setLayout(new QHBoxLayout());
     m_pageLayoutWidget->layout()->addWidget(m_pageLayoutLabel);
@@ -1263,15 +1230,15 @@ void MainWindow::createWidgets()
     m_scalingWidget->setMaximumWidth(300);
     m_scalingLabel->setBuddy(m_scalingComboBox);
 
-    m_scalingComboBox->addItem(tr("Fit to page"), FitToPage);
-    m_scalingComboBox->addItem(tr("Fit to page width"), FitToPageWidth);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), ScaleTo50);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), ScaleTo75);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), ScaleTo100);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), ScaleTo125);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), ScaleTo150);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), ScaleTo200);
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), ScaleTo400);
+    m_scalingComboBox->addItem(tr("Fit to page"), static_cast<uint>(DocumentView::FitToPage));
+    m_scalingComboBox->addItem(tr("Fit to page width"), static_cast<uint>(DocumentView::FitToPageWidth));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), static_cast<uint>(DocumentView::ScaleTo50));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), static_cast<uint>(DocumentView::ScaleTo75));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), static_cast<uint>(DocumentView::ScaleTo100));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), static_cast<uint>(DocumentView::ScaleTo125));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), static_cast<uint>(DocumentView::ScaleTo150));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), static_cast<uint>(DocumentView::ScaleTo200));
+    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), static_cast<uint>(DocumentView::ScaleTo400));
 
     m_scalingWidget->setLayout(new QHBoxLayout());
     m_scalingWidget->layout()->addWidget(m_scalingLabel);
@@ -1288,10 +1255,10 @@ void MainWindow::createWidgets()
     m_rotationWidget->setMaximumWidth(300);
     m_rotationLabel->setBuddy(m_rotationComboBox);
 
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), RotateBy0);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), RotateBy90);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), RotateBy180);
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), RotateBy270);
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), static_cast<uint>(DocumentView::RotateBy0));
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), static_cast<uint>(DocumentView::RotateBy90));
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), static_cast<uint>(DocumentView::RotateBy180));
+    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), static_cast<uint>(DocumentView::RotateBy270));
 
     m_rotationWidget->setLayout(new QHBoxLayout());
     m_rotationWidget->layout()->addWidget(m_rotationLabel);
@@ -1394,11 +1361,8 @@ void MainWindow::createDocks()
     m_outlineDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     m_outlineDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
-    m_outlineView = new OutlineView(m_outlineDock);
-    m_outlineDock->setWidget(m_outlineView);
-    m_outlineDock->hide();
-
     this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
+    m_outlineDock->hide();
 
     // thumbnails
 
@@ -1407,11 +1371,8 @@ void MainWindow::createDocks()
     m_thumbnailsDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     m_thumbnailsDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
-    m_thumbnailsView = new ThumbnailsView(m_thumbnailsDock);
-    m_thumbnailsDock->setWidget(m_thumbnailsView);
-    m_thumbnailsDock->hide();
-
     this->addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
+    m_thumbnailsDock->hide();
 }
 
 void MainWindow::createMenus()
@@ -1420,6 +1381,7 @@ void MainWindow::createMenus()
 
     m_fileMenu = this->menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_openAction);
+    m_fileMenu->addAction(m_openInNewTabAction);
     m_fileMenu->addAction(m_recentlyUsedAction);
     m_fileMenu->addAction(m_refreshAction);
     m_fileMenu->addAction(m_saveCopyAction);
@@ -1465,14 +1427,14 @@ void MainWindow::createMenus()
     m_viewMenu->addAction(m_rotateBy270Action);
     m_viewMenu->addSeparator();
 
-    // toolBar
+    // toolbars
 
-    QMenu *toolBarsMenu = m_viewMenu->addMenu(tr("&Toolbars"));
-    toolBarsMenu->addAction(m_fileToolBar->toggleViewAction());
-    toolBarsMenu->addAction(m_editToolBar->toggleViewAction());
-    toolBarsMenu->addAction(m_viewToolBar->toggleViewAction());
+    QMenu *toolbarsMenu = m_viewMenu->addMenu(tr("&Toolbars"));
+    toolbarsMenu->addAction(m_fileToolBar->toggleViewAction());
+    toolbarsMenu->addAction(m_editToolBar->toggleViewAction());
+    toolbarsMenu->addAction(m_viewToolBar->toggleViewAction());
 
-    // dock
+    // docks
 
     QMenu *docksMenu = m_viewMenu->addMenu(tr("&Docks"));
     docksMenu->addAction(m_outlineDock->toggleViewAction());
@@ -1484,11 +1446,10 @@ void MainWindow::createMenus()
     // tab
 
     m_tabMenu = this->menuBar()->addMenu(tr("&Tab"));
-    m_tabMenu->addAction(m_addTabAction);
     m_tabMenu->addAction(m_previousTabAction);
     m_tabMenu->addAction(m_nextTabAction);
-    m_tabMenu->addAction(m_closeTabAction);
     m_tabMenu->addSeparator();
+    m_tabMenu->addAction(m_closeTabAction);
     m_tabMenu->addAction(m_closeAllTabsAction);
     m_tabMenu->addAction(m_closeAllTabsButCurrentTabAction);
     m_tabMenu->addSeparator();

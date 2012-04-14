@@ -16,16 +16,12 @@ CONFIG += link_pkgconfig
 PKGCONFIG += poppler-qt4
 
 SOURCES += \
-    sources/document.cpp \
-    sources/pageview.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
     sources/mainwindow.cpp \
     sources/main.cpp
 
 HEADERS += \
-    sources/document.h \
-    sources/pageview.h \
     sources/documentview.h \
     sources/miscellaneous.h \
     sources/mainwindow.h

@@ -24,13 +24,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QCoreApplication::setOrganizationName("qpdfview");
+    QCoreApplication::setApplicationName("qpdfview");
 
 #ifdef DATA_INSTALL_PATH
     QString dataInstallPath(DATA_INSTALL_PATH);
 #endif
 
-    QCoreApplication::setOrganizationName("qpdfview");
-    QCoreApplication::setApplicationName("qpdfview");
 #ifdef DATA_INSTALL_PATH
     QApplication::setWindowIcon(QIcon(dataInstallPath + "/qpdfview.svg"));
 #else
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 
         if(QFileInfo(filePath).exists())
         {
-            w.addTab(filePath, page, top);
+            w.openInNewTab(filePath, page, top);
         }
     }
 

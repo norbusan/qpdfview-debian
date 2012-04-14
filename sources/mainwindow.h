@@ -25,18 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
-#ifndef QPDFVIEW_ENUMS
-#define QPDFVIEW_ENUMS
-
-enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
-enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400 };
-enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
-
-#endif
-
-class OutlineView;
-class ThumbnailsView;
-class RecentlyUsedAction;
+#include "documentview.h"
+#include "miscellaneous.h"
 
 class MainWindow : public QMainWindow
 {
@@ -47,24 +37,37 @@ public:
 
     QSize sizeHint() const
     {
-        return QSize(500,700);
+        return QSize(500, 700);
     }
 
-    QMenu *createPopupMenu();
+    QMenu *createPopupMenu()
+    {
+        QMenu *menu = new QMenu();
+
+        menu->addAction(m_fileToolBar->toggleViewAction());
+        menu->addAction(m_editToolBar->toggleViewAction());
+        menu->addAction(m_viewToolBar->toggleViewAction());
+        menu->addSeparator();
+        menu->addAction(m_outlineDock->toggleViewAction());
+        menu->addAction(m_thumbnailsDock->toggleViewAction());
+
+        return menu;
+    }
 
 public slots:
     bool open(const QString &filePath, int page = 1, qreal top = 0.0);
-    bool addTab(const QString &filePath, int page = 1, qreal top = 0.0);
-    void closeTab(int index);
+    bool openInNewTab(const QString &filePath, int page = 1, qreal top = 0.0);
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    void closeEvent(QCloseEvent *event);
+
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
-    void closeEvent(QCloseEvent *event);
 
 protected slots:
     void slotOpen();
+    void slotOpenInNewTab();
     void slotRefresh();
     void slotSaveCopy();
     void slotPrint();
@@ -91,7 +94,6 @@ protected slots:
     void slotPresentation();
     void slotFullscreen();
 
-    void slotAddTab();
     void slotPreviousTab();
     void slotNextTab();
     void slotCloseTab();
@@ -105,35 +107,34 @@ protected slots:
     void slotTabWidgetCurrentChanged(int index);
     void slotTabWidgetTabCloseRequested(int index);
 
+    void slotFilePathChanged(const QString &filePath);
+    void slotNumberOfPagesChanged(int numberOfPages);
+
     void slotCurrentPageLineEditReturnPressed();
-
-    void slotHighlightAllCheckBoxToggled();
-
-    void slotRecentyUsedEntrySelected(const QString &filePath);
+    void slotCurrentPageChanged(int currentPage);
 
     void slotPageLayoutTriggered(QAction *action);
     void slotPageLayoutCurrentIndexChanged(int index);
+    void slotPageLayoutChanged(DocumentView::PageLayout pageLayout);
+
     void slotScalingTriggered(QAction *action);
     void slotScalingCurrentIndexChanged(int index);
+    void slotScalingChanged(DocumentView::Scaling scaling);
+
     void slotRotationTriggered(QAction *action);
     void slotRotationCurrentIndexChanged(int index);
+    void slotRotationChanged(DocumentView::Rotation rotation);
 
-    void slotNumberOfPagesChanged(int numberOfPages);
-    void slotCurrentPageChanged(int currentPage);
-    void slotPageLayoutChanged(PageLayout pageLayout);
-    void slotScalingChanged(Scaling scaling);
-    void slotRotationChanged(Rotation rotation);
+    void slotHighlightAllCheckBoxToggled();
     void slotHighlightAllChanged(bool highlightAll);
 
+    void slotRecentyUsedEntrySelected(const QString &filePath);
+
 private:
-    // settings
-
-    QSettings m_settings;
-    QByteArray m_geometry;
-
     // actions
 
     QAction *m_openAction;
+    QAction *m_openInNewTabAction;
     RecentlyUsedAction *m_recentlyUsedAction;
     QAction *m_refreshAction;
     QAction *m_saveCopyAction;
@@ -178,16 +179,17 @@ private:
     QAction *m_presentationAction;
     QAction *m_fullscreenAction;
 
-    QAction *m_addTabAction;
     QAction *m_previousTabAction;
     QAction *m_nextTabAction;
-    QAction *m_closeTabAction;
 
+    QAction *m_closeTabAction;
     QAction *m_closeAllTabsAction;
     QAction *m_closeAllTabsButCurrentTabAction;
 
     QAction *m_contentsAction;
     QAction *m_aboutAction;
+
+    void createActions();
 
     // widgets
 
@@ -220,7 +222,9 @@ private:
     QPushButton *m_findPreviousButton;
     QPushButton *m_findNextButton;
 
-    // toolBars
+    void createWidgets();
+
+    // toolbars
 
     QToolBar *m_fileToolBar;
     QToolBar *m_editToolBar;
@@ -228,13 +232,14 @@ private:
 
     QToolBar *m_searchToolBar;
 
+    void createToolBars();
+
     // docks
 
     QDockWidget *m_outlineDock;
-    OutlineView *m_outlineView;
-
     QDockWidget *m_thumbnailsDock;
-    ThumbnailsView *m_thumbnailsView;
+
+    void createDocks();
 
     // menus
 
@@ -244,13 +249,12 @@ private:
     QMenu *m_tabMenu;
     QMenu *m_helpMenu;
 
-    // internal methods
-
-    void createActions();
-    void createWidgets();
-    void createToolBars();
-    void createDocks();
     void createMenus();
+
+    // settings
+
+    QSettings m_settings;
+    QByteArray m_geometry;
 
 };
 
