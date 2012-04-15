@@ -471,12 +471,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     // thumbnails
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
-
-    // bookmarks
-
-    m_bookmarksMenu = new BookmarksMenu(this);
-
-    connect(m_bookmarksMenu, SIGNAL(entrySelected(int,qreal)), this, SLOT(slotBookmarksEntrySelected(int,qreal)));
 }
 
 DocumentView::~DocumentView()
@@ -1008,15 +1002,7 @@ void DocumentView::resizeEvent(QResizeEvent *event)
 
 void DocumentView::keyPressEvent(QKeyEvent *event)
 {
-    QKeySequence shortcut(event->modifiers() + event->key());
-
-    foreach(QAction *action, m_bookmarksMenu->actions())
-    {
-        if(action->shortcut() == shortcut)
-        {
-            action->trigger();
-        }
-    }
+    // TODO
 }
 
 void DocumentView::wheelEvent(QWheelEvent *event)
@@ -1130,11 +1116,6 @@ void DocumentView::wheelEvent(QWheelEvent *event)
     }
 }
 
-void DocumentView::contextMenuEvent(QContextMenuEvent *event)
-{
-    m_bookmarksMenu->exec(event->globalPos());
-}
-
 void DocumentView::slotVerticalScrollBarValueChanged(int value)
 {
     if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
@@ -1151,14 +1132,6 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
             }
         }
     }
-
-    // bookmarks
-
-    PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
-
-    qreal top = pageItem ? qMax(0.0, (value - pageItem->y()) / pageItem->boundingRect().height()) : 0.0;
-
-    m_bookmarksMenu->setPosition(m_currentPage, top);
 }
 
 void DocumentView::slotTabActionTriggered()
@@ -1190,18 +1163,6 @@ void DocumentView::slotTabActionTriggered()
 void DocumentView::slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
 {
     this->setCurrentPage(item->data(column, Qt::UserRole).toInt(), item->data(column, Qt::UserRole+1).toReal());
-}
-
-void DocumentView::slotBookmarksEntrySelected(int page, qreal top)
-{
-    if(m_currentPage != page)
-    {
-        m_currentPage = page;
-
-        prepareView(top);
-
-        emit currentPageChanged(m_currentPage);
-    }
 }
 
 void DocumentView::search(const QString &text, bool matchCase)
@@ -1644,10 +1605,6 @@ void DocumentView::prepareScene()
 
     m_scene->setSceneRect(0.0, 0.0, width, height);
     m_view->setSceneRect(0.0, 0.0, width, height);
-
-    // bookmarks
-
-    m_bookmarksMenu->clearList();
 }
 
 void DocumentView::prepareView(qreal top)
@@ -1716,8 +1673,4 @@ void DocumentView::prepareView(qreal top)
 
         break;
     }
-
-    // bookmarks
-
-    m_bookmarksMenu->setPosition(m_currentPage, top);
 }

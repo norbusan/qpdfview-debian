@@ -58,48 +58,6 @@ private:
     QSettings m_settings;
 };
 
-// bookmarks menu
-
-class BookmarksMenu : public QMenu
-{
-    Q_OBJECT
-
-public:
-    BookmarksMenu(QWidget *parent = 0);
-
-public slots:
-    void setPosition(int page, qreal top);
-
-    void addEntry();
-    void removeEntriesOnCurrentPage();
-
-    void goToPreviousEntry();
-    void goToNextEntry();
-
-    void clearList();
-
-signals:
-    void entrySelected(int page, qreal top);
-
-protected slots:
-    void slotActionGroupTriggered(QAction *action);
-
-private:
-    QActionGroup *m_actionGroup;
-
-    QAction *m_addEntryAction;
-    QAction *m_removeEntriesOnCurrentPageAction;
-
-    QAction *m_goToPreviousEntryAction;
-    QAction *m_goToNextEntryAction;
-
-    QAction *m_clearListAction;
-
-    int m_page;
-    qreal m_top;
-
-};
-
 // help dialog
 
 class HelpDialog : public QDialog

@@ -7,8 +7,6 @@
 
 #include <poppler-qt4.h>
 
-#include "miscellaneous.h"
-
 class DocumentView : public QWidget
 {
     Q_OBJECT
@@ -222,15 +220,11 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
 
-    void contextMenuEvent(QContextMenuEvent *event);
-
 protected slots:
     void slotVerticalScrollBarValueChanged(int value);
 
     void slotTabActionTriggered();
     void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column);
-
-    void slotBookmarksEntrySelected(int page, qreal top);
 
 private:
     // document
@@ -275,8 +269,6 @@ private:
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
     QGraphicsView *m_thumbnailsGraphicsView;
-
-    BookmarksMenu *m_bookmarksMenu;
 
     // search
 
