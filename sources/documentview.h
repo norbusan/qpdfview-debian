@@ -125,12 +125,18 @@ private:
         void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     protected:
-        void mousePressEvent(QGraphicsSceneMouseEvent *event);
+        void mousePressEvent(QGraphicsSceneMouseEvent*);
 
     private:
+        // page
+
         Poppler::Page *m_page;
 
+        // properties
+
         int m_index;
+
+        // render
 
         QFuture<void> m_render;
         void render();
@@ -168,7 +174,7 @@ public:
 
     QAction *tabAction() const;
     QTreeWidget *outlineTreeWidget() const;
-    QGraphicsView *thumbnailsView() const;
+    QGraphicsView *thumbnailsGraphicsView() const;
 
 public slots:
     bool open(const QString &filePath);
@@ -264,14 +270,11 @@ private:
     QMap<int, PageItem*> m_pagesByIndex;
     QMap<qreal, PageItem*> m_pagesByHeight;
 
-    QGraphicsRectItem *m_highlight;
-
     // user interface
 
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
-    QGraphicsScene *m_thumbnailsScene;
-    QGraphicsView *m_thumbnailsView;
+    QGraphicsView *m_thumbnailsGraphicsView;
 
     BookmarksMenu *m_bookmarksMenu;
 
@@ -279,11 +282,6 @@ private:
 
     QFuture<void> m_search;
     void search(const QString &text, bool matchCase = true);
-
-    QMap<int, QRectF> m_searchResults;
-    QMutex m_searchResultsMutex;
-
-    QMap<int, QRectF>::iterator m_currentSearchResult;
 
     // print
 

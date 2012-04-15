@@ -63,9 +63,9 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    DocumentView::PageCacheKey key(m_index, m_scale);
-
     parent->m_pageCacheMutex.lock();
+
+    DocumentView::PageCacheKey key(m_index, m_scale);
 
     if(parent->m_pageCache.contains(key))
     {
@@ -97,22 +97,6 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
     }
 
     painter->setTransform(m_linkTransform.inverted(), true);
-
-    // search results
-
-    painter->setTransform(m_highlightTransform, true);
-
-    if(m_highlightAll)
-    {
-        parent->m_searchResultsMutex.lock();
-
-        foreach(QRectF rect, parent->m_searchResults.values(m_index))
-        {
-            painter->fillRect(rect.adjusted(-1.0, -1.0, 1.0, 1.0), QBrush(QColor(0,255,0,127)));
-        }
-
-        parent->m_searchResultsMutex.unlock();
-    }
 
     // highlight
 
@@ -194,10 +178,45 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(!m_rubberBand.isNull())
+    {
+        m_rubberBand.setBottomRight(event->pos());
+
+        scene()->update(boundingRect().translated(pos()));
+    }
 }
 
 void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
+
+    if(!parent)
+    {
+        qFatal("!parent");
+        return;
+    }
+
+    if(!m_rubberBand.isNull())
+    {
+        m_rubberBand.setBottomRight(event->pos());
+
+        m_highlight = m_highlightTransform.inverted().mapRect(m_rubberBand).adjusted(-1.0, -1.0, 1.0, 1.0);
+
+        m_rubberBand = QRectF();
+
+        parent->m_documentMutex.lock();
+
+        QString text = m_page->text(m_highlight);
+
+        parent->m_documentMutex.unlock();
+
+        if(!text.isEmpty())
+        {
+            QApplication::clipboard()->setText(text);
+        }
+
+        scene()->update(boundingRect().translated(pos()));
+    }
 }
 
 void DocumentView::PageItem::prepareTransforms()
@@ -257,9 +276,9 @@ void DocumentView::PageItem::render()
 
     parent->m_documentMutex.unlock();
 
-    DocumentView::PageCacheKey key(m_index, m_scale);
-
     parent->m_pageCacheMutex.lock();
+
+    DocumentView::PageCacheKey key(m_index, m_scale);
 
     while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
     {
@@ -315,9 +334,9 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
-    DocumentView::PageCacheKey key(m_index, 0.1);
-
     parent->m_pageCacheMutex.lock();
+
+    DocumentView::PageCacheKey key(m_index, 0.1);
 
     if(parent->m_pageCache.contains(key))
     {
@@ -337,7 +356,7 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
     painter->drawRect(boundingRect());
 }
 
-void DocumentView::ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void DocumentView::ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
 {
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
 
@@ -361,7 +380,7 @@ void DocumentView::ThumbnailItem::render()
     }
 
     QRectF rect = boundingRect().translated(pos());
-    QRectF visibleRect = parent->m_thumbnailsView->mapToScene(parent->m_thumbnailsView->rect()).boundingRect();
+    QRectF visibleRect = parent->m_thumbnailsGraphicsView->mapToScene(parent->m_thumbnailsGraphicsView->rect()).boundingRect();
 
     if(!rect.intersects(visibleRect))
     {
@@ -374,9 +393,9 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.unlock();
 
-    DocumentView::PageCacheKey key(m_index, 0.1);
-
     parent->m_pageCacheMutex.lock();
+
+    DocumentView::PageCacheKey key(m_index, 0.1);
 
     while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
     {
@@ -411,9 +430,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_pagesByIndex(),
     m_pagesByHeight(),
     m_search(),
-    m_searchResults(),
-    m_searchResultsMutex(QMutex::Recursive),
-    m_currentSearchResult(m_searchResults.end()),
     m_print()
 {
     // settings
@@ -431,16 +447,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     m_view = new QGraphicsView(m_scene, this);
     m_view->show();
-
-    // highlight
-
-    m_highlight = new QGraphicsRectItem();
-    m_highlight->setPen(QPen(QColor(0,255,0,255)));
-    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
-
-    m_highlight->setVisible(false);
-
-    m_scene->addItem(m_highlight);
 
     // verticalScrollBar
 
@@ -464,10 +470,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     // thumbnails
 
-    m_thumbnailsScene = new QGraphicsScene(this);
-    m_thumbnailsScene->setBackgroundBrush(QBrush(Qt::darkGray));
-
-    m_thumbnailsView = new QGraphicsView(m_thumbnailsScene);
+    m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
 
     // bookmarks
 
@@ -665,15 +668,15 @@ QTreeWidget *DocumentView::outlineTreeWidget() const
     return m_outlineTreeWidget;
 }
 
-QGraphicsView *DocumentView::thumbnailsView() const
+QGraphicsView *DocumentView::thumbnailsGraphicsView() const
 {
-    return m_thumbnailsView;
+    return m_thumbnailsGraphicsView;
 }
 
 bool DocumentView::open(const QString &filePath)
 {
     m_scene->clear();
-    m_thumbnailsScene->clear();
+    m_thumbnailsGraphicsView->scene()->clear();
 
     Poppler::Document *document = Poppler::Document::load(filePath);
 
@@ -721,7 +724,7 @@ bool DocumentView::open(const QString &filePath)
 bool DocumentView::refresh()
 {
     m_scene->clear();
-    m_thumbnailsScene->clear();
+    m_thumbnailsGraphicsView->scene()->clear();
 
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
@@ -793,7 +796,7 @@ bool DocumentView::saveCopy(const QString &filePath)
 void DocumentView::close()
 {
     m_scene->clear();
-    m_thumbnailsScene->clear();
+    m_thumbnailsGraphicsView->scene()->clear();
 
     if(m_document)
     {
@@ -948,221 +951,17 @@ void DocumentView::cancelSearch()
         m_search.waitForFinished();
     }
 
-    m_searchResultsMutex.lock();
-
-    m_searchResults.clear();
-    m_currentSearchResult = m_searchResults.end();
-
-    m_searchResultsMutex.unlock();
-
-    m_highlight->setVisible(false);
-
-    foreach(PageItem *pageItem, m_pagesByIndex.values())
-    {
-        m_scene->update(pageItem->boundingRect().translated(pageItem->pos()));
-    }
+    // TODO: clear results
 }
 
 void DocumentView::findPrevious()
 {
-    m_searchResultsMutex.lock();
-
-    if(m_currentSearchResult != m_searchResults.end())
-    {
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            if(m_currentSearchResult.key() != m_currentPage - 1)
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_currentPage - 1);
-            }
-            else
-            {
-                --m_currentSearchResult;
-            }
-
-            if(m_currentSearchResult == m_searchResults.end())
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_numberOfPages - 1);
-            }
-
-            break;
-        case TwoPages:
-        case TwoColumns:
-            if(m_currentSearchResult.key() != m_currentPage - 1 && m_currentSearchResult.key() != m_currentPage)
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_currentPage - 1);
-            }
-            else
-            {
-                --m_currentSearchResult;
-            }
-
-            if(m_currentSearchResult == m_searchResults.end())
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_numberOfPages - 1);
-            }
-
-            break;
-        }
-    }
-    else
-    {
-        m_currentSearchResult = --m_searchResults.upperBound(m_currentPage - 1);
-
-        if(m_currentSearchResult == m_searchResults.end())
-        {
-            m_currentSearchResult = --m_searchResults.upperBound(m_numberOfPages - 1);
-        }
-    }
-
-    if(m_currentSearchResult != m_searchResults.end())
-    {
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            if(m_currentPage != m_currentSearchResult.key() + 1)
-            {
-                m_currentPage = m_currentSearchResult.key() + 1;
-
-                emit currentPageChanged(m_currentPage);
-            }
-
-            break;
-        case TwoPages:
-        case TwoColumns:
-            if(m_currentPage != (m_currentSearchResult.key() % 2 == 0 ? m_currentSearchResult.key() + 1 : m_currentSearchResult.key()))
-            {
-                m_currentPage = m_currentSearchResult.key() % 2 == 0 ? m_currentSearchResult.key() + 1 : m_currentSearchResult.key();
-
-                emit currentPageChanged(m_currentPage);
-            }
-
-            break;
-        }
-
-        prepareView();
-
-        // highlight
-
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
-
-        m_view->centerOn(m_highlight);
-
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
-
-        // bookmarks
-
-        PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
-
-        qreal top = pageItem ? qMax(0.0, (m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) : 0.0;
-
-        m_bookmarksMenu->setPosition(m_currentPage, top);
-    }
+    // TODO
 }
 
 void DocumentView::findNext()
 {
-    m_searchResultsMutex.lock();
-
-    if(m_currentSearchResult != m_searchResults.end())
-    {
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            if(m_currentSearchResult.key() != m_currentPage - 1)
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_currentPage - 1);
-            }
-            else
-            {
-                ++m_currentSearchResult;
-            }
-
-            if(m_currentSearchResult == m_searchResults.end())
-            {
-                m_currentSearchResult = m_searchResults.lowerBound(0);
-            }
-
-            break;
-        case TwoPages:
-        case TwoColumns:
-            if(m_currentSearchResult.key() != m_currentPage - 1 && m_currentSearchResult.key() != m_currentPage)
-            {
-                m_currentSearchResult = --m_searchResults.upperBound(m_currentPage - 1);
-            }
-            else
-            {
-                ++m_currentSearchResult;
-            }
-
-            if(m_currentSearchResult == m_searchResults.end())
-            {
-                m_currentSearchResult = m_searchResults.lowerBound(0);
-            }
-
-            break;
-        }
-    }
-    else
-    {
-        m_currentSearchResult = m_searchResults.lowerBound(m_currentPage - 1);
-
-        if(m_currentSearchResult == m_searchResults.end())
-        {
-            m_currentSearchResult = m_searchResults.lowerBound(0);
-        }
-    }
-
-    if(m_currentSearchResult != m_searchResults.end())
-    {
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            if(m_currentPage != m_currentSearchResult.key() + 1)
-            {
-                m_currentPage = m_currentSearchResult.key() + 1;
-
-                emit currentPageChanged(m_currentPage);
-            }
-
-            break;
-        case TwoPages:
-        case TwoColumns:
-            if(m_currentPage != (m_currentSearchResult.key() % 2 == 0 ? m_currentSearchResult.key() + 1 : m_currentSearchResult.key()))
-            {
-                m_currentPage = m_currentSearchResult.key() % 2 == 0 ? m_currentSearchResult.key() + 1 : m_currentSearchResult.key();
-
-                emit currentPageChanged(m_currentPage);
-            }
-
-            break;
-        }
-
-        prepareView();
-
-        // highlight
-
-        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
-
-        m_view->centerOn(m_highlight);
-
-        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
-
-        // bookmarks
-
-        PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
-
-        qreal top = pageItem ? qMax(0.0, (m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) : 0.0;
-
-        m_bookmarksMenu->setPosition(m_currentPage, top);
-    }
-
-    m_searchResultsMutex.unlock();
+    // TODO
 }
 
 void DocumentView::startPrint(QPrinter *printer, int fromPage, int toPage)
@@ -1209,12 +1008,126 @@ void DocumentView::resizeEvent(QResizeEvent *event)
 
 void DocumentView::keyPressEvent(QKeyEvent *event)
 {
-    // TODO
+    QKeySequence shortcut(event->modifiers() + event->key());
+
+    foreach(QAction *action, m_bookmarksMenu->actions())
+    {
+        if(action->shortcut() == shortcut)
+        {
+            action->trigger();
+        }
+    }
 }
 
 void DocumentView::wheelEvent(QWheelEvent *event)
 {
-    // TODO
+    if(event->modifiers() == Qt::NoModifier)
+    {
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case TwoPages:
+            if(event->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum())
+            {
+                previousPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+            else if(event->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum())
+            {
+                nextPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+
+            break;
+        case OneColumn:
+        case TwoColumns:
+            break;
+        }
+    }
+    else if(event->modifiers() == Qt::ControlModifier)
+    {
+        if(event->delta() > 0)
+        {
+            switch(m_scaling)
+            {
+            case FitToPage:
+                setScaling(FitToPageWidth); break;
+            case FitToPageWidth:
+                setScaling(ScaleTo50); break;
+            case ScaleTo50:
+                setScaling(ScaleTo75); break;
+            case ScaleTo75:
+                setScaling(ScaleTo100); break;
+            case ScaleTo100:
+                setScaling(ScaleTo125); break;
+            case ScaleTo125:
+                setScaling(ScaleTo150); break;
+            case ScaleTo150:
+                setScaling(ScaleTo200); break;
+            case ScaleTo200:
+                setScaling(ScaleTo400); break;
+            case ScaleTo400:
+                break;
+            }
+        }
+        else if(event->delta() < 0)
+        {
+            switch(m_scaling)
+            {
+            case FitToPage:
+                break;
+            case FitToPageWidth:
+                setScaling(FitToPage); break;
+            case ScaleTo50:
+                setScaling(FitToPageWidth); break;
+            case ScaleTo75:
+                setScaling(ScaleTo50); break;
+            case ScaleTo100:
+                setScaling(ScaleTo75); break;
+            case ScaleTo125:
+                setScaling(ScaleTo100); break;
+            case ScaleTo150:
+                setScaling(ScaleTo125); break;
+            case ScaleTo200:
+                setScaling(ScaleTo150); break;
+            case ScaleTo400:
+                setScaling(ScaleTo200); break;
+            }
+        }
+    }
+    else if(event->modifiers() == Qt::ShiftModifier)
+    {
+        if(event->delta() > 0)
+        {
+            switch(m_rotation)
+            {
+            case RotateBy0:
+                setRotation(RotateBy270); break;
+            case RotateBy90:
+                setRotation(RotateBy0); break;
+            case RotateBy180:
+                setRotation(RotateBy90); break;
+            case RotateBy270:
+                setRotation(RotateBy180); break;
+            }
+        }
+        else if(event->delta() < 0)
+        {
+            switch(m_rotation)
+            {
+            case RotateBy0:
+                setRotation(RotateBy90); break;
+            case RotateBy90:
+                setRotation(RotateBy180); break;
+            case RotateBy180:
+                setRotation(RotateBy270); break;
+            case RotateBy270:
+                setRotation(RotateBy0); break;
+            }
+        }
+    }
 }
 
 void DocumentView::contextMenuEvent(QContextMenuEvent *event)
@@ -1337,21 +1250,7 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         m_documentMutex.unlock();
 
-        m_searchResultsMutex.lock();
-
-        while(!rects.isEmpty())
-        {
-            m_searchResults.insertMulti(index, rects.takeLast());
-        }
-
-        m_searchResultsMutex.unlock();
-
-        PageItem *pageItem = m_pagesByIndex.value(index, 0);
-
-        if(pageItem)
-        {
-            m_scene->update(pageItem->boundingRect().translated(pageItem->pos()));
-        }
+        // TODO: update results
 
         emit searchProgressed((100 * (index+1)) / m_numberOfPages);
     }
@@ -1507,7 +1406,8 @@ void DocumentView::prepareOutline(const QDomNode &node, QTreeWidgetItem *parent,
 
 void DocumentView::prepareThumbnails()
 {
-    m_thumbnailsScene->clear();
+    m_thumbnailsGraphicsView->scene()->clear();
+    m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
 
     qreal width = 10.0, height = 5.0;
 
@@ -1526,11 +1426,11 @@ void DocumentView::prepareThumbnails()
         width = qMax(width, rect.width() + 10.0);
         height += rect.height() + 5.0;
 
-        m_thumbnailsScene->addItem(thumbnailItem);
+        m_thumbnailsGraphicsView->scene()->addItem(thumbnailItem);
     }
 
-    m_thumbnailsScene->setSceneRect(0.0, 0.0, width, height);
-    m_thumbnailsView->setSceneRect(0.0, 0.0, width, height);
+    m_thumbnailsGraphicsView->scene()->setSceneRect(0.0, 0.0, width, height);
+    m_thumbnailsGraphicsView->setSceneRect(0.0, 0.0, width, height);
 }
 
 void DocumentView::prepareScene()
@@ -1745,13 +1645,9 @@ void DocumentView::prepareScene()
     m_scene->setSceneRect(0.0, 0.0, width, height);
     m_view->setSceneRect(0.0, 0.0, width, height);
 
-    // highlight
+    // bookmarks
 
-    m_highlight = new QGraphicsRectItem();
-    m_highlight->setPen(QPen(QColor(0,255,0,255)));
-    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
-
-    m_scene->addItem(m_highlight);
+    m_bookmarksMenu->clearList();
 }
 
 void DocumentView::prepareView(qreal top)
@@ -1820,35 +1716,6 @@ void DocumentView::prepareView(qreal top)
 
         break;
     }
-
-    // highlight
-
-    m_searchResultsMutex.lock();
-
-    if(m_currentSearchResult != m_searchResults.end())
-    {
-        PageItem *pageItem = m_pagesByIndex.value(m_currentSearchResult.key(), 0);
-
-        if(pageItem != 0)
-        {
-            m_highlight->setPos(pageItem->pos());
-            m_highlight->setTransform(pageItem->m_highlightTransform);
-
-            m_highlight->setRect(m_currentSearchResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
-
-            m_highlight->setVisible(true);
-        }
-        else
-        {
-            m_highlight->setVisible(false);
-        }
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
-
-    m_searchResultsMutex.unlock();
 
     // bookmarks
 

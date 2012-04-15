@@ -436,6 +436,8 @@ void MainWindow::slotPresentation()
     if(m_tabWidget->currentIndex() != -1)
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+        // TODO
     }
 }
 
@@ -576,7 +578,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         }
 
         m_outlineDock->setWidget(documentView->outlineTreeWidget());
-        m_thumbnailsDock->setWidget(documentView->thumbnailsView());
+        m_thumbnailsDock->setWidget(documentView->thumbnailsGraphicsView());
     }
     else
     {
