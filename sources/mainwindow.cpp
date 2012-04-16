@@ -176,7 +176,7 @@ void MainWindow::slotOpen()
     {
         QString filePath = QFileDialog::getOpenFileName(this, tr("Open document"),
                                                         m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                        tr("Portable Document Format (*.pdf)"));
+                                                        "Portable Document Format (*.pdf)");
 
         if(!filePath.isEmpty())
         {
@@ -198,7 +198,7 @@ void MainWindow::slotOpenInNewTab()
 {
     QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open documents"),
                                                           m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                          tr("Portable Document Format (*.pdf)"));
+                                                          "Portable Document Format (*.pdf)");
 
     foreach(QString filePath, filePaths)
     {
@@ -227,7 +227,7 @@ void MainWindow::slotSaveCopy()
     {
         QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"),
                                                         m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
-                                                        tr("Portable Document Format (*.pdf)"));
+                                                        "Portable Document Format (*.pdf)");
 
         if(!filePath.isEmpty())
         {

@@ -23,13 +23,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    QCoreApplication::setOrganizationName("qpdfview");
-    QCoreApplication::setApplicationName("qpdfview");
-
 #ifdef DATA_INSTALL_PATH
     QString dataInstallPath(DATA_INSTALL_PATH);
 #endif
+
+    QApplication a(argc, argv);
+    QApplication::setOrganizationName("qpdfview");
+    QApplication::setApplicationName("qpdfview");
 
 #ifdef DATA_INSTALL_PATH
     QApplication::setWindowIcon(QIcon(dataInstallPath + "/qpdfview.svg"));
@@ -53,7 +53,11 @@ int main(int argc, char *argv[])
     // command line arguments
 
     QStringList arguments = QCoreApplication::arguments();
-    arguments.removeFirst();
+
+    if(!arguments.isEmpty())
+    {
+        arguments.removeFirst();
+    }
 
     foreach(QString argument, arguments)
     {

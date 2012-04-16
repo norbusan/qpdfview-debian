@@ -100,6 +100,8 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     // highlight
 
+    painter->setTransform(m_highlightTransform, true);
+
     if(!m_highlight.isNull())
     {
         painter->fillRect(m_highlight, QBrush(QColor(0,0,255,127)));
@@ -529,13 +531,20 @@ int DocumentView::currentPage() const
 
 void DocumentView::setCurrentPage(int currentPage, qreal top)
 {
-    if(currentPage >= 1 && currentPage <= m_numberOfPages)
+    if(currentPage >= 1 && currentPage <= m_numberOfPages && top >= 0.0 && top <= 1.0)
     {
+        PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
+
+        if(!pageItem)
+        {
+            return;
+        }
+
         switch(m_pageLayout)
         {
         case OnePage:
         case OneColumn:
-            if(m_currentPage != currentPage)
+            if(m_currentPage != currentPage || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
             {
                 m_currentPage = currentPage;
 
@@ -547,7 +556,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
             break;
         case TwoPages:
         case TwoColumns:
-            if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1))
+            if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
             {
                 m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
 
@@ -683,10 +692,10 @@ bool DocumentView::open(const QString &filePath)
 
         m_document = document;
 
-        m_document->setRenderHint(Poppler::Document::Antialiasing, true);
-        m_document->setRenderHint(Poppler::Document::TextAntialiasing, true);
-        m_document->setRenderHint(Poppler::Document::TextHinting, true);
-        m_document->setRenderHint(Poppler::Document::TextSlightHinting, true);
+        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
+        m_document->setRenderHint(Poppler::Document::TextSlightHinting, m_settings.value("documentView/textHinting", false).toBool());
 
         m_filePath = filePath;
         m_numberOfPages = m_document->numPages();
@@ -731,10 +740,10 @@ bool DocumentView::refresh()
 
         m_document = document;
 
-        m_document->setRenderHint(Poppler::Document::Antialiasing, true);
-        m_document->setRenderHint(Poppler::Document::TextAntialiasing, true);
-        m_document->setRenderHint(Poppler::Document::TextHinting, true);
-        m_document->setRenderHint(Poppler::Document::TextSlightHinting, true);
+        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
+        m_document->setRenderHint(Poppler::Document::TextSlightHinting, m_settings.value("documentView/textHinting", false).toBool());
 
         int numberOfPages = m_document->numPages();
 
@@ -752,9 +761,6 @@ bool DocumentView::refresh()
             emit currentPageChanged(m_currentPage);
         }
 
-        m_pageCache.clear();
-        m_pageCacheSize = 0u;
-
         preparePages();
 
         m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
@@ -762,6 +768,9 @@ bool DocumentView::refresh()
         prepareOutline();
         prepareThumbnails();
     }
+
+    m_pageCache.clear();
+    m_pageCacheSize = 0u;
 
     prepareScene();
     prepareView();
@@ -807,15 +816,15 @@ void DocumentView::close()
     emit numberOfPagesChanged(m_numberOfPages);
     emit currentPageChanged(m_currentPage);
 
-    m_pageCache.clear();
-    m_pageCacheSize = 0u;
-
     preparePages();
 
     m_tabAction->setText(QString());
 
     prepareOutline();
     prepareThumbnails();
+
+    m_pageCache.clear();
+    m_pageCacheSize = 0u;
 
     prepareScene();
     prepareView();
