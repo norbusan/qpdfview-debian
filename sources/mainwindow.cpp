@@ -836,7 +836,21 @@ void MainWindow::createActions()
 
     m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
     m_openInNewTabAction->setShortcut(QKeySequence::AddTab);
+    m_openInNewTabAction->setIconVisibleInMenu(true);
     connect(m_openInNewTabAction, SIGNAL(triggered()), this, SLOT(slotOpenInNewTab()));
+
+    if(QIcon::hasThemeIcon("tab-new"))
+    {
+        m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_openInNewTabAction->setIcon(QIcon(dataInstallPath + "/tab-new.svg"));
+#else
+        m_openInNewTabAction->setIcon(QIcon(":/icons/tab-new.svg"));
+#endif
+    }
 
     // recently used
 
@@ -1309,6 +1323,7 @@ void MainWindow::createToolBars()
     m_fileToolBar->setObjectName("fileToolBar");
 
     m_fileToolBar->addAction(m_openAction);
+    m_fileToolBar->addAction(m_openInNewTabAction);
     m_fileToolBar->addAction(m_refreshAction);
     m_fileToolBar->addAction(m_saveCopyAction);
     m_fileToolBar->addAction(m_printAction);

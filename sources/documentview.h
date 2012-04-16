@@ -81,10 +81,6 @@ private:
         int m_index;
         qreal m_scale;
 
-        DocumentView::Rotation m_rotation;
-
-        bool m_highlightAll;
-
         // links
 
         QList<DocumentView::Link> m_links;
@@ -96,11 +92,10 @@ private:
 
         // transforms
 
-        QTransform m_pageTransform;
+        QSizeF m_size;
+
         QTransform m_linkTransform;
         QTransform m_highlightTransform;
-
-        void prepareTransforms();
 
         // render
 
@@ -133,6 +128,10 @@ private:
         // properties
 
         int m_index;
+
+        // transforms
+
+        QSizeF m_size;
 
         // render
 
@@ -264,13 +263,18 @@ private:
     QMap<int, PageItem*> m_pagesByIndex;
     QMap<qreal, PageItem*> m_pagesByHeight;
 
-    // user interface
+    QTransform m_pageTransform;
+
+    // miscellaneous
 
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
     QGraphicsView *m_thumbnailsGraphicsView;
 
     // search
+
+    QMap<int, QRectF> m_results;
+    QMutex m_resultsMutex;
 
     QFuture<void> m_search;
     void search(const QString &text, bool matchCase = true);

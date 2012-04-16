@@ -4,12 +4,10 @@ DocumentView::PageItem::PageItem(QGraphicsItem *parent, QGraphicsScene *scene) :
     m_page(0),
     m_index(-1),
     m_scale(1.0),
-    m_rotation(DocumentView::RotateBy0),
-    m_highlightAll(false),
     m_links(),
     m_highlight(),
     m_rubberBand(),
-    m_pageTransform(),
+    m_size(),
     m_linkTransform(),
     m_highlightTransform(),
     m_render()
@@ -29,24 +27,7 @@ DocumentView::PageItem::~PageItem()
 
 QRectF DocumentView::PageItem::boundingRect() const
 {
-    QSizeF size = m_page->pageSizeF();
-    QRectF rect;
-
-    switch(m_rotation)
-    {
-    case DocumentView::RotateBy0:
-    case DocumentView::RotateBy180:
-        rect = QRectF(0.0, 0.0, qCeil(m_scale * size.width()), qCeil(m_scale * size.height()));
-
-        break;
-    case DocumentView::RotateBy90:
-    case DocumentView::RotateBy270:
-        rect = QRectF(0.0, 0.0, qCeil(m_scale * size.height()), qCeil(m_scale * size.width()));
-
-        break;
-    }
-
-    return rect;
+    return QRectF(0.0, 0.0, qCeil(m_scale * m_size.width()), qCeil(m_scale * m_size.height()));
 }
 
 void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -69,9 +50,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     if(parent->m_pageCache.contains(key))
     {
-        painter->setTransform(m_pageTransform, true);
         painter->drawImage(0.0, 0.0, parent->m_pageCache.value(key));
-        painter->setTransform(m_pageTransform.inverted(), true);
     }
     else
     {
@@ -88,8 +67,9 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     // links
 
-    painter->setPen(QPen(QColor(255,0,0,127)));
     painter->setTransform(m_linkTransform, true);
+
+    painter->setPen(QPen(QColor(255,0,0,127)));
 
     foreach(Link link, m_links)
     {
@@ -98,13 +78,21 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     painter->setTransform(m_linkTransform.inverted(), true);
 
-    // highlight
+    // highlights
 
     painter->setTransform(m_highlightTransform, true);
 
     if(!m_highlight.isNull())
     {
         painter->fillRect(m_highlight, QBrush(QColor(0,0,255,127)));
+    }
+
+    if(parent->m_highlightAll)
+    {
+        foreach(QRectF highlight, parent->m_results.values(m_index))
+        {
+            painter->fillRect(highlight, QBrush(QColor(0,255,0,127)));
+        }
     }
 
     painter->setTransform(m_highlightTransform.inverted(), true);
@@ -184,7 +172,7 @@ void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
         m_rubberBand.setBottomRight(event->pos());
 
-        scene()->update(boundingRect().translated(pos()));
+        update(boundingRect());
     }
 }
 
@@ -217,40 +205,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             QApplication::clipboard()->setText(text);
         }
 
-        scene()->update(boundingRect().translated(pos()));
-    }
-}
-
-void DocumentView::PageItem::prepareTransforms()
-{
-    QSizeF size = m_page->pageSizeF();
-
-    switch(m_rotation)
-    {
-    case DocumentView::RotateBy0:
-        m_pageTransform = QTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-        m_linkTransform = QTransform(m_scale * size.width(), 0.0, 0.0, m_scale * size.height(), 0.0, 0.0);
-        m_highlightTransform = QTransform(m_scale, 0.0, 0.0, m_scale, 0.0, 0.0);
-
-        break;
-    case DocumentView::RotateBy90:
-        m_pageTransform = QTransform(0.0, 1.0, -1.0, 0.0, m_scale * size.height(), 0.0);
-        m_linkTransform = QTransform(0.0, m_scale * size.width(), -m_scale * size.height(), 0.0, m_scale * size.height(), 0.0);
-        m_highlightTransform = QTransform(0.0, m_scale, -m_scale, 0.0, m_scale * size.height(), 0.0);
-
-        break;
-    case DocumentView::RotateBy180:
-        m_pageTransform = QTransform(-1.0, 0.0, 0.0, -1.0, m_scale * size.width(), m_scale * size.height());
-        m_linkTransform = QTransform(-m_scale * size.width(), 0.0, 0.0, -m_scale * size.height(), m_scale * size.width(), m_scale * size.height());
-        m_highlightTransform = QTransform(-m_scale, 0.0, 0.0, -m_scale, m_scale * size.width(), m_scale * size.height());
-
-        break;
-    case DocumentView::RotateBy270:
-        m_pageTransform = QTransform(0.0, -1.0, 1.0, 0.0, 0.0, m_scale * size.width());
-        m_linkTransform = QTransform(0.0, -m_scale * size.width(), m_scale * size.height(), 0.0, 0.0, m_scale * size.width());
-        m_highlightTransform = QTransform(0.0, -m_scale, m_scale, 0.0, 0.0, m_scale * size.width());
-
-        break;
+        update(boundingRect());
     }
 }
 
@@ -284,7 +239,7 @@ void DocumentView::PageItem::render()
 
     while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
     {
-        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
 
         parent->m_pageCacheSize -= iterator.value().byteCount();
         parent->m_pageCache.remove(iterator.key());
@@ -295,12 +250,13 @@ void DocumentView::PageItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    scene()->update(rect);
+    update(boundingRect());
 }
 
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene),
     m_page(0),
     m_index(-1),
+    m_size(),
     m_render()
 {
 }
@@ -317,9 +273,7 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    QSizeF size = m_page->pageSizeF();
-
-    return QRectF(0.0, 0.0, qCeil(0.1 * size.width()), qCeil(0.1 * size.height()));
+    return QRectF(0.0, 0.0, qCeil(0.1 * m_size.width()), qCeil(0.1 * m_size.height()));
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -412,7 +366,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    scene()->update(rect);
+    update(boundingRect());
 }
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
@@ -431,6 +385,9 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_highlightAll(false),
     m_pagesByIndex(),
     m_pagesByHeight(),
+    m_pageTransform(),
+    m_results(),
+    m_resultsMutex(),
     m_search(),
     m_print()
 {
@@ -652,9 +609,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         foreach(PageItem *pageItem, m_pagesByIndex.values())
         {
-            pageItem->m_highlightAll = m_highlightAll;
-
-            m_scene->update(pageItem->boundingRect().translated(pageItem->pos()));
+            pageItem->update(pageItem->boundingRect());
         }
 
         emit highlightAllChanged(m_highlightAll);
@@ -954,7 +909,11 @@ void DocumentView::cancelSearch()
         m_search.waitForFinished();
     }
 
-    // TODO: clear results
+    m_resultsMutex.lock();
+
+    m_results.clear();
+
+    m_resultsMutex.unlock();
 }
 
 void DocumentView::findPrevious()
@@ -1201,7 +1160,7 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         Poppler::Page *page = m_document->page(index);
 
-        QList<QRectF> rects;
+        QList<QRectF> results;
 
         double rectLeft = 0.0, rectTop = 0.0, rectRight = 0.0, rectBottom = 0.0;
 
@@ -1213,16 +1172,30 @@ void DocumentView::search(const QString &text, bool matchCase)
             rect.setRight(rectRight);
             rect.setBottom(rectBottom);
 
-            rects.append(rect.normalized());
+            results.append(rect.normalized());
         }
 
         delete page;
 
         m_documentMutex.unlock();
 
-        // TODO: update results
+        m_resultsMutex.lock();
 
-        emit searchProgressed((100 * (index+1)) / m_numberOfPages);
+        while(!results.isEmpty())
+        {
+            m_results.insertMulti(index, results.takeLast());
+        }
+
+        m_resultsMutex.unlock();
+
+        if(m_highlightAll)
+        {
+            PageItem *pageItem = m_pagesByIndex.value(index);
+
+            pageItem->update(pageItem->boundingRect());
+        }
+
+        emit searchProgressed((100 * (indices.indexOf(index)+1)) / indices.count());
     }
 
     emit searchFinished();
@@ -1283,11 +1256,9 @@ void DocumentView::preparePages()
     {
         PageItem* pageItem = new PageItem();
 
-        pageItem->m_page = m_document->page(index);
-
         pageItem->m_index = index;
-
-        pageItem->m_highlightAll = m_highlightAll;
+        pageItem->m_page = m_document->page(pageItem->m_index);
+        pageItem->m_size = pageItem->m_page->pageSizeF();
 
         foreach(Poppler::Link *link, pageItem->m_page->links())
         {
@@ -1385,18 +1356,16 @@ void DocumentView::prepareThumbnails()
     {
         ThumbnailItem* thumbnailItem = new ThumbnailItem();
 
-        thumbnailItem->m_page = m_document->page(index);
-
         thumbnailItem->m_index = index;
+        thumbnailItem->m_page = m_document->page(thumbnailItem->m_index);
+        thumbnailItem->m_size = thumbnailItem->m_page->pageSizeF();
 
         thumbnailItem->setPos(5.0, height);
 
-        QRectF rect = thumbnailItem->boundingRect();
-
-        width = qMax(width, rect.width() + 10.0);
-        height += rect.height() + 5.0;
-
         m_thumbnailsGraphicsView->scene()->addItem(thumbnailItem);
+
+        width = qMax(width, thumbnailItem->boundingRect().width() + 10.0);
+        height += thumbnailItem->boundingRect().height() + 5.0;
     }
 
     m_thumbnailsGraphicsView->scene()->setSceneRect(0.0, 0.0, width, height);
@@ -1411,7 +1380,6 @@ void DocumentView::prepareScene()
 
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
-        QSizeF size;
         qreal width = 0.0, height = 0.0;
 
         switch(m_pageLayout)
@@ -1420,20 +1388,20 @@ void DocumentView::prepareScene()
         case OneColumn:
             for(int index = 0; index < m_numberOfPages; index++)
             {
-                size = m_pagesByIndex.value(index)->m_page->pageSizeF();
+                PageItem *pageItem = m_pagesByIndex.value(index);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = size.width();
-                    height = size.height();
+                    width = pageItem->m_size.width();
+                    height = pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = size.height();
-                    height = size.width();
+                    width = pageItem->m_size.height();
+                    height = pageItem->m_size.width();
 
                     break;
                 }
@@ -1450,38 +1418,38 @@ void DocumentView::prepareScene()
         case TwoColumns:
             for(int index = 0; index < (m_numberOfPages % 2 == 0 ? m_numberOfPages : m_numberOfPages - 1); index += 2)
             {
-                size = m_pagesByIndex.value(index)->m_page->pageSizeF();
+                PageItem *pageItem = m_pagesByIndex.value(index);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = size.width();
-                    height = size.height();
+                    width = pageItem->m_size.width();
+                    height = pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = size.height();
-                    height = size.width();
+                    width = pageItem->m_size.height();
+                    height = pageItem->m_size.width();
 
                     break;
                 }
 
-                size = m_pagesByIndex.value(index + 1)->m_page->pageSizeF();
+                pageItem = m_pagesByIndex.value(index + 1);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width += size.width();
-                    height += size.height();
+                    width += pageItem->m_size.width();
+                    height = qMax(height, pageItem->m_size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width += size.height();
-                    height += size.width();
+                    width += pageItem->m_size.height();
+                    height = qMax(height, pageItem->m_size.width());
 
                     break;
                 }
@@ -1495,24 +1463,23 @@ void DocumentView::prepareScene()
 
             if(m_numberOfPages % 2 != 0)
             {
-                size = m_pagesByIndex.value(m_numberOfPages - 1)->m_page->pageSizeF();
+                PageItem *pageItem = m_pagesByIndex.value(m_numberOfPages - 1);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = size.width();
-                    height = size.height();
+                    width = pageItem->m_size.width();
+                    height = pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = size.height();
-                    height = size.width();
+                    width = pageItem->m_size.height();
+                    height = pageItem->m_size.width();
 
                     break;
                 }
-
                 scale = qMin(scale, 0.95 * m_view->width() / (width + 20.0));
                 if(m_scaling == FitToPage)
                 {
@@ -1523,6 +1490,8 @@ void DocumentView::prepareScene()
             break;
         }
     }
+
+    // calculate transformations
 
     for(int index = 0; index < m_numberOfPages; index++)
     {
@@ -1552,9 +1521,34 @@ void DocumentView::prepareScene()
             pageItem->m_scale = 4.0; break;
         }
 
-        pageItem->m_rotation = m_rotation;
+        pageItem->m_linkTransform = QTransform(pageItem->m_scale * pageItem->m_size.width(), 0.0, 0.0, pageItem->m_scale * pageItem->m_size.height(), 0.0, 0.0);
+        pageItem->m_highlightTransform = QTransform(pageItem->m_scale, 0.0, 0.0, pageItem->m_scale, 0.0, 0.0);
 
-        pageItem->prepareTransforms();
+        switch(m_rotation)
+        {
+        case RotateBy0:
+            pageItem->setRotation(0.0); break;
+        case RotateBy90:
+            pageItem->setRotation(90.0); break;
+        case RotateBy180:
+            pageItem->setRotation(180); break;
+        case RotateBy270:
+            pageItem->setRotation(270.0); break;
+        }
+    }
+
+    m_pageTransform.reset();
+
+    switch(m_rotation)
+    {
+    case RotateBy0:
+        m_pageTransform.rotate(0.0); break;
+    case RotateBy90:
+        m_pageTransform.rotate(90.0); break;
+    case RotateBy180:
+        m_pageTransform.rotate(180.0); break;
+    case RotateBy270:
+        m_pageTransform.rotate(270.0); break;
     }
 
     // calculate layout
@@ -1570,10 +1564,12 @@ void DocumentView::prepareScene()
         for(int index = 0; index < m_numberOfPages; index++)
         {
             PageItem* pageItem = m_pagesByIndex.value(index);
-            QRectF rect = pageItem->boundingRect();
+            QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect());
 
-            pageItem->setPos(10.0, height);
-            m_pagesByHeight.insert(height - 0.3 * rect.height(), pageItem);
+            pageItem->setPos(10.0 - rect.left(), height - rect.top());
+            m_pagesByHeight.insert(height - 0.4 * rect.height(), pageItem);
+
+            pageItem->update(pageItem->boundingRect());
 
             width = qMax(width, rect.width() + 20.0);
             height += rect.height() + 10.0;
@@ -1586,12 +1582,15 @@ void DocumentView::prepareScene()
         {
             PageItem* leftPageItem = m_pagesByIndex.value(index);
             PageItem* rightPageItem = m_pagesByIndex.value(index + 1);
-            QRectF leftRect = leftPageItem->boundingRect();
-            QRectF rightRect = rightPageItem->boundingRect();
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
+            QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect());
 
-            leftPageItem->setPos(10.0, height);
-            rightPageItem->setPos(20.0 + leftRect.width(), height);
-            m_pagesByHeight.insert(height - 0.3 * leftRect.height(), leftPageItem);
+            leftPageItem->setPos(10.0 - leftRect.left(), height - leftRect.top());
+            rightPageItem->setPos(20.0 + leftRect.width() - rightRect.left(), height - rightRect.top());
+            m_pagesByHeight.insert(height - 0.4 * leftRect.height(), leftPageItem);
+
+            leftPageItem->update(leftPageItem->boundingRect());
+            rightPageItem->update(rightPageItem->boundingRect());
 
             width = qMax(width, leftRect.width() + rightRect.width() + 30.0);
             height += qMax(leftRect.height(), rightRect.height()) + 10.0;
@@ -1600,10 +1599,12 @@ void DocumentView::prepareScene()
         if(m_numberOfPages % 2 != 0)
         {
             PageItem* leftPageItem = m_pagesByIndex.value(m_numberOfPages - 1);
-            QRectF leftRect = leftPageItem->boundingRect();
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
 
-            leftPageItem->setPos(10.0, height);
-            m_pagesByHeight.insert(height - 0.3 * leftRect.height(), leftPageItem);
+            leftPageItem->setPos(10.0 - leftRect.left(), height - leftRect.top());
+            m_pagesByHeight.insert(height - 0.4 * leftRect.height(), leftPageItem);
+
+            leftPageItem->update(leftPageItem->boundingRect());
 
             width = qMax(width, leftRect.width() + 20.0);
             height += leftRect.height() + 10.0;
@@ -1633,7 +1634,9 @@ void DocumentView::prepareView(qreal top)
         {
             leftPageItem->setVisible(true);
 
-            m_view->setSceneRect(leftPageItem->boundingRect().translated(leftPageItem->pos()).adjusted(-10.0, -10.0, 10.0, 10.0));
+            QRectF rect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
+
+            m_view->setSceneRect(rect.adjusted(-10.0, -10.0, 10.0, 10.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
             m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
@@ -1651,7 +1654,10 @@ void DocumentView::prepareView(qreal top)
             leftPageItem->setVisible(true);
             rightPageItem->setVisible(true);
 
-            m_view->setSceneRect(leftPageItem->boundingRect().translated(leftPageItem->pos()).united(rightPageItem->boundingRect().translated(rightPageItem->pos())).adjusted(-10.0, -10.0, 10.0, 10.0));
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
+            QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect()).translated(rightPageItem->pos());
+
+            m_view->setSceneRect(leftRect.united(rightRect).adjusted(-10.0, -10.0, 10.0, 10.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
             m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
@@ -1660,7 +1666,9 @@ void DocumentView::prepareView(qreal top)
         {
             leftPageItem->setVisible(true);
 
-            m_view->setSceneRect(leftPageItem->boundingRect().translated(leftPageItem->pos()).adjusted(-10.0, -10.0, 10.0, 10.0));
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
+
+            m_view->setSceneRect(leftRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
             m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
