@@ -23,32 +23,38 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, char *argv[])
 {
-#ifdef DATA_INSTALL_PATH
-    QString dataInstallPath(DATA_INSTALL_PATH);
-#endif
-
     QApplication a(argc, argv);
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
 
 #ifdef DATA_INSTALL_PATH
+
+    QString dataInstallPath(DATA_INSTALL_PATH);
+
     QApplication::setWindowIcon(QIcon(dataInstallPath + "/qpdfview.svg"));
-#else
-    QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
-#endif
 
     QTranslator t;
-#ifdef DATA_INSTALL_PATH
     if(t.load(QString(dataInstallPath + "/qpdfview_") + QLocale::system().name()))
-#else
-    if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name()))
-#endif
     {
         a.installTranslator(&t);
     }
 
-    MainWindow w;
-    w.show();
+#else
+
+    QApplication::setWindowIcon(QIcon(":/icons/qpdfview.svg"));
+
+    QTranslator t;
+    if(t.load(QString(":/translations/qpdfview_") + QLocale::system().name()))
+    {
+        a.installTranslator(&t);
+    }
+
+#endif
+
+    MainWindow *mainWindow = new MainWindow();
+
+    mainWindow->show();
+    mainWindow->setAttribute(Qt::WA_DeleteOnClose);
 
     // command line arguments
 
@@ -67,6 +73,8 @@ int main(int argc, char *argv[])
 
         QStringList fields = argument.split('#');
 
+        filePath = fields.at(0);
+
         if(fields.count() > 1)
         {
             page = fields.at(1).toInt();
@@ -76,11 +84,9 @@ int main(int argc, char *argv[])
             top = fields.at(2).toFloat();
         }
 
-        filePath = fields.at(0);
-
         if(QFileInfo(filePath).exists())
         {
-            w.openInNewTab(filePath, page, top);
+            mainWindow->openInNewTab(filePath, page, top);
         }
     }
 

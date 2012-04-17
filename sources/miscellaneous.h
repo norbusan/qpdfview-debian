@@ -25,6 +25,82 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+#include <poppler-qt4.h>
+
+// presentation view
+
+class PresentationView : public QWidget
+{
+    Q_OBJECT
+
+private:
+    struct Link
+    {
+        QRectF area;
+        int page;
+
+        Link() : area(), page(-1) {}
+        Link(QRectF area, int page) : area(area), page(page) {}
+
+    };
+
+public:
+    explicit PresentationView();
+    ~PresentationView();
+
+    void setCurrentPage(int currentPage);
+
+public slots:
+    bool open(const QString &filePath);
+
+    void previousPage();
+    void nextPage();
+    void firstPage();
+    void lastPage();
+
+protected:
+    void resizeEvent(QResizeEvent*);
+    void paintEvent(QPaintEvent *event);
+
+    void keyPressEvent(QKeyEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
+private:
+    Poppler::Document *m_document;
+    Poppler::Page *m_page;
+
+    // properties
+
+    QString m_filePath;
+    int m_numberOfPages;
+    int m_currentPage;
+
+    // settings
+
+    QSettings m_settings;
+
+    // graphics
+
+    qreal m_scale;
+    QRectF m_boundingRect;
+    QImage m_image;
+
+    // links
+
+    QList<Link> m_links;
+    QTransform m_linkTransform;
+
+    // internal methods
+
+    void prepareView();
+
+    // render
+
+    QFuture<void> m_render;
+    void render();
+};
+
 // recently used action
 
 class RecentlyUsedAction : public QAction
@@ -56,6 +132,32 @@ private:
     // settings
 
     QSettings m_settings;
+};
+
+// settings dialog
+
+class SettingsDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit SettingsDialog(QWidget *parent = 0);
+
+public slots:
+    void accept();
+
+private:
+    QFormLayout *m_layout;
+    QDialogButtonBox *m_buttonBox;
+
+    QCheckBox *m_antialiasingCheckBox;
+    QCheckBox *m_textAntialiasingCheckBox;
+    QCheckBox *m_textHintingCheckBox;
+
+    // settings
+
+    QSettings m_settings;
+
 };
 
 // help dialog

@@ -355,7 +355,7 @@ void DocumentView::ThumbnailItem::render()
 
     while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
     {
-        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
 
         parent->m_pageCacheSize -= iterator.value().byteCount();
         parent->m_pageCache.remove(iterator.key());
@@ -393,7 +393,6 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 {
     // settings
 
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
     m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
     m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
@@ -419,7 +418,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     connect(m_tabAction, SIGNAL(triggered()), this, SLOT(slotTabActionTriggered()));
 
-    // outline
+    // outlineTreeWidget
 
     m_outlineTreeWidget = new QTreeWidget();
     m_outlineTreeWidget->setAlternatingRowColors(true);
@@ -427,9 +426,10 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
-    // thumbnails
+    // thumbnailsGraphicsView
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
+    m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
 }
 
 DocumentView::~DocumentView()
@@ -454,8 +454,6 @@ void DocumentView::setMaximumPageCacheSize(uint maximumPageCacheSize)
     if(m_maximumPageCacheSize != maximumPageCacheSize)
     {
         m_maximumPageCacheSize = maximumPageCacheSize;
-
-        m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSize);
 
         m_pageCacheMutex.lock();
 
@@ -650,7 +648,6 @@ bool DocumentView::open(const QString &filePath)
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-        m_document->setRenderHint(Poppler::Document::TextSlightHinting, m_settings.value("documentView/textHinting", false).toBool());
 
         m_filePath = filePath;
         m_numberOfPages = m_document->numPages();
@@ -698,7 +695,6 @@ bool DocumentView::refresh()
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-        m_document->setRenderHint(Poppler::Document::TextSlightHinting, m_settings.value("documentView/textHinting", false).toBool());
 
         int numberOfPages = m_document->numPages();
 
@@ -1348,7 +1344,6 @@ void DocumentView::prepareOutline(const QDomNode &node, QTreeWidgetItem *parent,
 void DocumentView::prepareThumbnails()
 {
     m_thumbnailsGraphicsView->scene()->clear();
-    m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
 
     qreal width = 10.0, height = 5.0;
 
@@ -1406,10 +1401,10 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                scale = qMin(scale, 0.95 * m_view->width() / (width + 20.0));
+                scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
                 if(m_scaling == FitToPage)
                 {
-                    scale = qMin(scale, 0.95 * m_view->height() / (height + 20.0));
+                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
                 }
             }
 
@@ -1454,10 +1449,10 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                scale = qMin(scale, 0.95 * m_view->width() / (width + 30.0));
+                scale = qMin(scale, 0.98 * m_view->width() / (width + 30.0));
                 if(m_scaling == FitToPage)
                 {
-                    scale = qMin(scale, 0.95 * m_view->height() / (height + 20.0));
+                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
                 }
             }
 
@@ -1480,10 +1475,10 @@ void DocumentView::prepareScene()
 
                     break;
                 }
-                scale = qMin(scale, 0.95 * m_view->width() / (width + 20.0));
+                scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
                 if(m_scaling == FitToPage)
                 {
-                    scale = qMin(scale, 0.95 * m_view->height() / (height + 20.0));
+                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
                 }
             }
 

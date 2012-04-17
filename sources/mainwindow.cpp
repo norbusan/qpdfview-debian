@@ -427,8 +427,8 @@ void MainWindow::slotFindNext()
 
 void MainWindow::slotSettings()
 {
-    //SettingsDialog settingsDialog;
-    //settingsDialog.exec();
+    SettingsDialog settingsDialog;
+    settingsDialog.exec();
 }
 
 void MainWindow::slotPresentation()
@@ -437,7 +437,21 @@ void MainWindow::slotPresentation()
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-        // TODO
+        PresentationView *presentationView = new PresentationView();
+
+        if(presentationView->open(documentView->filePath()))
+        {
+            presentationView->setCurrentPage(documentView->currentPage());
+
+            presentationView->show();
+            presentationView->setAttribute(Qt::WA_DeleteOnClose);
+        }
+        else
+        {
+            delete presentationView;
+
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).fileName()));
+        }
     }
 }
 

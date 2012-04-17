@@ -54,6 +54,8 @@ private:
         }
     };
 
+    friend class PageItem;
+
     class PageItem : public QGraphicsItem
     {
         friend class DocumentView;
@@ -104,7 +106,7 @@ private:
 
     };
 
-    friend class PageItem;
+    friend class ThumbnailItem;
 
     class ThumbnailItem : public QGraphicsItem
     {
@@ -139,8 +141,6 @@ private:
         void render();
 
     };
-
-    friend class ThumbnailItem;
 
 public:
     explicit DocumentView(QWidget *parent = 0);
