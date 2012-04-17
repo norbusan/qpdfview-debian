@@ -82,8 +82,11 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     painter->setTransform(m_highlightTransform, true);
 
+    painter->setPen(QPen(QColor(0,0,255)));
+
     if(!m_highlight.isNull())
     {
+        painter->drawRect(m_highlight);
         painter->fillRect(m_highlight, QBrush(QColor(0,0,255,127)));
     }
 
@@ -799,7 +802,7 @@ void DocumentView::previousPage()
         break;
     case TwoPages:
     case TwoColumns:
-        if(m_currentPage > 2)
+        if(m_currentPage > 1)
         {
             m_currentPage -= 2;
 
@@ -818,7 +821,7 @@ void DocumentView::nextPage()
     {
     case OnePage:
     case OneColumn:
-        if(m_currentPage <= m_numberOfPages-1)
+        if(m_currentPage < m_numberOfPages)
         {
             m_currentPage += 1;
 
@@ -830,7 +833,7 @@ void DocumentView::nextPage()
         break;
     case TwoPages:
     case TwoColumns:
-        if(m_currentPage <= m_numberOfPages-2)
+        if(m_currentPage < (m_numberOfPages % 2 != 0 ? m_numberOfPages : m_numberOfPages - 1))
         {
             m_currentPage += 2;
 
@@ -973,17 +976,29 @@ void DocumentView::wheelEvent(QWheelEvent *event)
 {
     if(event->modifiers() == Qt::NoModifier)
     {
+        int lastPage;
+
+        switch(m_pageLayout)
+        {
+            case OnePage:
+            case OneColumn:
+                lastPage = m_numberOfPages; break;
+            case TwoPages:
+            case TwoColumns:
+                lastPage = m_numberOfPages % 2 != 0 ? m_numberOfPages : m_numberOfPages - 1; break;
+        }
+
         switch(m_pageLayout)
         {
         case OnePage:
         case TwoPages:
-            if(event->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum())
+            if(event->delta() > 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage > 1)
             {
                 previousPage();
 
                 m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
             }
-            else if(event->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum())
+            else if(event->delta() < 0 && m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage < lastPage)
             {
                 nextPage();
 
@@ -1361,6 +1376,15 @@ void DocumentView::prepareThumbnails()
 
         width = qMax(width, thumbnailItem->boundingRect().width() + 10.0);
         height += thumbnailItem->boundingRect().height() + 5.0;
+
+        QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem(QLocale::system().toString(index + 1));
+
+        textItem->setPos(10.0, height);
+
+        m_thumbnailsGraphicsView->scene()->addItem(textItem);
+
+        width = qMax(width, textItem->boundingRect().width() + 15.0);
+        height += textItem->boundingRect().height() + 5.0;
     }
 
     m_thumbnailsGraphicsView->scene()->setSceneRect(0.0, 0.0, width, height);

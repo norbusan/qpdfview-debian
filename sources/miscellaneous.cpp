@@ -204,38 +204,16 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
         this->close();
 
         break;
-    default:
-        QWidget::keyPressEvent(event);
-
-        break;
     }
 }
 
 void PresentationView::mousePressEvent(QMouseEvent *event)
 {
-}
-
-void PresentationView::mouseMoveEvent(QMouseEvent *event)
-{
-}
-
-/*void PresentationView::mousePressEvent(QMouseEvent *event)
-{
     foreach(Link link, m_links)
     {
         if(m_linkTransform.mapRect(link.area).contains(event->posF()))
         {
-            if(!link.url.isEmpty())
-            {
-                if(Document::openUrl())
-                {
-                    QDesktopServices::openUrl(QUrl(link.url));
-                }
-            }
-            else
-            {
-                this->setCurrentPage(link.page);
-            }
+            this->setCurrentPage(link.page);
 
             return;
         }
@@ -252,21 +230,14 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
         {
             QApplication::setOverrideCursor(Qt::PointingHandCursor);
 
-            if(!link.url.isEmpty())
-            {
-                QToolTip::showText(event->globalPos(), tr("Open URL \"%1\".").arg(link.url));
-            }
-            else
-            {
-                QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link.page));
-            }
+            QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link.page));
 
             return;
         }
     }
 
     QToolTip::hideText();
-}*/
+}
 
 void PresentationView::prepareView()
 {

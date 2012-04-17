@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore>
 #include <QtGui>
+#include <QtDBus>
 
 #include "documentview.h"
 #include "miscellaneous.h"
@@ -255,6 +256,28 @@ private:
 
     QSettings m_settings;
     QByteArray m_geometry;
+
+    // D-Bus
+
+    friend class MainWindowAdaptor;
+};
+
+class MainWindowAdaptor : public QDBusAbstractAdaptor
+{
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "net.launchpad.qpdfview.MainWindow")
+
+public:
+    MainWindowAdaptor(MainWindow *mainWindow);
+
+public slots:
+    bool open(const QString &filePath, int page, qreal top);
+    bool openInNewTab(const QString &filePath, int page, qreal top);
+
+    Q_NOREPLY void refresh(const QString &filePath, int page, qreal top);
+
+private:
+    MainWindow *m_mainWindow;
 
 };
 
