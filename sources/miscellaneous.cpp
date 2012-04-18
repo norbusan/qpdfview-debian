@@ -29,6 +29,7 @@ PresentationView::PresentationView() : QWidget(),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
+    m_renderedPage(-1),
     m_settings(),
     m_scale(1.0),
     m_boundingRect(),
@@ -157,7 +158,7 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
-    if(m_image.isNull())
+    if(m_renderedPage != m_currentPage)
     {
         if(!m_render.isRunning())
         {
@@ -259,8 +260,6 @@ void PresentationView::prepareView()
     m_boundingRect.setWidth(m_scale * size.width());
     m_boundingRect.setHeight(m_scale * size.height());
 
-    m_image = QImage();
-
     // links
 
     foreach(Poppler::Link *link, m_page->links())
@@ -283,6 +282,8 @@ void PresentationView::prepareView()
 
 void PresentationView::render()
 {
+    m_renderedPage = m_currentPage;
+
     m_image = m_page->renderToImage(m_scale * 72.0, m_scale * 72.0);
 
     this->update();

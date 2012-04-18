@@ -75,6 +75,7 @@ private:
     QString m_filePath;
     int m_numberOfPages;
     int m_currentPage;
+    int m_renderedPage;
 
     // settings
 
@@ -84,6 +85,7 @@ private:
 
     qreal m_scale;
     QRectF m_boundingRect;
+
     QImage m_image;
 
     // links
