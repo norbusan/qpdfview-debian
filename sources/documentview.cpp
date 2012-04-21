@@ -493,37 +493,35 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
     {
         PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
 
-        if(!pageItem)
+        if(pageItem != 0)
         {
-            return;
-        }
-
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            if(m_currentPage != currentPage || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
+            switch(m_pageLayout)
             {
-                m_currentPage = currentPage;
+            case OnePage:
+            case OneColumn:
+                if(m_currentPage != currentPage || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                {
+                    m_currentPage = currentPage;
 
-                prepareView(top);
+                    prepareView(top);
 
-                emit currentPageChanged(m_currentPage);
+                    emit currentPageChanged(m_currentPage);
+                }
+
+                break;
+            case TwoPages:
+            case TwoColumns:
+                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                {
+                    m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
+
+                    prepareView(top);
+
+                    emit currentPageChanged(m_currentPage);
+                }
+
+                break;
             }
-
-            break;
-        case TwoPages:
-        case TwoColumns:
-            if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
-            {
-                m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
-
-                prepareView(top);
-
-                emit currentPageChanged(m_currentPage);
-            }
-
-            break;
         }
     }
 }

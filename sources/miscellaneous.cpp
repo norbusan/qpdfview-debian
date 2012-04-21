@@ -361,6 +361,18 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
     }
 }
 
+void RecentlyUsedAction::removeEntry(const QString &filePath)
+{
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(action->data().toString() == filePath)
+        {
+            m_actionGroup->removeAction(action);
+            m_menu->removeAction(action);
+        }
+    }
+}
+
 void RecentlyUsedAction::clearList()
 {
     foreach(QAction *action, m_actionGroup->actions())
@@ -373,6 +385,202 @@ void RecentlyUsedAction::clearList()
 void RecentlyUsedAction::slotActionGroupTriggered(QAction *action)
 {
     emit entrySelected(action->data().toString());
+}
+
+// bookmarks menu
+
+BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
+    m_pages(),
+    m_tops(),
+    m_currentPage(-1),
+    m_currentTop(0.0)
+{
+    m_actionGroup = new QActionGroup(this);
+    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionGroupTriggered(QAction*)));
+
+    m_addEntryAction = new QAction(tr("&Add entry"), this);
+    m_addEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
+    connect(m_addEntryAction, SIGNAL(triggered()), this, SLOT(addEntry()));
+
+    m_goToPreviousEntryAction = new QAction(tr("Go to &previous entry"), this);
+    m_goToPreviousEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
+    connect(m_goToPreviousEntryAction, SIGNAL(triggered()), this, SLOT(goToPreviousEntry()));
+
+    m_goToNextEntryAction = new QAction(tr("Go to &next entry"), this);
+    m_goToNextEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
+    connect(m_goToNextEntryAction, SIGNAL(triggered()), this, SLOT(goToNextEntry()));
+
+    m_clearListAction = new QAction(tr("&Clear list"), this);
+    connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+
+    this->addAction(m_addEntryAction);
+    this->addAction(m_goToPreviousEntryAction);
+    this->addAction(m_goToNextEntryAction);
+    this->addSeparator();
+    this->addAction(m_clearListAction);
+    this->addSeparator();
+}
+
+void BookmarksMenu::addEntry()
+{
+    bool addItem = true;
+    QAction *before = 0;
+
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) == QPair<int, qreal>(m_currentPage, m_currentTop))
+        {
+            addItem = false;
+
+            break;
+        }
+        else if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_currentPage, m_currentTop))
+        {
+            if(before)
+            {
+                before = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(before), m_tops.value(before)) ? action : before;
+            }
+            else
+            {
+                before = action;
+            }
+        }
+    }
+
+    if(addItem)
+    {
+        QAction *action = new QAction(this);
+        action->setText(tr("Page %1 at %2%").arg(m_currentPage).arg(100.0 * m_currentTop));
+
+        m_pages.insert(action, m_currentPage);
+        m_tops.insert(action, m_currentTop);
+
+        m_actionGroup->addAction(action);
+        this->insertAction(before, action);
+    }
+
+    if(m_actionGroup->actions().size() > 10)
+    {
+        QAction *first = m_actionGroup->actions().first();
+
+        m_actionGroup->removeAction(first);
+        this->removeAction(first);
+
+        m_pages.remove(first);
+        m_tops.remove(first);
+
+        first->deleteLater();
+    }
+}
+
+void BookmarksMenu::goToPreviousEntry()
+{
+    QAction *previous = 0;
+
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_currentPage, m_currentTop))
+        {
+            if(previous)
+            {
+                previous = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_pages.value(previous), m_tops.value(previous)) ? action : previous;
+            }
+            else
+            {
+                previous = action;
+            }
+        }
+    }
+
+    if(previous)
+    {
+        previous->trigger();
+    }
+    else if(!m_actionGroup->actions().isEmpty())
+    {
+        QAction *last = m_actionGroup->actions().last();
+
+        foreach(QAction *action, m_actionGroup->actions())
+        {
+            if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_pages.value(last), m_tops.value(last)))
+            {
+                last = action;
+            }
+        }
+
+        last->trigger();
+    }
+}
+
+void BookmarksMenu::goToNextEntry()
+{
+    QAction *next = 0;
+
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_currentPage, m_currentTop))
+        {
+            if(next)
+            {
+                next = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(next), m_tops.value(next)) ? action : next;
+            }
+            else
+            {
+                next = action;
+            }
+        }
+    }
+
+    if(next)
+    {
+        next->trigger();
+    }
+    else if(!m_actionGroup->actions().isEmpty())
+    {
+        QAction *first = m_actionGroup->actions().first();
+
+        foreach(QAction *action, m_actionGroup->actions())
+        {
+            if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(first), m_tops.value(first)))
+            {
+                first = action;
+            }
+        }
+
+        first->trigger();
+    }
+}
+
+void BookmarksMenu::clearList()
+{
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        m_actionGroup->removeAction(action);
+        this->removeAction(action);
+
+        m_pages.remove(action);
+        m_tops.remove(action);
+
+        action->deleteLater();
+    }
+}
+
+void BookmarksMenu::setCurrentPage(int currentPage)
+{
+    m_currentPage = currentPage;
+}
+
+void BookmarksMenu::setCurrentTop(qreal currentTop)
+{
+    m_currentTop = currentTop;
+}
+
+void BookmarksMenu::slotActionGroupTriggered(QAction *action)
+{
+    int page = m_pages.value(action);
+    qreal top = m_tops.value(action);
+
+    emit entrySelected(page, top);
 }
 
 // settings dialog

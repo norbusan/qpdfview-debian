@@ -115,6 +115,7 @@ public:
 
 public slots:
     void addEntry(const QString &filePath);
+    void removeEntry(const QString &filePath);
 
     void clearList();
 
@@ -134,6 +135,50 @@ private:
     // settings
 
     QSettings m_settings;
+};
+
+// bookmarks menu
+
+class BookmarksMenu : public QMenu
+{
+    Q_OBJECT
+
+public:
+    BookmarksMenu(QWidget *parent = 0);
+
+public slots:
+    void addEntry();
+
+    void goToPreviousEntry();
+    void goToNextEntry();
+
+    void clearList();
+
+    void setCurrentPage(int currentPage);
+    void setCurrentTop(qreal currentTop);
+
+signals:
+    void entrySelected(int page, qreal top);
+
+protected slots:
+    void slotActionGroupTriggered(QAction *action);
+
+private:
+    QActionGroup *m_actionGroup;
+
+    QAction *m_addEntryAction;
+
+    QAction *m_goToPreviousEntryAction;
+    QAction *m_goToNextEntryAction;
+
+    QAction *m_clearListAction;
+
+    QHash<QAction*, int> m_pages;
+    QHash<QAction*, qreal> m_tops;
+
+    int m_currentPage;
+    qreal m_currentTop;
+
 };
 
 // settings dialog
