@@ -1483,11 +1483,13 @@ void MainWindowAdaptor::refresh(const QString &filePath, int page, qreal top)
             documentView->refresh();
             documentView->setCurrentPage(page, top);
 
+            m_mainWindow->m_tabWidget->setCurrentIndex(index);
+
             openInNewTab = false;
         }
     }
 
-    if(openInNewTab)
+    if(openInNewTab && QFileInfo(filePath).exists())
     {
         m_mainWindow->openInNewTab(filePath, page, top);
     }

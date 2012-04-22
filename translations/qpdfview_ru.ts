@@ -2,6 +2,39 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
 <context>
+    <name>BookmarksMenu</name>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="392"/>
+        <source>Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="401"/>
+        <source>&amp;Add entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="405"/>
+        <source>Go to &amp;previous entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="409"/>
+        <source>Go to &amp;next entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="413"/>
+        <source>&amp;Clear list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="453"/>
+        <source>Page %1 at %2%</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DocumentView</name>
     <message>
         <location filename="../sources/documentview.cpp" line="128"/>
@@ -103,7 +136,7 @@
         <translation>По ширине страницы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1106"/>
+        <location filename="../sources/mainwindow.cpp" line="1100"/>
         <source>&amp;Fullscreen</source>
         <translation>&amp;Полноэкранный просмотр</translation>
     </message>
@@ -221,7 +254,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1100"/>
+        <location filename="../sources/mainwindow.cpp" line="1109"/>
         <source>Presentation...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,14 +342,14 @@
         <location filename="../sources/mainwindow.cpp" line="60"/>
         <location filename="../sources/mainwindow.cpp" line="106"/>
         <location filename="../sources/mainwindow.cpp" line="237"/>
-        <location filename="../sources/mainwindow.cpp" line="435"/>
+        <location filename="../sources/mainwindow.cpp" line="453"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="60"/>
         <location filename="../sources/mainwindow.cpp" line="106"/>
-        <location filename="../sources/mainwindow.cpp" line="435"/>
+        <location filename="../sources/mainwindow.cpp" line="453"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation>Не удалось открыть документ &quot;%1&quot;.</translation>
     </message>
@@ -359,7 +392,7 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="237"/>
+        <location filename="../sources/miscellaneous.cpp" line="234"/>
         <source>Go to page %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -367,12 +400,12 @@
 <context>
     <name>RecentlyUsedAction</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="297"/>
+        <location filename="../sources/miscellaneous.cpp" line="294"/>
         <source>Recently &amp;used</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="306"/>
+        <location filename="../sources/miscellaneous.cpp" line="303"/>
         <source>&amp;Clear list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -380,17 +413,17 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="402"/>
+        <location filename="../sources/miscellaneous.cpp" line="607"/>
         <source>&amp;Antialiasing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="403"/>
+        <location filename="../sources/miscellaneous.cpp" line="608"/>
         <source>&amp;Text antialiasing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="404"/>
+        <location filename="../sources/miscellaneous.cpp" line="609"/>
         <source>Text &amp;hinting:</source>
         <translation type="unfinished"></translation>
     </message>
