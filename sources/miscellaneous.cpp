@@ -200,7 +200,7 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
         this->lastPage();
 
         break;
-    case Qt::Key_F10:
+    case Qt::Key_F12:
     case Qt::Key_Escape:
         this->close();
 

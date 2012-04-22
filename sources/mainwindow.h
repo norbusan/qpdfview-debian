@@ -92,8 +92,8 @@ protected slots:
 
     void slotSettings();
 
-    void slotPresentation();
     void slotFullscreen();
+    void slotPresentation();
 
     void slotPreviousTab();
     void slotNextTab();
@@ -177,8 +177,8 @@ private:
     QAction *m_rotateBy270Action;
     QActionGroup *m_rotationGroup;
 
-    QAction *m_presentationAction;
     QAction *m_fullscreenAction;
+    QAction *m_presentationAction;
 
     QAction *m_previousTabAction;
     QAction *m_nextTabAction;

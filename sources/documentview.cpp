@@ -253,7 +253,7 @@ void DocumentView::PageItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    update(boundingRect());
+    scene()->update(boundingRect().translated(pos()));
 }
 
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene),
@@ -369,7 +369,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    update(boundingRect());
+    scene()->update(boundingRect().translated(pos()));
 }
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
@@ -438,6 +438,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 DocumentView::~DocumentView()
 {
     m_scene->clear();
+    m_thumbnailsGraphicsView->scene()->clear();
 
     if(m_document)
     {
@@ -499,7 +500,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
             {
             case OnePage:
             case OneColumn:
-                if(m_currentPage != currentPage || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                if(m_currentPage != currentPage || ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
                 {
                     m_currentPage = currentPage;
 
@@ -511,7 +512,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
                 break;
             case TwoPages:
             case TwoColumns:
-                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((m_view->verticalScrollBar()->value() - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
                 {
                     m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
 
@@ -1387,6 +1388,8 @@ void DocumentView::prepareThumbnails()
 
     m_thumbnailsGraphicsView->scene()->setSceneRect(0.0, 0.0, width, height);
     m_thumbnailsGraphicsView->setSceneRect(0.0, 0.0, width, height);
+
+    m_thumbnailsGraphicsView->setMinimumWidth(static_cast<int>(width) + 35);
 }
 
 void DocumentView::prepareScene()

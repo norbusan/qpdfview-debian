@@ -413,6 +413,24 @@ void MainWindow::slotSettings()
     }
 }
 
+void MainWindow::slotFullscreen()
+{
+    if(m_fullscreenAction->isChecked())
+    {
+        m_geometry = this->saveGeometry();
+
+        this->showFullScreen();
+    }
+    else
+    {
+        this->restoreGeometry(m_geometry);
+
+        this->showNormal();
+
+        this->restoreGeometry(m_geometry);
+    }
+}
+
 void MainWindow::slotPresentation()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -434,24 +452,6 @@ void MainWindow::slotPresentation()
 
             QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).fileName()));
         }
-    }
-}
-
-void MainWindow::slotFullscreen()
-{
-    if(m_fullscreenAction->isChecked())
-    {
-        m_geometry = this->saveGeometry();
-
-        this->showFullScreen();
-    }
-    else
-    {
-        this->restoreGeometry(m_geometry);
-
-        this->showNormal();
-
-        this->restoreGeometry(m_geometry);
     }
 }
 
@@ -1095,12 +1095,6 @@ void MainWindow::createActions()
     m_rotationGroup->addAction(m_rotateBy270Action);
     connect(m_rotationGroup, SIGNAL(selected(QAction*)), this, SLOT(slotRotationTriggered(QAction*)));
 
-    // presentation
-
-    m_presentationAction = new QAction(tr("Presentation..."), this);
-    m_presentationAction->setShortcut(QKeySequence(Qt::Key_F10));
-    connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(slotPresentation()));
-
     // fullscreen
 
     m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
@@ -1109,6 +1103,12 @@ void MainWindow::createActions()
     m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
     m_fullscreenAction->setIconVisibleInMenu(true);
     connect(m_fullscreenAction, SIGNAL(triggered()), this, SLOT(slotFullscreen()));
+
+    // presentation
+
+    m_presentationAction = new QAction(tr("Presentation..."), this);
+    m_presentationAction->setShortcut(QKeySequence(Qt::Key_F12));
+    connect(m_presentationAction, SIGNAL(triggered()), this, SLOT(slotPresentation()));
 
     // previousTab
 
@@ -1434,8 +1434,8 @@ void MainWindow::createMenus()
     docksMenu->addAction(m_outlineDock->toggleViewAction());
     docksMenu->addAction(m_thumbnailsDock->toggleViewAction());
 
-    m_viewMenu->addAction(m_presentationAction);
     m_viewMenu->addAction(m_fullscreenAction);
+    m_viewMenu->addAction(m_presentationAction);
 
     // tab
 
