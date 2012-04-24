@@ -44,6 +44,20 @@ private:
 
     };
 
+    struct PageCacheKey
+    {
+        int index;
+        qreal scale;
+
+        PageCacheKey() : index(-1), scale(1.0) {}
+        PageCacheKey(int index, qreal scale) : index(index), scale(scale) {}
+
+        bool operator<(const PageCacheKey &key) const
+        {
+            return (index < key.index) || (index == key.index && scale < key.scale);
+        }
+    };
+
 public:
     explicit PresentationView();
     ~PresentationView();
@@ -67,15 +81,22 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 
 private:
+    // document
+
     Poppler::Document *m_document;
-    Poppler::Page *m_page;
+
+    // page cache
+
+    QMap< PageCacheKey, QImage > m_pageCache;
+
+    uint m_pageCacheSize;
+    uint m_maximumPageCacheSize;
 
     // properties
 
     QString m_filePath;
     int m_numberOfPages;
     int m_currentPage;
-    int m_renderedPage;
 
     // settings
 
@@ -85,8 +106,6 @@ private:
 
     qreal m_scale;
     QRectF m_boundingRect;
-
-    QImage m_image;
 
     // links
 
@@ -100,7 +119,7 @@ private:
     // render
 
     QFuture<void> m_render;
-    void render();
+    void render(int index, qreal scale);
 };
 
 // recently used action

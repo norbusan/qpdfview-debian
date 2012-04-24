@@ -233,7 +233,7 @@ private:
 
     // page cache
 
-    QMap<PageCacheKey, QImage> m_pageCache;
+    QMap< PageCacheKey, QImage > m_pageCache;
     QMutex m_pageCacheMutex;
 
     uint m_pageCacheSize;
@@ -260,8 +260,8 @@ private:
     QGraphicsScene *m_scene;
     QGraphicsView *m_view;
 
-    QMap<int, PageItem*> m_pagesByIndex;
-    QMap<qreal, PageItem*> m_pagesByHeight;
+    QMap< int, PageItem* > m_pagesByIndex;
+    QMap< qreal, PageItem* > m_pagesByHeight;
 
     QTransform m_pageTransform;
 
@@ -273,7 +273,7 @@ private:
 
     // search
 
-    QMap<int, QRectF> m_results;
+    QMap< int, QRectF > m_results;
     QMutex m_resultsMutex;
 
     QFuture<void> m_search;

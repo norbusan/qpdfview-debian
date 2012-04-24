@@ -25,15 +25,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 PresentationView::PresentationView() : QWidget(),
     m_document(0),
-    m_page(0),
+    m_pageCache(),
+    m_pageCacheSize(0u),
+    m_maximumPageCacheSize(67108864u),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
-    m_renderedPage(-1),
     m_settings(),
     m_scale(1.0),
     m_boundingRect(),
-    m_image(),
     m_links(),
     m_linkTransform(),
     m_render()
@@ -57,11 +57,6 @@ PresentationView::~PresentationView()
 {
     m_render.waitForFinished();
 
-    if(m_page)
-    {
-        delete m_page;
-    }
-
     if(m_document)
     {
         delete m_document;
@@ -80,6 +75,8 @@ void PresentationView::setCurrentPage(int currentPage)
 
 bool PresentationView::open(const QString &filePath)
 {
+    m_render.waitForFinished();
+
     Poppler::Document *document = Poppler::Document::load(filePath);
 
     if(document)
@@ -99,6 +96,9 @@ bool PresentationView::open(const QString &filePath)
         m_numberOfPages = m_document->numPages();
         m_currentPage = 1;
     }
+
+    m_pageCache.clear();
+    m_pageCacheSize = 0u;
 
     prepareView();
 
@@ -158,16 +158,18 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
-    if(m_renderedPage != m_currentPage)
+    PageCacheKey key(m_currentPage - 1, m_scale);
+
+    if(m_pageCache.contains(key))
     {
-        if(!m_render.isRunning())
-        {
-            m_render = QtConcurrent::run(this, &PresentationView::render);
-        }
+        painter.drawImage(m_boundingRect.topLeft(), m_pageCache.value(key));
     }
     else
     {
-        painter.drawImage(m_boundingRect.topLeft(), m_image);
+        if(!m_render.isRunning())
+        {
+            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scale);
+        }
     }
 
     painter.setPen(QPen(Qt::black));
@@ -242,16 +244,11 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
 
 void PresentationView::prepareView()
 {
-    if(m_page)
-    {
-        delete m_page;
-    }
-
-    m_page = m_document->page(m_currentPage - 1);
+    Poppler::Page *page = m_document->page(m_currentPage - 1);
 
     // graphics
 
-    QSizeF size = m_page->pageSizeF();
+    QSizeF size = page->pageSizeF();
 
     m_scale = qMin(static_cast<qreal>(this->width()) / size.width(), static_cast<qreal>(this->height()) / size.height());
 
@@ -262,7 +259,7 @@ void PresentationView::prepareView()
 
     // links
 
-    foreach(Poppler::Link *link, m_page->links())
+    foreach(Poppler::Link *link, page->links())
     {
         if(link->linkType() == Poppler::Link::Goto)
         {
@@ -277,14 +274,31 @@ void PresentationView::prepareView()
 
     m_linkTransform = QTransform(m_boundingRect.width(), 0.0, 0.0, m_boundingRect.height(), m_boundingRect.left(), m_boundingRect.top());
 
+    delete page;
+
     this->update();
 }
 
-void PresentationView::render()
+void PresentationView::render(int index, qreal scale)
 {
-    m_renderedPage = m_currentPage;
+    Poppler::Page *page = m_document->page(index);
 
-    m_image = m_page->renderToImage(m_scale * 72.0, m_scale * 72.0);
+    QImage image = page->renderToImage(scale * 72.0, scale * 72.0);
+
+    delete page;
+
+    PageCacheKey key(index, scale);
+
+    while(m_pageCacheSize > m_maximumPageCacheSize)
+    {
+        QMap< PageCacheKey, QImage >::iterator iterator = m_pageCache.lowerBound(key) != m_pageCache.end() ? --m_pageCache.end() : m_pageCache.begin();
+
+        m_pageCache.remove(iterator.key());
+        m_pageCacheSize -= iterator.value().byteCount();
+    }
+
+    m_pageCache.insert(key, image);
+    m_pageCacheSize += image.byteCount();
 
     this->update();
 }

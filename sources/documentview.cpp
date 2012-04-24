@@ -500,7 +500,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
             {
             case OnePage:
             case OneColumn:
-                if(m_currentPage != currentPage || ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                if(m_currentPage != currentPage)
                 {
                     m_currentPage = currentPage;
 
@@ -508,17 +508,25 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
 
                     emit currentPageChanged(m_currentPage);
                 }
+                else if(((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                {
+                    prepareView(top);
+                }
 
                 break;
             case TwoPages:
             case TwoColumns:
-                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1) || ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1))
                 {
                     m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
 
                     prepareView(top);
 
                     emit currentPageChanged(m_currentPage);
+                }
+                else if(((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                {
+                    prepareView(top);
                 }
 
                 break;
