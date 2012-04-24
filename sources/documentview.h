@@ -102,7 +102,7 @@ private:
         // render
 
         QFuture<void> m_render;
-        void render();
+        void render(bool prefetch = false);
 
     };
 
@@ -222,6 +222,7 @@ protected:
 protected slots:
     void slotVerticalScrollBarValueChanged(int value);
 
+    void slotPrefetchTimerTimeout();
     void slotTabActionTriggered();
     void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column);
 
@@ -267,6 +268,7 @@ private:
 
     // miscellaneous
 
+    QTimer *m_prefetchTimer;
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
     QGraphicsView *m_thumbnailsGraphicsView;

@@ -56,7 +56,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
     {
         if(!m_render.isRunning())
         {
-            m_render = QtConcurrent::run(this, &DocumentView::PageItem::render);
+            m_render = QtConcurrent::run(this, &DocumentView::PageItem::render, false);
         }
     }
 
@@ -212,7 +212,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-void DocumentView::PageItem::render()
+void DocumentView::PageItem::render(bool prefetch)
 {
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
 
@@ -225,7 +225,7 @@ void DocumentView::PageItem::render()
     QRectF rect = boundingRect().translated(pos());
     QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->rect()).boundingRect();
 
-    if(!rect.intersects(visibleRect))
+    if(!rect.intersects(visibleRect) && !prefetch)
     {
         return;
     }
@@ -414,6 +414,18 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_view->verticalScrollBar()->installEventFilter(this);
 
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
+    // prefetchTimer
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setInterval(500);
+    m_prefetchTimer->setSingleShot(true);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scalingChanged(DocumentView::Scaling)), m_prefetchTimer, SLOT(start()));
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(slotPrefetchTimerTimeout()));
 
     // tabAction
 
@@ -683,6 +695,8 @@ bool DocumentView::open(const QString &filePath)
     prepareScene();
     prepareView();
 
+    m_prefetchTimer->start();
+
     return document != 0;
 }
 
@@ -735,6 +749,8 @@ bool DocumentView::refresh()
 
     prepareScene();
     prepareView();
+
+    m_prefetchTimer->start();
 
     return document != 0;
 }
@@ -957,7 +973,7 @@ bool DocumentView::eventFilter(QObject*, QEvent *event)
     {
         QWheelEvent *wheelEvent = static_cast<QWheelEvent*>(event);
 
-        return wheelEvent->modifiers() == Qt::ControlModifier || wheelEvent->modifiers() == Qt::ShiftModifier;
+        return wheelEvent->modifiers() == Qt::ControlModifier || wheelEvent->modifiers() == Qt::ShiftModifier || wheelEvent->modifiers() == Qt::AltModifier;
     }
 
     return false;
@@ -1100,6 +1116,13 @@ void DocumentView::wheelEvent(QWheelEvent *event)
             }
         }
     }
+    else if(event->modifiers() == Qt::AltModifier)
+    {
+        QWheelEvent wheelEvent(*event);
+        wheelEvent.setModifiers(Qt::NoModifier);
+
+        QApplication::sendEvent(m_view->horizontalScrollBar(), &wheelEvent);
+    }
 }
 
 void DocumentView::slotVerticalScrollBarValueChanged(int value)
@@ -1115,7 +1138,37 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
                 m_currentPage = iterator.value()->m_index + 1;
 
                 emit currentPageChanged(m_currentPage);
+
+                qDebug() << "chaning page";
             }
+        }
+    }
+}
+
+void DocumentView::slotPrefetchTimerTimeout()
+{
+    int fromPage = qMax(m_currentPage - 1, 1);
+    int toPage = qMin(m_currentPage + 2, m_numberOfPages);
+
+    for(int page = fromPage; page <= toPage; page++)
+    {
+        PageItem *pageItem = m_pagesByIndex.value(page - 1, 0);
+
+        if(pageItem != 0)
+        {
+            m_pageCacheMutex.lock();
+
+            PageCacheKey key(pageItem->m_index, pageItem->m_scale);
+
+            if(!m_pageCache.contains(key))
+            {
+                if(!pageItem->m_render.isRunning())
+                {
+                    pageItem->m_render = QtConcurrent::run(pageItem, &DocumentView::PageItem::render, true);
+                }
+            }
+
+            m_pageCacheMutex.unlock();
         }
     }
 }
@@ -1662,12 +1715,12 @@ void DocumentView::prepareView(qreal top)
         {
             leftPageItem->setVisible(true);
 
-            QRectF rect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->setSceneRect(rect.adjusted(-10.0, -10.0, 10.0, 10.0));
+            m_view->setSceneRect(leftRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 
-            m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
-            m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
+            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
+            m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
         break;
@@ -1687,8 +1740,8 @@ void DocumentView::prepareView(qreal top)
 
             m_view->setSceneRect(leftRect.united(rightRect).adjusted(-10.0, -10.0, 10.0, 10.0));
 
-            m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
-            m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
+            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
+            m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
         else if(leftPageItem != 0)
         {
@@ -1698,8 +1751,8 @@ void DocumentView::prepareView(qreal top)
 
             m_view->setSceneRect(leftRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 
-            m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
-            m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
+            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
+            m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
         break;
@@ -1712,8 +1765,10 @@ void DocumentView::prepareView(qreal top)
 
         if(leftPageItem != 0)
         {
-            m_view->horizontalScrollBar()->setValue(qFloor(leftPageItem->x()));
-            m_view->verticalScrollBar()->setValue(qFloor(leftPageItem->y() + leftPageItem->boundingRect().height() * top));
+            QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
+
+            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
+            m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
         break;
