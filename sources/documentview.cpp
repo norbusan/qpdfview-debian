@@ -1369,7 +1369,7 @@ void DocumentView::preparePages()
                 {
                     pageItem->m_links.append(Link(link->linkArea().normalized(),
                                                   static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber(),
-                                                  static_cast<Poppler::LinkGoto*>(link)->destination().top()));
+                                                  static_cast<Poppler::LinkGoto*>(link)->destination().isChangeTop() ? static_cast<Poppler::LinkGoto*>(link)->destination().top() : 0.0));
                 }
             }
             else if(link->linkType() == Poppler::Link::Browse)
@@ -1421,14 +1421,14 @@ void DocumentView::prepareOutline(const QDomNode &node, QTreeWidgetItem *parent,
         Poppler::LinkDestination linkDestination(element.attribute("Destination"));
 
         item->setData(0, Qt::UserRole, linkDestination.pageNumber());
-        item->setData(0, Qt::UserRole+1, linkDestination.top());
+        item->setData(0, Qt::UserRole+1, linkDestination.isChangeTop() ? linkDestination.top() : 0.0);
     }
     else if(element.hasAttribute("DestinationName"))
     {
         Poppler::LinkDestination *linkDestination = m_document->linkDestination(element.attribute("DestinationName"));
 
         item->setData(0, Qt::UserRole, linkDestination ? linkDestination->pageNumber() : 1);
-        item->setData(0, Qt::UserRole+1, linkDestination ? linkDestination->top() : 0.0);
+        item->setData(0, Qt::UserRole+1, linkDestination ? (linkDestination->isChangeTop() ? linkDestination->top() : 0.0) : 0.0);
 
         delete linkDestination;
     }
