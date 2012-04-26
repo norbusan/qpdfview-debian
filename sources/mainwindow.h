@@ -126,7 +126,7 @@ protected slots:
     void slotRotationCurrentIndexChanged(int index);
     void slotRotationChanged(DocumentView::Rotation rotation);
 
-    void slotHighlightAllCheckBoxToggled();
+    void slotHighlightAllCheckBoxClicked(bool checked);
     void slotHighlightAllChanged(bool highlightAll);
 
     void slotRecentyUsedEntrySelected(const QString &filePath);

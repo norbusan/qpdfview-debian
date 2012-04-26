@@ -766,11 +766,11 @@ void MainWindow::slotRotationChanged(DocumentView::Rotation rotation)
     }
 }
 
-void MainWindow::slotHighlightAllCheckBoxToggled()
+void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
 {
     DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
-    documentView->setHighlightAll(m_highlightAllCheckBox->isChecked());
+    documentView->setHighlightAll(checked);
 }
 
 void MainWindow::slotHighlightAllChanged(bool highlightAll)
@@ -1286,7 +1286,7 @@ void MainWindow::createWidgets()
     connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(slotStartSearch()));
     connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(slotStartSearch()));
 
-    connect(m_highlightAllCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotHighlightAllCheckBoxToggled()));
+    connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), this, SLOT(slotHighlightAllCheckBoxClicked(bool)));
 
     connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(slotFindPrevious()));
     connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(slotFindNext()));

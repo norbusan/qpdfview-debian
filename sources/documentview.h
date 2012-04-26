@@ -96,6 +96,9 @@ private:
 
         QSizeF m_size;
 
+        qreal m_resolutionX;
+        qreal m_resolutionY;
+
         QTransform m_linkTransform;
         QTransform m_highlightTransform;
 

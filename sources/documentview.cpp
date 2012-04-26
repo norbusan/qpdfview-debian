@@ -8,6 +8,8 @@ DocumentView::PageItem::PageItem(QGraphicsItem *parent, QGraphicsScene *scene) :
     m_highlight(),
     m_rubberBand(),
     m_size(),
+    m_resolutionX(72.0),
+    m_resolutionY(72.0),
     m_linkTransform(),
     m_highlightTransform(),
     m_render()
@@ -27,7 +29,7 @@ DocumentView::PageItem::~PageItem()
 
 QRectF DocumentView::PageItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, qCeil(m_scale * m_size.width()), qCeil(m_scale * m_size.height()));
+    return QRectF(0.0, 0.0, qCeil(m_scale * m_resolutionX / 72.0 * m_size.width()), qCeil(m_scale * m_resolutionY / 72.0 * m_size.height()));
 }
 
 void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -67,6 +69,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     // links
 
+    QTransform transform = painter->transform();
     painter->setTransform(m_linkTransform, true);
 
     painter->setPen(QPen(QColor(255,0,0,127)));
@@ -76,10 +79,11 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
         painter->drawRect(link.area);
     }
 
-    painter->setTransform(m_linkTransform.inverted(), true);
+    painter->setTransform(transform);
 
     // highlights
 
+    transform = painter->transform();
     painter->setTransform(m_highlightTransform, true);
 
     painter->setPen(QPen(QColor(0,0,255)));
@@ -98,7 +102,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
         }
     }
 
-    painter->setTransform(m_highlightTransform.inverted(), true);
+    painter->setTransform(transform);
 
     // rubber band
 
@@ -232,7 +236,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale * 72.0, m_scale * 72.0);
+    QImage image = m_page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
@@ -1475,14 +1479,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = pageItem->m_size.width();
-                    height = pageItem->m_size.height();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.width();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = pageItem->m_size.height();
-                    height = pageItem->m_size.width();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.height();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.width();
 
                     break;
                 }
@@ -1505,14 +1509,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = pageItem->m_size.width();
-                    height = pageItem->m_size.height();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.width();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = pageItem->m_size.height();
-                    height = pageItem->m_size.width();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.height();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.width();
 
                     break;
                 }
@@ -1523,14 +1527,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width += pageItem->m_size.width();
-                    height = qMax(height, pageItem->m_size.height());
+                    width += physicalDpiX() / 72.0 * pageItem->m_size.width();
+                    height = qMax(height, physicalDpiY() / 72.0 * pageItem->m_size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width += pageItem->m_size.height();
-                    height = qMax(height, pageItem->m_size.width());
+                    width += physicalDpiX() / 72.0 * pageItem->m_size.height();
+                    height = qMax(height, physicalDpiY() / 72.0 * pageItem->m_size.width());
 
                     break;
                 }
@@ -1550,14 +1554,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = pageItem->m_size.width();
-                    height = pageItem->m_size.height();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.width();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = pageItem->m_size.height();
-                    height = pageItem->m_size.width();
+                    width = physicalDpiX() / 72.0 * pageItem->m_size.height();
+                    height = physicalDpiY() / 72.0 * pageItem->m_size.width();
 
                     break;
                 }
@@ -1602,9 +1606,6 @@ void DocumentView::prepareScene()
             pageItem->m_scale = 4.0; break;
         }
 
-        pageItem->m_linkTransform = QTransform(pageItem->m_scale * pageItem->m_size.width(), 0.0, 0.0, pageItem->m_scale * pageItem->m_size.height(), 0.0, 0.0);
-        pageItem->m_highlightTransform = QTransform(pageItem->m_scale, 0.0, 0.0, pageItem->m_scale, 0.0, 0.0);
-
         switch(m_rotation)
         {
         case RotateBy0:
@@ -1616,6 +1617,28 @@ void DocumentView::prepareScene()
         case RotateBy270:
             pageItem->setRotation(270.0); break;
         }
+
+        switch(m_rotation)
+        {
+        case RotateBy0:
+        case RotateBy180:
+            pageItem->m_resolutionX = physicalDpiX();
+            pageItem->m_resolutionY = physicalDpiY();
+
+            break;
+        case RotateBy90:
+        case RotateBy270:
+            pageItem->m_resolutionX = physicalDpiY();
+            pageItem->m_resolutionY = physicalDpiX();
+
+            break;
+        }
+
+        pageItem->m_linkTransform.reset();
+        pageItem->m_linkTransform.scale(pageItem->m_scale * pageItem->m_resolutionX / 72.0 * pageItem->m_size.width(), pageItem->m_scale * pageItem->m_resolutionY / 72.0 * pageItem->m_size.height());
+
+        pageItem->m_highlightTransform.reset();
+        pageItem->m_highlightTransform.scale(pageItem->m_scale * pageItem->m_resolutionX / 72.0, pageItem->m_scale * pageItem->m_resolutionY / 72.0);
     }
 
     m_pageTransform.reset();
