@@ -51,6 +51,14 @@ PresentationView::PresentationView() : QWidget(),
     this->setPalette(palette);
 
     this->setMouseTracking(true);
+
+    // prefetchTimer
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setInterval(500);
+    m_prefetchTimer->setSingleShot(true);
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(slotPrefetchTimerTimeout()));
 }
 
 PresentationView::~PresentationView()
@@ -142,6 +150,21 @@ void PresentationView::lastPage()
         m_currentPage = m_numberOfPages;
 
         this->prepareView();
+    }
+}
+
+void PresentationView::slotPrefetchTimerTimeout()
+{
+    if(m_currentPage + 1 <= m_numberOfPages)
+    {
+        if(!m_render.isRunning())
+        {
+            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage, m_scale);
+        }
+        else
+        {
+            m_prefetchTimer->start();
+        }
     }
 }
 
@@ -277,6 +300,8 @@ void PresentationView::prepareView()
     delete page;
 
     this->update();
+
+    m_prefetchTimer->start();
 }
 
 void PresentationView::render(int index, qreal scale)

@@ -72,6 +72,9 @@ public slots:
     void firstPage();
     void lastPage();
 
+protected slots:
+    void slotPrefetchTimerTimeout();
+
 protected:
     void resizeEvent(QResizeEvent*);
     void paintEvent(QPaintEvent *event);
@@ -111,6 +114,10 @@ private:
 
     QList<Link> m_links;
     QTransform m_linkTransform;
+
+    // miscellaneous
+
+    QTimer *m_prefetchTimer;
 
     // internal methods
 
