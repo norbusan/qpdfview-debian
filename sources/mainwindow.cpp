@@ -200,6 +200,8 @@ void MainWindow::slotOpenInNewTab()
                                                           m_settings.value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString(),
                                                           "Portable Document Format (*.pdf)");
 
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
+
     foreach(QString filePath, filePaths)
     {
         if(this->openInNewTab(filePath))
@@ -209,6 +211,10 @@ void MainWindow::slotOpenInNewTab()
             m_recentlyUsedAction->addEntry(filePath);
         }
     }
+
+    this->slotTabWidgetCurrentChanged(m_tabWidget->currentIndex());
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
 }
 
 void MainWindow::slotRefresh()
@@ -572,6 +578,8 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_outlineDock->setWidget(documentView->outlineTreeWidget());
         m_thumbnailsDock->setWidget(documentView->thumbnailsGraphicsView());
+
+        this->setWindowTitle(m_tabWidget->tabText(index) + " - qpdfview");
     }
     else
     {
@@ -626,6 +634,8 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_outlineDock->setWidget(0);
         m_thumbnailsDock->setWidget(0);
+
+        this->setWindowTitle("qpdfview");
     }
 }
 
