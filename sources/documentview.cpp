@@ -166,11 +166,22 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 QDesktopServices::openUrl(QUrl(link.url));
             }
 
+            event->accept();
+
             return;
         }
     }
 
-    m_rubberBand = QRectF(event->pos(), QSizeF());
+    if(event->modifiers() == Qt::ShiftModifier)
+    {
+        m_rubberBand = QRectF(event->pos(), QSizeF());
+
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
 }
 
 void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -180,6 +191,12 @@ void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         m_rubberBand.setBottomRight(event->pos());
 
         update(boundingRect());
+
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
     }
 }
 
@@ -213,6 +230,12 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         }
 
         update(boundingRect());
+
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
     }
 }
 
@@ -413,6 +436,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_scene->setBackgroundBrush(QBrush(Qt::darkGray));
 
     m_view = new QGraphicsView(m_scene, this);
+    m_view->setDragMode(QGraphicsView::ScrollHandDrag);
     m_view->show();
 
     // verticalScrollBar
