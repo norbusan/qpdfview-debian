@@ -264,6 +264,8 @@ DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem *parent, QGraphicsScene
     m_page(0),
     m_index(-1),
     m_size(),
+    m_resolutionX(72.0),
+    m_resolutionY(72.0),
     m_render()
 {
 }
@@ -280,7 +282,7 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, qCeil(0.1 * m_size.width()), qCeil(0.1 * m_size.height()));
+    return QRectF(0.0, 0.0, qCeil(0.1 * m_resolutionX / 72.0 * m_size.width()), qCeil(0.1 * m_resolutionY / 72.0 * m_size.height()));
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -352,7 +354,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(7.20, 7.20);
+    QImage image = m_page->renderToImage(0.1 * m_resolutionX, 0.1 * m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
@@ -1433,6 +1435,8 @@ void DocumentView::prepareThumbnails()
         thumbnailItem->m_index = index;
         thumbnailItem->m_page = m_document->page(thumbnailItem->m_index);
         thumbnailItem->m_size = thumbnailItem->m_page->pageSizeF();
+        thumbnailItem->m_resolutionX = physicalDpiX();
+        thumbnailItem->m_resolutionY = physicalDpiY();
 
         thumbnailItem->setPos(5.0, height);
 

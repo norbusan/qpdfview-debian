@@ -138,6 +138,9 @@ private:
 
         QSizeF m_size;
 
+        qreal m_resolutionX;
+        qreal m_resolutionY;
+
         // render
 
         QFuture<void> m_render;
