@@ -50,6 +50,7 @@ public:
         menu->addAction(m_viewToolBar->toggleViewAction());
         menu->addSeparator();
         menu->addAction(m_outlineDock->toggleViewAction());
+        menu->addAction(m_metaInformationDock->toggleViewAction());
         menu->addAction(m_thumbnailsDock->toggleViewAction());
 
         return menu;
@@ -238,6 +239,7 @@ private:
     // docks
 
     QDockWidget *m_outlineDock;
+    QDockWidget *m_metaInformationDock;
     QDockWidget *m_thumbnailsDock;
 
     void createDocks();
@@ -275,9 +277,6 @@ public slots:
     bool openInNewTab(const QString &filePath, int page, qreal top);
 
     Q_NOREPLY void refresh(const QString &filePath, int page, qreal top);
-
-private:
-    MainWindow *m_mainWindow;
 
 };
 

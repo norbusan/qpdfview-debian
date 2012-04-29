@@ -577,6 +577,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         this->slotHighlightAllChanged(documentView->highlightAll());
 
         m_outlineDock->setWidget(documentView->outlineTreeWidget());
+        m_metaInformationDock->setWidget(documentView->metaInformationTableWidget());
         m_thumbnailsDock->setWidget(documentView->thumbnailsGraphicsView());
 
         this->setWindowTitle(m_tabWidget->tabText(index) + " - qpdfview");
@@ -633,6 +634,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         }
 
         m_outlineDock->setWidget(0);
+        m_metaInformationDock->setWidget(0);
         m_thumbnailsDock->setWidget(0);
 
         this->setWindowTitle("qpdfview");
@@ -1281,8 +1283,8 @@ void MainWindow::createWidgets()
     m_findNextButton = new QPushButton(tr("Find &next"), m_searchWidget);
 
     m_searchLabel->setBuddy(m_searchLineEdit);
-    m_searchTimer->setSingleShot(true);
     m_searchTimer->setInterval(2000);
+    m_searchTimer->setSingleShot(true);
 
     m_searchWidget->setLayout(new QHBoxLayout());
     m_searchWidget->layout()->addWidget(m_searchLabel);
@@ -1368,6 +1370,16 @@ void MainWindow::createDocks()
     this->addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
     m_outlineDock->hide();
 
+    // meta-information
+
+    m_metaInformationDock = new QDockWidget(tr("&Meta-information"), this);
+    m_metaInformationDock->setObjectName("metaInformationDock");
+    m_metaInformationDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    m_metaInformationDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+    this->addDockWidget(Qt::LeftDockWidgetArea, m_metaInformationDock);
+    m_metaInformationDock->hide();
+
     // thumbnails
 
     m_thumbnailsDock = new QDockWidget(tr("&Thumbnails"), this);
@@ -1442,6 +1454,7 @@ void MainWindow::createMenus()
 
     QMenu *docksMenu = m_viewMenu->addMenu(tr("&Docks"));
     docksMenu->addAction(m_outlineDock->toggleViewAction());
+    docksMenu->addAction(m_metaInformationDock->toggleViewAction());
     docksMenu->addAction(m_thumbnailsDock->toggleViewAction());
 
     m_viewMenu->addAction(m_fullscreenAction);
@@ -1465,35 +1478,40 @@ void MainWindow::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
-MainWindowAdaptor::MainWindowAdaptor(MainWindow *mainWindow) : QDBusAbstractAdaptor(mainWindow),
-    m_mainWindow(mainWindow)
+MainWindowAdaptor::MainWindowAdaptor(MainWindow *mainWindow) : QDBusAbstractAdaptor(mainWindow)
 {
 }
 
 bool MainWindowAdaptor::open(const QString &filePath, int page, qreal top)
 {
-    return m_mainWindow->open(filePath, page, top);
+    MainWindow *mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
+
+    return mainWindow->open(filePath, page, top);
 }
 
 bool MainWindowAdaptor::openInNewTab(const QString &filePath, int page, qreal top)
 {
-    return m_mainWindow->openInNewTab(filePath, page, top);
+    MainWindow *mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
+
+    return mainWindow->openInNewTab(filePath, page, top);
 }
 
 void MainWindowAdaptor::refresh(const QString &filePath, int page, qreal top)
 {
+    MainWindow *mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
+
     bool openInNewTab = true;
 
-    for(int index = 0; index < m_mainWindow->m_tabWidget->count(); index++)
+    for(int index = 0; index < mainWindow->m_tabWidget->count(); index++)
     {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_mainWindow->m_tabWidget->widget(index));
+        DocumentView *documentView = qobject_cast<DocumentView*>(mainWindow->m_tabWidget->widget(index));
 
         if(QFileInfo(documentView->filePath()).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
         {
             documentView->refresh();
             documentView->setCurrentPage(page, top);
 
-            m_mainWindow->m_tabWidget->setCurrentIndex(index);
+            mainWindow->m_tabWidget->setCurrentIndex(index);
 
             openInNewTab = false;
         }
@@ -1501,6 +1519,6 @@ void MainWindowAdaptor::refresh(const QString &filePath, int page, qreal top)
 
     if(openInNewTab && QFileInfo(filePath).exists())
     {
-        m_mainWindow->openInNewTab(filePath, page, top);
+        mainWindow->openInNewTab(filePath, page, top);
     }
 }

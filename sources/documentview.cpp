@@ -34,13 +34,7 @@ QRectF DocumentView::PageItem::boundingRect() const
 
 void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     // page
 
@@ -145,13 +139,7 @@ void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
 void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     foreach(Link link, m_links)
     {
@@ -202,13 +190,7 @@ void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     if(!m_rubberBand.isNull())
     {
@@ -241,13 +223,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void DocumentView::PageItem::render(bool prefetch)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = boundingRect().translated(pos());
     QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->rect()).boundingRect();
@@ -310,13 +286,7 @@ QRectF DocumentView::ThumbnailItem::boundingRect() const
 
 void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     // page
 
@@ -346,26 +316,14 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
 
 void DocumentView::ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     parent->setCurrentPage(m_index + 1);
 }
 
 void DocumentView::ThumbnailItem::render()
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent());
-
-    if(!parent)
-    {
-        qFatal("!parent");
-        return;
-    }
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = boundingRect().translated(pos());
     QRectF visibleRect = parent->m_thumbnailsGraphicsView->mapToScene(parent->m_thumbnailsGraphicsView->rect()).boundingRect();
@@ -418,6 +376,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_pagesByIndex(),
     m_pagesByHeight(),
     m_pageTransform(),
+    m_autoRefreshWatcher(0),
     m_results(),
     m_resultsMutex(),
     m_search(),
@@ -471,6 +430,13 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
+    // metaInformationTableWidget
+
+    m_metaInformationTableWidget = new QTableWidget();
+    m_metaInformationTableWidget->setAlternatingRowColors(true);
+    m_metaInformationTableWidget->horizontalHeader()->setVisible(false);
+    m_metaInformationTableWidget->verticalHeader()->setVisible(false);
+
     // thumbnailsGraphicsView
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
@@ -487,7 +453,13 @@ DocumentView::~DocumentView()
         delete m_document;
     }
 
+    if(m_autoRefreshWatcher)
+    {
+        delete m_autoRefreshWatcher;
+    }
+
     delete m_outlineTreeWidget;
+    delete m_thumbnailsGraphicsView;
 }
 
 uint DocumentView::maximumPageCacheSize() const
@@ -676,6 +648,11 @@ QTreeWidget *DocumentView::outlineTreeWidget() const
     return m_outlineTreeWidget;
 }
 
+QTableWidget *DocumentView::metaInformationTableWidget() const
+{
+    return m_metaInformationTableWidget;
+}
+
 QGraphicsView *DocumentView::thumbnailsGraphicsView() const
 {
     return m_thumbnailsGraphicsView;
@@ -695,11 +672,23 @@ bool DocumentView::open(const QString &filePath)
             delete m_document;
         }
 
+        if(m_autoRefreshWatcher)
+        {
+            delete m_autoRefreshWatcher;
+        }
+
         m_document = document;
 
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
+
+        if(m_settings.value("documentView/autoRefresh", false).toBool())
+        {
+            m_autoRefreshWatcher = new QFileSystemWatcher(QStringList(filePath));
+
+            connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), this, SLOT(refresh()));
+        }
 
         m_filePath = filePath;
         m_numberOfPages = m_document->numPages();
@@ -716,6 +705,7 @@ bool DocumentView::open(const QString &filePath)
         m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
 
         prepareOutline();
+        prepareMetaInformation();
         prepareThumbnails();
     }
 
@@ -771,6 +761,7 @@ bool DocumentView::refresh()
         m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
 
         prepareOutline();
+        prepareMetaInformation();
         prepareThumbnails();
     }
 
@@ -813,6 +804,11 @@ void DocumentView::close()
         delete m_document;
     }
 
+    if(m_autoRefreshWatcher)
+    {
+        delete m_autoRefreshWatcher;
+    }
+
     m_document = 0;
 
     m_filePath = QString();
@@ -828,6 +824,7 @@ void DocumentView::close()
     m_tabAction->setText(QString());
 
     prepareOutline();
+    prepareMetaInformation();
     prepareThumbnails();
 
     m_pageCache.clear();
@@ -1168,8 +1165,6 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
                 m_currentPage = iterator.value()->m_index + 1;
 
                 emit currentPageChanged(m_currentPage);
-
-                qDebug() << "chaning page";
             }
         }
     }
@@ -1205,28 +1200,9 @@ void DocumentView::slotPrefetchTimerTimeout()
 
 void DocumentView::slotTabActionTriggered()
 {
-    if(!this->parent())
-    {
-        qCritical("!parent");
-        return;
-    }
+    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent()); Q_ASSERT(tabWidget);
 
-    if(!this->parent()->parent())
-    {
-        qCritical("!parent");
-        return;
-    }
-
-    QTabWidget *tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent());
-
-    if(tabWidget)
-    {
-        tabWidget->setCurrentIndex(tabWidget->indexOf(this));
-    }
-    else
-    {
-        qCritical("!tabWidget");
-    }
+    tabWidget->setCurrentIndex(tabWidget->indexOf(this));
 }
 
 void DocumentView::slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
@@ -1443,6 +1419,25 @@ void DocumentView::prepareOutline(const QDomNode &node, QTreeWidgetItem *parent,
     if(!childNode.isNull())
     {
         prepareOutline(childNode, item, 0);
+    }
+}
+
+void DocumentView::prepareMetaInformation()
+{
+    m_metaInformationTableWidget->clear();
+
+    QStringList keys = m_document->infoKeys();
+
+    m_metaInformationTableWidget->setRowCount(keys.count());
+    m_metaInformationTableWidget->setColumnCount(2);
+
+    for(int index = 0; index < keys.count(); index++)
+    {
+        QString key = keys.at(index);
+        QString value = m_document->info(key);
+
+        m_metaInformationTableWidget->setItem(index, 0, new QTableWidgetItem(key));
+        m_metaInformationTableWidget->setItem(index, 1, new QTableWidgetItem(value));
     }
 }
 

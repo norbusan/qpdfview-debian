@@ -177,6 +177,7 @@ public:
 
     QAction *tabAction() const;
     QTreeWidget *outlineTreeWidget() const;
+    QTableWidget *metaInformationTableWidget() const;
     QGraphicsView *thumbnailsGraphicsView() const;
 
 public slots:
@@ -274,9 +275,11 @@ private:
 
     // miscellaneous
 
+    QFileSystemWatcher *m_autoRefreshWatcher;
     QTimer *m_prefetchTimer;
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
+    QTableWidget *m_metaInformationTableWidget;
     QGraphicsView *m_thumbnailsGraphicsView;
 
     // search
@@ -298,6 +301,8 @@ private:
 
     void prepareOutline();
     void prepareOutline(const QDomNode &node, QTreeWidgetItem *parent, QTreeWidgetItem *sibling);
+
+    void prepareMetaInformation();
 
     void prepareThumbnails();
 
