@@ -1194,13 +1194,20 @@ void MainWindow::createWidgets()
     m_currentPageValidator = new QIntValidator(m_currentPageWidget);
     m_numberOfPagesLabel = new QLabel(m_currentPageWidget);
 
-    m_currentPageWidget->setMaximumWidth(200);
     m_currentPageLabel->setBuddy(m_currentPageLineEdit);
-    m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
     m_currentPageLineEdit->setValidator(m_currentPageValidator);
+
+    m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
+    m_currentPageLineEdit->setMinimumWidth(60);
+    m_currentPageLineEdit->setMaximumWidth(60);
+
+    m_numberOfPagesLabel->setAlignment(Qt::AlignCenter);
+    m_numberOfPagesLabel->setMinimumWidth(60);
+    m_numberOfPagesLabel->setMaximumWidth(60);
 
     m_currentPageWidget->setLayout(new QHBoxLayout());
     m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
+    m_currentPageWidget->layout()->setSizeConstraint(QLayout::SetFixedSize);
     m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
     m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
 
