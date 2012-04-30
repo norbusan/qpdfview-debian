@@ -230,6 +230,8 @@ private:
     QCheckBox *m_textAntialiasingCheckBox;
     QCheckBox *m_textHintingCheckBox;
 
+    QCheckBox *m_uniformFitCheckBox;
+
     QComboBox *m_maximumPageCacheSizeComboBox;
 
     // settings

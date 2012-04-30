@@ -107,7 +107,7 @@ bool PresentationView::open(const QString &filePath)
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
 
     prepareView();
 
@@ -651,6 +651,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_textHintingCheckBox = new QCheckBox(this);
     m_textHintingCheckBox->setChecked(m_settings.value("documentView/textHinting", false).toBool());
 
+    m_uniformFitCheckBox = new QCheckBox(this);
+    m_uniformFitCheckBox->setChecked(m_settings.value("documentView/uniformFit", false).toBool());
+
     m_maximumPageCacheSizeComboBox = new QComboBox(this);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8388608u);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16777216u);
@@ -660,14 +663,16 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(256), 268435456u);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(512), 536870912u);
 
-    if(m_maximumPageCacheSizeComboBox->findData(m_settings.value("documentView/maximumPageCacheSize")) != -1)
+    uint maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+
+    if(m_maximumPageCacheSizeComboBox->findData(maximumPageCacheSize) != -1)
     {
-        m_maximumPageCacheSizeComboBox->setCurrentIndex(m_maximumPageCacheSizeComboBox->findData(m_settings.value("documentView/maximumPageCacheSize")));
+        m_maximumPageCacheSizeComboBox->setCurrentIndex(m_maximumPageCacheSizeComboBox->findData(maximumPageCacheSize));
     }
     else
     {
-        m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(m_settings.value("documentView/maximumPageCacheSize").toUInt() / 1024 / 1024), m_settings.value("documentView/maximumPageCacheSize"));
-        m_maximumPageCacheSizeComboBox->setCurrentIndex(m_maximumPageCacheSizeComboBox->count() - 1);
+        m_maximumPageCacheSizeComboBox->insertItem(0, tr("%1 MB").arg(maximumPageCacheSize / 1024 / 1024), maximumPageCacheSize);
+        m_maximumPageCacheSizeComboBox->setCurrentIndex(0);
     }
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
@@ -684,6 +689,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
 
+    m_layout->addRow(tr("Uniform &fit:"), m_uniformFitCheckBox);
+
     m_layout->addRow(tr("Maximum page &cache size:"), m_maximumPageCacheSizeComboBox);
 
     m_layout->addRow(m_buttonBox);
@@ -697,6 +704,8 @@ void SettingsDialog::accept()
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
+
+    m_settings.setValue("documentView/uniformFit", m_uniformFitCheckBox->isChecked());
 
     m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()));
 

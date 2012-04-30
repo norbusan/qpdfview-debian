@@ -796,7 +796,7 @@ bool DocumentView::open(const QString &filePath)
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
 
     prepareScene();
     prepareView();
@@ -856,7 +856,7 @@ bool DocumentView::refresh()
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
 
     prepareScene();
     prepareView();
@@ -922,7 +922,7 @@ void DocumentView::close()
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
 
     prepareScene();
     prepareView();
@@ -1754,7 +1754,15 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_pageLayout == OnePage)
+                if(m_settings.value("documentView/uniformFit", false).toBool())
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
                 {
                     pageItem->prepareGeometryChange();
 
@@ -1762,14 +1770,6 @@ void DocumentView::prepareScene()
                     if(m_scaling == FitToPage)
                     {
                         pageItem->m_scale = qMin(pageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
-                    }
-                }
-                else
-                {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
                     }
                 }
             }
@@ -1815,7 +1815,15 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_pageLayout == TwoPages)
+                if(m_settings.value("documentView/uniformFit", false).toBool())
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
                 {
                     leftPageItem->prepareGeometryChange();
                     rightPageItem->prepareGeometryChange();
@@ -1826,14 +1834,6 @@ void DocumentView::prepareScene()
                     {
                         leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
                         rightPageItem->m_scale = qMin(rightPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
-                    }
-                }
-                else
-                {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
                     }
                 }
             }
@@ -1858,7 +1858,15 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_pageLayout == TwoPages)
+                if(m_settings.value("documentView/uniformFit", false).toBool())
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
                 {
                     leftPageItem->prepareGeometryChange();
 
@@ -1868,20 +1876,12 @@ void DocumentView::prepareScene()
                         leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
                     }
                 }
-                else
-                {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
-                    }
-                }
             }
 
             break;
         }
 
-        if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
+        if(m_settings.value("documentView/uniformFit", false).toBool())
         {
             for(int index = 0; index < m_numberOfPages; index++)
             {
