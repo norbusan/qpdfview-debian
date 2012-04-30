@@ -313,17 +313,25 @@ void PresentationView::render(int index, qreal scale)
     delete page;
 
     PageCacheKey key(index, scale);
+    uint byteCount = static_cast<uint>(image.byteCount());
 
-    while(m_pageCacheSize > m_maximumPageCacheSize)
+    if(m_maximumPageCacheSize < 3 * byteCount)
+    {
+        m_maximumPageCacheSize = 3 * byteCount;
+
+        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
+    }
+
+    while(m_pageCacheSize + byteCount > m_maximumPageCacheSize)
     {
         QMap< PageCacheKey, QImage >::iterator iterator = m_pageCache.lowerBound(key) != m_pageCache.end() ? --m_pageCache.end() : m_pageCache.begin();
 
-        m_pageCache.remove(iterator.key());
         m_pageCacheSize -= iterator.value().byteCount();
+        m_pageCache.remove(iterator.key());
     }
 
+    m_pageCacheSize += byteCount;
     m_pageCache.insert(key, image);
-    m_pageCacheSize += image.byteCount();
 
     this->update();
 }
@@ -656,7 +664,6 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
 void SettingsDialog::accept()
 {
     m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
-
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());

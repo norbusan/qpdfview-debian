@@ -270,6 +270,8 @@ private:
     QGraphicsScene *m_scene;
     QGraphicsView *m_view;
 
+    QGraphicsRectItem *m_highlight;
+
     QMap< int, PageItem* > m_pagesByIndex;
     QMap< qreal, PageItem* > m_pagesByHeight;
 
@@ -288,6 +290,8 @@ private:
 
     QMap< int, QRectF > m_results;
     QMutex m_resultsMutex;
+
+    QMap< int, QRectF >::const_iterator m_currentResult;
 
     QFuture<void> m_search;
     void search(const QString &text, bool matchCase = true);

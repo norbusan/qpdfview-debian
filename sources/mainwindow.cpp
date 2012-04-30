@@ -307,6 +307,8 @@ void MainWindow::slotSearch()
 
 void MainWindow::slotStartSearch()
 {
+    m_searchTimer->stop();
+
     if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());

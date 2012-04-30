@@ -242,8 +242,16 @@ void DocumentView::PageItem::render(bool prefetch)
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, m_scale);
+    uint byteCount = static_cast<uint>(image.byteCount());
 
-    while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
+    if(parent->m_maximumPageCacheSize < 3 * byteCount)
+    {
+        parent->m_maximumPageCacheSize = 3 * byteCount;
+
+        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
+    }
+
+    while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
     {
         QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
 
@@ -251,8 +259,8 @@ void DocumentView::PageItem::render(bool prefetch)
         parent->m_pageCache.remove(iterator.key());
     }
 
+    parent->m_pageCacheSize += byteCount;
     parent->m_pageCache.insert(key, image);
-    parent->m_pageCacheSize += image.byteCount();
 
     parent->m_pageCacheMutex.unlock();
 
@@ -342,8 +350,16 @@ void DocumentView::ThumbnailItem::render()
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, 0.1);
+    uint byteCount = static_cast<uint>(image.byteCount());
 
-    while(parent->m_pageCacheSize > parent->m_maximumPageCacheSize)
+    if(parent->m_maximumPageCacheSize < 3 * byteCount)
+    {
+        parent->m_maximumPageCacheSize = 3 * byteCount;
+
+        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
+    }
+
+    while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
     {
         QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
 
@@ -351,8 +367,8 @@ void DocumentView::ThumbnailItem::render()
         parent->m_pageCache.remove(iterator.key());
     }
 
+    parent->m_pageCacheSize += byteCount;
     parent->m_pageCache.insert(key, image);
-    parent->m_pageCacheSize += image.byteCount();
 
     parent->m_pageCacheMutex.unlock();
 
@@ -379,6 +395,7 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_autoRefreshWatcher(0),
     m_results(),
     m_resultsMutex(),
+    m_currentResult(m_results.end()),
     m_search(),
     m_print()
 {
@@ -397,6 +414,14 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_view = new QGraphicsView(m_scene, this);
     m_view->setDragMode(QGraphicsView::ScrollHandDrag);
     m_view->show();
+
+    m_highlight = new QGraphicsRectItem();
+    m_highlight->setPen(QPen(QColor(0,255,0,255)));
+    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
+
+    m_scene->addItem(m_highlight);
+
+    m_highlight->setVisible(false);
 
     // verticalScrollBar
 
@@ -452,6 +477,12 @@ DocumentView::~DocumentView()
     m_scene->clear();
     m_thumbnailsGraphicsView->scene()->clear();
 
+    m_search.cancel();
+    m_search.waitForFinished();
+
+    m_print.cancel();
+    m_print.waitForFinished();
+
     if(m_document)
     {
         delete m_document;
@@ -463,6 +494,7 @@ DocumentView::~DocumentView()
     }
 
     delete m_outlineTreeWidget;
+    delete m_metaInformationTableWidget;
     delete m_thumbnailsGraphicsView;
 }
 
@@ -667,6 +699,9 @@ bool DocumentView::open(const QString &filePath)
     m_scene->clear();
     m_thumbnailsGraphicsView->scene()->clear();
 
+    cancelSearch();
+    cancelPrint();
+
     Poppler::Document *document = Poppler::Document::load(filePath);
 
     if(document)
@@ -728,6 +763,9 @@ bool DocumentView::refresh()
 {
     m_scene->clear();
     m_thumbnailsGraphicsView->scene()->clear();
+
+    cancelSearch();
+    cancelPrint();
 
     Poppler::Document *document = Poppler::Document::load(m_filePath);
 
@@ -802,6 +840,9 @@ void DocumentView::close()
 {
     m_scene->clear();
     m_thumbnailsGraphicsView->scene()->clear();
+
+    cancelSearch();
+    cancelPrint();
 
     if(m_document)
     {
@@ -956,15 +997,13 @@ void DocumentView::startSearch(const QString &text, bool matchCase)
 
 void DocumentView::cancelSearch()
 {
-    if(m_search.isRunning())
-    {
-        m_search.cancel();
-        m_search.waitForFinished();
-    }
+    m_search.cancel();
+    m_search.waitForFinished();
 
     m_resultsMutex.lock();
 
     m_results.clear();
+    m_currentResult = m_results.end();
 
     m_resultsMutex.unlock();
 }
@@ -976,7 +1015,70 @@ void DocumentView::findPrevious()
 
 void DocumentView::findNext()
 {
-    // TODO
+    if(m_currentResult != m_results.end())
+    {
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            if(m_currentResult.key() != m_currentPage - 1)
+            {
+                m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            }
+            else
+            {
+                ++m_currentResult;
+            }
+
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = m_results.lowerBound(0);
+            }
+
+            break;
+        case TwoPages:
+        case TwoColumns:
+            if(m_currentResult.key() != m_currentPage - 1 && m_currentResult.key() != m_currentPage)
+            {
+                m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            }
+            else
+            {
+                ++m_currentResult;
+            }
+
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = m_results.lowerBound(0);
+            }
+
+            break;
+        }
+    }
+    else
+    {
+        m_currentResult = m_results.lowerBound(m_currentPage - 1);
+
+        if(m_currentResult == m_results.end())
+        {
+            m_currentResult = m_results.lowerBound(0);
+        }
+    }
+
+    if(m_currentResult != m_results.end())
+    {
+        setCurrentPage(m_currentResult.key() + 1);
+
+        prepareView();
+
+        // verticalScrollBar
+
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
+        //m_view->centerOn(m_highlight);
+
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+    }
 }
 
 void DocumentView::startPrint(QPrinter *printer, int fromPage, int toPage)
@@ -991,11 +1093,8 @@ void DocumentView::startPrint(QPrinter *printer, int fromPage, int toPage)
 
 void DocumentView::cancelPrint()
 {
-    if(m_print.isRunning())
-    {
-        m_print.cancel();
-        m_print.waitForFinished();
-    }
+    m_print.cancel();
+    m_print.waitForFinished();
 }
 
 bool DocumentView::eventFilter(QObject*, QEvent *event)
@@ -1243,6 +1342,7 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         QList<QRectF> results;
 
+#ifdef HAS_POPPLER_14
         double rectLeft = 0.0, rectTop = 0.0, rectRight = 0.0, rectBottom = 0.0;
 
         while(page->search(text, rectLeft, rectTop, rectRight, rectBottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
@@ -1255,6 +1355,14 @@ void DocumentView::search(const QString &text, bool matchCase)
 
             results.append(rect.normalized());
         }
+#else
+        QRectF rect;
+
+        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+        {
+            results.append(rect.normalized());
+        }
+#endif
 
         delete page;
 
@@ -1268,6 +1376,11 @@ void DocumentView::search(const QString &text, bool matchCase)
         }
 
         m_resultsMutex.unlock();
+
+        if(m_results.contains(index) && m_currentResult == m_results.end() && m_currentPage <= index + 1)
+        {
+            emit firstResultFound();
+        }
 
         if(m_highlightAll)
         {
@@ -1364,6 +1477,14 @@ void DocumentView::preparePages()
         m_scene->addItem(pageItem);
         m_pagesByIndex.insert(index, pageItem);
     }
+
+    // highlight
+
+    m_highlight = new QGraphicsRectItem();
+    m_highlight->setPen(QPen(QColor(0,255,0,255)));
+    m_highlight->setBrush(QBrush(QColor(0,255,0,127)));
+
+    m_scene->addItem(m_highlight);
 }
 
 void DocumentView::prepareOutline()
@@ -1792,7 +1913,7 @@ void DocumentView::prepareView(qreal top)
             pageItem->setVisible(false);
         }
 
-        if(leftPageItem)
+        if(leftPageItem != 0)
         {
             leftPageItem->setVisible(true);
 
@@ -1853,5 +1974,31 @@ void DocumentView::prepareView(qreal top)
         }
 
         break;
+    }
+
+    // highlight
+
+    if(m_currentResult != m_results.end())
+    {
+        PageItem *pageItem = m_pagesByIndex.value(m_currentResult.key(), 0);
+
+        if(pageItem != 0)
+        {
+            m_highlight->setPos(pageItem->pos());
+            m_highlight->setTransform(pageItem->m_highlightTransform);
+            m_highlight->setTransform(m_pageTransform, true);
+
+            m_highlight->setRect(m_currentResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
+
+            m_highlight->setVisible(true);
+        }
+        else
+        {
+            m_highlight->setVisible(false);
+        }
+    }
+    else
+    {
+        m_highlight->setVisible(false);
     }
 }
