@@ -627,6 +627,9 @@ void BookmarksMenu::slotActionGroupTriggered(QAction *action)
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_settings()
 {
+    m_autoRefreshCheckBox = new QCheckBox(this);
+    m_autoRefreshCheckBox->setChecked(m_settings.value("documentView/autoRefresh", false).toBool());
+
     m_antialiasingCheckBox = new QCheckBox(this);
     m_antialiasingCheckBox->setChecked(m_settings.value("documentView/antialiasing", true).toBool());
 
@@ -643,6 +646,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_layout = new QFormLayout(this);
     this->setLayout(m_layout);
 
+    m_layout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
@@ -651,6 +655,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
 
 void SettingsDialog::accept()
 {
+    m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
+
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
