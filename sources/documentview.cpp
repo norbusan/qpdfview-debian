@@ -63,27 +63,27 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     // links
 
-    QTransform transform = painter->transform();
-    painter->setTransform(m_linkTransform, true);
-
-    painter->setPen(QPen(QColor(255,0,0,127)));
-
 #ifdef PAINT_LINKS
+
+    painter->save();
+
+    painter->setTransform(m_linkTransform, true);
+    painter->setPen(QPen(QColor(255,0,0,127)));
 
     foreach(Link link, m_links)
     {
         painter->drawRect(link.area);
     }
 
-#endif
+    painter->restore();
 
-    painter->setTransform(transform);
+#endif
 
     // highlights
 
-    transform = painter->transform();
-    painter->setTransform(m_highlightTransform, true);
+    painter->save();
 
+    painter->setTransform(m_highlightTransform, true);
     painter->setPen(QPen(QColor(0,0,255)));
 
     if(!m_highlight.isNull())
@@ -100,7 +100,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
         }
     }
 
-    painter->setTransform(transform);
+    painter->restore();
 
     // rubber band
 
@@ -303,7 +303,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_pageCacheMutex.unlock();
 
-    scene()->update(boundingRect().translated(pos()));
+    update(boundingRect());
 }
 
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene),
@@ -411,7 +411,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    scene()->update(boundingRect().translated(pos()));
+    update(boundingRect());
 }
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
@@ -1049,7 +1049,70 @@ void DocumentView::cancelSearch()
 
 void DocumentView::findPrevious()
 {
-    // TODO
+    if(m_currentResult != m_results.end())
+    {
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            if(m_currentResult.key() != m_currentPage - 1)
+            {
+                m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            }
+            else
+            {
+                --m_currentResult;
+            }
+
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = --m_results.upperBound(m_numberOfPages - 1);
+            }
+
+            break;
+        case TwoPages:
+        case TwoColumns:
+            if(m_currentResult.key() != m_currentPage - 1 && m_currentResult.key() != m_currentPage)
+            {
+                m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            }
+            else
+            {
+                --m_currentResult;
+            }
+
+            if(m_currentResult == m_results.end())
+            {
+                m_currentResult = --m_results.upperBound(m_numberOfPages - 1);
+            }
+
+            break;
+        }
+    }
+    else
+    {
+        m_currentResult = --m_results.upperBound(m_currentPage - 1);
+
+        if(m_currentResult == m_results.end())
+        {
+            m_currentResult = --m_results.upperBound(m_numberOfPages - 1);
+        }
+    }
+
+    if(m_currentResult != m_results.end())
+    {
+        this->setCurrentPage(m_currentResult.key() + 1);
+
+        this->prepareView();
+
+        // verticalScrollBar
+
+        disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
+        m_view->centerOn(m_highlight);
+
+        connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+    }
 }
 
 void DocumentView::findNext()
@@ -1114,7 +1177,7 @@ void DocumentView::findNext()
 
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 
-        //m_view->centerOn(m_highlight);
+        m_view->centerOn(m_highlight);
 
         connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
     }
@@ -1366,6 +1429,8 @@ void DocumentView::search(const QString &text, bool matchCase)
         indices.append(index);
     }
 
+    bool firstResult = true;
+
     foreach(int index, indices)
     {
         if(m_search.isCanceled())
@@ -1416,9 +1481,11 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         m_resultsMutex.unlock();
 
-        if(m_results.contains(index) && m_currentResult == m_results.end() && m_currentPage <= index + 1)
+        if(firstResult && m_results.contains(index) && m_currentPage <= index + 1)
         {
             emit firstResultFound();
+
+            firstResult = false;
         }
 
         if(m_highlightAll)
