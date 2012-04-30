@@ -109,21 +109,6 @@ bool MainWindow::openInNewTab(const QString &filePath, int page, qreal top)
     }
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Escape)
-    {
-        if(m_searchToolBar->isVisible())
-        {
-            this->slotCancelSearch();
-
-            m_searchLineEdit->clear();
-
-            m_searchToolBar->hide();
-        }
-    }
-}
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QMainWindow::closeEvent(event);
@@ -322,25 +307,11 @@ void MainWindow::slotSearch()
 
 void MainWindow::slotStartSearch()
 {
-    this->slotCancelSearch();
-
     if(m_searchToolBar->isVisible() && !m_searchLineEdit->text().isEmpty())
     {
         DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
 
         documentView->startSearch(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
-    }
-}
-
-void MainWindow::slotCancelSearch()
-{
-    m_searchTimer->stop();
-
-    for(int index = 0; index < m_tabWidget->count(); index++)
-    {
-        DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
-
-        documentView->cancelSearch();
     }
 }
 
@@ -402,6 +373,17 @@ void MainWindow::slotFindNext()
             }
         }
     }
+}
+
+void MainWindow::slotCancelSearch()
+{
+    m_searchLineEdit->clear();
+    m_searchTimer->stop();
+    m_searchToolBar->hide();
+
+    DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget());
+
+    documentView->cancelSearch();
 }
 
 void MainWindow::slotSettings()
@@ -544,6 +526,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_searchAction->setEnabled(true);
         m_findPreviousAction->setEnabled(true);
         m_findNextAction->setEnabled(true);
+        m_cancelSearchAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
@@ -564,9 +547,15 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         if(m_searchToolBar->isVisible())
         {
-            this->slotCancelSearch();
-
             m_searchLineEdit->clear();
+            m_searchTimer->stop();
+
+            for(int index = 0; index < m_tabWidget->count(); index++)
+            {
+                DocumentView *documentView = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+
+                documentView->cancelSearch();
+            }
         }
 
         this->slotCurrentPageChanged(documentView->currentPage());
@@ -596,6 +585,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_searchAction->setEnabled(false);
         m_findPreviousAction->setEnabled(false);
         m_findNextAction->setEnabled(false);
+        m_cancelSearchAction->setEnabled(false);
 
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);
@@ -629,7 +619,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         if(m_searchToolBar->isVisible())
         {
             m_searchLineEdit->clear();
-
+            m_searchTimer->stop();
             m_searchToolBar->hide();
         }
 
@@ -1008,13 +998,61 @@ void MainWindow::createActions()
 
     m_findPreviousAction = new QAction(tr("Find previous"), this);
     m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
+    m_findPreviousAction->setIconVisibleInMenu(true);
     connect(m_findPreviousAction, SIGNAL(triggered()), this, SLOT(slotFindPrevious()));
+
+    if(QIcon::hasThemeIcon("go-up"))
+    {
+        m_findPreviousAction->setIcon(QIcon::fromTheme("go-up"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_findPreviousAction->setIcon(QIcon(dataInstallPath + "/go-up.svg"));
+#else
+        m_findPreviousAction->setIcon(QIcon(":/icons/go-up.svg"));
+#endif
+    }
 
     // findNext
 
     m_findNextAction = new QAction(tr("Find next"), this);
     m_findNextAction->setShortcut(QKeySequence::FindNext);
+    m_findNextAction->setIconVisibleInMenu(true);
     connect(m_findNextAction, SIGNAL(triggered()), this, SLOT(slotFindNext()));
+
+    if(QIcon::hasThemeIcon("go-down"))
+    {
+        m_findNextAction->setIcon(QIcon::fromTheme("go-down"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_findNextAction->setIcon(QIcon(dataInstallPath + "/go-down.svg"));
+#else
+        m_findNextAction->setIcon(QIcon(":/icons/go-down.svg"));
+#endif
+    }
+
+    // cancelSearch
+
+    m_cancelSearchAction = new QAction(tr("Cancel search"), this);
+    m_cancelSearchAction->setShortcut(QKeySequence(Qt::Key_Escape));
+    m_cancelSearchAction->setIconVisibleInMenu(true);
+    connect(m_cancelSearchAction, SIGNAL(triggered()), this, SLOT(slotCancelSearch()));
+
+    if(QIcon::hasThemeIcon("process-stop"))
+    {
+        m_cancelSearchAction->setIcon(QIcon::fromTheme("process-stop"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_cancelSearchAction->setIcon(QIcon(dataInstallPath + "/process-stop.svg"));
+#else
+        m_cancelSearchAction->setIcon(QIcon(":/icons/process-stop.svg"));
+#endif
+    }
 
     // settings
 
@@ -1188,59 +1226,36 @@ void MainWindow::createWidgets()
 
     // currentPage
 
-    m_currentPageWidget = new QWidget();
-    m_currentPageLabel = new QLabel(tr("&Page:"), m_currentPageWidget);
-    m_currentPageLineEdit = new QLineEdit(m_currentPageWidget);
-    m_currentPageValidator = new QIntValidator(m_currentPageWidget);
-    m_numberOfPagesLabel = new QLabel(m_currentPageWidget);
+    m_currentPageLineEdit = new QLineEdit(this);
+    m_currentPageValidator = new QIntValidator(this);
 
-    m_currentPageLabel->setBuddy(m_currentPageLineEdit);
     m_currentPageLineEdit->setValidator(m_currentPageValidator);
-
     m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
-    m_currentPageLineEdit->setMinimumWidth(60);
-    m_currentPageLineEdit->setMaximumWidth(60);
-
-    m_numberOfPagesLabel->setAlignment(Qt::AlignCenter);
-    m_numberOfPagesLabel->setMinimumWidth(60);
-    m_numberOfPagesLabel->setMaximumWidth(60);
-
-    m_currentPageWidget->setLayout(new QHBoxLayout());
-    m_currentPageWidget->layout()->addWidget(m_currentPageLabel);
-    m_currentPageWidget->layout()->setSizeConstraint(QLayout::SetFixedSize);
-    m_currentPageWidget->layout()->addWidget(m_currentPageLineEdit);
-    m_currentPageWidget->layout()->addWidget(m_numberOfPagesLabel);
+    m_currentPageLineEdit->setFixedWidth(40);
 
     connect(m_currentPageLineEdit, SIGNAL(returnPressed()), this, SLOT(slotCurrentPageLineEditReturnPressed()));
 
+    // numberOfPages
+
+    m_numberOfPagesLabel = new QLabel(this);
+
+    m_numberOfPagesLabel->setAlignment(Qt::AlignCenter);
+    m_numberOfPagesLabel->setFixedWidth(60);
+
     // pageLayout
 
-    m_pageLayoutWidget = new QWidget();
-    m_pageLayoutLabel = new QLabel(tr("Page &layout:"), m_pageLayoutWidget);
-    m_pageLayoutComboBox = new QComboBox(m_pageLayoutWidget);
-
-    m_pageLayoutWidget->setMaximumWidth(300);
-    m_pageLayoutLabel->setBuddy(m_pageLayoutComboBox);
+    m_pageLayoutComboBox = new QComboBox(this);
 
     m_pageLayoutComboBox->addItem(tr("One page"), static_cast<uint>(DocumentView::OnePage));
     m_pageLayoutComboBox->addItem(tr("Two pages"), static_cast<uint>(DocumentView::TwoPages));
     m_pageLayoutComboBox->addItem(tr("One column"), static_cast<uint>(DocumentView::OneColumn));
     m_pageLayoutComboBox->addItem(tr("Two columns"), static_cast<uint>(DocumentView::TwoColumns));
 
-    m_pageLayoutWidget->setLayout(new QHBoxLayout());
-    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutLabel);
-    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
-
     connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLayoutCurrentIndexChanged(int)));
 
     // scaling
 
-    m_scalingWidget = new QWidget();
-    m_scalingLabel = new QLabel(tr("&Scaling:"), m_scalingWidget);
-    m_scalingComboBox = new QComboBox(m_scalingWidget);
-
-    m_scalingWidget->setMaximumWidth(300);
-    m_scalingLabel->setBuddy(m_scalingComboBox);
+    m_scalingComboBox = new QComboBox(this);
 
     m_scalingComboBox->addItem(tr("Fit to page"), static_cast<uint>(DocumentView::FitToPage));
     m_scalingComboBox->addItem(tr("Fit to page width"), static_cast<uint>(DocumentView::FitToPageWidth));
@@ -1252,63 +1267,40 @@ void MainWindow::createWidgets()
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), static_cast<uint>(DocumentView::ScaleTo200));
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), static_cast<uint>(DocumentView::ScaleTo400));
 
-    m_scalingWidget->setLayout(new QHBoxLayout());
-    m_scalingWidget->layout()->addWidget(m_scalingLabel);
-    m_scalingWidget->layout()->addWidget(m_scalingComboBox);
-
     connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotScalingCurrentIndexChanged(int)));
 
     // rotation
 
-    m_rotationWidget = new QWidget();
-    m_rotationLabel = new QLabel(tr("&Rotation:"), m_rotationWidget);
-    m_rotationComboBox = new QComboBox(m_rotationWidget);
-
-    m_rotationWidget->setMaximumWidth(300);
-    m_rotationLabel->setBuddy(m_rotationComboBox);
+    m_rotationComboBox = new QComboBox(this);
 
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), static_cast<uint>(DocumentView::RotateBy0));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), static_cast<uint>(DocumentView::RotateBy90));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), static_cast<uint>(DocumentView::RotateBy180));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), static_cast<uint>(DocumentView::RotateBy270));
 
-    m_rotationWidget->setLayout(new QHBoxLayout());
-    m_rotationWidget->layout()->addWidget(m_rotationLabel);
-    m_rotationWidget->layout()->addWidget(m_rotationComboBox);
-
     connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRotationCurrentIndexChanged(int)));
 
     // search
 
     m_searchWidget = new QWidget();
-    m_searchLabel = new QLabel(tr("Se&arch:"), m_searchWidget);
     m_searchLineEdit = new QLineEdit(m_searchWidget);
     m_searchTimer = new QTimer(this);
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), m_searchWidget);
-    m_highlightAllCheckBox = new QCheckBox(tr("H&ighlight all"), m_searchWidget);
-    m_findPreviousButton = new QPushButton(tr("Find &previous"), m_searchWidget);
-    m_findNextButton = new QPushButton(tr("Find &next"), m_searchWidget);
-
-    m_searchLabel->setBuddy(m_searchLineEdit);
+    m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"), m_searchWidget);
     m_searchTimer->setInterval(2000);
     m_searchTimer->setSingleShot(true);
 
     m_searchWidget->setLayout(new QHBoxLayout());
-    m_searchWidget->layout()->addWidget(m_searchLabel);
+    m_searchWidget->layout()->setContentsMargins(5, 0, 5, 0);
     m_searchWidget->layout()->addWidget(m_searchLineEdit);
     m_searchWidget->layout()->addWidget(m_matchCaseCheckBox);
     m_searchWidget->layout()->addWidget(m_highlightAllCheckBox);
-    m_searchWidget->layout()->addWidget(m_findPreviousButton);
-    m_searchWidget->layout()->addWidget(m_findNextButton);
 
     connect(m_searchLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
     connect(m_searchLineEdit, SIGNAL(returnPressed()), this, SLOT(slotStartSearch()));
     connect(m_searchTimer, SIGNAL(timeout()), this, SLOT(slotStartSearch()));
 
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), this, SLOT(slotHighlightAllCheckBoxClicked(bool)));
-
-    connect(m_findPreviousButton, SIGNAL(clicked()), this, SLOT(slotFindPrevious()));
-    connect(m_findNextButton, SIGNAL(clicked()), this, SLOT(slotFindNext()));
 }
 
 void MainWindow::createToolBars()
@@ -1333,7 +1325,8 @@ void MainWindow::createToolBars()
 
     m_editToolBar->addAction(m_firstPageAction);
     m_editToolBar->addAction(m_previousPageAction);
-    m_editToolBar->addWidget(m_currentPageWidget);
+    m_editToolBar->addWidget(m_currentPageLineEdit);
+    m_editToolBar->addWidget(m_numberOfPagesLabel);
     m_editToolBar->addAction(m_nextPageAction);
     m_editToolBar->addAction(m_lastPageAction);
 
@@ -1346,9 +1339,9 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    m_viewToolBar->addWidget(m_pageLayoutWidget);
-    m_viewToolBar->addWidget(m_scalingWidget);
-    m_viewToolBar->addWidget(m_rotationWidget);
+    m_viewToolBar->addWidget(m_pageLayoutComboBox);
+    m_viewToolBar->addWidget(m_scalingComboBox);
+    m_viewToolBar->addWidget(m_rotationComboBox);
 
     this->addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 
@@ -1361,6 +1354,9 @@ void MainWindow::createToolBars()
     m_searchToolBar->setMovable(false);
 
     m_searchToolBar->addWidget(m_searchWidget);
+    m_searchToolBar->addAction(m_findPreviousAction);
+    m_searchToolBar->addAction(m_findNextAction);
+    m_searchToolBar->addAction(m_cancelSearchAction);
 
     this->addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
 }
@@ -1423,6 +1419,7 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_searchAction);
     m_editMenu->addAction(m_findPreviousAction);
     m_editMenu->addAction(m_findNextAction);
+    m_editMenu->addAction(m_cancelSearchAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_settingsAction);
 

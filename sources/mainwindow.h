@@ -61,9 +61,7 @@ public slots:
     bool openInNewTab(const QString &filePath, int page = 1, qreal top = 0.0);
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
-
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 
@@ -152,6 +150,7 @@ private:
     QAction *m_searchAction;
     QAction *m_findPreviousAction;
     QAction *m_findNextAction;
+    QAction *m_cancelSearchAction;
 
     QAction *m_settingsAction;
 
@@ -197,32 +196,19 @@ private:
 
     QTabWidget *m_tabWidget;
 
-    QWidget *m_currentPageWidget;
-    QLabel *m_currentPageLabel;
     QLineEdit *m_currentPageLineEdit;
     QIntValidator *m_currentPageValidator;
     QLabel *m_numberOfPagesLabel;
 
-    QWidget *m_pageLayoutWidget;
-    QLabel *m_pageLayoutLabel;
     QComboBox *m_pageLayoutComboBox;
-
-    QWidget *m_scalingWidget;
-    QLabel *m_scalingLabel;
     QComboBox *m_scalingComboBox;
-
-    QWidget *m_rotationWidget;
-    QLabel *m_rotationLabel;
     QComboBox *m_rotationComboBox;
 
     QWidget *m_searchWidget;
-    QLabel *m_searchLabel;
     QLineEdit *m_searchLineEdit;
     QTimer *m_searchTimer;
     QCheckBox *m_matchCaseCheckBox;
     QCheckBox *m_highlightAllCheckBox;
-    QPushButton *m_findPreviousButton;
-    QPushButton *m_findNextButton;
 
     void createWidgets();
 
