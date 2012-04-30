@@ -200,8 +200,13 @@ private:
     QIntValidator *m_currentPageValidator;
     QLabel *m_numberOfPagesLabel;
 
+    QWidget *m_pageLayoutWidget;
     QComboBox *m_pageLayoutComboBox;
+
+    QWidget *m_scalingWidget;
     QComboBox *m_scalingComboBox;
+
+    QWidget *m_rotationWidget;
     QComboBox *m_rotationComboBox;
 
     QWidget *m_searchWidget;

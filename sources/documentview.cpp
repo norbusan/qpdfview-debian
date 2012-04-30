@@ -441,6 +441,10 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
     m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
+
+    // search
+
+    connect(this, SIGNAL(firstResultFound()), this, SLOT(findNext()));
 }
 
 DocumentView::~DocumentView()
@@ -1484,10 +1488,9 @@ void DocumentView::prepareScene()
 {
     // calculate scale
 
-    qreal scale = 4.0;
-
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
+        qreal scale = 4.0;
         qreal width = 0.0, height = 0.0;
 
         switch(m_pageLayout)
@@ -1514,10 +1517,23 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
-                if(m_scaling == FitToPage)
+                if(m_pageLayout == OnePage)
                 {
-                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    pageItem->prepareGeometryChange();
+
+                    pageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    if(m_scaling == FitToPage)
+                    {
+                        pageItem->m_scale = qMin(pageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
                 }
             }
 
@@ -1597,6 +1613,47 @@ void DocumentView::prepareScene()
 
             break;
         }
+
+        if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
+        {
+            for(int index = 0; index < m_numberOfPages; index++)
+            {
+                PageItem* pageItem = m_pagesByIndex.value(index);
+
+                pageItem->prepareGeometryChange();
+
+                pageItem->m_scale = scale;
+            }
+        }
+    }
+    else
+    {
+        for(int index = 0; index < m_numberOfPages; index++)
+        {
+            PageItem* pageItem = m_pagesByIndex.value(index);
+
+            pageItem->prepareGeometryChange();
+
+            switch(m_scaling)
+            {
+            case FitToPage: break;
+            case FitToPageWidth: break;
+            case ScaleTo50:
+                pageItem->m_scale = 0.5; break;
+            case ScaleTo75:
+                pageItem->m_scale = 0.75; break;
+            case ScaleTo100:
+                pageItem->m_scale = 1.0; break;
+            case ScaleTo125:
+                pageItem->m_scale = 1.25; break;
+            case ScaleTo150:
+                pageItem->m_scale = 1.5; break;
+            case ScaleTo200:
+                pageItem->m_scale = 2.0; break;
+            case ScaleTo400:
+                pageItem->m_scale = 4.0; break;
+            }
+        }
     }
 
     // calculate transformations
@@ -1606,28 +1663,6 @@ void DocumentView::prepareScene()
         PageItem* pageItem = m_pagesByIndex.value(index);
 
         pageItem->prepareGeometryChange();
-
-        switch(m_scaling)
-        {
-        case FitToPage:
-            pageItem->m_scale = scale; break;
-        case FitToPageWidth:
-            pageItem->m_scale = scale; break;
-        case ScaleTo50:
-            pageItem->m_scale = 0.5; break;
-        case ScaleTo75:
-            pageItem->m_scale = 0.75; break;
-        case ScaleTo100:
-            pageItem->m_scale = 1.0; break;
-        case ScaleTo125:
-            pageItem->m_scale = 1.25; break;
-        case ScaleTo150:
-            pageItem->m_scale = 1.5; break;
-        case ScaleTo200:
-            pageItem->m_scale = 2.0; break;
-        case ScaleTo400:
-            pageItem->m_scale = 4.0; break;
-        }
 
         switch(m_rotation)
         {

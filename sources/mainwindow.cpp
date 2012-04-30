@@ -1244,18 +1244,24 @@ void MainWindow::createWidgets()
 
     // pageLayout
 
-    m_pageLayoutComboBox = new QComboBox(this);
+    m_pageLayoutWidget = new QWidget(this);
+    m_pageLayoutComboBox = new QComboBox(m_pageLayoutWidget);
 
     m_pageLayoutComboBox->addItem(tr("One page"), static_cast<uint>(DocumentView::OnePage));
     m_pageLayoutComboBox->addItem(tr("Two pages"), static_cast<uint>(DocumentView::TwoPages));
     m_pageLayoutComboBox->addItem(tr("One column"), static_cast<uint>(DocumentView::OneColumn));
     m_pageLayoutComboBox->addItem(tr("Two columns"), static_cast<uint>(DocumentView::TwoColumns));
 
+    m_pageLayoutWidget->setLayout(new QHBoxLayout());
+    m_pageLayoutWidget->layout()->setContentsMargins(5, 0, 5, 0);
+    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
+
     connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLayoutCurrentIndexChanged(int)));
 
     // scaling
 
-    m_scalingComboBox = new QComboBox(this);
+    m_scalingWidget = new QWidget(this);
+    m_scalingComboBox = new QComboBox(m_scalingWidget);
 
     m_scalingComboBox->addItem(tr("Fit to page"), static_cast<uint>(DocumentView::FitToPage));
     m_scalingComboBox->addItem(tr("Fit to page width"), static_cast<uint>(DocumentView::FitToPageWidth));
@@ -1267,22 +1273,31 @@ void MainWindow::createWidgets()
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), static_cast<uint>(DocumentView::ScaleTo200));
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), static_cast<uint>(DocumentView::ScaleTo400));
 
+    m_scalingWidget->setLayout(new QHBoxLayout());
+    m_scalingWidget->layout()->setContentsMargins(5, 0, 5, 0);
+    m_scalingWidget->layout()->addWidget(m_scalingComboBox);
+
     connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotScalingCurrentIndexChanged(int)));
 
     // rotation
 
-    m_rotationComboBox = new QComboBox(this);
+    m_rotationWidget = new QWidget(this);
+    m_rotationComboBox = new QComboBox(m_rotationWidget);
 
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), static_cast<uint>(DocumentView::RotateBy0));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), static_cast<uint>(DocumentView::RotateBy90));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), static_cast<uint>(DocumentView::RotateBy180));
     m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), static_cast<uint>(DocumentView::RotateBy270));
 
+    m_rotationWidget->setLayout(new QHBoxLayout());
+    m_rotationWidget->layout()->setContentsMargins(5, 0, 5, 0);
+    m_rotationWidget->layout()->addWidget(m_rotationComboBox);
+
     connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRotationCurrentIndexChanged(int)));
 
     // search
 
-    m_searchWidget = new QWidget();
+    m_searchWidget = new QWidget(this);
     m_searchLineEdit = new QLineEdit(m_searchWidget);
     m_searchTimer = new QTimer(this);
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), m_searchWidget);
@@ -1339,9 +1354,9 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    m_viewToolBar->addWidget(m_pageLayoutComboBox);
-    m_viewToolBar->addWidget(m_scalingComboBox);
-    m_viewToolBar->addWidget(m_rotationComboBox);
+    m_viewToolBar->addWidget(m_pageLayoutWidget);
+    m_viewToolBar->addWidget(m_scalingWidget);
+    m_viewToolBar->addWidget(m_rotationWidget);
 
     this->addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 

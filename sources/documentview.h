@@ -215,6 +215,8 @@ signals:
     void searchCanceled();
     void searchFinished();
 
+    void firstResultFound();
+
     void printProgressed(int value);
     void printCanceled();
     void printFinished();
