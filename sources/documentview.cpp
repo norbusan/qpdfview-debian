@@ -68,10 +68,14 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     painter->setPen(QPen(QColor(255,0,0,127)));
 
+#ifdef PAINT_LINKS
+
     foreach(Link link, m_links)
     {
         painter->drawRect(link.area);
     }
+
+#endif
 
     painter->setTransform(transform);
 
@@ -233,11 +237,46 @@ void DocumentView::PageItem::render(bool prefetch)
         return;
     }
 
+#ifdef RENDER_FROM_DISK
+
+    Poppler::Document *document = Poppler::Document::load(parent->m_filePath);
+
+    if(!document)
+    {
+        qFatal("!document");
+        return;
+    }
+
+    Poppler::Page *page = document->page(m_index);
+
+    if(!page)
+    {
+        qFatal("!page");
+        return;
+    }
+
+    parent->m_documentMutex.lock();
+
+    document->setRenderHint(Poppler::Document::Antialiasing, parent->m_document->renderHints().testFlag(Poppler::Document::Antialiasing));
+    document->setRenderHint(Poppler::Document::TextAntialiasing, parent->m_document->renderHints().testFlag(Poppler::Document::TextAntialiasing));
+    document->setRenderHint(Poppler::Document::TextHinting, parent->m_document->renderHints().testFlag(Poppler::Document::TextHinting));
+
+    parent->m_documentMutex.unlock();
+
+    QImage image = page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
+
+    delete page;
+    delete document;
+
+#else
+
     parent->m_documentMutex.lock();
 
     QImage image = m_page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
 
     parent->m_documentMutex.unlock();
+
+#endif
 
     parent->m_pageCacheMutex.lock();
 
