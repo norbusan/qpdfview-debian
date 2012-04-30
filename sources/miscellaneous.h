@@ -224,10 +224,13 @@ private:
     QDialogButtonBox *m_buttonBox;
 
     QCheckBox *m_autoRefreshCheckBox;
+    QCheckBox *m_externalLinksCheckBox;
 
     QCheckBox *m_antialiasingCheckBox;
     QCheckBox *m_textAntialiasingCheckBox;
     QCheckBox *m_textHintingCheckBox;
+
+    QComboBox *m_maximumPageCacheSizeComboBox;
 
     // settings
 

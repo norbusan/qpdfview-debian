@@ -27,7 +27,7 @@ PresentationView::PresentationView() : QWidget(),
     m_document(0),
     m_pageCache(),
     m_pageCacheSize(0u),
-    m_maximumPageCacheSize(67108864u),
+    m_maximumPageCacheSize(134217728u),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
@@ -107,6 +107,7 @@ bool PresentationView::open(const QString &filePath)
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
 
     prepareView();
 
@@ -638,6 +639,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_autoRefreshCheckBox = new QCheckBox(this);
     m_autoRefreshCheckBox->setChecked(m_settings.value("documentView/autoRefresh", false).toBool());
 
+    m_externalLinksCheckBox = new QCheckBox(this);
+    m_externalLinksCheckBox->setChecked(m_settings.value("documentView/externalLinks", false).toBool());
+
     m_antialiasingCheckBox = new QCheckBox(this);
     m_antialiasingCheckBox->setChecked(m_settings.value("documentView/antialiasing", true).toBool());
 
@@ -647,6 +651,25 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     m_textHintingCheckBox = new QCheckBox(this);
     m_textHintingCheckBox->setChecked(m_settings.value("documentView/textHinting", false).toBool());
 
+    m_maximumPageCacheSizeComboBox = new QComboBox(this);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8388608u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16777216u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(32), 33554432u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(64), 67108864u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(128), 134217728u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(256), 268435456u);
+    m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(512), 536870912u);
+
+    if(m_maximumPageCacheSizeComboBox->findData(m_settings.value("documentView/maximumPageCacheSize")) != -1)
+    {
+        m_maximumPageCacheSizeComboBox->setCurrentIndex(m_maximumPageCacheSizeComboBox->findData(m_settings.value("documentView/maximumPageCacheSize")));
+    }
+    else
+    {
+        m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(m_settings.value("documentView/maximumPageCacheSize").toUInt() / 1024 / 1024), m_settings.value("documentView/maximumPageCacheSize"));
+        m_maximumPageCacheSizeComboBox->setCurrentIndex(m_maximumPageCacheSizeComboBox->count() - 1);
+    }
+
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -655,18 +678,27 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     this->setLayout(m_layout);
 
     m_layout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
+    m_layout->addRow(tr("External &links:"), m_externalLinksCheckBox);
+
     m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
+
+    m_layout->addRow(tr("Maximum page &cache size:"), m_maximumPageCacheSizeComboBox);
+
     m_layout->addRow(m_buttonBox);
 }
 
 void SettingsDialog::accept()
 {
     m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
+    m_settings.setValue("documentView/externalLinks", m_externalLinksCheckBox->isChecked());
+
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
+
+    m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()));
 
     QDialog::accept();
 }

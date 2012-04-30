@@ -155,7 +155,14 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             else if(!link.url.isEmpty())
             {
-                QDesktopServices::openUrl(QUrl(link.url));
+                if(parent->m_settings.value("documentView/externalLinks", false).toBool())
+                {
+                    QDesktopServices::openUrl(QUrl(link.url));
+                }
+                else
+                {
+                    QMessageBox::information(parent, tr("Information"), tr("External links are disabled in the settings."));
+                }
             }
 
             event->accept();
@@ -789,6 +796,7 @@ bool DocumentView::open(const QString &filePath)
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
 
     prepareScene();
     prepareView();
@@ -848,6 +856,7 @@ bool DocumentView::refresh()
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
 
     prepareScene();
     prepareView();
@@ -913,6 +922,7 @@ void DocumentView::close()
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 134217728u).toUInt();
 
     prepareScene();
     prepareView();
@@ -1769,72 +1779,102 @@ void DocumentView::prepareScene()
         case TwoColumns:
             for(int index = 0; index < (m_numberOfPages % 2 == 0 ? m_numberOfPages : m_numberOfPages - 1); index += 2)
             {
-                PageItem *pageItem = m_pagesByIndex.value(index);
+                PageItem *leftPageItem = m_pagesByIndex.value(index);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = physicalDpiX() / 72.0 * pageItem->m_size.width();
-                    height = physicalDpiY() / 72.0 * pageItem->m_size.height();
+                    width = physicalDpiX() / 72.0 * leftPageItem->m_size.width();
+                    height = physicalDpiY() / 72.0 * leftPageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = physicalDpiX() / 72.0 * pageItem->m_size.height();
-                    height = physicalDpiY() / 72.0 * pageItem->m_size.width();
+                    width = physicalDpiX() / 72.0 * leftPageItem->m_size.height();
+                    height = physicalDpiY() / 72.0 * leftPageItem->m_size.width();
 
                     break;
                 }
 
-                pageItem = m_pagesByIndex.value(index + 1);
+                PageItem *rightPageItem = m_pagesByIndex.value(index + 1);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width += physicalDpiX() / 72.0 * pageItem->m_size.width();
-                    height = qMax(height, physicalDpiY() / 72.0 * pageItem->m_size.height());
+                    width += physicalDpiX() / 72.0 * rightPageItem->m_size.width();
+                    height = qMax(height, physicalDpiY() / 72.0 * rightPageItem->m_size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width += physicalDpiX() / 72.0 * pageItem->m_size.height();
-                    height = qMax(height, physicalDpiY() / 72.0 * pageItem->m_size.width());
+                    width += physicalDpiX() / 72.0 * rightPageItem->m_size.height();
+                    height = qMax(height, physicalDpiY() / 72.0 * rightPageItem->m_size.width());
 
                     break;
                 }
 
-                scale = qMin(scale, 0.98 * m_view->width() / (width + 30.0));
-                if(m_scaling == FitToPage)
+                if(m_pageLayout == TwoPages)
                 {
-                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    leftPageItem->prepareGeometryChange();
+                    rightPageItem->prepareGeometryChange();
+
+                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    rightPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    if(m_scaling == FitToPage)
+                    {
+                        leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                        rightPageItem->m_scale = qMin(rightPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
                 }
             }
 
             if(m_numberOfPages % 2 != 0)
             {
-                PageItem *pageItem = m_pagesByIndex.value(m_numberOfPages - 1);
+                PageItem *leftPageItem = m_pagesByIndex.value(m_numberOfPages - 1);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    width = physicalDpiX() / 72.0 * pageItem->m_size.width();
-                    height = physicalDpiY() / 72.0 * pageItem->m_size.height();
+                    width = physicalDpiX() / 72.0 * leftPageItem->m_size.width();
+                    height = physicalDpiY() / 72.0 * leftPageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    width = physicalDpiX() / 72.0 * pageItem->m_size.height();
-                    height = physicalDpiY() / 72.0 * pageItem->m_size.width();
+                    width = physicalDpiX() / 72.0 * leftPageItem->m_size.height();
+                    height = physicalDpiY() / 72.0 * leftPageItem->m_size.width();
 
                     break;
                 }
-                scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
-                if(m_scaling == FitToPage)
+
+                if(m_pageLayout == TwoPages)
                 {
-                    scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    leftPageItem->prepareGeometryChange();
+
+                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    if(m_scaling == FitToPage)
+                    {
+                        leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
+                }
+                else
+                {
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                    }
                 }
             }
 
