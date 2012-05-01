@@ -691,7 +691,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
 
     m_layout->addRow(tr("Uniform &fit:"), m_uniformFitCheckBox);
 
-    m_layout->addRow(tr("Maximum page &cache size:"), m_maximumPageCacheSizeComboBox);
+    m_layout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
 
     m_layout->addRow(m_buttonBox);
 }

@@ -236,7 +236,7 @@ void DocumentView::PageItem::render(bool prefetch)
 {
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
-    QRectF rect = boundingRect().translated(pos());
+    QRectF rect = parent->m_pageTransform.mapRect(boundingRect()).translated(pos());
     QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->rect()).boundingRect();
 
     if(!rect.intersects(visibleRect) && !prefetch)
@@ -262,13 +262,11 @@ void DocumentView::PageItem::render(bool prefetch)
         return;
     }
 
-    parent->m_documentMutex.lock();
+    Poppler::Document::RenderHints renderHints = parent->m_document->renderHints();
 
-    document->setRenderHint(Poppler::Document::Antialiasing, parent->m_document->renderHints().testFlag(Poppler::Document::Antialiasing));
-    document->setRenderHint(Poppler::Document::TextAntialiasing, parent->m_document->renderHints().testFlag(Poppler::Document::TextAntialiasing));
-    document->setRenderHint(Poppler::Document::TextHinting, parent->m_document->renderHints().testFlag(Poppler::Document::TextHinting));
-
-    parent->m_documentMutex.unlock();
+    document->setRenderHint(Poppler::Document::Antialiasing, renderHints.testFlag(Poppler::Document::Antialiasing));
+    document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
+    document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
     QImage image = page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
 
@@ -310,7 +308,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_pageCacheMutex.unlock();
 
-    update(boundingRect());
+    emit parent->pageItemChanged(this);
 }
 
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene),
@@ -418,7 +416,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.unlock();
 
-    update(boundingRect());
+    emit parent->thumbnailItemChanged(this);
 }
 
 DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
@@ -468,6 +466,9 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     m_scene->addItem(m_highlight);
 
     m_highlight->setVisible(false);
+
+    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
 
     // verticalScrollBar
 
@@ -1367,6 +1368,22 @@ void DocumentView::wheelEvent(QWheelEvent *event)
     }
 }
 
+void DocumentView::slotUpdatePageItem(PageItem *pageItem)
+{
+    if(pageItem != 0)
+    {
+        pageItem->update(pageItem->boundingRect());
+    }
+}
+
+void DocumentView::slotUpdateThumbnailItem(ThumbnailItem *thumbnailItem)
+{
+    if(thumbnailItem != 0)
+    {
+        thumbnailItem->update(thumbnailItem->boundingRect());
+    }
+}
+
 void DocumentView::slotVerticalScrollBarValueChanged(int value)
 {
     if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
@@ -1491,7 +1508,7 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         m_resultsMutex.unlock();
 
-        if(firstResult && m_results.contains(index) && m_currentPage <= index + 1)
+        if(m_results.contains(index) && firstResult)
         {
             emit firstResultFound();
 
@@ -1500,9 +1517,7 @@ void DocumentView::search(const QString &text, bool matchCase)
 
         if(m_highlightAll)
         {
-            PageItem *pageItem = m_pagesByIndex.value(index);
-
-            pageItem->update(pageItem->boundingRect());
+            emit pageItemChanged(m_pagesByIndex.value(index, 0));
         }
 
         emit searchProgressed((100 * (indices.indexOf(index)+1)) / indices.count());
@@ -1727,8 +1742,9 @@ void DocumentView::prepareScene()
 
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
-        qreal scale = 4.0;
-        qreal width = 0.0, height = 0.0;
+        qreal width = 0.0, height = 0.0, scale = 4.0;
+
+        bool uniformFit = m_settings.value("documentView/uniformFit", false).toBool();
 
         switch(m_pageLayout)
         {
@@ -1754,7 +1770,7 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_settings.value("documentView/uniformFit", false).toBool())
+                if(uniformFit)
                 {
                     scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
                     if(m_scaling == FitToPage)
@@ -1815,9 +1831,9 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_settings.value("documentView/uniformFit", false).toBool())
+                if(uniformFit)
                 {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    scale = qMin(scale, 0.98 * m_view->width() / (width + 30.0));
                     if(m_scaling == FitToPage)
                     {
                         scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
@@ -1828,8 +1844,8 @@ void DocumentView::prepareScene()
                     leftPageItem->prepareGeometryChange();
                     rightPageItem->prepareGeometryChange();
 
-                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
-                    rightPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 30.0);
+                    rightPageItem->m_scale = 0.98 * m_view->width() / (width + 30.0);
                     if(m_scaling == FitToPage)
                     {
                         leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
@@ -1858,7 +1874,7 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(m_settings.value("documentView/uniformFit", false).toBool())
+                if(uniformFit)
                 {
                     scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
                     if(m_scaling == FitToPage)
@@ -1881,7 +1897,7 @@ void DocumentView::prepareScene()
             break;
         }
 
-        if(m_settings.value("documentView/uniformFit", false).toBool())
+        if(uniformFit)
         {
             for(int index = 0; index < m_numberOfPages; index++)
             {

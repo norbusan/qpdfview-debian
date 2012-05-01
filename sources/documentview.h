@@ -201,6 +201,9 @@ public slots:
     void cancelPrint();
 
 signals:
+    void pageItemChanged(PageItem *pageItem);
+    void thumbnailItemChanged(ThumbnailItem *thumbnailItem);
+
     void filePathChanged(const QString &filePath);
     void numberOfPagesChanged(int numberOfPages);
 
@@ -229,6 +232,9 @@ protected:
     void wheelEvent(QWheelEvent *event);
 
 protected slots:
+    void slotUpdatePageItem(PageItem *pageItem);
+    void slotUpdateThumbnailItem(ThumbnailItem *thumbnailItem);
+
     void slotVerticalScrollBarValueChanged(int value);
 
     void slotPrefetchTimerTimeout();
