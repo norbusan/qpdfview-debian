@@ -385,11 +385,44 @@ void DocumentView::ThumbnailItem::render()
         return;
     }
 
+#ifdef RENDER_FROM_DISK
+
+    Poppler::Document *document = Poppler::Document::load(parent->m_filePath);
+
+    if(!document)
+    {
+        qFatal("!document");
+        return;
+    }
+
+    Poppler::Page *page = document->page(m_index);
+
+    if(!page)
+    {
+        qFatal("!page");
+        return;
+    }
+
+    Poppler::Document::RenderHints renderHints = parent->m_document->renderHints();
+
+    document->setRenderHint(Poppler::Document::Antialiasing, renderHints.testFlag(Poppler::Document::Antialiasing));
+    document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
+    document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
+
+    QImage image = page->renderToImage(0.1 * m_resolutionX, 0.1 * m_resolutionY);
+
+    delete page;
+    delete document;
+
+#else
+
     parent->m_documentMutex.lock();
 
     QImage image = m_page->renderToImage(0.1 * m_resolutionX, 0.1 * m_resolutionY);
 
     parent->m_documentMutex.unlock();
+
+#endif
 
     parent->m_pageCacheMutex.lock();
 
