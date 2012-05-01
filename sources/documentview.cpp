@@ -593,6 +593,8 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
 
         if(pageItem != 0)
         {
+            QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect()).translated(pageItem->pos());
+
             switch(m_pageLayout)
             {
             case OnePage:
@@ -605,7 +607,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
 
                     emit currentPageChanged(m_currentPage);
                 }
-                else if(((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                else if(qFuzzyCompare(1.0 + ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - rect.top()) / rect.height()), 1.0 + top))
                 {
                     prepareView(top);
                 }
@@ -621,7 +623,7 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
 
                     emit currentPageChanged(m_currentPage);
                 }
-                else if(((static_cast<qreal>(m_view->verticalScrollBar()->value()) - pageItem->y()) / pageItem->boundingRect().height()) != top)
+                else if(qFuzzyCompare(1.0 + ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - rect.top()) / rect.height()), 1.0 + top))
                 {
                     prepareView(top);
                 }
@@ -1056,6 +1058,14 @@ void DocumentView::cancelSearch()
     m_currentResult = m_results.end();
 
     m_resultsMutex.unlock();
+
+    if(m_highlightAll)
+    {
+        foreach(PageItem *pageItem, m_pagesByIndex.values())
+        {
+            pageItem->update(pageItem->boundingRect());
+        }
+    }
 }
 
 void DocumentView::findPrevious()
@@ -1112,11 +1122,29 @@ void DocumentView::findPrevious()
 
     if(m_currentResult != m_results.end())
     {
-        this->setCurrentPage(m_currentResult.key() + 1);
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            if(m_currentPage != m_currentResult.key() + 1)
+            {
+                m_currentPage = m_currentResult.key() + 1;
 
-        this->prepareView();
+                emit currentPageChanged(m_currentPage);
+            }
 
-        // verticalScrollBar
+            break;
+        case TwoPages:
+        case TwoColumns:
+            if(m_currentPage != (m_currentResult.key() % 2 == 0 ? m_currentResult.key() + 1 : m_currentResult.key()))
+            {
+                m_currentPage = m_currentResult.key() % 2 == 0 ? m_currentResult.key() + 1 : m_currentResult.key();
+
+                emit currentPageChanged(m_currentPage);
+            }
+        }
+
+        prepareView();
 
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 
@@ -1180,11 +1208,29 @@ void DocumentView::findNext()
 
     if(m_currentResult != m_results.end())
     {
-        setCurrentPage(m_currentResult.key() + 1);
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            if(m_currentPage != m_currentResult.key() + 1)
+            {
+                m_currentPage = m_currentResult.key() + 1;
+
+                emit currentPageChanged(m_currentPage);
+            }
+
+            break;
+        case TwoPages:
+        case TwoColumns:
+            if(m_currentPage != (m_currentResult.key() % 2 == 0 ? m_currentResult.key() + 1 : m_currentResult.key()))
+            {
+                m_currentPage = m_currentResult.key() % 2 == 0 ? m_currentResult.key() + 1 : m_currentResult.key();
+
+                emit currentPageChanged(m_currentPage);
+            }
+        }
 
         prepareView();
-
-        // verticalScrollBar
 
         disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 
@@ -1251,7 +1297,7 @@ void DocumentView::wheelEvent(QWheelEvent *event)
 {
     if(event->modifiers() == Qt::NoModifier)
     {
-        int lastPage;
+        int lastPage = -1;
 
         switch(m_pageLayout)
         {

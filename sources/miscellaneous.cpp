@@ -186,7 +186,7 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     if(m_pageCache.contains(key))
     {
-        painter.drawImage(m_boundingRect.topLeft(), m_pageCache.value(key));
+        painter.drawImage(m_boundingRect, m_pageCache.value(key));
     }
     else
     {
