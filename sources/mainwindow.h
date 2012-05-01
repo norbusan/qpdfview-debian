@@ -61,7 +61,7 @@ public slots:
     bool openInNewTab(const QString &filePath, int page = 1, qreal top = 0.0);
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent*);
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 

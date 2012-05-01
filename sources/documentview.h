@@ -226,8 +226,8 @@ signals:
 
 protected:
     bool eventFilter(QObject*, QEvent *event);
+    void showEvent(QShowEvent *event);
     void resizeEvent(QResizeEvent* event);
-
     void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
 

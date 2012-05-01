@@ -111,11 +111,7 @@ bool MainWindow::openInNewTab(const QString &filePath, int page, qreal top)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    QMainWindow::closeEvent(event);
-
     this->slotCloseAllTabs();
-
-    m_searchToolBar->hide();
 
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
 
@@ -476,10 +472,16 @@ void MainWindow::slotCloseTab()
 
 void MainWindow::slotCloseAllTabs()
 {
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
+
     while(m_tabWidget->count() > 0)
     {
         delete m_tabWidget->widget(0);
     }
+
+    this->slotTabWidgetCurrentChanged(-1);
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
 }
 
 void MainWindow::slotCloseAllTabsButCurrentTab()

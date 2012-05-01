@@ -29,7 +29,7 @@ DocumentView::PageItem::~PageItem()
 
 QRectF DocumentView::PageItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, qCeil(m_scale * m_resolutionX / 72.0 * m_size.width()), qCeil(m_scale * m_resolutionY / 72.0 * m_size.height()));
+    return QRectF(0.0, 0.0, m_scale * m_resolutionX / 72.0 * m_size.width(), m_scale * m_resolutionY / 72.0 * m_size.height());
 }
 
 void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -46,7 +46,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     if(parent->m_pageCache.contains(key))
     {
-        painter->drawImage(0.0, 0.0, parent->m_pageCache.value(key));
+        painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
     }
     else
     {
@@ -237,7 +237,7 @@ void DocumentView::PageItem::render(bool prefetch)
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = parent->m_pageTransform.mapRect(boundingRect()).translated(pos());
-    QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->rect()).boundingRect();
+    QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->viewport()->rect()).boundingRect();
 
     if(!rect.intersects(visibleRect) && !prefetch)
     {
@@ -333,7 +333,7 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, qCeil(0.1 * m_resolutionX / 72.0 * m_size.width()), qCeil(0.1 * m_resolutionY / 72.0 * m_size.height()));
+    return QRectF(0.0, 0.0, 0.1 * m_resolutionX / 72.0 * m_size.width(), 0.1 * m_resolutionY / 72.0 * m_size.height());
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -350,7 +350,7 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
 
     if(parent->m_pageCache.contains(key))
     {
-        painter->drawImage(0.0, 0.0, parent->m_pageCache.value(key));
+        painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
     }
     else
     {
@@ -378,7 +378,7 @@ void DocumentView::ThumbnailItem::render()
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = boundingRect().translated(pos());
-    QRectF visibleRect = parent->m_thumbnailsGraphicsView->mapToScene(parent->m_thumbnailsGraphicsView->rect()).boundingRect();
+    QRectF visibleRect = parent->m_thumbnailsGraphicsView->mapToScene(parent->m_thumbnailsGraphicsView->viewport()->rect()).boundingRect();
 
     if(!rect.intersects(visibleRect))
     {
@@ -1222,6 +1222,15 @@ bool DocumentView::eventFilter(QObject*, QEvent *event)
     return false;
 }
 
+void DocumentView::showEvent(QShowEvent *event)
+{
+    if(!event->spontaneous())
+    {
+        prepareScene();
+        prepareView();
+    }
+}
+
 void DocumentView::resizeEvent(QResizeEvent *event)
 {
     m_view->resize(event->size());
@@ -1772,21 +1781,23 @@ void DocumentView::prepareScene()
 
                 if(uniformFit)
                 {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    scale = qMin(scale, (m_view->viewport()->width() - 15.0) / width);
                     if(m_scaling == FitToPage)
                     {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
                     }
                 }
                 else
                 {
-                    pageItem->prepareGeometryChange();
-
-                    pageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    scale = (m_view->viewport()->width() - 15.0) / width;
                     if(m_scaling == FitToPage)
                     {
-                        pageItem->m_scale = qMin(pageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
                     }
+
+                    pageItem->prepareGeometryChange();
+
+                    pageItem->m_scale = scale;
                 }
             }
 
@@ -1833,24 +1844,25 @@ void DocumentView::prepareScene()
 
                 if(uniformFit)
                 {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 30.0));
+                    scale = qMin(scale, (m_view->viewport()->width() - 20.0) / width);
                     if(m_scaling == FitToPage)
                     {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
                     }
                 }
                 else
                 {
+                    scale = (m_view->viewport()->width() - 20.0) / width;
+                    if(m_scaling == FitToPage)
+                    {
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
+                    }
+
                     leftPageItem->prepareGeometryChange();
                     rightPageItem->prepareGeometryChange();
 
-                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 30.0);
-                    rightPageItem->m_scale = 0.98 * m_view->width() / (width + 30.0);
-                    if(m_scaling == FitToPage)
-                    {
-                        leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
-                        rightPageItem->m_scale = qMin(rightPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
-                    }
+                    leftPageItem->m_scale = scale;
+                    rightPageItem->m_scale = scale;
                 }
             }
 
@@ -1876,21 +1888,23 @@ void DocumentView::prepareScene()
 
                 if(uniformFit)
                 {
-                    scale = qMin(scale, 0.98 * m_view->width() / (width + 20.0));
+                    scale = qMin(scale, (m_view->viewport()->width() - 15.0) / width);
                     if(m_scaling == FitToPage)
                     {
-                        scale = qMin(scale, 0.98 * m_view->height() / (height + 20.0));
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
                     }
                 }
                 else
                 {
-                    leftPageItem->prepareGeometryChange();
-
-                    leftPageItem->m_scale = 0.98 * m_view->width() / (width + 20.0);
+                    scale = (m_view->viewport()->width() - 15.0) / width;
                     if(m_scaling == FitToPage)
                     {
-                        leftPageItem->m_scale = qMin(leftPageItem->m_scale, 0.98 * m_view->height() / (height + 20.0));
+                        scale = qMin(scale, (m_view->viewport()->height() - 15.0) / height);
                     }
+
+                    leftPageItem->prepareGeometryChange();
+
+                    leftPageItem->m_scale = scale;
                 }
             }
 
@@ -2011,13 +2025,13 @@ void DocumentView::prepareScene()
             PageItem* pageItem = m_pagesByIndex.value(index);
             QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect());
 
-            pageItem->setPos(10.0 - rect.left(), height - rect.top());
+            pageItem->setPos(5.0 - rect.left(), height - rect.top());
             m_pagesByHeight.insert(height - 0.4 * rect.height(), pageItem);
 
             pageItem->update(pageItem->boundingRect());
 
-            width = qMax(width, rect.width() + 20.0);
-            height += rect.height() + 10.0;
+            width = qMax(width, rect.width() + 10.0);
+            height += rect.height() + 5.0;
         }
 
         break;
@@ -2030,15 +2044,15 @@ void DocumentView::prepareScene()
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
             QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect());
 
-            leftPageItem->setPos(10.0 - leftRect.left(), height - leftRect.top());
-            rightPageItem->setPos(20.0 + leftRect.width() - rightRect.left(), height - rightRect.top());
+            leftPageItem->setPos(5.0 - leftRect.left(), height - leftRect.top());
+            rightPageItem->setPos(10.0 + leftRect.width() - rightRect.left(), height - rightRect.top());
             m_pagesByHeight.insert(height - 0.4 * leftRect.height(), leftPageItem);
 
             leftPageItem->update(leftPageItem->boundingRect());
             rightPageItem->update(rightPageItem->boundingRect());
 
-            width = qMax(width, leftRect.width() + rightRect.width() + 30.0);
-            height += qMax(leftRect.height(), rightRect.height()) + 10.0;
+            width = qMax(width, leftRect.width() + rightRect.width() + 15.0);
+            height += qMax(leftRect.height(), rightRect.height()) + 5.0;
         }
 
         if(m_numberOfPages % 2 != 0)
@@ -2046,13 +2060,13 @@ void DocumentView::prepareScene()
             PageItem* leftPageItem = m_pagesByIndex.value(m_numberOfPages - 1);
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
 
-            leftPageItem->setPos(10.0 - leftRect.left(), height - leftRect.top());
+            leftPageItem->setPos(5.0 - leftRect.left(), height - leftRect.top());
             m_pagesByHeight.insert(height - 0.4 * leftRect.height(), leftPageItem);
 
             leftPageItem->update(leftPageItem->boundingRect());
 
-            width = qMax(width, leftRect.width() + 20.0);
-            height += leftRect.height() + 10.0;
+            width = qMax(width, leftRect.width() + 10.0);
+            height += leftRect.height() + 5.0;
         }
 
         break;
@@ -2081,7 +2095,7 @@ void DocumentView::prepareView(qreal top)
 
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->setSceneRect(leftRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+            m_view->setSceneRect(leftRect.adjusted(-5.0, -5.0, 5.0, 5.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2102,7 +2116,7 @@ void DocumentView::prepareView(qreal top)
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
             QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect()).translated(rightPageItem->pos());
 
-            m_view->setSceneRect(leftRect.united(rightRect).adjusted(-10.0, -10.0, 10.0, 10.0));
+            m_view->setSceneRect(leftRect.united(rightRect).adjusted(-5.0, -5.0, 5.0, 5.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2113,7 +2127,7 @@ void DocumentView::prepareView(qreal top)
 
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->setSceneRect(leftRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+            m_view->setSceneRect(leftRect.adjusted(-5.0, -5.0, 5.0, 5.0));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2137,6 +2151,8 @@ void DocumentView::prepareView(qreal top)
 
         break;
     }
+
+    qDebug() << m_view->horizontalScrollBar()->minimum() << m_view->horizontalScrollBar()->maximum();
 
     // highlight
 
