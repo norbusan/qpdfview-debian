@@ -109,7 +109,7 @@ bool MainWindow::openInNewTab(const QString &filePath, int page, qreal top)
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent*)
 {
     this->slotCloseAllTabs();
 

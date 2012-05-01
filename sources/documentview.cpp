@@ -2152,8 +2152,6 @@ void DocumentView::prepareView(qreal top)
         break;
     }
 
-    qDebug() << m_view->horizontalScrollBar()->minimum() << m_view->horizontalScrollBar()->maximum();
-
     // highlight
 
     if(m_currentResult != m_results.end())
