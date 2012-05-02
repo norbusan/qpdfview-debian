@@ -126,7 +126,8 @@ private:
     // render
 
     QFuture<void> m_render;
-    void render(int index, qreal scale);
+    void render(int index = false);
+
 };
 
 // recently used action

@@ -160,7 +160,7 @@ void PresentationView::slotPrefetchTimerTimeout()
     {
         if(!m_render.isRunning())
         {
-            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage, m_scale);
+            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage);
         }
         else
         {
@@ -177,7 +177,6 @@ void PresentationView::resizeEvent(QResizeEvent*)
 void PresentationView::paintEvent(QPaintEvent *event)
 {
     QWidget::paintEvent(event);
-
     QPainter painter(this);
 
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
@@ -192,7 +191,7 @@ void PresentationView::paintEvent(QPaintEvent *event)
     {
         if(!m_render.isRunning())
         {
-            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scale);
+            m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1);
         }
     }
 
@@ -305,9 +304,13 @@ void PresentationView::prepareView()
     m_prefetchTimer->start();
 }
 
-void PresentationView::render(int index, qreal scale)
+void PresentationView::render(int index)
 {
     Poppler::Page *page = m_document->page(index);
+
+    QSizeF size = page->pageSizeF();
+
+    qreal scale = qMin(static_cast<qreal>(this->width()) / size.width(), static_cast<qreal>(this->height()) / size.height());
 
     QImage image = page->renderToImage(scale * 72.0, scale * 72.0);
 
