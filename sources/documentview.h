@@ -7,6 +7,8 @@
 
 #include <poppler-qt4.h>
 
+#include "miscellaneous.h"
+
 class DocumentView : public QWidget
 {
     Q_OBJECT
@@ -161,7 +163,6 @@ public:
     int numberOfPages() const;
 
     int currentPage() const;
-    void setCurrentPage(int currentPage, qreal top = 0.0);
 
     PageLayout pageLayout() const;
     void setPageLayout(PageLayout pageLayout);
@@ -185,6 +186,8 @@ public slots:
     bool refresh();
     bool saveCopy(const QString &filePath);
     void close();
+
+    void setCurrentPage(int currentPage, qreal top = 0.0);
 
     void previousPage();
     void nextPage();
@@ -228,6 +231,7 @@ protected:
     bool eventFilter(QObject*, QEvent *event);
     void showEvent(QShowEvent *event);
     void resizeEvent(QResizeEvent* event);
+    void contextMenuEvent(QContextMenuEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void wheelEvent(QWheelEvent *event);
 
@@ -238,6 +242,7 @@ protected slots:
     void slotVerticalScrollBarValueChanged(int value);
 
     void slotPrefetchTimerTimeout();
+    void slotBookmarksMenuEntrySelected(int page, int value);
     void slotTabActionTriggered();
     void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column);
 
@@ -287,6 +292,7 @@ private:
 
     QFileSystemWatcher *m_autoRefreshWatcher;
     QTimer *m_prefetchTimer;
+    BookmarksMenu *m_bookmarksMenu;
     QAction *m_tabAction;
     QTreeWidget *m_outlineTreeWidget;
     QTableWidget *m_metaInformationTableWidget;

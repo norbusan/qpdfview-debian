@@ -142,7 +142,6 @@ public:
 
 public slots:
     void addEntry(const QString &filePath);
-    void removeEntry(const QString &filePath);
 
     void clearList();
 
@@ -153,10 +152,9 @@ protected slots:
     void slotActionGroupTriggered(QAction *action);
 
 private:
-    QMenu *m_menu;
     QActionGroup *m_actionGroup;
-    QAction *m_separator;
 
+    QAction *m_separatorAction;
     QAction *m_clearListAction;
 
     // settings
@@ -175,17 +173,18 @@ public:
 
 public slots:
     void addEntry();
-
+    void removeEntriesOnCurrentPage();
     void goToPreviousEntry();
     void goToNextEntry();
 
     void clearList();
 
-    void setCurrentPage(int currentPage);
-    void setCurrentTop(qreal currentTop);
+    void updateCurrentPage(int currentPage) { m_currentPage = currentPage; }
+    void updateValue(int value) { m_value = value; }
+    void updateRange(int minimum, int maximum) { m_minimum = minimum; m_maximum = maximum; }
 
 signals:
-    void entrySelected(int page, qreal top);
+    void entrySelected(int page, int value);
 
 protected slots:
     void slotActionGroupTriggered(QAction *action);
@@ -195,16 +194,21 @@ private:
 
     QAction *m_addEntryAction;
 
+    QAction *m_removeEntriesOnCurrentPageAction;
     QAction *m_goToPreviousEntryAction;
     QAction *m_goToNextEntryAction;
 
+    QAction *m_separatorAction;
     QAction *m_clearListAction;
 
-    QHash<QAction*, int> m_pages;
-    QHash<QAction*, qreal> m_tops;
+    QHash< QAction*, int > m_pages;
+    QHash< QAction*, int > m_values;
 
     int m_currentPage;
-    qreal m_currentTop;
+
+    int m_value;
+    int m_minimum;
+    int m_maximum;
 
 };
 

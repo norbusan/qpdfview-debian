@@ -151,6 +151,16 @@ void MainWindow::dropEvent(QDropEvent *event)
     }
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        QKeyEvent keyEvent(*event);
+
+        QApplication::sendEvent(m_tabWidget->currentWidget(), &keyEvent);
+    }
+}
+
 void MainWindow::slotOpen()
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -784,7 +794,7 @@ void MainWindow::slotHighlightAllChanged(bool highlightAll)
     m_highlightAllCheckBox->setChecked(highlightAll);
 }
 
-void MainWindow::slotRecentyUsedEntrySelected(const QString &filePath)
+void MainWindow::slotRecentyUsedActionEntrySelected(const QString &filePath)
 {
     this->open(filePath);
 }
@@ -840,7 +850,7 @@ void MainWindow::createActions()
     m_recentlyUsedAction = new RecentlyUsedAction(this);
     m_recentlyUsedAction->setIcon(QIcon::fromTheme("document-open-recent"));
     m_recentlyUsedAction->setIconVisibleInMenu(true);
-    connect(m_recentlyUsedAction, SIGNAL(entrySelected(QString)), this, SLOT(slotRecentyUsedEntrySelected(QString)));
+    connect(m_recentlyUsedAction, SIGNAL(entrySelected(QString)), this, SLOT(slotRecentyUsedActionEntrySelected(QString)));
 
     // refresh
 

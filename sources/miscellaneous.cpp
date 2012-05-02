@@ -317,7 +317,7 @@ void PresentationView::render(int index)
     delete page;
 
     PageCacheKey key(index, scale);
-    uint byteCount = static_cast<uint>(image.byteCount());
+    uint byteCount = image.byteCount();
 
     if(m_maximumPageCacheSize < 3 * byteCount)
     {
@@ -345,17 +345,18 @@ void PresentationView::render(int index)
 RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &used"), parent),
     m_settings()
 {
-    m_menu = new QMenu();
-    this->setMenu(m_menu);
-
     m_actionGroup = new QActionGroup(this);
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionGroupTriggered(QAction*)));
+
+    m_separatorAction = new QAction(this);
+    m_separatorAction->setSeparator(true);
 
     m_clearListAction = new QAction(tr("&Clear list"), this);
     connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
 
-    m_separator = m_menu->addSeparator();
-    m_menu->addAction(m_clearListAction);
+    setMenu(new QMenu());
+    menu()->addAction(m_separatorAction);
+    menu()->addAction(m_clearListAction);
 
     QStringList filePaths = m_settings.value("mainWindow/recentlyUsed").toStringList();
 
@@ -366,7 +367,7 @@ RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &
         action->setData(filePath);
 
         m_actionGroup->addAction(action);
-        m_menu->insertAction(m_separator, action);
+        menu()->insertAction(m_separatorAction, action);
     }
 }
 
@@ -380,8 +381,6 @@ RecentlyUsedAction::~RecentlyUsedAction()
     }
 
     m_settings.setValue("mainWindow/recentlyUsed", filePaths);
-
-    delete m_menu;
 }
 
 void RecentlyUsedAction::addEntry(const QString &filePath)
@@ -400,7 +399,7 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
         action->setData(filePath);
 
         m_actionGroup->addAction(action);
-        m_menu->insertAction(m_separator, action);
+        menu()->insertAction(m_separatorAction, action);
     }
 
     if(m_actionGroup->actions().size() > 5)
@@ -408,19 +407,9 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
         QAction *first = m_actionGroup->actions().first();
 
         m_actionGroup->removeAction(first);
-        m_menu->removeAction(first);
-    }
-}
+        menu()->removeAction(first);
 
-void RecentlyUsedAction::removeEntry(const QString &filePath)
-{
-    foreach(QAction *action, m_actionGroup->actions())
-    {
-        if(action->data().toString() == filePath)
-        {
-            m_actionGroup->removeAction(action);
-            m_menu->removeAction(action);
-        }
+        first->deleteLater();
     }
 }
 
@@ -429,7 +418,9 @@ void RecentlyUsedAction::clearList()
     foreach(QAction *action, m_actionGroup->actions())
     {
         m_actionGroup->removeAction(action);
-        m_menu->removeAction(action);
+        menu()->removeAction(action);
+
+        action->deleteLater();
     }
 }
 
@@ -442,9 +433,11 @@ void RecentlyUsedAction::slotActionGroupTriggered(QAction *action)
 
 BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
     m_pages(),
-    m_tops(),
+    m_values(),
     m_currentPage(-1),
-    m_currentTop(0.0)
+    m_value(-1),
+    m_minimum(-1),
+    m_maximum(-1)
 {
     m_actionGroup = new QActionGroup(this);
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionGroupTriggered(QAction*)));
@@ -461,15 +454,24 @@ BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
     m_goToNextEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
     connect(m_goToNextEntryAction, SIGNAL(triggered()), this, SLOT(goToNextEntry()));
 
+    m_removeEntriesOnCurrentPageAction = new QAction(tr("&Remove entries on current page"), this);
+    m_removeEntriesOnCurrentPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    connect(m_removeEntriesOnCurrentPageAction, SIGNAL(triggered()), this, SLOT(removeEntriesOnCurrentPage()));
+
+    m_separatorAction = new QAction(this);
+    m_separatorAction->setSeparator(true);
+
     m_clearListAction = new QAction(tr("&Clear list"), this);
+    m_clearListAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_B));
     connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
 
-    this->addAction(m_addEntryAction);
-    this->addAction(m_goToPreviousEntryAction);
-    this->addAction(m_goToNextEntryAction);
-    this->addSeparator();
-    this->addAction(m_clearListAction);
-    this->addSeparator();
+    addAction(m_addEntryAction);
+    addAction(m_goToPreviousEntryAction);
+    addAction(m_goToNextEntryAction);
+    addAction(m_removeEntriesOnCurrentPageAction);
+    addSeparator();
+    addAction(m_separatorAction);
+    addAction(m_clearListAction);
 }
 
 void BookmarksMenu::addEntry()
@@ -479,17 +481,17 @@ void BookmarksMenu::addEntry()
 
     foreach(QAction *action, m_actionGroup->actions())
     {
-        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) == QPair<int, qreal>(m_currentPage, m_currentTop))
+        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) == QPair<int, int>(m_currentPage, m_value))
         {
             addItem = false;
 
             break;
         }
-        else if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_currentPage, m_currentTop))
+        else if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_currentPage, m_value))
         {
             if(before)
             {
-                before = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(before), m_tops.value(before)) ? action : before;
+                before = QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(before), m_values.value(before)) ? action : before;
             }
             else
             {
@@ -501,13 +503,29 @@ void BookmarksMenu::addEntry()
     if(addItem)
     {
         QAction *action = new QAction(this);
-        action->setText(tr("Page %1 at %2%").arg(m_currentPage).arg(100.0 * m_currentTop));
+
+        if(m_maximum > m_minimum)
+        {
+            action->setText(tr("%1% on page %2").arg(100.0 * (m_value - m_minimum) / (m_maximum - m_minimum), 0, 'f', 2).arg(m_currentPage));
+        }
+        else
+        {
+            action->setText(tr("Page %1").arg(m_currentPage));
+        }
 
         m_pages.insert(action, m_currentPage);
-        m_tops.insert(action, m_currentTop);
+        m_values.insert(action, m_value);
 
         m_actionGroup->addAction(action);
-        this->insertAction(before, action);
+
+        if(before)
+        {
+            insertAction(before, action);
+        }
+        else
+        {
+            insertAction(m_separatorAction, action);
+        }
     }
 
     if(m_actionGroup->actions().size() > 10)
@@ -518,9 +536,26 @@ void BookmarksMenu::addEntry()
         this->removeAction(first);
 
         m_pages.remove(first);
-        m_tops.remove(first);
+        m_values.remove(first);
 
         first->deleteLater();
+    }
+}
+
+void BookmarksMenu::removeEntriesOnCurrentPage()
+{
+    foreach(QAction *action, m_actionGroup->actions())
+    {
+        if(m_pages.value(action) == m_currentPage)
+        {
+            m_actionGroup->removeAction(action);
+            removeAction(action);
+
+            m_pages.remove(action);
+            m_values.remove(action);
+
+            action->deleteLater();
+        }
     }
 }
 
@@ -530,11 +565,11 @@ void BookmarksMenu::goToPreviousEntry()
 
     foreach(QAction *action, m_actionGroup->actions())
     {
-        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_currentPage, m_currentTop))
+        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_currentPage, m_value))
         {
             if(previous)
             {
-                previous = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_pages.value(previous), m_tops.value(previous)) ? action : previous;
+                previous = QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_pages.value(previous), m_values.value(previous)) ? action : previous;
             }
             else
             {
@@ -553,7 +588,7 @@ void BookmarksMenu::goToPreviousEntry()
 
         foreach(QAction *action, m_actionGroup->actions())
         {
-            if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_pages.value(last), m_tops.value(last)))
+            if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_pages.value(last), m_values.value(last)))
             {
                 last = action;
             }
@@ -569,11 +604,11 @@ void BookmarksMenu::goToNextEntry()
 
     foreach(QAction *action, m_actionGroup->actions())
     {
-        if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) > QPair<int, qreal>(m_currentPage, m_currentTop))
+        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_currentPage, m_value))
         {
             if(next)
             {
-                next = QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(next), m_tops.value(next)) ? action : next;
+                next = QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(next), m_values.value(next)) ? action : next;
             }
             else
             {
@@ -592,7 +627,7 @@ void BookmarksMenu::goToNextEntry()
 
         foreach(QAction *action, m_actionGroup->actions())
         {
-            if(QPair<int, qreal>(m_pages.value(action), m_tops.value(action)) < QPair<int, qreal>(m_pages.value(first), m_tops.value(first)))
+            if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(first), m_values.value(first)))
             {
                 first = action;
             }
@@ -602,36 +637,25 @@ void BookmarksMenu::goToNextEntry()
     }
 }
 
+
+
 void BookmarksMenu::clearList()
 {
     foreach(QAction *action, m_actionGroup->actions())
     {
         m_actionGroup->removeAction(action);
-        this->removeAction(action);
+        removeAction(action);
 
         m_pages.remove(action);
-        m_tops.remove(action);
+        m_values.remove(action);
 
         action->deleteLater();
     }
 }
 
-void BookmarksMenu::setCurrentPage(int currentPage)
-{
-    m_currentPage = currentPage;
-}
-
-void BookmarksMenu::setCurrentTop(qreal currentTop)
-{
-    m_currentTop = currentTop;
-}
-
 void BookmarksMenu::slotActionGroupTriggered(QAction *action)
 {
-    int page = m_pages.value(action);
-    qreal top = m_tops.value(action);
-
-    emit entrySelected(page, top);
+    emit entrySelected(m_pages.value(action), m_values.value(action));
 }
 
 // settings dialog

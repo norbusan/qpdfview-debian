@@ -64,6 +64,7 @@ protected:
     void closeEvent(QCloseEvent*);
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 protected slots:
     void slotOpen();
@@ -128,7 +129,7 @@ protected slots:
     void slotHighlightAllCheckBoxClicked(bool checked);
     void slotHighlightAllChanged(bool highlightAll);
 
-    void slotRecentyUsedEntrySelected(const QString &filePath);
+    void slotRecentyUsedActionEntrySelected(const QString &filePath);
 
 private:
     // actions

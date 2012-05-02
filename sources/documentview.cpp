@@ -286,7 +286,7 @@ void DocumentView::PageItem::render(bool prefetch)
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, m_scale);
-    uint byteCount = static_cast<uint>(image.byteCount());
+    uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
     {
@@ -427,7 +427,7 @@ void DocumentView::ThumbnailItem::render()
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, 0.1);
-    uint byteCount = static_cast<uint>(image.byteCount());
+    uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
     {
@@ -520,6 +520,19 @@ DocumentView::DocumentView(QWidget *parent) : QWidget(parent),
     connect(this, SIGNAL(scalingChanged(DocumentView::Scaling)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(slotPrefetchTimerTimeout()));
+
+    // bookmarksMenu
+
+    m_bookmarksMenu = new BookmarksMenu(this);
+    m_bookmarksMenu->updateCurrentPage(m_currentPage);
+    m_bookmarksMenu->updateValue(m_view->verticalScrollBar()->value());
+    m_bookmarksMenu->updateRange(m_view->verticalScrollBar()->minimum(), m_view->verticalScrollBar()->maximum());
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_bookmarksMenu, SLOT(updateCurrentPage(int)));
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), m_bookmarksMenu, SLOT(updateValue(int)));
+    connect(m_view->verticalScrollBar(), SIGNAL(rangeChanged(int,int)), m_bookmarksMenu, SLOT(updateRange(int,int)));
+
+    connect(m_bookmarksMenu, SIGNAL(entrySelected(int,int)), this, SLOT(slotBookmarksMenuEntrySelected(int,int)));
 
     // tabAction
 
@@ -616,55 +629,6 @@ int DocumentView::numberOfPages() const
 int DocumentView::currentPage() const
 {
     return m_currentPage;
-}
-
-void DocumentView::setCurrentPage(int currentPage, qreal top)
-{
-    if(currentPage >= 1 && currentPage <= m_numberOfPages && top >= 0.0 && top <= 1.0)
-    {
-        PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
-
-        if(pageItem != 0)
-        {
-            QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect()).translated(pageItem->pos());
-
-            switch(m_pageLayout)
-            {
-            case OnePage:
-            case OneColumn:
-                if(m_currentPage != currentPage)
-                {
-                    m_currentPage = currentPage;
-
-                    prepareView(top);
-
-                    emit currentPageChanged(m_currentPage);
-                }
-                else if(qFuzzyCompare(1.0 + ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - rect.top()) / rect.height()), 1.0 + top))
-                {
-                    prepareView(top);
-                }
-
-                break;
-            case TwoPages:
-            case TwoColumns:
-                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1))
-                {
-                    m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
-
-                    prepareView(top);
-
-                    emit currentPageChanged(m_currentPage);
-                }
-                else if(qFuzzyCompare(1.0 + ((static_cast<qreal>(m_view->verticalScrollBar()->value()) - rect.top()) / rect.height()), 1.0 + top))
-                {
-                    prepareView(top);
-                }
-
-                break;
-            }
-        }
-    }
 }
 
 DocumentView::PageLayout DocumentView::pageLayout() const
@@ -962,6 +926,55 @@ void DocumentView::close()
 
     prepareScene();
     prepareView();
+}
+
+void DocumentView::setCurrentPage(int currentPage, qreal top)
+{
+    if(currentPage >= 1 && currentPage <= m_numberOfPages && top >= 0.0 && top <= 1.0)
+    {
+        PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
+
+        if(pageItem != 0)
+        {
+            QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect()).translated(pageItem->pos());
+
+            switch(m_pageLayout)
+            {
+            case OnePage:
+            case OneColumn:
+                if(m_currentPage != currentPage)
+                {
+                    m_currentPage = currentPage;
+
+                    prepareView(top);
+
+                    emit currentPageChanged(m_currentPage);
+                }
+                else if(!qFuzzyCompare(1.0 + (qCeil(m_view->verticalScrollBar()->value() - rect.top()) / rect.height()), 1.0 + top))
+                {
+                    prepareView(top);
+                }
+
+                break;
+            case TwoPages:
+            case TwoColumns:
+                if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1))
+                {
+                    m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
+
+                    prepareView(top);
+
+                    emit currentPageChanged(m_currentPage);
+                }
+                else if(!qFuzzyCompare(1.0 + (qCeil(m_view->verticalScrollBar()->value() - rect.top()) / rect.height()), 1.0 + top))
+                {
+                    prepareView(top);
+                }
+
+                break;
+            }
+        }
+    }
 }
 
 void DocumentView::previousPage()
@@ -1321,9 +1334,22 @@ void DocumentView::resizeEvent(QResizeEvent *event)
     }
 }
 
+void DocumentView::contextMenuEvent(QContextMenuEvent *event)
+{
+    m_bookmarksMenu->exec(event->globalPos());
+}
+
 void DocumentView::keyPressEvent(QKeyEvent *event)
 {
-    // TODO
+    QKeySequence shortcut(event->modifiers() + event->key());
+
+    foreach(QAction *action, m_bookmarksMenu->actions())
+    {
+        if(action->shortcut() == shortcut)
+        {
+            action->trigger();
+        }
+    }
 }
 
 void DocumentView::wheelEvent(QWheelEvent *event)
@@ -1516,6 +1542,13 @@ void DocumentView::slotPrefetchTimerTimeout()
             m_pageCacheMutex.unlock();
         }
     }
+}
+
+void DocumentView::slotBookmarksMenuEntrySelected(int page, int value)
+{
+    this->setCurrentPage(page);
+
+    m_view->verticalScrollBar()->setValue(value);
 }
 
 void DocumentView::slotTabActionTriggered()
@@ -2153,6 +2186,10 @@ void DocumentView::prepareScene()
 
     m_scene->setSceneRect(0.0, 0.0, width, height);
     m_view->setSceneRect(0.0, 0.0, width, height);
+
+    // bookmarks
+
+    m_bookmarksMenu->clearList();
 }
 
 void DocumentView::prepareView(qreal top)
