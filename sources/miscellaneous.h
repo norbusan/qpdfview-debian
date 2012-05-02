@@ -126,7 +126,7 @@ private:
     // render
 
     QFuture<void> m_render;
-    void render(int index = false);
+    void render(int index);
 
 };
 
