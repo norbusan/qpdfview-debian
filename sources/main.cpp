@@ -37,6 +37,7 @@ int main(int argc, char** argv)
     QApplication a(argc, argv);
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
+    QApplication::setApplicationVersion("0.2.99");
 
 #ifdef DATA_INSTALL_PATH
 

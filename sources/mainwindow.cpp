@@ -518,7 +518,7 @@ void MainWindow::slotContents()
 
 void MainWindow::slotAbout()
 {
-    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library.</p><p>&copy; 2012 Adam Reichold</p>"));
+    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library.</p><p>&copy; 2012 Adam Reichold</p>").arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::slotTabWidgetCurrentChanged(int index)

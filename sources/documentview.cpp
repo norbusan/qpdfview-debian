@@ -156,35 +156,50 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
-    foreach(Link link, m_links)
+    if(event->button() == Qt::LeftButton)
     {
-        if(m_linkTransform.mapRect(link.area).contains(event->pos()))
+        foreach(Link link, m_links)
         {
-            if(link.page != -1)
+            if(m_linkTransform.mapRect(link.area).contains(event->pos()))
             {
-                parent->setCurrentPage(link.page, link.top);
-            }
-            else if(!link.url.isEmpty())
-            {
-                if(parent->m_settings.value("documentView/externalLinks", false).toBool())
+                if(link.page != -1)
                 {
-                    QDesktopServices::openUrl(QUrl(link.url));
+                    parent->setCurrentPage(link.page, link.top);
                 }
-                else
+                else if(!link.url.isEmpty())
                 {
-                    QMessageBox::information(parent, tr("Information"), tr("External links are disabled in the settings."));
+                    if(parent->m_settings.value("documentView/externalLinks", false).toBool())
+                    {
+                        QDesktopServices::openUrl(QUrl(link.url));
+                    }
+                    else
+                    {
+                        QMessageBox::information(parent, tr("Information"), tr("External links are disabled in the settings."));
+                    }
                 }
+
+                event->accept();
+
+                return;
             }
+        }
+
+        if(event->modifiers() == Qt::ShiftModifier)
+        {
+            m_rubberBand = QRectF(event->pos(), QSizeF());
 
             event->accept();
-
-            return;
+        }
+        else
+        {
+            event->ignore();
         }
     }
-
-    if(event->modifiers() == Qt::ShiftModifier)
+    else if(event->button() == Qt::MiddleButton)
     {
-        m_rubberBand = QRectF(event->pos(), QSizeF());
+        m_highlight = QRectF();
+
+        update(boundingRect());
 
         event->accept();
     }
@@ -218,20 +233,43 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     {
         m_rubberBand.setBottomRight(event->pos());
 
-        m_highlight = m_highlightTransform.inverted().mapRect(m_rubberBand).adjusted(-1.0, -1.0, 1.0, 1.0);
+        m_highlight = m_highlightTransform.inverted().mapRect(m_rubberBand.normalized()).adjusted(-1.0, -1.0, 1.0, 1.0);
+
+        // copy text or image
+
+        QMenu menu(parent);
+        QAction *copyTextAction = menu.addAction(tr("Copy &text"));
+        QAction *copyImageAction = menu.addAction(tr("Copy &image"));
+        QAction *copyAction = menu.exec(event->screenPos());
+
+        if(copyAction == copyTextAction)
+        {
+            parent->m_documentMutex.lock();
+
+            QString text = m_page->text(m_highlight);
+
+            parent->m_documentMutex.unlock();
+
+            if(!text.isEmpty())
+            {
+                QApplication::clipboard()->setText(text);
+            }
+        }
+        else if(copyAction == copyImageAction)
+        {
+            parent->m_documentMutex.lock();
+
+            QImage image = m_page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height());
+
+            parent->m_documentMutex.unlock();
+
+            if(!image.isNull())
+            {
+                QApplication::clipboard()->setImage(image);
+            }
+        }
 
         m_rubberBand = QRectF();
-
-        parent->m_documentMutex.lock();
-
-        QString text = m_page->text(m_highlight);
-
-        parent->m_documentMutex.unlock();
-
-        if(!text.isEmpty())
-        {
-            QApplication::clipboard()->setText(text);
-        }
 
         update(boundingRect());
 
@@ -572,6 +610,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_outlineTreeWidget = new QTreeWidget();
     m_outlineTreeWidget->setAlternatingRowColors(true);
+    m_outlineTreeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineTreeWidget->header()->setVisible(false);
 
     connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
@@ -580,6 +619,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_metaInformationTableWidget = new QTableWidget();
     m_metaInformationTableWidget->setAlternatingRowColors(true);
+    m_metaInformationTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_metaInformationTableWidget->horizontalHeader()->setVisible(false);
     m_metaInformationTableWidget->verticalHeader()->setVisible(false);
 
