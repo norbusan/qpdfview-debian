@@ -1544,6 +1544,8 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
 
 void DocumentView::slotPrefetchTimerTimeout()
 {
+#ifndef RENDER_IN_PAINT
+
     int fromPage = qMax(m_currentPage - 1, 1);
     int toPage = qMin(m_currentPage + 2, m_numberOfPages);
 
@@ -1568,6 +1570,8 @@ void DocumentView::slotPrefetchTimerTimeout()
             m_pageCacheMutex.unlock();
         }
     }
+
+#endif
 }
 
 void DocumentView::slotBookmarksMenuEntrySelected(int page, int value)

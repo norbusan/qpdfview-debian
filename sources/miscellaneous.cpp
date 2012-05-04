@@ -156,6 +156,8 @@ void PresentationView::lastPage()
 
 void PresentationView::slotPrefetchTimerTimeout()
 {
+#ifndef RENDER_IN_PAINT
+
     if(m_currentPage + 1 <= m_numberOfPages)
     {
         if(!m_render.isRunning())
@@ -167,6 +169,8 @@ void PresentationView::slotPrefetchTimerTimeout()
             m_prefetchTimer->start();
         }
     }
+
+#endif
 }
 
 void PresentationView::resizeEvent(QResizeEvent*)
@@ -181,6 +185,19 @@ void PresentationView::paintEvent(QPaintEvent *event)
 
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
+#ifdef RENDER_IN_PAINT
+
+    PageCacheKey key(m_currentPage - 1, m_scale);
+
+    if(!m_pageCache.contains(key))
+    {
+        render(m_currentPage - 1);
+    }
+
+    painter.drawImage(m_boundingRect, m_pageCache.value(key));
+
+#else
+
     PageCacheKey key(m_currentPage - 1, m_scale);
 
     if(m_pageCache.contains(key))
@@ -194,6 +211,8 @@ void PresentationView::paintEvent(QPaintEvent *event)
             m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1);
         }
     }
+
+#endif
 
     painter.setPen(QPen(Qt::black));
     painter.drawRect(m_boundingRect);
