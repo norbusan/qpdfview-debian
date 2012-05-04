@@ -52,20 +52,20 @@ private:
         PageCacheKey() : index(-1), scale(1.0) {}
         PageCacheKey(int index, qreal scale) : index(index), scale(scale) {}
 
-        bool operator<(const PageCacheKey &key) const
+        bool operator<(const PageCacheKey& key) const
         {
             return (index < key.index) || (index == key.index && scale < key.scale);
         }
     };
 
 public:
-    explicit PresentationView();
+    PresentationView();
     ~PresentationView();
 
-    void setCurrentPage(int currentPage);
-
 public slots:
-    bool open(const QString &filePath);
+    bool open(const QString& filePath);
+
+    void setCurrentPage(int currentPage);
 
     void previousPage();
     void nextPage();
@@ -77,16 +77,16 @@ protected slots:
 
 protected:
     void resizeEvent(QResizeEvent*);
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent*);
 
-    void keyPressEvent(QKeyEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
 
 private:
     // document
 
-    Poppler::Document *m_document;
+    Poppler::Document* m_document;
 
     // page cache
 
@@ -112,12 +112,12 @@ private:
 
     // links
 
-    QList<Link> m_links;
+    QList< Link > m_links;
     QTransform m_linkTransform;
 
     // miscellaneous
 
-    QTimer *m_prefetchTimer;
+    QTimer* m_prefetchTimer;
 
     // internal methods
 
@@ -125,7 +125,7 @@ private:
 
     // render
 
-    QFuture<void> m_render;
+    QFuture< void > m_render;
     void render(int index);
 
 };
@@ -137,25 +137,25 @@ class RecentlyUsedAction : public QAction
     Q_OBJECT
 
 public:
-    RecentlyUsedAction(QObject *parent = 0);
+    explicit RecentlyUsedAction(QObject* parent = 0);
     ~RecentlyUsedAction();
 
 public slots:
-    void addEntry(const QString &filePath);
+    void addEntry(const QString& filePath);
 
     void clearList();
 
 signals:
-    void entrySelected(QString filePath);
+    void entrySelected(const QString& filePath);
 
 protected slots:
-    void slotActionGroupTriggered(QAction *action);
+    void slotActionGroupTriggered(QAction* action);
 
 private:
-    QActionGroup *m_actionGroup;
+    QActionGroup* m_actionGroup;
+    QAction* m_separator;
 
-    QAction *m_separatorAction;
-    QAction *m_clearListAction;
+    QAction* m_clearListAction;
 
     // settings
 
@@ -169,7 +169,7 @@ class BookmarksMenu : public QMenu
     Q_OBJECT
 
 public:
-    BookmarksMenu(QWidget *parent = 0);
+    explicit BookmarksMenu(QWidget* parent = 0);
 
 public slots:
     void addEntry();
@@ -187,25 +187,24 @@ signals:
     void entrySelected(int page, int value);
 
 protected slots:
-    void slotActionGroupTriggered(QAction *action);
+    void slotActionGroupTriggered(QAction* action);
 
 private:
-    QActionGroup *m_actionGroup;
+    QActionGroup* m_actionGroup;
+    QAction* m_separator;
 
-    QAction *m_addEntryAction;
+    QAction* m_addEntryAction;
 
-    QAction *m_removeEntriesOnCurrentPageAction;
-    QAction *m_goToPreviousEntryAction;
-    QAction *m_goToNextEntryAction;
+    QAction* m_removeEntriesOnCurrentPageAction;
+    QAction* m_goToPreviousEntryAction;
+    QAction* m_goToNextEntryAction;
 
-    QAction *m_separatorAction;
-    QAction *m_clearListAction;
+    QAction* m_clearListAction;
 
     QHash< QAction*, int > m_pages;
     QHash< QAction*, int > m_values;
 
     int m_currentPage;
-
     int m_value;
     int m_minimum;
     int m_maximum;
@@ -219,25 +218,25 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget* parent = 0);
 
 public slots:
     void accept();
 
 private:
-    QFormLayout *m_layout;
-    QDialogButtonBox *m_buttonBox;
+    QFormLayout* m_layout;
+    QDialogButtonBox* m_buttonBox;
 
-    QCheckBox *m_autoRefreshCheckBox;
-    QCheckBox *m_externalLinksCheckBox;
+    QCheckBox* m_autoRefreshCheckBox;
+    QCheckBox* m_externalLinksCheckBox;
 
-    QCheckBox *m_antialiasingCheckBox;
-    QCheckBox *m_textAntialiasingCheckBox;
-    QCheckBox *m_textHintingCheckBox;
+    QCheckBox* m_antialiasingCheckBox;
+    QCheckBox* m_textAntialiasingCheckBox;
+    QCheckBox* m_textHintingCheckBox;
 
-    QCheckBox *m_uniformFitCheckBox;
+    QCheckBox* m_uniformFitCheckBox;
 
-    QComboBox *m_maximumPageCacheSizeComboBox;
+    QComboBox* m_maximumPageCacheSizeComboBox;
 
     // settings
 
@@ -252,7 +251,7 @@ class HelpDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit HelpDialog(QWidget *parent = 0);
+    explicit HelpDialog(QWidget* parent = 0);
 
     QSize sizeHint() const
     {
@@ -260,8 +259,8 @@ public:
     }
 
 private:
-    QTextBrowser *m_textBrowser;
-    QDialogButtonBox *m_buttonBox;
+    QTextBrowser* m_textBrowser;
+    QDialogButtonBox* m_buttonBox;
 
 };
 

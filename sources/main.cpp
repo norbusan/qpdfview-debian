@@ -28,11 +28,11 @@ struct Link
     qreal top;
 
     Link() : filePath(), page(1), top(0.0) {}
-    Link(const QString &filePath, int page = 1, qreal top = 0.0) : filePath(filePath), page(page), top(top) {}
+    Link(const QString& filePath, int page = 1, qreal top = 0.0) : filePath(filePath), page(page), top(top) {}
 
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
     QApplication a(argc, argv);
     QApplication::setOrganizationName("qpdfview");
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     // command-line arguments
 
     QStringList arguments = QApplication::arguments();
-    QList<Link> links;
+    QList< Link > links;
 
     if(!arguments.isEmpty())
     {
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    MainWindow *mainWindow = 0;
+    MainWindow* mainWindow = 0;
 
     if(arguments.contains("--unique"))
     {

@@ -38,7 +38,7 @@ private:
 
         Link() : area(), page(-1), top(0.0), url() {}
         Link(QRectF area, int page, qreal top) : area(area), page(page), top(top), url() {}
-        Link(QRectF area, const QString &url) : area(area), page(-1), top(0.0), url(url) {}
+        Link(QRectF area, const QString& url) : area(area), page(-1), top(0.0), url(url) {}
 
     };
 
@@ -50,7 +50,7 @@ private:
         PageCacheKey() : index(-1), scale(1.0) {}
         PageCacheKey(int index, qreal scale) : index(index), scale(scale) {}
 
-        bool operator<(const PageCacheKey &key) const
+        bool operator<(const PageCacheKey& key) const
         {
             return (index < key.index) || (index == key.index && scale < key.scale);
         }
@@ -63,22 +63,22 @@ private:
         friend class DocumentView;
 
     public:
-        explicit PageItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+        PageItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
         ~PageItem();
 
         QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     protected:
-        void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
-        void mousePressEvent(QGraphicsSceneMouseEvent *event);
-        void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-        void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+        void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
+        void mousePressEvent(QGraphicsSceneMouseEvent* event);
+        void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 
     private:
         // page
 
-        Poppler::Page *m_page;
+        Poppler::Page* m_page;
 
         // properties
 
@@ -87,7 +87,7 @@ private:
 
         // links
 
-        QList<DocumentView::Link> m_links;
+        QList< DocumentView::Link > m_links;
 
         // highlight
 
@@ -106,7 +106,7 @@ private:
 
         // render
 
-        QFuture<void> m_render;
+        QFuture< void > m_render;
         void render(bool prefetch = false);
 
     };
@@ -118,11 +118,11 @@ private:
         friend class DocumentView;
 
     public:
-        explicit ThumbnailItem(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+        ThumbnailItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
         ~ThumbnailItem();
 
         QRectF boundingRect() const;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     protected:
         void mousePressEvent(QGraphicsSceneMouseEvent*);
@@ -130,7 +130,7 @@ private:
     private:
         // page
 
-        Poppler::Page *m_page;
+        Poppler::Page* m_page;
 
         // properties
 
@@ -145,21 +145,18 @@ private:
 
         // render
 
-        QFuture<void> m_render;
+        QFuture< void > m_render;
         void render();
 
     };
 
 public:
-    explicit DocumentView(QWidget *parent = 0);
+    explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
-
-    uint maximumPageCacheSize() const;
-    void setMaximumPageCacheSize(uint maximumPageCacheSize);
 
     // properties
 
-    const QString &filePath() const;
+    const QString& filePath() const;
     int numberOfPages() const;
 
     int currentPage() const;
@@ -176,15 +173,16 @@ public:
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
-    QAction *tabAction() const;
-    QTreeWidget *outlineTreeWidget() const;
-    QTableWidget *metaInformationTableWidget() const;
-    QGraphicsView *thumbnailsGraphicsView() const;
+    QAction* tabAction() const;
+
+    QTreeWidget* outlineTreeWidget() const;
+    QTableWidget* metaInformationTableWidget() const;
+    QGraphicsView* thumbnailsGraphicsView() const;
 
 public slots:
-    bool open(const QString &filePath);
+    bool open(const QString& filePath);
     bool refresh();
-    bool saveCopy(const QString &filePath);
+    bool saveCopy(const QString& filePath);
     void close();
 
     void setCurrentPage(int currentPage, qreal top = 0.0);
@@ -194,20 +192,20 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void startSearch(const QString &text, bool matchCase = true);
+    void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
     void findPrevious();
     void findNext();
 
-    void startPrint(QPrinter *printer, int fromPage, int toPage);
+    void startPrint(QPrinter* printer, int fromPage, int toPage);
     void cancelPrint();
 
 signals:
-    void pageItemChanged(PageItem *pageItem);
-    void thumbnailItemChanged(ThumbnailItem *thumbnailItem);
+    void pageItemChanged(PageItem* pageItem);
+    void thumbnailItemChanged(ThumbnailItem* thumbnailItem);
 
-    void filePathChanged(const QString &filePath);
+    void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
 
     void currentPageChanged(int currentPage);
@@ -228,28 +226,31 @@ signals:
     void printFinished();
 
 protected:
-    bool eventFilter(QObject*, QEvent *event);
-    void showEvent(QShowEvent *event);
+    bool eventFilter(QObject*, QEvent* event);
+
+    void showEvent(QShowEvent* event);
     void resizeEvent(QResizeEvent* event);
-    void contextMenuEvent(QContextMenuEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void wheelEvent(QWheelEvent *event);
+
+    void contextMenuEvent(QContextMenuEvent* event);
+
+    void keyPressEvent(QKeyEvent* event);
+    void wheelEvent(QWheelEvent* event);
 
 protected slots:
-    void slotUpdatePageItem(PageItem *pageItem);
-    void slotUpdateThumbnailItem(ThumbnailItem *thumbnailItem);
+    void slotUpdatePageItem(PageItem* pageItem);
+    void slotUpdateThumbnailItem(ThumbnailItem* thumbnailItem);
 
     void slotVerticalScrollBarValueChanged(int value);
 
     void slotPrefetchTimerTimeout();
     void slotBookmarksMenuEntrySelected(int page, int value);
     void slotTabActionTriggered();
-    void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem *item, int column);
+    void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem* item, int column);
 
 private:
     // document
 
-    Poppler::Document *m_document;
+    Poppler::Document* m_document;
     QMutex m_documentMutex;
 
     // page cache
@@ -278,10 +279,10 @@ private:
 
     // graphics
 
-    QGraphicsScene *m_scene;
-    QGraphicsView *m_view;
+    QGraphicsScene* m_scene;
+    QGraphicsView* m_view;
 
-    QGraphicsRectItem *m_highlight;
+    QGraphicsRectItem* m_highlight;
 
     QMap< int, PageItem* > m_pagesByIndex;
     QMap< qreal, PageItem* > m_pagesByHeight;
@@ -290,13 +291,13 @@ private:
 
     // miscellaneous
 
-    QFileSystemWatcher *m_autoRefreshWatcher;
-    QTimer *m_prefetchTimer;
-    BookmarksMenu *m_bookmarksMenu;
-    QAction *m_tabAction;
-    QTreeWidget *m_outlineTreeWidget;
-    QTableWidget *m_metaInformationTableWidget;
-    QGraphicsView *m_thumbnailsGraphicsView;
+    QFileSystemWatcher* m_autoRefreshWatcher;
+    QTimer* m_prefetchTimer;
+    BookmarksMenu* m_bookmarksMenu;
+    QAction* m_tabAction;
+    QTreeWidget* m_outlineTreeWidget;
+    QTableWidget* m_metaInformationTableWidget;
+    QGraphicsView* m_thumbnailsGraphicsView;
 
     // search
 
@@ -305,20 +306,20 @@ private:
 
     QMap< int, QRectF >::const_iterator m_currentResult;
 
-    QFuture<void> m_search;
-    void search(const QString &text, bool matchCase = true);
+    QFuture< void > m_search;
+    void search(const QString& text, bool matchCase = true);
 
     // print
 
-    QFuture<void> m_print;
-    void print(QPrinter *printer, int fromPage, int toPage);
+    QFuture< void > m_print;
+    void print(QPrinter* printer, int fromPage, int toPage);
 
     // internal methods
 
     void preparePages();
 
     void prepareOutline();
-    void prepareOutline(const QDomNode &node, QTreeWidgetItem *parent, QTreeWidgetItem *sibling);
+    void prepareOutline(const QDomNode& node, QTreeWidgetItem* parent, QTreeWidgetItem* sibling);
 
     void prepareMetaInformation();
 

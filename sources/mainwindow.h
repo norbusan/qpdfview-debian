@@ -34,16 +34,16 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
 
     QSize sizeHint() const
     {
         return QSize(500, 700);
     }
 
-    QMenu *createPopupMenu()
+    QMenu* createPopupMenu()
     {
-        QMenu *menu = new QMenu();
+        QMenu* menu = new QMenu();
 
         menu->addAction(m_fileToolBar->toggleViewAction());
         menu->addAction(m_editToolBar->toggleViewAction());
@@ -57,14 +57,16 @@ public:
     }
 
 public slots:
-    bool open(const QString &filePath, int page = 1, qreal top = 0.0);
-    bool openInNewTab(const QString &filePath, int page = 1, qreal top = 0.0);
+    bool open(const QString& filePath, int page = 1, qreal top = 0.0);
+    bool openInNewTab(const QString& filePath, int page = 1, qreal top = 0.0);
 
 protected:
     void closeEvent(QCloseEvent*);
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dropEvent(QDropEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent* event);
+
+    void keyPressEvent(QKeyEvent* event);
 
 protected slots:
     void slotOpen();
@@ -108,141 +110,141 @@ protected slots:
     void slotTabWidgetCurrentChanged(int index);
     void slotTabWidgetTabCloseRequested(int index);
 
-    void slotFilePathChanged(const QString &filePath);
+    void slotFilePathChanged(const QString& filePath);
     void slotNumberOfPagesChanged(int numberOfPages);
 
     void slotCurrentPageLineEditReturnPressed();
     void slotCurrentPageChanged(int currentPage);
 
-    void slotPageLayoutTriggered(QAction *action);
+    void slotPageLayoutTriggered(QAction* action);
     void slotPageLayoutCurrentIndexChanged(int index);
     void slotPageLayoutChanged(DocumentView::PageLayout pageLayout);
 
-    void slotScalingTriggered(QAction *action);
+    void slotScalingTriggered(QAction* action);
     void slotScalingCurrentIndexChanged(int index);
     void slotScalingChanged(DocumentView::Scaling scaling);
 
-    void slotRotationTriggered(QAction *action);
+    void slotRotationTriggered(QAction* action);
     void slotRotationCurrentIndexChanged(int index);
     void slotRotationChanged(DocumentView::Rotation rotation);
 
     void slotHighlightAllCheckBoxClicked(bool checked);
     void slotHighlightAllChanged(bool highlightAll);
 
-    void slotRecentyUsedActionEntrySelected(const QString &filePath);
+    void slotRecentyUsedActionEntrySelected(const QString& filePath);
 
 private:
     // actions
 
-    QAction *m_openAction;
-    QAction *m_openInNewTabAction;
-    RecentlyUsedAction *m_recentlyUsedAction;
-    QAction *m_refreshAction;
-    QAction *m_saveCopyAction;
-    QAction *m_printAction;
+    QAction* m_openAction;
+    QAction* m_openInNewTabAction;
+    RecentlyUsedAction* m_recentlyUsedAction;
+    QAction* m_refreshAction;
+    QAction* m_saveCopyAction;
+    QAction* m_printAction;
 
-    QAction *m_exitAction;
+    QAction* m_exitAction;
 
-    QAction *m_previousPageAction;
-    QAction *m_nextPageAction;
-    QAction *m_firstPageAction;
-    QAction *m_lastPageAction;
+    QAction* m_previousPageAction;
+    QAction* m_nextPageAction;
+    QAction* m_firstPageAction;
+    QAction* m_lastPageAction;
 
-    QAction *m_searchAction;
-    QAction *m_findPreviousAction;
-    QAction *m_findNextAction;
-    QAction *m_cancelSearchAction;
+    QAction* m_searchAction;
+    QAction* m_findPreviousAction;
+    QAction* m_findNextAction;
+    QAction* m_cancelSearchAction;
 
-    QAction *m_settingsAction;
+    QAction* m_settingsAction;
 
-    QAction *m_onePageAction;
-    QAction *m_twoPagesAction;
-    QAction *m_oneColumnAction;
-    QAction *m_twoColumnsAction;
-    QActionGroup *m_pageLayoutGroup;
+    QAction* m_onePageAction;
+    QAction* m_twoPagesAction;
+    QAction* m_oneColumnAction;
+    QAction* m_twoColumnsAction;
+    QActionGroup* m_pageLayoutGroup;
 
-    QAction *m_fitToPageAction;
-    QAction *m_fitToPageWidthAction;
-    QAction *m_scaleTo50Action;
-    QAction *m_scaleTo75Action;
-    QAction *m_scaleTo100Action;
-    QAction *m_scaleTo125Action;
-    QAction *m_scaleTo150Action;
-    QAction *m_scaleTo200Action;
-    QAction *m_scaleTo400Action;
-    QActionGroup *m_scalingGroup;
+    QAction* m_fitToPageAction;
+    QAction* m_fitToPageWidthAction;
+    QAction* m_scaleTo50Action;
+    QAction* m_scaleTo75Action;
+    QAction* m_scaleTo100Action;
+    QAction* m_scaleTo125Action;
+    QAction* m_scaleTo150Action;
+    QAction* m_scaleTo200Action;
+    QAction* m_scaleTo400Action;
+    QActionGroup* m_scalingGroup;
 
-    QAction *m_rotateBy0Action;
-    QAction *m_rotateBy90Action;
-    QAction *m_rotateBy180Action;
-    QAction *m_rotateBy270Action;
-    QActionGroup *m_rotationGroup;
+    QAction* m_rotateBy0Action;
+    QAction* m_rotateBy90Action;
+    QAction* m_rotateBy180Action;
+    QAction* m_rotateBy270Action;
+    QActionGroup* m_rotationGroup;
 
-    QAction *m_fullscreenAction;
-    QAction *m_presentationAction;
+    QAction* m_fullscreenAction;
+    QAction* m_presentationAction;
 
-    QAction *m_previousTabAction;
-    QAction *m_nextTabAction;
+    QAction* m_previousTabAction;
+    QAction* m_nextTabAction;
 
-    QAction *m_closeTabAction;
-    QAction *m_closeAllTabsAction;
-    QAction *m_closeAllTabsButCurrentTabAction;
+    QAction* m_closeTabAction;
+    QAction* m_closeAllTabsAction;
+    QAction* m_closeAllTabsButCurrentTabAction;
 
-    QAction *m_contentsAction;
-    QAction *m_aboutAction;
+    QAction* m_contentsAction;
+    QAction* m_aboutAction;
 
     void createActions();
 
     // widgets
 
-    QTabWidget *m_tabWidget;
+    QTabWidget* m_tabWidget;
 
-    QLineEdit *m_currentPageLineEdit;
-    QIntValidator *m_currentPageValidator;
-    QLabel *m_numberOfPagesLabel;
+    QLineEdit* m_currentPageLineEdit;
+    QIntValidator* m_currentPageValidator;
+    QLabel* m_numberOfPagesLabel;
 
-    QWidget *m_pageLayoutWidget;
-    QComboBox *m_pageLayoutComboBox;
+    QWidget* m_pageLayoutWidget;
+    QComboBox* m_pageLayoutComboBox;
 
-    QWidget *m_scalingWidget;
-    QComboBox *m_scalingComboBox;
+    QWidget* m_scalingWidget;
+    QComboBox* m_scalingComboBox;
 
-    QWidget *m_rotationWidget;
-    QComboBox *m_rotationComboBox;
+    QWidget* m_rotationWidget;
+    QComboBox* m_rotationComboBox;
 
-    QWidget *m_searchWidget;
-    QLineEdit *m_searchLineEdit;
-    QTimer *m_searchTimer;
-    QCheckBox *m_matchCaseCheckBox;
-    QCheckBox *m_highlightAllCheckBox;
+    QWidget* m_searchWidget;
+    QLineEdit* m_searchLineEdit;
+    QTimer* m_searchTimer;
+    QCheckBox* m_matchCaseCheckBox;
+    QCheckBox* m_highlightAllCheckBox;
 
     void createWidgets();
 
     // toolbars
 
-    QToolBar *m_fileToolBar;
-    QToolBar *m_editToolBar;
-    QToolBar *m_viewToolBar;
+    QToolBar* m_fileToolBar;
+    QToolBar* m_editToolBar;
+    QToolBar* m_viewToolBar;
 
-    QToolBar *m_searchToolBar;
+    QToolBar* m_searchToolBar;
 
     void createToolBars();
 
     // docks
 
-    QDockWidget *m_outlineDock;
-    QDockWidget *m_metaInformationDock;
-    QDockWidget *m_thumbnailsDock;
+    QDockWidget* m_outlineDock;
+    QDockWidget* m_metaInformationDock;
+    QDockWidget* m_thumbnailsDock;
 
     void createDocks();
 
     // menus
 
-    QMenu *m_fileMenu;
-    QMenu *m_editMenu;
-    QMenu *m_viewMenu;
-    QMenu *m_tabMenu;
-    QMenu *m_helpMenu;
+    QMenu* m_fileMenu;
+    QMenu* m_editMenu;
+    QMenu* m_viewMenu;
+    QMenu* m_tabMenu;
+    QMenu* m_helpMenu;
 
     void createMenus();
 
@@ -262,13 +264,13 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "net.launchpad.qpdfview.MainWindow")
 
 public:
-    MainWindowAdaptor(MainWindow *mainWindow);
+    MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdaptor(mainWindow) {}
 
 public slots:
-    bool open(const QString &filePath, int page, qreal top);
-    bool openInNewTab(const QString &filePath, int page, qreal top);
+    bool open(const QString& filePath, int page = 1, qreal top = 0.0);
+    bool openInNewTab(const QString& filePath, int page = 1, qreal top = 0.0);
 
-    Q_NOREPLY void refresh(const QString &filePath, int page, qreal top);
+    Q_NOREPLY void refresh(const QString& filePath, int page = 1, qreal top = 0.0);
 
 };
 

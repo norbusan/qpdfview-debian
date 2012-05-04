@@ -27,7 +27,7 @@ PresentationView::PresentationView() : QWidget(),
     m_document(0),
     m_pageCache(),
     m_pageCacheSize(0u),
-    m_maximumPageCacheSize(134217728u),
+    m_maximumPageCacheSize(67108864u),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
@@ -38,19 +38,10 @@ PresentationView::PresentationView() : QWidget(),
     m_linkTransform(),
     m_render()
 {
-    Qt::WindowFlags flags = this->windowFlags();
-    flags = flags | Qt::FramelessWindowHint;
-    this->setWindowFlags(flags);
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
+    setWindowState(windowState() | Qt::WindowFullScreen);
 
-    Qt::WindowStates states = this->windowState();
-    states = states | Qt::WindowFullScreen;
-    this->setWindowState(states);
-
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Window, Qt::black);
-    this->setPalette(palette);
-
-    this->setMouseTracking(true);
+    setMouseTracking(true);
 
     // prefetchTimer
 
@@ -58,7 +49,7 @@ PresentationView::PresentationView() : QWidget(),
     m_prefetchTimer->setInterval(500);
     m_prefetchTimer->setSingleShot(true);
 
-    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(slotPrefetchTimerTimeout()));
+    connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(slotPrefetchTimerTimeout()));
 }
 
 PresentationView::~PresentationView()
@@ -71,21 +62,11 @@ PresentationView::~PresentationView()
     }
 }
 
-void PresentationView::setCurrentPage(int currentPage)
-{
-    if(m_currentPage != currentPage && currentPage >= 1 && currentPage <= m_numberOfPages)
-    {
-        m_currentPage = currentPage;
-
-        this->prepareView();
-    }
-}
-
-bool PresentationView::open(const QString &filePath)
+bool PresentationView::open(const QString& filePath)
 {
     m_render.waitForFinished();
 
-    Poppler::Document *document = Poppler::Document::load(filePath);
+    Poppler::Document* document = Poppler::Document::load(filePath);
 
     if(document)
     {
@@ -114,13 +95,23 @@ bool PresentationView::open(const QString &filePath)
     return document != 0;
 }
 
+void PresentationView::setCurrentPage(int currentPage)
+{
+    if(m_currentPage != currentPage && currentPage >= 1 && currentPage <= m_numberOfPages)
+    {
+        m_currentPage = currentPage;
+
+        prepareView();
+    }
+}
+
 void PresentationView::previousPage()
 {
     if(m_currentPage > 1)
     {
         m_currentPage--;
 
-        this->prepareView();
+        prepareView();
     }
 }
 
@@ -130,7 +121,7 @@ void PresentationView::nextPage()
     {
         m_currentPage++;
 
-        this->prepareView();
+        prepareView();
     }
 }
 
@@ -140,7 +131,7 @@ void PresentationView::firstPage()
     {
         m_currentPage = 1;
 
-        this->prepareView();
+        prepareView();
     }
 }
 
@@ -150,7 +141,7 @@ void PresentationView::lastPage()
     {
         m_currentPage = m_numberOfPages;
 
-        this->prepareView();
+        prepareView();
     }
 }
 
@@ -175,14 +166,14 @@ void PresentationView::slotPrefetchTimerTimeout()
 
 void PresentationView::resizeEvent(QResizeEvent*)
 {
-    this->prepareView();
+    prepareView();
 }
 
-void PresentationView::paintEvent(QPaintEvent *event)
+void PresentationView::paintEvent(QPaintEvent*)
 {
-    QWidget::paintEvent(event);
     QPainter painter(this);
 
+    painter.fillRect(rect(), QBrush(Qt::black));
     painter.fillRect(m_boundingRect, QBrush(Qt::white));
 
 #ifdef RENDER_IN_PAINT
@@ -213,9 +204,6 @@ void PresentationView::paintEvent(QPaintEvent *event)
     }
 
 #endif
-
-    painter.setPen(QPen(Qt::black));
-    painter.drawRect(m_boundingRect);
 }
 
 void PresentationView::keyPressEvent(QKeyEvent *event)
@@ -226,27 +214,27 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
     case Qt::Key_Left:
     case Qt::Key_Backspace:
-        this->previousPage();
+        previousPage();
 
         break;
     case Qt::Key_PageDown:
     case Qt::Key_Down:
     case Qt::Key_Right:
     case Qt::Key_Space:
-        this->nextPage();
+        nextPage();
 
         break;
     case Qt::Key_Home:
-        this->firstPage();
+        firstPage();
 
         break;
     case Qt::Key_End:
-        this->lastPage();
+        lastPage();
 
         break;
     case Qt::Key_F12:
     case Qt::Key_Escape:
-        this->close();
+        close();
 
         break;
     }
@@ -274,7 +262,6 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
         if(m_linkTransform.mapRect(link.area).contains(event->posF()))
         {
             QApplication::setOverrideCursor(Qt::PointingHandCursor);
-
             QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link.page));
 
             return;
@@ -286,28 +273,33 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
 
 void PresentationView::prepareView()
 {
-    Poppler::Page *page = m_document->page(m_currentPage - 1);
+    Poppler::Page* page = m_document->page(m_currentPage - 1);
+    QSizeF size = page->pageSizeF();
 
     // graphics
 
-    QSizeF size = page->pageSizeF();
+    m_scale = qMin(width() / size.width(), height() / size.height());
 
-    m_scale = qMin(static_cast<qreal>(this->width()) / size.width(), static_cast<qreal>(this->height()) / size.height());
-
-    m_boundingRect.setLeft(0.5 * (static_cast<qreal>(this->width()) - m_scale * size.width()));
-    m_boundingRect.setTop(0.5 * (static_cast<qreal>(this->height()) - m_scale * size.height()));
+    m_boundingRect.setLeft(0.5 * (width() - m_scale * size.width()));
+    m_boundingRect.setTop(0.5 * (height() - m_scale * size.height()));
     m_boundingRect.setWidth(m_scale * size.width());
     m_boundingRect.setHeight(m_scale * size.height());
 
     // links
 
-    foreach(Poppler::Link *link, page->links())
+    foreach(Poppler::Link* link, page->links())
     {
         if(link->linkType() == Poppler::Link::Goto)
         {
             if(!static_cast<Poppler::LinkGoto*>(link)->isExternal())
             {
-                m_links.append(Link(link->linkArea().normalized(),static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber()));
+                QRectF area = link->linkArea().normalized();
+                int page = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
+
+                page = page >= 1 ? page : 1;
+                page = page <= m_numberOfPages ? page : m_numberOfPages;
+
+                m_links.append(Link(area, page));
             }
         }
 
@@ -318,19 +310,17 @@ void PresentationView::prepareView()
 
     delete page;
 
-    this->update();
-
     m_prefetchTimer->start();
+
+    update();
 }
 
 void PresentationView::render(int index)
 {
-    Poppler::Page *page = m_document->page(index);
-
+    Poppler::Page* page = m_document->page(index);
     QSizeF size = page->pageSizeF();
 
-    qreal scale = qMin(static_cast<qreal>(this->width()) / size.width(), static_cast<qreal>(this->height()) / size.height());
-
+    qreal scale = qMin(width() / size.width(), height() / size.height());
     QImage image = page->renderToImage(scale * 72.0, scale * 72.0);
 
     delete page;
@@ -356,37 +346,34 @@ void PresentationView::render(int index)
     m_pageCacheSize += byteCount;
     m_pageCache.insert(key, image);
 
-    this->update();
+    update();
 }
 
 // recently used action
 
-RecentlyUsedAction::RecentlyUsedAction(QObject *parent) : QAction(tr("Recently &used"), parent),
+RecentlyUsedAction::RecentlyUsedAction(QObject* parent) : QAction(tr("Recently &used"), parent),
     m_settings()
 {
     m_actionGroup = new QActionGroup(this);
-    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionGroupTriggered(QAction*)));
-
-    m_separatorAction = new QAction(this);
-    m_separatorAction->setSeparator(true);
+    connect(m_actionGroup, SIGNAL(triggered(QAction*)), SLOT(slotActionGroupTriggered(QAction*)));
 
     m_clearListAction = new QAction(tr("&Clear list"), this);
-    connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+    connect(m_clearListAction, SIGNAL(triggered()), SLOT(clearList()));
 
     setMenu(new QMenu());
-    menu()->addAction(m_separatorAction);
+    m_separator = menu()->addSeparator();
     menu()->addAction(m_clearListAction);
 
     QStringList filePaths = m_settings.value("mainWindow/recentlyUsed").toStringList();
 
     foreach(QString filePath, filePaths)
     {
-        QAction *action = new QAction(this);
+        QAction* action = new QAction(this);
         action->setText(filePath);
         action->setData(filePath);
 
         m_actionGroup->addAction(action);
-        menu()->insertAction(m_separatorAction, action);
+        menu()->insertAction(m_separator, action);
     }
 }
 
@@ -394,7 +381,7 @@ RecentlyUsedAction::~RecentlyUsedAction()
 {
     QStringList filePaths;
 
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         filePaths.append(action->data().toString());
     }
@@ -406,24 +393,24 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
 {
     bool addItem = true;
 
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         addItem = addItem && action->data().toString() != filePath;
     }
 
     if(addItem)
     {
-        QAction *action = new QAction(this);
+        QAction* action = new QAction(this);
         action->setText(filePath);
         action->setData(filePath);
 
         m_actionGroup->addAction(action);
-        menu()->insertAction(m_separatorAction, action);
+        menu()->insertAction(m_separator, action);
     }
 
     if(m_actionGroup->actions().size() > 5)
     {
-        QAction *first = m_actionGroup->actions().first();
+        QAction* first = m_actionGroup->actions().first();
 
         m_actionGroup->removeAction(first);
         menu()->removeAction(first);
@@ -434,7 +421,7 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
 
 void RecentlyUsedAction::clearList()
 {
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         m_actionGroup->removeAction(action);
         menu()->removeAction(action);
@@ -443,14 +430,14 @@ void RecentlyUsedAction::clearList()
     }
 }
 
-void RecentlyUsedAction::slotActionGroupTriggered(QAction *action)
+void RecentlyUsedAction::slotActionGroupTriggered(QAction* action)
 {
     emit entrySelected(action->data().toString());
 }
 
 // bookmarks menu
 
-BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
+BookmarksMenu::BookmarksMenu(QWidget* parent) : QMenu(tr("Bookmarks"), parent),
     m_pages(),
     m_values(),
     m_currentPage(-1),
@@ -459,46 +446,43 @@ BookmarksMenu::BookmarksMenu(QWidget *parent) : QMenu(tr("Bookmarks"), parent),
     m_maximum(-1)
 {
     m_actionGroup = new QActionGroup(this);
-    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotActionGroupTriggered(QAction*)));
+    connect(m_actionGroup, SIGNAL(triggered(QAction*)), SLOT(slotActionGroupTriggered(QAction*)));
 
     m_addEntryAction = new QAction(tr("&Add entry"), this);
     m_addEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
-    connect(m_addEntryAction, SIGNAL(triggered()), this, SLOT(addEntry()));
+    connect(m_addEntryAction, SIGNAL(triggered()), SLOT(addEntry()));
 
     m_goToPreviousEntryAction = new QAction(tr("Go to &previous entry"), this);
     m_goToPreviousEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
-    connect(m_goToPreviousEntryAction, SIGNAL(triggered()), this, SLOT(goToPreviousEntry()));
+    connect(m_goToPreviousEntryAction, SIGNAL(triggered()), SLOT(goToPreviousEntry()));
 
     m_goToNextEntryAction = new QAction(tr("Go to &next entry"), this);
     m_goToNextEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
-    connect(m_goToNextEntryAction, SIGNAL(triggered()), this, SLOT(goToNextEntry()));
+    connect(m_goToNextEntryAction, SIGNAL(triggered()), SLOT(goToNextEntry()));
 
     m_removeEntriesOnCurrentPageAction = new QAction(tr("&Remove entries on current page"), this);
     m_removeEntriesOnCurrentPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
-    connect(m_removeEntriesOnCurrentPageAction, SIGNAL(triggered()), this, SLOT(removeEntriesOnCurrentPage()));
-
-    m_separatorAction = new QAction(this);
-    m_separatorAction->setSeparator(true);
+    connect(m_removeEntriesOnCurrentPageAction, SIGNAL(triggered()), SLOT(removeEntriesOnCurrentPage()));
 
     m_clearListAction = new QAction(tr("&Clear list"), this);
     m_clearListAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_B));
-    connect(m_clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+    connect(m_clearListAction, SIGNAL(triggered()), SLOT(clearList()));
 
     addAction(m_addEntryAction);
     addAction(m_goToPreviousEntryAction);
     addAction(m_goToNextEntryAction);
     addAction(m_removeEntriesOnCurrentPageAction);
     addSeparator();
-    addAction(m_separatorAction);
+    m_separator = addSeparator();
     addAction(m_clearListAction);
 }
 
 void BookmarksMenu::addEntry()
 {
     bool addItem = true;
-    QAction *before = 0;
+    QAction* before = 0;
 
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         if(QPair<int, int>(m_pages.value(action), m_values.value(action)) == QPair<int, int>(m_currentPage, m_value))
         {
@@ -521,7 +505,7 @@ void BookmarksMenu::addEntry()
 
     if(addItem)
     {
-        QAction *action = new QAction(this);
+        QAction* action = new QAction(this);
 
         if(m_maximum > m_minimum)
         {
@@ -543,16 +527,16 @@ void BookmarksMenu::addEntry()
         }
         else
         {
-            insertAction(m_separatorAction, action);
+            insertAction(m_separator, action);
         }
     }
 
     if(m_actionGroup->actions().size() > 10)
     {
-        QAction *first = m_actionGroup->actions().first();
+        QAction* first = m_actionGroup->actions().first();
 
         m_actionGroup->removeAction(first);
-        this->removeAction(first);
+        removeAction(first);
 
         m_pages.remove(first);
         m_values.remove(first);
@@ -563,7 +547,7 @@ void BookmarksMenu::addEntry()
 
 void BookmarksMenu::removeEntriesOnCurrentPage()
 {
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         if(m_pages.value(action) == m_currentPage)
         {
@@ -580,9 +564,9 @@ void BookmarksMenu::removeEntriesOnCurrentPage()
 
 void BookmarksMenu::goToPreviousEntry()
 {
-    QAction *previous = 0;
+    QAction* previous = 0;
 
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_currentPage, m_value))
         {
@@ -603,9 +587,9 @@ void BookmarksMenu::goToPreviousEntry()
     }
     else if(!m_actionGroup->actions().isEmpty())
     {
-        QAction *last = m_actionGroup->actions().last();
+        QAction* last = m_actionGroup->actions().last();
 
-        foreach(QAction *action, m_actionGroup->actions())
+        foreach(QAction* action, m_actionGroup->actions())
         {
             if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_pages.value(last), m_values.value(last)))
             {
@@ -619,9 +603,9 @@ void BookmarksMenu::goToPreviousEntry()
 
 void BookmarksMenu::goToNextEntry()
 {
-    QAction *next = 0;
+    QAction* next = 0;
 
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_currentPage, m_value))
         {
@@ -642,9 +626,9 @@ void BookmarksMenu::goToNextEntry()
     }
     else if(!m_actionGroup->actions().isEmpty())
     {
-        QAction *first = m_actionGroup->actions().first();
+        QAction* first = m_actionGroup->actions().first();
 
-        foreach(QAction *action, m_actionGroup->actions())
+        foreach(QAction* action, m_actionGroup->actions())
         {
             if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(first), m_values.value(first)))
             {
@@ -660,7 +644,7 @@ void BookmarksMenu::goToNextEntry()
 
 void BookmarksMenu::clearList()
 {
-    foreach(QAction *action, m_actionGroup->actions())
+    foreach(QAction* action, m_actionGroup->actions())
     {
         m_actionGroup->removeAction(action);
         removeAction(action);
@@ -672,14 +656,14 @@ void BookmarksMenu::clearList()
     }
 }
 
-void BookmarksMenu::slotActionGroupTriggered(QAction *action)
+void BookmarksMenu::slotActionGroupTriggered(QAction* action)
 {
     emit entrySelected(m_pages.value(action), m_values.value(action));
 }
 
 // settings dialog
 
-SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
+SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_settings()
 {
     m_autoRefreshCheckBox = new QCheckBox(this);
@@ -722,11 +706,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent),
     }
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
-    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(m_buttonBox, SIGNAL(accepted()), SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), SLOT(reject()));
 
     m_layout = new QFormLayout(this);
-    this->setLayout(m_layout);
+    setLayout(m_layout);
 
     m_layout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
     m_layout->addRow(tr("External &links:"), m_externalLinksCheckBox);
@@ -760,7 +744,7 @@ void SettingsDialog::accept()
 
 // help dialog
 
-HelpDialog::HelpDialog(QWidget *parent) : QDialog(parent)
+HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 {
     m_textBrowser = new QTextBrowser(this);
 #ifdef DATA_INSTALL_PATH
@@ -770,10 +754,10 @@ HelpDialog::HelpDialog(QWidget *parent) : QDialog(parent)
 #endif
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, this);
-    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(m_buttonBox, SIGNAL(accepted()), SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), SLOT(reject()));
 
-    this->setLayout(new QVBoxLayout());
-    this->layout()->addWidget(m_textBrowser);
-    this->layout()->addWidget(m_buttonBox);
+    setLayout(new QVBoxLayout());
+    layout()->addWidget(m_textBrowser);
+    layout()->addWidget(m_buttonBox);
 }
