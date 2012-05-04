@@ -40,6 +40,19 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
+#ifdef RENDER_IN_PAINT
+
+    DocumentView::PageCacheKey key(m_index, m_scale);
+
+    if(!parent->m_pageCache.contains(key))
+    {
+        render(false);
+    }
+
+    painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+
+#else
+
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, m_scale);
@@ -57,6 +70,8 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
     }
 
     parent->m_pageCacheMutex.unlock();
+
+#endif
 
     painter->setPen(QPen(Qt::black));
     painter->drawRect(boundingRect());
@@ -106,11 +121,7 @@ void DocumentView::PageItem::paint(QPainter *painter, const QStyleOptionGraphics
 
     if(!m_rubberBand.isNull())
     {
-        QPen pen;
-        pen.setColor(Qt::black);
-        pen.setStyle(Qt::DashLine);
-        painter->setPen(pen);
-
+        painter->setPen(QPen(Qt::DashLine));
         painter->drawRect(m_rubberBand);
     }
 }
@@ -344,6 +355,19 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
 
     painter->fillRect(boundingRect(), QBrush(Qt::white));
 
+#ifdef RENDER_IN_PAINT
+
+    DocumentView::PageCacheKey key(m_index, 0.1);
+
+    if(!parent->m_pageCache.contains(key))
+    {
+        render();
+    }
+
+    painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+
+#else
+
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, 0.1);
@@ -361,6 +385,8 @@ void DocumentView::ThumbnailItem::paint(QPainter *painter, const QStyleOptionGra
     }
 
     parent->m_pageCacheMutex.unlock();
+
+#endif
 
     painter->setPen(QPen(Qt::black));
     painter->drawRect(boundingRect());
@@ -1812,6 +1838,11 @@ void DocumentView::prepareMetaInformation()
     {
         QString key = keys.at(index);
         QString value = m_document->info(key);
+
+        if(value.startsWith("D:"))
+        {
+            value = QLocale::system().toString(m_document->date(key));
+        }
 
         m_metaInformationTableWidget->setItem(index, 0, new QTableWidgetItem(key));
         m_metaInformationTableWidget->setItem(index, 1, new QTableWidgetItem(value));

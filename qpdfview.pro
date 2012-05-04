@@ -5,6 +5,18 @@ TEMPLATE = app
 
 QT += core xml gui dbus
 
+# build-time options
+
+paint_links {
+    DEFINES += PAINT_LINKS=1
+}
+render_in_paint {
+    DEFINES += RENDER_IN_PAINT=1
+}
+render_from_disk {
+    DEFINES += RENDER_FROM_DISK=1
+}
+
 # uncomment to append the poppler headers and libraries manually
 #
 #INCLUDEPATH += /usr/include/poppler/qt4
