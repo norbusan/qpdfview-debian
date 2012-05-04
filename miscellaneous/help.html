@@ -25,8 +25,6 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    
     <title>Help</title>
 </head>
 
@@ -36,7 +34,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h4>Table of contents</h4>
 <ol>
-    <li><a href="#menus">Menus</a></li>
+    <li><a href="#mainmenu">Main menu</a></li>
     <ol>
         <li><a href="#file">File</a></li>
         <li><a href="#edit">Edit</a></li>
@@ -54,6 +52,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><a href="#auxiliaryviews">Auxiliary views</a></li>
     <ol>
         <li><a href="#outline">Outline</a></li>
+        <li><a href="#metainformation">Meta-information</a></li>
         <li><a href="#thumbnails">Thumbnails</a></li>
     </ol>
     <li><a href="#commandlineoptions">Command-line options</a></li>
@@ -61,37 +60,38 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h4>Introduction</h4>
 
-<p><em>qpdfview</em> is a viewer for files in the portable document format (PDF). It uses the Poppler library for rendering and a Qt interface. Additionally to standard features it supports opening several documents in separate tabs in the same window.</p>
+<p><em>qpdfview</em> is a viewer for files in the portable document format (PDF). It uses the Poppler library for rendering and the Qt toolkit for its interface. It supports displaying several documents in separate tabs in the same window.</p>
 
-<h3><a name="menus">Menus</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainmenu">Main menu</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> Opens a dialogue to choose a new file to open in the active tab. If no tabs are open, the file is opened in a new tab.</li>
+	<li><b>Open...</b> Opens a dialogue to choose a file to open in the current tab. If there is no tab, the file is opened in a new tab.</li>
 	<li><b>Open in new tab...</b> Opens a dialogue to choose files to open in new tabs. New tabs are added to the right of the tab bar.</li>
-	<li><b>Recently used</b> This menu item contains a list of the 5 most recently opened files. Clicking on a file in the list opens it in the active tab unless no tabs are open, when it is opened in a new tab.</li>
-	<li><b>Refresh</b> Reloads the file displayed in the active tab.</li>
-	<li><b>Save copy...</b> Opens a dialogue to save a copy of the file displayed in the active tab.</li>
-	<li><b>Print...</b> Opens the printing dialogue for the file displayed in the active tab.</li>
-	<li><b>Exit</b> Ends the program and closes all active tabs without further dialogue.</li>
+	<li><b>Recently used</b> This menu contains a list of the 5 most recently used files. Clicking on a file in the list opens it in the current tab or in a new tab if there is none.</li>
+	<li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
+	<li><b>Save copy...</b> Opens a dialogue to save a copy of the file displayed in the current tab.</li>
+	<li><b>Print...</b> Opens a dialogue to print the file displayed in the current tab.</li>
+	<li><b>Exit</b> Closes all tabs and ends the program.</li>
 </ul>
 
 <h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> Displays the next/previous/first/last page of the document in the active tab. Without effect, if the last/first/first/last page of the document is currently displayed.</li>
-	<li><b>Search...</b> Opens a text search dialogue at the bottom of the window. The dialogue remains, if another tab is activated. The search starts if characters have been entered into the search field and no further character is entered for two seconds. A search can be manually started pressing the return key. If a search is currently running when a new search is started, the running search is aborted. If another tab is activated, the search is aborted and the search field is cleared. The search starts on the current page, progresses to the end of the document and then resumes from the beginning of the document until all pages have been searched. As soon as one occurrence of the search term is found, the display jumps to the place of finding. The progress of the search is display below the search dialogue. The search dialogue is closed with the escape key.</li>
-	<li><b>Find previous/next</b> These options are also available in the search dialogue. If a search has been conducted, jump to the previous/next occurrence of the search term in the document. Without effect, if no search has been conducted. If the currently active occurrence is the first/last in the document, these options will jump to the last/first occurence of the search term.</li>
-	<li><b>Settings...</b> Opens the settings menu.
+	<li><b>Next/Previous/First/Last page</b> Displays the next/previous/first/last page of the document in the current tab. Without effect if the last/first/first/last page of the document is currently displayed.</li>
+	<li><b>Search...</b> Opens a search toolbar at the bottom of the window. The search starts if characters have been entered into the search field and no further character is entered for two seconds. The search can be started manually by pressing the return key. If a search is currently running when a new search is started, the currently running search is aborted. If another tab is selected, the search is aborted and the search field is cleared. The search toolbar can be closed by pressing the escape key.</li>
+	<li><b>Find previous/next</b> If a search has been conducted, jumps to the previous/next occurrence of the search term in the document. Without effect, if no search has been conducted.</li>
+	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
+	<li><b>Settings...</b> Opens the settings dialogue.
 		<ul>
-			<li><b>Automatic refresh</b> All documents that are opened while this option is activated, are reloaded if they are changed on disk.</li>
-			<li><b>Open URL</b> Enables URL links in all documents. Links may be malicious and will be opened by the default browser, therefore this option is deactivated by default.</li>
+			<li><b>Auto-refresh</b> Files are reloaded if they change on disk.</li>
+			<li><b>External links</b> External links are opened in the default browser if this is activated. (External links may be malicious, therefore this is deactivated by default.)</li>
 			<li><b>Antialiasing</b> Improves display quality at the cost of performance.</li>
 			<li><b>Text antialiasing</b> Improves text display quality at the cost of performance.</li>
-			<li><b>Text hinting</b> Improves text readability on computer displays.</li>
-			<li><b>Maximum page cache size</b> Sets the maximum size for the page cache. The purpose of this option is to avoid swapping if displaying large documents or working on a system with little memory. The page cache will be automatically increased to hold at least three pages. This can lead to a large cache when viewing a document with large pages on a large scaling. The page cache only presents part of the memory usage of qpdfview, so only part of overall memory usage can be controlled by this option.</li>
-			<li><b>Prefetch distance</b> Sets the number of pages prior to and after the current page to be rendered in advance with a maximum of 10. If the prefetched pages do not fully fit into the cache, the pages prefetched first, including the current page are removed from the cache in the course of prefetching.</li>
+			<li><b>Text hinting</b> May improve text readability on computer displays.</li>
+			<li><b>Uniform fit</b> If this is activated, the scale factor determined by the 'Fit to page' and 'Fit to page width' options will the same for all pages.</li>
+			<li><b>Maximum page cache size</b> Sets the maximum size for the page cache for each tab to limit the memory usage of qpdfview. Be aware though that this is only a part of the overall memory usage of qpdfview. The page cache will be increased automatically and temporarily to hold at least three pages. This can lead to a large cache when using a large scale factor and a high-resolution computer display.</li>
 		</ul>
 	</li>
 </ul>
@@ -99,24 +99,31 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Page layout options</b> The first group of 4 options defines the mode of page display. "Two" pages or colums options display two pages in a horizontal arrangement which may necessitate horizontal scrolling depending on window width. The "page(s)" options display only one page in vertical direction at a time, switching to the next page(s) if the bottom of the page(s) is/are reached, while the "column(s)" option displays pages continuously aligned vertically.</li>
-	<li><b>Scaling options</b> The "Fit to page width" ("Fit to page") option chooses scaling such that all pages fully fit into the view vertically (and horizontally). This may lead to unexpected results if page size is not uniform. The other scaling options are self explanatory.</li>
-	<li><b>Rotation options</b> These options are self explanatory.</li>
-	<li><b>Toolbars</b> This menu item contains a list of available toolbars which will be displayed at the top of the window.</li>
-	<li><b>Docks</b> This menu item contains a list of available docks. The outline will be by default displayed on the left border of the window, while thumbnails are by default displayed to the right.</li>
-	<li><b>Presentation</b> Activates presentation mode. One page is displayed at a time. The Home key is used to display the first page, arrow keys right and down, space and "page down" keys jump to the next page, arrow keys left and up, backspace and "page up" keys jump to the previous page and the End key jumps to the last page. The Escape or F10 keys can be used to exit presentation mode.</li>
-	<li><b>Fullscreen</b> Activates fullscreen mode, where the window is maximized and the main manu is hidden.</li>
+	<li><b>Page layout options</b> The first group of options defines way the pages are laid out. 'Two pages' or 'Two columns' displays two pages in a horizontal arrangement. 'One page'/'Two pages' displays only one page/two pages at a time while 'One Column'/'Two columns' displays all pages continuously.</li>
+	<li><b>Scaling options</b> 'Fit to page width' ('Fit to page') determines the scale factor such that all pages fully fit into the view horizontally (and vertically). The other options select a pre-defined scale factor.</li>
+	<li><b>Rotation options</b> These options select a pre-defined angle to rotate the pages.</li>
+	<li><b>Toolbars</b> This menu contains a list of available toolbars for quick access to commonly used actions.</li>
+	<li><b>Docks</b> This menu contains a list of available docks for displaying supplementary information.</li>
+	<li><b>Fullscreen</b> Enables and disables in fullscreen mode, where the window is maximized and its titlebar is hidden.</li>
+	<li><b>Presentation...</b> Starts a presentation which can be ended by pressing F12 or escape. One page is displayed at a time. The home key is used to display the first page. Arrow keys right and down, space and the page down key jump to the next page. Arrow keys left and up, backspace and the page up key jump to the previous page.</li>
 </ul>
 
 <h4><a name="tab">Tab</a> <a href="#top">&uarr;</a></h4>
 
-<p>All the options in this menu are to be understood in relation to the currently active tab. Otherwise they are self explanatory.</p>
+<ul>
+    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab.</li>
+    <li><b>Close tab</b> Closes the current tab.</li>
+    <li><b>Close all tabs</b> Closes all tabs.</li>
+    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current tab.</li>
+</ul>
+
+<p>This menu also contains a list of all tabs which can be made the current tab by clicking on them.</p>
 
 <h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Contents</b> Opens this help document.</li>
-	<li><b>About</b> Displays information about <em>qpdfview</em>.</li>
+	<li><b>Contents</b> Displays this document.</li>
+	<li><b>About</b> Displays information about qpdfview.</li>
 </ul>
 
 <h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
@@ -124,49 +131,48 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="mousewheel">Mouse wheel</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-        <li>The mouse wheel can be used to scroll up and down.</li>
-        <li>Holding <b>CTRL</b> while using the mouse wheel scales the document. Note that the options "Fit to page" and "Fit to page width" are always topmost in the list of scalings, also if it is navigated using the mouse wheel.</li>
-        <li>Holding <b>SHIFT</b> while using the mouse wheel rotates the document. Note that rotation is cyclic so scrolling down from a rotation state of 270&deg; will yield a rotation state of 0&deg;.</li>
-	<li>Holding <b>ALT</b> while using the mouse wheel scrolls sideways if possible.</li>
+    <li>The mouse wheel can be used to scroll up and down.</li>
+    <li>Holding <b>ALT</b> while using the mouse wheel scrolls left and right.</li>
+    <li>Holding <b>CTRL</b> while using the mouse wheel scales the document. Note that the options 'Fit to page' and 'Fit to page width' are topmost in the list of scaling options.</li>
+    <li>Holding <b>SHIFT</b> while using the mouse wheel rotates the document.</li>
 </ul>
 
 <h4><a name="textselection">Text selection</a> <a href="#top">&uarr;</a></h4>
 
-<p>To mark and copy text, hold <b>SHIFT</b>, click and hold the left mouse button to drag a frame around the text to mark. Once the mouse button is released, the text is copied into the clipboard. (So no need for CTRL+C.) The highlighted area can be reset by middle-clicking anywhere on the corresponding page.</p>
+<p>To copy text, hold <b>SHIFT</b>, click and hold the left mouse button to drag a frame around the text to copy. Once the mouse button is released, the text is copied into the clipboard. The highlighted area can be reset by middle-clicking anywhere on the corresponding page.</p>
 
 <h4><a name="links">Links</a> <a href="#top">&uarr;</a></h4>
 
-<p>Links are highlighted by red frames (which may be obscured by the formatting specified inside the document). Hovering over a link with the mouse shows a tooltip with the link destination. Left click on a link opens the destination in the active tab if it is inside the document, while URL are opened with the default browser (if this is enabled in the settings). Middle click on an internal link opens the document at the destination page in a new tab.</p>
+<p>Links are highlighted by red frames (which may be obscured by the formatting specified inside the document). Hovering over a link with the mouse shows a tooltip with the link destination. Left-clicking on a link shows the linked page in the current tab or opens the linked URL in the default browser (if this is enabled in the settings).</p>
 
 <h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
 
-<p>The context menu of the view contains a bookmarking mechanism. Bookmarks are lost, when page layout, scaling or rotation are changed, but remain, if the tab is changed. Bookmarks on documents in different tabs can exist at the same time. The same document opened in separate tabs will have separate lists of bookmarks.</p>
+<p>The context menu of the view contains a simple transient bookmarks mechanism. Bookmarks are specific to each tab and are lost when page layout, scaling or rotation is changed.</p>
 
 <ul>
 	<li><b>Add entry</b> Creates a bookmark at the current vertical position.</li>
-	<li><b>Remove entries on current page</b> Removes all bookmarks on the current page, i.e. the page whose number is displayed at the head of the window.</li>
-	<li><b>Go to previous/next entry</b> Jumps to the vertical position of the nearest bookmark whose vertical position is above/below the currently displayed part of the document. If there is not earlier/later bookmark, this command will jump to the last/first bookmark in the document.</li>
+	<li><b>Remove entries on current page</b> Removes all bookmarks on the current page, i.e. the page whose number is displayed inside the toolbar.</li>
+	<li><b>Go to previous/next entry</b> Jumps to the vertical position of the nearest bookmark whose vertical position is above/below the current vertical position. If there is not previous/next bookmark, this will jump to the last/first bookmark.</li>
 	<li><b>Clear list</b> Removes all bookmarks.</li>
-	<li><b>Further entries</b> The further entries list all bookmarks in the current tab.</li>
 </ul>
 
 <h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
 
-<p>The docks can be placed left or right of the main view or be detached from the main window. It is possible to attach both docks at the same side of the main view atop each other.</p>
-
 <h4><a name="outline">Outline</a> <a href="#top">&uarr;</a></h4>
 
-<p>The outline dock displays on overview of the contents of the document. A left click on any of the entries jumps to the respective position.</p>
+<p>The outline dock displays an overview of the contents of the document. A left click on an entry jumps to the respective vertical position.</p>
+
+<h4><a name="metainformation">Meta-information</a> <a href="#top">&uarr;</a></h4>
+
+<p>The meta-information dock displays further information supplied by the document.</p>
 
 <h4><a name="thumbnails">Thumbnails</a> <a href="#top">&uarr;</a></h4>
 
-<p>The thumbnail dock shows miniature versions of the pages. A left click on a page jumps to the respective page of the document.</p>
+<p>The thumbnail dock displays miniature versions of the pages. A left click on a page jumps to the respective page of the document.</p>
 
 <h3><a name="commandlineoptions">Command-line options</a> <a href="#top">&uarr;</a></h3>
 
-<p>If an instance of qpdfview is started with the <em>--unique</em> command-line option, any files that are opened using this option afterwards, are opened as tabs in this same window. If a file is already opened in a tab of the respective window, it is merely reloaded.</p>
-
-<p>For a detailed overview of the command line options please refer to the man page, for example by typing "man qpdfview" into a terminal.</p>
+<p>If an instance of qpdfview is started with the <b>--unique</b> option, later invocations using this option will activate this instance to open the specified files. Please refer to the manual page for a detailed description of the command-line options.</p>
 
 </body>
 
