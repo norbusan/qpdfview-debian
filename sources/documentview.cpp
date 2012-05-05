@@ -1123,8 +1123,6 @@ void DocumentView::cancelSearch()
 
     m_resultsMutex.unlock();
 
-    qDebug() << "highlight invisible";
-
     m_highlight->setVisible(false);
 
     if(m_highlightAll)
