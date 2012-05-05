@@ -1225,7 +1225,7 @@ void MainWindow::createWidgets()
 {
     // central
 
-    m_tabWidget = new QTabWidget(this);
+    m_tabWidget = new TabWidget(this);
 
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);

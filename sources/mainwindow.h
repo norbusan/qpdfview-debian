@@ -197,7 +197,7 @@ private:
 
     // widgets
 
-    QTabWidget* m_tabWidget;
+    TabWidget* m_tabWidget;
 
     QLineEdit* m_currentPageLineEdit;
     QIntValidator* m_currentPageValidator;

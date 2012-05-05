@@ -195,7 +195,7 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             event->ignore();
         }
     }
-    else if(event->button() == Qt::MiddleButton)
+    else if(event->button() == Qt::MidButton)
     {
         m_highlight = QRectF();
 
@@ -1614,7 +1614,7 @@ void DocumentView::slotBookmarksMenuEntrySelected(int page, int value)
 
 void DocumentView::slotTabActionTriggered()
 {
-    QTabWidget* tabWidget = qobject_cast<QTabWidget*>(this->parent()->parent()); Q_ASSERT(tabWidget);
+    TabWidget* tabWidget = qobject_cast<TabWidget*>(this->parent()->parent()); Q_ASSERT(tabWidget);
 
     tabWidget->setCurrentIndex(tabWidget->indexOf(this));
 }

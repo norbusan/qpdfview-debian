@@ -130,6 +130,40 @@ private:
 
 };
 
+// tab bar
+
+class TabBar : public QTabBar
+{
+    Q_OBJECT
+
+public:
+    TabBar(QWidget* parent = 0) : QTabBar(parent) {}
+
+protected:
+    void mousePressEvent(QMouseEvent* event)
+    {
+        if(event->button() == Qt::MidButton)
+        {
+            emit tabCloseRequested(tabAt(event->pos()));
+        }
+
+        QTabBar::mousePressEvent(event);
+    }
+};
+
+// tab widget
+
+class TabWidget : public QTabWidget
+{
+    Q_OBJECT
+
+public:
+    TabWidget(QWidget* parent = 0) : QTabWidget(parent)
+    {
+        setTabBar(new TabBar(this));
+    }
+};
+
 // recently used action
 
 class RecentlyUsedAction : public QAction
