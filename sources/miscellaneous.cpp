@@ -705,6 +705,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
         m_maximumPageCacheSizeComboBox->setCurrentIndex(0);
     }
 
+    m_prefetchCheckBox = new QCheckBox(this);
+    m_prefetchCheckBox->setChecked(m_settings.value("documentView/prefetch", true).toBool());
+
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     connect(m_buttonBox, SIGNAL(accepted()), SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), SLOT(reject()));
@@ -722,6 +725,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_layout->addRow(tr("Uniform &fit:"), m_uniformFitCheckBox);
 
     m_layout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
+    m_layout->addRow(tr("&Prefetch:"), m_prefetchCheckBox);
 
     m_layout->addRow(m_buttonBox);
 }
@@ -738,6 +742,7 @@ void SettingsDialog::accept()
     m_settings.setValue("documentView/uniformFit", m_uniformFitCheckBox->isChecked());
 
     m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()));
+    m_settings.setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
 
     QDialog::accept();
 }

@@ -271,6 +271,7 @@ private:
     QCheckBox* m_uniformFitCheckBox;
 
     QComboBox* m_maximumPageCacheSizeComboBox;
+    QCheckBox* m_prefetchCheckBox;
 
     // settings
 

@@ -840,7 +840,15 @@ bool DocumentView::open(const QString& filePath)
     prepareScene();
     prepareView();
 
-    m_prefetchTimer->start();
+    if(m_settings.value("documentView/prefetch").toBool())
+    {
+        m_prefetchTimer->blockSignals(false);
+        m_prefetchTimer->start();
+    }
+    else
+    {
+        m_prefetchTimer->blockSignals(true);
+    }
 
     return document != 0;
 }
@@ -900,7 +908,15 @@ bool DocumentView::refresh()
     prepareScene();
     prepareView();
 
-    m_prefetchTimer->start();
+    if(m_settings.value("documentView/prefetch").toBool())
+    {
+        m_prefetchTimer->blockSignals(false);
+        m_prefetchTimer->start();
+    }
+    else
+    {
+        m_prefetchTimer->blockSignals(true);
+    }
 
     return document != 0;
 }
@@ -921,50 +937,6 @@ bool DocumentView::saveCopy(const QString& filePath)
     }
 
     return false;
-}
-
-void DocumentView::close()
-{
-    m_scene->clear();
-    m_thumbnailsGraphicsView->scene()->clear();
-
-    cancelSearch();
-    cancelPrint();
-
-    if(m_document)
-    {
-        delete m_document;
-    }
-
-    if(m_autoRefreshWatcher)
-    {
-        delete m_autoRefreshWatcher;
-    }
-
-    m_document = 0;
-
-    m_filePath = QString();
-    m_numberOfPages = -1;
-    m_currentPage = -1;
-
-    emit filePathChanged(m_filePath);
-    emit numberOfPagesChanged(m_numberOfPages);
-    emit currentPageChanged(m_currentPage);
-
-    preparePages();
-
-    m_tabAction->setText(QString());
-
-    prepareOutline();
-    prepareMetaInformation();
-    prepareThumbnails();
-
-    m_pageCache.clear();
-    m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
-
-    prepareScene();
-    prepareView();
 }
 
 void DocumentView::setCurrentPage(int currentPage, qreal top)

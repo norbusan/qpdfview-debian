@@ -183,7 +183,6 @@ public slots:
     bool open(const QString& filePath);
     bool refresh();
     bool saveCopy(const QString& filePath);
-    void close();
 
     void setCurrentPage(int currentPage, qreal top = 0.0);
 

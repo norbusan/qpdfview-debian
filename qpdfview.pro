@@ -5,18 +5,6 @@ TEMPLATE = app
 
 QT += core xml gui dbus
 
-# build-time options
-
-paint_links {
-    DEFINES += PAINT_LINKS=1
-}
-render_in_paint {
-    DEFINES += RENDER_IN_PAINT=1
-}
-render_from_disk {
-    DEFINES += RENDER_FROM_DISK=1
-}
-
 # uncomment to append the poppler headers and libraries manually
 #
 #INCLUDEPATH += /usr/include/poppler/qt4
@@ -31,6 +19,12 @@ PKGCONFIG += poppler-qt4
 
 system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14=1
 system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18=1
+
+# build-time options
+
+paint_links:DEFINES += PAINT_LINKS=1
+render_in_paint:DEFINES += RENDER_IN_PAINT=1
+render_from_disk:DEFINES += RENDER_FROM_DISK=1
 
 SOURCES += \
     sources/documentview.cpp \
@@ -50,6 +44,8 @@ TRANSLATIONS += \
     translations/qpdfview_ro.ts \
     translations/qpdfview_ru.ts \
     translations/qpdfview_uk.ts
+
+# installation
 
 target.path = $${TARGET_INSTALL_PATH}
 
