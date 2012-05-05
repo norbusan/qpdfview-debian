@@ -561,13 +561,14 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_view->setDragMode(QGraphicsView::ScrollHandDrag);
     m_view->show();
 
+    // highlight
+
     m_highlight = new QGraphicsRectItem();
     m_highlight->setPen(QPen(QColor(0, 255, 0, 255)));
     m_highlight->setBrush(QBrush(QColor(0, 255, 0, 127)));
+    m_highlight->setVisible(false);
 
     m_scene->addItem(m_highlight);
-
-    m_highlight->setVisible(false);
 
     // verticalScrollBar
 
@@ -781,7 +782,10 @@ QGraphicsView* DocumentView::thumbnailsGraphicsView() const
 
 bool DocumentView::open(const QString& filePath)
 {
+    m_scene->removeItem(m_highlight);
     m_scene->clear();
+    m_scene->addItem(m_highlight);
+
     m_thumbnailsGraphicsView->scene()->clear();
 
     cancelSearch();
@@ -855,7 +859,10 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
+    m_scene->removeItem(m_highlight);
     m_scene->clear();
+    m_scene->addItem(m_highlight);
+
     m_thumbnailsGraphicsView->scene()->clear();
 
     cancelSearch();
@@ -1115,6 +1122,10 @@ void DocumentView::cancelSearch()
     m_currentResult = m_results.end();
 
     m_resultsMutex.unlock();
+
+    qDebug() << "highlight invisible";
+
+    m_highlight->setVisible(false);
 
     if(m_highlightAll)
     {
@@ -1728,7 +1739,10 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
 void DocumentView::preparePages()
 {
+    m_scene->removeItem(m_highlight);
     m_scene->clear();
+    m_scene->addItem(m_highlight);
+
     m_pagesByIndex.clear();
 
     for(int index = 0; index < m_numberOfPages; index++)
@@ -1772,14 +1786,6 @@ void DocumentView::preparePages()
         m_scene->addItem(pageItem);
         m_pagesByIndex.insert(index, pageItem);
     }
-
-    // highlight
-
-    m_highlight = new QGraphicsRectItem();
-    m_highlight->setPen(QPen(QColor(0, 255, 0, 255)));
-    m_highlight->setBrush(QBrush(QColor(0, 255, 0, 127)));
-
-    m_scene->addItem(m_highlight);
 }
 
 void DocumentView::prepareOutline()
@@ -2332,6 +2338,7 @@ void DocumentView::prepareView(qreal top)
 
             m_highlight->setRect(m_currentResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
 
+            pageItem->stackBefore(m_highlight);
             m_highlight->setVisible(true);
         }
         else
