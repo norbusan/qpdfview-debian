@@ -94,6 +94,12 @@ protected slots:
 
     void slotSettings();
 
+    void slotZoomIn();
+    void slotZoomOut();
+
+    void slotRotateLeft();
+    void slotRotateRight();
+
     void slotFullscreen();
     void slotPresentation();
 
@@ -123,10 +129,6 @@ protected slots:
     void slotScalingTriggered(QAction* action);
     void slotScalingCurrentIndexChanged(int index);
     void slotScalingChanged(DocumentView::Scaling scaling);
-
-    void slotRotationTriggered(QAction* action);
-    void slotRotationCurrentIndexChanged(int index);
-    void slotRotationChanged(DocumentView::Rotation rotation);
 
     void slotHighlightAllCheckBoxClicked(bool checked);
     void slotHighlightAllChanged(bool highlightAll);
@@ -172,13 +174,14 @@ private:
     QAction* m_scaleTo150Action;
     QAction* m_scaleTo200Action;
     QAction* m_scaleTo400Action;
+    QAction* m_byScaleFactorAction;
     QActionGroup* m_scalingGroup;
 
-    QAction* m_rotateBy0Action;
-    QAction* m_rotateBy90Action;
-    QAction* m_rotateBy180Action;
-    QAction* m_rotateBy270Action;
-    QActionGroup* m_rotationGroup;
+    QAction* m_zoomInAction;
+    QAction* m_zoomOutAction;
+
+    QAction* m_rotateLeftAction;
+    QAction* m_rotateRightAction;
 
     QAction* m_fullscreenAction;
     QAction* m_presentationAction;
@@ -208,9 +211,6 @@ private:
 
     QWidget* m_scalingWidget;
     QComboBox* m_scalingComboBox;
-
-    QWidget* m_rotationWidget;
-    QComboBox* m_rotationComboBox;
 
     QWidget* m_searchWidget;
     QLineEdit* m_searchLineEdit;

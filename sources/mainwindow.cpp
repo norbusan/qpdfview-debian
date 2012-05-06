@@ -91,7 +91,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
 
         connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), SLOT(slotPageLayoutChanged(DocumentView::PageLayout)));
         connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), SLOT(slotScalingChanged(DocumentView::Scaling)));
-        connect(documentView, SIGNAL(rotationChanged(DocumentView::Rotation)), SLOT(slotRotationChanged(DocumentView::Rotation)));
 
         connect(documentView, SIGNAL(highlightAllChanged(bool)), SLOT(slotHighlightAllChanged(bool)));
 
@@ -409,6 +408,34 @@ void MainWindow::slotSettings()
     }
 }
 
+void MainWindow::slotZoomIn()
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->zoomIn();
+}
+
+void MainWindow::slotZoomOut()
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->zoomOut();
+}
+
+void MainWindow::slotRotateLeft()
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->rotateLeft();
+}
+
+void MainWindow::slotRotateRight()
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->rotateRight();
+}
+
 void MainWindow::slotFullscreen()
 {
     if(m_fullscreenAction->isChecked())
@@ -543,7 +570,10 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_pageLayoutGroup->setEnabled(true);
         m_scalingGroup->setEnabled(true);
-        m_rotationGroup->setEnabled(true);
+        m_zoomInAction->setEnabled(true);
+        m_zoomOutAction->setEnabled(true);
+        m_rotateLeftAction->setEnabled(true);
+        m_rotateRightAction->setEnabled(true);
 
         m_presentationAction->setEnabled(true);
 
@@ -575,7 +605,6 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         slotNumberOfPagesChanged(documentView->numberOfPages());
         slotPageLayoutChanged(documentView->pageLayout());
         slotScalingChanged(documentView->scaling());
-        slotRotationChanged(documentView->rotation());
         slotHighlightAllChanged(documentView->highlightAll());
 
         m_outlineDock->setWidget(documentView->outlineTreeWidget());
@@ -606,8 +635,10 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_scaleTo100Action->setChecked(true);
         m_scalingGroup->setEnabled(false);
 
-        m_rotateBy0Action->setChecked(true);
-        m_rotationGroup->setEnabled(false);
+        m_zoomInAction->setEnabled(false);
+        m_zoomOutAction->setEnabled(false);
+        m_rotateLeftAction->setEnabled(false);
+        m_rotateRightAction->setEnabled(false);
 
         m_presentationAction->setEnabled(false);
 
@@ -623,7 +654,6 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_pageLayoutComboBox->setCurrentIndex(0);
         m_scalingComboBox->setCurrentIndex(4);
-        m_rotationComboBox->setCurrentIndex(0);
         m_viewToolBar->setEnabled(false);
 
         m_highlightAllCheckBox->setChecked(false);
@@ -741,42 +771,6 @@ void MainWindow::slotScalingChanged(DocumentView::Scaling scaling)
         if(m_scalingComboBox->itemData(index).toUInt() == static_cast<uint>(scaling))
         {
             m_scalingComboBox->setCurrentIndex(index);
-        }
-    }
-}
-
-void MainWindow::slotRotationTriggered(QAction *action)
-{
-    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setRotation(static_cast<DocumentView::Rotation>(action->data().toUInt()));
-}
-
-void MainWindow::slotRotationCurrentIndexChanged(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-        documentView->setRotation(static_cast<DocumentView::Rotation>(m_rotationComboBox->itemData(index).toUInt()));
-    }
-}
-
-void MainWindow::slotRotationChanged(DocumentView::Rotation rotation)
-{
-    foreach(QAction* action, m_rotationGroup->actions())
-    {
-        if(action->data().toUInt() == static_cast<uint>(rotation))
-        {
-            action->setChecked(true);
-        }
-    }
-
-    for(int index = 0; index < m_rotationComboBox->count(); index++)
-    {
-        if(m_rotationComboBox->itemData(index).toUInt() == static_cast<uint>(rotation))
-        {
-            m_rotationComboBox->setCurrentIndex(index);
         }
     }
 }
@@ -1123,6 +1117,9 @@ void MainWindow::createActions()
     m_scaleTo400Action = new QAction(tr("Scale to %1%").arg(400), this);
     m_scaleTo400Action->setCheckable(true);
     m_scaleTo400Action->setData(static_cast<uint>(DocumentView::ScaleTo400));
+    m_byScaleFactorAction = new QAction(tr("By scale factor"), this);
+    m_byScaleFactorAction->setCheckable(true);
+    m_byScaleFactorAction->setData(static_cast<uint>(DocumentView::ByScaleFactor));
 
     m_scalingGroup = new QActionGroup(this);
     m_scalingGroup->addAction(m_fitToPageAction);
@@ -1134,29 +1131,81 @@ void MainWindow::createActions()
     m_scalingGroup->addAction(m_scaleTo150Action);
     m_scalingGroup->addAction(m_scaleTo200Action);
     m_scalingGroup->addAction(m_scaleTo400Action);
+    m_scalingGroup->addAction(m_byScaleFactorAction);
     connect(m_scalingGroup, SIGNAL(selected(QAction*)), SLOT(slotScalingTriggered(QAction*)));
+
+    m_zoomInAction = new QAction(tr("Zoom in"), this);
+    m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
+    m_zoomInAction->setIconVisibleInMenu(true);
+    connect(m_zoomInAction, SIGNAL(triggered()), SLOT(slotZoomIn()));
+
+    if(QIcon::hasThemeIcon("zoom-in"))
+    {
+        m_zoomInAction->setIcon(QIcon::fromTheme("zoom-in"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_zoomInAction->setIcon(QIcon(dataInstallPath + "/zoom-in.svg"));
+#else
+        m_zoomInAction->setIcon(QIcon(":/icons/zoom-in.svg"));
+#endif
+    }
+
+    m_zoomOutAction = new QAction(tr("Zoom out"), this);
+    m_zoomOutAction->setShortcut(QKeySequence::ZoomOut);
+    m_zoomOutAction->setIconVisibleInMenu(true);
+    connect(m_zoomOutAction, SIGNAL(triggered()), SLOT(slotZoomOut()));
+
+    if(QIcon::hasThemeIcon("zoom-out"))
+    {
+        m_zoomOutAction->setIcon(QIcon::fromTheme("zoom-out"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_zoomOutAction->setIcon(QIcon(dataInstallPath + "/zoom-out.svg"));
+#else
+        m_zoomOutAction->setIcon(QIcon(":/icons/zoom-out.svg"));
+#endif
+    }
 
     // rotation
 
-    m_rotateBy0Action = new QAction(trUtf8("Rotate by %1°").arg(0), this);
-    m_rotateBy0Action->setCheckable(true);
-    m_rotateBy0Action->setData(static_cast<uint>(DocumentView::RotateBy0));
-    m_rotateBy90Action = new QAction(trUtf8("Rotate by %1°").arg(90), this);
-    m_rotateBy90Action->setCheckable(true);
-    m_rotateBy90Action->setData(static_cast<uint>(DocumentView::RotateBy90));
-    m_rotateBy180Action = new QAction(trUtf8("Rotate by %1°").arg(180), this);
-    m_rotateBy180Action->setCheckable(true);
-    m_rotateBy180Action->setData(static_cast<uint>(DocumentView::RotateBy180));
-    m_rotateBy270Action = new QAction(trUtf8("Rotate by %1°").arg(270), this);
-    m_rotateBy270Action->setCheckable(true);
-    m_rotateBy270Action->setData(static_cast<uint>(DocumentView::RotateBy270));
+    m_rotateLeftAction = new QAction(tr("Rotate left"), this);
+    m_rotateLeftAction->setIcon(QIcon("object-rotate-left"));
+    m_rotateLeftAction->setIconVisibleInMenu(true);
+    connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(slotRotateLeft()));
 
-    m_rotationGroup = new QActionGroup(this);
-    m_rotationGroup->addAction(m_rotateBy0Action);
-    m_rotationGroup->addAction(m_rotateBy90Action);
-    m_rotationGroup->addAction(m_rotateBy180Action);
-    m_rotationGroup->addAction(m_rotateBy270Action);
-    connect(m_rotationGroup, SIGNAL(selected(QAction*)), SLOT(slotRotationTriggered(QAction*)));
+    if(QIcon::hasThemeIcon("object-rotate-left"))
+    {
+        m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_rotateLeftAction->setIcon(QIcon(dataInstallPath + "/object-rotate-left.svg"));
+#else
+        m_rotateLeftAction->setIcon(QIcon(":/icons/object-rotate-left.svg"));
+#endif
+    }
+
+    m_rotateRightAction = new QAction(tr("Rotate right"), this);
+    m_rotateRightAction->setIconVisibleInMenu(true);
+    connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(slotRotateRight()));
+
+    if(QIcon::hasThemeIcon("object-rotate-right"))
+    {
+        m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_rotateRightAction->setIcon(QIcon(dataInstallPath + "/object-rotate-right.svg"));
+#else
+        m_rotateRightAction->setIcon(QIcon(":/icons/object-rotate-right.svg"));
+#endif
+    }
 
     // fullscreen
 
@@ -1285,28 +1334,13 @@ void MainWindow::createWidgets()
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), static_cast<uint>(DocumentView::ScaleTo150));
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), static_cast<uint>(DocumentView::ScaleTo200));
     m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), static_cast<uint>(DocumentView::ScaleTo400));
+    m_scalingComboBox->addItem(tr("By scale factor"), static_cast<uint>(DocumentView::ByScaleFactor));
 
     m_scalingWidget->setLayout(new QHBoxLayout());
     m_scalingWidget->layout()->setContentsMargins(5, 0, 5, 0);
     m_scalingWidget->layout()->addWidget(m_scalingComboBox);
 
     connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotScalingCurrentIndexChanged(int)));
-
-    // rotation
-
-    m_rotationWidget = new QWidget(this);
-    m_rotationComboBox = new QComboBox(m_rotationWidget);
-
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(0), static_cast<uint>(DocumentView::RotateBy0));
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(90), static_cast<uint>(DocumentView::RotateBy90));
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(180), static_cast<uint>(DocumentView::RotateBy180));
-    m_rotationComboBox->addItem(trUtf8("Rotate by %1°").arg(270), static_cast<uint>(DocumentView::RotateBy270));
-
-    m_rotationWidget->setLayout(new QHBoxLayout());
-    m_rotationWidget->layout()->setContentsMargins(5, 0, 5, 0);
-    m_rotationWidget->layout()->addWidget(m_rotationComboBox);
-
-    connect(m_rotationComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotRotationCurrentIndexChanged(int)));
 
     // search
 
@@ -1368,8 +1402,11 @@ void MainWindow::createToolBars()
     m_viewToolBar->setHidden(true);
 
     m_viewToolBar->addWidget(m_pageLayoutWidget);
+    m_viewToolBar->addAction(m_zoomInAction);
     m_viewToolBar->addWidget(m_scalingWidget);
-    m_viewToolBar->addWidget(m_rotationWidget);
+    m_viewToolBar->addAction(m_zoomOutAction);
+    m_viewToolBar->addAction(m_rotateLeftAction);
+    m_viewToolBar->addAction(m_rotateRightAction);
 
     addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 
@@ -1468,11 +1505,12 @@ void MainWindow::createMenus()
     m_viewMenu->addAction(m_scaleTo150Action);
     m_viewMenu->addAction(m_scaleTo200Action);
     m_viewMenu->addAction(m_scaleTo400Action);
+    m_viewMenu->addAction(m_byScaleFactorAction);
+    m_viewMenu->addAction(m_zoomInAction);
+    m_viewMenu->addAction(m_zoomOutAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_rotateBy0Action);
-    m_viewMenu->addAction(m_rotateBy90Action);
-    m_viewMenu->addAction(m_rotateBy180Action);
-    m_viewMenu->addAction(m_rotateBy270Action);
+    m_viewMenu->addAction(m_rotateLeftAction);
+    m_viewMenu->addAction(m_rotateRightAction);
     m_viewMenu->addSeparator();
 
     // toolbars

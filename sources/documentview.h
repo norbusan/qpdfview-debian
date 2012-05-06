@@ -18,12 +18,13 @@ class DocumentView : public QWidget
     Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
     Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
     Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
+    Q_PROPERTY(qreal scaleFactor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
     Q_PROPERTY(bool highlightAll READ highlightAll WRITE setHighlightAll NOTIFY highlightAllChanged)
     Q_ENUMS(PageLayout Scaling Rotation)
 
 public:
     enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
-    enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400 };
+    enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400, ByScaleFactor };
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
 
 private:
@@ -166,6 +167,9 @@ public:
     Rotation rotation() const;
     void setRotation(Rotation rotation);
 
+    qreal scaleFactor() const;
+    void setScaleFactor(qreal scaleFactor);
+
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
@@ -187,6 +191,12 @@ public slots:
     void firstPage();
     void lastPage();
 
+    void zoomIn();
+    void zoomOut();
+
+    void rotateLeft();
+    void rotateRight();
+
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
@@ -207,6 +217,8 @@ signals:
     void pageLayoutChanged(DocumentView::PageLayout pageLayout);
     void scalingChanged(DocumentView::Scaling scaling);
     void rotationChanged(DocumentView::Rotation rotation);
+
+    void scaleFactorChanged(qreal scaleFactor);
 
     void highlightAllChanged(bool highlightAll);
 
@@ -265,6 +277,8 @@ private:
     PageLayout m_pageLayout;
     Scaling m_scaling;
     Rotation m_rotation;
+
+    qreal m_scaleFactor;
 
     bool m_highlightAll;
 

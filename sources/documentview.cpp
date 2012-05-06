@@ -284,7 +284,7 @@ void DocumentView::PageItem::render(bool prefetch)
     DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = parent->m_pageTransform.mapRect(boundingRect()).translated(pos());
-    QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->viewport()->rect()).boundingRect();
+    QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->viewport()->visibleRegion().boundingRect()).boundingRect();
 
     if(!rect.intersects(visibleRect) && !prefetch)
     {
@@ -527,6 +527,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_pageLayout(OnePage),
     m_scaling(ScaleTo100),
     m_rotation(RotateBy0),
+    m_scaleFactor(1.0),
     m_highlightAll(false),
     m_pagesByIndex(),
     m_pagesByHeight(),
@@ -550,6 +551,9 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
     m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
     m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
+
+    m_scaleFactor = m_settings.value("documentView/scaleFactor", 1.0).toReal();
+
     m_highlightAll = m_settings.value("documentView/highlightAll", false).toBool();
 
     // graphics
@@ -735,6 +739,26 @@ void DocumentView::setRotation(DocumentView::Rotation rotation)
         prepareView();
 
         emit rotationChanged(m_rotation);
+    }
+}
+
+qreal DocumentView::scaleFactor() const
+{
+    return m_scaleFactor;
+}
+
+void DocumentView::setScaleFactor(qreal scaleFactor)
+{
+    if(m_scaleFactor != scaleFactor && scaleFactor >= 0.5 && scaleFactor <= 4.0)
+    {
+        m_scaleFactor = scaleFactor;
+
+        m_settings.setValue("documentView/scaleFactor", m_scaleFactor);
+
+        prepareScene();
+        prepareView();
+
+        emit scaleFactorChanged(m_scaleFactor);
     }
 }
 
@@ -1100,6 +1124,89 @@ void DocumentView::lastPage()
     }
 }
 
+void DocumentView::zoomIn()
+{
+    switch(m_scaling)
+    {
+    case FitToPage:
+        break;
+    case FitToPageWidth:
+        break;
+    case ScaleTo50:
+        setScaling(ScaleTo75); break;
+    case ScaleTo75:
+        setScaling(ScaleTo100); break;
+    case ScaleTo100:
+        setScaling(ScaleTo125); break;
+    case ScaleTo125:
+        setScaling(ScaleTo150); break;
+    case ScaleTo150:
+        setScaling(ScaleTo200); break;
+    case ScaleTo200:
+        setScaling(ScaleTo400); break;
+    case ScaleTo400:
+        break;
+    case ByScaleFactor:
+        setScaleFactor(scaleFactor() + 0.1); break;
+    }
+}
+
+void DocumentView::zoomOut()
+{
+    switch(m_scaling)
+    {
+    case FitToPage:
+        break;
+    case FitToPageWidth:
+        break;
+    case ScaleTo50:
+        break;
+    case ScaleTo75:
+        setScaling(ScaleTo50); break;
+    case ScaleTo100:
+        setScaling(ScaleTo75); break;
+    case ScaleTo125:
+        setScaling(ScaleTo100); break;
+    case ScaleTo150:
+        setScaling(ScaleTo125); break;
+    case ScaleTo200:
+        setScaling(ScaleTo150); break;
+    case ScaleTo400:
+        setScaling(ScaleTo200); break;
+    case ByScaleFactor:
+        setScaleFactor(scaleFactor() - 0.1); break;
+    }
+}
+
+void DocumentView::rotateLeft()
+{
+    switch(m_rotation)
+    {
+    case RotateBy0:
+        setRotation(RotateBy270); break;
+    case RotateBy90:
+        setRotation(RotateBy0); break;
+    case RotateBy180:
+        setRotation(RotateBy90); break;
+    case RotateBy270:
+        setRotation(RotateBy180); break;
+    }
+}
+
+void DocumentView::rotateRight()
+{
+    switch(m_rotation)
+    {
+    case RotateBy0:
+        setRotation(RotateBy90); break;
+    case RotateBy90:
+        setRotation(RotateBy180); break;
+    case RotateBy180:
+        setRotation(RotateBy270); break;
+    case RotateBy270:
+        setRotation(RotateBy0); break;
+    }
+}
 
 void DocumentView::startSearch(const QString& text, bool matchCase)
 {
@@ -1415,82 +1522,22 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     {
         if(event->delta() > 0)
         {
-            switch(m_scaling)
-            {
-            case FitToPage:
-                setScaling(FitToPageWidth); break;
-            case FitToPageWidth:
-                setScaling(ScaleTo50); break;
-            case ScaleTo50:
-                setScaling(ScaleTo75); break;
-            case ScaleTo75:
-                setScaling(ScaleTo100); break;
-            case ScaleTo100:
-                setScaling(ScaleTo125); break;
-            case ScaleTo125:
-                setScaling(ScaleTo150); break;
-            case ScaleTo150:
-                setScaling(ScaleTo200); break;
-            case ScaleTo200:
-                setScaling(ScaleTo400); break;
-            case ScaleTo400:
-                break;
-            }
+            zoomIn();
         }
         else if(event->delta() < 0)
         {
-            switch(m_scaling)
-            {
-            case FitToPage:
-                break;
-            case FitToPageWidth:
-                setScaling(FitToPage); break;
-            case ScaleTo50:
-                setScaling(FitToPageWidth); break;
-            case ScaleTo75:
-                setScaling(ScaleTo50); break;
-            case ScaleTo100:
-                setScaling(ScaleTo75); break;
-            case ScaleTo125:
-                setScaling(ScaleTo100); break;
-            case ScaleTo150:
-                setScaling(ScaleTo125); break;
-            case ScaleTo200:
-                setScaling(ScaleTo150); break;
-            case ScaleTo400:
-                setScaling(ScaleTo200); break;
-            }
+            zoomOut();
         }
     }
     else if(event->modifiers() == Qt::ShiftModifier)
     {
         if(event->delta() > 0)
         {
-            switch(m_rotation)
-            {
-            case RotateBy0:
-                setRotation(RotateBy270); break;
-            case RotateBy90:
-                setRotation(RotateBy0); break;
-            case RotateBy180:
-                setRotation(RotateBy90); break;
-            case RotateBy270:
-                setRotation(RotateBy180); break;
-            }
+            rotateLeft();
         }
         else if(event->delta() < 0)
         {
-            switch(m_rotation)
-            {
-            case RotateBy0:
-                setRotation(RotateBy90); break;
-            case RotateBy90:
-                setRotation(RotateBy180); break;
-            case RotateBy180:
-                setRotation(RotateBy270); break;
-            case RotateBy270:
-                setRotation(RotateBy0); break;
-            }
+            rotateRight();
         }
     }
     else if(event->modifiers() == Qt::AltModifier)
@@ -1931,8 +1978,8 @@ void DocumentView::prepareScene()
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        qreal visibleWidth = m_view->mapToScene(m_view->viewport()->rect()).boundingRect().width();
-        qreal visibleHeight = m_view->mapToScene(m_view->viewport()->rect()).boundingRect().height();
+        qreal visibleWidth = m_view->mapToScene(m_view->viewport()->visibleRegion().boundingRect()).boundingRect().width();
+        qreal visibleHeight = m_view->mapToScene(m_view->viewport()->visibleRegion().boundingRect()).boundingRect().height();
 
         switch(m_pageLayout)
         {
@@ -2081,6 +2128,8 @@ void DocumentView::prepareScene()
                 pageItem->m_scale = 2.0; break;
             case ScaleTo400:
                 pageItem->m_scale = 4.0; break;
+            case ByScaleFactor:
+                pageItem->m_scale = m_scaleFactor; break;
             }
         }
     }
