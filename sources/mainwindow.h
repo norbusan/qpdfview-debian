@@ -97,7 +97,7 @@ protected slots:
 
     void slotPageLayoutGroupTriggered(QAction* action);
 
-    void slotScalingGroupTriggered(QAction* action);
+    void slotScaleModeGroupTriggered(QAction* action);
 
     void slotZoomIn();
     void slotZoomOut();
@@ -123,8 +123,8 @@ protected slots:
 
     void slotCurrentPageLineEditReturnPressed();
 
-    void slotScalingComboBoxCurrentIndexChanged(int index);
-    void slotScalingComboBoxReturnPressed();
+    void slotScaleFactorComboBoxCurrentIndexChanged(int index);
+    void slotScaleFactorComboBoxReturnPressed();
 
     void slotHighlightAllCheckBoxClicked(bool checked);
 
@@ -133,7 +133,7 @@ protected slots:
 
     void slotCurrentPageChanged(int currentPage);
     void slotPageLayoutChanged(DocumentView::PageLayout pageLayout);
-    void slotScalingChanged(DocumentView::Scaling scaling);
+    void slotScaleModeChanged(DocumentView::ScaleMode scaling);
     void slotScaleFactorChanged(qreal scaleFactor);
 
     void slotHighlightAllChanged(bool highlightAll);
@@ -170,8 +170,8 @@ private:
 
     QAction* m_fitToPageAction;
     QAction* m_fitToPageWidthAction;
-    QAction* m_originalSizeAction;
-    QActionGroup* m_scalingGroup;
+    QAction* m_doNotScaleAction;
+    QActionGroup* m_scaleModeGroup;
 
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
@@ -200,9 +200,10 @@ private:
 
     QLineEdit* m_currentPageLineEdit;
     QIntValidator* m_currentPageValidator;
+
     QLabel* m_numberOfPagesLabel;
 
-    ComboBox* m_scalingComboBox;
+    ComboBox* m_scaleFactorComboBox;
 
     QWidget* m_searchWidget;
     QLineEdit* m_searchLineEdit;

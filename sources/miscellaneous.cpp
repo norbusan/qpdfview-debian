@@ -349,6 +349,78 @@ void PresentationView::render(int index)
     update();
 }
 
+// tab bar
+
+TabBar::TabBar(QWidget *parent) : QTabBar(parent)
+{
+}
+
+void TabBar::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu menu(this);
+
+    QAction* northAction = menu.addAction(tr("&North"));
+    QAction* southAction = menu.addAction(tr("&South"));
+    QAction* westAction = menu.addAction(tr("&West"));
+    QAction* eastAction = menu.addAction(tr("&East"));
+
+    QAction* positionAction = menu.exec(event->globalPos());
+
+    TabWidget* tabWidget = qobject_cast<TabWidget*>(parent()); Q_ASSERT(tabWidget);
+
+    if(positionAction == northAction)
+    {
+        tabWidget->setTabPosition(QTabWidget::North);
+    }
+    else if(positionAction == southAction)
+    {
+        tabWidget->setTabPosition(QTabWidget::South);
+    }
+    else if(positionAction == westAction)
+    {
+        tabWidget->setTabPosition(QTabWidget::West);
+    }
+    else if(positionAction == eastAction)
+    {
+        tabWidget->setTabPosition(QTabWidget::East);
+    }
+
+    QTabBar::contextMenuEvent(event);
+}
+
+void TabBar::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::MidButton)
+    {
+        emit tabCloseRequested(tabAt(event->pos()));
+    }
+
+    QTabBar::mousePressEvent(event);
+}
+
+// tab widget
+
+TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent)
+{
+    setTabBar(new TabBar(this));
+}
+
+// combo box
+
+ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
+{
+}
+
+void ComboBox::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Return)
+    {
+        emit returnPressed();
+    }
+
+    QComboBox::keyPressEvent(event);
+}
+
 // recently used action
 
 RecentlyUsedAction::RecentlyUsedAction(QObject* parent) : QAction(tr("Recently &used"), parent),

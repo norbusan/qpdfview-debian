@@ -137,18 +137,13 @@ class TabBar : public QTabBar
     Q_OBJECT
 
 public:
-    TabBar(QWidget* parent = 0) : QTabBar(parent) {}
+    TabBar(QWidget* parent = 0);
 
 protected:
-    void mousePressEvent(QMouseEvent* event)
-    {
-        if(event->button() == Qt::MidButton)
-        {
-            emit tabCloseRequested(tabAt(event->pos()));
-        }
+    void contextMenuEvent(QContextMenuEvent* event);
 
-        QTabBar::mousePressEvent(event);
-    }
+    void mousePressEvent(QMouseEvent* event);
+
 };
 
 // tab widget
@@ -158,10 +153,8 @@ class TabWidget : public QTabWidget
     Q_OBJECT
 
 public:
-    TabWidget(QWidget* parent = 0) : QTabWidget(parent)
-    {
-        setTabBar(new TabBar(this));
-    }
+    TabWidget(QWidget* parent = 0);
+
 };
 
 // combo box
@@ -171,21 +164,14 @@ class ComboBox : public QComboBox
     Q_OBJECT
 
 public:
-    ComboBox(QWidget* parent = 0) : QComboBox(parent) {}
+    ComboBox(QWidget* parent = 0);
 
 signals:
     void returnPressed();
 
 protected:
-    void keyPressEvent(QKeyEvent *event)
-    {
-        if(event->key() == Qt::Key_Return)
-        {
-            emit returnPressed();
-        }
+    void keyPressEvent(QKeyEvent *event);
 
-        QComboBox::keyPressEvent(event);
-    }
 };
 
 // recently used action

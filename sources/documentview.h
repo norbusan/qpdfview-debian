@@ -16,16 +16,21 @@ class DocumentView : public QWidget
     Q_PROPERTY(int numberOfPages READ numberOfPages NOTIFY numberOfPagesChanged)
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
     Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
-    Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
+    Q_PROPERTY(ScaleMode scaleMode READ scaleMode WRITE setScaleMode NOTIFY scaleModeChanged)
     Q_PROPERTY(qreal scaleFactor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
     Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
     Q_PROPERTY(bool highlightAll READ highlightAll WRITE setHighlightAll NOTIFY highlightAllChanged)
-    Q_ENUMS(PageLayout Scaling Rotation)
+    Q_ENUMS(PageLayout ScaleMode Rotation)
 
 public:
     enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
-    enum Scaling { FitToPage, FitToPageWidth, OriginalSize, ByScaleFactor };
+    enum ScaleMode { FitToPage, FitToPageWidth, DoNotScale, ScaleFactor };
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
+
+    const static qreal pageSpacing = 5.0;
+    const static qreal thumbnailSpacing = 2.5;
+
+    const static qreal zoomBy = 0.1;
 
     const static qreal minScaleFactor = 0.1;
     const static qreal maxScaleFactor = 5.0;
@@ -164,8 +169,8 @@ public:
     PageLayout pageLayout() const;
     void setPageLayout(PageLayout pageLayout);
 
-    Scaling scaling() const;
-    void setScaling(Scaling scaling);
+    ScaleMode scaleMode() const;
+    void setScaleMode(ScaleMode scaleMode);
 
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
@@ -218,10 +223,9 @@ signals:
 
     void currentPageChanged(int currentPage);
     void pageLayoutChanged(DocumentView::PageLayout pageLayout);
-    void scalingChanged(DocumentView::Scaling scaling);
-    void rotationChanged(DocumentView::Rotation rotation);
-
+    void scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
+    void rotationChanged(DocumentView::Rotation rotation);
 
     void highlightAllChanged(bool highlightAll);
 
@@ -278,7 +282,7 @@ private:
 
     int m_currentPage;
     PageLayout m_pageLayout;
-    Scaling m_scaling;
+    ScaleMode m_scaleMode;
     qreal m_scaleFactor;
     Rotation m_rotation;
 
