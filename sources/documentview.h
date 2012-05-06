@@ -17,15 +17,18 @@ class DocumentView : public QWidget
     Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
     Q_PROPERTY(PageLayout pageLayout READ pageLayout WRITE setPageLayout NOTIFY pageLayoutChanged)
     Q_PROPERTY(Scaling scaling READ scaling WRITE setScaling NOTIFY scalingChanged)
-    Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
     Q_PROPERTY(qreal scaleFactor READ scaleFactor WRITE setScaleFactor NOTIFY scaleFactorChanged)
+    Q_PROPERTY(Rotation rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
     Q_PROPERTY(bool highlightAll READ highlightAll WRITE setHighlightAll NOTIFY highlightAllChanged)
     Q_ENUMS(PageLayout Scaling Rotation)
 
 public:
     enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
-    enum Scaling { FitToPage, FitToPageWidth, ScaleTo50, ScaleTo75, ScaleTo100, ScaleTo125, ScaleTo150, ScaleTo200, ScaleTo400, ByScaleFactor };
+    enum Scaling { FitToPage, FitToPageWidth, OriginalSize, ByScaleFactor };
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
+
+    const static qreal minScaleFactor = 0.1;
+    const static qreal maxScaleFactor = 5.0;
 
 private:
     struct Link
@@ -164,11 +167,11 @@ public:
     Scaling scaling() const;
     void setScaling(Scaling scaling);
 
-    Rotation rotation() const;
-    void setRotation(Rotation rotation);
-
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
+
+    Rotation rotation() const;
+    void setRotation(Rotation rotation);
 
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
@@ -276,9 +279,8 @@ private:
     int m_currentPage;
     PageLayout m_pageLayout;
     Scaling m_scaling;
-    Rotation m_rotation;
-
     qreal m_scaleFactor;
+    Rotation m_rotation;
 
     bool m_highlightAll;
 

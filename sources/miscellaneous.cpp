@@ -728,9 +728,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 
     m_filesLayout->addRow(tr("External &links:"), m_externalLinksCheckBox);
 
-    m_filesLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+    m_filesLayout->addRow(tr("Restore &tabs:"), m_restoreTabsCheckBox);
 
-    m_tabWidget->addTab(m_filesWidget, tr("Files"));
+    m_tabWidget->addTab(m_filesWidget, tr("&Files"));
 
     m_graphicsWidget = new QWidget(m_tabWidget);
     m_graphicsLayout = new QFormLayout(m_graphicsWidget);
@@ -740,10 +740,10 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_graphicsLayout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_graphicsLayout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
 
-    m_graphicsLayout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
+    m_graphicsLayout->addRow(tr("Maximum page &cache size:"), m_maximumPageCacheSizeComboBox);
     m_graphicsLayout->addRow(tr("&Prefetch:"), m_prefetchCheckBox);
 
-    m_tabWidget->addTab(m_graphicsWidget, tr("Graphics"));
+    m_tabWidget->addTab(m_graphicsWidget, tr("&Graphics"));
 }
 
 void SettingsDialog::accept()

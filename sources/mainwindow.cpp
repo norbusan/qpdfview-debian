@@ -107,6 +107,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
 
         connect(documentView, SIGNAL(pageLayoutChanged(DocumentView::PageLayout)), SLOT(slotPageLayoutChanged(DocumentView::PageLayout)));
         connect(documentView, SIGNAL(scalingChanged(DocumentView::Scaling)), SLOT(slotScalingChanged(DocumentView::Scaling)));
+        connect(documentView, SIGNAL(scaleFactorChanged(qreal)), SLOT(slotScaleFactorChanged(qreal)));
 
         connect(documentView, SIGNAL(highlightAllChanged(bool)), SLOT(slotHighlightAllChanged(bool)));
 
@@ -245,6 +246,11 @@ void MainWindow::slotOpenInNewTab()
     slotTabWidgetCurrentChanged(m_tabWidget->currentIndex());
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
+}
+
+void MainWindow::slotRecentyUsedActionEntrySelected(const QString& filePath)
+{
+    open(filePath);
 }
 
 void MainWindow::slotRefresh()
@@ -448,6 +454,20 @@ void MainWindow::slotSettings()
     }
 }
 
+void MainWindow::slotPageLayoutGroupTriggered(QAction* action)
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->setPageLayout(static_cast<DocumentView::PageLayout>(action->data().toUInt()));
+}
+
+void MainWindow::slotScalingGroupTriggered(QAction* action)
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->setScaling(static_cast<DocumentView::Scaling>(action->data().toUInt()));
+}
+
 void MainWindow::slotZoomIn()
 {
     DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
@@ -645,6 +665,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         slotNumberOfPagesChanged(documentView->numberOfPages());
         slotPageLayoutChanged(documentView->pageLayout());
         slotScalingChanged(documentView->scaling());
+        slotScaleFactorChanged(documentView->scaleFactor());
         slotHighlightAllChanged(documentView->highlightAll());
 
         m_outlineDock->setWidget(documentView->outlineTreeWidget());
@@ -672,7 +693,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_onePageAction->setChecked(true);
         m_pageLayoutGroup->setEnabled(false);
 
-        m_scaleTo100Action->setChecked(true);
+        m_originalSizeAction->setChecked(true);
         m_scalingGroup->setEnabled(false);
 
         m_zoomInAction->setEnabled(false);
@@ -692,8 +713,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_numberOfPagesLabel->setText(QString());
         m_editToolBar->setEnabled(false);
 
-        m_pageLayoutComboBox->setCurrentIndex(0);
-        m_scalingComboBox->setCurrentIndex(4);
+        m_scalingComboBox->setCurrentIndex(2);
         m_viewToolBar->setEnabled(false);
 
         m_highlightAllCheckBox->setChecked(false);
@@ -719,6 +739,58 @@ void MainWindow::slotTabWidgetTabCloseRequested(int index)
     delete m_tabWidget->widget(index);
 }
 
+void MainWindow::slotCurrentPageLineEditReturnPressed()
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+}
+
+void MainWindow::slotScalingComboBoxReturnPressed()
+{
+    bool ok = false;
+    float scaleFactor = 1.0;
+
+    QString text = m_scalingComboBox->currentText();
+
+    if(text.endsWith('%'))
+    {
+        scaleFactor = QLocale::system().toFloat(text.left(text.size() - 1), &ok) / 100.0;
+    }
+    else
+    {
+        scaleFactor = QLocale::system().toFloat(text, &ok);
+    }
+
+    if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
+    {
+        m_scalingComboBox->setItemText(3, tr("Scale to %1%").arg(100.0 * scaleFactor, 0, 'f', 0));
+        m_scalingComboBox->setCurrentIndex(3);
+
+        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+        documentView->setScaleFactor(scaleFactor);
+        documentView->setScaling(DocumentView::ByScaleFactor);
+    }
+}
+
+void MainWindow::slotScalingComboBoxCurrentIndexChanged(int index)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+        documentView->setScaling(static_cast<DocumentView::Scaling>(m_scalingComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
+{
+    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->setHighlightAll(checked);
+}
+
 void MainWindow::slotFilePathChanged(const QString &filePath)
 {
     m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
@@ -731,68 +803,16 @@ void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
     m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
 }
 
-void MainWindow::slotCurrentPageLineEditReturnPressed()
-{
-    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
-}
-
 void MainWindow::slotCurrentPageChanged(int currentPage)
 {
     m_currentPageLineEdit->setText(QLocale::system().toString(currentPage));
-}
-
-void MainWindow::slotPageLayoutTriggered(QAction *action)
-{
-    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setPageLayout(static_cast<DocumentView::PageLayout>(action->data().toUInt()));
-}
-
-void MainWindow::slotPageLayoutCurrentIndexChanged(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-        documentView->setPageLayout(static_cast<DocumentView::PageLayout>(m_pageLayoutComboBox->itemData(index).toUInt()));
-    }
 }
 
 void MainWindow::slotPageLayoutChanged(DocumentView::PageLayout pageLayout)
 {
     foreach(QAction* action, m_pageLayoutGroup->actions())
     {
-        if(action->data().toUInt() == static_cast<uint>(pageLayout))
-        {
-            action->setChecked(true);
-        }
-    }
-
-    for(int index = 0; index < m_pageLayoutComboBox->count(); index++)
-    {
-        if(m_pageLayoutComboBox->itemData(index).toUInt() == static_cast<uint>(pageLayout))
-        {
-            m_pageLayoutComboBox->setCurrentIndex(index);
-        }
-    }
-}
-
-void MainWindow::slotScalingTriggered(QAction *action)
-{
-    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setScaling(static_cast<DocumentView::Scaling>(action->data().toUInt()));
-}
-
-void MainWindow::slotScalingCurrentIndexChanged(int index)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-        documentView->setScaling(static_cast<DocumentView::Scaling>(m_scalingComboBox->itemData(index).toUInt()));
+        action->setChecked(action->data().toUInt() == static_cast<uint>(pageLayout));
     }
 }
 
@@ -800,10 +820,7 @@ void MainWindow::slotScalingChanged(DocumentView::Scaling scaling)
 {
     foreach(QAction* action, m_scalingGroup->actions())
     {
-        if(action->data().toUInt() == static_cast<uint>(scaling))
-        {
-            action->setChecked(true);
-        }
+        action->setChecked(action->data().toUInt() == static_cast<uint>(scaling));
     }
 
     for(int index = 0; index < m_scalingComboBox->count(); index++)
@@ -815,21 +832,14 @@ void MainWindow::slotScalingChanged(DocumentView::Scaling scaling)
     }
 }
 
-void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
+void MainWindow::slotScaleFactorChanged(qreal scaleFactor)
 {
-    DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setHighlightAll(checked);
+    m_scalingComboBox->setItemText(3, tr("Scale to %1%").arg(100.0 * scaleFactor, 0, 'f', 0));
 }
 
 void MainWindow::slotHighlightAllChanged(bool highlightAll)
 {
     m_highlightAllCheckBox->setChecked(highlightAll);
-}
-
-void MainWindow::slotRecentyUsedActionEntrySelected(const QString& filePath)
-{
-    open(filePath);
 }
 
 void MainWindow::createActions()
@@ -1126,7 +1136,7 @@ void MainWindow::createActions()
     m_pageLayoutGroup->addAction(m_twoPagesAction);
     m_pageLayoutGroup->addAction(m_oneColumnAction);
     m_pageLayoutGroup->addAction(m_twoColumnsAction);
-    connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), SLOT(slotPageLayoutTriggered(QAction*)));
+    connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), SLOT(slotPageLayoutGroupTriggered(QAction*)));
 
     // scaling
 
@@ -1136,45 +1146,17 @@ void MainWindow::createActions()
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
     m_fitToPageWidthAction->setCheckable(true);
     m_fitToPageWidthAction->setData(static_cast<uint>(DocumentView::FitToPageWidth));
-    m_scaleTo50Action = new QAction(tr("Scale to %1%").arg(50), this);
-    m_scaleTo50Action->setCheckable(true);
-    m_scaleTo50Action->setData(static_cast<uint>(DocumentView::ScaleTo50));
-    m_scaleTo75Action = new QAction(tr("Scale to %1%").arg(75), this);
-    m_scaleTo75Action->setCheckable(true);
-    m_scaleTo75Action->setData(static_cast<uint>(DocumentView::ScaleTo75));
-    m_scaleTo100Action = new QAction(tr("Scale to %1%").arg(100), this);
-    m_scaleTo100Action->setCheckable(true);
-    m_scaleTo100Action->setData(static_cast<uint>(DocumentView::ScaleTo100));
-    m_scaleTo125Action = new QAction(tr("Scale to %1%").arg(125), this);
-    m_scaleTo125Action->setCheckable(true);
-    m_scaleTo125Action->setData(static_cast<uint>(DocumentView::ScaleTo125));
-    m_scaleTo150Action = new QAction(tr("Scale to %1%").arg(150), this);
-    m_scaleTo150Action->setCheckable(true);
-    m_scaleTo150Action->setData(static_cast<uint>(DocumentView::ScaleTo150));
-    m_scaleTo200Action = new QAction(tr("Scale to %1%").arg(200), this);
-    m_scaleTo200Action->setCheckable(true);
-    m_scaleTo200Action->setData(static_cast<uint>(DocumentView::ScaleTo200));
-    m_scaleTo400Action = new QAction(tr("Scale to %1%").arg(400), this);
-    m_scaleTo400Action->setCheckable(true);
-    m_scaleTo400Action->setData(static_cast<uint>(DocumentView::ScaleTo400));
-    m_byScaleFactorAction = new QAction(tr("By scale factor"), this);
-    m_byScaleFactorAction->setCheckable(true);
-    m_byScaleFactorAction->setData(static_cast<uint>(DocumentView::ByScaleFactor));
+    m_originalSizeAction = new QAction(tr("Original size"), this);
+    m_originalSizeAction->setCheckable(true);
+    m_originalSizeAction->setData(static_cast<uint>(DocumentView::OriginalSize));
 
     m_scalingGroup = new QActionGroup(this);
     m_scalingGroup->addAction(m_fitToPageAction);
     m_scalingGroup->addAction(m_fitToPageWidthAction);
-    m_scalingGroup->addAction(m_scaleTo50Action);
-    m_scalingGroup->addAction(m_scaleTo75Action);
-    m_scalingGroup->addAction(m_scaleTo100Action);
-    m_scalingGroup->addAction(m_scaleTo125Action);
-    m_scalingGroup->addAction(m_scaleTo150Action);
-    m_scalingGroup->addAction(m_scaleTo200Action);
-    m_scalingGroup->addAction(m_scaleTo400Action);
-    m_scalingGroup->addAction(m_byScaleFactorAction);
-    connect(m_scalingGroup, SIGNAL(selected(QAction*)), SLOT(slotScalingTriggered(QAction*)));
+    m_scalingGroup->addAction(m_originalSizeAction);
+    connect(m_scalingGroup, SIGNAL(selected(QAction*)), SLOT(slotScalingGroupTriggered(QAction*)));
 
-    m_zoomInAction = new QAction(tr("Zoom in"), this);
+    m_zoomInAction = new QAction(tr("Zoom &in"), this);
     m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
     m_zoomInAction->setIconVisibleInMenu(true);
     connect(m_zoomInAction, SIGNAL(triggered()), SLOT(slotZoomIn()));
@@ -1192,7 +1174,7 @@ void MainWindow::createActions()
 #endif
     }
 
-    m_zoomOutAction = new QAction(tr("Zoom out"), this);
+    m_zoomOutAction = new QAction(tr("Zoom &out"), this);
     m_zoomOutAction->setShortcut(QKeySequence::ZoomOut);
     m_zoomOutAction->setIconVisibleInMenu(true);
     connect(m_zoomOutAction, SIGNAL(triggered()), SLOT(slotZoomOut()));
@@ -1212,7 +1194,7 @@ void MainWindow::createActions()
 
     // rotation
 
-    m_rotateLeftAction = new QAction(tr("Rotate left"), this);
+    m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
     m_rotateLeftAction->setIcon(QIcon("object-rotate-left"));
     m_rotateLeftAction->setIconVisibleInMenu(true);
     connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(slotRotateLeft()));
@@ -1230,7 +1212,7 @@ void MainWindow::createActions()
 #endif
     }
 
-    m_rotateRightAction = new QAction(tr("Rotate right"), this);
+    m_rotateRightAction = new QAction(tr("Rotate &right"), this);
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(slotRotateRight()));
 
@@ -1258,7 +1240,7 @@ void MainWindow::createActions()
 
     // presentation
 
-    m_presentationAction = new QAction(tr("Presentation..."), this);
+    m_presentationAction = new QAction(tr("&Presentation..."), this);
     m_presentationAction->setShortcut(QKeySequence(Qt::Key_F12));
     connect(m_presentationAction, SIGNAL(triggered()), SLOT(slotPresentation()));
 
@@ -1344,43 +1326,20 @@ void MainWindow::createWidgets()
     m_numberOfPagesLabel->setAlignment(Qt::AlignCenter);
     m_numberOfPagesLabel->setFixedWidth(60);
 
-    // pageLayout
-
-    m_pageLayoutWidget = new QWidget(this);
-    m_pageLayoutComboBox = new QComboBox(m_pageLayoutWidget);
-
-    m_pageLayoutComboBox->addItem(tr("One page"), static_cast<uint>(DocumentView::OnePage));
-    m_pageLayoutComboBox->addItem(tr("Two pages"), static_cast<uint>(DocumentView::TwoPages));
-    m_pageLayoutComboBox->addItem(tr("One column"), static_cast<uint>(DocumentView::OneColumn));
-    m_pageLayoutComboBox->addItem(tr("Two columns"), static_cast<uint>(DocumentView::TwoColumns));
-
-    m_pageLayoutWidget->setLayout(new QHBoxLayout());
-    m_pageLayoutWidget->layout()->setContentsMargins(5, 0, 5, 0);
-    m_pageLayoutWidget->layout()->addWidget(m_pageLayoutComboBox);
-
-    connect(m_pageLayoutComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotPageLayoutCurrentIndexChanged(int)));
-
     // scaling
 
-    m_scalingWidget = new QWidget(this);
-    m_scalingComboBox = new QComboBox(m_scalingWidget);
+    m_scalingComboBox = new ComboBox(this);
+
+    m_scalingComboBox->setEditable(true);
+    m_scalingComboBox->setInsertPolicy(QComboBox::NoInsert);
 
     m_scalingComboBox->addItem(tr("Fit to page"), static_cast<uint>(DocumentView::FitToPage));
     m_scalingComboBox->addItem(tr("Fit to page width"), static_cast<uint>(DocumentView::FitToPageWidth));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(50), static_cast<uint>(DocumentView::ScaleTo50));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(75), static_cast<uint>(DocumentView::ScaleTo75));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(100), static_cast<uint>(DocumentView::ScaleTo100));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(125), static_cast<uint>(DocumentView::ScaleTo125));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(150), static_cast<uint>(DocumentView::ScaleTo150));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(200), static_cast<uint>(DocumentView::ScaleTo200));
-    m_scalingComboBox->addItem(tr("Scale to %1%").arg(400), static_cast<uint>(DocumentView::ScaleTo400));
-    m_scalingComboBox->addItem(tr("By scale factor"), static_cast<uint>(DocumentView::ByScaleFactor));
+    m_scalingComboBox->addItem(tr("Original size"), static_cast<uint>(DocumentView::OriginalSize));
+    m_scalingComboBox->addItem(QString(), static_cast<uint>(DocumentView::ByScaleFactor));
 
-    m_scalingWidget->setLayout(new QHBoxLayout());
-    m_scalingWidget->layout()->setContentsMargins(5, 0, 5, 0);
-    m_scalingWidget->layout()->addWidget(m_scalingComboBox);
-
-    connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotScalingCurrentIndexChanged(int)));
+    connect(m_scalingComboBox, SIGNAL(returnPressed()), SLOT(slotScalingComboBoxReturnPressed()));
+    connect(m_scalingComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotScalingComboBoxCurrentIndexChanged(int)));
 
     // search
 
@@ -1441,9 +1400,8 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    m_viewToolBar->addWidget(m_pageLayoutWidget);
     m_viewToolBar->addAction(m_zoomInAction);
-    m_viewToolBar->addWidget(m_scalingWidget);
+    m_viewToolBar->addWidget(m_scalingComboBox);
     m_viewToolBar->addAction(m_zoomOutAction);
     m_viewToolBar->addAction(m_rotateLeftAction);
     m_viewToolBar->addAction(m_rotateRightAction);
@@ -1538,14 +1496,7 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_fitToPageAction);
     m_viewMenu->addAction(m_fitToPageWidthAction);
-    m_viewMenu->addAction(m_scaleTo50Action);
-    m_viewMenu->addAction(m_scaleTo75Action);
-    m_viewMenu->addAction(m_scaleTo100Action);
-    m_viewMenu->addAction(m_scaleTo125Action);
-    m_viewMenu->addAction(m_scaleTo150Action);
-    m_viewMenu->addAction(m_scaleTo200Action);
-    m_viewMenu->addAction(m_scaleTo400Action);
-    m_viewMenu->addAction(m_byScaleFactorAction);
+    m_viewMenu->addAction(m_originalSizeAction);
     m_viewMenu->addAction(m_zoomInAction);
     m_viewMenu->addAction(m_zoomOutAction);
     m_viewMenu->addSeparator();

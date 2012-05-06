@@ -164,6 +164,30 @@ public:
     }
 };
 
+// combo box
+
+class ComboBox : public QComboBox
+{
+    Q_OBJECT
+
+public:
+    ComboBox(QWidget* parent = 0) : QComboBox(parent) {}
+
+signals:
+    void returnPressed();
+
+protected:
+    void keyPressEvent(QKeyEvent *event)
+    {
+        if(event->key() == Qt::Key_Return)
+        {
+            emit returnPressed();
+        }
+
+        QComboBox::keyPressEvent(event);
+    }
+};
+
 // recently used action
 
 class RecentlyUsedAction : public QAction

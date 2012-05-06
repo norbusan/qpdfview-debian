@@ -525,9 +525,9 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_numberOfPages(-1),
     m_currentPage(-1),
     m_pageLayout(OnePage),
-    m_scaling(ScaleTo100),
-    m_rotation(RotateBy0),
+    m_scaling(OriginalSize),
     m_scaleFactor(1.0),
+    m_rotation(RotateBy0),
     m_highlightAll(false),
     m_pagesByIndex(),
     m_pagesByHeight(),
@@ -550,9 +550,8 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
     m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
-    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
-
     m_scaleFactor = m_settings.value("documentView/scaleFactor", 1.0).toReal();
+    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
 
     m_highlightAll = m_settings.value("documentView/highlightAll", false).toBool();
 
@@ -722,6 +721,26 @@ void DocumentView::setScaling(DocumentView::Scaling scaling)
     }
 }
 
+qreal DocumentView::scaleFactor() const
+{
+    return m_scaleFactor;
+}
+
+void DocumentView::setScaleFactor(qreal scaleFactor)
+{
+    if(m_scaleFactor != scaleFactor && scaleFactor >= minScaleFactor && scaleFactor <= maxScaleFactor)
+    {
+        m_scaleFactor = scaleFactor;
+
+        m_settings.setValue("documentView/scaleFactor", m_scaleFactor);
+
+        prepareScene();
+        prepareView();
+
+        emit scaleFactorChanged(m_scaleFactor);
+    }
+}
+
 DocumentView::Rotation DocumentView::rotation() const
 {
     return m_rotation;
@@ -739,26 +758,6 @@ void DocumentView::setRotation(DocumentView::Rotation rotation)
         prepareView();
 
         emit rotationChanged(m_rotation);
-    }
-}
-
-qreal DocumentView::scaleFactor() const
-{
-    return m_scaleFactor;
-}
-
-void DocumentView::setScaleFactor(qreal scaleFactor)
-{
-    if(m_scaleFactor != scaleFactor && scaleFactor >= 0.5 && scaleFactor <= 4.0)
-    {
-        m_scaleFactor = scaleFactor;
-
-        m_settings.setValue("documentView/scaleFactor", m_scaleFactor);
-
-        prepareScene();
-        prepareView();
-
-        emit scaleFactorChanged(m_scaleFactor);
     }
 }
 
@@ -1129,25 +1128,16 @@ void DocumentView::zoomIn()
     switch(m_scaling)
     {
     case FitToPage:
-        break;
-    case FitToPageWidth:
-        break;
-    case ScaleTo50:
-        setScaling(ScaleTo75); break;
-    case ScaleTo75:
-        setScaling(ScaleTo100); break;
-    case ScaleTo100:
-        setScaling(ScaleTo125); break;
-    case ScaleTo125:
-        setScaling(ScaleTo150); break;
-    case ScaleTo150:
-        setScaling(ScaleTo200); break;
-    case ScaleTo200:
-        setScaling(ScaleTo400); break;
-    case ScaleTo400:
+    case FitToPageWidth:        
+    case OriginalSize:
+        setScaling(ByScaleFactor);
+        setScaleFactor(1.1);
+
         break;
     case ByScaleFactor:
-        setScaleFactor(scaleFactor() + 0.1); break;
+        setScaleFactor(scaleFactor() + 0.1 <= maxScaleFactor ? scaleFactor() + 0.1 : maxScaleFactor);
+
+        break;
     }
 }
 
@@ -1156,25 +1146,16 @@ void DocumentView::zoomOut()
     switch(m_scaling)
     {
     case FitToPage:
-        break;
     case FitToPageWidth:
+    case OriginalSize:
+        setScaling(ByScaleFactor);
+        setScaleFactor(0.9);
+
         break;
-    case ScaleTo50:
-        break;
-    case ScaleTo75:
-        setScaling(ScaleTo50); break;
-    case ScaleTo100:
-        setScaling(ScaleTo75); break;
-    case ScaleTo125:
-        setScaling(ScaleTo100); break;
-    case ScaleTo150:
-        setScaling(ScaleTo125); break;
-    case ScaleTo200:
-        setScaling(ScaleTo150); break;
-    case ScaleTo400:
-        setScaling(ScaleTo200); break;
     case ByScaleFactor:
-        setScaleFactor(scaleFactor() - 0.1); break;
+        setScaleFactor(scaleFactor() - 0.1 >= minScaleFactor ? scaleFactor() - 0.1 : minScaleFactor);
+
+        break;
     }
 }
 
@@ -2102,35 +2083,12 @@ void DocumentView::prepareScene()
             break;
         }
     }
-    else
+    else if(m_scaling == OriginalSize || m_scaling == ByScaleFactor)
     {
         foreach(PageItem* pageItem, m_pagesByIndex.values())
         {
             pageItem->prepareGeometryChange();
-
-            switch(m_scaling)
-            {
-            case FitToPage:
-                break;
-            case FitToPageWidth:
-                break;
-            case ScaleTo50:
-                pageItem->m_scale = 0.5; break;
-            case ScaleTo75:
-                pageItem->m_scale = 0.75; break;
-            case ScaleTo100:
-                pageItem->m_scale = 1.0; break;
-            case ScaleTo125:
-                pageItem->m_scale = 1.25; break;
-            case ScaleTo150:
-                pageItem->m_scale = 1.5; break;
-            case ScaleTo200:
-                pageItem->m_scale = 2.0; break;
-            case ScaleTo400:
-                pageItem->m_scale = 4.0; break;
-            case ByScaleFactor:
-                pageItem->m_scale = m_scaleFactor; break;
-            }
+            pageItem->m_scale = m_scaling == OriginalSize ? 1.0 : m_scaleFactor;
         }
     }
 

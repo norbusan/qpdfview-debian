@@ -71,6 +71,7 @@ protected:
 protected slots:
     void slotOpen();
     void slotOpenInNewTab();
+    void slotRecentyUsedActionEntrySelected(const QString& filePath);
     void slotRefresh();
     void slotSaveCopy();
     void slotPrint();
@@ -94,6 +95,10 @@ protected slots:
 
     void slotSettings();
 
+    void slotPageLayoutGroupTriggered(QAction* action);
+
+    void slotScalingGroupTriggered(QAction* action);
+
     void slotZoomIn();
     void slotZoomOut();
 
@@ -116,24 +121,22 @@ protected slots:
     void slotTabWidgetCurrentChanged(int index);
     void slotTabWidgetTabCloseRequested(int index);
 
+    void slotCurrentPageLineEditReturnPressed();
+
+    void slotScalingComboBoxCurrentIndexChanged(int index);
+    void slotScalingComboBoxReturnPressed();
+
+    void slotHighlightAllCheckBoxClicked(bool checked);
+
     void slotFilePathChanged(const QString& filePath);
     void slotNumberOfPagesChanged(int numberOfPages);
 
-    void slotCurrentPageLineEditReturnPressed();
     void slotCurrentPageChanged(int currentPage);
-
-    void slotPageLayoutTriggered(QAction* action);
-    void slotPageLayoutCurrentIndexChanged(int index);
     void slotPageLayoutChanged(DocumentView::PageLayout pageLayout);
-
-    void slotScalingTriggered(QAction* action);
-    void slotScalingCurrentIndexChanged(int index);
     void slotScalingChanged(DocumentView::Scaling scaling);
+    void slotScaleFactorChanged(qreal scaleFactor);
 
-    void slotHighlightAllCheckBoxClicked(bool checked);
     void slotHighlightAllChanged(bool highlightAll);
-
-    void slotRecentyUsedActionEntrySelected(const QString& filePath);
 
 private:
     // actions
@@ -167,14 +170,7 @@ private:
 
     QAction* m_fitToPageAction;
     QAction* m_fitToPageWidthAction;
-    QAction* m_scaleTo50Action;
-    QAction* m_scaleTo75Action;
-    QAction* m_scaleTo100Action;
-    QAction* m_scaleTo125Action;
-    QAction* m_scaleTo150Action;
-    QAction* m_scaleTo200Action;
-    QAction* m_scaleTo400Action;
-    QAction* m_byScaleFactorAction;
+    QAction* m_originalSizeAction;
     QActionGroup* m_scalingGroup;
 
     QAction* m_zoomInAction;
@@ -206,11 +202,7 @@ private:
     QIntValidator* m_currentPageValidator;
     QLabel* m_numberOfPagesLabel;
 
-    QWidget* m_pageLayoutWidget;
-    QComboBox* m_pageLayoutComboBox;
-
-    QWidget* m_scalingWidget;
-    QComboBox* m_scalingComboBox;
+    ComboBox* m_scalingComboBox;
 
     QWidget* m_searchWidget;
     QLineEdit* m_searchLineEdit;
