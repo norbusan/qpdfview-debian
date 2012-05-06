@@ -42,7 +42,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, m_scale);
+    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -55,7 +55,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, m_scale);
+    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
 
     if(parent->m_pageCache.contains(key))
     {
@@ -334,7 +334,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, m_scale);
+    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -382,7 +382,7 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, 0.1 * m_resolutionX / 72.0 * m_size.width(), 0.1 * m_resolutionY / 72.0 * m_size.height());
+    return QRectF(0.0, 0.0, s_scale * m_resolutionX / 72.0 * m_size.width(), s_scale * m_resolutionY / 72.0 * m_size.height());
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -395,7 +395,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, 0.1);
+    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -408,7 +408,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, 0.1);
+    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
 
     if(parent->m_pageCache.contains(key))
     {
@@ -473,7 +473,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(0.1 * m_resolutionX, 0.1 * m_resolutionY);
+    QImage image = page->renderToImage(s_scale * m_resolutionX, s_scale * m_resolutionY);
 
     delete page;
     delete document;
@@ -482,7 +482,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(0.1 * m_resolutionX, 0.1 * m_resolutionY);
+    QImage image = m_page->renderToImage(s_scale * m_resolutionX, s_scale * m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
@@ -490,7 +490,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, 0.1);
+    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -1569,7 +1569,7 @@ void DocumentView::slotPrefetchTimerTimeout()
         {
             m_pageCacheMutex.lock();
 
-            PageCacheKey key(pageItem->m_index, pageItem->m_scale);
+            PageCacheKey key(pageItem->m_index, pageItem->m_scale * pageItem->m_resolutionX, pageItem->m_scale * pageItem->m_resolutionY);
 
             if(!m_pageCache.contains(key))
             {

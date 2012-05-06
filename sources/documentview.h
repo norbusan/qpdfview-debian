@@ -45,14 +45,15 @@ private:
     struct PageCacheKey
     {
         int index;
-        qreal scale;
+        qreal resolutionX;
+        qreal resolutionY;
 
-        PageCacheKey() : index(-1), scale(1.0) {}
-        PageCacheKey(int index, qreal scale) : index(index), scale(scale) {}
+        PageCacheKey() : index(-1), resolutionX(72.0), resolutionY(72.0) {}
+        PageCacheKey(int index, qreal resolutionX, qreal resolutionY) : index(index), resolutionX(resolutionX), resolutionY(resolutionY) {}
 
         bool operator<(const PageCacheKey& key) const
         {
-            return (index < key.index) || (index == key.index && scale < key.scale);
+            return (index < key.index) || (index == key.index && resolutionX < key.resolutionY) || (index == key.index && resolutionX == key.resolutionX && resolutionY < key.resolutionY);
         }
     };
 
@@ -135,6 +136,7 @@ private:
         // properties
 
         int m_index;
+        static const qreal s_scale = 0.1;
 
         // transforms
 
