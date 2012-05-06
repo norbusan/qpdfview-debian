@@ -616,6 +616,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_outlineTreeWidget->setAlternatingRowColors(true);
     m_outlineTreeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineTreeWidget->header()->setVisible(false);
+    m_outlineTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
@@ -625,7 +626,9 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_metaInformationTableWidget->setAlternatingRowColors(true);
     m_metaInformationTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_metaInformationTableWidget->horizontalHeader()->setVisible(false);
+    m_metaInformationTableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
     m_metaInformationTableWidget->verticalHeader()->setVisible(false);
+    m_metaInformationTableWidget->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
 
     // thumbnailsGraphicsView
 
