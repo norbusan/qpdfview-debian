@@ -629,9 +629,12 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_cancelSearchAction->setEnabled(true);
 
         m_pageLayoutGroup->setEnabled(true);
+
         m_scalingGroup->setEnabled(true);
+
         m_zoomInAction->setEnabled(true);
         m_zoomOutAction->setEnabled(true);
+
         m_rotateLeftAction->setEnabled(true);
         m_rotateRightAction->setEnabled(true);
 
@@ -698,6 +701,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_zoomInAction->setEnabled(false);
         m_zoomOutAction->setEnabled(false);
+
         m_rotateLeftAction->setEnabled(false);
         m_rotateRightAction->setEnabled(false);
 

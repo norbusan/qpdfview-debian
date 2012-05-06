@@ -548,10 +548,10 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     // settings
 
-    m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", 0).toUInt());
-    m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", 4).toUInt());
+    m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", static_cast<uint>(OnePage)).toUInt());
+    m_scaling = static_cast<Scaling>(m_settings.value("documentView/scaling", static_cast<uint>(OriginalSize)).toUInt());
     m_scaleFactor = m_settings.value("documentView/scaleFactor", 1.0).toReal();
-    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", 0).toUInt());
+    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", static_cast<uint>(RotateBy0)).toUInt());
 
     m_highlightAll = m_settings.value("documentView/highlightAll", false).toBool();
 
