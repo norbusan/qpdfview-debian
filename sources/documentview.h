@@ -90,7 +90,7 @@ private:
 
         QList< DocumentView::Link > m_links;
 
-        // highlight
+        // selections
 
         QRectF m_highlight;
         QRectF m_rubberBand;
@@ -98,9 +98,6 @@ private:
         // transforms
 
         QSizeF m_size;
-
-        qreal m_resolutionX;
-        qreal m_resolutionY;
 
         QTransform m_linkTransform;
         QTransform m_highlightTransform;
@@ -141,9 +138,6 @@ private:
         // transforms
 
         QSizeF m_size;
-
-        qreal m_resolutionX;
-        qreal m_resolutionY;
 
         // render
 
@@ -287,6 +281,9 @@ private:
 
     QMap< int, PageItem* > m_pagesByIndex;
     QMap< qreal, PageItem* > m_pagesByHeight;
+
+    qreal m_resolutionX;
+    qreal m_resolutionY;
 
     QTransform m_pageTransform;
 

@@ -8,8 +8,6 @@ DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) :
     m_highlight(),
     m_rubberBand(),
     m_size(),
-    m_resolutionX(72.0),
-    m_resolutionY(72.0),
     m_linkTransform(),
     m_highlightTransform(),
     m_render()
@@ -29,7 +27,9 @@ DocumentView::PageItem::~PageItem()
 
 QRectF DocumentView::PageItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, m_scale * m_resolutionX / 72.0 * m_size.width(), m_scale * m_resolutionY / 72.0 * m_size.height());
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+
+    return QRectF(0.0, 0.0, m_scale * parent->m_resolutionX / 72.0 * m_size.width(), m_scale * parent->m_resolutionY / 72.0 * m_size.height());
 }
 
 void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -42,7 +42,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -55,7 +55,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
     if(parent->m_pageCache.contains(key))
     {
@@ -94,7 +94,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
 #endif
 
-    // highlights
+    // selections
 
     painter->save();
 
@@ -116,8 +116,6 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
     }
 
     painter->restore();
-
-    // rubber band
 
     if(!m_rubberBand.isNull())
     {
@@ -259,7 +257,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         {
             parent->m_documentMutex.lock();
 
-            QImage image = m_page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height());
+            QImage image = m_page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height());
 
             parent->m_documentMutex.unlock();
 
@@ -317,7 +315,7 @@ void DocumentView::PageItem::render(bool prefetch)
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
+    QImage image = page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
     delete page;
     delete document;
@@ -326,7 +324,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale * m_resolutionX, m_scale * m_resolutionY);
+    QImage image = m_page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
@@ -334,7 +332,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, m_scale * m_resolutionX, m_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -364,8 +362,6 @@ DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem* parent, QGraphicsScene
     m_page(0),
     m_index(-1),
     m_size(),
-    m_resolutionX(72.0),
-    m_resolutionY(72.0),
     m_render()
 {
 }
@@ -382,7 +378,9 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    return QRectF(0.0, 0.0, s_scale * m_resolutionX / 72.0 * m_size.width(), s_scale * m_resolutionY / 72.0 * m_size.height());
+    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+
+    return QRectF(0.0, 0.0, s_scale * parent->physicalDpiX() / 72.0 * m_size.width(), s_scale * parent->physicalDpiY() / 72.0 * m_size.height());
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -395,7 +393,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -408,7 +406,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
 
     if(parent->m_pageCache.contains(key))
     {
@@ -473,7 +471,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(s_scale * m_resolutionX, s_scale * m_resolutionY);
+    QImage image = page->renderToImage(s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
 
     delete page;
     delete document;
@@ -482,7 +480,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(s_scale * m_resolutionX, s_scale * m_resolutionY);
+    QImage image = m_page->renderToImage(s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
 
     parent->m_documentMutex.unlock();
 
@@ -490,7 +488,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, s_scale * m_resolutionX, s_scale * m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -532,6 +530,8 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_highlightAll(false),
     m_pagesByIndex(),
     m_pagesByHeight(),
+    m_resolutionX(72.0),
+    m_resolutionY(72.0),
     m_pageTransform(),
     m_autoRefreshWatcher(0),
     m_results(),
@@ -1569,7 +1569,7 @@ void DocumentView::slotPrefetchTimerTimeout()
         {
             m_pageCacheMutex.lock();
 
-            PageCacheKey key(pageItem->m_index, pageItem->m_scale * pageItem->m_resolutionX, pageItem->m_scale * pageItem->m_resolutionY);
+            PageCacheKey key(pageItem->m_index, pageItem->m_scale * m_resolutionX, pageItem->m_scale * m_resolutionY);
 
             if(!m_pageCache.contains(key))
             {
@@ -1884,8 +1884,6 @@ void DocumentView::prepareThumbnails()
         thumbnailItem->m_index = index;
         thumbnailItem->m_page = m_document->page(thumbnailItem->m_index);
         thumbnailItem->m_size = thumbnailItem->m_page->pageSizeF();
-        thumbnailItem->m_resolutionX = physicalDpiX();
-        thumbnailItem->m_resolutionY = physicalDpiY();
 
         thumbnailItem->setPos(5.0, sceneHeight);
 
@@ -1914,6 +1912,22 @@ void DocumentView::prepareScene()
 {
     // calculate scale
 
+    switch(m_rotation)
+    {
+    case RotateBy0:
+    case RotateBy180:
+        m_resolutionX = physicalDpiX();
+        m_resolutionY = physicalDpiY();
+
+        break;
+    case RotateBy90:
+    case RotateBy270:
+        m_resolutionX = physicalDpiY();
+        m_resolutionY = physicalDpiX();
+
+        break;
+    }
+
     if(m_scaling == FitToPage || m_scaling == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
@@ -1932,14 +1946,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = physicalDpiX() / 72.0 * pageItem->m_size.width();
-                    pageHeight = physicalDpiY() / 72.0 * pageItem->m_size.height();
+                    pageWidth = m_resolutionX / 72.0 * pageItem->m_size.width();
+                    pageHeight = m_resolutionY / 72.0 * pageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = physicalDpiX() / 72.0 * pageItem->m_size.height();
-                    pageHeight = physicalDpiY() / 72.0 * pageItem->m_size.width();
+                    pageWidth = m_resolutionY / 72.0 * pageItem->m_size.height();
+                    pageHeight = m_resolutionX / 72.0 * pageItem->m_size.width();
 
                     break;
                 }
@@ -1965,14 +1979,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = physicalDpiX() / 72.0 * leftPageItem->m_size.width();
-                    pageHeight = physicalDpiY() / 72.0 * leftPageItem->m_size.height();
+                    pageWidth = m_resolutionX / 72.0 * leftPageItem->m_size.width();
+                    pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = physicalDpiX() / 72.0 * leftPageItem->m_size.height();
-                    pageHeight = physicalDpiY() / 72.0 * leftPageItem->m_size.width();
+                    pageWidth = m_resolutionY / 72.0 * leftPageItem->m_size.height();
+                    pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
 
                     break;
                 }
@@ -1983,18 +1997,17 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth += physicalDpiX() / 72.0 * rightPageItem->m_size.width();
-                    pageHeight = qMax(pageHeight, physicalDpiY() / 72.0 * rightPageItem->m_size.height());
+                    pageWidth += m_resolutionX / 72.0 * rightPageItem->m_size.width();
+                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * rightPageItem->m_size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth += physicalDpiX() / 72.0 * rightPageItem->m_size.height();
-                    pageHeight = qMax(pageHeight, physicalDpiY() / 72.0 * rightPageItem->m_size.width());
+                    pageWidth += m_resolutionY / 72.0 * rightPageItem->m_size.height();
+                    pageHeight = qMax(pageHeight, m_resolutionX / 72.0 * rightPageItem->m_size.width());
 
                     break;
                 }
-
 
                 qreal scale = (visibleWidth - 15.0) / pageWidth;
                 if(m_scaling == FitToPage)
@@ -2017,14 +2030,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-                    pageWidth = physicalDpiX() / 72.0 * leftPageItem->m_size.width();
-                    pageHeight = physicalDpiY() / 72.0 * leftPageItem->m_size.height();
+                    pageWidth = m_resolutionX / 72.0 * leftPageItem->m_size.width();
+                    pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
-                    pageWidth = physicalDpiX() / 72.0 * leftPageItem->m_size.height();
-                    pageHeight = physicalDpiY() / 72.0 * leftPageItem->m_size.width();
+                    pageWidth = m_resolutionY / 72.0 * leftPageItem->m_size.height();
+                    pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
 
                     break;
                 }
@@ -2044,16 +2057,16 @@ void DocumentView::prepareScene()
     }
     else
     {
-        for(int index = 0; index < m_numberOfPages; index++)
+        foreach(PageItem* pageItem, m_pagesByIndex.values())
         {
-            PageItem* pageItem = m_pagesByIndex.value(index);
-
             pageItem->prepareGeometryChange();
 
             switch(m_scaling)
             {
-            case FitToPage: break;
-            case FitToPageWidth: break;
+            case FitToPage:
+                break;
+            case FitToPageWidth:
+                break;
             case ScaleTo50:
                 pageItem->m_scale = 0.5; break;
             case ScaleTo75:
@@ -2074,47 +2087,6 @@ void DocumentView::prepareScene()
 
     // calculate transformations
 
-    for(int index = 0; index < m_numberOfPages; index++)
-    {
-        PageItem* pageItem = m_pagesByIndex.value(index);
-
-        pageItem->prepareGeometryChange();
-
-        switch(m_rotation)
-        {
-        case RotateBy0:
-            pageItem->setRotation(0.0); break;
-        case RotateBy90:
-            pageItem->setRotation(90.0); break;
-        case RotateBy180:
-            pageItem->setRotation(180); break;
-        case RotateBy270:
-            pageItem->setRotation(270.0); break;
-        }
-
-        switch(m_rotation)
-        {
-        case RotateBy0:
-        case RotateBy180:
-            pageItem->m_resolutionX = physicalDpiX();
-            pageItem->m_resolutionY = physicalDpiY();
-
-            break;
-        case RotateBy90:
-        case RotateBy270:
-            pageItem->m_resolutionX = physicalDpiY();
-            pageItem->m_resolutionY = physicalDpiX();
-
-            break;
-        }
-
-        pageItem->m_linkTransform.reset();
-        pageItem->m_linkTransform.scale(pageItem->m_scale * pageItem->m_resolutionX / 72.0 * pageItem->m_size.width(), pageItem->m_scale * pageItem->m_resolutionY / 72.0 * pageItem->m_size.height());
-
-        pageItem->m_highlightTransform.reset();
-        pageItem->m_highlightTransform.scale(pageItem->m_scale * pageItem->m_resolutionX / 72.0, pageItem->m_scale * pageItem->m_resolutionY / 72.0);
-    }
-
     m_pageTransform.reset();
 
     switch(m_rotation)
@@ -2127,6 +2099,29 @@ void DocumentView::prepareScene()
         m_pageTransform.rotate(180.0); break;
     case RotateBy270:
         m_pageTransform.rotate(270.0); break;
+    }
+
+    foreach(PageItem* pageItem, m_pagesByIndex.values())
+    {
+        pageItem->prepareGeometryChange();
+
+        pageItem->m_linkTransform.reset();
+        pageItem->m_linkTransform.scale(pageItem->m_scale * m_resolutionX / 72.0 * pageItem->m_size.width(), pageItem->m_scale * m_resolutionY / 72.0 * pageItem->m_size.height());
+
+        pageItem->m_highlightTransform.reset();
+        pageItem->m_highlightTransform.scale(pageItem->m_scale * m_resolutionX / 72.0, pageItem->m_scale * m_resolutionY / 72.0);
+
+        switch(m_rotation)
+        {
+        case RotateBy0:
+            pageItem->setRotation(0.0); break;
+        case RotateBy90:
+            pageItem->setRotation(90.0); break;
+        case RotateBy180:
+            pageItem->setRotation(180.0); break;
+        case RotateBy270:
+            pageItem->setRotation(270.0); break;
+        }
     }
 
     // calculate layout
