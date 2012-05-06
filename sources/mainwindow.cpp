@@ -781,34 +781,6 @@ void MainWindow::slotCurrentPageLineEditReturnPressed()
     documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
 }
 
-void MainWindow::slotScaleFactorComboBoxReturnPressed()
-{
-    bool ok = false;
-    float scaleFactor = 1.0;
-
-    QString text = m_scaleFactorComboBox->currentText();
-
-    if(text.endsWith('%'))
-    {
-        scaleFactor = QLocale::system().toFloat(text.left(text.size() - 1), &ok) / 100.0;
-    }
-    else
-    {
-        scaleFactor = QLocale::system().toFloat(text, &ok);
-    }
-
-    if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
-    {
-        m_scaleFactorComboBox->setItemText(3, tr("Scale to %1%").arg(100.0 * scaleFactor, 0, 'f', 0));
-        m_scaleFactorComboBox->setCurrentIndex(3);
-
-        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-        documentView->setScaleFactor(scaleFactor);
-        documentView->setScaleMode(DocumentView::ScaleFactor);
-    }
-}
-
 void MainWindow::slotScaleFactorComboBoxCurrentIndexChanged(int index)
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -816,6 +788,34 @@ void MainWindow::slotScaleFactorComboBoxCurrentIndexChanged(int index)
         DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
         documentView->setScaleMode(static_cast<DocumentView::ScaleMode>(m_scaleFactorComboBox->itemData(index).toUInt()));
+    }
+}
+
+void MainWindow::slotScaleFactorComboBoxEditingFinished()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+        QString text = m_scaleFactorComboBox->lineEdit()->text();
+
+        text = text.trimmed();
+
+        text = text.endsWith('%') ? text.left(text.size() - 1) : text;
+
+        text = text.trimmed();
+
+        bool ok = false;
+        qreal scaleFactor = QLocale::system().toInt(text, &ok) / 100.0;
+
+        if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
+        {
+            documentView->setScaleFactor(scaleFactor);
+            documentView->setScaleMode(DocumentView::ScaleFactor);
+        }
+
+        slotScaleModeChanged(documentView->scaleMode());
+        slotScaleFactorChanged(documentView->scaleFactor());
     }
 }
 
@@ -1345,7 +1345,7 @@ void MainWindow::createWidgets()
 
     // currentPage
 
-    m_currentPageLineEdit = new QLineEdit(this);
+    m_currentPageLineEdit = new LineEdit(this);
     m_currentPageValidator = new QIntValidator(m_currentPageLineEdit);
 
     m_currentPageLineEdit->setValidator(m_currentPageValidator);
@@ -1373,8 +1373,8 @@ void MainWindow::createWidgets()
     m_scaleFactorComboBox->addItem(tr("Do not scale"), static_cast<uint>(DocumentView::DoNotScale));
     m_scaleFactorComboBox->addItem(QString(), static_cast<uint>(DocumentView::ScaleFactor));
 
-    connect(m_scaleFactorComboBox, SIGNAL(returnPressed()), SLOT(slotScaleFactorComboBoxReturnPressed()));
     connect(m_scaleFactorComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotScaleFactorComboBoxCurrentIndexChanged(int)));
+    connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(slotScaleFactorComboBoxEditingFinished()));
 
     // search
 

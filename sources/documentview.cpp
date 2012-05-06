@@ -57,8 +57,6 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
-    qDebug() << "request: " << m_scale * parent->m_resolutionX << m_scale * parent->m_resolutionY;
-
     if(parent->m_pageCache.contains(key))
     {
         painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
@@ -336,8 +334,6 @@ void DocumentView::PageItem::render(bool prefetch)
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
     uint byteCount = image.byteCount();
-
-    qDebug() << "dispatch: " << m_scale * parent->m_resolutionX << m_scale * parent->m_resolutionY;
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
     {
@@ -1653,6 +1649,8 @@ void DocumentView::search(const QString& text, bool matchCase)
 
     bool firstResult = true;
 
+    emit searchProgressed(0);
+
     foreach(int index, indices)
     {
         if(m_search.isCanceled())
@@ -1724,6 +1722,8 @@ void DocumentView::search(const QString& text, bool matchCase)
 void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 {
     QPainter* painter = new QPainter(printer);
+
+    emit printProgressed(0);
 
     for(int index = fromPage - 1; index <= toPage - 1; index++)
     {

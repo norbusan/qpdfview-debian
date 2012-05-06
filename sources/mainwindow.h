@@ -124,7 +124,7 @@ protected slots:
     void slotCurrentPageLineEditReturnPressed();
 
     void slotScaleFactorComboBoxCurrentIndexChanged(int index);
-    void slotScaleFactorComboBoxReturnPressed();
+    void slotScaleFactorComboBoxEditingFinished();
 
     void slotHighlightAllCheckBoxClicked(bool checked);
 
@@ -198,7 +198,7 @@ private:
 
     TabWidget* m_tabWidget;
 
-    QLineEdit* m_currentPageLineEdit;
+    LineEdit* m_currentPageLineEdit;
     QIntValidator* m_currentPageValidator;
 
     QLabel* m_numberOfPagesLabel;

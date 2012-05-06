@@ -357,6 +357,8 @@ TabBar::TabBar(QWidget *parent) : QTabBar(parent)
 
 void TabBar::contextMenuEvent(QContextMenuEvent *event)
 {
+    QTabBar::contextMenuEvent(event);
+
     QMenu menu(this);
 
     QAction* northAction = menu.addAction(tr("&North"));
@@ -384,18 +386,16 @@ void TabBar::contextMenuEvent(QContextMenuEvent *event)
     {
         tabWidget->setTabPosition(QTabWidget::East);
     }
-
-    QTabBar::contextMenuEvent(event);
 }
 
 void TabBar::mousePressEvent(QMouseEvent *event)
 {
+    QTabBar::mousePressEvent(event);
+
     if(event->button() == Qt::MidButton)
     {
         emit tabCloseRequested(tabAt(event->pos()));
     }
-
-    QTabBar::mousePressEvent(event);
 }
 
 // tab widget
@@ -405,20 +405,24 @@ TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent)
     setTabBar(new TabBar(this));
 }
 
+// line edit
+
+LineEdit::LineEdit(QWidget *parent) : QLineEdit(parent)
+{
+}
+
+void LineEdit::mousePressEvent(QMouseEvent *event)
+{
+    QLineEdit::mousePressEvent(event);
+
+    selectAll();
+}
+
 // combo box
 
 ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
 {
-}
-
-void ComboBox::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Return)
-    {
-        emit returnPressed();
-    }
-
-    QComboBox::keyPressEvent(event);
+    setLineEdit(new LineEdit(this));
 }
 
 // recently used action

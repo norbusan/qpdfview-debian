@@ -157,6 +157,20 @@ public:
 
 };
 
+// line edit
+
+class LineEdit : public QLineEdit
+{
+    Q_OBJECT
+
+public:
+    LineEdit(QWidget* parent = 0);
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
+
+};
+
 // combo box
 
 class ComboBox : public QComboBox
@@ -165,12 +179,6 @@ class ComboBox : public QComboBox
 
 public:
     ComboBox(QWidget* parent = 0);
-
-signals:
-    void returnPressed();
-
-protected:
-    void keyPressEvent(QKeyEvent *event);
 
 };
 
