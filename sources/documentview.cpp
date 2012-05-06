@@ -1920,10 +1920,6 @@ void DocumentView::prepareScene()
         qreal visibleWidth = m_view->mapToScene(m_view->viewport()->rect()).boundingRect().width();
         qreal visibleHeight = m_view->mapToScene(m_view->viewport()->rect()).boundingRect().height();
 
-        bool uniformFit = m_settings.value("documentView/uniformFit", false).toBool();
-
-        qreal scale = 4.0;
-
         switch(m_pageLayout)
         {
         case OnePage:
@@ -1948,25 +1944,14 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(uniformFit)
+                qreal scale = (visibleWidth - 10.0) / pageWidth;
+                if(m_scaling == FitToPage)
                 {
-                    scale = qMin(scale, (visibleWidth - 10.0) / pageWidth);
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (visibleHeight - 10.0) / pageHeight);
-                    }
+                    scale = qMin(scale, (visibleHeight - 10.0) / pageHeight);
                 }
-                else
-                {
-                    scale = (visibleWidth - 10.0) / pageWidth;
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (visibleHeight - 10.0) / pageHeight);
-                    }
 
-                    pageItem->prepareGeometryChange();
-                    pageItem->m_scale = scale;
-                }
+                pageItem->prepareGeometryChange();
+                pageItem->m_scale = scale;
             }
 
             break;
@@ -2010,28 +1995,18 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(uniformFit)
-                {
-                    scale = qMin(scale, (m_view->viewport()->width() - 15.0) / pageWidth);
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (m_view->viewport()->height() - 10.0) / pageHeight);
-                    }
-                }
-                else
-                {
-                    scale = (m_view->viewport()->width() - 15.0) / pageWidth;
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (m_view->viewport()->height() - 10.0) / pageHeight);
-                    }
 
-                    leftPageItem->prepareGeometryChange();
-                    leftPageItem->m_scale = scale;
-
-                    rightPageItem->prepareGeometryChange();
-                    rightPageItem->m_scale = scale;
+                qreal scale = (visibleWidth - 15.0) / pageWidth;
+                if(m_scaling == FitToPage)
+                {
+                    scale = qMin(scale, (visibleHeight - 10.0) / pageHeight);
                 }
+
+                leftPageItem->prepareGeometryChange();
+                leftPageItem->m_scale = scale;
+
+                rightPageItem->prepareGeometryChange();
+                rightPageItem->m_scale = scale;
             }
 
             if(m_numberOfPages % 2 != 0)
@@ -2054,39 +2029,17 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                if(uniformFit)
+                qreal scale = (visibleWidth - 10.0) / pageWidth;
+                if(m_scaling == FitToPage)
                 {
-                    scale = qMin(scale, (m_view->viewport()->width() - 10.0) / pageWidth);
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (m_view->viewport()->height() - 10.0) / pageHeight);
-                    }
+                    scale = qMin(scale, (visibleHeight - 10.0) / pageHeight);
                 }
-                else
-                {
-                    scale = (m_view->viewport()->width() - 10.0) / pageWidth;
-                    if(m_scaling == FitToPage)
-                    {
-                        scale = qMin(scale, (m_view->viewport()->height() - 10.0) / pageHeight);
-                    }
 
-                    leftPageItem->prepareGeometryChange();
-                    leftPageItem->m_scale = scale;
-                }
+                leftPageItem->prepareGeometryChange();
+                leftPageItem->m_scale = scale;
             }
 
             break;
-        }
-
-        if(uniformFit)
-        {
-            for(int index = 0; index < m_numberOfPages; index++)
-            {
-                PageItem* pageItem = m_pagesByIndex.value(index);
-
-                pageItem->prepareGeometryChange();
-                pageItem->m_scale = scale;
-            }
         }
     }
     else

@@ -681,9 +681,6 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_textHintingCheckBox = new QCheckBox(this);
     m_textHintingCheckBox->setChecked(m_settings.value("documentView/textHinting", false).toBool());
 
-    m_uniformFitCheckBox = new QCheckBox(this);
-    m_uniformFitCheckBox->setChecked(m_settings.value("documentView/uniformFit", false).toBool());
-
     m_maximumPageCacheSizeComboBox = new QComboBox(this);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8388608u);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16777216u);
@@ -722,8 +719,6 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
     m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
 
-    m_layout->addRow(tr("Uniform &fit:"), m_uniformFitCheckBox);
-
     m_layout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
     m_layout->addRow(tr("&Prefetch:"), m_prefetchCheckBox);
 
@@ -738,8 +733,6 @@ void SettingsDialog::accept()
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
-
-    m_settings.setValue("documentView/uniformFit", m_uniformFitCheckBox->isChecked());
 
     m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()));
     m_settings.setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
