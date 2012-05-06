@@ -258,11 +258,20 @@ public slots:
     void accept();
 
 private:
-    QFormLayout* m_layout;
+    QTabWidget* m_tabWidget;
     QDialogButtonBox* m_buttonBox;
 
+    QWidget* m_filesWidget;
+    QFormLayout* m_filesLayout;
+
     QCheckBox* m_autoRefreshCheckBox;
+
     QCheckBox* m_externalLinksCheckBox;
+
+    QCheckBox* m_restoreTabsCheckBox;
+
+    QWidget* m_graphicsWidget;
+    QFormLayout* m_graphicsLayout;
 
     QCheckBox* m_antialiasingCheckBox;
     QCheckBox* m_textAntialiasingCheckBox;

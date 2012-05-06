@@ -387,6 +387,8 @@ RecentlyUsedAction::~RecentlyUsedAction()
     }
 
     m_settings.setValue("mainWindow/recentlyUsed", filePaths);
+
+    menu()->deleteLater();
 }
 
 void RecentlyUsedAction::addEntry(const QString &filePath)
@@ -395,14 +397,14 @@ void RecentlyUsedAction::addEntry(const QString &filePath)
 
     foreach(QAction* action, m_actionGroup->actions())
     {
-        addItem = addItem && action->data().toString() != filePath;
+        addItem = addItem && action->data().toString() != QFileInfo(filePath).absoluteFilePath();
     }
 
     if(addItem)
     {
         QAction* action = new QAction(this);
-        action->setText(filePath);
-        action->setData(filePath);
+        action->setText(QFileInfo(filePath).completeBaseName());
+        action->setData(QFileInfo(filePath).absoluteFilePath());
 
         m_actionGroup->addAction(action);
         menu()->insertAction(m_separator, action);
@@ -672,6 +674,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_externalLinksCheckBox = new QCheckBox(this);
     m_externalLinksCheckBox->setChecked(m_settings.value("documentView/externalLinks", false).toBool());
 
+    m_restoreTabsCheckBox = new QCheckBox(this);
+    m_restoreTabsCheckBox->setChecked(m_settings.value("mainWindow/restoreTabs", false).toBool());
+
     m_antialiasingCheckBox = new QCheckBox(this);
     m_antialiasingCheckBox->setChecked(m_settings.value("documentView/antialiasing", true).toBool());
 
@@ -705,30 +710,49 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_prefetchCheckBox = new QCheckBox(this);
     m_prefetchCheckBox->setChecked(m_settings.value("documentView/prefetch", true).toBool());
 
+    m_tabWidget = new QTabWidget(this);
+
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     connect(m_buttonBox, SIGNAL(accepted()), SLOT(accept()));
     connect(m_buttonBox, SIGNAL(rejected()), SLOT(reject()));
 
-    m_layout = new QFormLayout(this);
-    setLayout(m_layout);
+    setLayout(new QVBoxLayout());
+    layout()->addWidget(m_tabWidget);
+    layout()->addWidget(m_buttonBox);
 
-    m_layout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
-    m_layout->addRow(tr("External &links:"), m_externalLinksCheckBox);
+    m_filesWidget = new QWidget(m_tabWidget);
+    m_filesLayout = new QFormLayout(m_filesWidget);
+    m_filesWidget->setLayout(m_filesLayout);
 
-    m_layout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
-    m_layout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
-    m_layout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
+    m_filesLayout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
 
-    m_layout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
-    m_layout->addRow(tr("&Prefetch:"), m_prefetchCheckBox);
+    m_filesLayout->addRow(tr("External &links:"), m_externalLinksCheckBox);
 
-    m_layout->addRow(m_buttonBox);
+    m_filesLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+
+    m_tabWidget->addTab(m_filesWidget, tr("Files"));
+
+    m_graphicsWidget = new QWidget(m_tabWidget);
+    m_graphicsLayout = new QFormLayout(m_graphicsWidget);
+    m_graphicsWidget->setLayout(m_graphicsLayout);
+
+    m_graphicsLayout->addRow(tr("&Antialiasing:"), m_antialiasingCheckBox);
+    m_graphicsLayout->addRow(tr("&Text antialiasing:"), m_textAntialiasingCheckBox);
+    m_graphicsLayout->addRow(tr("Text &hinting:"), m_textHintingCheckBox);
+
+    m_graphicsLayout->addRow(tr("Maximum page cache &size:"), m_maximumPageCacheSizeComboBox);
+    m_graphicsLayout->addRow(tr("&Prefetch:"), m_prefetchCheckBox);
+
+    m_tabWidget->addTab(m_graphicsWidget, tr("Graphics"));
 }
 
 void SettingsDialog::accept()
 {
     m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
+
     m_settings.setValue("documentView/externalLinks", m_externalLinksCheckBox->isChecked());
+
+    m_settings.setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
 
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());

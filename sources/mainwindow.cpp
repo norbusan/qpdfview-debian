@@ -41,6 +41,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     restoreState(m_settings.value("mainWindow/state").toByteArray());
+
+    if(m_settings.value("mainWindow/restoreTabs", false).toBool())
+    {
+        QStringList filePaths = m_settings.value("mainWindow/tabs/filePaths", QStringList()).toStringList();
+        QList< QVariant > currentPages = m_settings.value("mainWindow/tabs/currentPages", QList< QVariant >()).toList();
+
+        if(filePaths.count() == currentPages.count())
+        {
+            for(int index = 0; index < filePaths.count(); index++)
+            {
+                openInNewTab(filePaths.at(index), currentPages.at(index).toInt());
+            }
+        }
+
+        m_tabWidget->setCurrentIndex(m_settings.value("mainWindow/tabs/currentIndex", -1).toInt());
+    }
 }
 
 bool MainWindow::open(const QString& filePath, int page, qreal top)
@@ -110,6 +126,30 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
 
 void MainWindow::closeEvent(QCloseEvent*)
 {
+    if(m_settings.value("mainWindow/restoreTabs", false).toBool())
+    {
+        QStringList filePaths;
+        QList< QVariant > currentPages;
+
+        for(int index = 0; index < m_tabWidget->count(); index++)
+        {
+            DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->widget(index));
+
+            filePaths.append(QFileInfo(documentView->filePath()).absoluteFilePath());
+            currentPages.append(documentView->currentPage());
+        }
+
+        m_settings.setValue("mainWindow/tabs/filePaths", filePaths);
+        m_settings.setValue("mainWindow/tabs/currentPages", currentPages);
+        m_settings.setValue("mainWindow/tabs/currentIndex", m_tabWidget->currentIndex());
+    }
+    else
+    {
+        m_settings.remove("mainWindow/tabs/filePaths");
+        m_settings.remove("mainWindow/tabs/currentPages");
+        m_settings.remove("mainWindow/tabs/currentIndex");
+    }
+
     slotCloseAllTabs();
 
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
