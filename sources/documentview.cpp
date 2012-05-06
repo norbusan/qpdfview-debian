@@ -57,6 +57,8 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
+    qDebug() << "request: " << m_scale * parent->m_resolutionX << m_scale * parent->m_resolutionY;
+
     if(parent->m_pageCache.contains(key))
     {
         painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
@@ -334,6 +336,8 @@ void DocumentView::PageItem::render(bool prefetch)
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
     uint byteCount = image.byteCount();
+
+    qDebug() << "dispatch: " << m_scale * parent->m_resolutionX << m_scale * parent->m_resolutionY;
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
     {

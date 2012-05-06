@@ -62,7 +62,7 @@ private:
 
         bool operator<(const PageCacheKey& key) const
         {
-            return (index < key.index) || (index == key.index && resolutionX < key.resolutionY) || (index == key.index && resolutionX == key.resolutionX && resolutionY < key.resolutionY);
+            return (index < key.index) || (index == key.index && resolutionX < key.resolutionY) || (index == key.index && qFuzzyCompare(resolutionX, key.resolutionX) && resolutionY < key.resolutionY);
         }
     };
 
