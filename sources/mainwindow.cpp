@@ -21,7 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     m_settings(),
     m_geometry()
 {
@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     restoreState(m_settings.value("mainWindow/state").toByteArray());
 
     m_tabWidget->setTabPosition(static_cast<QTabWidget::TabPosition>(m_settings.value("mainWindow/tabPosition", static_cast<uint>(m_tabWidget->tabPosition())).toUInt()));
+
+    // restore tabs
 
     if(m_settings.value("mainWindow/restoreTabs", false).toBool())
     {
@@ -138,6 +140,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
 
 void MainWindow::closeEvent(QCloseEvent*)
 {
+    // restore tabs
+
     if(m_settings.value("mainWindow/restoreTabs", false).toBool())
     {
         QStringList filePaths;
@@ -180,7 +184,7 @@ void MainWindow::closeEvent(QCloseEvent*)
         m_settings.remove("mainWindow/tabs/currentIndex");
     }
 
-    slotCloseAllTabs();
+    // settings
 
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
 
@@ -196,6 +200,8 @@ void MainWindow::closeEvent(QCloseEvent*)
     m_settings.setValue("mainWindow/state", saveState());
 
     m_settings.setValue("mainWindow/tabPosition", static_cast<uint>(m_tabWidget->tabPosition()));
+
+    slotCloseAllTabs();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent* event)
@@ -810,8 +816,8 @@ void MainWindow::slotScaleFactorComboBoxEditingFinished()
 
         if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
         {
-            documentView->setScaleFactor(scaleFactor);
             documentView->setScaleMode(DocumentView::ScaleFactor);
+            documentView->setScaleFactor(scaleFactor);
         }
 
         slotScaleModeChanged(documentView->scaleMode());
@@ -826,7 +832,7 @@ void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
     documentView->setHighlightAll(checked);
 }
 
-void MainWindow::slotFilePathChanged(const QString &filePath)
+void MainWindow::slotFilePathChanged(const QString& filePath)
 {
     m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
     m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
