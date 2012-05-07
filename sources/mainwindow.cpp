@@ -325,6 +325,11 @@ void MainWindow::slotPrint()
     QPrinter* printer = new QPrinter();
 
     QPrintDialog printDialog(printer, this);
+
+    printDialog.setOptions(QAbstractPrintDialog::PrintDialogOptions());
+    printDialog.setOption(QAbstractPrintDialog::PrintCollateCopies, true);
+    printDialog.setOption(QAbstractPrintDialog::PrintPageRange, true);
+
     printDialog.setMinMax(1, documentView->numberOfPages());
 
     if(printDialog.exec() == QDialog::Accepted)

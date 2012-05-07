@@ -1737,43 +1737,94 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
     dest = cupsGetDest(printer->printerName().toLocal8Bit(), 0, num_dests, dests);
 
-    int num_options = 0;
-    cups_option_t* options = 0;
-
-    for(int i = 0; i < dest->num_options; i++)
+    if(dest)
     {
-        num_options = cupsAddOption(dest->options[i].name, dest->options[i].value, num_options, &options);
-    }
+        int num_options = 0;
+        cups_option_t* options = 0;
 
-    num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+        for(int i = 0; i < dest->num_options; i++)
+        {
+            num_options = cupsAddOption(dest->options[i].name, dest->options[i].value, num_options, &options);
+        }
 
-    switch(m_pageLayout)
-    {
-    case OnePage:
-    case OneColumn:
-        num_options = cupsAddOption("number-up", QString("%1").arg(1).toLocal8Bit(), num_options, &options);
+        // from page to page
 
-        break;
-    case TwoPages:
-    case TwoColumns:
-        num_options = cupsAddOption("number-up", QString("%1").arg(2).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
 
-        break;
-    }
+        // copy count
 
-    int jobId = cupsPrintFile(dest->name, QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+        num_options = cupsAddOption("copies", QString("%1").arg(printer->copyCount()).toLocal8Bit(), num_options, &options);
 
-    if(jobId > 0)
-    {
-        qDebug() << "CUPS: jobId:" << jobId;
+        // collate copies
+
+        num_options = cupsAddOption("collate", QString("%1").arg(printer->collateCopies()).toLocal8Bit(), num_options, &options);
+
+        // duplex mode
+
+        switch(printer->duplex())
+        {
+        case QPrinter::DuplexNone:
+            num_options = cupsAddOption("sides", "one-sided", num_options, &options);
+            break;
+        case QPrinter::DuplexAuto:
+            break;
+        case QPrinter::DuplexLongSide:
+            num_options = cupsAddOption("sides", "two-sided-long-edge", num_options, &options);
+            break;
+        case QPrinter::DuplexShortSide:
+            num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options);
+            break;
+        }
+
+        // page order
+
+        switch(printer->pageOrder())
+        {
+        case QPrinter::FirstPageFirst:
+            num_options = cupsAddOption("outputorder", "normal", num_options, &options);
+            break;
+        case QPrinter::LastPageFirst:
+            num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
+            break;
+        }
+
+        // page layout
+
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            num_options = cupsAddOption("number-up", QString("%1").arg(1).toLocal8Bit(), num_options, &options);
+            break;
+        case TwoPages:
+        case TwoColumns:
+            num_options = cupsAddOption("number-up", QString("%1").arg(2).toLocal8Bit(), num_options, &options);
+            break;
+        }
+
+        for(int i = 0; i < num_options; i++)
+        {
+            qDebug() << "CUPS:" << options[i].name << options[i].value;
+        }
+
+        int jobId = cupsPrintFile(dest->name, QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+
+        if(jobId > 0)
+        {
+            qDebug() << "CUPS: jobId:" << jobId;
+        }
+        else
+        {
+            qDebug() << "CUPS: lastErrorString:" << cupsLastErrorString();
+        }
+
+        cupsFreeDests(num_dests, dests);
+        cupsFreeOptions(num_options, options);
     }
     else
     {
         qDebug() << "CUPS: lastErrorString:" << cupsLastErrorString();
     }
-
-    cupsFreeDests(num_dests, dests);
-    cupsFreeOptions(num_options, options);
 
     emit printProgressed(100);
 
