@@ -440,7 +440,7 @@ RecentlyUsedAction::RecentlyUsedAction(QObject* parent) : QAction(tr("Recently &
     m_separator = menu()->addSeparator();
     menu()->addAction(m_clearListAction);
 
-    QStringList filePaths = m_settings.value("mainWindow/recentlyUsed").toStringList();
+    QStringList filePaths = m_settings.value("mainWindow/recentlyUsed", QStringList()).toStringList();
 
     foreach(QString filePath, filePaths)
     {

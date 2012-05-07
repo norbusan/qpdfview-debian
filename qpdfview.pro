@@ -26,6 +26,14 @@ paint_links:DEFINES += PAINT_LINKS=1
 render_in_paint:DEFINES += RENDER_IN_PAINT=1
 render_from_disk:DEFINES += RENDER_FROM_DISK=1
 
+# CUPS support
+
+print_to_cups {
+    DEFINES += PRINT_TO_CUPS=1
+
+    LIBS += $$system(cups-config --libs)
+}
+
 SOURCES += \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \

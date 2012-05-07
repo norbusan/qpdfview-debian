@@ -7,6 +7,12 @@
 
 #include <poppler-qt4.h>
 
+#ifdef PRINT_TO_CUPS
+
+#include <cups/cups.h>
+
+#endif
+
 #include "miscellaneous.h"
 
 class DocumentView : public QWidget

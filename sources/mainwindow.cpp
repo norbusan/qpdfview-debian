@@ -323,7 +323,6 @@ void MainWindow::slotPrint()
     DocumentView* documentView = qobject_cast<DocumentView*>(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
     QPrinter* printer = new QPrinter();
-    printer->setFullPage(true);
 
     QPrintDialog printDialog(printer, this);
     printDialog.setMinMax(1, documentView->numberOfPages());

@@ -1724,6 +1724,65 @@ void DocumentView::search(const QString& text, bool matchCase)
 
 void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 {
+#ifdef PRINT_TO_CUPS
+
+    emit printProgressed(0);
+
+    int num_dests = 0;
+    cups_dest_t* dests = 0;
+
+    num_dests = cupsGetDests(&dests);
+
+    cups_dest_t* dest = 0;
+
+    dest = cupsGetDest(printer->printerName().toLocal8Bit(), 0, num_dests, dests);
+
+    int num_options = 0;
+    cups_option_t* options = 0;
+
+    for(int i = 0; i < dest->num_options; i++)
+    {
+        num_options = cupsAddOption(dest->options[i].name, dest->options[i].value, num_options, &options);
+    }
+
+    num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+
+    switch(m_pageLayout)
+    {
+    case OnePage:
+    case OneColumn:
+        num_options = cupsAddOption("number-up", QString("%1").arg(1).toLocal8Bit(), num_options, &options);
+
+        break;
+    case TwoPages:
+    case TwoColumns:
+        num_options = cupsAddOption("number-up", QString("%1").arg(2).toLocal8Bit(), num_options, &options);
+
+        break;
+    }
+
+    int jobId = cupsPrintFile(dest->name, QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+
+    if(jobId > 0)
+    {
+        qDebug() << "CUPS: jobId:" << jobId;
+    }
+    else
+    {
+        qDebug() << "CUPS: lastErrorString:" << cupsLastErrorString();
+    }
+
+    cupsFreeDests(num_dests, dests);
+    cupsFreeOptions(num_options, options);
+
+    emit printProgressed(100);
+
+    emit printFinished();
+
+#else
+
+    printer->setFullPage(true);
+
     QPainter* painter = new QPainter(printer);
 
     emit printProgressed(0);
@@ -1768,6 +1827,8 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
     delete painter;
     delete printer;
+
+#endif
 }
 
 void DocumentView::preparePages()
