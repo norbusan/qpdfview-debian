@@ -1,6 +1,6 @@
 qpdfview is a tabbed PDF viewer using the poppler library.
 
-It depends on libQtCore, libQtXml, libQtGui, libQtDBus and libpoppler-qt4. It also depends on libcups if you enable CUPS support. It is built using "qmake" and "make". It is installed using "make install".
+It depends on libQtCore, libQtXml, libQtGui, libQtDBus and libpoppler-qt4. It also depends on libcups if CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install".
 
 The following build-time options can be set in qpdfview.pri:
 - 'TARGET_INSTALL_PATH' sets the path to install the application binary (default is '/usr/bin')

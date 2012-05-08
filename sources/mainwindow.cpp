@@ -1164,15 +1164,19 @@ void MainWindow::createActions()
     // pageLayout
 
     m_onePageAction = new QAction(tr("One page"), this);
+    m_onePageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_1));
     m_onePageAction->setCheckable(true);
     m_onePageAction->setData(static_cast<uint>(DocumentView::OnePage));
     m_twoPagesAction = new QAction(tr("Two pages"), this);
+    m_twoPagesAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_2));
     m_twoPagesAction->setCheckable(true);
     m_twoPagesAction->setData(static_cast<uint>(DocumentView::TwoPages));
     m_oneColumnAction = new QAction(tr("One column"), this);
+    m_oneColumnAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_3));
     m_oneColumnAction->setCheckable(true);
     m_oneColumnAction->setData(static_cast<uint>(DocumentView::OneColumn));
     m_twoColumnsAction = new QAction(tr("Two columns"), this);
+    m_twoColumnsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_4));
     m_twoColumnsAction->setCheckable(true);
     m_twoColumnsAction->setData(static_cast<uint>(DocumentView::TwoColumns));
 
@@ -1186,12 +1190,15 @@ void MainWindow::createActions()
     // scaleMode
 
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
+    m_fitToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
     m_fitToPageAction->setCheckable(true);
     m_fitToPageAction->setData(static_cast<uint>(DocumentView::FitToPage));
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
+    m_fitToPageWidthAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_9));
     m_fitToPageWidthAction->setCheckable(true);
     m_fitToPageWidthAction->setData(static_cast<uint>(DocumentView::FitToPageWidth));
     m_doNotScaleAction = new QAction(tr("Do not scale"), this);
+    m_doNotScaleAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
     m_doNotScaleAction->setCheckable(true);
     m_doNotScaleAction->setData(static_cast<uint>(DocumentView::DoNotScale));
 
@@ -1200,6 +1207,8 @@ void MainWindow::createActions()
     m_scaleModeGroup->addAction(m_fitToPageWidthAction);
     m_scaleModeGroup->addAction(m_doNotScaleAction);
     connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), SLOT(slotScaleModeGroupTriggered(QAction*)));
+
+    // zoom
 
     m_zoomInAction = new QAction(tr("Zoom &in"), this);
     m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
@@ -1237,7 +1246,7 @@ void MainWindow::createActions()
 #endif
     }
 
-    // rotation
+    // rotate
 
     m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
     m_rotateLeftAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left));
@@ -1585,21 +1594,21 @@ void MainWindow::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
-bool MainWindowAdaptor::open(const QString &filePath, int page, qreal top)
+bool MainWindowAdaptor::open(const QString& filePath, int page, qreal top)
 {
     MainWindow* mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
 
     return mainWindow->open(filePath, page, top);
 }
 
-bool MainWindowAdaptor::openInNewTab(const QString &filePath, int page, qreal top)
+bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, qreal top)
 {
     MainWindow* mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
 
     return mainWindow->openInNewTab(filePath, page, top);
 }
 
-void MainWindowAdaptor::refresh(const QString &filePath, int page, qreal top)
+void MainWindowAdaptor::refresh(const QString& filePath, int page, qreal top)
 {
     MainWindow* mainWindow = qobject_cast<MainWindow*>(parent()); Q_ASSERT(mainWindow);
 
