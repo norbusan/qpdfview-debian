@@ -820,12 +820,12 @@ void MainWindow::slotScaleFactorComboBoxEditingFinished()
 
         if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
         {
-            documentView->setScaleMode(DocumentView::ScaleFactor);
             documentView->setScaleFactor(scaleFactor);
+            documentView->setScaleMode(DocumentView::ScaleFactor);
         }
 
-        slotScaleModeChanged(documentView->scaleMode());
         slotScaleFactorChanged(documentView->scaleFactor());
+        slotScaleModeChanged(documentView->scaleMode());
     }
 }
 

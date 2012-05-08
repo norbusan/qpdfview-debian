@@ -1128,13 +1128,22 @@ void DocumentView::lastPage()
 
 void DocumentView::zoomIn()
 {
+    PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
+
     switch(m_scaleMode)
     {
     case FitToPage:
-    case FitToPageWidth:        
+    case FitToPageWidth:
+        if(pageItem != 0)
+        {
+            setScaleFactor(pageItem->m_scale + zoomBy <= maxScaleFactor ? pageItem->m_scale + zoomBy : maxScaleFactor);
+            setScaleMode(ScaleFactor);
+
+            break;
+        }
     case DoNotScale:
-        setScaleMode(ScaleFactor);
         setScaleFactor(1.0 + zoomBy);
+        setScaleMode(ScaleFactor);
 
         break;
     case ScaleFactor:
@@ -1146,13 +1155,22 @@ void DocumentView::zoomIn()
 
 void DocumentView::zoomOut()
 {
+    PageItem* pageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
+
     switch(m_scaleMode)
     {
     case FitToPage:
     case FitToPageWidth:
+        if(pageItem != 0)
+        {
+            setScaleFactor(pageItem->m_scale - zoomBy >= minScaleFactor ? pageItem->m_scale - zoomBy : minScaleFactor);
+            setScaleMode(ScaleFactor);
+
+            break;
+        }
     case DoNotScale:
-        setScaleMode(ScaleFactor);
         setScaleFactor(1.0 - zoomBy);
+        setScaleMode(ScaleFactor);
 
         break;
     case ScaleFactor:
