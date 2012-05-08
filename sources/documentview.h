@@ -305,7 +305,7 @@ private:
 
     QGraphicsRectItem* m_highlight;
 
-    QMap< int, PageItem* > m_pagesByIndex;
+    QHash< int, PageItem* > m_pagesByIndex;
     QMap< qreal, PageItem* > m_pagesByHeight;
 
     qreal m_resolutionX;
