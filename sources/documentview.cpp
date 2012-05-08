@@ -27,14 +27,14 @@ DocumentView::PageItem::~PageItem()
 
 QRectF DocumentView::PageItem::boundingRect() const
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     return QRectF(0.0, 0.0, m_scale * parent->m_resolutionX / 72.0 * m_size.width(), m_scale * parent->m_resolutionY / 72.0 * m_size.height());
 }
 
 void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     // page
 
@@ -152,7 +152,7 @@ void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
 void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     if(event->button() == Qt::LeftButton)
     {
@@ -225,7 +225,7 @@ void DocumentView::PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     if(!m_rubberBand.isNull())
     {
@@ -281,7 +281,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void DocumentView::PageItem::render(bool prefetch)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = parent->m_pageTransform.mapRect(boundingRect()).translated(pos());
     QRectF visibleRect = parent->m_view->mapToScene(parent->m_view->viewport()->rect()).boundingRect();
@@ -378,14 +378,14 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 
 QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     return QRectF(0.0, 0.0, s_scale * parent->physicalDpiX() / 72.0 * m_size.width(), s_scale * parent->physicalDpiY() / 72.0 * m_size.height());
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     // page
 
@@ -430,14 +430,14 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 void DocumentView::ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     parent->setCurrentPage(m_index + 1);
 }
 
 void DocumentView::ThumbnailItem::render()
 {
-    DocumentView* parent = qobject_cast<DocumentView*>(scene()->parent()); Q_ASSERT(parent);
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
     QRectF rect = boundingRect().translated(pos());
     QRectF visibleRect = parent->m_thumbnailsGraphicsView->mapToScene(parent->m_thumbnailsGraphicsView->viewport()->rect()).boundingRect();
@@ -548,10 +548,10 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     // settings
 
-    m_pageLayout = static_cast<PageLayout>(m_settings.value("documentView/pageLayout", static_cast<uint>(m_pageLayout)).toUInt());
-    m_scaleMode = static_cast<ScaleMode>(m_settings.value("documentView/scaling", static_cast<uint>(m_scaleMode)).toUInt());
+    m_pageLayout = static_cast< PageLayout >(m_settings.value("documentView/pageLayout", static_cast< uint >(m_pageLayout)).toUInt());
+    m_scaleMode = static_cast< ScaleMode >(m_settings.value("documentView/scaling", static_cast< uint >(m_scaleMode)).toUInt());
     m_scaleFactor = m_settings.value("documentView/scaleFactor", m_scaleFactor).toReal();
-    m_rotation = static_cast<Rotation>(m_settings.value("documentView/rotation", static_cast<uint>(m_rotation)).toUInt());
+    m_rotation = static_cast< Rotation >(m_settings.value("documentView/rotation", static_cast< uint >(m_rotation)).toUInt());
 
     m_highlightAll = m_settings.value("documentView/highlightAll", m_highlightAll).toBool();
 
@@ -573,13 +573,13 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_scene->addItem(m_highlight);
 
-    // verticalScrollBar
+    // vertical scrollbar
 
     m_view->verticalScrollBar()->installEventFilter(this);
 
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(slotVerticalScrollBarValueChanged(int)));
 
-    // prefetchTimer
+    // prefetch timer
 
     m_prefetchTimer = new QTimer(this);
     m_prefetchTimer->setInterval(500);
@@ -591,7 +591,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(slotPrefetchTimerTimeout()));
 
-    // bookmarksMenu
+    // bookmarks menu
 
     m_bookmarksMenu = new BookmarksMenu(this);
     m_bookmarksMenu->updateCurrentPage(m_currentPage);
@@ -604,13 +604,13 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     connect(m_bookmarksMenu, SIGNAL(entrySelected(int,int)), SLOT(slotBookmarksMenuEntrySelected(int,int)));
 
-    // tabAction
+    // tab action
 
     m_tabAction = new QAction(this);
 
     connect(m_tabAction, SIGNAL(triggered()), SLOT(slotTabActionTriggered()));
 
-    // outlineTreeWidget
+    // outline
 
     m_outlineTreeWidget = new QTreeWidget();
     m_outlineTreeWidget->setAlternatingRowColors(true);
@@ -620,7 +620,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
-    // metaInformationTableWidget
+    // meta-information
 
     m_metaInformationTableWidget = new QTableWidget();
     m_metaInformationTableWidget->setAlternatingRowColors(true);
@@ -630,7 +630,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_metaInformationTableWidget->verticalHeader()->setVisible(false);
     m_metaInformationTableWidget->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
 
-    // thumbnailsGraphicsView
+    // thumbnails
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
     m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
@@ -688,7 +688,7 @@ void DocumentView::setPageLayout(DocumentView::PageLayout pageLayout)
     {
         m_pageLayout = pageLayout;
 
-        m_settings.setValue("documentView/pageLayout", static_cast<uint>(m_pageLayout));
+        m_settings.setValue("documentView/pageLayout", static_cast< uint >(m_pageLayout));
 
         if((m_pageLayout == TwoPages || m_pageLayout == TwoColumns) && m_currentPage % 2 == 0)
         {
@@ -715,7 +715,7 @@ void DocumentView::setScaleMode(DocumentView::ScaleMode scaleMode)
     {
         m_scaleMode = scaleMode;
 
-        m_settings.setValue("documentView/scaling", static_cast<uint>(m_scaleMode));
+        m_settings.setValue("documentView/scaling", static_cast< uint >(m_scaleMode));
 
         prepareScene();
         prepareView();
@@ -755,7 +755,7 @@ void DocumentView::setRotation(DocumentView::Rotation rotation)
     {
         m_rotation = rotation;
 
-        m_settings.setValue("documentView/rotation", static_cast<uint>(m_rotation));
+        m_settings.setValue("documentView/rotation", static_cast< uint >(m_rotation));
 
         prepareScene();
         prepareView();
@@ -1435,7 +1435,7 @@ bool DocumentView::eventFilter(QObject*, QEvent* event)
 {
     if(event->type() == QEvent::Wheel)
     {
-        QWheelEvent* wheelEvent = static_cast<QWheelEvent*>(event);
+        QWheelEvent* wheelEvent = static_cast< QWheelEvent* >(event);
 
         return wheelEvent->modifiers() == Qt::ControlModifier || wheelEvent->modifiers() == Qt::ShiftModifier || wheelEvent->modifiers() == Qt::AltModifier;
     }
@@ -1644,7 +1644,7 @@ void DocumentView::slotBookmarksMenuEntrySelected(int page, int value)
 
 void DocumentView::slotTabActionTriggered()
 {
-    TabWidget* tabWidget = qobject_cast<TabWidget*>(this->parent()->parent()); Q_ASSERT(tabWidget);
+    TabWidget* tabWidget = qobject_cast< TabWidget* >(this->parent()->parent()); Q_ASSERT(tabWidget);
 
     tabWidget->setCurrentIndex(tabWidget->indexOf(this));
 }
@@ -1777,7 +1777,7 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
         num_options = cupsAddOption("collate", QString("%1").arg(printer->collateCopies()).toLocal8Bit(), num_options, &options);
 
-        // duplex mode
+        // duplex
 
         switch(printer->duplex())
         {
@@ -1920,11 +1920,11 @@ void DocumentView::preparePages()
         {
             if(link->linkType() == Poppler::Link::Goto)
             {
-                if(!static_cast<Poppler::LinkGoto*>(link)->isExternal())
+                if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
                 {
                     QRectF area = link->linkArea().normalized();
-                    int page = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
-                    qreal top = static_cast<Poppler::LinkGoto*>(link)->destination().isChangeTop() ? static_cast<Poppler::LinkGoto*>(link)->destination().top() : 0.0;
+                    int page = static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber();
+                    qreal top = static_cast< Poppler::LinkGoto* >(link)->destination().isChangeTop() ? static_cast< Poppler::LinkGoto* >(link)->destination().top() : 0.0;
 
                     page = page >= 1 ? page : 1;
                     page = page <= m_numberOfPages ? page : m_numberOfPages;
@@ -1938,7 +1938,7 @@ void DocumentView::preparePages()
             else if(link->linkType() == Poppler::Link::Browse)
             {
                 QRectF area = link->linkArea().normalized();
-                QString url = static_cast<Poppler::LinkBrowse*>(link)->url();
+                QString url = static_cast< Poppler::LinkBrowse* >(link)->url();
 
                 pageItem->m_links.append(Link(area, url));
             }
@@ -2332,7 +2332,7 @@ void DocumentView::prepareScene()
     m_scene->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
     m_view->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
 
-    // bookmarks
+    // bookmarks menu
 
     m_bookmarksMenu->clearList();
 }

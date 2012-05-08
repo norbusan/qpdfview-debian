@@ -43,7 +43,7 @@ PresentationView::PresentationView() : QWidget(),
 
     setMouseTracking(true);
 
-    // prefetchTimer
+    // prefetch timer
 
     m_prefetchTimer = new QTimer(this);
     m_prefetchTimer->setInterval(500);
@@ -291,10 +291,10 @@ void PresentationView::prepareView()
     {
         if(link->linkType() == Poppler::Link::Goto)
         {
-            if(!static_cast<Poppler::LinkGoto*>(link)->isExternal())
+            if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
             {
                 QRectF area = link->linkArea().normalized();
-                int page = static_cast<Poppler::LinkGoto*>(link)->destination().pageNumber();
+                int page = static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber();
 
                 page = page >= 1 ? page : 1;
                 page = page <= m_numberOfPages ? page : m_numberOfPages;
@@ -368,7 +368,7 @@ void TabBar::contextMenuEvent(QContextMenuEvent *event)
 
     QAction* positionAction = menu.exec(event->globalPos());
 
-    TabWidget* tabWidget = qobject_cast<TabWidget*>(parent()); Q_ASSERT(tabWidget);
+    TabWidget* tabWidget = qobject_cast< TabWidget* >(parent()); Q_ASSERT(tabWidget);
 
     if(positionAction == northAction)
     {

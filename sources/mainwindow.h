@@ -133,7 +133,7 @@ protected slots:
 
     void slotCurrentPageChanged(int currentPage);
     void slotPageLayoutChanged(DocumentView::PageLayout pageLayout);
-    void slotScaleModeChanged(DocumentView::ScaleMode scaling);
+    void slotScaleModeChanged(DocumentView::ScaleMode scaleMode);
     void slotScaleFactorChanged(qreal scaleFactor);
 
     void slotHighlightAllChanged(bool highlightAll);

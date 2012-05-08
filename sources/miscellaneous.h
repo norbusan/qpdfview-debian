@@ -276,6 +276,8 @@ public slots:
     void accept();
 
 private:
+    // widgets
+
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_buttonBox;
 
