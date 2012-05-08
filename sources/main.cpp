@@ -85,13 +85,13 @@ int main(int argc, char** argv)
             if(fields.count() > 1)
             {
                 link.page = fields.at(1).toInt();
-                link.page = link.page >= 1 ? link.page : 1;
+                link.page = qMax(link.page, 1);
             }
             if(fields.count() > 2)
             {
                 link.top = fields.at(2).toFloat();
-                link.top = link.top >= 0.0 ? link.top : 0.0;
-                link.top = link.top <= 1.0 ? link.top : 1.0;
+                link.top = qMax(link.top, 0.0);
+                link.top = qMin(link.top, 1.0);
             }
 
             if(QFileInfo(link.filePath).exists())

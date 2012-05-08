@@ -29,7 +29,7 @@ QRectF DocumentView::PageItem::boundingRect() const
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
-    return QRectF(0.0, 0.0, m_scale * parent->m_resolutionX / 72.0 * m_size.width(), m_scale * parent->m_resolutionY / 72.0 * m_size.height());
+    return QRectF(0.0, 0.0, qCeil(m_scale * parent->m_resolutionX / 72.0 * m_size.width()), qCeil(m_scale * parent->m_resolutionY / 72.0 * m_size.height()));
 }
 
 void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -380,7 +380,7 @@ QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
-    return QRectF(0.0, 0.0, s_scale * parent->physicalDpiX() / 72.0 * m_size.width(), s_scale * parent->physicalDpiY() / 72.0 * m_size.height());
+    return QRectF(0.0, 0.0, qCeil(DocumentView::thumbnailScale * parent->physicalDpiX() / 72.0 * m_size.width()), qCeil(DocumentView::thumbnailScale * parent->physicalDpiY() / 72.0 * m_size.height()));
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -393,7 +393,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -406,7 +406,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
 
     if(parent->m_pageCache.contains(key))
     {
@@ -471,7 +471,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
+    QImage image = page->renderToImage(DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
 
     delete page;
     delete document;
@@ -480,7 +480,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
+    QImage image = m_page->renderToImage(DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
 
     parent->m_documentMutex.unlock();
 
@@ -488,7 +488,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, s_scale * parent->physicalDpiX(), s_scale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -1136,7 +1136,7 @@ void DocumentView::zoomIn()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(pageItem->m_scale + zoomBy <= maxScaleFactor ? pageItem->m_scale + zoomBy : maxScaleFactor);
+            setScaleFactor(qMin(pageItem->m_scale + zoomBy, 1.0 * maxScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1147,7 +1147,7 @@ void DocumentView::zoomIn()
 
         break;
     case ScaleFactor:
-        setScaleFactor(scaleFactor() + zoomBy <= maxScaleFactor ? scaleFactor() + zoomBy : maxScaleFactor);
+        setScaleFactor(qMin(scaleFactor() + zoomBy, 1.0 * maxScaleFactor));
 
         break;
     }
@@ -1163,7 +1163,7 @@ void DocumentView::zoomOut()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(pageItem->m_scale - zoomBy >= minScaleFactor ? pageItem->m_scale - zoomBy : minScaleFactor);
+            setScaleFactor(qMax(pageItem->m_scale - zoomBy, 1.0 * minScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1174,7 +1174,7 @@ void DocumentView::zoomOut()
 
         break;
     case ScaleFactor:
-        setScaleFactor(scaleFactor() - zoomBy >= minScaleFactor ? scaleFactor() - zoomBy : minScaleFactor);
+        setScaleFactor(qMax(scaleFactor() - zoomBy, 1.0 * minScaleFactor));
 
         break;
     }
@@ -1926,11 +1926,11 @@ void DocumentView::preparePages()
                     int page = static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber();
                     qreal top = static_cast< Poppler::LinkGoto* >(link)->destination().isChangeTop() ? static_cast< Poppler::LinkGoto* >(link)->destination().top() : 0.0;
 
-                    page = page >= 1 ? page : 1;
-                    page = page <= m_numberOfPages ? page : m_numberOfPages;
+                    page = qMax(page, 1);
+                    page = qMin(page, m_numberOfPages);
 
-                    top = top >= 0.0 ? top : 0.0;
-                    top = top <= 1.0 ? top : 1.0;
+                    top = qMax(top, 0.0);
+                    top = qMin(top, 1.0);
 
                     pageItem->m_links.append(Link(area, page, top));
                 }

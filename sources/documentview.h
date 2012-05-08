@@ -33,13 +33,15 @@ public:
     enum ScaleMode { FitToPage, FitToPageWidth, DoNotScale, ScaleFactor };
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
 
-    const static qreal pageSpacing = 5.0;
-    const static qreal thumbnailSpacing = 2.5;
+    static const qreal pageSpacing = 5.0;
+    static const qreal thumbnailSpacing = 2.5;
 
-    const static qreal zoomBy = 0.1;
+    static const qreal thumbnailScale = 0.1;
 
-    const static qreal minScaleFactor = 0.1;
-    const static qreal maxScaleFactor = 5.0;
+    static const qreal zoomBy = 0.1;
+
+    static const qreal minScaleFactor = 0.1;
+    static const qreal maxScaleFactor = 5.0;
 
 private:
     struct Link
@@ -148,7 +150,6 @@ private:
         // properties
 
         int m_index;
-        static const qreal s_scale = 0.1;
 
         // transforms
 
