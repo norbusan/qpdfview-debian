@@ -2106,7 +2106,7 @@ void DocumentView::prepareScene()
     if(m_scaleMode == FitToPage || m_scaleMode == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        QRectF visibleRect = m_view->mapToScene(m_view->viewport()->rect().adjusted(2, 0, -2, 0)).boundingRect();
+        QRectF visibleRect = m_view->mapToScene(m_view->viewport()->rect()).boundingRect();
 
         switch(m_pageLayout)
         {
@@ -2186,7 +2186,7 @@ void DocumentView::prepareScene()
                 qreal scale = (visibleRect.width() - 3 * pageSpacing) / pageWidth;
                 if(m_scaleMode == FitToPage)
                 {
-                    scale = qMin(scale, (visibleRect.height() - 3 * pageSpacing) / pageHeight);
+                    scale = qMin(scale, (visibleRect.height() - 2 * pageSpacing) / pageHeight);
                 }
 
                 leftPageItem->prepareGeometryChange();
