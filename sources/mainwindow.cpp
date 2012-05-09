@@ -1455,8 +1455,8 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    m_viewToolBar->addAction(m_zoomInAction);
     m_viewToolBar->addWidget(m_scaleFactorComboBox);
+    m_viewToolBar->addAction(m_zoomInAction);
     m_viewToolBar->addAction(m_zoomOutAction);
     m_viewToolBar->addAction(m_rotateLeftAction);
     m_viewToolBar->addAction(m_rotateRightAction);

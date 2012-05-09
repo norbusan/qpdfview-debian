@@ -1,5 +1,15 @@
 #include "documentview.h"
 
+const qreal DocumentView::pageSpacing = 5.0;
+const qreal DocumentView::thumbnailSpacing = 2.5;
+
+const qreal DocumentView::thumbnailScale = 0.1;
+
+const qreal DocumentView::zoomBy = 0.1;
+
+const qreal DocumentView::minScaleFactor = 0.1;
+const qreal DocumentView::maxScaleFactor = 5.0;
+
 DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) : QGraphicsItem(parent, scene),
     m_page(0),
     m_index(-1),
@@ -549,7 +559,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     // settings
 
     m_pageLayout = static_cast< PageLayout >(m_settings.value("documentView/pageLayout", static_cast< uint >(m_pageLayout)).toUInt());
-    m_scaleMode = static_cast< ScaleMode >(m_settings.value("documentView/scaling", static_cast< uint >(m_scaleMode)).toUInt());
+    m_scaleMode = static_cast< ScaleMode >(m_settings.value("documentView/scaleMode", static_cast< uint >(m_scaleMode)).toUInt());
     m_scaleFactor = m_settings.value("documentView/scaleFactor", m_scaleFactor).toReal();
     m_rotation = static_cast< Rotation >(m_settings.value("documentView/rotation", static_cast< uint >(m_rotation)).toUInt());
 
@@ -715,7 +725,7 @@ void DocumentView::setScaleMode(DocumentView::ScaleMode scaleMode)
     {
         m_scaleMode = scaleMode;
 
-        m_settings.setValue("documentView/scaling", static_cast< uint >(m_scaleMode));
+        m_settings.setValue("documentView/scaleMode", static_cast< uint >(m_scaleMode));
 
         prepareScene();
         prepareView();
@@ -2269,7 +2279,10 @@ void DocumentView::prepareScene()
 
     // calculate layout
 
+    disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
     m_pagesByHeight.clear();
+    m_bookmarksMenu->clearList();
 
     qreal sceneWidth = 0.0, sceneHeight = pageSpacing;
 
@@ -2332,13 +2345,13 @@ void DocumentView::prepareScene()
     m_scene->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
     m_view->setSceneRect(0.0, 0.0, sceneWidth, sceneHeight);
 
-    // bookmarks menu
-
-    m_bookmarksMenu->clearList();
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 }
 
 void DocumentView::prepareView(qreal top)
 {
+    disconnect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
     PageItem* leftPageItem = m_pagesByIndex.value(m_currentPage - 1, 0);
     PageItem* rightPageItem = m_pagesByIndex.value(m_currentPage, 0);
 
@@ -2356,7 +2369,7 @@ void DocumentView::prepareView(qreal top)
 
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->setSceneRect(leftRect.adjusted(-1.0 * pageSpacing, -1.0 * pageSpacing, pageSpacing, pageSpacing));
+            m_view->setSceneRect(leftRect.adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2377,7 +2390,7 @@ void DocumentView::prepareView(qreal top)
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
             QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect()).translated(rightPageItem->pos());
 
-            m_view->setSceneRect(leftRect.united(rightRect).adjusted(-1.0 * pageSpacing, -1.0 * pageSpacing, pageSpacing, pageSpacing));
+            m_view->setSceneRect(leftRect.united(rightRect).adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2388,7 +2401,7 @@ void DocumentView::prepareView(qreal top)
 
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->setSceneRect(leftRect.adjusted(-1.0 * pageSpacing, -1.0 * pageSpacing, pageSpacing, pageSpacing));
+            m_view->setSceneRect(leftRect.adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
 
             m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
@@ -2428,6 +2441,7 @@ void DocumentView::prepareView(qreal top)
             m_highlight->setRect(m_currentResult.value().adjusted(-1.0, -1.0, 1.0, 1.0));
 
             pageItem->stackBefore(m_highlight);
+
             m_highlight->setVisible(true);
         }
         else
@@ -2439,4 +2453,6 @@ void DocumentView::prepareView(qreal top)
     {
         m_highlight->setVisible(false);
     }
+
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 }
