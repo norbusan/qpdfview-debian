@@ -585,6 +585,8 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     // vertical scrollbar
 
+    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
     m_view->verticalScrollBar()->installEventFilter(this);
 
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(slotVerticalScrollBarValueChanged(int)));
@@ -2106,7 +2108,8 @@ void DocumentView::prepareScene()
     if(m_scaleMode == FitToPage || m_scaleMode == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        QRectF visibleRect = m_view->mapToScene(m_view->viewport()->rect()).boundingRect();
+        qreal visibleWidth = m_view->viewport()->width() - m_view->verticalScrollBar()->width() - 2;
+        qreal visibleHeight = m_view->viewport()->height() - 2;
 
         switch(m_pageLayout)
         {
@@ -2132,10 +2135,10 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                qreal scale = (visibleRect.width() - 2 * pageSpacing) / pageWidth;
+                qreal scale = (visibleWidth - 2 * pageSpacing) / pageWidth;
                 if(m_scaleMode == FitToPage)
                 {
-                    scale = qMin(scale, (visibleRect.height() - 2 * pageSpacing) / pageHeight);
+                    scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
                 pageItem->prepareGeometryChange();
@@ -2183,10 +2186,10 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                qreal scale = (visibleRect.width() - 3 * pageSpacing) / pageWidth;
+                qreal scale = (visibleWidth - 3 * pageSpacing) / pageWidth;
                 if(m_scaleMode == FitToPage)
                 {
-                    scale = qMin(scale, (visibleRect.height() - 2 * pageSpacing) / pageHeight);
+                    scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
                 leftPageItem->prepareGeometryChange();
@@ -2216,10 +2219,10 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                qreal scale = (visibleRect.width() - 2 * pageSpacing) / pageWidth;
+                qreal scale = (visibleWidth - 2 * pageSpacing) / pageWidth;
                 if(m_scaleMode == FitToPage)
                 {
-                    scale = qMin(scale, (visibleRect.height() - 2 * pageSpacing) / pageHeight);
+                    scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
                 leftPageItem->prepareGeometryChange();
