@@ -2370,8 +2370,6 @@ void DocumentView::prepareView(qreal top)
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
             m_view->setSceneRect(leftRect.adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
-
-            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
@@ -2391,8 +2389,6 @@ void DocumentView::prepareView(qreal top)
             QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect()).translated(rightPageItem->pos());
 
             m_view->setSceneRect(leftRect.united(rightRect).adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
-
-            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
         else if(leftPageItem != 0)
@@ -2402,8 +2398,6 @@ void DocumentView::prepareView(qreal top)
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
             m_view->setSceneRect(leftRect.adjusted(-pageSpacing, -pageSpacing, pageSpacing, pageSpacing));
-
-            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
@@ -2419,7 +2413,6 @@ void DocumentView::prepareView(qreal top)
         {
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect()).translated(leftPageItem->pos());
 
-            m_view->horizontalScrollBar()->setValue(qFloor(leftRect.left()));
             m_view->verticalScrollBar()->setValue(qFloor(leftRect.top() + leftRect.height() * top));
         }
 
