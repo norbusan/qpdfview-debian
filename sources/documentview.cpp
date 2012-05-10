@@ -572,7 +572,6 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_view = new QGraphicsView(m_scene, this);
     m_view->setDragMode(QGraphicsView::ScrollHandDrag);
-    m_view->show();
 
     // highlight
 
@@ -1148,7 +1147,7 @@ void DocumentView::zoomIn()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(qMin(pageItem->m_scale + zoomBy, 1.0 * maxScaleFactor));
+            setScaleFactor(qMin(pageItem->m_scale + zoomBy, maxScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1159,7 +1158,7 @@ void DocumentView::zoomIn()
 
         break;
     case ScaleFactor:
-        setScaleFactor(qMin(scaleFactor() + zoomBy, 1.0 * maxScaleFactor));
+        setScaleFactor(qMin(scaleFactor() + zoomBy, maxScaleFactor));
 
         break;
     }
@@ -1175,7 +1174,7 @@ void DocumentView::zoomOut()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(qMax(pageItem->m_scale - zoomBy, 1.0 * minScaleFactor));
+            setScaleFactor(qMax(pageItem->m_scale - zoomBy, minScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1186,7 +1185,7 @@ void DocumentView::zoomOut()
 
         break;
     case ScaleFactor:
-        setScaleFactor(qMax(scaleFactor() - zoomBy, 1.0 * minScaleFactor));
+        setScaleFactor(qMax(scaleFactor() - zoomBy, minScaleFactor));
 
         break;
     }
@@ -1459,6 +1458,8 @@ void DocumentView::showEvent(QShowEvent* event)
 {
     if(!event->spontaneous())
     {
+        m_view->show();
+
         prepareScene();
         prepareView();
     }
