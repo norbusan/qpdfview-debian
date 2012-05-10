@@ -788,7 +788,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         m_settings.setValue("documentView/highlightAll", m_highlightAll);
 
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
             pageItem->update(pageItem->boundingRect());
         }
@@ -1247,7 +1247,7 @@ void DocumentView::cancelSearch()
 
     if(m_highlightAll)
     {
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
             pageItem->update(pageItem->boundingRect());
         }
@@ -1584,7 +1584,7 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
 {
     if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
     {
-        QMap< qreal, PageItem* >::iterator iterator = --m_pagesByHeight.lowerBound(value);
+        QMap< qreal, PageItem* >::const_iterator iterator = --m_pagesByHeight.lowerBound(value);
 
         if(iterator != m_pagesByHeight.end())
         {
@@ -1920,6 +1920,7 @@ void DocumentView::preparePages()
     m_scene->addItem(m_highlight);
 
     m_pagesByIndex.clear();
+    m_pagesByIndex.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; index++)
     {
@@ -1960,7 +1961,8 @@ void DocumentView::preparePages()
         }
 
         m_scene->addItem(pageItem);
-        m_pagesByIndex.insert(index, pageItem);
+
+        m_pagesByIndex.append(pageItem);
     }
 }
 
@@ -2118,7 +2120,7 @@ void DocumentView::prepareScene()
         case OneColumn:
             for(int index = 0; index < m_numberOfPages; index++)
             {
-                PageItem* pageItem = m_pagesByIndex.value(index);
+                PageItem* pageItem = m_pagesByIndex.at(index);
 
                 switch(m_rotation)
                 {
@@ -2142,7 +2144,6 @@ void DocumentView::prepareScene()
                     scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
-                pageItem->prepareGeometryChange();
                 pageItem->m_scale = scale;
             }
 
@@ -2151,7 +2152,7 @@ void DocumentView::prepareScene()
         case TwoColumns:
             for(int index = 0; index < (m_numberOfPages % 2 == 0 ? m_numberOfPages : m_numberOfPages - 1); index += 2)
             {
-                PageItem* leftPageItem = m_pagesByIndex.value(index);
+                PageItem* leftPageItem = m_pagesByIndex.at(index);
 
                 switch(m_rotation)
                 {
@@ -2169,7 +2170,7 @@ void DocumentView::prepareScene()
                     break;
                 }
 
-                PageItem* rightPageItem = m_pagesByIndex.value(index + 1);
+                PageItem* rightPageItem = m_pagesByIndex.at(index + 1);
 
                 switch(m_rotation)
                 {
@@ -2193,16 +2194,13 @@ void DocumentView::prepareScene()
                     scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
-                leftPageItem->prepareGeometryChange();
                 leftPageItem->m_scale = scale;
-
-                rightPageItem->prepareGeometryChange();
                 rightPageItem->m_scale = scale;
             }
 
             if(m_numberOfPages % 2 != 0)
             {
-                PageItem* leftPageItem = m_pagesByIndex.value(m_numberOfPages - 1);
+                PageItem* leftPageItem = m_pagesByIndex.at(m_numberOfPages - 1);
 
                 switch(m_rotation)
                 {
@@ -2226,7 +2224,6 @@ void DocumentView::prepareScene()
                     scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
-                leftPageItem->prepareGeometryChange();
                 leftPageItem->m_scale = scale;
             }
 
@@ -2235,9 +2232,8 @@ void DocumentView::prepareScene()
     }
     else if(m_scaleMode == DoNotScale || m_scaleMode == ScaleFactor)
     {
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
-            pageItem->prepareGeometryChange();
             pageItem->m_scale = m_scaleMode == DoNotScale ? 1.0 : m_scaleFactor;
         }
     }
@@ -2258,7 +2254,7 @@ void DocumentView::prepareScene()
         m_pageTransform.rotate(270.0); break;
     }
 
-    foreach(PageItem* pageItem, m_pagesByIndex.values())
+    foreach(PageItem* pageItem, m_pagesByIndex)
     {
         pageItem->prepareGeometryChange();
 
@@ -2296,13 +2292,11 @@ void DocumentView::prepareScene()
     case OneColumn:
         for(int index = 0; index < m_numberOfPages; index++)
         {
-            PageItem* pageItem = m_pagesByIndex.value(index);
+            PageItem* pageItem = m_pagesByIndex.at(index);
             QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect());
 
             pageItem->setPos(pageSpacing - rect.left(), sceneHeight - rect.top());
             m_pagesByHeight.insert(sceneHeight - 0.4 * rect.height(), pageItem);
-
-            pageItem->update(pageItem->boundingRect());
 
             sceneWidth = qMax(sceneWidth, rect.width() + 2 * pageSpacing);
             sceneHeight += rect.height() + pageSpacing;
@@ -2313,8 +2307,8 @@ void DocumentView::prepareScene()
     case TwoColumns:
         for(int index = 0; index < (m_numberOfPages % 2 == 0 ? m_numberOfPages : m_numberOfPages - 1); index += 2)
         {
-            PageItem* leftPageItem = m_pagesByIndex.value(index);
-            PageItem* rightPageItem = m_pagesByIndex.value(index + 1);
+            PageItem* leftPageItem = m_pagesByIndex.at(index);
+            PageItem* rightPageItem = m_pagesByIndex.at(index + 1);
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
             QRectF rightRect = m_pageTransform.mapRect(rightPageItem->boundingRect());
 
@@ -2322,22 +2316,17 @@ void DocumentView::prepareScene()
             rightPageItem->setPos(2 * pageSpacing + leftRect.width() - rightRect.left(), sceneHeight - rightRect.top());
             m_pagesByHeight.insert(sceneHeight - 0.4 * leftRect.height(), leftPageItem);
 
-            leftPageItem->update(leftPageItem->boundingRect());
-            rightPageItem->update(rightPageItem->boundingRect());
-
             sceneWidth = qMax(sceneWidth, leftRect.width() + rightRect.width() + 3 * pageSpacing);
             sceneHeight += qMax(leftRect.height(), rightRect.height()) + pageSpacing;
         }
 
         if(m_numberOfPages % 2 != 0)
         {
-            PageItem* leftPageItem = m_pagesByIndex.value(m_numberOfPages - 1);
+            PageItem* leftPageItem = m_pagesByIndex.at(m_numberOfPages - 1);
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
 
             leftPageItem->setPos(pageSpacing - leftRect.left(), sceneHeight - leftRect.top());
             m_pagesByHeight.insert(sceneHeight - 0.4 * leftRect.height(), leftPageItem);
-
-            leftPageItem->update(leftPageItem->boundingRect());
 
             sceneWidth = qMax(sceneWidth, leftRect.width() + 2 * pageSpacing);
             sceneHeight += leftRect.height() + pageSpacing;
@@ -2362,7 +2351,7 @@ void DocumentView::prepareView(qreal top)
     switch(m_pageLayout)
     {
     case OnePage:
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
             pageItem->setVisible(false);
         }
@@ -2379,7 +2368,7 @@ void DocumentView::prepareView(qreal top)
 
         break;
     case TwoPages:
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
             pageItem->setVisible(false);
         }
@@ -2408,7 +2397,7 @@ void DocumentView::prepareView(qreal top)
         break;
     case OneColumn:
     case TwoColumns:
-        foreach(PageItem* pageItem, m_pagesByIndex.values())
+        foreach(PageItem* pageItem, m_pagesByIndex)
         {
             pageItem->setVisible(true);
         }
