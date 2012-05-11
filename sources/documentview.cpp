@@ -1,5 +1,7 @@
 #include "documentview.h"
 
+// static settings
+
 const qreal DocumentView::pageSpacing = 5.0;
 const qreal DocumentView::thumbnailSpacing = 2.5;
 
@@ -9,6 +11,11 @@ const qreal DocumentView::zoomBy = 0.1;
 
 const qreal DocumentView::minScaleFactor = 0.1;
 const qreal DocumentView::maxScaleFactor = 5.0;
+
+bool DocumentView::fitToEqualWidth = false;
+
+bool DocumentView::highlightLinks = true;
+bool DocumentView::externalLinks = false;
 
 DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) : QGraphicsItem(parent, scene),
     m_page(0),
@@ -88,21 +95,20 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     // links
 
-#ifdef PAINT_LINKS
-
-    painter->save();
-
-    painter->setTransform(m_linkTransform, true);
-    painter->setPen(QPen(QColor(255, 0, 0, 127)));
-
-    foreach(Link link, m_links)
+    if(DocumentView::highlightLinks)
     {
-        painter->drawRect(link.area);
+        painter->save();
+
+        painter->setTransform(m_linkTransform, true);
+        painter->setPen(QPen(QColor(255, 0, 0, 127)));
+
+        foreach(Link link, m_links)
+        {
+            painter->drawRect(link.area);
+        }
+
+        painter->restore();
     }
-
-    painter->restore();
-
-#endif
 
     // selections
 
@@ -176,7 +182,7 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 }
                 else if(!link.url.isEmpty())
                 {
-                    if(parent->m_settings.value("documentView/externalLinks", false).toBool())
+                    if(DocumentView::externalLinks)
                     {
                         QDesktopServices::openUrl(QUrl(link.url));
                     }
@@ -2214,12 +2220,14 @@ void DocumentView::prepareScene()
                 {
                 case RotateBy0:
                 case RotateBy180:
-#ifdef FIT_TO_EQUAL_WIDTH
-                    pageWidth = 2.0 * m_resolutionX / 72.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
-#else
-                    pageWidth = m_resolutionX / 72.0 * leftPageItem->m_size.width();
-                    pageWidth += m_resolutionX / 72.0 * rightPageItem->m_size.width();
-#endif
+                    if(fitToEqualWidth)
+                    {
+                        pageWidth = m_resolutionX / 72.0 * 2.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
+                    }
+                    else
+                    {
+                        pageWidth = m_resolutionX / 72.0 * (leftPageItem->m_size.width() + rightPageItem->m_size.width());
+                    }
 
                     pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
                     pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * rightPageItem->m_size.height());
@@ -2227,12 +2235,14 @@ void DocumentView::prepareScene()
                     break;
                 case RotateBy90:
                 case RotateBy270:
-#ifdef FIT_TO_EQUAL_WIDTH
-                    pageWidth = 2.0 * m_resolutionY / 72.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
-#else
-                    pageWidth = m_resolutionY / 72.0 * leftPageItem->m_size.height();
-                    pageWidth += m_resolutionY / 72.0 * rightPageItem->m_size.height();
-#endif
+                    if(fitToEqualWidth)
+                    {
+                        pageWidth = 2.0 * m_resolutionY / 72.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
+                    }
+                    else
+                    {
+                        pageWidth = m_resolutionY / 72.0 * (leftPageItem->m_size.height() + rightPageItem->m_size.height());
+                    }
 
                     pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
                     pageHeight = qMax(pageHeight, m_resolutionX / 72.0 * rightPageItem->m_size.width());
@@ -2246,30 +2256,29 @@ void DocumentView::prepareScene()
                     scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
-#ifdef FIT_TO_EQUAL_WIDTH
-
-                switch(m_rotation)
+                if(fitToEqualWidth)
                 {
-                case RotateBy0:
-                case RotateBy180:
-                    leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / leftPageItem->m_size.width();
-                    rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / rightPageItem->m_size.width();
+                    switch(m_rotation)
+                    {
+                    case RotateBy0:
+                    case RotateBy180:
+                        leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / leftPageItem->m_size.width();
+                        rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / rightPageItem->m_size.width();
 
-                    break;
-                case RotateBy90:
-                case RotateBy270:
-                    leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / leftPageItem->m_size.height();
-                    rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / rightPageItem->m_size.height();
+                        break;
+                    case RotateBy90:
+                    case RotateBy270:
+                        leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / leftPageItem->m_size.height();
+                        rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / rightPageItem->m_size.height();
 
-                    break;
+                        break;
+                    }
                 }
-
-#else
-
-                leftPageItem->m_scale = scale;
-                rightPageItem->m_scale = scale;
-
-#endif
+                else
+                {
+                    leftPageItem->m_scale = scale;
+                    rightPageItem->m_scale = scale;
+                }
             }
 
             if(m_numberOfPages % 2 != 0)

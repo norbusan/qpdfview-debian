@@ -281,14 +281,17 @@ private:
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_buttonBox;
 
-    QWidget* m_filesWidget;
-    QFormLayout* m_filesLayout;
+    QWidget* m_behaviourWidget;
+    QFormLayout* m_behaviourLayout;
+
+    QCheckBox* m_restoreTabsCheckBox;
 
     QCheckBox* m_autoRefreshCheckBox;
 
-    QCheckBox* m_externalLinksCheckBox;
+    QCheckBox* m_fitToEqualWidthCheckBox;
 
-    QCheckBox* m_restoreTabsCheckBox;
+    QCheckBox* m_highlightLinksCheckBox;
+    QCheckBox* m_externalLinksCheckBox;
 
     QWidget* m_graphicsWidget;
     QFormLayout* m_graphicsLayout;

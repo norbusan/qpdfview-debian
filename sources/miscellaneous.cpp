@@ -744,14 +744,30 @@ void BookmarksMenu::slotActionGroupTriggered(QAction* action)
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_settings()
 {
+    // restore tabs
+
+    m_restoreTabsCheckBox = new QCheckBox(this);
+    m_restoreTabsCheckBox->setChecked(m_settings.value("mainWindow/restoreTabs", false).toBool());
+
+    // auto-refresh
+
     m_autoRefreshCheckBox = new QCheckBox(this);
     m_autoRefreshCheckBox->setChecked(m_settings.value("documentView/autoRefresh", false).toBool());
+
+    // fit to equal width
+
+    m_fitToEqualWidthCheckBox = new QCheckBox(this);
+    m_fitToEqualWidthCheckBox->setChecked(m_settings.value("documentView/fitToEqualWidth", false).toBool());
+
+    // links
+
+    m_highlightLinksCheckBox = new QCheckBox(this);
+    m_highlightLinksCheckBox->setChecked(m_settings.value("documentView/highlightLinks", true).toBool());
 
     m_externalLinksCheckBox = new QCheckBox(this);
     m_externalLinksCheckBox->setChecked(m_settings.value("documentView/externalLinks", false).toBool());
 
-    m_restoreTabsCheckBox = new QCheckBox(this);
-    m_restoreTabsCheckBox->setChecked(m_settings.value("mainWindow/restoreTabs", false).toBool());
+    // antialiasing and hinting
 
     m_antialiasingCheckBox = new QCheckBox(this);
     m_antialiasingCheckBox->setChecked(m_settings.value("documentView/antialiasing", true).toBool());
@@ -761,6 +777,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 
     m_textHintingCheckBox = new QCheckBox(this);
     m_textHintingCheckBox->setChecked(m_settings.value("documentView/textHinting", false).toBool());
+
+    // maximum page cache size
 
     m_maximumPageCacheSizeComboBox = new QComboBox(this);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8388608u);
@@ -783,8 +801,12 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
         m_maximumPageCacheSizeComboBox->setCurrentIndex(0);
     }
 
+    // prefetch
+
     m_prefetchCheckBox = new QCheckBox(this);
     m_prefetchCheckBox->setChecked(m_settings.value("documentView/prefetch", true).toBool());
+
+    // layout
 
     m_tabWidget = new QTabWidget(this);
 
@@ -796,17 +818,20 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     layout()->addWidget(m_tabWidget);
     layout()->addWidget(m_buttonBox);
 
-    m_filesWidget = new QWidget(m_tabWidget);
-    m_filesLayout = new QFormLayout(m_filesWidget);
-    m_filesWidget->setLayout(m_filesLayout);
+    m_behaviourWidget = new QWidget(m_tabWidget);
+    m_behaviourLayout = new QFormLayout(m_behaviourWidget);
+    m_behaviourWidget->setLayout(m_behaviourLayout);
 
-    m_filesLayout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
+    m_behaviourLayout->addRow(tr("Restore &tabs:"), m_restoreTabsCheckBox);
 
-    m_filesLayout->addRow(tr("External &links:"), m_externalLinksCheckBox);
+    m_behaviourLayout->addRow(tr("Auto-&refresh:"), m_autoRefreshCheckBox);
 
-    m_filesLayout->addRow(tr("Restore &tabs:"), m_restoreTabsCheckBox);
+    m_behaviourLayout->addRow(tr("Fit to equal &width:"), m_fitToEqualWidthCheckBox);
 
-    m_tabWidget->addTab(m_filesWidget, tr("&Files"));
+    m_behaviourLayout->addRow(tr("&Highlight links:"), m_highlightLinksCheckBox);
+    m_behaviourLayout->addRow(tr("External &links:"), m_externalLinksCheckBox);
+
+    m_tabWidget->addTab(m_behaviourWidget, tr("&Behaviour"));
 
     m_graphicsWidget = new QWidget(m_tabWidget);
     m_graphicsLayout = new QFormLayout(m_graphicsWidget);
@@ -824,11 +849,14 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 
 void SettingsDialog::accept()
 {
+    m_settings.setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
+
     m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
 
-    m_settings.setValue("documentView/externalLinks", m_externalLinksCheckBox->isChecked());
+    m_settings.setValue("documentView/fitToEqualWidth", m_fitToEqualWidthCheckBox->isChecked());
 
-    m_settings.setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
+    m_settings.setValue("documentView/highlightLinks", m_highlightLinksCheckBox->isChecked());
+    m_settings.setValue("documentView/externalLinks", m_externalLinksCheckBox->isChecked());
 
     m_settings.setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings.setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
@@ -836,6 +864,8 @@ void SettingsDialog::accept()
 
     m_settings.setValue("documentView/maximumPageCacheSize", m_maximumPageCacheSizeComboBox->itemData(m_maximumPageCacheSizeComboBox->currentIndex()));
     m_settings.setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
+
+    m_settings.sync();
 
     QDialog::accept();
 }

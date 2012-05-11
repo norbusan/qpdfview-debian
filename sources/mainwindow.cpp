@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
 
     // settings
 
+    DocumentView::fitToEqualWidth = m_settings.value("documentView/fitToEqualWidth", false).toBool();
+
+    DocumentView::highlightLinks = m_settings.value("documentView/highlightLinks", true).toBool();
+    DocumentView::externalLinks = m_settings.value("documentView/externalLinks", false).toBool();
+
     m_matchCaseCheckBox->setChecked(m_settings.value("mainWindow/matchCase", true).toBool());
 
     restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
@@ -486,6 +491,11 @@ void MainWindow::slotSettings()
 
     if(settingsDialog.exec() == QDialog::Accepted)
     {
+        DocumentView::fitToEqualWidth = m_settings.value("documentView/fitToEqualWidth", false).toBool();
+
+        DocumentView::highlightLinks = m_settings.value("documentView/highlightLinks", true).toBool();
+        DocumentView::externalLinks = m_settings.value("documentView/externalLinks", false).toBool();
+
         for(int index = 0; index < m_tabWidget->count(); index++)
         {
             DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->widget(index)); Q_ASSERT(documentView);

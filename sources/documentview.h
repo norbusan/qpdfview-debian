@@ -29,9 +29,13 @@ class DocumentView : public QWidget
     Q_ENUMS(PageLayout ScaleMode Rotation)
 
 public:
+    // enums
+
     enum PageLayout { OnePage, TwoPages, OneColumn, TwoColumns };
     enum ScaleMode { FitToPage, FitToPageWidth, DoNotScale, ScaleFactor };
     enum Rotation { RotateBy0, RotateBy90, RotateBy180, RotateBy270 };
+
+    // static settings
 
     static const qreal pageSpacing;
     static const qreal thumbnailSpacing;
@@ -42,6 +46,11 @@ public:
 
     static const qreal minScaleFactor;
     static const qreal maxScaleFactor;
+
+    static bool fitToEqualWidth;
+
+    static bool highlightLinks;
+    static bool externalLinks;
 
 private:
     struct Link
