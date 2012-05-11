@@ -850,6 +850,8 @@ void MainWindow::slotFilePathChanged(const QString& filePath)
 {
     m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
     m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+
+    setWindowTitle(QFileInfo(filePath).completeBaseName() + " - qpdfview");
 }
 
 void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
