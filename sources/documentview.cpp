@@ -1503,21 +1503,21 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Backspace)
+    if(event->key() == Qt::Key_PageUp)
     {
         switch(m_pageLayout)
         {
         case OnePage:
         case TwoPages:
-            if(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep() > m_view->verticalScrollBar()->minimum())
-            {
-                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep());
-            }
-            else
+            if(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep() < m_view->verticalScrollBar()->minimum() && m_currentPage > 1)
             {
                 previousPage();
 
                 m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+            else
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep());
             }
 
             break;
@@ -1528,21 +1528,33 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             break;
         }
     }
-    else if(event->key() == Qt::Key_Space)
+    else if(event->key() == Qt::Key_PageDown)
     {
+        int lastPage = -1;
+
+        switch(m_pageLayout)
+        {
+            case OnePage:
+            case OneColumn:
+                lastPage = m_numberOfPages; break;
+            case TwoPages:
+            case TwoColumns:
+                lastPage = m_numberOfPages % 2 != 0 ? m_numberOfPages : m_numberOfPages - 1; break;
+        }
+
         switch(m_pageLayout)
         {
         case OnePage:
         case TwoPages:
-            if(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep() < m_view->verticalScrollBar()->maximum())
-            {
-                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep());
-            }
-            else
+            if(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep() > m_view->verticalScrollBar()->maximum() && m_currentPage < lastPage)
             {
                 nextPage();
 
                 m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+            else
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep());
             }
 
             break;

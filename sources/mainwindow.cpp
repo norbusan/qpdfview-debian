@@ -987,7 +987,7 @@ void MainWindow::createActions()
     // previous page
 
     m_previousPageAction = new QAction(tr("&Previous page"), this);
-    m_previousPageAction->setShortcut(QKeySequence::MoveToPreviousPage);
+    m_previousPageAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Up) << QKeySequence(Qt::Key_Left) << QKeySequence(Qt::Key_Backspace));
     m_previousPageAction->setIconVisibleInMenu(true);
     connect(m_previousPageAction, SIGNAL(triggered()), SLOT(slotPreviousPage()));
 
@@ -1007,7 +1007,7 @@ void MainWindow::createActions()
     // next page
 
     m_nextPageAction = new QAction(tr("&Next page"), this);
-    m_nextPageAction->setShortcut(QKeySequence::MoveToNextPage);
+    m_nextPageAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Down) << QKeySequence(Qt::Key_Right) << QKeySequence(Qt::Key_Space));
     m_nextPageAction->setIconVisibleInMenu(true);
     connect(m_nextPageAction, SIGNAL(triggered()), SLOT(slotNextPage()));
 
@@ -1027,7 +1027,8 @@ void MainWindow::createActions()
     // first page
 
     m_firstPageAction = new QAction(tr("&First page"), this);
-    m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
+    //m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
+    m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
     m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
     m_firstPageAction->setIconVisibleInMenu(true);
     connect(m_firstPageAction, SIGNAL(triggered()), SLOT(slotFirstPage()));
@@ -1035,7 +1036,8 @@ void MainWindow::createActions()
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
-    m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
+    //m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
+    m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
     m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
     m_lastPageAction->setIconVisibleInMenu(true);
     connect(m_lastPageAction, SIGNAL(triggered()), SLOT(slotLastPage()));
