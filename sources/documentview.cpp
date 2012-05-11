@@ -1483,13 +1483,68 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    QKeySequence shortcut(event->modifiers() + event->key());
-
-    foreach(QAction* action, m_bookmarksMenu->actions())
+    if(event->key() == Qt::Key_Backspace)
     {
-        if(action->shortcut() == shortcut)
+        switch(m_pageLayout)
         {
-            action->trigger();
+        case OnePage:
+        case TwoPages:
+            if(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep() > m_view->verticalScrollBar()->minimum())
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep());
+            }
+            else
+            {
+                previousPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+
+            break;
+        case OneColumn:
+        case TwoColumns:
+            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep());
+
+            break;
+        }
+    }
+    else if(event->key() == Qt::Key_Space)
+    {
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case TwoPages:
+            if(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep() < m_view->verticalScrollBar()->maximum())
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep());
+            }
+            else
+            {
+                nextPage();
+
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+
+            break;
+        case OneColumn:
+        case TwoColumns:
+            m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep());
+
+            break;
+        }
+    }
+    else
+    {
+        QKeySequence shortcut(event->modifiers() + event->key());
+
+        foreach(QAction* action, m_bookmarksMenu->actions())
+        {
+            if(action->shortcut() == shortcut)
+            {
+                action->trigger();
+
+                return;
+            }
         }
     }
 }
