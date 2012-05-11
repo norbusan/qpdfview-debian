@@ -22,6 +22,7 @@ system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18=
 
 # build-time options
 
+fit_to_equal_width:DEFINES += FIT_TO_EQUAL_WIDTH=1
 paint_links:DEFINES += PAINT_LINKS=1
 render_in_paint:DEFINES += RENDER_IN_PAINT=1
 render_from_disk:DEFINES += RENDER_FROM_DISK=1

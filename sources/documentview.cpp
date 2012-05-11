@@ -2208,36 +2208,33 @@ void DocumentView::prepareScene()
             for(int index = 0; index < (m_numberOfPages % 2 == 0 ? m_numberOfPages : m_numberOfPages - 1); index += 2)
             {
                 PageItem* leftPageItem = m_pagesByIndex.at(index);
-
-                switch(m_rotation)
-                {
-                case RotateBy0:
-                case RotateBy180:
-                    pageWidth = m_resolutionX / 72.0 * leftPageItem->m_size.width();
-                    pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
-
-                    break;
-                case RotateBy90:
-                case RotateBy270:
-                    pageWidth = m_resolutionY / 72.0 * leftPageItem->m_size.height();
-                    pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
-
-                    break;
-                }
-
                 PageItem* rightPageItem = m_pagesByIndex.at(index + 1);
 
                 switch(m_rotation)
                 {
                 case RotateBy0:
                 case RotateBy180:
+#ifdef FIT_TO_EQUAL_WIDTH
+                    pageWidth = 2.0 * m_resolutionX / 72.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
+#else
+                    pageWidth = m_resolutionX / 72.0 * leftPageItem->m_size.width();
                     pageWidth += m_resolutionX / 72.0 * rightPageItem->m_size.width();
+#endif
+
+                    pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
                     pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * rightPageItem->m_size.height());
 
                     break;
                 case RotateBy90:
                 case RotateBy270:
+#ifdef FIT_TO_EQUAL_WIDTH
+                    pageWidth = 2.0 * m_resolutionY / 72.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
+#else
+                    pageWidth = m_resolutionY / 72.0 * leftPageItem->m_size.height();
                     pageWidth += m_resolutionY / 72.0 * rightPageItem->m_size.height();
+#endif
+
+                    pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
                     pageHeight = qMax(pageHeight, m_resolutionX / 72.0 * rightPageItem->m_size.width());
 
                     break;
@@ -2249,8 +2246,30 @@ void DocumentView::prepareScene()
                     scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
                 }
 
+#ifdef FIT_TO_EQUAL_WIDTH
+
+                switch(m_rotation)
+                {
+                case RotateBy0:
+                case RotateBy180:
+                    leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / leftPageItem->m_size.width();
+                    rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / rightPageItem->m_size.width();
+
+                    break;
+                case RotateBy90:
+                case RotateBy270:
+                    leftPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / leftPageItem->m_size.height();
+                    rightPageItem->m_scale = scale * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / rightPageItem->m_size.height();
+
+                    break;
+                }
+
+#else
+
                 leftPageItem->m_scale = scale;
                 rightPageItem->m_scale = scale;
+
+#endif
             }
 
             if(m_numberOfPages % 2 != 0)
