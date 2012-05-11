@@ -40,12 +40,13 @@ public:
     static const qreal pageSpacing;
     static const qreal thumbnailSpacing;
 
-    static const qreal thumbnailScale;
+    static const qreal thumbnailWidth;
+    static const qreal thumbnailHeight;
 
     static const qreal zoomBy;
 
-    static const qreal minScaleFactor;
-    static const qreal maxScaleFactor;
+    static const qreal mininumScaleFactor;
+    static const qreal maximumScaleFactor;
 
     static bool fitToEqualWidth;
 
@@ -159,6 +160,7 @@ private:
         // properties
 
         int m_index;
+        qreal m_scale;
 
         // transforms
 

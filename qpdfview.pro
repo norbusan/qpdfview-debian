@@ -17,18 +17,16 @@ QT += core xml gui dbus
 CONFIG += link_pkgconfig
 PKGCONFIG += poppler-qt4
 
-system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14=1
-system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18=1
+system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
 
 # build-time options
 
-render_in_paint:DEFINES += RENDER_IN_PAINT=1
-render_from_disk:DEFINES += RENDER_FROM_DISK=1
-
-# CUPS support
+render_in_paint:DEFINES += RENDER_IN_PAINT
+render_from_disk:DEFINES += RENDER_FROM_DISK
 
 print_to_cups {
-    DEFINES += PRINT_TO_CUPS=1
+    DEFINES += PRINT_TO_CUPS
     LIBS += $$system(cups-config --libs)
 }
 

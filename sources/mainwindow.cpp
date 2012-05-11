@@ -828,7 +828,7 @@ void MainWindow::slotScaleFactorComboBoxEditingFinished()
         bool ok = false;
         qreal scaleFactor = QLocale::system().toInt(text, &ok) / 100.0;
 
-        if(ok && scaleFactor >= DocumentView::minScaleFactor && scaleFactor <= DocumentView::maxScaleFactor)
+        if(ok && scaleFactor >= DocumentView::mininumScaleFactor && scaleFactor <= DocumentView::maximumScaleFactor)
         {
             documentView->setScaleFactor(scaleFactor);
             documentView->setScaleMode(DocumentView::ScaleFactor);

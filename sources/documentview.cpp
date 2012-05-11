@@ -5,12 +5,13 @@
 const qreal DocumentView::pageSpacing = 5.0;
 const qreal DocumentView::thumbnailSpacing = 2.5;
 
-const qreal DocumentView::thumbnailScale = 0.1;
+const qreal DocumentView::thumbnailWidth = 100;
+const qreal DocumentView::thumbnailHeight = 150;
 
 const qreal DocumentView::zoomBy = 0.1;
 
-const qreal DocumentView::minScaleFactor = 0.1;
-const qreal DocumentView::maxScaleFactor = 5.0;
+const qreal DocumentView::mininumScaleFactor = 0.1;
+const qreal DocumentView::maximumScaleFactor = 5.0;
 
 bool DocumentView::fitToEqualWidth = false;
 
@@ -377,6 +378,7 @@ void DocumentView::PageItem::render(bool prefetch)
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem* parent, QGraphicsScene* scene) : QGraphicsItem(parent, scene),
     m_page(0),
     m_index(-1),
+    m_scale(1.0),
     m_size(),
     m_render()
 {
@@ -396,7 +398,7 @@ QRectF DocumentView::ThumbnailItem::boundingRect() const
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
-    return QRectF(0.0, 0.0, qCeil(DocumentView::thumbnailScale * parent->physicalDpiX() / 72.0 * m_size.width()), qCeil(DocumentView::thumbnailScale * parent->physicalDpiY() / 72.0 * m_size.height()));
+    return QRectF(0.0, 0.0, qCeil(m_scale * parent->physicalDpiX() / 72.0 * m_size.width()), qCeil(m_scale * parent->physicalDpiY() / 72.0 * m_size.height()));
 }
 
 void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -409,7 +411,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
 
     if(!parent->m_pageCache.contains(key))
     {
@@ -422,7 +424,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
 
     if(parent->m_pageCache.contains(key))
     {
@@ -487,7 +489,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
+    QImage image = page->renderToImage(m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
 
     delete page;
     delete document;
@@ -496,7 +498,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
+    QImage image = m_page->renderToImage(m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
 
     parent->m_documentMutex.unlock();
 
@@ -504,7 +506,7 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_pageCacheMutex.lock();
 
-    DocumentView::PageCacheKey key(m_index, DocumentView::thumbnailScale * parent->physicalDpiX(), DocumentView::thumbnailScale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -748,7 +750,7 @@ qreal DocumentView::scaleFactor() const
 
 void DocumentView::setScaleFactor(qreal scaleFactor)
 {
-    if(m_scaleFactor != scaleFactor && scaleFactor >= minScaleFactor && scaleFactor <= maxScaleFactor)
+    if(m_scaleFactor != scaleFactor && scaleFactor >= mininumScaleFactor && scaleFactor <= maximumScaleFactor)
     {
         m_scaleFactor = scaleFactor;
 
@@ -1165,7 +1167,7 @@ void DocumentView::zoomIn()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(qMin(pageItem->m_scale + zoomBy, maxScaleFactor));
+            setScaleFactor(qMin(pageItem->m_scale + zoomBy, maximumScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1176,7 +1178,7 @@ void DocumentView::zoomIn()
 
         break;
     case ScaleFactor:
-        setScaleFactor(qMin(scaleFactor() + zoomBy, maxScaleFactor));
+        setScaleFactor(qMin(scaleFactor() + zoomBy, maximumScaleFactor));
 
         break;
     }
@@ -1192,7 +1194,7 @@ void DocumentView::zoomOut()
     case FitToPageWidth:
         if(pageItem != 0)
         {
-            setScaleFactor(qMax(pageItem->m_scale - zoomBy, minScaleFactor));
+            setScaleFactor(qMax(pageItem->m_scale - zoomBy, mininumScaleFactor));
             setScaleMode(ScaleFactor);
 
             break;
@@ -1203,7 +1205,7 @@ void DocumentView::zoomOut()
 
         break;
     case ScaleFactor:
-        setScaleFactor(qMax(scaleFactor() - zoomBy, minScaleFactor));
+        setScaleFactor(qMax(scaleFactor() - zoomBy, mininumScaleFactor));
 
         break;
     }
@@ -2137,6 +2139,10 @@ void DocumentView::prepareThumbnails()
         thumbnailItem->m_index = index;
         thumbnailItem->m_page = m_document->page(thumbnailItem->m_index);
         thumbnailItem->m_size = thumbnailItem->m_page->pageSizeF();
+
+        thumbnailItem->m_scale = qMin(
+                    thumbnailWidth / (physicalDpiX() / 72.0 * thumbnailItem->m_size.width()),
+                    thumbnailHeight / (physicalDpiY() / 72.0 * thumbnailItem->m_size.height()));
 
         thumbnailItem->setPos(thumbnailSpacing, sceneHeight);
 
