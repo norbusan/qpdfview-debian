@@ -637,7 +637,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_metaInformationTableWidget->setAlternatingRowColors(true);
     m_metaInformationTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_metaInformationTableWidget->horizontalHeader()->setVisible(false);
-    m_metaInformationTableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+    m_metaInformationTableWidget->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     m_metaInformationTableWidget->verticalHeader()->setVisible(false);
     m_metaInformationTableWidget->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
 
@@ -2486,6 +2486,10 @@ void DocumentView::prepareView(qreal top)
         break;
     }
 
+    m_view->update();
+
+    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
+
     // highlight
 
     if(m_currentResult != m_results.end())
@@ -2513,6 +2517,4 @@ void DocumentView::prepareView(qreal top)
     {
         m_highlight->setVisible(false);
     }
-
-    connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotVerticalScrollBarValueChanged(int)));
 }

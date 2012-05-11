@@ -897,21 +897,9 @@ void MainWindow::createActions()
 
     m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
+    m_openAction->setIcon(QIcon::fromTheme("document-open"));
     m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(slotOpen()));
-
-    if(QIcon::hasThemeIcon("document-open"))
-    {
-        m_openAction->setIcon(QIcon::fromTheme("document-open"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_openAction->setIcon(QIcon(dataInstallPath + "/document-open.svg"));
-#else
-        m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
-#endif
-    }
 
     // open in new tab
 
@@ -964,41 +952,17 @@ void MainWindow::createActions()
 
     m_saveCopyAction = new QAction(tr("&Save copy..."), this);
     m_saveCopyAction->setShortcut(QKeySequence::Save);
+    m_saveCopyAction->setIcon(QIcon::fromTheme("document-save"));
     m_saveCopyAction->setIconVisibleInMenu(true);
     connect(m_saveCopyAction, SIGNAL(triggered()), SLOT(slotSaveCopy()));
-
-    if(QIcon::hasThemeIcon("document-save"))
-    {
-        m_saveCopyAction->setIcon(QIcon::fromTheme("document-save"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_saveCopyAction->setIcon(QIcon(dataInstallPath + "/document-save.svg"));
-#else
-        m_saveCopyAction->setIcon(QIcon(":/icons/document-save.svg"));
-#endif
-    }
 
     // print
 
     m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
+    m_printAction->setIcon(QIcon::fromTheme("document-print"));
     m_printAction->setIconVisibleInMenu(true);
     connect(m_printAction, SIGNAL(triggered()), SLOT(slotPrint()));
-
-    if(QIcon::hasThemeIcon("document-print"))
-    {
-        m_printAction->setIcon(QIcon::fromTheme("document-print"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_printAction->setIcon(QIcon(dataInstallPath + "/document-print.svg"));
-#else
-        m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
-#endif
-    }
 
     // exit
 
@@ -1052,41 +1016,17 @@ void MainWindow::createActions()
 
     m_firstPageAction = new QAction(tr("&First page"), this);
     m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
+    m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
     m_firstPageAction->setIconVisibleInMenu(true);
     connect(m_firstPageAction, SIGNAL(triggered()), SLOT(slotFirstPage()));
-
-    if(QIcon::hasThemeIcon("go-first"))
-    {
-        m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_firstPageAction->setIcon(QIcon(dataInstallPath + "/go-first.svg"));
-#else
-        m_firstPageAction->setIcon(QIcon(":/icons/go-first.svg"));
-#endif
-    }
 
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
     m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
+    m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
     m_lastPageAction->setIconVisibleInMenu(true);
     connect(m_lastPageAction, SIGNAL(triggered()), SLOT(slotLastPage()));
-
-    if(QIcon::hasThemeIcon("go-last"))
-    {
-        m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_lastPageAction->setIcon(QIcon(dataInstallPath + "/go-last.svg"));
-#else
-        m_lastPageAction->setIcon(QIcon(":/icons/go-last.svg"));
-#endif
-    }
 
     // search
 
@@ -1191,6 +1131,7 @@ void MainWindow::createActions()
 
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
+    m_fitToPageAction->setIcon(QIcon::fromTheme("zoom-fit-best"));
     m_fitToPageAction->setCheckable(true);
     m_fitToPageAction->setData(static_cast< uint >(DocumentView::FitToPage));
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
@@ -1199,6 +1140,7 @@ void MainWindow::createActions()
     m_fitToPageWidthAction->setData(static_cast< uint >(DocumentView::FitToPageWidth));
     m_doNotScaleAction = new QAction(tr("Do not scale"), this);
     m_doNotScaleAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
+    m_doNotScaleAction->setIcon(QIcon::fromTheme("zoom-original"));
     m_doNotScaleAction->setCheckable(true);
     m_doNotScaleAction->setData(static_cast< uint >(DocumentView::DoNotScale));
 
@@ -1250,39 +1192,15 @@ void MainWindow::createActions()
 
     m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
     m_rotateLeftAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left));
+    m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
     m_rotateLeftAction->setIconVisibleInMenu(true);
     connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(slotRotateLeft()));
 
-    if(QIcon::hasThemeIcon("object-rotate-left"))
-    {
-        m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_rotateLeftAction->setIcon(QIcon(dataInstallPath + "/object-rotate-left.svg"));
-#else
-        m_rotateLeftAction->setIcon(QIcon(":/icons/object-rotate-left.svg"));
-#endif
-    }
-
     m_rotateRightAction = new QAction(tr("Rotate &right"), this);
     m_rotateRightAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
+    m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(slotRotateRight()));
-
-    if(QIcon::hasThemeIcon("object-rotate-right"))
-    {
-        m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
-    }
-    else
-    {
-#ifdef DATA_INSTALL_PATH
-        m_rotateRightAction->setIcon(QIcon(dataInstallPath + "/object-rotate-right.svg"));
-#else
-        m_rotateRightAction->setIcon(QIcon(":/icons/object-rotate-right.svg"));
-#endif
-    }
 
     // fullscreen
 
@@ -1297,6 +1215,8 @@ void MainWindow::createActions()
 
     m_presentationAction = new QAction(tr("&Presentation..."), this);
     m_presentationAction->setShortcut(QKeySequence(Qt::Key_F12));
+    m_presentationAction->setIcon(QIcon::fromTheme("x-office-presentation"));
+    m_presentationAction->setIconVisibleInMenu(true);
     connect(m_presentationAction, SIGNAL(triggered()), SLOT(slotPresentation()));
 
     // previous tab
@@ -1426,11 +1346,19 @@ void MainWindow::createToolBars()
     m_fileToolBar = new QToolBar(tr("&File"));
     m_fileToolBar->setObjectName("fileToolBar");
 
-    m_fileToolBar->addAction(m_openAction);
-    m_fileToolBar->addAction(m_openInNewTabAction);
-    m_fileToolBar->addAction(m_refreshAction);
-    m_fileToolBar->addAction(m_saveCopyAction);
-    m_fileToolBar->addAction(m_printAction);
+    QStringList fileToolBar;
+    fileToolBar << "openInNewTab" << "refresh";
+
+    fileToolBar = m_settings.value("mainWindow/fileToolBar", fileToolBar).toStringList();
+
+    foreach(QString entry, fileToolBar)
+    {
+        if(entry == "open") { m_fileToolBar->addAction(m_openAction); }
+        else if(entry == "openInNewTab") { m_fileToolBar->addAction(m_openInNewTabAction); }
+        else if(entry == "refresh") { m_fileToolBar->addAction(m_refreshAction); }
+        else if(entry == "saveCopy") { m_fileToolBar->addAction(m_saveCopyAction); }
+        else if(entry == "print") { m_fileToolBar->addAction(m_printAction); }
+    }
 
     addToolBar(Qt::TopToolBarArea, m_fileToolBar);
 
@@ -1439,12 +1367,21 @@ void MainWindow::createToolBars()
     m_editToolBar = new QToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
 
-    m_editToolBar->addAction(m_firstPageAction);
-    m_editToolBar->addAction(m_previousPageAction);
-    m_editToolBar->addWidget(m_currentPageLineEdit);
-    m_editToolBar->addWidget(m_numberOfPagesLabel);
-    m_editToolBar->addAction(m_nextPageAction);
-    m_editToolBar->addAction(m_lastPageAction);
+    QStringList editToolBar;
+    editToolBar << "currentPage" << "numberOfPages" << "previousPage" << "nextPage";
+
+    editToolBar = m_settings.value("mainWindow/editToolBar", editToolBar).toStringList();
+
+    foreach(QString entry, editToolBar)
+    {
+        if(entry == "currentPage") { m_editToolBar->addWidget(m_currentPageLineEdit); }
+        else if(entry == "numberOfPages") { m_editToolBar->addWidget(m_numberOfPagesLabel); }
+        else if(entry == "previousPage") { m_editToolBar->addAction(m_previousPageAction); }
+        else if(entry == "nextPage") { m_editToolBar->addAction(m_nextPageAction); }
+        else if(entry == "firstPage") { m_editToolBar->addAction(m_firstPageAction); }
+        else if(entry == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
+        else if(entry == "search") { m_editToolBar->addAction(m_searchAction); }
+    }
 
     addToolBar(Qt::TopToolBarArea, m_editToolBar);
 
@@ -1455,11 +1392,23 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    m_viewToolBar->addWidget(m_scaleFactorComboBox);
-    m_viewToolBar->addAction(m_zoomInAction);
-    m_viewToolBar->addAction(m_zoomOutAction);
-    m_viewToolBar->addAction(m_rotateLeftAction);
-    m_viewToolBar->addAction(m_rotateRightAction);
+    QStringList viewToolBar;
+    viewToolBar << "scaleFactor" << "zoomIn" << "zoomOut";
+
+    viewToolBar = m_settings.value("mainWindow/viewToolBar", viewToolBar).toStringList();
+
+    foreach(QString entry, viewToolBar)
+    {
+        if(entry == "scaleFactor") { m_viewToolBar->addWidget(m_scaleFactorComboBox); }
+        else if(entry == "fitToPage") { m_viewToolBar->addAction(m_fitToPageAction); }
+        else if(entry == "doNotScale") { m_viewToolBar->addAction(m_doNotScaleAction); }
+        else if(entry == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
+        else if(entry == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
+        else if(entry == "rotateLeft") { m_viewToolBar->addAction(m_rotateLeftAction); }
+        else if(entry == "rotateRight") { m_viewToolBar->addAction(m_rotateRightAction); }
+        else if(entry == "fullscreen") { m_viewToolBar->addAction(m_fullscreenAction); }
+        else if(entry == "presentation") { m_viewToolBar->addAction(m_presentationAction); }
+    }
 
     addToolBar(Qt::TopToolBarArea, m_viewToolBar);
 
@@ -1529,8 +1478,8 @@ void MainWindow::createMenus()
     // edit
 
     m_editMenu = menuBar()->addMenu(tr("&Edit"));
-    m_editMenu->addAction(m_nextPageAction);
     m_editMenu->addAction(m_previousPageAction);
+    m_editMenu->addAction(m_nextPageAction);
     m_editMenu->addAction(m_firstPageAction);
     m_editMenu->addAction(m_lastPageAction);
     m_editMenu->addSeparator();
