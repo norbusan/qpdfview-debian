@@ -2216,48 +2216,34 @@ void DocumentView::prepareScene()
                 PageItem* leftPageItem = m_pagesByIndex.at(index);
                 PageItem* rightPageItem = m_pagesByIndex.at(index + 1);
 
-                switch(m_rotation)
-                {
-                case RotateBy0:
-                case RotateBy180:
-                    if(fitToEqualWidth)
-                    {
-                        pageWidth = m_resolutionX / 72.0 * 2.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
-                    }
-                    else
-                    {
-                        pageWidth = m_resolutionX / 72.0 * (leftPageItem->m_size.width() + rightPageItem->m_size.width());
-                    }
-
-                    pageHeight = m_resolutionY / 72.0 * leftPageItem->m_size.height();
-                    pageHeight = qMax(pageHeight, m_resolutionY / 72.0 * rightPageItem->m_size.height());
-
-                    break;
-                case RotateBy90:
-                case RotateBy270:
-                    if(fitToEqualWidth)
-                    {
-                        pageWidth = 2.0 * m_resolutionY / 72.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
-                    }
-                    else
-                    {
-                        pageWidth = m_resolutionY / 72.0 * (leftPageItem->m_size.height() + rightPageItem->m_size.height());
-                    }
-
-                    pageHeight = m_resolutionX / 72.0 * leftPageItem->m_size.width();
-                    pageHeight = qMax(pageHeight, m_resolutionX / 72.0 * rightPageItem->m_size.width());
-
-                    break;
-                }
-
-                qreal scale = (visibleWidth - 3 * pageSpacing) / pageWidth;
-                if(m_scaleMode == FitToPage)
-                {
-                    scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
-                }
-
                 if(fitToEqualWidth)
                 {
+                    switch(m_rotation)
+                    {
+                    case RotateBy0:
+                    case RotateBy180:
+                        pageWidth = m_resolutionX / 72.0 * 2.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
+                        pageHeight = m_resolutionY / 72.0 * qMax(
+                                    qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / leftPageItem->m_size.width() * leftPageItem->m_size.height(),
+                                    qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width()) / rightPageItem->m_size.width() * rightPageItem->m_size.height());
+
+                        break;
+                    case RotateBy90:
+                    case RotateBy270:
+                        pageWidth = m_resolutionY / 72.0 * 2.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
+                        pageHeight = m_resolutionX / 72.0 * qMax(
+                                    qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / leftPageItem->m_size.height() * leftPageItem->m_size.width(),
+                                    qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height()) / rightPageItem->m_size.height() * rightPageItem->m_size.width());
+
+                        break;
+                    }
+
+                    qreal scale = (visibleWidth - 3 * pageSpacing) / pageWidth;
+                    if(m_scaleMode == FitToPage)
+                    {
+                        scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
+                    }
+
                     switch(m_rotation)
                     {
                     case RotateBy0:
@@ -2276,6 +2262,28 @@ void DocumentView::prepareScene()
                 }
                 else
                 {
+                    switch(m_rotation)
+                    {
+                    case RotateBy0:
+                    case RotateBy180:
+                        pageWidth = m_resolutionX / 72.0 * (leftPageItem->m_size.width() + rightPageItem->m_size.width());
+                        pageHeight = m_resolutionY / 72.0 * qMax(leftPageItem->m_size.height(), rightPageItem->m_size.height());
+
+                        break;
+                    case RotateBy90:
+                    case RotateBy270:
+                        pageWidth = m_resolutionY / 72.0 * (leftPageItem->m_size.height() + rightPageItem->m_size.height());
+                        pageHeight = m_resolutionX / 72.0 * qMax(leftPageItem->m_size.width(), rightPageItem->m_size.width());
+
+                        break;
+                    }
+
+                    qreal scale = (visibleWidth - 3 * pageSpacing) / pageWidth;
+                    if(m_scaleMode == FitToPage)
+                    {
+                        scale = qMin(scale, (visibleHeight - 2 * pageSpacing) / pageHeight);
+                    }
+
                     leftPageItem->m_scale = scale;
                     rightPageItem->m_scale = scale;
                 }
