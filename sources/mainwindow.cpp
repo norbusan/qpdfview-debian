@@ -1360,9 +1360,7 @@ void MainWindow::createToolBars()
     m_fileToolBar = new QToolBar(tr("&File"));
     m_fileToolBar->setObjectName("fileToolBar");
 
-    QStringList fileToolBar;
-    fileToolBar << "openInNewTab" << "refresh";
-
+    QStringList fileToolBar = QStringList() << "openInNewTab" << "refresh";
     fileToolBar = m_settings.value("mainWindow/fileToolBar", fileToolBar).toStringList();
 
     foreach(QString entry, fileToolBar)
@@ -1381,9 +1379,7 @@ void MainWindow::createToolBars()
     m_editToolBar = new QToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
 
-    QStringList editToolBar;
-    editToolBar << "currentPage" << "numberOfPages" << "previousPage" << "nextPage";
-
+    QStringList editToolBar = QStringList() << "currentPage" << "numberOfPages" << "previousPage" << "nextPage";
     editToolBar = m_settings.value("mainWindow/editToolBar", editToolBar).toStringList();
 
     foreach(QString entry, editToolBar)
@@ -1406,9 +1402,7 @@ void MainWindow::createToolBars()
 
     m_viewToolBar->setHidden(true);
 
-    QStringList viewToolBar;
-    viewToolBar << "scaleFactor" << "zoomIn" << "zoomOut";
-
+    QStringList viewToolBar = QStringList() << "scaleFactor" << "zoomIn" << "zoomOut";
     viewToolBar = m_settings.value("mainWindow/viewToolBar", viewToolBar).toStringList();
 
     foreach(QString entry, viewToolBar)

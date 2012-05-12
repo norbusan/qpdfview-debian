@@ -9,7 +9,7 @@ The following build-time options can be set in qpdfview.pri:
 - 'MANUAL_INSTALL_PATH' sets the path to install the manual page (default is '/usr/share/man/man1')
 - 'CONFIG += render_in_paint' enables synchronous rendering, i.e. the interface will stall to render pages but it will update pages immediately (disabled by default)
 - 'CONFIG += render_from_disk' enables multi-threaded rendering, i.e. the document file will be accessed concurrently which introduces I/O overhead and problems if the document file changes on disk but can improve rendering speed (disabled by default)
-- 'CONFIG += print_to_cups' enables the CUPS support, i.e. the program will not attempt to rasterize the document but instead request CUPS to print the document file (enabled by default)
+- 'CONFIG += print_without_cups' disables the CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file (disabled by default)
 
 The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file usually located at "~/.config/qpdfview/qpdfview.conf" to an ordered comma-separated list. The default (available) entries are:
 - fileToolBar: openInNewTab,refresh (open,saveCopy,print)

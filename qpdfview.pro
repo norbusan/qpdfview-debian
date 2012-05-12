@@ -25,8 +25,8 @@ system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
 render_in_paint:DEFINES += RENDER_IN_PAINT
 render_from_disk:DEFINES += RENDER_FROM_DISK
 
-print_to_cups {
-    DEFINES += PRINT_TO_CUPS
+!print_without_cups {
+    DEFINES += PRINT_WITH_CUPS
     LIBS += $$system(cups-config --libs)
 }
 

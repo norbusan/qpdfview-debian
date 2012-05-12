@@ -1842,7 +1842,7 @@ void DocumentView::search(const QString& text, bool matchCase)
 
 void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 {
-#ifdef PRINT_TO_CUPS
+#ifdef PRINT_WITH_CUPS
 
     emit printProgressed(0);
 

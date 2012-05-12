@@ -7,7 +7,7 @@
 
 #include <poppler-qt4.h>
 
-#ifdef PRINT_TO_CUPS
+#ifdef PRINT_WITH_CUPS
 
 #include <cups/cups.h>
 
