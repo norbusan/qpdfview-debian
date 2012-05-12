@@ -1,5 +1,7 @@
 qpdfview is a tabbed PDF viewer using the poppler library.
 
+The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
+
 It depends on libQtCore, libQtXml, libQtGui, libQtDBus and libpoppler-qt4. It also depends on libcups if CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install".
 
 The following build-time options can be set in qpdfview.pri:
@@ -11,11 +13,9 @@ The following build-time options can be set in qpdfview.pri:
 - 'CONFIG += render_from_disk' enables multi-threaded rendering, i.e. the document file will be accessed concurrently which introduces I/O overhead and problems if the document file changes on disk but can improve rendering speed (disabled by default)
 - 'CONFIG += print_without_cups' disables the CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file (disabled by default)
 
-The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file usually located at "~/.config/qpdfview/qpdfview.conf" to an ordered comma-separated list. The default (available) entries are:
+The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file (usually located at "~/.config/qpdfview/qpdfview.conf") to an ordered comma-separated list. The default (available) entries are:
 - fileToolBar: openInNewTab,refresh (open,saveCopy,print)
 - editToolBar: currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,search)
 - viewToolBar: scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
 
-The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
-
-The action icons are from the tango project. The application icon is a combination of several icons from the tango project.
+The icons are from the tango icon theme "http://tango.freedesktop.org".
