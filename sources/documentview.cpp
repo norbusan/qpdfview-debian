@@ -2095,7 +2095,7 @@ void DocumentView::prepareOutline(const QDomNode& node, QTreeWidgetItem* parent,
     }
     else if(element.hasAttribute("DestinationName"))
     {
-        Poppler::LinkDestination *linkDestination = m_document->linkDestination(element.attribute("DestinationName"));
+        Poppler::LinkDestination* linkDestination = m_document->linkDestination(element.attribute("DestinationName"));
 
         item->setData(0, Qt::UserRole, linkDestination ? linkDestination->pageNumber() : 1);
         item->setData(0, Qt::UserRole+1, linkDestination ? (linkDestination->isChangeTop() ? linkDestination->top() : 0.0) : 0.0);

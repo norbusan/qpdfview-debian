@@ -14,7 +14,7 @@ The following build-time options can be set in qpdfview.pri:
 The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file usually located at "~/.config/qpdfview/qpdfview.conf" to an ordered comma-separated list. The default (available) entries are:
 - fileToolBar: openInNewTab,refresh (open,saveCopy,print)
 - editToolBar: currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,search)
-- viewToolBar: scaleFactor,zoomIn,zoomOut (fitToPage,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
+- viewToolBar: scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
 
 The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 

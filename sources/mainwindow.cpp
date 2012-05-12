@@ -1027,7 +1027,6 @@ void MainWindow::createActions()
     // first page
 
     m_firstPageAction = new QAction(tr("&First page"), this);
-    //m_firstPageAction->setShortcut(QKeySequence::MoveToStartOfDocument);
     m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
     m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
     m_firstPageAction->setIconVisibleInMenu(true);
@@ -1036,7 +1035,6 @@ void MainWindow::createActions()
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
-    //m_lastPageAction->setShortcut(QKeySequence::MoveToEndOfDocument);
     m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
     m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
     m_lastPageAction->setIconVisibleInMenu(true);
@@ -1141,11 +1139,22 @@ void MainWindow::createActions()
     m_pageLayoutGroup->addAction(m_twoColumnsAction);
     connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), SLOT(slotPageLayoutGroupTriggered(QAction*)));
 
+#ifdef DATA_INSTALL_PATH
+    m_onePageAction->setIcon(QIcon(dataInstallPath + "/one-page.svg"));
+    m_twoPagesAction->setIcon(QIcon(dataInstallPath + "/two-pages.svg"));
+    m_oneColumnAction->setIcon(QIcon(dataInstallPath + "/one-column.svg"));
+    m_twoColumnsAction->setIcon(QIcon(dataInstallPath + "/two-columns.svg"));
+#else
+    m_onePageAction->setIcon(QIcon(":/icons/one-page.svg"));
+    m_twoPagesAction->setIcon(QIcon(":/icons/two-pages.svg"));
+    m_oneColumnAction->setIcon(QIcon(":/icons/one-column.svg"));
+    m_twoColumnsAction->setIcon(QIcon(":/icons/two-columns.svg"));
+#endif
+
     // scale mode
 
     m_fitToPageAction = new QAction(tr("Fit to page"), this);
     m_fitToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
-    m_fitToPageAction->setIcon(QIcon::fromTheme("zoom-fit-best"));
     m_fitToPageAction->setCheckable(true);
     m_fitToPageAction->setData(static_cast< uint >(DocumentView::FitToPage));
     m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
@@ -1154,7 +1163,6 @@ void MainWindow::createActions()
     m_fitToPageWidthAction->setData(static_cast< uint >(DocumentView::FitToPageWidth));
     m_doNotScaleAction = new QAction(tr("Do not scale"), this);
     m_doNotScaleAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
-    m_doNotScaleAction->setIcon(QIcon::fromTheme("zoom-original"));
     m_doNotScaleAction->setCheckable(true);
     m_doNotScaleAction->setData(static_cast< uint >(DocumentView::DoNotScale));
 
@@ -1163,6 +1171,16 @@ void MainWindow::createActions()
     m_scaleModeGroup->addAction(m_fitToPageWidthAction);
     m_scaleModeGroup->addAction(m_doNotScaleAction);
     connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), SLOT(slotScaleModeGroupTriggered(QAction*)));
+
+#ifdef DATA_INSTALL_PATH
+    m_fitToPageAction->setIcon(QIcon(dataInstallPath + "/fit-to-page.svg"));
+    m_fitToPageWidthAction->setIcon(QIcon(dataInstallPath + "/fit-to-page-width.svg"));
+    m_doNotScaleAction->setIcon(QIcon(dataInstallPath + "/do-not-scale.svg"));
+#else
+    m_fitToPageAction->setIcon(QIcon(":/icons/fit-to-page.svg"));
+    m_fitToPageWidthAction->setIcon(QIcon(":/icons/fit-to-page-width.svg"));
+    m_doNotScaleAction->setIcon(QIcon(":/icons/do-not-scale.svg"));
+#endif
 
     // zoom
 
@@ -1408,7 +1426,12 @@ void MainWindow::createToolBars()
     foreach(QString entry, viewToolBar)
     {
         if(entry == "scaleFactor") { m_viewToolBar->addWidget(m_scaleFactorComboBox); }
+        else if(entry == "onePage") { m_viewToolBar->addAction(m_onePageAction); }
+        else if(entry == "twoPages") { m_viewToolBar->addAction(m_twoPagesAction); }
+        else if(entry == "oneColumn") { m_viewToolBar->addAction(m_oneColumnAction); }
+        else if(entry == "twoColumns") { m_viewToolBar->addAction(m_twoColumnsAction); }
         else if(entry == "fitToPage") { m_viewToolBar->addAction(m_fitToPageAction); }
+        else if(entry == "fitToPageWidth") { m_viewToolBar->addAction(m_fitToPageWidthAction); }
         else if(entry == "doNotScale") { m_viewToolBar->addAction(m_doNotScaleAction); }
         else if(entry == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(entry == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
