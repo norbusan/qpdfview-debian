@@ -5,8 +5,8 @@
 const qreal DocumentView::pageSpacing = 5.0;
 const qreal DocumentView::thumbnailSpacing = 2.5;
 
-const qreal DocumentView::thumbnailWidth = 100;
-const qreal DocumentView::thumbnailHeight = 150;
+const qreal DocumentView::thumbnailWidth = 96;
+const qreal DocumentView::thumbnailHeight = 144;
 
 const qreal DocumentView::zoomBy = 0.1;
 
@@ -446,7 +446,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
     painter->drawRect(boundingRect());
 }
 
-void DocumentView::ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
+void DocumentView::ThumbnailItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
@@ -653,6 +653,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_thumbnailsGraphicsView = new QGraphicsView(new QGraphicsScene(this));
     m_thumbnailsGraphicsView->scene()->setBackgroundBrush(QBrush(Qt::darkGray));
+    m_thumbnailsGraphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
 DocumentView::~DocumentView()
@@ -1503,7 +1504,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_PageUp)
+    if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_Backspace)
     {
         switch(m_pageLayout)
         {
@@ -1528,7 +1529,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             break;
         }
     }
-    else if(event->key() == Qt::Key_PageDown)
+    else if(event->key() == Qt::Key_PageDown || event->key() == Qt::Key_Space)
     {
         int lastPage = -1;
 

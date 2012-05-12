@@ -987,7 +987,7 @@ void MainWindow::createActions()
     // previous page
 
     m_previousPageAction = new QAction(tr("&Previous page"), this);
-    m_previousPageAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Up) << QKeySequence(Qt::Key_Left) << QKeySequence(Qt::Key_Backspace));
+    m_previousPageAction->setShortcut(QKeySequence(Qt::Key_Left));
     m_previousPageAction->setIconVisibleInMenu(true);
     connect(m_previousPageAction, SIGNAL(triggered()), SLOT(slotPreviousPage()));
 
@@ -1007,7 +1007,7 @@ void MainWindow::createActions()
     // next page
 
     m_nextPageAction = new QAction(tr("&Next page"), this);
-    m_nextPageAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Down) << QKeySequence(Qt::Key_Right) << QKeySequence(Qt::Key_Space));
+    m_nextPageAction->setShortcut(QKeySequence(Qt::Key_Right));
     m_nextPageAction->setIconVisibleInMenu(true);
     connect(m_nextPageAction, SIGNAL(triggered()), SLOT(slotNextPage()));
 

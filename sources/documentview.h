@@ -150,7 +150,7 @@ private:
         void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     protected:
-        void mousePressEvent(QGraphicsSceneMouseEvent*);
+        void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
 
     private:
         // page
