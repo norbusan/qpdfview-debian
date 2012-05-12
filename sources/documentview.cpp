@@ -635,9 +635,9 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_outlineTreeWidget->setAlternatingRowColors(true);
     m_outlineTreeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineTreeWidget->header()->setVisible(false);
-    m_outlineTreeWidget->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_outlineTreeWidget->header()->setResizeMode(QHeaderView::Stretch);
 
-    connect(m_outlineTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotOutlineTreeWidgetItemClicked(QTreeWidgetItem*,int)));
+    connect(m_outlineTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), SLOT(slotOutlineTreeWidgetItemDoubleClicked(QTreeWidgetItem*,int)));
 
     // meta-information
 
@@ -1750,7 +1750,7 @@ void DocumentView::slotTabActionTriggered()
     tabWidget->setCurrentIndex(tabWidget->indexOf(this));
 }
 
-void DocumentView::slotOutlineTreeWidgetItemClicked(QTreeWidgetItem* item, int column)
+void DocumentView::slotOutlineTreeWidgetItemDoubleClicked(QTreeWidgetItem* item, int column)
 {
     setCurrentPage(item->data(column, Qt::UserRole).toInt(), item->data(column, Qt::UserRole+1).toReal());
 }
@@ -2084,6 +2084,7 @@ void DocumentView::prepareOutline(const QDomNode& node, QTreeWidgetItem* parent,
     }
 
     item->setText(0, element.tagName());
+    item->setToolTip(0, element.tagName());
 
     if(element.hasAttribute("Destination"))
     {

@@ -277,7 +277,7 @@ protected slots:
     void slotPrefetchTimerTimeout();
     void slotBookmarksMenuEntrySelected(int page, int value);
     void slotTabActionTriggered();
-    void slotOutlineTreeWidgetItemClicked(QTreeWidgetItem* item, int column);
+    void slotOutlineTreeWidgetItemDoubleClicked(QTreeWidgetItem* item, int column);
 
 private:
     // document
