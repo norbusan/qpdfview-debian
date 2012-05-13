@@ -1928,21 +1928,17 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
         int jobId = cupsPrintFile(dest->name, QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
 
-        if(jobId > 0)
-        {
-            qDebug() << "CUPS: jobId:" << jobId;
-        }
-        else
-        {
-            qDebug() << "CUPS: lastErrorString:" << cupsLastErrorString();
-        }
-
         cupsFreeDests(num_dests, dests);
         cupsFreeOptions(num_options, options);
+
+        if(jobId < 1)
+        {
+            qDebug() << "CUPS: " << cupsLastErrorString();
+        }
     }
     else
     {
-        qDebug() << "CUPS: lastErrorString:" << cupsLastErrorString();
+        qDebug() << "CUPS: " << cupsLastErrorString();
     }
 
     emit printProgressed(100);
