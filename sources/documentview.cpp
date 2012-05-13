@@ -902,9 +902,13 @@ bool DocumentView::open(const QString& filePath)
         prepareThumbnails();
     }
 
+    m_pageCacheMutex.lock();
+
     m_pageCache.clear();
     m_pageCacheSize = 0u;
     m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+
+    m_pageCacheMutex.unlock();
 
     prepareScene();
     prepareView();
@@ -992,9 +996,13 @@ bool DocumentView::refresh()
         prepareThumbnails();
     }
 
+    m_pageCacheMutex.lock();
+
     m_pageCache.clear();
     m_pageCacheSize = 0u;
     m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+
+    m_pageCacheMutex.unlock();
 
     prepareScene();
     prepareView();
