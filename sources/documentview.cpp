@@ -1286,7 +1286,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
 
-    if(!text.isEmpty())
+    if(m_document != 0 && !text.isEmpty())
     {
         m_search = QtConcurrent::run(this, &DocumentView::search, text, matchCase);
     }
@@ -1491,7 +1491,7 @@ void DocumentView::startPrint(QPrinter* printer, int fromPage, int toPage)
 {
     cancelPrint();
 
-    if(fromPage >= 1 && fromPage <= m_numberOfPages && toPage >= 1 && toPage <= m_numberOfPages && fromPage <= toPage)
+    if(m_document != 0 && fromPage >= 1 && fromPage <= m_numberOfPages && toPage >= 1 && toPage <= m_numberOfPages && fromPage <= toPage)
     {
         m_print = QtConcurrent::run(this, &DocumentView::print, printer, fromPage, toPage);
     }
