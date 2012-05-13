@@ -82,6 +82,24 @@
         <source>Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="933"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="933"/>
+        <source>Please enter the password required to unlock the document file &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="841"/>
+        <location filename="../sources/documentview.cpp" line="937"/>
+        <source>Could not unlock the document file &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
