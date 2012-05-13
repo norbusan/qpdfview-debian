@@ -29,6 +29,32 @@ opens the file at the given page. The optional parameter
 can take values between 0 and 1 and opens the page with
 the given position aligned to the top of the tab.
 (See examples.)
+.SH CONFIGURATION FILE
+qpdfview uses a configuration file usually located at
+.RS
+.RE
+"~/.config/qpdfview/qpdfview.conf", which allows
+configuration of the toolbars. The keys for toolbar
+configuration are added to the section "[mainWindow]"
+of the configuration file as comma-separated list. The
+default (available) entries are:
+.RS
+fileToolBar: openInNewTab, refresh (open, saveCopy,
+print)
+.RS
+.RE
+editToolBar: currentPage, numberOfPages, previousPage,
+nextPage (firstPage, lastPage, search)
+.RS
+.RE
+viewToolBar: scaleFactor, zoomIn, zoomOut (onePage,
+twoPages, oneColumn, twoColumns, fitToPage,
+fitToPageWidth, doNotScale, rotateLeft, rotateRight,
+fullscreen, presentation)
+.RE
+The order of the items in the list defines the order
+of the items in the toolbars. (See examples.)
+
 .SH EXAMPLES
 .RS
 The command
@@ -62,6 +88,25 @@ Subsequent execution of the following commands
 opens foo.pdf in the first window, bar.pdf in a second
 window and then foo1.pdf and bar1.pdf in additional tabs
 in the first window.
+
+Adding the lines
+.RE
+.B fileToolBar=openInNewTab, refresh, saveCopy, print
+.RS
+.RE
+.B editToolBar=firstPage, previousPage, currentPage, numberOfPages,
+.RS
+.B nextPage, lastPage, search
+.RE
+.B viewToolBar=zoomOut, scaleFactor, zoomIn, oneColumn, twoColumns,
+.RS
+.B rotateLeft, rotateRight
+.RE
+.RS
+in section "[mainWindow]" of the configuration file
+leads to the corresponding items being displayed in
+the given order in the toolbars.
+
 .SH BUGS
 If you find a bug, please report it at
 https://launchpad.net/qpdfview.

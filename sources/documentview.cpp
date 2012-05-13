@@ -18,6 +18,8 @@ bool DocumentView::fitToEqualWidth = false;
 bool DocumentView::highlightLinks = true;
 bool DocumentView::externalLinks = false;
 
+// page item
+
 DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) : QGraphicsItem(parent, scene),
     m_page(0),
     m_index(-1),
@@ -375,6 +377,8 @@ void DocumentView::PageItem::render(bool prefetch)
     emit parent->pageItemChanged(this);
 }
 
+// thumbnail item
+
 DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem* parent, QGraphicsScene* scene) : QGraphicsItem(parent, scene),
     m_page(0),
     m_index(-1),
@@ -531,6 +535,8 @@ void DocumentView::ThumbnailItem::render()
 
     emit parent->thumbnailItemChanged(this);
 }
+
+// document view
 
 DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_document(0),
@@ -1973,12 +1979,12 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
         if(jobId < 1)
         {
-            qDebug() << "CUPS: " << cupsLastErrorString();
+            qDebug() << "CUPS:" << cupsLastErrorString();
         }
     }
     else
     {
-        qDebug() << "CUPS: " << cupsLastErrorString();
+        qDebug() << "CUPS:" << cupsLastErrorString();
     }
 
     emit printProgressed(100);
