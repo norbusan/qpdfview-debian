@@ -56,6 +56,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
         <li><a href="#thumbnails">Thumbnails</a></li>
     </ol>
     <li><a href="#commandlineoptions">Command-line options</a></li>
+    <li><a href="#configurationfile">Configuration file</a></li>
 </ol>
 
 <h4>Introduction</h4>
@@ -183,6 +184,16 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h3><a name="commandlineoptions">Command-line options</a> <a href="#top">&uarr;</a></h3>
 
 <p>If an instance of qpdfview is started with the <b>--unique</b> option, later invocations using this option will activate this instance to open the specified files. Please refer to the manual page for a detailed description of the command-line options.</p>
+
+<h3><a name="configurationfile">Configuration file</a> <a href="#top">&uarr;</a></h3>
+
+<p>The configuration file is typically located at "~/.config/qpdfview/qpdfview.conf". Most of the options can be set using the interface, but the toolbars are configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow". The values are ordered comma-separated lists. The default (available) entries are:</p>
+
+<ul>
+<li><b>fileToolBar</b> openInNewTab,refresh (open,saveCopy,print),
+<li><b>editToolBar</b> currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,search),
+<li><b>viewToolBar</b> scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation).
+</ul>
 
 </body>
 

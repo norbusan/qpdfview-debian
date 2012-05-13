@@ -35,6 +35,7 @@ struct Link
 int main(int argc, char** argv)
 {
     QApplication a(argc, argv);
+    QApplication::setOrganizationDomain("local.qpdfview");
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
     QApplication::setApplicationVersion("0.2.99");
@@ -105,7 +106,7 @@ int main(int argc, char** argv)
 
     if(arguments.contains("--unique"))
     {
-        QDBusInterface interface("net.launchpad.qpdfview", "/MainWindow", "net.launchpad.qpdfview.MainWindow", QDBusConnection::sessionBus());
+        QDBusInterface interface("local.qpdfview", "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus());
 
         if(interface.isValid())
         {
@@ -122,7 +123,7 @@ int main(int argc, char** argv)
 
             new MainWindowAdaptor(mainWindow);
 
-            if(!QDBusConnection::sessionBus().registerService("net.launchpad.qpdfview"))
+            if(!QDBusConnection::sessionBus().registerService("local.qpdfview"))
             {
                 qDebug() << QDBusConnection::sessionBus().lastError().message();
 

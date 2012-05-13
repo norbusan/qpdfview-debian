@@ -254,7 +254,7 @@ private:
 class MainWindowAdaptor : public QDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "net.launchpad.qpdfview.MainWindow")
+    Q_CLASSINFO("D-Bus Interface", "local.qpdfview.MainWindow")
 
 public:
     MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdaptor(mainWindow) {}
