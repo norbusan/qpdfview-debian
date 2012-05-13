@@ -872,10 +872,6 @@ bool DocumentView::open(const QString& filePath)
 
         m_document = document;
 
-        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-
         if(m_settings.value("documentView/autoRefresh", false).toBool())
         {
             m_autoRefreshWatcher = new QFileSystemWatcher(QStringList(filePath));
@@ -900,6 +896,13 @@ bool DocumentView::open(const QString& filePath)
         prepareOutline();
         prepareMetaInformation();
         prepareThumbnails();
+    }
+
+    if(m_document)
+    {
+        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
     }
 
     m_pageCacheMutex.lock();
@@ -967,10 +970,6 @@ bool DocumentView::refresh()
 
         m_document = document;
 
-        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-
         int numberOfPages = m_document->numPages();
 
         if(m_numberOfPages != numberOfPages)
@@ -994,6 +993,13 @@ bool DocumentView::refresh()
         prepareOutline();
         prepareMetaInformation();
         prepareThumbnails();
+    }
+
+    if(m_document)
+    {
+        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
     }
 
     m_pageCacheMutex.lock();
@@ -1742,8 +1748,8 @@ void DocumentView::slotPrefetchTimerTimeout()
         break;
     }
 
-    fromPage = fromPage >= 1 ? fromPage : 1;
-    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+    fromPage = qMax(fromPage, 1);
+    toPage = qMin(toPage, m_numberOfPages);
 
     for(int page = fromPage; page <= toPage; page++)
     {
