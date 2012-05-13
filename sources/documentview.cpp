@@ -828,25 +828,38 @@ QGraphicsView* DocumentView::thumbnailsGraphicsView() const
 
 bool DocumentView::open(const QString& filePath)
 {
-    disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-    m_scene->removeItem(m_highlight);
-    m_scene->clear();
-    m_scene->addItem(m_highlight);
-
-    m_thumbnailsGraphicsView->scene()->clear();
-
-    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-    cancelSearch();
-    cancelPrint();
-
     Poppler::Document* document = Poppler::Document::load(filePath);
 
     if(document)
     {
+        if(document->isLocked())
+        {
+            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(QFileInfo(filePath).completeBaseName()), QLineEdit::Password);
+
+            if(document->unlock(password.toLatin1(), password.toLatin1()))
+            {
+                qWarning() << tr("Could not unlock the document file \"%1\".").arg(filePath);
+
+                delete document;
+                return false;
+            }
+        }
+
+        disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+        disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+
+        m_scene->removeItem(m_highlight);
+        m_scene->clear();
+        m_scene->addItem(m_highlight);
+
+        m_thumbnailsGraphicsView->scene()->clear();
+
+        connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+        connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+
+        cancelSearch();
+        cancelPrint();
+
         if(m_document)
         {
             delete m_document;
@@ -911,25 +924,38 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-    m_scene->removeItem(m_highlight);
-    m_scene->clear();
-    m_scene->addItem(m_highlight);
-
-    m_thumbnailsGraphicsView->scene()->clear();
-
-    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-    cancelSearch();
-    cancelPrint();
-
     Poppler::Document* document = Poppler::Document::load(m_filePath);
 
     if(document)
     {
+        if(document->isLocked())
+        {
+            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(QFileInfo(m_filePath).completeBaseName()), QLineEdit::Password);
+
+            if(document->unlock(password.toLatin1(), password.toLatin1()))
+            {
+                qWarning() << tr("Could not unlock the document file \"%1\".").arg(m_filePath);
+
+                delete document;
+                return false;
+            }
+        }
+
+        disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+        disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+
+        m_scene->removeItem(m_highlight);
+        m_scene->clear();
+        m_scene->addItem(m_highlight);
+
+        m_thumbnailsGraphicsView->scene()->clear();
+
+        connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+        connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+
+        cancelSearch();
+        cancelPrint();
+
         if(m_document)
         {
             delete m_document;
