@@ -66,7 +66,6 @@ INSTALLS += target launcher manual data
 # uncomment to use the Qt resource system for data files
 #
 #data.files = icons/qpdfview.svg
-#
 #RESOURCES += qpdfview.qrc
 
 # uncomment to install data files into DATA_INSTALL_PATH

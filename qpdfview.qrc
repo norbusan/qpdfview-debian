@@ -17,5 +17,12 @@
         <file>translations/qpdfview_ru.qm</file>
         <file>translations/qpdfview_uk.qm</file>
         <file>miscellaneous/help.html</file>
+        <file>icons/do-not-scale.svg</file>
+        <file>icons/fit-to-page.svg</file>
+        <file>icons/fit-to-page-width.svg</file>
+        <file>icons/one-column.svg</file>
+        <file>icons/one-page.svg</file>
+        <file>icons/two-columns.svg</file>
+        <file>icons/two-pages.svg</file>
     </qresource>
 </RCC>
