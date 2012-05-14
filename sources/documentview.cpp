@@ -851,17 +851,7 @@ bool DocumentView::open(const QString& filePath)
             }
         }
 
-        disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-        disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-        m_scene->removeItem(m_highlight);
-        m_scene->clear();
-        m_scene->addItem(m_highlight);
-
-        m_thumbnailsGraphicsView->scene()->clear();
-
-        connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-        connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+        clearScene();
 
         cancelSearch();
         cancelPrint();
@@ -911,13 +901,7 @@ bool DocumentView::open(const QString& filePath)
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
     }
 
-    m_pageCacheMutex.lock();
-
-    m_pageCache.clear();
-    m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
-
-    m_pageCacheMutex.unlock();
+    clearPageCache();
 
     prepareScene();
     prepareView();
@@ -954,17 +938,7 @@ bool DocumentView::refresh()
             }
         }
 
-        disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-        disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
-        m_scene->removeItem(m_highlight);
-        m_scene->clear();
-        m_scene->addItem(m_highlight);
-
-        m_thumbnailsGraphicsView->scene()->clear();
-
-        connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-        connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+        clearScene();
 
         cancelSearch();
         cancelPrint();
@@ -1008,13 +982,7 @@ bool DocumentView::refresh()
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
     }
 
-    m_pageCacheMutex.lock();
-
-    m_pageCache.clear();
-    m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
-
-    m_pageCacheMutex.unlock();
+    clearPageCache();
 
     prepareScene();
     prepareView();
@@ -2041,6 +2009,32 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
     delete printer;
 
 #endif
+}
+
+void DocumentView::clearScene()
+{
+    disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+    disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+
+    m_scene->removeItem(m_highlight);
+    m_scene->clear();
+    m_scene->addItem(m_highlight);
+
+    m_thumbnailsGraphicsView->scene()->clear();
+
+    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
+    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+}
+
+void DocumentView::clearPageCache()
+{
+    m_pageCacheMutex.lock();
+
+    m_pageCache.clear();
+    m_pageCacheSize = 0u;
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+
+    m_pageCacheMutex.unlock();
 }
 
 void DocumentView::preparePages()

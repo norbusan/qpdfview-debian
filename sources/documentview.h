@@ -352,6 +352,9 @@ private:
 
     // internal methods
 
+    void clearScene();
+    void clearPageCache();
+
     void preparePages();
 
     void prepareOutline();
