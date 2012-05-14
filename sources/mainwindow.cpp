@@ -189,6 +189,8 @@ void MainWindow::closeEvent(QCloseEvent*)
         m_settings.remove("mainWindow/tabs/currentIndex");
     }
 
+    slotCloseAllTabs();
+
     // settings
 
     m_settings.setValue("mainWindow/matchCase", m_matchCaseCheckBox->isChecked());
@@ -205,8 +207,6 @@ void MainWindow::closeEvent(QCloseEvent*)
     m_settings.setValue("mainWindow/state", saveState());
 
     m_settings.setValue("mainWindow/tabPosition", static_cast< uint >(m_tabWidget->tabPosition()));
-
-    slotCloseAllTabs();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent* event)
@@ -416,20 +416,26 @@ void MainWindow::slotStartSearch()
 
 void MainWindow::slotSearchProgressed(int value)
 {
-    statusBar()->show();
-    statusBar()->showMessage(tr("Searched %1% of the the current document...").arg(value));
+    QPoint pos = centralWidget()->mapToGlobal(centralWidget()->rect().bottomLeft());
+    pos.rx() += 10; pos.ry() -= 50;
+
+    QToolTip::showText(pos, tr("Searched %1% of the the current document...").arg(value), centralWidget());
 }
 
 void MainWindow::slotSearchCanceled()
 {
-    statusBar()->clearMessage();
-    statusBar()->hide();
+    QPoint pos = centralWidget()->mapToGlobal(centralWidget()->rect().bottomLeft());
+    pos.rx() += 10; pos.ry() -= 50;
+
+    QToolTip::showText(pos, tr("Search canceled."), centralWidget());
 }
 
 void MainWindow::slotSearchFinished()
 {
-    statusBar()->clearMessage();
-    statusBar()->hide();
+    QPoint pos = centralWidget()->mapToGlobal(centralWidget()->rect().bottomLeft());
+    pos.rx() += 10; pos.ry() -= 50;
+
+    QToolTip::showText(pos, tr("Search finished."), centralWidget());
 }
 
 void MainWindow::slotFindPrevious()

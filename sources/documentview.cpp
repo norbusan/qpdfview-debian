@@ -145,6 +145,8 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
 void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
+    DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
+
     QApplication::restoreOverrideCursor();
 
     foreach(Link link, m_links)
@@ -155,11 +157,11 @@ void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
             if(link.page != -1)
             {
-                QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link.page));
+                QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link.page), parent);
             }
             else if(!link.url.isEmpty())
             {
-                QToolTip::showText(event->screenPos(), tr("Open URL \"%1\".").arg(link.url));
+                QToolTip::showText(event->screenPos(), tr("Open URL \"%1\".").arg(link.url), parent);
             }
 
             return;
