@@ -5,8 +5,8 @@
 const qreal DocumentView::pageSpacing = 5.0;
 const qreal DocumentView::thumbnailSpacing = 2.5;
 
-const qreal DocumentView::thumbnailWidth = 96;
-const qreal DocumentView::thumbnailHeight = 144;
+const qreal DocumentView::thumbnailWidth = 96.0;
+const qreal DocumentView::thumbnailHeight = 144.0;
 
 const qreal DocumentView::zoomBy = 0.1;
 
@@ -1718,7 +1718,7 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
 {
     if(m_pageLayout == OneColumn || m_pageLayout == TwoColumns)
     {
-        QMap< qreal, PageItem* >::const_iterator iterator = --m_pagesByHeight.lowerBound(value);
+        QMap< qreal, PageItem* >::const_iterator iterator = --m_pagesByHeight.lowerBound(value + 0.5 * m_view->verticalScrollBar()->pageStep());
 
         if(iterator != m_pagesByHeight.end())
         {
@@ -2461,7 +2461,7 @@ void DocumentView::prepareScene()
             QRectF rect = m_pageTransform.mapRect(pageItem->boundingRect());
 
             pageItem->setPos(pageSpacing - rect.left(), sceneHeight - rect.top());
-            m_pagesByHeight.insert(sceneHeight - 0.4 * rect.height(), pageItem);
+            m_pagesByHeight.insert(sceneHeight, pageItem);
 
             sceneWidth = qMax(sceneWidth, rect.width() + 2 * pageSpacing);
             sceneHeight += rect.height() + pageSpacing;
@@ -2479,7 +2479,7 @@ void DocumentView::prepareScene()
 
             leftPageItem->setPos(pageSpacing - leftRect.left(), sceneHeight - leftRect.top());
             rightPageItem->setPos(2 * pageSpacing + leftRect.width() - rightRect.left(), sceneHeight - rightRect.top());
-            m_pagesByHeight.insert(sceneHeight - 0.4 * leftRect.height(), leftPageItem);
+            m_pagesByHeight.insert(sceneHeight, leftPageItem);
 
             sceneWidth = qMax(sceneWidth, leftRect.width() + rightRect.width() + 3 * pageSpacing);
             sceneHeight += qMax(leftRect.height(), rightRect.height()) + pageSpacing;
@@ -2491,7 +2491,7 @@ void DocumentView::prepareScene()
             QRectF leftRect = m_pageTransform.mapRect(leftPageItem->boundingRect());
 
             leftPageItem->setPos(pageSpacing - leftRect.left(), sceneHeight - leftRect.top());
-            m_pagesByHeight.insert(sceneHeight - 0.4 * leftRect.height(), leftPageItem);
+            m_pagesByHeight.insert(sceneHeight, leftPageItem);
 
             sceneWidth = qMax(sceneWidth, leftRect.width() + 2 * pageSpacing);
             sceneHeight += leftRect.height() + pageSpacing;
