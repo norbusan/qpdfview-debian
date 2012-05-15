@@ -233,7 +233,7 @@ void MainWindow::dropEvent(QDropEvent* event)
     }
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
+void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
@@ -310,7 +310,7 @@ void MainWindow::slotSaveCopy()
 
     if(!filePath.isEmpty())
     {
-        DocumentView *documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+        DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
         if(documentView->saveCopy(filePath))
         {
@@ -1547,14 +1547,14 @@ void MainWindow::createMenus()
 
     // toolbars
 
-    QMenu *toolbarsMenu = m_viewMenu->addMenu(tr("&Toolbars"));
+    QMenu* toolbarsMenu = m_viewMenu->addMenu(tr("&Toolbars"));
     toolbarsMenu->addAction(m_fileToolBar->toggleViewAction());
     toolbarsMenu->addAction(m_editToolBar->toggleViewAction());
     toolbarsMenu->addAction(m_viewToolBar->toggleViewAction());
 
     // docks
 
-    QMenu *docksMenu = m_viewMenu->addMenu(tr("&Docks"));
+    QMenu* docksMenu = m_viewMenu->addMenu(tr("&Docks"));
     docksMenu->addAction(m_outlineDock->toggleViewAction());
     docksMenu->addAction(m_metaInformationDock->toggleViewAction());
     docksMenu->addAction(m_thumbnailsDock->toggleViewAction());

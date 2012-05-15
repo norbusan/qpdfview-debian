@@ -84,6 +84,7 @@ private:
                    (index == key.index && !qFuzzyCompare(resolutionX, key.resolutionX) && resolutionX < key.resolutionX) ||
                    (index == key.index && qFuzzyCompare(resolutionX, key.resolutionX) && !qFuzzyCompare(resolutionY, key.resolutionY) && resolutionY < key.resolutionY);
         }
+
     };
 
     friend class PageItem;

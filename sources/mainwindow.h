@@ -84,7 +84,6 @@ protected slots:
     void slotSearch();
 
     void slotStartSearch();
-    void slotCancelSearch();
 
     void slotSearchProgressed(int value);
     void slotSearchCanceled();
@@ -92,11 +91,11 @@ protected slots:
 
     void slotFindPrevious();
     void slotFindNext();
+    void slotCancelSearch();
 
     void slotSettings();
 
     void slotPageLayoutGroupTriggered(QAction* action);
-
     void slotScaleModeGroupTriggered(QAction* action);
 
     void slotZoomIn();

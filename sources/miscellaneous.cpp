@@ -77,13 +77,16 @@ bool PresentationView::open(const QString& filePath)
 
         m_document = document;
 
-        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
-        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-
         m_filePath = filePath;
         m_numberOfPages = m_document->numPages();
         m_currentPage = 1;
+    }
+
+    if(m_document)
+    {
+        m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
+        m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
     }
 
     m_pageCache.clear();
@@ -206,7 +209,7 @@ void PresentationView::paintEvent(QPaintEvent*)
 #endif
 }
 
-void PresentationView::keyPressEvent(QKeyEvent *event)
+void PresentationView::keyPressEvent(QKeyEvent* event)
 {
     switch(event->key())
     {
@@ -240,20 +243,7 @@ void PresentationView::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void PresentationView::mousePressEvent(QMouseEvent *event)
-{
-    foreach(Link link, m_links)
-    {
-        if(m_linkTransform.mapRect(link.area).contains(event->posF()))
-        {
-            this->setCurrentPage(link.page);
-
-            return;
-        }
-    }
-}
-
-void PresentationView::mouseMoveEvent(QMouseEvent *event)
+void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
     QApplication::restoreOverrideCursor();
 
@@ -262,6 +252,7 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
         if(m_linkTransform.mapRect(link.area).contains(event->posF()))
         {
             QApplication::setOverrideCursor(Qt::PointingHandCursor);
+
             QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link.page));
 
             return;
@@ -269,6 +260,19 @@ void PresentationView::mouseMoveEvent(QMouseEvent *event)
     }
 
     QToolTip::hideText();
+}
+
+void PresentationView::mousePressEvent(QMouseEvent* event)
+{
+    foreach(Link link, m_links)
+    {
+        if(m_linkTransform.mapRect(link.area).contains(event->posF()))
+        {
+            setCurrentPage(link.page);
+
+            return;
+        }
+    }
 }
 
 void PresentationView::prepareView()
@@ -286,6 +290,8 @@ void PresentationView::prepareView()
     m_boundingRect.setHeight(m_scale * size.height());
 
     // links
+
+    m_links.clear();
 
     foreach(Poppler::Link* link, page->links())
     {
@@ -351,11 +357,11 @@ void PresentationView::render(int index)
 
 // tab bar
 
-TabBar::TabBar(QWidget *parent) : QTabBar(parent)
+TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
 }
 
-void TabBar::contextMenuEvent(QContextMenuEvent *event)
+void TabBar::contextMenuEvent(QContextMenuEvent* event)
 {
     QTabBar::contextMenuEvent(event);
 
@@ -388,7 +394,7 @@ void TabBar::contextMenuEvent(QContextMenuEvent *event)
     }
 }
 
-void TabBar::mousePressEvent(QMouseEvent *event)
+void TabBar::mousePressEvent(QMouseEvent* event)
 {
     QTabBar::mousePressEvent(event);
 
@@ -400,14 +406,14 @@ void TabBar::mousePressEvent(QMouseEvent *event)
 
 // tab widget
 
-TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent)
+TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent)
 {
     setTabBar(new TabBar(this));
 }
 
 // line edit
 
-LineEdit::LineEdit(QWidget *parent) : QLineEdit(parent)
+LineEdit::LineEdit(QWidget* parent) : QLineEdit(parent)
 {
 }
 
@@ -420,7 +426,7 @@ void LineEdit::mousePressEvent(QMouseEvent *event)
 
 // combo box
 
-ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
+ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
 {
     setLineEdit(new LineEdit(this));
 }
@@ -467,7 +473,7 @@ RecentlyUsedAction::~RecentlyUsedAction()
     menu()->deleteLater();
 }
 
-void RecentlyUsedAction::addEntry(const QString &filePath)
+void RecentlyUsedAction::addEntry(const QString& filePath)
 {
     bool addItem = true;
 
@@ -875,6 +881,7 @@ void SettingsDialog::accept()
 HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 {
     m_textBrowser = new QTextBrowser(this);
+
 #ifdef DATA_INSTALL_PATH
     m_textBrowser->setSource(QUrl(QString(DATA_INSTALL_PATH) + "/help.html"));
 #else

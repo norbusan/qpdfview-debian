@@ -57,6 +57,7 @@ private:
             return (index < key.index) ||
                    (index == key.index && !qFuzzyCompare(scale, key.scale) && scale < key.scale);
         }
+
     };
 
 public:
@@ -81,8 +82,8 @@ protected:
     void paintEvent(QPaintEvent*);
 
     void keyPressEvent(QKeyEvent* event);
-    void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event);
 
 private:
     // document
@@ -168,7 +169,7 @@ public:
     LineEdit(QWidget* parent = 0);
 
 protected:
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent* event);
 
 };
 
