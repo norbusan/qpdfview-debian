@@ -52,6 +52,11 @@ private:
         PageCacheKey() : index(-1), scale(1.0) {}
         PageCacheKey(int index, qreal scale) : index(index), scale(scale) {}
 
+        bool operator==(const PageCacheKey& key) const
+        {
+            return index == key.index && qFuzzyCompare(scale, key.scale);
+        }
+
         bool operator<(const PageCacheKey& key) const
         {
             return (index < key.index) || (index == key.index && scale < key.scale);
