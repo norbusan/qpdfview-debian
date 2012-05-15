@@ -78,14 +78,11 @@ private:
         PageCacheKey() : index(-1), resolutionX(72.0), resolutionY(72.0) {}
         PageCacheKey(int index, qreal resolutionX, qreal resolutionY) : index(index), resolutionX(resolutionX), resolutionY(resolutionY) {}
 
-        bool operator==(const PageCacheKey& key) const
-        {
-            return index == key.index && qFuzzyCompare(resolutionX, key.resolutionX) && qFuzzyCompare(resolutionY, key.resolutionY);
-        }
-
         bool operator<(const PageCacheKey& key) const
         {
-            return (index < key.index) || (index == key.index && resolutionX < key.resolutionY) || (index == key.index && qFuzzyCompare(resolutionX, key.resolutionX) && resolutionY < key.resolutionY);
+            return (index < key.index) ||
+                   (index == key.index && !qFuzzyCompare(resolutionX, key.resolutionX) && resolutionX < key.resolutionX) ||
+                   (index == key.index && qFuzzyCompare(resolutionX, key.resolutionX) && !qFuzzyCompare(resolutionY, key.resolutionY) && resolutionY < key.resolutionY);
         }
     };
 
