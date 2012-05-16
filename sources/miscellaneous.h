@@ -60,6 +60,16 @@ private:
 
     };
 
+    struct PageCacheValue
+    {
+        QTime time;
+        QImage image;
+
+        PageCacheValue() : time(QTime::currentTime()), image() {}
+        PageCacheValue(const QImage& image) : time(QTime::currentTime()), image(image) {}
+
+    };
+
 public:
     PresentationView();
     ~PresentationView();
@@ -92,7 +102,7 @@ private:
 
     // page cache
 
-    QMap< PageCacheKey, QImage > m_pageCache;
+    QMap< PageCacheKey, PageCacheValue > m_pageCache;
 
     uint m_pageCacheSize;
     uint m_maximumPageCacheSize;

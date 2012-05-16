@@ -196,7 +196,10 @@ void PresentationView::paintEvent(QPaintEvent*)
 
     if(m_pageCache.contains(key))
     {
-        painter.drawImage(m_boundingRect, m_pageCache.value(key));
+        PageCacheValue& value = m_pageCache[key];
+
+        value.time = QTime::currentTime();
+        painter.drawImage(m_boundingRect, value.image);
     }
     else
     {
@@ -332,6 +335,8 @@ void PresentationView::render(int index)
     delete page;
 
     PageCacheKey key(index, scale);
+    PageCacheValue value(image);
+
     uint byteCount = image.byteCount();
 
     if(m_maximumPageCacheSize < 3 * byteCount)
@@ -343,14 +348,23 @@ void PresentationView::render(int index)
 
     while(m_pageCacheSize + byteCount > m_maximumPageCacheSize)
     {
-        QMap< PageCacheKey, QImage >::iterator iterator = m_pageCache.lowerBound(key) != m_pageCache.end() ? --m_pageCache.end() : m_pageCache.begin();
+        QMap< PageCacheKey, PageCacheValue >::const_iterator first = m_pageCache.begin();
+        QMap< PageCacheKey, PageCacheValue >::const_iterator last = --m_pageCache.end();
 
-        m_pageCacheSize -= iterator.value().byteCount();
-        m_pageCache.remove(iterator.key());
+        if(first.value().time < last.value().time)
+        {
+            m_pageCacheSize -= first.value().image.byteCount();
+            m_pageCache.remove(first.key());
+        }
+        else
+        {
+            m_pageCacheSize -= last.value().image.byteCount();
+            m_pageCache.remove(last.key());
+        }
     }
 
     m_pageCacheSize += byteCount;
-    m_pageCache.insert(key, image);
+    m_pageCache.insert(key, value);
 
     update();
 }

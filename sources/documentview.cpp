@@ -69,7 +69,10 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
         render(false);
     }
 
-    painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+    DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+
+    value.time = QTime::currentTime();
+    painter->drawImage(boundingRect(), value.image);
 
 #else
 
@@ -79,7 +82,10 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     if(parent->m_pageCache.contains(key))
     {
-        painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+        DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+
+        value.time = QTime::currentTime();
+        painter->drawImage(boundingRect(), value.image);
     }
     else
     {
@@ -257,8 +263,10 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         // copy text or image
 
         QMenu menu(parent);
+
         QAction *copyTextAction = menu.addAction(tr("Copy &text"));
         QAction *copyImageAction = menu.addAction(tr("Copy &image"));
+
         QAction *copyAction = menu.exec(event->screenPos());
 
         if(copyAction == copyTextAction)
@@ -354,6 +362,8 @@ void DocumentView::PageItem::render(bool prefetch)
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
+    DocumentView::PageCacheValue value(image);
+
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -365,14 +375,23 @@ void DocumentView::PageItem::render(bool prefetch)
 
     while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
     {
-        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator first = parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator last = --parent->m_pageCache.end();
 
-        parent->m_pageCacheSize -= iterator.value().byteCount();
-        parent->m_pageCache.remove(iterator.key());
+        if(first.value().time < last.value().time)
+        {
+            parent->m_pageCacheSize -= first.value().image.byteCount();
+            parent->m_pageCache.remove(first.key());
+        }
+        else
+        {
+            parent->m_pageCacheSize -= last.value().image.byteCount();
+            parent->m_pageCache.remove(last.key());
+        }
     }
 
     parent->m_pageCacheSize += byteCount;
-    parent->m_pageCache.insert(key, image);
+    parent->m_pageCache.insert(key, value);
 
     parent->m_pageCacheMutex.unlock();
 
@@ -434,7 +453,10 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     if(parent->m_pageCache.contains(key))
     {
-        painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+        DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+
+        value.time = QTime::currentTime();
+        painter->drawImage(boundingRect(), value.image);
     }
     else
     {
@@ -513,6 +535,8 @@ void DocumentView::ThumbnailItem::render()
     parent->m_pageCacheMutex.lock();
 
     DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
+    DocumentView::PageCacheValue value(image);
+
     uint byteCount = image.byteCount();
 
     if(parent->m_maximumPageCacheSize < 3 * byteCount)
@@ -524,14 +548,24 @@ void DocumentView::ThumbnailItem::render()
 
     while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
     {
-        QMap< DocumentView::PageCacheKey, QImage >::iterator iterator = parent->m_pageCache.lowerBound(key) != parent->m_pageCache.end() ? --parent->m_pageCache.end() : parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator first = parent->m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator last = --parent->m_pageCache.end();
 
-        parent->m_pageCacheSize -= iterator.value().byteCount();
-        parent->m_pageCache.remove(iterator.key());
+        if(first.value().time < last.value().time)
+        {
+            parent->m_pageCacheSize -= first.value().image.byteCount();
+            parent->m_pageCache.remove(first.key());
+        }
+        else
+        {
+            parent->m_pageCacheSize -= last.value().image.byteCount();
+            parent->m_pageCache.remove(last.key());
+        }
     }
 
     parent->m_pageCacheSize += byteCount;
-    parent->m_pageCache.insert(key, image);
+    parent->m_pageCache.insert(key, value);
+
 
     parent->m_pageCacheMutex.unlock();
 

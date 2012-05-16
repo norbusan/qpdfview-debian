@@ -87,6 +87,16 @@ private:
 
     };
 
+    struct PageCacheValue
+    {
+        QTime time;
+        QImage image;
+
+        PageCacheValue() : time(QTime::currentTime()), image() {}
+        PageCacheValue(const QImage& image) : time(QTime::currentTime()), image(image) {}
+
+    };
+
     friend class PageItem;
 
     class PageItem : public QGraphicsItem
@@ -290,7 +300,7 @@ private:
 
     // page cache
 
-    QMap< PageCacheKey, QImage > m_pageCache;
+    QMap< PageCacheKey, PageCacheValue > m_pageCache;
     QMutex m_pageCacheMutex;
 
     uint m_pageCacheSize;
