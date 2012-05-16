@@ -580,7 +580,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_pageCache(),
     m_pageCacheMutex(),
     m_pageCacheSize(0u),
-    m_maximumPageCacheSize(67108864u),
+    m_maximumPageCacheSize(33554432u),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
@@ -2068,7 +2068,7 @@ void DocumentView::clearPageCache()
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
 
     m_pageCacheMutex.unlock();
 }

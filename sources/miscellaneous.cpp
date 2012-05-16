@@ -27,7 +27,7 @@ PresentationView::PresentationView() : QWidget(),
     m_document(0),
     m_pageCache(),
     m_pageCacheSize(0u),
-    m_maximumPageCacheSize(67108864u),
+    m_maximumPageCacheSize(33554432u),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
@@ -91,7 +91,7 @@ bool PresentationView::open(const QString& filePath)
 
     m_pageCache.clear();
     m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
 
     prepareView();
 
@@ -809,7 +809,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(256), 268435456u);
     m_maximumPageCacheSizeComboBox->addItem(tr("%1 MB").arg(512), 536870912u);
 
-    uint maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 67108864u).toUInt();
+    uint maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
 
     if(m_maximumPageCacheSizeComboBox->findData(maximumPageCacheSize) != -1)
     {
