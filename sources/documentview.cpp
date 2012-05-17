@@ -1845,7 +1845,7 @@ void DocumentView::search(const QString& text, bool matchCase)
 
 void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 {
-#ifdef PRINT_WITH_CUPS
+#ifdef WITH_CUPS
 
     emit printProgressed(0);
 
@@ -1996,7 +1996,7 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
     delete painter;
     delete printer;
 
-#endif
+#endif // WITH_CUPS
 }
 
 void DocumentView::clearScene()

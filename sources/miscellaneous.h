@@ -330,10 +330,7 @@ class HelpDialog : public QDialog
 public:
     explicit HelpDialog(QWidget* parent = 0);
 
-    QSize sizeHint() const
-    {
-        return QSize(500, 700);
-    }
+    QSize sizeHint() const;
 
 private:
     QTextBrowser* m_textBrowser;

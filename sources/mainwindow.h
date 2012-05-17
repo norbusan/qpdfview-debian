@@ -24,7 +24,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore>
 #include <QtGui>
+
+#ifdef WITH_DBUS
+
 #include <QtDBus>
+
+#endif
 
 #include "documentview.h"
 #include "miscellaneous.h"
@@ -36,25 +41,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget* parent = 0);
 
-    QSize sizeHint() const
-    {
-        return QSize(500, 700);
-    }
-
-    QMenu* createPopupMenu()
-    {
-        QMenu* menu = new QMenu();
-
-        menu->addAction(m_fileToolBar->toggleViewAction());
-        menu->addAction(m_editToolBar->toggleViewAction());
-        menu->addAction(m_viewToolBar->toggleViewAction());
-        menu->addSeparator();
-        menu->addAction(m_outlineDock->toggleViewAction());
-        menu->addAction(m_metaInformationDock->toggleViewAction());
-        menu->addAction(m_thumbnailsDock->toggleViewAction());
-
-        return menu;
-    }
+    QSize sizeHint() const;
+    QMenu* createPopupMenu();
 
 public slots:
     bool open(const QString& filePath, int page = 1, qreal top = 0.0);
@@ -245,7 +233,7 @@ private:
     QSettings m_settings;
     QByteArray m_geometry;
 
-    // D-Bus
+#ifdef WITH_DBUS
 
     friend class MainWindowAdaptor;
 };
@@ -256,7 +244,7 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "local.qpdfview.MainWindow")
 
 public:
-    MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdaptor(mainWindow) {}
+    MainWindowAdaptor(MainWindow* mainWindow);
 
 public slots:
     bool open(const QString& filePath, int page = 1, qreal top = 0.0);
@@ -265,5 +253,11 @@ public slots:
     Q_NOREPLY void refresh(const QString& filePath, int page = 1, qreal top = 0.0);
 
 };
+
+#else
+
+};
+
+#endif // WITH_DBUS
 
 #endif // MAINWINDOW_H

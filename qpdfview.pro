@@ -3,32 +3,7 @@ include(qpdfview.pri)
 TARGET = qpdfview
 TEMPLATE = app
 
-QT += core xml gui dbus
-
-# uncomment to append the poppler headers and libraries manually
-#
-#INCLUDEPATH += /usr/include/poppler/qt4
-#LIBS += -L/usr/lib -lpoppler-qt4
-#
-#DEFINES += HAS_POPPLER_14=1 HAS_POPPLER_18=1
-
-# uncomment to use pkgconfig to find the poppler headers and libraries
-#
-CONFIG += link_pkgconfig
-PKGCONFIG += poppler-qt4
-
-system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
-system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
-
-# build-time options
-
-render_in_paint:DEFINES += RENDER_IN_PAINT
-render_from_disk:DEFINES += RENDER_FROM_DISK
-
-!print_without_cups {
-    DEFINES += PRINT_WITH_CUPS
-    LIBS += $$system(cups-config --libs)
-}
+QT += core xml gui
 
 SOURCES += \
     sources/documentview.cpp \
@@ -48,6 +23,36 @@ TRANSLATIONS += \
     translations/qpdfview_ro.ts \
     translations/qpdfview_ru.ts \
     translations/qpdfview_uk.ts
+
+# uncomment to append the poppler headers and libraries manually
+#
+#INCLUDEPATH += /usr/include/poppler/qt4
+#LIBS += -L/usr/lib -lpoppler-qt4
+#
+#DEFINES += HAS_POPPLER_14=1 HAS_POPPLER_18=1
+
+# uncomment to use pkgconfig to find the poppler headers and libraries
+#
+CONFIG += link_pkgconfig
+PKGCONFIG += poppler-qt4
+
+system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
+
+# build-time options
+
+!without_dbus {
+    DEFINES += WITH_DBUS
+    QT += dbus
+}
+
+!without_cups {
+    DEFINES += WITH_CUPS
+    LIBS += $$system(cups-config --libs)
+}
+
+render_in_paint:DEFINES += RENDER_IN_PAINT
+render_from_disk:DEFINES += RENDER_FROM_DISK
 
 # installation
 

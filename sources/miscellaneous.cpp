@@ -913,3 +913,8 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
     layout()->addWidget(m_textBrowser);
     layout()->addWidget(m_buttonBox);
 }
+
+QSize HelpDialog::sizeHint() const
+{
+    return QSize(500, 700);
+}

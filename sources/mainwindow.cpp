@@ -77,6 +77,26 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     }
 }
 
+QSize MainWindow::sizeHint() const
+{
+    return QSize(500, 700);
+}
+
+QMenu* MainWindow::createPopupMenu()
+{
+    QMenu* menu = new QMenu();
+
+    menu->addAction(m_fileToolBar->toggleViewAction());
+    menu->addAction(m_editToolBar->toggleViewAction());
+    menu->addAction(m_viewToolBar->toggleViewAction());
+    menu->addSeparator();
+    menu->addAction(m_outlineDock->toggleViewAction());
+    menu->addAction(m_metaInformationDock->toggleViewAction());
+    menu->addAction(m_thumbnailsDock->toggleViewAction());
+
+    return menu;
+}
+
 bool MainWindow::open(const QString& filePath, int page, qreal top)
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -907,10 +927,6 @@ void MainWindow::slotHighlightAllChanged(bool highlightAll)
 
 void MainWindow::createActions()
 {
-#ifdef DATA_INSTALL_PATH
-    QString dataInstallPath(DATA_INSTALL_PATH);
-#endif
-
     // open
 
     m_openAction = new QAction(tr("&Open..."), this);
@@ -933,7 +949,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_openInNewTabAction->setIcon(QIcon(dataInstallPath + "/tab-new.svg"));
+        m_openInNewTabAction->setIcon(QIcon(QString("%1/tab-new.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_openInNewTabAction->setIcon(QIcon(":/icons/tab-new.svg"));
 #endif
@@ -960,7 +976,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_refreshAction->setIcon(QIcon(dataInstallPath + "/view-refresh.svg"));
+        m_refreshAction->setIcon(QIcon(QString("%1/view-refresh.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_refreshAction->setIcon(QIcon(":/icons/view-refresh.svg"));
 #endif
@@ -1004,7 +1020,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_previousPageAction->setIcon(QIcon(dataInstallPath + "/go-previous.svg"));
+        m_previousPageAction->setIcon(QIcon(QString("%1/go-previous.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_previousPageAction->setIcon(QIcon(":/icons/go-previous.svg"));
 #endif
@@ -1024,7 +1040,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_nextPageAction->setIcon(QIcon(dataInstallPath + "/go-next.svg"));
+        m_nextPageAction->setIcon(QIcon(QString("%1/go-next.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_nextPageAction->setIcon(QIcon(":/icons/go-next.svg"));
 #endif
@@ -1068,7 +1084,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_findPreviousAction->setIcon(QIcon(dataInstallPath + "/go-up.svg"));
+        m_findPreviousAction->setIcon(QIcon(QString("%1/go-up.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_findPreviousAction->setIcon(QIcon(":/icons/go-up.svg"));
 #endif
@@ -1088,7 +1104,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_findNextAction->setIcon(QIcon(dataInstallPath + "/go-down.svg"));
+        m_findNextAction->setIcon(QIcon(QString("%1/go-down.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_findNextAction->setIcon(QIcon(":/icons/go-down.svg"));
 #endif
@@ -1108,7 +1124,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_cancelSearchAction->setIcon(QIcon(dataInstallPath + "/process-stop.svg"));
+        m_cancelSearchAction->setIcon(QIcon(QString("%1/process-stop.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_cancelSearchAction->setIcon(QIcon(":/icons/process-stop.svg"));
 #endif
@@ -1146,10 +1162,10 @@ void MainWindow::createActions()
     connect(m_pageLayoutGroup, SIGNAL(selected(QAction*)), SLOT(slotPageLayoutGroupTriggered(QAction*)));
 
 #ifdef DATA_INSTALL_PATH
-    m_onePageAction->setIcon(QIcon(dataInstallPath + "/one-page.svg"));
-    m_twoPagesAction->setIcon(QIcon(dataInstallPath + "/two-pages.svg"));
-    m_oneColumnAction->setIcon(QIcon(dataInstallPath + "/one-column.svg"));
-    m_twoColumnsAction->setIcon(QIcon(dataInstallPath + "/two-columns.svg"));
+    m_onePageAction->setIcon(QIcon(QString("%1/one-page.svg").arg(DATA_INSTALL_PATH)));
+    m_twoPagesAction->setIcon(QIcon(QString("%1/two-pages.svg").arg(DATA_INSTALL_PATH)));
+    m_oneColumnAction->setIcon(QIcon(QString("%1/one-column.svg").arg(DATA_INSTALL_PATH)));
+    m_twoColumnsAction->setIcon(QIcon(QString("%1/two-columns.svg").arg(DATA_INSTALL_PATH)));
 #else
     m_onePageAction->setIcon(QIcon(":/icons/one-page.svg"));
     m_twoPagesAction->setIcon(QIcon(":/icons/two-pages.svg"));
@@ -1179,9 +1195,9 @@ void MainWindow::createActions()
     connect(m_scaleModeGroup, SIGNAL(selected(QAction*)), SLOT(slotScaleModeGroupTriggered(QAction*)));
 
 #ifdef DATA_INSTALL_PATH
-    m_fitToPageAction->setIcon(QIcon(dataInstallPath + "/fit-to-page.svg"));
-    m_fitToPageWidthAction->setIcon(QIcon(dataInstallPath + "/fit-to-page-width.svg"));
-    m_doNotScaleAction->setIcon(QIcon(dataInstallPath + "/do-not-scale.svg"));
+    m_fitToPageAction->setIcon(QIcon(QString("%1/fit-to-page.svg").arg(DATA_INSTALL_PATH)));
+    m_fitToPageWidthAction->setIcon(QIcon(QString("%1/fit-to-page-width.svg").arg(DATA_INSTALL_PATH)));
+    m_doNotScaleAction->setIcon(QIcon(QString("%1/do-not-scale.svg").arg(DATA_INSTALL_PATH)));
 #else
     m_fitToPageAction->setIcon(QIcon(":/icons/fit-to-page.svg"));
     m_fitToPageWidthAction->setIcon(QIcon(":/icons/fit-to-page-width.svg"));
@@ -1202,7 +1218,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_zoomInAction->setIcon(QIcon(dataInstallPath + "/zoom-in.svg"));
+        m_zoomInAction->setIcon(QIcon(QString("%1/zoom-in.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_zoomInAction->setIcon(QIcon(":/icons/zoom-in.svg"));
 #endif
@@ -1220,7 +1236,7 @@ void MainWindow::createActions()
     else
     {
 #ifdef DATA_INSTALL_PATH
-        m_zoomOutAction->setIcon(QIcon(dataInstallPath + "/zoom-out.svg"));
+        m_zoomOutAction->setIcon(QIcon(QString("%1/zoom-out.svg").arg(DATA_INSTALL_PATH)));
 #else
         m_zoomOutAction->setIcon(QIcon(":/icons/zoom-out.svg"));
 #endif
@@ -1580,6 +1596,12 @@ void MainWindow::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
+#ifdef WITH_DBUS
+
+MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdaptor(mainWindow)
+{
+}
+
 bool MainWindowAdaptor::open(const QString& filePath, int page, qreal top)
 {
     MainWindow* mainWindow = qobject_cast< MainWindow* >(parent()); Q_ASSERT(mainWindow);
@@ -1620,3 +1642,5 @@ void MainWindowAdaptor::refresh(const QString& filePath, int page, qreal top)
         mainWindow->openInNewTab(filePath, page, top);
     }
 }
+
+#endif // WITH_DBUS

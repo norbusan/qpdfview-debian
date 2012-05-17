@@ -42,12 +42,10 @@ int main(int argc, char** argv)
 
 #ifdef DATA_INSTALL_PATH
 
-    QString dataInstallPath(DATA_INSTALL_PATH);
-
-    QApplication::setWindowIcon(QIcon(dataInstallPath + "/qpdfview.svg"));
+    QApplication::setWindowIcon(QIcon(QString("%1/qpdfview.svg").arg(DATA_INSTALL_PATH)));
 
     QTranslator t;
-    if(t.load(QString(dataInstallPath + "/qpdfview_") + QLocale::system().name()))
+    if(t.load(QString("%1/qpdfview_").arg(DATA_INSTALL_PATH) + QLocale::system().name()))
     {
         a.installTranslator(&t);
     }
@@ -102,6 +100,8 @@ int main(int argc, char** argv)
         }
     }
 
+#ifdef WITH_DBUS
+
     MainWindow* mainWindow = 0;
 
     if(arguments.contains("--unique"))
@@ -144,6 +144,12 @@ int main(int argc, char** argv)
     {
         mainWindow = new MainWindow();
     }
+
+#else
+
+    MainWindow* mainWindow = new MainWindow();
+
+#endif // WITH_DBUS
 
     foreach(Link link, links)
     {
