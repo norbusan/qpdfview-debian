@@ -92,8 +92,8 @@ private:
         QTime time;
         QImage image;
 
-        PageCacheValue() : time(QTime::currentTime()), image() {}
-        PageCacheValue(const QImage& image) : time(QTime::currentTime()), image(image) {}
+        PageCacheValue() : time(), image() {}
+        PageCacheValue(const QImage& image) : time(), image(image) {}
 
     };
 
@@ -271,7 +271,7 @@ signals:
     void printFinished();
 
 protected:
-    bool eventFilter(QObject*, QEvent* event);
+    bool eventFilter(QObject* object, QEvent* event);
 
     void showEvent(QShowEvent* event);
     void resizeEvent(QResizeEvent* event);
@@ -367,6 +367,8 @@ private:
 
     void clearScene();
     void clearPageCache();
+
+    void updatePageCache(const PageCacheKey& key, const PageCacheValue& value);
 
     void preparePages();
 

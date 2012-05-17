@@ -359,41 +359,10 @@ void DocumentView::PageItem::render(bool prefetch)
 
 #endif
 
-    parent->m_pageCacheMutex.lock();
-
     DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
     DocumentView::PageCacheValue value(image);
 
-    uint byteCount = image.byteCount();
-
-    if(parent->m_maximumPageCacheSize < 3 * byteCount)
-    {
-        parent->m_maximumPageCacheSize = 3 * byteCount;
-
-        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
-    }
-
-    while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
-    {
-        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator first = parent->m_pageCache.begin();
-        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator last = --parent->m_pageCache.end();
-
-        if(first.value().time < last.value().time)
-        {
-            parent->m_pageCacheSize -= first.value().image.byteCount();
-            parent->m_pageCache.remove(first.key());
-        }
-        else
-        {
-            parent->m_pageCacheSize -= last.value().image.byteCount();
-            parent->m_pageCache.remove(last.key());
-        }
-    }
-
-    parent->m_pageCacheSize += byteCount;
-    parent->m_pageCache.insert(key, value);
-
-    parent->m_pageCacheMutex.unlock();
+    parent->updatePageCache(key, value);
 
     emit parent->pageItemChanged(this);
 }
@@ -443,7 +412,10 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
         render();
     }
 
-    painter->drawImage(boundingRect(), parent->m_pageCache.value(key));
+    DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+
+    value.time = QTime::currentTime();
+    painter->drawImage(boundingRect(), value.image);
 
 #else
 
@@ -532,42 +504,10 @@ void DocumentView::ThumbnailItem::render()
 
 #endif
 
-    parent->m_pageCacheMutex.lock();
-
     DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
     DocumentView::PageCacheValue value(image);
 
-    uint byteCount = image.byteCount();
-
-    if(parent->m_maximumPageCacheSize < 3 * byteCount)
-    {
-        parent->m_maximumPageCacheSize = 3 * byteCount;
-
-        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
-    }
-
-    while(parent->m_pageCacheSize + byteCount > parent->m_maximumPageCacheSize)
-    {
-        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator first = parent->m_pageCache.begin();
-        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator last = --parent->m_pageCache.end();
-
-        if(first.value().time < last.value().time)
-        {
-            parent->m_pageCacheSize -= first.value().image.byteCount();
-            parent->m_pageCache.remove(first.key());
-        }
-        else
-        {
-            parent->m_pageCacheSize -= last.value().image.byteCount();
-            parent->m_pageCache.remove(last.key());
-        }
-    }
-
-    parent->m_pageCacheSize += byteCount;
-    parent->m_pageCache.insert(key, value);
-
-
-    parent->m_pageCacheMutex.unlock();
+    parent->updatePageCache(key, value);
 
     emit parent->thumbnailItemChanged(this);
 }
@@ -636,9 +576,10 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
-    m_view->verticalScrollBar()->installEventFilter(this);
-
     connect(m_view->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(slotVerticalScrollBarValueChanged(int)));
+
+    m_view->installEventFilter(this);
+    m_view->verticalScrollBar()->installEventFilter(this);
 
     // prefetch timer
 
@@ -1513,9 +1454,20 @@ void DocumentView::cancelPrint()
     m_print.waitForFinished();
 }
 
-bool DocumentView::eventFilter(QObject*, QEvent* event)
+bool DocumentView::eventFilter(QObject* object, QEvent* event)
 {
-    if(event->type() == QEvent::Wheel)
+    if(object == m_view && event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent* keyEvent = static_cast< QKeyEvent* >(event);
+
+        if(keyEvent->key() == Qt::Key_PageUp || keyEvent->key() == Qt::Key_PageDown)
+        {
+            keyPressEvent(keyEvent);
+
+            return true;
+        }
+    }
+    else if(object == m_view->verticalScrollBar() && event->type() == QEvent::Wheel)
     {
         QWheelEvent* wheelEvent = static_cast< QWheelEvent* >(event);
 
@@ -2069,6 +2021,42 @@ void DocumentView::clearPageCache()
     m_pageCache.clear();
     m_pageCacheSize = 0u;
     m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
+
+    m_pageCacheMutex.unlock();
+}
+
+void DocumentView::updatePageCache(const DocumentView::PageCacheKey& key, const DocumentView::PageCacheValue& value)
+{
+    m_pageCacheMutex.lock();
+
+    uint byteCount = value.image.byteCount();
+
+    if(m_maximumPageCacheSize < 3 * byteCount)
+    {
+        m_maximumPageCacheSize = 3 * byteCount;
+
+        qWarning() << tr("Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.").arg(3 * byteCount);
+    }
+
+    while(m_pageCacheSize + byteCount > m_maximumPageCacheSize)
+    {
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator first = m_pageCache.begin();
+        QMap< DocumentView::PageCacheKey, DocumentView::PageCacheValue >::const_iterator last = --m_pageCache.end();
+
+        if(first.value().time < last.value().time)
+        {
+            m_pageCacheSize -= first.value().image.byteCount();
+            m_pageCache.remove(first.key());
+        }
+        else
+        {
+            m_pageCacheSize -= last.value().image.byteCount();
+            m_pageCache.remove(last.key());
+        }
+    }
+
+    m_pageCacheSize += byteCount;
+    m_pageCache.insert(key, value);
 
     m_pageCacheMutex.unlock();
 }
