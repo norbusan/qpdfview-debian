@@ -4,42 +4,42 @@
 <context>
     <name>BookmarksMenu</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="518"/>
+        <location filename="../sources/miscellaneous.cpp" line="541"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="529"/>
+        <location filename="../sources/miscellaneous.cpp" line="552"/>
         <source>&amp;Add entry</source>
         <translation>Eintrag &amp;hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="541"/>
+        <location filename="../sources/miscellaneous.cpp" line="564"/>
         <source>&amp;Remove entries on current page</source>
         <translation>Einträge auf der &amp;aktuellen Seite entfernen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="590"/>
+        <location filename="../sources/miscellaneous.cpp" line="613"/>
         <source>%1% on page %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="594"/>
+        <location filename="../sources/miscellaneous.cpp" line="617"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="533"/>
+        <location filename="../sources/miscellaneous.cpp" line="556"/>
         <source>Go to &amp;previous entry</source>
         <translation>Gehe zu &amp;vorigem Eintrag</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="537"/>
+        <location filename="../sources/miscellaneous.cpp" line="560"/>
         <source>Go to &amp;next entry</source>
         <translation>Gehe zu &amp;nächstem Eintrag</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="545"/>
+        <location filename="../sources/miscellaneous.cpp" line="568"/>
         <source>&amp;Clear list</source>
         <translation>&amp;Liste leeren</translation>
     </message>
@@ -47,56 +47,55 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="160"/>
+        <location filename="../sources/documentview.cpp" line="166"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Gehe zu Seite %1.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="164"/>
+        <location filename="../sources/documentview.cpp" line="170"/>
         <source>Open URL &quot;%1&quot;.</source>
         <translation type="unfinished">URL &quot;%1&quot; öffnen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="196"/>
+        <location filename="../sources/documentview.cpp" line="202"/>
         <source>Information</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="196"/>
+        <location filename="../sources/documentview.cpp" line="202"/>
         <source>External links are disabled in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="260"/>
+        <location filename="../sources/documentview.cpp" line="267"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="261"/>
+        <location filename="../sources/documentview.cpp" line="268"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="363"/>
-        <location filename="../sources/documentview.cpp" line="522"/>
+        <location filename="../sources/documentview.cpp" line="2038"/>
         <source>Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.</source>
         <translation type="unfinished">Die maximale Zwischenspeichergröße ist zu klein und wurde auf %1 Bytes erhöht um mindestens drei Seiten zu speichern.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="845"/>
-        <location filename="../sources/documentview.cpp" line="932"/>
+        <location filename="../sources/documentview.cpp" line="820"/>
+        <location filename="../sources/documentview.cpp" line="907"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="845"/>
-        <location filename="../sources/documentview.cpp" line="932"/>
+        <location filename="../sources/documentview.cpp" line="820"/>
+        <location filename="../sources/documentview.cpp" line="907"/>
         <source>Please enter the password required to unlock the document file &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="849"/>
-        <location filename="../sources/documentview.cpp" line="936"/>
+        <location filename="../sources/documentview.cpp" line="824"/>
+        <location filename="../sources/documentview.cpp" line="911"/>
         <source>Could not unlock the document file &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -428,12 +427,12 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="265"/>
+        <location filename="../sources/miscellaneous.cpp" line="262"/>
         <source>Go to page %1.</source>
         <translation>Gehe zu Seite %1.</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="335"/>
+        <location filename="../sources/miscellaneous.cpp" line="349"/>
         <source>Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.</source>
         <translation type="unfinished">Die maximale Zwischenspeichergröße ist zu klein und wurde auf %1 Bytes erhöht um mindestens drei Seiten zu speichern.</translation>
     </message>
@@ -441,12 +440,12 @@
 <context>
     <name>RecentlyUsedAction</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="430"/>
+        <location filename="../sources/miscellaneous.cpp" line="453"/>
         <source>Recently &amp;used</source>
         <translation>Zuletzt &amp;verwendet</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="436"/>
+        <location filename="../sources/miscellaneous.cpp" line="459"/>
         <source>&amp;Clear list</source>
         <translation>&amp;Liste leeren</translation>
     </message>
@@ -454,74 +453,74 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="827"/>
+        <location filename="../sources/miscellaneous.cpp" line="850"/>
         <source>Auto-&amp;refresh:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="829"/>
+        <location filename="../sources/miscellaneous.cpp" line="852"/>
         <source>Fit to equal &amp;width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="831"/>
+        <location filename="../sources/miscellaneous.cpp" line="854"/>
         <source>&amp;Highlight links:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="832"/>
+        <location filename="../sources/miscellaneous.cpp" line="855"/>
         <source>External &amp;links:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="825"/>
+        <location filename="../sources/miscellaneous.cpp" line="848"/>
         <source>Restore &amp;tabs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="834"/>
+        <location filename="../sources/miscellaneous.cpp" line="857"/>
         <source>&amp;Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="840"/>
+        <location filename="../sources/miscellaneous.cpp" line="863"/>
         <source>&amp;Antialiasing:</source>
         <translation>&amp;Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="841"/>
+        <location filename="../sources/miscellaneous.cpp" line="864"/>
         <source>&amp;Text antialiasing:</source>
         <translation>&amp;Text-Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="842"/>
+        <location filename="../sources/miscellaneous.cpp" line="865"/>
         <source>Text &amp;hinting:</source>
         <translation>Text-&amp;Hinting:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="844"/>
+        <location filename="../sources/miscellaneous.cpp" line="867"/>
         <source>Maximum page &amp;cache size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="847"/>
+        <location filename="../sources/miscellaneous.cpp" line="870"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="845"/>
+        <location filename="../sources/miscellaneous.cpp" line="868"/>
         <source>&amp;Prefetch:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="784"/>
-        <location filename="../sources/miscellaneous.cpp" line="785"/>
-        <location filename="../sources/miscellaneous.cpp" line="786"/>
-        <location filename="../sources/miscellaneous.cpp" line="787"/>
-        <location filename="../sources/miscellaneous.cpp" line="788"/>
-        <location filename="../sources/miscellaneous.cpp" line="789"/>
-        <location filename="../sources/miscellaneous.cpp" line="790"/>
-        <location filename="../sources/miscellaneous.cpp" line="800"/>
+        <location filename="../sources/miscellaneous.cpp" line="807"/>
+        <location filename="../sources/miscellaneous.cpp" line="808"/>
+        <location filename="../sources/miscellaneous.cpp" line="809"/>
+        <location filename="../sources/miscellaneous.cpp" line="810"/>
+        <location filename="../sources/miscellaneous.cpp" line="811"/>
+        <location filename="../sources/miscellaneous.cpp" line="812"/>
+        <location filename="../sources/miscellaneous.cpp" line="813"/>
+        <location filename="../sources/miscellaneous.cpp" line="823"/>
         <source>%1 MB</source>
         <translation>%1 MB</translation>
     </message>
@@ -529,22 +528,22 @@
 <context>
     <name>TabBar</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="364"/>
+        <location filename="../sources/miscellaneous.cpp" line="387"/>
         <source>&amp;North</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="365"/>
+        <location filename="../sources/miscellaneous.cpp" line="388"/>
         <source>&amp;South</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="366"/>
+        <location filename="../sources/miscellaneous.cpp" line="389"/>
         <source>&amp;West</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="367"/>
+        <location filename="../sources/miscellaneous.cpp" line="390"/>
         <source>&amp;East</source>
         <translation type="unfinished"></translation>
     </message>
