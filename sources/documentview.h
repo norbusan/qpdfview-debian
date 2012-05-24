@@ -341,6 +341,7 @@ private:
     // miscellaneous
 
     QFileSystemWatcher* m_autoRefreshWatcher;
+    QTimer* m_autoRefreshTimer;
     QTimer* m_prefetchTimer;
     BookmarksMenu* m_bookmarksMenu;
     QAction* m_tabAction;

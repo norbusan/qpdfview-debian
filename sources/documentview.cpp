@@ -581,6 +581,14 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_view->installEventFilter(this);
     m_view->verticalScrollBar()->installEventFilter(this);
 
+    // auto-refresh timer
+
+    m_autoRefreshTimer = new QTimer(this);
+    m_autoRefreshTimer->setInterval(500);
+    m_autoRefreshTimer->setSingleShot(true);
+
+    connect(m_autoRefreshTimer, SIGNAL(timeout()), SLOT(refresh()));
+
     // prefetch timer
 
     m_prefetchTimer = new QTimer(this);
@@ -849,7 +857,7 @@ bool DocumentView::open(const QString& filePath)
         {
             m_autoRefreshWatcher = new QFileSystemWatcher(QStringList(filePath));
 
-            connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), SLOT(refresh()));
+            connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
         }
 
         m_filePath = filePath;
