@@ -2171,6 +2171,11 @@ void DocumentView::prepareOutline(const QDomNode& node, QTreeWidgetItem* parent,
         delete linkDestination;
     }
 
+    if(QVariant(element.attribute("Open", "false")).toBool())
+    {
+        m_outlineTreeWidget->expandItem(item);
+    }
+
     QDomNode siblingNode = node.nextSibling();
     if(!siblingNode.isNull())
     {
