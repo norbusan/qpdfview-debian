@@ -870,9 +870,9 @@ bool DocumentView::open(const QString& filePath)
 
         emit currentPageChanged(m_currentPage);
 
-        preparePages();
-
         m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
+
+        preparePages();
 
         prepareOutline();
         prepareMetaInformation();
@@ -952,8 +952,6 @@ bool DocumentView::refresh()
         }
 
         preparePages();
-
-        m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
 
         prepareOutline();
         prepareMetaInformation();

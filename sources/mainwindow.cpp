@@ -874,55 +874,90 @@ void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
 
 void MainWindow::slotFilePathChanged(const QString& filePath)
 {
-    m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
-    m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
 
-    setWindowTitle(QFileInfo(filePath).completeBaseName() + " - qpdfview");
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
+    {
+        m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+
+        setWindowTitle(QFileInfo(filePath).completeBaseName() + " - qpdfview");
+    }
 }
 
 void MainWindow::slotNumberOfPagesChanged(int numberOfPages)
 {
-    m_currentPageValidator->setRange(1, numberOfPages);
-    m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
+
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
+    {
+        m_currentPageValidator->setRange(1, numberOfPages);
+        m_numberOfPagesLabel->setText(tr(" of %1").arg(numberOfPages));
+    }
 }
 
 void MainWindow::slotCurrentPageChanged(int currentPage)
 {
-    m_currentPageLineEdit->setText(QLocale::system().toString(currentPage));
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
+
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
+    {
+        m_currentPageLineEdit->setText(QLocale::system().toString(currentPage));
+    }
 }
 
 void MainWindow::slotPageLayoutChanged(DocumentView::PageLayout pageLayout)
 {
-    foreach(QAction* action, m_pageLayoutGroup->actions())
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
+
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
     {
-        action->setChecked(action->data().toUInt() == static_cast< uint >(pageLayout));
+        foreach(QAction* action, m_pageLayoutGroup->actions())
+        {
+            action->setChecked(action->data().toUInt() == static_cast< uint >(pageLayout));
+        }
     }
 }
 
 void MainWindow::slotScaleModeChanged(DocumentView::ScaleMode scaleMode)
 {
-    foreach(QAction* action, m_scaleModeGroup->actions())
-    {
-        action->setChecked(action->data().toUInt() == static_cast< uint >(scaleMode));
-    }
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
 
-    for(int index = 0; index < m_scaleFactorComboBox->count(); index++)
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
     {
-        if(m_scaleFactorComboBox->itemData(index).toUInt() == static_cast< uint >(scaleMode))
+        foreach(QAction* action, m_scaleModeGroup->actions())
         {
-            m_scaleFactorComboBox->setCurrentIndex(index);
+            action->setChecked(action->data().toUInt() == static_cast< uint >(scaleMode));
+        }
+
+        for(int index = 0; index < m_scaleFactorComboBox->count(); index++)
+        {
+            if(m_scaleFactorComboBox->itemData(index).toUInt() == static_cast< uint >(scaleMode))
+            {
+                m_scaleFactorComboBox->setCurrentIndex(index);
+            }
         }
     }
 }
 
 void MainWindow::slotScaleFactorChanged(qreal scaleFactor)
 {
-    m_scaleFactorComboBox->setItemText(3, tr("Scale to %1%").arg(100.0 * scaleFactor, 0, 'f', 0));
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
+
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
+    {
+        m_scaleFactorComboBox->setItemText(3, tr("Scale to %1%").arg(100.0 * scaleFactor, 0, 'f', 0));
+    }
 }
 
 void MainWindow::slotHighlightAllChanged(bool highlightAll)
 {
-    m_highlightAllCheckBox->setChecked(highlightAll);
+    DocumentView* documentView = qobject_cast< DocumentView* >(sender());
+
+    if(documentView == 0 || documentView == m_tabWidget->currentWidget())
+    {
+        m_highlightAllCheckBox->setChecked(highlightAll);
+    }
 }
 
 void MainWindow::createActions()
