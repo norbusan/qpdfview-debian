@@ -56,7 +56,7 @@ PresentationView::~PresentationView()
 {
     m_render.waitForFinished();
 
-    if(m_document)
+    if(m_document != 0)
     {
         delete m_document;
     }
@@ -68,9 +68,9 @@ bool PresentationView::open(const QString& filePath)
 
     Poppler::Document* document = Poppler::Document::load(filePath);
 
-    if(document)
+    if(document != 0)
     {
-        if(m_document)
+        if(m_document != 0)
         {
             delete m_document;
         }
@@ -82,7 +82,7 @@ bool PresentationView::open(const QString& filePath)
         m_currentPage = 1;
     }
 
-    if(m_document)
+    if(m_document != 0)
     {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
@@ -585,17 +585,17 @@ void BookmarksMenu::addEntry()
 
     foreach(QAction* action, m_actionGroup->actions())
     {
-        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) == QPair<int, int>(m_currentPage, m_value))
+        if(QPair< int, int >(m_pages.value(action), m_values.value(action)) == QPair< int, int >(m_currentPage, m_value))
         {
             addItem = false;
 
             break;
         }
-        else if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_currentPage, m_value))
+        else if(QPair< int, int >(m_pages.value(action), m_values.value(action)) > QPair< int, int >(m_currentPage, m_value))
         {
             if(before)
             {
-                before = QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(before), m_values.value(before)) ? action : before;
+                before = QPair< int, int >(m_pages.value(action), m_values.value(action)) < QPair< int, int >(m_pages.value(before), m_values.value(before)) ? action : before;
             }
             else
             {
@@ -669,11 +669,11 @@ void BookmarksMenu::goToPreviousEntry()
 
     foreach(QAction* action, m_actionGroup->actions())
     {
-        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_currentPage, m_value))
+        if(QPair< int, int >(m_pages.value(action), m_values.value(action)) < QPair< int, int >(m_currentPage, m_value))
         {
             if(previous)
             {
-                previous = QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_pages.value(previous), m_values.value(previous)) ? action : previous;
+                previous = QPair< int, int >(m_pages.value(action), m_values.value(action)) > QPair< int, int >(m_pages.value(previous), m_values.value(previous)) ? action : previous;
             }
             else
             {
@@ -692,7 +692,7 @@ void BookmarksMenu::goToPreviousEntry()
 
         foreach(QAction* action, m_actionGroup->actions())
         {
-            if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_pages.value(last), m_values.value(last)))
+            if(QPair< int, int >(m_pages.value(action), m_values.value(action)) > QPair< int, int >(m_pages.value(last), m_values.value(last)))
             {
                 last = action;
             }
@@ -708,11 +708,11 @@ void BookmarksMenu::goToNextEntry()
 
     foreach(QAction* action, m_actionGroup->actions())
     {
-        if(QPair<int, int>(m_pages.value(action), m_values.value(action)) > QPair<int, int>(m_currentPage, m_value))
+        if(QPair< int, int >(m_pages.value(action), m_values.value(action)) > QPair< int, int >(m_currentPage, m_value))
         {
             if(next)
             {
-                next = QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(next), m_values.value(next)) ? action : next;
+                next = QPair< int, int >(m_pages.value(action), m_values.value(action)) < QPair< int, int >(m_pages.value(next), m_values.value(next)) ? action : next;
             }
             else
             {
@@ -731,7 +731,7 @@ void BookmarksMenu::goToNextEntry()
 
         foreach(QAction* action, m_actionGroup->actions())
         {
-            if(QPair<int, int>(m_pages.value(action), m_values.value(action)) < QPair<int, int>(m_pages.value(first), m_values.value(first)))
+            if(QPair< int, int >(m_pages.value(action), m_values.value(action)) < QPair< int, int >(m_pages.value(first), m_values.value(first)))
             {
                 first = action;
             }

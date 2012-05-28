@@ -39,7 +39,7 @@ DocumentView::PageItem::~PageItem()
 {
     m_render.waitForFinished();
 
-    if(m_page)
+    if(m_page != 0)
     {
         delete m_page;
     }
@@ -324,7 +324,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     Poppler::Document* document = Poppler::Document::load(parent->m_filePath);
 
-    if(!document)
+    if(document == 0)
     {
         qFatal("!document");
         return;
@@ -332,7 +332,7 @@ void DocumentView::PageItem::render(bool prefetch)
 
     Poppler::Page* page = document->page(m_index);
 
-    if(!page)
+    if(page == 0)
     {
         qFatal("!page");
         return;
@@ -382,7 +382,7 @@ DocumentView::ThumbnailItem::~ThumbnailItem()
 {
     m_render.waitForFinished();
 
-    if(m_page)
+    if(m_page != 0)
     {
         delete m_page;
     }
@@ -469,7 +469,7 @@ void DocumentView::ThumbnailItem::render()
 
     Poppler::Document* document = Poppler::Document::load(parent->m_filePath);
 
-    if(!document)
+    if(document == 0)
     {
         qFatal("!document");
         return;
@@ -477,7 +477,7 @@ void DocumentView::ThumbnailItem::render()
 
     Poppler::Page* page = document->page(m_index);
 
-    if(!page)
+    if(page == 0)
     {
         qFatal("!page");
         return;
@@ -658,12 +658,12 @@ DocumentView::~DocumentView()
     m_print.cancel();
     m_print.waitForFinished();
 
-    if(m_document)
+    if(m_document != 0)
     {
         delete m_document;
     }
 
-    if(m_autoRefreshWatcher)
+    if(m_autoRefreshWatcher != 0)
     {
         delete m_autoRefreshWatcher;
     }
@@ -821,7 +821,7 @@ bool DocumentView::open(const QString& filePath)
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
 
-    if(document)
+    if(document != 0)
     {
         if(document->isLocked())
         {
@@ -841,12 +841,12 @@ bool DocumentView::open(const QString& filePath)
         cancelSearch();
         cancelPrint();
 
-        if(m_document)
+        if(m_document != 0)
         {
             delete m_document;
         }
 
-        if(m_autoRefreshWatcher)
+        if(m_autoRefreshWatcher != 0)
         {
             delete m_autoRefreshWatcher;
         }
@@ -879,7 +879,7 @@ bool DocumentView::open(const QString& filePath)
         prepareThumbnails();
     }
 
-    if(m_document)
+    if(m_document != 0)
     {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
@@ -908,7 +908,7 @@ bool DocumentView::refresh()
 {
     Poppler::Document* document = Poppler::Document::load(m_filePath);
 
-    if(document)
+    if(document != 0)
     {
         if(document->isLocked())
         {
@@ -928,7 +928,7 @@ bool DocumentView::refresh()
         cancelSearch();
         cancelPrint();
 
-        if(m_document)
+        if(m_document != 0)
         {
             delete m_document;
         }
@@ -958,7 +958,7 @@ bool DocumentView::refresh()
         prepareThumbnails();
     }
 
-    if(m_document)
+    if(m_document != 0)
     {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
@@ -985,7 +985,7 @@ bool DocumentView::refresh()
 
 bool DocumentView::saveCopy(const QString& filePath)
 {
-    if(m_document)
+    if(m_document != 0)
     {
             Poppler::PDFConverter* converter = m_document->pdfConverter();
 
@@ -2126,7 +2126,7 @@ void DocumentView::prepareOutline()
 
     QDomDocument* toc = m_document->toc();
 
-    if(toc)
+    if(toc != 0)
     {
         prepareOutline(toc->firstChild(), 0, 0);
 
@@ -2140,7 +2140,7 @@ void DocumentView::prepareOutline(const QDomNode& node, QTreeWidgetItem* parent,
 
     QTreeWidgetItem* item = 0;
 
-    if(parent)
+    if(parent != 0)
     {
         item = new QTreeWidgetItem(parent);
     }
