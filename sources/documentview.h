@@ -40,8 +40,8 @@ public:
     static const qreal pageSpacing;
     static const qreal thumbnailSpacing;
 
-    static const qreal thumbnailWidth;
-    static const qreal thumbnailHeight;
+    static qreal thumbnailWidth;
+    static qreal thumbnailHeight;
 
     static const qreal zoomBy;
 

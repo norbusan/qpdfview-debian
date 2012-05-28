@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
 
     // settings
 
+    DocumentView::thumbnailWidth = m_settings.value("documentView/thumbnailWidth", DocumentView::thumbnailWidth).toReal();
+    DocumentView::thumbnailHeight = m_settings.value("documentView/thumbnailHeight", DocumentView::thumbnailHeight).toReal();
+
     DocumentView::fitToEqualWidth = m_settings.value("documentView/fitToEqualWidth", false).toBool();
 
     DocumentView::highlightLinks = m_settings.value("documentView/highlightLinks", true).toBool();

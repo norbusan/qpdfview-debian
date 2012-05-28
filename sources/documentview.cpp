@@ -5,8 +5,8 @@
 const qreal DocumentView::pageSpacing = 5.0;
 const qreal DocumentView::thumbnailSpacing = 2.5;
 
-const qreal DocumentView::thumbnailWidth = 96.0;
-const qreal DocumentView::thumbnailHeight = 144.0;
+qreal DocumentView::thumbnailWidth = 96.0;
+qreal DocumentView::thumbnailHeight = 144.0;
 
 const qreal DocumentView::zoomBy = 0.1;
 
