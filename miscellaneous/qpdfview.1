@@ -35,8 +35,8 @@ qpdfview uses a configuration file usually located at
 .RE
 "~/.config/qpdfview/qpdfview.conf", which allows
 configuration of the toolbars. The keys for toolbar
-configuration are added to the section "[mainWindow]"
-of the configuration file as comma-separated list. The
+configuration are added to the section "mainWindow"
+of the configuration file as comma-separated lists. The
 default (available) entries are:
 .RS
 fileToolBar: openInNewTab, refresh (open, saveCopy,
@@ -53,7 +53,11 @@ fitToPageWidth, doNotScale, rotateLeft, rotateRight,
 fullscreen, presentation)
 .RE
 The order of the items in the list defines the order
-of the items in the toolbars. (See examples.)
+of the items in the toolbar. (See examples.)
+
+Setting the keys "thumbnailWidth" and "thumbnailHeight"
+in the section "documentView" specifies the size of
+the thumbnails.
 
 .SH EXAMPLES
 .RS
@@ -103,7 +107,7 @@ Adding the lines
 .B rotateLeft, rotateRight
 .RE
 .RS
-in section "[mainWindow]" of the configuration file
+in section "mainWindow" of the configuration file
 leads to the corresponding items being displayed in
 the given order in the toolbars.
 
