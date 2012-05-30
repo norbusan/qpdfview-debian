@@ -17,7 +17,6 @@ HEADERS += \
     sources/mainwindow.h
 
 TRANSLATIONS += \
-    translations/qpdfview_be.ts \
     translations/qpdfview_de.ts \
     translations/qpdfview_fr.ts \
     translations/qpdfview_ro.ts \
