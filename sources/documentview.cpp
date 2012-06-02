@@ -83,17 +83,13 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
+    parent->m_documentMutex.lock();
 
-    if(!parent->m_pageCache.contains(key))
-    {
-        render(false);
-    }
+    QImage image = m_page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
 
-    DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+    parent->m_documentMutex.unlock();
 
-    value.time = QTime::currentTime();
-    painter->drawImage(boundingRect(), value.image);
+    painter->drawImage(boundingRect(), image);
 
 #else
 
@@ -426,17 +422,13 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
 #ifdef RENDER_IN_PAINT
 
-    DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
+    parent->m_documentMutex.lock();
 
-    if(!parent->m_pageCache.contains(key))
-    {
-        render();
-    }
+    QImage image = m_page->renderToImage(m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
 
-    DocumentView::PageCacheValue& value = parent->m_pageCache[key];
+    parent->m_documentMutex.unlock();
 
-    value.time = QTime::currentTime();
-    painter->drawImage(boundingRect(), value.image);
+    painter->drawImage(boundingRect(), image);
 
 #else
 

@@ -181,17 +181,13 @@ void PresentationView::paintEvent(QPaintEvent*)
 
 #ifdef RENDER_IN_PAINT
 
-    PageCacheKey key(m_currentPage - 1, m_scale);
+    Poppler::Page* page = m_document->page(m_currentPage - 1);
 
-    if(!m_pageCache.contains(key))
-    {
-        render(m_currentPage - 1);
-    }
+    QImage image = page->renderToImage(m_scale * 72.0, m_scale * 72.0);
 
-    PageCacheValue& value = m_pageCache[key];
+    delete page;
 
-    value.time = QTime::currentTime();
-    painter.drawImage(m_boundingRect, value.image);
+    painter.drawImage(m_boundingRect, image);
 
 #else
 
