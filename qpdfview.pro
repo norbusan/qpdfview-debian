@@ -3,8 +3,6 @@ include(qpdfview.pri)
 TARGET = qpdfview
 TEMPLATE = app
 
-QT += core xml gui
-
 SOURCES += \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
@@ -23,12 +21,16 @@ TRANSLATIONS += \
     translations/qpdfview_ru.ts \
     translations/qpdfview_uk.ts
 
+# libraries
+
+QT += core xml gui
+
 # uncomment to append the poppler headers and libraries manually
 #
 #INCLUDEPATH += /usr/include/poppler/qt4
 #LIBS += -L/usr/lib -lpoppler-qt4
 #
-#DEFINES += HAS_POPPLER_14=1 HAS_POPPLER_18=1
+#DEFINES += HAS_POPPLER_14 HAS_POPPLER_18
 
 # uncomment to use pkgconfig to find the poppler headers and libraries
 #
