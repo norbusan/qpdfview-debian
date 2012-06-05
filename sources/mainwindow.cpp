@@ -1531,6 +1531,8 @@ void MainWindow::createDocks()
     addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
     m_outlineDock->hide();
 
+    m_outlineDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F6));
+
     // meta-information
 
     m_metaInformationDock = new QDockWidget(tr("&Meta-information"), this);
@@ -1541,6 +1543,8 @@ void MainWindow::createDocks()
     addDockWidget(Qt::LeftDockWidgetArea, m_metaInformationDock);
     m_metaInformationDock->hide();
 
+    m_metaInformationDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F7));
+
     // thumbnails
 
     m_thumbnailsDock = new QDockWidget(tr("&Thumbnails"), this);
@@ -1550,6 +1554,8 @@ void MainWindow::createDocks()
 
     addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
     m_thumbnailsDock->hide();
+
+    m_thumbnailsDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F8));
 }
 
 void MainWindow::createMenus()
