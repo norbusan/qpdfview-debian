@@ -411,6 +411,19 @@ void MainWindow::slotLastPage()
     documentView->lastPage();
 }
 
+void MainWindow::slotJumpToPage()
+{
+    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    bool ok = false;
+    int page = QInputDialog::getInt(this, tr("Jump to page"), tr("Page:"), documentView->currentPage(), 1, documentView->numberOfPages(), 1, &ok);
+
+    if(ok)
+    {
+        documentView->setCurrentPage(page);
+    }
+}
+
 void MainWindow::slotSearch()
 {
     if(m_searchToolBar->isHidden())
@@ -702,6 +715,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_nextPageAction->setEnabled(true);
         m_firstPageAction->setEnabled(true);
         m_lastPageAction->setEnabled(true);
+        m_jumpToPageAction->setEnabled(true);
 
         m_searchAction->setEnabled(true);
         m_findPreviousAction->setEnabled(true);
@@ -767,6 +781,7 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_nextPageAction->setEnabled(false);
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
+        m_jumpToPageAction->setEnabled(false);
 
         m_searchAction->setEnabled(false);
         m_findPreviousAction->setEnabled(false);
@@ -1099,6 +1114,14 @@ void MainWindow::createActions()
     m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
     m_lastPageAction->setIconVisibleInMenu(true);
     connect(m_lastPageAction, SIGNAL(triggered()), SLOT(slotLastPage()));
+
+    // jump to page
+
+    m_jumpToPageAction = new QAction(tr("&Jump to page..."), this);
+    m_jumpToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
+    m_jumpToPageAction->setIcon(QIcon::fromTheme("go-jump"));
+    m_jumpToPageAction->setIconVisibleInMenu(true);
+    connect(m_jumpToPageAction, SIGNAL(triggered()), SLOT(slotJumpToPage()));
 
     // search
 
@@ -1579,6 +1602,7 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_nextPageAction);
     m_editMenu->addAction(m_firstPageAction);
     m_editMenu->addAction(m_lastPageAction);
+    m_editMenu->addAction(m_jumpToPageAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_searchAction);
     m_editMenu->addAction(m_findPreviousAction);

@@ -68,6 +68,7 @@ protected slots:
     void slotNextPage();
     void slotFirstPage();
     void slotLastPage();
+    void slotJumpToPage();
 
     void slotSearch();
 
@@ -141,6 +142,7 @@ private:
     QAction* m_nextPageAction;
     QAction* m_firstPageAction;
     QAction* m_lastPageAction;
+    QAction* m_jumpToPageAction;
 
     QAction* m_searchAction;
     QAction* m_findPreviousAction;
