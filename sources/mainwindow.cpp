@@ -52,6 +52,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
 
     m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings.value("mainWindow/tabPosition", static_cast< uint >(m_tabWidget->tabPosition())).toUInt()));
 
+    m_tabWidget->setTabBarAsNeeded(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
+
     // restore tabs
 
     if(m_settings.value("mainWindow/restoreTabs", false).toBool())
@@ -533,6 +535,8 @@ void MainWindow::slotSettings()
 
     if(settingsDialog.exec() == QDialog::Accepted)
     {
+        m_tabWidget->setTabBarAsNeeded(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
+
         DocumentView::fitToEqualWidth = m_settings.value("documentView/fitToEqualWidth", false).toBool();
 
         DocumentView::highlightLinks = m_settings.value("documentView/highlightLinks", true).toBool();
