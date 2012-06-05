@@ -81,19 +81,23 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <ul>
 	<li><b>Next/Previous/First/Last page</b> Displays the next/previous/first/last page of the document in the current tab. Without effect if the last/first/first/last page of the document is currently displayed.</li>
+        <li><b>Jump to page...</b> Opens a dialog to enter the page to display in the current tab.</li>
 	<li><b>Search...</b> Opens a search toolbar at the bottom of the window. The search starts if characters have been entered into the search field and no further character is entered for two seconds. The search can be started manually by pressing the return key. If a search is currently running when a new search is started, the currently running search is aborted. If another tab is selected, the search is aborted and the search field is cleared. The search toolbar can be closed by pressing the escape key.</li>
 	<li><b>Find previous/next</b> If a search has been conducted, jumps to the previous/next occurrence of the search term in the document. Without effect, if no search has been conducted.</li>
 	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
 	<li><b>Settings...</b> Opens the settings dialogue.
 		<ul>
+                        <li><b>Tab bar as needed</b> The tab bar is hidden if there are less than two tabs.</li>
+                        <li><b>Restore tabs</b> If this is activated, the program will save the tabs and their properties in the configuration files on closing the window and restore them on restart. If this is deactivated, that information will be removed from the configuration files.</li>
 			<li><b>Auto-refresh</b> Files are reloaded if they change on disk.</li>
-			<li><b>External links</b> External links are opened in the default browser if this is activated. (External links may be malicious, therefore this is deactivated by default.)</li>
-			<li><b>Restore tabs</b> If this is activated, the program will save the tabs and their properties in the configuration files on closing the window and restore them on restart. If this is deactivated, that information will be removed from the configuration files.</li>
+                        <li><b>Fit to equal width</b> If the page layout is 'Two pages' or 'Two columns', the pages of each row are scaled to equal width.</li>
+                        <li><b>Highlight links</b> Links are highlighted by red frames.</li>
+                        <li><b>External links</b> External links are opened in the default browser. (External links may be malicious, therefore it is deactivated by default.)</li>
 			<li><b>Antialiasing</b> Improves display quality at the cost of performance.</li>
 			<li><b>Text antialiasing</b> Improves text display quality at the cost of performance.</li>
 			<li><b>Text hinting</b> May improve text readability on computer displays.</li>
-			<li><b>Maximum page cache size</b> Sets the maximum size for the page cache for each tab to limit the memory usage of qpdfview. Be aware though that this is only a part of the overall memory usage of qpdfview. The page cache will be increased automatically and temporarily to hold at least three pages. This can lead to a large cache when using a large scale factor and a high-resolution computer display.</li>
-			<li><b>Prefetch</b> If this is activated, the program will try to render some pages that are not yet visible at the cost of increased page cache usage.</li>
+                        <li><b>Maximum page cache size</b> Sets the maximum size for the page cache for each tab to limit the memory usage of qpdfview. Be aware though that this is only a part of the overall memory usage of qpdfview. (The page cache will be increased automatically and temporarily to hold at least three pages. This can lead to a large cache when using a large scale factor and a high-resolution computer display.)</li>
+                        <li><b>Prefetch</b> The program will try to render some pages that are not yet visible at the cost of increased page cache usage.</li>
 		</ul>
 	</li>
 </ul>
@@ -154,7 +158,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h4><a name="links">Links</a> <a href="#top">&uarr;</a></h4>
 
-<p>Links are highlighted by red frames (which may be obscured by the formatting specified inside the document). Hovering over a link with the mouse shows a tooltip with the link destination. Left-clicking on a link shows the linked page in the current tab or opens the linked URL in the default browser (if this is enabled in the settings).</p>
+<p>Links are highlighted by red frames (if not disabled in the settings). Hovering over a link with the mouse shows a tooltip with the link destination. Left-clicking on a link shows the linked page in the current tab or opens the linked URL in the default browser (if enabled in the settings).</p>
 
 <h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
 
