@@ -434,7 +434,7 @@ void TabWidget::setTabBarAsNeeded(bool tabBarAsNeeded)
 {
     m_tabBarAsNeeded = tabBarAsNeeded;
 
-    tabBar()->setVisible(!m_tabBarAsNeeded);
+    tabBar()->setVisible(!m_tabBarAsNeeded || count() > 1);
 }
 
 void TabWidget::tabInserted(int)
