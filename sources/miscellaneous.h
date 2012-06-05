@@ -163,9 +163,20 @@ protected:
 class TabWidget : public QTabWidget
 {
     Q_OBJECT
+    Q_PROPERTY(bool tabBarAsNeeded READ tabBarAsNeeded WRITE setTabBarAsNeeded)
 
 public:
     TabWidget(QWidget* parent = 0);
+
+    bool tabBarAsNeeded() const;
+    void setTabBarAsNeeded(bool tabBarAsNeeded);
+
+protected:
+    void tabInserted(int);
+    void tabRemoved(int);
+
+private:
+    bool m_tabBarAsNeeded;
 
 };
 

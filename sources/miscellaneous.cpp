@@ -419,9 +419,38 @@ void TabBar::mousePressEvent(QMouseEvent* event)
 
 // tab widget
 
-TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent)
+TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
+    m_tabBarAsNeeded(false)
 {
     setTabBar(new TabBar(this));
+}
+
+bool TabWidget::tabBarAsNeeded() const
+{
+    return m_tabBarAsNeeded;
+}
+
+void TabWidget::setTabBarAsNeeded(bool tabBarAsNeeded)
+{
+    m_tabBarAsNeeded = tabBarAsNeeded;
+
+    tabBar()->setVisible(!m_tabBarAsNeeded);
+}
+
+void TabWidget::tabInserted(int)
+{
+    if(m_tabBarAsNeeded)
+    {
+        tabBar()->setVisible(count() > 1);
+    }
+}
+
+void TabWidget::tabRemoved(int)
+{
+    if(m_tabBarAsNeeded)
+    {
+        tabBar()->setVisible(count() > 1);
+    }
 }
 
 // line edit
