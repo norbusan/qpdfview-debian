@@ -307,7 +307,7 @@ private:
     QWidget* m_behaviourWidget;
     QFormLayout* m_behaviourLayout;
 
-    QCheckBox* m_tabBarAsNeedCheckBox;
+    QCheckBox* m_tabBarAsNeededCheckBox;
 
     QCheckBox* m_restoreTabsCheckBox;
 

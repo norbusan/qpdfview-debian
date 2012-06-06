@@ -794,8 +794,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 {
     // tab bar as needed
 
-    m_tabBarAsNeedCheckBox = new QCheckBox(this);
-    m_tabBarAsNeedCheckBox->setChecked(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
+    m_tabBarAsNeededCheckBox = new QCheckBox(this);
+    m_tabBarAsNeededCheckBox->setChecked(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
 
     // restore tabs
 
@@ -875,7 +875,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_behaviourLayout = new QFormLayout(m_behaviourWidget);
     m_behaviourWidget->setLayout(m_behaviourLayout);
 
-    m_behaviourLayout->addRow(tr("Tab bar as &needed:"), m_tabBarAsNeedCheckBox);
+    m_behaviourLayout->addRow(tr("Tab bar as &needed:"), m_tabBarAsNeededCheckBox);
 
     m_behaviourLayout->addRow(tr("Restore &tabs:"), m_restoreTabsCheckBox);
 
@@ -904,7 +904,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 
 void SettingsDialog::accept()
 {
-    m_settings.setValue("mainWindow/tabBarAsNeeded", m_tabBarAsNeedCheckBox->isChecked());
+    m_settings.setValue("mainWindow/tabBarAsNeeded", m_tabBarAsNeededCheckBox->isChecked());
+
     m_settings.setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
 
     m_settings.setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
