@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     QApplication::setOrganizationDomain("local.qpdfview");
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
-    QApplication::setApplicationVersion("0.3beta1");
+    QApplication::setApplicationVersion("0.3beta2");
 
 #ifdef DATA_INSTALL_PATH
 
