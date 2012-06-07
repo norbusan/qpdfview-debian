@@ -376,32 +376,63 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 
 void TabBar::contextMenuEvent(QContextMenuEvent* event)
 {
-    QTabBar::contextMenuEvent(event);
-
     QMenu menu(this);
 
+    QAction* asNeededAction = menu.addAction(tr("&As needed"));
+    menu.addSeparator();
     QAction* northAction = menu.addAction(tr("&North"));
     QAction* southAction = menu.addAction(tr("&South"));
     QAction* westAction = menu.addAction(tr("&West"));
     QAction* eastAction = menu.addAction(tr("&East"));
 
-    QAction* positionAction = menu.exec(event->globalPos());
-
     TabWidget* tabWidget = qobject_cast< TabWidget* >(parent()); Q_ASSERT(tabWidget);
 
-    if(positionAction == northAction)
+    asNeededAction->setCheckable(true);
+
+    asNeededAction->setChecked(tabWidget->tabBarAsNeeded());
+
+    northAction->setCheckable(true);
+    southAction->setCheckable(true);
+    westAction->setCheckable(true);
+    eastAction->setCheckable(true);
+
+    QActionGroup positionGroup(this);
+    positionGroup.addAction(northAction);
+    positionGroup.addAction(southAction);
+    positionGroup.addAction(westAction);
+    positionGroup.addAction(eastAction);
+
+    switch(tabWidget->tabPosition())
+    {
+    case QTabWidget::North:
+        northAction->setChecked(true); break;
+    case QTabWidget::South:
+        southAction->setChecked(true); break;
+    case QTabWidget::West:
+        westAction->setChecked(true); break;
+    case QTabWidget::East:
+        eastAction->setChecked(true); break;
+    }
+
+    QAction* action = menu.exec(event->globalPos());
+
+    if(action == asNeededAction)
+    {
+        tabWidget->setTabBarAsNeeded(asNeededAction->isChecked());
+    }
+    else if(action == northAction)
     {
         tabWidget->setTabPosition(QTabWidget::North);
     }
-    else if(positionAction == southAction)
+    else if(action == southAction)
     {
         tabWidget->setTabPosition(QTabWidget::South);
     }
-    else if(positionAction == westAction)
+    else if(action == westAction)
     {
         tabWidget->setTabPosition(QTabWidget::West);
     }
-    else if(positionAction == eastAction)
+    else if(action == eastAction)
     {
         tabWidget->setTabPosition(QTabWidget::East);
     }
@@ -492,9 +523,12 @@ RecentlyUsedAction::RecentlyUsedAction(QObject* parent) : QAction(tr("Recently &
 
     foreach(QString filePath, filePaths)
     {
+        QFileInfo fileInfo(filePath);
+
         QAction* action = new QAction(this);
-        action->setText(filePath);
-        action->setData(filePath);
+        action->setText(fileInfo.completeBaseName());
+        action->setToolTip(fileInfo.absoluteFilePath());
+        action->setData(fileInfo.absoluteFilePath());
 
         m_actionGroup->addAction(action);
         menu()->insertAction(m_separator, action);
@@ -799,6 +833,18 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_tabBarAsNeededCheckBox = new QCheckBox(this);
     m_tabBarAsNeededCheckBox->setChecked(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
 
+    // tab position
+
+    m_tabPositionComboBox = new QComboBox(this);
+    m_tabPositionComboBox->addItem(tr("North"), QTabWidget::North);
+    m_tabPositionComboBox->addItem(tr("South"), QTabWidget::South);
+    m_tabPositionComboBox->addItem(tr("West"), QTabWidget::West);
+    m_tabPositionComboBox->addItem(tr("East"), QTabWidget::East);
+
+    uint tabPosition = m_settings.value("mainWindow/tabPosition", 0).toUInt();
+
+    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(tabPosition));
+
     // restore tabs
 
     m_restoreTabsCheckBox = new QCheckBox(this);
@@ -878,6 +924,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
     m_behaviourWidget->setLayout(m_behaviourLayout);
 
     m_behaviourLayout->addRow(tr("Tab bar as &needed:"), m_tabBarAsNeededCheckBox);
+    m_behaviourLayout->addRow(tr("Tab &position:"), m_tabPositionComboBox);
 
     m_behaviourLayout->addRow(tr("Restore &tabs:"), m_restoreTabsCheckBox);
 
@@ -907,6 +954,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent),
 void SettingsDialog::accept()
 {
     m_settings.setValue("mainWindow/tabBarAsNeeded", m_tabBarAsNeededCheckBox->isChecked());
+    m_settings.setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
 
     m_settings.setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
 

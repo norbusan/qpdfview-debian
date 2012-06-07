@@ -50,9 +50,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     restoreGeometry(m_settings.value("mainWindow/geometry").toByteArray());
     restoreState(m_settings.value("mainWindow/state").toByteArray());
 
-    m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings.value("mainWindow/tabPosition", static_cast< uint >(m_tabWidget->tabPosition())).toUInt()));
-
     m_tabWidget->setTabBarAsNeeded(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
+    m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings.value("mainWindow/tabPosition", static_cast< uint >(QTabWidget::North)).toUInt()));
 
     // restore tabs
 
@@ -233,6 +232,7 @@ void MainWindow::closeEvent(QCloseEvent*)
 
     m_settings.setValue("mainWindow/state", saveState());
 
+    m_settings.setValue("mainWindow/tabBarAsNeeded", m_tabWidget->tabBarAsNeeded());
     m_settings.setValue("mainWindow/tabPosition", static_cast< uint >(m_tabWidget->tabPosition()));
 }
 
@@ -533,11 +533,17 @@ void MainWindow::slotCancelSearch()
 
 void MainWindow::slotSettings()
 {
+    m_settings.setValue("mainWindow/tabBarAsNeeded", m_tabWidget->tabBarAsNeeded());
+    m_settings.setValue("mainWindow/tabPosition", static_cast< uint >(m_tabWidget->tabPosition()));
+
+    m_settings.sync();
+
     SettingsDialog settingsDialog;
 
     if(settingsDialog.exec() == QDialog::Accepted)
     {
         m_tabWidget->setTabBarAsNeeded(m_settings.value("mainWindow/tabBarAsNeeded", false).toBool());
+        m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings.value("mainWindow/tabPosition", static_cast< uint >(QTabWidget::North)).toUInt()));
 
         DocumentView::fitToEqualWidth = m_settings.value("documentView/fitToEqualWidth", false).toBool();
 

@@ -308,6 +308,7 @@ private:
     QFormLayout* m_behaviourLayout;
 
     QCheckBox* m_tabBarAsNeededCheckBox;
+    QComboBox* m_tabPositionComboBox;
 
     QCheckBox* m_restoreTabsCheckBox;
 

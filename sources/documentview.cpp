@@ -281,12 +281,12 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
         QMenu menu(parent);
 
-        QAction *copyTextAction = menu.addAction(tr("Copy &text"));
-        QAction *copyImageAction = menu.addAction(tr("Copy &image"));
+        QAction* copyTextAction = menu.addAction(tr("Copy &text"));
+        QAction* copyImageAction = menu.addAction(tr("Copy &image"));
 
-        QAction *copyAction = menu.exec(event->screenPos());
+        QAction* action = menu.exec(event->screenPos());
 
-        if(copyAction == copyTextAction)
+        if(action == copyTextAction)
         {
             parent->m_documentMutex.lock();
 
@@ -299,7 +299,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
                 QApplication::clipboard()->setText(text);
             }
         }
-        else if(copyAction == copyImageAction)
+        else if(action == copyImageAction)
         {
             parent->m_documentMutex.lock();
 
