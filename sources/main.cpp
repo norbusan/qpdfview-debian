@@ -79,7 +79,7 @@ int main(int argc, char** argv)
             QStringList fields = argument.split('#');
             Link link;
 
-            link.filePath = fields.at(0);
+            link.filePath = QFileInfo(fields.at(0)).absoluteFilePath();
 
             if(fields.count() > 1)
             {
@@ -93,10 +93,7 @@ int main(int argc, char** argv)
                 link.top = qMin(link.top, 1.0);
             }
 
-            if(QFileInfo(link.filePath).exists())
-            {
-                links.append(link);
-            }
+            links.append(link);
         }
     }
 

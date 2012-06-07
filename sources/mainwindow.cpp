@@ -116,7 +116,7 @@ bool MainWindow::open(const QString& filePath, int page, qreal top)
         }
         else
         {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).completeBaseName()));
 
             return false;
         }
@@ -133,8 +133,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
 
     if(documentView->open(filePath))
     {
-        int index = m_tabWidget->addTab(documentView, QFileInfo(filePath).completeBaseName());
-        m_tabWidget->setTabToolTip(index, QFileInfo(filePath).completeBaseName());
+        QFileInfo fileInfo(filePath);
+
+        int index = m_tabWidget->addTab(documentView, fileInfo.completeBaseName());
+        m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
         m_tabWidget->setCurrentIndex(index);
 
         m_tabMenu->addAction(documentView->tabAction());
@@ -162,7 +164,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
     {
         delete documentView;
 
-        QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).fileName()));
+        QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).completeBaseName()));
 
         return false;
     }
@@ -250,7 +252,7 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         foreach(QUrl url, event->mimeData()->urls())
         {
-            if(url.scheme() == "file" && QFileInfo(url.path()).exists())
+            if(url.scheme() == "file")
             {
                 openInNewTab(url.path());
             }
@@ -282,7 +284,7 @@ void MainWindow::slotOpen()
             {
                 m_recentlyUsedAction->addEntry(filePath);
 
-                m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+                m_settings.setValue("mainWindow/path", QFileInfo(filePath).absolutePath());
             }
         }
     }
@@ -306,7 +308,7 @@ void MainWindow::slotOpenInNewTab()
         {
             m_recentlyUsedAction->addEntry(filePath);
 
-            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            m_settings.setValue("mainWindow/path", QFileInfo(filePath).absolutePath());
         }
     }
 
@@ -339,11 +341,11 @@ void MainWindow::slotSaveCopy()
 
         if(documentView->saveCopy(filePath))
         {
-            m_settings.setValue("mainWindow/path", QFileInfo(filePath).path());
+            m_settings.setValue("mainWindow/path", QFileInfo(filePath).absolutePath());
         }
         else
         {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at \"%1\".").arg(QFileInfo(filePath).filePath()));
+            QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at \"%1\".").arg(filePath));
         }
     }
 }
@@ -629,7 +631,7 @@ void MainWindow::slotPresentation()
         {
             delete presentationView;
 
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).fileName()));
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).completeBaseName()));
         }
     }
 }
@@ -687,8 +689,10 @@ void MainWindow::slotCloseAllTabsButCurrentTab()
 
         slotCloseAllTabs();
 
-        int index = m_tabWidget->addTab(documentView, QFileInfo(documentView->filePath()).completeBaseName());
-        m_tabWidget->setTabToolTip(index, QFileInfo(documentView->filePath()).completeBaseName());
+        QFileInfo fileInfo(documentView->filePath());
+
+        int index = m_tabWidget->addTab(documentView, fileInfo.completeBaseName());
+        m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
         m_tabWidget->setCurrentIndex(index);
     }
 }
@@ -900,10 +904,12 @@ void MainWindow::slotFilePathChanged(const QString& filePath)
 
     if(documentView == 0 || documentView == m_tabWidget->currentWidget())
     {
-        m_tabWidget->setTabText(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
-        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), QFileInfo(filePath).completeBaseName());
+        QFileInfo fileInfo(filePath);
 
-        setWindowTitle(QFileInfo(filePath).completeBaseName() + " - qpdfview");
+        m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
+        m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
+
+        setWindowTitle(fileInfo.completeBaseName() + " - qpdfview");
     }
 }
 
@@ -1693,12 +1699,13 @@ void MainWindowAdaptor::refresh(const QString& filePath, int page, qreal top)
     MainWindow* mainWindow = qobject_cast< MainWindow* >(parent()); Q_ASSERT(mainWindow);
 
     bool openInNewTab = true;
+    QFileInfo fileInfo(filePath);
 
     for(int index = 0; index < mainWindow->m_tabWidget->count(); index++)
     {
         DocumentView* documentView = qobject_cast< DocumentView* >(mainWindow->m_tabWidget->widget(index)); Q_ASSERT(documentView);
 
-        if(QFileInfo(documentView->filePath()).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
+        if(QFileInfo(documentView->filePath()).absoluteFilePath() == fileInfo.absoluteFilePath())
         {
             documentView->refresh();
             documentView->setCurrentPage(page, top);
@@ -1709,7 +1716,7 @@ void MainWindowAdaptor::refresh(const QString& filePath, int page, qreal top)
         }
     }
 
-    if(openInNewTab && QFileInfo(filePath).exists())
+    if(openInNewTab)
     {
         mainWindow->openInNewTab(filePath, page, top);
     }

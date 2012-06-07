@@ -518,17 +518,19 @@ RecentlyUsedAction::~RecentlyUsedAction()
 void RecentlyUsedAction::addEntry(const QString& filePath)
 {
     bool addItem = true;
+    QFileInfo fileInfo(filePath);
 
     foreach(QAction* action, m_actionGroup->actions())
     {
-        addItem = addItem && action->data().toString() != QFileInfo(filePath).absoluteFilePath();
+        addItem = addItem && action->data().toString() != fileInfo.absoluteFilePath();
     }
 
     if(addItem)
     {
         QAction* action = new QAction(this);
-        action->setText(QFileInfo(filePath).completeBaseName());
-        action->setData(QFileInfo(filePath).absoluteFilePath());
+        action->setText(fileInfo.completeBaseName());
+        action->setToolTip(fileInfo.absoluteFilePath());
+        action->setData(fileInfo.absoluteFilePath());
 
         m_actionGroup->addAction(action);
         menu()->insertAction(m_separator, action);

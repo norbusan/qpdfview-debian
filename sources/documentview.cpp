@@ -883,7 +883,10 @@ bool DocumentView::open(const QString& filePath)
 
         emit currentPageChanged(m_currentPage);
 
-        m_tabAction->setText(QFileInfo(m_filePath).completeBaseName());
+        QFileInfo fileInfo(m_filePath);
+
+        m_tabAction->setText(fileInfo.completeBaseName());
+        m_tabAction->setToolTip(fileInfo.absoluteFilePath());
 
         preparePages();
 
@@ -1947,7 +1950,9 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
             qDebug() << "CUPS:" << options[i].name << options[i].value;
         }
 
-        int jobId = cupsPrintFile(dest->name, QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+        QFileInfo fileInfo(m_filePath);
+
+        int jobId = cupsPrintFile(dest->name, fileInfo.absoluteFilePath().toLocal8Bit(), fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
 
         cupsFreeDests(num_dests, dests);
         cupsFreeOptions(num_options, options);
