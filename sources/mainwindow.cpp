@@ -1507,6 +1507,7 @@ void MainWindow::createToolBars()
         else if(entry == "nextPage") { m_editToolBar->addAction(m_nextPageAction); }
         else if(entry == "firstPage") { m_editToolBar->addAction(m_firstPageAction); }
         else if(entry == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
+        else if(entry == "jumpToPage") { m_editToolBar->addAction(m_jumpToPageAction); }
         else if(entry == "search") { m_editToolBar->addAction(m_searchAction); }
     }
 
