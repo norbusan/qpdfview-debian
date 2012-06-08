@@ -93,6 +93,8 @@ protected slots:
     void slotRotateLeft();
     void slotRotateRight();
 
+    void slotFonts();
+
     void slotFullscreen();
     void slotPresentation();
 
@@ -167,6 +169,8 @@ private:
 
     QAction* m_rotateLeftAction;
     QAction* m_rotateRightAction;
+
+    QAction* m_fontsAction;
 
     QAction* m_fullscreenAction;
     QAction* m_presentationAction;

@@ -830,6 +830,42 @@ QGraphicsView* DocumentView::thumbnailsGraphicsView() const
     return m_thumbnailsGraphicsView;
 }
 
+QTableWidget* DocumentView::fontsTableWidget()
+{
+    QTableWidget* fontsTableWidget = new QTableWidget();
+
+    fontsTableWidget->setAlternatingRowColors(true);
+    fontsTableWidget->setSortingEnabled(true);
+    fontsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    fontsTableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+    fontsTableWidget->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+    fontsTableWidget->verticalHeader()->setVisible(false);
+
+    m_documentMutex.lock();
+
+    QList< Poppler::FontInfo > fonts = m_document->fonts();
+
+    m_documentMutex.unlock();
+
+    fontsTableWidget->setRowCount(fonts.count());
+    fontsTableWidget->setColumnCount(5);
+
+    fontsTableWidget->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
+
+    for(int index = 0; index < fonts.count(); index++)
+    {
+        Poppler::FontInfo font = fonts.at(index);
+
+        fontsTableWidget->setItem(index, 0,new QTableWidgetItem(font.name()));
+        fontsTableWidget->setItem(index, 1, new QTableWidgetItem(font.typeName()));
+        fontsTableWidget->setItem(index, 2, new QTableWidgetItem(font.isEmbedded() ? tr("Yes") : tr("No")));
+        fontsTableWidget->setItem(index, 3, new QTableWidgetItem(font.isSubset() ? tr("Yes") : tr("No")));
+        fontsTableWidget->setItem(index, 4, new QTableWidgetItem(font.file()));
+    }
+
+    return fontsTableWidget;
+}
+
 bool DocumentView::open(const QString& filePath)
 {
     Poppler::Document* document = Poppler::Document::load(filePath);

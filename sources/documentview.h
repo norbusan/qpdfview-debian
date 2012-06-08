@@ -239,6 +239,8 @@ public:
     QTableWidget* metaInformationTableWidget() const;
     QGraphicsView* thumbnailsGraphicsView() const;
 
+    QTableWidget* fontsTableWidget();
+
 public slots:
     bool open(const QString& filePath);
     bool refresh();

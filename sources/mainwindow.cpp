@@ -601,6 +601,27 @@ void MainWindow::slotRotateRight()
     documentView->rotateRight();
 }
 
+void MainWindow::slotFonts()
+{
+    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    QTableWidget* fontsTableWidget = documentView->fontsTableWidget();
+
+    QDialog dialog(this);
+
+    QDialogButtonBox buttonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
+    connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    dialog.setLayout(new QVBoxLayout());
+    dialog.layout()->addWidget(fontsTableWidget);
+    dialog.layout()->addWidget(&buttonBox);
+
+    dialog.exec();
+
+    delete fontsTableWidget;
+}
+
 void MainWindow::slotFullscreen()
 {
     if(m_fullscreenAction->isChecked())
@@ -746,6 +767,8 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
         m_rotateLeftAction->setEnabled(true);
         m_rotateRightAction->setEnabled(true);
 
+        m_fontsAction->setEnabled(true);
+
         m_presentationAction->setEnabled(true);
 
         m_previousTabAction->setEnabled(true);
@@ -813,6 +836,8 @@ void MainWindow::slotTabWidgetCurrentChanged(int index)
 
         m_rotateLeftAction->setEnabled(false);
         m_rotateRightAction->setEnabled(false);
+
+        m_fontsAction->setEnabled(false);
 
         m_presentationAction->setEnabled(false);
 
@@ -1333,6 +1358,11 @@ void MainWindow::createActions()
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(slotRotateRight()));
 
+    // fonts
+
+    m_fontsAction = new QAction(tr("Fonts..."), this);
+    connect(m_fontsAction, SIGNAL(triggered()), SLOT(slotFonts()));
+
     // fullscreen
 
     m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
@@ -1659,6 +1689,8 @@ void MainWindow::createMenus()
     docksMenu->addAction(m_outlineDock->toggleViewAction());
     docksMenu->addAction(m_metaInformationDock->toggleViewAction());
     docksMenu->addAction(m_thumbnailsDock->toggleViewAction());
+
+    m_viewMenu->addAction(m_fontsAction);
 
     m_viewMenu->addAction(m_fullscreenAction);
     m_viewMenu->addAction(m_presentationAction);
