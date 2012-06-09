@@ -605,21 +605,13 @@ void MainWindow::slotFonts()
 {
     DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
-    QTableWidget* fontsTableWidget = documentView->fontsTableWidget();
+    FontsDialog fontsDialog(documentView->fontsTableWidget());
 
-    QDialog dialog(this);
+    fontsDialog.resize(m_settings.value("mainWindow/fontsDialogSize", fontsDialog.sizeHint()).toSize());
 
-    QDialogButtonBox buttonBox(QDialogButtonBox::Close, Qt::Horizontal, &dialog);
-    connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
-    connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+    fontsDialog.exec();
 
-    dialog.setLayout(new QVBoxLayout());
-    dialog.layout()->addWidget(fontsTableWidget);
-    dialog.layout()->addWidget(&buttonBox);
-
-    dialog.exec();
-
-    delete fontsTableWidget;
+    m_settings.setValue("mainWindow/fontsDialogSize", fontsDialog.size());
 }
 
 void MainWindow::slotFullscreen()
@@ -642,24 +634,21 @@ void MainWindow::slotFullscreen()
 
 void MainWindow::slotPresentation()
 {
-    if(m_tabWidget->currentIndex() != -1)
+    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+    PresentationView* presentationView = new PresentationView();
+
+    if(presentationView->open(documentView->filePath()))
     {
-        DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-        PresentationView* presentationView = new PresentationView();
+        presentationView->setCurrentPage(documentView->currentPage());
 
-        if(presentationView->open(documentView->filePath()))
-        {
-            presentationView->setCurrentPage(documentView->currentPage());
+        presentationView->show();
+        presentationView->setAttribute(Qt::WA_DeleteOnClose);
+    }
+    else
+    {
+        delete presentationView;
 
-            presentationView->show();
-            presentationView->setAttribute(Qt::WA_DeleteOnClose);
-        }
-        else
-        {
-            delete presentationView;
-
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).completeBaseName()));
-        }
+        QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(documentView->filePath()).completeBaseName()));
     }
 }
 
@@ -728,7 +717,11 @@ void MainWindow::slotContents()
 {
     HelpDialog helpDialog;
 
+    helpDialog.resize(m_settings.value("mainWindow/helpDialogSize", helpDialog.sizeHint()).toSize());
+
     helpDialog.exec();
+
+    m_settings.setValue("mainWindow/helpDialogSize", helpDialog.size());
 }
 
 void MainWindow::slotAbout()

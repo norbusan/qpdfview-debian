@@ -335,6 +335,22 @@ private:
 
 };
 
+// fonts dialog
+
+class FontsDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit FontsDialog(QTableWidget* fontsTableWidget, QWidget* parent = 0);
+
+    QSize sizeHint() const;
+
+private:
+    QDialogButtonBox* m_buttonBox;
+
+};
+
 // help dialog
 
 class HelpDialog : public QDialog

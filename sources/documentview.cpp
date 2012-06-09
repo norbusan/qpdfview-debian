@@ -838,6 +838,7 @@ QTableWidget* DocumentView::fontsTableWidget()
     fontsTableWidget->setSortingEnabled(true);
     fontsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     fontsTableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+    fontsTableWidget->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
     fontsTableWidget->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
     fontsTableWidget->verticalHeader()->setVisible(false);
 

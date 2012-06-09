@@ -977,6 +977,24 @@ void SettingsDialog::accept()
     QDialog::accept();
 }
 
+// fonts dialog
+
+FontsDialog::FontsDialog(QTableWidget* fontsTableWidget, QWidget* parent) : QDialog(parent)
+{
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, this);
+    connect(m_buttonBox, SIGNAL(accepted()), SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), SLOT(reject()));
+
+    setLayout(new QVBoxLayout());
+    layout()->addWidget(fontsTableWidget);
+    layout()->addWidget(m_buttonBox);
+}
+
+QSize FontsDialog::sizeHint() const
+{
+    return QSize(500, 350);
+}
+
 // help dialog
 
 HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
