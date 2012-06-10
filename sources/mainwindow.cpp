@@ -156,6 +156,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
         connect(documentView, SIGNAL(highlightAllChanged(bool)), SLOT(slotHighlightAllChanged(bool)));
 
         documentView->setCurrentPage(page, top);
+
         documentView->setFocus();
 
         return true;
