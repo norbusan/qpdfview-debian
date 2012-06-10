@@ -410,7 +410,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Info</translation>
+        <translation type="unfinished">Ü&amp;ber</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
@@ -549,7 +549,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="927"/>
         <source>Tab &amp;position:</source>
-        <translation type="unfinished">Tab-&amp;Position</translation>
+        <translation type="unfinished">Tab-&amp;Position:</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="929"/>
