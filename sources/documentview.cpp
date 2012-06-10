@@ -1929,9 +1929,23 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
             num_options = cupsAddOption(dest->options[i].name, dest->options[i].value, num_options, &options);
         }
 
-        // from page to page
+        // page layout and range
 
-        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+        switch(m_pageLayout)
+        {
+        case OnePage:
+        case OneColumn:
+            num_options = cupsAddOption("number-up", QString("%1").arg(1).toLocal8Bit(), num_options, &options);
+            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+
+            break;
+        case TwoPages:
+        case TwoColumns:
+            num_options = cupsAddOption("number-up", QString("%1").arg(2).toLocal8Bit(), num_options, &options);
+            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage % 2 == 0 ? fromPage / 2 : (fromPage + 1) / 2).arg(toPage % 2 == 0 ? toPage / 2 : (toPage + 1) / 2).toLocal8Bit(), num_options, &options);
+
+            break;
+        }
 
         // copy count
 
@@ -1946,16 +1960,13 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
         switch(printer->duplex())
         {
         case QPrinter::DuplexNone:
-            num_options = cupsAddOption("sides", "one-sided", num_options, &options);
-            break;
+            num_options = cupsAddOption("sides", "one-sided", num_options, &options); break;
         case QPrinter::DuplexAuto:
             break;
         case QPrinter::DuplexLongSide:
-            num_options = cupsAddOption("sides", "two-sided-long-edge", num_options, &options);
-            break;
+            num_options = cupsAddOption("sides", "two-sided-long-edge", num_options, &options); break;
         case QPrinter::DuplexShortSide:
-            num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options);
-            break;
+            num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options); break;
         }
 
         // page order
@@ -1963,30 +1974,9 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
         switch(printer->pageOrder())
         {
         case QPrinter::FirstPageFirst:
-            num_options = cupsAddOption("outputorder", "normal", num_options, &options);
-            break;
+            num_options = cupsAddOption("outputorder", "normal", num_options, &options); break;
         case QPrinter::LastPageFirst:
-            num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
-            break;
-        }
-
-        // page layout
-
-        switch(m_pageLayout)
-        {
-        case OnePage:
-        case OneColumn:
-            num_options = cupsAddOption("number-up", QString("%1").arg(1).toLocal8Bit(), num_options, &options);
-            break;
-        case TwoPages:
-        case TwoColumns:
-            num_options = cupsAddOption("number-up", QString("%1").arg(2).toLocal8Bit(), num_options, &options);
-            break;
-        }
-
-        for(int i = 0; i < num_options; i++)
-        {
-            qDebug() << "CUPS:" << options[i].name << options[i].value;
+            num_options = cupsAddOption("outputorder", "reverse", num_options, &options); break;
         }
 
         QFileInfo fileInfo(m_filePath);
