@@ -1979,6 +1979,16 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
             num_options = cupsAddOption("outputorder", "reverse", num_options, &options); break;
         }
 
+        // color mode
+
+        switch(printer->colorMode())
+        {
+        case QPrinter::Color:
+            break;
+        case QPrinter::GrayScale:
+            num_options = cupsAddOption("ColorMode", "Gray", num_options, &options); break;
+        }
+
         QFileInfo fileInfo(m_filePath);
 
         int jobId = cupsPrintFile(dest->name, fileInfo.absoluteFilePath().toLocal8Bit(), fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
@@ -2024,7 +2034,7 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
         Poppler::Page* page = m_document->page(index);
 
         qreal fitToWidth = printer->width() / (printer->physicalDpiX() / 72.0 * page->pageSizeF().width());
-        qreal fitToHeight = printer->height() / (printer->physicalDpiY() / 72.0 * page->pageSizeF().height() );
+        qreal fitToHeight = printer->height() / (printer->physicalDpiY() / 72.0 * page->pageSizeF().height());
         qreal fit = qMin(fitToWidth, fitToHeight);
 
         QImage image = page->renderToImage(printer->physicalDpiX(), printer->physicalDpiY());
