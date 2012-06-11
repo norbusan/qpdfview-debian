@@ -1986,7 +1986,7 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
         case QPrinter::Color:
             break;
         case QPrinter::GrayScale:
-            num_options = cupsAddOption("ColorMode", "Gray", num_options, &options); break;
+            num_options = cupsAddOption("ColorModel", "Gray", num_options, &options); break;
         }
 
         QFileInfo fileInfo(m_filePath);
