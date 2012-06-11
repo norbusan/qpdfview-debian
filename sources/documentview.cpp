@@ -2154,8 +2154,8 @@ void DocumentView::preparePages()
                     page = qMax(page, 1);
                     page = qMin(page, m_numberOfPages);
 
-                    top = qMax(top, 0.0);
-                    top = qMin(top, 1.0);
+                    top = qMax(top, static_cast< qreal >(0.0));
+                    top = qMin(top, static_cast< qreal >(1.0));
 
                     pageItem->m_links.append(Link(area, page, top));
                 }

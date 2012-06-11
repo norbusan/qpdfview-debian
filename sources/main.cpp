@@ -89,8 +89,8 @@ int main(int argc, char** argv)
             if(fields.count() > 2)
             {
                 link.top = fields.at(2).toFloat();
-                link.top = qMax(link.top, 0.0);
-                link.top = qMin(link.top, 1.0);
+                link.top = qMax(link.top, static_cast< qreal >(0.0));
+                link.top = qMin(link.top, static_cast< qreal >(1.0));
             }
 
             links.append(link);
