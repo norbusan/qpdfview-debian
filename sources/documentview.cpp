@@ -1884,14 +1884,14 @@ void DocumentView::search(const QString& text, bool matchCase)
             m_results.insertMulti(index, results.takeLast());
         }
 
-        m_resultsMutex.unlock();
-
         if(m_results.contains(index) && firstResult)
         {
             emit firstResultFound();
 
             firstResult = false;
         }
+
+        m_resultsMutex.unlock();
 
         if(m_highlightAll)
         {
@@ -1919,7 +1919,7 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
     dest = cupsGetDest(printer->printerName().toLocal8Bit(), 0, num_dests, dests);
 
-    if(dest)
+    if(dest != 0)
     {
         int num_options = 0;
         cups_option_t* options = 0;
