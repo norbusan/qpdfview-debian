@@ -1849,33 +1849,53 @@ void DocumentView::search(const QString& text, bool matchCase)
 
         Poppler::Page* page = m_document->page(index);
 
-        QList<QRectF> results;
-
-#ifdef HAS_POPPLER_14
-        double rectLeft = 0.0, rectTop = 0.0, rectRight = 0.0, rectBottom = 0.0;
-
-        while(page->search(text, rectLeft, rectTop, rectRight, rectBottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-        {
-            QRectF rect;
-            rect.setLeft(rectLeft);
-            rect.setTop(rectTop);
-            rect.setRight(rectRight);
-            rect.setBottom(rectBottom);
-
-            results.append(rect.normalized());
-        }
-#else
-        QRectF rect;
-
-        while(page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-        {
-            results.append(rect.normalized());
-        }
-#endif
+        QList< Poppler::TextBox* > boxList = page->textList();
 
         delete page;
 
         m_documentMutex.unlock();
+
+        QList< QRectF > results;
+
+        QString text1 = matchCase ? text : text.toCaseFolded();
+
+        int i = -1;
+        QRectF r;
+
+        foreach(Poppler::TextBox* box, boxList)
+        {
+            QString text2 = matchCase ? box->text() : box->text().toCaseFolded();
+
+            for(int j = 0; j < text2.length(); j++)
+            {
+                if(text1.length() == i + 1)
+                {
+                    results.append(r.normalized());
+
+                    i = -1;
+                    r = QRectF();
+                }
+
+                if(text1.at(i + 1) == text2.at(j))
+                {
+                    i = i + 1;
+                    r = r.united(box->charBoundingBox(j));
+                }
+                else
+                {
+                    i = -1;
+                    r = QRectF();
+                }
+            }
+
+            if(box->hasSpaceAfter())
+            {
+                i = -1;
+                r = QRectF();
+            }
+        }
+
+        qDeleteAll(boxList);
 
         m_resultsMutex.lock();
 
