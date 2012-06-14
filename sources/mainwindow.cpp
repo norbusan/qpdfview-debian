@@ -877,6 +877,8 @@ void MainWindow::slotCurrentPageLineEditReturnPressed()
     DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
     documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+
+    documentView->setFocus();
 }
 
 void MainWindow::slotScaleFactorComboBoxCurrentIndexChanged(int index)
