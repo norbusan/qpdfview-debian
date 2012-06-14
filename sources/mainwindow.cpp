@@ -1304,7 +1304,7 @@ void MainWindow::createActions()
     // zoom
 
     m_zoomInAction = new QAction(tr("Zoom &in"), this);
-    m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
+    m_zoomInAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
     m_zoomInAction->setIconVisibleInMenu(true);
     connect(m_zoomInAction, SIGNAL(triggered()), SLOT(slotZoomIn()));
 
@@ -1322,7 +1322,7 @@ void MainWindow::createActions()
     }
 
     m_zoomOutAction = new QAction(tr("Zoom &out"), this);
-    m_zoomOutAction->setShortcut(QKeySequence::ZoomOut);
+    m_zoomOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
     m_zoomOutAction->setIconVisibleInMenu(true);
     connect(m_zoomOutAction, SIGNAL(triggered()), SLOT(slotZoomOut()));
 
