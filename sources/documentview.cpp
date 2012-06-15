@@ -2228,17 +2228,39 @@ void DocumentView::prepareOutline(const QDomNode& node, QTreeWidgetItem* parent,
     {
         Poppler::LinkDestination linkDestination(element.attribute("Destination"));
 
-        item->setData(0, Qt::UserRole, linkDestination.pageNumber());
-        item->setData(0, Qt::UserRole+1, linkDestination.isChangeTop() ? linkDestination.top() : 0.0);
+        int page = linkDestination.pageNumber();
+        qreal top = linkDestination.isChangeTop() ? linkDestination.top() : 0.0;
+
+        page = qMax(page, 1);
+        page = qMin(page, m_numberOfPages);
+
+        top = qMax(top, static_cast< qreal >(0.0));
+        top = qMin(top, static_cast< qreal >(1.0));
+
+        item->setData(0, Qt::UserRole, page);
+        item->setData(0, Qt::UserRole+1, top);
     }
     else if(element.hasAttribute("DestinationName"))
     {
         Poppler::LinkDestination* linkDestination = m_document->linkDestination(element.attribute("DestinationName"));
 
-        item->setData(0, Qt::UserRole, linkDestination ? linkDestination->pageNumber() : 1);
-        item->setData(0, Qt::UserRole+1, linkDestination ? (linkDestination->isChangeTop() ? linkDestination->top() : 0.0) : 0.0);
+        int page = linkDestination != 0 ? linkDestination->pageNumber() : 1;
+        qreal top = linkDestination != 0 ? (linkDestination->isChangeTop() ? linkDestination->top() : 0.0) : 0.0;
+
+        page = qMax(page, 1);
+        page = qMin(page, m_numberOfPages);
+
+        top = qMax(top, static_cast< qreal >(0.0));
+        top = qMin(top, static_cast< qreal >(1.0));
+
+        item->setData(0, Qt::UserRole, page);
+        item->setData(0, Qt::UserRole+1, top);
 
         delete linkDestination;
+    }
+    else
+    {
+        item->setData(0, Qt::UserRole, -1);
     }
 
     if(QVariant(element.attribute("Open", "false")).toBool())
