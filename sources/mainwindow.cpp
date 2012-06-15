@@ -872,11 +872,21 @@ void MainWindow::slotTabWidgetTabCloseRequested(int index)
     delete m_tabWidget->widget(index);
 }
 
+void MainWindow::slotCurrentPageLineEditEditingFinished()
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+        documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+    }
+}
+
 void MainWindow::slotCurrentPageLineEditReturnPressed()
 {
-    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+    slotCurrentPageLineEditEditingFinished();
 
-    documentView->setCurrentPage(m_currentPageLineEdit->text().toInt());
+    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
     documentView->setFocus();
 }
@@ -917,6 +927,15 @@ void MainWindow::slotScaleFactorComboBoxEditingFinished()
         slotScaleFactorChanged(documentView->scaleFactor());
         slotScaleModeChanged(documentView->scaleMode());
     }
+}
+
+void MainWindow::slotScaleFactorComboBoxReturnPressed()
+{
+    slotScaleFactorComboBoxEditingFinished();
+
+    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
+
+    documentView->setFocus();
 }
 
 void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
@@ -1450,6 +1469,7 @@ void MainWindow::createWidgets()
     m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
     m_currentPageLineEdit->setFixedWidth(40);
 
+    connect(m_currentPageLineEdit, SIGNAL(editingFinished()), SLOT(slotCurrentPageLineEditEditingFinished()));
     connect(m_currentPageLineEdit, SIGNAL(returnPressed()), SLOT(slotCurrentPageLineEditReturnPressed()));
 
     // number of pages
@@ -1473,6 +1493,7 @@ void MainWindow::createWidgets()
 
     connect(m_scaleFactorComboBox, SIGNAL(currentIndexChanged(int)), SLOT(slotScaleFactorComboBoxCurrentIndexChanged(int)));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(slotScaleFactorComboBoxEditingFinished()));
+    connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(slotScaleFactorComboBoxReturnPressed()));
 
     // search
 

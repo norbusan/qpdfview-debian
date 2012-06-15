@@ -111,10 +111,12 @@ protected slots:
     void slotTabWidgetCurrentChanged(int index);
     void slotTabWidgetTabCloseRequested(int index);
 
+    void slotCurrentPageLineEditEditingFinished();
     void slotCurrentPageLineEditReturnPressed();
 
     void slotScaleFactorComboBoxCurrentIndexChanged(int index);
     void slotScaleFactorComboBoxEditingFinished();
+    void slotScaleFactorComboBoxReturnPressed();
 
     void slotHighlightAllCheckBoxClicked(bool checked);
 

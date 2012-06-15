@@ -1858,6 +1858,7 @@ void DocumentView::search(const QString& text, bool matchCase)
         QList< QRectF > results;
 
         QString text1 = matchCase ? text : text.toCaseFolded();
+        text1.remove(' ');
 
         int i = -1;
         QRectF r;
@@ -1886,12 +1887,6 @@ void DocumentView::search(const QString& text, bool matchCase)
                     i = -1;
                     r = QRectF();
                 }
-            }
-
-            if(box->hasSpaceAfter())
-            {
-                i = -1;
-                r = QRectF();
             }
         }
 
