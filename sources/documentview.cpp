@@ -428,7 +428,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
 
     parent->m_documentMutex.unlock();
 
-    painter->drawImage(boundingRect(), image);
+    painter->drawImage(0.0, 0.0, image);
 
 #else
 
@@ -441,7 +441,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
         DocumentView::PageCacheValue& value = parent->m_pageCache[key];
 
         value.time = QTime::currentTime();
-        painter->drawImage(boundingRect(), value.image);
+        painter->drawImage(0.0, 0.0, value.image);
     }
     else
     {
@@ -1573,11 +1573,15 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         {
         case OnePage:
         case TwoPages:
-            if(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep() < m_view->verticalScrollBar()->minimum() && m_currentPage > 1)
+            if(m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->minimum() && m_currentPage > 1)
             {
                 previousPage();
 
                 m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
+            }
+            else if(m_view->verticalScrollBar()->value() - m_view->verticalScrollBar()->pageStep() < m_view->verticalScrollBar()->minimum())
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
             }
             else
             {
@@ -1610,11 +1614,15 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         {
         case OnePage:
         case TwoPages:
-            if(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep() > m_view->verticalScrollBar()->maximum() && m_currentPage < lastPage)
+            if(m_view->verticalScrollBar()->value() == m_view->verticalScrollBar()->maximum() && m_currentPage < lastPage)
             {
                 nextPage();
 
                 m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->minimum());
+            }
+            else if(m_view->verticalScrollBar()->value() + m_view->verticalScrollBar()->pageStep() > m_view->verticalScrollBar()->maximum())
+            {
+                m_view->verticalScrollBar()->setValue(m_view->verticalScrollBar()->maximum());
             }
             else
             {
