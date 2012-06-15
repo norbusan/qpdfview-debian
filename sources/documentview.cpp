@@ -89,7 +89,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
 
     parent->m_documentMutex.unlock();
 
-    painter->drawImage(boundingRect(), image);
+    painter->drawImage(0.0, 0.0, image);
 
 #else
 
@@ -102,7 +102,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
         DocumentView::PageCacheValue& value = parent->m_pageCache[key];
 
         value.time = QTime::currentTime();
-        painter->drawImage(boundingRect(), value.image);
+        painter->drawImage(0.0, 0.0, value.image);
     }
     else
     {
