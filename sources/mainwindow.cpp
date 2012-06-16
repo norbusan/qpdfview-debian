@@ -1251,6 +1251,8 @@ void MainWindow::createActions()
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
+    m_settingsAction->setIcon(QIcon::fromTheme("preferences-other"));
+    m_settingsAction->setIconVisibleInMenu(true);
     connect(m_settingsAction, SIGNAL(triggered()), SLOT(slotSettings()));
 
     // page layout
