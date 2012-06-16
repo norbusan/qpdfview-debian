@@ -350,6 +350,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="118"/>
+        <location filename="../sources/mainwindow.cpp" line="168"/>
+        <source>Could not open document at &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="425"/>
         <source>Jump to page</source>
         <translation type="unfinished"></translation>
@@ -444,8 +450,6 @@
         <translation>Увага</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="118"/>
-        <location filename="../sources/mainwindow.cpp" line="168"/>
         <location filename="../sources/mainwindow.cpp" line="653"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation>Не вдалося відкрити документ &quot;%1&quot;.</translation>

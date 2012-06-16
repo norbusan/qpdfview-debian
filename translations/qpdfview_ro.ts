@@ -148,8 +148,6 @@
         <translation type="unfinished">Atenționare</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="118"/>
-        <location filename="../sources/mainwindow.cpp" line="168"/>
         <location filename="../sources/mainwindow.cpp" line="653"/>
         <source>Could not open document &quot;%1&quot;.</source>
         <translation type="unfinished">Nu s-a putut deschide documentul „%1”.</translation>
@@ -158,6 +156,12 @@
         <location filename="../sources/mainwindow.cpp" line="279"/>
         <source>Open document</source>
         <translation type="unfinished">Deschidere document</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="118"/>
+        <location filename="../sources/mainwindow.cpp" line="168"/>
+        <source>Could not open document at &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="301"/>
