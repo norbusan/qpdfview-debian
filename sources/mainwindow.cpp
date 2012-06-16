@@ -115,7 +115,7 @@ bool MainWindow::open(const QString& filePath, int page, qreal top)
         }
         else
         {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).completeBaseName()));
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open document at \"%1\".").arg(QFileInfo(filePath).absoluteFilePath()));
 
             return false;
         }
@@ -165,7 +165,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
     {
         delete documentView;
 
-        QMessageBox::warning(this, tr("Warning"), tr("Could not open document \"%1\".").arg(QFileInfo(filePath).completeBaseName()));
+        QMessageBox::warning(this, tr("Warning"), tr("Could not open document at \"%1\".").arg(QFileInfo(filePath).absoluteFilePath()));
 
         return false;
     }
