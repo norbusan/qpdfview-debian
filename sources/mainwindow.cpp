@@ -884,11 +884,7 @@ void MainWindow::slotCurrentPageLineEditEditingFinished()
 
 void MainWindow::slotCurrentPageLineEditReturnPressed()
 {
-    slotCurrentPageLineEditEditingFinished();
-
-    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setFocus();
+    m_tabWidget->currentWidget()->setFocus();
 }
 
 void MainWindow::slotScaleFactorComboBoxCurrentIndexChanged(int index)
@@ -931,11 +927,7 @@ void MainWindow::slotScaleFactorComboBoxEditingFinished()
 
 void MainWindow::slotScaleFactorComboBoxReturnPressed()
 {
-    slotScaleFactorComboBoxEditingFinished();
-
-    DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-    documentView->setFocus();
+    m_tabWidget->currentWidget()->setFocus();
 }
 
 void MainWindow::slotHighlightAllCheckBoxClicked(bool checked)
