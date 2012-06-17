@@ -871,13 +871,15 @@ QTableWidget* DocumentView::fontsTableWidget()
 
 bool DocumentView::open(const QString& filePath)
 {
+    m_prefetchTimer->blockSignals(true);
+
     Poppler::Document* document = Poppler::Document::load(filePath);
 
     if(document != 0)
     {
         if(document->isLocked())
         {
-            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(QFileInfo(filePath).completeBaseName()), QLineEdit::Password);
+            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(filePath), QLineEdit::Password);
 
             if(document->unlock(password.toLatin1(), password.toLatin1()))
             {
@@ -951,23 +953,21 @@ bool DocumentView::open(const QString& filePath)
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
     }
-    else
-    {
-        m_prefetchTimer->blockSignals(true);
-    }
 
     return document != 0;
 }
 
 bool DocumentView::refresh()
 {
+    m_prefetchTimer->blockSignals(true);
+
     Poppler::Document* document = Poppler::Document::load(m_filePath);
 
     if(document != 0)
     {
         if(document->isLocked())
         {
-            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(QFileInfo(m_filePath).completeBaseName()), QLineEdit::Password);
+            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(m_filePath), QLineEdit::Password);
 
             if(document->unlock(password.toLatin1(), password.toLatin1()))
             {
@@ -1029,10 +1029,6 @@ bool DocumentView::refresh()
     {
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
-    }
-    else
-    {
-        m_prefetchTimer->blockSignals(true);
     }
 
     return document != 0;
