@@ -1068,6 +1068,8 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
             case OneColumn:
                 if(m_currentPage != currentPage)
                 {
+                    m_bookmarksMenu->setReturnPosition(m_currentPage, m_view->verticalScrollBar()->value());
+
                     m_currentPage = currentPage;
 
                     prepareView(top);
@@ -1084,6 +1086,8 @@ void DocumentView::setCurrentPage(int currentPage, qreal top)
             case TwoColumns:
                 if(m_currentPage != (currentPage % 2 != 0 ? currentPage : currentPage - 1))
                 {
+                    m_bookmarksMenu->setReturnPosition(m_currentPage, m_view->verticalScrollBar()->value());
+
                     m_currentPage = currentPage % 2 != 0 ? currentPage : currentPage - 1;
 
                     prepareView(top);

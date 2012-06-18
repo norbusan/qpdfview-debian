@@ -605,10 +605,18 @@ BookmarksMenu::BookmarksMenu(QWidget* parent) : QMenu(tr("Bookmarks"), parent),
     m_currentPage(-1),
     m_value(-1),
     m_minimum(-1),
-    m_maximum(-1)
+    m_maximum(-1),
+    m_returnPage(-1),
+    m_returnValue(-1)
 {
     m_actionGroup = new QActionGroup(this);
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), SLOT(slotActionGroupTriggered(QAction*)));
+
+    m_returnAction = new QAction(tr("Re&turn"), this);
+    m_returnAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
+    connect(m_returnAction, SIGNAL(triggered()), SLOT(slotReturnActionTriggered()));
+
+    m_returnAction->setEnabled(false);
 
     m_addEntryAction = new QAction(tr("&Add entry"), this);
     m_addEntryAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
@@ -630,6 +638,8 @@ BookmarksMenu::BookmarksMenu(QWidget* parent) : QMenu(tr("Bookmarks"), parent),
     m_clearListAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_B));
     connect(m_clearListAction, SIGNAL(triggered()), SLOT(clearList()));
 
+    addAction(m_returnAction);
+    addSeparator();
     addAction(m_addEntryAction);
     addAction(m_goToPreviousEntryAction);
     addAction(m_goToNextEntryAction);
@@ -816,6 +826,21 @@ void BookmarksMenu::clearList()
 
         action->deleteLater();
     }
+
+    setReturnPosition(-1, -1);
+}
+
+void BookmarksMenu::setReturnPosition(int page, int value)
+{
+     m_returnPage = page;
+     m_returnValue = value;
+
+     m_returnAction->setEnabled(m_returnPage != -1 && m_returnValue != -1);
+}
+
+void BookmarksMenu::slotReturnActionTriggered()
+{
+    emit entrySelected(m_returnPage, m_returnValue);
 }
 
 void BookmarksMenu::slotActionGroupTriggered(QAction* action)

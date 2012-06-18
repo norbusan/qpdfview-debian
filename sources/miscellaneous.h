@@ -258,15 +258,20 @@ public slots:
     void updateValue(int value) { m_value = value; }
     void updateRange(int minimum, int maximum) { m_minimum = minimum; m_maximum = maximum; }
 
+    void setReturnPosition(int page, int value);
+
 signals:
     void entrySelected(int page, int value);
 
 protected slots:
+    void slotReturnActionTriggered();
     void slotActionGroupTriggered(QAction* action);
 
 private:
     QActionGroup* m_actionGroup;
     QAction* m_separator;
+
+    QAction* m_returnAction;
 
     QAction* m_addEntryAction;
 
@@ -283,6 +288,9 @@ private:
     int m_value;
     int m_minimum;
     int m_maximum;
+
+    int m_returnPage;
+    int m_returnValue;
 
 };
 
