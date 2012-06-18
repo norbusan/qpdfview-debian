@@ -146,7 +146,6 @@ private:
 
         int m_index;
         qreal m_scale;
-        qreal m_scale1;
 
         // links
 
@@ -167,7 +166,7 @@ private:
         // render
 
         QFuture< void > m_render;
-        void render(bool prefetch = false);
+        void render(qreal scale, bool prefetch = false);
 
     };
 

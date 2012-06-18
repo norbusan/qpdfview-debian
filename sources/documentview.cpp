@@ -45,7 +45,6 @@ DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) :
     m_page(0),
     m_index(-1),
     m_scale(1.0),
-    m_scale1(1.0),
     m_links(),
     m_highlight(),
     m_rubberBand(),
@@ -109,9 +108,7 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
     {
         if(!m_render.isRunning())
         {
-            m_scale1 = m_scale;
-
-            m_render = QtConcurrent::run(this, &DocumentView::PageItem::render, false);
+            m_render = QtConcurrent::run(this, &DocumentView::PageItem::render, m_scale, false);
         }
     }
 
@@ -328,7 +325,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
-void DocumentView::PageItem::render(bool prefetch)
+void DocumentView::PageItem::render(qreal scale, bool prefetch)
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
@@ -364,7 +361,7 @@ void DocumentView::PageItem::render(bool prefetch)
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
+    QImage image = page->renderToImage(scale * parent->m_resolutionX, scale * parent->m_resolutionY);
 
     delete page;
     delete document;
@@ -373,13 +370,13 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
+    QImage image = m_page->renderToImage(scale * parent->m_resolutionX, scale * parent->m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
 #endif
 
-    DocumentView::PageCacheKey key(m_index, m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, scale * parent->m_resolutionX, scale * parent->m_resolutionY);
     DocumentView::PageCacheValue value(image);
 
     parent->updatePageCache(key, value);
@@ -1802,7 +1799,7 @@ void DocumentView::slotPrefetchTimerTimeout()
             {
                 if(!pageItem->m_render.isRunning())
                 {
-                    pageItem->m_render = QtConcurrent::run(pageItem, &DocumentView::PageItem::render, true);
+                    pageItem->m_render = QtConcurrent::run(pageItem, &DocumentView::PageItem::render, pageItem->m_scale, true);
                 }
             }
 
