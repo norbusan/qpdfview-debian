@@ -45,6 +45,7 @@ DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) :
     m_page(0),
     m_index(-1),
     m_scale(1.0),
+    m_scale1(1.0),
     m_links(),
     m_highlight(),
     m_rubberBand(),
@@ -108,6 +109,8 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
     {
         if(!m_render.isRunning())
         {
+            m_scale1 = m_scale;
+
             m_render = QtConcurrent::run(this, &DocumentView::PageItem::render, false);
         }
     }
@@ -361,7 +364,7 @@ void DocumentView::PageItem::render(bool prefetch)
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
+    QImage image = page->renderToImage(m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
 
     delete page;
     delete document;
@@ -370,13 +373,13 @@ void DocumentView::PageItem::render(bool prefetch)
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
+    QImage image = m_page->renderToImage(m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
 
     parent->m_documentMutex.unlock();
 
 #endif
 
-    DocumentView::PageCacheKey key(m_index, m_scale * parent->m_resolutionX, m_scale * parent->m_resolutionY);
+    DocumentView::PageCacheKey key(m_index, m_scale1 * parent->m_resolutionX, m_scale1 * parent->m_resolutionY);
     DocumentView::PageCacheValue value(image);
 
     parent->updatePageCache(key, value);
@@ -390,6 +393,7 @@ DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem* parent, QGraphicsScene
     m_page(0),
     m_index(-1),
     m_scale(1.0),
+    m_scale1(1.0),
     m_size(),
     m_render()
 {
@@ -447,6 +451,8 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
     {
         if(!m_render.isRunning())
         {
+            m_scale1 = m_scale;
+
             m_render = QtConcurrent::run(this, &DocumentView::ThumbnailItem::render);
         }
     }
@@ -502,7 +508,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
+    QImage image = page->renderToImage(m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
 
     delete page;
     delete document;
@@ -511,13 +517,13 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
+    QImage image = m_page->renderToImage(m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
 
     parent->m_documentMutex.unlock();
 
 #endif
 
-    DocumentView::PageCacheKey key(m_index, m_scale * parent->physicalDpiX(), m_scale * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
     DocumentView::PageCacheValue value(image);
 
     parent->updatePageCache(key, value);

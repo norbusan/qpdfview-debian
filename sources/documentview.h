@@ -146,6 +146,7 @@ private:
 
         int m_index;
         qreal m_scale;
+        qreal m_scale1;
 
         // links
 
@@ -195,6 +196,7 @@ private:
 
         int m_index;
         qreal m_scale;
+        qreal m_scale1;
 
         // transforms
 
