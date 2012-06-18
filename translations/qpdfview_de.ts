@@ -9,37 +9,42 @@
         <translation type="unfinished">Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="613"/>
+        <location filename="../sources/miscellaneous.cpp" line="615"/>
+        <source>Re&amp;turn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="621"/>
         <source>&amp;Add entry</source>
         <translation type="unfinished">Eintrag &amp;hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="617"/>
+        <location filename="../sources/miscellaneous.cpp" line="625"/>
         <source>Go to &amp;previous entry</source>
         <translation type="unfinished">Gehe zu &amp;vorigem Eintrag</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="621"/>
+        <location filename="../sources/miscellaneous.cpp" line="629"/>
         <source>Go to &amp;next entry</source>
         <translation type="unfinished">Gehe zu &amp;nächstem Eintrag</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="625"/>
+        <location filename="../sources/miscellaneous.cpp" line="633"/>
         <source>&amp;Remove entries on current page</source>
         <translation type="unfinished">Einträge auf der &amp;aktuellen Seite entfernen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="629"/>
+        <location filename="../sources/miscellaneous.cpp" line="637"/>
         <source>&amp;Clear list</source>
         <translation type="unfinished">&amp;Liste leeren</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="674"/>
+        <location filename="../sources/miscellaneous.cpp" line="684"/>
         <source>%1% on page %2</source>
         <translation type="unfinished">%1% auf Seite %2</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="678"/>
+        <location filename="../sources/miscellaneous.cpp" line="688"/>
         <source>Page %1</source>
         <translation type="unfinished">Seite %1</translation>
     </message>
@@ -132,7 +137,7 @@
         <translation type="unfinished">Die Datei &quot;%1&quot; konnte nicht entsperrt werden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2105"/>
+        <location filename="../sources/documentview.cpp" line="2109"/>
         <source>Maximum page cache size is too small. Increased it to %1 bytes to hold at least three pages.</source>
         <translation type="unfinished">Die maximale Zwischenspeichergröße ist zu klein und wurde auf %1 Bytes erhöht um mindestens drei Seiten zu speichern.</translation>
     </message>
@@ -514,104 +519,104 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="839"/>
+        <location filename="../sources/miscellaneous.cpp" line="864"/>
         <source>North</source>
         <translation type="unfinished">Norden</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="840"/>
+        <location filename="../sources/miscellaneous.cpp" line="865"/>
         <source>South</source>
         <translation type="unfinished">Süden</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="841"/>
+        <location filename="../sources/miscellaneous.cpp" line="866"/>
         <source>West</source>
         <translation type="unfinished">Westen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="842"/>
+        <location filename="../sources/miscellaneous.cpp" line="867"/>
         <source>East</source>
         <translation type="unfinished">Osten</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="885"/>
-        <location filename="../sources/miscellaneous.cpp" line="886"/>
-        <location filename="../sources/miscellaneous.cpp" line="887"/>
-        <location filename="../sources/miscellaneous.cpp" line="888"/>
-        <location filename="../sources/miscellaneous.cpp" line="889"/>
-        <location filename="../sources/miscellaneous.cpp" line="890"/>
-        <location filename="../sources/miscellaneous.cpp" line="891"/>
-        <location filename="../sources/miscellaneous.cpp" line="901"/>
+        <location filename="../sources/miscellaneous.cpp" line="910"/>
+        <location filename="../sources/miscellaneous.cpp" line="911"/>
+        <location filename="../sources/miscellaneous.cpp" line="912"/>
+        <location filename="../sources/miscellaneous.cpp" line="913"/>
+        <location filename="../sources/miscellaneous.cpp" line="914"/>
+        <location filename="../sources/miscellaneous.cpp" line="915"/>
+        <location filename="../sources/miscellaneous.cpp" line="916"/>
+        <location filename="../sources/miscellaneous.cpp" line="926"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="926"/>
+        <location filename="../sources/miscellaneous.cpp" line="951"/>
         <source>Tab bar as &amp;needed:</source>
         <translation type="unfinished">Tab-Bar &amp;nach Bedarf:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="927"/>
+        <location filename="../sources/miscellaneous.cpp" line="952"/>
         <source>Tab &amp;position:</source>
         <translation type="unfinished">Tab-&amp;Position:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="929"/>
+        <location filename="../sources/miscellaneous.cpp" line="954"/>
         <source>Restore &amp;tabs:</source>
         <translation type="unfinished">&amp;Tabs wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="931"/>
+        <location filename="../sources/miscellaneous.cpp" line="956"/>
         <source>Auto-&amp;refresh:</source>
         <translation type="unfinished">Auto-&amp;Aktualisierung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="933"/>
+        <location filename="../sources/miscellaneous.cpp" line="958"/>
         <source>Fit to equal &amp;width:</source>
         <translation type="unfinished">Auf gleiche &amp;Breite anpassen:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="935"/>
+        <location filename="../sources/miscellaneous.cpp" line="960"/>
         <source>&amp;Highlight links:</source>
         <translation type="unfinished">Verweise &amp;hervorheben:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="936"/>
+        <location filename="../sources/miscellaneous.cpp" line="961"/>
         <source>External &amp;links:</source>
         <translation type="unfinished">Externe &amp;Verweise:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="938"/>
+        <location filename="../sources/miscellaneous.cpp" line="963"/>
         <source>&amp;Behaviour</source>
         <translation type="unfinished">&amp;Verhalten</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="944"/>
+        <location filename="../sources/miscellaneous.cpp" line="969"/>
         <source>&amp;Antialiasing:</source>
         <translation type="unfinished">&amp;Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="945"/>
+        <location filename="../sources/miscellaneous.cpp" line="970"/>
         <source>&amp;Text antialiasing:</source>
         <translation type="unfinished">&amp;Text-Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="946"/>
+        <location filename="../sources/miscellaneous.cpp" line="971"/>
         <source>Text &amp;hinting:</source>
         <translation type="unfinished">Text-&amp;Hinting:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="948"/>
+        <location filename="../sources/miscellaneous.cpp" line="973"/>
         <source>Maximum page &amp;cache size:</source>
         <translation type="unfinished">Maximale &amp;Zwischenspeichergröße:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="949"/>
+        <location filename="../sources/miscellaneous.cpp" line="974"/>
         <source>&amp;Prefetch:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="951"/>
+        <location filename="../sources/miscellaneous.cpp" line="976"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">&amp;Grafiken</translation>
     </message>
