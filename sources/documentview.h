@@ -132,7 +132,9 @@ private:
         void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     protected:
+        void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
         void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
+        void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
         void mousePressEvent(QGraphicsSceneMouseEvent* event);
         void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
         void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);

@@ -252,6 +252,8 @@ void MainWindow::dropEvent(QDropEvent* event)
     {
         event->acceptProposedAction();
 
+        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
+
         foreach(QUrl url, event->mimeData()->urls())
         {
             if(url.scheme() == "file")
@@ -259,6 +261,10 @@ void MainWindow::dropEvent(QDropEvent* event)
                 openInNewTab(url.path());
             }
         }
+
+        slotTabWidgetCurrentChanged(m_tabWidget->currentIndex());
+
+        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotTabWidgetCurrentChanged(int)));
     }
 }
 

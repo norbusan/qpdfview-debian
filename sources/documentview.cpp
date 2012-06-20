@@ -166,6 +166,11 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
     }
 }
 
+void DocumentView::PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+    Q_UNUSED(event);
+}
+
 void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
@@ -192,6 +197,11 @@ void DocumentView::PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
     }
 
     QToolTip::hideText();
+}
+
+void DocumentView::PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+    Q_UNUSED(event);
 }
 
 void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
