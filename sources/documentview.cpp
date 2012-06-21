@@ -1051,15 +1051,19 @@ bool DocumentView::saveCopy(const QString& filePath)
 {
     if(m_document != 0)
     {
-            Poppler::PDFConverter* converter = m_document->pdfConverter();
+        m_documentMutex.lock();
 
-            converter->setOutputFileName(filePath);
+        Poppler::PDFConverter* converter = m_document->pdfConverter();
 
-            bool success = converter->convert();
+        converter->setOutputFileName(filePath);
 
-            delete converter;
+        bool success = converter->convert();
 
-            return success;
+        delete converter;
+
+        m_documentMutex.unlock();
+
+        return success;
     }
 
     return false;
