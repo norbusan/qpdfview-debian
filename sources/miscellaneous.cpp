@@ -206,7 +206,7 @@ void PresentationView::paintEvent(QPaintEvent*)
         PageCacheValue& value = m_pageCache[key];
 
         value.time = QTime::currentTime();
-        painter.drawImage(m_boundingRect, value.image);
+        painter.drawImage(m_boundingRect.topLeft(), value.image);
     }
     else
     {
