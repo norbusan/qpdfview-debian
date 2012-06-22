@@ -64,6 +64,8 @@ PresentationView::~PresentationView()
 
 bool PresentationView::open(const QString& filePath)
 {
+    m_prefetchTimer->blockSignals(true);
+
     m_render.waitForFinished();
 
     Poppler::Document* document = Poppler::Document::load(filePath);
@@ -94,6 +96,12 @@ bool PresentationView::open(const QString& filePath)
     m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
 
     prepareView();
+
+    if(m_settings.value("documentView/prefetch").toBool())
+    {
+        m_prefetchTimer->blockSignals(false);
+        m_prefetchTimer->start();
+    }
 
     return document != 0;
 }
