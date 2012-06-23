@@ -2376,8 +2376,8 @@ void DocumentView::prepareScene()
     if(m_scaleMode == FitToPage || m_scaleMode == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        qreal visibleWidth = m_view->viewport()->width() - m_view->verticalScrollBar()->width() - 2;
-        qreal visibleHeight = m_view->viewport()->height() - 2;
+        qreal visibleWidth = m_view->viewport()->width() - 6;
+        qreal visibleHeight = m_view->viewport()->height() - 6;
 
         switch(m_pageLayout)
         {
