@@ -400,7 +400,6 @@ DocumentView::ThumbnailItem::ThumbnailItem(QGraphicsItem* parent, QGraphicsScene
     m_page(0),
     m_index(-1),
     m_scale(1.0),
-    m_scale1(1.0),
     m_size(),
     m_render()
 {
@@ -458,9 +457,7 @@ void DocumentView::ThumbnailItem::paint(QPainter* painter, const QStyleOptionGra
     {
         if(!m_render.isRunning())
         {
-            m_scale1 = m_scale;
-
-            m_render = QtConcurrent::run(this, &DocumentView::ThumbnailItem::render);
+            m_render = QtConcurrent::run(this, &DocumentView::ThumbnailItem::render, m_scale);
         }
     }
 
@@ -479,7 +476,7 @@ void DocumentView::ThumbnailItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent
     parent->setCurrentPage(m_index + 1);
 }
 
-void DocumentView::ThumbnailItem::render()
+void DocumentView::ThumbnailItem::render(qreal scale)
 {
     DocumentView* parent = qobject_cast< DocumentView* >(scene()->parent()); Q_ASSERT(parent);
 
@@ -515,7 +512,7 @@ void DocumentView::ThumbnailItem::render()
     document->setRenderHint(Poppler::Document::TextAntialiasing, renderHints.testFlag(Poppler::Document::TextAntialiasing));
     document->setRenderHint(Poppler::Document::TextHinting, renderHints.testFlag(Poppler::Document::TextHinting));
 
-    QImage image = page->renderToImage(m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
+    QImage image = page->renderToImage(scale * parent->physicalDpiX(), scale * parent->physicalDpiY());
 
     delete page;
     delete document;
@@ -524,13 +521,13 @@ void DocumentView::ThumbnailItem::render()
 
     parent->m_documentMutex.lock();
 
-    QImage image = m_page->renderToImage(m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
+    QImage image = m_page->renderToImage(scale * parent->physicalDpiX(), scale * parent->physicalDpiY());
 
     parent->m_documentMutex.unlock();
 
 #endif
 
-    DocumentView::PageCacheKey key(m_index, m_scale1 * parent->physicalDpiX(), m_scale1 * parent->physicalDpiY());
+    DocumentView::PageCacheKey key(m_index, scale * parent->physicalDpiX(), scale * parent->physicalDpiY());
     DocumentView::PageCacheValue value(image);
 
     parent->updatePageCache(key, value);

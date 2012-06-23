@@ -197,7 +197,6 @@ private:
 
         int m_index;
         qreal m_scale;
-        qreal m_scale1;
 
         // transforms
 
@@ -206,7 +205,7 @@ private:
         // render
 
         QFuture< void > m_render;
-        void render();
+        void render(qreal scale);
 
     };
 
