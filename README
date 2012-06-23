@@ -2,7 +2,7 @@ qpdfview is a tabbed PDF viewer using the poppler library.
 
 The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
-It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtDBus/libcups if D-Bus/CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install".
+It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtSvg, libQtDBus resp. libcups if SVG, D-Bus, resp. CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install".
 
 The following build-time options can be set in qpdfview.pri:
 - 'TARGET_INSTALL_PATH' sets the path to install the application binary (default is '/usr/bin')
@@ -17,8 +17,7 @@ The following build-time options can be set in qpdfview.pri:
 
 The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file (usually located at "~/.config/qpdfview/qpdfview.conf") to an ordered comma-separated list. The default (available) entries are:
 - fileToolBar: openInNewTab,refresh (open,saveCopy,print)
-- editToolBar: currentPage,numberOfPages,previousPage,nextPage 
-(firstPage,lastPage,jumpToPage,search)
+- editToolBar: currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,jumpToPage,search)
 - viewToolBar: scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
 
 The icons are from the tango icon theme "http://tango.freedesktop.org".
