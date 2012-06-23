@@ -23,7 +23,7 @@ TRANSLATIONS += \
 
 # libraries
 
-QT += core xml gui svg
+QT += core xml gui
 
 # uncomment to append the poppler headers and libraries manually
 #
@@ -41,6 +41,10 @@ system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
 system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
 
 # build-time options
+
+!without_svg {
+    QT += svg
+}
 
 !without_dbus {
     DEFINES += WITH_DBUS

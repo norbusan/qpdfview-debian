@@ -1036,9 +1036,21 @@ void MainWindow::createActions()
 
     m_openAction = new QAction(tr("&Open..."), this);
     m_openAction->setShortcut(QKeySequence::Open);
-    m_openAction->setIcon(QIcon::fromTheme("document-open"));
     m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(slotOpen()));
+
+    if(QIcon::hasThemeIcon("document-open"))
+    {
+        m_openAction->setIcon(QIcon::fromTheme("document-open"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_openAction->setIcon(QIcon(QString("%1/document-open.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_openAction->setIcon(QIcon(":/icons/document-open.svg"));
+#endif
+    }
 
     // open in new tab
 
@@ -1091,17 +1103,41 @@ void MainWindow::createActions()
 
     m_saveCopyAction = new QAction(tr("&Save copy..."), this);
     m_saveCopyAction->setShortcut(QKeySequence::Save);
-    m_saveCopyAction->setIcon(QIcon::fromTheme("document-save"));
     m_saveCopyAction->setIconVisibleInMenu(true);
     connect(m_saveCopyAction, SIGNAL(triggered()), SLOT(slotSaveCopy()));
+
+    if(QIcon::hasThemeIcon("document-save"))
+    {
+        m_saveCopyAction->setIcon(QIcon::fromTheme("document-save"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_saveCopyAction->setIcon(QIcon(QString("%1/document-save.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_saveCopyAction->setIcon(QIcon(":/icons/document-save.svg"));
+#endif
+    }
 
     // print
 
     m_printAction = new QAction(tr("&Print..."), this);
     m_printAction->setShortcut(QKeySequence::Print);
-    m_printAction->setIcon(QIcon::fromTheme("document-print"));
     m_printAction->setIconVisibleInMenu(true);
     connect(m_printAction, SIGNAL(triggered()), SLOT(slotPrint()));
+
+    if(QIcon::hasThemeIcon("document-print"))
+    {
+        m_printAction->setIcon(QIcon::fromTheme("document-print"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_printAction->setIcon(QIcon(QString("%1/document-print.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_printAction->setIcon(QIcon(":/icons/document-print.svg"));
+#endif
+    }
 
     // exit
 
@@ -1155,33 +1191,81 @@ void MainWindow::createActions()
 
     m_firstPageAction = new QAction(tr("&First page"), this);
     m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
-    m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
     m_firstPageAction->setIconVisibleInMenu(true);
     connect(m_firstPageAction, SIGNAL(triggered()), SLOT(slotFirstPage()));
+
+    if(QIcon::hasThemeIcon("go-first"))
+    {
+        m_firstPageAction->setIcon(QIcon::fromTheme("go-first"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_firstPageAction->setIcon(QIcon(QString("%1/go-first.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_firstPageAction->setIcon(QIcon(":/icons/go-first.svg"));
+#endif
+    }
 
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
     m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
-    m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
     m_lastPageAction->setIconVisibleInMenu(true);
     connect(m_lastPageAction, SIGNAL(triggered()), SLOT(slotLastPage()));
+
+    if(QIcon::hasThemeIcon("go-last"))
+    {
+        m_lastPageAction->setIcon(QIcon::fromTheme("go-last"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_lastPageAction->setIcon(QIcon(QString("%1/go-last.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_lastPageAction->setIcon(QIcon(":/icons/go-last.svg"));
+#endif
+    }
 
     // jump to page
 
     m_jumpToPageAction = new QAction(tr("&Jump to page..."), this);
     m_jumpToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
-    m_jumpToPageAction->setIcon(QIcon::fromTheme("go-jump"));
     m_jumpToPageAction->setIconVisibleInMenu(true);
     connect(m_jumpToPageAction, SIGNAL(triggered()), SLOT(slotJumpToPage()));
+
+    if(QIcon::hasThemeIcon("go-jump"))
+    {
+        m_jumpToPageAction->setIcon(QIcon::fromTheme("go-jump"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_jumpToPageAction->setIcon(QIcon(QString("%1/go-jump.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_jumpToPageAction->setIcon(QIcon(":/icons/go-jump.svg"));
+#endif
+    }
 
     // search
 
     m_searchAction = new QAction(tr("&Search..."), this);
     m_searchAction->setShortcut(QKeySequence::Find);
-    m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
     m_searchAction->setIconVisibleInMenu(true);
     connect(m_searchAction, SIGNAL(triggered()), SLOT(slotSearch()));
+
+    if(QIcon::hasThemeIcon("edit-find"))
+    {
+        m_searchAction->setIcon(QIcon::fromTheme("edit-find"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_searchAction->setIcon(QIcon(QString("%1/edit-find.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_searchAction->setIcon(QIcon(":/icons/edit-find.svg"));
+#endif
+    }
 
     // find previous
 
@@ -1361,15 +1445,39 @@ void MainWindow::createActions()
 
     m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
     m_rotateLeftAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left));
-    m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
     m_rotateLeftAction->setIconVisibleInMenu(true);
     connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(slotRotateLeft()));
 
+    if(QIcon::hasThemeIcon("object-rotate-left"))
+    {
+        m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_rotateLeftAction->setIcon(QIcon(QString("%1/object-rotate-left.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_rotateLeftAction->setIcon(QIcon(":/icons/object-rotate-left.svg"));
+#endif
+    }
+
     m_rotateRightAction = new QAction(tr("Rotate &right"), this);
     m_rotateRightAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
-    m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(slotRotateRight()));
+
+    if(QIcon::hasThemeIcon("object-rotate-right"))
+    {
+        m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_rotateRightAction->setIcon(QIcon(QString("%1/object-rotate-right.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_rotateRightAction->setIcon(QIcon(":/icons/object-rotate-right.svg"));
+#endif
+    }
 
     // fonts
 
@@ -1381,17 +1489,41 @@ void MainWindow::createActions()
     m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
     m_fullscreenAction->setCheckable(true);
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
-    m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
     m_fullscreenAction->setIconVisibleInMenu(true);
     connect(m_fullscreenAction, SIGNAL(triggered()), SLOT(slotFullscreen()));
+
+    if(QIcon::hasThemeIcon("view-fullscreen"))
+    {
+        m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_fullscreenAction->setIcon(QIcon(QString("%1/view-fullscreen.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_fullscreenAction->setIcon(QIcon(":/icons/view-fullscreen.svg"));
+#endif
+    }
 
     // presentation
 
     m_presentationAction = new QAction(tr("&Presentation..."), this);
     m_presentationAction->setShortcut(QKeySequence(Qt::Key_F12));
-    m_presentationAction->setIcon(QIcon::fromTheme("x-office-presentation"));
     m_presentationAction->setIconVisibleInMenu(true);
     connect(m_presentationAction, SIGNAL(triggered()), SLOT(slotPresentation()));
+
+    if(QIcon::hasThemeIcon("x-office-presentation"))
+    {
+        m_presentationAction->setIcon(QIcon::fromTheme("x-office-presentation"));
+    }
+    else
+    {
+#ifdef DATA_INSTALL_PATH
+        m_fullscreenAction->setIcon(QIcon(QString("%1/x-office-presentation.svg").arg(DATA_INSTALL_PATH)));
+#else
+        m_fullscreenAction->setIcon(QIcon(":/icons/x-office-presentation.svg"));
+#endif
+    }
 
     // previous tab
 

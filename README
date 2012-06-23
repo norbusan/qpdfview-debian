@@ -9,6 +9,7 @@ The following build-time options can be set in qpdfview.pri:
 - 'DATA_INSTALL_PATH' sets the path to install application data like icons and translations (default is '/usr/share/qpdfview')
 - 'LAUNCHER_INSTALL_PATH' sets the path to install the application launcher (default is '/usr/share/applications')
 - 'MANUAL_INSTALL_PATH' sets the path to install the manual page (default is '/usr/share/man/man1')
+- 'CONFIG += without_svg' disables SVG support used to display fallback and application-specific icons (disabled by default)
 - 'CONFIG += without_dbus' disables the D-Bus support, i.e. the '--unique' command-line option will not be available (disabled by default)
 - 'CONFIG += without_cups' disables the CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file (disabled by default)
 - 'CONFIG += render_in_paint' enables synchronous rendering, i.e. the interface will stall to render pages but it will display pages immediately and bypass the page cache reducing memory usage (disabled by default)
@@ -16,7 +17,8 @@ The following build-time options can be set in qpdfview.pri:
 
 The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file (usually located at "~/.config/qpdfview/qpdfview.conf") to an ordered comma-separated list. The default (available) entries are:
 - fileToolBar: openInNewTab,refresh (open,saveCopy,print)
-- editToolBar: currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,search)
+- editToolBar: currentPage,numberOfPages,previousPage,nextPage 
+(firstPage,lastPage,jumpToPage,search)
 - viewToolBar: scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
 
 The icons are from the tango icon theme "http://tango.freedesktop.org".
