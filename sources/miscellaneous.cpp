@@ -72,6 +72,19 @@ bool PresentationView::open(const QString& filePath)
 
     if(document != 0)
     {
+        if(document->isLocked())
+        {
+            QString password = QInputDialog::getText(0, tr("Password"), tr("Please enter the password required to unlock the document file \"%1\".").arg(filePath), QLineEdit::Password);
+
+            if(document->unlock(password.toLatin1(), password.toLatin1()))
+            {
+                qWarning() << tr("Could not unlock the document file \"%1\".").arg(filePath);
+
+                delete document;
+                return false;
+            }
+        }
+
         if(m_document != 0)
         {
             delete m_document;
