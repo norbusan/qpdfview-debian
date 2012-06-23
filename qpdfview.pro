@@ -23,7 +23,7 @@ TRANSLATIONS += \
 
 # libraries
 
-QT += core xml gui
+QT += core xml gui svg
 
 # uncomment to append the poppler headers and libraries manually
 #
