@@ -242,6 +242,8 @@ public:
 
     QTableWidget* fontsTableWidget();
 
+    void clearBookmarks();
+
 public slots:
     bool open(const QString& filePath);
     bool refresh();

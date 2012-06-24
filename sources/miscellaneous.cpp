@@ -851,8 +851,6 @@ void BookmarksMenu::goToNextEntry()
     }
 }
 
-
-
 void BookmarksMenu::clearList()
 {
     foreach(QAction* action, m_actionGroup->actions())

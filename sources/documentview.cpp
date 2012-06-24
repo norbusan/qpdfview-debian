@@ -867,6 +867,11 @@ QTableWidget* DocumentView::fontsTableWidget()
     return fontsTableWidget;
 }
 
+void DocumentView::clearBookmarks()
+{
+    m_bookmarksMenu->clearList();
+}
+
 bool DocumentView::open(const QString& filePath)
 {
     m_prefetchTimer->blockSignals(true);

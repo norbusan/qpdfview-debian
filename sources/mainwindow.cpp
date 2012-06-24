@@ -110,6 +110,7 @@ bool MainWindow::open(const QString& filePath, int page, qreal top)
         if(documentView->open(filePath))
         {
             documentView->setCurrentPage(page, top);
+            documentView->clearBookmarks();
 
             return true;
         }
@@ -156,6 +157,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, qreal top)
         connect(documentView, SIGNAL(highlightAllChanged(bool)), SLOT(slotHighlightAllChanged(bool)));
 
         documentView->setCurrentPage(page, top);
+        documentView->clearBookmarks();
 
         documentView->setFocus();
 
