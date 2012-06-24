@@ -153,9 +153,8 @@ private:
 
         QList< DocumentView::Link > m_links;
 
-        // selections
+        // rubber band
 
-        QRectF m_highlight;
         QRectF m_rubberBand;
 
         // transforms

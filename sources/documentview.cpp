@@ -46,7 +46,6 @@ DocumentView::PageItem::PageItem(QGraphicsItem* parent, QGraphicsScene* scene) :
     m_index(-1),
     m_scale(1.0),
     m_links(),
-    m_highlight(),
     m_rubberBand(),
     m_size(),
     m_linkTransform(),
@@ -136,18 +135,11 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
         painter->restore();
     }
 
-    // selections
+    // highlights
 
     painter->save();
 
     painter->setTransform(m_highlightTransform, true);
-    painter->setPen(QPen(QColor(0, 0, 255)));
-
-    if(!m_highlight.isNull())
-    {
-        painter->drawRect(m_highlight);
-        painter->fillRect(m_highlight, QBrush(QColor(0, 0, 255, 127)));
-    }
 
     if(parent->m_highlightAll)
     {
@@ -158,6 +150,8 @@ void DocumentView::PageItem::paint(QPainter* painter, const QStyleOptionGraphics
     }
 
     painter->restore();
+
+    // rubber band
 
     if(!m_rubberBand.isNull())
     {
@@ -247,14 +241,6 @@ void DocumentView::PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             event->ignore();
         }
     }
-    else if(event->button() == Qt::MidButton)
-    {
-        m_highlight = QRectF();
-
-        update(boundingRect());
-
-        event->accept();
-    }
     else
     {
         event->ignore();
@@ -285,7 +271,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     {
         m_rubberBand.setBottomRight(event->pos());
 
-        m_highlight = m_highlightTransform.inverted().mapRect(m_rubberBand.normalized()).adjusted(-1.0, -1.0, 1.0, 1.0);
+        m_rubberBand = m_rubberBand.normalized();
 
         // copy text or image
 
@@ -300,7 +286,7 @@ void DocumentView::PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         {
             parent->m_documentMutex.lock();
 
-            QString text = m_page->text(m_highlight);
+            QString text = m_page->text(m_highlightTransform.inverted().mapRect(m_rubberBand));
 
             parent->m_documentMutex.unlock();
 
