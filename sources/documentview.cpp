@@ -677,8 +677,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
 
 DocumentView::~DocumentView()
 {
-    m_scene->clear();
-    m_thumbnailsGraphicsView->scene()->clear();
+    clearScene();
 
     m_search.cancel();
     m_search.waitForFinished();
@@ -2395,8 +2394,8 @@ void DocumentView::prepareScene()
     if(m_scaleMode == FitToPage || m_scaleMode == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        qreal visibleWidth = m_view->viewport()->width() - 6;
-        qreal visibleHeight = m_view->viewport()->height() - 6;
+        qreal visibleWidth = m_view->viewport()->width() - 4;
+        qreal visibleHeight = m_view->viewport()->height() - 4;
 
         switch(m_pageLayout)
         {
