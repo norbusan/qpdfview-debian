@@ -391,7 +391,7 @@ void DocumentView::PageItem::render(qreal scale, bool prefetch)
 
     parent->updatePageCache(key, value);
 
-    emit parent->pageItemChanged(this);
+    emit parent->pageItemChanged(m_index);
 }
 
 // thumbnail item
@@ -532,7 +532,7 @@ void DocumentView::ThumbnailItem::render(qreal scale)
 
     parent->updatePageCache(key, value);
 
-    emit parent->thumbnailItemChanged(this);
+    emit parent->thumbnailItemChanged(m_index);
 }
 
 // document view
@@ -554,6 +554,7 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_highlightAll(false),
     m_pagesByIndex(),
     m_pagesByHeight(),
+    m_thumbnailsByIndex(),
     m_resolutionX(72.0),
     m_resolutionY(72.0),
     m_pageTransform(),
@@ -564,8 +565,10 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_search(),
     m_print()
 {
-    connect(this, SIGNAL(pageItemChanged(PageItem*)), SLOT(slotUpdatePageItem(PageItem*)));
-    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
+    connect(this, SIGNAL(pageItemChanged(int)), SLOT(slotUpdatePageItem(int)));
+    connect(this, SIGNAL(thumbnailItemChanged(int)), SLOT(slotUpdateThumbnailItem(int)));
+
+    connect(this, SIGNAL(currentPageChanged(int)), SLOT(slotThumbnailsEnsureVisible(int)));
 
     connect(this, SIGNAL(firstResultFound()), SLOT(findNext()));
 
@@ -881,9 +884,6 @@ QTableWidget* DocumentView::fontsTableWidget()
 
 bool DocumentView::open(const QString& filePath)
 {
-    disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
     m_prefetchTimer->blockSignals(true);
 
     Poppler::Document* document = Poppler::Document::load(filePath);
@@ -961,9 +961,6 @@ bool DocumentView::open(const QString& filePath)
     prepareScene();
     prepareView();
 
-    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
     if(m_settings.value("documentView/prefetch").toBool())
     {
         m_prefetchTimer->blockSignals(false);
@@ -975,9 +972,6 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    disconnect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    disconnect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
-
     m_prefetchTimer->blockSignals(true);
 
     Poppler::Document* document = Poppler::Document::load(m_filePath);
@@ -1043,9 +1037,6 @@ bool DocumentView::refresh()
 
     prepareScene();
     prepareView();
-
-    connect(this, SIGNAL(pageItemChanged(PageItem*)), this, SLOT(slotUpdatePageItem(PageItem*)));
-    connect(this, SIGNAL(thumbnailItemChanged(ThumbnailItem*)), this, SLOT(slotUpdateThumbnailItem(ThumbnailItem*)));
 
     if(m_settings.value("documentView/prefetch").toBool())
     {
@@ -1749,16 +1740,24 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     }
 }
 
-void DocumentView::slotUpdatePageItem(PageItem* pageItem)
+void DocumentView::slotUpdatePageItem(int index)
 {
+    PageItem* pageItem = m_pagesByIndex.value(index, 0);
+
     if(pageItem != 0)
     {
         pageItem->update(pageItem->boundingRect());
     }
+    else
+    {
+        qDebug() << "no joy!";
+    }
 }
 
-void DocumentView::slotUpdateThumbnailItem(ThumbnailItem* thumbnailItem)
+void DocumentView::slotUpdateThumbnailItem(int index)
 {
+    ThumbnailItem* thumbnailItem = m_thumbnailsByIndex.value(index, 0);
+
     if(thumbnailItem != 0)
     {
         thumbnailItem->update(thumbnailItem->boundingRect());
@@ -1780,6 +1779,16 @@ void DocumentView::slotVerticalScrollBarValueChanged(int value)
                 emit currentPageChanged(m_currentPage);
             }
         }
+    }
+}
+
+void DocumentView::slotThumbnailsEnsureVisible(int currentPage)
+{
+    ThumbnailItem* thumbnailItem = m_thumbnailsByIndex.value(currentPage - 1, 0);
+
+    if(thumbnailItem != 0)
+    {
+        m_thumbnailsGraphicsView->ensureVisible(thumbnailItem);
     }
 }
 
@@ -1929,7 +1938,7 @@ void DocumentView::search(const QString& text, bool matchCase)
 
         if(m_highlightAll)
         {
-            emit pageItemChanged(m_pagesByIndex.value(index, 0));
+            emit pageItemChanged(index);
         }
 
         emit searchProgressed((100 * (indices.indexOf(index) + 1)) / indices.count());
@@ -2098,6 +2107,9 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
 
 void DocumentView::clearScene()
 {
+    m_pagesByIndex.clear();
+    m_thumbnailsByIndex.clear();
+
     m_scene->removeItem(m_highlight);
     m_scene->clear();
     m_scene->addItem(m_highlight);
@@ -2322,6 +2334,9 @@ void DocumentView::prepareThumbnails()
 {
     m_thumbnailsGraphicsView->scene()->clear();
 
+    m_thumbnailsByIndex.clear();
+    m_thumbnailsByIndex.reserve(m_numberOfPages);
+
     qreal sceneWidth = 0.0, sceneHeight = thumbnailSpacing;
 
     for(int index = 0; index < m_numberOfPages; index++)
@@ -2339,6 +2354,8 @@ void DocumentView::prepareThumbnails()
         thumbnailItem->setPos(thumbnailSpacing, sceneHeight);
 
         m_thumbnailsGraphicsView->scene()->addItem(thumbnailItem);
+
+        m_thumbnailsByIndex.append(thumbnailItem);
 
         sceneWidth = qMax(sceneWidth, thumbnailItem->boundingRect().width() + 2 * thumbnailSpacing);
         sceneHeight += thumbnailItem->boundingRect().height() + thumbnailSpacing;

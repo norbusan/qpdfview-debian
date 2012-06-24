@@ -271,8 +271,8 @@ public slots:
     void cancelPrint();
 
 signals:
-    void pageItemChanged(PageItem* pageItem);
-    void thumbnailItemChanged(ThumbnailItem* thumbnailItem);
+    void pageItemChanged(int index);
+    void thumbnailItemChanged(int index);
 
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
@@ -307,10 +307,11 @@ protected:
     void wheelEvent(QWheelEvent* event);
 
 protected slots:
-    void slotUpdatePageItem(PageItem* pageItem);
-    void slotUpdateThumbnailItem(ThumbnailItem* thumbnailItem);
+    void slotUpdatePageItem(int index);
+    void slotUpdateThumbnailItem(int index);
 
     void slotVerticalScrollBarValueChanged(int value);
+    void slotThumbnailsEnsureVisible(int currentPage);
 
     void slotPrefetchTimerTimeout();
     void slotBookmarksMenuEntrySelected(int page, int value);
@@ -357,6 +358,8 @@ private:
 
     QVector< PageItem* > m_pagesByIndex;
     QMap< qreal, PageItem* > m_pagesByHeight;
+
+    QVector< ThumbnailItem* > m_thumbnailsByIndex;
 
     qreal m_resolutionX;
     qreal m_resolutionY;
