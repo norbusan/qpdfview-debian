@@ -871,15 +871,18 @@ void BookmarksMenu::clearList()
 
 void BookmarksMenu::setReturnPosition(int page, int value)
 {
-     m_returnPage = page;
-     m_returnValue = value;
+    m_returnPage = page;
+    m_returnValue = value;
 
-     m_returnAction->setEnabled(m_returnPage != -1 && m_returnValue != -1);
+    m_returnAction->setEnabled(m_returnPage != -1 && m_returnValue != -1);
 }
 
 void BookmarksMenu::slotReturnActionTriggered()
 {
-    emit entrySelected(m_returnPage, m_returnValue);
+    if(m_returnPage != -1 && m_returnValue != -1)
+    {
+        emit entrySelected(m_returnPage, m_returnValue);
+    }
 }
 
 void BookmarksMenu::slotActionGroupTriggered(QAction* action)
