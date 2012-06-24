@@ -1748,10 +1748,6 @@ void DocumentView::slotUpdatePageItem(int index)
     {
         pageItem->update(pageItem->boundingRect());
     }
-    else
-    {
-        qDebug() << "no joy!";
-    }
 }
 
 void DocumentView::slotUpdateThumbnailItem(int index)
