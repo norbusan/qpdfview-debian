@@ -99,10 +99,12 @@ private:
     // document
 
     Poppler::Document* m_document;
+    QMutex m_documentMutex;
 
     // page cache
 
     QMap< PageCacheKey, PageCacheValue > m_pageCache;
+    QMutex m_pageCacheMutex;
 
     uint m_pageCacheSize;
     uint m_maximumPageCacheSize;

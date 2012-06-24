@@ -25,7 +25,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 PresentationView::PresentationView() : QWidget(),
     m_document(0),
+    m_documentMutex(),
     m_pageCache(),
+    m_pageCacheMutex(),
     m_pageCacheSize(0u),
     m_maximumPageCacheSize(33554432u),
     m_filePath(),
@@ -212,6 +214,8 @@ void PresentationView::paintEvent(QPaintEvent*)
 
 #else
 
+    m_pageCacheMutex.lock();
+
     PageCacheKey key(m_currentPage - 1, m_scale);
 
     if(m_pageCache.contains(key))
@@ -228,6 +232,8 @@ void PresentationView::paintEvent(QPaintEvent*)
             m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1);
         }
     }
+
+    m_pageCacheMutex.unlock();
 
 #endif
 }
@@ -300,6 +306,8 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
 
 void PresentationView::prepareView()
 {
+    m_documentMutex.lock();
+
     Poppler::Page* page = m_document->page(m_currentPage - 1);
     QSizeF size = page->pageSizeF();
 
@@ -339,6 +347,8 @@ void PresentationView::prepareView()
 
     delete page;
 
+    m_documentMutex.unlock();
+
     m_prefetchTimer->start();
 
     update();
@@ -346,6 +356,8 @@ void PresentationView::prepareView()
 
 void PresentationView::render(int index)
 {
+    m_documentMutex.lock();
+
     Poppler::Page* page = m_document->page(index);
     QSizeF size = page->pageSizeF();
 
@@ -353,6 +365,10 @@ void PresentationView::render(int index)
     QImage image = page->renderToImage(scale * 72.0, scale * 72.0);
 
     delete page;
+
+    m_documentMutex.unlock();
+
+    m_pageCacheMutex.lock();
 
     PageCacheKey key(index, scale);
     PageCacheValue value(image);
@@ -385,6 +401,8 @@ void PresentationView::render(int index)
 
     m_pageCacheSize += byteCount;
     m_pageCache.insert(key, value);
+
+    m_pageCacheMutex.unlock();
 
     update();
 }
