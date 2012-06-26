@@ -1528,7 +1528,7 @@ bool DocumentView::eventFilter(QObject* object, QEvent* event)
     {
         QKeyEvent* keyEvent = static_cast< QKeyEvent* >(event);
 
-        if(keyEvent->key() == Qt::Key_PageUp || keyEvent->key() == Qt::Key_PageDown)
+        if(keyEvent->modifiers() == Qt::NoModifier && (keyEvent->key() == Qt::Key_PageUp || keyEvent->key() == Qt::Key_PageDown))
         {
             keyPressEvent(keyEvent);
 
@@ -1574,7 +1574,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_Backspace)
+    if(event->modifiers() == Qt::NoModifier && (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_Backspace))
     {
         switch(m_pageLayout)
         {
@@ -1603,7 +1603,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             break;
         }
     }
-    else if(event->key() == Qt::Key_PageDown || event->key() == Qt::Key_Space)
+    else if(event->modifiers() == Qt::NoModifier && (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_Space))
     {
         int lastPage = -1;
 

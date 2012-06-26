@@ -905,7 +905,6 @@ void MainWindow::slotScaleFactorComboBoxCurrentIndexChanged(int index)
 
 void MainWindow::slotScaleFactorComboBoxEditingFinished()
 {
-    qDebug() << "eF";
     if(m_tabWidget->currentIndex() != -1)
     {
         DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
