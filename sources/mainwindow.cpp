@@ -66,15 +66,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
 
         for(int index = 0; index < filePaths.count(); index++)
         {
-            openInNewTab(filePaths.at(index));
+            if(openInNewTab(filePaths.at(index)))
+            {
+                DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
 
-            DocumentView* documentView = qobject_cast< DocumentView* >(m_tabWidget->currentWidget()); Q_ASSERT(documentView);
-
-            documentView->setCurrentPage(currentPages.value(index, documentView->currentPage()).toInt());
-            documentView->setPageLayout(static_cast< DocumentView::PageLayout >(pageLayouts.value(index, static_cast< uint >(documentView->pageLayout())).toUInt()));
-            documentView->setScaleMode(static_cast< DocumentView::ScaleMode >(scaleModes.value(index, static_cast< uint >(documentView->scaleMode())).toUInt()));
-            documentView->setScaleFactor(scaleFactors.value(index, documentView->scaleFactor()).toReal());
-            documentView->setRotation(static_cast< DocumentView::Rotation >(rotations.value(index, static_cast< uint >(documentView->rotation())).toUInt()));
+                documentView->setCurrentPage(currentPages.value(index, documentView->currentPage()).toInt());
+                documentView->setPageLayout(static_cast< DocumentView::PageLayout >(pageLayouts.value(index, static_cast< uint >(documentView->pageLayout())).toUInt()));
+                documentView->setScaleMode(static_cast< DocumentView::ScaleMode >(scaleModes.value(index, static_cast< uint >(documentView->scaleMode())).toUInt()));
+                documentView->setScaleFactor(scaleFactors.value(index, documentView->scaleFactor()).toReal());
+                documentView->setRotation(static_cast< DocumentView::Rotation >(rotations.value(index, static_cast< uint >(documentView->rotation())).toUInt()));
+            }
         }
 
         m_tabWidget->setCurrentIndex(m_settings.value("mainWindow/tabs/currentIndex", -1).toInt());
