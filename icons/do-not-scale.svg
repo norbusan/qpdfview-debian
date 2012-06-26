@@ -1,23 +1,20 @@
-<svg height="48" id="svg249" version="1.1" width="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<defs id="defs3">
-<linearGradient id="linearGradient15662">
-<stop id="stop15664" offset="0" style="stop-color:#fff"/>
-<stop id="stop15666" offset="1" style="stop-color:#f8f8f8"/>
-</linearGradient>
-<linearGradient id="linearGradient269">
-<stop id="stop270" offset="0" style="stop-color:#a3a3a3"/>
-<stop id="stop271" offset="1" style="stop-color:#4c4c4c"/>
-</linearGradient>
-<linearGradient id="linearGradient259">
-<stop id="stop260" offset="0" style="stop-color:#fafafa"/>
-<stop id="stop261" offset="1" style="stop-color:#bbb"/>
-</linearGradient>
-<radialGradient cx="8.1436" cy="7.2679" fx="8.1436" fy="7.2679" gradientTransform="matrix(.96827,0,0,1.03277,3.35355,.64645)" gradientUnits="userSpaceOnUse" id="radialGradient3244" r="38.1587" xlink:href="#linearGradient15662"/>
-<radialGradient cx="33.9667" cy="35.7369" fx="33.9667" fy="35.7369" gradientTransform="scale(.96,1.041)" gradientUnits="userSpaceOnUse" id="radialGradient3247" r="86.7084" xlink:href="#linearGradient259"/>
-<radialGradient cx="8.8244" cy="3.7561" fx="8.8244" fy="3.7561" gradientTransform="matrix(.96827,0,0,1.03277,3.35355,.64645)" gradientUnits="userSpaceOnUse" id="radialGradient3249" r="37.7517" xlink:href="#linearGradient269"/>
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient cx="11.23875" cy="8.15252" gradientUnits="userSpaceOnUse" id="radialGradient3244" r="36.94792">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#f8f8f8"/>
+</radialGradient>
+<radialGradient cx="32.60803" cy="37.20211" gradientUnits="userSpaceOnUse" id="radialGradient3247" r="83.24006">
+<stop offset="0" stop-color="#fafafa"/>
+<stop offset="1" stop-color="#bbb"/>
+</radialGradient>
+<radialGradient cx="11.89795" cy="4.52564" gradientUnits="userSpaceOnUse" id="radialGradient3249" r="36.55384">
+<stop offset="0" stop-color="#a3a3a3"/>
+<stop offset="1" stop-color="#4c4c4c"/>
+</radialGradient>
 </defs>
-<g id="g3251" transform="translate(-.0411,-.1067)">
-<rect height="40.9205" id="rect15391" rx="1.149" style="display:block;stroke-linejoin:round;fill:url(#radialGradient3247);stroke-linecap:round;stroke:url(#radialGradient3249)" width="34.875" x="6.6036" y="3.6464"/>
-<rect height="38.9464" id="rect15660" rx=".149" style="display:block;stroke-linejoin:round;fill:none;stroke-linecap:round;stroke:url(#radialGradient3244)" width="32.7759" x="7.6661" y="4.5839"/>
-</g><text id="text3840" style="font-family:Sans;fill:#204987;font-weight:bold;letter-spacing:0;font-size:24;word-spacing:0" x="15.123" xml:space="preserve" y="32.748"><tspan id="tspan3844" x="15.123" y="32.748">1</tspan></text>
+<g transform="translate(-.0411,-.1067)">
+<path d="m 7.7526,3.6464 h 32.577 a 1.149,1.149 0 0,1 1.149,1.149 v 38.6225 a 1.149,1.149 0 0,1 -1.149,1.149 h -32.577 a 1.149,1.149 0 0,1 -1.149,-1.149 v -38.6225 a 1.149,1.149 0 0,1 1.149,-1.149" display="block" fill="url(#radialGradient3247)" stroke="url(#radialGradient3249)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m 7.8151,4.5839 h 32.4779 a .149,.149 0 0,1 .149,.149 v 38.6484 a .149,.149 0 0,1 -.149,.149 h -32.4779 a .149,.149 0 0,1 -.149,-.149 v -38.6484 a .149,.149 0 0,1 .149,-.149" display="block" fill="none" stroke="url(#radialGradient3244)" stroke-linecap="round" stroke-linejoin="round"/>
+</g><text fill="#204987" font-family="Sans" font-size="24" font-weight="bold" letter-spacing="0" word-spacing="0" x="15.123" xml:space="preserve" y="32.748"><tspan x="15.123" y="32.748">1</tspan></text>
 </svg>
