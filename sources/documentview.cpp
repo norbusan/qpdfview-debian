@@ -575,6 +575,8 @@ DocumentView::DocumentView(QWidget* parent) : QWidget(parent),
     m_view = new QGraphicsView(m_scene, this);
     m_view->setDragMode(QGraphicsView::ScrollHandDrag);
 
+    m_view->setAcceptDrops(false);
+
     setFocusProxy(m_view);
 
     // highlight
