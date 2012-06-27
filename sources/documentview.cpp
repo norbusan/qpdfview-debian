@@ -2035,6 +2035,8 @@ void DocumentView::print(QPrinter* printer, int fromPage, int toPage)
         qDebug() << "CUPS:" << cupsLastErrorString();
     }
 
+    delete printer;
+
     emit printProgressed(100);
 
     emit printFinished();
