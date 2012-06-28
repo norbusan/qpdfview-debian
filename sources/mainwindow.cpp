@@ -467,7 +467,7 @@ void MainWindow::slotSearchProgressed(int value)
     QPoint pos = centralWidget()->mapToGlobal(centralWidget()->rect().bottomLeft());
     pos.rx() += 10; pos.ry() -= 50;
 
-    QToolTip::showText(pos, tr("Searched %1% of the the current document...").arg(value), centralWidget());
+    QToolTip::showText(pos, tr("Searched %1% of the current document...").arg(value), centralWidget());
 }
 
 void MainWindow::slotSearchCanceled()
@@ -1035,6 +1035,11 @@ void MainWindow::slotHighlightAllChanged(bool highlightAll)
 
 void MainWindow::createActions()
 {
+    if(m_settings.contains("mainWindow/iconTheme"))
+    {
+        QIcon::setThemeName(m_settings.value("mainWindow/iconTheme").toString());
+    }
+
     // open
 
     m_openAction = new QAction(tr("&Open..."), this);
