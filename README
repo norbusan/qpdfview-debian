@@ -15,9 +15,4 @@ The following build-time options can be set in qpdfview.pri:
 - 'CONFIG += render_in_paint' enables synchronous rendering, i.e. the interface will stall to render pages but it will display pages immediately and bypass the page cache reducing memory usage (disabled by default)
 - 'CONFIG += render_from_disk' enables multi-threaded rendering, i.e. the document file will be accessed concurrently which introduces I/O overhead and problems if the document file changes on disk but can improve rendering speed (disabled by default)
 
-The toolbars can be configured by setting the keys "fileToolBar", "editToolBar" and "viewToolBar" in the section "mainWindow" of the configuration file (usually located at "~/.config/qpdfview/qpdfview.conf") to an ordered comma-separated list. The default (available) entries are:
-- fileToolBar: openInNewTab,refresh (open,saveCopy,print)
-- editToolBar: currentPage,numberOfPages,previousPage,nextPage (firstPage,lastPage,jumpToPage,search)
-- viewToolBar: scaleFactor,zoomIn,zoomOut (onePage,twoPages,oneColumn,twoColumns,fitToPage,fitToPageWidth,doNotScale,rotateLeft,rotateRight,fullscreen,presentation)
-
 The icons are from the tango icon theme "http://tango.freedesktop.org".
