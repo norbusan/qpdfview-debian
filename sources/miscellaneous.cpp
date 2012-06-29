@@ -652,7 +652,7 @@ BookmarksMenu::BookmarksMenu(QWidget* parent) : QMenu(tr("Bookmarks"), parent),
     connect(m_actionGroup, SIGNAL(triggered(QAction*)), SLOT(slotActionGroupTriggered(QAction*)));
 
     m_returnAction = new QAction(tr("Re&turn"), this);
-    m_returnAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
+    m_returnAction->setShortcut(QKeySequence(Qt::Key_Return));
     connect(m_returnAction, SIGNAL(triggered()), SLOT(slotReturnActionTriggered()));
 
     m_returnAction->setEnabled(false);
