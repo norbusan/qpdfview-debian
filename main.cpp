@@ -33,6 +33,12 @@ int main(int argc, char** argv)
 
     QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
 
+    QTranslator translator;
+    if(translator.load("/usr/share/qpdfview/qpdfview_" + QLocale::system().name()))
+    {
+            application.installTranslator(&translator);
+    }
+
     bool unique = false;
 
     typedef QPair< QString, int > File;

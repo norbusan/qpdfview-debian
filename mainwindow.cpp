@@ -1163,7 +1163,7 @@ void MainWindow::createActions()
 
     // save copy
 
-    m_saveCopyAction = new QAction(tr("&Save copy"), this);
+    m_saveCopyAction = new QAction(tr("&Save copy..."), this);
     m_saveCopyAction->setShortcut(QKeySequence::Save);
     m_saveCopyAction->setIcon(QIcon::fromTheme("document-save", QIcon(":icons/document-save.svg")));
     m_saveCopyAction->setIconVisibleInMenu(true);

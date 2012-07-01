@@ -49,7 +49,7 @@ target.path = /usr/bin
 launcher.files = qpdfview.desktop
 launcher.path = /usr/share/applications
 
-data.files = icons/qpdfview.svg
+data.files = icons/qpdfview.svg translations/*.qm
 data.path = /usr/share/qpdfview
 
 INSTALLS += target launcher data
