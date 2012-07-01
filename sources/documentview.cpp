@@ -939,24 +939,21 @@ bool DocumentView::open(const QString& filePath)
         prepareOutline();
         prepareMetaInformation();
         prepareThumbnails();
-    }
 
-    if(m_document != 0)
-    {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-    }
 
-    clearPageCache();
+        clearPageCache();
 
-    prepareScene();
-    prepareView();
+        prepareScene();
+        prepareView();
 
-    if(m_settings.value("documentView/prefetch").toBool())
-    {
-        m_prefetchTimer->blockSignals(false);
-        m_prefetchTimer->start();
+        if(m_settings.value("documentView/prefetch").toBool())
+        {
+            m_prefetchTimer->blockSignals(false);
+            m_prefetchTimer->start();
+        }
     }
 
     return document != 0;
@@ -1016,24 +1013,21 @@ bool DocumentView::refresh()
         prepareOutline();
         prepareMetaInformation();
         prepareThumbnails();
-    }
 
-    if(m_document != 0)
-    {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-    }
 
-    clearPageCache();
+        clearPageCache();
 
-    prepareScene();
-    prepareView();
+        prepareScene();
+        prepareView();
 
-    if(m_settings.value("documentView/prefetch").toBool())
-    {
-        m_prefetchTimer->blockSignals(false);
-        m_prefetchTimer->start();
+        if(m_settings.value("documentView/prefetch").toBool())
+        {
+            m_prefetchTimer->blockSignals(false);
+            m_prefetchTimer->start();
+        }
     }
 
     return document != 0;
@@ -2389,8 +2383,8 @@ void DocumentView::prepareScene()
     if(m_scaleMode == FitToPage || m_scaleMode == FitToPageWidth)
     {
         qreal pageWidth = 0.0, pageHeight = 0.0;
-        qreal visibleWidth = m_view->viewport()->width() - 4;
-        qreal visibleHeight = m_view->viewport()->height() - 4;
+        qreal visibleWidth = m_view->viewport()->width() - 5;
+        qreal visibleHeight = m_view->viewport()->height() - 5;
 
         switch(m_pageLayout)
         {

@@ -97,25 +97,22 @@ bool PresentationView::open(const QString& filePath)
         m_filePath = filePath;
         m_numberOfPages = m_document->numPages();
         m_currentPage = 1;
-    }
 
-    if(m_document != 0)
-    {
         m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings.value("documentView/antialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings.value("documentView/textAntialiasing", true).toBool());
         m_document->setRenderHint(Poppler::Document::TextHinting, m_settings.value("documentView/textHinting", false).toBool());
-    }
 
-    m_pageCache.clear();
-    m_pageCacheSize = 0u;
-    m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
+        m_pageCache.clear();
+        m_pageCacheSize = 0u;
+        m_maximumPageCacheSize = m_settings.value("documentView/maximumPageCacheSize", 33554432u).toUInt();
 
-    prepareView();
+        prepareView();
 
-    if(m_settings.value("documentView/prefetch").toBool())
-    {
-        m_prefetchTimer->blockSignals(false);
-        m_prefetchTimer->start();
+        if(m_settings.value("documentView/prefetch").toBool())
+        {
+            m_prefetchTimer->blockSignals(false);
+            m_prefetchTimer->start();
+        }
     }
 
     return document != 0;

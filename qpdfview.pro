@@ -15,8 +15,7 @@ HEADERS += \
     sources/mainwindow.h
 
 TRANSLATIONS += \
-    translations/qpdfview_de.ts \
-    translations/qpdfview_ro.ts
+    translations/qpdfview_de.ts
 
 # libraries
 
