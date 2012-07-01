@@ -991,6 +991,11 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int pa
     refreshOrOpenInNewTab(filePath, page);
 }
 
+void MainWindow::on_about_triggered()
+{
+    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library. See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012 Adam Reichold</p>").arg(QApplication::applicationVersion()));
+}
+
 void MainWindow::on_highlightAll_clicked(bool checked)
 {
     currentTab()->setHighlightAll(checked);
@@ -1385,6 +1390,13 @@ void MainWindow::createActions()
 
     m_removeAllBookmarksAction = new QAction(tr("&Remove all bookmarks"), this);
     connect(m_removeAllBookmarksAction, SIGNAL(triggered()), SLOT(on_removeAllBookmarks_triggered()));
+
+    // about
+
+    m_aboutAction = new QAction(tr("&About"), this);
+    m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
+    m_aboutAction->setIconVisibleInMenu(true);
+    connect(m_aboutAction, SIGNAL(triggered()), SLOT(on_about_triggered()));
 }
 
 void MainWindow::createToolBars()
@@ -1599,6 +1611,11 @@ void MainWindow::createMenus()
     m_bookmarksMenu->addAction(m_addBookmarkAction);
     m_bookmarksMenu->addAction(m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
+
+    // help
+
+    m_helpMenu = menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_aboutAction);
 }
 
 void MainWindow::restoreTabs()

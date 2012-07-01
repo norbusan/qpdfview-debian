@@ -133,6 +133,8 @@ protected slots:
     void on_bookmark_openInNewTabTriggered(const QString& filePath);
     void on_bookmark_jumpToPageTriggered(const QString& filePath, int page);
 
+    void on_about_triggered();
+
     void on_highlightAll_clicked(bool checked);
 
     void on_outline_clicked(const QModelIndex& index);
@@ -208,6 +210,8 @@ private:
     QAction* m_addBookmarkAction;
     QAction* m_removeAllBookmarksAction;
 
+    QAction* m_aboutAction;
+
     void createActions();
 
     QToolBar* m_fileToolBar;
@@ -234,6 +238,7 @@ private:
     QMenu* m_viewMenu;
     QMenu* m_tabsMenu;
     QMenu* m_bookmarksMenu;
+    QMenu* m_helpMenu;
 
     void createMenus();
 

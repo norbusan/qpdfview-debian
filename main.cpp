@@ -29,6 +29,8 @@ int main(int argc, char** argv)
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
 
+    QApplication::setApplicationVersion("0.3.1.99");
+
     QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
 
     bool unique = false;
