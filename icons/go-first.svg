@@ -13,9 +13,9 @@
 <stop offset="1" stop-color="#fff" stop-opacity="0"/>
 </radialGradient>
 </defs>
-<path d="m 40.4819,36.4211 a 15.6447,8.3969 0 1,1 -31.2895,0 15.6447,8.3969 0 1,1 31.2895,0 z" fill="url(#radialGradient8668)" fill-rule="evenodd" opacity=".299" transform="matrix(-1.27119,0,0,1.27119,56.54869,-13.15725)"/>
-<path d="m 2.5,6.5 h 5.9962 v 15.125 l 18.0038,-15.0938 .0625,7.9688 h 12.9375 v 18.0312 h -12.9375 v 7.9688 l -18.0663,-15.375 v 15.3731 h -5.9962 v -33.9981 z" fill="url(#radialGradient1441)" fill-rule="evenodd" stroke="#3a7304" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
-<path d="m 7.4881,3.4905 h 32.0119 v 4.0095 h -32.0119 z" fill="none" opacity=".481" stroke="#fff" transform="matrix(0,1,1,0,0,0)"/>
-<path d="m 38.5199,15.4481 v 16.056 h -12.9929 v 6.6528 l -16.9957,-14.2208 .0007,-1.1715 17.0384,-14.2646 -.0221,7.0079 12.9716,-.0598 z" fill="none" opacity=".481" stroke="#fff" stroke-miterlimit="10"/>
-<path d="m 26.0664,7.5152 -.0313,7.5252 12.9109,-.0938 .0625,8.9783 c -16.75,-6.25 -20.7585,5.4197 -36.0085,-.8303 l .0166,-16.098 4.8291,-.0355 .0166,15.652 18.2041,-15.0979 z" fill="url(#radialGradient6058)" fill-rule="evenodd" opacity=".508"/>
+<path d="m40.4819,36.4211a15.6447,8.3969 0 1,1 -31.2895,0 15.6447,8.3969 0 1,1 31.2895,0z" fill="url(#radialGradient8668)" fill-rule="evenodd" opacity=".299" transform="matrix(-1.27119,0,0,1.27119,56.54869,-13.15725)"/>
+<path d="m2.5,6.5h5.9962v15.125l18.0038-15.0938 .0625,7.9688h12.9375v18.0312h-12.9375v7.9688l-18.0663-15.375v15.3731h-5.9962v-33.9981z" fill="url(#radialGradient1441)" fill-rule="evenodd" stroke="#3a7304" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+<path d="m7.4881,3.4905h32.0119v4.0095h-32.0119z" fill="none" opacity=".481" stroke="#fff" transform="matrix(0,1,1,0,0,0)"/>
+<path d="m38.5199,15.4481v16.056h-12.9929v6.6528l-16.9957-14.2208 .0007-1.1715 17.0384-14.2646-.0221,7.0079 12.9716-.0598z" fill="none" opacity=".481" stroke="#fff" stroke-miterlimit="10"/>
+<path d="m26.0664,7.5152-.0313,7.5252 12.9109-.0938 .0625,8.9783c-16.75-6.25-20.7585,5.4197-36.0085-.8303l.0166-16.098 4.8291-.0355 .0166,15.652 18.2041-15.0979z" fill="url(#radialGradient6058)" fill-rule="evenodd" opacity=".508"/>
 </svg>

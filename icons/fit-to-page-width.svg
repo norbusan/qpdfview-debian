@@ -20,9 +20,9 @@
 </radialGradient>
 </defs>
 <g transform="translate(-.0411,-.1067)">
-<path d="m 7.7526,3.6464 h 32.577 a 1.149,1.149 0 0,1 1.149,1.149 v 38.6225 a 1.149,1.149 0 0,1 -1.149,1.149 h -32.577 a 1.149,1.149 0 0,1 -1.149,-1.149 v -38.6225 a 1.149,1.149 0 0,1 1.149,-1.149" display="block" fill="url(#radialGradient3247)" stroke="url(#radialGradient3249)" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="m 7.8151,4.5839 h 32.4779 a .149,.149 0 0,1 .149,.149 v 38.6484 a .149,.149 0 0,1 -.149,.149 h -32.4779 a .149,.149 0 0,1 -.149,-.149 v -38.6484 a .149,.149 0 0,1 .149,-.149" display="block" fill="none" stroke="url(#radialGradient3244)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3247)" stroke="url(#radialGradient3249)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3244)" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path d="m 8.913,23.9945 4.5962,4.5962 v -2.8505 l 5.679,.0221 -.0221,-3.5355 h -5.6569 v -2.8284 l -4.5962,4.5962 z" fill="url(#linearGradient3482)" fill-rule="evenodd"/>
-<path d="m 39.087,24.0055 -4.5962,-4.5962 v 2.8505 l -5.679,-.0221 .0221,3.5355 h 5.6569 v 2.8284 l 4.5962,-4.5962 z" fill="url(#linearGradient3473)" fill-rule="evenodd"/>
+<path d="m8.913,23.9945 4.5962,4.5962v-2.8505l5.679.0221-.0221-3.5355h-5.6569v-2.8284l-4.5962,4.5962z" fill="url(#linearGradient3482)" fill-rule="evenodd"/>
+<path d="m39.087,24.0055-4.5962-4.5962v2.8505l-5.679-.0221 .0221,3.5355h5.6569v2.8284l4.5962-4.5962z" fill="url(#linearGradient3473)" fill-rule="evenodd"/>
 </svg>
