@@ -1426,7 +1426,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         {
             page->setVisible(true);
 
-            if(Q_UNLIKELY(index == m_currentPage - 1))
+            if(index == m_currentPage - 1)
             {
                 QRectF boundingRect = page->boundingRect().translated(page->pos());
 
@@ -1436,7 +1436,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(Q_UNLIKELY(index == m_currentPage - 1))
+            if(index == m_currentPage - 1)
             {
                 page->setVisible(true);
 
@@ -1448,7 +1448,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
                 horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
                 verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
             }
-            else if(m_twoPagesMode && Q_UNLIKELY(index == m_currentPage))
+            else if(m_twoPagesMode && index == m_currentPage)
             {
                 page->setVisible(true);
 
@@ -1465,7 +1465,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
         if(m_currentResult != m_results.end())
         {
-            if(Q_UNLIKELY(m_currentResult.key() == index))
+            if(m_currentResult.key() == index)
             {
                 m_highlight->setPos(page->pos());
                 m_highlight->setTransform(page->transform());
