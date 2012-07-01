@@ -21,10 +21,7 @@
         <file>icons/view-fullscreen.svg</file>
         <file>icons/x-office-presentation.svg</file>
         <file>translations/qpdfview_de.qm</file>
-        <file>translations/qpdfview_fr.qm</file>
         <file>translations/qpdfview_ro.qm</file>
-        <file>translations/qpdfview_ru.qm</file>
-        <file>translations/qpdfview_uk.qm</file>
         <file>miscellaneous/help.html</file>
         <file>icons/do-not-scale.svg</file>
         <file>icons/fit-to-page.svg</file>
