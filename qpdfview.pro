@@ -18,6 +18,9 @@ SOURCES += \
 
 RESOURCES += qpdfview.qrc
 
+TRANSLATIONS += \
+    translations/qpdfview_de.ts
+
 QT += core xml gui
 
 !without_svg {
