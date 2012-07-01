@@ -95,6 +95,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_pagesScene(0),
     m_pages(),
     m_heightToIndex(),
+    m_left(0.0),
+    m_top(0.0),
     m_thumbnailsScene(0),
     m_thumbnails(),
     m_highlight(0),
@@ -258,6 +260,7 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
     {
         m_scaleMode = scaleMode;
 
+        saveLeftAndTop();
         prepareScene();
         prepareView();
 
@@ -278,6 +281,7 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
 
         if(m_scaleMode == ScaleFactor)
         {
+            saveLeftAndTop();
             prepareScene();
             prepareView();
         }
@@ -622,7 +626,7 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
     {
         if(m_twoPagesMode)
         {
-            if(m_currentPage != (page % 2 != 0 ? page : page - 1) || changeLeft != 0.0 || changeTop != 0.0)
+            if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
             {
                 m_returnToPage = m_currentPage;
                 m_currentPage = page % 2 != 0 ? page : page - 1;
@@ -923,6 +927,7 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
     if(m_scaleMode != ScaleFactor)
     {
+        saveLeftAndTop();
         prepareScene();
         prepareView();
     }
@@ -1052,6 +1057,17 @@ bool DocumentView::currentPageIsLastPage()
     {
         return m_currentPage == m_numberOfPages;
     }
+}
+
+void DocumentView::saveLeftAndTop()
+{
+    PageItem* page = m_pages.at(m_currentPage - 1);
+
+    QRectF boundingRect = page->boundingRect().translated(page->pos());
+    QPointF topLeft = mapToScene(viewport()->rect().topLeft());
+
+    m_left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
+    m_top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
 void DocumentView::prepareDocument(Poppler::Document* document)
@@ -1417,6 +1433,22 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
     int horizontalValue = 0;
     int verticalValue = 0;
+
+    {
+        // restore left and top
+
+        if(!qFuzzyCompare(1.0, 1.0 + m_left))
+        {
+            changeLeft = m_left;
+            m_left = 0.0;
+        }
+
+        if(!qFuzzyCompare(1.0, 1.0 + m_top))
+        {
+            changeTop = m_top;
+            m_top = 0.0;
+        }
+    }
 
     for(int index = 0; index < m_pages.count(); index++)
     {

@@ -196,6 +196,11 @@ private:
 
     QMap< qreal, int > m_heightToIndex;
 
+    qreal m_left;
+    qreal m_top;
+
+    void saveLeftAndTop();
+
     QGraphicsScene* m_thumbnailsScene;
     QList< ThumbnailItem* > m_thumbnails;
 
