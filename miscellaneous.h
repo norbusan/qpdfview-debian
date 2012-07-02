@@ -143,6 +143,11 @@ private:
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
 
+    QDoubleSpinBox* m_pageSpacingSpinBox;
+    QDoubleSpinBox* m_thumbnailSpacingSpinBox;
+
+    QDoubleSpinBox* m_thumbnailSizeSpinBox;
+
     QCheckBox* m_antialiasingCheckBox;
     QCheckBox* m_textAntialiasingCheckBox;
     QCheckBox* m_textHintingCheckBox;

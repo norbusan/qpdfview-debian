@@ -220,6 +220,27 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_decorateLinksCheckBox = new QCheckBox(this);
     m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+    // page spacing
+
+    m_pageSpacingSpinBox = new QDoubleSpinBox(this);
+    m_pageSpacingSpinBox->setRange(0.0, 25.0);
+    m_pageSpacingSpinBox->setSingleStep(0.25);
+    m_pageSpacingSpinBox->setValue(m_settings->value("documentView/pageSpacing", 5.0).toDouble());
+
+    // thumbnail spacing
+
+    m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
+    m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
+    m_thumbnailSpacingSpinBox->setSingleStep(0.25);
+    m_thumbnailSpacingSpinBox->setValue(m_settings->value("documentView/thumbnailSpacing", 3.0).toDouble());
+
+    // thumbnail size
+
+    m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
+    m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
+    m_thumbnailSizeSpinBox->setSingleStep(10.0);
+    m_thumbnailSizeSpinBox->setValue(m_settings->value("documentView/thumbnailSize", 150.0).toDouble());
+
     // antialiasing
 
     m_antialiasingCheckBox = new QCheckBox(this);
@@ -275,6 +296,11 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_formLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
     m_formLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
 
+    m_formLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
+    m_formLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
+
+    m_formLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
+
     m_formLayout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
     m_formLayout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
     m_formLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
@@ -300,6 +326,11 @@ void SettingsDialog::accept()
 
     m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
     m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
+
+    m_settings->setValue("documentView/pageSpacing", m_pageSpacingSpinBox->value());
+    m_settings->setValue("documentView/thumbnailSpacing", m_thumbnailSpacingSpinBox->value());
+
+    m_settings->setValue("documentView/thumbnailSize", m_thumbnailSizeSpinBox->value());
 
     m_settings->setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings->setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());

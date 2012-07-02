@@ -740,6 +740,11 @@ void MainWindow::on_settings_triggered()
         PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
         PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+        DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
+        DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
+
+        DocumentView::setThumbnailSize(m_settings->value("documentView/thumbnailSize", 150.0).toReal());
+
         for(int index = 0; index < m_tabWidget->count(); index++)
         {
             if(!tab(index)->refresh())
