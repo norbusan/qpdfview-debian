@@ -4,22 +4,22 @@
 <context>
     <name>Bookmark</name>
     <message>
-        <location filename="../miscellaneous.cpp" line="316"/>
+        <location filename="../miscellaneous.cpp" line="325"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="319"/>
+        <location filename="../miscellaneous.cpp" line="328"/>
         <source>&amp;Open</source>
         <translation type="unfinished">Öff&amp;nen</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="322"/>
+        <location filename="../miscellaneous.cpp" line="331"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">In neuem &amp;Reiter öffnen</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="352"/>
+        <location filename="../miscellaneous.cpp" line="361"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Gehe zu Seite %1</translation>
     </message>
@@ -27,71 +27,71 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../documentview.cpp" line="352"/>
+        <location filename="../documentview.cpp" line="372"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="352"/>
+        <location filename="../documentview.cpp" line="372"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="352"/>
+        <location filename="../documentview.cpp" line="372"/>
         <source>Embedded</source>
         <translation type="unfinished">Eingebettet</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="352"/>
+        <location filename="../documentview.cpp" line="372"/>
         <source>Subset</source>
         <translation type="unfinished">Teilmenge</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="352"/>
+        <location filename="../documentview.cpp" line="372"/>
         <source>File</source>
         <translation type="unfinished">Datei</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="360"/>
-        <location filename="../documentview.cpp" line="361"/>
+        <location filename="../documentview.cpp" line="380"/>
+        <location filename="../documentview.cpp" line="381"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="360"/>
-        <location filename="../documentview.cpp" line="361"/>
+        <location filename="../documentview.cpp" line="380"/>
+        <location filename="../documentview.cpp" line="381"/>
         <source>No</source>
         <translation type="unfinished">Nein</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="386"/>
-        <location filename="../documentview.cpp" line="418"/>
+        <location filename="../documentview.cpp" line="406"/>
+        <location filename="../documentview.cpp" line="438"/>
         <source>Unlock document</source>
         <translation type="unfinished">Dokument entsperren</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="386"/>
-        <location filename="../documentview.cpp" line="418"/>
+        <location filename="../documentview.cpp" line="406"/>
+        <location filename="../documentview.cpp" line="438"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="545"/>
+        <location filename="../documentview.cpp" line="567"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="870"/>
+        <location filename="../documentview.cpp" line="918"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="870"/>
+        <location filename="../documentview.cpp" line="918"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../documentview.cpp" line="935"/>
+        <location filename="../documentview.cpp" line="984"/>
         <source>&amp;Return</source>
         <translation type="unfinished">&amp;Zurück</translation>
     </message>
@@ -432,22 +432,22 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../pageitem.cpp" line="357"/>
+        <location filename="../pageitem.cpp" line="367"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Zu Seite %1 gehen.</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="365"/>
+        <location filename="../pageitem.cpp" line="375"/>
         <source>Open %1.</source>
         <translation type="unfinished">%1 öffnen.</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="468"/>
+        <location filename="../pageitem.cpp" line="478"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;Text kopieren</translation>
     </message>
     <message>
-        <location filename="../pageitem.cpp" line="469"/>
+        <location filename="../pageitem.cpp" line="479"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Bild kopieren</translation>
     </message>
@@ -510,64 +510,69 @@
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="260"/>
+        <location filename="../miscellaneous.cpp" line="265"/>
         <source>Tab position:</source>
         <translation type="unfinished">Reiterposition:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="261"/>
+        <location filename="../miscellaneous.cpp" line="266"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Reitersichtbarkeit:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="263"/>
+        <location filename="../miscellaneous.cpp" line="268"/>
         <source>Open URL:</source>
         <translation type="unfinished">URL öffnen:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="265"/>
+        <location filename="../miscellaneous.cpp" line="270"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Automatische Aktualisierung:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="267"/>
+        <location filename="../miscellaneous.cpp" line="272"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Reiter wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="268"/>
+        <location filename="../miscellaneous.cpp" line="273"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Lesezeichen wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="270"/>
+        <location filename="../miscellaneous.cpp" line="275"/>
         <source>Decorate pages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="271"/>
+        <location filename="../miscellaneous.cpp" line="276"/>
         <source>Decorate links:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="273"/>
+        <location filename="../miscellaneous.cpp" line="278"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="274"/>
+        <location filename="../miscellaneous.cpp" line="279"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Text-Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="275"/>
+        <location filename="../miscellaneous.cpp" line="280"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Text-Hinting:</translation>
     </message>
     <message>
-        <location filename="../miscellaneous.cpp" line="277"/>
+        <location filename="../miscellaneous.cpp" line="282"/>
         <source>Cache size:</source>
         <translation type="unfinished">Zwischenspeichergröße:</translation>
+    </message>
+    <message>
+        <location filename="../miscellaneous.cpp" line="284"/>
+        <source>Prefetch:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
