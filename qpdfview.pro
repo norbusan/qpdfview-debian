@@ -2,19 +2,21 @@ TARGET = qpdfview
 TEMPLATE = app
 
 HEADERS += \
-    pageitem.h \
-    presentationview.h \
-    documentview.h \
-    miscellaneous.h \
-    mainwindow.h
+    headers/pageitem.h \
+    headers/presentationview.h \
+    headers/documentview.h \
+    headers/miscellaneous.h \
+    headers/mainwindow.h
+
+INCLUDEPATH += headers
 
 SOURCES += \
-    pageitem.cpp \
-    presentationview.cpp \
-    documentview.cpp \
-    miscellaneous.cpp \
-    mainwindow.cpp \
-    main.cpp
+    sources/pageitem.cpp \
+    sources/presentationview.cpp \
+    sources/documentview.cpp \
+    sources/miscellaneous.cpp \
+    sources/mainwindow.cpp \
+    sources/main.cpp
 
 RESOURCES += qpdfview.qrc
 
@@ -46,10 +48,10 @@ system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
 
 target.path = /usr/bin
 
-launcher.files = qpdfview.desktop
-launcher.path = /usr/share/applications
-
-data.files = icons/qpdfview.svg translations/*.qm help.html
+data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
 data.path = /usr/share/qpdfview
 
-INSTALLS += target launcher data
+launcher.files = miscellaneous/qpdfview.desktop
+launcher.path = /usr/share/applications
+
+INSTALLS += target data launcher
