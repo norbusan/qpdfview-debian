@@ -996,6 +996,28 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int pa
     refreshOrOpenInNewTab(filePath, page);
 }
 
+void MainWindow::on_contents_triggered()
+{
+    QDialog* dialog = new QDialog(this);
+
+    QTextBrowser* textBrowser = new QTextBrowser(dialog);
+    textBrowser->setSource(QUrl("/usr/share/qpdfview/help.html"));
+
+    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);
+    connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
+    connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+
+    dialog->setLayout(new QVBoxLayout());
+    dialog->layout()->addWidget(textBrowser);
+    dialog->layout()->addWidget(dialogButtonBox);
+
+    dialog->resize(m_settings->value("mainWindow/contentsDialogSize", dialog->sizeHint()).toSize());
+    dialog->exec();
+    m_settings->setValue("mainWindow/contentsDialogSize", dialog->size());
+
+    delete dialog;
+}
+
 void MainWindow::on_about_triggered()
 {
     QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library. See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012 Adam Reichold</p>").arg(QApplication::applicationVersion()));
@@ -1396,6 +1418,14 @@ void MainWindow::createActions()
     m_removeAllBookmarksAction = new QAction(tr("&Remove all bookmarks"), this);
     connect(m_removeAllBookmarksAction, SIGNAL(triggered()), SLOT(on_removeAllBookmarks_triggered()));
 
+    // contents
+
+    m_contentsAction = new QAction(tr("&Contents"), this);
+    m_contentsAction->setShortcut(QKeySequence::HelpContents);
+    m_contentsAction->setIcon(QIcon::fromTheme("help-contents"));
+    m_contentsAction->setIconVisibleInMenu(true);
+    connect(m_contentsAction, SIGNAL(triggered()), SLOT(on_contents_triggered()));
+
     // about
 
     m_aboutAction = new QAction(tr("&About"), this);
@@ -1620,6 +1650,7 @@ void MainWindow::createMenus()
     // help
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
+    m_helpMenu->addAction(m_contentsAction);
     m_helpMenu->addAction(m_aboutAction);
 }
 
