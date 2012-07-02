@@ -70,6 +70,10 @@ signals:
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
 
+public slots:
+    void startRender();
+    void cancelRender();
+
 protected slots:
     void on_render_finished();
 

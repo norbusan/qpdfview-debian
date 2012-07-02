@@ -80,6 +80,9 @@ qreal DocumentView::maximumScaleFactor()
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_settings(0),
+    m_prefetchTimer(0),
+    m_autoRefreshWatcher(0),
+    m_autoRefreshTimer(0),
     m_mutex(),
     m_document(0),
     m_filePath(),
@@ -144,6 +147,19 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(m_search, SIGNAL(progressValueChanged(int)), SLOT(on_search_progressValueChanged(int)));
     connect(m_search, SIGNAL(canceled()), SIGNAL(searchCanceled()));
     connect(m_search, SIGNAL(finished()), SIGNAL(searchFinished()));
+
+    // prefetch
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setInterval(250);
+    m_prefetchTimer->setSingleShot(true);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(rotationChanged(Poppler::Page::Rotation)), m_prefetchTimer, SLOT(start()));
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
     // auto-refresh
 
@@ -427,6 +443,8 @@ bool DocumentView::refresh()
                 return false;
             }
         }
+
+        saveLeftAndTop();
 
         m_numberOfPages = document->numPages();
         m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : 1;
@@ -831,6 +849,16 @@ void DocumentView::presentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged(int value)
 {
+    QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
+
+    foreach(PageItem* page, m_pages)
+    {
+        if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
+        {
+            page->cancelRender();
+        }
+    }
+
     if(m_continuousMode)
     {
         QMap< qreal, int >::const_iterator lowerBound = m_heightToIndex.lowerBound(-value);
@@ -846,6 +874,22 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
                 emit currentPageChanged(m_currentPage);
             }
         }
+    }
+}
+
+void DocumentView::on_prefetch_timeout()
+{
+    int fromPage = m_currentPage - (m_twoPagesMode ? 1 : 2);
+    int toPage = m_currentPage + (m_twoPagesMode ? 2 : 4);
+
+    fromPage = fromPage >= 1 ? fromPage : 1;
+    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+
+    for(int index = fromPage - 1; index <= toPage - 1; index++)
+    {
+        PageItem* page = m_pages.at(index);
+
+        page->startRender();
     }
 }
 
@@ -1072,6 +1116,8 @@ void DocumentView::saveLeftAndTop()
 
 void DocumentView::prepareDocument(Poppler::Document* document)
 {
+    m_prefetchTimer->blockSignals(true);
+
     qDeleteAll(m_pages);
     qDeleteAll(m_thumbnails);
 
@@ -1105,6 +1151,12 @@ void DocumentView::prepareDocument(Poppler::Document* document)
 
     prepareScene();
     prepareView();
+
+    if(m_settings->value("documentView/prefetch", false).toBool())
+    {
+        m_prefetchTimer->blockSignals(false);
+        m_prefetchTimer->start();
+    }
 }
 
 void DocumentView::preparePages()

@@ -149,6 +149,8 @@ private:
 
     QComboBox* m_cacheSizeComboBox;
 
+    QCheckBox* m_prefetchCheckBox;
+
 };
 
 // bookmark

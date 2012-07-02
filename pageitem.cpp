@@ -129,10 +129,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         }
         else
         {
-            if(!m_render->isRunning())
-            {
-                m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_scaleFactor, m_rotation));
-            }
+            startRender();
         }
     }
 
@@ -242,10 +239,10 @@ void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
 {
     if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY)
     {
-        m_image1 = QImage();
-        m_render->cancel();
+        cancelRender();
 
         s_cache.remove(this);
+        m_image1 = QImage();
 
         m_physicalDpiX = physicalDpiX;
         m_physicalDpiY = physicalDpiY;
@@ -264,10 +261,10 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 {
     if(m_scaleFactor != scaleFactor)
     {
-        m_image1 = QImage();
-        m_render->cancel();
+        cancelRender();
 
         s_cache.remove(this);
+        m_image1 = QImage();
 
         m_scaleFactor = scaleFactor;
 
@@ -285,10 +282,10 @@ void PageItem::setRotation(Poppler::Page::Rotation rotation)
 {
     if(m_rotation != rotation)
     {
-        m_image1 = QImage();
-        m_render->cancel();
+        cancelRender();
 
         s_cache.remove(this);
+        m_image1 = QImage();
 
         m_rotation = rotation;
 
@@ -317,6 +314,19 @@ void PageItem::setHighlights(const QList< QRectF >& highlights)
     m_highlights = highlights;
 
     update();
+}
+
+void PageItem::startRender()
+{
+    if(!m_render->isRunning())
+    {
+        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_scaleFactor, m_rotation));
+    }
+}
+
+void PageItem::cancelRender()
+{
+    m_render->cancel();
 }
 
 void PageItem::on_render_finished()
@@ -563,14 +573,7 @@ void PageItem::render(qreal scaleFactor, Poppler::Page::Rotation rotation)
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    bool visible = false;
-
-    foreach(QGraphicsView* view, scene()->views())
-    {
-        visible = visible || m_boundingRect.translated(pos()).intersects(view->mapToScene(view->viewport()->rect()).boundingRect());
-    }
-
-    if(!visible || m_render->isCanceled())
+    if(m_render->isCanceled())
     {
         return;
     }

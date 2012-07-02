@@ -257,6 +257,11 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         }
     }
 
+    // prefetch
+
+    m_prefetchCheckBox = new QCheckBox(this);
+    m_prefetchCheckBox->setChecked(m_settings->value("documentView/prefetch", false).toBool());
+
     m_formLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
     m_formLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
 
@@ -275,6 +280,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_formLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
 
     m_formLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
+
+    m_formLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
 
     m_formLayout->addRow(m_dialogButtonBox);
 }
@@ -299,6 +306,8 @@ void SettingsDialog::accept()
     m_settings->setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
 
     m_settings->setValue("pageItem/cacheSize", m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()));
+
+    m_settings->setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
 
     QDialog::accept();
 }

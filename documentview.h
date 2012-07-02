@@ -142,6 +142,8 @@ public slots:
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
 
+    void on_prefetch_timeout();
+
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
 
@@ -169,6 +171,8 @@ private:
     static qreal s_maximumScaleFactor;
 
     QSettings* m_settings;
+
+    QTimer* m_prefetchTimer;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
