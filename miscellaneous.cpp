@@ -152,6 +152,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
     connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
+    m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
+    connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
+
     m_formLayout = new QFormLayout(this);
     setLayout(m_formLayout);
 
@@ -283,6 +286,24 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_prefetchCheckBox = new QCheckBox(this);
     m_prefetchCheckBox->setChecked(m_settings->value("documentView/prefetch", false).toBool());
 
+    // file tool bar
+
+    m_fileToolBarLineEdit = new QLineEdit(this);
+    m_fileToolBarLineEdit->setText(m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList().join(","));
+    m_fileToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
+    // edit tool bar
+
+    m_editToolBarLineEdit = new QLineEdit(this);
+    m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "numberOfPages" << "previousPage" << "nextPage").toStringList().join(","));
+    m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
+    // view tool bar
+
+    m_viewToolBarLineEdit = new QLineEdit(this);
+    m_viewToolBarLineEdit->setText(m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList().join(","));
+    m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
     m_formLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
     m_formLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
 
@@ -308,6 +329,10 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_formLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
 
     m_formLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
+
+    m_formLayout->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
+    m_formLayout->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
+    m_formLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
 
     m_formLayout->addRow(m_dialogButtonBox);
 }
@@ -340,9 +365,45 @@ void SettingsDialog::accept()
 
     m_settings->setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
 
+    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(","));
+    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(","));
+    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(","));
+
     QDialog::accept();
 }
 
+void SettingsDialog::on_defaults_clicked()
+{
+    m_tabPositionComboBox->setCurrentIndex(0);
+    m_tabVisibilityComboBox->setCurrentIndex(0);
+
+    m_openUrlCheckBox->setChecked(false);
+
+    m_autoRefreshCheckBox->setChecked(false);
+
+    m_restoreTabsCheckBox->setChecked(false);
+    m_restoreBookmarksCheckBox->setChecked(false);
+
+    m_decoratePagesCheckBox->setChecked(true);
+    m_decorateLinksCheckBox->setChecked(true);
+
+    m_pageSpacingSpinBox->setValue(5.0);
+    m_thumbnailSpacingSpinBox->setValue(3.0);
+
+    m_thumbnailSizeSpinBox->setValue(150.0);
+
+    m_antialiasingCheckBox->setChecked(true);
+    m_textAntialiasingCheckBox->setChecked(true);
+    m_textHintingCheckBox->setChecked(false);
+
+    m_cacheSizeComboBox->setCurrentIndex(3);
+
+    m_prefetchCheckBox->setChecked(false);
+
+    m_fileToolBarLineEdit->setText("openInNewTab,refresh");
+    m_editToolBarLineEdit->setText("currentPage,numberOfPages,previousPage,nextPage");
+    m_viewToolBarLineEdit->setText("scaleFactor,zoomIn,zoomOut");
+}
 
 Bookmark::Bookmark(const QString& filePath, QWidget* parent) : QMenu(parent)
 {

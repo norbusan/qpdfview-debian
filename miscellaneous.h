@@ -124,11 +124,16 @@ public:
 public slots:
     void accept();
 
+
+protected slots:
+    void on_defaults_clicked();
+
 private:
     QSettings* m_settings;
 
     QFormLayout* m_formLayout;
     QDialogButtonBox* m_dialogButtonBox;
+    QPushButton* m_defaultsButton;
 
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
@@ -155,6 +160,10 @@ private:
     QComboBox* m_cacheSizeComboBox;
 
     QCheckBox* m_prefetchCheckBox;
+
+    QLineEdit* m_fileToolBarLineEdit;
+    QLineEdit* m_editToolBarLineEdit;
+    QLineEdit* m_viewToolBarLineEdit;
 
 };
 
