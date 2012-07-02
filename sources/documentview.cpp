@@ -89,6 +89,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_numberOfPages(-1),
     m_currentPage(-1),
     m_returnToPage(-1),
+    m_returnToLeft(0.0),
+    m_returnToTop(0.0),
     m_continuousMode(false),
     m_twoPagesMode(false),
     m_scaleMode(ScaleFactor),
@@ -98,8 +100,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_pagesScene(0),
     m_pages(),
     m_heightToIndex(),
-    m_left(0.0),
-    m_top(0.0),
     m_thumbnailsScene(0),
     m_thumbnails(),
     m_highlight(0),
@@ -133,7 +133,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     QColor highlightColor = QApplication::palette().color(QPalette::Highlight);
 
-    highlightColor.setAlpha(192);
+    highlightColor.setAlpha(127);
     m_highlight->setBrush(QBrush(highlightColor));
 
     highlightColor.setAlpha(255);
@@ -276,9 +276,11 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
     {
         m_scaleMode = scaleMode;
 
-        saveLeftAndTop();
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
         prepareScene();
-        prepareView();
+        prepareView(left, top);
 
         emit scaleModeChanged(m_scaleMode);
     }
@@ -297,9 +299,11 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
 
         if(m_scaleMode == ScaleFactor)
         {
-            saveLeftAndTop();
+            qreal left = 0.0, top = 0.0;
+            saveLeftAndTop(left, top);
+
             prepareScene();
-            prepareView();
+            prepareView(left, top);
         }
 
         emit scaleFactorChanged(m_scaleFactor);
@@ -413,11 +417,16 @@ bool DocumentView::open(const QString& filePath)
         }
 
         m_filePath = filePath;
+
         m_numberOfPages = document->numPages();
         m_currentPage = 1;
+
         m_returnToPage = -1;
 
         prepareDocument(document);
+
+        prepareScene();
+        prepareView();
 
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_numberOfPages);
@@ -444,13 +453,18 @@ bool DocumentView::refresh()
             }
         }
 
-        saveLeftAndTop();
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
 
         m_numberOfPages = document->numPages();
         m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : 1;
+
         m_returnToPage = m_returnToPage <= m_numberOfPages ? m_returnToPage : -1;
 
         prepareDocument(document);
+
+        prepareScene();
+        prepareView(left, top);
 
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
@@ -640,13 +654,15 @@ void DocumentView::lastPage()
 
 void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
 {
-    if(page >= 1 && page <= m_numberOfPages && changeLeft >= 0.0 && changeLeft <= 1.0 && changeTop >= 0.0 && changeTop <= 1.0)
+    if(page >= 1 && page <= m_numberOfPages)
     {
         if(m_twoPagesMode)
         {
             if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
             {
                 m_returnToPage = m_currentPage;
+                saveLeftAndTop(m_returnToLeft, m_returnToTop);
+
                 m_currentPage = page % 2 != 0 ? page : page - 1;
 
                 prepareView(changeLeft, changeTop);
@@ -656,9 +672,11 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(m_currentPage != page || changeLeft != 0.0 || changeTop != 0.0)
+            if(m_currentPage != page || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
             {
                 m_returnToPage = m_currentPage;
+                saveLeftAndTop(m_returnToLeft, m_returnToTop);
+
                 m_currentPage = page;
 
                 prepareView(changeLeft, changeTop);
@@ -971,9 +989,11 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
     if(m_scaleMode != ScaleFactor)
     {
-        saveLeftAndTop();
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
         prepareScene();
-        prepareView();
+        prepareView(left, top);
     }
 }
 
@@ -989,7 +1009,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
     if(action == returnAction)
     {
-        jumpToPage(m_returnToPage);
+        jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
     }
 
     delete menu;
@@ -1001,7 +1021,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         if(event->key() == Qt::Key_Return)
         {
-            jumpToPage(m_returnToPage);
+            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
 
             event->accept();
             return;
@@ -1103,20 +1123,21 @@ bool DocumentView::currentPageIsLastPage()
     }
 }
 
-void DocumentView::saveLeftAndTop()
+void DocumentView::saveLeftAndTop(qreal& left, qreal& top)
 {
     PageItem* page = m_pages.at(m_currentPage - 1);
 
     QRectF boundingRect = page->boundingRect().translated(page->pos());
     QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
-    m_left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
-    m_top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
+    left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
+    top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
 void DocumentView::prepareDocument(Poppler::Document* document)
 {
     m_prefetchTimer->blockSignals(true);
+    m_prefetchTimer->stop();
 
     qDeleteAll(m_pages);
     qDeleteAll(m_thumbnails);
@@ -1148,9 +1169,6 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     prepareThumbnails();
     prepareOutline();
     prepareProperties();
-
-    prepareScene();
-    prepareView();
 
     if(m_settings->value("documentView/prefetch", false).toBool())
     {
@@ -1485,22 +1503,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
     int horizontalValue = 0;
     int verticalValue = 0;
-
-    {
-        // restore left and top
-
-        if(!qFuzzyCompare(1.0, 1.0 + m_left))
-        {
-            changeLeft = m_left;
-            m_left = 0.0;
-        }
-
-        if(!qFuzzyCompare(1.0, 1.0 + m_top))
-        {
-            changeTop = m_top;
-            m_top = 0.0;
-        }
-    }
 
     for(int index = 0; index < m_pages.count(); index++)
     {

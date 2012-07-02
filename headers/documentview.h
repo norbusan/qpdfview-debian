@@ -183,7 +183,10 @@ private:
     QString m_filePath;
     int m_numberOfPages;
     int m_currentPage;
+
     int m_returnToPage;
+    qreal m_returnToLeft;
+    qreal m_returnToTop;
 
     bool currentPageIsLastPage();
 
@@ -200,10 +203,7 @@ private:
 
     QMap< qreal, int > m_heightToIndex;
 
-    qreal m_left;
-    qreal m_top;
-
-    void saveLeftAndTop();
+    void saveLeftAndTop(qreal& left, qreal& top);
 
     QGraphicsScene* m_thumbnailsScene;
     QList< ThumbnailItem* > m_thumbnails;

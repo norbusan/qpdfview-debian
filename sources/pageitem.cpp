@@ -197,7 +197,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     QColor highlightColor = QApplication::palette().color(QPalette::Highlight);
 
-    highlightColor.setAlpha(192);
+    highlightColor.setAlpha(127);
 
     foreach(QRectF highlight, m_highlights)
     {
