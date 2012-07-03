@@ -50,6 +50,9 @@ public:
     int index() const;
     QSizeF size() const;
 
+    const QList< QRectF >& highlights() const;
+    void setHighlights(const QList< QRectF >& highlights);
+
     int physicalDpiX() const;
     int physicalDpiY() const;
     void setPhysicalDpi(int physicalDpiX, int physicalDpiY);
@@ -63,8 +66,7 @@ public:
     const QTransform& transform() const;
     const QTransform& linkTransform() const;
 
-    const QList< QRectF >& highlights() const;
-    void setHighlights(const QList< QRectF >& highlights);
+    bool isPrefetching() const;
 
 signals:
     void linkClicked(int page, qreal left, qreal top);
@@ -73,6 +75,8 @@ signals:
 public slots:
     void startRender();
     void cancelRender();
+
+    void prefetch();
 
 protected slots:
     void on_render_finished();
@@ -120,8 +124,10 @@ private:
     QImage m_image1;
     QImage m_image2;
 
+    bool m_prefetch;
+
     QFutureWatcher< void >* m_render;
-    void render(qreal scaleFactor, Poppler::Page::Rotation rotation);
+    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation);
 
 };
 

@@ -871,7 +871,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
     foreach(PageItem* page, m_pages)
     {
-        if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
+        if(!page->isPrefetching() && !page->boundingRect().translated(page->pos()).intersects(visibleRect))
         {
             page->cancelRender();
         }
@@ -897,8 +897,8 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
 void DocumentView::on_prefetch_timeout()
 {
-    int fromPage = m_currentPage - (m_twoPagesMode ? 1 : 2);
-    int toPage = m_currentPage + (m_twoPagesMode ? 2 : 4);
+    int fromPage = m_currentPage - (m_twoPagesMode ? 2 : 1);
+    int toPage = m_currentPage + (m_twoPagesMode ? 3 : 1);
 
     fromPage = fromPage >= 1 ? fromPage : 1;
     toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
@@ -907,7 +907,7 @@ void DocumentView::on_prefetch_timeout()
     {
         PageItem* page = m_pages.at(index);
 
-        page->startRender();
+        page->prefetch();
     }
 }
 

@@ -73,6 +73,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
     m_boundingRect(),
     m_image1(),
     m_image2(),
+    m_prefetch(false),
     m_render(0)
 {
     setAcceptHoverEvents(true);
@@ -135,31 +136,18 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // page
 
-    if(!image.isNull())
+    if(s_decoratePages)
     {
-        if(s_decoratePages)
-        {
-            painter->fillRect(m_boundingRect, QBrush(Qt::white));
+        painter->fillRect(m_boundingRect, QBrush(Qt::white));
 
-            painter->drawImage(m_boundingRect.topLeft(), image);
+        painter->drawImage(m_boundingRect.topLeft(), image);
 
-            painter->setPen(QPen(Qt::black));
-            painter->drawRect(m_boundingRect);
-        }
-        else
-        {
-            painter->drawImage(m_boundingRect.topLeft(), image);
-        }
+        painter->setPen(QPen(Qt::black));
+        painter->drawRect(m_boundingRect);
     }
     else
     {
-        if(s_decoratePages)
-        {
-            painter->fillRect(m_boundingRect, QBrush(Qt::white));
-
-            painter->setPen(QPen(Qt::black));
-            painter->drawRect(m_boundingRect);
-        }
+        painter->drawImage(m_boundingRect.topLeft(), image);
     }
 
     // links
@@ -224,6 +212,19 @@ QSizeF PageItem::size() const
 {
     return m_size;
 }
+
+const QList< QRectF >& PageItem::highlights() const
+{
+    return m_highlights;
+}
+
+void PageItem::setHighlights(const QList< QRectF >& highlights)
+{
+    m_highlights = highlights;
+
+    update();
+}
+
 
 int PageItem::physicalDpiX() const
 {
@@ -304,29 +305,32 @@ const QTransform& PageItem::linkTransform() const
     return m_linkTransform;
 }
 
-const QList< QRectF >& PageItem::highlights() const
+bool PageItem::isPrefetching() const
 {
-    return m_highlights;
-}
-
-void PageItem::setHighlights(const QList< QRectF >& highlights)
-{
-    m_highlights = highlights;
-
-    update();
+    return m_prefetch;
 }
 
 void PageItem::startRender()
 {
     if(!m_render->isRunning())
     {
-        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_scaleFactor, m_rotation));
+        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation));
     }
 }
 
 void PageItem::cancelRender()
 {
     m_render->cancel();
+}
+
+void PageItem::prefetch()
+{
+    if(!s_cache.contains(this) && m_image1.isNull())
+    {
+        m_prefetch = true;
+
+        startRender();
+    }
 }
 
 void PageItem::on_render_finished()
@@ -340,6 +344,8 @@ void PageItem::on_render_finished()
     {
         m_image2 = QImage();
     }
+
+    m_prefetch = false;
 
     update();
 }
@@ -569,7 +575,7 @@ void PageItem::prepareGeometry()
     m_boundingRect = m_transform.mapRect(QRectF(QPointF(), m_size));
 }
 
-void PageItem::render(qreal scaleFactor, Poppler::Page::Rotation rotation)
+void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation)
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -582,11 +588,11 @@ void PageItem::render(qreal scaleFactor, Poppler::Page::Rotation rotation)
     {
     case Poppler::Page::Rotate0:
     case Poppler::Page::Rotate90:
-        m_image2 = m_page->renderToImage(scaleFactor * m_physicalDpiX, scaleFactor * m_physicalDpiY, -1, -1, -1, -1, rotation);
+        m_image2 = m_page->renderToImage(scaleFactor * physicalDpiX, scaleFactor * physicalDpiY, -1, -1, -1, -1, rotation);
         break;
     case Poppler::Page::Rotate180:
     case Poppler::Page::Rotate270:
-        m_image2 = m_page->renderToImage(scaleFactor * m_physicalDpiY, scaleFactor * m_physicalDpiX, -1, -1, -1, -1, rotation);
+        m_image2 = m_page->renderToImage(scaleFactor * physicalDpiY, scaleFactor * physicalDpiX, -1, -1, -1, -1, rotation);
         break;
     }
 }
