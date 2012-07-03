@@ -1324,7 +1324,7 @@ void MainWindow::createActions()
 
     m_originalSizeAction = new QAction(tr("Original &size"), this);
     m_originalSizeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
-    m_originalSizeAction->setIcon(QIcon::fromTheme("zoom-original"));
+    m_originalSizeAction->setIcon(QIcon::fromTheme("zoom-original", QIcon(":icons/zoom-original.svg")));
     m_originalSizeAction->setIconVisibleInMenu(true);
     connect(m_originalSizeAction, SIGNAL(triggered()), SLOT(on_originalSize_triggered()));
 
