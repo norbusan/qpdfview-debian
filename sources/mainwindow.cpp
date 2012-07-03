@@ -1348,7 +1348,7 @@ void MainWindow::createActions()
 
     m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
     m_rotateLeftAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left));
-    m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left"));
+    m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left", QIcon(":icons/object-rotate-left.svg")));
     m_rotateLeftAction->setIconVisibleInMenu(true);
     connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(on_rotateLeft_triggered()));
 
@@ -1356,7 +1356,7 @@ void MainWindow::createActions()
 
     m_rotateRightAction = new QAction(tr("Rotate &right"), this);
     m_rotateRightAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
-    m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right"));
+    m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right", QIcon(":icons/object-rotate-right.svg")));
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(on_rotateRight_triggered()));
 

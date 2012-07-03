@@ -21,6 +21,8 @@
         <file>icons/zoom-out.svg</file>
         <file>icons/fit-to-page-width.svg</file>
         <file>icons/fit-to-page-size.svg</file>
+        <file>icons/object-rotate-left.svg</file>
+        <file>icons/object-rotate-right.svg</file>
         <file>icons/view-fullscreen.svg</file>
         <file>icons/x-office-presentation.svg</file>
     </qresource>
