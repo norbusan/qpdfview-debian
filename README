@@ -1,12 +1,12 @@
 qpdfview is a tabbed PDF viewer using the poppler library.
 
-The project homepage is "http://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
+The project homepage is "https://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
-It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtSvg, libQtDBus resp. libcups if SVG, D-Bus, resp. CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install".
+It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtSvg, libQtDBus resp. libcups if SVG, D-Bus, resp. CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install". The installation paths are defined in "qpdfview.pri".
 
 The following build-time options are available:
-    * 'without_svg' disables SVG support, i.e. fallback and application-specific icons will not be available
-    * 'without_dbus' disables D-Bus support, i.e. the '--unique' command-line option will not be available
-    * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file
+    * 'without_svg' disables SVG support, i.e. fallback and application-specific icons will not be available.
+    * 'without_dbus' disables D-Bus support, i.e. the '--unique' command-line option will not be available.
+    * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file.
 
 The fallback and application-specific icons are from the tango icon theme available at "http://tango.freedesktop.org".

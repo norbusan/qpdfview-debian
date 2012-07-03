@@ -1,3 +1,5 @@
+include(qpdfview.pri)
+
 TARGET = qpdfview
 TEMPLATE = app
 
@@ -44,12 +46,15 @@ system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
     LIBS += $$system(cups-config --libs)
 }
 
-target.path = /usr/bin
+target.path = $${TARGET_INSTALL_PATH}
 
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
-data.path = /usr/share/qpdfview
+data.path = $${DATA_INSTALL_PATH}
 
 launcher.files = miscellaneous/qpdfview.desktop
-launcher.path = /usr/share/applications
+launcher.path = $${LAUNCHER_INSTALL_PATH}
 
-INSTALLS += target data launcher
+manual.files = miscellaneous/qpdfview.1
+manual.path = $${MANUAL_INSTALL_PATH}
+
+INSTALLS += target data launcher manual

@@ -1,0 +1,83 @@
+.\" 
+.\" 
+.\" Copyright 2012 Benjamin Eltzner
+.\" Copyright 2012 Adam Reichold
+.\" 
+.\" This file is part of qpdfview.
+.\" 
+.\" qpdfview is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation, either version 2 of the License, or
+.\" (at your option) any later version.
+.\" 
+.\" qpdfview is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU General Public License
+.\" along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+.\" 
+.\"
+.TH QPDFVIEW 1 "July 2012"
+.SH NAME
+qpdfview \- tabbed PDF viewer
+.SH SYNOPSIS
+.B qpdfview
+.I [options] [file[#page]] ...
+.SH DESCRIPTION
+.B qpdfview
+is a simple viewer for document files in the portable document format (PDF). It uses the Poppler library for rendering and the Qt toolkit for its interface.
+.SH OPTIONS
+.IP --unique
+If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
+.IP [file[#page]]
+.I file
+specifies the file to open. The optional parameter
+.I page
+opens the file at the given page. Multiple files will be opened in separate tabs.
+.SH CONFIGURATION FILE
+qpdfview uses a configuration file usually located at
+.RS
+"~/.config/qpdfview/qpdfview.conf".
+.RE
+
+The icon theme used by Qt can be changed by setting the key "iconTheme" in the section "mainWindow".
+.SH EXAMPLES
+.RS
+The command
+.RE
+.B qpdfview foo.pdf#3 bar.pdf
+.RS
+opens "foo.pdf" in the first tab displaying the third page of the document and "bar.pdf" in the second tab displaying the beginning of the document.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview --unique foo.pdf bar.pdf
+.RS
+and
+.RE
+.B qpdfview --unique foo.pdf#5
+.RS
+opens "foo.pdf" and "bar.pdf", then reloads "foo.pdf" and displays its fifth page.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview --unique foo.pdf
+.RS
+and
+.RE
+.B qpdfview bar.pdf
+.RS
+and
+.RE
+.B qpdfview --unique foo1.pdf bar1.pdf
+.RS
+opens "foo.pdf" in the first window, "bar.pdf" in a second window and then "foo1.pdf" and "bar1.pdf" in additional tabs in the first window.
+.SH BUGS
+If you find a bug, please report it at
+.RS
+"https://launchpad.net/qpdfview".
+.RE
+.SH AUTHOR
+Benjamin Eltzner <b.eltzner@gmx.de>

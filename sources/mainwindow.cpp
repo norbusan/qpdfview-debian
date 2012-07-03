@@ -1001,7 +1001,7 @@ void MainWindow::on_contents_triggered()
     QDialog* dialog = new QDialog(this);
 
     QTextBrowser* textBrowser = new QTextBrowser(dialog);
-    textBrowser->setSource(QUrl("/usr/share/qpdfview/help.html"));
+    textBrowser->setSource(QUrl(QString("%1/help.html").arg(DATA_INSTALL_PATH)));
 
     QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);
     connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
