@@ -21,6 +21,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+struct File
+{
+    QString filePath;
+    int page;
+};
+
 int main(int argc, char** argv)
 {
     QApplication application(argc, argv);
@@ -40,8 +46,6 @@ int main(int argc, char** argv)
     }
 
     bool unique = false;
-
-    typedef QPair< QString, int > File;
     QList< File > files;
 
     {
@@ -64,10 +68,12 @@ int main(int argc, char** argv)
             {
                 QStringList fields = argument.split('#');
 
-                QString filePath = QFileInfo(fields.value(0)).absoluteFilePath();
-                int page = fields.value(1).toInt();
+                File file;
 
-                files.append(qMakePair(filePath, page));
+                file.filePath = QFileInfo(fields.value(0)).absoluteFilePath();
+                file.page = fields.value(1).toInt();
+
+                files.append(file);
             }
         }
     }
@@ -87,7 +93,7 @@ int main(int argc, char** argv)
             {
                 foreach(File file, files)
                 {
-                    QDBusReply< void > reply = interface->call("refreshOrOpenInNewTab", file.first, file.second);
+                    QDBusReply< void > reply = interface->call("refreshOrOpenInNewTab", file.filePath, file.page);
 
                     if(!reply.isValid())
                     {
@@ -141,7 +147,7 @@ int main(int argc, char** argv)
 
     foreach(File file, files)
     {
-        mainWindow->openInNewTab(file.first, file.second);
+        mainWindow->openInNewTab(file.filePath, file.page);
     }
     
     return application.exec();

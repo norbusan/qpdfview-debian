@@ -2,13 +2,11 @@ TARGET = qpdfview
 TEMPLATE = app
 
 HEADERS += \
-    headers/pageitem.h \
-    headers/presentationview.h \
-    headers/documentview.h \
-    headers/miscellaneous.h \
-    headers/mainwindow.h
-
-INCLUDEPATH += headers
+    sources/pageitem.h \
+    sources/presentationview.h \
+    sources/documentview.h \
+    sources/miscellaneous.h \
+    sources/mainwindow.h
 
 SOURCES += \
     sources/pageitem.cpp \

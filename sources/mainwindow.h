@@ -49,10 +49,10 @@ public:
     DocumentView* tab(int index) const;
 
 public slots:
-    bool open(const QString& filePath, int page = 1);
-    bool openInNewTab(const QString& filePath, int page = 1);
+    bool open(const QString& filePath, int page = 0);
+    bool openInNewTab(const QString& filePath, int page = 0);
 
-    bool refreshOrOpenInNewTab(const QString& filePath, int page = 1);
+    bool refreshOrOpenInNewTab(const QString& filePath, int page = 0);
 
 protected slots:
     void on_tabWidget_currentChanged(int index);
@@ -265,10 +265,10 @@ public:
     MainWindow* mainWindow() const;
 
 public slots:
-    bool open(const QString& filePath, int page = 1);
-    bool openInNewTab(const QString& filePath, int page = 1);
+    bool open(const QString& filePath, int page = 0);
+    bool openInNewTab(const QString& filePath, int page = 0);
 
-    bool refreshOrOpenInNewTab(const QString& filePath, int page = 1);
+    bool refreshOrOpenInNewTab(const QString& filePath, int page = 0);
 
 };
 

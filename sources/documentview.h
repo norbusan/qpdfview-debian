@@ -189,6 +189,7 @@ private:
     qreal m_returnToTop;
 
     bool currentPageIsLastPage();
+    void saveLeftAndTop(qreal& left, qreal& top);
 
     bool m_continuousMode;
     bool m_twoPagesMode;
@@ -202,8 +203,6 @@ private:
     QList< PageItem* > m_pages;
 
     QMap< qreal, int > m_heightToIndex;
-
-    void saveLeftAndTop(qreal& left, qreal& top);
 
     QGraphicsScene* m_thumbnailsScene;
     QList< ThumbnailItem* > m_thumbnails;
