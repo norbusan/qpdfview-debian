@@ -37,6 +37,40 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "presentationview.h"
 
+class SearchThread : public QThread
+{
+    Q_OBJECT
+
+public:
+    SearchThread(QObject* parent = 0);
+
+    bool wasCanceled() const;
+
+    void run();
+
+public slots:
+    void start(QMutex* mutex, Poppler::Document* document, const QList< int >& indices, const QString& text, bool matchCase);
+    void cancel();
+
+signals:
+    void progressed(int progress);
+    void finished();
+    void canceled();
+
+    void resultsReady(int index, QList< QRectF > results);
+
+private:
+    bool m_wasCanceled;
+
+    QMutex* m_mutex;
+    Poppler::Document* m_document;
+
+    QList< int > m_indices;
+    QString m_text;
+    bool m_matchCase;
+
+};
+
 class DocumentView : public QGraphicsView
 {
     Q_OBJECT
@@ -142,15 +176,14 @@ public slots:
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
 
+    void on_searchThread_resultsReady(int index, QList< QRectF > results);
+
     void on_prefetch_timeout();
 
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
 
     void on_thumbnails_pageClicked(int page);
-
-    void on_search_resultReadyAt(int resultIndex);
-    void on_search_progressValueChanged(int progressValue);
 
 protected:
     void showEvent(QShowEvent* event);
@@ -233,23 +266,7 @@ private:
     QMultiMap< int, QRectF > m_results;
     QMultiMap< int, QRectF >::const_iterator m_currentResult;
 
-    QFutureWatcher< QPair< int, QList< QRectF > > >* m_search;
-    class Search
-    {
-    public:
-        Search(QMutex* mutex, Poppler::Document* document, const QString& text, bool matchCase);
-
-        typedef QPair< int, QList< QRectF > > result_type;
-        QPair< int, QList< QRectF > > operator()(int index);
-
-    private:
-        QMutex* m_mutex;
-        Poppler::Document* m_document;
-
-        QString m_text;
-        bool m_matchCase;
-
-    };
+    SearchThread* m_searchThread;
 
 };
 

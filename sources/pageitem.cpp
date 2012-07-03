@@ -73,7 +73,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
     m_boundingRect(),
     m_image1(),
     m_image2(),
-    m_prefetch(false),
+    m_isPrefetching(false),
     m_render(0)
 {
     setAcceptHoverEvents(true);
@@ -307,7 +307,7 @@ const QTransform& PageItem::linkTransform() const
 
 bool PageItem::isPrefetching() const
 {
-    return m_prefetch;
+    return m_isPrefetching;
 }
 
 void PageItem::startRender()
@@ -327,7 +327,7 @@ void PageItem::prefetch()
 {
     if(!s_cache.contains(this) && m_image1.isNull())
     {
-        m_prefetch = true;
+        m_isPrefetching = true;
 
         startRender();
     }
@@ -345,7 +345,7 @@ void PageItem::on_render_finished()
         m_image2 = QImage();
     }
 
-    m_prefetch = false;
+    m_isPrefetching = false;
 
     update();
 }

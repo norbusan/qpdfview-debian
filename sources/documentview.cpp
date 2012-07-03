@@ -21,6 +21,106 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+SearchThread::SearchThread(QObject* parent) : QThread(parent),
+    m_wasCanceled(false),
+    m_mutex(0),
+    m_document(0),
+    m_indices(),
+    m_text(),
+    m_matchCase(false)
+{
+    qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
+}
+
+bool SearchThread::wasCanceled() const
+{
+    return m_wasCanceled;
+}
+
+void SearchThread::run()
+{
+    int indicesDone = 0;
+    int indicesToDo = m_indices.count();
+
+    foreach(int index, m_indices)
+    {
+        if(m_wasCanceled)
+        {
+            emit canceled();
+
+            return;
+        }
+
+        QList< QRectF > results;
+
+        m_mutex->lock();
+
+        Poppler::Page* page = m_document->page(index);
+
+#if defined(HAS_POPPLER_22)
+
+        results = page->search(m_text, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
+
+#elif defined(HAS_POPPLER_14)
+
+        double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
+
+        while(page->search(m_text, left, top, right, bottom, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+        {
+            QRectF rect;
+            rect.setLeft(left);
+            rect.setTop(top);
+            rect.setRight(right);
+            rect.setBottom(bottom);
+
+            results.append(rect);
+        }
+
+#else
+
+        QRectF rect;
+
+        while(page->search(m_text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+        {
+            results.append(rect);
+        }
+
+#endif
+
+        delete page;
+
+        m_mutex->unlock();
+
+        if(!results.isEmpty())
+        {
+            emit resultsReady(index, results);
+        }
+
+        emit progressed(100 * ++indicesDone / indicesToDo);
+    }
+
+    emit finished();
+}
+
+void SearchThread::start(QMutex* mutex, Poppler::Document* document, const QList< int >& indices, const QString& text, bool matchCase)
+{
+    m_mutex = mutex;
+    m_document = document;
+
+    m_indices = indices;
+    m_text = text;
+    m_matchCase = matchCase;
+
+    m_wasCanceled = false;
+
+    QThread::start();
+}
+
+void SearchThread::cancel()
+{
+    m_wasCanceled = true;
+}
+
 qreal DocumentView::s_pageSpacing = 5.0;
 qreal DocumentView::s_thumbnailSpacing = 3.0;
 
@@ -107,7 +207,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_propertiesModel(0),
     m_results(),
     m_currentResult(m_results.end()),
-    m_search(0)
+    m_searchThread(0)
 {
     m_pagesScene = new QGraphicsScene(this);
     m_thumbnailsScene = new QGraphicsScene(this);
@@ -141,12 +241,13 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     // search
 
-    m_search = new QFutureWatcher< QPair< int, QList< QRectF > > >(this);
+    m_searchThread = new SearchThread(this);
 
-    connect(m_search, SIGNAL(resultReadyAt(int)), SLOT(on_search_resultReadyAt(int)));
-    connect(m_search, SIGNAL(progressValueChanged(int)), SLOT(on_search_progressValueChanged(int)));
-    connect(m_search, SIGNAL(canceled()), SIGNAL(searchCanceled()));
-    connect(m_search, SIGNAL(finished()), SIGNAL(searchFinished()));
+    connect(m_searchThread, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchThread_resultsReady(int,QList<QRectF>)));
+
+    connect(m_searchThread, SIGNAL(progressed(int)), SIGNAL(searchProgressed(int)));
+    connect(m_searchThread, SIGNAL(finished()), SIGNAL(searchFinished()));
+    connect(m_searchThread, SIGNAL(canceled()), SIGNAL(searchCanceled()));
 
     // prefetch
 
@@ -188,8 +289,8 @@ DocumentView::~DocumentView()
     qDeleteAll(m_pages);
     qDeleteAll(m_thumbnails);
 
-    m_search->cancel();
-    m_search->waitForFinished();
+    m_searchThread->cancel();
+    m_searchThread->wait();
 
     if(m_document != 0)
     {
@@ -705,13 +806,13 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
         indices.append(index);
     }
 
-    m_search->setFuture(QtConcurrent::mapped(indices, Search(&m_mutex, m_document, text, matchCase)));
+    m_searchThread->start(&m_mutex, m_document, indices, text, matchCase);
 }
 
 void DocumentView::cancelSearch()
 {
-    m_search->cancel();
-    m_search->waitForFinished();
+    m_searchThread->cancel();
+    m_searchThread->wait();
 
     m_results.clear();
     m_currentResult = m_results.end();
@@ -895,6 +996,29 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     }
 }
 
+void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > results)
+{
+    if(!m_searchThread->wasCanceled())
+    {
+        while(!results.isEmpty())
+        {
+            m_results.insertMulti(index, results.takeLast());
+        }
+
+        if(m_highlightAll)
+        {
+            PageItem* page = m_pages.at(index);
+
+            page->setHighlights(results);
+        }
+
+        if(index >= m_currentPage - 1 && m_currentResult == m_results.end())
+        {
+            findNext();
+        }
+    }
+}
+
 void DocumentView::on_prefetch_timeout()
 {
     int fromPage = m_currentPage - (m_twoPagesMode ? 2 : 1);
@@ -943,34 +1067,6 @@ void DocumentView::on_thumbnails_pageClicked(int page)
     page = page <= m_numberOfPages ? page : m_numberOfPages;
 
     jumpToPage(page);
-}
-
-void DocumentView::on_search_resultReadyAt(int resultIndex)
-{
-    int pageIndex = m_search->resultAt(resultIndex).first;
-    QList< QRectF > results = m_search->resultAt(resultIndex).second;
-
-    for(int index = results.count() - 1; index >= 0; index--)
-    {
-        m_results.insertMulti(pageIndex, results.at(index));
-    }
-
-    if(m_highlightAll)
-    {
-        PageItem* page = m_pages.at(pageIndex);
-
-        page->setHighlights(results);
-    }
-
-    if(pageIndex >= m_currentPage - 1 && !results.isEmpty() && m_currentResult == m_results.end())
-    {
-        findNext();
-    }
-}
-
-void DocumentView::on_search_progressValueChanged(int progressValue)
-{
-    emit searchProgressed(100 * (progressValue - m_search->progressMinimum()) / (m_search->progressMaximum() - m_search->progressMinimum()));
 }
 
 void DocumentView::showEvent(QShowEvent* event)
@@ -1590,57 +1686,4 @@ void DocumentView::prepareHighlight()
     {
         m_highlight->setVisible(false);
     }
-}
-
-DocumentView::Search::Search(QMutex *mutex, Poppler::Document *document, const QString &text, bool matchCase) :
-    m_mutex(mutex),
-    m_document(document),
-    m_text(text),
-    m_matchCase(matchCase)
-{
-}
-
-QPair< int, QList< QRectF > > DocumentView::Search::operator()(int index)
-{
-    QList< QRectF > results;
-
-    m_mutex->lock();
-
-    Poppler::Page* page = m_document->page(index);
-
-#if defined(HAS_POPPLER_22)
-
-    results = page->search(m_text, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
-
-#elif defined(HAS_POPPLER_14)
-
-    double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
-
-    while(page->search(m_text, left, top, right, bottom, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-    {
-        QRectF rect;
-        rect.setLeft(left);
-        rect.setTop(top);
-        rect.setRight(right);
-        rect.setBottom(bottom);
-
-        results.append(rect);
-    }
-
-#else
-
-    QRectF rect;
-
-    while(page->search(m_text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-    {
-        results.append(rect);
-    }
-
-#endif
-
-    delete page;
-
-    m_mutex->unlock();
-
-    return qMakePair(index, results);
 }

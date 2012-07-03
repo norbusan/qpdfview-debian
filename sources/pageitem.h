@@ -124,7 +124,7 @@ private:
     QImage m_image1;
     QImage m_image2;
 
-    bool m_prefetch;
+    bool m_isPrefetching;
 
     QFutureWatcher< void >* m_render;
     void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation);
