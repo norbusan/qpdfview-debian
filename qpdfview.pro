@@ -5,16 +5,20 @@ TEMPLATE = app
 
 HEADERS += \
     sources/pageitem.h \
+    sources/searchthread.h \
     sources/presentationview.h \
     sources/documentview.h \
     sources/miscellaneous.h \
+    sources/settingsdialog.h \
     sources/mainwindow.h
 
 SOURCES += \
     sources/pageitem.cpp \
+    sources/searchthread.cpp \
     sources/presentationview.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
+    sources/settingsdialog.cpp \
     sources/mainwindow.cpp \
     sources/main.cpp
 
