@@ -122,6 +122,7 @@ public:
     explicit Bookmark(const QString& filePath, QWidget* parent = 0);
 
     void addJumpToPage(int page);
+    void removeJumpToPage(int page);
 
     QString filePath() const;
     QList< int > pages() const;    

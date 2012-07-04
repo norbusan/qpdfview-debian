@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>Bookmark</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="417"/>
+        <location filename="../sources/miscellaneous.cpp" line="156"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="420"/>
+        <location filename="../sources/miscellaneous.cpp" line="159"/>
         <source>&amp;Open</source>
         <translation type="unfinished">Öff&amp;nen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="423"/>
+        <location filename="../sources/miscellaneous.cpp" line="162"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">In neuem &amp;Reiter öffnen</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="453"/>
+        <location filename="../sources/miscellaneous.cpp" line="192"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Gehe zu Seite %1</translation>
     </message>
@@ -27,73 +27,73 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="376"/>
+        <location filename="../sources/documentview.cpp" line="377"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="376"/>
+        <location filename="../sources/documentview.cpp" line="377"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="376"/>
+        <location filename="../sources/documentview.cpp" line="377"/>
         <source>Embedded</source>
         <translation type="unfinished">Eingebettet</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="376"/>
+        <location filename="../sources/documentview.cpp" line="377"/>
         <source>Subset</source>
         <translation type="unfinished">Teilmenge</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="376"/>
+        <location filename="../sources/documentview.cpp" line="377"/>
         <source>File</source>
         <translation type="unfinished">Datei</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="384"/>
         <location filename="../sources/documentview.cpp" line="385"/>
+        <location filename="../sources/documentview.cpp" line="386"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="384"/>
         <location filename="../sources/documentview.cpp" line="385"/>
+        <location filename="../sources/documentview.cpp" line="386"/>
         <source>No</source>
         <translation type="unfinished">Nein</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="410"/>
-        <location filename="../sources/documentview.cpp" line="447"/>
-        <source>Unlock document</source>
-        <translation type="unfinished">Dokument entsperren</translation>
+        <location filename="../sources/documentview.cpp" line="1002"/>
+        <source>&amp;Return to page %1</source>
+        <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="410"/>
-        <location filename="../sources/documentview.cpp" line="447"/>
+        <location filename="../sources/documentview.cpp" line="411"/>
+        <location filename="../sources/documentview.cpp" line="448"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="581"/>
+        <location filename="../sources/documentview.cpp" line="411"/>
+        <location filename="../sources/documentview.cpp" line="448"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">%1 entsperren</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="582"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="936"/>
+        <location filename="../sources/documentview.cpp" line="960"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="936"/>
+        <location filename="../sources/documentview.cpp" line="960"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1004"/>
-        <source>&amp;Return</source>
-        <translation type="unfinished">&amp;Zurück</translation>
     </message>
 </context>
 <context>
@@ -437,22 +437,22 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="367"/>
+        <location filename="../sources/pageitem.cpp" line="373"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Zu Seite %1 gehen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="381"/>
         <source>Open %1.</source>
         <translation type="unfinished">%1 öffnen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="478"/>
+        <location filename="../sources/pageitem.cpp" line="484"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;Text kopieren</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="479"/>
+        <location filename="../sources/pageitem.cpp" line="485"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Bild kopieren</translation>
     </message>
@@ -468,156 +468,156 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="155"/>
+        <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>Defaults</source>
         <translation type="unfinished">Vorgaben</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="164"/>
+        <location filename="../sources/settingsdialog.cpp" line="41"/>
         <source>Top</source>
         <translation type="unfinished">Oben</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="165"/>
+        <location filename="../sources/settingsdialog.cpp" line="42"/>
         <source>Bottom</source>
         <translation type="unfinished">Unten</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="166"/>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
         <source>Left</source>
         <translation type="unfinished">Links</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="167"/>
+        <location filename="../sources/settingsdialog.cpp" line="44"/>
         <source>Right</source>
         <translation type="unfinished">Rechts</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="182"/>
+        <location filename="../sources/settingsdialog.cpp" line="59"/>
         <source>As needed</source>
         <translation type="unfinished">Bei Bedarf</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="183"/>
+        <location filename="../sources/settingsdialog.cpp" line="60"/>
         <source>Always</source>
         <translation type="unfinished">Immer</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="184"/>
+        <location filename="../sources/settingsdialog.cpp" line="61"/>
         <source>Never</source>
         <translation type="unfinished">Niemals</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="265"/>
-        <location filename="../sources/miscellaneous.cpp" line="266"/>
-        <location filename="../sources/miscellaneous.cpp" line="267"/>
-        <location filename="../sources/miscellaneous.cpp" line="268"/>
-        <location filename="../sources/miscellaneous.cpp" line="269"/>
-        <location filename="../sources/miscellaneous.cpp" line="270"/>
-        <location filename="../sources/miscellaneous.cpp" line="271"/>
-        <location filename="../sources/miscellaneous.cpp" line="272"/>
+        <location filename="../sources/settingsdialog.cpp" line="145"/>
+        <location filename="../sources/settingsdialog.cpp" line="146"/>
+        <location filename="../sources/settingsdialog.cpp" line="147"/>
+        <location filename="../sources/settingsdialog.cpp" line="148"/>
+        <location filename="../sources/settingsdialog.cpp" line="149"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <location filename="../sources/settingsdialog.cpp" line="151"/>
+        <location filename="../sources/settingsdialog.cpp" line="152"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="293"/>
-        <location filename="../sources/miscellaneous.cpp" line="299"/>
-        <location filename="../sources/miscellaneous.cpp" line="305"/>
+        <location filename="../sources/settingsdialog.cpp" line="173"/>
+        <location filename="../sources/settingsdialog.cpp" line="179"/>
+        <location filename="../sources/settingsdialog.cpp" line="185"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Nach Neustart wirksam.</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="307"/>
+        <location filename="../sources/settingsdialog.cpp" line="187"/>
         <source>Tab position:</source>
         <translation type="unfinished">Reiterposition:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="308"/>
+        <location filename="../sources/settingsdialog.cpp" line="188"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Reitersichtbarkeit:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="310"/>
+        <location filename="../sources/settingsdialog.cpp" line="190"/>
         <source>Open URL:</source>
         <translation type="unfinished">URL öffnen:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="312"/>
+        <location filename="../sources/settingsdialog.cpp" line="192"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Automatische Aktualisierung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="314"/>
+        <location filename="../sources/settingsdialog.cpp" line="194"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Reiter wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="315"/>
+        <location filename="../sources/settingsdialog.cpp" line="195"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Lesezeichen wiederherstellen:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="317"/>
+        <location filename="../sources/settingsdialog.cpp" line="197"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Seiten verzieren:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="318"/>
+        <location filename="../sources/settingsdialog.cpp" line="198"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Verweise verzieren:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="320"/>
+        <location filename="../sources/settingsdialog.cpp" line="200"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Abstand der Seiten:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="321"/>
+        <location filename="../sources/settingsdialog.cpp" line="201"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Abstand der Vorschaubilder:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="323"/>
+        <location filename="../sources/settingsdialog.cpp" line="203"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Größe der Vorschaubilder:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="325"/>
+        <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="326"/>
+        <location filename="../sources/settingsdialog.cpp" line="206"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Text-Kantenglättung:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="327"/>
+        <location filename="../sources/settingsdialog.cpp" line="207"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Text-Hinting:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="329"/>
+        <location filename="../sources/settingsdialog.cpp" line="209"/>
         <source>Cache size:</source>
         <translation type="unfinished">Zwischenspeichergröße:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="331"/>
+        <location filename="../sources/settingsdialog.cpp" line="211"/>
         <source>Prefetch:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="333"/>
+        <location filename="../sources/settingsdialog.cpp" line="213"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Datei-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="334"/>
+        <location filename="../sources/settingsdialog.cpp" line="214"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Bearbeiten-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="335"/>
+        <location filename="../sources/settingsdialog.cpp" line="215"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Ansicht-Werkzeugleiste:</translation>
     </message>

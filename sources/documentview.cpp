@@ -408,7 +408,7 @@ bool DocumentView::open(const QString& filePath)
     {
         if(document->isLocked())
         {
-            QString password = QInputDialog::getText(this, tr("Unlock document"), tr("Password:"), QLineEdit::Password);
+            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
 
             if(document->unlock(password.toLatin1(), password.toLatin1()))
             {
@@ -445,7 +445,7 @@ bool DocumentView::refresh()
     {
         if(document->isLocked())
         {
-            QString password = QInputDialog::getText(this, tr("Unlock document"), tr("Password:"), QLineEdit::Password);
+            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(m_filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
 
             if(document->unlock(password.toLatin1(), password.toLatin1()))
             {
@@ -995,20 +995,24 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 {
-    QMenu* menu = new QMenu();
-
-    QAction* returnAction = menu->addAction(tr("&Return"));
-    returnAction->setShortcut(QKeySequence(Qt::Key_Return));
-    returnAction->setEnabled(m_returnToPage != -1);
-
-    QAction* action = menu->exec(event->globalPos());
-
-    if(action == returnAction)
+    if(m_returnToPage != -1)
     {
-        jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
-    }
+        QMenu* menu = new QMenu();
 
-    delete menu;
+        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
+        returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
+        returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+        returnToPageAction->setIconVisibleInMenu(true);
+
+        QAction* action = menu->exec(event->globalPos());
+
+        if(action == returnToPageAction)
+        {
+            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
+        }
+
+        delete menu;
+    }
 }
 
 void DocumentView::keyPressEvent(QKeyEvent* event)

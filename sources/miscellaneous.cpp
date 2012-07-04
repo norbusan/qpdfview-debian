@@ -196,6 +196,19 @@ void Bookmark::addJumpToPage(int page)
     m_jumpToPageGroup->addAction(action);
 }
 
+void Bookmark::removeJumpToPage(int page)
+{
+    foreach(QAction* action, m_jumpToPageGroup->actions())
+    {
+        if(action->data().toInt() == page)
+        {
+            action->deleteLater();
+
+            break;
+        }
+    }
+}
+
 QString Bookmark::filePath() const
 {
     return menuAction()->data().toString();
