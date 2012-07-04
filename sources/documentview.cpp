@@ -1493,7 +1493,7 @@ void DocumentView::prepareScene()
 void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 {
     qreal left = m_pagesScene->sceneRect().left();
-    qreal top = 0.0;
+    qreal top = m_pagesScene->sceneRect().top();
     qreal width = m_pagesScene->sceneRect().width();
     qreal height = m_pagesScene->sceneRect().height();
 

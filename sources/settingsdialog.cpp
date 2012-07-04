@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "settingsdialog.h"
 
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
@@ -82,6 +103,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     // page spacing
 
     m_pageSpacingSpinBox = new QDoubleSpinBox(this);
+    m_pageSpacingSpinBox->setSuffix(" px");
     m_pageSpacingSpinBox->setRange(0.0, 25.0);
     m_pageSpacingSpinBox->setSingleStep(0.25);
     m_pageSpacingSpinBox->setValue(m_settings->value("documentView/pageSpacing", 5.0).toDouble());
@@ -89,6 +111,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     // thumbnail spacing
 
     m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
+    m_thumbnailSpacingSpinBox->setSuffix(" px");
     m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
     m_thumbnailSpacingSpinBox->setSingleStep(0.25);
     m_thumbnailSpacingSpinBox->setValue(m_settings->value("documentView/thumbnailSpacing", 3.0).toDouble());
@@ -96,6 +119,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     // thumbnail size
 
     m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
+    m_thumbnailSizeSpinBox->setSuffix(" px");
     m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
     m_thumbnailSizeSpinBox->setSingleStep(10.0);
     m_thumbnailSizeSpinBox->setValue(m_settings->value("documentView/thumbnailSize", 150.0).toDouble());
