@@ -157,9 +157,13 @@ Bookmark::Bookmark(const QString& filePath, QWidget* parent) : QMenu(parent)
     connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
 
     m_openAction = new QAction(tr("&Open"), this);
+    m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
+    m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
     m_openInNewTabAction = new QAction(tr("Open in new &tab"), this);
+    m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
+    m_openInNewTabAction->setIconVisibleInMenu(true);
     connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
 
     addAction(m_removeBookmarkAction);
@@ -190,6 +194,8 @@ void Bookmark::addJumpToPage(int page)
     }
 
     QAction* action = new QAction(tr("Jump to page %1").arg(page), this);
+    action->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+    action->setIconVisibleInMenu(true);
     action->setData(page);
 
     insertAction(before, action);
