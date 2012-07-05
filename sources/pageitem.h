@@ -101,6 +101,7 @@ private:
     int m_index;
     QSizeF m_size;
     QList< Poppler::Link* > m_links;
+    QList< Poppler::Annotation* > m_annotations;
 
     QList< QRectF > m_highlights;
     QRectF m_rubberBand;

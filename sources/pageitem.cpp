@@ -62,6 +62,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
     m_index(-1),
     m_size(),
     m_links(),
+    m_annotations(),
     m_highlights(),
     m_rubberBand(),
     m_physicalDpiX(72),
@@ -86,7 +87,36 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
 
     m_index = index;
     m_size = m_page->pageSizeF();
-    m_links = m_page->links();
+
+    foreach(Poppler::Link* link, m_page->links())
+    {
+        if(link->linkType() == Poppler::Link::Goto)
+        {
+            if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
+            {
+                m_links.append(link);
+                continue;
+            }
+        }
+        else if(link->linkType() == Poppler::Link::Browse)
+        {
+            m_links.append(link);
+            continue;
+        }
+
+        delete link;
+    }
+
+    foreach(Poppler::Annotation* annotation, m_page->annotations())
+    {
+        if(annotation->subType() == Poppler::Annotation::AText)
+        {
+            m_annotations.append(annotation);
+            continue;
+        }
+
+        delete annotation;
+    }
 
     prepareGeometry();
 }
@@ -104,6 +134,7 @@ PageItem::~PageItem()
     }
 
     qDeleteAll(m_links);
+    qDeleteAll(m_annotations);
 }
 
 QRectF PageItem::boundingRect() const
@@ -161,17 +192,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         foreach(Poppler::Link* link, m_links)
         {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
-                {
-                    painter->drawRect(link->linkArea().normalized());
-                }
-            }
-            else if(link->linkType() == Poppler::Link::Browse)
-            {
-                painter->drawRect(link->linkArea().normalized());
-            }
+            painter->drawRect(link->linkArea().normalized());
         }
 
         painter->restore();
@@ -367,13 +388,10 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             {
                 if(link->linkType() == Poppler::Link::Goto)
                 {
-                    if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
-                    {
-                        QApplication::setOverrideCursor(Qt::PointingHandCursor);
-                        QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber()));
+                    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                    QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber()));
 
-                        return;
-                    }
+                    return;
                 }
                 else if(link->linkType() == Poppler::Link::Browse)
                 {
@@ -404,15 +422,20 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 if(link->linkType() == Poppler::Link::Goto)
                 {
-                    if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
-                    {
-                        event->accept();
-                        return;
-                    }
+                    Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
+
+                    int page = linkGoto->destination().pageNumber();
+                    qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
+                    qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
+
+                    emit linkClicked(page, left, top);
+
+                    return;
                 }
                 else if(link->linkType() == Poppler::Link::Browse)
                 {
-                    event->accept();
+                    emit linkClicked(static_cast< Poppler::LinkBrowse* >(link)->url());
+
                     return;
                 }
             }
@@ -449,36 +472,10 @@ void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    foreach(Poppler::Link* link, m_links)
-    {
-        if(m_linkTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
-        {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
-
-                if(!linkGoto->isExternal())
-                {
-                    int page = linkGoto->destination().pageNumber();
-                    qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
-                    qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
-
-                    emit linkClicked(page, left, top);
-
-                    return;
-                }
-            }
-            else if(link->linkType() == Poppler::Link::Browse)
-            {
-                emit linkClicked(static_cast< Poppler::LinkBrowse* >(link)->url());
-
-                return;
-            }
-        }
-    }
-
     if(!m_rubberBand.isNull())
     {
+        m_rubberBand = m_rubberBand.normalized();
+
         QMenu* menu = new QMenu();
 
         QAction* copyTextAction = menu->addAction(tr("Copy &text"));
