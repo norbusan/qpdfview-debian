@@ -106,6 +106,8 @@ private:
     QList< QRectF > m_highlights;
     QRectF m_rubberBand;
 
+    void copyTextOrImage();
+
     // geometry
 
     int m_physicalDpiX;

@@ -109,7 +109,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
 
     foreach(Poppler::Annotation* annotation, m_page->annotations())
     {
-        if(annotation->subType() == Poppler::Annotation::AText)
+        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight)
         {
             m_annotations.append(annotation);
             continue;
@@ -459,12 +459,17 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
                 bool ok = false;
-                QString contents = QInputDialog::getText(0, "Edit text annotation", "Contents:", QLineEdit::Normal, annotation->contents(), &ok);
+                QString contents = QInputDialog::getText(0, "Edit annotation", "Contents:", QLineEdit::Normal, annotation->contents(), &ok);
 
                 if(ok)
                 {
                     annotation->setContents(contents);
                 }
+
+                s_cache.remove(this);
+                m_image1 = QImage();
+
+                update();
 
                 event->accept();
                 return;
@@ -480,6 +485,27 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         update();
 
         event->accept();
+    }
+    else if(event->modifiers() == Qt::ControlModifier && event->button() == Qt::LeftButton)
+    {
+        /*Poppler::TextAnnotation* textAnnotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+
+        ? text annotation properties ?
+
+        m_page->addAnnotation(ta);
+
+        delete textAnnotation;
+
+        s_cache.remove(this);
+        m_image1 = QImage();
+
+        update();*/
+
+        // TODO: add TextAnnotation
+    }
+    else if(event->modifiers() == Qt::AltModifier && event->button() == Qt::LeftButton)
+    {
+        // TODO: add HighlightAnnotation
     }
     else
     {
