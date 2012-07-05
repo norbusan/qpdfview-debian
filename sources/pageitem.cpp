@@ -583,7 +583,6 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             }
 
             delete menu;
-#define HAS_POPPLER_20
         }
 #ifdef HAS_POPPLER_20
         else if(event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
