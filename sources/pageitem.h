@@ -64,7 +64,7 @@ public:
     void setRotation(Poppler::Page::Rotation rotation);
 
     const QTransform& transform() const;
-    const QTransform& linkTransform() const;
+    const QTransform& normalizedTransform() const;
 
     bool isPrefetching() const;
 
@@ -115,7 +115,7 @@ private:
     Poppler::Page::Rotation m_rotation;
 
     QTransform m_transform;
-    QTransform m_linkTransform;
+    QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
     void prepareGeometry();

@@ -70,7 +70,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
     m_scaleFactor(1.0),
     m_rotation(Poppler::Page::Rotate0),
     m_transform(),
-    m_linkTransform(),
+    m_normalizedTransform(),
     m_boundingRect(),
     m_image1(),
     m_image2(),
@@ -187,7 +187,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     {
         painter->save();
 
-        painter->setTransform(m_linkTransform, true);
+        painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red));
 
         foreach(Poppler::Link* link, m_links)
@@ -321,9 +321,9 @@ const QTransform& PageItem::transform() const
     return m_transform;
 }
 
-const QTransform& PageItem::linkTransform() const
+const QTransform& PageItem::normalizedTransform() const
 {
-    return m_linkTransform;
+    return m_normalizedTransform;
 }
 
 bool PageItem::isPrefetching() const
@@ -384,7 +384,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         foreach(Poppler::Link* link, m_links)
         {
-            if(m_linkTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
             {
                 if(link->linkType() == Poppler::Link::Goto)
                 {
@@ -405,8 +405,9 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
-            if(m_linkTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
+                QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
 
                 return;
@@ -428,7 +429,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     {
         foreach(Poppler::Link* link, m_links)
         {
-            if(m_linkTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
             {
                 if(link->linkType() == Poppler::Link::Goto)
                 {
@@ -440,12 +441,14 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
                     emit linkClicked(page, left, top);
 
+                    event->accept();
                     return;
                 }
                 else if(link->linkType() == Poppler::Link::Browse)
                 {
                     emit linkClicked(static_cast< Poppler::LinkBrowse* >(link)->url());
 
+                    event->accept();
                     return;
                 }
             }
@@ -453,9 +456,18 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
-            if(m_linkTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                // TODO
+                bool ok = false;
+                QString contents = QInputDialog::getText(0, "Edit text annotation", "Contents:", QLineEdit::Normal, annotation->contents(), &ok);
+
+                if(ok)
+                {
+                    annotation->setContents(contents);
+                }
+
+                event->accept();
+                return;
             }
         }
 
@@ -546,14 +558,20 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
         m_rubberBand = QRectF();
 
+        event->accept();
+
         update();
+    }
+    else
+    {
+        event->ignore();
     }
 }
 
 void PageItem::prepareGeometry()
 {
     m_transform.reset();
-    m_linkTransform.reset();
+    m_normalizedTransform.reset();
 
     switch(m_rotation)
     {
@@ -561,15 +579,15 @@ void PageItem::prepareGeometry()
         break;
     case Poppler::Page::Rotate90:
         m_transform.rotate(90.0);
-        m_linkTransform.rotate(90.0);
+        m_normalizedTransform.rotate(90.0);
         break;
     case Poppler::Page::Rotate180:
         m_transform.rotate(180.0);
-        m_linkTransform.rotate(180.0);
+        m_normalizedTransform.rotate(180.0);
         break;
     case Poppler::Page::Rotate270:
         m_transform.rotate(270.0);
-        m_linkTransform.rotate(270.0);
+        m_normalizedTransform.rotate(270.0);
         break;
     }
 
@@ -578,12 +596,12 @@ void PageItem::prepareGeometry()
     case Poppler::Page::Rotate0:
     case Poppler::Page::Rotate90:
         m_transform.scale(m_scaleFactor * m_physicalDpiX / 72.0, m_scaleFactor * m_physicalDpiY / 72.0);
-        m_linkTransform.scale(m_scaleFactor * m_physicalDpiX / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiY / 72.0 * m_size.height());
+        m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiX / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiY / 72.0 * m_size.height());
         break;
     case Poppler::Page::Rotate180:
     case Poppler::Page::Rotate270:
         m_transform.scale(m_scaleFactor * m_physicalDpiY / 72.0, m_scaleFactor * m_physicalDpiX / 72.0);
-        m_linkTransform.scale(m_scaleFactor * m_physicalDpiY / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiX / 72.0 * m_size.height());
+        m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiY / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiX / 72.0 * m_size.height());
         break;
     }
 

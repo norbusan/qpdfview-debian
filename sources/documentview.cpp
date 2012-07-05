@@ -481,6 +481,7 @@ bool DocumentView::saveCopy(const QString& filePath)
     Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
 
     pdfConverter->setOutputFileName(filePath);
+    pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
     bool ok = pdfConverter->convert();
 
     delete pdfConverter;
