@@ -403,6 +403,16 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             }
         }
 
+        foreach(Poppler::Annotation* annotation, m_annotations)
+        {
+            if(m_linkTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            {
+                QToolTip::showText(event->screenPos(), annotation->contents());
+
+                return;
+            }
+        }
+
         QToolTip::hideText();
     }
 }
@@ -438,6 +448,14 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
                     return;
                 }
+            }
+        }
+
+        foreach(Poppler::Annotation* annotation, m_annotations)
+        {
+            if(m_linkTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            {
+                // TODO
             }
         }
 
