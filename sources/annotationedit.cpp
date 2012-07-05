@@ -4,11 +4,9 @@ AnnotationEdit::AnnotationEdit(Poppler::Annotation* annotation, QWidget* parent)
     m_annotation(annotation)
 {
     m_textEdit = new QTextEdit(this);
-
     m_textEdit->setAcceptRichText(false);
-    m_textEdit->setWordWrapMode(QTextOption::NoWrap);
-
     m_textEdit->setText(m_annotation->contents());
+
     connect(m_textEdit, SIGNAL(textChanged()), SLOT(on_textEdit_textChanged()));
 
     setFrameStyle(Panel);
