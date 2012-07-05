@@ -639,7 +639,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
         m_rubberBand = QRectF();
 
-        update();
+        refresh();
 
         event->accept();
     }
