@@ -484,9 +484,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         event->accept();
         return;
     }
-#ifdef HAS_POPPLER_20
     else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
     {
+#ifdef HAS_POPPLER_20
+
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
@@ -504,8 +505,9 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
-    }
+
 #endif // HAS_POPPLER_20
+    }
 
     event->ignore();
 }
@@ -535,7 +537,6 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         {
             copyTextOrImage(event->screenPos());
         }
-#ifdef HAS_POPPLER_20
         else if(event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
         {
             if(event->modifiers() == Qt::ControlModifier)
@@ -547,7 +548,6 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
                 addAnnotation(Poppler::Annotation::AHighlight, event->screenPos());
             }
         }
-#endif // HAS_POPPLER_20
 
         m_rubberBand = QRectF();
 
@@ -616,6 +616,8 @@ void PageItem::copyTextOrImage(const QPoint& screenPos)
 
 void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint& screenPos)
 {
+#ifdef HAS_POPPLER_20
+
     QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
 
     Poppler::Annotation::Style style;
@@ -655,6 +657,8 @@ void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint&
     refresh();
 
     editAnnotation(annotation, screenPos);
+
+#endif // HAS_POPPLER_20
 }
 
 void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
