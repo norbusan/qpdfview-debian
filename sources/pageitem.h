@@ -73,10 +73,11 @@ signals:
     void linkClicked(const QString& url);
 
 public slots:
+    void refresh();
+    void prefetch();
+
     void startRender();
     void cancelRender();
-
-    void prefetch();
 
 protected slots:
     void on_render_finished();
@@ -105,8 +106,6 @@ private:
 
     QList< QRectF > m_highlights;
     QRectF m_rubberBand;
-
-    void copyTextOrImage();
 
     // geometry
 
