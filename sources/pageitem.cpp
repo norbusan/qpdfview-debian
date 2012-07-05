@@ -409,8 +409,10 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
+                m_mutex->lock();
                 QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
+                m_mutex->unlock();
 
                 return;
             }
@@ -462,30 +464,23 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                AnnotationEdit* annotationEdit = new AnnotationEdit(annotation);
-
-                annotationEdit->move(event->screenPos());
-                // TODO: annotationEdit->resize
-
-                annotationEdit->setAttribute(Qt::WA_DeleteOnClose);
-                annotationEdit->show();
-
-                connect(annotationEdit, SIGNAL(destroyed()), SLOT(refresh()));
+                editAnnotation(annotation, event->screenPos());
 
                 event->accept();
                 return;
             }
         }
-
-        event->ignore();
     }
     else if((event->modifiers() == Qt::ShiftModifier || event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier)) && event->button() == Qt::LeftButton)
     {
+        QApplication::setOverrideCursor(Qt::CrossCursor);
+
         m_rubberBand = QRectF(event->pos(), QSizeF());
 
         update();
 
         event->accept();
+        return;
     }
 #ifdef HAS_POPPLER_20
     else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
@@ -507,10 +502,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         }
     }
 #endif // HAS_POPPLER_20
-    else
-    {
-        event->ignore();
-    }
+
+    event->ignore();
 }
 
 void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -528,115 +521,33 @@ void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
+    QApplication::restoreOverrideCursor();
+
     if(!m_rubberBand.isNull())
     {
         m_rubberBand = m_rubberBand.normalized();
 
         if(event->modifiers() == Qt::ShiftModifier)
         {
-            QMenu* menu = new QMenu();
-
-            QAction* copyTextAction = menu->addAction(tr("Copy &text"));
-            QAction* copyImageAction = menu->addAction(tr("Copy &image"));
-
-            QAction* action = menu->exec(event->screenPos());
-
-            if(action == copyTextAction)
-            {
-                QString text;
-
-                m_mutex->lock();
-
-                text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
-
-                m_mutex->unlock();
-
-                if(!text.isEmpty())
-                {
-                    QApplication::clipboard()->setText(text);
-                }
-            }
-            else if(action == copyImageAction)
-            {
-                QImage image;
-
-                m_mutex->lock();
-
-                switch(m_rotation)
-                {
-                case Poppler::Page::Rotate0:
-                case Poppler::Page::Rotate90:
-                    image = m_page->renderToImage(m_scaleFactor * m_physicalDpiX, m_scaleFactor * m_physicalDpiY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
-                    break;
-                case Poppler::Page::Rotate180:
-                case Poppler::Page::Rotate270:
-                    image = m_page->renderToImage(m_scaleFactor * m_physicalDpiY, m_scaleFactor * m_physicalDpiX, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
-                    break;
-                }
-
-                m_mutex->lock();
-
-                if(!image.isNull())
-                {
-                    QApplication::clipboard()->setImage(image);
-                }
-            }
-
-            delete menu;
+            copyTextOrImage(event->screenPos());
         }
 #ifdef HAS_POPPLER_20
         else if(event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
         {
-            QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
-
-            Poppler::Annotation* annotation;
-            Poppler::Annotation::Style style;
-            style.setColor(QColor(255, 255, 0));
-
             if(event->modifiers() == Qt::ControlModifier)
             {
-                Poppler::TextAnnotation* textAnnotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
-
-                annotation = textAnnotation;
+                addAnnotation(Poppler::Annotation::AText, event->screenPos());
             }
             else if(event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
             {
-                Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
-
-                Poppler::HighlightAnnotation::Quad quad;
-                quad.points[0] = boundary.topLeft();
-                quad.points[1] = boundary.topRight();
-                quad.points[2] = boundary.bottomRight();
-                quad.points[3] = boundary.bottomLeft();
-
-                highlightAnnotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
-
-                annotation = highlightAnnotation;
+                addAnnotation(Poppler::Annotation::AHighlight, event->screenPos());
             }
-
-            annotation->setBoundary(boundary);
-            annotation->setStyle(style);
-
-            m_mutex->lock();
-            m_annotations.append(annotation);
-            m_page->addAnnotation(annotation);
-            m_mutex->unlock();
-
-            AnnotationEdit* annotationEdit = new AnnotationEdit(annotation);
-
-            annotationEdit->move(event->screenPos());
-            // TODO: annotationEdit->resize
-
-            annotationEdit->setAttribute(Qt::WA_DeleteOnClose);
-            annotationEdit->show();
-
-            connect(annotationEdit, SIGNAL(destroyed()), SLOT(refresh()));
         }
 #endif // HAS_POPPLER_20
 
         m_rubberBand = QRectF();
 
-        refresh();
+        update();
 
         event->accept();
     }
@@ -644,6 +555,109 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     {
         event->ignore();
     }
+}
+
+void PageItem::copyTextOrImage(const QPoint& screenPos)
+{
+    QMenu* menu = new QMenu();
+
+    QAction* copyTextAction = menu->addAction(tr("Copy &text"));
+    QAction* copyImageAction = menu->addAction(tr("Copy &image"));
+
+    QAction* action = menu->exec(screenPos);
+
+    if(action == copyTextAction)
+    {
+        QString text;
+
+        m_mutex->lock();
+
+        text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
+
+        m_mutex->unlock();
+
+        if(!text.isEmpty())
+        {
+            QApplication::clipboard()->setText(text);
+        }
+    }
+    else if(action == copyImageAction)
+    {
+        QImage image;
+
+        m_mutex->lock();
+
+        switch(m_rotation)
+        {
+        case Poppler::Page::Rotate0:
+        case Poppler::Page::Rotate90:
+            image = m_page->renderToImage(m_scaleFactor * m_physicalDpiX, m_scaleFactor * m_physicalDpiY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
+            break;
+        case Poppler::Page::Rotate180:
+        case Poppler::Page::Rotate270:
+            image = m_page->renderToImage(m_scaleFactor * m_physicalDpiY, m_scaleFactor * m_physicalDpiX, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
+            break;
+        }
+
+        m_mutex->unlock();
+
+        if(!image.isNull())
+        {
+            QApplication::clipboard()->setImage(image);
+        }
+    }
+
+    delete menu;
+}
+
+void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint& screenPos)
+{
+    QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
+
+    Poppler::Annotation* annotation = 0;
+    Poppler::Annotation::Style style;
+    style.setColor(QColor(255, 255, 0));
+
+    if(subType == Poppler::Annotation::AText)
+    {
+        annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+    }
+    else if(subType == Poppler::Annotation::AHighlight)
+    {
+        Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
+
+        Poppler::HighlightAnnotation::Quad quad;
+        quad.points[0] = boundary.topLeft();
+        quad.points[1] = boundary.topRight();
+        quad.points[2] = boundary.bottomRight();
+        quad.points[3] = boundary.bottomLeft();
+
+        highlightAnnotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
+
+        annotation = highlightAnnotation;
+    }
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+
+    m_mutex->lock();
+    m_annotations.append(annotation);
+    m_page->addAnnotation(annotation);
+    m_mutex->unlock();
+
+    refresh();
+
+    editAnnotation(annotation, screenPos);
+}
+
+void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
+{
+    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, annotation);
+
+    annotationDialog->move(screenPos);
+
+    annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
+    annotationDialog->show();
 }
 
 void PageItem::prepareGeometry()

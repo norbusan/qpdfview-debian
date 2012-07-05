@@ -27,7 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-qt4.h>
 
-#include "annotationedit.h"
+#include "annotationdialog.h"
 
 class PageItem : public QGraphicsObject
 {
@@ -108,6 +108,10 @@ private:
 
     QList< QRectF > m_highlights;
     QRectF m_rubberBand;
+
+    void copyTextOrImage(const QPoint& screenPos);
+    void addAnnotation(Poppler::Annotation::SubType subType, const QPoint& screenPos);
+    void editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
 
     // geometry
 

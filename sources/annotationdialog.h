@@ -1,17 +1,17 @@
-#ifndef ANNOTATIONEDIT_H
-#define ANNOTATIONEDIT_H
+#ifndef ANNOTATIONDIALOG_H
+#define ANNOTATIONDIALOG_H
 
 #include <QtCore>
 #include <QtGui>
 
 #include <poppler-qt4.h>
 
-class AnnotationEdit : public QFrame
+class AnnotationDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AnnotationEdit(Poppler::Annotation* annotation, QWidget* parent = 0);
+    AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget *parent = 0);
 
 protected slots:
     void on_textEdit_textChanged();
@@ -21,9 +21,11 @@ protected:
     void keyPressEvent(QKeyEvent* event);
     
 private:
+    QMutex* m_mutex;
     Poppler::Annotation* m_annotation;
-    QTextEdit* m_textEdit;
 
+    QTextEdit* m_textEdit;
+    
 };
 
-#endif // ANNOTATIONEDIT_H
+#endif // ANNOTATIONDIALOG_H
