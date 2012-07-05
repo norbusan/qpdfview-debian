@@ -410,8 +410,10 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
                 m_mutex->lock();
+
                 QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
+
                 m_mutex->unlock();
 
                 return;
@@ -490,8 +492,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
                 m_mutex->lock();
+
                 m_annotations.removeAll(annotation);
                 m_page->removeAnnotation(annotation);
+
                 m_mutex->unlock();
 
                 refresh();
@@ -614,9 +618,10 @@ void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint&
 {
     QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
 
-    Poppler::Annotation* annotation = 0;
     Poppler::Annotation::Style style;
     style.setColor(QColor(255, 255, 0));
+
+    Poppler::Annotation* annotation = 0;
 
     if(subType == Poppler::Annotation::AText)
     {
@@ -641,8 +646,10 @@ void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint&
     annotation->setStyle(style);
 
     m_mutex->lock();
+
     m_annotations.append(annotation);
     m_page->addAnnotation(annotation);
+
     m_mutex->unlock();
 
     refresh();
