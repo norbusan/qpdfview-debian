@@ -597,8 +597,6 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             {
                 Poppler::TextAnnotation* textAnnotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
 
-                textAnnotation->setTextIcon("Comment");
-
                 annotation = textAnnotation;
             }
             else if(event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
