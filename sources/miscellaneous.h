@@ -32,7 +32,7 @@ class TabBar : public QTabBar
     Q_OBJECT
 
 public:
-    TabBar(QWidget* parent = 0);
+    explicit TabBar(QWidget* parent = 0);
 
 protected:
     void mousePressEvent(QMouseEvent* event);
@@ -46,7 +46,7 @@ class TabWidget : public QTabWidget
     Q_OBJECT
 
 public:
-    TabWidget(QWidget* parent = 0);
+    explicit TabWidget(QWidget* parent = 0);
 
     enum TabBarPolicy
     {
@@ -74,7 +74,7 @@ class LineEdit : public QLineEdit
     Q_OBJECT
 
 public:
-    LineEdit(QWidget* parent = 0);
+    explicit LineEdit(QWidget* parent = 0);
 
 protected:
     void mousePressEvent(QMouseEvent* event);
@@ -88,7 +88,7 @@ class ComboBox : public QComboBox
     Q_OBJECT
 
 public:
-    ComboBox(QWidget* parent = 0);
+    explicit ComboBox(QWidget* parent = 0);
 
 };
 
@@ -99,7 +99,7 @@ class ProgressLineEdit : public QLineEdit
     Q_OBJECT
 
 public:
-    ProgressLineEdit(QWidget* parent = 0);
+    explicit ProgressLineEdit(QWidget* parent = 0);
 
     int progress() const;
     void setProgress(int progress);
@@ -119,7 +119,7 @@ class Bookmark : public QMenu
     Q_OBJECT
 
 public:
-    explicit Bookmark(const QString& filePath, QWidget* parent = 0);
+    Bookmark(const QString& filePath, QWidget* parent = 0);
 
     void addJumpToPage(int page);
     void removeJumpToPage(int page);

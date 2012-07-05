@@ -4,6 +4,7 @@ TARGET = qpdfview
 TEMPLATE = app
 
 HEADERS += \
+    sources/annotationedit.h \
     sources/pageitem.h \
     sources/searchthread.h \
     sources/presentationview.h \
@@ -13,6 +14,7 @@ HEADERS += \
     sources/mainwindow.h
 
 SOURCES += \
+    sources/annotationedit.cpp \
     sources/pageitem.cpp \
     sources/searchthread.cpp \
     sources/presentationview.cpp \
