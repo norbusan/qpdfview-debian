@@ -27,12 +27,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
 {
     m_textEdit = new QTextEdit(this);
     m_textEdit->setAcceptRichText(false);
-
-    m_mutex->lock();
-
     m_textEdit->setPlainText(m_annotation->contents());
-
-    m_mutex->unlock();
 
     connect(m_textEdit, SIGNAL(textChanged()), SLOT(on_textEdit_textChanged()));
 

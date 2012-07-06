@@ -182,6 +182,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleMode = static_cast< ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt());
     m_scaleFactor = m_settings->value("documentView/scaleFactor", 1.0).toReal();
     m_rotation = static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt());
+    m_highlightAll = m_settings->value("documentView/highlightAll", false).toBool();
 }
 
 DocumentView::~DocumentView()
@@ -204,6 +205,7 @@ DocumentView::~DocumentView()
     m_settings->setValue("documentView/scaleMode", static_cast< uint >(m_scaleMode));
     m_settings->setValue("documentView/scaleFactor", m_scaleFactor);
     m_settings->setValue("documentView/rotation", static_cast< uint >(m_rotation));
+    m_settings->setValue("documentView/highlightAll", m_highlightAll);
 }
 
 const QString& DocumentView::filePath() const

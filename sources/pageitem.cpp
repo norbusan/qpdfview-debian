@@ -409,12 +409,8 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                m_mutex->lock();
-
                 QApplication::setOverrideCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
-
-                m_mutex->unlock();
 
                 return;
             }
@@ -486,27 +482,16 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
     else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
     {
-#ifdef HAS_POPPLER_20
-
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                m_mutex->lock();
-
-                m_annotations.removeAll(annotation);
-                m_page->removeAnnotation(annotation);
-
-                m_mutex->unlock();
-
-                refresh();
+                removeAnnotation(annotation, event->screenPos());
 
                 event->accept();
                 return;
             }
         }
-
-#endif // HAS_POPPLER_20
     }
 
     event->ignore();
@@ -657,6 +642,24 @@ void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint&
     refresh();
 
     editAnnotation(annotation, screenPos);
+
+#endif // HAS_POPPLER_20
+}
+
+void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
+{
+    Q_UNUSED(screenPos);
+
+#ifdef HAS_POPPLER_20
+
+    m_mutex->lock();
+
+    m_annotations.removeAll(annotation);
+    m_page->removeAnnotation(annotation);
+
+    m_mutex->unlock();
+
+    refresh();
 
 #endif // HAS_POPPLER_20
 }
