@@ -1581,7 +1581,7 @@ void DocumentView::prepareHighlight()
         m_highlight->setTransform(page->transform());
         page->stackBefore(m_highlight);
 
-        m_highlight->setRect(m_currentResult.value());
+        m_highlight->setRect(m_currentResult.value().normalized());
 
         m_highlight->setVisible(true);
 
