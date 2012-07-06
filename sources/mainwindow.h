@@ -35,6 +35,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "miscellaneous.h"
 #include "settingsdialog.h"
+#include "bookmarkmenu.h"
 
 class MainWindow : public QMainWindow
 {

@@ -11,7 +11,8 @@ HEADERS += \
     sources/documentview.h \
     sources/miscellaneous.h \
     sources/settingsdialog.h \
-    sources/mainwindow.h \
+    sources/bookmarkmenu.h \
+    sources/mainwindow.h
 
 SOURCES += \
     sources/annotationdialog.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
     sources/settingsdialog.cpp \
+    sources/bookmarkmenu.cpp \
     sources/mainwindow.cpp \
     sources/main.cpp
 

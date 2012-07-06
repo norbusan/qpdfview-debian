@@ -931,7 +931,7 @@ void MainWindow::on_addBookmark_triggered()
 {
     foreach(QAction* action, m_bookmarksMenu->actions())
     {
-        Bookmark* bookmark = qobject_cast< Bookmark* >(action->menu());
+        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
         if(bookmark != 0)
         {
@@ -947,7 +947,7 @@ void MainWindow::on_addBookmark_triggered()
         }
     }
 
-    Bookmark* bookmark = new Bookmark(currentTab()->filePath(), this);
+    BookmarkMenu* bookmark = new BookmarkMenu(currentTab()->filePath(), this);
 
     if(currentTab()->currentPage() != 1)
     {
@@ -965,7 +965,7 @@ void MainWindow::on_removeAllBookmarks_triggered()
 {
     foreach(QAction* action, m_bookmarksMenu->actions())
     {
-        Bookmark* bookmark = qobject_cast< Bookmark* >(action->menu());
+        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
         if(bookmark != 0)
         {
@@ -1757,7 +1757,7 @@ void MainWindow::restoreBookmarks()
 
                 while(!bookmarkElement.isNull())
                 {
-                    Bookmark* bookmark = new Bookmark(bookmarkElement.attribute("filePath"));
+                    BookmarkMenu* bookmark = new BookmarkMenu(bookmarkElement.attribute("filePath"));
 
                     QDomElement jumpToPageElement = bookmarkElement.firstChildElement();
 
@@ -1798,7 +1798,7 @@ void MainWindow::saveBookmarks()
 
             foreach(QAction* action, m_bookmarksMenu->actions())
             {
-                Bookmark* bookmark = qobject_cast< Bookmark* >(action->menu());
+                BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
                 if(bookmark != 0)
                 {

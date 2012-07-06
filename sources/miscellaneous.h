@@ -112,38 +112,4 @@ private:
 
 };
 
-// bookmark
-
-class Bookmark : public QMenu
-{
-    Q_OBJECT
-
-public:
-    Bookmark(const QString& filePath, QWidget* parent = 0);
-
-    void addJumpToPage(int page);
-    void removeJumpToPage(int page);
-
-    QString filePath() const;
-    QList< int > pages() const;    
-
-signals:
-    void openTriggered(const QString& filePath);
-    void openInNewTabTriggered(const QString& filePath);
-    void jumpToPageTriggered(const QString& filePath, int page);
-
-protected slots:
-    void on_removeBookmark_triggered();
-    void on_open_triggered();
-    void on_openInNewTab_triggered();
-    void on_jumpToPage_triggered(QAction* action);
-
-private:
-    QAction* m_removeBookmarkAction;
-    QAction* m_openAction;
-    QAction* m_openInNewTabAction;
-    QActionGroup* m_jumpToPageGroup;
-
-};
-
 #endif // MISCELLANEOUS_H
