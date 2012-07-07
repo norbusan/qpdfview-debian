@@ -234,7 +234,10 @@ void DocumentView::setContinousMode(bool continousMode)
     {
         m_continuousMode = continousMode;
 
-        prepareView();
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        prepareView(left, top);
 
         emit continousModeChanged(m_continuousMode);
     }
