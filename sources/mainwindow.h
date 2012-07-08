@@ -125,6 +125,7 @@ protected slots:
     void on_nextTab_triggered();
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
+    void on_closeAllTabsButCurrentTab_triggered();
 
     void on_tab_triggered();
 
@@ -209,6 +210,7 @@ private:
     QAction* m_nextTabAction;
     QAction* m_closeTabAction;
     QAction* m_closeAllTabsAction;
+    QAction* m_closeAllTabsButCurrentTabAction;
 
     QAction* m_addBookmarkAction;
     QAction* m_removeAllBookmarksAction;

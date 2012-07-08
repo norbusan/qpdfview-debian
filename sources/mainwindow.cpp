@@ -226,6 +226,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_previousTabAction->setEnabled(true);
         m_nextTabAction->setEnabled(true);
         m_closeTabAction->setEnabled(true);
+        m_closeAllTabsAction->setEnabled(true);
+        m_closeAllTabsButCurrentTabAction->setEnabled(true);
 
         m_addBookmarkAction->setEnabled(true);
 
@@ -301,6 +303,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_previousTabAction->setEnabled(false);
         m_nextTabAction->setEnabled(false);
         m_closeTabAction->setEnabled(false);
+        m_closeAllTabsAction->setEnabled(false);
+        m_closeAllTabsButCurrentTabAction->setEnabled(false);
 
         m_addBookmarkAction->setEnabled(false);
 
@@ -912,6 +916,28 @@ void MainWindow::on_closeAllTabs_triggered()
     on_tabWidget_currentChanged(-1);
 }
 
+void MainWindow::on_closeAllTabsButCurrentTab_triggered()
+{
+    DocumentView* newTab = currentTab();
+
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    m_tabWidget->removeTab(m_tabWidget->currentIndex());
+
+    while(m_tabWidget->count() > 0)
+    {
+        delete m_tabWidget->widget(0);
+    }
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    QFileInfo fileInfo(newTab->filePath());
+
+    int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
+    m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
+    m_tabWidget->setCurrentIndex(index);
+}
+
 void MainWindow::on_tab_triggered()
 {
     for(int index = 0; index < m_tabWidget->count(); index++)
@@ -1405,6 +1431,12 @@ void MainWindow::createActions()
     m_closeAllTabsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W));
     connect(m_closeAllTabsAction, SIGNAL(triggered()), SLOT(on_closeAllTabs_triggered()));
 
+    // close all tabs but current tab
+
+    m_closeAllTabsButCurrentTabAction = new QAction(tr("Close all tabs &but current tab"), this);
+    m_closeAllTabsButCurrentTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
+    connect(m_closeAllTabsButCurrentTabAction, SIGNAL(triggered()), SLOT(on_closeAllTabsButCurrentTab_triggered()));
+
     // add bookmark
 
     m_addBookmarkAction = new QAction(tr("&Add bookmark"), this);
@@ -1636,6 +1668,7 @@ void MainWindow::createMenus()
     m_tabsMenu->addSeparator();
     m_tabsMenu->addAction(m_closeTabAction);
     m_tabsMenu->addAction(m_closeAllTabsAction);
+    m_tabsMenu->addAction(m_closeAllTabsButCurrentTabAction);
     m_tabsMenu->addSeparator();
 
     // bookmarks
