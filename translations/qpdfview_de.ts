@@ -16,12 +16,12 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="41"/>
         <source>Open in new &amp;tab</source>
-        <translation type="unfinished">In neuem &amp;Reiter öffnen</translation>
+        <translation type="unfinished">In neuem Rei&amp;ter öffnen</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="73"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Gehe zu Seite %1</translation>
+        <translation type="unfinished">Zu Seite %1 springen</translation>
     </message>
 </context>
 <context>
@@ -64,21 +64,16 @@
         <translation type="unfinished">Nein</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1008"/>
-        <source>&amp;Return to page %1</source>
-        <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
+        <location filename="../sources/documentview.cpp" line="416"/>
+        <location filename="../sources/documentview.cpp" line="453"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="416"/>
         <location filename="../sources/documentview.cpp" line="453"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="416"/>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="588"/>
@@ -94,6 +89,11 @@
         <location filename="../sources/documentview.cpp" line="966"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1008"/>
+        <source>&amp;Return to page %1</source>
+        <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
 </context>
 <context>
@@ -353,7 +353,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1436"/>
         <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle Reiter &amp;bis auf den aktuellen schließen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1442"/>
