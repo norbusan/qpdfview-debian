@@ -226,7 +226,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_previousTabAction->setEnabled(true);
         m_nextTabAction->setEnabled(true);
         m_closeTabAction->setEnabled(true);
-        m_closeAllTabsAction->setEnabled(true);
 
         m_addBookmarkAction->setEnabled(true);
 
@@ -302,7 +301,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_previousTabAction->setEnabled(false);
         m_nextTabAction->setEnabled(false);
         m_closeTabAction->setEnabled(false);
-        m_closeAllTabsAction->setEnabled(false);
 
         m_addBookmarkAction->setEnabled(false);
 

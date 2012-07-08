@@ -62,57 +62,57 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> </li>
-	<li><b>Open in new tab...</b> </li>
-	<li><b>Refresh</b> </li>
-	<li><b>Save copy...</b> </li>
-    <li><b>Print...</b> </li>
-	<li><b>Exit</b> </li>
+	<li><b>Open...</b> Opens a dialogue to choose a file to open in the current tab. If there is no tab, the file is opened in a new tab.</li>
+	<li><b>Open in new tab...</b> Opens a dialogue to choose files to open in new tabs.</li>
+	<li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
+	<li><b>Save copy...</b> Opens a dialogue to save a copy of the file displayed in the current tab.</li>
+    <li><b>Print...</b> Opens a dialogue to print the file displayed in the current tab.</li>
+	<li><b>Exit</b> Closes all tabs and ends the program.</li>
 </ul>
 
 <h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> </li>
-    <li><b>Jump to page...</b> </li>
+	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document. Without effect if the last/first/first/last page of the document is already displayed.</li>
+    <li><b>Jump to page...</b> Opens a dialogue to enter a page to display in the current tab.</li>
 	<li><b>Search...</b> </li>
 	<li><b>Find previous/next</b> </li>
 	<li><b>Cancel search</b> </li>
-	<li><b>Settings...</b> </li>
+	<li><b>Settings...</b> Opens the settings dialogue.</li>
 </ul>
 
-<p>editToolBar/currentPage</p>
+<p>The current page can be changed by entering the desired page into the text field in the edit tool bar and pressing the return key.</p>
 
 <h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
 	<li><b>Continuous</b> </li>
 	<li><b>Two pages</b> </li>
-	<li><b>Zoom in</b> </li>
-	<li><b>Zoom out</b> </li>
-	<li><b>Original size</b> </li>
-    <li><b>Fit to page width</b> </li>
-	<li><b>Fit to page size</b> </li>
-	<li><b>Rotate left</b> </li>
-	<li><b>Rotate right</b> </li>
-	<li><b>Tool bars</b> </li>
-	<li><b>Docks</b> </li>
-    <li><b>Fonts...</b> </li>
-	<li><b>Fullscreen</b> </li>
-	<li><b>Presentation...</b> </li>
+	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
+	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
+	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
+    <li><b>Fit to page width</b> Determines the scale factor such that all pages fully fit into the main view horizontally.</li>
+	<li><b>Fit to page size</b> Determines the scale factor such that all pages fully fit into the main view horizontally and vertically.</li>
+	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
+	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
+	<li><b>Tool bars</b> This menu contains a list of available tool bars for accessing often used actions.</li>
+	<li><b>Docks</b> This menu contains a list of available docks for displaying supplementary information.</li>
+    <li><b>Fonts...</b> Opens a dialogue listing the fonts used in the document.</li>
+	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown maximized and without decoration.</li>
+	<li><b>Presentation...</b> Enters presentation mode which can be left by pressing F12 or escape. The home/end key is used to display the first/last page. Arrow keys right and down, space and the page down key jump to the next page. Arrow keys left and up, backspace and the page up key jump to the previous page.</li>
 </ul>
 
-<p>viewToolBar/scaleFactor</p>
+<p>The scale factor can be changed by entering the desired percentage into the text field in the view tool bar and pressing the return key.</p>
 
 <h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous/Next tab</b> </li>
-    <li><b>Close tab</b> </li>
-    <li><b>Close all tabs</b> </li>
+    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles to the last/first tab if the first/last tab is the current tab.</li>
+    <li><b>Close tab</b> Closes the current tab.</li>
+    <li><b>Close all tabs</b> Closes all tabs.</li>
 </ul>
 
-<p>tabs</p>
+<p>This menu contains a list of all tabs which can be made the current tab by clicking on them. Tabs can be closed by middle-clicking on them.</p>
 
 <h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
 
@@ -140,25 +140,32 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <p>mouse controls</p>
 
+<ul>
+    <li>Using the mouse wheel scrolls up and down.</li>
+    <li>Holding <b>ALT</b> while using the mouse wheel scrolls left and right.</li>
+    <li>Holding <b>CTRL</b> while using the mouse wheel scales the document.</li>
+    <li>Holding <b>SHIFT</b> while using the mouse wheel rotates the document.</li>
+</ul>
+
 <p>links</p>
 
-<p>copy text or images</p>
+<p>copy text or image</p>
 
-<p>annotations</p>
+<p>annotations (Adding and removing annotations requires version 0.20 or higher of the Poppler library.)</p>
 
 <h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="outline">Outline</a> <a href="#top">&uarr;</a></h4>
 
-<p>outline</p>
+<p>The outline dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view.</p>
 
 <h4><a name="properties">Properties</a> <a href="#top">&uarr;</a></h4>
 
-<p>properties</p>
+<p>The properties dock displays further information supplied by the document.</p>
 
 <h4><a name="thumbnails">Thumbnails</a> <a href="#top">&uarr;</a></h4>
 
-<p>thumbnails</p>
+<p>The thumbnails dock displays small versions of the pages. A left click on an entry jumps to the respective page in the main view.</p>
 
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
@@ -167,8 +174,8 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than two documents are opened.</li>
     <li><b>Open URL</b> Determines whether links to URL are opened in the default browser.</li>
     <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if changed on disk.</li>
-    <li><b>Restore tabs</b> If enabled, tabs and their properties are saved on closing the program and restored on restart.</li>
-    <li><b>Restore bookmarks</b> If enabled, bookmarks are saved on closing the program and restored on restart.</li>
+    <li><b>Restore tabs</b> If enabled, tabs and their properties are saved on ending the program and restored on restart.</li>
+    <li><b>Restore bookmarks</b> If enabled, bookmarks are saved on ending the program and restored on restart.</li>
     <li><b>Decorate pages</b> Determines whether pages are set apart from the background.</li>
     <li><b>Decorate links</b> Determines whether links are highlighted by red frames.</li>
     <li><b>Page spacing</b> Determines both vertical and horizontal space displayed between pages.</li>
@@ -177,11 +184,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
     <li><b>Text antialiasing</b> Improves text display quality at the cost of performance</li>
     <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
-    <li><b>Cache size</b> The program will try to cache rendered pages within this limit.</li>
-    <li><b>Prefetch</b> The program will try to render some pages that are not yet visible at the cost of increased memory usage.</li>
-    <li><b>File tool bar</b> Defines which actions are visible in the file tool bar. Available actions are openInNewTab, open, refresh, saveCopy and print.</li>
-    <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool bar. Available actions are currentPage, numberOfPages, previousPage, nextPage, firstPage, lastPage and jumpToPage.</li>
-    <li><b>View tool bar</b> Defines which actions are visible in the view tool bar. Available action are scaleFactor, zoomIn, zoomOut, conitnuousMode, twoPagesMode, originalSize, fitToPageWidth, fitToPageSize, rotateLeft, rotateRight, fullscreen and presentation.</li>
+    <li><b>Cache size</b> The program will try to cache rendered pages within this limit increasing rendering speed at the cost of increased memory usage.</li>
+    <li><b>Prefetch</b> The program will try to render some pages that are not yet visible increasing rendering speed at the cost of increased memory usage.</li>
+    <li><b>File tool bar</b> Defines which actions are visible in the file tool bar. Available actions are openInNewTab, open, refresh, saveCopy and print. (Effective after restart.)</li>
+    <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool bar. Available actions are currentPage, numberOfPages, previousPage, nextPage, firstPage, lastPage and jumpToPage. (Effective after restart.)</li>
+    <li><b>View tool bar</b> Defines which actions are visible in the view tool bar. Available action are scaleFactor, zoomIn, zoomOut, conitnuousMode, twoPagesMode, originalSize, fitToPageWidth, fitToPageSize, rotateLeft, rotateRight, fullscreen and presentation. (Effective after restart.)</li>
 </ul>
 
 </body>
