@@ -641,12 +641,12 @@ bool DocumentView::print(QPrinter* printer)
 
 void DocumentView::previousPage()
 {
-    jumpToPage(currentPage() - (m_twoPagesMode ? 2 : 1));
+    jumpToPage(currentPage() - (m_twoPagesMode ? 2 : 1), 0.0, 0.0, false);
 }
 
 void DocumentView::nextPage()
 {
-    jumpToPage(currentPage() + (m_twoPagesMode ? 2 : 1));
+    jumpToPage(currentPage() + (m_twoPagesMode ? 2 : 1), 0.0, 0.0, false);
 }
 
 void DocumentView::firstPage()
@@ -659,7 +659,7 @@ void DocumentView::lastPage()
     jumpToPage(numberOfPages());
 }
 
-void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool returnTo)
 {
     if(page >= 1 && page <= m_numberOfPages)
     {
@@ -667,8 +667,11 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
         {
             if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
             {
-                m_returnToPage = m_currentPage;
-                saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                if(returnTo)
+                {
+                    m_returnToPage = m_currentPage;
+                    saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                }
 
                 m_currentPage = page % 2 != 0 ? page : page - 1;
 
@@ -681,8 +684,11 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop)
         {
             if(m_currentPage != page || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
             {
-                m_returnToPage = m_currentPage;
-                saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                if(returnTo)
+                {
+                    m_returnToPage = m_currentPage;
+                    saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                }
 
                 m_currentPage = page;
 
@@ -1001,24 +1007,50 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 {
-    if(m_returnToPage != -1)
+    QMenu* menu = new QMenu();
+
+    QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
+    returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
+    returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+    returnToPageAction->setIconVisibleInMenu(true);
+
+    returnToPageAction->setVisible(m_returnToPage != -1);
+
+    QAction* previousPageAction = menu->addAction(tr("&Previous page"));
+    previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
+    previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
+    previousPageAction->setIconVisibleInMenu(true);
+
+    QAction* nextPageAction = menu->addAction(tr("&Next page"));
+    nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
+    nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
+    nextPageAction->setIconVisibleInMenu(true);
+
+    QAction* refreshAction = menu->addAction(tr("&Refresh"));
+    refreshAction->setShortcut(QKeySequence::Refresh);
+    refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
+    refreshAction->setIconVisibleInMenu(true);
+
+    QAction* action = menu->exec(event->globalPos());
+
+    if(action == returnToPageAction)
     {
-        QMenu* menu = new QMenu();
-
-        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
-        returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
-        returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-        returnToPageAction->setIconVisibleInMenu(true);
-
-        QAction* action = menu->exec(event->globalPos());
-
-        if(action == returnToPageAction)
-        {
-            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
-        }
-
-        delete menu;
+        jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
     }
+    else if(action == previousPageAction)
+    {
+        previousPage();
+    }
+    else if(action == nextPageAction)
+    {
+        nextPage();
+    }
+    else if(action == refreshAction)
+    {
+        refresh();
+    }
+
+    delete menu;
 }
 
 void DocumentView::keyPressEvent(QKeyEvent* event)

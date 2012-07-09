@@ -81,19 +81,34 @@
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="966"/>
+        <location filename="../sources/documentview.cpp" line="972"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="966"/>
+        <location filename="../sources/documentview.cpp" line="972"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1008"/>
+        <location filename="../sources/documentview.cpp" line="1012"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1019"/>
+        <source>&amp;Previous page</source>
+        <translation type="unfinished">&amp;Předchozí strana</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1024"/>
+        <source>&amp;Next page</source>
+        <translation type="unfinished">&amp;Následující strana</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1029"/>
+        <source>&amp;Refresh</source>
+        <translation type="unfinished">&amp;Obnovit</translation>
     </message>
 </context>
 <context>

@@ -81,19 +81,34 @@
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="966"/>
+        <location filename="../sources/documentview.cpp" line="972"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="966"/>
+        <location filename="../sources/documentview.cpp" line="972"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1008"/>
+        <location filename="../sources/documentview.cpp" line="1012"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1019"/>
+        <source>&amp;Previous page</source>
+        <translation type="unfinished">&amp;Vorige Seite</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1024"/>
+        <source>&amp;Next page</source>
+        <translation type="unfinished">&amp;Nächste Seite</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1029"/>
+        <source>&amp;Refresh</source>
+        <translation type="unfinished">&amp;Aktualisieren</translation>
     </message>
 </context>
 <context>
