@@ -29,20 +29,9 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     m_textEdit->setAcceptRichText(false);
     m_textEdit->setPlainText(m_annotation->contents());
 
-    connect(m_textEdit, SIGNAL(textChanged()), SLOT(on_textEdit_textChanged()));
-
     setLayout(new QVBoxLayout());
     layout()->setContentsMargins(2, 2, 2, 2);
     layout()->addWidget(m_textEdit);
-}
-
-void AnnotationDialog::on_textEdit_textChanged()
-{
-    m_mutex->lock();
-
-    m_annotation->setContents(m_textEdit->toPlainText());
-
-    m_mutex->unlock();
 }
 
 void AnnotationDialog::showEvent(QShowEvent *event)
@@ -56,15 +45,13 @@ void AnnotationDialog::showEvent(QShowEvent *event)
     }
 }
 
-void AnnotationDialog::keyPressEvent(QKeyEvent *event)
+void AnnotationDialog::hideEvent(QHideEvent* event)
 {
-    if(event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_Return)
-    {
-        close();
+    QDialog::hideEvent(event);
 
-        event->accept();
-        return;
-    }
+    m_mutex->lock();
 
-    QDialog::keyPressEvent(event);
+    m_annotation->setContents(m_textEdit->toPlainText());
+
+    m_mutex->unlock();
 }

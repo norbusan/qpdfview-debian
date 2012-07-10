@@ -34,13 +34,9 @@ class AnnotationDialog : public QDialog
 public:
     AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent = 0);
 
-protected slots:
-    void on_textEdit_textChanged();
-
 protected:
     void showEvent(QShowEvent* event);
-
-    void keyPressEvent(QKeyEvent* event);
+    void hideEvent(QHideEvent* event);
     
 private:
     QMutex* m_mutex;
