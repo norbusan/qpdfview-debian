@@ -33,6 +33,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
         PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+        DocumentView::setOpenUrl(m_settings->value("documentView/autoRefresh", false).toBool());
+
+        DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
+
+        DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
+        DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
+        DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
+
+        DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
+
         DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
         DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
 
@@ -81,16 +91,6 @@ QMenu* MainWindow::createPopupMenu()
     return menu;
 }
 
-DocumentView* MainWindow::currentTab() const
-{
-    return qobject_cast< DocumentView* >(m_tabWidget->currentWidget());
-}
-
-DocumentView* MainWindow::tab(int index) const
-{
-    return qobject_cast< DocumentView* >(m_tabWidget->widget(index));
-}
-
 bool MainWindow::open(const QString &filePath, int page)
 {
     if(m_tabWidget->currentIndex() != -1)
@@ -132,13 +132,22 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
 
         m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
 
+        newTab->setContinousMode(m_settings->value("documentView/continuousMode", false).toBool());
+        newTab->setTwoPagesMode(m_settings->value("documentView/twoPagesMode", false).toBool());
+        newTab->setScaleMode(static_cast< DocumentView::ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt()));
+        newTab->setScaleFactor(m_settings->value("documentView/scaleFactor", 1.0).toReal());
+        newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
+        newTab->setHighlightAll(m_settings->value("documentView/highlightAll", false).toBool());
+
         connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
 
         connect(newTab, SIGNAL(continousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
+        connect(newTab, SIGNAL(twoPagesModeChanged(bool)), SLOT(on_currentTab_twoPagesModeChanged(bool)));
         connect(newTab, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), SLOT(on_currentTab_scaleModeChanged(DocumentView::ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
+        connect(newTab, SIGNAL(rotationChanged(Poppler::Page::Rotation)), SLOT(on_currentTab_rotationChanged(Poppler::Page::Rotation)));
 
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
 
@@ -258,6 +267,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_twoPagesModeChanged(currentTab()->twoPagesMode());
         on_currentTab_scaleModeChanged(currentTab()->scaleMode());
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
+        on_currentTab_rotationChanged(currentTab()->rotation());
 
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
 
@@ -403,6 +413,8 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     if(senderIsCurrentTab())
     {
         m_continuousModeAction->setChecked(continuousMode);
+
+        m_settings->setValue("documentView/continuousMode", continuousMode);
     }
 }
 
@@ -411,6 +423,8 @@ void MainWindow::on_currentTab_twoPagesModeChanged(bool twoPagesMode)
     if(senderIsCurrentTab())
     {
         m_twoPagesModeAction->setChecked(twoPagesMode);
+
+        m_settings->setValue("documentView/twoPagesMode", twoPagesMode);
     }
 }
 
@@ -441,6 +455,8 @@ void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMod
             m_scaleFactorComboBox->setCurrentIndex(1);
             break;
         }
+
+        m_settings->setValue("documentView/scaleMode", static_cast< uint >(scaleMode));
     }
 }
 
@@ -452,6 +468,16 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
         {
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
         }
+
+        m_settings->setValue("documentView/scaleFactor", scaleFactor);
+    }
+}
+
+void MainWindow::on_currentTab_rotationChanged(Poppler::Page::Rotation rotation)
+{
+    if(senderIsCurrentTab())
+    {
+        m_settings->setValue("documentView/rotation", static_cast< uint >(rotation));
     }
 }
 
@@ -460,6 +486,8 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
     if(senderIsCurrentTab())
     {
         m_highlightAllCheckBox->setChecked(highlightAll);
+
+        m_settings->setValue("documentView/highlightAll", highlightAll);
     }
 }
 
@@ -742,6 +770,16 @@ void MainWindow::on_settings_triggered()
         PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
         PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+        DocumentView::setOpenUrl(m_settings->value("documentView/autoRefresh", false).toBool());
+
+        DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
+
+        DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
+        DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
+        DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
+
+        DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
+
         DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
         DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
 
@@ -920,16 +958,18 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
     DocumentView* newTab = currentTab();
 
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    m_tabWidget->removeTab(m_tabWidget->currentIndex());
-
-    while(m_tabWidget->count() > 0)
     {
-        delete m_tabWidget->widget(0);
-    }
+        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        m_tabWidget->removeTab(m_tabWidget->currentIndex());
+
+        while(m_tabWidget->count() > 0)
+        {
+            delete m_tabWidget->widget(0);
+        }
+
+        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    }
 
     QFileInfo fileInfo(newTab->filePath());
 
@@ -1106,6 +1146,16 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
+}
+
+DocumentView* MainWindow::currentTab() const
+{
+    return qobject_cast< DocumentView* >(m_tabWidget->currentWidget());
+}
+
+DocumentView* MainWindow::tab(int index) const
+{
+    return qobject_cast< DocumentView* >(m_tabWidget->widget(index));
 }
 
 bool MainWindow::senderIsCurrentTab() const
@@ -1720,6 +1770,8 @@ void MainWindow::restoreTabs()
                     tabElement = tabElement.nextSiblingElement();
                 }
 
+                m_tabWidget->setCurrentIndex(rootElement.attribute("currentIndex").toInt());
+
                 connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
             }
 
@@ -1741,9 +1793,12 @@ void MainWindow::saveTabs()
             QDomElement rootElement = document.createElement("tabs");
             document.appendChild(rootElement);
 
+            rootElement.setAttribute("currentIndex", m_tabWidget->currentIndex());
+
             for(int index = 0; index < m_tabWidget->count(); index++)
             {
                 QDomElement tabElement = document.createElement("tab");
+                rootElement.appendChild(tabElement);
 
                 tabElement.setAttribute("filePath", QFileInfo(tab(index)->filePath()).absoluteFilePath());
                 tabElement.setAttribute("currentPage", tab(index)->currentPage());
@@ -1755,8 +1810,6 @@ void MainWindow::saveTabs()
                 tabElement.setAttribute("scaleFactor", tab(index)->scaleFactor());
 
                 tabElement.setAttribute("rotation", static_cast< uint >(tab(index)->rotation()));
-
-                rootElement.appendChild(tabElement);
             }
 
             QTextStream textStream(&file);
@@ -1834,17 +1887,17 @@ void MainWindow::saveBookmarks()
                 if(bookmark != 0)
                 {
                     QDomElement bookmarkElement = document.createElement("bookmark");
+                    rootElement.appendChild(bookmarkElement);
+
                     bookmarkElement.setAttribute("filePath", QFileInfo(bookmark->filePath()).absoluteFilePath());
 
                     foreach(int page, bookmark->pages())
                     {
                         QDomElement jumpToPageElement = document.createElement("jumpToPage");
-                        jumpToPageElement.setAttribute("page", page);
-
                         bookmarkElement.appendChild(jumpToPageElement);
-                    }
 
-                    rootElement.appendChild(bookmarkElement);
+                        jumpToPageElement.setAttribute("page", page);                        
+                    }
                 }
             }
 

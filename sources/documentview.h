@@ -43,6 +43,24 @@ class DocumentView : public QGraphicsView
     Q_OBJECT
 
 public:
+    static bool openUrl();
+    static void setOpenUrl(bool openUrl);
+
+    static bool autoRefresh();
+    static void setAutoRefresh(bool autoRefresh);
+
+    static bool antialiasing();
+    static void setAntialiasing(bool antialiasing);
+
+    static bool textAntialiasing();
+    static void setTextAntialiasing(bool textAntialiasing);
+
+    static bool textHinting();
+    static void setTextHinting(bool textHinting);
+
+    static bool prefetch();
+    static void setPrefetch(bool prefetch);
+
     static qreal pageSpacing();
     static void setPageSpacing(qreal pageSpacing);
 
@@ -162,6 +180,16 @@ protected:
     void wheelEvent(QWheelEvent* event);
 
 private:
+    static bool s_openUrl;
+
+    static bool s_autoRefresh;
+
+    static bool s_antialiasing;
+    static bool s_textAntialiasing;
+    static bool s_textHinting;
+
+    static bool s_prefetch;
+
     static qreal s_pageSpacing;
     static qreal s_thumbnailSpacing;
 
@@ -170,12 +198,10 @@ private:
     static qreal s_minimumScaleFactor;
     static qreal s_maximumScaleFactor;
 
-    QSettings* m_settings;
-
-    QTimer* m_prefetchTimer;
-
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
+
+    QTimer* m_prefetchTimer;
 
     QMutex m_mutex;
     Poppler::Document* m_document;

@@ -21,6 +21,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+bool DocumentView::s_openUrl = false;
+
+bool DocumentView::s_autoRefresh = false;
+
+bool DocumentView::s_antialiasing = true;
+bool DocumentView::s_textAntialiasing = true;
+bool DocumentView::s_textHinting = false;
+
+bool DocumentView::s_prefetch = false;
+
 qreal DocumentView::s_pageSpacing = 5.0;
 qreal DocumentView::s_thumbnailSpacing = 3.0;
 
@@ -28,6 +38,66 @@ qreal DocumentView::s_thumbnailSize = 150.0;
 
 qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
+
+bool DocumentView::openUrl()
+{
+    return s_openUrl;
+}
+
+void DocumentView::setOpenUrl(bool openUrl)
+{
+    s_openUrl = openUrl;
+}
+
+bool DocumentView::autoRefresh()
+{
+    return s_autoRefresh;
+}
+
+void DocumentView::setAutoRefresh(bool autoRefresh)
+{
+    s_autoRefresh = autoRefresh;
+}
+
+bool DocumentView::antialiasing()
+{
+    return s_antialiasing;
+}
+
+void DocumentView::setAntialiasing(bool antialiasing)
+{
+    s_antialiasing = antialiasing;
+}
+
+bool DocumentView::textAntialiasing()
+{
+    return s_textAntialiasing;
+}
+
+void DocumentView::setTextAntialiasing(bool textAntialiasing)
+{
+    s_textAntialiasing = textAntialiasing;
+}
+
+bool DocumentView::textHinting()
+{
+    return s_textHinting;
+}
+
+void DocumentView::setTextHinting(bool textHinting)
+{
+    s_textHinting = textHinting;
+}
+
+bool DocumentView::prefetch()
+{
+    return s_prefetch;
+}
+
+void DocumentView::setPrefetch(bool prefetch)
+{
+    s_prefetch = prefetch;
+}
 
 qreal DocumentView::pageSpacing()
 {
@@ -79,10 +149,9 @@ qreal DocumentView::maximumScaleFactor()
 }
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
-    m_settings(0),
-    m_prefetchTimer(0),
     m_autoRefreshWatcher(0),
     m_autoRefreshTimer(0),
+    m_prefetchTimer(0),
     m_mutex(),
     m_document(0),
     m_filePath(),
@@ -149,6 +218,17 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(m_searchThread, SIGNAL(finished()), SIGNAL(searchFinished()));
     connect(m_searchThread, SIGNAL(canceled()), SIGNAL(searchCanceled()));
 
+    // auto-refresh
+
+    m_autoRefreshWatcher = new QFileSystemWatcher(this);
+    m_autoRefreshTimer = new QTimer(this);
+
+    m_autoRefreshTimer->setInterval(500);
+    m_autoRefreshTimer->setSingleShot(true);
+
+    connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
+    connect(m_autoRefreshTimer, SIGNAL(timeout()), this, SLOT(refresh()));
+
     // prefetch
 
     m_prefetchTimer = new QTimer(this);
@@ -161,28 +241,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(this, SIGNAL(rotationChanged(Poppler::Page::Rotation)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
-
-    // auto-refresh
-
-    m_autoRefreshWatcher = new QFileSystemWatcher(this);
-    m_autoRefreshTimer = new QTimer(this);
-
-    m_autoRefreshTimer->setInterval(500);
-    m_autoRefreshTimer->setSingleShot(true);
-
-    connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
-    connect(m_autoRefreshTimer, SIGNAL(timeout()), this, SLOT(refresh()));
-
-    // settings
-
-    m_settings = new QSettings(this);
-
-    m_continuousMode = m_settings->value("documentView/continuousMode", false).toBool();
-    m_twoPagesMode = m_settings->value("documentView/twoPagesMode", false).toBool();
-    m_scaleMode = static_cast< ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt());
-    m_scaleFactor = m_settings->value("documentView/scaleFactor", 1.0).toReal();
-    m_rotation = static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt());
-    m_highlightAll = m_settings->value("documentView/highlightAll", false).toBool();
 }
 
 DocumentView::~DocumentView()
@@ -197,15 +255,6 @@ DocumentView::~DocumentView()
     {
         delete m_document;
     }
-
-    // settings
-
-    m_settings->setValue("documentView/continuousMode", m_continuousMode);
-    m_settings->setValue("documentView/twoPagesMode", m_twoPagesMode);
-    m_settings->setValue("documentView/scaleMode", static_cast< uint >(m_scaleMode));
-    m_settings->setValue("documentView/scaleFactor", m_scaleFactor);
-    m_settings->setValue("documentView/rotation", static_cast< uint >(m_rotation));
-    m_settings->setValue("documentView/highlightAll", m_highlightAll);
 }
 
 const QString& DocumentView::filePath() const
@@ -963,7 +1012,7 @@ void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
 
 void DocumentView::on_pages_linkClicked(const QString& url)
 {
-    if(m_settings->value("documentView/openUrl", false).toBool())
+    if(s_openUrl)
     {
         QDesktopServices::openUrl(QUrl(url));
     }
@@ -1194,21 +1243,21 @@ void DocumentView::prepareDocument(Poppler::Document* document)
 
     m_document = document;
 
-    if(m_settings->value("documentView/autoRefresh", false).toBool())
+    if(s_autoRefresh)
     {
         m_autoRefreshWatcher->addPath(m_filePath);
     }
 
-    m_document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("documentView/antialiasing", true).toBool());
-    m_document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("documentView/textAntialiasing", true).toBool());
-    m_document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("documentView/textHinting", false).toBool());
+    m_document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
+    m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
+    m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
 
     preparePages();
     prepareThumbnails();
     prepareOutline();
     prepareProperties();
 
-    if(m_settings->value("documentView/prefetch", false).toBool())
+    if(s_prefetch)
     {
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
@@ -1233,7 +1282,7 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
     }
 
-    if(m_settings->value("pageItem/decoratePages", true).toBool())
+    if(PageItem::decoratePages())
     {
         m_pagesScene->setBackgroundBrush(QBrush(Qt::darkGray));
     }
@@ -1293,7 +1342,7 @@ void DocumentView::prepareThumbnails()
         height += text->boundingRect().height() + s_thumbnailSpacing;
     }
 
-    if(m_settings->value("pageItem/decoratePages", true).toBool())
+    if(PageItem::decoratePages())
     {
         m_thumbnailsScene->setBackgroundBrush(QBrush(Qt::darkGray));
     }

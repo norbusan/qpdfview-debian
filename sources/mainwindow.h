@@ -47,9 +47,6 @@ public:
     QSize sizeHint() const;
     QMenu* createPopupMenu();
 
-    DocumentView* currentTab() const;
-    DocumentView* tab(int index) const;
-
 public slots:
     bool open(const QString& filePath, int page = 0);
     bool openInNewTab(const QString& filePath, int page = 0);
@@ -68,6 +65,7 @@ protected slots:
     void on_currentTab_twoPagesModeChanged(bool twoPagesMode);
     void on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
+    void on_currentTab_rotationChanged(Poppler::Page::Rotation rotation);
 
     void on_currentTab_highlightAllChanged(bool highlightAll);
 
@@ -153,6 +151,9 @@ private:
     QSettings* m_settings;
 
     TabWidget* m_tabWidget;
+
+    DocumentView* currentTab() const;
+    DocumentView* tab(int index) const;
 
     bool senderIsCurrentTab() const;
 
