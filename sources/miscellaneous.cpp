@@ -100,6 +100,21 @@ ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
     setLineEdit(new LineEdit(this));
 }
 
+SpinBox::SpinBox(QWidget* parent) : QSpinBox(parent)
+{
+    setLineEdit(new LineEdit(this));
+}
+
+void SpinBox::keyPressEvent(QKeyEvent* event)
+{
+    QSpinBox::keyPressEvent(event);
+
+    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+    {
+        emit returnPressed();
+    }
+}
+
 ProgressLineEdit::ProgressLineEdit(QWidget* parent) : QLineEdit(parent),
     m_progress(0)
 {

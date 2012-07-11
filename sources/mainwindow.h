@@ -73,7 +73,7 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchCanceled();
 
-    void on_currentPage_editingFinished();
+    void on_currentPage_valueChanged(int value);
     void on_currentPage_returnPressed();
 
     void on_scaleFactor_currentIndexChanged(int index);
@@ -157,9 +157,7 @@ private:
 
     bool senderIsCurrentTab() const;
 
-    LineEdit* m_currentPageLineEdit;
-    QIntValidator* m_currentPageValidator;
-    QLabel* m_numberOfPagesLabel;
+    SpinBox* m_currentPageSpinBox;
     ComboBox* m_scaleFactorComboBox;
 
     ProgressLineEdit* m_searchLineEdit;

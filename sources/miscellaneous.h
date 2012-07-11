@@ -92,6 +92,23 @@ public:
 
 };
 
+// spin box
+
+class SpinBox : public QSpinBox
+{
+    Q_OBJECT
+
+public:
+    explicit SpinBox(QWidget* parent = 0);
+
+signals:
+    void returnPressed();
+
+protected:
+    void keyPressEvent(QKeyEvent* event);
+
+};
+
 // progress line edit
 
 class ProgressLineEdit : public QLineEdit

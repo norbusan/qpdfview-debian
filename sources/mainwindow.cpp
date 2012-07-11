@@ -240,7 +240,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_addBookmarkAction->setEnabled(true);
 
-        m_currentPageLineEdit->setEnabled(true);
+        m_currentPageSpinBox->setEnabled(true);
         m_scaleFactorComboBox->setEnabled(true);
         m_searchLineEdit->setEnabled(true);
         m_matchCaseCheckBox->setEnabled(true);
@@ -318,7 +318,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_addBookmarkAction->setEnabled(false);
 
-        m_currentPageLineEdit->setEnabled(false);
+        m_currentPageSpinBox->setEnabled(false);
         m_scaleFactorComboBox->setEnabled(false);
         m_searchLineEdit->setEnabled(false);
         m_matchCaseCheckBox->setEnabled(false);
@@ -336,8 +336,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         setWindowTitle("qpdfview");
 
-        m_currentPageLineEdit->setText(QString());
-        m_numberOfPagesLabel->setText(QString());
+        m_currentPageSpinBox->setValue(1);
+        m_currentPageSpinBox->setSuffix("/1");
         m_scaleFactorComboBox->setCurrentIndex(4);
 
         m_continuousModeAction->setChecked(false);
@@ -393,8 +393,8 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
 {
     if(senderIsCurrentTab())
     {
-        m_currentPageValidator->setRange(1, numberOfPages);
-        m_numberOfPagesLabel->setText(tr("of %1").arg(numberOfPages));
+        m_currentPageSpinBox->setRange(1, numberOfPages);
+        m_currentPageSpinBox->setSuffix(QString("/%1").arg(numberOfPages));
     }
 }
 
@@ -402,7 +402,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 {
     if(senderIsCurrentTab())
     {
-        m_currentPageLineEdit->setText(QString::number(currentPage));
+        m_currentPageSpinBox->setValue(currentPage);
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailsItem(currentPage));
     }
@@ -506,11 +506,11 @@ void MainWindow::on_currentTab_searchCanceled()
     m_searchLineEdit->setProgress(0);
 }
 
-void MainWindow::on_currentPage_editingFinished()
+void MainWindow::on_currentPage_valueChanged(int value)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        currentTab()->jumpToPage(m_currentPageLineEdit->text().toInt());
+        currentTab()->jumpToPage(value);
     }
 }
 
@@ -1181,21 +1181,12 @@ void MainWindow::createWidgets()
 
     // current page
 
-    m_currentPageLineEdit = new LineEdit(this);
-    m_currentPageLineEdit->setAlignment(Qt::AlignCenter);
-    m_currentPageLineEdit->setFixedWidth(40);
+    m_currentPageSpinBox = new SpinBox(this);
+    m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
+    m_currentPageSpinBox->setKeyboardTracking(false);
 
-    m_currentPageValidator = new QIntValidator(this);
-    m_currentPageLineEdit->setValidator(m_currentPageValidator);
-
-    connect(m_currentPageLineEdit, SIGNAL(editingFinished()), SLOT(on_currentPage_editingFinished()));
-    connect(m_currentPageLineEdit, SIGNAL(returnPressed()), SLOT(on_currentPage_returnPressed()));
-
-    // number of pages
-
-    m_numberOfPagesLabel = new QLabel(this);
-    m_numberOfPagesLabel->setAlignment(Qt::AlignCenter);
-    m_numberOfPagesLabel->setFixedWidth(60);
+    connect(m_currentPageSpinBox, SIGNAL(valueChanged(int)), SLOT(on_currentPage_valueChanged(int)));
+    connect(m_currentPageSpinBox, SIGNAL(returnPressed()), SLOT(on_currentPage_returnPressed()));
 
     // scale factor
 
@@ -1535,10 +1526,9 @@ void MainWindow::createToolBars()
     m_editToolBar = addToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
 
-    foreach(QString action, m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "numberOfPages" << "previousPage" << "nextPage").toStringList())
+    foreach(QString action, m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList())
     {
-        if(action == "currentPage") { m_editToolBar->addWidget(m_currentPageLineEdit); }
-        else if(action == "numberOfPages") { m_editToolBar->addWidget(m_numberOfPagesLabel); }
+        if(action == "currentPage") { m_editToolBar->addWidget(m_currentPageSpinBox); }
         else if(action == "previousPage") { m_editToolBar->addAction(m_previousPageAction); }
         else if(action == "nextPage") { m_editToolBar->addAction(m_nextPageAction); }
         else if(action == "firstPage") { m_editToolBar->addAction(m_firstPageAction); }
