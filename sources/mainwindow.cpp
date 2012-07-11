@@ -1926,17 +1926,32 @@ MainWindow* MainWindowAdaptor::mainWindow() const
 
 bool MainWindowAdaptor::open(const QString& filePath, int page)
 {
-    return mainWindow()->open(filePath, page);
+    bool ok = mainWindow()->open(filePath, page);
+
+    mainWindow()->raise();
+    mainWindow()->activateWindow();
+
+    return ok;
 }
 
 bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page)
 {
-    return mainWindow()->openInNewTab(filePath, page);
+    bool ok = mainWindow()->openInNewTab(filePath, page);
+
+    mainWindow()->raise();
+    mainWindow()->activateWindow();
+
+    return ok;
 }
 
 bool MainWindowAdaptor::refreshOrOpenInNewTab(const QString& filePath, int page)
 {
-    return mainWindow()->refreshOrOpenInNewTab(filePath, page);
+    bool ok = mainWindow()->refreshOrOpenInNewTab(filePath, page);
+
+    mainWindow()->raise();
+    mainWindow()->activateWindow();
+
+    return ok;
 }
 
 # endif // WITH_DBUS
