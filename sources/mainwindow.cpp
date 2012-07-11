@@ -1065,6 +1065,19 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    saveTabs();
+    saveBookmarks();
+
+    removeToolBar(m_searchToolBar);
+
+    m_settings->setValue("mainWindow/geometry", m_fullscreenAction->isChecked() ? m_fullscreenAction->data() : saveGeometry());
+    m_settings->setValue("mainWindow/state", saveState());
+
+    QMainWindow::closeEvent(event);
+}
+
 void MainWindow::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls())
@@ -1093,19 +1106,6 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
-}
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    saveTabs();
-    saveBookmarks();
-
-    removeToolBar(m_searchToolBar);
-
-    m_settings->setValue("mainWindow/geometry", m_fullscreenAction->isChecked() ? m_fullscreenAction->data() : saveGeometry());
-    m_settings->setValue("mainWindow/state", saveState());
-
-    QMainWindow::closeEvent(event);
 }
 
 bool MainWindow::senderIsCurrentTab() const
