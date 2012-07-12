@@ -1182,7 +1182,9 @@ void MainWindow::createWidgets()
     // current page
 
     m_currentPageSpinBox = new SpinBox(this);
+
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
+    m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_currentPageSpinBox->setKeyboardTracking(false);
 
     connect(m_currentPageSpinBox, SIGNAL(valueChanged(int)), SLOT(on_currentPage_valueChanged(int)));
