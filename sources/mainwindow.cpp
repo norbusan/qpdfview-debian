@@ -124,10 +124,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
 
     if(newTab->open(filePath))
     {
-        QFileInfo fileInfo(filePath);
-
-        m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
-
         newTab->setContinousMode(m_settings->value("documentView/continuousMode", false).toBool());
         newTab->setTwoPagesMode(m_settings->value("documentView/twoPagesMode", false).toBool());
         newTab->setScaleMode(static_cast< DocumentView::ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt()));
@@ -135,9 +131,18 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
         newTab->setHighlightAll(m_settings->value("documentView/highlightAll", false).toBool());
 
+        QFileInfo fileInfo(filePath);
+
+        m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
+
         int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
         m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
         m_tabWidget->setCurrentIndex(index);
+
+        QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
+        connect(tabAction, SIGNAL(triggered()), SLOT(on_tab_triggered()));
+
+        m_tabsMenu->addAction(tabAction);
 
         connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
@@ -154,11 +159,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         connect(newTab, SIGNAL(searchProgressed(int)), SLOT(on_currentTab_searchProgressed(int)));
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
         connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
-
-        QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
-        connect(tabAction, SIGNAL(triggered()), SLOT(on_tab_triggered()));
-
-        m_tabsMenu->addAction(tabAction);
 
         newTab->jumpToPage(page);
         newTab->setFocus();
