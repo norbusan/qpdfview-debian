@@ -6,5 +6,5 @@ Icon=DATA_INSTALL_PATH/qpdfview.svg
 GenericName=PDF viewer
 Comment=A tabbed PDF viewer using the poppler library.
 Categories=Viewer;Office;
-Exec=qpdfview %f
+Exec=qpdfview --unique %f
 MimeType=application/pdf;
