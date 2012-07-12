@@ -110,7 +110,7 @@ private:
     QRectF m_rubberBand;
 
     void copyTextOrImage(const QPoint& screenPos);
-    void addAnnotation(Poppler::Annotation::SubType subType, const QPoint& screenPos);
+    void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
     void editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
 

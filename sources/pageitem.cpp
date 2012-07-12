@@ -469,7 +469,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
     }
-    else if((event->modifiers() == Qt::ShiftModifier || event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier)) && event->button() == Qt::LeftButton)
+    else if((event->modifiers() == Qt::ShiftModifier || event->modifiers() == Qt::ControlModifier) && event->button() == Qt::LeftButton)
     {
         QApplication::setOverrideCursor(Qt::CrossCursor);
 
@@ -522,16 +522,9 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         {
             copyTextOrImage(event->screenPos());
         }
-        else if(event->modifiers() == Qt::ControlModifier || event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
+        else if(event->modifiers() == Qt::ControlModifier)
         {
-            if(event->modifiers() == Qt::ControlModifier)
-            {
-                addAnnotation(Poppler::Annotation::AText, event->screenPos());
-            }
-            else if(event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier))
-            {
-                addAnnotation(Poppler::Annotation::AHighlight, event->screenPos());
-            }
+            addAnnotation(event->screenPos());
         }
 
         m_rubberBand = QRectF();
@@ -599,49 +592,61 @@ void PageItem::copyTextOrImage(const QPoint& screenPos)
     delete menu;
 }
 
-void PageItem::addAnnotation(Poppler::Annotation::SubType subType, const QPoint& screenPos)
+void PageItem::addAnnotation(const QPoint& screenPos)
 {
 #ifdef HAS_POPPLER_20
 
-    QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
+    QMenu* menu = new QMenu();
 
-    Poppler::Annotation::Style style;
-    style.setColor(QColor(255, 255, 0));
+    QAction* addTextAnnotationAction = menu->addAction(tr("Add &text annotation"));
+    QAction* addHighlightAnnotationAction = menu->addAction(tr("Add &highlight annotation"));
 
-    Poppler::Annotation* annotation = 0;
+    QAction* action = menu->exec(screenPos);
 
-    if(subType == Poppler::Annotation::AText)
+    if(action != 0)
     {
-        annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+        QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
+
+        Poppler::Annotation::Style style;
+        style.setColor(QColor(255, 255, 0));
+
+        Poppler::Annotation* annotation = 0;
+
+        if(action == addTextAnnotationAction)
+        {
+            annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+        }
+        else if(action == addHighlightAnnotationAction)
+        {
+            Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
+
+            Poppler::HighlightAnnotation::Quad quad;
+            quad.points[0] = boundary.topLeft();
+            quad.points[1] = boundary.topRight();
+            quad.points[2] = boundary.bottomRight();
+            quad.points[3] = boundary.bottomLeft();
+
+            highlightAnnotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
+
+            annotation = highlightAnnotation;
+        }
+
+        annotation->setBoundary(boundary);
+        annotation->setStyle(style);
+
+        m_mutex->lock();
+
+        m_annotations.append(annotation);
+        m_page->addAnnotation(annotation);
+
+        m_mutex->unlock();
+
+        refresh();
+
+        editAnnotation(annotation, screenPos);
     }
-    else if(subType == Poppler::Annotation::AHighlight)
-    {
-        Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
 
-        Poppler::HighlightAnnotation::Quad quad;
-        quad.points[0] = boundary.topLeft();
-        quad.points[1] = boundary.topRight();
-        quad.points[2] = boundary.bottomRight();
-        quad.points[3] = boundary.bottomLeft();
-
-        highlightAnnotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
-
-        annotation = highlightAnnotation;
-    }
-
-    annotation->setBoundary(boundary);
-    annotation->setStyle(style);
-
-    m_mutex->lock();
-
-    m_annotations.append(annotation);
-    m_page->addAnnotation(annotation);
-
-    m_mutex->unlock();
-
-    refresh();
-
-    editAnnotation(annotation, screenPos);
+    delete menu;
 
 #endif // HAS_POPPLER_20
 }
