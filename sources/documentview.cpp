@@ -1578,6 +1578,11 @@ void DocumentView::prepareScene()
         }
     }
 
+    if(m_twoPagesMode && m_numberOfPages % 2 != 0)
+    {
+        height += pageHeight + s_pageSpacing;
+    }
+
     m_pagesScene->setSceneRect(left, 0.0, right - left, height);
 }
 
