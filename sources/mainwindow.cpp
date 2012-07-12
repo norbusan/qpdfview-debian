@@ -337,7 +337,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         setWindowTitle("qpdfview");
 
         m_currentPageSpinBox->setValue(1);
-        m_currentPageSpinBox->setSuffix("/1");
+        m_currentPageSpinBox->setSuffix(" / 1");
         m_scaleFactorComboBox->setCurrentIndex(4);
 
         m_continuousModeAction->setChecked(false);
@@ -394,7 +394,7 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
     if(senderIsCurrentTab())
     {
         m_currentPageSpinBox->setRange(1, numberOfPages);
-        m_currentPageSpinBox->setSuffix(QString("/%1").arg(numberOfPages));
+        m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
     }
 }
 
@@ -1188,6 +1188,8 @@ void MainWindow::createWidgets()
     connect(m_currentPageSpinBox, SIGNAL(valueChanged(int)), SLOT(on_currentPage_valueChanged(int)));
     connect(m_currentPageSpinBox, SIGNAL(returnPressed()), SLOT(on_currentPage_returnPressed()));
 
+    m_currentPageSpinBox->setVisible(false);
+
     // scale factor
 
     m_scaleFactorComboBox = new ComboBox(this);
@@ -1208,6 +1210,8 @@ void MainWindow::createWidgets()
     connect(m_scaleFactorComboBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleFactor_currentIndexChanged(int)));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(on_scaleFactor_editingFinished()));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(on_scaleFactor_returnPressed()));
+
+    m_scaleFactorComboBox->setVisible(false);
 
     // search
 
@@ -1528,12 +1532,13 @@ void MainWindow::createToolBars()
 
     foreach(QString action, m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList())
     {
-        if(action == "currentPage") { m_editToolBar->addWidget(m_currentPageSpinBox); }
+        if(action == "currentPage") { m_currentPageSpinBox->setVisible(true); m_editToolBar->addWidget(m_currentPageSpinBox); }
         else if(action == "previousPage") { m_editToolBar->addAction(m_previousPageAction); }
         else if(action == "nextPage") { m_editToolBar->addAction(m_nextPageAction); }
         else if(action == "firstPage") { m_editToolBar->addAction(m_firstPageAction); }
         else if(action == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
         else if(action == "jumpToPage") { m_editToolBar->addAction(m_jumpToPageAction); }
+        else if(action == "search") { m_editToolBar->addAction(m_searchAction); }
     }
 
     // view
@@ -1545,7 +1550,7 @@ void MainWindow::createToolBars()
     {
         if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
         else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
-        else if(action == "scaleFactor") { m_viewToolBar->addWidget(m_scaleFactorComboBox); }
+        else if(action == "scaleFactor") { m_scaleFactorComboBox->setVisible(true); m_viewToolBar->addWidget(m_scaleFactorComboBox); }
         else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
         else if(action == "originalSize") { m_viewToolBar->addAction(m_originalSizeAction); }

@@ -175,7 +175,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     // edit tool bar
 
     m_editToolBarLineEdit = new QLineEdit(this);
-    m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "numberOfPages" << "previousPage" << "nextPage").toStringList().join(","));
+    m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList().join(","));
     m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     // view tool bar
@@ -281,6 +281,6 @@ void SettingsDialog::on_defaults_clicked()
     m_prefetchCheckBox->setChecked(false);
 
     m_fileToolBarLineEdit->setText("openInNewTab,refresh");
-    m_editToolBarLineEdit->setText("currentPage,numberOfPages,previousPage,nextPage");
+    m_editToolBarLineEdit->setText("currentPage,previousPage,nextPage");
     m_viewToolBarLineEdit->setText("scaleFactor,zoomIn,zoomOut");
 }
