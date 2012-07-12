@@ -520,7 +520,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
         if(event->modifiers() == Qt::ShiftModifier)
         {
-            copyTextOrImage(event->screenPos());
+            copyToClipboard(event->screenPos());
         }
         else if(event->modifiers() == Qt::ControlModifier)
         {
@@ -539,7 +539,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
-void PageItem::copyTextOrImage(const QPoint& screenPos)
+void PageItem::copyToClipboard(const QPoint& screenPos)
 {
     QMenu* menu = new QMenu();
 
@@ -598,8 +598,8 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
     QMenu* menu = new QMenu();
 
-    QAction* addTextAnnotationAction = menu->addAction(tr("Add &text annotation"));
-    QAction* addHighlightAnnotationAction = menu->addAction(tr("Add &highlight annotation"));
+    QAction* addTextAction = menu->addAction(tr("Add &text"));
+    QAction* addHighlightAction = menu->addAction(tr("Add &highlight"));
 
     QAction* action = menu->exec(screenPos);
 
@@ -612,11 +612,11 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
         Poppler::Annotation* annotation = 0;
 
-        if(action == addTextAnnotationAction)
+        if(action == addTextAction)
         {
             annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
         }
-        else if(action == addHighlightAnnotationAction)
+        else if(action == addHighlightAction)
         {
             Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
 

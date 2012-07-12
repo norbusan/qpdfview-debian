@@ -473,12 +473,12 @@
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="601"/>
-        <source>Add &amp;text annotation</source>
+        <source>Add &amp;text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="602"/>
-        <source>Add &amp;highlight annotation</source>
+        <source>Add &amp;highlight</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
