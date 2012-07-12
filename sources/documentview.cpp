@@ -1580,6 +1580,7 @@ void DocumentView::prepareScene()
 
     if(m_twoPagesMode && m_numberOfPages % 2 != 0)
     {
+        right = qMax(right, 0.5 * s_pageSpacing);
         height += pageHeight + s_pageSpacing;
     }
 
