@@ -31,6 +31,7 @@ RESOURCES += qpdfview.qrc
 TRANSLATIONS += \
     translations/qpdfview_cs.ts \
     translations/qpdfview_de.ts \
+    translations/qpdfview_ru.ts \
     translations/qpdfview_sk.ts
 
 QT += core xml gui
