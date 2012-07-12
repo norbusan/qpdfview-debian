@@ -99,10 +99,10 @@ bool MainWindow::open(const QString &filePath, int page)
         {
             QFileInfo fileInfo(filePath);
 
+            m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
+
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
-
-            m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
 
             currentTab()->jumpToPage(page);
             currentTab()->setFocus();
@@ -126,10 +126,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
     {
         QFileInfo fileInfo(filePath);
 
-        int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
-        m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
-        m_tabWidget->setCurrentIndex(index);
-
         m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
 
         newTab->setContinousMode(m_settings->value("documentView/continuousMode", false).toBool());
@@ -138,6 +134,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         newTab->setScaleFactor(m_settings->value("documentView/scaleFactor", 1.0).toReal());
         newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
         newTab->setHighlightAll(m_settings->value("documentView/highlightAll", false).toBool());
+
+        int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
+        m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
+        m_tabWidget->setCurrentIndex(index);
 
         connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
