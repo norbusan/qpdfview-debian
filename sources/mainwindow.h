@@ -83,9 +83,6 @@ protected slots:
 
     void on_open_triggered();
     void on_openInNewTab_triggered();
-
-    void on_recentlyUsed_openTriggered(const QString& filePath);
-
     void on_refresh_triggered();
     void on_saveCopy_triggered();
     void on_print_triggered();

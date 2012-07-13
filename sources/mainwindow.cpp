@@ -103,7 +103,7 @@ bool MainWindow::open(const QString& filePath, int page)
 
             m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
 
-            if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
+            if(m_recentlyUsedMenu != 0)
             {
                 m_recentlyUsedMenu->addOpenAction(filePath);
             }
@@ -142,7 +142,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
 
         m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
 
-        if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
+        if(m_recentlyUsedMenu != 0)
         {
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
@@ -618,18 +618,6 @@ void MainWindow::on_openInNewTab_triggered()
         connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
-    }
-}
-
-void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
-{
-    if(m_tabWidget->currentIndex() != -1)
-    {
-        open(filePath);
-    }
-    else
-    {
-        openInNewTab(filePath);
     }
 }
 
@@ -1138,7 +1126,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     removeToolBar(m_searchToolBar);
 
-    if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
+    if(m_recentlyUsedMenu != 0)
     {
         m_settings->setValue("mainWindow/recentlyUsed", m_recentlyUsedMenu->filePaths());
     }
@@ -1699,9 +1687,13 @@ void MainWindow::createMenus()
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
 
-        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(on_recentlyUsed_openTriggered(QString)));
+        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(refreshOrOpenInNewTab(QString)));
 
         m_fileMenu->addMenu(m_recentlyUsedMenu);
+    }
+    else
+    {
+        m_recentlyUsedMenu = 0;
     }
 
     m_fileMenu->addAction(m_refreshAction);
