@@ -37,6 +37,12 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
     {
         if(action->data().toString() == QFileInfo(filePath).absoluteFilePath())
         {
+            removeAction(action);
+            m_openActionGroup->removeAction(action);
+
+            addAction(action);
+            m_openActionGroup->addAction(action);
+
             return;
         }
     }
