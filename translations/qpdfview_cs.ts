@@ -494,7 +494,7 @@
     <name>RecentlyUsedMenu</name>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
-        <source>Recently used</source>
+        <source>Recently &amp;used</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
