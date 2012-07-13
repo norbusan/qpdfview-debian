@@ -1671,7 +1671,6 @@ void MainWindow::createMenus()
     m_fileMenu->addAction(m_openInNewTabAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(m_fileMenu);
-    connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(refreshOrOpenInNewTab(QString)));
 
     if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
     {
@@ -1679,6 +1678,8 @@ void MainWindow::createMenus()
         {
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
+
+        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(refreshOrOpenInNewTab(QString)));
 
         m_fileMenu->addMenu(m_recentlyUsedMenu);
     }
