@@ -99,6 +99,8 @@ int main(int argc, char** argv)
 
             if(interface->isValid())
             {
+                interface->call("raiseAndActivate");
+
                 foreach(File file, files)
                 {
                     QDBusReply< bool > reply = interface->call("refreshOrOpenInNewTab", file.filePath, file.page);
@@ -111,8 +113,6 @@ int main(int argc, char** argv)
                         return 1;
                     }
                 }
-
-                interface->call("raiseAndActivate");
 
                 delete interface;
                 return 0;
