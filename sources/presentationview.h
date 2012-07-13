@@ -27,6 +27,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-qt4.h>
 
+#include "pageitem.h"
+
 class PresentationView : public QWidget
 {
     Q_OBJECT

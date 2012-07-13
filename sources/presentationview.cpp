@@ -104,6 +104,11 @@ void PresentationView::on_render_finished()
     if(!m_render->isCanceled())
     {
         m_image1 = m_image2;
+
+        if(PageItem::invertColors())
+        {
+            m_image1.invertPixels();
+        }
     }
 
     if(!m_render->isRunning())
@@ -128,7 +133,7 @@ void PresentationView::paintEvent(QPaintEvent* event)
     QPainter painter;
     painter.begin(this);
 
-    painter.fillRect(rect(), QBrush(Qt::black));
+    painter.fillRect(rect(), QBrush(PageItem::invertColors() ? Qt::white : Qt::black));
 
     if(!m_image1.isNull())
     {
