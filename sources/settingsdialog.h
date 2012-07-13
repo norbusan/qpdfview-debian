@@ -54,6 +54,7 @@ private:
 
     QCheckBox* m_autoRefreshCheckBox;
 
+    QCheckBox* m_trackRecentlyUsedCheckBox;
     QCheckBox* m_restoreTabsCheckBox;
     QCheckBox* m_restoreBookmarksCheckBox;
 

@@ -30,33 +30,30 @@ BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(par
 
     menuAction()->setData(filePath);
 
-    m_removeBookmarkAction = new QAction(tr("&Remove bookmark"), this);
+    m_removeBookmarkAction = addAction(tr("&Remove bookmark"));
     connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
 
-    m_openAction = new QAction(tr("&Open"), this);
+    addSeparator();
+
+    m_openAction = addAction(tr("&Open"));
     m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
     m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
-    m_openInNewTabAction = new QAction(tr("Open in new &tab"), this);
+    m_openInNewTabAction = addAction(tr("Open in new &tab"));
     m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
     m_openInNewTabAction->setIconVisibleInMenu(true);
     connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
 
-    addAction(m_removeBookmarkAction);
-    addSeparator();
-    addAction(m_openAction);
-    addAction(m_openInNewTabAction);
-
-    m_jumpToPageGroup = new QActionGroup(this);
-    connect(m_jumpToPageGroup, SIGNAL(triggered(QAction*)), SLOT(on_jumpToPage_triggered(QAction*)));
+    m_jumpToPageActionGroup = new QActionGroup(this);
+    connect(m_jumpToPageActionGroup, SIGNAL(triggered(QAction*)), SLOT(on_jumpToPage_triggered(QAction*)));
 }
 
-void BookmarkMenu::addJumpToPage(int page)
+void BookmarkMenu::addJumpToPageAction(int page)
 {
     QAction* before = 0;
 
-    foreach(QAction* action, m_jumpToPageGroup->actions())
+    foreach(QAction* action, m_jumpToPageActionGroup->actions())
     {
         if(action->data().toInt() == page)
         {
@@ -76,12 +73,12 @@ void BookmarkMenu::addJumpToPage(int page)
     action->setData(page);
 
     insertAction(before, action);
-    m_jumpToPageGroup->addAction(action);
+    m_jumpToPageActionGroup->addAction(action);
 }
 
-void BookmarkMenu::removeJumpToPage(int page)
+void BookmarkMenu::removeJumpToPageAction(int page)
 {
-    foreach(QAction* action, m_jumpToPageGroup->actions())
+    foreach(QAction* action, m_jumpToPageActionGroup->actions())
     {
         if(action->data().toInt() == page)
         {
@@ -101,7 +98,7 @@ QList< int > BookmarkMenu::pages() const
 {
     QList< int > pages;
 
-    foreach(QAction* action, m_jumpToPageGroup->actions())
+    foreach(QAction* action, m_jumpToPageActionGroup->actions())
     {
         pages.append(action->data().toInt());
     }

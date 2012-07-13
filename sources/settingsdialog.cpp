@@ -80,6 +80,12 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_autoRefreshCheckBox = new QCheckBox(this);
     m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
 
+    // track recently used
+
+    m_trackRecentlyUsedCheckBox = new QCheckBox(this);
+    m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
+    m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
+
     // restore tabs
 
     m_restoreTabsCheckBox = new QCheckBox(this);
@@ -196,6 +202,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
     m_formLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
 
+    m_formLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
     m_formLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
     m_formLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
@@ -233,6 +240,7 @@ void SettingsDialog::accept()
 
     m_settings->setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
 
+    m_settings->setValue("mainWindow/trackRecentlyUsed", m_trackRecentlyUsedCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
 
@@ -270,6 +278,7 @@ void SettingsDialog::on_defaults_clicked()
 
     m_autoRefreshCheckBox->setChecked(false);
 
+    m_trackRecentlyUsedCheckBox->setChecked(false);
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
 

@@ -19,42 +19,33 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef BOOKMARKMENU_H
-#define BOOKMARKMENU_H
+#ifndef RECENTLYUSEDMENU_H
+#define RECENTLYUSEDMENU_H
 
 #include <QtCore>
 #include <QtGui>
 
-class BookmarkMenu : public QMenu
+class RecentlyUsedMenu : public QMenu
 {
     Q_OBJECT
 
 public:
-    BookmarkMenu(const QString& filePath, QWidget* parent = 0);
+    explicit RecentlyUsedMenu(QWidget* parent = 0);
 
-    void addJumpToPageAction(int page);
-    void removeJumpToPageAction(int page);
+    void addOpenAction(const QString& filePath);
+    void removeOpenAction(const QString& filePath);
 
-    QString filePath() const;
-    QList< int > pages() const;
+    QStringList filePaths() const;
 
 signals:
     void openTriggered(const QString& filePath);
-    void openInNewTabTriggered(const QString& filePath);
-    void jumpToPageTriggered(const QString& filePath, int page);
 
 protected slots:
-    void on_removeBookmark_triggered();
-    void on_open_triggered();
-    void on_openInNewTab_triggered();
-    void on_jumpToPage_triggered(QAction* action);
+    void on_open_triggered(QAction* action);
 
 private:
-    QAction* m_removeBookmarkAction;
-    QAction* m_openAction;
-    QAction* m_openInNewTabAction;
-    QActionGroup* m_jumpToPageActionGroup;
+    QActionGroup* m_openActionGroup;
 
 };
 
-#endif // BOOKMARKMENU_H
+#endif // RECENTLYUSEDMENU_H

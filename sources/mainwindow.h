@@ -35,6 +35,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "miscellaneous.h"
 #include "settingsdialog.h"
+#include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
 
 class MainWindow : public QMainWindow
@@ -82,6 +83,9 @@ protected slots:
 
     void on_open_triggered();
     void on_openInNewTab_triggered();
+
+    void on_recentlyUsed_openTriggered(const QString& filePath);
+
     void on_refresh_triggered();
     void on_saveCopy_triggered();
     void on_print_triggered();
@@ -239,6 +243,7 @@ private:
     void createDocks();
 
     QMenu* m_fileMenu;
+    RecentlyUsedMenu* m_recentlyUsedMenu;
     QMenu* m_editMenu;
     QMenu* m_viewMenu;
     QMenu* m_tabsMenu;
