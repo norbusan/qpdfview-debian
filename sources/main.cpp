@@ -52,6 +52,8 @@ int main(int argc, char** argv)
     {
         // command-line arguments
 
+        QRegExp regExp("(.+)#(\\d+)");
+
         QStringList arguments = QApplication::arguments();
 
         if(!arguments.isEmpty())
@@ -67,12 +69,17 @@ int main(int argc, char** argv)
             }
             else
             {
-                QStringList fields = argument.split('#');
-
                 File file;
 
-                file.filePath = QFileInfo(fields.value(0)).absoluteFilePath();
-                file.page = fields.value(1).toInt();
+                if(regExp.exactMatch(argument))
+                {
+                    file.filePath = QFileInfo(regExp.cap(1)).absoluteFilePath();
+                    file.page = regExp.cap(2).toInt();
+                }
+                else
+                {
+                    file.filePath = QFileInfo(argument).absoluteFilePath();
+                }
 
                 files.append(file);
             }
