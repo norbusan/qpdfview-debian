@@ -105,6 +105,8 @@ int main(int argc, char** argv)
                     }
                 }
 
+                interface->call("raiseAndActivate");
+
                 delete interface;
                 return 0;
             }

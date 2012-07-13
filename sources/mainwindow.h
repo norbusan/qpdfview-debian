@@ -273,6 +273,8 @@ public slots:
 
     bool refreshOrOpenInNewTab(const QString& filePath, int page = 0);
 
+    Q_NOREPLY void raiseAndActivate();
+
 };
 
 #endif // WITH_DBUS
