@@ -1288,7 +1288,7 @@ void DocumentView::preparePages()
     }
     else
     {
-        m_pagesScene->setBackgroundBrush(QBrush(Qt::white));
+        m_pagesScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
     }
 }
 
@@ -1348,7 +1348,7 @@ void DocumentView::prepareThumbnails()
     }
     else
     {
-        m_thumbnailsScene->setBackgroundBrush(QBrush(Qt::white));
+        m_thumbnailsScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
     }
 
     m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);

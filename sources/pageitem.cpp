@@ -26,6 +26,8 @@ QCache< PageItem*, QImage > PageItem::s_cache(32 * 1024 * 1024);
 bool PageItem::s_decoratePages = true;
 bool PageItem::s_decorateLinks = true;
 
+bool PageItem::s_invertColors = false;
+
 int PageItem::cacheSize()
 {
     return s_cache.totalCost();
@@ -54,6 +56,16 @@ bool PageItem::decorateLinks()
 void PageItem::setDecorateLinks(bool decorateLinks)
 {
     s_decorateLinks = decorateLinks;
+}
+
+bool PageItem::invertColors()
+{
+    return s_invertColors;
+}
+
+void PageItem::setInvertColors(bool invertColors)
+{
+    s_invertColors = invertColors;
 }
 
 PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
@@ -169,11 +181,11 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(s_decoratePages)
     {
-        painter->fillRect(m_boundingRect, QBrush(Qt::white));
+        painter->fillRect(m_boundingRect, QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
 
         painter->drawImage(m_boundingRect.topLeft(), image);
 
-        painter->setPen(QPen(Qt::black));
+        painter->setPen(QPen(PageItem::invertColors() ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
     }
     else
@@ -219,7 +231,11 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(!m_rubberBand.isNull())
     {
-        painter->setPen(QPen(Qt::DashLine));
+        QPen pen;
+        pen.setColor(PageItem::invertColors() ? Qt::white : Qt::black);
+        pen.setStyle(Qt::DashLine);
+
+        painter->setPen(pen);
         painter->drawRect(m_rubberBand);
     }
 }
@@ -361,6 +377,11 @@ void PageItem::on_render_finished()
     if(!m_render->isCanceled())
     {
         m_image1 = m_image2;
+
+        if(s_invertColors)
+        {
+            m_image1.invertPixels();
+        }
     }
 
     if(!m_render->isRunning())

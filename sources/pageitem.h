@@ -43,6 +43,9 @@ public:
     static bool decorateLinks();
     static void setDecorateLinks(bool decorateLinks);
 
+    static bool invertColors();
+    static void setInvertColors(bool invertColors);
+
     explicit PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent = 0);
     ~PageItem();
 
@@ -97,6 +100,8 @@ private:
 
     static bool s_decoratePages;
     static bool s_decorateLinks;
+
+    static bool s_invertColors;
 
     QMutex* m_mutex;
     Poppler::Page* m_page;

@@ -100,6 +100,11 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_decorateLinksCheckBox = new QCheckBox(this);
     m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+    // invert colors
+
+    m_invertColorsCheckBox = new QCheckBox(this);
+    m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
+
     // page spacing
 
     m_pageSpacingSpinBox = new QDoubleSpinBox(this);
@@ -197,6 +202,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_formLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
     m_formLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
 
+    m_formLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
+
     m_formLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
     m_formLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
 
@@ -232,6 +239,8 @@ void SettingsDialog::accept()
     m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
     m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
 
+    m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
+
     m_settings->setValue("documentView/pageSpacing", m_pageSpacingSpinBox->value());
     m_settings->setValue("documentView/thumbnailSpacing", m_thumbnailSpacingSpinBox->value());
 
@@ -266,6 +275,8 @@ void SettingsDialog::on_defaults_clicked()
 
     m_decoratePagesCheckBox->setChecked(true);
     m_decorateLinksCheckBox->setChecked(true);
+
+    m_invertColorsCheckBox->setChecked(false);
 
     m_pageSpacingSpinBox->setValue(5.0);
     m_thumbnailSpacingSpinBox->setValue(3.0);

@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
         PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
 
+        PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
+
         DocumentView::setOpenUrl(m_settings->value("documentView/autoRefresh", false).toBool());
 
         DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
@@ -769,6 +771,8 @@ void MainWindow::on_settings_triggered()
 
         PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
         PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
+
+        PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
 
         DocumentView::setOpenUrl(m_settings->value("documentView/autoRefresh", false).toBool());
 
