@@ -45,11 +45,6 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     </ol>
     <li><a href="#mainview">Main view</a></li>
     <li><a href="#auxiliaryviews">Auxiliary views</a></li>
-    <ol>
-        <li><a href="#outline">Outline</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#thumbnails">Thumbnails</a></li>
-    </ol>
     <li><a href="#settings">Settings</a></li>
 </ol>
 
@@ -78,19 +73,19 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <ul>
 	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document. Without effect if the last/first/first/last page of the document is already displayed.</li>
     <li><b>Jump to page...</b> Opens a dialogue to enter a page to display in the current tab.</li>
-	<li><b>Search...</b> </li>
-	<li><b>Find previous/next</b> </li>
-	<li><b>Cancel search</b> </li>
+	<li><b>Search...</b> Opens the search tool bar at the bottom of the window. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. The currently running search is canceled and the search term is cleared if the current tab changes.</li>
+	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the search term in the document.</li>
+	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
 	<li><b>Settings...</b> Opens the settings dialogue.</li>
 </ul>
 
-<p>The current page can be changed by entering the desired page into the text field in the edit tool bar and pressing the return key.</p>
+<p>The <em>current page</em> can be changed by entering the desired page into the text field in the edit tool bar and pressing the return key.</p>
 
 <h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> </li>
-	<li><b>Two pages</b> </li>
+	<li><b>Continuous</b> Determines whether all rows of the page layout are visible at once.</li>
+	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
 	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
 	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
 	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
@@ -105,7 +100,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 	<li><b>Presentation...</b> Enters presentation mode which can be left by pressing F12 or escape. The home/end key is used to display the first/last page. Arrow keys right and down, space and the page down key jump to the next page. Arrow keys left and up, backspace and the page up key jump to the previous page.</li>
 </ul>
 
-<p>The scale factor can be changed by entering the desired percentage into the text field in the view tool bar and pressing the return key.</p>
+<p>The <em>scale factor</em> can be changed by entering the desired percentage into the text field in the view tool bar and pressing the return key.</p>
 
 <h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
 
@@ -153,23 +148,17 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <p>links</p>
 
-<p>copy text or image</p>
+<p>copy to clipboard, hold <b>SHIFT</b> and drag</p>
 
-<p>annotations (Adding and removing annotations requires version 0.20 or higher of the Poppler library.)</p>
+<p>annotations, hold <b>CTRL</b> and drag (Adding and removing annotations requires version 0.20 or higher of the Poppler library.)</p>
 
 <h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="outline">Outline</a> <a href="#top">&uarr;</a></h4>
+<p>The <em>outline</em> dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view.</p>
 
-<p>The outline dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view.</p>
+<p>The <em>properties</em> dock displays further information supplied by the document.</p>
 
-<h4><a name="properties">Properties</a> <a href="#top">&uarr;</a></h4>
-
-<p>The properties dock displays further information supplied by the document.</p>
-
-<h4><a name="thumbnails">Thumbnails</a> <a href="#top">&uarr;</a></h4>
-
-<p>The thumbnails dock displays small versions of the pages. A left click on an entry jumps to the respective page in the main view.</p>
+<p>The <em>thumbnails</em> dock displays small versions of the pages. A left click on an entry jumps to the respective page in the main view.</p>
 
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
@@ -178,7 +167,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than two documents are opened.</li>
     <li><b>Open URL</b> Determines whether links to URL are opened in the default browser.</li>
     <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if changed on disk.</li>
-    <li><b>Track recently used</b> (Effective after restart.)</li>
+    <li><b>Track recently used</b> If enabled, a recently used menu is available and lists the ten last recently used documents. (Effective after restart.)</li>
     <li><b>Restore tabs</b> If enabled, tabs and their properties are saved on ending the program and restored on restart.</li>
     <li><b>Restore bookmarks</b> If enabled, bookmarks are saved on ending the program and restored on restart.</li>
     <li><b>Decorate pages</b> Determines whether pages are set apart from the background.</li>
