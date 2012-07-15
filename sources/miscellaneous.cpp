@@ -117,10 +117,7 @@ void SpinBox::keyPressEvent(QKeyEvent* event)
 
 ProgressLineEdit::ProgressLineEdit(QWidget* parent) : QLineEdit(parent),
     m_progress(0)
-{
-    QPalette p = palette();
-    p.setColor(QPalette::Base, Qt::transparent);
-    setPalette(p);
+{    
 }
 
 int ProgressLineEdit::progress() const
@@ -140,21 +137,13 @@ void ProgressLineEdit::setProgress(int progress)
 
 void ProgressLineEdit::paintEvent(QPaintEvent* event)
 {
+    QLineEdit::paintEvent(event);
+
     QPainter painter;
     painter.begin(this);
 
-    QRect r1 = rect();
-    r1.setWidth(m_progress * width() / 100);
-
-    painter.fillRect(r1, QApplication::palette().highlight());
-
-    QRect r2 = rect();
-    r2.setLeft(m_progress * width() / 100);
-    r2.setWidth((100 - m_progress) * width() / 100);
-
-    painter.fillRect(r2, QApplication::palette().base());
+    painter.setCompositionMode(QPainter::CompositionMode_Darken);
+    painter.fillRect(rect().x(), rect().y(), m_progress * width() / 100, rect().height(), QApplication::palette().highlight());
 
     painter.end();
-
-    QLineEdit::paintEvent(event);
 }
