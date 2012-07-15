@@ -25,6 +25,9 @@ struct File
 {
     QString filePath;
     int page;
+
+    File() : filePath(), page(1) {}
+
 };
 
 int main(int argc, char** argv)
@@ -35,7 +38,7 @@ int main(int argc, char** argv)
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
 
-    QApplication::setApplicationVersion("0.3.1.99");
+    QApplication::setApplicationVersion("0.3.2beta1");
 
     QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
 
