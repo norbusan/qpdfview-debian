@@ -164,9 +164,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
         connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
 
+        newTab->show();
+
         newTab->jumpToPage(page, 0.0, 0.0, false);
         newTab->setFocus();
-        newTab->show();
 
         return true;
     }
