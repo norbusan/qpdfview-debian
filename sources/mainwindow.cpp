@@ -107,7 +107,7 @@ bool MainWindow::open(const QString& filePath, int page)
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
 
-            currentTab()->jumpToPage(page);
+            currentTab()->jumpToPage(page, 0.0, 0.0, false);
             currentTab()->setFocus();
 
             return true;
@@ -164,8 +164,9 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
         connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
 
-        newTab->jumpToPage(page);
+        newTab->jumpToPage(page, 0.0, 0.0, false);
         newTab->setFocus();
+        newTab->show();
 
         return true;
     }

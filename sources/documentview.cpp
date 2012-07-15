@@ -454,6 +454,13 @@ QGraphicsItem* DocumentView::thumbnailsItem(int page) const
     return m_thumbnails.value(page - 1, 0);
 }
 
+void DocumentView::show()
+{
+    QGraphicsView::show();
+
+    prepareView();
+}
+
 bool DocumentView::open(const QString& filePath)
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
@@ -1028,16 +1035,6 @@ void DocumentView::on_thumbnails_pageClicked(int page)
     page = page <= m_numberOfPages ? page : m_numberOfPages;
 
     jumpToPage(page);
-}
-
-void DocumentView::showEvent(QShowEvent* event)
-{
-    QGraphicsView::showEvent(event);
-
-    if(!event->spontaneous())
-    {
-        prepareView();
-    }
 }
 
 void DocumentView::resizeEvent(QResizeEvent* event)

@@ -49,10 +49,10 @@ public:
     QMenu* createPopupMenu();
 
 public slots:
-    bool open(const QString& filePath, int page = 0);
-    bool openInNewTab(const QString& filePath, int page = 0);
+    bool open(const QString& filePath, int page = 1);
+    bool openInNewTab(const QString& filePath, int page = 1);
 
-    bool refreshOrOpenInNewTab(const QString& filePath, int page = 0);
+    bool refreshOrOpenInNewTab(const QString& filePath, int page = 1);
 
 protected slots:
     void on_tabWidget_currentChanged(int index);

@@ -131,6 +131,8 @@ signals:
     void searchCanceled();
 
 public slots:
+    void show();
+
     bool open(const QString& filePath);
     bool refresh();
     bool saveCopy(const QString& filePath);
@@ -171,7 +173,6 @@ protected slots:
     void on_thumbnails_pageClicked(int page);
 
 protected:
-    void showEvent(QShowEvent* event);
     void resizeEvent(QResizeEvent* event);
 
     void contextMenuEvent(QContextMenuEvent* event);
