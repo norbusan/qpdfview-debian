@@ -1049,7 +1049,7 @@ void MainWindow::on_removeAllBookmarks_triggered()
 
         if(bookmark != 0)
         {
-            bookmark->deleteLater();
+            delete bookmark;
         }
     }
 }

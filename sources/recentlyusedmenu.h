@@ -42,9 +42,12 @@ signals:
 
 protected slots:
     void on_open_triggered(QAction* action);
+    void on_clearList_triggered();
 
 private:
     QActionGroup* m_openActionGroup;
+    QAction* m_separatorAction;
+    QAction* m_clearListAction;
 
 };
 

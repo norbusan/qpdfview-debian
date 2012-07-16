@@ -29,6 +29,11 @@ RecentlyUsedMenu::RecentlyUsedMenu(QWidget* parent) : QMenu(parent)
 
     m_openActionGroup = new QActionGroup(this);
     connect(m_openActionGroup, SIGNAL(triggered(QAction*)), SLOT(on_open_triggered(QAction*)));
+
+    m_separatorAction = addSeparator();
+
+    m_clearListAction = addAction(tr("&Clear list"));
+    connect(m_clearListAction, SIGNAL(triggered()), SLOT(on_clearList_triggered()));
 }
 
 void RecentlyUsedMenu::addOpenAction(const QString& filePath)
@@ -40,7 +45,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
             removeAction(action);
             m_openActionGroup->removeAction(action);
 
-            addAction(action);
+            insertAction(m_separatorAction, action);
             m_openActionGroup->addAction(action);
 
             return;
@@ -54,7 +59,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
         removeAction(first);
         m_openActionGroup->removeAction(first);
 
-        first->deleteLater();
+        delete first;
     }
 
     QFileInfo fileInfo(filePath);
@@ -63,7 +68,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
     action->setToolTip(fileInfo.absoluteFilePath());
     action->setData(fileInfo.absoluteFilePath());
 
-    addAction(action);
+    insertAction(m_separatorAction, action);
     m_openActionGroup->addAction(action);
 }
 
@@ -73,7 +78,7 @@ void RecentlyUsedMenu::removeOpenAction(const QString& filePath)
     {
         if(action->data().toString() == filePath)
         {
-            action->deleteLater();
+            delete action;
 
             break;
         }
@@ -95,4 +100,9 @@ QStringList RecentlyUsedMenu::filePaths() const
 void RecentlyUsedMenu::on_open_triggered(QAction* action)
 {
     emit openTriggered(action->data().toString());
+}
+
+void RecentlyUsedMenu::on_clearList_triggered()
+{
+    qDeleteAll(m_openActionGroup->actions());
 }

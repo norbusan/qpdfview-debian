@@ -82,7 +82,7 @@ void BookmarkMenu::removeJumpToPageAction(int page)
     {
         if(action->data().toInt() == page)
         {
-            action->deleteLater();
+            delete action;
 
             break;
         }
