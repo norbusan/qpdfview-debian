@@ -76,7 +76,7 @@ void RecentlyUsedMenu::removeOpenAction(const QString& filePath)
 {
     foreach(QAction* action, m_openActionGroup->actions())
     {
-        if(action->data().toString() == filePath)
+        if(action->data().toString() == QFileInfo(filePath).absoluteFilePath())
         {
             delete action;
 
