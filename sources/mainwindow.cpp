@@ -663,6 +663,14 @@ void MainWindow::on_print_triggered()
     delete printDialog;
 }
 
+void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
+{
+    if(!refreshOrOpenInNewTab(filePath))
+    {
+        m_recentlyUsedMenu->removeOpenAction(filePath);
+    }
+}
+
 void MainWindow::on_previousPage_triggered()
 {
     currentTab()->previousPage();
@@ -1682,7 +1690,7 @@ void MainWindow::createMenus()
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
 
-        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(refreshOrOpenInNewTab(QString)));
+        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(on_recentlyUsed_openTriggered(QString)));
 
         m_fileMenu->addMenu(m_recentlyUsedMenu);
     }

@@ -87,6 +87,8 @@ protected slots:
     void on_saveCopy_triggered();
     void on_print_triggered();
 
+    void on_recentlyUsed_openTriggered(const QString& filePath);
+
     void on_previousPage_triggered();
     void on_nextPage_triggered();
     void on_firstPage_triggered();
