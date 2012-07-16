@@ -130,8 +130,7 @@ void PresentationView::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
 
-    QPainter painter;
-    painter.begin(this);
+    QPainter painter(this);
 
     painter.fillRect(rect(), QBrush(PageItem::invertColors() ? Qt::white : Qt::black));
 
@@ -146,8 +145,6 @@ void PresentationView::paintEvent(QPaintEvent* event)
             m_render->setFuture(QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor));
         }
     }
-
-    painter.end();
 }
 
 void PresentationView::keyPressEvent(QKeyEvent* event)

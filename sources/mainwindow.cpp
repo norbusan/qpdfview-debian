@@ -1187,6 +1187,7 @@ void MainWindow::createWidgets()
     m_tabWidget->setDocumentMode(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setTabsClosable(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
 
     m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings->value("mainWindow/tabPosition", 0).toUInt()));
     m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_settings->value("mainWindow/tabVisibility", 0).toUInt()));

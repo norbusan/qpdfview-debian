@@ -139,11 +139,8 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
 {
     QLineEdit::paintEvent(event);
 
-    QPainter painter;
-    painter.begin(this);
+    QPainter painter(this);
 
     painter.setCompositionMode(QPainter::CompositionMode_Darken);
     painter.fillRect(rect().x(), rect().y(), m_progress * width() / 100, rect().height(), QApplication::palette().highlight());
-
-    painter.end();
 }
