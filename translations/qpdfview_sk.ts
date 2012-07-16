@@ -474,12 +474,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="622"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pridať &amp;text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pridať &amp;zvýraznenie</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedávno po&amp;užité</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
@@ -546,6 +546,14 @@
         <translation type="unfinished">Nikdy</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="87"/>
+        <location filename="../sources/settingsdialog.cpp" line="184"/>
+        <location filename="../sources/settingsdialog.cpp" line="190"/>
+        <location filename="../sources/settingsdialog.cpp" line="196"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Aplikuje sa po reštarte programu.</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="156"/>
         <location filename="../sources/settingsdialog.cpp" line="157"/>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
@@ -556,14 +564,6 @@
         <location filename="../sources/settingsdialog.cpp" line="163"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MiB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="87"/>
-        <location filename="../sources/settingsdialog.cpp" line="184"/>
-        <location filename="../sources/settingsdialog.cpp" line="190"/>
-        <location filename="../sources/settingsdialog.cpp" line="196"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Aplikuje sa po reštarte programu.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="198"/>
@@ -588,7 +588,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sledovať nedávno použite:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
@@ -613,7 +613,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="212"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Invertovať farby:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="214"/>
