@@ -265,6 +265,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
             }
         }
 
+        m_outlineView->setModel(currentTab()->outlineModel());
+        m_propertiesView->setModel(currentTab()->propertiesModel());
+
+        m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
+
         on_currentTab_filePathChanged(currentTab()->filePath());
         on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
         on_currentTab_currentPageChanged(currentTab()->currentPage());
@@ -276,12 +281,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_rotationChanged(currentTab()->rotation());
 
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
-
-        m_outlineView->setModel(currentTab()->outlineModel());
-        m_propertiesView->setModel(currentTab()->propertiesModel());
-
-        m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnailsItem(currentTab()->currentPage()));
     }
     else
     {
@@ -341,6 +340,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
             m_searchToolBar->setVisible(false);
         }
 
+        m_outlineView->setModel(0);
+        m_propertiesView->setModel(0);
+
+        m_thumbnailsView->setScene(0);
+
         setWindowTitle("qpdfview");
 
         m_currentPageSpinBox->setValue(1);
@@ -352,11 +356,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_fitToPageSizeAction->setChecked(false);
         m_fitToPageWidthAction->setChecked(false);
-
-        m_outlineView->setModel(0);
-        m_propertiesView->setModel(0);
-
-        m_thumbnailsView->setScene(0);
     }
 }
 
