@@ -30,7 +30,7 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
     m_links(),
     m_scaleFactor(1.0),
     m_boundingRect(),
-    m_linkTransform(),
+    m_normalizedTransform(),
     m_image1(),
     m_image2(),
     m_render(0)
@@ -56,6 +56,8 @@ PresentationView::~PresentationView()
 {
     m_render->cancel();
     m_render->waitForFinished();
+
+    qDeleteAll(m_links);
 }
 
 int PresentationView::numberOfPages() const
@@ -70,12 +72,12 @@ int PresentationView::currentPage() const
 
 void PresentationView::previousPage()
 {
-    jumpToPage(currentPage() - 1);
+    jumpToPage(currentPage() - 1, false);
 }
 
 void PresentationView::nextPage()
 {
-    jumpToPage(currentPage() + 1);
+    jumpToPage(currentPage() + 1, false);
 }
 
 void PresentationView::firstPage()
@@ -88,11 +90,15 @@ void PresentationView::lastPage()
     jumpToPage(numberOfPages());
 }
 
-void PresentationView::jumpToPage(int page)
+void PresentationView::jumpToPage(int page, bool returnTo)
 {
     if(m_currentPage != page && page >= 1 && page <= m_numberOfPages)
     {
-        m_returnToPage = m_currentPage;
+        if(returnTo)
+        {
+            m_returnToPage = m_currentPage;
+        }
+
         m_currentPage = page;
 
         prepareView();
@@ -200,20 +206,14 @@ void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
     QApplication::restoreOverrideCursor();
 
-    foreach(Poppler::Link* link, m_links)
+    foreach(Poppler::LinkGoto* link, m_links)
     {
-        if(m_linkTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
         {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
-                {
-                    QApplication::setOverrideCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber()));
+            QApplication::setOverrideCursor(Qt::PointingHandCursor);
+            QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->destination().pageNumber()));
 
-                    return;
-                }
-            }
+            return;
         }
     }
 
@@ -222,24 +222,16 @@ void PresentationView::mouseMoveEvent(QMouseEvent* event)
 
 void PresentationView::mousePressEvent(QMouseEvent* event)
 {
-    foreach(Poppler::Link* link, m_links)
+    foreach(Poppler::LinkGoto* link, m_links)
     {
-        if(m_linkTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
         {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
+            int page = link->destination().pageNumber();
 
-                if(!linkGoto->isExternal())
-                {
-                    int page = linkGoto->destination().pageNumber();
+            page = page >= 1 ? page : 1;
+            page = page <= m_numberOfPages ? page : m_numberOfPages;
 
-                    page = page >= 1 ? page : 1;
-                    page = page <= m_numberOfPages ? page : m_numberOfPages;
-
-                    jumpToPage(page);
-                }
-            }
+            jumpToPage(page);
 
             return;
         }
@@ -253,7 +245,24 @@ void PresentationView::prepareView()
     Poppler::Page* page = m_document->page(m_currentPage - 1);
 
     qDeleteAll(m_links);
-    m_links = page->links();
+
+    m_links.clear();
+
+    foreach(Poppler::Link* link, page->links())
+    {
+        if(link->linkType() == Poppler::Link::Goto)
+        {
+            Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
+
+            if(!linkGoto->isExternal())
+            {
+                m_links.append(linkGoto);
+                continue;
+            }
+        }
+
+        delete link;
+    }
 
     QSizeF size = page->pageSizeF();
 
@@ -269,9 +278,9 @@ void PresentationView::prepareView()
         m_boundingRect.setWidth(m_scaleFactor * size.width());
         m_boundingRect.setHeight(m_scaleFactor * size.height());
 
-        m_linkTransform.reset();
-        m_linkTransform.translate(m_boundingRect.left(), m_boundingRect.top());
-        m_linkTransform.scale(m_boundingRect.width(), m_boundingRect.height());
+        m_normalizedTransform.reset();
+        m_normalizedTransform.translate(m_boundingRect.left(), m_boundingRect.top());
+        m_normalizedTransform.scale(m_boundingRect.width(), m_boundingRect.height());
     }
 
     m_image1 = QImage();

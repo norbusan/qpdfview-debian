@@ -46,7 +46,7 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page);
+    void jumpToPage(int page, bool returnTo = true);
 
 protected slots:
     void on_render_finished();
@@ -67,11 +67,11 @@ private:
     int m_currentPage;
     int m_returnToPage;
 
-    QList< Poppler::Link* > m_links;
+    QList< Poppler::LinkGoto* > m_links;
 
     qreal m_scaleFactor;
     QRectF m_boundingRect;
-    QTransform m_linkTransform;
+    QTransform m_normalizedTransform;
 
     void prepareView();
 
