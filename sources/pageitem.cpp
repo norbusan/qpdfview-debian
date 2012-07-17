@@ -68,7 +68,7 @@ void PageItem::setInvertColors(bool invertColors)
     s_invertColors = invertColors;
 }
 
-PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
+PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_mutex(0),
     m_page(0),
     m_index(-1),
@@ -95,7 +95,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraph
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
     m_mutex = mutex;
-    m_page = document->page(index);
+    m_page = page;
 
     m_index = index;
     m_size = m_page->pageSizeF();
@@ -762,7 +762,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
     }
 }
 
-ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent) : PageItem(mutex, document, index, parent)
+ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)
 {
 }
 

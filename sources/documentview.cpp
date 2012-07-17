@@ -1268,7 +1268,7 @@ void DocumentView::preparePages()
 
     for(int index = 0; index < m_numberOfPages; index++)
     {
-        PageItem* page = new PageItem(&m_mutex, m_document, index);
+        PageItem* page = new PageItem(&m_mutex, m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
@@ -1300,7 +1300,7 @@ void DocumentView::prepareThumbnails()
 
     for(int index = 0; index < m_numberOfPages; index++)
     {
-        ThumbnailItem* page = new ThumbnailItem(&m_mutex, m_document, index);
+        ThumbnailItem* page = new ThumbnailItem(&m_mutex, m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 

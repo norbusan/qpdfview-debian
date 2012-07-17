@@ -266,7 +266,7 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "local.qpdfview.MainWindow")
 
 public:
-    MainWindowAdaptor(MainWindow* mainWindow);
+    explicit MainWindowAdaptor(MainWindow* mainWindow);
 
     MainWindow* mainWindow() const;
 

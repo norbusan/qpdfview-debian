@@ -281,6 +281,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(currentTab()->propertiesModel());
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
+        m_thumbnailsView->ensureVisible(currentTab()->thumbnailsItem(currentTab()->currentPage()));
     }
     else
     {

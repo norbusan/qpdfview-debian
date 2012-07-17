@@ -31,7 +31,7 @@ class SearchThread : public QThread
     Q_OBJECT
 
 public:
-    SearchThread(QObject* parent = 0);
+    explicit SearchThread(QObject* parent = 0);
 
     bool wasCanceled() const;
 

@@ -46,7 +46,7 @@ public:
     static bool invertColors();
     static void setInvertColors(bool invertColors);
 
-    explicit PageItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent = 0);
+    PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -150,7 +150,7 @@ class ThumbnailItem : public PageItem
     Q_OBJECT
 
 public:
-    explicit ThumbnailItem(QMutex* mutex, Poppler::Document* document, int index, QGraphicsItem* parent = 0);
+    ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
 
 signals:
     void pageClicked(int page);

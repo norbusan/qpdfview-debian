@@ -32,7 +32,7 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    SettingsDialog(QWidget* parent = 0);
+    explicit SettingsDialog(QWidget* parent = 0);
 
 public slots:
     void accept();
