@@ -500,7 +500,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vyčistiť zoznam</translation>
     </message>
 </context>
 <context>
