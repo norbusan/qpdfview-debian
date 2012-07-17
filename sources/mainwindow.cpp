@@ -248,7 +248,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_currentPageSpinBox->setEnabled(true);
         m_scaleFactorComboBox->setEnabled(true);
-        m_searchLineEdit->setEnabled(true);
+        m_searchProgressLineEdit->setEnabled(true);
         m_matchCaseCheckBox->setEnabled(true);
         m_highlightAllCheckBox->setEnabled(true);
 
@@ -256,8 +256,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         {
             m_searchTimer->stop();
 
-            m_searchLineEdit->setText(QString());
-            m_searchLineEdit->setProgress(0);
+            m_searchProgressLineEdit->setText(QString());
+            m_searchProgressLineEdit->setProgress(0);
 
             for(int index = 0; index < m_tabWidget->count(); index++)
             {
@@ -326,7 +326,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_currentPageSpinBox->setEnabled(false);
         m_scaleFactorComboBox->setEnabled(false);
-        m_searchLineEdit->setEnabled(false);
+        m_searchProgressLineEdit->setEnabled(false);
         m_matchCaseCheckBox->setEnabled(false);
         m_highlightAllCheckBox->setEnabled(false);
 
@@ -334,10 +334,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         {
             m_searchTimer->stop();
 
-            m_searchToolBar->setVisible(false);
+            m_searchProgressLineEdit->setText(QString());
+            m_searchProgressLineEdit->setProgress(0);
 
-            m_searchLineEdit->setText(QString());
-            m_searchLineEdit->setProgress(0);
+            m_searchToolBar->setVisible(false);
         }
 
         setWindowTitle("qpdfview");
@@ -499,17 +499,17 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
 
 void MainWindow::on_currentTab_searchProgressed(int progress)
 {
-    m_searchLineEdit->setProgress(progress);
+    m_searchProgressLineEdit->setProgress(progress);
 }
 
 void MainWindow::on_currentTab_searchFinished()
 {
-    m_searchLineEdit->setProgress(0);
+    m_searchProgressLineEdit->setProgress(0);
 }
 
 void MainWindow::on_currentTab_searchCanceled()
 {
-    m_searchLineEdit->setProgress(0);
+    m_searchProgressLineEdit->setProgress(0);
 }
 
 void MainWindow::on_currentPage_valueChanged(int value)
@@ -710,10 +710,20 @@ void MainWindow::on_search_triggered()
     }
     else
     {
-        m_searchLineEdit->selectAll();
+        m_searchProgressLineEdit->selectAll();
     }
 
-    m_searchLineEdit->setFocus();
+    m_searchProgressLineEdit->setFocus();
+}
+
+void MainWindow::on_search_timeout()
+{
+    m_searchTimer->stop();
+
+    if(!m_searchProgressLineEdit->text().isEmpty())
+    {
+        currentTab()->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+    }
 }
 
 void MainWindow::on_findPrevious_triggered()
@@ -721,11 +731,11 @@ void MainWindow::on_findPrevious_triggered()
     if(!m_searchToolBar->isVisible())
     {
         m_searchToolBar->setVisible(true);
-        m_searchLineEdit->setFocus();
+        m_searchProgressLineEdit->setFocus();
     }
     else
     {
-        if(!m_searchLineEdit->text().isEmpty())
+        if(!m_searchProgressLineEdit->text().isEmpty())
         {
             currentTab()->findPrevious();
         }
@@ -737,11 +747,11 @@ void MainWindow::on_findNext_triggered()
     if(!m_searchToolBar->isVisible())
     {
         m_searchToolBar->setVisible(true);
-        m_searchLineEdit->setFocus();
+        m_searchProgressLineEdit->setFocus();
     }
     else
     {
-        if(!m_searchLineEdit->text().isEmpty())
+        if(!m_searchProgressLineEdit->text().isEmpty())
         {
             currentTab()->findNext();
         }
@@ -752,22 +762,12 @@ void MainWindow::on_cancelSearch_triggered()
 {
     m_searchTimer->stop();
 
-    m_searchToolBar->setVisible(false);
-
-    m_searchLineEdit->setText(QString());
-    m_searchLineEdit->setProgress(0);
+    m_searchProgressLineEdit->setText(QString());
+    m_searchProgressLineEdit->setProgress(0);
 
     currentTab()->cancelSearch();
-}
 
-void MainWindow::on_search_timeout()
-{
-    m_searchTimer->stop();
-
-    if(!m_searchLineEdit->text().isEmpty())
-    {
-        currentTab()->startSearch(m_searchLineEdit->text(), m_matchCaseCheckBox->isChecked());
-    }
+    m_searchToolBar->setVisible(false);
 }
 
 void MainWindow::on_settings_triggered()
@@ -1243,14 +1243,14 @@ void MainWindow::createWidgets()
 
     // search
 
-    m_searchLineEdit = new ProgressLineEdit(this);
+    m_searchProgressLineEdit = new ProgressLineEdit(this);
     m_searchTimer = new QTimer(this);
 
     m_searchTimer->setInterval(2000);
     m_searchTimer->setSingleShot(true);
 
-    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
-    connect(m_searchLineEdit, SIGNAL(returnPressed()), SLOT(on_search_timeout()));
+    connect(m_searchProgressLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
+    connect(m_searchProgressLineEdit, SIGNAL(returnPressed()), SLOT(on_search_timeout()));
     connect(m_searchTimer, SIGNAL(timeout()), SLOT(on_search_timeout()));
 
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), this);
@@ -1600,7 +1600,7 @@ void MainWindow::createToolBars()
 
     addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
 
-    m_searchToolBar->addWidget(m_searchLineEdit);
+    m_searchToolBar->addWidget(m_searchProgressLineEdit);
     m_searchToolBar->addWidget(m_matchCaseCheckBox);
     m_searchToolBar->addWidget(m_highlightAllCheckBox);
     m_searchToolBar->addAction(m_findPreviousAction);

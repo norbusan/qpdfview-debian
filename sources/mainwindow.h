@@ -97,11 +97,10 @@ protected slots:
     void on_jumpToPage_triggered();
 
     void on_search_triggered();
+    void on_search_timeout();
     void on_findPrevious_triggered();
     void on_findNext_triggered();
     void on_cancelSearch_triggered();
-
-    void on_search_timeout();
 
     void on_settings_triggered();
 
@@ -163,7 +162,7 @@ private:
     SpinBox* m_currentPageSpinBox;
     ComboBox* m_scaleFactorComboBox;
 
-    ProgressLineEdit* m_searchLineEdit;
+    ProgressLineEdit* m_searchProgressLineEdit;
     QTimer* m_searchTimer;
     QCheckBox* m_matchCaseCheckBox;
     QCheckBox* m_highlightAllCheckBox;
