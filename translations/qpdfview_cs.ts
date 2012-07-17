@@ -103,7 +103,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1070"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">&amp;Následující strana</translation>
+        <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1075"/>
@@ -178,7 +178,10 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1103"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview prohlížeč souborů PDF v  kartách pomocíknihovny poppler. Další informace hledejte na &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;. &lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Program qpdfview je prohlížeč souborů PDF v 
+kartách pomocí knihovny poppler. Další informace hledejte na &lt;a 
+href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;. 
+&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1228"/>
@@ -238,7 +241,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1322"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">&amp;Následující strana</translation>
+        <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
@@ -363,7 +366,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zavřít všechny karty &amp;kromě nynější karty</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1515"/>
@@ -411,7 +414,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1615"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Obrys</translation>
+        <translation type="unfinished">Pře&amp;hled</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1638"/>
@@ -426,12 +429,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1736"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Nástrojové pruhy</translation>
+        <translation type="unfinished">&amp;Nástrojové panely</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1741"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">P&amp;anely</translation>
+        <translation type="unfinished">Postranní p&amp;anely</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1753"/>
@@ -474,12 +477,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="622"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přidat &amp;text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
 </context>
 <context>
@@ -495,12 +498,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedávno &amp;použité</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&amp;mazat seznam</translation>
     </message>
 </context>
 <context>
@@ -546,6 +549,14 @@
         <translation type="unfinished">Nikdy</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="87"/>
+        <location filename="../sources/settingsdialog.cpp" line="184"/>
+        <location filename="../sources/settingsdialog.cpp" line="190"/>
+        <location filename="../sources/settingsdialog.cpp" line="196"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Účinné po opětovném spuštění.</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="156"/>
         <location filename="../sources/settingsdialog.cpp" line="157"/>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
@@ -556,14 +567,6 @@
         <location filename="../sources/settingsdialog.cpp" line="163"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="87"/>
-        <location filename="../sources/settingsdialog.cpp" line="184"/>
-        <location filename="../sources/settingsdialog.cpp" line="190"/>
-        <location filename="../sources/settingsdialog.cpp" line="196"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Účinné po opětovném spuštění.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="198"/>
@@ -588,7 +591,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sledovat nedávno použité:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
@@ -613,7 +616,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="212"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrátit barvy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="214"/>
@@ -658,17 +661,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="227"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Nástrojový pruh pro soubor:</translation>
+        <translation type="unfinished">Nástrojový panel pro soubor:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Nástrojový pruh pro úpravy:</translation>
+        <translation type="unfinished">Nástrojový panel pro úpravy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="229"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Nástrojový pruh pro pohled:</translation>
+        <translation type="unfinished">Nástrojový panel pro pohled:</translation>
     </message>
 </context>
 </TS>
