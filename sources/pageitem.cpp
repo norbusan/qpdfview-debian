@@ -376,11 +376,22 @@ void PageItem::on_render_finished()
 {
     if(!m_render->isCanceled())
     {
-        m_image1 = m_image2;
+        QImage image = m_image2;
 
         if(s_invertColors)
         {
-            m_image1.invertPixels();
+            image.invertPixels();
+        }
+
+        if(m_isPrefetching)
+        {
+            s_cache.insert(this, new QImage(image), image.byteCount());
+
+            m_isPrefetching = false;
+        }
+        else
+        {
+            m_image1 = image;
         }
     }
 
@@ -388,8 +399,6 @@ void PageItem::on_render_finished()
     {
         m_image2 = QImage();
     }
-
-    m_isPrefetching = false;
 
     update();
 }
