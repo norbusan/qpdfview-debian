@@ -1636,6 +1636,11 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
             else
             {
                 page->setVisible(false);
+
+                if(!page->isPrefetching())
+                {
+                    page->cancelRender();
+                }
             }
         }
 

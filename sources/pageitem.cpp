@@ -277,7 +277,6 @@ void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
 {
     if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY)
     {
-        cancelRender();
         refresh();
 
         m_physicalDpiX = physicalDpiX;
@@ -297,7 +296,6 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 {
     if(m_scaleFactor != scaleFactor)
     {
-        cancelRender();
         refresh();
 
         m_scaleFactor = scaleFactor;
@@ -316,7 +314,6 @@ void PageItem::setRotation(Poppler::Page::Rotation rotation)
 {
     if(m_rotation != rotation)
     {
-        cancelRender();
         refresh();
 
         m_rotation = rotation;
@@ -343,8 +340,9 @@ bool PageItem::isPrefetching() const
 
 void PageItem::refresh()
 {
+    cancelRender();
+
     s_cache.remove(this);
-    m_image1 = QImage();
 
     update();
 }
@@ -370,6 +368,8 @@ void PageItem::startRender()
 void PageItem::cancelRender()
 {
     m_render->cancel();
+
+    m_image1 = QImage();
 }
 
 void PageItem::on_render_finished()
