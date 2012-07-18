@@ -936,18 +936,18 @@ void DocumentView::presentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged(int value)
 {
-    QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
-
-    foreach(PageItem* page, m_pages)
-    {
-        if(!page->isPrefetching() && !page->boundingRect().translated(page->pos()).intersects(visibleRect))
-        {
-            page->cancelRender();
-        }
-    }
-
     if(m_continuousMode)
     {
+        QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
+
+        foreach(PageItem* page, m_pages)
+        {
+            if(!page->isPrefetching() && !page->boundingRect().translated(page->pos()).intersects(visibleRect))
+            {
+                page->cancelRender();
+            }
+        }
+
         QMap< qreal, int >::const_iterator lowerBound = m_heightToIndex.lowerBound(-value);
 
         if(lowerBound != m_heightToIndex.end())
