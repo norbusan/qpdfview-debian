@@ -54,6 +54,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         {
             QIcon::setThemeName(m_settings->value("mainWindow/iconTheme").toString());
         }
+
+        if(m_settings->contains("mainWindow/styleSheet"))
+        {
+            qApp->setStyleSheet(m_settings->value("mainWindow/styleSheet").toString());
+        }
     }
 
     setAcceptDrops(true);
