@@ -1051,54 +1051,6 @@ void DocumentView::resizeEvent(QResizeEvent* event)
     }
 }
 
-void DocumentView::contextMenuEvent(QContextMenuEvent* event)
-{
-    QMenu* menu = new QMenu();
-
-    QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
-    returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
-    returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-    returnToPageAction->setIconVisibleInMenu(true);
-
-    returnToPageAction->setVisible(m_returnToPage != -1);
-
-    QAction* previousPageAction = menu->addAction(tr("&Previous page"));
-    previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
-    previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
-    previousPageAction->setIconVisibleInMenu(true);
-
-    QAction* nextPageAction = menu->addAction(tr("&Next page"));
-    nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
-    nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
-    nextPageAction->setIconVisibleInMenu(true);
-
-    QAction* refreshAction = menu->addAction(tr("&Refresh"));
-    refreshAction->setShortcut(QKeySequence::Refresh);
-    refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
-    refreshAction->setIconVisibleInMenu(true);
-
-    QAction* action = menu->exec(event->globalPos());
-
-    if(action == returnToPageAction)
-    {
-        jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
-    }
-    else if(action == previousPageAction)
-    {
-        previousPage();
-    }
-    else if(action == nextPageAction)
-    {
-        nextPage();
-    }
-    else if(action == refreshAction)
-    {
-        refresh();
-    }
-
-    delete menu;
-}
-
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
     if(event->modifiers() == Qt::NoModifier)
@@ -1135,6 +1087,59 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
 
     QGraphicsView::keyPressEvent(event);
+}
+
+void DocumentView::mousePressEvent(QMouseEvent* event)
+{
+    QGraphicsView::mousePressEvent(event);
+
+    if(!event->isAccepted() && event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
+    {
+        QMenu* menu = new QMenu();
+
+        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
+        returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
+        returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+        returnToPageAction->setIconVisibleInMenu(true);
+
+        returnToPageAction->setVisible(m_returnToPage != -1);
+
+        QAction* previousPageAction = menu->addAction(tr("&Previous page"));
+        previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
+        previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
+        previousPageAction->setIconVisibleInMenu(true);
+
+        QAction* nextPageAction = menu->addAction(tr("&Next page"));
+        nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
+        nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
+        nextPageAction->setIconVisibleInMenu(true);
+
+        QAction* refreshAction = menu->addAction(tr("&Refresh"));
+        refreshAction->setShortcut(QKeySequence::Refresh);
+        refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
+        refreshAction->setIconVisibleInMenu(true);
+
+        QAction* action = menu->exec(event->globalPos());
+
+        if(action == returnToPageAction)
+        {
+            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
+        }
+        else if(action == previousPageAction)
+        {
+            previousPage();
+        }
+        else if(action == nextPageAction)
+        {
+            nextPage();
+        }
+        else if(action == refreshAction)
+        {
+            refresh();
+        }
+
+        delete menu;
+    }
 }
 
 void DocumentView::wheelEvent(QWheelEvent* event)
