@@ -588,7 +588,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verwendete Dateien aufzeichnen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
