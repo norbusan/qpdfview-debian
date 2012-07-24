@@ -966,24 +966,26 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
 void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > results)
 {
-    if(!m_searchThread->wasCanceled())
+    if(m_searchThread->wasCanceled())
     {
-        while(!results.isEmpty())
-        {
-            m_results.insertMulti(index, results.takeLast());
-        }
+        return;
+    }
 
-        if(m_highlightAll)
-        {
-            PageItem* page = m_pages.at(index);
+    while(!results.isEmpty())
+    {
+        m_results.insertMulti(index, results.takeLast());
+    }
 
-            page->setHighlights(results);
-        }
+    if(m_highlightAll)
+    {
+        PageItem* page = m_pages.at(index);
 
-        if(index >= m_currentPage - 1 && m_currentResult == m_results.end())
-        {
-            findNext();
-        }
+        page->setHighlights(results);
+    }
+
+    if(m_currentPage <= index + 1 && m_currentResult == m_results.end())
+    {
+        findNext();
     }
 }
 

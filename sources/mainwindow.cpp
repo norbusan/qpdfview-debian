@@ -261,9 +261,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         {
             m_searchTimer->stop();
 
-            m_searchProgressLineEdit->setText(QString());
-            m_searchProgressLineEdit->setProgress(0);
-
             for(int index = 0; index < m_tabWidget->count(); index++)
             {
                 tab(index)->cancelSearch();
@@ -338,10 +335,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         if(m_searchToolBar->isVisible())
         {
             m_searchTimer->stop();
-
-            m_searchProgressLineEdit->setText(QString());
-            m_searchProgressLineEdit->setProgress(0);
-
             m_searchToolBar->setVisible(false);
         }
 
@@ -712,11 +705,8 @@ void MainWindow::on_search_triggered()
     {
         m_searchToolBar->setVisible(true);
     }
-    else
-    {
-        m_searchProgressLineEdit->selectAll();
-    }
 
+    m_searchProgressLineEdit->selectAll();
     m_searchProgressLineEdit->setFocus();
 }
 
@@ -734,8 +724,7 @@ void MainWindow::on_findPrevious_triggered()
 {
     if(!m_searchToolBar->isVisible())
     {
-        m_searchToolBar->setVisible(true);
-        m_searchProgressLineEdit->setFocus();
+        on_search_triggered();
     }
     else
     {
@@ -750,8 +739,7 @@ void MainWindow::on_findNext_triggered()
 {
     if(!m_searchToolBar->isVisible())
     {
-        m_searchToolBar->setVisible(true);
-        m_searchProgressLineEdit->setFocus();
+        on_search_triggered();
     }
     else
     {
@@ -765,13 +753,9 @@ void MainWindow::on_findNext_triggered()
 void MainWindow::on_cancelSearch_triggered()
 {
     m_searchTimer->stop();
-
-    m_searchProgressLineEdit->setText(QString());
-    m_searchProgressLineEdit->setProgress(0);
+    m_searchToolBar->setVisible(false);
 
     currentTab()->cancelSearch();
-
-    m_searchToolBar->setVisible(false);
 }
 
 void MainWindow::on_settings_triggered()
