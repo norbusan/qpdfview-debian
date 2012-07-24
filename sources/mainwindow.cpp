@@ -552,6 +552,8 @@ void MainWindow::on_scaleFactor_currentIndexChanged(int index)
                 currentTab()->setScaleMode(DocumentView::ScaleFactor);
             }
         }
+
+        currentTab()->setFocus();
     }
 }
 
