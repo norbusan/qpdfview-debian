@@ -449,8 +449,6 @@ void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMod
             m_fitToPageWidthAction->setChecked(false);
             m_fitToPageSizeAction->setChecked(false);
 
-            m_scaleFactorComboBox->setCurrentIndex(-1);
-
             on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
             break;
         case DocumentView::FitToPageWidth:
@@ -477,6 +475,7 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
     {
         if(currentTab()->scaleMode() == DocumentView::ScaleFactor)
         {
+            m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
         }
 
