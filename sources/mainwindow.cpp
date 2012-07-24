@@ -260,11 +260,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         if(m_searchToolBar->isVisible())
         {
             m_searchTimer->stop();
-
-            for(int index = 0; index < m_tabWidget->count(); index++)
-            {
-                tab(index)->cancelSearch();
-            }
+            m_searchProgressLineEdit->setProgress(0);
         }
 
         m_outlineView->setModel(currentTab()->outlineModel());
@@ -335,6 +331,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         if(m_searchToolBar->isVisible())
         {
             m_searchTimer->stop();
+            m_searchProgressLineEdit->setProgress(0);
+
             m_searchToolBar->setVisible(false);
         }
 
@@ -762,9 +760,14 @@ void MainWindow::on_findNext_triggered()
 void MainWindow::on_cancelSearch_triggered()
 {
     m_searchTimer->stop();
+    m_searchProgressLineEdit->setProgress(0);
+
     m_searchToolBar->setVisible(false);
 
-    currentTab()->cancelSearch();
+    for(int index = 0; index < m_tabWidget->count(); index++)
+    {
+        tab(index)->cancelSearch();
+    }
 }
 
 void MainWindow::on_settings_triggered()
