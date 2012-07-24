@@ -496,17 +496,26 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
 
 void MainWindow::on_currentTab_searchProgressed(int progress)
 {
-    m_searchProgressLineEdit->setProgress(progress);
+    if(senderIsCurrentTab())
+    {
+        m_searchProgressLineEdit->setProgress(progress);
+    }
 }
 
 void MainWindow::on_currentTab_searchFinished()
 {
-    m_searchProgressLineEdit->setProgress(0);
+    if(senderIsCurrentTab())
+    {
+        m_searchProgressLineEdit->setProgress(0);
+    }
 }
 
 void MainWindow::on_currentTab_searchCanceled()
 {
-    m_searchProgressLineEdit->setProgress(0);
+    if(senderIsCurrentTab())
+    {
+        m_searchProgressLineEdit->setProgress(0);
+    }
 }
 
 void MainWindow::on_currentPage_valueChanged(int value)
