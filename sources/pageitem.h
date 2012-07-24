@@ -71,21 +71,20 @@ public:
     const QTransform& transform() const;
     const QTransform& normalizedTransform() const;
 
-    bool isPrefetching() const;
-
 signals:
+    void renderFinished(QImage image, bool prefetch);
+
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
 
 public slots:
     void refresh();
-    void prefetch();
 
-    void startRender();
+    void startRender(bool prefetch = false);
     void cancelRender();
 
 protected slots:
-    void on_render_finished();
+    void on_renderFinished(QImage image, bool prefetch);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
@@ -131,15 +130,14 @@ private:
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
+    QImage m_image;
+
     void prepareGeometry();
 
     // render
 
-    QImage m_image1;
-    QImage m_image2;
-
-    QFutureWatcher< void >* m_render;
-    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation);
+    QFuture< void > m_render;
+    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch);
 
 };
 

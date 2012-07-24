@@ -39,6 +39,9 @@ public:
 
     int numberOfPages() const;
     int currentPage() const;
+
+signals:
+    void renderFinished(QImage image);
     
 public slots:
     void previousPage();
@@ -48,8 +51,11 @@ public slots:
 
     void jumpToPage(int page, bool returnTo = true);
 
+    void startRender();
+    void cancelRender();
+
 protected slots:
-    void on_render_finished();
+    void on_renderFinished(QImage image);
 
 protected:
     void resizeEvent(QResizeEvent* event);
@@ -70,17 +76,17 @@ private:
     QList< Poppler::LinkGoto* > m_links;
 
     qreal m_scaleFactor;
-    QRectF m_boundingRect;
+
     QTransform m_normalizedTransform;
+    QRectF m_boundingRect;
+
+    QImage m_image;
 
     void prepareView();
 
     // render
 
-    QImage m_image1;
-    QImage m_image2;
-
-    QFutureWatcher< void >* m_render;
+    QFuture< void > m_render;
     void render(int index, qreal scaleFactor);
     
 };

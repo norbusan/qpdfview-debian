@@ -84,14 +84,12 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
-    m_image1(),
-    m_image2(),
-    m_render(0)
+    m_image(),
+    m_render()
 {
     setAcceptHoverEvents(true);
 
-    m_render = new QFutureWatcher< void >(this);
-    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+    connect(this, SIGNAL(renderFinished(QImage,bool)), SLOT(on_renderFinished(QImage,bool)));
 
     m_mutex = mutex;
     m_page = page;
@@ -134,8 +132,8 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
 PageItem::~PageItem()
 {
-    m_render->cancel();
-    m_render->waitForFinished();
+    m_render.cancel();
+    m_render.waitForFinished();
 
     s_cache.remove(this);
 
@@ -163,12 +161,12 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     }
     else
     {
-        if(!m_image1.isNull())
+        if(!m_image.isNull())
         {
-            image = m_image1;
+            image = m_image;
+            m_image = QImage();
 
-            s_cache.insert(this, new QImage(m_image1), m_image1.byteCount());
-            m_image1 = QImage();
+            s_cache.insert(this, new QImage(image), image.byteCount());
         }
         else
         {
@@ -180,11 +178,11 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(s_decoratePages)
     {
-        painter->fillRect(m_boundingRect, QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
+        painter->fillRect(m_boundingRect, QBrush(s_invertColors ? Qt::black : Qt::white));
 
         painter->drawImage(m_boundingRect.topLeft(), image);
 
-        painter->setPen(QPen(PageItem::invertColors() ? Qt::white : Qt::black));
+        painter->setPen(QPen(s_invertColors ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
     }
     else
@@ -231,7 +229,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     if(!m_rubberBand.isNull())
     {
         QPen pen;
-        pen.setColor(PageItem::invertColors() ? Qt::white : Qt::black);
+        pen.setColor(s_invertColors ? Qt::white : Qt::black);
         pen.setStyle(Qt::DashLine);
 
         painter->setPen(pen);
@@ -260,7 +258,6 @@ void PageItem::setHighlights(const QList< QRectF >& highlights)
 
     update();
 }
-
 
 int PageItem::physicalDpiX() const
 {
@@ -332,11 +329,6 @@ const QTransform& PageItem::normalizedTransform() const
     return m_normalizedTransform;
 }
 
-bool PageItem::isPrefetching() const
-{
-    return false; // TODO
-}
-
 void PageItem::refresh()
 {
     cancelRender();
@@ -346,40 +338,40 @@ void PageItem::refresh()
     update();
 }
 
-void PageItem::prefetch()
+void PageItem::startRender(bool prefetch)
 {
-    // TODO
-}
-
-void PageItem::startRender()
-{
-    if(!m_render->isRunning())
+    if(!m_render.isRunning())
     {
-        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation));
+        m_render = QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, prefetch);
     }
 }
 
 void PageItem::cancelRender()
 {
-    m_render->cancel();
-    m_image1 = QImage();
+    m_render.cancel();
+
+    m_image = QImage();
 }
 
-void PageItem::on_render_finished()
+void PageItem::on_renderFinished(QImage image, bool prefetch)
 {
-    if(!m_render->isCanceled())
+    if(s_invertColors)
     {
-        m_image1 = m_image2;
-
-        if(s_invertColors)
-        {
-            m_image1.invertPixels();
-        }
+        image.invertPixels();
     }
 
-    if(!m_render->isRunning())
+    if(!prefetch)
     {
-        m_image2 = QImage();
+        if(m_render.isCanceled())
+        {
+            return;
+        }
+
+        m_image = image;
+    }
+    else
+    {
+        s_cache.insert(this, new QImage(image), image.byteCount());
     }
 
     update();
@@ -731,25 +723,32 @@ void PageItem::prepareGeometry()
     m_boundingRect = m_transform.mapRect(QRectF(QPointF(), m_size));
 }
 
-void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation)
+void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch)
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    if(m_render->isCanceled())
+    if(m_render.isCanceled() && !prefetch)
     {
         return;
     }
+
+    QImage image;
 
     switch(rotation)
     {
     case Poppler::Page::Rotate0:
     case Poppler::Page::Rotate90:
-        m_image2 = m_page->renderToImage(scaleFactor * physicalDpiX, scaleFactor * physicalDpiY, -1, -1, -1, -1, rotation);
+        image = m_page->renderToImage(scaleFactor * physicalDpiX, scaleFactor * physicalDpiY, -1, -1, -1, -1, rotation);
         break;
     case Poppler::Page::Rotate180:
     case Poppler::Page::Rotate270:
-        m_image2 = m_page->renderToImage(scaleFactor * physicalDpiY, scaleFactor * physicalDpiX, -1, -1, -1, -1, rotation);
+        image = m_page->renderToImage(scaleFactor * physicalDpiY, scaleFactor * physicalDpiX, -1, -1, -1, -1, rotation);
         break;
+    }
+
+    if(!m_render.isCanceled() || prefetch)
+    {
+        emit renderFinished(image, prefetch);
     }
 }
 

@@ -29,18 +29,16 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
     m_returnToPage(-1),
     m_links(),
     m_scaleFactor(1.0),
-    m_boundingRect(),
     m_normalizedTransform(),
-    m_image1(),
-    m_image2(),
-    m_render(0)
+    m_boundingRect(),
+    m_image(),
+    m_render()
 {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
     setMouseTracking(true);
 
-    m_render = new QFutureWatcher< void >(this);
-    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+    connect(this, SIGNAL(renderFinished(QImage)), SLOT(on_renderFinished(QImage)));
 
     m_mutex = mutex;
     m_document = document;
@@ -54,8 +52,8 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
 
 PresentationView::~PresentationView()
 {
-    m_render->cancel();
-    m_render->waitForFinished();
+    m_render.cancel();
+    m_render.waitForFinished();
 
     qDeleteAll(m_links);
 }
@@ -105,22 +103,34 @@ void PresentationView::jumpToPage(int page, bool returnTo)
     }
 }
 
-void PresentationView::on_render_finished()
+void PresentationView::startRender()
 {
-    if(!m_render->isCanceled())
+    if(!m_render.isRunning())
     {
-        m_image1 = m_image2;
+        m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor);
+    }
+}
 
-        if(PageItem::invertColors())
-        {
-            m_image1.invertPixels();
-        }
+void PresentationView::cancelRender()
+{
+    m_render.cancel();
+
+    m_image = QImage();
+}
+
+void PresentationView::on_renderFinished(QImage image)
+{
+    if(PageItem::invertColors())
+    {
+        image.invertPixels();
     }
 
-    if(!m_render->isRunning())
+    if(m_render.isCanceled())
     {
-        m_image2 = QImage();
+        return;
     }
+
+    m_image = image;
 
     update();
 }
@@ -140,16 +150,13 @@ void PresentationView::paintEvent(QPaintEvent* event)
 
     painter.fillRect(rect(), QBrush(PageItem::invertColors() ? Qt::white : Qt::black));
 
-    if(!m_image1.isNull())
+    if(!m_image.isNull())
     {
-        painter.drawImage(m_boundingRect.topLeft(), m_image1);
+        painter.drawImage(m_boundingRect.topLeft(), m_image);
     }
     else
     {
-        if(!m_render->isRunning())
-        {
-            m_render->setFuture(QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor));
-        }
+        startRender();
     }
 }
 
@@ -283,8 +290,7 @@ void PresentationView::prepareView()
         m_normalizedTransform.scale(m_boundingRect.width(), m_boundingRect.height());
     }
 
-    m_render->cancel();
-    m_image1 = QImage();
+    cancelRender();
 
     update();
 }
@@ -293,14 +299,19 @@ void PresentationView::render(int index, qreal scaleFactor)
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    if(m_render->isCanceled())
+    if(m_render.isCanceled())
     {
         return;
     }
 
     Poppler::Page* page = m_document->page(index);
 
-    m_image2 = page->renderToImage(scaleFactor * 72.0, scaleFactor * 72.0);
+    QImage image = page->renderToImage(scaleFactor * 72.0, scaleFactor * 72.0);
 
     delete page;
+
+    if(!m_render.isCanceled())
+    {
+        emit renderFinished(image);
+    }
 }

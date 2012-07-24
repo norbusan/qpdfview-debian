@@ -942,7 +942,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
         foreach(PageItem* page, m_pages)
         {
-            if(!page->isPrefetching() && !page->boundingRect().translated(page->pos()).intersects(visibleRect))
+            if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
             {
                 page->cancelRender();
             }
@@ -1001,7 +1001,7 @@ void DocumentView::on_prefetch_timeout()
     {
         PageItem* page = m_pages.at(index);
 
-        page->prefetch();
+        page->startRender(true);
     }
 }
 
@@ -1644,10 +1644,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
             {
                 page->setVisible(false);
 
-                if(!page->isPrefetching())
-                {
-                    page->cancelRender();
-                }
+                page->cancelRender();
             }
         }
 
