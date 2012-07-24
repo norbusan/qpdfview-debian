@@ -283,8 +283,8 @@ void PresentationView::prepareView()
         m_normalizedTransform.scale(m_boundingRect.width(), m_boundingRect.height());
     }
 
-    m_image1 = QImage();
     m_render->cancel();
+    m_image1 = QImage();
 
     update();
 }

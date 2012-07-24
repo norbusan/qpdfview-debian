@@ -86,7 +86,6 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_boundingRect(),
     m_image1(),
     m_image2(),
-    m_isPrefetching(false),
     m_render(0)
 {
     setAcceptHoverEvents(true);
@@ -335,7 +334,7 @@ const QTransform& PageItem::normalizedTransform() const
 
 bool PageItem::isPrefetching() const
 {
-    return m_isPrefetching;
+    return false; // TODO
 }
 
 void PageItem::refresh()
@@ -349,12 +348,7 @@ void PageItem::refresh()
 
 void PageItem::prefetch()
 {
-    if(!s_cache.contains(this) && m_image1.isNull())
-    {
-        m_isPrefetching = true;
-
-        startRender();
-    }
+    // TODO
 }
 
 void PageItem::startRender()
@@ -368,7 +362,6 @@ void PageItem::startRender()
 void PageItem::cancelRender()
 {
     m_render->cancel();
-
     m_image1 = QImage();
 }
 
@@ -376,22 +369,11 @@ void PageItem::on_render_finished()
 {
     if(!m_render->isCanceled())
     {
-        QImage image = m_image2;
+        m_image1 = m_image2;
 
         if(s_invertColors)
         {
-            image.invertPixels();
-        }
-
-        if(m_isPrefetching)
-        {
-            s_cache.insert(this, new QImage(image), image.byteCount());
-
-            m_isPrefetching = false;
-        }
-        else
-        {
-            m_image1 = image;
+            m_image1.invertPixels();
         }
     }
 
