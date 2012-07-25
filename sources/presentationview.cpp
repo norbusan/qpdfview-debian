@@ -126,12 +126,10 @@ void PresentationView::on_renderFinished(QImage image)
         image.invertPixels();
     }
 
-    if(m_render.isCanceled())
+    if(!m_render.isCanceled())
     {
-        return;
+        m_image = image;
     }
-
-    m_image = image;
 
     update();
 }

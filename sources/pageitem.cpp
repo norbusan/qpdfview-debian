@@ -363,12 +363,10 @@ void PageItem::on_renderFinished(QImage image, bool prefetch)
 
     if(!prefetch)
     {
-        if(m_render.isCanceled())
+        if(!m_render.isCanceled())
         {
-            return;
+            m_image = image;
         }
-
-        m_image = image;
     }
     else
     {
