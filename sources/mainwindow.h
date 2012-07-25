@@ -77,7 +77,7 @@ protected slots:
     void on_currentPage_valueChanged(int value);
     void on_currentPage_returnPressed();
 
-    void on_scaleFactor_currentIndexChanged(int index);
+    void on_scaleFactor_activated(int index);
     void on_scaleFactor_editingFinished();
     void on_scaleFactor_returnPressed();
 

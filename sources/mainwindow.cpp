@@ -529,32 +529,29 @@ void MainWindow::on_currentPage_returnPressed()
     currentTab()->setFocus();
 }
 
-void MainWindow::on_scaleFactor_currentIndexChanged(int index)
+void MainWindow::on_scaleFactor_activated(int index)
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(index == 0)
     {
-        if(index == 0)
-        {
-            currentTab()->setScaleMode(DocumentView::FitToPageWidth);
-        }
-        else if(index == 1)
-        {
-            currentTab()->setScaleMode(DocumentView::FitToPageSize);
-        }
-        else
-        {
-            bool ok = false;
-            qreal scaleFactor = m_scaleFactorComboBox->itemData(index).toReal(&ok);
-
-            if(ok)
-            {
-                currentTab()->setScaleFactor(scaleFactor);
-                currentTab()->setScaleMode(DocumentView::ScaleFactor);
-            }
-        }
-
-        currentTab()->setFocus();
+        currentTab()->setScaleMode(DocumentView::FitToPageWidth);
     }
+    else if(index == 1)
+    {
+        currentTab()->setScaleMode(DocumentView::FitToPageSize);
+    }
+    else
+    {
+        bool ok = false;
+        qreal scaleFactor = m_scaleFactorComboBox->itemData(index).toReal(&ok);
+
+        if(ok)
+        {
+            currentTab()->setScaleFactor(scaleFactor);
+            currentTab()->setScaleMode(DocumentView::ScaleFactor);
+        }
+    }
+
+    currentTab()->setFocus();
 }
 
 void MainWindow::on_scaleFactor_editingFinished()
@@ -1237,7 +1234,7 @@ void MainWindow::createWidgets()
     m_scaleFactorComboBox->addItem("200 %", 2.0);
     m_scaleFactorComboBox->addItem("400 %", 4.0);
 
-    connect(m_scaleFactorComboBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleFactor_currentIndexChanged(int)));
+    connect(m_scaleFactorComboBox, SIGNAL(activated(int)), SLOT(on_scaleFactor_activated(int)));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(on_scaleFactor_editingFinished()));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(on_scaleFactor_returnPressed()));
 
