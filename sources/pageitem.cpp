@@ -90,6 +90,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     setAcceptHoverEvents(true);
 
     connect(this, SIGNAL(renderFinished(QImage,bool)), SLOT(on_renderFinished(QImage,bool)));
+    connect(this, SIGNAL(renderCanceled()), SLOT(on_renderCanceled()));
 
     m_mutex = mutex;
     m_page = page;
@@ -374,6 +375,11 @@ void PageItem::on_renderFinished(QImage image, bool prefetch)
         s_cache.insert(this, new QImage(image), image.byteCount());
     }
 
+    update();
+}
+
+void PageItem::on_renderCanceled()
+{
     update();
 }
 
@@ -729,6 +735,8 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
 
     if(m_render.isCanceled() && !prefetch)
     {
+        emit renderCanceled();
+
         return;
     }
 
@@ -746,10 +754,14 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
         break;
     }
 
-    if(!m_render.isCanceled() || prefetch)
+    if(m_render.isCanceled() && !prefetch)
     {
-        emit renderFinished(image, prefetch);
+        emit renderCanceled();
+
+        return;
     }
+
+    emit renderFinished(image, prefetch);
 }
 
 ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)

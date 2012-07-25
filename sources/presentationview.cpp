@@ -39,6 +39,7 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
     setMouseTracking(true);
 
     connect(this, SIGNAL(renderFinished(QImage)), SLOT(on_renderFinished(QImage)));
+    connect(this, SIGNAL(renderCanceled()), SLOT(on_renderCanceled()));
 
     m_mutex = mutex;
     m_document = document;
@@ -132,6 +133,11 @@ void PresentationView::on_renderFinished(QImage image)
 
     m_image = image;
 
+    update();
+}
+
+void PresentationView::on_renderCanceled()
+{
     update();
 }
 
@@ -301,6 +307,8 @@ void PresentationView::render(int index, qreal scaleFactor)
 
     if(m_render.isCanceled())
     {
+        emit renderCanceled();
+
         return;
     }
 
@@ -310,8 +318,12 @@ void PresentationView::render(int index, qreal scaleFactor)
 
     delete page;
 
-    if(!m_render.isCanceled())
+    if(m_render.isCanceled())
     {
-        emit renderFinished(image);
+        emit renderCanceled();
+
+        return;
     }
+
+    emit renderFinished(image);
 }

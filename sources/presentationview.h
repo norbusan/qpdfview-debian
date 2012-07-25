@@ -42,6 +42,7 @@ public:
 
 signals:
     void renderFinished(QImage image);
+    void renderCanceled();
     
 public slots:
     void previousPage();
@@ -56,6 +57,7 @@ public slots:
 
 protected slots:
     void on_renderFinished(QImage image);
+    void on_renderCanceled();
 
 protected:
     void resizeEvent(QResizeEvent* event);

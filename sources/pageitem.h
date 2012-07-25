@@ -73,6 +73,7 @@ public:
 
 signals:
     void renderFinished(QImage image, bool prefetch);
+    void renderCanceled();
 
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
@@ -85,6 +86,7 @@ public slots:
 
 protected slots:
     void on_renderFinished(QImage image, bool prefetch);
+    void on_renderCanceled();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
