@@ -41,8 +41,7 @@ public:
     int currentPage() const;
 
 signals:
-    void renderFinished(QImage image);
-    void renderCanceled();
+    void imageReady(QImage image);
     
 public slots:
     void previousPage();
@@ -56,8 +55,8 @@ public slots:
     void cancelRender();
 
 protected slots:
-    void on_renderFinished(QImage image);
-    void on_renderCanceled();
+    void on_render_finished();
+    void on_imageReady(QImage image);
 
 protected:
     void resizeEvent(QResizeEvent* event);
@@ -88,7 +87,7 @@ private:
 
     // render
 
-    QFuture< void > m_render;
+    QFutureWatcher< void >* m_render;
     void render(int index, qreal scaleFactor);
     
 };

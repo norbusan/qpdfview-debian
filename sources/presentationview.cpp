@@ -32,14 +32,16 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
     m_normalizedTransform(),
     m_boundingRect(),
     m_image(),
-    m_render()
+    m_render(0)
 {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
     setMouseTracking(true);
 
-    connect(this, SIGNAL(renderFinished(QImage)), SLOT(on_renderFinished(QImage)));
-    connect(this, SIGNAL(renderCanceled()), SLOT(on_renderCanceled()));
+    m_render = new QFutureWatcher< void >(this);
+    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+
+    connect(this, SIGNAL(imageReady(QImage)), SLOT(on_imageReady(QImage)));
 
     m_mutex = mutex;
     m_document = document;
@@ -53,8 +55,8 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
 
 PresentationView::~PresentationView()
 {
-    m_render.cancel();
-    m_render.waitForFinished();
+    m_render->cancel();
+    m_render->waitForFinished();
 
     qDeleteAll(m_links);
 }
@@ -106,36 +108,36 @@ void PresentationView::jumpToPage(int page, bool returnTo)
 
 void PresentationView::startRender()
 {
-    if(!m_render.isRunning())
+    if(!m_render->isRunning())
     {
-        m_render = QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor);
+        m_render->setFuture(QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor));
     }
 }
 
 void PresentationView::cancelRender()
 {
-    m_render.cancel();
+    m_render->cancel();
 
     m_image = QImage();
 }
 
-void PresentationView::on_renderFinished(QImage image)
+void PresentationView::on_render_finished()
+{
+    update();
+}
+
+void PresentationView::on_imageReady(QImage image)
 {
     if(PageItem::invertColors())
     {
         image.invertPixels();
     }
 
-    if(!m_render.isCanceled())
+    if(!m_render->isCanceled())
     {
         m_image = image;
     }
 
-    update();
-}
-
-void PresentationView::on_renderCanceled()
-{
     update();
 }
 
@@ -303,10 +305,8 @@ void PresentationView::render(int index, qreal scaleFactor)
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    if(m_render.isCanceled())
+    if(m_render->isCanceled())
     {
-        emit renderCanceled();
-
         return;
     }
 
@@ -316,12 +316,10 @@ void PresentationView::render(int index, qreal scaleFactor)
 
     delete page;
 
-    if(m_render.isCanceled())
+    if(m_render->isCanceled())
     {
-        emit renderCanceled();
-
         return;
     }
 
-    emit renderFinished(image);
+    emit imageReady(image);
 }

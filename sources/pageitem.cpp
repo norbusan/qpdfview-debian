@@ -85,12 +85,14 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_normalizedTransform(),
     m_boundingRect(),
     m_image(),
-    m_render()
+    m_render(0)
 {
     setAcceptHoverEvents(true);
 
-    connect(this, SIGNAL(renderFinished(QImage,bool)), SLOT(on_renderFinished(QImage,bool)));
-    connect(this, SIGNAL(renderCanceled()), SLOT(on_renderCanceled()));
+    m_render = new QFutureWatcher< void >(this);
+    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+
+    connect(this, SIGNAL(imageReady(QImage,bool)), SLOT(on_imageReady(QImage,bool)));
 
     m_mutex = mutex;
     m_page = page;
@@ -133,8 +135,8 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
 PageItem::~PageItem()
 {
-    m_render.cancel();
-    m_render.waitForFinished();
+    m_render->cancel();
+    m_render->waitForFinished();
 
     s_cache.remove(this);
 
@@ -341,20 +343,25 @@ void PageItem::refresh()
 
 void PageItem::startRender(bool prefetch)
 {
-    if(!m_render.isRunning())
+    if(!m_render->isRunning())
     {
-        m_render = QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, prefetch);
+        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, prefetch));
     }
 }
 
 void PageItem::cancelRender()
 {
-    m_render.cancel();
+    m_render->cancel();
 
     m_image = QImage();
 }
 
-void PageItem::on_renderFinished(QImage image, bool prefetch)
+void PageItem::on_render_finished()
+{
+    update();
+}
+
+void PageItem::on_imageReady(QImage image, bool prefetch)
 {
     if(s_invertColors)
     {
@@ -363,7 +370,7 @@ void PageItem::on_renderFinished(QImage image, bool prefetch)
 
     if(!prefetch)
     {
-        if(!m_render.isCanceled())
+        if(!m_render->isCanceled())
         {
             m_image = image;
         }
@@ -373,11 +380,6 @@ void PageItem::on_renderFinished(QImage image, bool prefetch)
         s_cache.insert(this, new QImage(image), image.byteCount());
     }
 
-    update();
-}
-
-void PageItem::on_renderCanceled()
-{
     update();
 }
 
@@ -731,10 +733,8 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    if(m_render.isCanceled() && !prefetch)
+    if(m_render->isCanceled() && !prefetch)
     {
-        emit renderCanceled();
-
         return;
     }
 
@@ -752,14 +752,12 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
         break;
     }
 
-    if(m_render.isCanceled() && !prefetch)
+    if(m_render->isCanceled() && !prefetch)
     {
-        emit renderCanceled();
-
         return;
     }
 
-    emit renderFinished(image, prefetch);
+    emit imageReady(image, prefetch);
 }
 
 ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)

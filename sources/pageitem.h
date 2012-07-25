@@ -72,8 +72,7 @@ public:
     const QTransform& normalizedTransform() const;
 
 signals:
-    void renderFinished(QImage image, bool prefetch);
-    void renderCanceled();
+    void imageReady(QImage image, bool prefetch);
 
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
@@ -85,8 +84,8 @@ public slots:
     void cancelRender();
 
 protected slots:
-    void on_renderFinished(QImage image, bool prefetch);
-    void on_renderCanceled();
+    void on_render_finished();
+    void on_imageReady(QImage image, bool prefetch);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
@@ -138,7 +137,7 @@ private:
 
     // render
 
-    QFuture< void > m_render;
+    QFutureWatcher< void >* m_render;
     void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch);
 
 };
