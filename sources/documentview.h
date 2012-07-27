@@ -105,6 +105,9 @@ public:
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
+    bool searchWasCanceled() const;
+    int searchProgress() const;
+
     QGraphicsScene* thumbnailsScene() const;
     QGraphicsItem* thumbnailsItem(int page) const;
 

@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 SearchThread::SearchThread(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
+    m_progress(0),
     m_mutex(0),
     m_document(0),
     m_indices(),
@@ -37,6 +38,11 @@ bool SearchThread::wasCanceled() const
     return m_wasCanceled;
 }
 
+int SearchThread::progress() const
+{
+    return m_progress;
+}
+
 void SearchThread::run()
 {
     int indicesDone = 0;
@@ -46,6 +52,8 @@ void SearchThread::run()
     {
         if(m_wasCanceled)
         {
+            m_progress = 0;
+
             emit canceled();
 
             return;
@@ -96,8 +104,12 @@ void SearchThread::run()
             emit resultsReady(index, results);
         }
 
-        emit progressed(100 * ++indicesDone / indicesToDo);
+        m_progress = 100 * ++indicesDone / indicesToDo;
+
+        emit progressed(m_progress);
     }
+
+    m_progress = 0;
 
     emit finished();
 }
@@ -112,6 +124,7 @@ void SearchThread::start(QMutex* mutex, Poppler::Document* document, const QList
     m_matchCase = matchCase;
 
     m_wasCanceled = false;
+    m_progress = 0;
 
     QThread::start();
 }

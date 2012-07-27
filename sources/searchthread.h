@@ -34,6 +34,7 @@ public:
     explicit SearchThread(QObject* parent = 0);
 
     bool wasCanceled() const;
+    int progress() const;
 
     void run();
 
@@ -50,6 +51,7 @@ signals:
 
 private:
     bool m_wasCanceled;
+    int m_progress;
 
     QMutex* m_mutex;
     Poppler::Document* m_document;

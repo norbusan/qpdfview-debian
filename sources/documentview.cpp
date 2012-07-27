@@ -405,6 +405,16 @@ void DocumentView::setHighlightAll(bool highlightAll)
     }
 }
 
+bool DocumentView::searchWasCanceled() const
+{
+    return m_searchThread->wasCanceled();
+}
+
+int DocumentView::searchProgress() const
+{
+    return m_searchThread->progress();
+}
+
 QStandardItemModel* DocumentView::outlineModel() const
 {
     return m_outlineModel;

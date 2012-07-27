@@ -260,7 +260,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         if(m_searchToolBar->isVisible())
         {
             m_searchTimer->stop();
-            m_searchProgressLineEdit->setProgress(0);
+            m_searchProgressLineEdit->setProgress(currentTab()->searchProgress());
         }
 
         m_outlineView->setModel(currentTab()->outlineModel());
