@@ -137,8 +137,6 @@ void PresentationView::on_imageReady(QImage image)
     {
         m_image = image;
     }
-
-    update();
 }
 
 void PresentationView::resizeEvent(QResizeEvent* event)

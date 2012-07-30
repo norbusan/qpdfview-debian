@@ -379,8 +379,6 @@ void PageItem::on_imageReady(QImage image, bool prefetch)
     {
         s_cache.insert(this, new QImage(image), image.byteCount());
     }
-
-    update();
 }
 
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
