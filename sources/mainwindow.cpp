@@ -516,11 +516,11 @@ void MainWindow::on_currentTab_searchCanceled()
     }
 }
 
-void MainWindow::on_currentPage_valueChanged(int value)
+void MainWindow::on_currentPage_editingFinished()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        currentTab()->jumpToPage(value);
+        currentTab()->jumpToPage(m_currentPageSpinBox->value());
     }
 }
 
@@ -1212,7 +1212,7 @@ void MainWindow::createWidgets()
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_currentPageSpinBox->setKeyboardTracking(false);
 
-    connect(m_currentPageSpinBox, SIGNAL(valueChanged(int)), SLOT(on_currentPage_valueChanged(int)));
+    connect(m_currentPageSpinBox, SIGNAL(editingFinished()), SLOT(on_currentPage_editingFinished()));
     connect(m_currentPageSpinBox, SIGNAL(returnPressed()), SLOT(on_currentPage_returnPressed()));
 
     m_currentPageSpinBox->setVisible(false);

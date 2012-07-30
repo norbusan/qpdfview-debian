@@ -732,39 +732,19 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_twoPagesMode)
+        if(m_currentPage != currentPageForPage(page) || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
         {
-            if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
+            if(returnTo)
             {
-                if(returnTo)
-                {
-                    m_returnToPage = m_currentPage;
-                    m_returnToLeft = left; m_returnToTop = top;
-                }
-
-                m_currentPage = page % 2 != 0 ? page : page - 1;
-
-                prepareView(changeLeft, changeTop);
-
-                emit currentPageChanged(m_currentPage);
+                m_returnToPage = m_currentPage;
+                m_returnToLeft = left; m_returnToTop = top;
             }
-        }
-        else
-        {
-            if(m_currentPage != page || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
-            {
-                if(returnTo)
-                {
-                    m_returnToPage = m_currentPage;
-                    m_returnToLeft = left; m_returnToTop = top;
-                }
 
-                m_currentPage = page;
+            m_currentPage = currentPageForPage(page);
 
-                prepareView(changeLeft, changeTop);
+            prepareView(changeLeft, changeTop);
 
-                emit currentPageChanged(m_currentPage);
-            }
+            emit currentPageChanged(m_currentPage);
         }
     }
 }
@@ -1089,7 +1069,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
                 event->accept();
                 return;
             }
-            else if(event->key() == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && !currentPageIsLastPage())
+            else if(event->key() == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
             {
                 nextPage();
 
@@ -1200,7 +1180,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
                 event->accept();
                 return;
             }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && !currentPageIsLastPage())
+            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
             {
                 nextPage();
 
@@ -1215,15 +1195,15 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     QGraphicsView::wheelEvent(event);
 }
 
-bool DocumentView::currentPageIsLastPage()
+int DocumentView::currentPageForPage(int page)
 {
     if(m_twoPagesMode)
     {
-        return m_currentPage == (m_numberOfPages % 2 != 0 ? m_numberOfPages : m_numberOfPages - 1);
+        return page % 2 != 0 ? page : page - 1;
     }
     else
     {
-        return m_currentPage == m_numberOfPages;
+        return page;
     }
 }
 

@@ -217,7 +217,7 @@ private:
     qreal m_returnToLeft;
     qreal m_returnToTop;
 
-    bool currentPageIsLastPage();
+    int currentPageForPage(int page);
     void saveLeftAndTop(qreal& left, qreal& top);
 
     bool m_continuousMode;

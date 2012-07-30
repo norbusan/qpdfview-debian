@@ -74,7 +74,7 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchCanceled();
 
-    void on_currentPage_valueChanged(int value);
+    void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
 
     void on_scaleFactor_activated(int index);
