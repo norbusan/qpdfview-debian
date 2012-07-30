@@ -729,14 +729,17 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool 
 {
     if(page >= 1 && page <= m_numberOfPages)
     {
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
         if(m_twoPagesMode)
         {
-            if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
+            if(m_currentPage != (page % 2 != 0 ? page : page - 1) || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
             {
                 if(returnTo)
                 {
                     m_returnToPage = m_currentPage;
-                    saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                    m_returnToLeft = left; m_returnToTop = top;
                 }
 
                 m_currentPage = page % 2 != 0 ? page : page - 1;
@@ -748,12 +751,12 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool 
         }
         else
         {
-            if(m_currentPage != page || !qFuzzyCompare(1.0, 1.0 + changeLeft) || !qFuzzyCompare(1.0, 1.0 + changeTop))
+            if(m_currentPage != page || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
             {
                 if(returnTo)
                 {
                     m_returnToPage = m_currentPage;
-                    saveLeftAndTop(m_returnToLeft, m_returnToTop);
+                    m_returnToLeft = left; m_returnToTop = top;
                 }
 
                 m_currentPage = page;
