@@ -1060,7 +1060,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
         if(!m_continuousMode)
         {
-            if(event->key() == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage > 1)
+            if(event->key() == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
             {
                 previousPage();
 
@@ -1171,7 +1171,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     {
         if(!m_continuousMode)
         {
-            if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage > 1)
+            if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
             {
                 previousPage();
 
