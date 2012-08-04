@@ -73,6 +73,15 @@ public:
     static qreal minimumScaleFactor();
     static qreal maximumScaleFactor();
 
+    static const Qt::KeyboardModifiers& zoomModifiers();
+    static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
+
+    static const Qt::KeyboardModifiers& rotateModifiers();
+    static void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
+
+    static const Qt::KeyboardModifiers& horizontalModifiers();
+    static void setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers);
+
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
@@ -200,6 +209,10 @@ private:
 
     static qreal s_minimumScaleFactor;
     static qreal s_maximumScaleFactor;
+
+    static Qt::KeyboardModifiers s_zoomModifiers;
+    static Qt::KeyboardModifiers s_rotateModifiers;
+    static Qt::KeyboardModifiers s_horizontalModifiers;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

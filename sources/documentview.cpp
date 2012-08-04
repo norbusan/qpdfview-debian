@@ -39,6 +39,10 @@ qreal DocumentView::s_thumbnailSize = 150.0;
 qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
 
+Qt::KeyboardModifiers DocumentView::s_zoomModifiers = Qt::ControlModifier;
+Qt::KeyboardModifiers DocumentView::s_rotateModifiers = Qt::ShiftModifier;
+Qt::KeyboardModifiers DocumentView::s_horizontalModifiers = Qt::AltModifier;
+
 bool DocumentView::openUrl()
 {
     return s_openUrl;
@@ -146,6 +150,36 @@ qreal DocumentView::minimumScaleFactor()
 qreal DocumentView::maximumScaleFactor()
 {
     return s_maximumScaleFactor;
+}
+
+const Qt::KeyboardModifiers& DocumentView::zoomModifiers()
+{
+    return s_zoomModifiers;
+}
+
+void DocumentView::setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers)
+{
+    s_zoomModifiers = zoomModifiers;
+}
+
+const Qt::KeyboardModifiers& DocumentView::rotateModifiers()
+{
+    return s_rotateModifiers;
+}
+
+void DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers)
+{
+    s_rotateModifiers = rotateModifiers;
+}
+
+const Qt::KeyboardModifiers& DocumentView::horizontalModifiers()
+{
+    return s_horizontalModifiers;
+}
+
+void DocumentView::setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers)
+{
+    s_horizontalModifiers = horizontalModifiers;
 }
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
@@ -1139,7 +1173,7 @@ void DocumentView::mousePressEvent(QMouseEvent* event)
 
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == Qt::ControlModifier)
+    if(event->modifiers() == s_zoomModifiers)
     {
         if(event->delta() > 0)
         {
@@ -1153,7 +1187,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::ShiftModifier)
+    else if(event->modifiers() == s_rotateModifiers)
     {
         if(event->delta() > 0)
         {
@@ -1163,6 +1197,14 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         {
             rotateRight();
         }
+
+        event->accept();
+        return;
+    }
+    else if(event->modifiers() == s_horizontalModifiers)
+    {
+        QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
+        QApplication::sendEvent(horizontalScrollBar(), &wheelEvent);
 
         event->accept();
         return;
