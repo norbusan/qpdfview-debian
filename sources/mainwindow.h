@@ -152,6 +152,8 @@ protected:
 private:
     QSettings* m_settings;
 
+    void restoreSettings();
+
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;

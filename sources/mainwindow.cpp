@@ -28,28 +28,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
         m_settings = new QSettings(this);
 
-        PageItem::setCacheSize(m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt());
-
-        PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
-        PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
-
-        PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
-
-        DocumentView::setOpenUrl(m_settings->value("documentView/openUrl", false).toBool());
-
-        DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
-
-        DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
-        DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
-        DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
-
-        DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
-
-        DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
-        DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
-
-        DocumentView::setThumbnailSize(m_settings->value("documentView/thumbnailSize", 150.0).toReal());
-
         if(m_settings->contains("mainWindow/iconTheme"))
         {
             QIcon::setThemeName(m_settings->value("mainWindow/iconTheme").toString());
@@ -59,6 +37,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         {
             qApp->setStyleSheet(m_settings->value("mainWindow/styleSheet").toString());
         }
+
+        restoreSettings();
     }
 
     setAcceptDrops(true);
@@ -775,30 +755,10 @@ void MainWindow::on_settings_triggered()
 
     if(settingsDialog->exec() == QDialog::Accepted)
     {
+        restoreSettings();
+
         m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings->value("mainWindow/tabPosition", 0).toUInt()));
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_settings->value("mainWindow/tabVisibility", 0).toUInt()));
-
-        PageItem::setCacheSize(m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt());
-
-        PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
-        PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
-
-        PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
-
-        DocumentView::setOpenUrl(m_settings->value("documentView/openUrl", false).toBool());
-
-        DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
-
-        DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
-        DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
-        DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
-
-        DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
-
-        DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
-        DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
-
-        DocumentView::setThumbnailSize(m_settings->value("documentView/thumbnailSize", 150.0).toReal());
 
         for(int index = 0; index < m_tabWidget->count(); index++)
         {
@@ -1170,6 +1130,35 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
+}
+
+void MainWindow::restoreSettings()
+{
+    PageItem::setCacheSize(m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt());
+
+    PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
+    PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
+
+    PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
+
+    DocumentView::setOpenUrl(m_settings->value("documentView/openUrl", false).toBool());
+
+    DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
+
+    DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
+    DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
+    DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
+
+    DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
+
+    DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
+    DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
+
+    DocumentView::setThumbnailSize(m_settings->value("documentView/thumbnailSize", 150.0).toReal());
+
+    DocumentView::setZoomModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/zoomModifiers", 0x04000000).toInt()));
+    DocumentView::setRotateModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/rotateModifiers", 0x02000000).toInt()));
+    DocumentView::setHorizontalModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt()));
 }
 
 DocumentView* MainWindow::currentTab() const
