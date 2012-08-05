@@ -229,7 +229,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_closeAllTabsAction->setEnabled(true);
         m_closeAllTabsButCurrentTabAction->setEnabled(true);
 
+        m_previousBookmarkAction->setEnabled(true);
+        m_nextBookmarkAction->setEnabled(true);
         m_addBookmarkAction->setEnabled(true);
+        m_removeBookmarkAction->setEnabled(true);
 
         m_currentPageSpinBox->setEnabled(true);
         m_scaleFactorComboBox->setEnabled(true);
@@ -300,7 +303,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_closeAllTabsAction->setEnabled(false);
         m_closeAllTabsButCurrentTabAction->setEnabled(false);
 
+        m_previousBookmarkAction->setEnabled(false);
+        m_nextBookmarkAction->setEnabled(false);
         m_addBookmarkAction->setEnabled(false);
+        m_removeBookmarkAction->setEnabled(false);
 
         m_currentPageSpinBox->setEnabled(false);
         m_scaleFactorComboBox->setEnabled(false);
@@ -966,38 +972,88 @@ void MainWindow::on_tab_triggered()
     }
 }
 
-void MainWindow::on_addBookmark_triggered()
+void MainWindow::on_previousBookmark_triggered()
 {
-    foreach(QAction* action, m_bookmarksMenu->actions())
+    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+
+    if(bookmark != 0)
     {
-        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+        QList< int > pages = bookmark->pages();
 
-        if(bookmark != 0)
+        if(!pages.isEmpty())
         {
-            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == QFileInfo(currentTab()->filePath()).absoluteFilePath())
-            {
-                if(currentTab()->currentPage() != 1)
-                {
-                    bookmark->addJumpToPageAction(currentTab()->currentPage());
-                }
+            qSort(pages);
 
-                return;
+            QList< int >::const_iterator lowerBound = --qLowerBound(pages, currentTab()->currentPage());
+
+            if(lowerBound >= pages.begin())
+            {
+                currentTab()->jumpToPage(*lowerBound);
+            }
+            else
+            {
+                currentTab()->jumpToPage(pages.last());
             }
         }
     }
+}
 
-    BookmarkMenu* bookmark = new BookmarkMenu(currentTab()->filePath(), this);
+void MainWindow::on_nextBookmark_triggered()
+{
+    BookmarkMenu* bookmark = bookmarkForCurrentTab();
 
-    if(currentTab()->currentPage() != 1)
+    if(bookmark != 0)
+    {
+        QList< int > pages = bookmark->pages();
+
+        if(!pages.isEmpty())
+        {
+            qSort(pages);
+
+            QList< int >::const_iterator upperBound = qUpperBound(pages, currentTab()->currentPage());
+
+            if(upperBound < pages.end())
+            {
+                currentTab()->jumpToPage(*upperBound);
+            }
+            else
+            {
+                currentTab()->jumpToPage(pages.first());
+            }
+        }
+    }
+}
+
+void MainWindow::on_addBookmark_triggered()
+{
+    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+
+    if(bookmark != 0)
     {
         bookmark->addJumpToPageAction(currentTab()->currentPage());
     }
+    else
+    {
+        bookmark = new BookmarkMenu(currentTab()->filePath(), this);
 
-    connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-    connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-    connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+        bookmark->addJumpToPageAction(currentTab()->currentPage());
 
-    m_bookmarksMenu->addMenu(bookmark);
+        connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+        connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+        connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+
+        m_bookmarksMenu->addMenu(bookmark);
+    }
+}
+
+void MainWindow::on_removeBookmark_triggered()
+{
+    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+
+    if(bookmark != 0)
+    {
+        bookmark->removeJumpToPageAction(currentTab()->currentPage());
+    }
 }
 
 void MainWindow::on_removeAllBookmarks_triggered()
@@ -1177,6 +1233,24 @@ DocumentView* MainWindow::tab(int index) const
 bool MainWindow::senderIsCurrentTab() const
 {
     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+}
+
+BookmarkMenu *MainWindow::bookmarkForCurrentTab() const
+{
+    foreach(QAction* action, m_bookmarksMenu->actions())
+    {
+        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+
+        if(bookmark != 0)
+        {
+            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == QFileInfo(currentTab()->filePath()).absoluteFilePath())
+            {
+                return bookmark;
+            }
+        }
+    }
+
+    return 0;
 }
 
 void MainWindow::createWidgets()
@@ -1402,6 +1476,7 @@ void MainWindow::createActions()
     connect(m_zoomInAction, SIGNAL(triggered()), SLOT(on_zoomIn_triggered()));
 
     // zoom out
+
     m_zoomOutAction = new QAction(tr("Zoom &out"), this);
     m_zoomOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
     m_zoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":icons/zoom-out.svg")));
@@ -1501,15 +1576,34 @@ void MainWindow::createActions()
     m_closeAllTabsButCurrentTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
     connect(m_closeAllTabsButCurrentTabAction, SIGNAL(triggered()), SLOT(on_closeAllTabsButCurrentTab_triggered()));
 
+    // previous bookmark
+
+    m_previousBookmarkAction = new QAction(tr("&Previous bookmark"), this);
+    m_previousBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
+    connect(m_previousBookmarkAction, SIGNAL(triggered()), SLOT(on_previousBookmark_triggered()));
+
+    // next bookmark
+
+    m_nextBookmarkAction = new QAction(tr("&Next bookmark"), this);
+    m_nextBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
+    connect(m_nextBookmarkAction, SIGNAL(triggered()), SLOT(on_nextBookmark_triggered()));
+
     // add bookmark
 
     m_addBookmarkAction = new QAction(tr("&Add bookmark"), this);
     m_addBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
     connect(m_addBookmarkAction, SIGNAL(triggered()), SLOT(on_addBookmark_triggered()));
 
+    // remove bookmark
+
+    m_removeBookmarkAction = new QAction(tr("&Remove bookmark"), this);
+    m_removeBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
+
     // remove all bookmarks
 
-    m_removeAllBookmarksAction = new QAction(tr("&Remove all bookmarks"), this);
+    m_removeAllBookmarksAction = new QAction(tr("Remove all bookmarks"), this);
+    m_removeAllBookmarksAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_B));
     connect(m_removeAllBookmarksAction, SIGNAL(triggered()), SLOT(on_removeAllBookmarks_triggered()));
 
     // contents
@@ -1753,7 +1847,11 @@ void MainWindow::createMenus()
     // bookmarks
 
     m_bookmarksMenu = menuBar()->addMenu(tr("&Bookmarks"));
+    m_bookmarksMenu->addAction(m_previousBookmarkAction);
+    m_bookmarksMenu->addAction(m_nextBookmarkAction);
+    m_bookmarksMenu->addSeparator();
     m_bookmarksMenu->addAction(m_addBookmarkAction);
+    m_bookmarksMenu->addAction(m_removeBookmarkAction);
     m_bookmarksMenu->addAction(m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 

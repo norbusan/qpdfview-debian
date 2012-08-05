@@ -129,7 +129,10 @@ protected slots:
 
     void on_tab_triggered();
 
+    void on_previousBookmark_triggered();
+    void on_nextBookmark_triggered();
     void on_addBookmark_triggered();
+    void on_removeBookmark_triggered();
     void on_removeAllBookmarks_triggered();
 
     void on_bookmark_openTriggered(const QString& filePath);
@@ -160,6 +163,8 @@ private:
     DocumentView* tab(int index) const;
 
     bool senderIsCurrentTab() const;
+
+    BookmarkMenu* bookmarkForCurrentTab() const;
 
     SpinBox* m_currentPageSpinBox;
     ComboBox* m_scaleFactorComboBox;
@@ -215,7 +220,10 @@ private:
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
 
+    QAction* m_previousBookmarkAction;
+    QAction* m_nextBookmarkAction;
     QAction* m_addBookmarkAction;
+    QAction* m_removeBookmarkAction;
     QAction* m_removeAllBookmarksAction;
 
     QAction* m_contentsAction;
