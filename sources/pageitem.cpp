@@ -28,6 +28,9 @@ bool PageItem::s_decorateLinks = true;
 
 bool PageItem::s_invertColors = false;
 
+Qt::KeyboardModifiers PageItem::s_copyModifiers = Qt::ShiftModifier;
+Qt::KeyboardModifiers PageItem::s_annotateModifiers = Qt::ControlModifier;
+
 int PageItem::cacheSize()
 {
     return s_cache.totalCost();
@@ -66,6 +69,26 @@ bool PageItem::invertColors()
 void PageItem::setInvertColors(bool invertColors)
 {
     s_invertColors = invertColors;
+}
+
+const Qt::KeyboardModifiers& PageItem::copyModifiers()
+{
+    return s_copyModifiers;
+}
+
+void PageItem::setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers)
+{
+    s_copyModifiers = copyModifiers;
+}
+
+const Qt::KeyboardModifiers& PageItem::annotateModifiers()
+{
+    return s_annotateModifiers;
+}
+
+void PageItem::setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers)
+{
+    s_annotateModifiers = annotateModifiers;
 }
 
 PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
@@ -477,7 +500,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
     }
-    else if((event->modifiers() == Qt::ShiftModifier || event->modifiers() == Qt::ControlModifier) && event->button() == Qt::LeftButton)
+    else if((event->modifiers() == s_copyModifiers || event->modifiers() == s_annotateModifiers) && event->button() == Qt::LeftButton)
     {
         QApplication::setOverrideCursor(Qt::CrossCursor);
 
@@ -526,11 +549,11 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     {
         m_rubberBand = m_rubberBand.normalized();
 
-        if(event->modifiers() == Qt::ShiftModifier)
+        if(event->modifiers() == s_copyModifiers)
         {
             copyToClipboard(event->screenPos());
         }
-        else if(event->modifiers() == Qt::ControlModifier)
+        else if(event->modifiers() == s_annotateModifiers)
         {
             addAnnotation(event->screenPos());
         }

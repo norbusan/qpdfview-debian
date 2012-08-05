@@ -46,6 +46,12 @@ public:
     static bool invertColors();
     static void setInvertColors(bool invertColors);
 
+    static const Qt::KeyboardModifiers& copyModifiers();
+    static void setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers);
+
+    static const Qt::KeyboardModifiers& annotateModifiers();
+    static void setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers);
+
     PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
     ~PageItem();
 
@@ -102,6 +108,9 @@ private:
     static bool s_decorateLinks;
 
     static bool s_invertColors;
+
+    static Qt::KeyboardModifiers s_copyModifiers;
+    static Qt::KeyboardModifiers s_annotateModifiers;
 
     QMutex* m_mutex;
     Poppler::Page* m_page;

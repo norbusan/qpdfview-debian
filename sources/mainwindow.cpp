@@ -1141,6 +1141,9 @@ void MainWindow::restoreSettings()
 
     PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
 
+    PageItem::setCopyModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("pageItem/copyModifiers", 0x02000000).toInt()));
+    PageItem::setAnnotateModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("pageItem/annotateModifiers", 0x04000000).toInt()));
+
     DocumentView::setOpenUrl(m_settings->value("documentView/openUrl", false).toBool());
 
     DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
