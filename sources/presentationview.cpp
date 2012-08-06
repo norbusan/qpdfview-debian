@@ -135,7 +135,10 @@ void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
             image.invertPixels();
         }
 
-        m_image = image;
+        if(!m_render->isCanceled())
+        {
+            m_image = image;
+        }
     }
 }
 
