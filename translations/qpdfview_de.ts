@@ -27,86 +27,86 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="475"/>
+        <location filename="../sources/documentview.cpp" line="476"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="475"/>
+        <location filename="../sources/documentview.cpp" line="476"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="475"/>
+        <location filename="../sources/documentview.cpp" line="476"/>
         <source>Embedded</source>
         <translation type="unfinished">Eingebettet</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="475"/>
+        <location filename="../sources/documentview.cpp" line="476"/>
         <source>Subset</source>
         <translation type="unfinished">Teilmenge</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="475"/>
+        <location filename="../sources/documentview.cpp" line="476"/>
         <source>File</source>
         <translation type="unfinished">Datei</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
         <location filename="../sources/documentview.cpp" line="484"/>
+        <location filename="../sources/documentview.cpp" line="485"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
         <location filename="../sources/documentview.cpp" line="484"/>
+        <location filename="../sources/documentview.cpp" line="485"/>
         <source>No</source>
         <translation type="unfinished">Nein</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="516"/>
-        <location filename="../sources/documentview.cpp" line="553"/>
+        <location filename="../sources/documentview.cpp" line="517"/>
+        <location filename="../sources/documentview.cpp" line="554"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="516"/>
-        <location filename="../sources/documentview.cpp" line="553"/>
+        <location filename="../sources/documentview.cpp" line="517"/>
+        <location filename="../sources/documentview.cpp" line="554"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="688"/>
+        <location filename="../sources/documentview.cpp" line="689"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1057"/>
+        <location filename="../sources/documentview.cpp" line="1058"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1057"/>
+        <location filename="../sources/documentview.cpp" line="1058"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1130"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1136"/>
+        <location filename="../sources/documentview.cpp" line="1137"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Vorige Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1141"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nächste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1146"/>
+        <location filename="../sources/documentview.cpp" line="1147"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Aktualisieren</translation>
     </message>
@@ -368,12 +368,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1581"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Voriges Lesezeichen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1587"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Nächstes Lesezeichen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1593"/>
@@ -388,7 +388,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1605"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle Lesezeichen entfernen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1611"/>
@@ -467,32 +467,32 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="425"/>
+        <location filename="../sources/pageitem.cpp" line="431"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Zu Seite %1 gehen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="432"/>
+        <location filename="../sources/pageitem.cpp" line="438"/>
         <source>Open %1.</source>
         <translation type="unfinished">%1 öffnen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="577"/>
+        <location filename="../sources/pageitem.cpp" line="583"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;Text kopieren</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="578"/>
+        <location filename="../sources/pageitem.cpp" line="584"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Bild kopieren</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="632"/>
+        <location filename="../sources/pageitem.cpp" line="638"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">&amp;Text hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="633"/>
+        <location filename="../sources/pageitem.cpp" line="639"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Hervorhebung hinzufügen</translation>
     </message>
@@ -500,7 +500,7 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/presentationview.cpp" line="225"/>
+        <location filename="../sources/presentationview.cpp" line="230"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Zu Seite %1 gehen.</translation>
     </message>
