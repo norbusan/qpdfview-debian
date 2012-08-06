@@ -387,23 +387,25 @@ void PageItem::on_render_finished()
 
 void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image)
 {
-    if(m_physicalDpiX == physicalDpiX && m_physicalDpiY == physicalDpiY && m_scaleFactor == scaleFactor && m_rotation == rotation)
+    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || m_scaleFactor != scaleFactor || m_rotation != rotation)
     {
-        if(s_invertColors)
-        {
-            image.invertPixels();
-        }
+        return;
+    }
 
-        if(prefetch)
+    if(s_invertColors)
+    {
+        image.invertPixels();
+    }
+
+    if(prefetch)
+    {
+        s_cache.insert(this, new QImage(image), image.byteCount());
+    }
+    else
+    {
+        if(!m_render->isCanceled())
         {
-            s_cache.insert(this, new QImage(image), image.byteCount());
-        }
-        else
-        {
-            if(!m_render->isCanceled())
-            {
-                m_image = image;
-            }
+            m_image = image;
         }
     }
 }

@@ -128,17 +128,19 @@ void PresentationView::on_render_finished()
 
 void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
 {
-    if(m_currentPage - 1 == index && m_scaleFactor == scaleFactor)
+    if(m_currentPage - 1 != index || m_scaleFactor != scaleFactor)
     {
-        if(PageItem::invertColors())
-        {
-            image.invertPixels();
-        }
+        return;
+    }
 
-        if(!m_render->isCanceled())
-        {
-            m_image = image;
-        }
+    if(PageItem::invertColors())
+    {
+        image.invertPixels();
+    }
+
+    if(!m_render->isCanceled())
+    {
+        m_image = image;
     }
 }
 
