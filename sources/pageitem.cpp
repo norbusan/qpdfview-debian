@@ -115,7 +115,8 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_render = new QFutureWatcher< void >(this);
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
-    connect(this, SIGNAL(imageReady(QImage,bool)), SLOT(on_imageReady(QImage,bool)));
+    qRegisterMetaType< Poppler::Page::Rotation >("Poppler::Page::Rotation");
+    connect(this, SIGNAL(imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)));
 
     m_mutex = mutex;
     m_page = page;
@@ -384,23 +385,23 @@ void PageItem::on_render_finished()
     update();
 }
 
-void PageItem::on_imageReady(QImage image, bool prefetch)
+void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image)
 {
-    if(s_invertColors)
+    if(m_physicalDpiX == physicalDpiX && m_physicalDpiY == physicalDpiY && m_scaleFactor == scaleFactor && m_rotation == rotation)
     {
-        image.invertPixels();
-    }
+        if(s_invertColors)
+        {
+            image.invertPixels();
+        }
 
-    if(!prefetch)
-    {
-        if(!m_render->isCanceled())
+        if(prefetch)
+        {
+            s_cache.insert(this, new QImage(image), image.byteCount());
+        }
+        else
         {
             m_image = image;
         }
-    }
-    else
-    {
-        s_cache.insert(this, new QImage(image), image.byteCount());
     }
 }
 
@@ -778,7 +779,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
         return;
     }
 
-    emit imageReady(image, prefetch);
+    emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
 }
 
 ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)

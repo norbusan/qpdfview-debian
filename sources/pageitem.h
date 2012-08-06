@@ -78,7 +78,7 @@ public:
     const QTransform& normalizedTransform() const;
 
 signals:
-    void imageReady(QImage image, bool prefetch);
+    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
 
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
@@ -91,7 +91,7 @@ public slots:
 
 protected slots:
     void on_render_finished();
-    void on_imageReady(QImage image, bool prefetch);
+    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);

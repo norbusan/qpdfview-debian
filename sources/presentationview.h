@@ -41,7 +41,7 @@ public:
     int currentPage() const;
 
 signals:
-    void imageReady(QImage image);
+    void imageReady(int index, qreal scaleFactor, QImage image);
     
 public slots:
     void previousPage();
@@ -56,7 +56,7 @@ public slots:
 
 protected slots:
     void on_render_finished();
-    void on_imageReady(QImage image);
+    void on_imageReady(int index, qreal scaleFactor, QImage image);
 
 protected:
     void resizeEvent(QResizeEvent* event);

@@ -41,7 +41,7 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document) :
     m_render = new QFutureWatcher< void >(this);
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
-    connect(this, SIGNAL(imageReady(QImage)), SLOT(on_imageReady(QImage)));
+    connect(this, SIGNAL(imageReady(int,qreal,QImage)), SLOT(on_imageReady(int,qreal,QImage)));
 
     m_mutex = mutex;
     m_document = document;
@@ -126,15 +126,15 @@ void PresentationView::on_render_finished()
     update();
 }
 
-void PresentationView::on_imageReady(QImage image)
+void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
 {
-    if(PageItem::invertColors())
+    if(m_currentPage - 1 == index && m_scaleFactor == scaleFactor)
     {
-        image.invertPixels();
-    }
+        if(PageItem::invertColors())
+        {
+            image.invertPixels();
+        }
 
-    if(!m_render->isCanceled())
-    {
         m_image = image;
     }
 }
@@ -319,5 +319,5 @@ void PresentationView::render(int index, qreal scaleFactor)
         return;
     }
 
-    emit imageReady(image);
+    emit imageReady(index, scaleFactor, image);
 }
