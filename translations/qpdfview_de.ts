@@ -526,6 +526,49 @@
         <translation type="unfinished">Vorgaben</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="45"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Oberfläche</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="46"/>
+        <source>&amp;Graphics</source>
+        <translation type="unfinished">&amp;Grafik</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="60"/>
+        <source>Open URL:</source>
+        <translation type="unfinished">URL öffnen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="67"/>
+        <source>Auto-refresh:</source>
+        <translation type="unfinished">Automatische Aktualisierung:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="73"/>
+        <location filename="../sources/settingsdialog.cpp" line="134"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Nach Neustart wirksam.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="75"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Verwendete Dateien aufzeichnen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="82"/>
+        <source>Restore tabs:</source>
+        <translation type="unfinished">Reiter wiederherstellen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <source>Restore bookmarks:</source>
+        <translation type="unfinished">Lesezeichen wiederherstellen:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
         <source>Top</source>
         <translation type="unfinished">Oben</translation>
@@ -546,6 +589,11 @@
         <translation type="unfinished">Rechts</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="109"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Reiterposition:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="114"/>
         <source>As needed</source>
         <translation type="unfinished">Bei Bedarf</translation>
@@ -561,94 +609,49 @@
         <translation type="unfinished">Niemals</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="73"/>
-        <location filename="../sources/settingsdialog.cpp" line="134"/>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
-        <location filename="../sources/settingsdialog.cpp" line="150"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Nach Neustart wirksam.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="263"/>
-        <location filename="../sources/settingsdialog.cpp" line="264"/>
-        <location filename="../sources/settingsdialog.cpp" line="265"/>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="267"/>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="109"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Reiterposition:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="128"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Reitersichtbarkeit:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="60"/>
-        <source>Open URL:</source>
-        <translation type="unfinished">URL öffnen:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="136"/>
+        <source>File tool bar:</source>
+        <translation type="unfinished">Datei-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="45"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
+        <source>Edit tool bar:</source>
+        <translation type="unfinished">Bearbeiten-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="46"/>
-        <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="67"/>
-        <source>Auto-refresh:</source>
-        <translation type="unfinished">Automatische Aktualisierung:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="75"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Verwendete Dateien aufzeichnen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="82"/>
-        <source>Restore tabs:</source>
-        <translation type="unfinished">Reiter wiederherstellen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
-        <source>Restore bookmarks:</source>
-        <translation type="unfinished">Lesezeichen wiederherstellen:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <source>View tool bar:</source>
+        <translation type="unfinished">Ansicht-Werkzeugleiste:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikatoren zum Skalieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="164"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikatoren zum Rotieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="170"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Horizontal-Modifikatoren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="176"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikatoren zum Kopieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="182"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikatoren für Anmerkungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
@@ -696,6 +699,18 @@
         <translation type="unfinished">Text-Hinting:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="263"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
+        <location filename="../sources/settingsdialog.cpp" line="265"/>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="267"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MB</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="282"/>
         <source>Cache size:</source>
         <translation type="unfinished">Größe des Zwischenspeichers:</translation>
@@ -708,47 +723,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="390"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umschalt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Steuerung</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umschalt und Steuerung</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umschalt und Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="136"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished">Datei-Werkzeugleiste:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="144"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished">Bearbeiten-Werkzeugleiste:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished">Ansicht-Werkzeugleiste:</translation>
+        <translation type="unfinished">Streuerung und Alt</translation>
     </message>
 </context>
 </TS>
