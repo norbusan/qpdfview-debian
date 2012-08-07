@@ -43,12 +43,18 @@ protected slots:
 private:
     QSettings* m_settings;
 
-    QFormLayout* m_formLayout;
+    QTabWidget* m_tabWidget;
+
+    QWidget* m_interfaceWidget;
+    QFormLayout* m_interfaceLayout;
+
+    QWidget* m_graphicsWidget;
+    QFormLayout* m_graphicsLayout;
+
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
 
-    QComboBox* m_tabPositionComboBox;
-    QComboBox* m_tabVisibilityComboBox;
+    // interface
 
     QCheckBox* m_openUrlCheckBox;
 
@@ -57,6 +63,24 @@ private:
     QCheckBox* m_trackRecentlyUsedCheckBox;
     QCheckBox* m_restoreTabsCheckBox;
     QCheckBox* m_restoreBookmarksCheckBox;
+
+    QComboBox* m_tabPositionComboBox;
+    QComboBox* m_tabVisibilityComboBox;
+
+    QLineEdit* m_fileToolBarLineEdit;
+    QLineEdit* m_editToolBarLineEdit;
+    QLineEdit* m_viewToolBarLineEdit;
+
+    QComboBox* m_zoomModifiersComboBox;
+    QComboBox* m_rotateModifiersComboBox;
+    QComboBox* m_horizontalModifiersComboBox;
+
+    QComboBox* m_copyModifiersComboBox;
+    QComboBox* m_annotateModifiersComboBox;
+
+    void createModifiersComboBox(QComboBox*& comboBox, int modifiers);
+
+    // graphics
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
@@ -73,12 +97,7 @@ private:
     QCheckBox* m_textHintingCheckBox;
 
     QComboBox* m_cacheSizeComboBox;
-
     QCheckBox* m_prefetchCheckBox;
-
-    QLineEdit* m_fileToolBarLineEdit;
-    QLineEdit* m_editToolBarLineEdit;
-    QLineEdit* m_viewToolBarLineEdit;
 
 };
 

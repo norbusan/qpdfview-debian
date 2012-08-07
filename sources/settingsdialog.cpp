@@ -32,209 +32,267 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
 
-    m_formLayout = new QFormLayout(this);
-    setLayout(m_formLayout);
+    m_tabWidget = new QTabWidget(this);
 
-    // tab position
+    m_interfaceWidget = new QWidget(this);
+    m_interfaceLayout = new QFormLayout(this);
+    m_interfaceWidget->setLayout(m_interfaceLayout);
 
-    m_tabPositionComboBox = new QComboBox(this);
-    m_tabPositionComboBox->addItem(tr("Top"), static_cast< uint >(QTabWidget::North));
-    m_tabPositionComboBox->addItem(tr("Bottom"), static_cast< uint >(QTabWidget::South));
-    m_tabPositionComboBox->addItem(tr("Left"), static_cast< uint >(QTabWidget::West));
-    m_tabPositionComboBox->addItem(tr("Right"), static_cast< uint >(QTabWidget::East));
+    m_graphicsWidget = new QWidget(this);
+    m_graphicsLayout = new QFormLayout(this);
+    m_graphicsWidget->setLayout(m_graphicsLayout);
 
-    uint tabPosition = static_cast< uint >(m_settings->value("mainWindow/tabPosition", 0).toUInt());
+    m_tabWidget->addTab(m_interfaceWidget, tr("&Interface"));
+    m_tabWidget->addTab(m_graphicsWidget, tr("&Graphics"));
 
-    for(int index = 0; index < m_tabPositionComboBox->count(); index++)
+    setLayout(new QVBoxLayout());
+    layout()->addWidget(m_tabWidget);
+    layout()->addWidget(m_dialogButtonBox);
+
     {
-        if(m_tabPositionComboBox->itemData(index).toUInt() == tabPosition)
+        // interface
+
+        // open URL
+
+        m_openUrlCheckBox = new QCheckBox(this);
+        m_openUrlCheckBox->setChecked(m_settings->value("documentView/openUrl", false).toBool());
+
+        m_interfaceLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
+
+        // auto-refresh
+
+        m_autoRefreshCheckBox = new QCheckBox(this);
+        m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
+
+        m_interfaceLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
+
+        // track recently used
+
+        m_trackRecentlyUsedCheckBox = new QCheckBox(this);
+        m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
+        m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
+
+        m_interfaceLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
+
+        // restore tabs
+
+        m_restoreTabsCheckBox = new QCheckBox(this);
+        m_restoreTabsCheckBox->setChecked(m_settings->value("mainWindow/restoreTabs", false).toBool());
+
+        m_interfaceLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+
+        // restore bookmarks
+
+        m_restoreBookmarksCheckBox = new QCheckBox(this);
+        m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
+
+        m_interfaceLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
+
+        // tab position
+
+        m_tabPositionComboBox = new QComboBox(this);
+        m_tabPositionComboBox->addItem(tr("Top"), static_cast< uint >(QTabWidget::North));
+        m_tabPositionComboBox->addItem(tr("Bottom"), static_cast< uint >(QTabWidget::South));
+        m_tabPositionComboBox->addItem(tr("Left"), static_cast< uint >(QTabWidget::West));
+        m_tabPositionComboBox->addItem(tr("Right"), static_cast< uint >(QTabWidget::East));
+
+        uint tabPosition = static_cast< uint >(m_settings->value("mainWindow/tabPosition", 0).toUInt());
+
+        for(int index = 0; index < m_tabPositionComboBox->count(); index++)
         {
-            m_tabPositionComboBox->setCurrentIndex(index);
+            if(m_tabPositionComboBox->itemData(index).toUInt() == tabPosition)
+            {
+                m_tabPositionComboBox->setCurrentIndex(index);
+            }
         }
+
+        m_interfaceLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
+
+        // tab visibility
+
+        m_tabVisibilityComboBox = new QComboBox(this);
+        m_tabVisibilityComboBox->addItem(tr("As needed"), static_cast< uint >(TabWidget::TabBarAsNeeded));
+        m_tabVisibilityComboBox->addItem(tr("Always"), static_cast< uint >(TabWidget::TabBarAlwaysOn));
+        m_tabVisibilityComboBox->addItem(tr("Never"), static_cast< uint >(TabWidget::TabBarAlwaysOff));
+
+        uint tabBarPolicy = static_cast< uint >(m_settings->value("mainWindow/tabVisibility", 0).toUInt());
+
+        for(int index = 0; index < m_tabVisibilityComboBox->count(); index++)
+        {
+            if(m_tabVisibilityComboBox->itemData(index).toUInt() == tabBarPolicy)
+            {
+                m_tabVisibilityComboBox->setCurrentIndex(index);
+            }
+        }
+
+        m_interfaceLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
+
+        // file tool bar
+
+        m_fileToolBarLineEdit = new QLineEdit(this);
+        m_fileToolBarLineEdit->setText(m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList().join(","));
+        m_fileToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
+        m_interfaceLayout->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
+
+        // edit tool bar
+
+        m_editToolBarLineEdit = new QLineEdit(this);
+        m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList().join(","));
+        m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
+        m_interfaceLayout->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
+
+        // view tool bar
+
+        m_viewToolBarLineEdit = new QLineEdit(this);
+        m_viewToolBarLineEdit->setText(m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList().join(","));
+        m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
+
+        m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+
+        // zoom modifiers
+
+        createModifiersComboBox(m_zoomModifiersComboBox, m_settings->value("documentView/zoomModifiers", 0x04000000).toInt());
+
+        m_interfaceLayout->addRow(tr("Zoom modifiers:"), m_zoomModifiersComboBox);
+
+        // rototate modifiers
+
+        createModifiersComboBox(m_rotateModifiersComboBox, m_settings->value("documentView/rotateModifiers", 0x02000000).toInt());
+
+        m_interfaceLayout->addRow(tr("Rotate modifiers:"), m_rotateModifiersComboBox);
+
+        // horizontal modifiers
+
+        createModifiersComboBox(m_horizontalModifiersComboBox, m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt());
+
+        m_interfaceLayout->addRow(tr("Horizontal modifiers:"), m_horizontalModifiersComboBox);
+
+        // copy modifiers
+
+        createModifiersComboBox(m_copyModifiersComboBox, m_settings->value("pageItem/copyModifiers", 0x02000000).toInt());
+
+        m_interfaceLayout->addRow(tr("Copy modifiers:"), m_copyModifiersComboBox);
+
+        // annotate modifiers
+
+        createModifiersComboBox(m_annotateModifiersComboBox, m_settings->value("pageItem/annotateModifiers", 0x04000000).toInt());
+
+        m_interfaceLayout->addRow(tr("Annotate modifiers:"), m_annotateModifiersComboBox);
     }
 
-    // tab visibility
-
-    m_tabVisibilityComboBox = new QComboBox(this);
-    m_tabVisibilityComboBox->addItem(tr("As needed"), static_cast< uint >(TabWidget::TabBarAsNeeded));
-    m_tabVisibilityComboBox->addItem(tr("Always"), static_cast< uint >(TabWidget::TabBarAlwaysOn));
-    m_tabVisibilityComboBox->addItem(tr("Never"), static_cast< uint >(TabWidget::TabBarAlwaysOff));
-
-    uint tabBarPolicy = static_cast< uint >(m_settings->value("mainWindow/tabVisibility", 0).toUInt());
-
-    for(int index = 0; index < m_tabVisibilityComboBox->count(); index++)
     {
-        if(m_tabVisibilityComboBox->itemData(index).toUInt() == tabBarPolicy)
+        // graphics
+
+        // decorate pages
+
+        m_decoratePagesCheckBox = new QCheckBox(this);
+        m_decoratePagesCheckBox->setChecked(m_settings->value("pageItem/decoratePages", true).toBool());
+
+        m_graphicsLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
+
+        // decorate links
+
+        m_decorateLinksCheckBox = new QCheckBox(this);
+        m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
+
+        m_graphicsLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
+
+        // invert colors
+
+        m_invertColorsCheckBox = new QCheckBox(this);
+        m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
+
+        m_graphicsLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
+
+        // page spacing
+
+        m_pageSpacingSpinBox = new QDoubleSpinBox(this);
+        m_pageSpacingSpinBox->setSuffix(" px");
+        m_pageSpacingSpinBox->setRange(0.0, 25.0);
+        m_pageSpacingSpinBox->setSingleStep(0.25);
+        m_pageSpacingSpinBox->setValue(m_settings->value("documentView/pageSpacing", 5.0).toDouble());
+
+        m_graphicsLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
+
+        // thumbnail spacing
+
+        m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
+        m_thumbnailSpacingSpinBox->setSuffix(" px");
+        m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
+        m_thumbnailSpacingSpinBox->setSingleStep(0.25);
+        m_thumbnailSpacingSpinBox->setValue(m_settings->value("documentView/thumbnailSpacing", 3.0).toDouble());
+
+        m_graphicsLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
+
+        // thumbnail size
+
+        m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
+        m_thumbnailSizeSpinBox->setSuffix(" px");
+        m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
+        m_thumbnailSizeSpinBox->setSingleStep(10.0);
+        m_thumbnailSizeSpinBox->setValue(m_settings->value("documentView/thumbnailSize", 150.0).toDouble());
+
+        m_graphicsLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
+
+        // antialiasing
+
+        m_antialiasingCheckBox = new QCheckBox(this);
+        m_antialiasingCheckBox->setChecked(m_settings->value("documentView/antialiasing", true).toBool());
+
+        m_graphicsLayout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
+
+        // text antialising
+
+        m_textAntialiasingCheckBox = new QCheckBox(this);
+        m_textAntialiasingCheckBox->setChecked(m_settings->value("documentView/textAntialiasing", true).toBool());
+
+        m_graphicsLayout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
+
+        // text hinting
+
+        m_textHintingCheckBox = new QCheckBox(this);
+        m_textHintingCheckBox->setChecked(m_settings->value("documentView/textHinting", false).toBool());
+
+        m_graphicsLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
+
+        // cache size
+
+        m_cacheSizeComboBox = new QComboBox(this);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(0), 0);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(32), 32 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(64), 64 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(128), 128 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(256), 256 * 1024 * 1024);
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
+
+        int cacheSize = m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt();
+
+        for(int index = 0; index < m_cacheSizeComboBox->count(); index++)
         {
-            m_tabVisibilityComboBox->setCurrentIndex(index);
+            if(m_cacheSizeComboBox->itemData(index).toInt() == cacheSize)
+            {
+                m_cacheSizeComboBox->setCurrentIndex(index);
+            }
         }
+
+        m_graphicsLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
+
+        // prefetch
+
+        m_prefetchCheckBox = new QCheckBox(this);
+        m_prefetchCheckBox->setChecked(m_settings->value("documentView/prefetch", false).toBool());
+
+        m_graphicsLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
     }
-
-    // open URL
-
-    m_openUrlCheckBox = new QCheckBox(this);
-    m_openUrlCheckBox->setChecked(m_settings->value("documentView/openUrl", false).toBool());
-
-    // auto-refresh
-
-    m_autoRefreshCheckBox = new QCheckBox(this);
-    m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
-
-    // track recently used
-
-    m_trackRecentlyUsedCheckBox = new QCheckBox(this);
-    m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
-    m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
-
-    // restore tabs
-
-    m_restoreTabsCheckBox = new QCheckBox(this);
-    m_restoreTabsCheckBox->setChecked(m_settings->value("mainWindow/restoreTabs", false).toBool());
-
-    // restore bookmarks
-
-    m_restoreBookmarksCheckBox = new QCheckBox(this);
-    m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
-
-    // decorate pages
-
-    m_decoratePagesCheckBox = new QCheckBox(this);
-    m_decoratePagesCheckBox->setChecked(m_settings->value("pageItem/decoratePages", true).toBool());
-
-    // decorate links
-
-    m_decorateLinksCheckBox = new QCheckBox(this);
-    m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
-
-    // invert colors
-
-    m_invertColorsCheckBox = new QCheckBox(this);
-    m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
-
-    // page spacing
-
-    m_pageSpacingSpinBox = new QDoubleSpinBox(this);
-    m_pageSpacingSpinBox->setSuffix(" px");
-    m_pageSpacingSpinBox->setRange(0.0, 25.0);
-    m_pageSpacingSpinBox->setSingleStep(0.25);
-    m_pageSpacingSpinBox->setValue(m_settings->value("documentView/pageSpacing", 5.0).toDouble());
-
-    // thumbnail spacing
-
-    m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSpacingSpinBox->setSuffix(" px");
-    m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
-    m_thumbnailSpacingSpinBox->setSingleStep(0.25);
-    m_thumbnailSpacingSpinBox->setValue(m_settings->value("documentView/thumbnailSpacing", 3.0).toDouble());
-
-    // thumbnail size
-
-    m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSizeSpinBox->setSuffix(" px");
-    m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
-    m_thumbnailSizeSpinBox->setSingleStep(10.0);
-    m_thumbnailSizeSpinBox->setValue(m_settings->value("documentView/thumbnailSize", 150.0).toDouble());
-
-    // antialiasing
-
-    m_antialiasingCheckBox = new QCheckBox(this);
-    m_antialiasingCheckBox->setChecked(m_settings->value("documentView/antialiasing", true).toBool());
-
-    // text antialising
-
-    m_textAntialiasingCheckBox = new QCheckBox(this);
-    m_textAntialiasingCheckBox->setChecked(m_settings->value("documentView/textAntialiasing", true).toBool());
-
-    // text hinting
-
-    m_textHintingCheckBox = new QCheckBox(this);
-    m_textHintingCheckBox->setChecked(m_settings->value("documentView/textHinting", false).toBool());
-
-    // cache size
-
-    m_cacheSizeComboBox = new QComboBox(this);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(0), 0);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(32), 32 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(64), 64 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(128), 128 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(256), 256 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
-
-    int cacheSize = m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt();
-
-    for(int index = 0; index < m_cacheSizeComboBox->count(); index++)
-    {
-        if(m_cacheSizeComboBox->itemData(index).toInt() == cacheSize)
-        {
-            m_cacheSizeComboBox->setCurrentIndex(index);
-        }
-    }
-
-    // prefetch
-
-    m_prefetchCheckBox = new QCheckBox(this);
-    m_prefetchCheckBox->setChecked(m_settings->value("documentView/prefetch", false).toBool());
-
-    // file tool bar
-
-    m_fileToolBarLineEdit = new QLineEdit(this);
-    m_fileToolBarLineEdit->setText(m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList().join(","));
-    m_fileToolBarLineEdit->setToolTip(tr("Effective after restart."));
-
-    // edit tool bar
-
-    m_editToolBarLineEdit = new QLineEdit(this);
-    m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList().join(","));
-    m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
-
-    // view tool bar
-
-    m_viewToolBarLineEdit = new QLineEdit(this);
-    m_viewToolBarLineEdit->setText(m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList().join(","));
-    m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
-
-    m_formLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
-    m_formLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
-
-    m_formLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
-
-    m_formLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
-
-    m_formLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
-    m_formLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
-    m_formLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
-
-    m_formLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
-    m_formLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
-
-    m_formLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
-
-    m_formLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
-    m_formLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
-
-    m_formLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
-
-    m_formLayout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
-    m_formLayout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
-    m_formLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
-
-    m_formLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
-
-    m_formLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
-
-    m_formLayout->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
-    m_formLayout->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
-    m_formLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
-
-    m_formLayout->addRow(m_dialogButtonBox);
 }
 
 void SettingsDialog::accept()
 {
-    m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
-    m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
+    // interface
 
     m_settings->setValue("documentView/openUrl", m_openUrlCheckBox->isChecked());
 
@@ -243,6 +301,22 @@ void SettingsDialog::accept()
     m_settings->setValue("mainWindow/trackRecentlyUsed", m_trackRecentlyUsedCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
+
+    m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
+    m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
+
+    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(","));
+    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(","));
+    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(","));
+
+    m_settings->setValue("documentView/zoomModifiers", m_zoomModifiersComboBox->itemData(m_zoomModifiersComboBox->currentIndex()));
+    m_settings->setValue("documentView/rotateModifiers", m_rotateModifiersComboBox->itemData(m_rotateModifiersComboBox->currentIndex()));
+    m_settings->setValue("documentView/horizontalModifiers", m_horizontalModifiersComboBox->itemData(m_horizontalModifiersComboBox->currentIndex()));
+
+    m_settings->setValue("pageItem/copyModifiers", m_copyModifiersComboBox->itemData(m_copyModifiersComboBox->currentIndex()));
+    m_settings->setValue("pageItem/annotateModifiers", m_annotateModifiersComboBox->itemData(m_annotateModifiersComboBox->currentIndex()));
+
+    // graphics
 
     m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
     m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
@@ -259,20 +333,14 @@ void SettingsDialog::accept()
     m_settings->setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
 
     m_settings->setValue("pageItem/cacheSize", m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()));
-
     m_settings->setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
-
-    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(","));
-    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(","));
-    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(","));
 
     QDialog::accept();
 }
 
 void SettingsDialog::on_defaults_clicked()
 {
-    m_tabPositionComboBox->setCurrentIndex(0);
-    m_tabVisibilityComboBox->setCurrentIndex(0);
+    // interface
 
     m_openUrlCheckBox->setChecked(false);
 
@@ -281,6 +349,22 @@ void SettingsDialog::on_defaults_clicked()
     m_trackRecentlyUsedCheckBox->setChecked(false);
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
+
+    m_tabPositionComboBox->setCurrentIndex(0);
+    m_tabVisibilityComboBox->setCurrentIndex(0);
+
+    m_fileToolBarLineEdit->setText("openInNewTab,refresh");
+    m_editToolBarLineEdit->setText("currentPage,previousPage,nextPage");
+    m_viewToolBarLineEdit->setText("scaleFactor,zoomIn,zoomOut");
+
+    m_zoomModifiersComboBox->setCurrentIndex(1);
+    m_rotateModifiersComboBox->setCurrentIndex(0);
+    m_horizontalModifiersComboBox->setCurrentIndex(2);
+
+    m_copyModifiersComboBox->setCurrentIndex(0);
+    m_annotateModifiersComboBox->setCurrentIndex(1);
+
+    // graphics
 
     m_decoratePagesCheckBox->setChecked(true);
     m_decorateLinksCheckBox->setChecked(true);
@@ -297,10 +381,24 @@ void SettingsDialog::on_defaults_clicked()
     m_textHintingCheckBox->setChecked(false);
 
     m_cacheSizeComboBox->setCurrentIndex(3);
-
     m_prefetchCheckBox->setChecked(false);
+}
 
-    m_fileToolBarLineEdit->setText("openInNewTab,refresh");
-    m_editToolBarLineEdit->setText("currentPage,previousPage,nextPage");
-    m_viewToolBarLineEdit->setText("scaleFactor,zoomIn,zoomOut");
+void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, int modifiers)
+{
+    comboBox = new QComboBox(this);
+    comboBox->addItem(tr("Shift"), static_cast< int >(Qt::ShiftModifier));
+    comboBox->addItem(tr("Control"), static_cast< int >(Qt::ControlModifier));
+    comboBox->addItem(tr("Alt"), static_cast< int >(Qt::AltModifier));
+    comboBox->addItem(tr("Shift and Control"), static_cast< int >(Qt::ShiftModifier | Qt::ControlModifier));
+    comboBox->addItem(tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
+    comboBox->addItem(tr("Control and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
+
+    for(int index = 0; index < comboBox->count(); index++)
+    {
+        if(comboBox->itemData(index).toInt() == modifiers)
+        {
+            comboBox->setCurrentIndex(index);
+        }
+    }
 }
