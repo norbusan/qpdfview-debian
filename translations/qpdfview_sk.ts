@@ -368,12 +368,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1581"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Predchádzajúca záložka</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1587"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Nasledujúca záložka</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1593"/>
@@ -388,7 +388,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1605"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstrániť všetky záložky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1611"/>
@@ -526,6 +526,49 @@
         <translation type="unfinished">Predvolené</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="45"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">Rozhran&amp;ie</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="46"/>
+        <source>&amp;Graphics</source>
+        <translation type="unfinished">&amp;Grafika</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="60"/>
+        <source>Open URL:</source>
+        <translation type="unfinished">Otvoriť URL adresu:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="67"/>
+        <source>Auto-refresh:</source>
+        <translation type="unfinished">Obnoviť automaticky:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="73"/>
+        <location filename="../sources/settingsdialog.cpp" line="134"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Aplikuje sa po reštarte programu.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="75"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Sledovať nedávno použite:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="82"/>
+        <source>Restore tabs:</source>
+        <translation type="unfinished">Obnoviť karty:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <source>Restore bookmarks:</source>
+        <translation type="unfinished">Obnoviť záložky:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
         <source>Top</source>
         <translation type="unfinished">Hore</translation>
@@ -546,6 +589,11 @@
         <translation type="unfinished">Vpravo</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="109"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Pozícia kariet:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="114"/>
         <source>As needed</source>
         <translation type="unfinished">Podľa potreby</translation>
@@ -561,94 +609,49 @@
         <translation type="unfinished">Nikdy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="73"/>
-        <location filename="../sources/settingsdialog.cpp" line="134"/>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
-        <location filename="../sources/settingsdialog.cpp" line="150"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Aplikuje sa po reštarte programu.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="263"/>
-        <location filename="../sources/settingsdialog.cpp" line="264"/>
-        <location filename="../sources/settingsdialog.cpp" line="265"/>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="267"/>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MiB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="109"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Pozícia kariet:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="128"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Viditeľnosť kariet:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="60"/>
-        <source>Open URL:</source>
-        <translation type="unfinished">Otvoriť URL adresu:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="136"/>
+        <source>File tool bar:</source>
+        <translation type="unfinished">panel nástrojov pre Súbor:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="45"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
+        <source>Edit tool bar:</source>
+        <translation type="unfinished">Panel nástrojov pre Úpravy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="46"/>
-        <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="67"/>
-        <source>Auto-refresh:</source>
-        <translation type="unfinished">Obnoviť automaticky:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="75"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Sledovať nedávno použite:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="82"/>
-        <source>Restore tabs:</source>
-        <translation type="unfinished">Obnoviť karty:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
-        <source>Restore bookmarks:</source>
-        <translation type="unfinished">Obnoviť záložky:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <source>View tool bar:</source>
+        <translation type="unfinished">Panel nástrojov pre Zobraziť:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikátor priblíženia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="164"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikátor otočenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="170"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vodorovný modifikátor:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="176"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikátor kopírovania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="182"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikátor pripomienkovania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
@@ -696,6 +699,18 @@
         <translation type="unfinished">Hinting textu:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="263"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
+        <location filename="../sources/settingsdialog.cpp" line="265"/>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="267"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MiB</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="282"/>
         <source>Cache size:</source>
         <translation type="unfinished">Veľkosť vyrovnávacej pamäte:</translation>
@@ -708,47 +723,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="390"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift a Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift a Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="136"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished">panel nástrojov pre Súbor:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="144"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished">Panel nástrojov pre Úpravy:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished">Panel nástrojov pre Zobraziť:</translation>
+        <translation type="unfinished">Ctrl a Alt</translation>
     </message>
 </context>
 </TS>
