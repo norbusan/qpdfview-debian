@@ -464,8 +464,6 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    QApplication::restoreOverrideCursor();
-
     if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
     {
         foreach(Poppler::Link* link, m_links)
@@ -549,10 +547,10 @@ void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    QApplication::restoreOverrideCursor();
-
     if(!m_rubberBand.isNull())
     {
+        QApplication::restoreOverrideCursor();
+
         m_rubberBand = m_rubberBand.normalized();
 
         if(event->modifiers() == s_copyModifiers)
@@ -569,11 +567,10 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         update();
 
         event->accept();
+        return;
     }
-    else
-    {
-        event->ignore();
-    }
+
+    event->ignore();
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
