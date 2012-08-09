@@ -99,10 +99,7 @@ void SearchThread::run()
 
         m_mutex->unlock();
 
-        if(!results.isEmpty())
-        {
-            emit resultsReady(index, results);
-        }
+        emit resultsReady(index, results);
 
         m_progress = 100 * ++indicesDone / indicesToDo;
 

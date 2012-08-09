@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 
                 foreach(File file, files)
                 {
-                    QDBusReply< bool > reply = interface->call("refreshOrOpenInNewTab", file.filePath, file.page);
+                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true);
 
                     if(!reply.isValid())
                     {

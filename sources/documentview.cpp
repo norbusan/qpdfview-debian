@@ -1011,7 +1011,7 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
         page->setHighlights(results);
     }
 
-    if(m_currentPage <= index + 1 && m_currentResult == m_results.end())
+    if(m_results.contains(index) && m_currentPage <= index + 1 && m_currentResult == m_results.end())
     {
         findNext();
     }

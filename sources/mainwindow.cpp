@@ -166,7 +166,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
     return false;
 }
 
-bool MainWindow::refreshOrOpenInNewTab(const QString& filePath, int page)
+bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refresh)
 {
     for(int index = 0; index < m_tabWidget->count(); index++)
     {
@@ -174,13 +174,18 @@ bool MainWindow::refreshOrOpenInNewTab(const QString& filePath, int page)
         {
             m_tabWidget->setCurrentIndex(index);
 
-            if(currentTab()->refresh())
+            if(refresh)
             {
-                currentTab()->jumpToPage(page);
-                currentTab()->setFocus();
-
-                return true;
+                if(!currentTab()->refresh())
+                {
+                    return false;
+                }
             }
+
+            currentTab()->jumpToPage(page);
+            currentTab()->setFocus();
+
+            return true;
         }
     }
 
@@ -654,7 +659,7 @@ void MainWindow::on_print_triggered()
 
 void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
 {
-    if(!refreshOrOpenInNewTab(filePath))
+    if(!jumpToPageOrOpenInNewTab(filePath))
     {
         m_recentlyUsedMenu->removeOpenAction(filePath);
     }
@@ -1088,7 +1093,7 @@ void MainWindow::on_bookmark_openInNewTabTriggered(const QString& filePath)
 
 void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int page)
 {
-    refreshOrOpenInNewTab(filePath, page);
+    jumpToPageOrOpenInNewTab(filePath, page);
 }
 
 void MainWindow::on_contents_triggered()
@@ -2061,9 +2066,9 @@ bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page)
     return mainWindow()->openInNewTab(filePath, page);
 }
 
-bool MainWindowAdaptor::refreshOrOpenInNewTab(const QString& filePath, int page)
+bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refresh)
 {
-    return mainWindow()->refreshOrOpenInNewTab(filePath, page);
+    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refresh);
 }
 
 void MainWindowAdaptor::raiseAndActivate()
