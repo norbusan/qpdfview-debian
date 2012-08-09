@@ -44,16 +44,17 @@ signals:
     void jumpToPageTriggered(const QString& filePath, int page);
 
 protected slots:
-    void on_removeBookmark_triggered();
     void on_open_triggered();
     void on_openInNewTab_triggered();
     void on_jumpToPage_triggered(QAction* action);
+    void on_removeBookmark_triggered();
 
 private:
-    QAction* m_removeBookmarkAction;
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
     QActionGroup* m_jumpToPageActionGroup;
+    QAction* m_separatorAction;
+    QAction* m_removeBookmarkAction;
 
 };
 

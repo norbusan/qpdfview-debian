@@ -30,11 +30,6 @@ BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(par
 
     menuAction()->setData(filePath);
 
-    m_removeBookmarkAction = addAction(tr("&Remove bookmark"));
-    connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
-
-    addSeparator();
-
     m_openAction = addAction(tr("&Open"));
     m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
     m_openAction->setIconVisibleInMenu(true);
@@ -47,11 +42,16 @@ BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(par
 
     m_jumpToPageActionGroup = new QActionGroup(this);
     connect(m_jumpToPageActionGroup, SIGNAL(triggered(QAction*)), SLOT(on_jumpToPage_triggered(QAction*)));
+
+    m_separatorAction = addSeparator();
+
+    m_removeBookmarkAction = addAction(tr("&Remove bookmark"));
+    connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
 }
 
 void BookmarkMenu::addJumpToPageAction(int page)
 {
-    QAction* before = 0;
+    QAction* before = m_separatorAction;
 
     foreach(QAction* action, m_jumpToPageActionGroup->actions())
     {
