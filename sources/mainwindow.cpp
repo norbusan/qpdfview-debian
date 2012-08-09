@@ -166,7 +166,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
     return false;
 }
 
-bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refresh)
+bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump)
 {
     for(int index = 0; index < m_tabWidget->count(); index++)
     {
@@ -174,7 +174,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
         {
             m_tabWidget->setCurrentIndex(index);
 
-            if(refresh)
+            if(refreshBeforeJump)
             {
                 if(!currentTab()->refresh())
                 {
@@ -659,7 +659,7 @@ void MainWindow::on_print_triggered()
 
 void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
 {
-    if(!jumpToPageOrOpenInNewTab(filePath))
+    if(!jumpToPageOrOpenInNewTab(filePath, 1, true))
     {
         m_recentlyUsedMenu->removeOpenAction(filePath);
     }
@@ -2066,9 +2066,9 @@ bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page)
     return mainWindow()->openInNewTab(filePath, page);
 }
 
-bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refresh)
+bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump)
 {
-    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refresh);
+    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump);
 }
 
 void MainWindowAdaptor::raiseAndActivate()

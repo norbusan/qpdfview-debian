@@ -52,7 +52,7 @@ public slots:
     bool open(const QString& filePath, int page = 1);
     bool openInNewTab(const QString& filePath, int page = 1);
 
-    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refresh = false);
+    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refreshBeforeJump = false);
 
 protected slots:
     void on_tabWidget_currentChanged(int index);
@@ -284,7 +284,7 @@ public slots:
     bool open(const QString& filePath, int page = 1);
     bool openInNewTab(const QString& filePath, int page = 1);
 
-    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refresh = false);
+    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refreshBeforeJump = false);
 
     Q_NOREPLY void raiseAndActivate();
 
