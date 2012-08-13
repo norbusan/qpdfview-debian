@@ -72,6 +72,7 @@ public:
 
     static qreal minimumScaleFactor();
     static qreal maximumScaleFactor();
+    static qreal zoomBy();
 
     static const Qt::KeyboardModifiers& zoomModifiers();
     static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
@@ -209,6 +210,7 @@ private:
 
     static qreal s_minimumScaleFactor;
     static qreal s_maximumScaleFactor;
+    static qreal s_zoomBy;
 
     static Qt::KeyboardModifiers s_zoomModifiers;
     static Qt::KeyboardModifiers s_rotateModifiers;

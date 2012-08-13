@@ -38,6 +38,7 @@ qreal DocumentView::s_thumbnailSize = 150.0;
 
 qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
+qreal DocumentView::s_zoomBy = 0.1;
 
 Qt::KeyboardModifiers DocumentView::s_zoomModifiers = Qt::ControlModifier;
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers = Qt::ShiftModifier;
@@ -150,6 +151,11 @@ qreal DocumentView::minimumScaleFactor()
 qreal DocumentView::maximumScaleFactor()
 {
     return s_maximumScaleFactor;
+}
+
+qreal DocumentView::zoomBy()
+{
+    return s_zoomBy;
 }
 
 const Qt::KeyboardModifiers& DocumentView::zoomModifiers()
@@ -884,12 +890,12 @@ void DocumentView::zoomIn()
     {
         PageItem* page = m_pages.at(m_currentPage - 1);
 
-        setScaleFactor(qMin(page->scaleFactor() + 0.1, s_maximumScaleFactor));
+        setScaleFactor(qMin(page->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
         setScaleMode(ScaleFactor);
     }
     else
     {
-        setScaleFactor(qMin(scaleFactor() + 0.1, s_maximumScaleFactor));
+        setScaleFactor(qMin(scaleFactor() + s_zoomBy, s_maximumScaleFactor));
     }
 }
 
@@ -899,12 +905,12 @@ void DocumentView::zoomOut()
     {
         PageItem* page = m_pages.at(m_currentPage - 1);
 
-        setScaleFactor(qMax(page->scaleFactor() - 0.1, s_minimumScaleFactor));
+        setScaleFactor(qMax(page->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
         setScaleMode(ScaleFactor);
     }
     else
     {
-        setScaleFactor(qMax(scaleFactor() - 0.1, s_minimumScaleFactor));
+        setScaleFactor(qMax(scaleFactor() - s_zoomBy, s_minimumScaleFactor));
     }
 }
 
@@ -1370,8 +1376,8 @@ void DocumentView::prepareThumbnails()
 
             page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
-            left = qMin(left, -0.5 * boundingRect.width() - s_thumbnailSpacing);
-            right = qMax(right, 0.5 * boundingRect.width() + s_thumbnailSpacing);
+            left = qMin(left, -0.5f * boundingRect.width() - s_thumbnailSpacing);
+            right = qMax(right, 0.5f * boundingRect.width() + s_thumbnailSpacing);
             height += boundingRect.height() + s_thumbnailSpacing;
         }
 
@@ -1522,11 +1528,11 @@ void DocumentView::prepareScene()
 
             if(m_twoPagesMode)
             {
-                visibleWidth = 0.5 * (viewport()->width() - 6 - 3.0 * s_pageSpacing);
+                visibleWidth = 0.5 * (viewport()->width() - 6.0 - 3.0 * s_pageSpacing);
             }
             else
             {
-                visibleWidth = viewport()->width() - 6 - 2.0 * s_pageSpacing;
+                visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
             }
 
             visibleHeight = viewport()->height() - 2.0 * s_pageSpacing;
@@ -1592,7 +1598,7 @@ void DocumentView::prepareScene()
 
                 pageHeight = boundingRect.height();
 
-                left = qMin(left, -boundingRect.width() - 1.5 * s_pageSpacing);
+                left = qMin(left, -boundingRect.width() - 1.5f * s_pageSpacing);
             }
             else
             {
@@ -1600,7 +1606,7 @@ void DocumentView::prepareScene()
 
                 pageHeight = qMax(pageHeight, boundingRect.height());
 
-                right = qMax(right, boundingRect.width() + 1.5 * s_pageSpacing);
+                right = qMax(right, boundingRect.width() + 1.5f * s_pageSpacing);
                 height += pageHeight + s_pageSpacing;
             }
         }
@@ -1612,15 +1618,15 @@ void DocumentView::prepareScene()
 
             pageHeight = boundingRect.height();
 
-            left = qMin(left, -0.5 * boundingRect.width() - s_pageSpacing);
-            right = qMax(right, 0.5 * boundingRect.width() + s_pageSpacing);
+            left = qMin(left, -0.5f * boundingRect.width() - s_pageSpacing);
+            right = qMax(right, 0.5f * boundingRect.width() + s_pageSpacing);
             height += pageHeight + s_pageSpacing;
         }
     }
 
     if(m_twoPagesMode && m_numberOfPages % 2 != 0)
     {
-        right = qMax(right, 0.5 * s_pageSpacing);
+        right = qMax(right, 0.5f * s_pageSpacing);
         height += pageHeight + s_pageSpacing;
     }
 
@@ -1674,7 +1680,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
                 QRectF boundingRect = page->boundingRect().translated(page->pos());
 
                 top = qMin(top, boundingRect.top() - s_pageSpacing);
-                height = qMax(height, boundingRect.height() + 2.0 * s_pageSpacing);
+                height = qMax(height, boundingRect.height() + 2.0f * s_pageSpacing);
             }
             else
             {
