@@ -341,7 +341,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1546"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished">&amp;Představení...</translation>
+        <translation type="unfinished">&amp;Promítání...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1554"/>
