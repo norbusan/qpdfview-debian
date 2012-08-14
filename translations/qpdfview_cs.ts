@@ -5,18 +5,18 @@
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Odstranit záložku</translation>
-    </message>
-    <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="43"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">Otevřít v nové &amp;kartě</translation>
+    </message>
+    <message>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">&amp;Odstranit záložku</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -27,86 +27,86 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Name</source>
         <translation type="unfinished">Název</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Embedded</source>
         <translation type="unfinished">Vložený</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>File</source>
         <translation type="unfinished">Soubor</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Yes</source>
         <translation type="unfinished">Ano</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>No</source>
         <translation type="unfinished">Ne</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odemknout %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="689"/>
+        <location filename="../sources/documentview.cpp" line="695"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1130"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1137"/>
+        <location filename="../sources/documentview.cpp" line="1143"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1142"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1153"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
@@ -371,12 +371,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1586"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Předchozí záložka</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Další záložka</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
@@ -391,7 +391,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1610"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstranit všechny záložky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1616"/>
@@ -529,6 +529,49 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Výchozí</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="45"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Rozhraní</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="46"/>
+        <source>&amp;Graphics</source>
+        <translation type="unfinished">&amp;Grafika</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="60"/>
+        <source>Open URL:</source>
+        <translation type="unfinished">Otevřít adresu (URL):</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="67"/>
+        <source>Auto-refresh:</source>
+        <translation type="unfinished">Obnovit automaticky:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="73"/>
+        <location filename="../sources/settingsdialog.cpp" line="134"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Účinné po opětovném spuštění.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="75"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Sledovat nedávno použité:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="82"/>
+        <source>Restore tabs:</source>
+        <translation type="unfinished">Obnovit karty:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <source>Restore bookmarks:</source>
+        <translation type="unfinished">Obnovit záložky:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
         <source>Top</source>
         <translation type="unfinished">Nahoře</translation>
@@ -549,6 +592,11 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Vpravo</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="109"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Umístění karet:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="114"/>
         <source>As needed</source>
         <translation type="unfinished">Podle potřeby</translation>
@@ -564,94 +612,49 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Nikdy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="73"/>
-        <location filename="../sources/settingsdialog.cpp" line="134"/>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
-        <location filename="../sources/settingsdialog.cpp" line="150"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Účinné po opětovném spuštění.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="263"/>
-        <location filename="../sources/settingsdialog.cpp" line="264"/>
-        <location filename="../sources/settingsdialog.cpp" line="265"/>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="267"/>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="109"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Umístění karet:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="128"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Viditelnost karet:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="60"/>
-        <source>Open URL:</source>
-        <translation type="unfinished">Otevřít adresu (URL):</translation>
+        <location filename="../sources/settingsdialog.cpp" line="136"/>
+        <source>File tool bar:</source>
+        <translation type="unfinished">Nástrojový panel pro soubor:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="45"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
+        <source>Edit tool bar:</source>
+        <translation type="unfinished">Nástrojový panel pro úpravy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="46"/>
-        <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="67"/>
-        <source>Auto-refresh:</source>
-        <translation type="unfinished">Obnovit automaticky:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="75"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Sledovat nedávno použité:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="82"/>
-        <source>Restore tabs:</source>
-        <translation type="unfinished">Obnovit karty:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
-        <source>Restore bookmarks:</source>
-        <translation type="unfinished">Obnovit záložky:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <source>View tool bar:</source>
+        <translation type="unfinished">Nástrojový panel pro pohled:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifikátory zvětšení:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="164"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otočit modifikátory:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="170"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vodorovné modifikátory:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="176"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopírovat modifikátory :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="182"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opatřit modifikátory poznámkami:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
@@ -699,6 +702,18 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Instruování písma:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="263"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
+        <location filename="../sources/settingsdialog.cpp" line="265"/>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="267"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MB</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="282"/>
         <source>Cache size:</source>
         <translation type="unfinished">Velikost vyrovnávací paměti:</translation>
@@ -711,47 +726,32 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="390"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift a Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift a Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="136"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro soubor:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="144"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro úpravy:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro pohled:</translation>
+        <translation type="unfinished">Ctrl a Alt</translation>
     </message>
 </context>
 </TS>

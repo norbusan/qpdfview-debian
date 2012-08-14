@@ -4,17 +4,17 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Odst&amp;rániť záložku</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Otvoriť</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="43"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">Otvoriť na novej kar&amp;te</translation>
     </message>
@@ -27,86 +27,86 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Name</source>
         <translation type="unfinished">Názov</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Embedded</source>
         <translation type="unfinished">Zabudované</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>File</source>
         <translation type="unfinished">Súbor</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Yes</source>
         <translation type="unfinished">Áno</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>No</source>
         <translation type="unfinished">Nie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odomknúť %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="689"/>
+        <location filename="../sources/documentview.cpp" line="695"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1130"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Vrátiť sa na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1137"/>
+        <location filename="../sources/documentview.cpp" line="1143"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1142"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1153"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnoviť</translation>
     </message>

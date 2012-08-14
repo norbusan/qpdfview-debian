@@ -4,17 +4,17 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Удалить закладку</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Открыть</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="43"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">Открыть в новой &amp;вкладке</translation>
     </message>
@@ -27,86 +27,86 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Name</source>
         <translation type="unfinished">Название</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Type</source>
         <translation type="unfinished">Тип</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Embedded</source>
         <translation type="unfinished">Встроенный</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Subset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Yes</source>
         <translation type="unfinished">Да</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>No</source>
         <translation type="unfinished">Нет</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Разблокировать %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="689"/>
+        <location filename="../sources/documentview.cpp" line="695"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Печать &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Information</source>
         <translation type="unfinished">Сведения</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Открытие адреса запрещено в настройках.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1130"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Вернуться к странице %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1137"/>
+        <location filename="../sources/documentview.cpp" line="1143"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Предыдущая страница</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1142"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Следующая страница</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1153"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished"></translation>
     </message>

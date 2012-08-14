@@ -4,17 +4,17 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">Öff&amp;nen</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="43"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">In neuem Rei&amp;ter öffnen</translation>
     </message>
@@ -27,86 +27,86 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Embedded</source>
         <translation type="unfinished">Eingebettet</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>Subset</source>
         <translation type="unfinished">Teilmenge</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="476"/>
+        <location filename="../sources/documentview.cpp" line="482"/>
         <source>File</source>
         <translation type="unfinished">Datei</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="485"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>No</source>
         <translation type="unfinished">Nein</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="517"/>
-        <location filename="../sources/documentview.cpp" line="554"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="560"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="689"/>
+        <location filename="../sources/documentview.cpp" line="695"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1058"/>
+        <location filename="../sources/documentview.cpp" line="1064"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1130"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1137"/>
+        <location filename="../sources/documentview.cpp" line="1143"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Vorige Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1142"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nächste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1153"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Aktualisieren</translation>
     </message>
