@@ -470,6 +470,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
             {
+                QApplication::restoreOverrideCursor();
+
                 if(link->linkType() == Poppler::Link::Goto)
                 {
                     Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
