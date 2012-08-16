@@ -497,6 +497,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
+                QApplication::restoreOverrideCursor();
+
                 editAnnotation(annotation, event->screenPos());
 
                 event->accept();
@@ -521,6 +523,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
+                QApplication::restoreOverrideCursor();
+
                 removeAnnotation(annotation, event->screenPos());
 
                 event->accept();
