@@ -220,19 +220,18 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
-    QApplication::restoreOverrideCursor();
-
     foreach(Poppler::LinkGoto* link, m_links)
     {
         if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
         {
-            QApplication::setOverrideCursor(Qt::PointingHandCursor);
+            setCursor(Qt::PointingHandCursor);
             QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->destination().pageNumber()));
 
             return;
         }
     }
 
+    unsetCursor();
     QToolTip::hideText();
 }
 

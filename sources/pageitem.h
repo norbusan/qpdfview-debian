@@ -64,6 +64,16 @@ public:
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights);
 
+    enum RubberBandMode
+    {
+        ModifiersMode = 0,
+        CopyToClipboardMode = 1,
+        AddAnnotationMode = 2
+    };
+
+    RubberBandMode rubberBandMode() const;
+    void setRubberBandMode(RubberBandMode rubberBandMode);
+
     int physicalDpiX() const;
     int physicalDpiY() const;
     void setPhysicalDpi(int physicalDpiX, int physicalDpiY);
@@ -82,6 +92,8 @@ signals:
 
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
+
+    void rubberBandFinished();
 
 public slots:
     void refresh();
@@ -121,6 +133,8 @@ private:
     QList< Poppler::Annotation* > m_annotations;
 
     QList< QRectF > m_highlights;
+
+    RubberBandMode m_rubberBandMode;
     QRectF m_rubberBand;
 
     void copyToClipboard(const QPoint& screenPos);

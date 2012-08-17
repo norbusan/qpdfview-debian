@@ -99,6 +99,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_links(),
     m_annotations(),
     m_highlights(),
+    m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
     m_physicalDpiX(72),
     m_physicalDpiY(72),
@@ -286,6 +287,25 @@ void PageItem::setHighlights(const QList< QRectF >& highlights)
     update();
 }
 
+PageItem::RubberBandMode PageItem::rubberBandMode() const
+{
+    return m_rubberBandMode;
+}
+
+void PageItem::setRubberBandMode(PageItem::RubberBandMode rubberBandMode)
+{
+    m_rubberBandMode = rubberBandMode;
+
+    if(m_rubberBandMode == ModifiersMode)
+    {
+        unsetCursor();
+    }
+    else
+    {
+        setCursor(Qt::CrossCursor);
+    }
+}
+
 int PageItem::physicalDpiX() const
 {
     return m_physicalDpiX;
@@ -417,9 +437,7 @@ void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 
 void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
-    QApplication::restoreOverrideCursor();
-
-    if(event->modifiers() == Qt::NoModifier)
+    if(m_rubberBandMode == ModifiersMode && event->modifiers() == Qt::NoModifier)
     {
         foreach(Poppler::Link* link, m_links)
         {
@@ -427,14 +445,14 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             {
                 if(link->linkType() == Poppler::Link::Goto)
                 {
-                    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                    setCursor(Qt::PointingHandCursor);
                     QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber()));
 
                     return;
                 }
                 else if(link->linkType() == Poppler::Link::Browse)
                 {
-                    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                    setCursor(Qt::PointingHandCursor);
                     QToolTip::showText(event->screenPos(), tr("Open %1.").arg(static_cast< Poppler::LinkBrowse* >(link)->url()));
 
                     return;
@@ -446,15 +464,16 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
 
                 return;
             }
         }
-    }
 
-    QToolTip::hideText();
+        unsetCursor();
+        QToolTip::hideText();
+    }
 }
 
 void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
@@ -464,7 +483,30 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
+    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyModifiers || event->modifiers() == s_annotateModifiers) && event->button() == Qt::LeftButton)
+    {
+        setCursor(Qt::CrossCursor);
+
+        if(event->modifiers() == s_copyModifiers)
+        {
+            m_rubberBandMode = CopyToClipboardMode;
+        }
+        else if(event->modifiers() == s_annotateModifiers)
+        {
+            m_rubberBandMode = AddAnnotationMode;
+        }
+    }
+
+    if(m_rubberBandMode != ModifiersMode)
+    {
+        m_rubberBand = QRectF(event->pos(), QSizeF());
+
+        update();
+
+        event->accept();
+        return;
+    }
+    else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
     {
         foreach(Poppler::Link* link, m_links)
         {
@@ -508,17 +550,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
     }
-    else if((event->modifiers() == s_copyModifiers || event->modifiers() == s_annotateModifiers) && event->button() == Qt::LeftButton)
-    {
-        QApplication::setOverrideCursor(Qt::CrossCursor);
-
-        m_rubberBand = QRectF(event->pos(), QSizeF());
-
-        update();
-
-        event->accept();
-        return;
-    }
     else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
     {
         foreach(Poppler::Annotation* annotation, m_annotations)
@@ -555,20 +586,23 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     if(!m_rubberBand.isNull())
     {
-        QApplication::restoreOverrideCursor();
+        unsetCursor();
 
         m_rubberBand = m_rubberBand.normalized();
 
-        if(event->modifiers() == s_copyModifiers)
+        if(m_rubberBandMode == CopyToClipboardMode)
         {
             copyToClipboard(event->screenPos());
         }
-        else if(event->modifiers() == s_annotateModifiers)
+        else if(m_rubberBandMode == AddAnnotationMode)
         {
             addAnnotation(event->screenPos());
         }
 
+        m_rubberBandMode = ModifiersMode;
         m_rubberBand = QRectF();
+
+        emit rubberBandFinished();
 
         update();
 
