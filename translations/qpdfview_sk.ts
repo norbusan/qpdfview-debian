@@ -277,12 +277,12 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
-        <source>Copy to clipboard</source>
+        <source>&amp;Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
-        <source>Add annotation</source>
+        <source>&amp;Add annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

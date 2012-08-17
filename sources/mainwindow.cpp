@@ -1469,7 +1469,7 @@ void MainWindow::createActions()
 
     // copy to clipboard
 
-    m_copyToClipboardAction = new QAction(tr("Copy to clipboard"), this);
+    m_copyToClipboardAction = new QAction(tr("&Copy to clipboard"), this);
     m_copyToClipboardAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     m_copyToClipboardAction->setCheckable(true);
     m_copyToClipboardAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
@@ -1477,7 +1477,7 @@ void MainWindow::createActions()
 
     // add annotation
 
-    m_addAnnotationAction = new QAction(tr("Add annotation"), this);
+    m_addAnnotationAction = new QAction(tr("&Add annotation"), this);
     m_addAnnotationAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
     m_addAnnotationAction->setCheckable(true);
     m_addAnnotationAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
