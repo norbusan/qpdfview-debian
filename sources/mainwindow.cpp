@@ -1472,6 +1472,7 @@ void MainWindow::createActions()
     m_copyToClipboardAction = new QAction(tr("Copy to clipboard"), this);
     m_copyToClipboardAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     m_copyToClipboardAction->setCheckable(true);
+    m_copyToClipboardAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
     connect(m_copyToClipboardAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboard_triggered(bool)));
 
     // add annotation
@@ -1479,6 +1480,7 @@ void MainWindow::createActions()
     m_addAnnotationAction = new QAction(tr("Add annotation"), this);
     m_addAnnotationAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
     m_addAnnotationAction->setCheckable(true);
+    m_addAnnotationAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
     connect(m_addAnnotationAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotation_triggered(bool)));
 
     // settings
@@ -1687,6 +1689,8 @@ void MainWindow::createToolBars()
         else if(action == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
         else if(action == "jumpToPage") { m_editToolBar->addAction(m_jumpToPageAction); }
         else if(action == "search") { m_editToolBar->addAction(m_searchAction); }
+        else if(action == "copyToClipboard") { m_editToolBar->addAction(m_copyToClipboardAction); }
+        else if(action == "addAnnotation") { m_editToolBar->addAction(m_addAnnotationAction); }
     }
 
     // view
