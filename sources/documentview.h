@@ -115,6 +115,9 @@ public:
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
+    PageItem::RubberBandMode rubberBandMode() const;
+    void setRubberBandMode(PageItem::RubberBandMode rubberBandMode);
+
     bool searchWasCanceled() const;
     int searchProgress() const;
 
@@ -138,6 +141,7 @@ signals:
     void rotationChanged(Poppler::Page::Rotation rotation);
 
     void highlightAllChanged(bool highlightAll);
+    void rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode);
 
     void searchProgressed(int progress);
     void searchFinished();
@@ -182,6 +186,8 @@ protected slots:
 
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
+
+    void on_pages_rubberBandReset();
 
     void on_thumbnails_pageClicked(int page);
 

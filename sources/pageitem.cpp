@@ -602,7 +602,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         m_rubberBandMode = ModifiersMode;
         m_rubberBand = QRectF();
 
-        emit rubberBandFinished();
+        emit rubberBandReset();
 
         update();
 

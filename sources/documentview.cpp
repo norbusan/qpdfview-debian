@@ -446,6 +446,21 @@ void DocumentView::setHighlightAll(bool highlightAll)
     }
 }
 
+PageItem::RubberBandMode DocumentView::rubberBandMode() const
+{
+    return m_pages.first()->rubberBandMode();
+}
+
+void DocumentView::setRubberBandMode(PageItem::RubberBandMode rubberBandMode)
+{
+    foreach(PageItem* page, m_pages)
+    {
+        page->setRubberBandMode(rubberBandMode);
+    }
+
+    emit rubberBandModeChanged(rubberBandMode);
+}
+
 bool DocumentView::searchWasCanceled() const
 {
     return m_searchThread->wasCanceled();
@@ -1065,6 +1080,11 @@ void DocumentView::on_pages_linkClicked(const QString& url)
     }
 }
 
+void DocumentView::on_pages_rubberBandReset()
+{
+    setRubberBandMode(PageItem::ModifiersMode);
+}
+
 void DocumentView::on_thumbnails_pageClicked(int page)
 {
     page = page >= 1 ? page : 1;
@@ -1326,6 +1346,8 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
+
+        connect(page, SIGNAL(rubberBandReset()), SLOT(on_pages_rubberBandReset()));
     }
 
     if(PageItem::decoratePages())

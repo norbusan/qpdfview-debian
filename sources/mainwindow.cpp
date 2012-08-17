@@ -144,6 +144,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         connect(newTab, SIGNAL(rotationChanged(Poppler::Page::Rotation)), SLOT(on_currentTab_rotationChanged(Poppler::Page::Rotation)));
 
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
+        connect(newTab, SIGNAL(rubberBandModeChanged(PageItem::RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode)));
 
         connect(newTab, SIGNAL(searchProgressed(int)), SLOT(on_currentTab_searchProgressed(int)));
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
@@ -212,6 +213,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_findNextAction->setEnabled(true);
         m_cancelSearchAction->setEnabled(true);
 
+        m_copyToClipboardAction->setEnabled(true);
+        m_addAnnotationAction->setEnabled(true);
+
         m_continuousModeAction->setEnabled(true);
         m_twoPagesModeAction->setEnabled(true);
 
@@ -267,6 +271,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_rotationChanged(currentTab()->rotation());
 
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
+        on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }
     else
     {
@@ -285,6 +290,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_findPreviousAction->setEnabled(false);
         m_findNextAction->setEnabled(false);
         m_cancelSearchAction->setEnabled(false);
+
+        m_copyToClipboardAction->setEnabled(false);
+        m_addAnnotationAction->setEnabled(false);
 
         m_continuousModeAction->setEnabled(false);
         m_twoPagesModeAction->setEnabled(false);
@@ -337,6 +345,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_currentPageSpinBox->setValue(1);
         m_currentPageSpinBox->setSuffix(" / 1");
         m_scaleFactorComboBox->setCurrentIndex(4);
+
+        m_copyToClipboardAction->setChecked(false);
+        m_addAnnotationAction->setChecked(false);
 
         m_continuousModeAction->setChecked(false);
         m_twoPagesModeAction->setChecked(false);
@@ -480,6 +491,15 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
         m_highlightAllCheckBox->setChecked(highlightAll);
 
         m_settings->setValue("documentView/highlightAll", highlightAll);
+    }
+}
+
+void MainWindow::on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode)
+{
+    if(senderIsCurrentTab())
+    {
+        m_copyToClipboardAction->setChecked(rubberBandMode == PageItem::CopyToClipboardMode);
+        m_addAnnotationAction->setChecked(rubberBandMode == PageItem::AddAnnotationMode);
     }
 }
 
@@ -760,6 +780,16 @@ void MainWindow::on_cancelSearch_triggered()
     }
 }
 
+void MainWindow::on_copyToClipboard_triggered(bool checked)
+{
+    currentTab()->setRubberBandMode(checked ? PageItem::CopyToClipboardMode : PageItem::ModifiersMode);
+}
+
+void MainWindow::on_addAnnotation_triggered(bool checked)
+{
+    currentTab()->setRubberBandMode(checked ? PageItem::AddAnnotationMode : PageItem::ModifiersMode);
+}
+
 void MainWindow::on_settings_triggered()
 {
     SettingsDialog* settingsDialog = new SettingsDialog(this);
@@ -808,26 +838,12 @@ void MainWindow::on_originalSize_triggered()
 
 void MainWindow::on_fitToPageWidth_triggered(bool checked)
 {
-    if(checked)
-    {
-        currentTab()->setScaleMode(DocumentView::FitToPageWidth);
-    }
-    else
-    {
-        currentTab()->setScaleMode(DocumentView::ScaleFactor);
-    }
+    currentTab()->setScaleMode(checked ? DocumentView::FitToPageWidth : DocumentView::ScaleFactor);
 }
 
 void MainWindow::on_fitToPageSize_triggered(bool checked)
 {
-    if(checked)
-    {
-        currentTab()->setScaleMode(DocumentView::FitToPageSize);
-    }
-    else
-    {
-        currentTab()->setScaleMode(DocumentView::ScaleFactor);
-    }
+    currentTab()->setScaleMode(checked ? DocumentView::FitToPageSize : DocumentView::ScaleFactor);
 }
 
 void MainWindow::on_rotateLeft_triggered()
@@ -1451,6 +1467,20 @@ void MainWindow::createActions()
     m_cancelSearchAction->setIconVisibleInMenu(true);
     connect(m_cancelSearchAction, SIGNAL(triggered()), SLOT(on_cancelSearch_triggered()));
 
+    // copy to clipboard
+
+    m_copyToClipboardAction = new QAction(tr("Copy to clipboard"), this);
+    m_copyToClipboardAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    m_copyToClipboardAction->setCheckable(true);
+    connect(m_copyToClipboardAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboard_triggered(bool)));
+
+    // add annotation
+
+    m_addAnnotationAction = new QAction(tr("Add annotation"), this);
+    m_addAnnotationAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
+    m_addAnnotationAction->setCheckable(true);
+    connect(m_addAnnotationAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotation_triggered(bool)));
+
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
@@ -1804,6 +1834,9 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_findPreviousAction);
     m_editMenu->addAction(m_findNextAction);
     m_editMenu->addAction(m_cancelSearchAction);
+    m_editMenu->addSeparator();
+    m_editMenu->addAction(m_copyToClipboardAction);
+    m_editMenu->addAction(m_addAnnotationAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_settingsAction);
 

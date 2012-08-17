@@ -69,6 +69,7 @@ protected slots:
     void on_currentTab_rotationChanged(Poppler::Page::Rotation rotation);
 
     void on_currentTab_highlightAllChanged(bool highlightAll);
+    void on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode);
 
     void on_currentTab_searchProgressed(int progress);
     void on_currentTab_searchFinished();
@@ -101,6 +102,9 @@ protected slots:
     void on_findPrevious_triggered();
     void on_findNext_triggered();
     void on_cancelSearch_triggered();
+
+    void on_copyToClipboard_triggered(bool checked);
+    void on_addAnnotation_triggered(bool checked);
 
     void on_settings_triggered();
 
@@ -194,6 +198,9 @@ private:
     QAction* m_findPreviousAction;
     QAction* m_findNextAction;
     QAction* m_cancelSearchAction;
+
+    QAction* m_copyToClipboardAction;
+    QAction* m_addAnnotationAction;
 
     QAction* m_settingsAction;
 
