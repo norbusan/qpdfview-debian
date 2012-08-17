@@ -4,11 +4,6 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
-    </message>
-    <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">Öff&amp;nen</translation>
@@ -17,6 +12,11 @@
         <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">In neuem Rei&amp;ter öffnen</translation>
+    </message>
+    <message>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -65,48 +65,48 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="538"/>
-        <location filename="../sources/documentview.cpp" line="575"/>
+        <location filename="../sources/documentview.cpp" line="577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="538"/>
-        <location filename="../sources/documentview.cpp" line="575"/>
+        <location filename="../sources/documentview.cpp" line="577"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="710"/>
+        <location filename="../sources/documentview.cpp" line="714"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1083"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1083"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1156"/>
+        <location filename="../sources/documentview.cpp" line="1160"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1163"/>
+        <location filename="../sources/documentview.cpp" line="1167"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Vorige Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1172"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nächste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1173"/>
+        <location filename="../sources/documentview.cpp" line="1177"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Aktualisieren</translation>
     </message>
@@ -278,12 +278,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">In &amp;Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Anmerkung hinzufügen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1488"/>

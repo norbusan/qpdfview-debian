@@ -65,48 +65,48 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="538"/>
-        <location filename="../sources/documentview.cpp" line="575"/>
+        <location filename="../sources/documentview.cpp" line="577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odemknout %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="538"/>
-        <location filename="../sources/documentview.cpp" line="575"/>
+        <location filename="../sources/documentview.cpp" line="577"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="710"/>
+        <location filename="../sources/documentview.cpp" line="714"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1083"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1083"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1156"/>
+        <location filename="../sources/documentview.cpp" line="1160"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1163"/>
+        <location filename="../sources/documentview.cpp" line="1167"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1172"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1173"/>
+        <location filename="../sources/documentview.cpp" line="1177"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
