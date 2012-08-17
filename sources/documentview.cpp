@@ -559,6 +559,8 @@ bool DocumentView::open(const QString& filePath)
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
+
+        emit rubberBandModeChanged(rubberBandMode());
     }
 
     return document != 0;
@@ -596,6 +598,8 @@ bool DocumentView::refresh()
 
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
+
+        emit rubberBandModeChanged(rubberBandMode());
     }
 
     return document != 0;
