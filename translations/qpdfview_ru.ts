@@ -4,11 +4,6 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Удалить закладку</translation>
-    </message>
-    <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Открыть</translation>
@@ -17,6 +12,11 @@
         <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">Открыть в новой &amp;вкладке</translation>
+    </message>
+    <message>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">&amp;Удалить закладку</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -278,7 +278,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Копировать в буфер обмена</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
@@ -378,12 +378,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1618"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Предыдущая закладка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1624"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Следующая закладка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1630"/>
@@ -398,7 +398,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1642"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить все закладки</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1648"/>
@@ -520,12 +520,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не&amp;давнее действие</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Очистить список</translation>
     </message>
 </context>
 <context>
@@ -534,6 +534,49 @@
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>Defaults</source>
         <translation type="unfinished">По умолчанию</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="45"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Интерфейс</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="46"/>
+        <source>&amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="60"/>
+        <source>Open URL:</source>
+        <translation type="unfinished">Открыть адрес:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="67"/>
+        <source>Auto-refresh:</source>
+        <translation type="unfinished">Автообновление:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="73"/>
+        <location filename="../sources/settingsdialog.cpp" line="134"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Вступит в силу после перезапуска</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="75"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="82"/>
+        <source>Restore tabs:</source>
+        <translation type="unfinished">Восстановить вкладки:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <source>Restore bookmarks:</source>
+        <translation type="unfinished">Восстановить закладки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
@@ -556,6 +599,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="109"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Положение вкладок:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="114"/>
         <source>As needed</source>
         <translation type="unfinished"></translation>
@@ -563,7 +611,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="115"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всегда</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="116"/>
@@ -571,69 +619,24 @@
         <translation type="unfinished">Никогда</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="263"/>
-        <location filename="../sources/settingsdialog.cpp" line="264"/>
-        <location filename="../sources/settingsdialog.cpp" line="265"/>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="267"/>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MБ</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="73"/>
-        <location filename="../sources/settingsdialog.cpp" line="134"/>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
-        <location filename="../sources/settingsdialog.cpp" line="150"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Вступит в силу после перезапуска</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="109"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Положение вкладок:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="128"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Видимость вкладок:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="60"/>
-        <source>Open URL:</source>
-        <translation type="unfinished">Открыть адрес:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="45"/>
-        <source>&amp;Interface</source>
+        <location filename="../sources/settingsdialog.cpp" line="136"/>
+        <source>File tool bar:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="46"/>
-        <source>&amp;Graphics</source>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
+        <source>Edit tool bar:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="67"/>
-        <source>Auto-refresh:</source>
-        <translation type="unfinished">Автообновление:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="75"/>
-        <source>Track recently used:</source>
+        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <source>View tool bar:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="82"/>
-        <source>Restore tabs:</source>
-        <translation type="unfinished">Восстановить вкладки:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
-        <source>Restore bookmarks:</source>
-        <translation type="unfinished">Восстановить закладки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
@@ -706,6 +709,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="263"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
+        <location filename="../sources/settingsdialog.cpp" line="265"/>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="267"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MБ</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="282"/>
         <source>Cache size:</source>
         <translation type="unfinished">Размер кэша:</translation>
@@ -733,32 +748,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift и Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift и Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="136"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="144"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl и Alt</translation>
     </message>
 </context>
 </TS>
