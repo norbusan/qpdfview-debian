@@ -4,11 +4,6 @@
 <context>
     <name>BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Odst&amp;rániť záložku</translation>
-    </message>
-    <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Otvoriť</translation>
@@ -17,6 +12,11 @@
         <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
         <translation type="unfinished">Otvoriť na novej kar&amp;te</translation>
+    </message>
+    <message>
+        <location filename="../sources/bookmarkmenu.cpp" line="48"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">Odst&amp;rániť záložku</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -278,12 +278,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kopírovať do schránky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prid&amp;ať komentár</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1488"/>
