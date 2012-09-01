@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="497"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подмножество</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="497"/>
@@ -108,7 +108,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1177"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Обновить</translation>
     </message>
 </context>
 <context>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1368"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">О&amp;бновить</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1376"/>
@@ -243,7 +243,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1416"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">&amp;Первая страница</translation>
+        <translation type="unfinished">П&amp;ервая страница</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
@@ -258,7 +258,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1440"/>
         <source>&amp;Search...</source>
-        <translation type="unfinished">&amp;Поиск...</translation>
+        <translation type="unfinished">П&amp;оиск...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1448"/>
@@ -278,12 +278,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">&amp;Копировать в буфер обмена</translation>
+        <translation type="unfinished">&amp;Скопировать в буфер</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить &amp;комментарий</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1488"/>
@@ -303,7 +303,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>Zoom &amp;in</source>
-        <translation type="unfinished">&amp;Увеличить</translation>
+        <translation type="unfinished">У&amp;величить</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1517"/>
@@ -353,12 +353,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1586"/>
         <source>&amp;Previous tab</source>
-        <translation type="unfinished">Пр&amp;едыдущая вкладка</translation>
+        <translation type="unfinished">&amp;Предыдущая вкладка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&amp;Next tab</source>
-        <translation type="unfinished">Следую&amp;щая вкладка</translation>
+        <translation type="unfinished">&amp;Следующая вкладка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
@@ -368,7 +368,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
         <source>Close &amp;all tabs</source>
-        <translation type="unfinished">За&amp;крыть все вкладки</translation>
+        <translation type="unfinished">Закрыть &amp;все вкладки</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1612"/>
@@ -456,7 +456,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1868"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">Па&amp;нели</translation>
+        <translation type="unfinished">Прилип&amp;алы</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1880"/>
@@ -479,7 +479,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="449"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Перейти r страницt %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="456"/>
@@ -512,7 +512,7 @@
     <message>
         <location filename="../sources/presentationview.cpp" line="228"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Перейти к странице %1.</translation>
     </message>
 </context>
 <context>
@@ -520,12 +520,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished">Не&amp;давнее действие</translation>
+        <translation type="unfinished">Не&amp;давно открытые</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Очистить список</translation>
+        <translation type="unfinished">О&amp;чистить список</translation>
     </message>
 </context>
 <context>
@@ -543,7 +543,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="46"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Графика</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="60"/>
@@ -566,7 +566,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="75"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Помнить недавно открытые:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="82"/>
@@ -581,22 +581,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вверху</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="95"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Внизу</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слева</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="97"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Справа</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="109"/>
@@ -606,7 +606,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="114"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По надобности</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="115"/>
@@ -626,57 +626,57 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="136"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Панель &quot;Файл&quot;:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="144"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Панель &quot;Правка&quot;:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="152"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Панель &quot;Вид&quot;:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="158"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клавиша масштабирования</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="164"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клавиша поворота:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="170"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клавиша гориз. прокрутки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="176"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клавиша копирования:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="182"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клавиша комментирования:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Рамка страницы:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="200"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выделять ссылки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="207"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Инвертировать цвета:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="217"/>
@@ -706,7 +706,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="258"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Детализация шрифта:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="263"/>
@@ -733,32 +733,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="390"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Shift and Control</source>
-        <translation type="unfinished">Shift и Ctrl</translation>
+        <translation type="unfinished">Ctrl+Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Shift и Alt</translation>
+        <translation type="unfinished">Alt+Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Control and Alt</source>
-        <translation type="unfinished">Ctrl и Alt</translation>
+        <translation type="unfinished">Ctrl+Alt</translation>
     </message>
 </context>
 </TS>
