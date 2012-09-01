@@ -281,12 +281,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1472"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kopírovat do schránky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Přidat poznámku</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1488"/>

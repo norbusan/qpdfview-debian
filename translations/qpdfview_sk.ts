@@ -108,7 +108,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1177"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Obnoviť</translation>
+        <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
 </context>
 <context>
@@ -213,12 +213,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1368"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Obnoviť</translation>
+        <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1376"/>
         <source>&amp;Save copy...</source>
-        <translation type="unfinished">&amp;Uložiť kópiu...</translation>
+        <translation type="unfinished">U&amp;ložiť kópiu...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
@@ -243,7 +243,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1416"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">&amp;Prvá strana</translation>
+        <translation type="unfinished">P&amp;rvá strana</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1549"/>
         <source>Rotate &amp;left</source>
-        <translation type="unfinished">Otočiť do&amp;ľava</translation>
+        <translation type="unfinished">Otočiť doľ&amp;ava</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1557"/>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1656"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;O programe</translation>
+        <translation type="unfinished">O &amp;programe</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1666"/>
@@ -446,7 +446,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1785"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished">Minia&amp;túry</translation>
+        <translation type="unfinished">&amp;Miniatúry</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1863"/>
@@ -456,7 +456,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1868"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">Bočné &amp;panely</translation>
+        <translation type="unfinished">&amp;Bočné panely</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1880"/>
@@ -520,7 +520,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished">Nedávno po&amp;užité</translation>
+        <translation type="unfinished">Nedávno ot&amp;vorené</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
@@ -566,7 +566,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="75"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Sledovať nedávno použite:</translation>
+        <translation type="unfinished">Zaznamenávať nedávno otvorené:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="82"/>
@@ -631,7 +631,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="144"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Panel nástrojov pre Úpravy:</translation>
+        <translation type="unfinished">Panel nástrojov pre Upraviť:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="152"/>
@@ -671,7 +671,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="200"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Ubtiahnuť odkazy:</translation>
+        <translation type="unfinished">Obtiahnuť odkazy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="207"/>
