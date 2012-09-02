@@ -581,12 +581,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="95"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Standard</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="98"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Präsentationsbildschirm:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="103"/>
