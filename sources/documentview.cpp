@@ -981,6 +981,8 @@ void DocumentView::presentation()
 {
     PresentationView* presentationView = new PresentationView(&m_mutex, m_document);
 
+    connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
+
     presentationView->jumpToPage(currentPage());
 
     presentationView->show();
