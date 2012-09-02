@@ -175,7 +175,7 @@ public slots:
     void rotateLeft();
     void rotateRight();
 
-    void presentation();
+    void presentation(int screen = -1);
 
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);

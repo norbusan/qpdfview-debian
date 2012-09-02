@@ -977,13 +977,16 @@ void DocumentView::rotateRight()
     }
 }
 
-void DocumentView::presentation()
+void DocumentView::presentation(int screen)
 {
     PresentationView* presentationView = new PresentationView(&m_mutex, m_document);
 
     connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
 
     presentationView->jumpToPage(currentPage());
+
+    QRect screenGeometry = QApplication::desktop()->screenGeometry(screen);
+    presentationView->move(screenGeometry.x(), screenGeometry.y());
 
     presentationView->show();
     presentationView->setAttribute(Qt::WA_DeleteOnClose);
