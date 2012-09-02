@@ -88,6 +88,15 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         m_interfaceLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
+        // presentation screen
+
+        m_presentationScreenSpinBox = new QSpinBox(this);
+        m_presentationScreenSpinBox->setRange(-1, QApplication::desktop()->screenCount() - 1);
+        m_presentationScreenSpinBox->setSpecialValueText(tr("Default"));
+        m_presentationScreenSpinBox->setValue(m_settings->value("presentationView/screen", -1).toInt());
+
+        m_interfaceLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
+
         // tab position
 
         m_tabPositionComboBox = new QComboBox(this);
@@ -302,6 +311,8 @@ void SettingsDialog::accept()
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
 
+    m_settings->setValue("presentationView/screen", m_presentationScreenSpinBox->value());
+
     m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
     m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
 
@@ -335,6 +346,8 @@ void SettingsDialog::accept()
     m_settings->setValue("pageItem/cacheSize", m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()));
     m_settings->setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
 
+    m_settings->sync();
+
     QDialog::accept();
 }
 
@@ -349,6 +362,8 @@ void SettingsDialog::on_defaults_clicked()
     m_trackRecentlyUsedCheckBox->setChecked(false);
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
+
+    m_presentationScreenSpinBox->setValue(-1);
 
     m_tabPositionComboBox->setCurrentIndex(0);
     m_tabVisibilityComboBox->setCurrentIndex(0);

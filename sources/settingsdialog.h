@@ -64,6 +64,8 @@ private:
     QCheckBox* m_restoreTabsCheckBox;
     QCheckBox* m_restoreBookmarksCheckBox;
 
+    QSpinBox* m_presentationScreenSpinBox;
+
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
 
