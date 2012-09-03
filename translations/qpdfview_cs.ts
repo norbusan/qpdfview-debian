@@ -584,12 +584,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="95"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Výchozí</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="98"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Promítací obrazovka:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="103"/>
