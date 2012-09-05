@@ -34,7 +34,7 @@ class PresentationView : public QWidget
     Q_OBJECT
 
 public:
-    PresentationView(QMutex* mutex, Poppler::Document* document);
+    PresentationView(QMutex* mutex, Poppler::Document* document, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
