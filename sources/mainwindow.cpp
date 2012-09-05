@@ -910,7 +910,7 @@ void MainWindow::on_fullscreen_triggered(bool checked)
 
 void MainWindow::on_presentation_triggered()
 {
-    currentTab()->presentation(m_settings->value("presentationView/screen", -1).toInt());
+    currentTab()->presentation(m_settings->value("presentationView/sync", false).toBool(), m_settings->value("presentationView/screen", -1).toInt());
 }
 
 void MainWindow::on_previousTab_triggered()
