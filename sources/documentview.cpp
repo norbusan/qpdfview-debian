@@ -286,11 +286,11 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
 DocumentView::~DocumentView()
 {
-    qDeleteAll(m_pages);
-    qDeleteAll(m_thumbnails);
-
     m_searchThread->cancel();
     m_searchThread->wait();
+
+    qDeleteAll(m_pages);
+    qDeleteAll(m_thumbnails);
 
     if(m_document != 0)
     {
@@ -1314,10 +1314,10 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
 
+    cancelSearch();
+
     qDeleteAll(m_pages);
     qDeleteAll(m_thumbnails);
-
-    cancelSearch();
 
     if(m_document != 0)
     {
