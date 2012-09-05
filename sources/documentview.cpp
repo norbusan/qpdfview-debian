@@ -993,6 +993,8 @@ void DocumentView::presentation(bool sync, int screen)
     presentationView->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
+    connect(this, SIGNAL(filePathChanged(QString)), presentationView, SLOT(close()));
+    connect(this, SIGNAL(numberOfPagesChanged(int)), presentationView, SLOT(close()));
 
     presentationView->jumpToPage(currentPage(), false);
 
