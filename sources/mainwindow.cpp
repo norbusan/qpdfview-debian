@@ -92,7 +92,7 @@ bool MainWindow::open(const QString& filePath, int page)
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
 
-            currentTab()->jumpToPage(page, 0.0, 0.0, false);
+            currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
 
             return true;
@@ -152,7 +152,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
 
         newTab->show();
 
-        newTab->jumpToPage(page, 0.0, 0.0, false);
+        newTab->jumpToPage(page, false);
         newTab->setFocus();
 
         return true;
@@ -1153,7 +1153,7 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
 
     if(ok)
     {
-        currentTab()->jumpToPage(page, left, top);
+        currentTab()->jumpToPage(page, true, left, top);
     }
 }
 

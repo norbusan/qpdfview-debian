@@ -161,7 +161,7 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page, qreal changeLeft = 0.0, qreal changeTop = 0.0, bool returnTo = true);
+    void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
     void startSearch(const QString& text, bool matchCase);
     void cancelSearch();

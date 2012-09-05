@@ -767,12 +767,12 @@ bool DocumentView::print(QPrinter* printer)
 
 void DocumentView::previousPage()
 {
-    jumpToPage(currentPage() - (m_twoPagesMode ? 2 : 1), 0.0, 0.0, false);
+    jumpToPage(currentPage() - (m_twoPagesMode ? 2 : 1), false);
 }
 
 void DocumentView::nextPage()
 {
-    jumpToPage(currentPage() + (m_twoPagesMode ? 2 : 1), 0.0, 0.0, false);
+    jumpToPage(currentPage() + (m_twoPagesMode ? 2 : 1), false);
 }
 
 void DocumentView::firstPage()
@@ -785,7 +785,7 @@ void DocumentView::lastPage()
     jumpToPage(numberOfPages());
 }
 
-void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool returnTo)
+void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal changeTop)
 {
     if(page >= 1 && page <= m_numberOfPages)
     {
@@ -994,10 +994,10 @@ void DocumentView::presentation(int screen)
 
     connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
 
-    presentationView->jumpToPage(currentPage());
+    presentationView->jumpToPage(currentPage(), false);
 
     connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
-    connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int)));
+    connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int,bool)));
 }
 
 void DocumentView::on_verticalScrollBar_valueChanged(int value)
@@ -1082,7 +1082,7 @@ void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
     top = top >= 0.0 ? top : 0.0;
     top = top <= 1.0 ? top : 1.0;
 
-    jumpToPage(page, left, top);
+    jumpToPage(page, true, left, top);
 }
 
 void DocumentView::on_pages_linkClicked(const QString& url)
@@ -1130,7 +1130,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         if(event->key() == Qt::Key_Return)
         {
-            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
+            jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
 
             event->accept();
             return;
@@ -1196,7 +1196,7 @@ void DocumentView::mousePressEvent(QMouseEvent* event)
 
         if(action == returnToPageAction)
         {
-            jumpToPage(m_returnToPage, m_returnToLeft, m_returnToTop);
+            jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
         }
         else if(action == previousPageAction)
         {
