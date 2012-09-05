@@ -41,6 +41,9 @@ public:
     int currentPage() const;
 
 signals:
+    void currentPageChanged(int currentPage);
+    void currentPageChanged(int currentPage, bool returnTo);
+
     void imageReady(int index, qreal scaleFactor, QImage image);
     
 public slots:

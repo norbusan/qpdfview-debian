@@ -133,6 +133,7 @@ signals:
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
     void currentPageChanged(int currentPage);
+    void currentPageChanged(int currentPage, bool returnTo);
 
     void continousModeChanged(bool continousMode);
     void twoPagesModeChanged(bool twoPagesMode);

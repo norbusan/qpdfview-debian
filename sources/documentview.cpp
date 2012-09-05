@@ -792,7 +792,7 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_currentPage != currentPageForPage(page) || !qFuzzyCompare(1.0 + left, 1.0 + changeLeft) || !qFuzzyCompare(1.0 + top, 1.0 + changeTop))
+        if(m_currentPage != currentPageForPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
         {
             if(returnTo)
             {
@@ -805,6 +805,7 @@ void DocumentView::jumpToPage(int page, qreal changeLeft, qreal changeTop, bool 
             prepareView(changeLeft, changeTop);
 
             emit currentPageChanged(m_currentPage);
+            emit currentPageChanged(m_currentPage, returnTo);
         }
     }
 }
@@ -984,14 +985,19 @@ void DocumentView::presentation(int screen)
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(&m_mutex, m_document, this);
+    PresentationView* presentationView = new PresentationView(&m_mutex, m_document);
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 
     presentationView->show();
     presentationView->setAttribute(Qt::WA_DeleteOnClose);
 
+    connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
+
     presentationView->jumpToPage(currentPage());
+
+    connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
+    connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int)));
 }
 
 void DocumentView::on_verticalScrollBar_valueChanged(int value)
