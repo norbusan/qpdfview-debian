@@ -88,6 +88,13 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         m_interfaceLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
+        // presentation sync
+
+        m_presentationSyncCheckBox = new QCheckBox(this);
+        m_presentationSyncCheckBox->setChecked(m_settings->value("presentationView/sync", false).toBool());
+
+        m_interfaceLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
+
         // presentation screen
 
         m_presentationScreenSpinBox = new QSpinBox(this);
@@ -311,6 +318,7 @@ void SettingsDialog::accept()
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
 
+    m_settings->setValue("presentationView/sync", m_presentationSyncCheckBox->isChecked());
     m_settings->setValue("presentationView/screen", m_presentationScreenSpinBox->value());
 
     m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
@@ -363,6 +371,7 @@ void SettingsDialog::on_defaults_clicked()
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
 
+    m_presentationSyncCheckBox->setChecked(false);
     m_presentationScreenSpinBox->setValue(-1);
 
     m_tabPositionComboBox->setCurrentIndex(0);
