@@ -81,32 +81,32 @@
         <translation type="unfinished">Печать &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Information</source>
         <translation type="unfinished">Сведения</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Открытие адреса запрещено в настройках.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1176"/>
+        <location filename="../sources/documentview.cpp" line="1178"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Вернуться к странице %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1183"/>
+        <location filename="../sources/documentview.cpp" line="1185"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Предыдущая страница</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1188"/>
+        <location filename="../sources/documentview.cpp" line="1190"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Следующая страница</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1193"/>
+        <location filename="../sources/documentview.cpp" line="1195"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Обновить</translation>
     </message>

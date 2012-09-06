@@ -81,32 +81,32 @@
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1176"/>
+        <location filename="../sources/documentview.cpp" line="1178"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1183"/>
+        <location filename="../sources/documentview.cpp" line="1185"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1188"/>
+        <location filename="../sources/documentview.cpp" line="1190"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1193"/>
+        <location filename="../sources/documentview.cpp" line="1195"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
@@ -584,7 +584,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sladit promítání:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="102"/>

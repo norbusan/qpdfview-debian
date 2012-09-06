@@ -81,32 +81,32 @@
         <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1176"/>
+        <location filename="../sources/documentview.cpp" line="1178"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Vrátiť sa na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1183"/>
+        <location filename="../sources/documentview.cpp" line="1185"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1188"/>
+        <location filename="../sources/documentview.cpp" line="1190"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1193"/>
+        <location filename="../sources/documentview.cpp" line="1195"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
@@ -581,17 +581,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synchronizovať prezentovanie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="102"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predvolené</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrazovka prezentovania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="110"/>

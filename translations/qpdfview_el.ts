@@ -81,32 +81,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Information</source>
         <translation type="unfinished">Πληροφορία</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1099"/>
+        <location filename="../sources/documentview.cpp" line="1101"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1176"/>
+        <location filename="../sources/documentview.cpp" line="1178"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1183"/>
+        <location filename="../sources/documentview.cpp" line="1185"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1188"/>
+        <location filename="../sources/documentview.cpp" line="1190"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Επόμενη σελίδα</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1193"/>
+        <location filename="../sources/documentview.cpp" line="1195"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Ανανέωση</translation>
     </message>
