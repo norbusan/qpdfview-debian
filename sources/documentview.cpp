@@ -344,14 +344,11 @@ void DocumentView::setTwoPagesMode(bool twoPagesMode)
     {
         m_twoPagesMode = twoPagesMode;
 
-        if(m_twoPagesMode)
+        if(m_currentPage != currentPageForPage(m_currentPage))
         {
-            if(m_currentPage != (m_currentPage % 2 != 0 ? m_currentPage :  m_currentPage - 1))
-            {
-                m_currentPage = m_currentPage % 2 != 0 ? m_currentPage :  m_currentPage - 1;
+            m_currentPage = currentPageForPage(m_currentPage);
 
-                emit currentPageChanged(m_currentPage);
-            }
+            emit currentPageChanged(m_currentPage);
         }
 
         prepareScene();
@@ -389,7 +386,7 @@ qreal DocumentView::scaleFactor() const
 
 void DocumentView::setScaleFactor(qreal scaleFactor)
 {
-    if(m_scaleFactor != scaleFactor && scaleFactor >= s_minimumScaleFactor && scaleFactor <= s_maximumScaleFactor)
+    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor >= s_minimumScaleFactor && scaleFactor <= s_maximumScaleFactor)
     {
         m_scaleFactor = scaleFactor;
 
@@ -804,7 +801,6 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
 
             prepareView(changeLeft, changeTop);
 
-            emit currentPageChanged(m_currentPage);
             emit currentPageChanged(m_currentPage, returnTo);
         }
     }
