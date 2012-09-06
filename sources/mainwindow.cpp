@@ -218,7 +218,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setEnabled(true);
         m_twoPagesModeAction->setEnabled(true);
-        m_twoPagesWithCoverModeAction->setEnabled(true);
+        m_twoPagesWithCoverPageModeAction->setEnabled(true);
 
         m_zoomInAction->setEnabled(true);
         m_zoomOutAction->setEnabled(true);
@@ -297,7 +297,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setEnabled(false);
         m_twoPagesModeAction->setEnabled(false);
-        m_twoPagesWithCoverModeAction->setEnabled(false);
+        m_twoPagesWithCoverPageModeAction->setEnabled(false);
 
         m_zoomInAction->setEnabled(false);
         m_zoomOutAction->setEnabled(false);
@@ -353,7 +353,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setChecked(false);
         m_twoPagesModeAction->setChecked(false);
-        m_twoPagesWithCoverModeAction->setChecked(false);
+        m_twoPagesWithCoverPageModeAction->setChecked(false);
 
         m_fitToPageSizeAction->setChecked(false);
         m_fitToPageWidthAction->setChecked(false);
@@ -430,7 +430,7 @@ void MainWindow::on_currentTab_layoutModeChanged(DocumentView::LayoutMode layout
     if(senderIsCurrentTab())
     {
         m_twoPagesModeAction->setChecked(layoutMode == DocumentView::TwoPagesMode);
-        m_twoPagesWithCoverModeAction->setChecked(layoutMode == DocumentView::TwoPagesWithCoverMode);
+        m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == DocumentView::TwoPagesWithCoverPageMode);
 
         m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
     }
@@ -825,9 +825,9 @@ void MainWindow::on_twoPagesMode_triggered(bool checked)
     currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesMode : DocumentView::SinglePageMode);
 }
 
-void MainWindow::on_twoPagesWithCoverMode_triggered(bool checked)
+void MainWindow::on_twoPagesWithCoverPageMode_triggered(bool checked)
 {
-    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesWithCoverMode : DocumentView::SinglePageMode);
+    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesWithCoverPageMode : DocumentView::SinglePageMode);
 }
 
 void MainWindow::on_zoomIn_triggered()
@@ -1513,13 +1513,13 @@ void MainWindow::createActions()
     m_twoPagesModeAction->setIcon(QIcon(":icons/two-pages.svg"));
     connect(m_twoPagesModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesMode_triggered(bool)));
 
-    // two pages with cover mode
+    // two pages with cover page mode
 
-    m_twoPagesWithCoverModeAction = new QAction(tr("Two pages &with cover"), this);
-    m_twoPagesWithCoverModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
-    m_twoPagesWithCoverModeAction->setCheckable(true);
-    m_twoPagesWithCoverModeAction->setIcon(QIcon(":icons/two-pages-with-cover.svg"));
-    connect(m_twoPagesWithCoverModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesWithCoverMode_triggered(bool)));
+    m_twoPagesWithCoverPageModeAction = new QAction(tr("Two pages &with cover page"), this);
+    m_twoPagesWithCoverPageModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
+    m_twoPagesWithCoverPageModeAction->setCheckable(true);
+    m_twoPagesWithCoverPageModeAction->setIcon(QIcon(":icons/two-pages-with-cover-page.svg"));
+    connect(m_twoPagesWithCoverPageModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)));
 
     // zoom in
 
@@ -1719,7 +1719,7 @@ void MainWindow::createToolBars()
     {
         if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
         else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
-        else if(action == "twoPagesWithCoverMode") { m_viewToolBar->addAction(m_twoPagesWithCoverModeAction); }
+        else if(action == "twoPagesWithCoverPageMode") { m_viewToolBar->addAction(m_twoPagesWithCoverPageModeAction); }
         else if(action == "scaleFactor") { m_scaleFactorComboBox->setVisible(true); m_viewToolBar->addWidget(m_scaleFactorComboBox); }
         else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
@@ -1867,7 +1867,7 @@ void MainWindow::createMenus()
     m_viewMenu = menuBar()->addMenu(tr("&View"));
     m_viewMenu->addAction(m_continuousModeAction);
     m_viewMenu->addAction(m_twoPagesModeAction);
-    m_viewMenu->addAction(m_twoPagesWithCoverModeAction);
+    m_viewMenu->addAction(m_twoPagesWithCoverPageModeAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_zoomInAction);
     m_viewMenu->addAction(m_zoomOutAction);

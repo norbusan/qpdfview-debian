@@ -97,7 +97,7 @@ public:
     {
         SinglePageMode = 0,
         TwoPagesMode = 1,
-        TwoPagesWithCoverMode = 2
+        TwoPagesWithCoverPageMode = 2
     };
 
     LayoutMode layoutMode() const;
