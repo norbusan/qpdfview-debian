@@ -93,8 +93,15 @@ public:
     bool continousMode() const;
     void setContinousMode(bool continousMode);
 
-    bool twoPagesMode() const;
-    void setTwoPagesMode(bool twoPagesMode);
+    enum LayoutMode
+    {
+        SinglePageMode = 0,
+        TwoPagesMode = 1,
+        TwoPagesWithCoverMode = 2
+    };
+
+    LayoutMode layoutMode() const;
+    void setLayoutMode(LayoutMode layoutMode);
 
     enum ScaleMode
     {
@@ -135,7 +142,7 @@ signals:
     void currentPageChanged(int currentPage, bool returnTo = false);
 
     void continousModeChanged(bool continousMode);
-    void twoPagesModeChanged(bool twoPagesMode);
+    void layoutModeChanged(DocumentView::LayoutMode layoutMode);
     void scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Poppler::Page::Rotation rotation);
@@ -238,11 +245,13 @@ private:
     qreal m_returnToLeft;
     qreal m_returnToTop;
 
-    int currentPageForPage(int page);
-    void saveLeftAndTop(qreal& left, qreal& top);
+    int currentPageForPage(int page) const;
+    int leftIndexForIndex(int index) const;
+    int rightIndexForIndex(int index) const;
+    void saveLeftAndTop(qreal& left, qreal& top) const;
 
     bool m_continuousMode;
-    bool m_twoPagesMode;
+    LayoutMode m_layoutMode;
     ScaleMode m_scaleMode;
     qreal m_scaleFactor;
     Poppler::Page::Rotation m_rotation;

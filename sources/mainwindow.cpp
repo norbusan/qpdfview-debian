@@ -113,7 +113,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
     if(newTab->open(filePath))
     {
         newTab->setContinousMode(m_settings->value("documentView/continuousMode", false).toBool());
-        newTab->setTwoPagesMode(m_settings->value("documentView/twoPagesMode", false).toBool());
+        newTab->setLayoutMode(static_cast< DocumentView::LayoutMode >(m_settings->value("documentView/layoutMode", 0).toUInt()));
         newTab->setScaleMode(static_cast< DocumentView::ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt()));
         newTab->setScaleFactor(m_settings->value("documentView/scaleFactor", 1.0).toReal());
         newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
@@ -138,7 +138,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
 
         connect(newTab, SIGNAL(continousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
-        connect(newTab, SIGNAL(twoPagesModeChanged(bool)), SLOT(on_currentTab_twoPagesModeChanged(bool)));
+        connect(newTab, SIGNAL(layoutModeChanged(DocumentView::LayoutMode)), SLOT(on_currentTab_layoutModeChanged(DocumentView::LayoutMode)));
         connect(newTab, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), SLOT(on_currentTab_scaleModeChanged(DocumentView::ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
         connect(newTab, SIGNAL(rotationChanged(Poppler::Page::Rotation)), SLOT(on_currentTab_rotationChanged(Poppler::Page::Rotation)));
@@ -218,6 +218,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setEnabled(true);
         m_twoPagesModeAction->setEnabled(true);
+        m_twoPagesWithCoverModeAction->setEnabled(true);
 
         m_zoomInAction->setEnabled(true);
         m_zoomOutAction->setEnabled(true);
@@ -265,7 +266,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_currentPageChanged(currentTab()->currentPage());
 
         on_currentTab_continuousModeChanged(currentTab()->continousMode());
-        on_currentTab_twoPagesModeChanged(currentTab()->twoPagesMode());
+        on_currentTab_layoutModeChanged(currentTab()->layoutMode());
         on_currentTab_scaleModeChanged(currentTab()->scaleMode());
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
         on_currentTab_rotationChanged(currentTab()->rotation());
@@ -296,6 +297,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setEnabled(false);
         m_twoPagesModeAction->setEnabled(false);
+        m_twoPagesWithCoverModeAction->setEnabled(false);
 
         m_zoomInAction->setEnabled(false);
         m_zoomOutAction->setEnabled(false);
@@ -351,6 +353,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_continuousModeAction->setChecked(false);
         m_twoPagesModeAction->setChecked(false);
+        m_twoPagesWithCoverModeAction->setChecked(false);
 
         m_fitToPageSizeAction->setChecked(false);
         m_fitToPageWidthAction->setChecked(false);
@@ -422,13 +425,14 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     }
 }
 
-void MainWindow::on_currentTab_twoPagesModeChanged(bool twoPagesMode)
+void MainWindow::on_currentTab_layoutModeChanged(DocumentView::LayoutMode layoutMode)
 {
     if(senderIsCurrentTab())
     {
-        m_twoPagesModeAction->setChecked(twoPagesMode);
+        m_twoPagesModeAction->setChecked(layoutMode == DocumentView::TwoPagesMode);
+        m_twoPagesWithCoverModeAction->setChecked(layoutMode == DocumentView::TwoPagesWithCoverMode);
 
-        m_settings->setValue("documentView/twoPagesMode", twoPagesMode);
+        m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
     }
 }
 
@@ -818,7 +822,12 @@ void MainWindow::on_continuousMode_triggered(bool checked)
 
 void MainWindow::on_twoPagesMode_triggered(bool checked)
 {
-    currentTab()->setTwoPagesMode(checked);
+    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesMode : DocumentView::SinglePageMode);
+}
+
+void MainWindow::on_twoPagesWithCoverMode_triggered(bool checked)
+{
+    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesWithCoverMode : DocumentView::SinglePageMode);
 }
 
 void MainWindow::on_zoomIn_triggered()
@@ -1504,6 +1513,14 @@ void MainWindow::createActions()
     m_twoPagesModeAction->setIcon(QIcon(":icons/two-pages.svg"));
     connect(m_twoPagesModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesMode_triggered(bool)));
 
+    // two pages with cover mode
+
+    m_twoPagesWithCoverModeAction = new QAction(tr("Two pages &with cover"), this);
+    m_twoPagesWithCoverModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
+    m_twoPagesWithCoverModeAction->setCheckable(true);
+    m_twoPagesWithCoverModeAction->setIcon(QIcon(":icons/two-pages-with-cover.svg"));
+    connect(m_twoPagesWithCoverModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesWithCoverMode_triggered(bool)));
+
     // zoom in
 
     m_zoomInAction = new QAction(tr("Zoom &in"), this);
@@ -1702,6 +1719,7 @@ void MainWindow::createToolBars()
     {
         if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
         else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
+        else if(action == "twoPagesWithCoverMode") { m_viewToolBar->addAction(m_twoPagesWithCoverModeAction); }
         else if(action == "scaleFactor") { m_scaleFactorComboBox->setVisible(true); m_viewToolBar->addWidget(m_scaleFactorComboBox); }
         else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
@@ -1849,6 +1867,7 @@ void MainWindow::createMenus()
     m_viewMenu = menuBar()->addMenu(tr("&View"));
     m_viewMenu->addAction(m_continuousModeAction);
     m_viewMenu->addAction(m_twoPagesModeAction);
+    m_viewMenu->addAction(m_twoPagesWithCoverModeAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_zoomInAction);
     m_viewMenu->addAction(m_zoomOutAction);
@@ -1926,7 +1945,7 @@ void MainWindow::restoreTabs()
                     if(openInNewTab(tabElement.attribute("filePath")))
                     {
                         currentTab()->setContinousMode(static_cast< bool >(tabElement.attribute("continuousMode").toUInt()));
-                        currentTab()->setTwoPagesMode(static_cast< bool >(tabElement.attribute("twoPagesMode").toUInt()));
+                        currentTab()->setLayoutMode(static_cast< DocumentView::LayoutMode >(tabElement.attribute("layoutMode").toUInt()));
 
                         currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(tabElement.attribute("scaleMode").toUInt()));
                         currentTab()->setScaleFactor(tabElement.attribute("scaleFactor").toFloat());
@@ -1973,7 +1992,7 @@ void MainWindow::saveTabs()
                 tabElement.setAttribute("currentPage", tab(index)->currentPage());
 
                 tabElement.setAttribute("continuousMode", static_cast< uint >(tab(index)->continousMode()));
-                tabElement.setAttribute("twoPagesMode", static_cast< uint >(tab(index)->twoPagesMode()));
+                tabElement.setAttribute("layoutMode", static_cast< uint >(tab(index)->layoutMode()));
 
                 tabElement.setAttribute("scaleMode", static_cast< uint >(tab(index)->scaleMode()));
                 tabElement.setAttribute("scaleFactor", tab(index)->scaleFactor());

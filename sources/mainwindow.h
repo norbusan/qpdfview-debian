@@ -63,7 +63,7 @@ protected slots:
     void on_currentTab_currentPageChanged(int currentPage);
 
     void on_currentTab_continuousModeChanged(bool continuousMode);
-    void on_currentTab_twoPagesModeChanged(bool twoPagesMode);
+    void on_currentTab_layoutModeChanged(DocumentView::LayoutMode layoutMode);
     void on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
     void on_currentTab_rotationChanged(Poppler::Page::Rotation rotation);
@@ -110,6 +110,7 @@ protected slots:
 
     void on_continuousMode_triggered(bool checked);
     void on_twoPagesMode_triggered(bool checked);
+    void on_twoPagesWithCoverMode_triggered(bool checked);
 
     void on_zoomIn_triggered();
     void on_zoomOut_triggered();
@@ -206,6 +207,7 @@ private:
 
     QAction* m_continuousModeAction;
     QAction* m_twoPagesModeAction;
+    QAction* m_twoPagesWithCoverModeAction;
 
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;

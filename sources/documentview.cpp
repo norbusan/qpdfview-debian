@@ -201,7 +201,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_returnToLeft(0.0),
     m_returnToTop(0.0),
     m_continuousMode(false),
-    m_twoPagesMode(false),
+    m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactor),
     m_scaleFactor(1.0),
     m_rotation(Poppler::Page::Rotate0),
@@ -333,16 +333,16 @@ void DocumentView::setContinousMode(bool continousMode)
     }
 }
 
-bool DocumentView::twoPagesMode() const
+DocumentView::LayoutMode DocumentView::layoutMode() const
 {
-    return m_twoPagesMode;
+    return m_layoutMode;
 }
 
-void DocumentView::setTwoPagesMode(bool twoPagesMode)
+void DocumentView::setLayoutMode(DocumentView::LayoutMode layoutMode)
 {
-    if(m_twoPagesMode != twoPagesMode)
+    if(m_layoutMode != layoutMode)
     {
-        m_twoPagesMode = twoPagesMode;
+        m_layoutMode = layoutMode;
 
         if(m_currentPage != currentPageForPage(m_currentPage))
         {
@@ -354,7 +354,7 @@ void DocumentView::setTwoPagesMode(bool twoPagesMode)
         prepareScene();
         prepareView();
 
-        emit twoPagesModeChanged(m_twoPagesMode);
+        emit layoutModeChanged(m_layoutMode);
     }
 }
 
@@ -764,12 +764,12 @@ bool DocumentView::print(QPrinter* printer)
 
 void DocumentView::previousPage()
 {
-    jumpToPage(currentPage() - (m_twoPagesMode ? 2 : 1), false);
+    jumpToPage(qMax(1, m_currentPage - (m_layoutMode == SinglePageMode ? 1 : 2)), false);
 }
 
 void DocumentView::nextPage()
 {
-    jumpToPage(currentPage() + (m_twoPagesMode ? 2 : 1), false);
+    jumpToPage(qMin(m_numberOfPages, m_currentPage + (m_layoutMode == SinglePageMode ? 1 : 2)), false);
 }
 
 void DocumentView::firstPage()
@@ -779,7 +779,7 @@ void DocumentView::firstPage()
 
 void DocumentView::lastPage()
 {
-    jumpToPage(numberOfPages());
+    jumpToPage(m_numberOfPages);
 }
 
 void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal changeTop)
@@ -852,7 +852,7 @@ void DocumentView::findPrevious()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || (m_twoPagesMode && m_currentResult.key() == m_currentPage))
+        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
         {
             --m_currentResult;
         }
@@ -878,7 +878,7 @@ void DocumentView::findNext()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || (m_twoPagesMode && m_currentResult.key() == m_currentPage))
+        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
         {
             ++m_currentResult;
         }
@@ -1058,8 +1058,8 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
 
 void DocumentView::on_prefetch_timeout()
 {
-    int fromPage = m_currentPage - (m_twoPagesMode ? 2 : 1);
-    int toPage = m_currentPage + (m_twoPagesMode ? 3 : 1);
+    int fromPage = m_currentPage - (m_layoutMode == SinglePageMode ? 1 : 2);
+    int toPage = m_currentPage + (m_layoutMode == SinglePageMode ? 1 : 3);
 
     fromPage = fromPage >= 1 ? fromPage : 1;
     toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
@@ -1282,19 +1282,67 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     QGraphicsView::wheelEvent(event);
 }
 
-int DocumentView::currentPageForPage(int page)
+int DocumentView::currentPageForPage(int page) const
 {
-    if(m_twoPagesMode)
+    int currentPage = -1;
+
+    switch(m_layoutMode)
     {
-        return page % 2 != 0 ? page : page - 1;
+    case SinglePageMode:
+        currentPage = page;
+        break;
+    case TwoPagesMode:
+        currentPage = page % 2 != 0 ? page : page - 1;
+        break;
+    case TwoPagesWithCoverMode:
+        currentPage = page == 1 ? page : (page % 2 == 0 ? page : page - 1);
+        break;
     }
-    else
-    {
-        return page;
-    }
+
+    return currentPage;
 }
 
-void DocumentView::saveLeftAndTop(qreal& left, qreal& top)
+int DocumentView::leftIndexForIndex(int index) const
+{
+    int leftIndex = -1;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        leftIndex = index;
+        break;
+    case TwoPagesMode:
+        leftIndex = index % 2 == 0 ? index : index - 1;
+        break;
+    case TwoPagesWithCoverMode:
+        leftIndex = index == 0 ? index : (index % 2 != 0 ? index : index - 1);
+        break;
+    }
+
+    return leftIndex;
+}
+
+int DocumentView::rightIndexForIndex(int index) const
+{
+    int rightIndex = -1;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        rightIndex = index;
+        break;
+    case TwoPagesMode:
+        rightIndex = index % 2 == 0 ? index + 1 : index;
+        break;
+    case TwoPagesWithCoverMode:
+        rightIndex = index % 2 != 0 ? index + 1 : index;
+        break;
+    }
+
+    return rightIndex;
+}
+
+void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     PageItem* page = m_pages.at(m_currentPage - 1);
 
@@ -1566,13 +1614,13 @@ void DocumentView::prepareScene()
 
             qreal scaleFactor = 1.0;
 
-            if(m_twoPagesMode)
+            if(m_layoutMode == SinglePageMode)
             {
-                visibleWidth = 0.5 * (viewport()->width() - 6.0 - 3.0 * s_pageSpacing);
+                visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
             }
             else
             {
-                visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
+                visibleWidth = 0.5 * (viewport()->width() - 6.0 - 3.0 * s_pageSpacing);
             }
 
             visibleHeight = viewport()->height() - 2.0 * s_pageSpacing;
@@ -1628,29 +1676,7 @@ void DocumentView::prepareScene()
         PageItem* page = m_pages.at(index);
         QRectF boundingRect = page->boundingRect();
 
-        if(m_twoPagesMode)
-        {
-            if(index % 2 == 0)
-            {
-                page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * s_pageSpacing, height - boundingRect.top());
-
-                m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
-
-                pageHeight = boundingRect.height();
-
-                left = qMin(left, -boundingRect.width() - 1.5f * s_pageSpacing);
-            }
-            else
-            {
-                page->setPos(-boundingRect.left() + 0.5 * s_pageSpacing, height - boundingRect.top());
-
-                pageHeight = qMax(pageHeight, boundingRect.height());
-
-                right = qMax(right, boundingRect.width() + 1.5f * s_pageSpacing);
-                height += pageHeight + s_pageSpacing;
-            }
-        }
-        else
+        if(m_layoutMode == SinglePageMode)
         {
             page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
@@ -1662,12 +1688,34 @@ void DocumentView::prepareScene()
             right = qMax(right, 0.5f * boundingRect.width() + s_pageSpacing);
             height += pageHeight + s_pageSpacing;
         }
-    }
+        else
+        {
+            if(index == leftIndexForIndex(index))
+            {
+                page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * s_pageSpacing, height - boundingRect.top());
 
-    if(m_twoPagesMode && m_numberOfPages % 2 != 0)
-    {
-        right = qMax(right, 0.5f * s_pageSpacing);
-        height += pageHeight + s_pageSpacing;
+                m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
+
+                pageHeight = boundingRect.height();
+
+                left = qMin(left, -boundingRect.width() - 1.5f * s_pageSpacing);
+
+                if((m_layoutMode == TwoPagesWithCoverMode && index == 0) || index == m_numberOfPages - 1)
+                {
+                    right = qMax(right, 0.5f * s_pageSpacing);
+                    height += pageHeight + s_pageSpacing;
+                }
+            }
+            else if(index == rightIndexForIndex(index))
+            {
+                page->setPos(-boundingRect.left() + 0.5 * s_pageSpacing, height - boundingRect.top());
+
+                pageHeight = qMax(pageHeight, boundingRect.height());
+
+                right = qMax(right, boundingRect.width() + 1.5f * s_pageSpacing);
+                height += pageHeight + s_pageSpacing;
+            }
+        }
     }
 
     m_pagesScene->setSceneRect(left, 0.0, right - left, height);
@@ -1701,7 +1749,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(index == m_currentPage - 1)
+            if(index == m_currentPage - 1 || index == rightIndexForIndex(m_currentPage - 1))
             {
                 page->setVisible(true);
 
@@ -1710,17 +1758,11 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
                 top = boundingRect.top() - s_pageSpacing;
                 height = boundingRect.height() + 2.0 * s_pageSpacing;
 
-                horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-                verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
-            }
-            else if(m_twoPagesMode && index == m_currentPage)
-            {
-                page->setVisible(true);
-
-                QRectF boundingRect = page->boundingRect().translated(page->pos());
-
-                top = qMin(top, boundingRect.top() - s_pageSpacing);
-                height = qMax(height, boundingRect.height() + 2.0f * s_pageSpacing);
+                if(index == m_currentPage - 1)
+                {
+                    horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
+                    verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
+                }
             }
             else
             {
@@ -1736,6 +1778,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
             {
                 m_highlight->setPos(page->pos());
                 m_highlight->setTransform(page->transform());
+
                 page->stackBefore(m_highlight);
             }
         }
