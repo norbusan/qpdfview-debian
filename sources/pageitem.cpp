@@ -407,7 +407,7 @@ void PageItem::on_render_finished()
 
 void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image)
 {
-    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || m_scaleFactor != scaleFactor || m_rotation != rotation)
+    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation)
     {
         return;
     }
@@ -791,6 +791,9 @@ void PageItem::prepareGeometry()
     }
 
     m_boundingRect = m_transform.mapRect(QRectF(QPointF(), m_size));
+
+    m_boundingRect.setWidth(qRound(m_boundingRect.width()));
+    m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 }
 
 void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch)

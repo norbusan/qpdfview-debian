@@ -131,7 +131,7 @@ void PresentationView::on_render_finished()
 
 void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
 {
-    if(m_currentPage - 1 != index || m_scaleFactor != scaleFactor)
+    if(m_currentPage - 1 != index || !qFuzzyCompare(m_scaleFactor, scaleFactor))
     {
         return;
     }
