@@ -303,7 +303,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1518"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Duas páginas &amp;com capa</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1526"/>
