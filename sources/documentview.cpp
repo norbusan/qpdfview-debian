@@ -884,12 +884,12 @@ void DocumentView::findNext()
         }
         else
         {
-            m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            m_currentResult = m_results.lowerBound(m_currentPage - 1);
         }
     }
     else
     {
-        m_currentResult = --m_results.upperBound(m_currentPage - 1);
+        m_currentResult = m_results.lowerBound(m_currentPage - 1);
     }
 
     if(m_currentResult == m_results.end())
