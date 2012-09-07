@@ -226,7 +226,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setScene(m_pagesScene);
 
-    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setDragMode(QGraphicsView::ScrollHandDrag);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
