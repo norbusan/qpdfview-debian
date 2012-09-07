@@ -306,7 +306,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1518"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dvě strany &amp;s titulní stranou</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1526"/>
