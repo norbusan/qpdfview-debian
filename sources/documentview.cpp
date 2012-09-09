@@ -1705,7 +1705,7 @@ void DocumentView::prepareScene()
                     height += pageHeight + s_pageSpacing;
                 }
             }
-            else if(index == rightIndexForIndex(index))
+            else
             {
                 page->setPos(-boundingRect.left() + 0.5 * s_pageSpacing, height - boundingRect.top());
 
