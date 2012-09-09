@@ -867,7 +867,7 @@ void DocumentView::findPrevious()
 
     if(m_currentResult == m_results.end())
     {
-        m_currentResult = --m_results.upperBound(m_numberOfPages - 1);
+        m_currentResult = --m_results.end();
     }
 
     prepareHighlight();
@@ -893,7 +893,7 @@ void DocumentView::findNext()
 
     if(m_currentResult == m_results.end())
     {
-        m_currentResult = m_results.lowerBound(0);
+        m_currentResult = m_results.begin();
     }
 
     prepareHighlight();
