@@ -1331,10 +1331,10 @@ int DocumentView::rightIndexForIndex(int index) const
         rightIndex = index;
         break;
     case TwoPagesMode:
-        rightIndex = index % 2 == 0 ? index + 1 : index;
+        rightIndex = index % 2 == 0 && index != m_numberOfPages - 1 ? index + 1 : index;
         break;
     case TwoPagesWithCoverPageMode:
-        rightIndex = index % 2 != 0 ? index + 1 : index;
+        rightIndex = index % 2 != 0 && index != m_numberOfPages - 1 ? index + 1 : index;
         break;
     }
 
@@ -1699,7 +1699,7 @@ void DocumentView::prepareScene()
 
                 left = qMin(left, -boundingRect.width() - 1.5f * s_pageSpacing);
 
-                if((m_layoutMode == TwoPagesWithCoverPageMode && index == 0) || index == m_numberOfPages - 1)
+                if(index == rightIndexForIndex(index))
                 {
                     right = qMax(right, 0.5f * s_pageSpacing);
                     height += pageHeight + s_pageSpacing;
