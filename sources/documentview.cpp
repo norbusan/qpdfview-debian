@@ -1787,6 +1787,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
     horizontalScrollBar()->setValue(horizontalValue);
     verticalScrollBar()->setValue(verticalValue);
+
+    viewport()->update();
 }
 
 void DocumentView::prepareHighlight()
