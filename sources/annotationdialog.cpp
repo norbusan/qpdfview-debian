@@ -32,6 +32,8 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     setLayout(new QVBoxLayout());
     layout()->setContentsMargins(2, 2, 2, 2);
     layout()->addWidget(m_textEdit);
+
+    setSizeGripEnabled(true);
 }
 
 void AnnotationDialog::showEvent(QShowEvent *event)
