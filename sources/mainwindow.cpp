@@ -683,7 +683,7 @@ void MainWindow::on_print_triggered()
 
 void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
 {
-    if(!jumpToPageOrOpenInNewTab(filePath, 1, true))
+    if(!jumpToPageOrOpenInNewTab(filePath, -1, true))
     {
         m_recentlyUsedMenu->removeOpenAction(filePath);
     }
@@ -1823,7 +1823,7 @@ void MainWindow::createMenus()
     m_fileMenu->addAction(m_openAction);
     m_fileMenu->addAction(m_openInNewTabAction);
 
-    m_recentlyUsedMenu = new RecentlyUsedMenu(m_fileMenu);
+    m_recentlyUsedMenu = new RecentlyUsedMenu(this);
 
     if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
     {
@@ -1835,6 +1835,18 @@ void MainWindow::createMenus()
         connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(on_recentlyUsed_openTriggered(QString)));
 
         m_fileMenu->addMenu(m_recentlyUsedMenu);
+
+        QToolButton* openToolButton = qobject_cast< QToolButton* >(m_fileToolBar->widgetForAction(m_openAction));
+        if(openToolButton != 0)
+        {
+            openToolButton->setMenu(m_recentlyUsedMenu);
+        }
+
+        QToolButton* openInNewTabToolButton = qobject_cast< QToolButton* >(m_fileToolBar->widgetForAction(m_openInNewTabAction));
+        if(openInNewTabToolButton != 0)
+        {
+            openInNewTabToolButton->setMenu(m_recentlyUsedMenu);
+        }
     }
 
     m_fileMenu->addAction(m_refreshAction);
