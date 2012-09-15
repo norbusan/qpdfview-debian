@@ -453,12 +453,18 @@ void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMod
             m_fitToPageSizeAction->setChecked(false);
 
             m_scaleFactorComboBox->setCurrentIndex(0);
+
+            m_zoomInAction->setEnabled(true);
+            m_zoomOutAction->setEnabled(true);
             break;
         case DocumentView::FitToPageSize:
             m_fitToPageWidthAction->setChecked(false);
             m_fitToPageSizeAction->setChecked(true);
 
             m_scaleFactorComboBox->setCurrentIndex(1);
+
+            m_zoomInAction->setEnabled(true);
+            m_zoomOutAction->setEnabled(true);
             break;
         }
 
@@ -474,6 +480,9 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
         {
             m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
+
+            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, DocumentView::maximumScaleFactor()));
+            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, DocumentView::minimumScaleFactor()));
         }
 
         m_settings->setValue("documentView/scaleFactor", scaleFactor);
