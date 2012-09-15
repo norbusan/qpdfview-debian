@@ -303,7 +303,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1518"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Две страницы и &amp;обложка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1526"/>
@@ -423,13 +423,13 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1697"/>
-        <location filename="../sources/mainwindow.cpp" line="1848"/>
+        <location filename="../sources/mainwindow.cpp" line="1860"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">П&amp;равка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1715"/>
-        <location filename="../sources/mainwindow.cpp" line="1867"/>
+        <location filename="../sources/mainwindow.cpp" line="1879"/>
         <source>&amp;View</source>
         <translation type="unfinished">В&amp;ид</translation>
     </message>
@@ -454,27 +454,27 @@
         <translation type="unfinished">Миниат&amp;юры</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="1894"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Панели инс&amp;трументов</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1887"/>
+        <location filename="../sources/mainwindow.cpp" line="1899"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Прилип&amp;алы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1899"/>
+        <location filename="../sources/mainwindow.cpp" line="1911"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Вкла&amp;дки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <location filename="../sources/mainwindow.cpp" line="1922"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1921"/>
+        <location filename="../sources/mainwindow.cpp" line="1933"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Справка</translation>
     </message>
@@ -586,17 +586,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Синхронная презентация:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="102"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По умолчанию</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экран презентации</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="110"/>

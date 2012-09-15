@@ -423,13 +423,13 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1697"/>
-        <location filename="../sources/mainwindow.cpp" line="1848"/>
+        <location filename="../sources/mainwindow.cpp" line="1860"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Επεξεργασία</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1715"/>
-        <location filename="../sources/mainwindow.cpp" line="1867"/>
+        <location filename="../sources/mainwindow.cpp" line="1879"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Προβολή</translation>
     </message>
@@ -454,27 +454,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="1894"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1887"/>
+        <location filename="../sources/mainwindow.cpp" line="1899"/>
         <source>&amp;Docks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1899"/>
+        <location filename="../sources/mainwindow.cpp" line="1911"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Καρτέλες</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <location filename="../sources/mainwindow.cpp" line="1922"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Σελιδοδείκτες</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1921"/>
+        <location filename="../sources/mainwindow.cpp" line="1933"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Βοήθεια</translation>
     </message>
