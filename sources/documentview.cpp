@@ -898,9 +898,7 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactor)
     {
-        PageItem* page = m_pages.at(m_currentPage - 1);
-
-        setScaleFactor(qMin(page->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
+        setScaleFactor(qMin(m_pages.at(m_currentPage - 1)->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
         setScaleMode(ScaleFactor);
     }
     else
@@ -913,9 +911,7 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactor)
     {
-        PageItem* page = m_pages.at(m_currentPage - 1);
-
-        setScaleFactor(qMax(page->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
+        setScaleFactor(qMax(m_pages.at(m_currentPage - 1)->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
         setScaleMode(ScaleFactor);
     }
     else
@@ -1058,9 +1054,7 @@ void DocumentView::on_prefetch_timeout()
 
     for(int index = fromPage - 1; index <= toPage - 1; index++)
     {
-        PageItem* page = m_pages.at(index);
-
-        page->startRender(true);
+        m_pages.at(index)->startRender(true);
     }
 }
 
