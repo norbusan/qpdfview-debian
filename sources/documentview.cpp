@@ -1090,7 +1090,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
     }
 }
 
-void DocumentView::on_pages_rubberBandReset()
+void DocumentView::on_pages_rubberBandFinished()
 {
     setRubberBandMode(PageItem::ModifiersMode);
 }
@@ -1406,7 +1406,7 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
 
-        connect(page, SIGNAL(rubberBandReset()), SLOT(on_pages_rubberBandReset()));
+        connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
     }
 
     if(PageItem::decoratePages())

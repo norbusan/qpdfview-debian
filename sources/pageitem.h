@@ -93,7 +93,8 @@ signals:
     void linkClicked(int page, qreal left, qreal top);
     void linkClicked(const QString& url);
 
-    void rubberBandReset();
+    void rubberBandStarted();
+    void rubberBandFinished();
 
 public slots:
     void refresh();

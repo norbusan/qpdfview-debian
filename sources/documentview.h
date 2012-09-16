@@ -194,7 +194,7 @@ protected slots:
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
 
-    void on_pages_rubberBandReset();
+    void on_pages_rubberBandFinished();
 
     void on_thumbnails_pageClicked(int page);
 
