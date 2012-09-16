@@ -206,6 +206,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleFactor(1.0),
     m_rotation(Poppler::Page::Rotate0),
     m_highlightAll(false),
+    m_rubberBandMode(PageItem::ModifiersMode),
     m_pagesScene(0),
     m_pages(),
     m_heightToIndex(),
@@ -433,9 +434,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         for(int index = 0; index < m_numberOfPages; index++)
         {
-            PageItem* page = m_pages.at(index);
-
-            page->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
+            m_pages.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
         }
 
         emit highlightAllChanged(m_highlightAll);
@@ -444,17 +443,22 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
 PageItem::RubberBandMode DocumentView::rubberBandMode() const
 {
-    return m_pages.first()->rubberBandMode();
+    return m_rubberBandMode;
 }
 
 void DocumentView::setRubberBandMode(PageItem::RubberBandMode rubberBandMode)
 {
-    foreach(PageItem* page, m_pages)
+    if(m_rubberBandMode != rubberBandMode)
     {
-        page->setRubberBandMode(rubberBandMode);
-    }
+        m_rubberBandMode = rubberBandMode;
 
-    emit rubberBandModeChanged(rubberBandMode);
+        foreach(PageItem* page, m_pages)
+        {
+            page->setRubberBandMode(m_rubberBandMode);
+        }
+
+        emit rubberBandModeChanged(m_rubberBandMode);
+    }
 }
 
 bool DocumentView::searchWasCanceled() const
@@ -555,8 +559,6 @@ bool DocumentView::open(const QString& filePath)
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
-
-        emit rubberBandModeChanged(rubberBandMode());
     }
 
     return document != 0;
@@ -594,8 +596,6 @@ bool DocumentView::refresh()
 
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
-
-        emit rubberBandModeChanged(rubberBandMode());
     }
 
     return document != 0;
@@ -834,14 +834,9 @@ void DocumentView::cancelSearch()
     m_results.clear();
     m_currentResult = m_results.end();
 
-    if(m_highlightAll)
+    foreach(PageItem* page, m_pages)
     {
-        for(int index = 0; index < m_numberOfPages; index++)
-        {
-            PageItem* page = m_pages.at(index);
-
-            page->setHighlights(QList< QRectF >());
-        }
+        page->setHighlights(QList< QRectF >());
     }
 
     prepareHighlight();
@@ -1044,9 +1039,7 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
 
     if(m_highlightAll)
     {
-        PageItem* page = m_pages.at(index);
-
-        page->setHighlights(m_results.values(index));
+        m_pages.at(index)->setHighlights(m_results.values(index));
     }
 
     if(m_results.contains(index) && m_currentPage <= index + 1 && m_currentResult == m_results.end())
@@ -1405,6 +1398,7 @@ void DocumentView::preparePages()
         PageItem* page = new PageItem(&m_mutex, m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+        page->setRubberBandMode(m_rubberBandMode);
 
         m_pagesScene->addItem(page);
         m_pages.append(page);

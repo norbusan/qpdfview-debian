@@ -257,6 +257,7 @@ private:
     Poppler::Page::Rotation m_rotation;
 
     bool m_highlightAll;
+    PageItem::RubberBandMode m_rubberBandMode;
 
     QGraphicsScene* m_pagesScene;
     QList< PageItem* > m_pages;
