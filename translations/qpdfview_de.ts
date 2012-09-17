@@ -514,7 +514,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="746"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Anmerkung entfernen</translation>
     </message>
 </context>
 <context>
