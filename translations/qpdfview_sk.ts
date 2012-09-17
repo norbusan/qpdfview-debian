@@ -91,22 +91,22 @@
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1160"/>
+        <location filename="../sources/documentview.cpp" line="1230"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Vrátiť sa na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1167"/>
+        <location filename="../sources/documentview.cpp" line="1237"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1172"/>
+        <location filename="../sources/documentview.cpp" line="1242"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1177"/>
+        <location filename="../sources/documentview.cpp" line="1247"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
@@ -492,24 +492,29 @@
         <translation type="unfinished">Otvoriť %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="622"/>
+        <location filename="../sources/pageitem.cpp" line="630"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovať &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="623"/>
+        <location filename="../sources/pageitem.cpp" line="631"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovať &amp;obrázok</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="677"/>
+        <location filename="../sources/pageitem.cpp" line="685"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Pridať &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="686"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Pridať &amp;zvýraznenie</translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="746"/>
+        <source>&amp;Remove annotation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
