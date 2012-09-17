@@ -202,8 +202,8 @@ protected:
     void resizeEvent(QResizeEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
-    void mousePressEvent(QMouseEvent* event);
     void wheelEvent(QWheelEvent* event);
+    void contextMenuEvent(QContextMenuEvent* event);
 
 private:
     static bool s_openUrl;

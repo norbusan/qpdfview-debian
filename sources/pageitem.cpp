@@ -483,6 +483,8 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    // rubber band
+
     if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyModifiers || event->modifiers() == s_annotateModifiers) && event->button() == Qt::LeftButton)
     {
         setCursor(Qt::CrossCursor);
@@ -508,7 +510,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
+
+    // links and annotations
+
+    if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
     {
         foreach(Poppler::Link* link, m_links)
         {
@@ -546,21 +551,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 QApplication::restoreOverrideCursor();
 
                 editAnnotation(annotation, event->screenPos());
-
-                event->accept();
-                return;
-            }
-        }
-    }
-    else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::RightButton)
-    {
-        foreach(Poppler::Annotation* annotation, m_annotations)
-        {
-            if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
-            {
-                QApplication::restoreOverrideCursor();
-
-                removeAnnotation(annotation, event->screenPos());
 
                 event->accept();
                 return;
@@ -610,6 +600,24 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
         event->accept();
         return;
+    }
+
+    event->ignore();
+}
+
+void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
+{
+    foreach(Poppler::Annotation* annotation, m_annotations)
+    {
+        if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+        {
+            QApplication::restoreOverrideCursor();
+
+            removeAnnotation(annotation, event->screenPos());
+
+            event->accept();
+            return;
+        }
     }
 
     event->ignore();
@@ -733,14 +741,25 @@ void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& s
 
 #ifdef HAS_POPPLER_20
 
-    m_mutex->lock();
+    QMenu* menu = new QMenu();
 
-    m_annotations.removeAll(annotation);
-    m_page->removeAnnotation(annotation);
+    QAction* removeAnnotationAction = menu->addAction(tr("&Remove annotation"));
 
-    m_mutex->unlock();
+    QAction* action = menu->exec(screenPos);
 
-    refresh();
+    if(action == removeAnnotationAction)
+    {
+        m_mutex->lock();
+
+        m_annotations.removeAll(annotation);
+        m_page->removeAnnotation(annotation);
+
+        m_mutex->unlock();
+
+        refresh();
+    }
+
+    delete menu;
 
 #endif // HAS_POPPLER_20
 }

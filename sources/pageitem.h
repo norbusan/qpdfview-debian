@@ -113,6 +113,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private:
     static QCache< PageItem*, QImage > s_cache;
