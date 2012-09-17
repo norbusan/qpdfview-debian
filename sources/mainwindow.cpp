@@ -411,7 +411,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnailsItem(currentPage));
+        m_thumbnailsView->centerOn(currentTab()->thumbnailsItem(currentPage));
     }
 }
 
