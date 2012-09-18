@@ -813,8 +813,6 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 
     QList< int > indices;
 
-    indices.reserve(m_numberOfPages);
-
     for(int index = m_currentPage - 1; index < m_numberOfPages; index++)
     {
         indices.append(index);
