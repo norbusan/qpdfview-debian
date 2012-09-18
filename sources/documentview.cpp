@@ -1422,6 +1422,8 @@ void DocumentView::prepareThumbnails()
     m_thumbnails.clear();
     m_thumbnails.reserve(m_numberOfPages);
 
+    m_thumbnailsScene->clear();
+
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = s_thumbnailSpacing;

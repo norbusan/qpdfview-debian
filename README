@@ -2,7 +2,7 @@ qpdfview is a tabbed PDF viewer using the poppler library.
 
 The project homepage is "https://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
-It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtSvg, libQtDBus resp. libcups if SVG, D-Bus, resp. CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install". The installation paths are defined in "qpdfview.pri".
+It depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. It also depends on libQtSvg, libQtDBus resp. libcups if SVG, D-Bus, resp. CUPS support is enabled. It is built using "qmake" and "make". It is installed using "make install". The installation paths are defined in "qpdfview.pri". (Qt 4.8 and Poppler 0.14 or later are currently need to build the program without modifications.)
 
 The following build-time options are available:
     * 'without_svg' disables SVG support, i.e. fallback and application-specific icons will not be available.
