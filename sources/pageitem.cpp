@@ -629,6 +629,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
     QAction* copyTextAction = menu->addAction(tr("Copy &text"));
     QAction* copyImageAction = menu->addAction(tr("Copy &image"));
+    QAction* saveImageToFileAction = menu->addAction(tr("Save image to &file..."));
 
     QAction* action = menu->exec(screenPos);
 
@@ -647,7 +648,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
             QApplication::clipboard()->setText(text);
         }
     }
-    else if(action == copyImageAction)
+    else if(action == copyImageAction || action == saveImageToFileAction)
     {
         QImage image;
 
@@ -669,7 +670,19 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
         if(!image.isNull())
         {
-            QApplication::clipboard()->setImage(image);
+            if(action == copyImageAction)
+            {
+                QApplication::clipboard()->setImage(image);
+            }
+            else if(action == saveImageToFileAction)
+            {
+                QString fileName = QFileDialog::getSaveFileName(0, tr("Save image to file"), QDir::homePath(), "Portable network graphics (*.png)");
+
+                if(!image.save(fileName, "PNG"))
+                {
+                    QMessageBox::warning(0, tr("Warning"), tr("Could not save image to file '%1'.").arg(fileName));
+                }
+            }
         }
     }
 
