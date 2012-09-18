@@ -260,12 +260,12 @@ private:
     PageItem::RubberBandMode m_rubberBandMode;
 
     QGraphicsScene* m_pagesScene;
-    QList< PageItem* > m_pages;
+    QVector< PageItem* > m_pages;
 
     QMap< qreal, int > m_heightToIndex;
 
     QGraphicsScene* m_thumbnailsScene;
-    QList< ThumbnailItem* > m_thumbnails;
+    QVector< ThumbnailItem* > m_thumbnails;
 
     QGraphicsRectItem* m_highlight;
 

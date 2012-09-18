@@ -647,7 +647,9 @@ bool DocumentView::print(QPrinter* printer)
 
         num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
 
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
         num_options = cupsAddOption("copies", QString("%1").arg(printer->copyCount()).toLocal8Bit(), num_options, &options);
+#endif
 
         num_options = cupsAddOption("collate", QString("%1").arg(printer->collateCopies()).toLocal8Bit(), num_options, &options);
 

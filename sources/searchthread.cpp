@@ -65,11 +65,11 @@ void SearchThread::run()
 
         Poppler::Page* page = m_document->page(index);
 
-#ifdef HAS_POPPLER_22
+#if defined(HAS_POPPLER_22)
 
         results = page->search(m_text, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
 
-#else
+#elif defined(HAS_POPPLER_14)
 
         double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
 
@@ -81,6 +81,15 @@ void SearchThread::run()
             rect.setRight(right);
             rect.setBottom(bottom);
 
+            results.append(rect);
+        }
+
+#else
+
+        QRectF rect;
+
+        while(page->search(m_text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+        {
             results.append(rect);
         }
 

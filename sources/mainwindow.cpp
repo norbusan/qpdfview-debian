@@ -1215,7 +1215,11 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         foreach(QUrl url, event->mimeData()->urls())
         {
+#if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
             if(url.isLocalFile())
+#else
+            if(url.scheme() == "file")
+#endif
             {
                 openInNewTab(url.toLocalFile());
             }
