@@ -41,6 +41,8 @@ TRANSLATIONS += \
 
 QT += core xml gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 !without_svg {
     DEFINES += WITH_SVG
     QT += svg
