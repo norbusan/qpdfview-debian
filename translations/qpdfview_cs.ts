@@ -485,57 +485,57 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="449"/>
+        <location filename="../sources/pageitem.cpp" line="448"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Jít na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="456"/>
+        <location filename="../sources/pageitem.cpp" line="455"/>
         <source>Open %1.</source>
         <translation type="unfinished">Otevřít %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="630"/>
+        <location filename="../sources/pageitem.cpp" line="629"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="631"/>
+        <location filename="../sources/pageitem.cpp" line="630"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovat &amp;obrázek</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="632"/>
+        <location filename="../sources/pageitem.cpp" line="631"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit obrázek do &amp;souboru...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="678"/>
         <source>Save image to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit obrázek do souboru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="682"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="682"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se uložit obrázek do souboru &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="698"/>
+        <location filename="../sources/pageitem.cpp" line="697"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Přidat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="699"/>
+        <location filename="../sources/pageitem.cpp" line="698"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="758"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstranit poznámku</translation>
     </message>
