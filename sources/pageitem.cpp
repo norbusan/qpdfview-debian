@@ -862,6 +862,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
 
 ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)
 {
+    setAcceptHoverEvents(false);
 }
 
 void ThumbnailItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
