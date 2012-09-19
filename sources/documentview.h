@@ -291,7 +291,7 @@ private:
     // search
 
     QMultiMap< int, QRectF > m_results;
-    QMultiMap< int, QRectF >::const_iterator m_currentResult;
+    QMultiMap< int, QRectF >::iterator m_currentResult;
 
     SearchThread* m_searchThread;
 

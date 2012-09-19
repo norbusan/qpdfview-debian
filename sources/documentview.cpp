@@ -432,7 +432,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        for(int index = 0; index < m_numberOfPages; index++)
+        for(int index = 0; index < m_numberOfPages; ++index)
         {
             m_pages.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
         }
@@ -496,7 +496,7 @@ QStandardItemModel* DocumentView::fontsModel()
 
     fontsModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
 
-    for(int index = 0; index < fonts.count(); index++)
+    for(int index = 0; index < fonts.count(); ++index)
     {
         Poppler::FontInfo font = fonts.at(index);
 
@@ -640,7 +640,7 @@ bool DocumentView::print(QPrinter* printer)
 
     if(dest != 0)
     {
-        for(int index = 0; index < dest->num_options; index++)
+        for(int index = 0; index < dest->num_options; ++index)
         {
             num_options = cupsAddOption(dest->options[index].name, dest->options[index].value, num_options, &options);
         }
@@ -715,7 +715,7 @@ bool DocumentView::print(QPrinter* printer)
     QPainter painter;
     painter.begin(printer);
 
-    for(int index = fromPage - 1; index <= toPage - 1; index++)
+    for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
         progressDialog->setValue(index);
 
@@ -813,12 +813,12 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 
     QList< int > indices;
 
-    for(int index = m_currentPage - 1; index < m_numberOfPages; index++)
+    for(int index = m_currentPage - 1; index < m_numberOfPages; ++index)
     {
         indices.append(index);
     }
 
-    for(int index = 0; index < m_currentPage - 1; index++)
+    for(int index = 0; index < m_currentPage - 1; ++index)
     {
         indices.append(index);
     }
@@ -1007,7 +1007,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
         QMap< qreal, int >::const_iterator lowerBound = m_heightToIndex.lowerBound(-value);
 
-        if(lowerBound != m_heightToIndex.end())
+        if(lowerBound != m_heightToIndex.constEnd())
         {
             int page = lowerBound.value() + 1;
 
@@ -1052,7 +1052,7 @@ void DocumentView::on_prefetch_timeout()
     fromPage = fromPage >= 1 ? fromPage : 1;
     toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
 
-    for(int index = fromPage - 1; index <= toPage - 1; index++)
+    for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
         m_pages.at(index)->startRender(true);
     }
@@ -1391,7 +1391,7 @@ void DocumentView::preparePages()
     m_pages.clear();
     m_pages.reserve(m_numberOfPages);
 
-    for(int index = 0; index < m_numberOfPages; index++)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = new PageItem(&m_mutex, m_document->page(index), index);
 
@@ -1428,7 +1428,7 @@ void DocumentView::prepareThumbnails()
     qreal right = 0.0;
     qreal height = s_thumbnailSpacing;
 
-    for(int index = 0; index < m_numberOfPages; index++)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         ThumbnailItem* page = new ThumbnailItem(&m_mutex, m_document->page(index), index);
 
@@ -1573,7 +1573,7 @@ void DocumentView::prepareProperties()
     m_propertiesModel->setRowCount(keys.count());
     m_propertiesModel->setColumnCount(2);
 
-    for(int index = 0; index < keys.count(); index++)
+    for(int index = 0; index < keys.count(); ++index)
     {
         QString key = keys.at(index);
         QString value = m_document->info(key);
@@ -1592,7 +1592,7 @@ void DocumentView::prepareScene()
 {
     // prepare scale factor and rotation
 
-    for(int index = 0; index < m_numberOfPages; index++)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = m_pages.at(index);
         QSizeF size = page->size();
@@ -1664,7 +1664,7 @@ void DocumentView::prepareScene()
     qreal right = 0.0;
     qreal height = s_pageSpacing;
 
-    for(int index = 0; index < m_numberOfPages; index++)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = m_pages.at(index);
         QRectF boundingRect = page->boundingRect();
@@ -1724,7 +1724,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    for(int index = 0; index < m_pages.count(); index++)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = m_pages.at(index);
 

@@ -169,7 +169,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
 
 bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump)
 {
-    for(int index = 0; index < m_tabWidget->count(); index++)
+    for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         if(QFileInfo(tab(index)->filePath()).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
         {
@@ -367,7 +367,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
 {
-    for(int index = 0; index < m_tabWidget->count(); index++)
+    for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         if(sender() == m_tabWidget->widget(index))
         {
@@ -787,7 +787,7 @@ void MainWindow::on_cancelSearch_triggered()
 
     m_searchToolBar->setVisible(false);
 
-    for(int index = 0; index < m_tabWidget->count(); index++)
+    for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         tab(index)->cancelSearch();
     }
@@ -814,7 +814,7 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings->value("mainWindow/tabPosition", 0).toUInt()));
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_settings->value("mainWindow/tabVisibility", 0).toUInt()));
 
-        for(int index = 0; index < m_tabWidget->count(); index++)
+        for(int index = 0; index < m_tabWidget->count(); ++index)
         {
             if(!tab(index)->refresh())
             {
@@ -1000,7 +1000,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
 void MainWindow::on_tab_triggered()
 {
-    for(int index = 0; index < m_tabWidget->count(); index++)
+    for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         if(sender()->parent() == m_tabWidget->widget(index))
         {
@@ -1025,7 +1025,7 @@ void MainWindow::on_previousBookmark_triggered()
 
             QList< int >::const_iterator lowerBound = --qLowerBound(pages, currentTab()->currentPage());
 
-            if(lowerBound >= pages.begin())
+            if(lowerBound >= pages.constBegin())
             {
                 currentTab()->jumpToPage(*lowerBound);
             }
@@ -1051,7 +1051,7 @@ void MainWindow::on_nextBookmark_triggered()
 
             QList< int >::const_iterator upperBound = qUpperBound(pages, currentTab()->currentPage());
 
-            if(upperBound < pages.end())
+            if(upperBound < pages.constEnd())
             {
                 currentTab()->jumpToPage(*upperBound);
             }
@@ -2008,7 +2008,7 @@ void MainWindow::saveTabs()
 
             rootElement.setAttribute("currentIndex", m_tabWidget->currentIndex());
 
-            for(int index = 0; index < m_tabWidget->count(); index++)
+            for(int index = 0; index < m_tabWidget->count(); ++index)
             {
                 QDomElement tabElement = document.createElement("tab");
                 rootElement.appendChild(tabElement);

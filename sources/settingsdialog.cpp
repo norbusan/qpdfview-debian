@@ -114,7 +114,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         uint tabPosition = static_cast< uint >(m_settings->value("mainWindow/tabPosition", 0).toUInt());
 
-        for(int index = 0; index < m_tabPositionComboBox->count(); index++)
+        for(int index = 0; index < m_tabPositionComboBox->count(); ++index)
         {
             if(m_tabPositionComboBox->itemData(index).toUInt() == tabPosition)
             {
@@ -133,7 +133,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         uint tabBarPolicy = static_cast< uint >(m_settings->value("mainWindow/tabVisibility", 0).toUInt());
 
-        for(int index = 0; index < m_tabVisibilityComboBox->count(); index++)
+        for(int index = 0; index < m_tabVisibilityComboBox->count(); ++index)
         {
             if(m_tabVisibilityComboBox->itemData(index).toUInt() == tabBarPolicy)
             {
@@ -287,7 +287,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         int cacheSize = m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt();
 
-        for(int index = 0; index < m_cacheSizeComboBox->count(); index++)
+        for(int index = 0; index < m_cacheSizeComboBox->count(); ++index)
         {
             if(m_cacheSizeComboBox->itemData(index).toInt() == cacheSize)
             {
@@ -418,7 +418,7 @@ void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, int modifiers
     comboBox->addItem(tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
     comboBox->addItem(tr("Control and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
 
-    for(int index = 0; index < comboBox->count(); index++)
+    for(int index = 0; index < comboBox->count(); ++index)
     {
         if(comboBox->itemData(index).toInt() == modifiers)
         {
