@@ -32,6 +32,9 @@ struct File
 
 int main(int argc, char** argv)
 {
+    qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
+    qRegisterMetaType< Poppler::Page::Rotation >("Poppler::Page::Rotation");
+
     QApplication application(argc, argv);
 
     QApplication::setOrganizationDomain("local.qpdfview");

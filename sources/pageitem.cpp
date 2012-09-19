@@ -116,7 +116,6 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_render = new QFutureWatcher< void >(this);
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
-    qRegisterMetaType< Poppler::Page::Rotation >("Poppler::Page::Rotation");
     connect(this, SIGNAL(imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)));
 
     m_mutex = mutex;

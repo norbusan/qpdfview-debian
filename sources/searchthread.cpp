@@ -30,7 +30,6 @@ SearchThread::SearchThread(QObject* parent) : QThread(parent),
     m_text(),
     m_matchCase(false)
 {
-    qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
 }
 
 bool SearchThread::wasCanceled() const

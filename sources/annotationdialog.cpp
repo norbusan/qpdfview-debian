@@ -23,7 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent) : QDialog(parent, Qt::Popup),
     m_mutex(mutex),
-    m_annotation(annotation)
+    m_annotation(annotation),
+    m_textEdit(0)
 {
     m_textEdit = new QTextEdit(this);
     m_textEdit->setAcceptRichText(false);
