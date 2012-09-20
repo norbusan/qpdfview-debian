@@ -130,19 +130,21 @@ int main(int argc, char** argv)
                 {
                     if(synctex_display_query(scanner, file.sourceName.toLocal8Bit(), file.sourceLine, file.sourceColumn) > 0)
                     {
-                        int page = 1;
-                        QRectF enclosingBox;
-
                         for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
                         {
-                            page = synctex_node_page(node);
-                            enclosingBox = enclosingBox.united(QRectF(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node)));
+                            int page = synctex_node_page(node);
+                            QRectF box(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node));
 
-                            qDebug() << "found node:" << page << enclosingBox;
+                            if(file.page != page)
+                            {
+                                file.page = page;
+                                file.enclosingBox = box;
+                            }
+                            else
+                            {
+                                file.enclosingBox = file.enclosingBox.united(box);
+                            }
                         }
-
-                        file.page = page;
-                        file.enclosingBox = enclosingBox;
                     }
 
                     synctex_scanner_free(scanner);
@@ -151,7 +153,7 @@ int main(int argc, char** argv)
         }
     }
 
-#endif
+#endif // WITH_SYNCTEX
 
 #ifdef WITH_DBUS
 
