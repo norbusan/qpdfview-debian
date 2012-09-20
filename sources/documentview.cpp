@@ -432,9 +432,19 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        for(int index = 0; index < m_numberOfPages; ++index)
+        if(m_highlightAll)
         {
-            m_pages.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
+            for(int index = 0; index < m_numberOfPages; ++index)
+            {
+                m_pages.at(index)->setHighlights(m_results.values(index));
+            }
+        }
+        else
+        {
+            foreach(PageItem* page, m_pages)
+            {
+                page->clearHighlights();
+            }
         }
 
         emit highlightAllChanged(m_highlightAll);
@@ -836,7 +846,7 @@ void DocumentView::cancelSearch()
 
     foreach(PageItem* page, m_pages)
     {
-        page->setHighlights(QList< QRectF >());
+        page->clearHighlights();
     }
 
     prepareHighlight();

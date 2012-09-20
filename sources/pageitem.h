@@ -62,7 +62,7 @@ public:
     QSizeF size() const;
 
     const QList< QRectF >& highlights() const;
-    void setHighlights(const QList< QRectF >& highlights);
+    void setHighlights(const QList< QRectF >& highlights, int duration = 0);
 
     enum RubberBandMode
     {
@@ -98,6 +98,8 @@ signals:
 
 public slots:
     void refresh();
+
+    void clearHighlights();
 
     void startRender(bool prefetch = false);
     void cancelRender();

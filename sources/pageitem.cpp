@@ -279,11 +279,16 @@ const QList< QRectF >& PageItem::highlights() const
     return m_highlights;
 }
 
-void PageItem::setHighlights(const QList< QRectF >& highlights)
+void PageItem::setHighlights(const QList< QRectF >& highlights, int duration)
 {
     m_highlights = highlights;
 
     update();
+
+    if(duration > 0)
+    {
+        QTimer::singleShot(duration, this, SLOT(clearHighlights()));
+    }
 }
 
 PageItem::RubberBandMode PageItem::rubberBandMode() const
@@ -380,6 +385,13 @@ void PageItem::refresh()
     cancelRender();
 
     s_cache.remove(this);
+
+    update();
+}
+
+void PageItem::clearHighlights()
+{
+    m_highlights.clear();
 
     update();
 }
