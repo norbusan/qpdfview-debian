@@ -522,10 +522,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         return;
     }
 
-    // links and annotations
-
     if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
     {
+        // links and annotations
+
         foreach(Poppler::Link* link, m_links)
         {
             if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
@@ -567,9 +567,19 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
+
+        // synchronize
+
+        event->accept();
+        return;
     }
 
     event->ignore();
+}
+
+void PageItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+    emit synchronize(m_index + 1, m_transform.inverted().map(event->pos()));
 }
 
 void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)

@@ -96,6 +96,8 @@ signals:
     void rubberBandStarted();
     void rubberBandFinished();
 
+    void synchronize(int page, const QPointF& pos);
+
 public slots:
     void refresh();
 
@@ -113,6 +115,7 @@ protected:
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);

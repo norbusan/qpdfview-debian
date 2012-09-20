@@ -34,6 +34,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_CUPS
 
+#ifdef WITH_SYNCTEX
+
+#include <synctex_parser.h>
+
+#endif // WITH_SYNCTEX
+
 #include "pageitem.h"
 #include "searchthread.h"
 #include "presentationview.h"
@@ -85,6 +91,9 @@ public:
 
     static int highlightDuration();
     static void setHighlightDuration(int highlightDuration);
+
+    static const QString& synchronizeProgram();
+    static void setSynchronizeProgram(const QString& synchronizeProgram);
 
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
@@ -200,6 +209,8 @@ protected slots:
 
     void on_pages_rubberBandFinished();
 
+    void on_pages_synchronize(int page, const QPointF& pos);
+
     void on_thumbnails_pageClicked(int page);
 
 protected:
@@ -234,6 +245,8 @@ private:
     static Qt::KeyboardModifiers s_horizontalModifiers;
 
     static int s_highlightDuration;
+
+    static QString s_synchronizeProgram;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
