@@ -78,7 +78,7 @@ QMenu* MainWindow::createPopupMenu()
     return menu;
 }
 
-bool MainWindow::open(const QString& filePath, int page)
+bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
@@ -95,6 +95,11 @@ bool MainWindow::open(const QString& filePath, int page)
             currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
 
+            if(!highlight.isNull())
+            {
+                currentTab()->jumpToHighlight(highlight);
+            }
+
             return true;
         }
         else
@@ -106,7 +111,7 @@ bool MainWindow::open(const QString& filePath, int page)
     return false;
 }
 
-bool MainWindow::openInNewTab(const QString& filePath, int page)
+bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& highlight)
 {
     DocumentView* newTab = new DocumentView();
 
@@ -155,6 +160,11 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
         newTab->jumpToPage(page, false);
         newTab->setFocus();
 
+        if(!highlight.isNull())
+        {
+            newTab->jumpToHighlight(highlight);
+        }
+
         return true;
     }
     else
@@ -167,7 +177,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page)
     return false;
 }
 
-bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump)
+bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
 {
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
@@ -185,6 +195,11 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
             currentTab()->jumpToPage(page);
             currentTab()->setFocus();
+
+            if(!highlight.isNull())
+            {
+                currentTab()->jumpToHighlight(highlight);
+            }
 
             return true;
         }
@@ -2137,19 +2152,19 @@ MainWindow* MainWindowAdaptor::mainWindow() const
     return qobject_cast< MainWindow* >(parent());
 }
 
-bool MainWindowAdaptor::open(const QString& filePath, int page)
+bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF &highlight)
 {
-    return mainWindow()->open(filePath, page);
+    return mainWindow()->open(filePath, page, highlight);
 }
 
-bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page)
+bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF &highlight)
 {
-    return mainWindow()->openInNewTab(filePath, page);
+    return mainWindow()->openInNewTab(filePath, page, highlight);
 }
 
-bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump)
+bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
 {
-    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump);
+    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump, highlight);
 }
 
 void MainWindowAdaptor::raiseAndActivate()

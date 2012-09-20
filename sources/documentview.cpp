@@ -44,6 +44,8 @@ Qt::KeyboardModifiers DocumentView::s_zoomModifiers = Qt::ControlModifier;
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers = Qt::ShiftModifier;
 Qt::KeyboardModifiers DocumentView::s_horizontalModifiers = Qt::AltModifier;
 
+int DocumentView::s_highlightDuration = 5000;
+
 bool DocumentView::openUrl()
 {
     return s_openUrl;
@@ -186,6 +188,16 @@ const Qt::KeyboardModifiers& DocumentView::horizontalModifiers()
 void DocumentView::setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers)
 {
     s_horizontalModifiers = horizontalModifiers;
+}
+
+int DocumentView::highlightDuration()
+{
+    return s_highlightDuration;
+}
+
+void DocumentView::setHighlightDuration(int highlightDuration)
+{
+    s_highlightDuration = highlightDuration;
 }
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
@@ -815,6 +827,17 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
             emit currentPageChanged(m_currentPage, returnTo);
         }
     }
+}
+
+void DocumentView::jumpToHighlight(const QRectF& highlight)
+{
+    PageItem* page = m_pages.at(m_currentPage - 1);
+
+    page->setHighlights(QList< QRectF >() << highlight, s_highlightDuration);
+
+    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+    centerOn(page->transform().mapRect(highlight).translated(page->pos()).center());
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
 }
 
 void DocumentView::startSearch(const QString& text, bool matchCase)

@@ -65,6 +65,12 @@ system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
     LIBS += $$system(cups-config --libs)
 }
 
+!without_synctex {
+    DEFINES += WITH_SYNCTEX
+    INCLUDEPATH += synctex
+    SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
+}
+
 target.path = $${TARGET_INSTALL_PATH}
 
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html

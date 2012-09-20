@@ -83,6 +83,9 @@ public:
     static const Qt::KeyboardModifiers& horizontalModifiers();
     static void setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers);
 
+    static int highlightDuration();
+    static void setHighlightDuration(int highlightDuration);
+
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
@@ -168,6 +171,7 @@ public slots:
     void lastPage();
 
     void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
+    void jumpToHighlight(const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase);
     void cancelSearch();
@@ -228,6 +232,8 @@ private:
     static Qt::KeyboardModifiers s_zoomModifiers;
     static Qt::KeyboardModifiers s_rotateModifiers;
     static Qt::KeyboardModifiers s_horizontalModifiers;
+
+    static int s_highlightDuration;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

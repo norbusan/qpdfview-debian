@@ -19,6 +19,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#ifdef WITH_SYNCTEX
+
+#include <synctex_parser.h>
+
+#endif // WITH_SYNCTEX
+
 #include "mainwindow.h"
 
 struct File
@@ -26,7 +32,12 @@ struct File
     QString filePath;
     int page;
 
-    File() : filePath(), page(1) {}
+    QString sourceName;
+    int sourceLine;
+    int sourceColumn;
+    QRectF enclosingBox;
+
+    File() : filePath(), page(1), sourceName(), sourceLine(-1), sourceColumn(-1), enclosingBox() {}
 
 };
 
@@ -58,7 +69,8 @@ int main(int argc, char** argv)
     {
         // command-line arguments
 
-        QRegExp regExp("(.+)#(\\d+)");
+        QRegExp regExp1("(.+)#(\\d+)");
+        QRegExp regExp2("(.+)#src:(.+):(\\d+):(\\d+)");
 
         QStringList arguments = QApplication::arguments();
 
@@ -77,10 +89,17 @@ int main(int argc, char** argv)
             {
                 File file;
 
-                if(regExp.exactMatch(argument))
+                if(regExp1.exactMatch(argument))
                 {
-                    file.filePath = QFileInfo(regExp.cap(1)).absoluteFilePath();
-                    file.page = regExp.cap(2).toInt();
+                    file.filePath = QFileInfo(regExp1.cap(1)).absoluteFilePath();
+                    file.page = regExp1.cap(2).toInt();
+                }
+                else if(regExp2.exactMatch(argument))
+                {
+                    file.filePath = QFileInfo(regExp2.cap(1)).absoluteFilePath();
+                    file.sourceName = regExp2.cap(2);
+                    file.sourceLine = regExp2.cap(3).toInt();
+                    file.sourceColumn = regExp2.cap(4).toInt();
                 }
                 else
                 {
@@ -93,6 +112,46 @@ int main(int argc, char** argv)
     }
 
     MainWindow* mainWindow = 0;
+
+#ifdef WITH_SYNCTEX
+
+    {
+        // SyncTeX
+
+        for(int index = 0; index < files.count(); ++index)
+        {
+            File& file = files[index];
+
+            if(!file.sourceName.isNull())
+            {
+                synctex_scanner_t scanner = synctex_scanner_new_with_output_file(file.filePath.toLocal8Bit(), 0, 1);
+
+                if(scanner != 0)
+                {
+                    if(synctex_display_query(scanner, file.sourceName.toLocal8Bit(), file.sourceLine, file.sourceColumn) > 0)
+                    {
+                        int page = 1;
+                        QRectF enclosingBox;
+
+                        for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+                        {
+                            page = synctex_node_page(node);
+                            enclosingBox = enclosingBox.united(QRectF(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node)));
+
+                            qDebug() << "found node:" << page << enclosingBox;
+                        }
+
+                        file.page = page;
+                        file.enclosingBox = enclosingBox;
+                    }
+
+                    synctex_scanner_free(scanner);
+                }
+            }
+        }
+    }
+
+#endif
 
 #ifdef WITH_DBUS
 
@@ -109,7 +168,7 @@ int main(int argc, char** argv)
 
                 foreach(File file, files)
                 {
-                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true);
+                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true, file.enclosingBox);
 
                     if(!reply.isValid())
                     {
@@ -163,7 +222,7 @@ int main(int argc, char** argv)
 
     foreach(File file, files)
     {
-        mainWindow->openInNewTab(file.filePath, file.page);
+        mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox);
     }
     
     return application.exec();
