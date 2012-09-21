@@ -1157,8 +1157,8 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 int sourceLine = synctex_node_line(node);
                 int sourceColumn = synctex_node_column(node);
 
-                sourceLine = sourceLine >= 1 ? sourceLine : 1;
-                sourceColumn = sourceColumn >= 1 ? sourceColumn : 1;
+                sourceLine = sourceLine >= 0 ? sourceLine : 0;
+                sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
                 QProcess::startDetached(s_sourceEditor.arg(QFileInfo(QDir(path), sourceName).absoluteFilePath()).arg(sourceLine).arg(sourceColumn));
 
