@@ -568,7 +568,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
-        // synchronize
+        // source
 
         event->accept();
         return;
@@ -579,7 +579,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
-    emit synchronize(m_index + 1, m_transform.inverted().map(event->pos()));
+    emit sourceRequested(m_index + 1, m_transform.inverted().map(event->pos()));
 }
 
 void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)

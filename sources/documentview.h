@@ -92,8 +92,8 @@ public:
     static int highlightDuration();
     static void setHighlightDuration(int highlightDuration);
 
-    static const QString& synchronizeProgram();
-    static void setSynchronizeProgram(const QString& synchronizeProgram);
+    static const QString& sourceEditor();
+    static void setSourceEditor(const QString& sourceEditor);
 
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
@@ -209,7 +209,7 @@ protected slots:
 
     void on_pages_rubberBandFinished();
 
-    void on_pages_synchronize(int page, const QPointF& pos);
+    void on_pages_sourceRequested(int page, const QPointF& pos);
 
     void on_thumbnails_pageClicked(int page);
 
@@ -246,7 +246,7 @@ private:
 
     static int s_highlightDuration;
 
-    static QString s_synchronizeProgram;
+    static QString s_sourceEditor;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

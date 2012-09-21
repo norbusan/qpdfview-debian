@@ -96,7 +96,7 @@ signals:
     void rubberBandStarted();
     void rubberBandFinished();
 
-    void synchronize(int page, const QPointF& pos);
+    void sourceRequested(int page, const QPointF& pos);
 
 public slots:
     void refresh();

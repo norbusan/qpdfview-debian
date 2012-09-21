@@ -46,7 +46,7 @@ Qt::KeyboardModifiers DocumentView::s_horizontalModifiers = Qt::AltModifier;
 
 int DocumentView::s_highlightDuration = 5000;
 
-QString DocumentView::s_synchronizeProgram;
+QString DocumentView::s_sourceEditor;
 
 bool DocumentView::openUrl()
 {
@@ -202,14 +202,14 @@ void DocumentView::setHighlightDuration(int highlightDuration)
     s_highlightDuration = highlightDuration;
 }
 
-const QString &DocumentView::synchronizeProgram()
+const QString &DocumentView::sourceEditor()
 {
-    return s_synchronizeProgram;
+    return s_sourceEditor;
 }
 
-void DocumentView::setSynchronizeProgram(const QString& synchronizeProgram)
+void DocumentView::setSourceEditor(const QString& sourceEditor)
 {
-    s_synchronizeProgram = synchronizeProgram;
+    s_sourceEditor = sourceEditor;
 }
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
@@ -1134,37 +1134,39 @@ void DocumentView::on_pages_rubberBandFinished()
     setRubberBandMode(PageItem::ModifiersMode);
 }
 
-void DocumentView::on_pages_synchronize(int page, const QPointF& pos)
+void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
 {
 #ifdef WITH_SYNCTEX
 
-    if(!s_synchronizeProgram.isEmpty())
+    if(s_sourceEditor.isEmpty())
     {
-        synctex_scanner_t scanner = synctex_scanner_new_with_output_file(QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), 0, 1);
+        return;
+    }
 
-        if(scanner != 0)
+    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), 0, 1);
+
+    if(scanner != 0)
+    {
+        if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
         {
-            if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
+            for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
             {
-                for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
-                {
-                    QString path = QFileInfo(m_filePath).path();
-                    QString fileName = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                QString path = QFileInfo(m_filePath).path();
 
-                    int line = synctex_node_line(node);
-                    int column = synctex_node_column(node);
+                QString sourceName = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                int sourceLine = synctex_node_line(node);
+                int sourceColumn = synctex_node_column(node);
 
-                    line = line >= 1 ? line : 1;
-                    column = column >= 1 ? column : 1;
+                sourceLine = sourceLine >= 1 ? sourceLine : 1;
+                sourceColumn = sourceColumn >= 1 ? sourceColumn : 1;
 
-                    QProcess::startDetached(s_synchronizeProgram.arg(QFileInfo(QDir(path), fileName).absoluteFilePath()).arg(line).arg(column));
+                QProcess::startDetached(s_sourceEditor.arg(QFileInfo(QDir(path), sourceName).absoluteFilePath()).arg(sourceLine).arg(sourceColumn));
 
-                    break;
-                }
+                break;
             }
-
-            synctex_scanner_free(scanner);
         }
+
+        synctex_scanner_free(scanner);
     }
 
 #endif // WITH_SYNCTEX
@@ -1487,7 +1489,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
-        connect(page, SIGNAL(synchronize(int,QPointF)), SLOT(on_pages_synchronize(int,QPointF)));
+        connect(page, SIGNAL(synchronize(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
     }
 
     if(PageItem::decoratePages())
