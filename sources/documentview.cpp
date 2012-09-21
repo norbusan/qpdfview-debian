@@ -1170,7 +1170,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     }
     else
     {
-        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found."));
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(QFileInfo(m_filePath).absoluteFilePath()));
     }
 
 #endif // WITH_SYNCTEX

@@ -567,11 +567,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
-
-        // source
-
-        event->accept();
-        return;
     }
 
     event->ignore();
