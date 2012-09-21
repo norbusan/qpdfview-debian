@@ -1489,7 +1489,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
-        connect(page, SIGNAL(synchronize(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
+        connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
     }
 
     if(PageItem::decoratePages())
