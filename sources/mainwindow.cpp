@@ -1278,6 +1278,7 @@ void MainWindow::restoreSettings()
     DocumentView::setHorizontalModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt()));
 
     DocumentView::setHighlightDuration(m_settings->value("documentView/highlightDuration", 5000).toInt());
+
     DocumentView::setSourceEditor(m_settings->value("documentView/sourceEditor").toString());
 }
 

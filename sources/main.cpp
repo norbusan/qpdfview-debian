@@ -149,6 +149,10 @@ int main(int argc, char** argv)
 
                     synctex_scanner_free(scanner);
                 }
+                else
+                {
+                    qWarning() << QObject::tr("SyncTeX data for '%1' could not be found.").arg(file.filePath);
+                }
             }
         }
     }

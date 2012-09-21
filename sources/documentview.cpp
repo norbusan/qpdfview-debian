@@ -1168,6 +1168,10 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
 
         synctex_scanner_free(scanner);
     }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found."));
+    }
 
 #endif // WITH_SYNCTEX
 }
