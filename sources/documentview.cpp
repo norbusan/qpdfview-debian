@@ -1009,7 +1009,7 @@ void DocumentView::rotateRight()
     }
 }
 
-void DocumentView::presentation(bool synchronize, int screen)
+void DocumentView::presentation(bool sync, int screen)
 {
     if(screen < -1 || screen >= QApplication::desktop()->screenCount())
     {
@@ -1029,7 +1029,7 @@ void DocumentView::presentation(bool synchronize, int screen)
 
     presentationView->jumpToPage(currentPage(), false);
 
-    if(synchronize)
+    if(sync)
     {
         connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
         connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int,bool)));

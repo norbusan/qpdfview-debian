@@ -67,6 +67,8 @@ private:
     QCheckBox* m_presentationSyncCheckBox;
     QSpinBox* m_presentationScreenSpinBox;
 
+    QLineEdit* m_sourceEditorLineEdit;
+
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
 
@@ -87,6 +89,8 @@ private:
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
+
+    QSpinBox* m_highlightDurationSpinBox;
 
     QCheckBox* m_invertColorsCheckBox;
 

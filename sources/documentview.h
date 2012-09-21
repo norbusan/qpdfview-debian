@@ -195,7 +195,7 @@ public slots:
     void rotateLeft();
     void rotateRight();
 
-    void presentation(bool synchronize, int screen = -1);
+    void presentation(bool sync = false, int screen = -1);
 
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);

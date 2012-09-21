@@ -104,6 +104,11 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         m_interfaceLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
+        m_sourceEditorLineEdit = new QLineEdit(this);
+        m_sourceEditorLineEdit->setText(m_settings->value("documentView/sourceEditor").toString());
+
+        m_interfaceLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
+
         // tab position
 
         m_tabPositionComboBox = new QComboBox(this);
@@ -215,6 +220,16 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         m_graphicsLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
 
+        // highlight duration
+
+        m_highlightDurationSpinBox = new QSpinBox(this);
+        m_highlightDurationSpinBox->setSuffix(" ms");
+        m_highlightDurationSpinBox->setRange(0, 60000);
+        m_highlightDurationSpinBox->setSingleStep(500);
+        m_highlightDurationSpinBox->setValue(m_settings->value("documentView/highlightDuration", 5000).toInt());
+
+        m_graphicsLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
+
         // invert colors
 
         m_invertColorsCheckBox = new QCheckBox(this);
@@ -321,6 +336,8 @@ void SettingsDialog::accept()
     m_settings->setValue("presentationView/sync", m_presentationSyncCheckBox->isChecked());
     m_settings->setValue("presentationView/screen", m_presentationScreenSpinBox->value());
 
+    m_settings->setValue("documentView/sourceEditor", m_sourceEditorLineEdit->text());
+
     m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
     m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
 
@@ -339,6 +356,8 @@ void SettingsDialog::accept()
 
     m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
     m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
+
+    m_settings->setValue("documentView/highlightDuration", m_highlightDurationSpinBox->value());
 
     m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
 
@@ -374,6 +393,8 @@ void SettingsDialog::on_defaults_clicked()
     m_presentationSyncCheckBox->setChecked(false);
     m_presentationScreenSpinBox->setValue(-1);
 
+    m_sourceEditorLineEdit->clear();
+
     m_tabPositionComboBox->setCurrentIndex(0);
     m_tabVisibilityComboBox->setCurrentIndex(0);
 
@@ -392,6 +413,8 @@ void SettingsDialog::on_defaults_clicked()
 
     m_decoratePagesCheckBox->setChecked(true);
     m_decorateLinksCheckBox->setChecked(true);
+
+    m_highlightDurationSpinBox->setValue(5000);
 
     m_invertColorsCheckBox->setChecked(false);
 
