@@ -811,7 +811,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vorausladen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
