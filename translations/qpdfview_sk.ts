@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="sk_SK">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1173"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1317"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/main.cpp" line="154"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
 </context>
 <context>
@@ -644,12 +644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="111"/>
         <source>&apos;%1&apos; is replaced by the absolute file path and &apos;%2&apos; resp. &apos;%3&apos; are replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; je nahradené absolútnou cestou k súboru a &apos;%2&apos; resp. &apos;%3&apos; sú nahradené číslom riadka, resp. stĺpca.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="113"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor zdrojov:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
@@ -749,12 +749,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="232"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nič</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trvanie zvýraznenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="242"/>

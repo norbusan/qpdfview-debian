@@ -98,7 +98,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1173"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1317"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/main.cpp" line="154"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
 </context>
 <context>
@@ -644,12 +644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="111"/>
         <source>&apos;%1&apos; is replaced by the absolute file path and &apos;%2&apos; resp. &apos;%3&apos; are replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&quot;%1&quot; wird durch den absoluten Pfad der Datei ersetzt und &quot;%2&quot; bzw. &quot;%3&quot; werden durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="113"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quelleneditor:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
@@ -749,12 +749,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="232"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keine</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dauer der Hervorhebungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="242"/>
