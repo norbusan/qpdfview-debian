@@ -98,7 +98,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1173"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1317"/>
@@ -563,7 +563,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/main.cpp" line="154"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -652,7 +652,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="113"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor zdroje:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
@@ -752,12 +752,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="232"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Žádný</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvýraznit dobu trvání:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="242"/>
@@ -814,7 +814,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Prefetch:</source>
-        <translation type="unfinished">Přednatažení:</translation>
+        <translation type="unfinished">Načítat dopředu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
