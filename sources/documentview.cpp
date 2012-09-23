@@ -1884,15 +1884,16 @@ void DocumentView::prepareHighlight()
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());
+
         page->stackBefore(m_highlight);
 
         m_highlight->setRect(m_currentResult.value().normalized());
 
-        m_highlight->setVisible(true);
-
         disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
         centerOn(m_highlight);
         connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+
+        m_highlight->setVisible(true);
     }
     else
     {

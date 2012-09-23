@@ -108,7 +108,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
         m_sourceEditorLineEdit = new QLineEdit(this);
         m_sourceEditorLineEdit->setText(m_settings->value("documentView/sourceEditor").toString());
-        m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path and '%2' resp. '%3' are replaced by line resp. column number."));
+        m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number."));
 
         m_interfaceLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
 
