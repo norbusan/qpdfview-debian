@@ -1160,7 +1160,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 sourceLine = sourceLine >= 0 ? sourceLine : 0;
                 sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
-                QProcess::startDetached(s_sourceEditor.arg(QFileInfo(QDir(path), sourceName).absoluteFilePath()).arg(sourceLine).arg(sourceColumn));
+                QProcess::startDetached(s_sourceEditor.arg(QFileInfo(QDir(path), sourceName).absoluteFilePath(), QString::number(sourceLine), QString::number(sourceColumn)));
 
                 break;
             }
