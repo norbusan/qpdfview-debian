@@ -584,6 +584,11 @@
         <translation type="unfinished">Προεπιλογές</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="111"/>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Top</source>
         <translation type="unfinished">Κορυφή</translation>
@@ -696,11 +701,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="111"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path and &apos;%2&apos; resp. &apos;%3&apos; are replaced by line resp. column number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

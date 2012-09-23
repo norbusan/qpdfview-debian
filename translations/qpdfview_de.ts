@@ -643,8 +643,8 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="111"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path and &apos;%2&apos; resp. &apos;%3&apos; are replaced by line resp. column number.</source>
-        <translation type="unfinished">&quot;%1&quot; wird durch den absoluten Pfad der Datei ersetzt und &quot;%2&quot; bzw. &quot;%3&quot; werden durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished">&quot;%1&quot; wird durch den absolute Pfad der Datei ersetzt. &quot;%2&quot; bzw. &quot;%3&quot; wird durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="113"/>

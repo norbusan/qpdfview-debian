@@ -643,8 +643,8 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="111"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path and &apos;%2&apos; resp. &apos;%3&apos; are replaced by line resp. column number.</source>
-        <translation type="unfinished">&apos;%1&apos; je nahradené absolútnou cestou k súboru a &apos;%2&apos; resp. &apos;%3&apos; sú nahradené číslom riadka, resp. stĺpca.</translation>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="113"/>
