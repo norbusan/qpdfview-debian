@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 
     QTranslator translator;
 
-    if(translator.load(QString("%1/qpdfview_%2").arg(DATA_INSTALL_PATH).arg(QLocale::system().name())))
+    if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH))
     {
             application.installTranslator(&translator);
     }

@@ -76,8 +76,12 @@ target.path = $${TARGET_INSTALL_PATH}
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
 data.path = $${DATA_INSTALL_PATH}
 
+DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
+
 launcher.files = miscellaneous/qpdfview.desktop
 launcher.path = $${LAUNCHER_INSTALL_PATH}
+
+system(sed \"s/DATA_INSTALL_PATH/$$replace(DATA_INSTALL_PATH, "/", "\\/")/\" miscellaneous/qpdfview.desktop.in > miscellaneous/qpdfview.desktop)
 
 manual.files = miscellaneous/qpdfview.1
 manual.path = $${MANUAL_INSTALL_PATH}
