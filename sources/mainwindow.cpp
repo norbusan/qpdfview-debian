@@ -1235,7 +1235,7 @@ void MainWindow::dropEvent(QDropEvent* event)
             if(url.isLocalFile())
 #else
             if(url.scheme() == "file")
-#endif
+#endif // QT_VERSION
             {
                 openInNewTab(url.toLocalFile());
             }

@@ -58,8 +58,17 @@ int main(int argc, char** argv)
 
     QTranslator translator;
 
+#if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
+
     if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
     else if(translator.load(QLocale::system(), "qpdfview", "_", QApplication::applicationDirPath())) { application.installTranslator(&translator); }
+
+#else
+
+    if(translator.load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
+    else if(translator.load("qpdfview_" + QLocale::system().name(), QApplication::applicationDirPath())) { application.installTranslator(&translator); }
+
+#endif // QT_VERSION
 
     bool unique = false;
     QList< File > files;
