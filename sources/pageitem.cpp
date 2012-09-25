@@ -164,13 +164,13 @@ PageItem::~PageItem()
 
     s_cache.remove(this);
 
+    qDeleteAll(m_links);
+    qDeleteAll(m_annotations);
+
     if(m_page != 0)
     {
         delete m_page;
     }
-
-    qDeleteAll(m_links);
-    qDeleteAll(m_annotations);
 }
 
 QRectF PageItem::boundingRect() const
