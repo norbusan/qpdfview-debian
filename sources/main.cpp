@@ -58,10 +58,8 @@ int main(int argc, char** argv)
 
     QTranslator translator;
 
-    if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH))
-    {
-            application.installTranslator(&translator);
-    }
+    if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
+    else if(translator.load(QLocale::system(), "qpdfview", "_", QApplication::applicationDirPath())) { application.installTranslator(&translator); }
 
     bool unique = false;
     QList< File > files;

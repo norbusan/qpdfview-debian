@@ -53,12 +53,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
     QT += dbus
 }
 
-CONFIG += link_pkgconfig
-PKGCONFIG += poppler-qt4
+!without_pkgconfig {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += poppler-qt4
 
-system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
-system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
-system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
+    system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+    system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
+    system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
+}
 
 !without_cups {
     DEFINES += WITH_CUPS
