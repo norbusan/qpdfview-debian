@@ -891,7 +891,7 @@ void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     Q_UNUSED(event);
 
-    emit pageClicked(index() + 1);
+    emit linkClicked(index() + 1);
 }
 
 void ThumbnailItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)

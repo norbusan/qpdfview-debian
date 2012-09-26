@@ -1178,14 +1178,6 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
 #endif // WITH_SYNCTEX
 }
 
-void DocumentView::on_thumbnails_pageClicked(int page)
-{
-    page = page >= 1 ? page : 1;
-    page = page <= m_numberOfPages ? page : m_numberOfPages;
-
-    jumpToPage(page);
-}
-
 void DocumentView::resizeEvent(QResizeEvent* event)
 {
     QGraphicsView::resizeEvent(event);
@@ -1528,7 +1520,7 @@ void DocumentView::prepareThumbnails()
         m_thumbnailsScene->addItem(page);
         m_thumbnails.append(page);
 
-        connect(page, SIGNAL(pageClicked(int)), SLOT(on_thumbnails_pageClicked(int)));
+        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
 
         {
             // prepare scale factor

@@ -90,7 +90,7 @@ public:
 signals:
     void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
 
-    void linkClicked(int page, qreal left, qreal top);
+    void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
 
     void rubberBandStarted();
@@ -178,9 +178,6 @@ class ThumbnailItem : public PageItem
 
 public:
     ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
-
-signals:
-    void pageClicked(int page);
 
 protected:
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event);

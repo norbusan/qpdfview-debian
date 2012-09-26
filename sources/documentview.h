@@ -211,8 +211,6 @@ protected slots:
 
     void on_pages_sourceRequested(int page, const QPointF& pos);
 
-    void on_thumbnails_pageClicked(int page);
-
 protected:
     void resizeEvent(QResizeEvent* event);
 
