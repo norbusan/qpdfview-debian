@@ -69,6 +69,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 !without_synctex {
     DEFINES += WITH_SYNCTEX
+    LIBS += -lz
     INCLUDEPATH += synctex
     SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
 }
