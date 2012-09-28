@@ -2074,7 +2074,7 @@ void MainWindow::restoreBookmarks()
 
                 while(!bookmarkElement.isNull())
                 {
-                    BookmarkMenu* bookmark = new BookmarkMenu(bookmarkElement.attribute("filePath"));
+                    BookmarkMenu* bookmark = new BookmarkMenu(bookmarkElement.attribute("filePath"), this);
 
                     QDomElement jumpToPageElement = bookmarkElement.firstChildElement();
 
