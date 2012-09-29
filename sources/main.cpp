@@ -19,12 +19,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifdef WITH_SYNCTEX
-
-#include <synctex_parser.h>
-
-#endif // WITH_SYNCTEX
-
 #include "mainwindow.h"
 
 struct File
@@ -140,16 +134,16 @@ int main(int argc, char** argv)
                         for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
                         {
                             int page = synctex_node_page(node);
-                            QRectF box(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node));
+                            QRectF enclosingBox(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node));
 
                             if(file.page != page)
                             {
                                 file.page = page;
-                                file.enclosingBox = box;
+                                file.enclosingBox = enclosingBox;
                             }
                             else
                             {
-                                file.enclosingBox = file.enclosingBox.united(box);
+                                file.enclosingBox = file.enclosingBox.united(enclosingBox);
                             }
                         }
                     }

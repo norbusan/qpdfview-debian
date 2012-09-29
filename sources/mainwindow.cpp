@@ -1298,7 +1298,7 @@ bool MainWindow::senderIsCurrentTab() const
     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
-BookmarkMenu *MainWindow::bookmarkForCurrentTab() const
+BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
 {
     foreach(QAction* action, m_bookmarksMenu->actions())
     {

@@ -61,8 +61,8 @@ protected slots:
     void on_imageReady(int index, qreal scaleFactor, QImage image);
 
 protected:
-    void resizeEvent(QResizeEvent* event);
-    void paintEvent(QPaintEvent* event);
+    void resizeEvent(QResizeEvent*);
+    void paintEvent(QPaintEvent*);
 
     void keyPressEvent(QKeyEvent* event);
 

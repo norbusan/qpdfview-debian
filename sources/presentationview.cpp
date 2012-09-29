@@ -146,17 +146,13 @@ void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
     }
 }
 
-void PresentationView::resizeEvent(QResizeEvent* event)
+void PresentationView::resizeEvent(QResizeEvent*)
 {
-    Q_UNUSED(event);
-
     prepareView();
 }
 
-void PresentationView::paintEvent(QPaintEvent* event)
+void PresentationView::paintEvent(QPaintEvent*)
 {
-    Q_UNUSED(event);
-
     QPainter painter(this);
 
     painter.fillRect(rect(), QBrush(PageItem::invertColors() ? Qt::white : Qt::black));
@@ -233,9 +229,12 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
 
             jumpToPage(page);
 
+            event->accept();
             return;
         }
     }
+
+    QWidget::mousePressEvent(event);
 }
 
 void PresentationView::mouseMoveEvent(QMouseEvent* event)

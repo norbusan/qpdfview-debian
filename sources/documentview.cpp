@@ -286,8 +286,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     // auto-refresh
 
     m_autoRefreshWatcher = new QFileSystemWatcher(this);
-    m_autoRefreshTimer = new QTimer(this);
 
+    m_autoRefreshTimer = new QTimer(this);
     m_autoRefreshTimer->setInterval(500);
     m_autoRefreshTimer->setSingleShot(true);
 
