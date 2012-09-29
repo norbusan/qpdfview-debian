@@ -106,17 +106,27 @@
         <translation type="unfinished">&amp;Retornar para a página %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1318"/>
+        <location filename="../sources/documentview.cpp" line="1319"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Página &amp;anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1323"/>
+        <location filename="../sources/documentview.cpp" line="1324"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Próxima página</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1328"/>
+        <location filename="../sources/documentview.cpp" line="1329"/>
+        <source>&amp;First page</source>
+        <translation type="unfinished">&amp;Primeira página</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1334"/>
+        <source>&amp;Last page</source>
+        <translation type="unfinished">&amp;Última página</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1341"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Atualizar</translation>
     </message>
