@@ -2152,11 +2152,6 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
-MainWindow* MainWindowAdaptor::mainWindow() const
-{
-    return qobject_cast< MainWindow* >(parent());
-}
-
 bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF &highlight)
 {
     return mainWindow()->open(filePath, page, highlight);
@@ -2176,6 +2171,11 @@ void MainWindowAdaptor::raiseAndActivate()
 {
     mainWindow()->raise();
     mainWindow()->activateWindow();
+}
+
+MainWindow* MainWindowAdaptor::mainWindow() const
+{
+    return qobject_cast< MainWindow* >(parent());
 }
 
 # endif // WITH_DBUS

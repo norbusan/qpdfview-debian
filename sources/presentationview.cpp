@@ -104,7 +104,6 @@ void PresentationView::jumpToPage(int page, bool returnTo)
 
         prepareView();
 
-        emit currentPageChanged(m_currentPage);
         emit currentPageChanged(m_currentPage, returnTo);
     }
 }
@@ -221,23 +220,6 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
     QWidget::keyPressEvent(event);
 }
 
-void PresentationView::mouseMoveEvent(QMouseEvent* event)
-{
-    foreach(Poppler::LinkGoto* link, m_links)
-    {
-        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
-        {
-            setCursor(Qt::PointingHandCursor);
-            QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->destination().pageNumber()));
-
-            return;
-        }
-    }
-
-    unsetCursor();
-    QToolTip::hideText();
-}
-
 void PresentationView::mousePressEvent(QMouseEvent* event)
 {
     foreach(Poppler::LinkGoto* link, m_links)
@@ -254,6 +236,23 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
             return;
         }
     }
+}
+
+void PresentationView::mouseMoveEvent(QMouseEvent* event)
+{
+    foreach(Poppler::LinkGoto* link, m_links)
+    {
+        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+        {
+            setCursor(Qt::PointingHandCursor);
+            QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->destination().pageNumber()));
+
+            return;
+        }
+    }
+
+    unsetCursor();
+    QToolTip::hideText();
 }
 
 void PresentationView::prepareView()

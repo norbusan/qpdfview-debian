@@ -287,8 +287,6 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
 public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
 
-    MainWindow* mainWindow() const;
-
 public slots:
     bool open(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
     bool openInNewTab(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
@@ -296,6 +294,9 @@ public slots:
     bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
 
     Q_NOREPLY void raiseAndActivate();
+
+private:
+    MainWindow* mainWindow() const;
 
 };
 

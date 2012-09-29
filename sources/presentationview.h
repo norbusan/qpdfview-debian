@@ -41,8 +41,7 @@ public:
     int currentPage() const;
 
 signals:
-    void currentPageChanged(int currentPage);
-    void currentPageChanged(int currentPage, bool returnTo);
+    void currentPageChanged(int currentPage, bool returnTo = false);
 
     void imageReady(int index, qreal scaleFactor, QImage image);
     
@@ -66,8 +65,9 @@ protected:
     void paintEvent(QPaintEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
-    void mouseMoveEvent(QMouseEvent *event);
+
     void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 private:
     QMutex* m_mutex;
@@ -75,6 +75,7 @@ private:
 
     int m_numberOfPages;
     int m_currentPage;
+
     int m_returnToPage;
 
     QList< Poppler::LinkGoto* > m_links;

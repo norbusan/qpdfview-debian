@@ -182,7 +182,7 @@ public slots:
     void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
     void jumpToHighlight(const QRectF& highlight);
 
-    void startSearch(const QString& text, bool matchCase);
+    void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
     void findPrevious();
@@ -216,6 +216,7 @@ protected:
 
     void keyPressEvent(QKeyEvent* event);
     void wheelEvent(QWheelEvent* event);
+
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:

@@ -441,9 +441,8 @@ void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFact
     }
 }
 
-void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
-    Q_UNUSED(event);
 }
 
 void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
@@ -487,9 +486,8 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
     }
 }
 
-void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent*)
 {
-    Q_UNUSED(event);
 }
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -882,24 +880,15 @@ ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGra
     setAcceptHoverEvents(false);
 }
 
-void ThumbnailItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
+void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
 {
-    Q_UNUSED(event);
-}
-
-void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    Q_UNUSED(event);
-
     emit linkClicked(index() + 1);
 }
 
-void ThumbnailItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+void ThumbnailItem::mouseMoveEvent(QGraphicsSceneMouseEvent*)
 {
-    Q_UNUSED(event);
 }
 
-void ThumbnailItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+void ThumbnailItem::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
 {
-    Q_UNUSED(event);
 }

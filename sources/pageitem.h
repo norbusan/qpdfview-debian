@@ -111,13 +111,15 @@ protected slots:
     void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
 
 protected:
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent*);
     void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent*);
+
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private:
@@ -180,10 +182,9 @@ public:
     ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
 
 protected:
-    void hoverMoveEvent(QGraphicsSceneHoverEvent* event);
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent*);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent*);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
 
 };
 
