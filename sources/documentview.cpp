@@ -1312,8 +1312,9 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
         returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
         returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
         returnToPageAction->setIconVisibleInMenu(true);
-
         returnToPageAction->setVisible(m_returnToPage != -1);
+
+        menu->addSeparator();
 
         QAction* previousPageAction = menu->addAction(tr("&Previous page"));
         previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
@@ -1324,6 +1325,18 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
         nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
         nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
         nextPageAction->setIconVisibleInMenu(true);
+
+        QAction* firstPageAction = menu->addAction(tr("&First page"));
+        firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
+        firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
+        firstPageAction->setIconVisibleInMenu(true);
+
+        QAction* lastPageAction = menu->addAction(tr("&Last page"));
+        lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
+        lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
+        lastPageAction->setIconVisibleInMenu(true);
+
+        menu->addSeparator();
 
         QAction* refreshAction = menu->addAction(tr("&Refresh"));
         refreshAction->setShortcut(QKeySequence::Refresh);
@@ -1336,18 +1349,11 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
         {
             jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
         }
-        else if(action == previousPageAction)
-        {
-            previousPage();
-        }
-        else if(action == nextPageAction)
-        {
-            nextPage();
-        }
-        else if(action == refreshAction)
-        {
-            refresh();
-        }
+        else if(action == previousPageAction) { previousPage(); }
+        else if(action == nextPageAction) { nextPage(); }
+        else if(action == firstPageAction) { firstPage(); }
+        else if(action == lastPageAction) { lastPage(); }
+        else if(action == refreshAction) { refresh(); }
 
         delete menu;
     }
