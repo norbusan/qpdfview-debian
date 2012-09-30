@@ -594,262 +594,262 @@
         <translation type="unfinished">Padrões</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="45"/>
+        <location filename="../sources/settingsdialog.cpp" line="61"/>
         <source>&amp;Interface</source>
         <translation type="unfinished">&amp;Interface</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="46"/>
+        <location filename="../sources/settingsdialog.cpp" line="62"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">&amp;Gráficos</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="60"/>
+        <location filename="../sources/settingsdialog.cpp" line="76"/>
         <source>Open URL:</source>
         <translation type="unfinished">Abrir URL:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="67"/>
+        <location filename="../sources/settingsdialog.cpp" line="83"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Auto-atualizar</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="73"/>
-        <location filename="../sources/settingsdialog.cpp" line="158"/>
-        <location filename="../sources/settingsdialog.cpp" line="166"/>
-        <location filename="../sources/settingsdialog.cpp" line="174"/>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <location filename="../sources/settingsdialog.cpp" line="175"/>
+        <location filename="../sources/settingsdialog.cpp" line="183"/>
+        <location filename="../sources/settingsdialog.cpp" line="191"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Efetivar após reinicar.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="75"/>
+        <location filename="../sources/settingsdialog.cpp" line="91"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Acompanhar recentemente utilizados:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="82"/>
+        <location filename="../sources/settingsdialog.cpp" line="98"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Restaurar abas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Restaurar marcadores:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="96"/>
+        <location filename="../sources/settingsdialog.cpp" line="112"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Sincronizar apresentação:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="102"/>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Default</source>
         <translation type="unfinished">Definir como padrão</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="105"/>
+        <location filename="../sources/settingsdialog.cpp" line="121"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Tela de apresentação:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="111"/>
+        <location filename="../sources/settingsdialog.cpp" line="127"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; é substituído pelo caminho absoluto do arquivo. &apos;%2&apos; resp. &apos;%3&apos; é substituído pela linha resp. número da coluna.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="113"/>
+        <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Source editor:</source>
         <translation type="unfinished">Editor de código:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="118"/>
+        <location filename="../sources/settingsdialog.cpp" line="135"/>
         <source>Top</source>
         <translation type="unfinished">Topo</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="119"/>
+        <location filename="../sources/settingsdialog.cpp" line="136"/>
         <source>Bottom</source>
         <translation type="unfinished">Fundo</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="120"/>
+        <location filename="../sources/settingsdialog.cpp" line="137"/>
         <source>Left</source>
         <translation type="unfinished">Esquerda</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="121"/>
+        <location filename="../sources/settingsdialog.cpp" line="138"/>
         <source>Right</source>
         <translation type="unfinished">Direita</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="133"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
         <source>Tab position:</source>
         <translation type="unfinished">Posição das abas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="138"/>
+        <location filename="../sources/settingsdialog.cpp" line="155"/>
         <source>As needed</source>
         <translation type="unfinished">Quando necessário</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="139"/>
+        <location filename="../sources/settingsdialog.cpp" line="156"/>
         <source>Always</source>
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="140"/>
+        <location filename="../sources/settingsdialog.cpp" line="157"/>
         <source>Never</source>
         <translation type="unfinished">Nunca</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <location filename="../sources/settingsdialog.cpp" line="169"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visualização das abas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="160"/>
+        <location filename="../sources/settingsdialog.cpp" line="177"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Barra de ferramenta de arquivo</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="168"/>
+        <location filename="../sources/settingsdialog.cpp" line="185"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Editar barra de ferramentas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="176"/>
+        <location filename="../sources/settingsdialog.cpp" line="193"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Visualizar barra de ferramentas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="182"/>
+        <location filename="../sources/settingsdialog.cpp" line="199"/>
         <source>Zoom modifiers:</source>
         <translation type="unfinished">Modificadores de zoom:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="188"/>
+        <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Rotate modifiers:</source>
         <translation type="unfinished">Modificadores de rotação:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="194"/>
+        <location filename="../sources/settingsdialog.cpp" line="211"/>
         <source>Horizontal modifiers:</source>
         <translation type="unfinished">Moficadores horizontais:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="200"/>
+        <location filename="../sources/settingsdialog.cpp" line="217"/>
         <source>Copy modifiers:</source>
         <translation type="unfinished">Modificadores de cópia:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="206"/>
+        <location filename="../sources/settingsdialog.cpp" line="223"/>
         <source>Annotate modifiers:</source>
         <translation type="unfinished">Modificadores de anotações:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="217"/>
+        <location filename="../sources/settingsdialog.cpp" line="234"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Decorar páginas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="224"/>
+        <location filename="../sources/settingsdialog.cpp" line="241"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Decorar links:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="232"/>
+        <location filename="../sources/settingsdialog.cpp" line="249"/>
         <source>None</source>
         <translation type="unfinished">Nenhuma</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="235"/>
+        <location filename="../sources/settingsdialog.cpp" line="252"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Duração do destaque:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="242"/>
+        <location filename="../sources/settingsdialog.cpp" line="259"/>
         <source>Invert colors:</source>
         <translation type="unfinished">Inverter cores:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="252"/>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Spaçamento das páginas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="262"/>
+        <location filename="../sources/settingsdialog.cpp" line="279"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Espaçamento das miniaturas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="272"/>
+        <location filename="../sources/settingsdialog.cpp" line="289"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Tamanho das miniaturas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="279"/>
+        <location filename="../sources/settingsdialog.cpp" line="296"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Suavização:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="286"/>
+        <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Suavização de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="293"/>
+        <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Sugestão de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="298"/>
-        <location filename="../sources/settingsdialog.cpp" line="299"/>
-        <location filename="../sources/settingsdialog.cpp" line="300"/>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <location filename="../sources/settingsdialog.cpp" line="302"/>
-        <location filename="../sources/settingsdialog.cpp" line="303"/>
-        <location filename="../sources/settingsdialog.cpp" line="304"/>
-        <location filename="../sources/settingsdialog.cpp" line="305"/>
+        <location filename="../sources/settingsdialog.cpp" line="315"/>
+        <location filename="../sources/settingsdialog.cpp" line="316"/>
+        <location filename="../sources/settingsdialog.cpp" line="317"/>
+        <location filename="../sources/settingsdialog.cpp" line="318"/>
+        <location filename="../sources/settingsdialog.cpp" line="319"/>
+        <location filename="../sources/settingsdialog.cpp" line="320"/>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <location filename="../sources/settingsdialog.cpp" line="322"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="317"/>
+        <location filename="../sources/settingsdialog.cpp" line="334"/>
         <source>Cache size:</source>
         <translation type="unfinished">Tamanho do cache:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="324"/>
+        <location filename="../sources/settingsdialog.cpp" line="341"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Pré-carregar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="441"/>
+        <location filename="../sources/settingsdialog.cpp" line="458"/>
         <source>Shift</source>
         <translation type="unfinished">Deslocar</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="442"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Control</source>
         <translation type="unfinished">Control</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="443"/>
+        <location filename="../sources/settingsdialog.cpp" line="460"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="444"/>
+        <location filename="../sources/settingsdialog.cpp" line="461"/>
         <source>Shift and Control</source>
         <translation type="unfinished">Shift e Control</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift e Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="446"/>
+        <location filename="../sources/settingsdialog.cpp" line="463"/>
         <source>Control and Alt</source>
         <translation type="unfinished">Control e Alt</translation>
     </message>
