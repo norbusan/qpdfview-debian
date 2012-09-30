@@ -46,7 +46,13 @@ private:
     QTabWidget* m_tabWidget;
 
     QWidget* m_interfaceWidget;
-    QFormLayout* m_interfaceLayout;
+    QWidget* m_interfaceWidget1;
+    QWidget* m_interfaceWidget2;
+    QWidget* m_interfaceWidget3;
+    QGridLayout* m_interfaceGridLayout;
+    QFormLayout* m_interfaceFormLayout1;
+    QFormLayout* m_interfaceFormLayout2;
+    QFormLayout* m_interfaceFormLayout3;
 
     QWidget* m_graphicsWidget;
     QFormLayout* m_graphicsLayout;

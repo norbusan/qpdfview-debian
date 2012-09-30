@@ -32,16 +32,32 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
 
-    m_tabWidget = new QTabWidget(this);
+    m_interfaceWidget1 = new QWidget(this);
+    m_interfaceFormLayout1 = new QFormLayout(this);
+    m_interfaceWidget1->setLayout(m_interfaceFormLayout1);
+
+    m_interfaceWidget2 = new QWidget(this);
+    m_interfaceFormLayout2 = new QFormLayout(this);
+    m_interfaceWidget2->setLayout(m_interfaceFormLayout2);
+
+    m_interfaceWidget3 = new QWidget(this);
+    m_interfaceFormLayout3 = new QFormLayout(this);
+    m_interfaceWidget3->setLayout(m_interfaceFormLayout3);
+
+    m_interfaceGridLayout = new QGridLayout(this);
+    m_interfaceGridLayout->addWidget(m_interfaceWidget1, 0, 0, 2, 1);
+    m_interfaceGridLayout->addWidget(m_interfaceWidget2, 0, 1, 1, 1);
+    m_interfaceGridLayout->addWidget(m_interfaceWidget3, 1, 1, 1, 1);
+    m_interfaceGridLayout->setColumnStretch(0, 1);
 
     m_interfaceWidget = new QWidget(this);
-    m_interfaceLayout = new QFormLayout(this);
-    m_interfaceWidget->setLayout(m_interfaceLayout);
+    m_interfaceWidget->setLayout(m_interfaceGridLayout);
 
     m_graphicsWidget = new QWidget(this);
     m_graphicsLayout = new QFormLayout(this);
     m_graphicsWidget->setLayout(m_graphicsLayout);
 
+    m_tabWidget = new QTabWidget(this);
     m_tabWidget->addTab(m_interfaceWidget, tr("&Interface"));
     m_tabWidget->addTab(m_graphicsWidget, tr("&Graphics"));
 
@@ -57,14 +73,14 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_openUrlCheckBox = new QCheckBox(this);
         m_openUrlCheckBox->setChecked(m_settings->value("documentView/openUrl", false).toBool());
 
-        m_interfaceLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Open URL:"), m_openUrlCheckBox);
 
         // auto-refresh
 
         m_autoRefreshCheckBox = new QCheckBox(this);
         m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
 
-        m_interfaceLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
 
         // track recently used
 
@@ -72,28 +88,28 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
         m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
 
-        m_interfaceLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
 
         // restore tabs
 
         m_restoreTabsCheckBox = new QCheckBox(this);
         m_restoreTabsCheckBox->setChecked(m_settings->value("mainWindow/restoreTabs", false).toBool());
 
-        m_interfaceLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
 
         // restore bookmarks
 
         m_restoreBookmarksCheckBox = new QCheckBox(this);
         m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
 
-        m_interfaceLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
         // presentation sync
 
         m_presentationSyncCheckBox = new QCheckBox(this);
         m_presentationSyncCheckBox->setChecked(m_settings->value("presentationView/sync", false).toBool());
 
-        m_interfaceLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
+        m_interfaceFormLayout1->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
 
         // presentation screen
 
@@ -102,7 +118,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_presentationScreenSpinBox->setSpecialValueText(tr("Default"));
         m_presentationScreenSpinBox->setValue(m_settings->value("presentationView/screen", -1).toInt());
 
-        m_interfaceLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
+        m_interfaceFormLayout1->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
         // source editor
 
@@ -110,7 +126,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_sourceEditorLineEdit->setText(m_settings->value("documentView/sourceEditor").toString());
         m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number."));
 
-        m_interfaceLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
+
+        m_interfaceFormLayout1->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
 
         // tab position
 
@@ -130,7 +147,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
             }
         }
 
-        m_interfaceLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
+        m_interfaceFormLayout2->addRow(tr("Tab position:"), m_tabPositionComboBox);
 
         // tab visibility
 
@@ -149,7 +166,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
             }
         }
 
-        m_interfaceLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
+        m_interfaceFormLayout2->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
 
         // file tool bar
 
@@ -157,7 +174,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_fileToolBarLineEdit->setText(m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList().join(","));
         m_fileToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
-        m_interfaceLayout->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
+        m_interfaceFormLayout2->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
 
         // edit tool bar
 
@@ -165,7 +182,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList().join(","));
         m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
-        m_interfaceLayout->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
+        m_interfaceFormLayout2->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
 
         // view tool bar
 
@@ -173,37 +190,37 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         m_viewToolBarLineEdit->setText(m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList().join(","));
         m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
-        m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+        m_interfaceFormLayout2->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
 
         // zoom modifiers
 
         createModifiersComboBox(m_zoomModifiersComboBox, m_settings->value("documentView/zoomModifiers", 0x04000000).toInt());
 
-        m_interfaceLayout->addRow(tr("Zoom modifiers:"), m_zoomModifiersComboBox);
+        m_interfaceFormLayout3->addRow(tr("Zoom modifiers:"), m_zoomModifiersComboBox);
 
         // rototate modifiers
 
         createModifiersComboBox(m_rotateModifiersComboBox, m_settings->value("documentView/rotateModifiers", 0x02000000).toInt());
 
-        m_interfaceLayout->addRow(tr("Rotate modifiers:"), m_rotateModifiersComboBox);
+        m_interfaceFormLayout3->addRow(tr("Rotate modifiers:"), m_rotateModifiersComboBox);
 
         // horizontal modifiers
 
         createModifiersComboBox(m_horizontalModifiersComboBox, m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt());
 
-        m_interfaceLayout->addRow(tr("Horizontal modifiers:"), m_horizontalModifiersComboBox);
+        m_interfaceFormLayout3->addRow(tr("Horizontal modifiers:"), m_horizontalModifiersComboBox);
 
         // copy modifiers
 
         createModifiersComboBox(m_copyModifiersComboBox, m_settings->value("pageItem/copyModifiers", 0x02000000).toInt());
 
-        m_interfaceLayout->addRow(tr("Copy modifiers:"), m_copyModifiersComboBox);
+        m_interfaceFormLayout3->addRow(tr("Copy modifiers:"), m_copyModifiersComboBox);
 
         // annotate modifiers
 
         createModifiersComboBox(m_annotateModifiersComboBox, m_settings->value("pageItem/annotateModifiers", 0x04000000).toInt());
 
-        m_interfaceLayout->addRow(tr("Annotate modifiers:"), m_annotateModifiersComboBox);
+        m_interfaceFormLayout3->addRow(tr("Annotate modifiers:"), m_annotateModifiersComboBox);
     }
 
     {
