@@ -1921,7 +1921,7 @@ void DocumentView::prepareScene()
             page->setPos(left - boundingRect.left() + s_pageSpacing, height - boundingRect.top());
 
             pageHeight = qMax(pageHeight, boundingRect.height());
-            left = left - boundingRect.left() + boundingRect.width() + s_pageSpacing;
+            left = left + boundingRect.width() + s_pageSpacing;
 
             if(index == leftIndexForIndex(index))
             {
@@ -1930,10 +1930,10 @@ void DocumentView::prepareScene()
 
             if(index == rightIndexForIndex(index))
             {
-                right = qMax(right, left + s_pageSpacing);
                 height += pageHeight + s_pageSpacing;
-
                 pageHeight = 0.0;
+
+                right = qMax(right, left + s_pageSpacing);
                 left = 0.0;
             }
 
