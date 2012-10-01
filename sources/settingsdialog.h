@@ -44,23 +44,15 @@ private:
     QSettings* m_settings;
 
     QTabWidget* m_tabWidget;
-
-    QWidget* m_interfaceWidget;
-    QWidget* m_interfaceWidget1;
-    QWidget* m_interfaceWidget2;
-    QWidget* m_interfaceWidget3;
-    QGridLayout* m_interfaceGridLayout;
-    QFormLayout* m_interfaceFormLayout1;
-    QFormLayout* m_interfaceFormLayout2;
-    QFormLayout* m_interfaceFormLayout3;
-
-    QWidget* m_graphicsWidget;
-    QFormLayout* m_graphicsLayout;
-
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
 
-    // interface
+    QFormLayout* m_behaviourLayout;
+    QFormLayout* m_graphicsLayout;
+    QFormLayout* m_interfaceLayout;
+    QFormLayout* m_modifiersLayout;
+
+    // behaviour
 
     QCheckBox* m_openUrlCheckBox;
 
@@ -75,21 +67,7 @@ private:
 
     QLineEdit* m_sourceEditorLineEdit;
 
-    QComboBox* m_tabPositionComboBox;
-    QComboBox* m_tabVisibilityComboBox;
-
-    QLineEdit* m_fileToolBarLineEdit;
-    QLineEdit* m_editToolBarLineEdit;
-    QLineEdit* m_viewToolBarLineEdit;
-
-    QComboBox* m_zoomModifiersComboBox;
-    QComboBox* m_rotateModifiersComboBox;
-    QComboBox* m_horizontalModifiersComboBox;
-
-    QComboBox* m_copyModifiersComboBox;
-    QComboBox* m_annotateModifiersComboBox;
-
-    void createModifiersComboBox(QComboBox*& comboBox, int modifiers);
+    void createBehaviourTab();
 
     // graphics
 
@@ -111,6 +89,31 @@ private:
 
     QComboBox* m_cacheSizeComboBox;
     QCheckBox* m_prefetchCheckBox;
+
+    void createGraphicsTab();
+
+    // interface
+
+    QComboBox* m_tabPositionComboBox;
+    QComboBox* m_tabVisibilityComboBox;
+
+    QLineEdit* m_fileToolBarLineEdit;
+    QLineEdit* m_editToolBarLineEdit;
+    QLineEdit* m_viewToolBarLineEdit;
+
+    void createInterfaceTab();
+
+    // modifiers
+
+    QComboBox* m_zoomModifiersComboBox;
+    QComboBox* m_rotateModifiersComboBox;
+    QComboBox* m_horizontalModifiersComboBox;
+
+    QComboBox* m_copyModifiersComboBox;
+    QComboBox* m_annotateModifiersComboBox;
+
+    void createModifiersTab();
+    void createModifiersComboBox(QComboBox*& comboBox, int modifiers);
 
 };
 
