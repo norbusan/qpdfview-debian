@@ -67,6 +67,9 @@ public:
     static bool prefetch();
     static void setPrefetch(bool prefetch);
 
+    static int pagesPerRow();
+    static void setPagesPerRow(int pagesPerRow);
+
     static qreal pageSpacing();
     static void setPageSpacing(qreal pageSpacing);
 
@@ -109,7 +112,8 @@ public:
     {
         SinglePageMode = 0,
         TwoPagesMode = 1,
-        TwoPagesWithCoverPageMode = 2
+        TwoPagesWithCoverPageMode = 2,
+        MultiplePagesMode = 3
     };
 
     LayoutMode layoutMode() const;
@@ -230,6 +234,8 @@ private:
 
     static bool s_prefetch;
 
+    static int s_pagesPerRow;
+
     static qreal s_pageSpacing;
     static qreal s_thumbnailSpacing;
 
@@ -264,8 +270,13 @@ private:
     qreal m_returnToTop;
 
     int currentPageForPage(int page) const;
+    int previousPageForPage(int page) const;
+    int nextPageForPage(int page) const;
+
     int leftIndexForIndex(int index) const;
     int rightIndexForIndex(int index) const;
+    int rowIndexForIndex(int index) const;
+
     void saveLeftAndTop(qreal& left, qreal& top) const;
 
     bool m_continuousMode;

@@ -31,6 +31,8 @@ bool DocumentView::s_textHinting = false;
 
 bool DocumentView::s_prefetch = false;
 
+int DocumentView::s_pagesPerRow = 3;
+
 qreal DocumentView::s_pageSpacing = 5.0;
 qreal DocumentView::s_thumbnailSpacing = 3.0;
 
@@ -106,6 +108,19 @@ bool DocumentView::prefetch()
 void DocumentView::setPrefetch(bool prefetch)
 {
     s_prefetch = prefetch;
+}
+
+int DocumentView::pagesPerRow()
+{
+    return s_pagesPerRow;
+}
+
+void DocumentView::setPagesPerRow(int pagesPerRow)
+{
+    if(pagesPerRow >= 1)
+    {
+        s_pagesPerRow = pagesPerRow;
+    }
 }
 
 qreal DocumentView::pageSpacing()
@@ -801,12 +816,12 @@ bool DocumentView::print(QPrinter* printer)
 
 void DocumentView::previousPage()
 {
-    jumpToPage(qMax(1, m_currentPage - (m_layoutMode == SinglePageMode ? 1 : 2)), false);
+    jumpToPage(previousPageForPage(m_currentPage), false);
 }
 
 void DocumentView::nextPage()
 {
-    jumpToPage(qMin(m_numberOfPages, m_currentPage + (m_layoutMode == SinglePageMode ? 1 : 2)), false);
+    jumpToPage(nextPageForPage(m_currentPage), false);
 }
 
 void DocumentView::firstPage()
@@ -893,7 +908,7 @@ void DocumentView::findPrevious()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
+        if(rowIndexForIndex(m_currentResult.key()) == rowIndexForIndex(m_currentPage - 1))
         {
             --m_currentResult;
         }
@@ -919,7 +934,7 @@ void DocumentView::findNext()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
+        if(rowIndexForIndex(m_currentResult.key()) == rowIndexForIndex(m_currentPage - 1))
         {
             ++m_currentResult;
         }
@@ -1093,8 +1108,24 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
 
 void DocumentView::on_prefetch_timeout()
 {
-    int fromPage = m_currentPage - (m_layoutMode == SinglePageMode ? 1 : 2);
-    int toPage = m_currentPage + (m_layoutMode == SinglePageMode ? 1 : 3);
+    int fromPage = m_currentPage, toPage = m_currentPage;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        fromPage -= 1;
+        toPage += 1;
+        break;
+    case TwoPagesMode:
+    case TwoPagesWithCoverPageMode:
+        fromPage -= 2;
+        toPage += 3;
+        break;
+    case MultiplePagesMode:
+        fromPage -= s_pagesPerRow;
+        toPage += 2 * s_pagesPerRow - 1;
+        break;
+    }
 
     fromPage = fromPage >= 1 ? fromPage : 1;
     toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
@@ -1374,9 +1405,58 @@ int DocumentView::currentPageForPage(int page) const
     case TwoPagesWithCoverPageMode:
         currentPage = page == 1 ? page : (page % 2 == 0 ? page : page - 1);
         break;
+    case MultiplePagesMode:
+        currentPage = page - ((page - 1) % s_pagesPerRow);
+        break;
     }
 
     return currentPage;
+}
+
+int DocumentView::previousPageForPage(int page) const
+{
+    int previousPage = -1;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        previousPage = page - 1;
+        break;
+    case TwoPagesMode:
+    case TwoPagesWithCoverPageMode:
+        previousPage = currentPageForPage(page) - 2;
+        break;
+    case MultiplePagesMode:
+        previousPage = currentPageForPage(page) - s_pagesPerRow;
+        break;
+    }
+
+    previousPage = previousPage >= 1 ? previousPage : 1;
+
+    return previousPage;
+}
+
+int DocumentView::nextPageForPage(int page) const
+{
+    int nextPage = -1;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        nextPage = page + 1;
+        break;
+    case TwoPagesMode:
+    case TwoPagesWithCoverPageMode:
+        nextPage = currentPageForPage(page) + 2;
+        break;
+    case MultiplePagesMode:
+        nextPage = currentPageForPage(page) + s_pagesPerRow;
+        break;
+    }
+
+    nextPage = nextPage <= m_numberOfPages ? nextPage : m_numberOfPages;
+
+    return nextPage;
 }
 
 int DocumentView::leftIndexForIndex(int index) const
@@ -1394,6 +1474,9 @@ int DocumentView::leftIndexForIndex(int index) const
     case TwoPagesWithCoverPageMode:
         leftIndex = index == 0 ? index : (index % 2 != 0 ? index : index - 1);
         break;
+    case MultiplePagesMode:
+        leftIndex = index - (index % s_pagesPerRow);
+        break;
     }
 
     return leftIndex;
@@ -1409,14 +1492,42 @@ int DocumentView::rightIndexForIndex(int index) const
         rightIndex = index;
         break;
     case TwoPagesMode:
-        rightIndex = index % 2 == 0 && index != m_numberOfPages - 1 ? index + 1 : index;
+        rightIndex = index % 2 == 0 ? index + 1 : index;
         break;
     case TwoPagesWithCoverPageMode:
-        rightIndex = index % 2 != 0 && index != m_numberOfPages - 1 ? index + 1 : index;
+        rightIndex = index % 2 != 0 ? index + 1 : index;
+        break;
+    case MultiplePagesMode:
+        rightIndex = index - (index % s_pagesPerRow) + s_pagesPerRow - 1;
         break;
     }
 
+    rightIndex = rightIndex <= m_numberOfPages - 1 ? rightIndex : m_numberOfPages - 1;
+
     return rightIndex;
+}
+
+int DocumentView::rowIndexForIndex(int index) const
+{
+    int rowIndex = -1;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        rowIndex = index;
+        break;
+    case TwoPagesMode:
+        rowIndex = index / 2;
+        break;
+    case TwoPagesWithCoverPageMode:
+        rowIndex = (index + 1) / 2;
+        break;
+    case MultiplePagesMode:
+        rowIndex = index / s_pagesPerRow;
+        break;
+    }
+
+    return rowIndex;
 }
 
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
@@ -1696,13 +1807,18 @@ void DocumentView::prepareScene()
 
             qreal scaleFactor = 1.0;
 
-            if(m_layoutMode == SinglePageMode)
+            switch(m_layoutMode)
             {
+            case SinglePageMode:
                 visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
-            }
-            else
-            {
+                break;
+            case TwoPagesMode:
+            case TwoPagesWithCoverPageMode:
                 visibleWidth = 0.5 * (viewport()->width() - 6.0 - 3.0 * s_pageSpacing);
+                break;
+            case MultiplePagesMode:
+                visibleWidth = (viewport()->width() - 6.0 - (s_pagesPerRow + 1) * s_pageSpacing) / s_pagesPerRow;
+                break;
             }
 
             visibleHeight = viewport()->height() - 2.0 * s_pageSpacing;
@@ -1758,8 +1874,9 @@ void DocumentView::prepareScene()
         PageItem* page = m_pages.at(index);
         QRectF boundingRect = page->boundingRect();
 
-        if(m_layoutMode == SinglePageMode)
+        switch(m_layoutMode)
         {
+        case SinglePageMode:
             page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
             m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
@@ -1769,9 +1886,10 @@ void DocumentView::prepareScene()
             left = qMin(left, -0.5f * boundingRect.width() - s_pageSpacing);
             right = qMax(right, 0.5f * boundingRect.width() + s_pageSpacing);
             height += pageHeight + s_pageSpacing;
-        }
-        else
-        {
+
+            break;
+        case TwoPagesMode:
+        case TwoPagesWithCoverPageMode:
             if(index == leftIndexForIndex(index))
             {
                 page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * s_pageSpacing, height - boundingRect.top());
@@ -1797,6 +1915,29 @@ void DocumentView::prepareScene()
                 right = qMax(right, boundingRect.width() + 1.5f * s_pageSpacing);
                 height += pageHeight + s_pageSpacing;
             }
+
+            break;
+        case MultiplePagesMode:
+            page->setPos(left - boundingRect.left() + s_pageSpacing, height - boundingRect.top());
+
+            pageHeight = qMax(pageHeight, boundingRect.height());
+            left = left - boundingRect.left() + boundingRect.width() + s_pageSpacing;
+
+            if(index == leftIndexForIndex(index))
+            {
+                m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
+            }
+
+            if(index == rightIndexForIndex(index))
+            {
+                right = qMax(right, left + s_pageSpacing);
+                height += pageHeight + s_pageSpacing;
+
+                pageHeight = 0.0;
+                left = 0.0;
+            }
+
+            break;
         }
     }
 
@@ -1812,6 +1953,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
     int horizontalValue = 0;
     int verticalValue = 0;
+
+    int currentRow = rowIndexForIndex(m_currentPage - 1);
 
     for(int index = 0; index < m_pages.count(); ++index)
     {
@@ -1831,7 +1974,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(index == m_currentPage - 1 || index == rightIndexForIndex(m_currentPage - 1))
+            if(rowIndexForIndex(index) == currentRow)
             {
                 page->setVisible(true);
 
