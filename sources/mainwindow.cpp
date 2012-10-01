@@ -1267,7 +1267,7 @@ void MainWindow::restoreSettings()
     DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
     DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
 
-    DocumentView::setPrefetch(m_settings->value("documentView/prefetch").toBool());
+    DocumentView::setPrefetch(m_settings->value("documentView/prefetch", false).toBool());
 
     DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
     DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
