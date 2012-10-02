@@ -1570,6 +1570,7 @@ void MainWindow::createActions()
     m_multiplePagesModeAction = new QAction(tr("&Multiple pages"), this);
     m_multiplePagesModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_4));
     m_multiplePagesModeAction->setCheckable(true);
+    m_multiplePagesModeAction->setIcon(QIcon(":icons/multiple-pages.svg"));
     connect(m_multiplePagesModeAction, SIGNAL(triggered(bool)), SLOT(on_multiplePagesMode_triggered(bool)));
 
     // zoom in
@@ -1771,6 +1772,7 @@ void MainWindow::createToolBars()
         if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
         else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
         else if(action == "twoPagesWithCoverPageMode") { m_viewToolBar->addAction(m_twoPagesWithCoverPageModeAction); }
+        else if(action == "multiplePagesMode") { m_viewToolBar->addAction(m_multiplePagesModeAction); }
         else if(action == "scaleFactor") { m_scaleFactorComboBox->setVisible(true); m_viewToolBar->addWidget(m_scaleFactorComboBox); }
         else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
