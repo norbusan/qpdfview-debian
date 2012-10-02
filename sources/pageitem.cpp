@@ -719,7 +719,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
         QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
 
         Poppler::Annotation::Style style;
-        style.setColor(QColor(255, 255, 0));
+        style.setColor(Qt::yellow);
 
         Poppler::Annotation* annotation = 0;
 
