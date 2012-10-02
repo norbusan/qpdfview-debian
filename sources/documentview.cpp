@@ -893,7 +893,7 @@ void DocumentView::findPrevious()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
+        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             --m_currentResult;
         }
@@ -919,7 +919,7 @@ void DocumentView::findNext()
 {
     if(m_currentResult != m_results.end())
     {
-        if(m_currentResult.key() == m_currentPage - 1 || m_currentResult.key() == rightIndexForIndex(m_currentPage - 1))
+        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             ++m_currentResult;
         }
@@ -1831,7 +1831,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(index == m_currentPage - 1 || index == rightIndexForIndex(m_currentPage - 1))
+            if(leftIndexForIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
 
