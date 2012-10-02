@@ -270,12 +270,9 @@ private:
     qreal m_returnToTop;
 
     int currentPageForPage(int page) const;
-    int previousPageForPage(int page) const;
-    int nextPageForPage(int page) const;
 
     int leftIndexForIndex(int index) const;
     int rightIndexForIndex(int index) const;
-    int rowIndexForIndex(int index) const;
 
     void saveLeftAndTop(qreal& left, qreal& top) const;
 

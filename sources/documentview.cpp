@@ -816,12 +816,48 @@ bool DocumentView::print(QPrinter* printer)
 
 void DocumentView::previousPage()
 {
-    jumpToPage(previousPageForPage(m_currentPage), false);
+    int previousPage = m_currentPage;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        previousPage -= 1;
+        break;
+    case TwoPagesMode:
+    case TwoPagesWithCoverPageMode:
+        previousPage -= 2;
+        break;
+    case MultiplePagesMode:
+        previousPage -= s_pagesPerRow;
+        break;
+    }
+
+    previousPage = previousPage >= 1 ? previousPage : 1;
+
+    jumpToPage(previousPage, false);
 }
 
 void DocumentView::nextPage()
 {
-    jumpToPage(nextPageForPage(m_currentPage), false);
+    int nextPage = m_currentPage;
+
+    switch(m_layoutMode)
+    {
+    case SinglePageMode:
+        nextPage += 1;
+        break;
+    case TwoPagesMode:
+    case TwoPagesWithCoverPageMode:
+        nextPage += 2;
+        break;
+    case MultiplePagesMode:
+        nextPage += s_pagesPerRow;
+        break;
+    }
+
+    nextPage = nextPage <= m_numberOfPages ? nextPage : m_numberOfPages;
+
+    jumpToPage(nextPage, false);
 }
 
 void DocumentView::firstPage()
@@ -908,7 +944,7 @@ void DocumentView::findPrevious()
 {
     if(m_currentResult != m_results.end())
     {
-        if(rowIndexForIndex(m_currentResult.key()) == rowIndexForIndex(m_currentPage - 1))
+        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             --m_currentResult;
         }
@@ -934,7 +970,7 @@ void DocumentView::findNext()
 {
     if(m_currentResult != m_results.end())
     {
-        if(rowIndexForIndex(m_currentResult.key()) == rowIndexForIndex(m_currentPage - 1))
+        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             ++m_currentResult;
         }
@@ -1413,52 +1449,6 @@ int DocumentView::currentPageForPage(int page) const
     return currentPage;
 }
 
-int DocumentView::previousPageForPage(int page) const
-{
-    int previousPage = -1;
-
-    switch(m_layoutMode)
-    {
-    case SinglePageMode:
-        previousPage = page - 1;
-        break;
-    case TwoPagesMode:
-    case TwoPagesWithCoverPageMode:
-        previousPage = currentPageForPage(page) - 2;
-        break;
-    case MultiplePagesMode:
-        previousPage = currentPageForPage(page) - s_pagesPerRow;
-        break;
-    }
-
-    previousPage = previousPage >= 1 ? previousPage : 1;
-
-    return previousPage;
-}
-
-int DocumentView::nextPageForPage(int page) const
-{
-    int nextPage = -1;
-
-    switch(m_layoutMode)
-    {
-    case SinglePageMode:
-        nextPage = page + 1;
-        break;
-    case TwoPagesMode:
-    case TwoPagesWithCoverPageMode:
-        nextPage = currentPageForPage(page) + 2;
-        break;
-    case MultiplePagesMode:
-        nextPage = currentPageForPage(page) + s_pagesPerRow;
-        break;
-    }
-
-    nextPage = nextPage <= m_numberOfPages ? nextPage : m_numberOfPages;
-
-    return nextPage;
-}
-
 int DocumentView::leftIndexForIndex(int index) const
 {
     int leftIndex = -1;
@@ -1505,29 +1495,6 @@ int DocumentView::rightIndexForIndex(int index) const
     rightIndex = rightIndex <= m_numberOfPages - 1 ? rightIndex : m_numberOfPages - 1;
 
     return rightIndex;
-}
-
-int DocumentView::rowIndexForIndex(int index) const
-{
-    int rowIndex = -1;
-
-    switch(m_layoutMode)
-    {
-    case SinglePageMode:
-        rowIndex = index;
-        break;
-    case TwoPagesMode:
-        rowIndex = index / 2;
-        break;
-    case TwoPagesWithCoverPageMode:
-        rowIndex = (index + 1) / 2;
-        break;
-    case MultiplePagesMode:
-        rowIndex = index / s_pagesPerRow;
-        break;
-    }
-
-    return rowIndex;
 }
 
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
@@ -1921,7 +1888,7 @@ void DocumentView::prepareScene()
             page->setPos(left - boundingRect.left() + s_pageSpacing, height - boundingRect.top());
 
             pageHeight = qMax(pageHeight, boundingRect.height());
-            left = left + boundingRect.width() + s_pageSpacing;
+            left += boundingRect.width() + s_pageSpacing;
 
             if(index == leftIndexForIndex(index))
             {
@@ -1954,8 +1921,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    int currentRow = rowIndexForIndex(m_currentPage - 1);
-
     for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = m_pages.at(index);
@@ -1974,7 +1939,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(rowIndexForIndex(index) == currentRow)
+            if(leftIndexForIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
 
