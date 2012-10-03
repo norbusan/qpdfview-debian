@@ -705,6 +705,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
+#define HAS_POPPLER_20
 #ifdef HAS_POPPLER_20
 
     QMenu* menu = new QMenu();
@@ -721,11 +722,17 @@ void PageItem::addAnnotation(const QPoint& screenPos)
         Poppler::Annotation::Style style;
         style.setColor(Qt::yellow);
 
+        Poppler::Annotation::Popup popup;
+        popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
         Poppler::Annotation* annotation = 0;
 
         if(action == addTextAction)
         {
             annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+
+            boundary.setLeft(boundary.right() - 24.0 / m_size.width());
+            boundary.setTop(boundary.bottom() - 24.0 / m_size.height());
         }
         else if(action == addHighlightAction)
         {
@@ -744,6 +751,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
         annotation->setBoundary(boundary);
         annotation->setStyle(style);
+        annotation->setPopup(popup);
 
         m_mutex->lock();
 
