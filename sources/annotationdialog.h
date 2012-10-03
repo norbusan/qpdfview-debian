@@ -42,7 +42,7 @@ private:
     QMutex* m_mutex;
     Poppler::Annotation* m_annotation;
 
-    QTextEdit* m_textEdit;
+    QPlainTextEdit* m_plainTextEdit;
     
 };
 
