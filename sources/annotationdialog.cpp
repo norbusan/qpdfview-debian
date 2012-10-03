@@ -24,15 +24,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent) : QDialog(parent, Qt::Popup),
     m_mutex(mutex),
     m_annotation(annotation),
-    m_textEdit(0)
+    m_plainTextEdit(0)
 {
-    m_textEdit = new QTextEdit(this);
-    m_textEdit->setAcceptRichText(false);
-    m_textEdit->setPlainText(m_annotation->contents());
+    m_plainTextEdit = new QPlainTextEdit(this);
+    m_plainTextEdit->setPlainText(m_annotation->contents());
 
     setLayout(new QVBoxLayout());
-    layout()->setContentsMargins(2, 2, 2, 2);
-    layout()->addWidget(m_textEdit);
+    layout()->setContentsMargins(1, 1, 1, 1);
+    layout()->addWidget(m_plainTextEdit);
 
     setSizeGripEnabled(true);
 }
@@ -43,8 +42,8 @@ void AnnotationDialog::showEvent(QShowEvent *event)
 
     if(!event->spontaneous())
     {
-        m_textEdit->setFocus();
-        m_textEdit->moveCursor(QTextCursor::End);
+        m_plainTextEdit->setFocus();
+        m_plainTextEdit->moveCursor(QTextCursor::End);
     }
 }
 
@@ -54,7 +53,7 @@ void AnnotationDialog::hideEvent(QHideEvent* event)
 
     m_mutex->lock();
 
-    m_annotation->setContents(m_textEdit->toPlainText());
+    m_annotation->setContents(m_plainTextEdit->toPlainText());
 
     m_mutex->unlock();
 }

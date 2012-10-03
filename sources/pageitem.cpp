@@ -721,10 +721,16 @@ void PageItem::addAnnotation(const QPoint& screenPos)
         Poppler::Annotation::Style style;
         style.setColor(Qt::yellow);
 
+        Poppler::Annotation::Popup popup;
+        popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
         Poppler::Annotation* annotation = 0;
 
         if(action == addTextAction)
         {
+            boundary.setWidth(24.0 / m_size.width());
+            boundary.setHeight(24.0 / m_size.height());
+
             annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
         }
         else if(action == addHighlightAction)
@@ -744,6 +750,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
         annotation->setBoundary(boundary);
         annotation->setStyle(style);
+        annotation->setPopup(popup);
 
         m_mutex->lock();
 

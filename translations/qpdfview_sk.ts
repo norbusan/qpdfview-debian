@@ -601,7 +601,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Správanie</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -611,7 +611,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Modifikátory</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="188"/>
