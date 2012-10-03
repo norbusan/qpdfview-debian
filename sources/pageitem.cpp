@@ -705,7 +705,6 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
-#define HAS_POPPLER_20
 #ifdef HAS_POPPLER_20
 
     QMenu* menu = new QMenu();
@@ -729,10 +728,10 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
         if(action == addTextAction)
         {
-            annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+            boundary.setWidth(24.0 / m_size.width());
+            boundary.setHeight(24.0 / m_size.height());
 
-            boundary.setLeft(boundary.right() - 24.0 / m_size.width());
-            boundary.setTop(boundary.bottom() - 24.0 / m_size.height());
+            annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
         }
         else if(action == addHighlightAction)
         {
