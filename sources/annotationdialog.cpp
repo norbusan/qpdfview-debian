@@ -30,7 +30,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     m_plainTextEdit->setPlainText(m_annotation->contents());
 
     setLayout(new QVBoxLayout());
-    layout()->setContentsMargins(1, 1, 1, 1);
+    layout()->setContentsMargins(QMargins());
     layout()->addWidget(m_plainTextEdit);
 
     setSizeGripEnabled(true);
