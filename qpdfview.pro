@@ -31,13 +31,18 @@ SOURCES += \
 RESOURCES += qpdfview.qrc
 
 TRANSLATIONS += \
+    translations/qpdfview_ast.ts \
     translations/qpdfview_cs.ts \
     translations/qpdfview_de.ts \
     translations/qpdfview_el.ts \
+    translations/qpdfview_fi.ts \
+    translations/qpdfview_fr.ts \
     translations/qpdfview_he.ts \
+    translations/qpdfview_hr.ts \
     translations/qpdfview_pt_BR.ts \
     translations/qpdfview_ru.ts \
     translations/qpdfview_sk.ts \
+    translations/qpdfview_tr.ts \
     translations/qpdfview_uk.ts
 
 QT += core xml gui
