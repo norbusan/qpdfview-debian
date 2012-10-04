@@ -1,0 +1,93 @@
+Release 0.3.5:
+  * Improved compatibility with older versions of Qt and Poppler.
+  * Improved the layout of the settings dialog.
+  * Improved compatibility with other applications using Poppler by cropping text annotations to 24px x 24px @ 72dpi.
+  * Added searching data files in the application directory to improve compatibility with Windows and OS/2.
+  * Added a 'save image to file' option to the 'copy to clipboard' pop-up menu.
+  * Added support for forward and inverse search using SyncTeX.
+  * Updated Slovak and Czech translations. Thanks to DAG Software and Pavel Fric.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith and Fábio Nogueira.
+  * Updated Russian and Ukrainian translations. Thanks to Vladimir Smolyar.
+  * Added Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated partial Greek translation. Thanks to George Christofis.
+  * Added partial Turkish translation. Thanks to Şâkir Aşçı.
+  * Added partial Croation translation. Thanks to freedomrun.
+  * Added partial Finnish translation. Thanks to Eetu Aalto.
+  * Added partial Asturian translation. Thanks to Xuacu Saturio.
+  * Added partial French translation. Thanks to Baptiste Fontaine, Kévin Peignot, Smonff, Sylvie Gallet, fbn69 and Gisele Perreault.
+ 
+Release 0.3.4:
+  * Fixed a crash when highlight all is enabled and the document is refreshed.
+  * Fixed problems with highlight all and find next.
+  * Added a setting to select the screen used in the presentation view.
+  * Added a setting to synchronize main view and presentation view.
+  * Added a 'Two pages with cover page' layout mode.
+  * Added delayed pop-up menu for 'recently used' to 'open (in new tab)' tool bar action.
+  * Added Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Russian and Ukrainian translations. Thanks to Vladimir Smolyar.
+
+Release 0.3.3:
+  * Fixed some rendering artifacts.
+  * Improved navigation using bookmarks.
+  * Reorganized settings dialog and made keyboard modifiers for several mouse actions configurable.
+  * Added menu and tool bar actions to copy texts or images or add annotations.
+  * Added Ukrainian translation. Thanks to Vladimir Smolyar.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Russian translation. Thanks to Eugene Marshal and Vladimir Smolyar.
+
+Release 0.3.2:
+  * Reduced code size and complexity.
+  * Reduced memory consumption and made caching optional.
+  * Further interface consolidation.
+  * Changed the search interface to allow concurrent search processes.
+  * Replaced the transient bookmarking mechanism in the document view with an optionally persistent bookmarking mechanism in the main window which bookmarks files and pages.
+  * Added rudimentary annotation support.
+  * Added '--unique' command-line option to the system-wide launcher.
+  * Added Czech translation. Thanks to Pavel Fric.
+  * Added partial Greek translation. Thanks to athmakrigiannis.
+  * Added partial Russian translation. Thanks to v_2e.
+  * Added Slovak translation. Thanks to DAG Software.
+
+Release 0.3.1:
+  * Fixed several bugs.
+  * Changed license from GPLv3 to GPLv2 to remove license incompatibilities with poppler.
+  * Removed French, Ukrainian and Russian translations because of license change.
+
+Release 0.3:
+  * Focus on usability of the interface.
+  * Improved scaling.
+  * Added printing using CUPS.
+  * Added configurable tool bars.
+  * Added build-time options.
+  * Improved documentation.
+  * Updated German translation.
+  * Updated Russian translation. Thanks to Eugene Marshal.
+
+Release 0.2.2:
+  * Improved settings dialog.
+  * Improved thumbnails view.
+  * Added recenctly used menu.
+  * Added presentation view.
+  * Added automatic refresh.
+  * Added simple transient bookmarks mechanism.
+  * Added '--unique' command-line option.
+  * Added some help content and updated the manual page. Thanks to Benjamin Eltzner.
+  * Updated French translation. Thanks to Fabian Pijcke.
+  * Added partial Romanian translation. Thanks to Andi Cristian Șerbănescu.
+
+Release 0.2.1:
+  * Extensive refactoring.
+  * Improved search.
+  * Simplified text-selection.
+  * Added outline and thumbnails view.
+  * Added settings dialog.
+  * Added French translation. Thanks to Glad Deschrijver.
+  * Added partial Russian, Belorussian and Ukrainian translations. Thanks to Leo Romanovski.
+
+Release 0.2:
+  * Complete rewrite introducing background rendering.
+  * Added rudimentary support for search and text-selection.
+  * Limited page cache by byte count instead of image count.
