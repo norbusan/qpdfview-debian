@@ -552,7 +552,7 @@
         <translation type="unfinished">Adicionar &amp;destaque</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="780"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Remover &amp;anotação</translation>
     </message>

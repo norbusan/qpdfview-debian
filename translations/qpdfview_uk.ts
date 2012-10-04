@@ -552,7 +552,7 @@
         <translation type="unfinished">Додати &amp;підсвічування</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="780"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Видалити анотацію</translation>
     </message>

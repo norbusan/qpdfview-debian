@@ -555,7 +555,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="780"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstranit poznámku</translation>
     </message>
