@@ -621,7 +621,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="195"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Özişler yenileme:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="201"/>
@@ -629,37 +629,37 @@
         <location filename="../sources/settingsdialog.cpp" line="414"/>
         <location filename="../sources/settingsdialog.cpp" line="422"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yeniden başlatıldıktan sonra uygulanır.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="203"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Son kullanılanları listele:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="210"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sekmeleri geri yükle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="217"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yerimlerini geri yükle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="224"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sunumu eşle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="230"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Öntanımlı</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="233"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sunum ekranı:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="239"/>
@@ -669,32 +669,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="241"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kaynak düzenleyici:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="251"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Süsleme düzenleyicileri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="258"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Süsleme bağlantıları:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hiçbiri</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vurgu süresi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="276"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Renkleri ters çevir:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="286"/>
@@ -709,17 +709,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="306"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Küçük resim boyutu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keskinlik yumuşatma:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="320"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yazıtipi yumuşatma:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
@@ -736,12 +736,12 @@
         <location filename="../sources/settingsdialog.cpp" line="338"/>
         <location filename="../sources/settingsdialog.cpp" line="339"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="351"/>
         <source>Cache size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Önbellek boyutu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="358"/>
@@ -751,87 +751,87 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sayfabaşı</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sayfasonu</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="368"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sol</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sağ</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sekme konumu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gerektiğinde</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="387"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Her zaman</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="388"/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hiç bir zaman</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="400"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sekme görünürlüğü:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="408"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dosya araç çubuğu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="416"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Araç çubuğunu düzenle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Araç çubuğunu görüntüle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yakınlaştırma düzenleyicileri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Döndürme düzenleyicileri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="445"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yatay düzenleyciler:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="451"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopyalama düzenleyicileri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Not düzenleyicileri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="463"/>
