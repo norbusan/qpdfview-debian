@@ -103,7 +103,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1311"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished">%1. sayfaya %geri dön</translation>
+        <translation type="unfinished">%1. sayfaya &amp;geri dön</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1319"/>
@@ -529,7 +529,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="693"/>
         <source>Save image to file</source>
-        <translation type="unfinished">Görüntüyü dosyaya kaydet...</translation>
+        <translation type="unfinished">Görüntüyü dosyaya kaydet</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="697"/>
