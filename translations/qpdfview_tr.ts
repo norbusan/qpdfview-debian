@@ -98,7 +98,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1175"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1311"/>
@@ -481,7 +481,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1932"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Rıhtımlar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1944"/>
@@ -570,7 +570,7 @@
     <message>
         <location filename="../sources/main.cpp" line="155"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
 </context>
 <context>
@@ -578,12 +578,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Son &amp;kullanılanlar</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Listeyi temizle</translation>
     </message>
 </context>
 <context>
@@ -591,32 +591,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Davranış</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Grafikler</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
         <source>&amp;Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Arayüz</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Düzenleyiciler</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="38"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Öntanımlılar</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="188"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bağlantı aç:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="195"/>
@@ -699,12 +699,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="286"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sayfa aralığı:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="296"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Küçük resim aralığı:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="306"/>
@@ -724,7 +724,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Metin ipuçları:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="332"/>
@@ -746,7 +746,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="358"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Önbellekleme:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="366"/>
@@ -836,32 +836,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="463"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üst Karakter</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="464"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Denetim</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Değişim</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="466"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üst Karakter ve Denetim</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="467"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üst Karakter ve Değişim</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Denetim ve Değişim</translation>
     </message>
 </context>
 </TS>
