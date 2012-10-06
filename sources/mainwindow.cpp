@@ -914,7 +914,7 @@ void MainWindow::on_fonts_triggered()
     connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
     connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
 
-    dialog->setLayout(new QVBoxLayout());
+    dialog->setLayout(new QVBoxLayout(dialog));
     dialog->layout()->addWidget(tableView);
     dialog->layout()->addWidget(dialogButtonBox);
 
@@ -1160,7 +1160,7 @@ void MainWindow::on_contents_triggered()
     connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
     connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
 
-    dialog->setLayout(new QVBoxLayout());
+    dialog->setLayout(new QVBoxLayout(dialog));
     dialog->layout()->addWidget(textBrowser);
     dialog->layout()->addWidget(dialogButtonBox);
 

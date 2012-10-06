@@ -38,19 +38,12 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
 
-    m_behaviourLayout = new QFormLayout(this);
-    m_tabWidget->widget(0)->setLayout(m_behaviourLayout);
+    m_behaviourLayout = new QFormLayout(m_tabWidget->widget(0));
+    m_graphicsLayout = new QFormLayout(m_tabWidget->widget(1));
+    m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
+    m_modifiersLayout = new QFormLayout(m_tabWidget->widget(3));
 
-    m_graphicsLayout = new QFormLayout(this);
-    m_tabWidget->widget(1)->setLayout(m_graphicsLayout);
-
-    m_interfaceLayout = new QFormLayout(this);
-    m_tabWidget->widget(2)->setLayout(m_interfaceLayout);
-
-    m_modifiersLayout = new QFormLayout(this);
-    m_tabWidget->widget(3)->setLayout(m_modifiersLayout);
-
-    setLayout(new QVBoxLayout());
+    setLayout(new QVBoxLayout(this));
     layout()->addWidget(m_tabWidget);
     layout()->addWidget(m_dialogButtonBox);
 
