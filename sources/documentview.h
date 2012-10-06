@@ -187,8 +187,6 @@ public:
 
         NumberUpLayout numberUpLayout;
 
-        // TODO: add more options
-
         PrintOptions() : fitToPage(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
     };
 
