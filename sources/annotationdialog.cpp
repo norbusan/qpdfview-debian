@@ -29,7 +29,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     m_plainTextEdit = new QPlainTextEdit(this);
     m_plainTextEdit->setPlainText(m_annotation->contents());
 
-    setLayout(new QVBoxLayout());
+    setLayout(new QVBoxLayout(this));
     layout()->setContentsMargins(QMargins());
     layout()->addWidget(m_plainTextEdit);
 
