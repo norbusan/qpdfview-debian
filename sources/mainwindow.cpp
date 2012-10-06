@@ -686,6 +686,7 @@ void MainWindow::on_print_triggered()
 {
     QPrinter* printer = new QPrinter();
     QPrintDialog* printDialog = new QPrintDialog(printer, this);
+    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(this);
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
@@ -693,62 +694,11 @@ void MainWindow::on_print_triggered()
     printDialog->setMinMax(1, currentTab()->numberOfPages());
     printDialog->setOption(QPrintDialog::PrintToFile, false);
 
-    // extended options
-
-    QWidget* extendedOptionsWidget = new QWidget(this);
-    extendedOptionsWidget->setWindowTitle(tr("Extended options"));
-
-    QFormLayout* extendedOptionsLayout = new QFormLayout(extendedOptionsWidget);
-    extendedOptionsWidget->setLayout(extendedOptionsLayout);
-
-    QCheckBox* fitToPageCheckBox = new QCheckBox(extendedOptionsWidget);
-
-    extendedOptionsLayout->addRow(tr("Fit to page:"), fitToPageCheckBox);
-
-    QComboBox* pageSetComboBox = new QComboBox(extendedOptionsWidget);
-    pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(DocumentView::PrintOptions::AllPages));
-    pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(DocumentView::PrintOptions::EvenPages));
-    pageSetComboBox->addItem(tr("Odd pages"), static_cast< uint >(DocumentView::PrintOptions::OddPages));
-    pageSetComboBox->setCurrentIndex(0);
-
-    extendedOptionsLayout->addRow(tr("Page set:"), pageSetComboBox);
-
-    QComboBox* numberUpComboBox = new QComboBox(extendedOptionsWidget);
-    numberUpComboBox->addItem(tr("Single page"), static_cast< uint >(DocumentView::PrintOptions::SinglePage));
-    numberUpComboBox->addItem(tr("Two pages"), static_cast< uint >(DocumentView::PrintOptions::TwoPages));
-    numberUpComboBox->addItem(tr("Four pages"), static_cast< uint >(DocumentView::PrintOptions::FourPages));
-    numberUpComboBox->addItem(tr("Six pages"), static_cast< uint >(DocumentView::PrintOptions::SixPages));
-    numberUpComboBox->addItem(tr("Nine pages"), static_cast< uint >(DocumentView::PrintOptions::NinePages));
-    numberUpComboBox->addItem(tr("Sixteen pages"), static_cast< uint >(DocumentView::PrintOptions::SixteenPages));
-    numberUpComboBox->setCurrentIndex(0);
-
-    extendedOptionsLayout->addRow(tr("Number-up:"), numberUpComboBox);
-
-    QComboBox* numberUpLayoutComboBox = new QComboBox(extendedOptionsWidget);
-    numberUpLayoutComboBox->addItem(tr("Bottom to top and left to right"), static_cast< uint >(DocumentView::PrintOptions::BottomTopLeftRight));
-    numberUpLayoutComboBox->addItem(tr("Bottom to top and right to left"), static_cast< uint >(DocumentView::PrintOptions::BottomTopRightLeft));
-    numberUpLayoutComboBox->addItem(tr("Left to right and bottom to top"), static_cast< uint >(DocumentView::PrintOptions::LeftRightBottomTop));
-    numberUpLayoutComboBox->addItem(tr("Left to right and top to bottom"), static_cast< uint >(DocumentView::PrintOptions::LeftRightTopBottom));
-    numberUpLayoutComboBox->addItem(tr("Right to left and bottom to top"), static_cast< uint >(DocumentView::PrintOptions::RightLeftBottomTop));
-    numberUpLayoutComboBox->addItem(tr("Right to left and top to bottom"), static_cast< uint >(DocumentView::PrintOptions::RightLeftTopBottom));
-    numberUpLayoutComboBox->addItem(tr("Top to bottom and left to right"), static_cast< uint >(DocumentView::PrintOptions::TopBottomLeftRight));
-    numberUpLayoutComboBox->addItem(tr("Top to bottom and right to left"), static_cast< uint >(DocumentView::PrintOptions::TopBottomRightLeft));
-    numberUpLayoutComboBox->setCurrentIndex(3);
-
-    extendedOptionsLayout->addRow(tr("Number-up layout:"), numberUpLayoutComboBox);
-
-    printDialog->setOptionTabs(QList< QWidget* >() << extendedOptionsWidget);
+    printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
 
     if(printDialog->exec() == QDialog::Accepted)
     {
-        DocumentView::PrintOptions printOptions;
-
-        printOptions.fitToPage = fitToPageCheckBox->isChecked();
-        printOptions.pageSet = static_cast< DocumentView::PrintOptions::PageSet >(pageSetComboBox->itemData(pageSetComboBox->currentIndex()).toUInt());
-        printOptions.numberUp = static_cast< DocumentView::PrintOptions::NumberUp >(numberUpComboBox->itemData(numberUpComboBox->currentIndex()).toUInt());
-        printOptions.numberUpLayout = static_cast< DocumentView::PrintOptions::NumberUpLayout >(numberUpLayoutComboBox->itemData(numberUpLayoutComboBox->currentIndex()).toUInt());
-
-        if(!currentTab()->print(printer, printOptions))
+        if(!currentTab()->print(printer, printOptionsWidget->printOptions()))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
         }
