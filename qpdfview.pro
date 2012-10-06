@@ -35,6 +35,7 @@ TRANSLATIONS += \
     translations/qpdfview_cs.ts \
     translations/qpdfview_de.ts \
     translations/qpdfview_el.ts \
+    translations/qpdfview_es.ts \
     translations/qpdfview_fi.ts \
     translations/qpdfview_fr.ts \
     translations/qpdfview_he.ts \
