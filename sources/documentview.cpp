@@ -1781,7 +1781,7 @@ void DocumentView::prepareScene()
                 break;
             case TwoPagesMode:
             case TwoPagesWithCoverPageMode:
-                visibleWidth = 0.5 * (viewport()->width() - 6.0 - 3.0 * s_pageSpacing);
+                visibleWidth = (viewport()->width() - 6.0 - 3 * s_pageSpacing) / 2;
                 break;
             case MultiplePagesMode:
                 visibleWidth = (viewport()->width() - 6.0 - (s_pagesPerRow + 1) * s_pageSpacing) / s_pagesPerRow;
