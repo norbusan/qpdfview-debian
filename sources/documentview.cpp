@@ -652,7 +652,7 @@ bool DocumentView::saveCopy(const QString& filePath)
     return ok;
 }
 
-bool DocumentView::print(QPrinter* printer)
+bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 {
     int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
     int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
@@ -721,6 +721,76 @@ bool DocumentView::print(QPrinter* printer)
         case QPrinter::GrayScale:
             num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
             break;
+        }
+
+        num_options = cupsAddOption("fit-to-page", QString("%1").arg(printOptions.fitToPage).toLocal8Bit(), num_options, &options);
+
+        switch(printOptions.pageSet)
+        {
+        case PrintOptions::AllPages:
+            break;
+        case PrintOptions::EvenPages:
+            num_options = cupsAddOption("page-set", "even", num_options, &options);
+            break;
+        case PrintOptions::OddPages:
+            num_options = cupsAddOption("page-set", "odd", num_options, &options);
+            break;
+        }
+
+        switch(printOptions.numberUp)
+        {
+        case PrintOptions::SinglePage:
+            num_options = cupsAddOption("number-up", "1", num_options, &options);
+            break;
+        case PrintOptions::TwoPages:
+            num_options = cupsAddOption("number-up", "2", num_options, &options);
+            break;
+        case PrintOptions::FourPages:
+            num_options = cupsAddOption("number-up", "4", num_options, &options);
+            break;
+        case PrintOptions::SixPages:
+            num_options = cupsAddOption("number-up", "6", num_options, &options);
+            break;
+        case PrintOptions::NinePages:
+            num_options = cupsAddOption("number-up", "9", num_options, &options);
+            break;
+        case PrintOptions::SixteenPages:
+            num_options = cupsAddOption("number-up", "16", num_options, &options);
+            break;
+        }
+
+        switch(printOptions.numberUpLayout)
+        {
+        case PrintOptions::BottomTopLeftRight:
+            num_options = cupsAddOption("number-up-layout", "btlr", num_options, &options);
+            break;
+        case PrintOptions::BottomTopRightLeft:
+            num_options = cupsAddOption("number-up-layout", "btrl", num_options, &options);
+            break;
+        case PrintOptions::LeftRightBottomTop:
+            num_options = cupsAddOption("number-up-layout", "lrbt", num_options, &options);
+            break;
+        case PrintOptions::LeftRightTopBottom:
+            num_options = cupsAddOption("number-up-layout", "lrtb", num_options, &options);
+            break;
+        case PrintOptions::RightLeftBottomTop:
+            num_options = cupsAddOption("number-up-layout", "rlbt", num_options, &options);
+            break;
+        case PrintOptions::RightLeftTopBottom:
+            num_options = cupsAddOption("number-up-layout", "rltb", num_options, &options);
+            break;
+        case PrintOptions::TopBottomLeftRight:
+            num_options = cupsAddOption("number-up-layout", "tblr", num_options, &options);
+            break;
+        case PrintOptions::TopBottomRightLeft:
+            num_options = cupsAddOption("number-up-layout", "tbrl", num_options, &options);
+            break;
+        }
+
+        // TODO: remove debug output
+        for(int index = 0; index < num_options; ++index)
+        {
+            qDebug() << options[index].name << options[index].value;
         }
 
         QFileInfo fileInfo(m_filePath);
