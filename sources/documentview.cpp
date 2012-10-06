@@ -851,9 +851,19 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
             m_mutex.unlock();
 
-            qreal scaleFactor = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+            qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
 
-            painter.setTransform(QTransform::fromScale(scaleFactor, scaleFactor));
+            if(printOptions.fitToPage)
+            {
+                scaleFactorX = scaleFactorY = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+            }
+            else
+            {
+                scaleFactorX = printer->logicalDpiX(); scaleFactorX /= printer->physicalDpiX();
+                scaleFactorY = printer->logicalDpiY(); scaleFactorY /= printer->physicalDpiY();
+            }
+
+            painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
             painter.drawImage(QPointF(), image);
         }
 
