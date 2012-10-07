@@ -766,13 +766,15 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
     delete menu;
 
+#else
+
+    Q_UNUSED(screenPos);
+
 #endif // HAS_POPPLER_20
 }
 
 void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
 {
-    Q_UNUSED(screenPos);
-
 #ifdef HAS_POPPLER_20
 
     QMenu* menu = new QMenu();
@@ -794,6 +796,11 @@ void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& s
     }
 
     delete menu;
+
+#else
+
+    Q_UNUSED(annotation);
+    Q_UNUSED(screenPos);
 
 #endif // HAS_POPPLER_20
 }
