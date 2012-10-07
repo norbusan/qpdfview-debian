@@ -169,48 +169,46 @@ void PresentationView::paintEvent(QPaintEvent*)
 
 void PresentationView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->modifiers() == Qt::NoModifier)
+    switch(event->key())
     {
-        switch(event->key())
-        {
-        case Qt::Key_PageUp:
-        case Qt::Key_Up:
-        case Qt::Key_Left:
-        case Qt::Key_Backspace:
-            previousPage();
+    case Qt::Key_PageUp:
+    case Qt::Key_Up:
+    case Qt::Key_Left:
+    case Qt::Key_Backspace:
+        previousPage();
 
-            event->accept();
-            return;
-        case Qt::Key_PageDown:
-        case Qt::Key_Down:
-        case Qt::Key_Right:
-        case Qt::Key_Space:
-            nextPage();
+        event->accept();
+        return;
+    case Qt::Key_PageDown:
+    case Qt::Key_Down:
+    case Qt::Key_Right:
+    case Qt::Key_Space:
+        nextPage();
 
-            event->accept();
-            return;
-        case Qt::Key_Home:
-            firstPage();
+        event->accept();
+        return;
+    case Qt::Key_Home:
+        firstPage();
 
-            event->accept();
-            return;
-        case Qt::Key_End:
-            lastPage();
+        event->accept();
+        return;
+    case Qt::Key_End:
+        lastPage();
 
-            event->accept();
-            return;
-        case Qt::Key_Return:
-            jumpToPage(m_returnToPage);
+        event->accept();
+        return;
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+        jumpToPage(m_returnToPage);
 
-            event->accept();
-            return;
-        case Qt::Key_F12:
-        case Qt::Key_Escape:
-            close();
+        event->accept();
+        return;
+    case Qt::Key_F12:
+    case Qt::Key_Escape:
+        close();
 
-            event->accept();
-            return;
-        }
+        event->accept();
+        return;
     }
 
     QWidget::keyPressEvent(event);

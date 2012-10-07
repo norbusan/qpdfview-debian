@@ -1261,36 +1261,33 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->modifiers() == Qt::NoModifier)
+    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
     {
-        if(event->key() == Qt::Key_Return)
+        jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
+
+        event->accept();
+        return;
+    }
+
+    if(!m_continuousMode && event->modifiers() == Qt::NoModifier)
+    {
+        if(event->key() == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
-            jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
+            previousPage();
+
+            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 
             event->accept();
             return;
         }
-
-        if(!m_continuousMode)
+        else if(event->key() == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
         {
-            if(event->key() == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
-            {
-                previousPage();
+            nextPage();
 
-                verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+            verticalScrollBar()->setValue(verticalScrollBar()->minimum());
 
-                event->accept();
-                return;
-            }
-            else if(event->key() == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
-            {
-                nextPage();
-
-                verticalScrollBar()->setValue(verticalScrollBar()->minimum());
-
-                event->accept();
-                return;
-            }
+            event->accept();
+            return;
         }
     }
 
