@@ -188,6 +188,7 @@ public:
         NumberUpLayout numberUpLayout;
 
         PrintOptions() : fitToPage(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+
     };
 
 signals:
