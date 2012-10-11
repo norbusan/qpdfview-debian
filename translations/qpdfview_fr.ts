@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -128,7 +128,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1338"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Actualiser</translation>
     </message>
 </context>
 <context>
@@ -233,7 +233,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1410"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Actualise&amp;r</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
@@ -504,12 +504,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="459"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aller à la page %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="466"/>
         <source>Open %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouvrir %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -529,7 +529,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="693"/>
         <source>Save image to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enregistrer l&apos;image dans un fichier</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="697"/>
@@ -539,7 +539,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="697"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer l&apos;image dans le fichier « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="712"/>
@@ -562,7 +562,7 @@
     <message>
         <location filename="../sources/presentationview.cpp" line="245"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aller à la page %1.</translation>
     </message>
 </context>
 <context>
@@ -621,7 +621,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="188"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Actualisation automatique :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="194"/>
@@ -629,7 +629,7 @@
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Effectif après redémarrage.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="196"/>
@@ -639,17 +639,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="203"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurer des onglets :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="210"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurer des marque-pages :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="217"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synchroniser la présentation :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="223"/>
@@ -659,7 +659,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="226"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Écran de présentation :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="232"/>
@@ -669,7 +669,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="234"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Éditeur de source :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="244"/>
@@ -694,17 +694,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inverser les couleurs :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="279"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espacement des pages :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="289"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espacement des miniatures :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="299"/>
@@ -719,7 +719,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anticrénelage du texte :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="320"/>
@@ -776,7 +776,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Au besoin</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="380"/>
@@ -796,17 +796,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="401"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barre d&apos;outils Fichier :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barre d&apos;outils Édition :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="417"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barre d&apos;outils Affichage :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="426"/>
@@ -851,17 +851,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maj et Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="460"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maj et Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="461"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl et Alt</translation>
     </message>
 </context>
 </TS>
