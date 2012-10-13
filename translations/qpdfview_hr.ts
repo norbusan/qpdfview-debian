@@ -203,7 +203,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1356"/>
         <source>Page width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Širina stranice</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1357"/>
@@ -353,12 +353,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1599"/>
         <source>Rotate &amp;left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotiraj &amp;lijevo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1607"/>
         <source>Rotate &amp;right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotiraj &amp;desno</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1615"/>
@@ -549,12 +549,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="713"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj &amp;istakni</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="782"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Odstrani napomenu</translation>
     </message>
 </context>
 <context>
@@ -639,7 +639,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="203"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrati kartice:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="210"/>
@@ -771,7 +771,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="374"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Položaj kartice:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
@@ -851,17 +851,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift i Control</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="460"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift i Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="461"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Control i Alt</translation>
     </message>
 </context>
 </TS>
