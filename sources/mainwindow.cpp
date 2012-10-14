@@ -690,6 +690,7 @@ void MainWindow::on_print_triggered()
 {
     QPrinter* printer = new QPrinter();
     QPrintDialog* printDialog = new QPrintDialog(printer, this);
+    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(this);
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
@@ -697,9 +698,11 @@ void MainWindow::on_print_triggered()
     printDialog->setMinMax(1, currentTab()->numberOfPages());
     printDialog->setOption(QPrintDialog::PrintToFile, false);
 
+    printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
+
     if(printDialog->exec() == QDialog::Accepted)
     {
-        if(!currentTab()->print(printer))
+        if(!currentTab()->print(printer, printOptionsWidget->printOptions()))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
         }

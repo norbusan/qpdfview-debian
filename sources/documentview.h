@@ -152,6 +152,49 @@ public:
 
     QStandardItemModel* fontsModel();
 
+    struct PrintOptions
+    {
+        bool fitToPage;
+
+        enum PageSet
+        {
+            AllPages = 0,
+            EvenPages = 1,
+            OddPages = 2
+        };
+
+        PageSet pageSet;
+
+        enum NumberUp
+        {
+            SinglePage = 0,
+            TwoPages = 1,
+            FourPages = 2,
+            SixPages = 3,
+            NinePages = 4,
+            SixteenPages = 5
+        };
+
+        NumberUp numberUp;
+
+        enum NumberUpLayout
+        {
+            BottomTopLeftRight = 0,
+            BottomTopRightLeft = 1,
+            LeftRightBottomTop = 2,
+            LeftRightTopBottom = 3,
+            RightLeftBottomTop = 4,
+            RightLeftTopBottom = 5,
+            TopBottomLeftRight = 6,
+            TopBottomRightLeft = 7
+        };
+
+        NumberUpLayout numberUpLayout;
+
+        PrintOptions() : fitToPage(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+
+    };
+
 signals:
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
@@ -176,7 +219,7 @@ public slots:
     bool open(const QString& filePath);
     bool refresh();
     bool saveCopy(const QString& filePath);
-    bool print(QPrinter* printer);
+    bool print(QPrinter* printer, const PrintOptions& printOptions = PrintOptions());
 
     void previousPage();
     void nextPage();

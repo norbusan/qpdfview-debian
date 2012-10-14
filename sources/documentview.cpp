@@ -667,10 +667,11 @@ bool DocumentView::saveCopy(const QString& filePath)
     return ok;
 }
 
-bool DocumentView::print(QPrinter* printer)
+bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 {
     int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
     int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
+    int numberUp = 1;
 
 #ifdef WITH_CUPS
 
@@ -694,8 +695,6 @@ bool DocumentView::print(QPrinter* printer)
             num_options = cupsAddOption(dest->options[index].name, dest->options[index].value, num_options, &options);
         }
 
-        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
-
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
         num_options = cupsAddOption("copies", QString("%1").arg(printer->copyCount()).toLocal8Bit(), num_options, &options);
@@ -703,6 +702,27 @@ bool DocumentView::print(QPrinter* printer)
 #endif // QT_VERSION
 
         num_options = cupsAddOption("collate", QString("%1").arg(printer->collateCopies()).toLocal8Bit(), num_options, &options);
+
+        switch(printer->pageOrder())
+        {
+        case QPrinter::FirstPageFirst:
+            num_options = cupsAddOption("outputorder", "normal", num_options, &options);
+            break;
+        case QPrinter::LastPageFirst:
+            num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
+            break;
+        }
+
+        num_options = cupsAddOption("fit-to-page", QString("%1").arg(printOptions.fitToPage).toLocal8Bit(), num_options, &options);
+
+        switch(printer->colorMode())
+        {
+        case QPrinter::Color:
+            break;
+        case QPrinter::GrayScale:
+            num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
+            break;
+        }
 
         switch(printer->duplex())
         {
@@ -719,23 +739,83 @@ bool DocumentView::print(QPrinter* printer)
             break;
         }
 
-        switch(printer->pageOrder())
+        switch(printOptions.numberUp)
         {
-        case QPrinter::FirstPageFirst:
-            num_options = cupsAddOption("outputorder", "normal", num_options, &options);
+        case PrintOptions::SinglePage:
+            num_options = cupsAddOption("number-up", "1", num_options, &options);
+            numberUp = 1;
             break;
-        case QPrinter::LastPageFirst:
-            num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
+        case PrintOptions::TwoPages:
+            num_options = cupsAddOption("number-up", "2", num_options, &options);
+            numberUp = 2;
+            break;
+        case PrintOptions::FourPages:
+            num_options = cupsAddOption("number-up", "4", num_options, &options);
+            numberUp = 4;
+            break;
+        case PrintOptions::SixPages:
+            num_options = cupsAddOption("number-up", "6", num_options, &options);
+            numberUp = 6;
+            break;
+        case PrintOptions::NinePages:
+            num_options = cupsAddOption("number-up", "9", num_options, &options);
+            numberUp = 9;
+            break;
+        case PrintOptions::SixteenPages:
+            num_options = cupsAddOption("number-up", "16", num_options, &options);
+            numberUp = 16;
             break;
         }
 
-        switch(printer->colorMode())
+        switch(printOptions.numberUpLayout)
         {
-        case QPrinter::Color:
+        case PrintOptions::BottomTopLeftRight:
+            num_options = cupsAddOption("number-up-layout", "btlr", num_options, &options);
             break;
-        case QPrinter::GrayScale:
-            num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
+        case PrintOptions::BottomTopRightLeft:
+            num_options = cupsAddOption("number-up-layout", "btrl", num_options, &options);
             break;
+        case PrintOptions::LeftRightBottomTop:
+            num_options = cupsAddOption("number-up-layout", "lrbt", num_options, &options);
+            break;
+        case PrintOptions::LeftRightTopBottom:
+            num_options = cupsAddOption("number-up-layout", "lrtb", num_options, &options);
+            break;
+        case PrintOptions::RightLeftBottomTop:
+            num_options = cupsAddOption("number-up-layout", "rlbt", num_options, &options);
+            break;
+        case PrintOptions::RightLeftTopBottom:
+            num_options = cupsAddOption("number-up-layout", "rltb", num_options, &options);
+            break;
+        case PrintOptions::TopBottomLeftRight:
+            num_options = cupsAddOption("number-up-layout", "tblr", num_options, &options);
+            break;
+        case PrintOptions::TopBottomRightLeft:
+            num_options = cupsAddOption("number-up-layout", "tbrl", num_options, &options);
+            break;
+        }
+
+        switch(printOptions.pageSet)
+        {
+        case PrintOptions::AllPages:
+            break;
+        case PrintOptions::EvenPages:
+            num_options = cupsAddOption("page-set", "even", num_options, &options);
+            break;
+        case PrintOptions::OddPages:
+            num_options = cupsAddOption("page-set", "odd", num_options, &options);
+            break;
+        }
+
+        fromPage = (fromPage - 1) / numberUp + 1;
+        toPage = (toPage - 1) / numberUp + 1;
+
+        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+
+        // TODO: remove debug output
+        for(int index = 0; index < num_options; ++index)
+        {
+            qDebug() << options[index].name << options[index].value;
         }
 
         QFileInfo fileInfo(m_filePath);
@@ -786,9 +866,19 @@ bool DocumentView::print(QPrinter* printer)
 
             m_mutex.unlock();
 
-            qreal scaleFactor = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+            qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
 
-            painter.setTransform(QTransform::fromScale(scaleFactor, scaleFactor));
+            if(printOptions.fitToPage)
+            {
+                scaleFactorX = scaleFactorY = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+            }
+            else
+            {
+                scaleFactorX = printer->logicalDpiX(); scaleFactorX /= printer->physicalDpiX();
+                scaleFactorY = printer->logicalDpiY(); scaleFactorY /= printer->physicalDpiY();
+            }
+
+            painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
             painter.drawImage(QPointF(), image);
         }
 
