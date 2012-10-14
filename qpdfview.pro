@@ -28,8 +28,6 @@ SOURCES += \
     sources/mainwindow.cpp \
     sources/main.cpp
 
-RESOURCES += qpdfview.qrc
-
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
     translations/qpdfview_cs.ts \
@@ -53,6 +51,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 !without_svg {
     DEFINES += WITH_SVG
     QT += svg
+
+    RESOURCES += qpdfview.qrc
 }
 
 !without_dbus {
@@ -77,6 +77,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 !without_synctex {
     DEFINES += WITH_SYNCTEX
     LIBS += -lz
+
     INCLUDEPATH += synctex
     SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
 }
