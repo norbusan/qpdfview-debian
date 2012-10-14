@@ -236,9 +236,9 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
-    m_returnToPage(-1),
-    m_returnToLeft(0.0),
-    m_returnToTop(0.0),
+    m_returnToPage(),
+    m_returnToLeft(),
+    m_returnToTop(),
     m_continuousMode(false),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactor),
@@ -598,7 +598,9 @@ bool DocumentView::open(const QString& filePath)
         m_numberOfPages = document->numPages();
         m_currentPage = 1;
 
-        m_returnToPage = -1;
+        m_returnToPage.clear();
+        m_returnToLeft.clear();
+        m_returnToTop.clear();
 
         prepareDocument(document);
 
@@ -635,8 +637,6 @@ bool DocumentView::refresh()
 
         m_numberOfPages = document->numPages();
         m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : 1;
-
-        m_returnToPage = m_returnToPage <= m_numberOfPages ? m_returnToPage : -1;
 
         prepareDocument(document);
 
@@ -971,8 +971,8 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
         {
             if(returnTo)
             {
-                m_returnToPage = m_currentPage;
-                m_returnToLeft = left; m_returnToTop = top;
+                m_returnToPage.push(m_currentPage);
+                m_returnToLeft.push(left); m_returnToTop.push(top);
             }
 
             m_currentPage = currentPageForPage(page);
@@ -1353,7 +1353,10 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
     {
-        jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
+        if(!m_returnToPage.isEmpty())
+        {
+            jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
+        }
 
         event->accept();
         return;
@@ -1462,11 +1465,11 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
         QMenu* menu = new QMenu();
 
-        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(m_returnToPage));
+        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
         returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
         returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
         returnToPageAction->setIconVisibleInMenu(true);
-        returnToPageAction->setVisible(m_returnToPage != -1);
+        returnToPageAction->setVisible(!m_returnToPage.isEmpty());
 
         menu->addSeparator();
 
@@ -1501,7 +1504,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
         if(action == returnToPageAction)
         {
-            jumpToPage(m_returnToPage, true, m_returnToLeft, m_returnToTop);
+            jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
         }
         else if(action == previousPageAction) { previousPage(); }
         else if(action == nextPageAction) { nextPage(); }

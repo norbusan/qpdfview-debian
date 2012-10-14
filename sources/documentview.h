@@ -308,9 +308,9 @@ private:
     int m_numberOfPages;
     int m_currentPage;
 
-    int m_returnToPage;
-    qreal m_returnToLeft;
-    qreal m_returnToTop;
+    QStack< int > m_returnToPage;
+    QStack< qreal > m_returnToLeft;
+    QStack< qreal > m_returnToTop;
 
     int currentPageForPage(int page) const;
 
