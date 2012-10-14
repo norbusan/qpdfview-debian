@@ -65,13 +65,13 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquiar %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Password:</source>
         <translation type="unfinished">Contraseña:</translation>
     </message>
@@ -101,32 +101,32 @@
         <translation type="unfinished">Nun s&apos;alcontraron datos SyncTeX pa «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1465"/>
+        <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rnar a páxina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Páxina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1478"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Páxina siguie&amp;nte</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pri&amp;mera páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1488"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1495"/>
+        <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Anova&amp;r</translation>
     </message>

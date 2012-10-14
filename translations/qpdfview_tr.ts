@@ -65,13 +65,13 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 dosyasının kilidini aç</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Password:</source>
         <translation type="unfinished">Açarsöz:</translation>
     </message>
@@ -101,32 +101,32 @@
         <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1465"/>
+        <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">%1. sayfaya &amp;geri dön</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Önceki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1478"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">So&amp;nraki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
         <translation type="unfinished">İlk say&amp;fa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1488"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Son sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1495"/>
+        <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Yenile</translation>
     </message>

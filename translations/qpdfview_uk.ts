@@ -65,13 +65,13 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Розблокувати %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
@@ -101,32 +101,32 @@
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1465"/>
+        <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">Повернутися на &amp;сторінку %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Попередня сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1478"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Наступна сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Перша сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1488"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Остання сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1495"/>
+        <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Оновити</translation>
     </message>

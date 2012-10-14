@@ -65,13 +65,13 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Otključaj %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Password:</source>
         <translation type="unfinished">Lozinka:</translation>
     </message>
@@ -101,32 +101,32 @@
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1465"/>
+        <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Povratak na stranicu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Prethodna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1478"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Sljedeća stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Početna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1488"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Posljednja stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1495"/>
+        <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Osvježi</translation>
     </message>

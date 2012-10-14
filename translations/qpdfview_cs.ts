@@ -65,13 +65,13 @@
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odemknout %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
-        <location filename="../sources/documentview.cpp" line="624"/>
+        <location filename="../sources/documentview.cpp" line="626"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
@@ -101,32 +101,32 @@
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1465"/>
+        <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1478"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
         <translation type="unfinished">P&amp;rvní strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1488"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;lední strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1495"/>
+        <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
