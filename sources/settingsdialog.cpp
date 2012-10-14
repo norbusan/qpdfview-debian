@@ -79,6 +79,8 @@ void SettingsDialog::accept()
 
     m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
 
+    m_settings->setValue("documentView/pagesPerRow", m_pagesPerRowSpinBox->value());
+
     m_settings->setValue("documentView/pageSpacing", m_pageSpacingSpinBox->value());
     m_settings->setValue("documentView/thumbnailSpacing", m_thumbnailSpacingSpinBox->value());
 
@@ -139,6 +141,8 @@ void SettingsDialog::on_defaults_clicked()
     m_highlightDurationSpinBox->setValue(5000);
 
     m_invertColorsCheckBox->setChecked(false);
+
+    m_pagesPerRowSpinBox->setValue(3);
 
     m_pageSpacingSpinBox->setValue(5.0);
     m_thumbnailSpacingSpinBox->setValue(3.0);
@@ -267,6 +271,14 @@ void SettingsDialog::createGraphicsTab()
     m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
 
     m_graphicsLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
+
+    // pages per row
+
+    m_pagesPerRowSpinBox = new QSpinBox(this);
+    m_pagesPerRowSpinBox->setRange(1, 10);
+    m_pagesPerRowSpinBox->setValue(m_settings->value("documentView/pagesPerRow", 3).toInt());
+
+    m_graphicsLayout->addRow(tr("Pages per row:"), m_pagesPerRowSpinBox);
 
     // page spacing
 

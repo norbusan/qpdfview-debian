@@ -78,6 +78,8 @@ private:
 
     QCheckBox* m_invertColorsCheckBox;
 
+    QSpinBox* m_pagesPerRowSpinBox;
+
     QDoubleSpinBox* m_pageSpacingSpinBox;
     QDoubleSpinBox* m_thumbnailSpacingSpinBox;
 
