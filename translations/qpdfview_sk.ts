@@ -118,7 +118,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">P&amp;rvá strana</translation>
+        <translation type="unfinished">&amp;Prvá strana</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1491"/>
@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1573"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Viaceré strany</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1581"/>
@@ -575,112 +575,112 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozšírené možnosti</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prizpôsobiť strane:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="35"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Všetky strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Párne strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="37"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepárne strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavenie strany:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jedna strana</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dve strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Štyri strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="46"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šesť strán</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Deväť strán</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šestnásť strán</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvýšiť počet</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spodok navrch a ľavé napravo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spodok na vrch a pravé naľavo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Z ľava do prava a zdola hore</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Z ľava do prava a zhora dole</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pravé do ľava a dolené na hor</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pravé doľava a horné nadol</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Od hora dole a z ľava do prava</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Od dola hore a z prava do ľava</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Number-up rozmiestnenie</translation>
     </message>
 </context>
 <context>
@@ -707,16 +707,6 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="38"/>
-        <source>Defaults</source>
-        <translation type="unfinished">Predvolené</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="31"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished">Rozhran&amp;ie</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behaviour</source>
         <translation type="unfinished">&amp;Správanie</translation>
@@ -727,9 +717,19 @@
         <translation type="unfinished">&amp;Grafika</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="31"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">Rozhran&amp;ie</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Modifikátory</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="38"/>
+        <source>Defaults</source>
+        <translation type="unfinished">Predvolené</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="185"/>
@@ -790,9 +790,86 @@
         <translation type="unfinished">Editor zdrojov:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="248"/>
+        <source>Decorate pages:</source>
+        <translation type="unfinished">Obtiahnuť strany:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="255"/>
+        <source>Decorate links:</source>
+        <translation type="unfinished">Obtiahnuť odkazy:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="263"/>
+        <source>None</source>
+        <translation type="unfinished">Nič</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Trvanie zvýraznenia:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="273"/>
+        <source>Invert colors:</source>
+        <translation type="unfinished">Invertovať farby:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strán na riadok</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="291"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Odstup strán:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Thumbnail spacing:</source>
+        <translation type="unfinished">Odstup miniatúr:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="311"/>
+        <source>Thumbnail size:</source>
+        <translation type="unfinished">Veľkosť miniatúr:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="318"/>
+        <source>Antialiasing:</source>
+        <translation type="unfinished">Vyhladzovanie:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="325"/>
+        <source>Text antialiasing:</source>
+        <translation type="unfinished">Vyhladzovanie textu:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="332"/>
+        <source>Text hinting:</source>
+        <translation type="unfinished">Hinting textu:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="337"/>
+        <location filename="../sources/settingsdialog.cpp" line="338"/>
+        <location filename="../sources/settingsdialog.cpp" line="339"/>
+        <location filename="../sources/settingsdialog.cpp" line="340"/>
+        <location filename="../sources/settingsdialog.cpp" line="341"/>
+        <location filename="../sources/settingsdialog.cpp" line="342"/>
+        <location filename="../sources/settingsdialog.cpp" line="343"/>
+        <location filename="../sources/settingsdialog.cpp" line="344"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MiB</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="356"/>
+        <source>Cache size:</source>
+        <translation type="unfinished">Veľkosť vyrovnávacej pamäte:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="363"/>
+        <source>Prefetch:</source>
+        <translation type="unfinished">Načítavať dopredu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="371"/>
@@ -878,83 +955,6 @@
         <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>Annotate modifiers:</source>
         <translation type="unfinished">Modifikátor komentovania:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="248"/>
-        <source>Decorate pages:</source>
-        <translation type="unfinished">Obtiahnuť strany:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="255"/>
-        <source>Decorate links:</source>
-        <translation type="unfinished">Obtiahnuť odkazy:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="263"/>
-        <source>None</source>
-        <translation type="unfinished">Nič</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Trvanie zvýraznenia:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="273"/>
-        <source>Invert colors:</source>
-        <translation type="unfinished">Invertovať farby:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="291"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Odstup strán:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Odstup miniatúr:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="311"/>
-        <source>Thumbnail size:</source>
-        <translation type="unfinished">Veľkosť miniatúr:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="318"/>
-        <source>Antialiasing:</source>
-        <translation type="unfinished">Vyhladzovanie:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="325"/>
-        <source>Text antialiasing:</source>
-        <translation type="unfinished">Vyhladzovanie textu:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="332"/>
-        <source>Text hinting:</source>
-        <translation type="unfinished">Hinting textu:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="337"/>
-        <location filename="../sources/settingsdialog.cpp" line="338"/>
-        <location filename="../sources/settingsdialog.cpp" line="339"/>
-        <location filename="../sources/settingsdialog.cpp" line="340"/>
-        <location filename="../sources/settingsdialog.cpp" line="341"/>
-        <location filename="../sources/settingsdialog.cpp" line="342"/>
-        <location filename="../sources/settingsdialog.cpp" line="343"/>
-        <location filename="../sources/settingsdialog.cpp" line="344"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MiB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="356"/>
-        <source>Cache size:</source>
-        <translation type="unfinished">Veľkosť vyrovnávacej pamäte:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="363"/>
-        <source>Prefetch:</source>
-        <translation type="unfinished">Načítavať dopredu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
