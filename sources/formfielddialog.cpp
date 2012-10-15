@@ -29,7 +29,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
     switch(m_formField->type())
     {
     case Poppler::FormField::FormButton:
-    case Poppler::FormField::FormChoice:
     case Poppler::FormField::FormSignature:
         break;
     case Poppler::FormField::FormText:
@@ -52,6 +51,41 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
             m_widget = new QPlainTextEdit(this);
 
             plainTextEdit()->setPlainText(formFieldText()->text());
+
+            break;
+        }
+
+        break;
+    case Poppler::FormField::FormChoice:
+        switch(formFieldChoice()->choiceType())
+        {
+        case Poppler::FormFieldChoice::ComboBox:
+            m_widget = new QComboBox(this);
+
+            comboBox()->addItems(formFieldChoice()->choices());
+            comboBox()->setEditable(formFieldChoice()->isEditable());
+
+            if(!formFieldChoice()->currentChoices().isEmpty())
+            {
+                comboBox()->setCurrentIndex(formFieldChoice()->currentChoices().first());
+            }
+
+            connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
+
+            break;
+        case Poppler::FormFieldChoice::ListBox:
+            m_widget = new QListWidget(this);
+
+            listWidget()->addItems(formFieldChoice()->choices());
+            listWidget()->setSelectionMode(formFieldChoice()->multiSelect() ? QAbstractItemView::MultiSelection : QAbstractItemView::SingleSelection);
+
+            foreach(int index, formFieldChoice()->currentChoices())
+            {
+                if(index >= 0 && index < listWidget()->count())
+                {
+                    listWidget()->item(index)->setSelected(true);
+                }
+            }
 
             break;
         }
@@ -105,7 +139,6 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
     switch(m_formField->type())
     {
     case Poppler::FormField::FormButton:
-    case Poppler::FormField::FormChoice:
     case Poppler::FormField::FormSignature:
         break;
     case Poppler::FormField::FormText:
@@ -119,7 +152,29 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
         case Poppler::FormFieldText::Multiline:
             formFieldText()->setText(plainTextEdit()->toPlainText());
             break;
+        }
 
+        break;
+    case Poppler::FormField::FormChoice:
+        switch(formFieldChoice()->choiceType())
+        {
+        case Poppler::FormFieldChoice::ComboBox:
+            formFieldChoice()->setCurrentChoices(QList< int >() << comboBox()->currentIndex());
+            break;
+        case Poppler::FormFieldChoice::ListBox:
+            QList< int > currentChoices;
+
+            for(int index = 0; index < listWidget()->count(); ++index)
+            {
+                if(listWidget()->item(index)->isSelected())
+                {
+                    currentChoices.append(index);
+                }
+            }
+
+            formFieldChoice()->setCurrentChoices(currentChoices);
+
+            break;
         }
 
         break;
@@ -128,19 +183,14 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
     m_mutex->unlock();
 }
 
-Poppler::FormFieldButton* FormFieldDialog::formFieldButton() const
+Poppler::FormFieldText* FormFieldDialog::formFieldText() const
 {
-    return static_cast< Poppler::FormFieldButton* >(m_formField);
+    return static_cast< Poppler::FormFieldText* >(m_formField);
 }
 
 Poppler::FormFieldChoice* FormFieldDialog::formFieldChoice() const
 {
     return static_cast< Poppler::FormFieldChoice* >(m_formField);
-}
-
-Poppler::FormFieldText* FormFieldDialog::formFieldText() const
-{
-    return static_cast< Poppler::FormFieldText* >(m_formField);
 }
 
 QLineEdit* FormFieldDialog::lineEdit() const
@@ -151,4 +201,14 @@ QLineEdit* FormFieldDialog::lineEdit() const
 QPlainTextEdit* FormFieldDialog::plainTextEdit() const
 {
     return qobject_cast< QPlainTextEdit* >(m_widget);
+}
+
+QComboBox* FormFieldDialog::comboBox() const
+{
+    return qobject_cast< QComboBox* >(m_widget);
+}
+
+QListWidget* FormFieldDialog::listWidget() const
+{
+    return qobject_cast< QListWidget* >(m_widget);
 }

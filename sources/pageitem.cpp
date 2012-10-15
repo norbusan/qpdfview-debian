@@ -169,7 +169,6 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     {
         switch(formField->type())
         {
-        case Poppler::FormField::FormChoice:
         case Poppler::FormField::FormSignature:
             delete formField;
             break;
@@ -185,6 +184,9 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
                 break;
             }
 
+            break;
+        case Poppler::FormField::FormChoice:
+            m_formFields.append(formField);
             break;
         case Poppler::FormField::FormButton:
             switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
@@ -919,7 +921,7 @@ void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& scr
 
 void PageItem::editFormField(Poppler::FormField *formField, const QPoint &screenPos)
 {
-    if(formField->type() == Poppler::FormField::FormText)
+    if(formField->type() == Poppler::FormField::FormText || formField->type() == Poppler::FormField::FormChoice)
     {
         FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, formField);
 
