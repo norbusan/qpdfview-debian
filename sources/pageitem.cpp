@@ -528,7 +528,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
             {
-                QApplication::restoreOverrideCursor();
+                unsetCursor();
 
                 if(link->linkType() == Poppler::Link::Goto)
                 {
@@ -557,7 +557,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                QApplication::restoreOverrideCursor();
+                unsetCursor();
 
                 editAnnotation(annotation, event->screenPos());
 
@@ -625,7 +625,7 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
     {
         if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
         {
-            QApplication::restoreOverrideCursor();
+            unsetCursor();
 
             removeAnnotation(annotation, event->screenPos());
 
