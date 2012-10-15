@@ -896,6 +896,8 @@ void PageItem::editFormField(Poppler::FormField *formField, const QPoint &screen
 
     formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
     formFieldDialog->show();
+
+    connect(formFieldDialog, SIGNAL(destroyed()), SLOT(refresh()));
 }
 
 void PageItem::prepareGeometry()
