@@ -167,13 +167,39 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
     foreach(Poppler::FormField* formField, m_page->formFields())
     {
-        if(formField->type() == Poppler::FormField::FormText)
+        switch(formField->type())
         {
-            m_formFields.append(formField);
-            continue;
-        }
+        case Poppler::FormField::FormChoice:
+        case Poppler::FormField::FormSignature:
+            delete formField;
+            break;
+        case Poppler::FormField::FormText:
+            switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
+            {
+            case Poppler::FormFieldText::FileSelect:
+                delete formField;
+                break;
+            case Poppler::FormFieldText::Normal:
+            case Poppler::FormFieldText::Multiline:
+                m_formFields.append(formField);
+                break;
+            }
 
-        delete formField;
+            break;
+        case Poppler::FormField::FormButton:
+            switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
+            {
+            case Poppler::FormFieldButton::Push:
+                delete formField;
+                break;
+            case Poppler::FormFieldButton::CheckBox:
+            case Poppler::FormFieldButton::Radio:
+                m_formFields.append(formField);
+                break;
+            }
+
+            break;
+        }
     }
 
     prepareGeometry();
@@ -267,7 +293,10 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            painter->drawRect(formField->rect().normalized());
+            if(formField->isVisible())
+            {
+                painter->drawRect(formField->rect().normalized());
+            }
         }
 
         painter->restore();
@@ -528,7 +557,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(!formField->isReadOnly() && formField->isVisible() && m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), tr("Edit form field."));
@@ -624,9 +653,11 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
+        // form fields
+
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(!formField->isReadOnly() && formField->isVisible() && m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
             {
                 unsetCursor();
 
@@ -636,8 +667,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
-
-        // form fields
     }
 
     event->ignore();
@@ -890,14 +919,25 @@ void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& scr
 
 void PageItem::editFormField(Poppler::FormField *formField, const QPoint &screenPos)
 {
-    FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, formField);
+    if(formField->type() == Poppler::FormField::FormText)
+    {
+        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, formField);
 
-    formFieldDialog->move(screenPos);
+        formFieldDialog->move(screenPos);
 
-    formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
-    formFieldDialog->show();
+        formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
+        formFieldDialog->show();
 
-    connect(formFieldDialog, SIGNAL(destroyed()), SLOT(refresh()));
+        connect(formFieldDialog, SIGNAL(destroyed()), SLOT(refresh()));
+    }
+    else if(formField->type() == Poppler::FormField::FormButton)
+    {
+        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(formField);
+
+        formFieldButton->setState(!formFieldButton->state());
+
+        refresh();
+    }
 }
 
 void PageItem::prepareGeometry()
