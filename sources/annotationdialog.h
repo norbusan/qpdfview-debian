@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 
 #include <poppler-qt4.h>
+#include <poppler-annotation.h>
 
 class AnnotationDialog : public QDialog
 {

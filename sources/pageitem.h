@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <poppler-qt4.h>
 
 #include "annotationdialog.h"
+#include "formfielddialog.h"
 
 class PageItem : public QGraphicsObject
 {
@@ -42,6 +43,9 @@ public:
 
     static bool decorateLinks();
     static void setDecorateLinks(bool decorateLinks);
+
+    static bool decorateFormFields();
+    static void setDecorateFormFields(bool decorateFormFields);
 
     static bool invertColors();
     static void setInvertColors(bool invertColors);
@@ -127,6 +131,7 @@ private:
 
     static bool s_decoratePages;
     static bool s_decorateLinks;
+    static bool s_decorateFormFields;
 
     static bool s_invertColors;
 
@@ -140,6 +145,7 @@ private:
     QSizeF m_size;
     QList< Poppler::Link* > m_links;
     QList< Poppler::Annotation* > m_annotations;
+    QList< Poppler::FormField* > m_formFields;
 
     QList< QRectF > m_highlights;
 
@@ -150,6 +156,8 @@ private:
     void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
     void editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
+
+    void editFormField(Poppler::FormField* formField, const QPoint& screenPos);
 
     // geometry
 

@@ -25,6 +25,7 @@ QCache< PageItem*, QImage > PageItem::s_cache(32 * 1024 * 1024);
 
 bool PageItem::s_decoratePages = true;
 bool PageItem::s_decorateLinks = true;
+bool PageItem::s_decorateFormFields = true;
 
 bool PageItem::s_invertColors = false;
 
@@ -59,6 +60,16 @@ bool PageItem::decorateLinks()
 void PageItem::setDecorateLinks(bool decorateLinks)
 {
     s_decorateLinks = decorateLinks;
+}
+
+bool PageItem::decorateFormFields()
+{
+    return s_decorateFormFields;
+}
+
+void PageItem::setDecorateFormFields(bool decorateFormFields)
+{
+    s_decorateFormFields = decorateFormFields;
 }
 
 bool PageItem::invertColors()
@@ -154,6 +165,17 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
         delete annotation;
     }
 
+    foreach(Poppler::FormField* formField, m_page->formFields())
+    {
+        if(formField->type() == Poppler::FormField::FormText)
+        {
+            m_formFields.append(formField);
+            continue;
+        }
+
+        delete formField;
+    }
+
     prepareGeometry();
 }
 
@@ -229,6 +251,23 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         foreach(Poppler::Link* link, m_links)
         {
             painter->drawRect(link->linkArea().normalized());
+        }
+
+        painter->restore();
+    }
+
+    // form fields
+
+    if(s_decorateFormFields)
+    {
+        painter->save();
+
+        painter->setTransform(m_normalizedTransform, true);
+        painter->setPen(QPen(Qt::blue));
+
+        foreach(Poppler::FormField* formField, m_formFields)
+        {
+            painter->drawRect(formField->rect().normalized());
         }
 
         painter->restore();
@@ -449,6 +488,8 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
     if(m_rubberBandMode == ModifiersMode && event->modifiers() == Qt::NoModifier)
     {
+        // links
+
         foreach(Poppler::Link* link, m_links)
         {
             if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
@@ -470,12 +511,27 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             }
         }
 
+        // annotations
+
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
+
+                return;
+            }
+        }
+
+        // form fields
+
+        foreach(Poppler::FormField* formField, m_formFields)
+        {
+            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            {
+                setCursor(Qt::PointingHandCursor);
+                QToolTip::showText(event->screenPos(), tr("Edit form field."));
 
                 return;
             }
@@ -522,13 +578,13 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
     {
-        // links and annotations
+        // links
 
         foreach(Poppler::Link* link, m_links)
         {
             if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
             {
-                QApplication::restoreOverrideCursor();
+                unsetCursor();
 
                 if(link->linkType() == Poppler::Link::Goto)
                 {
@@ -553,11 +609,13 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
+        // annotations
+
         foreach(Poppler::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
             {
-                QApplication::restoreOverrideCursor();
+                unsetCursor();
 
                 editAnnotation(annotation, event->screenPos());
 
@@ -565,6 +623,21 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
+
+        foreach(Poppler::FormField* formField, m_formFields)
+        {
+            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            {
+                unsetCursor();
+
+                editFormField(formField, event->screenPos());
+
+                event->accept();
+                return;
+            }
+        }
+
+        // form fields
     }
 
     event->ignore();
@@ -625,7 +698,7 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
     {
         if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
         {
-            QApplication::restoreOverrideCursor();
+            unsetCursor();
 
             removeAnnotation(annotation, event->screenPos());
 
@@ -813,6 +886,16 @@ void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& scr
 
     annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
     annotationDialog->show();
+}
+
+void PageItem::editFormField(Poppler::FormField *formField, const QPoint &screenPos)
+{
+    FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, formField);
+
+    formFieldDialog->move(screenPos);
+
+    formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
+    formFieldDialog->show();
 }
 
 void PageItem::prepareGeometry()
