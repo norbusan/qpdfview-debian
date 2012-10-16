@@ -73,6 +73,7 @@ private:
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
+    QCheckBox* m_decorateFormFieldsCheckBox;
 
     QSpinBox* m_highlightDurationSpinBox;
 

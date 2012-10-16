@@ -19,32 +19,40 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef ANNOTATIONDIALOG_H
-#define ANNOTATIONDIALOG_H
+#ifndef FORMFIELDDIALOG_H
+#define FORMFIELDDIALOG_H
 
 #include <QtCore>
 #include <QtGui>
 
 #include <poppler-qt4.h>
-#include <poppler-annotation.h>
+#include <poppler-form.h>
 
-class AnnotationDialog : public QDialog
+class FormFieldDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent = 0);
+    FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, QWidget* parent = 0);
 
 protected:
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
-    
+
 private:
     QMutex* m_mutex;
-    Poppler::Annotation* m_annotation;
+    Poppler::FormField* m_formField;
 
-    QPlainTextEdit* m_plainTextEdit;
-    
+    QWidget* m_widget;
+
+    Poppler::FormFieldText* formFieldText() const;
+    Poppler::FormFieldChoice* formFieldChoice() const;
+
+    QLineEdit* lineEdit() const;
+    QPlainTextEdit* plainTextEdit() const;
+    QComboBox* comboBox() const;
+    QListWidget* listWidget() const;
+
 };
 
-#endif // ANNOTATIONDIALOG_H
+#endif // FORMFIELDDIALOG_H

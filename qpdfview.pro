@@ -5,6 +5,7 @@ TEMPLATE = app
 
 HEADERS += \
     sources/annotationdialog.h \
+    sources/formfielddialog.h \
     sources/pageitem.h \
     sources/searchthread.h \
     sources/presentationview.h \
@@ -18,6 +19,7 @@ HEADERS += \
 
 SOURCES += \
     sources/annotationdialog.cpp \
+    sources/formfielddialog.cpp \
     sources/pageitem.cpp \
     sources/searchthread.cpp \
     sources/presentationview.cpp \

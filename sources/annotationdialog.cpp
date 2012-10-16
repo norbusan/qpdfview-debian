@@ -42,8 +42,8 @@ void AnnotationDialog::showEvent(QShowEvent *event)
 
     if(!event->spontaneous())
     {
-        m_plainTextEdit->setFocus();
         m_plainTextEdit->moveCursor(QTextCursor::End);
+        m_plainTextEdit->setFocus();
     }
 }
 

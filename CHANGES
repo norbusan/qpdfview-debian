@@ -2,6 +2,7 @@ Release 0.3.6:
   * Added a 'multiple pages' layout mode.
   * Added support for extended options in the print dialog.
   * Added support for multiple returns.
+  * Added rudimentary form support.
   * Updated Slovak translation. Thanks to DAG Software.
   * Updated Czech translation. Thanks Pavel Fric.
 

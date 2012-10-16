@@ -1265,6 +1265,7 @@ void MainWindow::restoreSettings()
 
     PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
     PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
+    PageItem::setDecorateFormFields(m_settings->value("pageItem/decorateFormFields", true).toBool());
 
     PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
 
