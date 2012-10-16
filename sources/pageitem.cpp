@@ -167,6 +167,12 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
     foreach(Poppler::FormField* formField, m_page->formFields())
     {
+        if(!formField->isVisible() || formField->isReadOnly())
+        {
+            delete formField;
+            continue;
+        }
+
         switch(formField->type())
         {
         case Poppler::FormField::FormSignature:
@@ -295,10 +301,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            if(formField->isVisible())
-            {
-                painter->drawRect(formField->rect().normalized());
-            }
+            painter->drawRect(formField->rect().normalized());
         }
 
         painter->restore();
@@ -559,7 +562,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            if(!formField->isReadOnly() && formField->isVisible() && m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), tr("Edit form field '%1'.").arg(formField->name()));
@@ -659,7 +662,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         foreach(Poppler::FormField* formField, m_formFields)
         {
-            if(!formField->isReadOnly() && formField->isVisible() && m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
             {
                 unsetCursor();
 
