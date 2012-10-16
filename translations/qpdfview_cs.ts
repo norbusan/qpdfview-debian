@@ -643,7 +643,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přepočítat:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
@@ -688,7 +688,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přepočítat rozmístění:</translation>
     </message>
 </context>
 <context>
