@@ -635,7 +635,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Zvýšiť počet</translation>
+        <translation type="unfinished">Prepočítať:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
@@ -680,7 +680,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Number-up rozmiestnenie</translation>
+        <translation type="unfinished">Prepočítať rozloženie:</translation>
     </message>
 </context>
 <context>

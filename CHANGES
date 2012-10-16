@@ -3,6 +3,7 @@ Release 0.3.6:
   * Added support for extended options in the print dialog.
   * Added support for multiple returns.
   * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks Pavel Fric.
 
 Release 0.3.5:
   * Improved compatibility with older versions of Qt and Poppler.

@@ -118,7 +118,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">P&amp;rvní strana</translation>
+        <translation type="unfinished">&amp;První strana</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1491"/>
@@ -331,7 +331,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1573"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Více stran</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1581"/>
@@ -578,62 +578,62 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pokročilé volby</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umístit na stranu:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="35"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Všechny strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sudé strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="37"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liché strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soubor stran:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jedna strana</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dvě strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Čtyři strany</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="46"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šest stran</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Devět stran</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Šestnáct stran</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
@@ -643,42 +643,42 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zezdola nahoru a zleva doprava</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zezdola nahoru a zprava doleva</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zleva doprava a zezdola nahoru</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zleva doprava a shora dolů</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zprava doleva a zezdola nahoru</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zprava doleva a shora dolů</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shora dolů a zleva doprava</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shora dolů a zprava doleva</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
@@ -710,16 +710,6 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="38"/>
-        <source>Defaults</source>
-        <translation type="unfinished">Výchozí</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="31"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished">&amp;Rozhraní</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behaviour</source>
         <translation type="unfinished">&amp;Chování</translation>
@@ -730,9 +720,19 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">&amp;Grafika</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="31"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Rozhraní</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Modifikátory</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="38"/>
+        <source>Defaults</source>
+        <translation type="unfinished">Výchozí</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="185"/>
@@ -793,104 +793,14 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Editor zdroje:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="281"/>
-        <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="371"/>
-        <source>Top</source>
-        <translation type="unfinished">Nahoře</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="372"/>
-        <source>Bottom</source>
-        <translation type="unfinished">Dole</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Left</source>
-        <translation type="unfinished">Vlevo</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="374"/>
-        <source>Right</source>
-        <translation type="unfinished">Vpravo</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Umístění karet:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="391"/>
-        <source>As needed</source>
-        <translation type="unfinished">Podle potřeby</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="392"/>
-        <source>Always</source>
-        <translation type="unfinished">Vždy</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="393"/>
-        <source>Never</source>
-        <translation type="unfinished">Nikdy</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Tab visibility:</source>
-        <translation type="unfinished">Viditelnost karet:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="413"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro soubor:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="421"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro úpravy:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="429"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished">Nástrojový panel pro pohled:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="438"/>
-        <source>Zoom modifiers:</source>
-        <translation type="unfinished">Modifikátory zvětšení:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="444"/>
-        <source>Rotate modifiers:</source>
-        <translation type="unfinished">Otočit modifikátory:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="450"/>
-        <source>Horizontal modifiers:</source>
-        <translation type="unfinished">Vodorovné modifikátory:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="456"/>
-        <source>Copy modifiers:</source>
-        <translation type="unfinished">Kopírovat modifikátory :</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="462"/>
-        <source>Annotate modifiers:</source>
-        <translation type="unfinished">Opatřit modifikátory poznámkami:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished">Vyzdobit strany:</translation>
+        <translation type="unfinished">Obtáhnout strany:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="255"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Vyzdobit odkazy:</translation>
+        <translation type="unfinished">Obtáhnout odkazy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="263"/>
@@ -900,12 +810,17 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished">Zvýraznit dobu trvání:</translation>
+        <translation type="unfinished">Doba trvání zvýraznění:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="273"/>
         <source>Invert colors:</source>
         <translation type="unfinished">Obrátit barvy:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="281"/>
+        <source>Pages per row:</source>
+        <translation type="unfinished">Stran na řádek:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
@@ -958,6 +873,91 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <location filename="../sources/settingsdialog.cpp" line="363"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Načítat dopředu:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="371"/>
+        <source>Top</source>
+        <translation type="unfinished">Nahoře</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="372"/>
+        <source>Bottom</source>
+        <translation type="unfinished">Dole</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Left</source>
+        <translation type="unfinished">Vlevo</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="374"/>
+        <source>Right</source>
+        <translation type="unfinished">Vpravo</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Umístění karet:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="391"/>
+        <source>As needed</source>
+        <translation type="unfinished">Podle potřeby</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="392"/>
+        <source>Always</source>
+        <translation type="unfinished">Vždy</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="393"/>
+        <source>Never</source>
+        <translation type="unfinished">Nikdy</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Tab visibility:</source>
+        <translation type="unfinished">Viditelnost karet:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="413"/>
+        <source>File tool bar:</source>
+        <translation type="unfinished">Panel nástrojů pro soubor:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="421"/>
+        <source>Edit tool bar:</source>
+        <translation type="unfinished">Panel nástrojů pro úpravy:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="429"/>
+        <source>View tool bar:</source>
+        <translation type="unfinished">Panel nástrojů pro pohled:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="438"/>
+        <source>Zoom modifiers:</source>
+        <translation type="unfinished">Modifikátory zvětšení:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="444"/>
+        <source>Rotate modifiers:</source>
+        <translation type="unfinished">Modifikátory otočení:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="450"/>
+        <source>Horizontal modifiers:</source>
+        <translation type="unfinished">Vodorovné modifikátory:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="456"/>
+        <source>Copy modifiers:</source>
+        <translation type="unfinished">Modifikátory kopírování :</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="462"/>
+        <source>Annotate modifiers:</source>
+        <translation type="unfinished">Modifikátory poznámek:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
