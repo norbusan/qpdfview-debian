@@ -74,6 +74,7 @@ void SettingsDialog::accept()
 
     m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
     m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
+    m_settings->setValue("pageItem/decorateFormFields", m_decorateFormFieldsCheckBox->isChecked());
 
     m_settings->setValue("documentView/highlightDuration", m_highlightDurationSpinBox->value());
 
@@ -137,6 +138,7 @@ void SettingsDialog::on_defaults_clicked()
 
     m_decoratePagesCheckBox->setChecked(true);
     m_decorateLinksCheckBox->setChecked(true);
+    m_decorateFormFieldsCheckBox->setChecked(true);
 
     m_highlightDurationSpinBox->setValue(5000);
 
@@ -253,6 +255,13 @@ void SettingsDialog::createGraphicsTab()
     m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
 
     m_graphicsLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
+
+    // decorate form fields
+
+    m_decorateFormFieldsCheckBox = new QCheckBox(this);
+    m_decorateFormFieldsCheckBox->setChecked(m_settings->value("pageItem/decorateFormFields", true).toBool());
+
+    m_graphicsLayout->addRow(tr("Decorate form fields:"), m_decorateFormFieldsCheckBox);
 
     // highlight duration
 

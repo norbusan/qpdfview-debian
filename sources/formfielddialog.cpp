@@ -52,6 +52,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
 
             plainTextEdit()->setPlainText(formFieldText()->text());
 
+            setSizeGripEnabled(true);
+
             break;
         }
 
@@ -86,6 +88,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                     listWidget()->item(index)->setSelected(true);
                 }
             }
+
+            setSizeGripEnabled(true);
 
             break;
         }

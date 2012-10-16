@@ -562,7 +562,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             if(!formField->isReadOnly() && formField->isVisible() && m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
-                QToolTip::showText(event->screenPos(), tr("Edit form field."));
+                QToolTip::showText(event->screenPos(), tr("Edit form field '%1'.").arg(formField->name()));
 
                 return;
             }
