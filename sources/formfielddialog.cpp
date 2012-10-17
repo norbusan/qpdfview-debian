@@ -52,6 +52,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
 
             plainTextEdit()->setPlainText(formFieldText()->text());
 
+            setSizeGripEnabled(true);
+
             break;
         }
 
@@ -100,6 +102,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                 }
             }
 
+            setSizeGripEnabled(true);
+
             break;
         }
 
@@ -109,8 +113,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
     setLayout(new QVBoxLayout(this));
     layout()->setContentsMargins(QMargins());
     layout()->addWidget(m_widget);
-
-    setSizeGripEnabled(true);
 }
 
 void FormFieldDialog::showEvent(QShowEvent* event)
