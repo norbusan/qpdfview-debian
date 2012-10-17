@@ -80,7 +80,10 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                 comboBox()->setEditable(true);
                 comboBox()->setInsertPolicy(QComboBox::NoInsert);
 
-                comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
+                if(!formFieldChoice()->editChoice().isNull())
+                {
+                    comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
+                }
 
                 connect(comboBox()->lineEdit(), SIGNAL(returnPressed()), SLOT(close()));
             }
