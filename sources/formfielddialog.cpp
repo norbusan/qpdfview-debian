@@ -71,8 +71,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                 comboBox()->setCurrentIndex(formFieldChoice()->currentChoices().first());
             }
 
-            connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
-
 #ifdef HAS_POPPLER_22
 
             if(formFieldChoice()->isEditable())
@@ -80,13 +78,18 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                 comboBox()->setEditable(true);
                 comboBox()->setInsertPolicy(QComboBox::NoInsert);
 
-                if(!formFieldChoice()->editChoice().isNull())
-                {
-                    comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
-                }
+                comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
 
                 connect(comboBox()->lineEdit(), SIGNAL(returnPressed()), SLOT(close()));
             }
+            else
+            {
+                connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
+            }
+
+#else
+
+            connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
 
 #endif // HAS_POPPLER_22
 
