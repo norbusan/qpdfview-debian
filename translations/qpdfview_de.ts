@@ -507,62 +507,62 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="531"/>
+        <location filename="../sources/pageitem.cpp" line="534"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Zu Seite %1 gehen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="538"/>
+        <location filename="../sources/pageitem.cpp" line="541"/>
         <source>Open %1.</source>
         <translation type="unfinished">%1 öffnen.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="565"/>
+        <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Formularfeld &quot;%1&quot; bearbeiten.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="748"/>
+        <location filename="../sources/pageitem.cpp" line="751"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;Text kopieren</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="749"/>
+        <location filename="../sources/pageitem.cpp" line="752"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Bild kopieren</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="750"/>
+        <location filename="../sources/pageitem.cpp" line="753"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Bild in &amp;Datei speichern...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="800"/>
         <source>Save image to file</source>
         <translation type="unfinished">Bild in Datei speichern</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="801"/>
+        <location filename="../sources/pageitem.cpp" line="804"/>
         <source>Warning</source>
         <translation type="unfinished">Warnung</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="801"/>
+        <location filename="../sources/pageitem.cpp" line="804"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Konnte Bild nicht in Datei &quot;%1&quot; speichern.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="816"/>
+        <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">&amp;Text hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="817"/>
+        <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Hervorhebung hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="886"/>
+        <location filename="../sources/pageitem.cpp" line="889"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Anmerkung entfernen</translation>
     </message>
