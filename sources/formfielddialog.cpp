@@ -52,8 +52,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
 
             plainTextEdit()->setPlainText(formFieldText()->text());
 
-            setSizeGripEnabled(true);
-
             break;
         }
 
@@ -65,7 +63,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
             m_widget = new QComboBox(this);
 
             comboBox()->addItems(formFieldChoice()->choices());
-            comboBox()->setEditable(formFieldChoice()->isEditable());
 
             if(!formFieldChoice()->currentChoices().isEmpty())
             {
@@ -73,6 +70,20 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
             }
 
             connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
+
+#ifdef HAS_POPPLER_22
+
+            if(formFieldChoice()->isEditable())
+            {
+                comboBox()->setEditable(true);
+                comboBox()->setInsertPolicy(QComboBox::NoInsert);
+
+                comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
+
+                connect(comboBox()->lineEdit(), SIGNAL(returnPressed()), SLOT(close()));
+            }
+
+#endif // HAS_POPPLER_22
 
             break;
         case Poppler::FormFieldChoice::ListBox:
@@ -89,8 +100,6 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
                 }
             }
 
-            setSizeGripEnabled(true);
-
             break;
         }
 
@@ -100,6 +109,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
     setLayout(new QVBoxLayout(this));
     layout()->setContentsMargins(QMargins());
     layout()->addWidget(m_widget);
+
+    setSizeGripEnabled(true);
 }
 
 void FormFieldDialog::showEvent(QShowEvent* event)
@@ -111,7 +122,6 @@ void FormFieldDialog::showEvent(QShowEvent* event)
         switch(m_formField->type())
         {
         case Poppler::FormField::FormButton:
-        case Poppler::FormField::FormChoice:
         case Poppler::FormField::FormSignature:
             break;
         case Poppler::FormField::FormText:
@@ -126,6 +136,18 @@ void FormFieldDialog::showEvent(QShowEvent* event)
                 plainTextEdit()->moveCursor(QTextCursor::End);
                 break;
             }
+
+            break;
+
+        case Poppler::FormField::FormChoice:
+#ifdef HAS_POPPLER_22
+
+            if(formFieldChoice()->isEditable())
+            {
+                comboBox()->lineEdit()->selectAll();
+            }
+
+#endif // HAS_POPPLER_22
 
             break;
         }
@@ -164,6 +186,16 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
         {
         case Poppler::FormFieldChoice::ComboBox:
             formFieldChoice()->setCurrentChoices(QList< int >() << comboBox()->currentIndex());
+
+#ifdef HAS_POPPLER_22
+
+            if(formFieldChoice()->isEditable())
+            {
+                formFieldChoice()->setEditChoice(comboBox()->lineEdit()->text());
+            }
+
+#endif // HAS_POPPLER_22
+
             break;
         case Poppler::FormFieldChoice::ListBox:
             QList< int > currentChoices;
