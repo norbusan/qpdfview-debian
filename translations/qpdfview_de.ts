@@ -288,12 +288,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1513"/>
         <source>Find next</source>
-        <translation type="unfinished">Weitersuchen</translation>
+        <translation type="unfinished">Vorwärts suchen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1521"/>
         <source>Cancel search</source>
-        <translation type="unfinished">Suchen abbrechen</translation>
+        <translation type="unfinished">Suche abbrechen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
