@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="es_ES">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -88,7 +88,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1287"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Se ha desactivado la apertura de URL en la configuración.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1332"/>
@@ -303,7 +303,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Añadir anotación</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1545"/>

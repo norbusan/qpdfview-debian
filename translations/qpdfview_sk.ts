@@ -571,7 +571,7 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Na pridanie alebo odstránenie komentárov je vyžadovaná verzia 0.20.1 (alebo vyššia) knižnice Poppler.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>

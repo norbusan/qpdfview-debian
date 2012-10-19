@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1574"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp; Múltiplas páginas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1582"/>
@@ -519,7 +519,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editar campo do formulário &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
@@ -565,13 +565,13 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Information</source>
-        <translation type="unfinished">Informações</translation>
+        <translation type="unfinished">Informação</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versão 0.20.1 ou superior da biblioteca Poppler é necessário para adicionar ou remover anotações.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
@@ -592,27 +592,27 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opções estendidas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajustar à página:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="35"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Todas as páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páginas pares</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="37"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páginas ímpares</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
@@ -622,32 +622,32 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uma página</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Duas páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quatro páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="46"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seis páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nove páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dezesseis páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
@@ -657,42 +657,42 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De baixo para cima e da esquerda para a direita</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De baixo para cima e da direita para a esquerda</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da esquerda para a direita e de baixo para cima</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da esquerda para a direita e de cima para baixo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da direita para a esquerda e de baixo para cima</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da direita para a esquerda e de cima para baixo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De cima para baixo e da esquerda para a direita</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De cima para baixo e da direita para a esquerda</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
@@ -819,7 +819,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar campos do formulário:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="272"/>
