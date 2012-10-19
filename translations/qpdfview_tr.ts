@@ -562,7 +562,19 @@
         <translation type="unfinished">&amp;Vurgu ekle</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="889"/>
+        <location filename="../sources/pageitem.cpp" line="880"/>
+        <location filename="../sources/pageitem.cpp" line="914"/>
+        <source>Information</source>
+        <translation type="unfinished">Bilgiler</translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="880"/>
+        <location filename="../sources/pageitem.cpp" line="914"/>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="891"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Notu &amp;kaldır</translation>
     </message>

@@ -562,7 +562,19 @@
         <translation type="unfinished">&amp;Hervorhebung hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="889"/>
+        <location filename="../sources/pageitem.cpp" line="880"/>
+        <location filename="../sources/pageitem.cpp" line="914"/>
+        <source>Information</source>
+        <translation type="unfinished">Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="880"/>
+        <location filename="../sources/pageitem.cpp" line="914"/>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <translation type="unfinished">Das Hinzufügen oder Entfernen von Anmerkungen benötigt die Poppler-Bibliothek in Version 0.20.1 oder höher.</translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="891"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Anmerkung entfernen</translation>
     </message>

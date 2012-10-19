@@ -877,6 +877,8 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
     Q_UNUSED(screenPos);
 
+    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
+
 #endif // HAS_POPPLER_20
 }
 
@@ -908,6 +910,8 @@ void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& s
 
     Q_UNUSED(annotation);
     Q_UNUSED(screenPos);
+
+    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
 
 #endif // HAS_POPPLER_20
 }
