@@ -323,7 +323,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1566"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished">Dve strany &amp;s titulnou stranou</translation>
+        <translation type="unfinished">Dve strany s &amp;titulnou stranou</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1574"/>
@@ -363,7 +363,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1630"/>
         <source>Rotate &amp;right</source>
-        <translation type="unfinished">Otočiť do&amp;prava</translation>
+        <translation type="unfinished">Otočiť dop&amp;rava</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1638"/>
@@ -481,7 +481,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1952"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished">Panely nás&amp;trojov</translation>
+        <translation type="unfinished">Panely &amp;nástrojov</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1957"/>
@@ -809,17 +809,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="250"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished">Obtiahnuť strany:</translation>
+        <translation type="unfinished">Orámovať strany:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="257"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Obtiahnuť odkazy:</translation>
+        <translation type="unfinished">Orámovať odkazy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished">Obtiahnuť políčka formulára:</translation>
+        <translation type="unfinished">Orámovať políčka formulára:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="272"/>

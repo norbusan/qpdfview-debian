@@ -574,7 +574,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je potřeba knihovna Poppler ve verzi  0.20.1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
