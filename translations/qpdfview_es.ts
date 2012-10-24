@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="48"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eliminar marcador</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -98,12 +98,12 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1332"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datos SyncTeX para &apos;%1&apos; no encontrados.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1468"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Volver a la página %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1476"/>
@@ -118,17 +118,17 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1486"/>
         <source>&amp;First page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Primera página</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1491"/>
         <source>&amp;Last page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Última página</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1498"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Recargar</translation>
     </message>
 </context>
 <context>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1399"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Coincidir &amp;capitalización</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
@@ -228,17 +228,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1417"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir en nueva &amp;pestaña</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1425"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Recargar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1433"/>
         <source>&amp;Save copy...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Guardar una copia</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1441"/>
@@ -263,17 +263,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1473"/>
         <source>&amp;First page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Primera página</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>&amp;Last page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Última página</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1489"/>
         <source>&amp;Jump to page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Saltar a la página ...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1497"/>
@@ -298,7 +298,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Copiar al portapapeles</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -318,32 +318,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1558"/>
         <source>&amp;Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Doble página</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1566"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Doble página &amp;con portada</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1574"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Múltiples páginas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1582"/>
         <source>Zoom &amp;in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acercar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
         <source>Zoom &amp;out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alejar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>Original &amp;size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tamaño &amp;original</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
@@ -358,12 +358,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1622"/>
         <source>Rotate &amp;left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotar a la &amp;izquierda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1630"/>
         <source>Rotate &amp;right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotar a la &amp;derecha</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1638"/>
@@ -373,57 +373,57 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1643"/>
         <source>&amp;Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pantalla completa</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1651"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Presentación</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1659"/>
         <source>&amp;Previous tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pestaña anterior</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1665"/>
         <source>&amp;Next tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pestaña siguiente</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1671"/>
         <source>&amp;Close tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Cerrar pestaña</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1679"/>
         <source>Close &amp;all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar &amp;todas las pestañas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1685"/>
         <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar todas las pestañas &amp;excepto la actual</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1691"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Anterior marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1697"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Siguiente marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1703"/>
         <source>&amp;Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Añadir marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1709"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Eliminar marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1715"/>
@@ -461,12 +461,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1794"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Buscar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1814"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Objetos</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1837"/>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1860"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Miniaturas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1952"/>
@@ -486,17 +486,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1957"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vistas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1969"/>
         <source>&amp;Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Pestañas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1980"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Marcadores</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1991"/>
@@ -519,22 +519,22 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editar formulario &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar &amp;texto</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="752"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copuiar &amp;imagen</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="753"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar imagen a un &amp;archivo</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="800"/>
@@ -549,17 +549,17 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="804"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo guardar la imagen en el archivo &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Añadir &amp;texto</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Destacar</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="880"/>
@@ -571,12 +571,12 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Para añadir o quitar anotaciones se necesita la versión 0.20.1 o superior de la biblioteca Poppler.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Eliminar anotación</translation>
     </message>
 </context>
 <context>
@@ -592,12 +592,12 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opciones extendidas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajustar página:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="35"/>
@@ -617,82 +617,82 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Establecer página</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Página simple</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dos páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuatro páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="46"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seis páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nueve páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dieciséis páginas</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Más</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De abajo a arriba y de izquierda a derecha</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De abajo a arriba y de derecha a izquierda</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De izquierda a derecha y de abajo a arriba</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De izquierda a derecha y de arriba a abajo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De derecha a izquierda y de abajo hacia arriba</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De derecha a izquierda y de arriba a abajo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De arriba a abajo y de izquierda a derecha</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De arriba a abajo y de derecha a izquierda</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
@@ -705,7 +705,7 @@
     <message>
         <location filename="../sources/main.cpp" line="155"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datos SyncTeX para &apos;%1&apos; no encontrados.</translation>
     </message>
 </context>
 <context>
@@ -713,12 +713,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usados &amp;recientemente</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Limpiar lista</translation>
     </message>
 </context>
 <context>
@@ -726,12 +726,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Comportamiento</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Gráficos</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
@@ -764,12 +764,12 @@
         <location filename="../sources/settingsdialog.cpp" line="428"/>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efectivo después de reiniciar</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="202"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rastrear recientes</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="209"/>
@@ -804,17 +804,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="240"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor de código</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="250"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar páginas</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="257"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorate enlaces:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
@@ -829,7 +829,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="275"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marca de duración</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="282"/>
@@ -839,17 +839,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="290"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páginas por fila:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="300"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espaciado de página</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espaciado de miniaturas</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="320"/>
@@ -859,12 +859,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suavizado</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="334"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suavizado de texto</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="341"/>
@@ -896,12 +896,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="380"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arriba</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abajo</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="382"/>
@@ -916,12 +916,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posición de las pestañas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="400"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuando haga falta</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="401"/>
@@ -941,17 +941,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="422"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Archivo barra de herramientas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editar barra de herramientas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="438"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ver barra de herramientas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="447"/>
@@ -971,17 +971,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar modificadores</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="471"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anotar modificadores</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="477"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayúsculas</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="478"/>
@@ -996,12 +996,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="480"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayúsculas + Control</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="481"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayúsculas + ALT</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
