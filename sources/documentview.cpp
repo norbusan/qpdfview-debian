@@ -810,13 +810,7 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
         fromPage = (fromPage - 1) / numberUp + 1;
         toPage = (toPage - 1) / numberUp + 1;
 
-        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
-
-        // TODO: remove debug output
-        for(int index = 0; index < num_options; ++index)
-        {
-            qDebug() << options[index].name << options[index].value;
-        }
+        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage, toPage).toLocal8Bit(), num_options, &options);
 
         QFileInfo fileInfo(m_filePath);
 
