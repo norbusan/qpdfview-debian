@@ -31,7 +31,7 @@ struct File
     int sourceColumn;
     QRectF enclosingBox;
 
-    File() : filePath(), page(1), sourceName(), sourceLine(-1), sourceColumn(-1), enclosingBox() {}
+    File() : filePath(), page(-1), sourceName(), sourceLine(-1), sourceColumn(-1), enclosingBox() {}
 
 };
 
