@@ -76,57 +76,57 @@
         <translation type="unfinished">Κωδικός:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="843"/>
+        <location filename="../sources/documentview.cpp" line="837"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Εκτύπωση &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Information</source>
         <translation type="unfinished">Πληροφορία</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Το άνοιγμα υπερσυνδέσμων απενεργοποιείται στις ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>Warning</source>
         <translation type="unfinished">Προειδοποίηση</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Τα δεδομένα SyncTeX για το &apos;%1&apos; δεν μπορούν να βρεθούν.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1468"/>
+        <location filename="../sources/documentview.cpp" line="1462"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Επιστροφή στη σελίδα %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1476"/>
+        <location filename="../sources/documentview.cpp" line="1470"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Προηγούμενη σελίδα</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1475"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Επόμενη σελίδα</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1486"/>
+        <location filename="../sources/documentview.cpp" line="1480"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Πρώτη σελίδα</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1491"/>
+        <location filename="../sources/documentview.cpp" line="1485"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Τελευταία σελίδα</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1498"/>
+        <location filename="../sources/documentview.cpp" line="1492"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Ανανέωση</translation>
     </message>

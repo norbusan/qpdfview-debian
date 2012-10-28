@@ -76,57 +76,57 @@
         <translation type="unfinished">ססמה:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="843"/>
+        <location filename="../sources/documentview.cpp" line="837"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">פתיחת כתובות מנוטרלת בהגדרות.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1468"/>
+        <location filename="../sources/documentview.cpp" line="1462"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;חזרה לעמוד %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1476"/>
+        <location filename="../sources/documentview.cpp" line="1470"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">העמוד ה&amp;קודם</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1475"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">העמוד ה&amp;בא</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1486"/>
+        <location filename="../sources/documentview.cpp" line="1480"/>
         <source>&amp;First page</source>
         <translation type="unfinished">העמוד ה&amp;ראשון</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1491"/>
+        <location filename="../sources/documentview.cpp" line="1485"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">העמוד ה&amp;אחרון</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1498"/>
+        <location filename="../sources/documentview.cpp" line="1492"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;רענון</translation>
     </message>

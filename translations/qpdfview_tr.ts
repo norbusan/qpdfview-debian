@@ -76,57 +76,57 @@
         <translation type="unfinished">Açarsöz:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="843"/>
+        <location filename="../sources/documentview.cpp" line="837"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılıyor...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Information</source>
         <translation type="unfinished">Bilgiler</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1287"/>
+        <location filename="../sources/documentview.cpp" line="1281"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Bağlantıları açmak ayarlardan kapatılmış durumda.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1332"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1468"/>
+        <location filename="../sources/documentview.cpp" line="1462"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">%1. sayfaya &amp;geri dön</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1476"/>
+        <location filename="../sources/documentview.cpp" line="1470"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Önceki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1475"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">So&amp;nraki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1486"/>
+        <location filename="../sources/documentview.cpp" line="1480"/>
         <source>&amp;First page</source>
         <translation type="unfinished">İlk say&amp;fa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1491"/>
+        <location filename="../sources/documentview.cpp" line="1485"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Son sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1498"/>
+        <location filename="../sources/documentview.cpp" line="1492"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Yenile</translation>
     </message>
