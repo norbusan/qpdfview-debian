@@ -47,6 +47,7 @@ TRANSLATIONS += \
     translations/qpdfview_ru.ts \
     translations/qpdfview_sk.ts \
     translations/qpdfview_tr.ts \
+    translations/qpdfview_ug.ts \
     translations/qpdfview_uk.ts
 
 QT += core xml gui
