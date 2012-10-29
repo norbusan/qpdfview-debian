@@ -55,7 +55,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
 void SettingsDialog::accept()
 {
-    // behaviour
+    // behavior
 
     m_settings->setValue("documentView/openUrl", m_openUrlCheckBox->isChecked());
 
@@ -119,7 +119,7 @@ void SettingsDialog::accept()
 
 void SettingsDialog::on_defaults_clicked()
 {
-    // behaviour
+    // behavior
 
     m_openUrlCheckBox->setChecked(false);
 
