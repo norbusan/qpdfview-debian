@@ -734,11 +734,6 @@
         <translation type="unfinished">&amp;Интерфейс</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="29"/>
-        <source>&amp;Behaviour</source>
-        <translation type="unfinished">&amp;Поведение</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">&amp;Графика</translation>
@@ -905,6 +900,11 @@
         <location filename="../sources/settingsdialog.cpp" line="250"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Рамка страницы:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="29"/>
+        <source>&amp;Behavior</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="257"/>

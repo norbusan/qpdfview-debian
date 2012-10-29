@@ -47,12 +47,12 @@ private:
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
 
-    QFormLayout* m_behaviourLayout;
+    QFormLayout* m_behaviorLayout;
     QFormLayout* m_graphicsLayout;
     QFormLayout* m_interfaceLayout;
     QFormLayout* m_modifiersLayout;
 
-    // behaviour
+    // behavior
 
     QCheckBox* m_openUrlCheckBox;
 
@@ -67,7 +67,7 @@ private:
 
     QLineEdit* m_sourceEditorLineEdit;
 
-    void createBehaviourTab();
+    void createBehaviorTab();
 
     // graphics
 

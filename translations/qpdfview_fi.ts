@@ -725,7 +725,7 @@
     <name>SettingsDialog</name>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
-        <source>&amp;Behaviour</source>
+        <source>&amp;Behavior</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

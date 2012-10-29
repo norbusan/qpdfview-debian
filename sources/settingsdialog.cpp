@@ -26,7 +26,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_settings = new QSettings(this);
 
     m_tabWidget = new QTabWidget(this);
-    m_tabWidget->addTab(new QWidget(this), tr("&Behaviour"));
+    m_tabWidget->addTab(new QWidget(this), tr("&Behavior"));
     m_tabWidget->addTab(new QWidget(this), tr("&Graphics"));
     m_tabWidget->addTab(new QWidget(this), tr("&Interface"));
     m_tabWidget->addTab(new QWidget(this), tr("&Modifiers"));
@@ -38,7 +38,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
 
-    m_behaviourLayout = new QFormLayout(m_tabWidget->widget(0));
+    m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_graphicsLayout = new QFormLayout(m_tabWidget->widget(1));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
     m_modifiersLayout = new QFormLayout(m_tabWidget->widget(3));
@@ -47,7 +47,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     layout()->addWidget(m_tabWidget);
     layout()->addWidget(m_dialogButtonBox);
 
-    createBehaviourTab();
+    createBehaviorTab();
     createGraphicsTab();
     createInterfaceTab();
     createModifiersTab();
@@ -177,21 +177,21 @@ void SettingsDialog::on_defaults_clicked()
     m_annotateModifiersComboBox->setCurrentIndex(1);
 }
 
-void SettingsDialog::createBehaviourTab()
+void SettingsDialog::createBehaviorTab()
 {
     // open URL
 
     m_openUrlCheckBox = new QCheckBox(this);
     m_openUrlCheckBox->setChecked(m_settings->value("documentView/openUrl", false).toBool());
 
-    m_behaviourLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
+    m_behaviorLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
 
     // auto-refresh
 
     m_autoRefreshCheckBox = new QCheckBox(this);
     m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
 
-    m_behaviourLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
+    m_behaviorLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
 
     // track recently used
 
@@ -199,28 +199,28 @@ void SettingsDialog::createBehaviourTab()
     m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
     m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
 
-    m_behaviourLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
+    m_behaviorLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
 
     // restore tabs
 
     m_restoreTabsCheckBox = new QCheckBox(this);
     m_restoreTabsCheckBox->setChecked(m_settings->value("mainWindow/restoreTabs", false).toBool());
 
-    m_behaviourLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+    m_behaviorLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
 
     // restore bookmarks
 
     m_restoreBookmarksCheckBox = new QCheckBox(this);
     m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
 
-    m_behaviourLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
+    m_behaviorLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
     // presentation sync
 
     m_presentationSyncCheckBox = new QCheckBox(this);
     m_presentationSyncCheckBox->setChecked(m_settings->value("presentationView/sync", false).toBool());
 
-    m_behaviourLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
+    m_behaviorLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
 
     // presentation screen
 
@@ -229,7 +229,7 @@ void SettingsDialog::createBehaviourTab()
     m_presentationScreenSpinBox->setSpecialValueText(tr("Default"));
     m_presentationScreenSpinBox->setValue(m_settings->value("presentationView/screen", -1).toInt());
 
-    m_behaviourLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
+    m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
     // source editor
 
@@ -237,7 +237,7 @@ void SettingsDialog::createBehaviourTab()
     m_sourceEditorLineEdit->setText(m_settings->value("documentView/sourceEditor").toString());
     m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number."));
 
-    m_behaviourLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
+    m_behaviorLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
 }
 
 void SettingsDialog::createGraphicsTab()

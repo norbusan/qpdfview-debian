@@ -728,8 +728,8 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <name>SettingsDialog</name>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
-        <source>&amp;Behaviour</source>
-        <translation type="unfinished">&amp;Chování</translation>
+        <source>&amp;Behavior</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
