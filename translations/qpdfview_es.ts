@@ -217,8 +217,8 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
-        <source>Hightlight &amp;all</source>
-        <translation type="unfinished">&amp;Resaltar todo</translation>
+        <source>Highlight &amp;all</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>

@@ -220,8 +220,8 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
-        <source>Hightlight &amp;all</source>
-        <translation type="unfinished">Zvýraznit &amp;vše</translation>
+        <source>Highlight &amp;all</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>

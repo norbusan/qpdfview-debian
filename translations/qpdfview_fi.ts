@@ -217,8 +217,8 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
-        <source>Hightlight &amp;all</source>
-        <translation type="unfinished">Korosta &amp;kaikki</translation>
+        <source>Highlight &amp;all</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>

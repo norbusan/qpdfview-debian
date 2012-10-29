@@ -217,7 +217,7 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
-        <source>Hightlight &amp;all</source>
+        <source>Highlight &amp;all</source>
         <translation type="unfinished">&amp;Alle hervorheben</translation>
     </message>
     <message>

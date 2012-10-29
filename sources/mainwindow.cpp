@@ -1397,7 +1397,7 @@ void MainWindow::createWidgets()
     connect(m_searchTimer, SIGNAL(timeout()), SLOT(on_search_timeout()));
 
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), this);
-    m_highlightAllCheckBox = new QCheckBox(tr("Hightlight &all"), this);
+    m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"), this);
 
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
