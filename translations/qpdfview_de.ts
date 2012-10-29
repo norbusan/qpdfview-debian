@@ -617,7 +617,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seitenmenge:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -652,7 +652,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seiten pro Blatt:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
@@ -697,7 +697,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anordnung der Seiten:</translation>
     </message>
 </context>
 <context>
