@@ -221,7 +221,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1400"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvýraznit &amp;vše</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
@@ -729,7 +729,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Chování</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
