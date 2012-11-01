@@ -715,6 +715,8 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
         num_options = cupsAddOption("fit-to-page", QString("%1").arg(printOptions.fitToPage).toLocal8Bit(), num_options, &options);
 
+        num_options = cupsAddOption("landscape", QString("%1").arg(printOptions.landscape).toLocal8Bit(), num_options, &options);
+
         switch(printer->colorMode())
         {
         case QPrinter::Color:

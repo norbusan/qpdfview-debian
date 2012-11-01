@@ -155,6 +155,7 @@ public:
     struct PrintOptions
     {
         bool fitToPage;
+        bool landscape;
 
         enum PageSet
         {
@@ -191,7 +192,7 @@ public:
 
         NumberUpLayout numberUpLayout;
 
-        PrintOptions() : fitToPage(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+        PrintOptions() : fitToPage(false), landscape(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
 
     };
 
