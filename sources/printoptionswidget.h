@@ -39,6 +39,7 @@ private:
     QFormLayout* m_formLayout;
 
     QCheckBox* m_fitToPageCheckBox;
+    QCheckBox* m_landscapeCheckBox;
 
     QComboBox* m_pageSetComboBox;
 

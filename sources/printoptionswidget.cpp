@@ -31,6 +31,10 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
 
     m_formLayout->addRow(tr("Fit to page:"), m_fitToPageCheckBox);
 
+    m_landscapeCheckBox = new QCheckBox(this);
+
+    m_formLayout->addRow(tr("Landscape:"), m_landscapeCheckBox);
+
     m_pageSetComboBox = new QComboBox(this);
     m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(DocumentView::PrintOptions::AllPages));
     m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(DocumentView::PrintOptions::EvenPages));
@@ -69,6 +73,7 @@ DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
     DocumentView::PrintOptions printOptions;
 
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
+    printOptions.landscape = m_landscapeCheckBox->isChecked();
 
     printOptions.pageSet = static_cast< DocumentView::PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());
 
