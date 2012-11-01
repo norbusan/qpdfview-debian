@@ -76,57 +76,57 @@
         <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="839"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimiendo «%1»…</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Se ha desactivado la apertura de URL en la configuración.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No se encontraron los datos SyncText para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1462"/>
+        <location filename="../sources/documentview.cpp" line="1464"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Volver a la página %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1470"/>
+        <location filename="../sources/documentview.cpp" line="1472"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Página &amp;anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1475"/>
+        <location filename="../sources/documentview.cpp" line="1477"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Página &amp;siguiente</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1480"/>
+        <location filename="../sources/documentview.cpp" line="1482"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Primera página</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
+        <location filename="../sources/documentview.cpp" line="1487"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Última página</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1494"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Recargar</translation>
     </message>
@@ -600,102 +600,107 @@
         <translation type="unfinished">Ajustar página:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="35"/>
+        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <source>Landscape:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
         <translation type="unfinished">Todas las páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
         <translation type="unfinished">Páginas pares</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="37"/>
+        <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
         <translation type="unfinished">Páginas impares</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="40"/>
+        <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
         <translation type="unfinished">Establecer página</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="43"/>
+        <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
         <translation type="unfinished">Página simple</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="44"/>
+        <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
         <translation type="unfinished">Dos páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="45"/>
+        <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
         <translation type="unfinished">Cuatro páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="46"/>
+        <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
         <translation type="unfinished">Seis páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="47"/>
+        <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
         <translation type="unfinished">Nueve páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="48"/>
+        <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Dieciséis páginas</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="51"/>
+        <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
         <translation type="unfinished">Más</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="54"/>
+        <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">De abajo a arriba y de izquierda a derecha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="55"/>
+        <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">De abajo a arriba y de derecha a izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="56"/>
+        <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">De izquierda a derecha y de abajo a arriba</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="57"/>
+        <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">De izquierda a derecha y de arriba a abajo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="58"/>
+        <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">De derecha a izquierda y de abajo hacia arriba</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="59"/>
+        <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">De derecha a izquierda y de arriba a abajo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="60"/>
+        <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">De arriba a abajo y de izquierda a derecha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="61"/>
+        <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">De arriba a abajo y de derecha a izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="64"/>
+        <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
         <translation type="unfinished"></translation>
     </message>

@@ -76,57 +76,57 @@
         <translation type="unfinished">Lozinka:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="839"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Information</source>
         <translation type="unfinished">Informacija</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvaranje URL je onemogućeno u postavkama.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1462"/>
+        <location filename="../sources/documentview.cpp" line="1464"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Povratak na stranicu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1470"/>
+        <location filename="../sources/documentview.cpp" line="1472"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Prethodna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1475"/>
+        <location filename="../sources/documentview.cpp" line="1477"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Sljedeća stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1480"/>
+        <location filename="../sources/documentview.cpp" line="1482"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Početna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
+        <location filename="../sources/documentview.cpp" line="1487"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Posljednja stranica</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1494"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Osvježi</translation>
     </message>
@@ -600,102 +600,107 @@
         <translation type="unfinished">Prilagodi stranici:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="35"/>
+        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <source>Landscape:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
         <translation type="unfinished">Sve stranice</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
         <translation type="unfinished">Parne stranice</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="37"/>
+        <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
         <translation type="unfinished">Neparne stranice</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="40"/>
+        <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
         <translation type="unfinished">Skup stranica:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="43"/>
+        <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
         <translation type="unfinished">Jedna sama stranica</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="44"/>
+        <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
         <translation type="unfinished">Dvije stranice</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="45"/>
+        <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
         <translation type="unfinished">Četiri stranice</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="46"/>
+        <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="47"/>
+        <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
         <translation type="unfinished">Devet stranica</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="48"/>
+        <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Šesnaest stranica</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="51"/>
+        <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
         <translation type="unfinished">Broj-više:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="54"/>
+        <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">Od dna do vrha i s lijeva na desno</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="55"/>
+        <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">Od dna do vrha i s desna na lijevo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="56"/>
+        <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">S lijeva na desno i od dna do vrha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="57"/>
+        <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">S lijeva na desno i od vrha do dna</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="58"/>
+        <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">S desna na lijevo i od dna do vrha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="59"/>
+        <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">S desna na lijevo i od vrha do dna</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="60"/>
+        <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">Od vrha do dna i s lijeva na desno</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="61"/>
+        <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">Od vrha do dna i s desna na lijevo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="64"/>
+        <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
         <translation type="unfinished"></translation>
     </message>

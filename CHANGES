@@ -3,6 +3,7 @@ Release 0.3.6:
   * Added support for extended options in the print dialog.
   * Added support for multiple returns.
   * Added rudimentary form support.
+  * Fixed handling of boolean CUPS options.
   * Updated Slovak translation. Thanks to DAG Software.
   * Updated Czech translation. Thanks Pavel Fric.
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.

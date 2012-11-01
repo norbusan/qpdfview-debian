@@ -76,57 +76,57 @@
         <translation type="unfinished">ססמה:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="839"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">פתיחת כתובות מנוטרלת בהגדרות.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1462"/>
+        <location filename="../sources/documentview.cpp" line="1464"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;חזרה לעמוד %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1470"/>
+        <location filename="../sources/documentview.cpp" line="1472"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">העמוד ה&amp;קודם</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1475"/>
+        <location filename="../sources/documentview.cpp" line="1477"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">העמוד ה&amp;בא</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1480"/>
+        <location filename="../sources/documentview.cpp" line="1482"/>
         <source>&amp;First page</source>
         <translation type="unfinished">העמוד ה&amp;ראשון</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
+        <location filename="../sources/documentview.cpp" line="1487"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">העמוד ה&amp;אחרון</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1494"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;רענון</translation>
     </message>
@@ -600,102 +600,107 @@
         <translation type="unfinished">התאמה לעמוד:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="35"/>
+        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <source>Landscape:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
         <translation type="unfinished">כל העמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
         <translation type="unfinished">עמודים זוגיים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="37"/>
+        <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
         <translation type="unfinished">עמודים אי־זוגיים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="40"/>
+        <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
         <translation type="unfinished">ערכת עמודים:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="43"/>
+        <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
         <translation type="unfinished">עמוד יחיד</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="44"/>
+        <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
         <translation type="unfinished">שני עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="45"/>
+        <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
         <translation type="unfinished">ארבעה עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="46"/>
+        <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
         <translation type="unfinished">שישה עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="47"/>
+        <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
         <translation type="unfinished">תשעה עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="48"/>
+        <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">שישה עשר עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="51"/>
+        <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
         <translation type="unfinished">לפי הסדר:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="54"/>
+        <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">מלמטה למעלה ומשמאל לימין</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="55"/>
+        <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">מלמטה למעלה ומימין לשמאל</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="56"/>
+        <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">משמאל לימין ומלמטה למעלה</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="57"/>
+        <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">משמאל לימין ומלעלה למטה</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="58"/>
+        <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">מימין לשמאל ומלמטה למעלה</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="59"/>
+        <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">מימין לשמאל ומלמעלה למטה</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="60"/>
+        <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">מלמעלה למטרה ומשמאל לימין</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="61"/>
+        <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">למלעלה למטה ומימין לשמאל</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="64"/>
+        <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
         <translation type="unfinished">פריסה לפי הסדר:</translation>
     </message>

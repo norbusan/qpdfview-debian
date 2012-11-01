@@ -76,57 +76,57 @@
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="837"/>
+        <location filename="../sources/documentview.cpp" line="839"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1281"/>
+        <location filename="../sources/documentview.cpp" line="1283"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1462"/>
+        <location filename="../sources/documentview.cpp" line="1464"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1470"/>
+        <location filename="../sources/documentview.cpp" line="1472"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1475"/>
+        <location filename="../sources/documentview.cpp" line="1477"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1480"/>
+        <location filename="../sources/documentview.cpp" line="1482"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;První strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
+        <location filename="../sources/documentview.cpp" line="1487"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;lední strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1494"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
@@ -603,102 +603,107 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <translation type="unfinished">Umístit na stranu:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="35"/>
+        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <source>Landscape:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
         <translation type="unfinished">Všechny strany</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="36"/>
+        <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
         <translation type="unfinished">Sudé strany</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="37"/>
+        <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
         <translation type="unfinished">Liché strany</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="40"/>
+        <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
         <translation type="unfinished">Soubor stran:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="43"/>
+        <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
         <translation type="unfinished">Jedna strana</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="44"/>
+        <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
         <translation type="unfinished">Dvě strany</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="45"/>
+        <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
         <translation type="unfinished">Čtyři strany</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="46"/>
+        <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
         <translation type="unfinished">Šest stran</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="47"/>
+        <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
         <translation type="unfinished">Devět stran</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="48"/>
+        <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Šestnáct stran</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="51"/>
+        <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
         <translation type="unfinished">Přepočítat:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="54"/>
+        <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">Zezdola nahoru a zleva doprava</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="55"/>
+        <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">Zezdola nahoru a zprava doleva</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="56"/>
+        <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">Zleva doprava a zezdola nahoru</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="57"/>
+        <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">Zleva doprava a shora dolů</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="58"/>
+        <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">Zprava doleva a zezdola nahoru</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="59"/>
+        <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">Zprava doleva a shora dolů</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="60"/>
+        <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">Shora dolů a zleva doprava</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="61"/>
+        <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">Shora dolů a zprava doleva</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="64"/>
+        <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
         <translation type="unfinished">Přepočítat rozmístění:</translation>
     </message>
