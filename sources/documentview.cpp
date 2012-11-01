@@ -697,11 +697,11 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-        num_options = cupsAddOption("copies", QString("%1").arg(printer->copyCount()).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("copies", QString::number(printer->copyCount()).toLocal8Bit(), num_options, &options);
 
 #endif // QT_VERSION
 
-        num_options = cupsAddOption("collate", QString("%1").arg(printer->collateCopies()).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("Collate", printer->collateCopies() ? "true" : "false", num_options, &options);
 
         switch(printer->pageOrder())
         {
@@ -713,9 +713,9 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
             break;
         }
 
-        num_options = cupsAddOption("fit-to-page", QString("%1").arg(printOptions.fitToPage).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("fit-to-page", printOptions.fitToPage ? "true" : "false", num_options, &options);
 
-        num_options = cupsAddOption("landscape", QString("%1").arg(printOptions.landscape).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("landscape", printOptions.landscape ? "true" : "false", num_options, &options);
 
         switch(printer->colorMode())
         {
