@@ -38,11 +38,13 @@ TRANSLATIONS += \
     translations/qpdfview_da.ts \
     translations/qpdfview_de.ts \
     translations/qpdfview_el.ts \
+    translations/qpdfview_en_GB.ts \
     translations/qpdfview_es.ts \
     translations/qpdfview_fi.ts \
     translations/qpdfview_fr.ts \
     translations/qpdfview_he.ts \
     translations/qpdfview_hr.ts \
+    translations/qpdfview_it.ts \
     translations/qpdfview_pt_BR.ts \
     translations/qpdfview_ru.ts \
     translations/qpdfview_sk.ts \
