@@ -67,7 +67,7 @@
         <location filename="../sources/documentview.cpp" line="587"/>
         <location filename="../sources/documentview.cpp" line="626"/>
         <source>Unlock %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sblocca %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="587"/>
@@ -78,7 +78,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="839"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1283"/>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1328"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1464"/>
@@ -198,7 +198,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1185"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview è un visualizzatore di documenti PDF a schede che usa la libreria poppler. Consultare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per maggiori informazioni.&lt;/p&gt;&lt;p&gt;© 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1371"/>
@@ -333,12 +333,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1582"/>
         <source>Zoom &amp;in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A&amp;umenta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
         <source>Zoom &amp;out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ri&amp;duci</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1860"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Minia&amp;ture</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1952"/>
@@ -602,7 +602,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Orizzontale:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
@@ -662,42 +662,42 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dal basso verso l&apos;alto e da sinistra a destra</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dal basso verso l&apos;alto e da destra a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da sinistra a destra e dal basso verso l&apos;alto</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da sinistra a destra e dall&apos;alto verso il basso</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da destra a sinistra e dal basso verso l&apos;alto</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da destra a sinistra e dall&apos;alto verso il basso</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dall&apos;alto verso il basso e da sinistra a destra</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dall&apos;alto verso il basso e da destra a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
@@ -710,7 +710,7 @@
     <message>
         <location filename="../sources/main.cpp" line="155"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
 </context>
 <context>
@@ -723,7 +723,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pulis&amp;ci elenco</translation>
     </message>
 </context>
 <context>
@@ -844,32 +844,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="290"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagine per riga:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="300"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spaziatura pagina:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spaziatura miniatura:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="320"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dimensione miniatura:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="334"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialiasing del testo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="341"/>
@@ -886,7 +886,7 @@
         <location filename="../sources/settingsdialog.cpp" line="352"/>
         <location filename="../sources/settingsdialog.cpp" line="353"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="365"/>
@@ -921,7 +921,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posizione scheda:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="400"/>
@@ -931,32 +931,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="401"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sempre</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mai</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="414"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visibilità scheda:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="422"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra degli strumenti «File»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra degli strumenti «Modifica»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="438"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra degli strumenti «Visualizza»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="447"/>

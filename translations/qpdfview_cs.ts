@@ -605,7 +605,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Na šířku:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
