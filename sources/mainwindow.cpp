@@ -698,10 +698,26 @@ void MainWindow::on_print_triggered()
     printDialog->setMinMax(1, currentTab()->numberOfPages());
     printDialog->setOption(QPrintDialog::PrintToFile, false);
 
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
+    printDialog->setOption(QPrintDialog::PrintCurrentPage, true);
+
+#endif // QT_VERSION
+
     printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
 
     if(printDialog->exec() == QDialog::Accepted)
     {
+
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
+        if(printDialog->printRange() == QPrintDialog::CurrentPage)
+        {
+            printer->setFromTo(currentTab()->currentPage(), currentTab()->currentPage());
+        }
+
+#endif // QT_VERSION
+
         if(!currentTab()->print(printer, printOptionsWidget->printOptions()))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
