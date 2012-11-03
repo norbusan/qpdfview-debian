@@ -1558,16 +1558,6 @@ void MainWindow::createActions()
     m_addAnnotationAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
     connect(m_addAnnotationAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotation_triggered(bool)));
 
-#ifdef HAS_POPPLER_20
-
-    m_addAnnotationAction->setEnabled(true);
-
-#else
-
-    m_addAnnotationAction->setEnabled(false);
-
-#endif // HAS_POPPLER_20
-
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
