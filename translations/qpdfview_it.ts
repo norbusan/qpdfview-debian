@@ -39,12 +39,12 @@
     <message>
         <location filename="../sources/documentview.cpp" line="558"/>
         <source>Embedded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Incorporato</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="558"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sottoinsieme</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="558"/>
@@ -313,7 +313,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1578"/>
         <source>&amp;Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Continuo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1586"/>
@@ -466,7 +466,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">St&amp;ruttura</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1865"/>
@@ -486,7 +486,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1985"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Elementi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1997"/>
@@ -519,7 +519,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica campo del form «%1».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
@@ -559,7 +559,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiungi e&amp;videnziazione</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="880"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impostazione pagina:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
@@ -657,7 +657,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagine per foglio:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Disposizione pagine per foglio:</translation>
     </message>
 </context>
 <context>
@@ -746,7 +746,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Modificatori</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="38"/>
@@ -774,7 +774,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Memorizzare usati di recente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="213"/>
@@ -794,12 +794,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="233"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predefinito</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Schermo per presentazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="242"/>
@@ -809,42 +809,42 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="244"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor sorgente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorare pagine:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorare collegamenti:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorare campo del form:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="276"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nessuna</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="279"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Durata evidenziazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="286"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Invertire colori:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anteprima sovrastampa:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
@@ -879,7 +879,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="362"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Approssimazione testo (hinting):</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>
@@ -901,7 +901,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="393"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prefetch:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="401"/>
@@ -931,7 +931,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="421"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quando necessaria</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="422"/>
@@ -966,27 +966,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificatori zoom:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="474"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificatori rotazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="480"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificatori orizzontali:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="486"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificatori copia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificatori note:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
