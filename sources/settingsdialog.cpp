@@ -80,6 +80,8 @@ void SettingsDialog::accept()
 
     m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
 
+    m_settings->setValue("documentView/overprintPreview", m_overprintPreviewCheckBox->isChecked());
+
     m_settings->setValue("documentView/pagesPerRow", m_pagesPerRowSpinBox->value());
 
     m_settings->setValue("documentView/pageSpacing", m_pageSpacingSpinBox->value());
@@ -143,6 +145,8 @@ void SettingsDialog::on_defaults_clicked()
     m_highlightDurationSpinBox->setValue(5000);
 
     m_invertColorsCheckBox->setChecked(false);
+
+    m_overprintPreviewCheckBox->setChecked(false);
 
     m_pagesPerRowSpinBox->setValue(3);
 
@@ -280,6 +284,23 @@ void SettingsDialog::createGraphicsTab()
     m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
 
     m_graphicsLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
+
+    // overprint preview
+
+    m_overprintPreviewCheckBox = new QCheckBox(this);
+    m_overprintPreviewCheckBox->setChecked(m_settings->value("documentView/overprintPreview", false).toBool());
+
+#ifdef HAS_POPPLER_22
+
+    m_overprintPreviewCheckBox->setEnabled(Poppler::isOverprintPreviewAvailable());
+
+#else
+
+    m_overprintPreviewCheckBox->setEnabled(false);
+
+#endif // HAS_POPPLER_22
+
+    m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
 
     // pages per row
 

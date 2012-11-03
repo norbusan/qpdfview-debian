@@ -64,6 +64,9 @@ public:
     static bool textHinting();
     static void setTextHinting(bool textHinting);
 
+    static bool overprintPreview();
+    static void setOverprintPreview(bool overprintPreview);
+
     static bool prefetch();
     static void setPrefetch(bool prefetch);
 
@@ -275,6 +278,8 @@ private:
     static bool s_antialiasing;
     static bool s_textAntialiasing;
     static bool s_textHinting;
+
+    static bool s_overprintPreview;
 
     static bool s_prefetch;
 

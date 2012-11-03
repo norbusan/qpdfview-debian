@@ -29,6 +29,8 @@ bool DocumentView::s_antialiasing = true;
 bool DocumentView::s_textAntialiasing = true;
 bool DocumentView::s_textHinting = false;
 
+bool DocumentView::s_overprintPreview = false;
+
 bool DocumentView::s_prefetch = false;
 
 int DocumentView::s_pagesPerRow = 3;
@@ -98,6 +100,16 @@ bool DocumentView::textHinting()
 void DocumentView::setTextHinting(bool textHinting)
 {
     s_textHinting = textHinting;
+}
+
+bool DocumentView::overprintPreview()
+{
+    return s_overprintPreview;
+}
+
+void DocumentView::setOverprintPreview(bool overprintPreview)
+{
+    s_overprintPreview = overprintPreview;
 }
 
 bool DocumentView::prefetch()
@@ -1624,6 +1636,12 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     m_document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
     m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
     m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
+
+#ifdef HAS_POPPLER_22
+
+    m_document->setRenderHint(Poppler::Document::OverprintPreview, s_overprintPreview);
+
+#endif // HAS_POPPLER_22
 
     preparePages();
     prepareThumbnails();

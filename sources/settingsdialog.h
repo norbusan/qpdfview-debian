@@ -25,6 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+#include <poppler-qt4.h>
+
 #include "miscellaneous.h"
 
 class SettingsDialog : public QDialog
@@ -78,6 +80,8 @@ private:
     QSpinBox* m_highlightDurationSpinBox;
 
     QCheckBox* m_invertColorsCheckBox;
+
+    QCheckBox* m_overprintPreviewCheckBox;
 
     QSpinBox* m_pagesPerRowSpinBox;
 

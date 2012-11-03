@@ -1296,6 +1296,8 @@ void MainWindow::restoreSettings()
     DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
     DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
 
+    DocumentView::setOverprintPreview(m_settings->value("documentView/overprintPreview", false).toBool());
+
     DocumentView::setPrefetch(m_settings->value("documentView/prefetch", false).toBool());
 
     DocumentView::setPagesPerRow(m_settings->value("documentView/pagesPerRow", 3).toInt());
@@ -1555,6 +1557,16 @@ void MainWindow::createActions()
     m_addAnnotationAction->setCheckable(true);
     m_addAnnotationAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
     connect(m_addAnnotationAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotation_triggered(bool)));
+
+#ifdef HAS_POPPLER_20
+
+    m_addAnnotationAction->setEnabled(true);
+
+#else
+
+    m_addAnnotationAction->setEnabled(false);
+
+#endif // HAS_POPPLER_20
 
     // settings
 
