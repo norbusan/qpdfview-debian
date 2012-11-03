@@ -157,7 +157,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="647"/>
         <source>Open in new tab</source>
-        <translation type="unfinished">Apri in una nuova scheda</translation>
+        <translation type="unfinished">Apre in una nuova scheda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="668"/>
@@ -173,7 +173,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="684"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile salvare in «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="723"/>
@@ -213,12 +213,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1417"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Corrispondenza MAIUSCOLO/minuscolo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">E&amp;videnzia tutto</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1427"/>
@@ -718,7 +718,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Usati di recente</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
@@ -731,12 +731,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Co&amp;mportamento</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Grafiche</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
@@ -756,12 +756,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="191"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aprire URL:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="198"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiornare automaticamente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="204"/>
@@ -769,7 +769,7 @@
         <location filename="../sources/settingsdialog.cpp" line="449"/>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Effettive al riavvio.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
@@ -779,17 +779,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="213"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ripristinare schede:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="220"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ripristinare segnalibri:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="227"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizzare presentazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="233"/>
@@ -906,22 +906,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="401"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">In alto</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">In basso</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="403"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A sinistra</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="404"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A destra</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="416"/>

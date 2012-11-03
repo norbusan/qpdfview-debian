@@ -4,6 +4,7 @@ Release 0.3.6:
   * Added support for multiple returns.
   * Added rudimentary form support.
   * Fixed handling of boolean CUPS options.
+  * Exposed render hint 'overprint preview'.
   * Updated Slovak translation. Thanks to DAG Software.
   * Updated Czech translation. Thanks Pavel Fric.
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.
