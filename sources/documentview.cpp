@@ -826,13 +826,16 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
         num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
 
-        QFileInfo fileInfo(m_filePath);
+        QTemporaryFile temporaryFile;
 
-        jobId = cupsPrintFile(dest->name, fileInfo.absoluteFilePath().toLocal8Bit(), fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
-
-        if(jobId < 1)
+        if(temporaryFile.open() && saveCopy(temporaryFile.fileName()))
         {
-            qDebug() << cupsLastErrorString();
+            jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+
+            if(jobId < 1)
+            {
+                qDebug() << cupsLastErrorString();
+            }
         }
     }
     else
