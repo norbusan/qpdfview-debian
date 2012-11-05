@@ -828,13 +828,18 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
         QTemporaryFile temporaryFile;
 
-        if(temporaryFile.open() && saveCopy(temporaryFile.fileName()))
+        if(temporaryFile.open())
         {
-            jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+            temporaryFile.close();
 
-            if(jobId < 1)
+            if(saveCopy(temporaryFile.fileName()))
             {
-                qDebug() << cupsLastErrorString();
+                jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+
+                if(jobId < 1)
+                {
+                    qDebug() << cupsLastErrorString();
+                }
             }
         }
     }
