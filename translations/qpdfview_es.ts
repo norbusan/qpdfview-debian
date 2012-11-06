@@ -218,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Resaltar &amp;todo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1427"/>
@@ -313,7 +313,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1568"/>
         <source>&amp;Continuous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Continuo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1576"/>
@@ -731,7 +731,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Comportamiento</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -824,7 +824,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar campos de formulario:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="276"/>
