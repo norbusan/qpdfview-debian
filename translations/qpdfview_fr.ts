@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -128,7 +128,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1514"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Actualiser</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -233,7 +233,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1443"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">Actualise&amp;r</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1451"/>
@@ -398,7 +398,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1697"/>
         <source>Close &amp;all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fermer &amp;tous les onglets</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1703"/>
@@ -450,18 +450,18 @@
         <location filename="../sources/mainwindow.cpp" line="1771"/>
         <location filename="../sources/mainwindow.cpp" line="1935"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Modifier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1789"/>
         <location filename="../sources/mainwindow.cpp" line="1954"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Affichage</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1812"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Chercher</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1832"/>
@@ -476,7 +476,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1878"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Minia&amp;ture(s)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1970"/>
@@ -496,7 +496,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Signets</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
@@ -524,7 +524,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copier le &amp;texte</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="752"/>
@@ -632,7 +632,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Deux pages</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="49"/>
