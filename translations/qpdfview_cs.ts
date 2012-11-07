@@ -847,7 +847,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Náhled přetisku:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
