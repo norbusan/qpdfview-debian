@@ -50,10 +50,10 @@ public:
     QMenu* createPopupMenu();
 
 public slots:
-    bool open(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
-    bool openInNewTab(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
+    bool open(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
+    bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
 
-    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
+    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
 
 protected slots:
     void on_tabWidget_currentChanged(int index);
@@ -291,10 +291,10 @@ public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
 
 public slots:
-    bool open(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
-    bool openInNewTab(const QString& filePath, int page = 1, const QRectF& highlight = QRectF());
+    bool open(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
+    bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
 
-    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = 1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
+    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
 
     Q_NOREPLY void raiseAndActivate();
 
