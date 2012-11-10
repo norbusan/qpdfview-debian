@@ -122,32 +122,32 @@ void TreeView::collapseAll(const QModelIndex& index)
     }
 }
 
-void TreeView::mouseDoubleClickEvent(QMouseEvent* event)
-{
-    expandAll(indexAt(event->pos()));
-}
-
 void TreeView::contextMenuEvent(QContextMenuEvent* event)
 {
-    QMenu* menu = new QMenu();
+    QTreeView::contextMenuEvent(event);
 
-    QAction* expandAllAction = menu->addAction(tr("&Expand all"));
-    QAction* collapseAllAction = menu->addAction(tr("&Collapse all"));
-
-    QAction* action = menu->exec(event->globalPos());
-
-    QModelIndex index = indexAt(event->pos());
-
-    if(action == expandAllAction)
+    if(!event->isAccepted())
     {
-        expandAll(index);
-    }
-    else if(action == collapseAllAction)
-    {
-        collapseAll(index);
-    }
+        QMenu* menu = new QMenu();
 
-    delete menu;
+        QAction* expandAllAction = menu->addAction(tr("&Expand all"));
+        QAction* collapseAllAction = menu->addAction(tr("&Collapse all"));
+
+        QAction* action = menu->exec(event->globalPos());
+
+        QModelIndex index = indexAt(event->pos());
+
+        if(action == expandAllAction)
+        {
+            expandAll(index);
+        }
+        else if(action == collapseAllAction)
+        {
+            collapseAll(index);
+        }
+
+        delete menu;
+    }
 }
 
 LineEdit::LineEdit(QWidget* parent) : QLineEdit(parent)

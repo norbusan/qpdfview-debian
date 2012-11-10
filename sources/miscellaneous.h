@@ -81,7 +81,6 @@ public slots:
     void collapseAll(const QModelIndex& index = QModelIndex());
 
 protected:
-    void mouseDoubleClickEvent(QMouseEvent* event);
     void contextMenuEvent(QContextMenuEvent* event);
 
 };
