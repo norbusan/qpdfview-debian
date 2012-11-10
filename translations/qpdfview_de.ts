@@ -1024,7 +1024,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="129"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished">Alle &amp;ausklappen</translation>
+        <translation type="unfinished">Alle &amp;aufklappen</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="130"/>

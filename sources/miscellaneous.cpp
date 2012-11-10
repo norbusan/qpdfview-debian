@@ -122,6 +122,11 @@ void TreeView::collapseAll(const QModelIndex& index)
     }
 }
 
+void TreeView::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    expandAll(indexAt(event->pos()));
+}
+
 void TreeView::contextMenuEvent(QContextMenuEvent* event)
 {
     QMenu* menu = new QMenu();
