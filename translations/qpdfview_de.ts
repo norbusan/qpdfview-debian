@@ -1019,4 +1019,17 @@
         <translation type="unfinished">Streuerung und Alt</translation>
     </message>
 </context>
+<context>
+    <name>TreeView</name>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="129"/>
+        <source>&amp;Expand all</source>
+        <translation type="unfinished">Alle &amp;ausklappen</translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="130"/>
+        <source>&amp;Collapse all</source>
+        <translation type="unfinished">Alle &amp;zuklappen</translation>
+    </message>
+</context>
 </TS>

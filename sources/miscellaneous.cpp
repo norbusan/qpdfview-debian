@@ -84,6 +84,67 @@ void TabWidget::tabRemoved(int index)
     }
 }
 
+TreeView::TreeView(QWidget* parent) : QTreeView(parent)
+{
+}
+
+void TreeView::expandAll(const QModelIndex& index)
+{
+    if(index.isValid())
+    {
+        expand(index);
+
+        for(int row = 0; row < model()->rowCount(index); ++row)
+        {
+            expandAll(index.child(row, 0));
+        }
+    }
+    else
+    {
+        QTreeView::expandAll();
+    }
+}
+
+void TreeView::collapseAll(const QModelIndex& index)
+{
+    if(index.isValid())
+    {
+        collapse(index);
+
+        for(int row = 0; row < model()->rowCount(index); ++row)
+        {
+            collapseAll(index.child(row, 0));
+        }
+    }
+    else
+    {
+        QTreeView::collapseAll();
+    }
+}
+
+void TreeView::contextMenuEvent(QContextMenuEvent* event)
+{
+    QMenu* menu = new QMenu();
+
+    QAction* expandAllAction = menu->addAction(tr("&Expand all"));
+    QAction* collapseAllAction = menu->addAction(tr("&Collapse all"));
+
+    QAction* action = menu->exec(event->globalPos());
+
+    QModelIndex index = indexAt(event->pos());
+
+    if(action == expandAllAction)
+    {
+        expandAll(index);
+    }
+    else if(action == collapseAllAction)
+    {
+        collapseAll(index);
+    }
+
+    delete menu;
+}
+
 LineEdit::LineEdit(QWidget* parent) : QLineEdit(parent)
 {
 }

@@ -1019,4 +1019,17 @@
         <translation type="unfinished">Control and Alt</translation>
     </message>
 </context>
+<context>
+    <name>TreeView</name>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="129"/>
+        <source>&amp;Expand all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/miscellaneous.cpp" line="130"/>
+        <source>&amp;Collapse all</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

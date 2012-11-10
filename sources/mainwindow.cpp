@@ -1839,7 +1839,7 @@ void MainWindow::createDocks()
     m_outlineDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F6));
     m_outlineDock->hide();
 
-    m_outlineView = new QTreeView(this);
+    m_outlineView = new TreeView(this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 

@@ -67,6 +67,24 @@ private:
 
 };
 
+// tree view
+
+class TreeView : public QTreeView
+{
+    Q_OBJECT
+
+public:
+    explicit TreeView(QWidget* parent = 0);
+
+public slots:
+    void expandAll(const QModelIndex& index = QModelIndex());
+    void collapseAll(const QModelIndex& index = QModelIndex());
+
+protected:
+    void contextMenuEvent(QContextMenuEvent* event);
+
+};
+
 // line edit
 
 class LineEdit : public QLineEdit
