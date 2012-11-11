@@ -16,6 +16,7 @@ Release 0.3.6:
   * Added partial Uyghur translation. Thanks to Gheyret T.Kenji.
   * Added British English translation. Thanks to Andi Chandler.
   * Added Italian translation. Thanks to Claudio Arseni.
+  * Added Romanian translation. Thanks to Paval Vlad Paul.
 
 Release 0.3.5:
   * Improved compatibility with older versions of Qt and Poppler.
