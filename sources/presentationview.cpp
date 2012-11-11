@@ -69,6 +69,13 @@ int PresentationView::currentPage() const
     return m_currentPage;
 }
 
+void PresentationView::show()
+{
+    QWidget::show();
+
+    prepareView();
+}
+
 void PresentationView::previousPage()
 {
     jumpToPage(m_currentPage - 1, false);
@@ -199,7 +206,7 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Enter:
         if(!m_returnToPage.isEmpty())
         {
-            jumpToPage(m_returnToPage.pop());
+            jumpToPage(m_returnToPage.pop(), false);
         }
 
         event->accept();

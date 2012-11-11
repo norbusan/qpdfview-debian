@@ -290,7 +290,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_highlight = new QGraphicsRectItem();
 
     m_highlight->setVisible(false);
-    scene()->addItem(m_highlight);
+    m_pagesScene->addItem(m_highlight);
 
     QColor highlightColor = QApplication::palette().color(QPalette::Highlight);
 
@@ -559,7 +559,7 @@ QStandardItemModel* DocumentView::fontsModel()
 
     for(int index = 0; index < fonts.count(); ++index)
     {
-        Poppler::FontInfo font = fonts.at(index);
+        Poppler::FontInfo& font = fonts[index];
 
         fontsModel->setItem(index, 0, new QStandardItem(font.name()));
         fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));

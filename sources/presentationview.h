@@ -46,6 +46,8 @@ signals:
     void imageReady(int index, qreal scaleFactor, QImage image);
     
 public slots:
+    void show();
+
     void previousPage();
     void nextPage();
     void firstPage();
