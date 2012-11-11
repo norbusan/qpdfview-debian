@@ -17,6 +17,8 @@ Release 0.3.6:
   * Added British English translation. Thanks to Andi Chandler.
   * Added Italian translation. Thanks to Claudio Arseni.
   * Added Romanian translation. Thanks to Paval Vlad Paul.
+  * Added partial Chinese (Simplified) translation. Thanks to Wang Dianjin.
+  * Added partial Burmese translation. Thanks to Pyae Sone.
 
 Release 0.3.5:
   * Improved compatibility with older versions of Qt and Poppler.
