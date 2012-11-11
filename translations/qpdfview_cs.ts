@@ -39,7 +39,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="558"/>
         <source>Embedded</source>
-        <translation type="unfinished">Vložený</translation>
+        <translation type="unfinished">Vložené</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="558"/>
