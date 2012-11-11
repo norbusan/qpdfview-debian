@@ -62,6 +62,7 @@ void SettingsDialog::accept()
     m_settings->setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
 
     m_settings->setValue("mainWindow/trackRecentlyUsed", m_trackRecentlyUsedCheckBox->isChecked());
+
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
 
@@ -101,9 +102,9 @@ void SettingsDialog::accept()
     m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
     m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
 
-    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(","));
-    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(","));
-    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(","));
+    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
     // modifiers
 
@@ -128,6 +129,7 @@ void SettingsDialog::on_defaults_clicked()
     m_autoRefreshCheckBox->setChecked(false);
 
     m_trackRecentlyUsedCheckBox->setChecked(false);
+
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
 
@@ -290,6 +292,8 @@ void SettingsDialog::createGraphicsTab()
     m_overprintPreviewCheckBox = new QCheckBox(this);
     m_overprintPreviewCheckBox->setChecked(m_settings->value("documentView/overprintPreview", false).toBool());
 
+    m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
+
 #ifdef HAS_POPPLER_22
 
     m_overprintPreviewCheckBox->setEnabled(Poppler::isOverprintPreviewAvailable());
@@ -299,8 +303,6 @@ void SettingsDialog::createGraphicsTab()
     m_overprintPreviewCheckBox->setEnabled(false);
 
 #endif // HAS_POPPLER_22
-
-    m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
 
     // pages per row
 

@@ -135,15 +135,13 @@ void TreeView::contextMenuEvent(QContextMenuEvent* event)
 
         QAction* action = menu->exec(event->globalPos());
 
-        QModelIndex index = indexAt(event->pos());
-
         if(action == expandAllAction)
         {
-            expandAll(index);
+            expandAll(indexAt(event->pos()));
         }
         else if(action == collapseAllAction)
         {
-            collapseAll(index);
+            collapseAll(indexAt(event->pos()));
         }
 
         delete menu;
