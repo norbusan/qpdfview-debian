@@ -571,7 +571,7 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Απαιτείται η έκδοση της βιβλιοθήκης Poppler 0.20.1 ή νεότερη για να προσθέσετε και να αφαιρέσετε σχολιασμούς.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
@@ -592,22 +592,22 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Εκτεταμένες επιλογές</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Προσαρμογή στη σελίδα:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Οριζόντια:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Όλες οι σελίδες</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
@@ -637,22 +637,22 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Τέσσερις σελίδες</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Έξι σελίδες</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Εννιά σελίδες</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Δεκαέξι σελίδες</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>

@@ -12,6 +12,7 @@ Release 0.3.6:
   * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos and manolox.
   * Updated Croatian translation. Thanks to freedomrun.
   * Updated French translation. Thankst to Quentin Pagès and Gisele Perreault.
+  * Updated Greek translation. Thanks to George Christofis.
   * Added partial Danish translation. Thanks to mjjzf.
   * Added partial Uyghur translation. Thanks to Gheyret T.Kenji.
   * Added British English translation. Thanks to Andi Chandler.
@@ -19,7 +20,7 @@ Release 0.3.6:
   * Added Romanian translation. Thanks to Paval Vlad Paul.
   * Added partial Chinese (Simplified) translation. Thanks to Wang Dianjin.
   * Added partial Burmese translation. Thanks to Pyae Sone.
-  * Added partial Catalan translation. Thanks to VPablo.
+  * Added Catalan translation. Thanks to VPablo.
 
 Release 0.3.5:
   * Improved compatibility with older versions of Qt and Poppler.
