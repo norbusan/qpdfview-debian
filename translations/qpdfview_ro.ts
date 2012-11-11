@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="48"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Șter&amp;rge semn de carte</translation>
+        <translation type="unfinished">Ște&amp;rge semn de carte</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="70"/>
@@ -283,12 +283,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
         <source>Find previous</source>
-        <translation type="unfinished">Găsiţi elementul anterior</translation>
+        <translation type="unfinished">Caută elementul anterior</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1533"/>
         <source>Find next</source>
-        <translation type="unfinished">Caută următorul</translation>
+        <translation type="unfinished">Caută elementul următor</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1541"/>
@@ -318,7 +318,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1578"/>
         <source>&amp;Two pages</source>
-        <translation type="unfinished">7Două pagini</translation>
+        <translation type="unfinished">Două pagini</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1586"/>
@@ -373,7 +373,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1663"/>
         <source>&amp;Fullscreen</source>
-        <translation type="unfinished">%Ecran complet</translation>
+        <translation type="unfinished">&amp;Ecran complet</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1671"/>
@@ -423,7 +423,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1729"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Șter&amp;rge semn de carte</translation>
+        <translation type="unfinished">Ște&amp;rge semn de carte</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1735"/>
@@ -444,7 +444,7 @@
         <location filename="../sources/mainwindow.cpp" line="1759"/>
         <location filename="../sources/mainwindow.cpp" line="1899"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;fișier</translation>
+        <translation type="unfinished">&amp;Fișier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1773"/>
@@ -466,7 +466,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1834"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Evidențiere</translation>
+        <translation type="unfinished">&amp;Cuprins</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1857"/>
@@ -491,7 +491,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1989"/>
         <source>&amp;Tabs</source>
-        <translation type="unfinished">&amp;File</translation>
+        <translation type="unfinished">Fi&amp;le</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
@@ -774,7 +774,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="208"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Urmărește documente recente:</translation>
+        <translation type="unfinished">Memorează documente deschise recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="215"/>
@@ -1029,7 +1029,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="134"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished">&amp;Desfă tot:</translation>
+        <translation type="unfinished">&amp;Strânge tot</translation>
     </message>
 </context>
 </TS>
