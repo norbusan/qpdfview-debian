@@ -52,6 +52,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     restoreGeometry(m_settings->value("mainWindow/geometry").toByteArray());
     restoreState(m_settings->value("mainWindow/state").toByteArray());
 
+    createDatabase();
+
     restoreTabs();
     restoreBookmarks();
 
@@ -84,6 +86,8 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
     {
         if(currentTab()->open(filePath))
         {
+            restorePerFileSettings(currentTab());
+
             QFileInfo fileInfo(filePath);
 
             m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
@@ -123,6 +127,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->setScaleFactor(m_settings->value("documentView/scaleFactor", 1.0).toReal());
         newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
         newTab->setHighlightAll(m_settings->value("documentView/highlightAll", false).toBool());
+
+        restorePerFileSettings(newTab);
 
         QFileInfo fileInfo(filePath);
 
@@ -382,6 +388,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
+    savePerFileSettings(tab(index));
+
     delete m_tabWidget->widget(index);
 }
 
@@ -1002,6 +1010,8 @@ void MainWindow::on_nextTab_triggered()
 
 void MainWindow::on_closeTab_triggered()
 {
+    savePerFileSettings(currentTab());
+
     delete m_tabWidget->currentWidget();
 }
 
@@ -1011,6 +1021,8 @@ void MainWindow::on_closeAllTabs_triggered()
 
     while(m_tabWidget->count() > 0)
     {
+        savePerFileSettings(tab(0));
+
         delete m_tabWidget->widget(0);
     }
 
@@ -1030,6 +1042,8 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
         while(m_tabWidget->count() > 0)
         {
+            savePerFileSettings(tab(0));
+
             delete m_tabWidget->widget(0);
         }
 
@@ -1225,6 +1239,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     saveTabs();
     saveBookmarks();
+
+    for(int index = 0; index < m_tabWidget->count(); ++index)
+    {
+        savePerFileSettings(tab(index));
+    }
 
     removeToolBar(m_searchToolBar);
 
@@ -2013,150 +2032,248 @@ void MainWindow::createMenus()
     m_helpMenu->addAction(m_aboutAction);
 }
 
+void MainWindow::createDatabase()
+{
+#ifdef WITH_SQL
+
+    QDir().mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
+
+    m_database = QSqlDatabase::addDatabase("QSQLITE");
+    m_database.setDatabaseName(QFileInfo(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)), "database").filePath());
+    m_database.open();
+
+    if(m_database.isOpen())
+    {
+        m_database.transaction();
+
+        QStringList tables = m_database.tables();
+        QSqlQuery query(m_database);
+
+        // tabs
+
+        if(!tables.contains("tabs_v1"))
+        {
+            query.exec("CREATE TABLE tabs_v1 "
+                       "(filePath TEXT"
+                       ",currentPage INTEGER"
+                       ",continuousMode INTEGER"
+                       ",layoutMode INTEGER"
+                       ",scaleMode INTEGER"
+                       ",scaleFactor REAL"
+                       ",rotation INTEGER)");
+
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
+            }
+        }
+
+        // bookmarks
+
+        if(!tables.contains("bookmarks_v1"))
+        {
+            query.exec("CREATE TABLE bookmarks_v1 "
+                       "(filePath TEXT"
+                       ",pages TEXT)");
+
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
+            }
+        }
+
+        // per-file settings
+
+        if(!tables.contains("perfilesettings_v1"))
+        {
+            query.exec("CREATE TABLE perfilesettings_v1 "
+                       "(lastUsed INTEGER"
+                       ",filePath TEXT PRIMARY KEY"
+                       ",currentPage INTEGER"
+                       ",continuousMode INTEGER"
+                       ",layoutMode INTEGER"
+                       ",scaleMode INTEGER"
+                       ",scaleFactor REAL"
+                       ",rotation INTEGER)");
+
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
+            }
+        }
+
+        if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool())
+        {
+            query.exec("DELETE FROM perfilesettings_v1 WHERE filePath IN (SELECT filePath FROM perfilesettings_v1 ORDER BY lastUsed DESC LIMIT -1 OFFSET 1000)");
+        }
+        else
+        {
+            query.exec("DELETE FROM perfilesettings_v1");
+        }
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+        }
+
+        m_database.commit();
+    }
+
+#endif // WITH_SQL
+}
+
 void MainWindow::restoreTabs()
 {
-    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+#ifdef WITH_SQL
+
+    if(m_database.isOpen())
     {
-        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+        m_database.transaction();
 
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        QSqlQuery query(m_database);
+        query.exec("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v1");
+
+        while(query.next())
         {
-            QDomDocument document;
-
-            if(document.setContent(&file))
+            if(!query.isActive())
             {
-                disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-                QDomElement rootElement = document.firstChildElement();
-                QDomElement tabElement = rootElement.firstChildElement();
-
-                while(!tabElement.isNull())
-                {
-                    if(openInNewTab(tabElement.attribute("filePath")))
-                    {
-                        currentTab()->setContinousMode(static_cast< bool >(tabElement.attribute("continuousMode").toUInt()));
-                        currentTab()->setLayoutMode(static_cast< DocumentView::LayoutMode >(tabElement.attribute("layoutMode").toUInt()));
-
-                        currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(tabElement.attribute("scaleMode").toUInt()));
-                        currentTab()->setScaleFactor(tabElement.attribute("scaleFactor").toFloat());
-
-                        currentTab()->setRotation(static_cast< Poppler::Page::Rotation >(tabElement.attribute("rotation").toUInt()));
-
-                        currentTab()->jumpToPage(tabElement.attribute("currentPage").toInt());
-                    }
-
-                    tabElement = tabElement.nextSiblingElement();
-                }
-
-                m_tabWidget->setCurrentIndex(rootElement.attribute("currentIndex").toInt());
-
-                connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+                qDebug() << query.lastError();
+                break;
             }
 
-            file.close();
+            if(openInNewTab(query.value(0).toString()))
+            {
+                currentTab()->setContinousMode(static_cast< bool >(query.value(2).toUInt()));
+                currentTab()->setLayoutMode(static_cast< DocumentView::LayoutMode >(query.value(3).toUInt()));
+
+                currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(4).toUInt()));
+                currentTab()->setScaleFactor(query.value(5).toReal());
+
+                currentTab()->setRotation(static_cast< Poppler::Page::Rotation >(query.value(6).toUInt()));
+
+                currentTab()->jumpToPage(query.value(1).toInt());
+            }
         }
+
+        m_database.commit();
     }
+
+#endif // WITH_SQL
 }
 
 void MainWindow::saveTabs()
 {
-    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+#ifdef WITH_SQL
 
-    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+    if(m_database.isOpen())
     {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+        m_database.transaction();
+
+        QSqlQuery query(m_database);
+        query.exec("DELETE FROM tabs_v1");
+
+        if(!query.isActive())
         {
-            QDomDocument document;
+            qDebug() << query.lastError();
+        }
 
-            QDomElement rootElement = document.createElement("tabs");
-            document.appendChild(rootElement);
-
-            rootElement.setAttribute("currentIndex", m_tabWidget->currentIndex());
+        if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+        {
+            query.prepare("INSERT INTO tabs_v1 "
+                          "(filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
+                          " VALUES (?,?,?,?,?,?,?)");
 
             for(int index = 0; index < m_tabWidget->count(); ++index)
             {
-                QDomElement tabElement = document.createElement("tab");
-                rootElement.appendChild(tabElement);
+                query.bindValue(0, QFileInfo(tab(index)->filePath()).absoluteFilePath());
+                query.bindValue(1, tab(index)->currentPage());
 
-                tabElement.setAttribute("filePath", QFileInfo(tab(index)->filePath()).absoluteFilePath());
-                tabElement.setAttribute("currentPage", tab(index)->currentPage());
+                query.bindValue(2, static_cast< uint >(tab(index)->continousMode()));
+                query.bindValue(3, static_cast< uint >(tab(index)->layoutMode()));
 
-                tabElement.setAttribute("continuousMode", static_cast< uint >(tab(index)->continousMode()));
-                tabElement.setAttribute("layoutMode", static_cast< uint >(tab(index)->layoutMode()));
+                query.bindValue(4, static_cast< uint >(tab(index)->scaleMode()));
+                query.bindValue(5, tab(index)->scaleFactor());
 
-                tabElement.setAttribute("scaleMode", static_cast< uint >(tab(index)->scaleMode()));
-                tabElement.setAttribute("scaleFactor", tab(index)->scaleFactor());
+                query.bindValue(6, static_cast< uint >(tab(index)->rotation()));
 
-                tabElement.setAttribute("rotation", static_cast< uint >(tab(index)->rotation()));
+                query.exec();
+
+                if(!query.isActive())
+                {
+                    qDebug() << query.lastError();
+                    break;
+                }
             }
-
-            QTextStream textStream(&file);
-            document.save(textStream, 4);
-
-            file.close();
         }
+
+        m_database.commit();
     }
-    else
-    {
-        file.remove();
-    }
+
+#endif // WITH_SQL
 }
 
 void MainWindow::restoreBookmarks()
 {
-    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+#ifdef WITH_SQL
+
+    if(m_database.isOpen())
     {
-        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+        m_database.transaction();
 
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        QSqlQuery query(m_database);
+        query.exec("SELECT filePath,pages FROM bookmarks_v1");
+
+        while(query.next())
         {
-            QDomDocument document;
-
-            if(document.setContent(&file))
+            if(!query.isActive())
             {
-                QDomElement rootElement = document.firstChildElement();
-                QDomElement bookmarkElement = rootElement.firstChildElement();
-
-                while(!bookmarkElement.isNull())
-                {
-                    BookmarkMenu* bookmark = new BookmarkMenu(bookmarkElement.attribute("filePath"), this);
-
-                    QDomElement jumpToPageElement = bookmarkElement.firstChildElement();
-
-                    while(!jumpToPageElement.isNull())
-                    {
-                        bookmark->addJumpToPageAction(jumpToPageElement.attribute("page").toInt());
-
-                        jumpToPageElement = jumpToPageElement.nextSiblingElement();
-                    }
-
-                    connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-                    connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-                    connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
-
-                    m_bookmarksMenu->addMenu(bookmark);
-
-                    bookmarkElement = bookmarkElement.nextSiblingElement();
-                }
+                qDebug() << query.lastError();
+                break;
             }
 
-            file.close();
+            BookmarkMenu* bookmark = new BookmarkMenu(query.value(0).toString(), this);
+
+            QStringList pages = query.value(1).toString().split(",", QString::SkipEmptyParts);
+
+            foreach(QString page, pages)
+            {
+                bookmark->addJumpToPageAction(page.toInt());
+            }
+
+            connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+            connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+            connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+
+            m_bookmarksMenu->addMenu(bookmark);
         }
+
+        m_database.commit();
     }
+
+#endif // WITH_SQL
 }
 
 void MainWindow::saveBookmarks()
 {
-    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+#ifdef WITH_SQL
 
-    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+    if(m_database.isOpen())
     {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text))
-        {
-            QDomDocument document;
+        m_database.transaction();
 
-            QDomElement rootElement = document.createElement("bookmarks");
-            document.appendChild(rootElement);
+        QSqlQuery query(m_database);
+        query.exec("DELETE FROM bookmarks_v1");
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+        }
+
+        if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+        {
+            query.prepare("INSERT INTO bookmarks_v1 "
+                          "(filePath,pages)"
+                          " VALUES (?,?)");
 
             foreach(QAction* action, m_bookmarksMenu->actions())
             {
@@ -2164,31 +2281,117 @@ void MainWindow::saveBookmarks()
 
                 if(bookmark != 0)
                 {
-                    QDomElement bookmarkElement = document.createElement("bookmark");
-                    rootElement.appendChild(bookmarkElement);
-
-                    bookmarkElement.setAttribute("filePath", QFileInfo(bookmark->filePath()).absoluteFilePath());
+                    QStringList pages;
 
                     foreach(int page, bookmark->pages())
                     {
-                        QDomElement jumpToPageElement = document.createElement("jumpToPage");
-                        bookmarkElement.appendChild(jumpToPageElement);
+                        pages.append(QString::number(page));
+                    }
 
-                        jumpToPageElement.setAttribute("page", page);                        
+                    query.bindValue(0, QFileInfo(bookmark->filePath()).absoluteFilePath());
+                    query.bindValue(1, pages.join(","));
+
+                    query.exec();
+
+                    if(!query.isActive())
+                    {
+                        qDebug() << query.lastError();
+                        break;
                     }
                 }
             }
-
-            QTextStream textStream(&file);
-            document.save(textStream, 4);
-
-            file.close();
         }
+
+        m_database.commit();
     }
-    else
+
+#endif // WITH_SQL
+}
+
+void MainWindow::restorePerFileSettings(DocumentView *tab)
+{
+#ifdef WITH_SQL
+
+    if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool() && m_database.isOpen() && tab != 0)
     {
-        file.remove();
+        m_database.transaction();
+
+        QSqlQuery query(m_database);
+        query.prepare("SELECT currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM perfilesettings_v1 WHERE filePath==?");
+
+        query.bindValue(0, QFileInfo(tab->filePath()).absoluteFilePath());
+
+        query.exec();
+
+        if(query.next())
+        {
+            tab->setContinousMode(query.value(1).toBool());
+            tab->setLayoutMode(static_cast< DocumentView::LayoutMode >(query.value(2).toUInt()));
+
+            tab->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(3).toUInt()));
+            tab->setScaleFactor(query.value(4).toReal());
+
+            tab->setRotation(static_cast< Poppler::Page::Rotation >(query.value(5).toUInt()));
+
+            tab->jumpToPage(query.value(0).toInt(), false);
+        }
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+        }
+
+        m_database.commit();
     }
+
+#else
+
+    Q_UNUSED(tab);
+
+#endif // WITH_SQL
+}
+
+void MainWindow::savePerFileSettings(const DocumentView* tab)
+{
+#ifdef WITH_SQL
+
+    if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool() && m_database.isOpen() && tab != 0)
+    {
+        m_database.transaction();
+
+        QSqlQuery query(m_database);
+        query.prepare("INSERT OR REPLACE INTO perfilesettings_v1 "
+                      "(lastUsed,filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
+                      " VALUES (?,?,?,?,?,?,?,?)");
+
+        query.bindValue(0, QDateTime::currentDateTime().toTime_t());
+
+        query.bindValue(1, QFileInfo(tab->filePath()).absoluteFilePath());
+        query.bindValue(2, tab->currentPage());
+
+        query.bindValue(3, static_cast< uint >(tab->continousMode()));
+        query.bindValue(4, static_cast< uint >(tab->layoutMode()));
+
+        query.bindValue(5, static_cast< uint >(tab->scaleMode()));
+        query.bindValue(6, tab->scaleFactor());
+
+        query.bindValue(7, static_cast< uint >(tab->rotation()));
+
+        query.exec();
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+        }
+
+        m_database.commit();
+    }
+
+#else
+
+    Q_UNUSED(tab);
+
+#endif // WITH_SQL
 }
 
 #ifdef WITH_DBUS

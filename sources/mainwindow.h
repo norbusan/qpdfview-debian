@@ -23,8 +23,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define MAINWINDOW_H
 
 #include <QtCore>
-#include <QtXml>
 #include <QtGui>
+
+#ifdef WITH_SQL
+
+#include <QtSql>
+
+#endif // WITH_SQL
 
 #ifdef WITH_DBUS
 
@@ -272,11 +277,22 @@ private:
 
     void createMenus();
 
+#ifdef WITH_SQL
+
+    QSqlDatabase m_database;
+
+#endif // WITH_SQL
+
+    void createDatabase();
+
     void restoreTabs();
     void saveTabs();
 
     void restoreBookmarks();
     void saveBookmarks();
+
+    void restorePerFileSettings(DocumentView* tab);
+    void savePerFileSettings(const DocumentView* tab);
 
 };
 

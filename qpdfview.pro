@@ -63,6 +63,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
     RESOURCES += qpdfview.qrc
 }
 
+!without_sql {
+    DEFINES += WITH_SQL
+    QT += sql
+}
+
 !without_dbus {
     DEFINES += WITH_DBUS
     QT += dbus
