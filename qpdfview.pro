@@ -45,13 +45,15 @@ TRANSLATIONS += \
     translations/qpdfview_he.ts \
     translations/qpdfview_hr.ts \
     translations/qpdfview_it.ts \
+    translations/qpdfview_my.ts \
     translations/qpdfview_pt_BR.ts \
     translations/qpdfview_ro.ts \
     translations/qpdfview_ru.ts \
     translations/qpdfview_sk.ts \
     translations/qpdfview_tr.ts \
     translations/qpdfview_ug.ts \
-    translations/qpdfview_uk.ts
+    translations/qpdfview_uk.ts \
+    translations/qpdfview_zh_CN.ts
 
 QT += core xml gui
 
