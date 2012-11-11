@@ -657,7 +657,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
-        <translation type="unfinished">De la numărul:</translation>
+        <translation type="unfinished">Pagini pe coală:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Aranjare numere crescătoare</translation>
+        <translation type="unfinished">Aranjare pagini pe coală:</translation>
     </message>
 </context>
 <context>
