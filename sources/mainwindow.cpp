@@ -179,9 +179,11 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
 bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
 {
+    QFileInfo fileInfo(filePath);
+
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
-        if(QFileInfo(tab(index)->filePath()).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
+        if(QFileInfo(tab(index)->filePath()).absoluteFilePath() == fileInfo.absoluteFilePath())
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -671,11 +673,7 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
-    QString path = m_settings->value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
-    QString fileName = QFileInfo(currentTab()->filePath()).fileName();
-    QString filePath = QFileInfo(QDir(path), fileName).filePath();
-
-    filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), filePath, "Portable document format (*.pdf)");
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), currentTab()->filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
     {
@@ -690,7 +688,6 @@ void MainWindow::on_print_triggered()
 {
     QPrinter* printer = new QPrinter();
     QPrintDialog* printDialog = new QPrintDialog(printer, this);
-    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(this);
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
@@ -703,6 +700,8 @@ void MainWindow::on_print_triggered()
     printDialog->setOption(QPrintDialog::PrintCurrentPage, true);
 
 #endif // QT_VERSION
+
+    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(this);
 
     printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
 
@@ -971,7 +970,10 @@ void MainWindow::on_fullscreen_triggered(bool checked)
 
 void MainWindow::on_presentation_triggered()
 {
-    currentTab()->presentation(m_settings->value("presentationView/sync", false).toBool(), m_settings->value("presentationView/screen", -1).toInt());
+    bool sync = m_settings->value("presentationView/sync", false).toBool();
+    int screen = m_settings->value("presentationView/screen", -1).toInt();
+
+    currentTab()->presentation(sync, screen);
 }
 
 void MainWindow::on_previousTab_triggered()

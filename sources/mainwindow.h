@@ -252,7 +252,7 @@ private:
     void createToolBars();
 
     QDockWidget* m_outlineDock;
-    QTreeView* m_outlineView;
+    TreeView* m_outlineView;
 
     QDockWidget* m_propertiesDock;
     QTableView* m_propertiesView;
