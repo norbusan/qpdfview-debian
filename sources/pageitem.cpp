@@ -342,7 +342,7 @@ int PageItem::index() const
     return m_index;
 }
 
-QSizeF PageItem::size() const
+const QSizeF& PageItem::size() const
 {
     return m_size;
 }
@@ -821,7 +821,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
     QAction* action = menu->exec(screenPos);
 
-    if(action != 0)
+    if(action == addTextAction || action == addHighlightAction)
     {
         QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
 

@@ -63,7 +63,7 @@ public:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     int index() const;
-    QSizeF size() const;
+    const QSizeF& size() const;
 
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights, int duration = 0);

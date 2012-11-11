@@ -25,8 +25,8 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document, Q
     m_mutex(0),
     m_document(0),
     m_numberOfPages(-1),
-    m_currentPage(-1),
-    m_returnToPage(-1),
+    m_currentPage(1),
+    m_returnToPage(),
     m_links(),
     m_scaleFactor(1.0),
     m_normalizedTransform(),
@@ -47,8 +47,6 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document, Q
     m_document = document;
 
     m_numberOfPages = m_document->numPages();
-    m_currentPage = 1;
-    m_returnToPage = -1;
 
     prepareView();
 }
@@ -73,12 +71,12 @@ int PresentationView::currentPage() const
 
 void PresentationView::previousPage()
 {
-    jumpToPage(currentPage() - 1, false);
+    jumpToPage(m_currentPage - 1, false);
 }
 
 void PresentationView::nextPage()
 {
-    jumpToPage(currentPage() + 1, false);
+    jumpToPage(m_currentPage + 1, false);
 }
 
 void PresentationView::firstPage()
@@ -88,7 +86,7 @@ void PresentationView::firstPage()
 
 void PresentationView::lastPage()
 {
-    jumpToPage(numberOfPages());
+    jumpToPage(m_numberOfPages);
 }
 
 void PresentationView::jumpToPage(int page, bool returnTo)
@@ -97,7 +95,7 @@ void PresentationView::jumpToPage(int page, bool returnTo)
     {
         if(returnTo)
         {
-            m_returnToPage = m_currentPage;
+            m_returnToPage.push(m_currentPage);
         }
 
         m_currentPage = page;
@@ -199,7 +197,10 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
         return;
     case Qt::Key_Return:
     case Qt::Key_Enter:
-        jumpToPage(m_returnToPage);
+        if(!m_returnToPage.isEmpty())
+        {
+            jumpToPage(m_returnToPage.pop());
+        }
 
         event->accept();
         return;
@@ -258,27 +259,31 @@ void PresentationView::prepareView()
 
     Poppler::Page* page = m_document->page(m_currentPage - 1);
 
-    qDeleteAll(m_links);
-
-    m_links.clear();
-
-    foreach(Poppler::Link* link, page->links())
-    {
-        if(link->linkType() == Poppler::Link::Goto)
-        {
-            Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
-
-            if(!linkGoto->isExternal())
-            {
-                m_links.append(linkGoto);
-                continue;
-            }
-        }
-
-        delete link;
-    }
-
     QSizeF size = page->pageSizeF();
+
+    {
+        // links
+
+        qDeleteAll(m_links);
+
+        m_links.clear();
+
+        foreach(Poppler::Link* link, page->links())
+        {
+            if(link->linkType() == Poppler::Link::Goto)
+            {
+                Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
+
+                if(!linkGoto->isExternal())
+                {
+                    m_links.append(linkGoto);
+                    continue;
+                }
+            }
+
+            delete link;
+        }
+    }
 
     delete page;
 

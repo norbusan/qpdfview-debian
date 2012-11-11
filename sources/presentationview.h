@@ -76,7 +76,7 @@ private:
     int m_numberOfPages;
     int m_currentPage;
 
-    int m_returnToPage;
+    QStack< int > m_returnToPage;
 
     QList< Poppler::LinkGoto* > m_links;
 
