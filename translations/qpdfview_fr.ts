@@ -597,7 +597,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajuster à la page</translation>
+        <translation type="unfinished">Ajuster à la page :</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
