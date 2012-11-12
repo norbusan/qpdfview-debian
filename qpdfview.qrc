@@ -6,6 +6,7 @@
         <file>icons/view-refresh.svg</file>
         <file>icons/document-print.svg</file>
         <file>icons/document-save.svg</file>
+        <file>icons/document-save-as.svg</file>
         <file>icons/go-previous.svg</file>
         <file>icons/go-next.svg</file>
         <file>icons/go-first.svg</file>
