@@ -87,6 +87,7 @@ protected slots:
     void on_openInNewTab_triggered();
     void on_refresh_triggered();
     void on_saveCopy_triggered();
+    void on_saveAs_triggered();
     void on_print_triggered();
 
     void on_recentlyUsed_openTriggered(const QString& filePath);
@@ -187,6 +188,7 @@ private:
     QAction* m_openInNewTabAction;
     QAction* m_refreshAction;
     QAction* m_saveCopyAction;
+    QAction* m_saveAsAction;
     QAction* m_printAction;
     QAction* m_exitAction;
 

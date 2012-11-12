@@ -662,14 +662,19 @@ bool DocumentView::refresh()
     return document != 0;
 }
 
-bool DocumentView::saveCopy(const QString& filePath)
+bool DocumentView::save(const QString& filePath, bool withChanges)
 {
     m_mutex.lock();
 
     Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
 
     pdfConverter->setOutputFileName(filePath);
-    pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
+
+    if(withChanges)
+    {
+        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
+    }
+
     bool ok = pdfConverter->convert();
 
     delete pdfConverter;
@@ -832,7 +837,7 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
         {
             temporaryFile.close();
 
-            if(saveCopy(temporaryFile.fileName()))
+            if(save(temporaryFile.fileName(), true))
             {
                 jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
 
