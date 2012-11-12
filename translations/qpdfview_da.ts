@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1594"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Flere sider</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1602"/>
@@ -353,7 +353,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1634"/>
         <source>Fit to page size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilpas sidestørrelsen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1642"/>
@@ -373,27 +373,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1663"/>
         <source>&amp;Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Fuldskærm</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1671"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Præsentation...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1679"/>
         <source>&amp;Previous tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Forrige faneblad</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1685"/>
         <source>&amp;Next tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Næste faneblad</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1691"/>
         <source>&amp;Close tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Luk faneblad</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1699"/>
@@ -433,35 +433,35 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1741"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Indhold</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1749"/>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Om</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1759"/>
         <location filename="../sources/mainwindow.cpp" line="1899"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Filer</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1773"/>
         <location filename="../sources/mainwindow.cpp" line="1937"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Rediger</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1791"/>
         <location filename="../sources/mainwindow.cpp" line="1956"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vis</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1814"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Søg</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1834"/>
@@ -471,37 +471,37 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1857"/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Egenskaber</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1880"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Miniaturebilleder</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1972"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Værktøjslinjer</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1977"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Paneler</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1989"/>
         <source>&amp;Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Faneblade</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Bogmærker</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2011"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Hjælp</translation>
     </message>
 </context>
 <context>
@@ -509,7 +509,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="534"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gå til side %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="541"/>
@@ -576,7 +576,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Fjern annotering</translation>
     </message>
 </context>
 <context>
@@ -584,7 +584,7 @@
     <message>
         <location filename="../sources/presentationview.cpp" line="253"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gå til side %1.</translation>
     </message>
 </context>
 <context>
@@ -592,7 +592,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Udvidede indstillinger</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
@@ -607,7 +607,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
@@ -632,27 +632,27 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">To sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fire sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seks sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ni sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seksten sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
@@ -723,7 +723,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ryd liste</translation>
     </message>
 </context>
 <context>
@@ -731,7 +731,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Opførsel</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -741,17 +741,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
         <source>&amp;Interface</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Grænseflade</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Tilpasninger</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="38"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Standardværdier</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
@@ -794,7 +794,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Standard</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
@@ -829,7 +829,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ingen</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
@@ -864,7 +864,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="343"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Miniaturestørrelse:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="350"/>
@@ -879,7 +879,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teksthjælp:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
@@ -891,12 +891,12 @@
         <location filename="../sources/settingsdialog.cpp" line="375"/>
         <location filename="../sources/settingsdialog.cpp" line="376"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="388"/>
         <source>Cache size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cache-størrelse:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
@@ -906,22 +906,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="403"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Øverst</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="404"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nederst</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Venstre</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="406"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Højre</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
@@ -931,17 +931,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efter behov</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Altid</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="425"/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aldrig</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
@@ -991,17 +991,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="500"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="501"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kontrol</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="502"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="503"/>
@@ -1024,7 +1024,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="133"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Fold alle ud</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="134"/>
