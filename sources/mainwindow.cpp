@@ -86,7 +86,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
         {
             QFileInfo fileInfo(filePath);
 
-            m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
+            m_settings->setValue("mainWindow/openPath", fileInfo.absolutePath());
             m_recentlyUsedMenu->addOpenAction(filePath);
 
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
@@ -126,7 +126,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         QFileInfo fileInfo(filePath);
 
-        m_settings->setValue("mainWindow/path", fileInfo.absolutePath());
+        m_settings->setValue("mainWindow/openPath", fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
 
         int index = m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, newTab, fileInfo.completeBaseName());
@@ -631,7 +631,7 @@ void MainWindow::on_open_triggered()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QString path = m_settings->value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+        QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
         QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, "Portable document format (*.pdf)");
 
         if(!filePath.isEmpty())
@@ -647,7 +647,7 @@ void MainWindow::on_open_triggered()
 
 void MainWindow::on_openInNewTab_triggered()
 {
-    QString path = m_settings->value("mainWindow/path", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+    QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
     QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, "Portable document format (*.pdf)");
 
     if(!filePaths.isEmpty())
@@ -675,11 +675,16 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), currentTab()->filePath(), "Portable document format (*.pdf)");
+    QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
     {
         if(!currentTab()->save(filePath, false))
+        {
+            m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
+        }
+        else
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at '%1'.").arg(filePath));
         }
@@ -688,13 +693,16 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->filePath(), "Portable document format (*.pdf)");
+    QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
     {
         if(currentTab()->save(filePath, true))
         {
             open(filePath, currentTab()->currentPage());
+
+            m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
         }
         else
         {
