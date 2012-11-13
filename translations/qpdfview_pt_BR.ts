@@ -657,7 +657,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páginas por folha:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Layout das páginas por folha:</translation>
     </message>
 </context>
 <context>
@@ -844,7 +844,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visualizar impressão sobre:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
