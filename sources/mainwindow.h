@@ -29,6 +29,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtSql>
 
+#else
+
+#include <QtXml>
+
 #endif // WITH_SQL
 
 #ifdef WITH_DBUS
