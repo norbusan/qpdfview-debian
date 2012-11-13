@@ -2158,6 +2158,50 @@ void MainWindow::restoreTabs()
         m_database.commit();
     }
 
+#else
+
+    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+    {
+        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QDomDocument document;
+
+            if(document.setContent(&file))
+            {
+                disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+                QDomElement rootElement = document.firstChildElement();
+                QDomElement tabElement = rootElement.firstChildElement();
+
+                while(!tabElement.isNull())
+                {
+                    if(openInNewTab(tabElement.attribute("filePath")))
+                    {
+                        currentTab()->setContinousMode(static_cast< bool >(tabElement.attribute("continuousMode").toUInt()));
+                        currentTab()->setLayoutMode(static_cast< DocumentView::LayoutMode >(tabElement.attribute("layoutMode").toUInt()));
+
+                        currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(tabElement.attribute("scaleMode").toUInt()));
+                        currentTab()->setScaleFactor(tabElement.attribute("scaleFactor").toFloat());
+
+                        currentTab()->setRotation(static_cast< Poppler::Page::Rotation >(tabElement.attribute("rotation").toUInt()));
+
+                        currentTab()->jumpToPage(tabElement.attribute("currentPage").toInt());
+                    }
+
+                    tabElement = tabElement.nextSiblingElement();
+                }
+
+                m_tabWidget->setCurrentIndex(rootElement.attribute("currentIndex").toInt());
+
+                connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+            }
+
+            file.close();
+        }
+    }
+
 #endif // WITH_SQL
 }
 
@@ -2209,6 +2253,49 @@ void MainWindow::saveTabs()
         m_database.commit();
     }
 
+#else
+
+    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+
+    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+    {
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QDomDocument document;
+
+            QDomElement rootElement = document.createElement("tabs");
+            document.appendChild(rootElement);
+
+            rootElement.setAttribute("currentIndex", m_tabWidget->currentIndex());
+
+            for(int index = 0; index < m_tabWidget->count(); ++index)
+            {
+                QDomElement tabElement = document.createElement("tab");
+                rootElement.appendChild(tabElement);
+
+                tabElement.setAttribute("filePath", QFileInfo(tab(index)->filePath()).absoluteFilePath());
+                tabElement.setAttribute("currentPage", tab(index)->currentPage());
+
+                tabElement.setAttribute("continuousMode", static_cast< uint >(tab(index)->continousMode()));
+                tabElement.setAttribute("layoutMode", static_cast< uint >(tab(index)->layoutMode()));
+
+                tabElement.setAttribute("scaleMode", static_cast< uint >(tab(index)->scaleMode()));
+                tabElement.setAttribute("scaleFactor", tab(index)->scaleFactor());
+
+                tabElement.setAttribute("rotation", static_cast< uint >(tab(index)->rotation()));
+            }
+
+            QTextStream textStream(&file);
+            document.save(textStream, 4);
+
+            file.close();
+        }
+    }
+    else
+    {
+        file.remove();
+    }
+
 #endif // WITH_SQL
 }
 
@@ -2248,6 +2335,48 @@ void MainWindow::restoreBookmarks()
         }
 
         m_database.commit();
+    }
+
+#else
+
+    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+    {
+        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QDomDocument document;
+
+            if(document.setContent(&file))
+            {
+                QDomElement rootElement = document.firstChildElement();
+                QDomElement bookmarkElement = rootElement.firstChildElement();
+
+                while(!bookmarkElement.isNull())
+                {
+                    BookmarkMenu* bookmark = new BookmarkMenu(bookmarkElement.attribute("filePath"), this);
+
+                    QDomElement jumpToPageElement = bookmarkElement.firstChildElement();
+
+                    while(!jumpToPageElement.isNull())
+                    {
+                        bookmark->addJumpToPageAction(jumpToPageElement.attribute("page").toInt());
+
+                        jumpToPageElement = jumpToPageElement.nextSiblingElement();
+                    }
+
+                    connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+                    connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+                    connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+
+                    m_bookmarksMenu->addMenu(bookmark);
+
+                    bookmarkElement = bookmarkElement.nextSiblingElement();
+                }
+            }
+
+            file.close();
+        }
     }
 
 #endif // WITH_SQL
@@ -2303,6 +2432,51 @@ void MainWindow::saveBookmarks()
         }
 
         m_database.commit();
+    }
+
+#else
+
+    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+
+    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+    {
+        if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QDomDocument document;
+
+            QDomElement rootElement = document.createElement("bookmarks");
+            document.appendChild(rootElement);
+
+            foreach(QAction* action, m_bookmarksMenu->actions())
+            {
+                BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+
+                if(bookmark != 0)
+                {
+                    QDomElement bookmarkElement = document.createElement("bookmark");
+                    rootElement.appendChild(bookmarkElement);
+
+                    bookmarkElement.setAttribute("filePath", QFileInfo(bookmark->filePath()).absoluteFilePath());
+
+                    foreach(int page, bookmark->pages())
+                    {
+                        QDomElement jumpToPageElement = document.createElement("jumpToPage");
+                        bookmarkElement.appendChild(jumpToPageElement);
+
+                        jumpToPageElement.setAttribute("page", page);
+                    }
+                }
+            }
+
+            QTextStream textStream(&file);
+            document.save(textStream, 4);
+
+            file.close();
+        }
+    }
+    else
+    {
+        file.remove();
     }
 
 #endif // WITH_SQL
