@@ -218,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1425"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Destacar &amp;tudo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1434"/>
@@ -602,7 +602,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paisagem:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Conjunto de páginas:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
@@ -731,7 +731,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Comportamento</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -849,7 +849,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páginas por linha:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="323"/>
@@ -1024,12 +1024,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="133"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Expandir tudo</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="134"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Fechar todos</translation>
     </message>
 </context>
 </TS>
