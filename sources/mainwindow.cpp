@@ -2118,6 +2118,10 @@ void MainWindow::createDatabase()
 
         m_database.commit();
     }
+    else
+    {
+        qDebug() << m_database.lastError();
+    }
 
 #endif // WITH_SQL
 }
@@ -2482,7 +2486,7 @@ void MainWindow::saveBookmarks()
 #endif // WITH_SQL
 }
 
-void MainWindow::restorePerFileSettings(DocumentView *tab)
+void MainWindow::restorePerFileSettings(DocumentView* tab)
 {
 #ifdef WITH_SQL
 
