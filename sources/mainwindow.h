@@ -153,6 +153,8 @@ protected slots:
 
     void on_outline_clicked(const QModelIndex& index);
 
+    void on_thumbnails_verticalScrollBar_valueChanged(int value);
+
 protected:
     void closeEvent(QCloseEvent* event);
 

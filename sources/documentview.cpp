@@ -576,9 +576,9 @@ QGraphicsScene* DocumentView::thumbnailsScene() const
     return m_thumbnailsScene;
 }
 
-QGraphicsItem* DocumentView::thumbnailsItem(int page) const
+const QVector< ThumbnailItem* >& DocumentView::thumbnails() const
 {
-    return m_thumbnails.value(page - 1, 0);
+    return m_thumbnails;
 }
 
 void DocumentView::show()

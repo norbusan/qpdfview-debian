@@ -431,7 +431,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnailsItem(currentPage));
+        m_thumbnailsView->ensureVisible(currentTab()->thumbnails().at(currentPage - 1));
     }
 }
 
@@ -1226,6 +1226,24 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
     }
 }
 
+void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
+{
+    Q_UNUSED(value);
+
+    if(m_thumbnailsView->scene() != 0)
+    {
+        QRectF visibleRect = m_thumbnailsView->mapToScene(m_thumbnailsView->viewport()->rect()).boundingRect();
+
+        foreach(ThumbnailItem* page, currentTab()->thumbnails())
+        {
+            if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
+            {
+                page->cancelRender();
+            }
+        }
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     saveTabs();
@@ -1893,6 +1911,8 @@ void MainWindow::createDocks()
     m_thumbnailsDock->hide();
 
     m_thumbnailsView = new QGraphicsView(this);
+
+    connect(m_thumbnailsView->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_thumbnails_verticalScrollBar_valueChanged(int)));
 
     m_thumbnailsDock->setWidget(m_thumbnailsView);
 }

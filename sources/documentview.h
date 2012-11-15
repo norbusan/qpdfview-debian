@@ -148,7 +148,7 @@ public:
     int searchProgress() const;
 
     QGraphicsScene* thumbnailsScene() const;
-    QGraphicsItem* thumbnailsItem(int page) const;
+    const QVector< ThumbnailItem* >& thumbnails() const;
 
     QStandardItemModel* outlineModel() const;
     QStandardItemModel* propertiesModel() const;
