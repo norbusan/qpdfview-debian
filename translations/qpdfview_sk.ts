@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1617"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished">&amp;Viaceré strany</translation>
+        <translation type="unfinished">Viac&amp;eré strany</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1625"/>
