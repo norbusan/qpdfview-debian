@@ -173,7 +173,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="687"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunne ikke gemme kopi i &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="727"/>
@@ -201,305 +201,305 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1396"/>
+        <location filename="../sources/mainwindow.cpp" line="1414"/>
         <source>Page width</source>
         <translation type="unfinished">Sidebredde</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1397"/>
+        <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>Page size</source>
         <translation type="unfinished">Sidestørrelse</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1424"/>
+        <location filename="../sources/mainwindow.cpp" line="1442"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">&amp;Versalfølsom</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1425"/>
+        <location filename="../sources/mainwindow.cpp" line="1443"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marker &amp;alle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1434"/>
+        <location filename="../sources/mainwindow.cpp" line="1452"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Åbn...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1442"/>
+        <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Åbn i nyt &amp;faneblad...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1450"/>
+        <location filename="../sources/mainwindow.cpp" line="1468"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Opdater</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1458"/>
+        <location filename="../sources/mainwindow.cpp" line="1476"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Gem kopi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1466"/>
+        <location filename="../sources/mainwindow.cpp" line="1484"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Udskriv...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1474"/>
+        <location filename="../sources/mainwindow.cpp" line="1492"/>
         <source>&amp;Exit</source>
         <translation type="unfinished">&amp;Afslut</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1482"/>
+        <location filename="../sources/mainwindow.cpp" line="1500"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Foregående side</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1490"/>
+        <location filename="../sources/mainwindow.cpp" line="1508"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Næste side</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1498"/>
+        <location filename="../sources/mainwindow.cpp" line="1516"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Første &amp;side</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1506"/>
+        <location filename="../sources/mainwindow.cpp" line="1524"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Sidste side</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1514"/>
+        <location filename="../sources/mainwindow.cpp" line="1532"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;Gå til side...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1522"/>
+        <location filename="../sources/mainwindow.cpp" line="1540"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Søg...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1530"/>
+        <location filename="../sources/mainwindow.cpp" line="1548"/>
         <source>Find previous</source>
         <translation type="unfinished">Find forrige</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1538"/>
+        <location filename="../sources/mainwindow.cpp" line="1556"/>
         <source>Find next</source>
         <translation type="unfinished">Find næste</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1546"/>
+        <location filename="../sources/mainwindow.cpp" line="1564"/>
         <source>Cancel search</source>
         <translation type="unfinished">Fortryd søgning</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1554"/>
+        <location filename="../sources/mainwindow.cpp" line="1572"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Kopier til udklipsholder</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1562"/>
+        <location filename="../sources/mainwindow.cpp" line="1580"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Tilføj &amp;notat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1570"/>
+        <location filename="../sources/mainwindow.cpp" line="1588"/>
         <source>Settings...</source>
         <translation type="unfinished">Indstillinger...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1575"/>
+        <location filename="../sources/mainwindow.cpp" line="1593"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Fortløbende</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1583"/>
+        <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;To sider</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1591"/>
+        <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">To sider &amp;med forside</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1599"/>
+        <location filename="../sources/mainwindow.cpp" line="1617"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Flere sider</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1607"/>
+        <location filename="../sources/mainwindow.cpp" line="1625"/>
         <source>Zoom &amp;in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fors&amp;tør</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1615"/>
+        <location filename="../sources/mainwindow.cpp" line="1633"/>
         <source>Zoom &amp;out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">For&amp;mindsk</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1623"/>
+        <location filename="../sources/mainwindow.cpp" line="1641"/>
         <source>Original &amp;size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprindelig &amp;størrelse</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1631"/>
+        <location filename="../sources/mainwindow.cpp" line="1649"/>
         <source>Fit to page width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilpas sidebredden</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1639"/>
+        <location filename="../sources/mainwindow.cpp" line="1657"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Tilpas sidestørrelsen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1647"/>
+        <location filename="../sources/mainwindow.cpp" line="1665"/>
         <source>Rotate &amp;left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roter til &amp;venstre</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1655"/>
+        <location filename="../sources/mainwindow.cpp" line="1673"/>
         <source>Rotate &amp;right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roter til &amp;højre</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1663"/>
+        <location filename="../sources/mainwindow.cpp" line="1681"/>
         <source>Fonts...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrifttyper...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1668"/>
+        <location filename="../sources/mainwindow.cpp" line="1686"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Fuldskærm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1676"/>
+        <location filename="../sources/mainwindow.cpp" line="1694"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Præsentation...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1684"/>
+        <location filename="../sources/mainwindow.cpp" line="1702"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Forrige faneblad</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1690"/>
+        <location filename="../sources/mainwindow.cpp" line="1708"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Næste faneblad</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1696"/>
+        <location filename="../sources/mainwindow.cpp" line="1714"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Luk faneblad</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1704"/>
+        <location filename="../sources/mainwindow.cpp" line="1722"/>
         <source>Close &amp;all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Luk &amp;alle faneblade</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1710"/>
+        <location filename="../sources/mainwindow.cpp" line="1728"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1716"/>
-        <source>&amp;Previous bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1722"/>
-        <source>&amp;Next bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1728"/>
-        <source>&amp;Add bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1734"/>
+        <source>&amp;Previous bookmark</source>
+        <translation type="unfinished">&amp;Forrige bogmærke</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1740"/>
+        <source>&amp;Next bookmark</source>
+        <translation type="unfinished">&amp;Næste bogmærke</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1746"/>
+        <source>&amp;Add bookmark</source>
+        <translation type="unfinished">&amp;Tilføj bogmærke</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1752"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">F&amp;jern bogmærke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1740"/>
+        <location filename="../sources/mainwindow.cpp" line="1758"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern alle bogmærker</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1746"/>
+        <location filename="../sources/mainwindow.cpp" line="1764"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Indhold</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1754"/>
+        <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Om</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1764"/>
-        <location filename="../sources/mainwindow.cpp" line="1904"/>
+        <location filename="../sources/mainwindow.cpp" line="1782"/>
+        <location filename="../sources/mainwindow.cpp" line="1924"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Filer</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1778"/>
-        <location filename="../sources/mainwindow.cpp" line="1942"/>
+        <location filename="../sources/mainwindow.cpp" line="1796"/>
+        <location filename="../sources/mainwindow.cpp" line="1962"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Rediger</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1796"/>
-        <location filename="../sources/mainwindow.cpp" line="1961"/>
+        <location filename="../sources/mainwindow.cpp" line="1814"/>
+        <location filename="../sources/mainwindow.cpp" line="1981"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Vis</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1819"/>
+        <location filename="../sources/mainwindow.cpp" line="1837"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Søg</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1839"/>
+        <location filename="../sources/mainwindow.cpp" line="1857"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Oversigt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1862"/>
+        <location filename="../sources/mainwindow.cpp" line="1880"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Egenskaber</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="1903"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Miniaturebilleder</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1977"/>
+        <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Værktøjslinjer</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1982"/>
+        <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Paneler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1994"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Faneblade</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2005"/>
+        <location filename="../sources/mainwindow.cpp" line="2025"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bogmærker</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2016"/>
+        <location filename="../sources/mainwindow.cpp" line="2036"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hjælp</translation>
     </message>
@@ -519,27 +519,27 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rediger formularfeltet &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopier &amp;tekst</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="752"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopier &amp;billede</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="753"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gem billede til &amp;fil...</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="800"/>
         <source>Save image to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gam billede til fil</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="804"/>
@@ -549,17 +549,17 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="804"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunne ikke gemme billede til fil &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilføj &amp;tekst</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilføj &amp;markering</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="880"/>
@@ -571,7 +571,7 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Version 0.20.1 eller højere af Poppler-biblioteket er nødvendigt for at tilføje eller fjerne annoteringer.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
@@ -597,12 +597,12 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilpas side:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Landskab:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
@@ -612,12 +612,12 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lige sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ulige sider</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
@@ -657,47 +657,47 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sider per ark:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedefra til top og venstre til højre</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedefra til top og højre til venstre</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Venstre til højre og nedefra og op</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Venstre til højre og oppefra og ned</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Højre til venstre og nedefra og op</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Højre til venstre og top til bund</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oppefra og ned og venstre til højre</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oppefra og ned og højre til venstre</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
@@ -736,7 +736,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">G&amp;rafik</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
@@ -761,7 +761,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="200"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Automatisk genindlæsning:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="206"/>
@@ -769,7 +769,7 @@
         <location filename="../sources/settingsdialog.cpp" line="451"/>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Benyttes efter genstart.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="208"/>
@@ -779,17 +779,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="215"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Genskab faneblade:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="222"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Genskab bogmærker:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="229"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synkroniser præsentation:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
@@ -799,32 +799,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Præsentationsskærm</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="244"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; erstattes af den absolutte filsti. &apos;%2&apos; og &apos;%3&apos; erstattes hhv. af linje- og kolonnenummer.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="246"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kilderedigering:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="256"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pynt sider:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="263"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pynt henvisninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pynt formularfelter:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -834,7 +834,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fremhæv varighed:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="288"/>
@@ -844,22 +844,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forvisning af overudskrivning:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sider per række:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="323"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sideafstand:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="333"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Miniatureafstand:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="343"/>
@@ -869,12 +869,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="350"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kantudjævning</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="357"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekstudjævning:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
@@ -926,7 +926,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fanebladsplacering:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
@@ -946,12 +946,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synlighed af faneblad:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="445"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Filværktøjslinje:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
@@ -966,27 +966,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="470"/>
         <source>Zoom modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forstørrelsestilpasninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
         <source>Rotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roteringstilpasninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
         <source>Horizontal modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vandrette tilpasninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="488"/>
         <source>Copy modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopieringstilpasninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="494"/>
         <source>Annotate modifiers:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Annoteringstilpasninger:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="500"/>
