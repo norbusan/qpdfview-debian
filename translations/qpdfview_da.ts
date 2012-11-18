@@ -198,7 +198,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1208"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview er en PDF-læser med faneblade som bruger poppler-biblioteket. Se &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for flere oplysninger.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1414"/>
@@ -403,7 +403,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1728"/>
         <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Luk alle &amp;undtagen dette faneblad</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1734"/>
@@ -514,7 +514,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="541"/>
         <source>Open %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åbn %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
@@ -622,12 +622,12 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sidevalg:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enkelt side</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sideopsætning:</translation>
     </message>
 </context>
 <context>
@@ -718,7 +718,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Senest &amp;brugte</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
@@ -756,7 +756,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="193"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åbn adresse:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="200"/>
@@ -774,7 +774,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="208"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Husk senest anvendte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="215"/>
@@ -839,7 +839,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="288"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Omvend farver:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
@@ -901,7 +901,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forudindlæs:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="403"/>
@@ -956,12 +956,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Redigeringsværktøjslinje:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="461"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vis-værktøjslinje:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="470"/>
@@ -1006,7 +1006,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="503"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skift og ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
