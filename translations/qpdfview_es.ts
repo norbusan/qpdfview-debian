@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
-        <translation type="unfinished">Establecer página</translation>
+        <translation type="unfinished">Conjunto de páginas:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
