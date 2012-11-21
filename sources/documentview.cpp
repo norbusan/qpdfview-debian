@@ -812,6 +812,15 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
             break;
         }
 
+        if(printOptions.pageRanges.isEmpty())
+        {
+            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+        }
+        else
+        {
+            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
+        }
+
         switch(printOptions.pageSet)
         {
         case PrintOptions::AllPages:
@@ -822,15 +831,6 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
         case PrintOptions::OddPages:
             num_options = cupsAddOption("page-set", "odd", num_options, &options);
             break;
-        }
-
-        if(printOptions.pageRanges.isEmpty())
-        {
-            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
-        }
-        else
-        {
-            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
         }
 
         QTemporaryFile temporaryFile;

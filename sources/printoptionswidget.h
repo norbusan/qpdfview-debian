@@ -41,12 +41,11 @@ private:
     QCheckBox* m_fitToPageCheckBox;
     QCheckBox* m_landscapeCheckBox;
 
+    QLineEdit* m_pageRangesLineEdit;
     QComboBox* m_pageSetComboBox;
 
     QComboBox* m_numberUpComboBox;
     QComboBox* m_numberUpLayoutComboBox;
-
-    QLineEdit* m_pageRangesLineEdit;
 
 };
 

@@ -35,6 +35,10 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
 
     m_formLayout->addRow(tr("Landscape:"), m_landscapeCheckBox);
 
+    m_pageRangesLineEdit = new QLineEdit(this);
+
+    m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
+
     m_pageSetComboBox = new QComboBox(this);
     m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(DocumentView::PrintOptions::AllPages));
     m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(DocumentView::PrintOptions::EvenPages));
@@ -66,10 +70,6 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_numberUpLayoutComboBox->setCurrentIndex(3);
 
     m_formLayout->addRow(tr("Number-up layout:"), m_numberUpLayoutComboBox);
-
-    m_pageRangesLineEdit = new QLineEdit(this);
-
-    m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
 }
 
 DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
@@ -79,12 +79,11 @@ DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
     printOptions.landscape = m_landscapeCheckBox->isChecked();
 
+    printOptions.pageRanges = m_pageRangesLineEdit->text();
     printOptions.pageSet = static_cast< DocumentView::PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());
 
     printOptions.numberUp = static_cast< DocumentView::PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt());
     printOptions.numberUpLayout = static_cast< DocumentView::PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt());
-
-    printOptions.pageRanges = m_pageRangesLineEdit->text();
 
     return printOptions;
 }
