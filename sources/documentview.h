@@ -195,7 +195,9 @@ public:
 
         NumberUpLayout numberUpLayout;
 
-        PrintOptions() : fitToPage(false), landscape(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+        QString pageRanges;
+
+        PrintOptions() : fitToPage(false), landscape(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom), pageRanges() {}
 
     };
 

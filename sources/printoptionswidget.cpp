@@ -66,6 +66,10 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_numberUpLayoutComboBox->setCurrentIndex(3);
 
     m_formLayout->addRow(tr("Number-up layout:"), m_numberUpLayoutComboBox);
+
+    m_pageRangesLineEdit = new QLineEdit(this);
+
+    m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
 }
 
 DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
@@ -79,6 +83,8 @@ DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
 
     printOptions.numberUp = static_cast< DocumentView::PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt());
     printOptions.numberUpLayout = static_cast< DocumentView::PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt());
+
+    printOptions.pageRanges = m_pageRangesLineEdit->text();
 
     return printOptions;
 }

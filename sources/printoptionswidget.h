@@ -46,6 +46,8 @@ private:
     QComboBox* m_numberUpComboBox;
     QComboBox* m_numberUpLayoutComboBox;
 
+    QLineEdit* m_pageRangesLineEdit;
+
 };
 
 #endif // PRINTOPTIONSWIDGET_H
