@@ -160,7 +160,14 @@ void PresentationView::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
-    painter.fillRect(rect(), QBrush(PageItem::invertColors() ? Qt::white : Qt::black));
+    QColor backgroundColor = m_document->paperColor();
+
+    if(PageItem::invertColors())
+    {
+        backgroundColor.setRgb(~backgroundColor.rgb());
+    }
+
+    painter.fillRect(rect(), QBrush(backgroundColor));
 
     if(!m_image.isNull())
     {
