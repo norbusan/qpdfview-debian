@@ -463,6 +463,7 @@ void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMod
     {
         switch(scaleMode)
         {
+        default:
         case DocumentView::ScaleFactor:
             m_fitToPageWidthAction->setChecked(false);
             m_fitToPageSizeAction->setChecked(false);

@@ -116,7 +116,8 @@ public:
         SinglePageMode = 0,
         TwoPagesMode = 1,
         TwoPagesWithCoverPageMode = 2,
-        MultiplePagesMode = 3
+        MultiplePagesMode = 3,
+        NumberOfLayoutModes = 4
     };
 
     LayoutMode layoutMode() const;
@@ -126,7 +127,8 @@ public:
     {
         ScaleFactor = 0,
         FitToPageWidth = 1,
-        FitToPageSize = 2
+        FitToPageSize = 2,
+        NumberOfScaleModes = 3
     };
 
     ScaleMode scaleMode() const;

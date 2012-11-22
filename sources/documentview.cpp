@@ -391,7 +391,7 @@ DocumentView::LayoutMode DocumentView::layoutMode() const
 
 void DocumentView::setLayoutMode(DocumentView::LayoutMode layoutMode)
 {
-    if(m_layoutMode != layoutMode)
+    if(m_layoutMode != layoutMode && layoutMode >= 0 && layoutMode < NumberOfLayoutModes)
     {
         m_layoutMode = layoutMode;
 
@@ -416,7 +416,7 @@ DocumentView::ScaleMode DocumentView::scaleMode() const
 
 void DocumentView::setScaleMode(ScaleMode scaleMode)
 {
-    if(m_scaleMode != scaleMode)
+    if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
     {
         m_scaleMode = scaleMode;
 
@@ -926,6 +926,7 @@ void DocumentView::previousPage()
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         previousPage -= 1;
         break;
@@ -949,6 +950,7 @@ void DocumentView::nextPage()
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         nextPage += 1;
         break;
@@ -1254,6 +1256,7 @@ void DocumentView::on_prefetch_timeout()
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         fromPage -= 1;
         toPage += 1;
@@ -1538,6 +1541,7 @@ int DocumentView::currentPageForPage(int page) const
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         currentPage = page;
         break;
@@ -1561,6 +1565,7 @@ int DocumentView::leftIndexForIndex(int index) const
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         leftIndex = index;
         break;
@@ -1584,6 +1589,7 @@ int DocumentView::rightIndexForIndex(int index) const
 
     switch(m_layoutMode)
     {
+    default:
     case SinglePageMode:
         rightIndex = index;
         break;
@@ -1888,6 +1894,7 @@ void DocumentView::prepareScene()
 
             switch(m_layoutMode)
             {
+            default:
             case SinglePageMode:
                 visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
                 break;
@@ -1918,6 +1925,7 @@ void DocumentView::prepareScene()
 
             switch(m_scaleMode)
             {
+            default:
             case ScaleFactor:
                 break;
             case FitToPageWidth:
@@ -1955,6 +1963,7 @@ void DocumentView::prepareScene()
 
         switch(m_layoutMode)
         {
+        default:
         case SinglePageMode:
             page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
