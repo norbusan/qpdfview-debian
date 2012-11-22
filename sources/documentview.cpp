@@ -29,6 +29,8 @@ bool DocumentView::s_antialiasing = true;
 bool DocumentView::s_textAntialiasing = true;
 bool DocumentView::s_textHinting = false;
 
+QColor DocumentView::s_paperColor(Qt::white);
+
 bool DocumentView::s_overprintPreview = false;
 
 bool DocumentView::s_prefetch = false;
@@ -100,6 +102,19 @@ bool DocumentView::textHinting()
 void DocumentView::setTextHinting(bool textHinting)
 {
     s_textHinting = textHinting;
+}
+
+const QColor& DocumentView::paperColor()
+{
+    return s_paperColor;
+}
+
+void DocumentView::setPaperColor(const QColor& paperColor)
+{
+    if(paperColor.isValid())
+    {
+        s_paperColor = paperColor;
+    }
 }
 
 bool DocumentView::overprintPreview()
@@ -1650,6 +1665,8 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     m_document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
     m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
     m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
+
+    m_document->setPaperColor(s_paperColor);
 
 #ifdef HAS_POPPLER_22
 
