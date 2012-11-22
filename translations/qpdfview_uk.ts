@@ -81,52 +81,52 @@
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1303"/>
+        <location filename="../sources/documentview.cpp" line="1306"/>
         <source>Information</source>
         <translation type="unfinished">Інформація</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1303"/>
+        <location filename="../sources/documentview.cpp" line="1306"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Перехід за посиланням заборонено у налаштуваннях.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1348"/>
+        <location filename="../sources/documentview.cpp" line="1351"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1348"/>
+        <location filename="../sources/documentview.cpp" line="1351"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1487"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">Повернутися на &amp;сторінку %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1495"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Попередня сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1497"/>
+        <location filename="../sources/documentview.cpp" line="1500"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Наступна сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1502"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Перша сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1507"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Остання сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1514"/>
+        <location filename="../sources/documentview.cpp" line="1517"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Оновити</translation>
     </message>
@@ -136,10 +136,10 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="107"/>
         <location filename="../sources/mainwindow.cpp" line="174"/>
-        <location filename="../sources/mainwindow.cpp" line="670"/>
-        <location filename="../sources/mainwindow.cpp" line="687"/>
-        <location filename="../sources/mainwindow.cpp" line="727"/>
-        <location filename="../sources/mainwindow.cpp" line="863"/>
+        <location filename="../sources/mainwindow.cpp" line="671"/>
+        <location filename="../sources/mainwindow.cpp" line="688"/>
+        <location filename="../sources/mainwindow.cpp" line="728"/>
+        <location filename="../sources/mainwindow.cpp" line="864"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
@@ -150,356 +150,356 @@
         <translation type="unfinished">Не вдалося відкрити &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="633"/>
+        <location filename="../sources/mainwindow.cpp" line="634"/>
         <source>Open</source>
         <translation type="unfinished">Відкрити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="649"/>
+        <location filename="../sources/mainwindow.cpp" line="650"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Відкрити у новій вкладці</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="670"/>
-        <location filename="../sources/mainwindow.cpp" line="863"/>
+        <location filename="../sources/mainwindow.cpp" line="671"/>
+        <location filename="../sources/mainwindow.cpp" line="864"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося оновити &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="677"/>
+        <location filename="../sources/mainwindow.cpp" line="678"/>
         <source>Save copy</source>
         <translation type="unfinished">Зберегти копію</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="687"/>
+        <location filename="../sources/mainwindow.cpp" line="688"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося зберегти копію &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="727"/>
+        <location filename="../sources/mainwindow.cpp" line="728"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося роздрукувати &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="766"/>
+        <location filename="../sources/mainwindow.cpp" line="767"/>
         <source>Jump to page</source>
         <translation type="unfinished">Перехід до сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="766"/>
+        <location filename="../sources/mainwindow.cpp" line="767"/>
         <source>Page:</source>
         <translation type="unfinished">Сторінка:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1208"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Про qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1208"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview - це переглядач PDF-файлів із вкладками, що використовує бібліотеку &apos;poppler&apos;. Біль детальну інформацію дивіться на &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1414"/>
+        <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>Page width</source>
         <translation type="unfinished">Ширина сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1415"/>
+        <location filename="../sources/mainwindow.cpp" line="1416"/>
         <source>Page size</source>
         <translation type="unfinished">Розмір сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1442"/>
+        <location filename="../sources/mainwindow.cpp" line="1443"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Враховувати &amp;реґістр</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1443"/>
+        <location filename="../sources/mainwindow.cpp" line="1444"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1452"/>
+        <location filename="../sources/mainwindow.cpp" line="1453"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Відкрити...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1460"/>
+        <location filename="../sources/mainwindow.cpp" line="1461"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Ві&amp;дкрити у новій вкладці...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1468"/>
+        <location filename="../sources/mainwindow.cpp" line="1469"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Оновити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1476"/>
+        <location filename="../sources/mainwindow.cpp" line="1477"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Зберегти копію...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1484"/>
+        <location filename="../sources/mainwindow.cpp" line="1485"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">Д&amp;рукувати...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1492"/>
+        <location filename="../sources/mainwindow.cpp" line="1493"/>
         <source>&amp;Exit</source>
         <translation type="unfinished">Ви&amp;хід</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1500"/>
+        <location filename="../sources/mainwindow.cpp" line="1501"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Попередня сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1508"/>
+        <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Наступна сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1516"/>
+        <location filename="../sources/mainwindow.cpp" line="1517"/>
         <source>&amp;First page</source>
         <translation type="unfinished">П&amp;ерша сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1524"/>
+        <location filename="../sources/mainwindow.cpp" line="1525"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">О&amp;стання сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1532"/>
+        <location filename="../sources/mainwindow.cpp" line="1533"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Пе&amp;рейти до сторінки...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1540"/>
+        <location filename="../sources/mainwindow.cpp" line="1541"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Пошук...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1548"/>
+        <location filename="../sources/mainwindow.cpp" line="1549"/>
         <source>Find previous</source>
         <translation type="unfinished">Знайти попереднє</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1556"/>
+        <location filename="../sources/mainwindow.cpp" line="1557"/>
         <source>Find next</source>
         <translation type="unfinished">Знайти наступне</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1564"/>
+        <location filename="../sources/mainwindow.cpp" line="1565"/>
         <source>Cancel search</source>
         <translation type="unfinished">Скасувати пошук</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1572"/>
+        <location filename="../sources/mainwindow.cpp" line="1573"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">С&amp;копіювати до буфера</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1580"/>
+        <location filename="../sources/mainwindow.cpp" line="1581"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Додати коментар</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1588"/>
+        <location filename="../sources/mainwindow.cpp" line="1589"/>
         <source>Settings...</source>
         <translation type="unfinished">Налаштування...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1593"/>
+        <location filename="../sources/mainwindow.cpp" line="1594"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Рулоном</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1601"/>
+        <location filename="../sources/mainwindow.cpp" line="1602"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Дві сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1609"/>
+        <location filename="../sources/mainwindow.cpp" line="1610"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Дві сторінки та &amp;обкладинка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1617"/>
+        <location filename="../sources/mainwindow.cpp" line="1618"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1625"/>
+        <location filename="../sources/mainwindow.cpp" line="1626"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">З&amp;більшити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1633"/>
+        <location filename="../sources/mainwindow.cpp" line="1634"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">З&amp;меншити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1641"/>
+        <location filename="../sources/mainwindow.cpp" line="1642"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">По&amp;чатковий розмір</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1649"/>
+        <location filename="../sources/mainwindow.cpp" line="1650"/>
         <source>Fit to page width</source>
         <translation type="unfinished">За шириною</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1657"/>
+        <location filename="../sources/mainwindow.cpp" line="1658"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Сторінка цілком</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1665"/>
+        <location filename="../sources/mainwindow.cpp" line="1666"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Повернути &amp;праворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1673"/>
+        <location filename="../sources/mainwindow.cpp" line="1674"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Повернути &amp;ліворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1681"/>
+        <location filename="../sources/mainwindow.cpp" line="1682"/>
         <source>Fonts...</source>
         <translation type="unfinished">Шрифти...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1686"/>
+        <location filename="../sources/mainwindow.cpp" line="1687"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">Повний &amp;екран</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1694"/>
+        <location filename="../sources/mainwindow.cpp" line="1695"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">Пре&amp;зентація...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1702"/>
+        <location filename="../sources/mainwindow.cpp" line="1703"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Попередня вкладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1708"/>
+        <location filename="../sources/mainwindow.cpp" line="1709"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Наступна вкладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1714"/>
+        <location filename="../sources/mainwindow.cpp" line="1715"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Закрити вкладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1722"/>
+        <location filename="../sources/mainwindow.cpp" line="1723"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Закрити &amp;усі вкладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1728"/>
+        <location filename="../sources/mainwindow.cpp" line="1729"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Закрити усі вкладки, &amp;крім поточної</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1734"/>
+        <location filename="../sources/mainwindow.cpp" line="1735"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Попередня закладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1740"/>
+        <location filename="../sources/mainwindow.cpp" line="1741"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Наступна закладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1746"/>
+        <location filename="../sources/mainwindow.cpp" line="1747"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Додати закладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1752"/>
+        <location filename="../sources/mainwindow.cpp" line="1753"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Видалити закладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1758"/>
+        <location filename="../sources/mainwindow.cpp" line="1759"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Видалити усі закладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1764"/>
+        <location filename="../sources/mainwindow.cpp" line="1765"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Зміст</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1772"/>
+        <location filename="../sources/mainwindow.cpp" line="1773"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Про програму</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1782"/>
-        <location filename="../sources/mainwindow.cpp" line="1924"/>
+        <location filename="../sources/mainwindow.cpp" line="1783"/>
+        <location filename="../sources/mainwindow.cpp" line="1925"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1796"/>
-        <location filename="../sources/mainwindow.cpp" line="1962"/>
+        <location filename="../sources/mainwindow.cpp" line="1797"/>
+        <location filename="../sources/mainwindow.cpp" line="1963"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Редагування</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1814"/>
-        <location filename="../sources/mainwindow.cpp" line="1981"/>
+        <location filename="../sources/mainwindow.cpp" line="1815"/>
+        <location filename="../sources/mainwindow.cpp" line="1982"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Вигляд</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1837"/>
+        <location filename="../sources/mainwindow.cpp" line="1838"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1857"/>
+        <location filename="../sources/mainwindow.cpp" line="1858"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Зміст</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1880"/>
+        <location filename="../sources/mainwindow.cpp" line="1881"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Властивості</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1903"/>
+        <location filename="../sources/mainwindow.cpp" line="1904"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Мініатюри</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1997"/>
+        <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Па&amp;нелі</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2002"/>
+        <location filename="../sources/mainwindow.cpp" line="2003"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Пр&amp;ичепи</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2014"/>
+        <location filename="../sources/mainwindow.cpp" line="2015"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">В&amp;кладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2025"/>
+        <location filename="../sources/mainwindow.cpp" line="2026"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2036"/>
+        <location filename="../sources/mainwindow.cpp" line="2037"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Справка</translation>
     </message>
