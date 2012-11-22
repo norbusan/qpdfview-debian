@@ -80,6 +80,7 @@ private:
 
     QSpinBox* m_highlightDurationSpinBox;
 
+    QLineEdit* m_paperColorLineEdit;
     QCheckBox* m_invertColorsCheckBox;
 
     QCheckBox* m_overprintPreviewCheckBox;

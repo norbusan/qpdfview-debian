@@ -79,6 +79,7 @@ void SettingsDialog::accept()
 
     m_settings->setValue("documentView/highlightDuration", m_highlightDurationSpinBox->value());
 
+    m_settings->setValue("documentView/paperColor", m_paperColorLineEdit->text());
     m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
 
     m_settings->setValue("documentView/overprintPreview", m_overprintPreviewCheckBox->isChecked());
@@ -146,6 +147,7 @@ void SettingsDialog::on_defaults_clicked()
 
     m_highlightDurationSpinBox->setValue(5000);
 
+    m_paperColorLineEdit->setText("white");
     m_invertColorsCheckBox->setChecked(false);
 
     m_overprintPreviewCheckBox->setChecked(false);
@@ -279,6 +281,13 @@ void SettingsDialog::createGraphicsTab()
     m_highlightDurationSpinBox->setValue(m_settings->value("documentView/highlightDuration", 5000).toInt());
 
     m_graphicsLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
+
+    // paper color
+
+    m_paperColorLineEdit = new QLineEdit(this);
+    m_paperColorLineEdit->setText(m_settings->value("documentView/paperColor", "white").toString());
+
+    m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorLineEdit);
 
     // invert colors
 
