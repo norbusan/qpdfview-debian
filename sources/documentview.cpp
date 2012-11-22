@@ -1715,7 +1715,14 @@ void DocumentView::preparePages()
     }
     else
     {
-        m_pagesScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
+        QColor backgroundColor = s_paperColor;
+
+        if(PageItem::invertColors())
+        {
+            backgroundColor.setRgb(~backgroundColor.rgb());
+        }
+
+        m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
     }
 }
 
@@ -1777,7 +1784,14 @@ void DocumentView::prepareThumbnails()
     }
     else
     {
-        m_thumbnailsScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
+        QColor backgroundColor = s_paperColor;
+
+        if(PageItem::invertColors())
+        {
+            backgroundColor.setRgb(~backgroundColor.rgb());
+        }
+
+        m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
     }
 
     m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
