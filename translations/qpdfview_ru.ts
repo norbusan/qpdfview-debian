@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -128,7 +128,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1517"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Обновить</translation>
+        <translation type="unfinished">&amp;Refresh</translation>
     </message>
 </context>
 <context>
@@ -662,12 +662,12 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">Сверху вниз и слева направо</translation>
+        <translation type="unfinished">Снизу вверх и слева направо</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">Сверху вниз и справа налево</translation>
+        <translation type="unfinished">Снизу вверх и справа налево</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
@@ -844,7 +844,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предварительный просмотр:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>

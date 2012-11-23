@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="uk_UA">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1444"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виділити &amp;усе</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1453"/>
@@ -328,7 +328,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1618"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Кілька сторінок</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1626"/>
@@ -519,7 +519,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="568"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Редагувати поле &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="751"/>
@@ -571,7 +571,7 @@
         <location filename="../sources/pageitem.cpp" line="880"/>
         <location filename="../sources/pageitem.cpp" line="914"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Для додавання та прибирання коментарів потрібна версія Poppler 0.20.1 та вище.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="891"/>
@@ -592,117 +592,117 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="26"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Розширені налаштування</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="32"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">За розміром сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="36"/>
         <source>Landscape:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Альбомна</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="39"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Усі сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Парні сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Непарні сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Набір сторінок:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="47"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Одна сторінка</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="48"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дві сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Чотири сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="50"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шість сторінок</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="51"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дев&apos;ять сторінок</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шістнадцять сторінок</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сторінок на аркуші:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="58"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Знизу вгору зліва направо</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Знизу вгору справа наліво</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зліва направо та знизу вгору</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="61"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зліва направо та згори вниз</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="62"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Справа наліво та знизу вгору</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Справа наліво та згори вниз</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Згори вниз та зліва направо</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Згори вниз та справа наліво</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Розташування сторінок:</translation>
     </message>
 </context>
 <context>
@@ -731,7 +731,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Поведінка</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -824,7 +824,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виділяти поля форм:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -844,12 +844,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Попередній перегляд:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сторінок у ряд:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="323"/>
@@ -1024,12 +1024,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="133"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Розгорнути все</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="134"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Згорнути все</translation>
     </message>
 </context>
 </TS>
