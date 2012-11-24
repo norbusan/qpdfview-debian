@@ -29,6 +29,7 @@ bool DocumentView::s_antialiasing = true;
 bool DocumentView::s_textAntialiasing = true;
 bool DocumentView::s_textHinting = false;
 
+QColor DocumentView::s_backgroundColor(Qt::darkGray);
 QColor DocumentView::s_paperColor(Qt::white);
 
 bool DocumentView::s_overprintPreview = false;
@@ -102,6 +103,19 @@ bool DocumentView::textHinting()
 void DocumentView::setTextHinting(bool textHinting)
 {
     s_textHinting = textHinting;
+}
+
+const QColor& DocumentView::backgroundColor()
+{
+    return s_backgroundColor;
+}
+
+void DocumentView::setBackgroundColor(const QColor& backgroundColor)
+{
+    if(backgroundColor.isValid())
+    {
+        s_backgroundColor = backgroundColor;
+    }
 }
 
 const QColor& DocumentView::paperColor()
@@ -1709,21 +1723,23 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
     }
 
+    QColor backgroundColor;
+
     if(PageItem::decoratePages())
     {
-        m_pagesScene->setBackgroundBrush(QBrush(Qt::darkGray));
+        backgroundColor = s_backgroundColor;
     }
     else
     {
-        QColor backgroundColor = s_paperColor;
+        backgroundColor = s_paperColor;
 
         if(PageItem::invertColors())
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
-
-        m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
     }
+
+    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareThumbnails()
@@ -1778,23 +1794,25 @@ void DocumentView::prepareThumbnails()
         height += text->boundingRect().height() + s_thumbnailSpacing;
     }
 
+    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+
+    QColor backgroundColor;
+
     if(PageItem::decoratePages())
     {
-        m_thumbnailsScene->setBackgroundBrush(QBrush(Qt::darkGray));
+        backgroundColor = s_backgroundColor;
     }
     else
     {
-        QColor backgroundColor = s_paperColor;
+        backgroundColor = s_paperColor;
 
         if(PageItem::invertColors())
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
-
-        m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
     }
 
-    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+    m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareOutline()
