@@ -225,7 +225,7 @@ public slots:
 
     bool open(const QString& filePath);
     bool refresh();
-    bool saveCopy(const QString& filePath);
+    bool save(const QString& filePath, bool withChanges);
     bool print(QPrinter* printer, const PrintOptions& printOptions = PrintOptions());
 
     void previousPage();

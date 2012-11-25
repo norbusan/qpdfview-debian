@@ -216,6 +216,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     {
         m_refreshAction->setEnabled(true);
         m_saveCopyAction->setEnabled(true);
+        m_saveAsAction->setEnabled(true);
         m_printAction->setEnabled(true);
 
         m_previousPageAction->setEnabled(true);
@@ -296,6 +297,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     {
         m_refreshAction->setEnabled(false);
         m_saveCopyAction->setEnabled(false);
+        m_saveAsAction->setEnabled(false);
         m_printAction->setEnabled(false);
 
         m_previousPageAction->setEnabled(false);
@@ -679,13 +681,33 @@ void MainWindow::on_saveCopy_triggered()
 
     if(!filePath.isEmpty())
     {
-        if(currentTab()->saveCopy(filePath))
+        if(!currentTab()->save(filePath, false))
         {
             m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
         }
         else
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at '%1'.").arg(filePath));
+        }
+    }
+}
+
+void MainWindow::on_saveAs_triggered()
+{
+    QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
+
+    if(!filePath.isEmpty())
+    {
+        if(currentTab()->save(filePath, true))
+        {
+            open(filePath, currentTab()->currentPage());
+
+            m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
         }
     }
 }
@@ -1480,6 +1502,14 @@ void MainWindow::createActions()
     m_saveCopyAction->setIconVisibleInMenu(true);
     connect(m_saveCopyAction, SIGNAL(triggered()), SLOT(on_saveCopy_triggered()));
 
+    // save as
+
+    m_saveAsAction = new QAction(tr("Save &as..."), this);
+    m_saveAsAction->setShortcut(QKeySequence::SaveAs);
+    m_saveAsAction->setIcon(QIcon::fromTheme("document-save-as", QIcon(":icons/document-save-as.svg")));
+    m_saveAsAction->setIconVisibleInMenu(true);
+    connect(m_saveAsAction, SIGNAL(triggered()), SLOT(on_saveAs_triggered()));
+
     // print
 
     m_printAction = new QAction(tr("&Print..."), this);
@@ -1789,6 +1819,7 @@ void MainWindow::createToolBars()
         else if(action == "openInNewTab") { m_fileToolBar->addAction(m_openInNewTabAction); }
         else if(action == "refresh") { m_fileToolBar->addAction(m_refreshAction); }
         else if(action == "saveCopy") { m_fileToolBar->addAction(m_saveCopyAction); }
+        else if(action == "saveAs") { m_fileToolBar->addAction(m_saveAsAction); }
         else if(action == "print") { m_fileToolBar->addAction(m_printAction); }
     }
 
@@ -1954,6 +1985,7 @@ void MainWindow::createMenus()
 
     m_fileMenu->addAction(m_refreshAction);
     m_fileMenu->addAction(m_saveCopyAction);
+    m_fileMenu->addAction(m_saveAsAction);
     m_fileMenu->addAction(m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
