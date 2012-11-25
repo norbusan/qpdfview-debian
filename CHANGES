@@ -3,6 +3,8 @@ Release 0.3.7:
   * Separated "Save copy" and "Save as" functionality.
   * Added extended print option "page ranges".
   * Added configurable background and paper color.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Italian translation. Thanks to Claudio Arseni.
 
 Release 0.3.6:
   * Added a 'multiple pages' layout mode.

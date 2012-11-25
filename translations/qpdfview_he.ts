@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שמירה בשם</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא ניתן לשמור בשם ‚%1‘.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="758"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שמירה &amp;בשם...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">טווח עמודים:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -810,7 +810,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שחזור ההגדרות לפי קובץ:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
@@ -865,12 +865,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צבע הרקע:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צבע הנייר:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>

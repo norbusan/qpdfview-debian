@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Speichern unter</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konnte nicht unter &apos;%1&apos; speichern.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="758"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Speichern &amp;unter …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seitenbereiche:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -673,7 +673,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished">Sechszehn Seiten</translation>
+        <translation type="unfinished">Sechzehn Seiten</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="59"/>
@@ -744,20 +744,15 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">Liste &amp;leeren</translation>
+        <translation type="unfinished">&amp;Liste leeren</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="38"/>
-        <source>Defaults</source>
-        <translation type="unfinished">Vorgaben</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="31"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished">&amp;Oberfläche</translation>
+        <location filename="../sources/settingsdialog.cpp" line="29"/>
+        <source>&amp;Behavior</source>
+        <translation type="unfinished">&amp;Verhalten</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
@@ -765,9 +760,19 @@
         <translation type="unfinished">&amp;Grafik</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="31"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Oberfläche</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Modifikatoren</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="38"/>
+        <source>Defaults</source>
+        <translation type="unfinished">Vorgaben</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="199"/>
@@ -805,7 +810,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dateieinstellungen wiederherstellen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
@@ -833,19 +838,44 @@
         <translation type="unfinished">Quelltexteditor:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="275"/>
+        <source>Decorate pages:</source>
+        <translation type="unfinished">Seiten verzieren:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="282"/>
+        <source>Decorate links:</source>
+        <translation type="unfinished">Verweise verzieren:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="289"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Formularfelder verzieren:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="297"/>
+        <source>None</source>
+        <translation type="unfinished">Keine</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="300"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Dauer der Hervorhebungen:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hintergrundfarbe :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Papierfarbe:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <source>Invert colors:</source>
+        <translation type="unfinished">Farben umkehren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
@@ -856,6 +886,58 @@
         <location filename="../sources/settingsdialog.cpp" line="346"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Seiten pro Zeile:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="356"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Abstand der Seiten:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="366"/>
+        <source>Thumbnail spacing:</source>
+        <translation type="unfinished">Abstand der Vorschaubilder:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="376"/>
+        <source>Thumbnail size:</source>
+        <translation type="unfinished">Größe der Vorschaubilder:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="383"/>
+        <source>Antialiasing:</source>
+        <translation type="unfinished">Kantenglättung:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="390"/>
+        <source>Text antialiasing:</source>
+        <translation type="unfinished">Text-Kantenglättung:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="397"/>
+        <source>Text hinting:</source>
+        <translation type="unfinished">Text-Hinting:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <location filename="../sources/settingsdialog.cpp" line="403"/>
+        <location filename="../sources/settingsdialog.cpp" line="404"/>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <location filename="../sources/settingsdialog.cpp" line="407"/>
+        <location filename="../sources/settingsdialog.cpp" line="408"/>
+        <location filename="../sources/settingsdialog.cpp" line="409"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MB</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="421"/>
+        <source>Cache size:</source>
+        <translation type="unfinished">Größe des Zwischenspeichers:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="428"/>
+        <source>Prefetch:</source>
+        <translation type="unfinished">Vorausladen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
@@ -941,88 +1023,6 @@
         <location filename="../sources/settingsdialog.cpp" line="527"/>
         <source>Annotate modifiers:</source>
         <translation type="unfinished">Modifikatoren für Anmerkungen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="275"/>
-        <source>Decorate pages:</source>
-        <translation type="unfinished">Seiten verzieren:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="29"/>
-        <source>&amp;Behavior</source>
-        <translation type="unfinished">&amp;Verhalten</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="282"/>
-        <source>Decorate links:</source>
-        <translation type="unfinished">Verweise verzieren:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="297"/>
-        <source>None</source>
-        <translation type="unfinished">Keine</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="300"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Dauer der Hervorhebungen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Invert colors:</source>
-        <translation type="unfinished">Farben umkehren:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="356"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Abstand der Seiten:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="366"/>
-        <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Abstand der Vorschaubilder:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="376"/>
-        <source>Thumbnail size:</source>
-        <translation type="unfinished">Größe der Vorschaubilder:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="383"/>
-        <source>Antialiasing:</source>
-        <translation type="unfinished">Kantenglättung:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="390"/>
-        <source>Text antialiasing:</source>
-        <translation type="unfinished">Text-Kantenglättung:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="397"/>
-        <source>Text hinting:</source>
-        <translation type="unfinished">Text-Hinting:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <location filename="../sources/settingsdialog.cpp" line="403"/>
-        <location filename="../sources/settingsdialog.cpp" line="404"/>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <location filename="../sources/settingsdialog.cpp" line="406"/>
-        <location filename="../sources/settingsdialog.cpp" line="407"/>
-        <location filename="../sources/settingsdialog.cpp" line="408"/>
-        <location filename="../sources/settingsdialog.cpp" line="409"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="421"/>
-        <source>Cache size:</source>
-        <translation type="unfinished">Größe des Zwischenspeichers:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="428"/>
-        <source>Prefetch:</source>
-        <translation type="unfinished">Vorausladen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="533"/>
