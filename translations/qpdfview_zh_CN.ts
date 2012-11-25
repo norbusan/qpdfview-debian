@@ -179,7 +179,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">另存为</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>

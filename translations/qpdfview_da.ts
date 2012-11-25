@@ -179,7 +179,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gem som</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gem &amp;som...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -865,12 +865,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Baggrundsfarve:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Papirfarve:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>
@@ -1065,7 +1065,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="134"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Fold alle sammen</translation>
     </message>
 </context>
 </TS>
