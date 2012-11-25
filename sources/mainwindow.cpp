@@ -1344,6 +1344,9 @@ void MainWindow::restoreSettings()
     DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
     DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
 
+    DocumentView::setBackgroundColor(m_settings->value("documentView/backgroundColor", "gray").toString());
+    DocumentView::setPaperColor(m_settings->value("documentView/paperColor", "white").toString());
+
     DocumentView::setOverprintPreview(m_settings->value("documentView/overprintPreview", false).toBool());
 
     DocumentView::setPrefetch(m_settings->value("documentView/prefetch", false).toBool());

@@ -29,6 +29,9 @@ bool DocumentView::s_antialiasing = true;
 bool DocumentView::s_textAntialiasing = true;
 bool DocumentView::s_textHinting = false;
 
+QColor DocumentView::s_backgroundColor(Qt::darkGray);
+QColor DocumentView::s_paperColor(Qt::white);
+
 bool DocumentView::s_overprintPreview = false;
 
 bool DocumentView::s_prefetch = false;
@@ -100,6 +103,32 @@ bool DocumentView::textHinting()
 void DocumentView::setTextHinting(bool textHinting)
 {
     s_textHinting = textHinting;
+}
+
+const QColor& DocumentView::backgroundColor()
+{
+    return s_backgroundColor;
+}
+
+void DocumentView::setBackgroundColor(const QColor& backgroundColor)
+{
+    if(backgroundColor.isValid())
+    {
+        s_backgroundColor = backgroundColor;
+    }
+}
+
+const QColor& DocumentView::paperColor()
+{
+    return s_paperColor;
+}
+
+void DocumentView::setPaperColor(const QColor& paperColor)
+{
+    if(paperColor.isValid())
+    {
+        s_paperColor = paperColor;
+    }
 }
 
 bool DocumentView::overprintPreview()
@@ -1663,6 +1692,8 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
     m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
 
+    m_document->setPaperColor(s_paperColor);
+
 #ifdef HAS_POPPLER_22
 
     m_document->setRenderHint(Poppler::Document::OverprintPreview, s_overprintPreview);
@@ -1704,14 +1735,23 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
     }
 
+    QColor backgroundColor;
+
     if(PageItem::decoratePages())
     {
-        m_pagesScene->setBackgroundBrush(QBrush(Qt::darkGray));
+        backgroundColor = s_backgroundColor;
     }
     else
     {
-        m_pagesScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
+        backgroundColor = s_paperColor;
+
+        if(PageItem::invertColors())
+        {
+            backgroundColor.setRgb(~backgroundColor.rgb());
+        }
     }
+
+    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareThumbnails()
@@ -1766,16 +1806,25 @@ void DocumentView::prepareThumbnails()
         height += text->boundingRect().height() + s_thumbnailSpacing;
     }
 
+    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+
+    QColor backgroundColor;
+
     if(PageItem::decoratePages())
     {
-        m_thumbnailsScene->setBackgroundBrush(QBrush(Qt::darkGray));
+        backgroundColor = s_backgroundColor;
     }
     else
     {
-        m_thumbnailsScene->setBackgroundBrush(QBrush(PageItem::invertColors() ? Qt::black : Qt::white));
+        backgroundColor = s_paperColor;
+
+        if(PageItem::invertColors())
+        {
+            backgroundColor.setRgb(~backgroundColor.rgb());
+        }
     }
 
-    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+    m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareOutline()

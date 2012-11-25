@@ -64,6 +64,12 @@ public:
     static bool textHinting();
     static void setTextHinting(bool textHinting);
 
+    static const QColor& backgroundColor();
+    static void setBackgroundColor(const QColor& backgroundColor);
+
+    static const QColor& paperColor();
+    static void setPaperColor(const QColor& paperColor);
+
     static bool overprintPreview();
     static void setOverprintPreview(bool overprintPreview);
 
@@ -281,6 +287,9 @@ private:
     static bool s_antialiasing;
     static bool s_textAntialiasing;
     static bool s_textHinting;
+
+    static QColor s_backgroundColor;
+    static QColor s_paperColor;
 
     static bool s_overprintPreview;
 
