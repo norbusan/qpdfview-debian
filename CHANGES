@@ -1,3 +1,8 @@
+Release 0.3.7:
+  * Separated "Save copy" and "Save as" functionality.
+  * Added extended print option "page ranges".
+  * Added configurable background and paper color.
+
 Release 0.3.6:
   * Added a 'multiple pages' layout mode.
   * Added support for extended options in the print dialog.
