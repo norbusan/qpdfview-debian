@@ -1,4 +1,5 @@
 Release 0.3.7:
+  * Added persistent per-file settings.
   * Separated "Save copy" and "Save as" functionality.
   * Added extended print option "page ranges".
   * Added configurable background and paper color.

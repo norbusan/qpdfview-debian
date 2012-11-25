@@ -65,6 +65,7 @@ void SettingsDialog::accept()
 
     m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
     m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
+    m_settings->setValue("mainWindow/restorePerFileSettings", m_restorePerFileSettingsCheckBox->isChecked());
 
     m_settings->setValue("presentationView/sync", m_presentationSyncCheckBox->isChecked());
     m_settings->setValue("presentationView/screen", m_presentationScreenSpinBox->value());
@@ -134,6 +135,7 @@ void SettingsDialog::on_defaults_clicked()
 
     m_restoreTabsCheckBox->setChecked(false);
     m_restoreBookmarksCheckBox->setChecked(false);
+    m_restorePerFileSettingsCheckBox->setChecked(false);
 
     m_presentationSyncCheckBox->setChecked(false);
     m_presentationScreenSpinBox->setValue(-1);
@@ -224,6 +226,19 @@ void SettingsDialog::createBehaviorTab()
     m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
 
     m_behaviorLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
+
+    // restore per-file settings
+
+    m_restorePerFileSettingsCheckBox = new QCheckBox(this);
+    m_restorePerFileSettingsCheckBox->setChecked(m_settings->value("mainWindow/restorePerFileSettings", false).toBool());
+
+    m_behaviorLayout->addRow(tr("Restore per-file settings:"), m_restorePerFileSettingsCheckBox);
+
+#ifndef WITH_SQL
+
+    m_restorePerFileSettingsCheckBox->setEnabled(false);
+
+#endif // WITH_SQL
 
     // presentation sync
 
