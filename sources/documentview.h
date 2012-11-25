@@ -169,6 +169,7 @@ public:
             OddPages = 2
         };
 
+        QString pageRanges;
         PageSet pageSet;
 
         enum NumberUp
@@ -197,7 +198,7 @@ public:
 
         NumberUpLayout numberUpLayout;
 
-        PrintOptions() : fitToPage(false), landscape(false), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+        PrintOptions() : fitToPage(false), landscape(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
 
     };
 
