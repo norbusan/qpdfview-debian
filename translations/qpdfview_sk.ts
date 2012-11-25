@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="sk_SK">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložiť ako</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedalo sa uložiť ako &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="758"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložiť &amp;ako...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozsah strán:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -810,7 +810,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavenia obnovenia pre súbor:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
@@ -865,12 +865,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farba pozadia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farba papiera:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>
