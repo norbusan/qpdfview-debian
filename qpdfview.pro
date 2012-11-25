@@ -34,6 +34,7 @@ SOURCES += \
 
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
+    translations/qpdfview_bs.ts \
     translations/qpdfview_ca.ts \
     translations/qpdfview_cs.ts \
     translations/qpdfview_da.ts \
