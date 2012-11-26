@@ -689,7 +689,7 @@ void MainWindow::on_saveCopy_triggered()
 
     if(!filePath.isEmpty())
     {
-        if(!currentTab()->save(filePath, false))
+        if(currentTab()->save(filePath, false))
         {
             m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
         }
