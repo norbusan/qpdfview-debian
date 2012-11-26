@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="706"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit jako</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="718"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se uložit jako &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="758"/>
@@ -257,7 +257,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit &amp;jako...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1537"/>
@@ -626,7 +626,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozsah stran:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -813,7 +813,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obnovit nastavení souboru:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
@@ -868,12 +868,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barva pozadí:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barva papíru:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>
