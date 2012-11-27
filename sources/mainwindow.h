@@ -53,7 +53,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget* parent = 0);
+    explicit MainWindow(QString instanceName, QWidget* parent = 0);
 
     QSize sizeHint() const;
     QMenu* createPopupMenu();
@@ -290,6 +290,8 @@ private:
     QSqlDatabase m_database;
 
 #endif // WITH_SQL
+
+    QString m_instanceName;
 
     void createDatabase();
 

@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 
     bool unique = false;
     bool nextInstance = false;
-    QString instance;
+    QString instance = "";
     QList< File > files;
 
     {
@@ -219,7 +219,7 @@ int main(int argc, char** argv)
             }
             else
             {
-                mainWindow = new MainWindow();
+                mainWindow = new MainWindow(instance);
 
                 new MainWindowAdaptor(mainWindow);
 
@@ -242,13 +242,13 @@ int main(int argc, char** argv)
         }
         else
         {
-            mainWindow = new MainWindow();
+            mainWindow = new MainWindow("");
         }
     }
 
 #else
 
-    mainWindow = new MainWindow();
+    mainWindow = new MainWindow("");
 
 #endif // WITH_DBUS
 
