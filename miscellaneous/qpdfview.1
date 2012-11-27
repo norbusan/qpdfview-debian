@@ -33,6 +33,8 @@ is a simple viewer for document files in the portable document format (PDF). It 
 .SH OPTIONS
 .IP --unique
 If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
+.IP --instance name
+Sets the name of the current instance opened with --unique. This allows to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name each time.
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
