@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012 Adam Reichold
+Copyright 2012 Michał Trybus
 
 This file is part of qpdfview.
 
@@ -53,7 +54,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget* parent = 0);
+    MainWindow(const QString& instanceName = "", QWidget* parent = 0);
 
     QSize sizeHint() const;
     QMenu* createPopupMenu();
@@ -172,6 +173,8 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
+    QString m_instanceName;
+
     QSettings* m_settings;
 
     void restoreSettings();

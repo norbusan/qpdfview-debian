@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012 Adam Reichold
+Copyright 2012 Michał Trybus
 
 This file is part of qpdfview.
 
@@ -21,7 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent),
+    m_instanceName(instanceName)
 {
     {
         // settings
@@ -2112,10 +2114,11 @@ void MainWindow::createDatabase()
 
         // tabs
 
-        if(!tables.contains("tabs_v1"))
+        if(!tables.contains("tabs_v2"))
         {
-            query.exec("CREATE TABLE tabs_v1 "
+            query.exec("CREATE TABLE tabs_v2 "
                        "(filePath TEXT"
+                       ",instanceName TEXT"
                        ",currentPage INTEGER"
                        ",continuousMode INTEGER"
                        ",layoutMode INTEGER"
@@ -2196,7 +2199,11 @@ void MainWindow::restoreTabs()
         m_database.transaction();
 
         QSqlQuery query(m_database);
-        query.exec("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v1");
+        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v2 WHERE instanceName==?");
+
+        query.bindValue(0, m_instanceName);
+
+        query.exec();
 
         while(query.next())
         {
@@ -2279,31 +2286,37 @@ void MainWindow::saveTabs()
         m_database.transaction();
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM tabs_v1");
-
-        if(!query.isActive())
-        {
-            qDebug() << query.lastError();
-        }
 
         if(m_settings->value("mainWindow/restoreTabs", false).toBool())
         {
-            query.prepare("INSERT INTO tabs_v1 "
-                          "(filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
-                          " VALUES (?,?,?,?,?,?,?)");
+            query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
+
+            query.bindValue(0, m_instanceName);
+
+            query.exec();
+
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
+            }
+
+            query.prepare("INSERT INTO tabs_v2 "
+                          "(filePath,instanceName,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
+                          " VALUES (?,?,?,?,?,?,?,?)");
 
             for(int index = 0; index < m_tabWidget->count(); ++index)
             {
                 query.bindValue(0, QFileInfo(tab(index)->filePath()).absoluteFilePath());
-                query.bindValue(1, tab(index)->currentPage());
+                query.bindValue(1, m_instanceName);
+                query.bindValue(2, tab(index)->currentPage());
 
-                query.bindValue(2, static_cast< uint >(tab(index)->continousMode()));
-                query.bindValue(3, static_cast< uint >(tab(index)->layoutMode()));
+                query.bindValue(3, static_cast< uint >(tab(index)->continousMode()));
+                query.bindValue(4, static_cast< uint >(tab(index)->layoutMode()));
 
-                query.bindValue(4, static_cast< uint >(tab(index)->scaleMode()));
-                query.bindValue(5, tab(index)->scaleFactor());
+                query.bindValue(5, static_cast< uint >(tab(index)->scaleMode()));
+                query.bindValue(6, tab(index)->scaleFactor());
 
-                query.bindValue(6, static_cast< uint >(tab(index)->rotation()));
+                query.bindValue(7, static_cast< uint >(tab(index)->rotation()));
 
                 query.exec();
 
@@ -2312,6 +2325,15 @@ void MainWindow::saveTabs()
                     qDebug() << query.lastError();
                     break;
                 }
+            }
+        }
+        else
+        {
+            query.exec("DELETE FROM tabs_v2");
+
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
             }
         }
 

@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012 Adam Reichold
+Copyright 2012 Michał Trybus
 
 This file is part of qpdfview.
 
@@ -65,6 +66,8 @@ int main(int argc, char** argv)
 #endif // QT_VERSION
 
     bool unique = false;
+    bool instanceIsNext = false;
+    QString instanceName = "";
     QList< File > files;
 
     {
@@ -82,9 +85,25 @@ int main(int argc, char** argv)
 
         foreach(QString argument, arguments)
         {
-            if(argument == "--unique")
+            if(instanceIsNext)
+            {
+                instanceIsNext = false;
+
+                if(argument.isEmpty())
+                {
+                    qWarning() << QObject::tr("An empty instance name is not allowed.");
+                    return 1;
+                }
+
+                instanceName = argument;
+            }
+            else if(argument == "--unique")
             {
                 unique = true;
+            }
+            else if(argument == "--instance")
+            {
+                instanceIsNext = true;
             }
             else
             {
@@ -109,6 +128,18 @@ int main(int argc, char** argv)
 
                 files.append(file);
             }
+        }
+
+        if(instanceIsNext)
+        {
+            qWarning() << QObject::tr("Using '--instance' requires an instance name.");
+            return 1;
+        }
+
+        if(!unique && !instanceName.isEmpty())
+        {
+            qWarning() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
+            return 1;
         }
     }
 
@@ -165,9 +196,16 @@ int main(int argc, char** argv)
     {
         // D-Bus
 
+        QString serviceName = QApplication::organizationDomain();
+
+        if(!instanceName.isEmpty())
+        {
+            serviceName = serviceName + "." + instanceName;
+        }
+
         if(unique)
         {
-            QDBusInterface* interface = new QDBusInterface("local.qpdfview", "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus());
+            QDBusInterface* interface = new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus());
 
             if(interface->isValid())
             {
@@ -191,11 +229,11 @@ int main(int argc, char** argv)
             }
             else
             {
-                mainWindow = new MainWindow();
+                mainWindow = new MainWindow(instanceName);
 
                 new MainWindowAdaptor(mainWindow);
 
-                if(!QDBusConnection::sessionBus().registerService("local.qpdfview"))
+                if(!QDBusConnection::sessionBus().registerService(serviceName))
                 {
                     qDebug() << QDBusConnection::sessionBus().lastError().message();
 
