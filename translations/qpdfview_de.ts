@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="94"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ein leerer Instanzname ist nicht zugelassen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; benötigt einen Instanznamen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="141"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; ist nur im Zusammenhang mit &apos;--unique&apos; zugelassen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="186"/>
@@ -759,7 +759,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Liste leeren</translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
