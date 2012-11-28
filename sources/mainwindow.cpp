@@ -86,6 +86,8 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 {
     if(m_tabWidget->currentIndex() != -1)
     {
+        savePerFileSettings(currentTab());
+
         if(currentTab()->open(filePath))
         {
             restorePerFileSettings(currentTab());
