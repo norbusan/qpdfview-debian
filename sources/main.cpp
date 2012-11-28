@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 #endif // QT_VERSION
 
     bool unique = false;
-    bool instanceIsNext = false;
+    bool instanceNameIsNext = false;
     QString instanceName = "";
     QList< File > files;
 
@@ -85,16 +85,15 @@ int main(int argc, char** argv)
 
         foreach(QString argument, arguments)
         {
-            if(instanceIsNext)
+            if(instanceNameIsNext)
             {
-                instanceIsNext = false;
-
                 if(argument.isEmpty())
                 {
                     qWarning() << QObject::tr("An empty instance name is not allowed.");
                     return 1;
                 }
 
+                instanceNameIsNext = false;
                 instanceName = argument;
             }
             else if(argument == "--unique")
@@ -103,7 +102,7 @@ int main(int argc, char** argv)
             }
             else if(argument == "--instance")
             {
-                instanceIsNext = true;
+                instanceNameIsNext = true;
             }
             else
             {
@@ -130,7 +129,7 @@ int main(int argc, char** argv)
             }
         }
 
-        if(instanceIsNext)
+        if(instanceNameIsNext)
         {
             qWarning() << QObject::tr("Using '--instance' requires an instance name.");
             return 1;
