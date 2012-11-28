@@ -4,6 +4,7 @@ Release 0.3.7:
   * Added extended print option "page ranges".
   * Added configurable background and paper color.
   * Added named instances. Thanks to Michał Trybus.
+  * Added Polish translation. Thanks to Michał Trybus.
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.
   * Updated Italian translation. Thanks to Claudio Arseni.
   * Updated Slovak translation. Thanks to DAG Software.
