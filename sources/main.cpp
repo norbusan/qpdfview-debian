@@ -143,8 +143,6 @@ int main(int argc, char** argv)
         }
     }
 
-    MainWindow* mainWindow = 0;
-
 #ifdef WITH_SYNCTEX
 
     {
@@ -192,6 +190,8 @@ int main(int argc, char** argv)
 #endif // WITH_SYNCTEX
 
 #ifdef WITH_DBUS
+
+    MainWindow* mainWindow = 0;
 
     {
         // D-Bus
@@ -258,7 +258,7 @@ int main(int argc, char** argv)
 
 #else
 
-    mainWindow = new MainWindow();
+    MainWindow* mainWindow = new MainWindow();
 
 #endif // WITH_DBUS
 

@@ -2663,12 +2663,12 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
-bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF &highlight)
+bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF& highlight)
 {
     return mainWindow()->open(filePath, page, highlight);
 }
 
-bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF &highlight)
+bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF& highlight)
 {
     return mainWindow()->openInNewTab(filePath, page, highlight);
 }
