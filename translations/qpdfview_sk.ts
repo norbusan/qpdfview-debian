@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="94"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prázdny názov inštancie nie je povolený.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použitie &apos;--instance&apos; vyžaduje názov inštancie.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="141"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použitie &apos;--instance&apos; nieje povolené bez použitia &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="186"/>
