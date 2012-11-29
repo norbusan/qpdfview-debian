@@ -173,8 +173,6 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
-    QString m_instanceName;
-
     QSettings* m_settings;
 
     void restoreSettings();

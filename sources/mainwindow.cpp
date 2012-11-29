@@ -22,9 +22,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent),
-    m_instanceName(instanceName)
+MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
 {
+    setObjectName(instanceName);
+
     {
         // settings
 
@@ -2203,7 +2204,7 @@ void MainWindow::restoreTabs()
         QSqlQuery query(m_database);
         query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v2 WHERE instanceName==?");
 
-        query.bindValue(0, m_instanceName);
+        query.bindValue(0, objectName());
 
         query.exec();
 
@@ -2293,7 +2294,7 @@ void MainWindow::saveTabs()
         {
             query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
 
-            query.bindValue(0, m_instanceName);
+            query.bindValue(0, objectName());
 
             query.exec();
 
@@ -2309,7 +2310,7 @@ void MainWindow::saveTabs()
             for(int index = 0; index < m_tabWidget->count(); ++index)
             {
                 query.bindValue(0, QFileInfo(tab(index)->filePath()).absoluteFilePath());
-                query.bindValue(1, m_instanceName);
+                query.bindValue(1, objectName());
                 query.bindValue(2, tab(index)->currentPage());
 
                 query.bindValue(3, static_cast< uint >(tab(index)->continousMode()));
