@@ -249,7 +249,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
         <source>&amp;Save copy...</source>
-        <translation type="unfinished">$Salvar uma cópia...</translation>
+        <translation type="unfinished">&amp;Salvar uma cópia...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1533"/>
@@ -344,7 +344,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1674"/>
         <source>&amp;Multiple pages</source>
-        <translation type="unfinished">&amp; Múltiplas páginas</translation>
+        <translation type="unfinished">&amp;Múltiplas páginas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1682"/>
@@ -517,7 +517,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2095"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Ajuda</translation>
+        <translation type="unfinished">A&amp;juda</translation>
     </message>
 </context>
 <context>
@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="92"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Um nome de instância vazio não é permitido.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="134"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar &apos;--instance&apos; requer um nome de instância.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar &apos;--instance&apos; não é permitido sem utilizar &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="183"/>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurar configurações por arquivo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>

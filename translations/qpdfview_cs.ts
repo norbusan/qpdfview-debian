@@ -734,17 +734,17 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/main.cpp" line="92"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prázdný název instance není povolen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="134"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použití&apos;--instance&apos; vyžaduje název instance.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použití&apos;--instance&apos; není povoleno bez použití &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="183"/>
