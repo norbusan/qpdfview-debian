@@ -295,9 +295,11 @@ private:
     void createDatabase();
 
     void restoreTabs();
+    void restoreTabsFromXml();
     void saveTabs();
 
     void restoreBookmarks();
+    void restoreBookmarksFromXml();
     void saveBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);

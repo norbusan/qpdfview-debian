@@ -2133,6 +2133,8 @@ void MainWindow::createDatabase()
             {
                 qDebug() << query.lastError();
             }
+
+            restoreTabsFromXml();
         }
 
         // bookmarks
@@ -2147,6 +2149,8 @@ void MainWindow::createDatabase()
             {
                 qDebug() << query.lastError();
             }
+
+            restoreBookmarksFromXml();
         }
 
         // per-file settings
@@ -2235,6 +2239,13 @@ void MainWindow::restoreTabs()
 
 #else
 
+    restoreTabsFromXml();
+
+#endif // WITH_SQL
+}
+
+void MainWindow::restoreTabsFromXml()
+{
     if(m_settings->value("mainWindow/restoreTabs", false).toBool())
     {
         QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
@@ -2276,8 +2287,6 @@ void MainWindow::restoreTabs()
             file.close();
         }
     }
-
-#endif // WITH_SQL
 }
 
 void MainWindow::saveTabs()
@@ -2429,6 +2438,13 @@ void MainWindow::restoreBookmarks()
 
 #else
 
+    restoreBookmarksFromXml();
+
+#endif // WITH_SQL
+}
+
+void MainWindow::restoreBookmarksFromXml()
+{
     if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
     {
         QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
@@ -2468,8 +2484,6 @@ void MainWindow::restoreBookmarks()
             file.close();
         }
     }
-
-#endif // WITH_SQL
 }
 
 void MainWindow::saveBookmarks()
