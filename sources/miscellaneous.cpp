@@ -211,12 +211,10 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
 
 void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
 {
-    if(event->modifiers() == Qt::ShiftModifier && (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter))
+    QLineEdit::keyPressEvent(event);
+
+    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
     {
-        emit shiftAndReturnPressed();
-    }
-    else
-    {
-        QLineEdit::keyPressEvent(event);
+        emit returnPressed(event->modifiers());
     }
 }

@@ -140,7 +140,7 @@ public:
     void setProgress(int progress);
 
 signals:
-    void shiftAndReturnPressed();
+    void returnPressed(const Qt::KeyboardModifiers& modifiers);
 
 protected:
     void paintEvent(QPaintEvent* event);

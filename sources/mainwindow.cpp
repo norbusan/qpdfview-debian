@@ -818,16 +818,23 @@ void MainWindow::on_search_triggered()
     m_searchProgressLineEdit->setFocus();
 }
 
-void MainWindow::on_search_shiftAndReturnPressed()
+void MainWindow::on_search_returnPressed(const Qt::KeyboardModifiers& modifiers)
 {
-    m_searchTimer->stop();
-
-    if(!m_searchProgressLineEdit->text().isEmpty())
+    if(modifiers == Qt::ShiftModifier)
     {
-        for(int index = 0; index < m_tabWidget->count(); ++index)
+        m_searchTimer->stop();
+
+        if(!m_searchProgressLineEdit->text().isEmpty())
         {
-            tab(index)->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+            for(int index = 0; index < m_tabWidget->count(); ++index)
+            {
+                tab(index)->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+            }
         }
+    }
+    else
+    {
+        on_search_timeout();
     }
 }
 
@@ -1499,8 +1506,7 @@ void MainWindow::createWidgets()
     m_searchTimer->setSingleShot(true);
 
     connect(m_searchProgressLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
-    connect(m_searchProgressLineEdit, SIGNAL(shiftAndReturnPressed()), SLOT(on_search_shiftAndReturnPressed()));
-    connect(m_searchProgressLineEdit, SIGNAL(returnPressed()), SLOT(on_search_timeout()));
+    connect(m_searchProgressLineEdit, SIGNAL(returnPressed(Qt::KeyboardModifiers)), SLOT(on_search_returnPressed(Qt::KeyboardModifiers)));
     connect(m_searchTimer, SIGNAL(timeout()), SLOT(on_search_timeout()));
 
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), this);

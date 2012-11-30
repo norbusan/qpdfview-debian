@@ -110,7 +110,7 @@ protected slots:
     void on_jumpToPage_triggered();
 
     void on_search_triggered();
-    void on_search_shiftAndReturnPressed();
+    void on_search_returnPressed(const Qt::KeyboardModifiers& modifiers);
     void on_search_timeout();
     void on_findPrevious_triggered();
     void on_findNext_triggered();
