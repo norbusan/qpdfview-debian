@@ -818,6 +818,19 @@ void MainWindow::on_search_triggered()
     m_searchProgressLineEdit->setFocus();
 }
 
+void MainWindow::on_search_shiftAndReturnPressed()
+{
+    m_searchTimer->stop();
+
+    if(!m_searchProgressLineEdit->text().isEmpty())
+    {
+        for(int index = 0; index < m_tabWidget->count(); ++index)
+        {
+            tab(index)->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+        }
+    }
+}
+
 void MainWindow::on_search_timeout()
 {
     m_searchTimer->stop();
@@ -1486,6 +1499,7 @@ void MainWindow::createWidgets()
     m_searchTimer->setSingleShot(true);
 
     connect(m_searchProgressLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
+    connect(m_searchProgressLineEdit, SIGNAL(shiftAndReturnPressed()), SLOT(on_search_shiftAndReturnPressed()));
     connect(m_searchProgressLineEdit, SIGNAL(returnPressed()), SLOT(on_search_timeout()));
     connect(m_searchTimer, SIGNAL(timeout()), SLOT(on_search_timeout()));
 

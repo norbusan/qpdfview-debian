@@ -208,3 +208,15 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
     painter.setCompositionMode(QPainter::CompositionMode_Darken);
     painter.fillRect(rect().x(), rect().y(), m_progress * width() / 100, rect().height(), QApplication::palette().highlight());
 }
+
+void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
+{
+    if(event->modifiers() == Qt::ShiftModifier && (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter))
+    {
+        emit shiftAndReturnPressed();
+    }
+    else
+    {
+        QLineEdit::keyPressEvent(event);
+    }
+}

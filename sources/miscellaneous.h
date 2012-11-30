@@ -139,8 +139,12 @@ public:
     int progress() const;
     void setProgress(int progress);
 
+signals:
+    void shiftAndReturnPressed();
+
 protected:
     void paintEvent(QPaintEvent* event);
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     int m_progress;
