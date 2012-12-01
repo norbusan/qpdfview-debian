@@ -645,7 +645,16 @@ void MainWindow::on_open_triggered()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        QString path = m_settings->value("mainWindow/openPath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
+
+#else
+
         QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+
+#endif // QT_VERSION
+
         QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, "Portable document format (*.pdf)");
 
         if(!filePath.isEmpty())
@@ -661,7 +670,16 @@ void MainWindow::on_open_triggered()
 
 void MainWindow::on_openInNewTab_triggered()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QString path = m_settings->value("mainWindow/openPath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
+
+#else
+
     QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+
+#endif // QT_VERSION
+
     QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, "Portable document format (*.pdf)");
 
     if(!filePaths.isEmpty())
@@ -689,7 +707,16 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QString path = m_settings->value("mainWindow/savePath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
+
+#else
+
     QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+
+#endif // QT_VERSION
+
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
@@ -707,7 +734,16 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QString path = m_settings->value("mainWindow/savePath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
+
+#else
+
     QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
+
+#endif // QT_VERSION
+
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
@@ -987,10 +1023,20 @@ void MainWindow::on_fonts_triggered()
     tableView->setAlternatingRowColors(true);
     tableView->setSortingEnabled(true);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
 
     tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-    tableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
     tableView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
     tableView->verticalHeader()->setVisible(false);
 
     tableView->setModel(fontsModel);
@@ -1947,8 +1993,17 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    m_outlineView->header()->setVisible(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_outlineView->header()->setSectionResizeMode(QHeaderView::Stretch);
+
+#else
+
     m_outlineView->header()->setResizeMode(QHeaderView::Stretch);
+
+#endif // QT_VERSION
+
+    m_outlineView->header()->setVisible(false);
 
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
 
@@ -1970,10 +2025,20 @@ void MainWindow::createDocks()
     m_propertiesView->setAlternatingRowColors(true);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    m_propertiesView->horizontalHeader()->setVisible(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
     m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setVisible(false);
     m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_propertiesView->horizontalHeader()->setVisible(false);
+    m_propertiesView->verticalHeader()->setVisible(false);
 
     m_propertiesDock->setWidget(m_propertiesView);
 
@@ -2122,10 +2187,20 @@ void MainWindow::createDatabase()
 {
 #ifdef WITH_SQL
 
-    QDir().mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation));
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+
+#else
+
+    QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+
+#endif // QT_VERSION
+
+    QDir().mkpath(path);
 
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName(QFileInfo(QDir(QDesktopServices::storageLocation(QDesktopServices::DataLocation)), "database").filePath());
+    m_database.setDatabaseName(QFileInfo(QDir(path), "database").filePath());
     m_database.open();
 
     if(m_database.isOpen())

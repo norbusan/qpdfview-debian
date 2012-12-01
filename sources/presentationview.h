@@ -25,6 +25,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+#include <QtConcurrent>
+#include <QtWidgets>
+
+#endif // QT_VERSION
+
 #include <poppler-qt4.h>
 
 #include "pageitem.h"
