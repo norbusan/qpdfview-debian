@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define MAINWINDOW_H
 
 #include <QtCore>
+#include <QtXml>
 #include <QtGui>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -37,10 +38,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtSql>
 
-#else
-
-#include <QtXml>
-
 #endif // WITH_SQL
 
 #ifdef WITH_DBUS
@@ -50,9 +47,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_DBUS
 
 #include "documentview.h"
+#include "printoptionswidget.h"
 #include "miscellaneous.h"
 #include "settingsdialog.h"
-#include "printoptionswidget.h"
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
 

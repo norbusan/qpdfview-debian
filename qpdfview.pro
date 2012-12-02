@@ -10,9 +10,9 @@ HEADERS += \
     sources/searchthread.h \
     sources/presentationview.h \
     sources/documentview.h \
+    sources/printoptionswidget.h \
     sources/miscellaneous.h \
     sources/settingsdialog.h \
-    sources/printoptionswidget.h \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
     sources/mainwindow.h
@@ -24,9 +24,9 @@ SOURCES += \
     sources/searchthread.cpp \
     sources/presentationview.cpp \
     sources/documentview.cpp \
+    sources/printoptionswidget.cpp \
     sources/miscellaneous.cpp \
     sources/settingsdialog.cpp \
-    sources/printoptionswidget.cpp \
     sources/recentlyusedmenu.cpp \
     sources/bookmarkmenu.cpp \
     sources/mainwindow.cpp \

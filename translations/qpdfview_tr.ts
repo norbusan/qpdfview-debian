@@ -134,388 +134,388 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="115"/>
-        <location filename="../sources/mainwindow.cpp" line="184"/>
-        <location filename="../sources/mainwindow.cpp" line="685"/>
-        <location filename="../sources/mainwindow.cpp" line="702"/>
-        <location filename="../sources/mainwindow.cpp" line="722"/>
-        <location filename="../sources/mainwindow.cpp" line="762"/>
-        <location filename="../sources/mainwindow.cpp" line="898"/>
+        <location filename="../sources/mainwindow.cpp" line="116"/>
+        <location filename="../sources/mainwindow.cpp" line="185"/>
+        <location filename="../sources/mainwindow.cpp" line="704"/>
+        <location filename="../sources/mainwindow.cpp" line="730"/>
+        <location filename="../sources/mainwindow.cpp" line="759"/>
+        <location filename="../sources/mainwindow.cpp" line="799"/>
+        <location filename="../sources/mainwindow.cpp" line="955"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="115"/>
-        <location filename="../sources/mainwindow.cpp" line="184"/>
+        <location filename="../sources/mainwindow.cpp" line="116"/>
+        <location filename="../sources/mainwindow.cpp" line="185"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; dosyası açılamadı.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="648"/>
+        <location filename="../sources/mainwindow.cpp" line="658"/>
         <source>Open</source>
         <translation type="unfinished">Aç</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="664"/>
+        <location filename="../sources/mainwindow.cpp" line="683"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Yeni sekmede aç</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="685"/>
-        <location filename="../sources/mainwindow.cpp" line="898"/>
+        <location filename="../sources/mainwindow.cpp" line="704"/>
+        <location filename="../sources/mainwindow.cpp" line="955"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yenilenemedi.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="692"/>
+        <location filename="../sources/mainwindow.cpp" line="720"/>
         <source>Save copy</source>
         <translation type="unfinished">Kopyayı kaydet</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="702"/>
+        <location filename="../sources/mainwindow.cpp" line="730"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Kopya &apos;%1&apos; yoluna kaydedilemedi.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="710"/>
+        <location filename="../sources/mainwindow.cpp" line="747"/>
         <source>Save as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="722"/>
+        <location filename="../sources/mainwindow.cpp" line="759"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="762"/>
+        <location filename="../sources/mainwindow.cpp" line="799"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılamadı.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="801"/>
+        <location filename="../sources/mainwindow.cpp" line="838"/>
         <source>Jump to page</source>
         <translation type="unfinished">Sayfaya geç</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="801"/>
+        <location filename="../sources/mainwindow.cpp" line="838"/>
         <source>Page:</source>
         <translation type="unfinished">Sayfa:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1249"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>About qpdfview</source>
         <translation type="unfinished">qpdfview Hakkında</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1249"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview popler kütüphâne dosyalarını kullanan bir sekmeli PDF görüntüleyicidir. Daha fazla bilgi için &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; bağlantısına bakın.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1463"/>
+        <location filename="../sources/mainwindow.cpp" line="1530"/>
         <source>Page width</source>
         <translation type="unfinished">Sayfa genişliği</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1464"/>
+        <location filename="../sources/mainwindow.cpp" line="1531"/>
         <source>Page size</source>
         <translation type="unfinished">Sayfa boyutu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1491"/>
+        <location filename="../sources/mainwindow.cpp" line="1558"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Eşleme &amp;durumu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1492"/>
+        <location filename="../sources/mainwindow.cpp" line="1559"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1501"/>
+        <location filename="../sources/mainwindow.cpp" line="1568"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Aç...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1509"/>
+        <location filename="../sources/mainwindow.cpp" line="1576"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Yeni &amp;sekmede aç...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1517"/>
+        <location filename="../sources/mainwindow.cpp" line="1584"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Yenile</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1525"/>
+        <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Kopyayı kaydet...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1533"/>
+        <location filename="../sources/mainwindow.cpp" line="1600"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1541"/>
+        <location filename="../sources/mainwindow.cpp" line="1608"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Yazdır...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1549"/>
+        <location filename="../sources/mainwindow.cpp" line="1616"/>
         <source>&amp;Exit</source>
         <translation type="unfinished">&amp;Çıkış</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1557"/>
+        <location filename="../sources/mainwindow.cpp" line="1624"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Önceki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1565"/>
+        <location filename="../sources/mainwindow.cpp" line="1632"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">So&amp;nraki sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1573"/>
+        <location filename="../sources/mainwindow.cpp" line="1640"/>
         <source>&amp;First page</source>
         <translation type="unfinished">İlk say&amp;fa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1581"/>
+        <location filename="../sources/mainwindow.cpp" line="1648"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Son sayfa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1589"/>
+        <location filename="../sources/mainwindow.cpp" line="1656"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;Sayfaya geç...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1597"/>
+        <location filename="../sources/mainwindow.cpp" line="1664"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Ara...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1605"/>
+        <location filename="../sources/mainwindow.cpp" line="1672"/>
         <source>Find previous</source>
         <translation type="unfinished">Öncekini bul</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1613"/>
+        <location filename="../sources/mainwindow.cpp" line="1680"/>
         <source>Find next</source>
         <translation type="unfinished">Sonrakini bul</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1621"/>
+        <location filename="../sources/mainwindow.cpp" line="1688"/>
         <source>Cancel search</source>
         <translation type="unfinished">Aramyı iptâl et</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1629"/>
+        <location filename="../sources/mainwindow.cpp" line="1696"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Panoya kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1637"/>
+        <location filename="../sources/mainwindow.cpp" line="1704"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Not ekle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1645"/>
+        <location filename="../sources/mainwindow.cpp" line="1712"/>
         <source>Settings...</source>
         <translation type="unfinished">Ayarlar...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1650"/>
+        <location filename="../sources/mainwindow.cpp" line="1717"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Sürekli</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1658"/>
+        <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;İkili sayfalar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1666"/>
+        <location filename="../sources/mainwindow.cpp" line="1733"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">&amp;Kapak sayfasıyla birlikte ikili sayfalar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1674"/>
+        <location filename="../sources/mainwindow.cpp" line="1741"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1682"/>
+        <location filename="../sources/mainwindow.cpp" line="1749"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">&amp;Yakınlaştır</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1690"/>
+        <location filename="../sources/mainwindow.cpp" line="1757"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Uzaklaştır</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1698"/>
+        <location filename="../sources/mainwindow.cpp" line="1765"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">&amp;Gerçek boyut</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1706"/>
+        <location filename="../sources/mainwindow.cpp" line="1773"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Sayfa genişliğine sığdır</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1714"/>
+        <location filename="../sources/mainwindow.cpp" line="1781"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Sayfa boyutuna uydur</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1722"/>
+        <location filename="../sources/mainwindow.cpp" line="1789"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">So&amp;la döndür</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1730"/>
+        <location filename="../sources/mainwindow.cpp" line="1797"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Sa&amp;ğa döndür</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1738"/>
+        <location filename="../sources/mainwindow.cpp" line="1805"/>
         <source>Fonts...</source>
         <translation type="unfinished">Yazıbiçimleri...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1743"/>
+        <location filename="../sources/mainwindow.cpp" line="1810"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Tam Ekran</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1751"/>
+        <location filename="../sources/mainwindow.cpp" line="1818"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Sunum...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1759"/>
+        <location filename="../sources/mainwindow.cpp" line="1826"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Önceki sekme</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1765"/>
+        <location filename="../sources/mainwindow.cpp" line="1832"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Sonraki sekme</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1771"/>
+        <location filename="../sources/mainwindow.cpp" line="1838"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Sekmeyi kapat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1779"/>
+        <location filename="../sources/mainwindow.cpp" line="1846"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">&amp;Tüm sekmeleri kapat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1785"/>
+        <location filename="../sources/mainwindow.cpp" line="1852"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">&amp;Şimdiki dışındaki tüm sekmeleri kapat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1791"/>
+        <location filename="../sources/mainwindow.cpp" line="1858"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Önceki yerimi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1797"/>
+        <location filename="../sources/mainwindow.cpp" line="1864"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Sonraki yerimi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1803"/>
+        <location filename="../sources/mainwindow.cpp" line="1870"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">Yerimi &amp;ekle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1809"/>
+        <location filename="../sources/mainwindow.cpp" line="1876"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Yerimini &amp;kaldır</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1815"/>
+        <location filename="../sources/mainwindow.cpp" line="1882"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Tüm yerimlerini kaldır</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1821"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;İçindekiler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1829"/>
+        <location filename="../sources/mainwindow.cpp" line="1896"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Hakkında</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1839"/>
-        <location filename="../sources/mainwindow.cpp" line="1982"/>
+        <location filename="../sources/mainwindow.cpp" line="1906"/>
+        <location filename="../sources/mainwindow.cpp" line="2068"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Dosya</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1854"/>
-        <location filename="../sources/mainwindow.cpp" line="2021"/>
+        <location filename="../sources/mainwindow.cpp" line="1921"/>
+        <location filename="../sources/mainwindow.cpp" line="2107"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">Dü&amp;zenle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1872"/>
-        <location filename="../sources/mainwindow.cpp" line="2040"/>
+        <location filename="../sources/mainwindow.cpp" line="1939"/>
+        <location filename="../sources/mainwindow.cpp" line="2126"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Görünüm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1895"/>
+        <location filename="../sources/mainwindow.cpp" line="1962"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Ara</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1915"/>
+        <location filename="../sources/mainwindow.cpp" line="1982"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Ana Çizgi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1938"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Özellikler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1961"/>
+        <location filename="../sources/mainwindow.cpp" line="2047"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Küçük Resimler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2056"/>
+        <location filename="../sources/mainwindow.cpp" line="2142"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Araç Çubukları</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2061"/>
+        <location filename="../sources/mainwindow.cpp" line="2147"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Rıhtımlar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2073"/>
+        <location filename="../sources/mainwindow.cpp" line="2159"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Sekmeler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2084"/>
+        <location filename="../sources/mainwindow.cpp" line="2170"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Yerimleri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2095"/>
+        <location filename="../sources/mainwindow.cpp" line="2181"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Yardım</translation>
     </message>
