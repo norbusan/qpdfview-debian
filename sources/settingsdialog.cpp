@@ -80,8 +80,8 @@ void SettingsDialog::accept()
 
     m_settings->setValue("documentView/highlightDuration", m_highlightDurationSpinBox->value());
 
-    m_settings->setValue("documentView/backgroundColor", m_backgroundColorLineEdit->text());
-    m_settings->setValue("documentView/paperColor", m_paperColorLineEdit->text());
+    m_settings->setValue("documentView/backgroundColor", QColor::isValidColor(m_backgroundColorLineEdit->text()) ? m_backgroundColorLineEdit->text() : "gray");
+    m_settings->setValue("documentView/paperColor", QColor::isValidColor(m_paperColorLineEdit->text()) ? m_paperColorLineEdit->text() : "white");
     m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
 
     m_settings->setValue("documentView/overprintPreview", m_overprintPreviewCheckBox->isChecked());
