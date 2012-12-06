@@ -2692,7 +2692,7 @@ void MainWindow::restorePerFileSettings(DocumentView* tab)
         QSqlQuery query(m_database);
         query.prepare("SELECT currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM perfilesettings_v1 WHERE filePath==?");
 
-        query.bindValue(0, QFileInfo(tab->filePath()).absoluteFilePath());
+        query.bindValue(0, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
 
         query.exec();
 
@@ -2739,7 +2739,7 @@ void MainWindow::savePerFileSettings(const DocumentView* tab)
 
         query.bindValue(0, QDateTime::currentDateTime().toTime_t());
 
-        query.bindValue(1, QFileInfo(tab->filePath()).absoluteFilePath());
+        query.bindValue(1, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
         query.bindValue(2, tab->currentPage());
 
         query.bindValue(3, static_cast< uint >(tab->continousMode()));
