@@ -300,11 +300,11 @@ private:
     void createDatabase();
 
     void restoreTabs();
-    void restoreTabsFromXml();
+    void restoreTabsFromXml(bool removeFile);
     void saveTabs();
 
     void restoreBookmarks();
-    void restoreBookmarksFromXml();
+    void restoreBookmarksFromXml(bool removeFile);
     void saveBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);
