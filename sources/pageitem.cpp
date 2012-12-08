@@ -27,10 +27,13 @@ bool PageItem::s_decoratePages = true;
 bool PageItem::s_decorateLinks = true;
 bool PageItem::s_decorateFormFields = true;
 
+QColor PageItem::s_backgroundColor(Qt::darkGray);
+QColor PageItem::s_paperColor(Qt::white);
+
 bool PageItem::s_invertColors = false;
 
-Qt::KeyboardModifiers PageItem::s_copyModifiers = Qt::ShiftModifier;
-Qt::KeyboardModifiers PageItem::s_annotateModifiers = Qt::ControlModifier;
+Qt::KeyboardModifiers PageItem::s_copyModifiers(Qt::ShiftModifier);
+Qt::KeyboardModifiers PageItem::s_annotateModifiers(Qt::ControlModifier);
 
 int PageItem::cacheSize()
 {
@@ -70,6 +73,32 @@ bool PageItem::decorateFormFields()
 void PageItem::setDecorateFormFields(bool decorateFormFields)
 {
     s_decorateFormFields = decorateFormFields;
+}
+
+const QColor& PageItem::backgroundColor()
+{
+    return s_backgroundColor;
+}
+
+void PageItem::setBackgroundColor(const QColor& backgroundColor)
+{
+    if(backgroundColor.isValid())
+    {
+        s_backgroundColor = backgroundColor;
+    }
+}
+
+const QColor& PageItem::paperColor()
+{
+    return s_paperColor;
+}
+
+void PageItem::setPaperColor(const QColor& paperColor)
+{
+    if(paperColor.isValid())
+    {
+        s_paperColor = paperColor;
+    }
 }
 
 bool PageItem::invertColors()
@@ -261,7 +290,14 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(s_decoratePages)
     {
-        painter->fillRect(m_boundingRect, QBrush(s_invertColors ? Qt::black : Qt::white));
+        QColor paperColor = s_paperColor;
+
+        if(s_invertColors)
+        {
+            paperColor.setRgb(~paperColor.rgb());
+        }
+
+        painter->fillRect(m_boundingRect, QBrush(paperColor));
 
         painter->drawImage(m_boundingRect.topLeft(), image);
 
@@ -926,7 +962,7 @@ void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& scr
     annotationDialog->show();
 }
 
-void PageItem::editFormField(Poppler::FormField *formField, const QPoint &screenPos)
+void PageItem::editFormField(Poppler::FormField *formField, const QPoint& screenPos)
 {
     if(formField->type() == Poppler::FormField::FormText || formField->type() == Poppler::FormField::FormChoice)
     {

@@ -82,13 +82,13 @@ void SettingsDialog::accept()
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-    m_settings->setValue("documentView/backgroundColor", QColor::isValidColor(m_backgroundColorLineEdit->text()) ? m_backgroundColorLineEdit->text() : "gray");
-    m_settings->setValue("documentView/paperColor", QColor::isValidColor(m_paperColorLineEdit->text()) ? m_paperColorLineEdit->text() : "white");
+    m_settings->setValue("pageItem/backgroundColor", QColor::isValidColor(m_backgroundColorLineEdit->text()) ? m_backgroundColorLineEdit->text() : "gray");
+    m_settings->setValue("pageItem/paperColor", QColor::isValidColor(m_paperColorLineEdit->text()) ? m_paperColorLineEdit->text() : "white");
 
 #else
 
-    m_settings->setValue("documentView/backgroundColor", QColor(m_backgroundColorLineEdit->text()).isValid() ? m_backgroundColorLineEdit->text() : "gray");
-    m_settings->setValue("documentView/paperColor", QColor(m_paperColorLineEdit->text()).isValid() ? m_paperColorLineEdit->text() : "white");
+    m_settings->setValue("pageItem/backgroundColor", QColor(m_backgroundColorLineEdit->text()).isValid() ? m_backgroundColorLineEdit->text() : "gray");
+    m_settings->setValue("pageItem/paperColor", QColor(m_paperColorLineEdit->text()).isValid() ? m_paperColorLineEdit->text() : "white");
 
 #endif // QT_VERSION
 
@@ -312,14 +312,14 @@ void SettingsDialog::createGraphicsTab()
     // background color
 
     m_backgroundColorLineEdit = new QLineEdit(this);
-    m_backgroundColorLineEdit->setText(m_settings->value("documentView/backgroundColor", "gray").toString());
+    m_backgroundColorLineEdit->setText(m_settings->value("pageItem/backgroundColor", "gray").toString());
 
     m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorLineEdit);
 
     // paper color
 
     m_paperColorLineEdit = new QLineEdit(this);
-    m_paperColorLineEdit->setText(m_settings->value("documentView/paperColor", "white").toString());
+    m_paperColorLineEdit->setText(m_settings->value("pageItem/paperColor", "white").toString());
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorLineEdit);
 

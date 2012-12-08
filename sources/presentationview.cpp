@@ -160,7 +160,7 @@ void PresentationView::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
-    QColor backgroundColor = m_document->paperColor();
+    QColor backgroundColor = PageItem::paperColor();
 
     if(PageItem::invertColors())
     {

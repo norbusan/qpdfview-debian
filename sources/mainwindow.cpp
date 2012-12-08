@@ -1421,6 +1421,9 @@ void MainWindow::restoreSettings()
     PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
     PageItem::setDecorateFormFields(m_settings->value("pageItem/decorateFormFields", true).toBool());
 
+    PageItem::setBackgroundColor(m_settings->value("pageItem/backgroundColor", "gray").toString());
+    PageItem::setPaperColor(m_settings->value("pageItem/paperColor", "white").toString());
+
     PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
 
     PageItem::setCopyModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("pageItem/copyModifiers", 0x02000000).toInt()));
@@ -1433,9 +1436,6 @@ void MainWindow::restoreSettings()
     DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
     DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
     DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
-
-    DocumentView::setBackgroundColor(m_settings->value("documentView/backgroundColor", "gray").toString());
-    DocumentView::setPaperColor(m_settings->value("documentView/paperColor", "white").toString());
 
     DocumentView::setOverprintPreview(m_settings->value("documentView/overprintPreview", false).toBool());
 

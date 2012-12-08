@@ -199,7 +199,7 @@ int main(int argc, char** argv)
 
         if(!instanceName.isEmpty())
         {
-            serviceName = serviceName + "." + instanceName;
+            serviceName.append("." + instanceName);
         }
 
         if(unique)

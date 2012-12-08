@@ -36,7 +36,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     setSizeGripEnabled(true);
 }
 
-void AnnotationDialog::showEvent(QShowEvent *event)
+void AnnotationDialog::showEvent(QShowEvent* event)
 {
     QDialog::showEvent(event);
 

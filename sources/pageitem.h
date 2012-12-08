@@ -54,6 +54,12 @@ public:
     static bool decorateFormFields();
     static void setDecorateFormFields(bool decorateFormFields);
 
+    static const QColor& backgroundColor();
+    static void setBackgroundColor(const QColor& backgroundColor);
+
+    static const QColor& paperColor();
+    static void setPaperColor(const QColor& paperColor);
+
     static bool invertColors();
     static void setInvertColors(bool invertColors);
 
@@ -139,6 +145,9 @@ private:
     static bool s_decoratePages;
     static bool s_decorateLinks;
     static bool s_decorateFormFields;
+
+    static QColor s_backgroundColor;
+    static QColor s_paperColor;
 
     static bool s_invertColors;
 

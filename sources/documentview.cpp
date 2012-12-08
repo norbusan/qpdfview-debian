@@ -29,9 +29,6 @@ bool DocumentView::s_antialiasing = true;
 bool DocumentView::s_textAntialiasing = true;
 bool DocumentView::s_textHinting = false;
 
-QColor DocumentView::s_backgroundColor(Qt::darkGray);
-QColor DocumentView::s_paperColor(Qt::white);
-
 bool DocumentView::s_overprintPreview = false;
 
 bool DocumentView::s_prefetch = false;
@@ -47,9 +44,9 @@ qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
 qreal DocumentView::s_zoomBy = 0.1;
 
-Qt::KeyboardModifiers DocumentView::s_zoomModifiers = Qt::ControlModifier;
-Qt::KeyboardModifiers DocumentView::s_rotateModifiers = Qt::ShiftModifier;
-Qt::KeyboardModifiers DocumentView::s_horizontalModifiers = Qt::AltModifier;
+Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
+Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
+Qt::KeyboardModifiers DocumentView::s_horizontalModifiers(Qt::AltModifier);
 
 int DocumentView::s_highlightDuration = 5000;
 
@@ -103,32 +100,6 @@ bool DocumentView::textHinting()
 void DocumentView::setTextHinting(bool textHinting)
 {
     s_textHinting = textHinting;
-}
-
-const QColor& DocumentView::backgroundColor()
-{
-    return s_backgroundColor;
-}
-
-void DocumentView::setBackgroundColor(const QColor& backgroundColor)
-{
-    if(backgroundColor.isValid())
-    {
-        s_backgroundColor = backgroundColor;
-    }
-}
-
-const QColor& DocumentView::paperColor()
-{
-    return s_paperColor;
-}
-
-void DocumentView::setPaperColor(const QColor& paperColor)
-{
-    if(paperColor.isValid())
-    {
-        s_paperColor = paperColor;
-    }
 }
 
 bool DocumentView::overprintPreview()
@@ -1697,7 +1668,7 @@ void DocumentView::prepareDocument(Poppler::Document* document)
     m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
     m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
 
-    m_document->setPaperColor(s_paperColor);
+    m_document->setPaperColor(PageItem::paperColor());
 
 #ifdef HAS_POPPLER_22
 
@@ -1744,11 +1715,11 @@ void DocumentView::preparePages()
 
     if(PageItem::decoratePages())
     {
-        backgroundColor = s_backgroundColor;
+        backgroundColor = PageItem::backgroundColor();
     }
     else
     {
-        backgroundColor = s_paperColor;
+        backgroundColor = PageItem::paperColor();
 
         if(PageItem::invertColors())
         {
@@ -1817,11 +1788,11 @@ void DocumentView::prepareThumbnails()
 
     if(PageItem::decoratePages())
     {
-        backgroundColor = s_backgroundColor;
+        backgroundColor = PageItem::backgroundColor();
     }
     else
     {
-        backgroundColor = s_paperColor;
+        backgroundColor = PageItem::paperColor();
 
         if(PageItem::invertColors())
         {
