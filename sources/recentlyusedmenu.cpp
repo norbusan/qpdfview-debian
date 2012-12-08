@@ -45,7 +45,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
             removeAction(action);
             m_openActionGroup->removeAction(action);
 
-            insertAction(m_separatorAction, action);
+            insertAction(actions().first(), action);
             m_openActionGroup->addAction(action);
 
             return;
@@ -68,7 +68,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
     action->setToolTip(fileInfo.absoluteFilePath());
     action->setData(fileInfo.absoluteFilePath());
 
-    insertAction(m_separatorAction, action);
+    insertAction(actions().first(), action);
     m_openActionGroup->addAction(action);
 }
 
