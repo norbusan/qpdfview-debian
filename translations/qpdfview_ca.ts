@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="92"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No es permet una instància buida.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="134"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar &apos;--instance&apos; necessita d&apos;un nom d&apos;instància.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar &apos;--instance&apos; no està permés sense l&apos;ús de &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="183"/>
