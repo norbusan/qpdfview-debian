@@ -27,106 +27,106 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Name</source>
         <translation type="unfinished">Nome</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Type</source>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Embedded</source>
         <translation type="unfinished">Incorporato</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Subset</source>
         <translation type="unfinished">Sottoinsieme</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>File</source>
         <translation type="unfinished">File</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="595"/>
-        <location filename="../sources/documentview.cpp" line="596"/>
+        <location filename="../sources/documentview.cpp" line="566"/>
+        <location filename="../sources/documentview.cpp" line="567"/>
         <source>Yes</source>
         <translation type="unfinished">Sì</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="595"/>
-        <location filename="../sources/documentview.cpp" line="596"/>
+        <location filename="../sources/documentview.cpp" line="566"/>
+        <location filename="../sources/documentview.cpp" line="567"/>
         <source>No</source>
         <translation type="unfinished">No</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="628"/>
-        <location filename="../sources/documentview.cpp" line="667"/>
+        <location filename="../sources/documentview.cpp" line="599"/>
+        <location filename="../sources/documentview.cpp" line="638"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Sblocca %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="628"/>
-        <location filename="../sources/documentview.cpp" line="667"/>
+        <location filename="../sources/documentview.cpp" line="599"/>
+        <location filename="../sources/documentview.cpp" line="638"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="900"/>
+        <location filename="../sources/documentview.cpp" line="871"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1318"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1318"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Apertura degli URL disabilitata nelle impostazioni.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1363"/>
         <source>Warning</source>
         <translation type="unfinished">Avviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1363"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1533"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Ritorna alla pagina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Pagina precedente</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1517"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pagina &amp;successiva</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1551"/>
+        <location filename="../sources/documentview.cpp" line="1522"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pr&amp;ima pagina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1527"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Ultima pagina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1563"/>
+        <location filename="../sources/documentview.cpp" line="1534"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Aggio&amp;rna</translation>
     </message>
@@ -523,74 +523,74 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="534"/>
+        <location filename="../sources/pageitem.cpp" line="570"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Vai alla pagina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="541"/>
+        <location filename="../sources/pageitem.cpp" line="577"/>
         <source>Open %1.</source>
         <translation type="unfinished">Apri %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="568"/>
+        <location filename="../sources/pageitem.cpp" line="604"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Modifica campo del form «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="751"/>
+        <location filename="../sources/pageitem.cpp" line="787"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Copia &amp;testo</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="752"/>
+        <location filename="../sources/pageitem.cpp" line="788"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copia &amp;immagine</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="789"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Salva immagine in un &amp;file...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="800"/>
+        <location filename="../sources/pageitem.cpp" line="836"/>
         <source>Save image to file</source>
         <translation type="unfinished">Salva immagine in un file</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="840"/>
         <source>Warning</source>
         <translation type="unfinished">Avviso</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="840"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Impossibile salvare l&apos;immagine nel file «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="819"/>
+        <location filename="../sources/pageitem.cpp" line="855"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Aggiungi &amp;testo</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="820"/>
+        <location filename="../sources/pageitem.cpp" line="856"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Aggiungi e&amp;videnziazione</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="880"/>
-        <location filename="../sources/pageitem.cpp" line="914"/>
+        <location filename="../sources/pageitem.cpp" line="916"/>
+        <location filename="../sources/pageitem.cpp" line="950"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="880"/>
-        <location filename="../sources/pageitem.cpp" line="914"/>
+        <location filename="../sources/pageitem.cpp" line="916"/>
+        <location filename="../sources/pageitem.cpp" line="950"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Per aggiungere o rimuovere le note, è richiesta la libreria Poppler verione 0.20.1 o successiva.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="891"/>
+        <location filename="../sources/pageitem.cpp" line="927"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Rimuovi nota</translation>
     </message>

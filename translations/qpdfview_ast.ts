@@ -27,106 +27,106 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Name</source>
         <translation type="unfinished">Nome</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Type</source>
         <translation type="unfinished">Triba</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Embedded</source>
         <translation type="unfinished">Empotráu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>Subset</source>
         <translation type="unfinished">Subconxuntu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="587"/>
+        <location filename="../sources/documentview.cpp" line="558"/>
         <source>File</source>
         <translation type="unfinished">Ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="595"/>
-        <location filename="../sources/documentview.cpp" line="596"/>
+        <location filename="../sources/documentview.cpp" line="566"/>
+        <location filename="../sources/documentview.cpp" line="567"/>
         <source>Yes</source>
         <translation type="unfinished">Si</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="595"/>
-        <location filename="../sources/documentview.cpp" line="596"/>
+        <location filename="../sources/documentview.cpp" line="566"/>
+        <location filename="../sources/documentview.cpp" line="567"/>
         <source>No</source>
         <translation type="unfinished">Non</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="628"/>
-        <location filename="../sources/documentview.cpp" line="667"/>
+        <location filename="../sources/documentview.cpp" line="599"/>
+        <location filename="../sources/documentview.cpp" line="638"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquiar %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="628"/>
-        <location filename="../sources/documentview.cpp" line="667"/>
+        <location filename="../sources/documentview.cpp" line="599"/>
+        <location filename="../sources/documentview.cpp" line="638"/>
         <source>Password:</source>
         <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="900"/>
+        <location filename="../sources/documentview.cpp" line="871"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1318"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1318"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Abrir URLs ta desactivao na configuración.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1363"/>
         <source>Warning</source>
         <translation type="unfinished">Avisu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1363"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nun s&apos;alcontraron datos SyncTeX pa «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1533"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rnar a páxina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Páxina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1517"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Páxina siguie&amp;nte</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1551"/>
+        <location filename="../sources/documentview.cpp" line="1522"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pri&amp;mera páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1527"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1563"/>
+        <location filename="../sources/documentview.cpp" line="1534"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Anova&amp;r</translation>
     </message>
@@ -502,7 +502,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2147"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Puertos</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2159"/>
@@ -523,74 +523,74 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="534"/>
+        <location filename="../sources/pageitem.cpp" line="570"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Dir a páxina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="541"/>
+        <location filename="../sources/pageitem.cpp" line="577"/>
         <source>Open %1.</source>
         <translation type="unfinished">Abrir %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="568"/>
+        <location filename="../sources/pageitem.cpp" line="604"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Editar el campu de formulariu «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="751"/>
+        <location filename="../sources/pageitem.cpp" line="787"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Copiar &amp;testu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="752"/>
+        <location filename="../sources/pageitem.cpp" line="788"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copiar &amp;imaxe</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="789"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Guardar imaxe en &amp;ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="800"/>
+        <location filename="../sources/pageitem.cpp" line="836"/>
         <source>Save image to file</source>
         <translation type="unfinished">Guardar imaxe en ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="840"/>
         <source>Warning</source>
         <translation type="unfinished">Avisu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="840"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nun se pudo guardar la imaxe nel ficheru «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="819"/>
+        <location filename="../sources/pageitem.cpp" line="855"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Amestar &amp;testu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="820"/>
+        <location filename="../sources/pageitem.cpp" line="856"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Amestar &amp;rescampláu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="880"/>
-        <location filename="../sources/pageitem.cpp" line="914"/>
+        <location filename="../sources/pageitem.cpp" line="916"/>
+        <location filename="../sources/pageitem.cpp" line="950"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="880"/>
-        <location filename="../sources/pageitem.cpp" line="914"/>
+        <location filename="../sources/pageitem.cpp" line="916"/>
+        <location filename="../sources/pageitem.cpp" line="950"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">P&apos;amestar o quitar anotaciones ye necesaria la versión 0.20.1 o mayor de la biblioteca Poppler.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="891"/>
+        <location filename="../sources/pageitem.cpp" line="927"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Desanicia&amp;r anotación</translation>
     </message>
@@ -693,32 +693,32 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">D&apos;izquierda a drecha y d&apos;abaxo a arriba</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">D&apos;izquierda a drecha y d&apos;arriba a abaxo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="66"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De drecha a izquierda y d&apos;abaxo a arriba</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="67"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De drecha a izquierda y d&apos;arriba a abaxo</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">D&apos;arriba a abaxo y d&apos;izquierda a drecha</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="69"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">D&apos;arriba a abaxo y de drecha a izquierda</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="72"/>
@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="92"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nun se permite un nome d&apos;instancia baleru.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="134"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pa usar &apos;--instance&apos; fai falta un nome d&apos;instancia.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nun se permite usar &apos;--instance&apos; ensin usar &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="183"/>
@@ -754,12 +754,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="26"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Usaos de recién</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="35"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Llimpiar la llista</translation>
     </message>
 </context>
 <context>
@@ -767,12 +767,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="29"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Comportamientu</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="30"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Gràficos</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="31"/>
@@ -782,22 +782,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="32"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Modificadores</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="38"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predeterminaos</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="209"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir URL:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="216"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anovamientu automáticu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="222"/>
@@ -805,57 +805,57 @@
         <location filename="../sources/settingsdialog.cpp" line="494"/>
         <location filename="../sources/settingsdialog.cpp" line="502"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efectivu dempués de reaniciar.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="224"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rastrar usaos de recién:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="231"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurar llingüetes:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurar marcadores:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaurar preferencies por ficheru:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="258"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizar presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predetermináu</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="267"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="273"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; se camudará pol camín absolutu al ficheru. &apos;%2&apos; resp. &apos;%3&apos; se camudará pol númberu de llinia resp. de columna.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="275"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor de códigu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar páxines:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="292"/>
