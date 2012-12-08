@@ -36,6 +36,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class PrintOptionsWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit PrintOptionsWidget(QWidget* parent = 0);
 

@@ -1352,7 +1352,7 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent* event)
 {
     saveTabs();
     saveBookmarks();
@@ -2200,7 +2200,7 @@ void MainWindow::createDatabase()
     QDir().mkpath(path);
 
     m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName(QFileInfo(QDir(path), "database").filePath());
+    m_database.setDatabaseName(QDir(path).filePath("database"));
     m_database.open();
 
     if(m_database.isOpen())
@@ -2343,7 +2343,7 @@ void MainWindow::restoreTabsFromXml(bool removeFile)
 {
     if(m_settings->value("mainWindow/restoreTabs", false).toBool())
     {
-        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+        QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("tabs.xml"));
 
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -2454,7 +2454,7 @@ void MainWindow::saveTabs()
 
 #else
 
-    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "tabs.xml").filePath());
+    QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("tabs.xml"));
 
     if(m_settings->value("mainWindow/restoreTabs", false).toBool())
     {
@@ -2547,7 +2547,7 @@ void MainWindow::restoreBookmarksFromXml(bool removeFile)
 {
     if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
     {
-        QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+        QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("bookmarks.xml"));
 
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -2645,7 +2645,7 @@ void MainWindow::saveBookmarks()
 
 #else
 
-    QFile file(QFileInfo(QDir(QFileInfo(m_settings->fileName()).path()), "bookmarks.xml").filePath());
+    QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("bookmarks.xml"));
 
     if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
     {

@@ -648,7 +648,7 @@ bool DocumentView::refresh()
         saveLeftAndTop(left, top);
 
         m_numberOfPages = document->numPages();
-        m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : 1;
+        m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : m_numberOfPages;
 
         prepareDocument(document);
 

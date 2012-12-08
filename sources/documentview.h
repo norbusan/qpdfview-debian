@@ -169,6 +169,8 @@ public:
         bool fitToPage;
         bool landscape;
 
+        QString pageRanges;
+
         enum PageSet
         {
             AllPages = 0,
@@ -176,7 +178,6 @@ public:
             OddPages = 2
         };
 
-        QString pageRanges;
         PageSet pageSet;
 
         enum NumberUp
