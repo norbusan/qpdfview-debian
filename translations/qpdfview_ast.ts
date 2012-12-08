@@ -860,52 +860,52 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="292"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar enllaces:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="299"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Decorar campos del formulariu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dengún</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rescamplar la duración:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="317"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color del fondu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color del papel:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>
         <source>Invert colors:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Invertir colores:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="338"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Entever la sobreimpresión:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="356"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páxines per filera:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espaciáu de páxina:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="376"/>
