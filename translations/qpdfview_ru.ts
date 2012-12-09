@@ -184,7 +184,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="759"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не удалось сохранить как &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="799"/>
@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="92"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пустое имя экземпляра не допустимо.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="134"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использование &apos;--instance&apos; требует имени экземпляра.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использование &apos;--instance&apos; не возможно без использования  &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="183"/>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Восстановление пофайловых настроек:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="258"/>
