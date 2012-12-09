@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="747"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar como</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="759"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo guardar como «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="799"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1600"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar &amp;como…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1608"/>
@@ -880,12 +880,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="317"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color de fondo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color del papel:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>

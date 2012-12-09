@@ -128,7 +128,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1534"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Refresh</translation>
+        <translation type="unfinished">&amp;Обновить</translation>
     </message>
 </context>
 <context>
@@ -142,7 +142,7 @@
         <location filename="../sources/mainwindow.cpp" line="799"/>
         <location filename="../sources/mainwindow.cpp" line="955"/>
         <source>Warning</source>
-        <translation type="unfinished">Внимание</translation>
+        <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="116"/>
@@ -179,7 +179,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="747"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сохранить как</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="759"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1600"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Со&amp;хранить как...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1608"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Диапазон страниц:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -880,12 +880,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="317"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цвет фона:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цвет бумаги:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>
