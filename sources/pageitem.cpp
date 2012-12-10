@@ -204,12 +204,14 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
         switch(formField->type())
         {
+        default:
         case Poppler::FormField::FormSignature:
             delete formField;
             break;
         case Poppler::FormField::FormText:
             switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
             {
+            default:
             case Poppler::FormFieldText::FileSelect:
                 delete formField;
                 break;
@@ -226,6 +228,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
         case Poppler::FormField::FormButton:
             switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
             {
+            default:
             case Poppler::FormFieldButton::Push:
                 delete formField;
                 break;
@@ -962,7 +965,7 @@ void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& scr
     annotationDialog->show();
 }
 
-void PageItem::editFormField(Poppler::FormField *formField, const QPoint& screenPos)
+void PageItem::editFormField(Poppler::FormField* formField, const QPoint& screenPos)
 {
     if(formField->type() == Poppler::FormField::FormText || formField->type() == Poppler::FormField::FormChoice)
     {

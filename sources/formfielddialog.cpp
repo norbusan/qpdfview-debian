@@ -28,8 +28,8 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
 {
     switch(m_formField->type())
     {
-    case Poppler::FormField::FormButton:
     case Poppler::FormField::FormSignature:
+    case Poppler::FormField::FormButton:
         break;
     case Poppler::FormField::FormText:
         switch(formFieldText()->textType())
@@ -129,8 +129,9 @@ void FormFieldDialog::showEvent(QShowEvent* event)
     {
         switch(m_formField->type())
         {
-        case Poppler::FormField::FormButton:
+        default:
         case Poppler::FormField::FormSignature:
+        case Poppler::FormField::FormButton:
             break;
         case Poppler::FormField::FormText:
             switch(formFieldText()->textType())
@@ -172,8 +173,9 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
 
     switch(m_formField->type())
     {
-    case Poppler::FormField::FormButton:
+    default:
     case Poppler::FormField::FormSignature:
+    case Poppler::FormField::FormButton:
         break;
     case Poppler::FormField::FormText:
         switch(formFieldText()->textType())

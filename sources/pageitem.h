@@ -159,6 +159,7 @@ private:
 
     int m_index;
     QSizeF m_size;
+
     QList< Poppler::Link* > m_links;
     QList< Poppler::Annotation* > m_annotations;
     QList< Poppler::FormField* > m_formFields;
