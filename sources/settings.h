@@ -238,8 +238,6 @@ public:
         QStringList recentlyUsed() const;
         void setRecentlyUsed(const QStringList& recentlyUsed);
 
-        void clearRecentlyUsed();
-
         static inline bool defaultRestoreTabs() { return false; }
         bool restoreTabs() const;
         void setRestoreTabs(bool on);

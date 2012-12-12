@@ -515,11 +515,6 @@ void Settings::MainWindow::setRecentlyUsed(const QStringList& recentlyUsed)
     m_settings->setValue("mainWindow/recentlyUsed", recentlyUsed);
 }
 
-void Settings::MainWindow::clearRecentlyUsed()
-{
-    m_settings->remove("mainWindow/recentlyUsed");
-}
-
 bool Settings::MainWindow::restoreTabs() const
 {
     return m_settings->value("mainWindow/restoreTabs", defaultRestoreTabs()).toBool();

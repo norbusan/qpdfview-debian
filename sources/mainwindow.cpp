@@ -1329,14 +1329,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     removeToolBar(m_searchToolBar);
 
-    if(m_settings->mainWindow()->trackRecentlyUsed())
-    {
-        m_settings->mainWindow()->setRecentlyUsed(m_recentlyUsedMenu->filePaths());
-    }
-    else
-    {
-        m_settings->mainWindow()->clearRecentlyUsed();
-    }
+    m_settings->mainWindow()->setRecentlyUsed(m_settings->mainWindow()->trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
     m_settings->mainWindow()->setGeometry(m_fullscreenAction->isChecked() ? m_fullscreenAction->data().toByteArray() : saveGeometry());
     m_settings->mainWindow()->setState(saveState());
