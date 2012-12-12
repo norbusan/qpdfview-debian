@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#include "settings.h"
+class Settings;
 
 class SettingsDialog : public QDialog
 {

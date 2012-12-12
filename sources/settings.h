@@ -32,7 +32,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#include "pageitem.h"
 #include "documentview.h"
 #include "miscellaneous.h"
 

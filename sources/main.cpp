@@ -22,6 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#ifdef WITH_SYNCTEX
+
+#include <synctex_parser.h>
+
+#endif // WITH_SYNCTEX
+
 struct File
 {
     QString filePath;

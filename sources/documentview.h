@@ -35,21 +35,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-qt4.h>
 
-#ifdef WITH_CUPS
-
-#include <cups/cups.h>
-
-#endif // WITH_CUPS
-
-#ifdef WITH_SYNCTEX
-
-#include <synctex_parser.h>
-
-#endif // WITH_SYNCTEX
-
 #include "pageitem.h"
-#include "searchthread.h"
-#include "presentationview.h"
+
+class SearchThread;
+class PresentationView;
 
 class DocumentView : public QGraphicsView
 {

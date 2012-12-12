@@ -22,6 +22,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settingsdialog.h"
 
+#include <poppler-qt4.h>
+
+#include "settings.h"
+#include "miscellaneous.h"
+
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 {
     m_settings = new Settings(this);

@@ -23,6 +23,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#include <QtXml>
+
+#include "miscellaneous.h"
+#include "settingsdialog.h"
+#include "printoptionswidget.h"
+#include "recentlyusedmenu.h"
+#include "bookmarkmenu.h"
+#include "settings.h"
+
 MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
 {
     setObjectName(instanceName);

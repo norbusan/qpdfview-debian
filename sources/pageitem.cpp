@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pageitem.h"
 
+#include "annotationdialog.h"
+#include "formfielddialog.h"
+
 QCache< PageItem*, QImage > PageItem::s_cache(32 * 1024 * 1024);
 
 bool PageItem::s_decoratePages = true;

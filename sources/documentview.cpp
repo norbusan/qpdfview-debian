@@ -21,6 +21,21 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+#ifdef WITH_CUPS
+
+#include <cups/cups.h>
+
+#endif // WITH_CUPS
+
+#ifdef WITH_SYNCTEX
+
+#include <synctex_parser.h>
+
+#endif // WITH_SYNCTEX
+
+#include "searchthread.h"
+#include "presentationview.h"
+
 bool DocumentView::s_openUrl = false;
 
 bool DocumentView::s_autoRefresh = false;

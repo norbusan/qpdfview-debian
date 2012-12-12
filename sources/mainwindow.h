@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define MAINWINDOW_H
 
 #include <QtCore>
-#include <QtXml>
 #include <QtGui>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -48,12 +47,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_DBUS
 
 #include "documentview.h"
-#include "printoptionswidget.h"
-#include "miscellaneous.h"
-#include "settings.h"
-#include "settingsdialog.h"
-#include "recentlyusedmenu.h"
-#include "bookmarkmenu.h"
+
+class TabWidget;
+class BookmarkMenu;
+class SpinBox;
+class ComboBox;
+class ProgressLineEdit;
+class TreeView;
+class RecentlyUsedMenu;
+class Settings;
 
 class MainWindow : public QMainWindow
 {
