@@ -254,6 +254,7 @@ PageItem::~PageItem()
 
     qDeleteAll(m_links);
     qDeleteAll(m_annotations);
+    qDeleteAll(m_formFields);
 
     if(m_page != 0)
     {
