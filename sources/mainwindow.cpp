@@ -2,6 +2,7 @@
 
 Copyright 2012 Adam Reichold
 Copyright 2012 Michał Trybus
+Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
 
@@ -29,19 +30,19 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
     {
         // settings
 
-        m_settings = new QSettings(this);
+        m_settings = new Settings(this);
 
-        if(m_settings->contains("mainWindow/iconTheme"))
+        m_settings->refresh();
+
+        if(m_settings->mainWindow()->hasIconTheme())
         {
-            QIcon::setThemeName(m_settings->value("mainWindow/iconTheme").toString());
+            QIcon::setThemeName(m_settings->mainWindow()->iconTheme());
         }
 
-        if(m_settings->contains("mainWindow/styleSheet"))
+        if(m_settings->mainWindow()->hasStyleSheet())
         {
-            qApp->setStyleSheet(m_settings->value("mainWindow/styleSheet").toString());
+            qApp->setStyleSheet(m_settings->mainWindow()->styleSheet());
         }
-
-        restoreSettings();
     }
 
     setAcceptDrops(true);
@@ -52,8 +53,8 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
     createDocks();
     createMenus();
 
-    restoreGeometry(m_settings->value("mainWindow/geometry").toByteArray());
-    restoreState(m_settings->value("mainWindow/state").toByteArray());
+    restoreGeometry(m_settings->mainWindow()->geometry());
+    restoreState(m_settings->mainWindow()->state());
 
     createDatabase();
 
@@ -95,7 +96,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
             QFileInfo fileInfo(filePath);
 
-            m_settings->setValue("mainWindow/openPath", fileInfo.absolutePath());
+            m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
             m_recentlyUsedMenu->addOpenAction(filePath);
 
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
@@ -126,18 +127,18 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
     if(newTab->open(filePath))
     {
-        newTab->setContinousMode(m_settings->value("documentView/continuousMode", false).toBool());
-        newTab->setLayoutMode(static_cast< DocumentView::LayoutMode >(m_settings->value("documentView/layoutMode", 0).toUInt()));
-        newTab->setScaleMode(static_cast< DocumentView::ScaleMode >(m_settings->value("documentView/scaleMode", 0).toUInt()));
-        newTab->setScaleFactor(m_settings->value("documentView/scaleFactor", 1.0).toReal());
-        newTab->setRotation(static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", 0).toUInt()));
-        newTab->setHighlightAll(m_settings->value("documentView/highlightAll", false).toBool());
+        newTab->setContinousMode(m_settings->documentView()->continuousMode());
+        newTab->setLayoutMode(m_settings->documentView()->layoutMode());
+        newTab->setScaleMode(m_settings->documentView()->scaleMode());
+        newTab->setScaleFactor(m_settings->documentView()->scaleFactor());
+        newTab->setRotation(m_settings->documentView()->rotation());
+        newTab->setHighlightAll(m_settings->documentView()->highlightAll());
 
         restorePerFileSettings(newTab);
 
         QFileInfo fileInfo(filePath);
 
-        m_settings->setValue("mainWindow/openPath", fileInfo.absolutePath());
+        m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
 
         int index = m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, newTab, fileInfo.completeBaseName());
@@ -456,7 +457,7 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     {
         m_continuousModeAction->setChecked(continuousMode);
 
-        m_settings->setValue("documentView/continuousMode", continuousMode);
+        m_settings->documentView()->setContinuousMode(continuousMode);
     }
 }
 
@@ -468,7 +469,7 @@ void MainWindow::on_currentTab_layoutModeChanged(DocumentView::LayoutMode layout
         m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == DocumentView::TwoPagesWithCoverPageMode);
         m_multiplePagesModeAction->setChecked(layoutMode == DocumentView::MultiplePagesMode);
 
-        m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
+        m_settings->documentView()->setLayoutMode(layoutMode);
     }
 }
 
@@ -505,7 +506,7 @@ void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMod
             break;
         }
 
-        m_settings->setValue("documentView/scaleMode", static_cast< uint >(scaleMode));
+        m_settings->documentView()->setScaleMode(scaleMode);
     }
 }
 
@@ -522,7 +523,7 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, DocumentView::minimumScaleFactor()));
         }
 
-        m_settings->setValue("documentView/scaleFactor", scaleFactor);
+        m_settings->documentView()->setScaleFactor(scaleFactor);
     }
 }
 
@@ -530,7 +531,7 @@ void MainWindow::on_currentTab_rotationChanged(Poppler::Page::Rotation rotation)
 {
     if(senderIsCurrentTab())
     {
-        m_settings->setValue("documentView/rotation", static_cast< uint >(rotation));
+        m_settings->documentView()->setRotation(rotation);
     }
 }
 
@@ -540,7 +541,7 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
     {
         m_highlightAllCheckBox->setChecked(highlightAll);
 
-        m_settings->setValue("documentView/highlightAll", highlightAll);
+        m_settings->documentView()->setHighlightAll(highlightAll);
     }
 }
 
@@ -645,16 +646,7 @@ void MainWindow::on_open_triggered()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        QString path = m_settings->value("mainWindow/openPath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
-
-#else
-
-        QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
-
-#endif // QT_VERSION
-
+        QString path = m_settings->mainWindow()->openPath();
         QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, "Portable document format (*.pdf)");
 
         if(!filePath.isEmpty())
@@ -670,16 +662,7 @@ void MainWindow::on_open_triggered()
 
 void MainWindow::on_openInNewTab_triggered()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    QString path = m_settings->value("mainWindow/openPath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
-
-#else
-
-    QString path = m_settings->value("mainWindow/openPath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
-
-#endif // QT_VERSION
-
+    QString path = m_settings->mainWindow()->openPath();
     QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, "Portable document format (*.pdf)");
 
     if(!filePaths.isEmpty())
@@ -707,23 +690,14 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    QString path = m_settings->value("mainWindow/savePath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
-
-#else
-
-    QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
-
-#endif // QT_VERSION
-
+    QString path = m_settings->mainWindow()->savePath();
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
     {
         if(currentTab()->save(filePath, false))
         {
-            m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
+            m_settings->mainWindow()->setSavePath(QFileInfo(filePath).absolutePath());
         }
         else
         {
@@ -734,16 +708,7 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    QString path = m_settings->value("mainWindow/savePath", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString();
-
-#else
-
-    QString path = m_settings->value("mainWindow/savePath", QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation)).toString();
-
-#endif // QT_VERSION
-
+    QString path = m_settings->mainWindow()->savePath();
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
 
     if(!filePath.isEmpty())
@@ -752,7 +717,7 @@ void MainWindow::on_saveAs_triggered()
         {
             open(filePath, currentTab()->currentPage());
 
-            m_settings->setValue("mainWindow/savePath", QFileInfo(filePath).absolutePath());
+            m_settings->mainWindow()->setSavePath(QFileInfo(filePath).absolutePath());
         }
         else
         {
@@ -943,10 +908,10 @@ void MainWindow::on_settings_triggered()
 
     if(settingsDialog->exec() == QDialog::Accepted)
     {
-        restoreSettings();
+        m_settings->refresh();
 
-        m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings->value("mainWindow/tabPosition", 0).toUInt()));
-        m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_settings->value("mainWindow/tabVisibility", 0).toUInt()));
+        m_tabWidget->setTabPosition(m_settings->mainWindow()->tabPosition());
+        m_tabWidget->setTabBarPolicy(m_settings->mainWindow()->tabVisibility());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
         {
@@ -1049,9 +1014,9 @@ void MainWindow::on_fonts_triggered()
     dialog->layout()->addWidget(tableView);
     dialog->layout()->addWidget(dialogButtonBox);
 
-    dialog->resize(m_settings->value("mainWindow/fontsDialogSize", dialog->sizeHint()).toSize());
+    dialog->resize(m_settings->mainWindow()->fontsDialogSize(dialog->sizeHint()));
     dialog->exec();
-    m_settings->setValue("mainWindow/fontsDialogSize", dialog->size());
+    m_settings->mainWindow()->setFontsDialogSize(dialog->size());
 
     delete fontsModel;
     delete dialog;
@@ -1077,8 +1042,8 @@ void MainWindow::on_fullscreen_triggered(bool checked)
 
 void MainWindow::on_presentation_triggered()
 {
-    bool sync = m_settings->value("presentationView/sync", false).toBool();
-    int screen = m_settings->value("presentationView/screen", -1).toInt();
+    bool sync = m_settings->presentationView()->sync();
+    int screen = m_settings->presentationView()->screen();
 
     currentTab()->presentation(sync, screen);
 }
@@ -1304,9 +1269,9 @@ void MainWindow::on_contents_triggered()
     dialog->layout()->addWidget(textBrowser);
     dialog->layout()->addWidget(dialogButtonBox);
 
-    dialog->resize(m_settings->value("mainWindow/contentsDialogSize", dialog->sizeHint()).toSize());
+    dialog->resize(m_settings->mainWindow()->contentsDialogSize(dialog->sizeHint()));
     dialog->exec();
-    m_settings->setValue("mainWindow/contentsDialogSize", dialog->size());
+    m_settings->mainWindow()->setContentsDialogSize(dialog->size());
 
     delete dialog;
 }
@@ -1364,17 +1329,17 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     removeToolBar(m_searchToolBar);
 
-    if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
+    if(m_settings->mainWindow()->trackRecentlyUsed())
     {
-        m_settings->setValue("mainWindow/recentlyUsed", m_recentlyUsedMenu->filePaths());
+        m_settings->mainWindow()->setRecentlyUsed(m_recentlyUsedMenu->filePaths());
     }
     else
     {
-        m_settings->remove("mainWindow/recentlyUsed");
+        m_settings->mainWindow()->clearRecentlyUsed();
     }
 
-    m_settings->setValue("mainWindow/geometry", m_fullscreenAction->isChecked() ? m_fullscreenAction->data() : saveGeometry());
-    m_settings->setValue("mainWindow/state", saveState());
+    m_settings->mainWindow()->setGeometry(m_fullscreenAction->isChecked() ? m_fullscreenAction->data().toByteArray() : saveGeometry());
+    m_settings->mainWindow()->setState(saveState());
 
     QMainWindow::closeEvent(event);
 }
@@ -1411,50 +1376,6 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
-}
-
-void MainWindow::restoreSettings()
-{
-    PageItem::setCacheSize(m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt());
-
-    PageItem::setDecoratePages(m_settings->value("pageItem/decoratePages", true).toBool());
-    PageItem::setDecorateLinks(m_settings->value("pageItem/decorateLinks", true).toBool());
-    PageItem::setDecorateFormFields(m_settings->value("pageItem/decorateFormFields", true).toBool());
-
-    PageItem::setBackgroundColor(m_settings->value("pageItem/backgroundColor", "gray").toString());
-    PageItem::setPaperColor(m_settings->value("pageItem/paperColor", "white").toString());
-
-    PageItem::setInvertColors(m_settings->value("pageItem/invertColors", false).toBool());
-
-    PageItem::setCopyModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("pageItem/copyModifiers", 0x02000000).toInt()));
-    PageItem::setAnnotateModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("pageItem/annotateModifiers", 0x04000000).toInt()));
-
-    DocumentView::setOpenUrl(m_settings->value("documentView/openUrl", false).toBool());
-
-    DocumentView::setAutoRefresh(m_settings->value("documentView/autoRefresh", false).toBool());
-
-    DocumentView::setAntialiasing(m_settings->value("documentView/antialiasing", true).toBool());
-    DocumentView::setTextAntialiasing(m_settings->value("documentView/textAntialiasing", true).toBool());
-    DocumentView::setTextHinting(m_settings->value("documentView/textHinting", false).toBool());
-
-    DocumentView::setOverprintPreview(m_settings->value("documentView/overprintPreview", false).toBool());
-
-    DocumentView::setPrefetch(m_settings->value("documentView/prefetch", false).toBool());
-
-    DocumentView::setPagesPerRow(m_settings->value("documentView/pagesPerRow", 3).toInt());
-
-    DocumentView::setPageSpacing(m_settings->value("documentView/pageSpacing", 5.0).toReal());
-    DocumentView::setThumbnailSpacing(m_settings->value("documentView/thumbnailSpacing", 3.0).toReal());
-
-    DocumentView::setThumbnailSize(m_settings->value("documentView/thumbnailSize", 150.0).toReal());
-
-    DocumentView::setZoomModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/zoomModifiers", 0x04000000).toInt()));
-    DocumentView::setRotateModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/rotateModifiers", 0x02000000).toInt()));
-    DocumentView::setHorizontalModifiers(static_cast< Qt::KeyboardModifier >(m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt()));
-
-    DocumentView::setHighlightDuration(m_settings->value("documentView/highlightDuration", 5000).toInt());
-
-    DocumentView::setSourceEditor(m_settings->value("documentView/sourceEditor").toString());
 }
 
 DocumentView* MainWindow::currentTab() const
@@ -1499,8 +1420,8 @@ void MainWindow::createWidgets()
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
 
-    m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(m_settings->value("mainWindow/tabPosition", 0).toUInt()));
-    m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_settings->value("mainWindow/tabVisibility", 0).toUInt()));
+    m_tabWidget->setTabPosition(m_settings->mainWindow()->tabPosition());
+    m_tabWidget->setTabBarPolicy(m_settings->mainWindow()->tabVisibility());
 
     setCentralWidget(m_tabWidget);
 
@@ -1906,7 +1827,7 @@ void MainWindow::createToolBars()
     m_fileToolBar = addToolBar(tr("&File"));
     m_fileToolBar->setObjectName("fileToolBar");
 
-    foreach(QString action, m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList())
+    foreach(QString action, m_settings->mainWindow()->fileToolBar())
     {
         if(action == "open") { m_fileToolBar->addAction(m_openAction); }
         else if(action == "openInNewTab") { m_fileToolBar->addAction(m_openInNewTabAction); }
@@ -1921,7 +1842,7 @@ void MainWindow::createToolBars()
     m_editToolBar = addToolBar(tr("&Edit"));
     m_editToolBar->setObjectName("editToolBar");
 
-    foreach(QString action, m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList())
+    foreach(QString action, m_settings->mainWindow()->editToolBar())
     {
         if(action == "currentPage") { m_currentPageSpinBox->setVisible(true); m_editToolBar->addWidget(m_currentPageSpinBox); }
         else if(action == "previousPage") { m_editToolBar->addAction(m_previousPageAction); }
@@ -1939,7 +1860,7 @@ void MainWindow::createToolBars()
     m_viewToolBar = addToolBar(tr("&View"));
     m_viewToolBar->setObjectName("viewToolBar");
 
-    foreach(QString action, m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList())
+    foreach(QString action, m_settings->mainWindow()->viewToolBar())
     {
         if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
         else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
@@ -2071,9 +1992,9 @@ void MainWindow::createMenus()
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(this);
 
-    if(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool())
+    if(m_settings->mainWindow()->trackRecentlyUsed())
     {
-        foreach(QString filePath, m_settings->value("mainWindow/recentlyUsed").toStringList())
+        foreach(QString filePath, m_settings->mainWindow()->recentlyUsed())
         {
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
@@ -2268,7 +2189,7 @@ void MainWindow::createDatabase()
             }
         }
 
-        if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool())
+        if(m_settings->mainWindow()->restorePerFileSettings())
         {
             query.exec("DELETE FROM perfilesettings_v1 WHERE filePath IN (SELECT filePath FROM perfilesettings_v1 ORDER BY lastUsed DESC LIMIT -1 OFFSET 1000)");
         }
@@ -2341,7 +2262,7 @@ void MainWindow::restoreTabs()
 
 void MainWindow::restoreTabsFromXml(bool removeFile)
 {
-    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+    if(m_settings->mainWindow()->restoreTabs())
     {
         QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("tabs.xml"));
 
@@ -2399,7 +2320,7 @@ void MainWindow::saveTabs()
 
         QSqlQuery query(m_database);
 
-        if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+        if(m_settings->mainWindow()->restoreTabs())
         {
             query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
 
@@ -2545,7 +2466,7 @@ void MainWindow::restoreBookmarks()
 
 void MainWindow::restoreBookmarksFromXml(bool removeFile)
 {
-    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+    if(m_settings->mainWindow()->restoreBookmarks())
     {
         QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("bookmarks.xml"));
 
@@ -2607,7 +2528,7 @@ void MainWindow::saveBookmarks()
             qDebug() << query.lastError();
         }
 
-        if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+        if(m_settings->mainWindow()->restoreBookmarks())
         {
             query.prepare("INSERT INTO bookmarks_v1 "
                           "(filePath,pages)"
@@ -2695,7 +2616,7 @@ void MainWindow::restorePerFileSettings(DocumentView* tab)
 {
 #ifdef WITH_SQL
 
-    if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool() && m_database.isOpen() && tab != 0)
+    if(m_settings->mainWindow()->restorePerFileSettings() && m_database.isOpen() && tab != 0)
     {
         m_database.transaction();
 
@@ -2738,7 +2659,7 @@ void MainWindow::savePerFileSettings(const DocumentView* tab)
 {
 #ifdef WITH_SQL
 
-    if(m_settings->value("mainWindow/restorePerFileSettings", false).toBool() && m_database.isOpen() && tab != 0)
+    if(m_settings->mainWindow()->restorePerFileSettings() && m_database.isOpen() && tab != 0)
     {
         m_database.transaction();
 

@@ -2,6 +2,7 @@
 
 Copyright 2012 Adam Reichold
 Copyright 2012 Michał Trybus
+Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
 
@@ -49,6 +50,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "printoptionswidget.h"
 #include "miscellaneous.h"
+#include "settings.h"
 #include "settingsdialog.h"
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
@@ -178,9 +180,7 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
-    QSettings* m_settings;
-
-    void restoreSettings();
+    Settings* m_settings;
 
     TabWidget* m_tabWidget;
 
