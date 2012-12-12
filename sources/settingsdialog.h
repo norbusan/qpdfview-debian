@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012 Adam Reichold
+Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
 
@@ -31,9 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#include <poppler-qt4.h>
-
-#include "miscellaneous.h"
+#include "settings.h"
 
 class SettingsDialog : public QDialog
 {
@@ -49,7 +48,7 @@ protected slots:
     void on_defaults_clicked();
 
 private:
-    QSettings* m_settings;
+    Settings* m_settings;
 
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;
@@ -130,7 +129,7 @@ private:
     QComboBox* m_annotateModifiersComboBox;
 
     void createModifiersTab();
-    void createModifiersComboBox(QComboBox*& comboBox, int modifiers);
+    void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
 
 };
 

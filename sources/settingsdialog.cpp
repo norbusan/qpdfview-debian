@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012 Adam Reichold
+Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
 
@@ -23,7 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 {
-    m_settings = new QSettings(this);
+    m_settings = new Settings(this);
 
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->addTab(new QWidget(this), tr("&Behavior"));
@@ -57,78 +58,66 @@ void SettingsDialog::accept()
 {
     // behavior
 
-    m_settings->setValue("documentView/openUrl", m_openUrlCheckBox->isChecked());
+    m_settings->documentView()->setOpenUrl(m_openUrlCheckBox->isChecked());
 
-    m_settings->setValue("documentView/autoRefresh", m_autoRefreshCheckBox->isChecked());
+    m_settings->documentView()->setAutoRefresh(m_autoRefreshCheckBox->isChecked());
 
-    m_settings->setValue("mainWindow/trackRecentlyUsed", m_trackRecentlyUsedCheckBox->isChecked());
+    m_settings->mainWindow()->setTrackRecentlyUsed(m_trackRecentlyUsedCheckBox->isChecked());
 
-    m_settings->setValue("mainWindow/restoreTabs", m_restoreTabsCheckBox->isChecked());
-    m_settings->setValue("mainWindow/restoreBookmarks", m_restoreBookmarksCheckBox->isChecked());
-    m_settings->setValue("mainWindow/restorePerFileSettings", m_restorePerFileSettingsCheckBox->isChecked());
+    m_settings->mainWindow()->setRestoreTabs(m_restoreTabsCheckBox->isChecked());
+    m_settings->mainWindow()->setRestoreBookmarks(m_restoreBookmarksCheckBox->isChecked());
+    m_settings->mainWindow()->setRestorePerFileSettings(m_restorePerFileSettingsCheckBox->isChecked());
 
-    m_settings->setValue("presentationView/sync", m_presentationSyncCheckBox->isChecked());
-    m_settings->setValue("presentationView/screen", m_presentationScreenSpinBox->value());
+    m_settings->presentationView()->setSync(m_presentationSyncCheckBox->isChecked());
+    m_settings->presentationView()->setScreen(m_presentationScreenSpinBox->value());
 
-    m_settings->setValue("documentView/sourceEditor", m_sourceEditorLineEdit->text());
+    m_settings->documentView()->setSourceEditor(m_sourceEditorLineEdit->text());
 
     // graphics
 
-    m_settings->setValue("pageItem/decoratePages", m_decoratePagesCheckBox->isChecked());
-    m_settings->setValue("pageItem/decorateLinks", m_decorateLinksCheckBox->isChecked());
-    m_settings->setValue("pageItem/decorateFormFields", m_decorateFormFieldsCheckBox->isChecked());
+    m_settings->pageItem()->setDecoratePages(m_decoratePagesCheckBox->isChecked());
+    m_settings->pageItem()->setDecorateLinks(m_decorateLinksCheckBox->isChecked());
+    m_settings->pageItem()->setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
 
-    m_settings->setValue("documentView/highlightDuration", m_highlightDurationSpinBox->value());
+    m_settings->documentView()->setHighlightDuration(m_highlightDurationSpinBox->value());
 
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+    m_settings->pageItem()->setBackgroundColor(m_backgroundColorLineEdit->text());
+    m_settings->pageItem()->setPaperColor(m_paperColorLineEdit->text());
+    m_settings->pageItem()->setInvertColors(m_invertColorsCheckBox->isChecked());
 
-    m_settings->setValue("pageItem/backgroundColor", QColor::isValidColor(m_backgroundColorLineEdit->text()) ? m_backgroundColorLineEdit->text() : "gray");
-    m_settings->setValue("pageItem/paperColor", QColor::isValidColor(m_paperColorLineEdit->text()) ? m_paperColorLineEdit->text() : "white");
+    m_settings->documentView()->setOverprintPreview(m_overprintPreviewCheckBox->isChecked());
 
-#else
+    m_settings->documentView()->setPagesPerRow(m_pagesPerRowSpinBox->value());
 
-    m_settings->setValue("pageItem/backgroundColor", QColor(m_backgroundColorLineEdit->text()).isValid() ? m_backgroundColorLineEdit->text() : "gray");
-    m_settings->setValue("pageItem/paperColor", QColor(m_paperColorLineEdit->text()).isValid() ? m_paperColorLineEdit->text() : "white");
+    m_settings->documentView()->setPageSpacing(m_pageSpacingSpinBox->value());
+    m_settings->documentView()->setThumbnailSpacing(m_thumbnailSpacingSpinBox->value());
 
-#endif // QT_VERSION
+    m_settings->documentView()->setThumbnailSize(m_thumbnailSizeSpinBox->value());
 
-    m_settings->setValue("pageItem/invertColors", m_invertColorsCheckBox->isChecked());
+    m_settings->documentView()->setAntialiasing(m_antialiasingCheckBox->isChecked());
+    m_settings->documentView()->setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());
+    m_settings->documentView()->setTextHinting(m_textHintingCheckBox->isChecked());
 
-    m_settings->setValue("documentView/overprintPreview", m_overprintPreviewCheckBox->isChecked());
-
-    m_settings->setValue("documentView/pagesPerRow", m_pagesPerRowSpinBox->value());
-
-    m_settings->setValue("documentView/pageSpacing", m_pageSpacingSpinBox->value());
-    m_settings->setValue("documentView/thumbnailSpacing", m_thumbnailSpacingSpinBox->value());
-
-    m_settings->setValue("documentView/thumbnailSize", m_thumbnailSizeSpinBox->value());
-
-    m_settings->setValue("documentView/antialiasing", m_antialiasingCheckBox->isChecked());
-    m_settings->setValue("documentView/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
-    m_settings->setValue("documentView/textHinting", m_textHintingCheckBox->isChecked());
-
-    m_settings->setValue("pageItem/cacheSize", m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()));
-    m_settings->setValue("documentView/prefetch", m_prefetchCheckBox->isChecked());
+    m_settings->pageItem()->setCacheSize(m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()).toInt());
+    m_settings->documentView()->setPrefetch(m_prefetchCheckBox->isChecked());
 
     // interface
 
-    m_settings->setValue("mainWindow/tabPosition", m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()));
-    m_settings->setValue("mainWindow/tabVisibility", m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()));
+    m_settings->mainWindow()->setTabPosition(static_cast< QTabWidget::TabPosition >(m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()).toUInt()));
+    m_settings->mainWindow()->setTabVisibility(static_cast< TabWidget::TabBarPolicy >(m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()).toUInt()));
 
-    m_settings->setValue("mainWindow/fileToolBar", m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
-    m_settings->setValue("mainWindow/editToolBar", m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
-    m_settings->setValue("mainWindow/viewToolBar", m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    m_settings->mainWindow()->setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    m_settings->mainWindow()->setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    m_settings->mainWindow()->setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
     // modifiers
 
-    m_settings->setValue("documentView/zoomModifiers", m_zoomModifiersComboBox->itemData(m_zoomModifiersComboBox->currentIndex()));
-    m_settings->setValue("documentView/rotateModifiers", m_rotateModifiersComboBox->itemData(m_rotateModifiersComboBox->currentIndex()));
-    m_settings->setValue("documentView/horizontalModifiers", m_horizontalModifiersComboBox->itemData(m_horizontalModifiersComboBox->currentIndex()));
+    m_settings->documentView()->setZoomModifiers(static_cast<Qt::KeyboardModifier>(m_zoomModifiersComboBox->itemData(m_zoomModifiersComboBox->currentIndex()).toInt()));
+    m_settings->documentView()->setRotateModifiers(static_cast<Qt::KeyboardModifier>(m_rotateModifiersComboBox->itemData(m_rotateModifiersComboBox->currentIndex()).toInt()));
+    m_settings->documentView()->setHorizontalModifiers(static_cast<Qt::KeyboardModifier>(m_horizontalModifiersComboBox->itemData(m_horizontalModifiersComboBox->currentIndex()).toInt()));
 
-    m_settings->setValue("pageItem/copyModifiers", m_copyModifiersComboBox->itemData(m_copyModifiersComboBox->currentIndex()));
-    m_settings->setValue("pageItem/annotateModifiers", m_annotateModifiersComboBox->itemData(m_annotateModifiersComboBox->currentIndex()));
-
-    m_settings->sync();
+    m_settings->pageItem()->setCopyModifiers(static_cast<Qt::KeyboardModifier>(m_copyModifiersComboBox->itemData(m_copyModifiersComboBox->currentIndex()).toInt()));
+    m_settings->pageItem()->setAnnotateModifiers(static_cast<Qt::KeyboardModifier>(m_annotateModifiersComboBox->itemData(m_annotateModifiersComboBox->currentIndex()).toInt()));
 
     QDialog::accept();
 }
@@ -137,66 +126,66 @@ void SettingsDialog::on_defaults_clicked()
 {
     // behavior
 
-    m_openUrlCheckBox->setChecked(false);
+    m_openUrlCheckBox->setChecked(m_settings->documentView()->defaultOpenUrl());
 
-    m_autoRefreshCheckBox->setChecked(false);
+    m_autoRefreshCheckBox->setChecked(Settings::DocumentView::defaultAutoRefresh());
 
-    m_trackRecentlyUsedCheckBox->setChecked(false);
+    m_trackRecentlyUsedCheckBox->setChecked(Settings::MainWindow::defaultTrackRecentlyUsed());
 
-    m_restoreTabsCheckBox->setChecked(false);
-    m_restoreBookmarksCheckBox->setChecked(false);
-    m_restorePerFileSettingsCheckBox->setChecked(false);
+    m_restoreTabsCheckBox->setChecked(Settings::MainWindow::defaultRestoreTabs());
+    m_restoreBookmarksCheckBox->setChecked(Settings::MainWindow::defaultRestoreBookmarks());
+    m_restorePerFileSettingsCheckBox->setChecked(Settings::MainWindow::defaultRestorePerFileSettings());
 
-    m_presentationSyncCheckBox->setChecked(false);
-    m_presentationScreenSpinBox->setValue(-1);
+    m_presentationSyncCheckBox->setChecked(Settings::PresentationView::defaultSync());
+    m_presentationScreenSpinBox->setValue(Settings::PresentationView::defaultScreen());
 
     m_sourceEditorLineEdit->clear();
 
     // graphics
 
-    m_decoratePagesCheckBox->setChecked(true);
-    m_decorateLinksCheckBox->setChecked(true);
-    m_decorateFormFieldsCheckBox->setChecked(true);
+    m_decoratePagesCheckBox->setChecked(Settings::PageItem::defaultDecoratePages());
+    m_decorateLinksCheckBox->setChecked(Settings::PageItem::defaultDecorateLinks());
+    m_decorateFormFieldsCheckBox->setChecked(Settings::PageItem::defaultDecorateFormFields());
 
-    m_highlightDurationSpinBox->setValue(5000);
+    m_highlightDurationSpinBox->setValue(Settings::DocumentView::defaultHighlightDuration());
 
-    m_backgroundColorLineEdit->setText("gray");
-    m_paperColorLineEdit->setText("white");
-    m_invertColorsCheckBox->setChecked(false);
+    m_backgroundColorLineEdit->setText(Settings::PageItem::defaultBackgroundColor());
+    m_paperColorLineEdit->setText(Settings::PageItem::defaultPaperColor());
+    m_invertColorsCheckBox->setChecked(Settings::PageItem::defaultInvertColors());
 
-    m_overprintPreviewCheckBox->setChecked(false);
+    m_overprintPreviewCheckBox->setChecked(Settings::DocumentView::defaultOverprintPreview());
 
-    m_pagesPerRowSpinBox->setValue(3);
+    m_pagesPerRowSpinBox->setValue(Settings::DocumentView::defaultPagesPerRow());
 
-    m_pageSpacingSpinBox->setValue(5.0);
-    m_thumbnailSpacingSpinBox->setValue(3.0);
+    m_pageSpacingSpinBox->setValue(Settings::DocumentView::defaultPageSpacing());
+    m_thumbnailSpacingSpinBox->setValue(Settings::DocumentView::defaultThumbnailSpacing());
 
-    m_thumbnailSizeSpinBox->setValue(150.0);
+    m_thumbnailSizeSpinBox->setValue(Settings::DocumentView::defaultThumbnailSize());
 
-    m_antialiasingCheckBox->setChecked(true);
-    m_textAntialiasingCheckBox->setChecked(true);
-    m_textHintingCheckBox->setChecked(false);
+    m_antialiasingCheckBox->setChecked(Settings::DocumentView::defaultAntialiasing());
+    m_textAntialiasingCheckBox->setChecked(Settings::DocumentView::defaultTextAntialiasing());
+    m_textHintingCheckBox->setChecked(Settings::DocumentView::defaultTextHinting());
 
-    m_cacheSizeComboBox->setCurrentIndex(3);
-    m_prefetchCheckBox->setChecked(false);
+    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Settings::PageItem::defaultCacheSize()));
+    m_prefetchCheckBox->setChecked(Settings::DocumentView::defaultPrefetch());
 
     // interface
 
-    m_tabPositionComboBox->setCurrentIndex(0);
-    m_tabVisibilityComboBox->setCurrentIndex(0);
+    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Settings::MainWindow::defaultTabPosition())));
+    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Settings::MainWindow::defaultTabVisibility())));
 
-    m_fileToolBarLineEdit->setText("openInNewTab,refresh");
-    m_editToolBarLineEdit->setText("currentPage,previousPage,nextPage");
-    m_viewToolBarLineEdit->setText("scaleFactor,zoomIn,zoomOut");
+    m_fileToolBarLineEdit->setText(Settings::MainWindow::defaultFileToolBar().join(","));
+    m_editToolBarLineEdit->setText(Settings::MainWindow::defaultEditToolBar().join(","));
+    m_viewToolBarLineEdit->setText(Settings::MainWindow::defaultViewToolBar().join(","));
 
     // modifiers
 
-    m_zoomModifiersComboBox->setCurrentIndex(1);
-    m_rotateModifiersComboBox->setCurrentIndex(0);
-    m_horizontalModifiersComboBox->setCurrentIndex(2);
+    m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultZoomModifiers())));
+    m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultRotateModifiers())));
+    m_horizontalModifiersComboBox->setCurrentIndex(m_horizontalModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultHorizontalModifiers())));
 
-    m_copyModifiersComboBox->setCurrentIndex(0);
-    m_annotateModifiersComboBox->setCurrentIndex(1);
+    m_copyModifiersComboBox->setCurrentIndex(m_copyModifiersComboBox->findData(static_cast< int >(Settings::PageItem::defaultCopyModifiers())));
+    m_annotateModifiersComboBox->setCurrentIndex(m_annotateModifiersComboBox->findData(static_cast< int >(Settings::PageItem::defaultAnnotateModifiers())));
 }
 
 void SettingsDialog::createBehaviorTab()
@@ -204,21 +193,21 @@ void SettingsDialog::createBehaviorTab()
     // open URL
 
     m_openUrlCheckBox = new QCheckBox(this);
-    m_openUrlCheckBox->setChecked(m_settings->value("documentView/openUrl", false).toBool());
+    m_openUrlCheckBox->setChecked(m_settings->documentView()->openUrl());
 
     m_behaviorLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
 
     // auto-refresh
 
     m_autoRefreshCheckBox = new QCheckBox(this);
-    m_autoRefreshCheckBox->setChecked(m_settings->value("documentView/autoRefresh", false).toBool());
+    m_autoRefreshCheckBox->setChecked(m_settings->documentView()->autoRefresh());
 
     m_behaviorLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
 
     // track recently used
 
     m_trackRecentlyUsedCheckBox = new QCheckBox(this);
-    m_trackRecentlyUsedCheckBox->setChecked(m_settings->value("mainWindow/trackRecentlyUsed", false).toBool());
+    m_trackRecentlyUsedCheckBox->setChecked(m_settings->mainWindow()->trackRecentlyUsed());
     m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
 
     m_behaviorLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
@@ -226,21 +215,21 @@ void SettingsDialog::createBehaviorTab()
     // restore tabs
 
     m_restoreTabsCheckBox = new QCheckBox(this);
-    m_restoreTabsCheckBox->setChecked(m_settings->value("mainWindow/restoreTabs", false).toBool());
+    m_restoreTabsCheckBox->setChecked(m_settings->mainWindow()->restoreTabs());
 
     m_behaviorLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
 
     // restore bookmarks
 
     m_restoreBookmarksCheckBox = new QCheckBox(this);
-    m_restoreBookmarksCheckBox->setChecked(m_settings->value("mainWindow/restoreBookmarks", false).toBool());
+    m_restoreBookmarksCheckBox->setChecked(m_settings->mainWindow()->restoreBookmarks());
 
     m_behaviorLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
 
     // restore per-file settings
 
     m_restorePerFileSettingsCheckBox = new QCheckBox(this);
-    m_restorePerFileSettingsCheckBox->setChecked(m_settings->value("mainWindow/restorePerFileSettings", false).toBool());
+    m_restorePerFileSettingsCheckBox->setChecked(m_settings->mainWindow()->restorePerFileSettings());
 
     m_behaviorLayout->addRow(tr("Restore per-file settings:"), m_restorePerFileSettingsCheckBox);
 
@@ -253,7 +242,7 @@ void SettingsDialog::createBehaviorTab()
     // presentation sync
 
     m_presentationSyncCheckBox = new QCheckBox(this);
-    m_presentationSyncCheckBox->setChecked(m_settings->value("presentationView/sync", false).toBool());
+    m_presentationSyncCheckBox->setChecked(m_settings->presentationView()->sync());
 
     m_behaviorLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
 
@@ -262,14 +251,14 @@ void SettingsDialog::createBehaviorTab()
     m_presentationScreenSpinBox = new QSpinBox(this);
     m_presentationScreenSpinBox->setRange(-1, QApplication::desktop()->screenCount() - 1);
     m_presentationScreenSpinBox->setSpecialValueText(tr("Default"));
-    m_presentationScreenSpinBox->setValue(m_settings->value("presentationView/screen", -1).toInt());
+    m_presentationScreenSpinBox->setValue(m_settings->presentationView()->screen());
 
     m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
     // source editor
 
     m_sourceEditorLineEdit = new QLineEdit(this);
-    m_sourceEditorLineEdit->setText(m_settings->value("documentView/sourceEditor").toString());
+    m_sourceEditorLineEdit->setText(m_settings->documentView()->sourceEditor());
     m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number."));
 
     m_behaviorLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
@@ -280,21 +269,21 @@ void SettingsDialog::createGraphicsTab()
     // decorate pages
 
     m_decoratePagesCheckBox = new QCheckBox(this);
-    m_decoratePagesCheckBox->setChecked(m_settings->value("pageItem/decoratePages", true).toBool());
+    m_decoratePagesCheckBox->setChecked(m_settings->pageItem()->decoratePages());
 
     m_graphicsLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
 
     // decorate links
 
     m_decorateLinksCheckBox = new QCheckBox(this);
-    m_decorateLinksCheckBox->setChecked(m_settings->value("pageItem/decorateLinks", true).toBool());
+    m_decorateLinksCheckBox->setChecked(m_settings->pageItem()->decorateLinks());
 
     m_graphicsLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
 
     // decorate form fields
 
     m_decorateFormFieldsCheckBox = new QCheckBox(this);
-    m_decorateFormFieldsCheckBox->setChecked(m_settings->value("pageItem/decorateFormFields", true).toBool());
+    m_decorateFormFieldsCheckBox->setChecked(m_settings->pageItem()->decorateFormFields());
 
     m_graphicsLayout->addRow(tr("Decorate form fields:"), m_decorateFormFieldsCheckBox);
 
@@ -305,35 +294,35 @@ void SettingsDialog::createGraphicsTab()
     m_highlightDurationSpinBox->setRange(0, 60000);
     m_highlightDurationSpinBox->setSingleStep(500);
     m_highlightDurationSpinBox->setSpecialValueText(tr("None"));
-    m_highlightDurationSpinBox->setValue(m_settings->value("documentView/highlightDuration", 5000).toInt());
+    m_highlightDurationSpinBox->setValue(m_settings->documentView()->highlightDuration());
 
     m_graphicsLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
 
     // background color
 
     m_backgroundColorLineEdit = new QLineEdit(this);
-    m_backgroundColorLineEdit->setText(m_settings->value("pageItem/backgroundColor", "gray").toString());
+    m_backgroundColorLineEdit->setText(m_settings->pageItem()->backgroundColor());
 
     m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorLineEdit);
 
     // paper color
 
     m_paperColorLineEdit = new QLineEdit(this);
-    m_paperColorLineEdit->setText(m_settings->value("pageItem/paperColor", "white").toString());
+    m_paperColorLineEdit->setText(m_settings->pageItem()->paperColor());
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorLineEdit);
 
     // invert colors
 
     m_invertColorsCheckBox = new QCheckBox(this);
-    m_invertColorsCheckBox->setChecked(m_settings->value("pageItem/invertColors", false).toBool());
+    m_invertColorsCheckBox->setChecked(m_settings->pageItem()->invertColors());
 
     m_graphicsLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
 
     // overprint preview
 
     m_overprintPreviewCheckBox = new QCheckBox(this);
-    m_overprintPreviewCheckBox->setChecked(m_settings->value("documentView/overprintPreview", false).toBool());
+    m_overprintPreviewCheckBox->setChecked(m_settings->documentView()->overprintPreview());
 
     m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
 
@@ -351,7 +340,7 @@ void SettingsDialog::createGraphicsTab()
 
     m_pagesPerRowSpinBox = new QSpinBox(this);
     m_pagesPerRowSpinBox->setRange(1, 10);
-    m_pagesPerRowSpinBox->setValue(m_settings->value("documentView/pagesPerRow", 3).toInt());
+    m_pagesPerRowSpinBox->setValue(m_settings->documentView()->pagesPerRow());
 
     m_graphicsLayout->addRow(tr("Pages per row:"), m_pagesPerRowSpinBox);
 
@@ -361,7 +350,7 @@ void SettingsDialog::createGraphicsTab()
     m_pageSpacingSpinBox->setSuffix(" px");
     m_pageSpacingSpinBox->setRange(0.0, 25.0);
     m_pageSpacingSpinBox->setSingleStep(0.25);
-    m_pageSpacingSpinBox->setValue(m_settings->value("documentView/pageSpacing", 5.0).toDouble());
+    m_pageSpacingSpinBox->setValue(m_settings->documentView()->pageSpacing());
 
     m_graphicsLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
 
@@ -371,7 +360,7 @@ void SettingsDialog::createGraphicsTab()
     m_thumbnailSpacingSpinBox->setSuffix(" px");
     m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
     m_thumbnailSpacingSpinBox->setSingleStep(0.25);
-    m_thumbnailSpacingSpinBox->setValue(m_settings->value("documentView/thumbnailSpacing", 3.0).toDouble());
+    m_thumbnailSpacingSpinBox->setValue(m_settings->documentView()->thumbnailSpacing());
 
     m_graphicsLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
 
@@ -381,28 +370,28 @@ void SettingsDialog::createGraphicsTab()
     m_thumbnailSizeSpinBox->setSuffix(" px");
     m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
     m_thumbnailSizeSpinBox->setSingleStep(10.0);
-    m_thumbnailSizeSpinBox->setValue(m_settings->value("documentView/thumbnailSize", 150.0).toDouble());
+    m_thumbnailSizeSpinBox->setValue(m_settings->documentView()->thumbnailSize());
 
     m_graphicsLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
 
     // antialiasing
 
     m_antialiasingCheckBox = new QCheckBox(this);
-    m_antialiasingCheckBox->setChecked(m_settings->value("documentView/antialiasing", true).toBool());
+    m_antialiasingCheckBox->setChecked(m_settings->documentView()->antialiasing());
 
     m_graphicsLayout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
 
     // text antialising
 
     m_textAntialiasingCheckBox = new QCheckBox(this);
-    m_textAntialiasingCheckBox->setChecked(m_settings->value("documentView/textAntialiasing", true).toBool());
+    m_textAntialiasingCheckBox->setChecked(m_settings->documentView()->textAntialiasing());
 
     m_graphicsLayout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
 
     // text hinting
 
     m_textHintingCheckBox = new QCheckBox(this);
-    m_textHintingCheckBox->setChecked(m_settings->value("documentView/textHinting", false).toBool());
+    m_textHintingCheckBox->setChecked(m_settings->documentView()->textHinting());
 
     m_graphicsLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
 
@@ -417,23 +406,14 @@ void SettingsDialog::createGraphicsTab()
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(128), 128 * 1024 * 1024);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(256), 256 * 1024 * 1024);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
-
-    int cacheSize = m_settings->value("pageItem/cacheSize", 32 * 1024 * 1024).toInt();
-
-    for(int index = 0; index < m_cacheSizeComboBox->count(); ++index)
-    {
-        if(m_cacheSizeComboBox->itemData(index).toInt() == cacheSize)
-        {
-            m_cacheSizeComboBox->setCurrentIndex(index);
-        }
-    }
+    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(m_settings->pageItem()->cacheSize()));
 
     m_graphicsLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
 
     // prefetch
 
     m_prefetchCheckBox = new QCheckBox(this);
-    m_prefetchCheckBox->setChecked(m_settings->value("documentView/prefetch", false).toBool());
+    m_prefetchCheckBox->setChecked(m_settings->documentView()->prefetch());
 
     m_graphicsLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
 }
@@ -447,16 +427,7 @@ void SettingsDialog::createInterfaceTab()
     m_tabPositionComboBox->addItem(tr("Bottom"), static_cast< uint >(QTabWidget::South));
     m_tabPositionComboBox->addItem(tr("Left"), static_cast< uint >(QTabWidget::West));
     m_tabPositionComboBox->addItem(tr("Right"), static_cast< uint >(QTabWidget::East));
-
-    uint tabPosition = static_cast< uint >(m_settings->value("mainWindow/tabPosition", 0).toUInt());
-
-    for(int index = 0; index < m_tabPositionComboBox->count(); ++index)
-    {
-        if(m_tabPositionComboBox->itemData(index).toUInt() == tabPosition)
-        {
-            m_tabPositionComboBox->setCurrentIndex(index);
-        }
-    }
+    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(m_settings->mainWindow()->tabPosition())));
 
     m_interfaceLayout->addRow(tr("Tab position:"), m_tabPositionComboBox);
 
@@ -466,23 +437,14 @@ void SettingsDialog::createInterfaceTab()
     m_tabVisibilityComboBox->addItem(tr("As needed"), static_cast< uint >(TabWidget::TabBarAsNeeded));
     m_tabVisibilityComboBox->addItem(tr("Always"), static_cast< uint >(TabWidget::TabBarAlwaysOn));
     m_tabVisibilityComboBox->addItem(tr("Never"), static_cast< uint >(TabWidget::TabBarAlwaysOff));
-
-    uint tabBarPolicy = static_cast< uint >(m_settings->value("mainWindow/tabVisibility", 0).toUInt());
-
-    for(int index = 0; index < m_tabVisibilityComboBox->count(); ++index)
-    {
-        if(m_tabVisibilityComboBox->itemData(index).toUInt() == tabBarPolicy)
-        {
-            m_tabVisibilityComboBox->setCurrentIndex(index);
-        }
-    }
+    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(m_settings->mainWindow()->tabVisibility())));
 
     m_interfaceLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
 
     // file tool bar
 
     m_fileToolBarLineEdit = new QLineEdit(this);
-    m_fileToolBarLineEdit->setText(m_settings->value("mainWindow/fileToolBar", QStringList() << "openInNewTab" << "refresh").toStringList().join(","));
+    m_fileToolBarLineEdit->setText(m_settings->mainWindow()->fileToolBar().join(","));
     m_fileToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("File tool bar:"), m_fileToolBarLineEdit);
@@ -490,7 +452,7 @@ void SettingsDialog::createInterfaceTab()
     // edit tool bar
 
     m_editToolBarLineEdit = new QLineEdit(this);
-    m_editToolBarLineEdit->setText(m_settings->value("mainWindow/editToolBar", QStringList() << "currentPage" << "previousPage" << "nextPage").toStringList().join(","));
+    m_editToolBarLineEdit->setText(m_settings->mainWindow()->editToolBar().join(","));
     m_editToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("Edit tool bar:"), m_editToolBarLineEdit);
@@ -498,7 +460,7 @@ void SettingsDialog::createInterfaceTab()
     // view tool bar
 
     m_viewToolBarLineEdit = new QLineEdit(this);
-    m_viewToolBarLineEdit->setText(m_settings->value("mainWindow/viewToolBar", QStringList() << "scaleFactor" << "zoomIn" << "zoomOut").toStringList().join(","));
+    m_viewToolBarLineEdit->setText(m_settings->mainWindow()->viewToolBar().join(","));
     m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
@@ -508,36 +470,36 @@ void SettingsDialog::createModifiersTab()
 {
     // zoom modifiers
 
-    createModifiersComboBox(m_zoomModifiersComboBox, m_settings->value("documentView/zoomModifiers", 0x04000000).toInt());
+    createModifiersComboBox(m_zoomModifiersComboBox, m_settings->documentView()->zoomModifiers());
 
     m_modifiersLayout->addRow(tr("Zoom modifiers:"), m_zoomModifiersComboBox);
 
     // rototate modifiers
 
-    createModifiersComboBox(m_rotateModifiersComboBox, m_settings->value("documentView/rotateModifiers", 0x02000000).toInt());
+    createModifiersComboBox(m_rotateModifiersComboBox, m_settings->documentView()->rotateModifiers());
 
     m_modifiersLayout->addRow(tr("Rotate modifiers:"), m_rotateModifiersComboBox);
 
     // horizontal modifiers
 
-    createModifiersComboBox(m_horizontalModifiersComboBox, m_settings->value("documentView/horizontalModifiers", 0x08000000).toInt());
+    createModifiersComboBox(m_horizontalModifiersComboBox, m_settings->documentView()->horizontalModifiers());
 
     m_modifiersLayout->addRow(tr("Horizontal modifiers:"), m_horizontalModifiersComboBox);
 
     // copy modifiers
 
-    createModifiersComboBox(m_copyModifiersComboBox, m_settings->value("pageItem/copyModifiers", 0x02000000).toInt());
+    createModifiersComboBox(m_copyModifiersComboBox, m_settings->pageItem()->copyModifiers());
 
     m_modifiersLayout->addRow(tr("Copy modifiers:"), m_copyModifiersComboBox);
 
     // annotate modifiers
 
-    createModifiersComboBox(m_annotateModifiersComboBox, m_settings->value("pageItem/annotateModifiers", 0x04000000).toInt());
+    createModifiersComboBox(m_annotateModifiersComboBox, m_settings->pageItem()->annotateModifiers());
 
     m_modifiersLayout->addRow(tr("Annotate modifiers:"), m_annotateModifiersComboBox);
 }
 
-void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, int modifiers)
+void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
 {
     comboBox = new QComboBox(this);
     comboBox->addItem(tr("Shift"), static_cast< int >(Qt::ShiftModifier));
@@ -546,12 +508,5 @@ void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, int modifiers
     comboBox->addItem(tr("Shift and Control"), static_cast< int >(Qt::ShiftModifier | Qt::ControlModifier));
     comboBox->addItem(tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
     comboBox->addItem(tr("Control and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
-
-    for(int index = 0; index < comboBox->count(); ++index)
-    {
-        if(comboBox->itemData(index).toInt() == modifiers)
-        {
-            comboBox->setCurrentIndex(index);
-        }
-    }
+    comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
