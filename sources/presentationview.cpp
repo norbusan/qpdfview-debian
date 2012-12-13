@@ -21,6 +21,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "presentationview.h"
 
+#include "pageitem.h"
+
 PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document, QWidget* parent) : QWidget(parent),
     m_mutex(0),
     m_document(0),

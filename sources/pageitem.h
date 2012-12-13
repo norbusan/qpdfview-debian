@@ -34,9 +34,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-qt4.h>
 
-#include "annotationdialog.h"
-#include "formfielddialog.h"
-
 class PageItem : public QGraphicsObject
 {
     Q_OBJECT

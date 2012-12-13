@@ -5,6 +5,7 @@ Release 0.3.7:
   * Added configurable background and paper color.
   * Added named instances. Thanks to Michał Trybus.
   * Refactored settings handling. Thanks to Alexander Volkov.
+  * Reduced header interdependencies. Thanks to Alexander Volkov.
   * Changed searching for data files in the "data" subdirectory of the application directory.
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.
   * Updated Italian translation. Thanks to Claudio Arseni.
