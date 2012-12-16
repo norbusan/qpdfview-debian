@@ -2379,7 +2379,7 @@ void MainWindow::saveTabs()
 
     QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("tabs.xml"));
 
-    if(m_settings->value("mainWindow/restoreTabs", false).toBool())
+    if(m_settings->mainWindow()->restoreTabs())
     {
         if(file.open(QIODevice::WriteOnly | QIODevice::Text))
         {
@@ -2570,7 +2570,7 @@ void MainWindow::saveBookmarks()
 
     QFile file(QDir(QFileInfo(m_settings->fileName()).path()).filePath("bookmarks.xml"));
 
-    if(m_settings->value("mainWindow/restoreBookmarks", false).toBool())
+    if(m_settings->mainWindow()->restoreBookmarks())
     {
         if(file.open(QIODevice::WriteOnly | QIODevice::Text))
         {
