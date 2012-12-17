@@ -184,6 +184,8 @@ protected:
 private:
     Settings* m_settings;
 
+    QString m_fileFilter;
+
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;
