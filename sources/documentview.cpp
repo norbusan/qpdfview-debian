@@ -358,10 +358,7 @@ DocumentView::~DocumentView()
     qDeleteAll(m_pages);
     qDeleteAll(m_thumbnails);
 
-    if(m_document != 0)
-    {
-        delete m_document;
-    }
+    delete m_document;
 }
 
 const QString& DocumentView::filePath() const

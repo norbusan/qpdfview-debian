@@ -132,7 +132,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
 bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& highlight)
 {
-    DocumentView* newTab = new DocumentView();
+    DocumentView* newTab = new DocumentView(this);
 
     if(newTab->open(filePath))
     {

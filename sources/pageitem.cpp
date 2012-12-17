@@ -259,10 +259,7 @@ PageItem::~PageItem()
     qDeleteAll(m_annotations);
     qDeleteAll(m_formFields);
 
-    if(m_page != 0)
-    {
-        delete m_page;
-    }
+    delete m_page;
 }
 
 QRectF PageItem::boundingRect() const
