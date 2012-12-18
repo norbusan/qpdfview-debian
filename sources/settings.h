@@ -289,6 +289,8 @@ public:
         QString savePath() const;
         void setSavePath(const QString& savePath);
 
+        static inline QString fileFilter() { return "Portable document format (*.pdf)"; }
+
         QSize fontsDialogSize(const QSize& sizeHint) const;
         void setFontsDialogSize(const QSize& fontsDialogSize);
 

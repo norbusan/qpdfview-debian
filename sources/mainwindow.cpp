@@ -656,7 +656,7 @@ void MainWindow::on_open_triggered()
     if(m_tabWidget->currentIndex() != -1)
     {
         QString path = m_settings->mainWindow()->openPath();
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, "Portable document format (*.pdf)");
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, Settings::MainWindow::fileFilter());
 
         if(!filePath.isEmpty())
         {
@@ -672,7 +672,7 @@ void MainWindow::on_open_triggered()
 void MainWindow::on_openInNewTab_triggered()
 {
     QString path = m_settings->mainWindow()->openPath();
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, "Portable document format (*.pdf)");
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, Settings::MainWindow::fileFilter());
 
     if(!filePaths.isEmpty())
     {
@@ -700,7 +700,7 @@ void MainWindow::on_refresh_triggered()
 void MainWindow::on_saveCopy_triggered()
 {
     QString path = m_settings->mainWindow()->savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), Settings::MainWindow::fileFilter());
 
     if(!filePath.isEmpty())
     {
@@ -718,7 +718,7 @@ void MainWindow::on_saveCopy_triggered()
 void MainWindow::on_saveAs_triggered()
 {
     QString path = m_settings->mainWindow()->savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), "Portable document format (*.pdf)");
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), Settings::MainWindow::fileFilter());
 
     if(!filePath.isEmpty())
     {
