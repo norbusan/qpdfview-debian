@@ -21,95 +21,240 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "formfielddialog.h"
 
+class FormFieldHandler
+{
+public:
+    virtual ~FormFieldHandler() {}
+
+    virtual QWidget* widget() const = 0;
+
+    virtual void showWidget() {}
+    virtual void hideWidget() {}
+
+};
+
+class NormalTextFieldHandler : public FormFieldHandler
+{
+public:
+    NormalTextFieldHandler(Poppler::FormFieldText* formField, FormFieldDialog* dialog) : m_formField(formField)
+    {
+        m_lineEdit = new QLineEdit(dialog);
+
+        m_lineEdit->setText(m_formField->text());
+        m_lineEdit->setMaxLength(m_formField->maximumLength());
+        m_lineEdit->setAlignment(m_formField->textAlignment());
+        m_lineEdit->setEchoMode(m_formField->isPassword() ? QLineEdit::Password : QLineEdit::Normal);
+
+        QObject::connect(m_lineEdit, SIGNAL(returnPressed()), dialog, SLOT(close()));
+    }
+
+    QWidget* widget() const { return m_lineEdit; }
+
+    void showWidget()
+    {
+        m_lineEdit->selectAll();
+    }
+
+    void hideWidget()
+    {
+        m_formField->setText(m_lineEdit->text());
+    }
+
+private:
+    Poppler::FormFieldText* m_formField;
+
+    QLineEdit* m_lineEdit;
+
+};
+
+class MultilineTextFieldHandler : public FormFieldHandler
+{
+public:
+    MultilineTextFieldHandler(Poppler::FormFieldText* formField, FormFieldDialog* dialog) : m_formField(formField)
+    {
+        m_plainTextEdit = new QPlainTextEdit(dialog);
+
+        m_plainTextEdit->setPlainText(m_formField->text());
+
+        dialog->setSizeGripEnabled(true);
+    }
+
+    QWidget* widget() const { return m_plainTextEdit; }
+
+    void showWidget()
+    {
+        m_plainTextEdit->moveCursor(QTextCursor::End);
+    }
+
+    void hideWidget()
+    {
+        m_formField->setText(m_plainTextEdit->toPlainText());
+    }
+
+private:
+    Poppler::FormFieldText* m_formField;
+
+    QPlainTextEdit* m_plainTextEdit;
+
+};
+
+class ComboBoxChoiceFieldHandler : public FormFieldHandler
+{
+public:
+    ComboBoxChoiceFieldHandler(Poppler::FormFieldChoice* formField, FormFieldDialog* dialog) : m_formField(formField)
+    {
+        m_comboBox = new QComboBox(dialog);
+
+        m_comboBox->addItems(m_formField->choices());
+
+        if(!m_formField->currentChoices().isEmpty())
+        {
+            m_comboBox->setCurrentIndex(m_formField->currentChoices().first());
+        }
+
+#ifdef HAS_POPPLER_22
+
+        if(m_formField->isEditable())
+        {
+            m_comboBox->setEditable(true);
+            m_comboBox->setInsertPolicy(QComboBox::NoInsert);
+
+            m_comboBox->lineEdit()->setText(m_formField->editChoice());
+
+            QObject::connect(m_comboBox->lineEdit(), SIGNAL(returnPressed()), dialog, SLOT(close()));
+        }
+        else
+        {
+            QObject::connect(m_comboBox, SIGNAL(activated(int)), dialog, SLOT(close()));
+        }
+
+#else
+
+        QObject::connect(m_comboBox, SIGNAL(activated(int)), dialog, SLOT(close()));
+
+#endif // HAS_POPPLER_22
+
+    }
+
+    QWidget* widget() const { return m_comboBox; }
+
+    void showWidget()
+    {
+#ifdef HAS_POPPLER_22
+
+            if(m_formField->isEditable())
+            {
+                m_comboBox->lineEdit()->selectAll();
+            }
+
+#endif // HAS_POPPLER_22
+    }
+
+    void hideWidget()
+    {
+        m_formField->setCurrentChoices(QList< int >() << m_comboBox->currentIndex());
+
+#ifdef HAS_POPPLER_22
+
+        if(m_formField->isEditable())
+        {
+            m_formField->setEditChoice(m_comboBox->lineEdit()->text());
+        }
+
+#endif // HAS_POPPLER_22
+    }
+
+private:
+    Poppler::FormFieldChoice* m_formField;
+
+    QComboBox* m_comboBox;
+
+};
+
+class ListBoxChoiceFieldHandler : public FormFieldHandler
+{
+public:
+    ListBoxChoiceFieldHandler(Poppler::FormFieldChoice* formField, FormFieldDialog* dialog) : m_formField(formField)
+    {
+        m_listWidget = new QListWidget(dialog);
+
+        m_listWidget->addItems(m_formField->choices());
+        m_listWidget->setSelectionMode(m_formField->multiSelect() ? QAbstractItemView::MultiSelection : QAbstractItemView::SingleSelection);
+
+        foreach(int index, m_formField->currentChoices())
+        {
+            if(index >= 0 && index < m_listWidget->count())
+            {
+                m_listWidget->item(index)->setSelected(true);
+            }
+        }
+
+        dialog->setSizeGripEnabled(true);
+    }
+
+    QWidget* widget() const { return m_listWidget; }
+
+    void hideWidget()
+    {
+        QList< int > currentChoices;
+
+        for(int index = 0; index < m_listWidget->count(); ++index)
+        {
+            if(m_listWidget->item(index)->isSelected())
+            {
+                currentChoices.append(index);
+            }
+        }
+
+        m_formField->setCurrentChoices(currentChoices);
+    }
+
+private:
+    Poppler::FormFieldChoice* m_formField;
+
+    QListWidget* m_listWidget;
+
+};
+
 FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, QWidget* parent) : QDialog(parent, Qt::Popup),
     m_mutex(mutex),
     m_formField(formField),
-    m_widget(0)
+    m_handler(0)
 {
+    Poppler::FormFieldText* formFieldText = 0;
+    Poppler::FormFieldChoice* formFieldChoice = 0;
+
     switch(m_formField->type())
     {
     case Poppler::FormField::FormSignature:
     case Poppler::FormField::FormButton:
         break;
     case Poppler::FormField::FormText:
-        switch(formFieldText()->textType())
+        formFieldText = static_cast< Poppler::FormFieldText* >(formField);
+
+        switch(formFieldText->textType())
         {
         case Poppler::FormFieldText::FileSelect:
             break;
         case Poppler::FormFieldText::Normal:
-            m_widget = new QLineEdit(this);
-
-            lineEdit()->setText(formFieldText()->text());
-            lineEdit()->setMaxLength(formFieldText()->maximumLength());
-            lineEdit()->setAlignment(formFieldText()->textAlignment());
-            lineEdit()->setEchoMode(formFieldText()->isPassword() ? QLineEdit::Password : QLineEdit::Normal);
-
-            connect(lineEdit(), SIGNAL(returnPressed()), SLOT(close()));
-
+            m_handler = new NormalTextFieldHandler(formFieldText, this);
             break;
         case Poppler::FormFieldText::Multiline:
-            m_widget = new QPlainTextEdit(this);
-
-            plainTextEdit()->setPlainText(formFieldText()->text());
-
-            setSizeGripEnabled(true);
-
+            m_handler = new MultilineTextFieldHandler(formFieldText, this);
             break;
         }
 
         break;
     case Poppler::FormField::FormChoice:
-        switch(formFieldChoice()->choiceType())
+        formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
+
+        switch(formFieldChoice->choiceType())
         {
         case Poppler::FormFieldChoice::ComboBox:
-            m_widget = new QComboBox(this);
-
-            comboBox()->addItems(formFieldChoice()->choices());
-
-            if(!formFieldChoice()->currentChoices().isEmpty())
-            {
-                comboBox()->setCurrentIndex(formFieldChoice()->currentChoices().first());
-            }
-
-#ifdef HAS_POPPLER_22
-
-            if(formFieldChoice()->isEditable())
-            {
-                comboBox()->setEditable(true);
-                comboBox()->setInsertPolicy(QComboBox::NoInsert);
-
-                comboBox()->lineEdit()->setText(formFieldChoice()->editChoice());
-
-                connect(comboBox()->lineEdit(), SIGNAL(returnPressed()), SLOT(close()));
-            }
-            else
-            {
-                connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
-            }
-
-#else
-
-            connect(comboBox(), SIGNAL(activated(int)), SLOT(close()));
-
-#endif // HAS_POPPLER_22
-
+            m_handler = new ComboBoxChoiceFieldHandler(formFieldChoice, this);
             break;
         case Poppler::FormFieldChoice::ListBox:
-            m_widget = new QListWidget(this);
-
-            listWidget()->addItems(formFieldChoice()->choices());
-            listWidget()->setSelectionMode(formFieldChoice()->multiSelect() ? QAbstractItemView::MultiSelection : QAbstractItemView::SingleSelection);
-
-            foreach(int index, formFieldChoice()->currentChoices())
-            {
-                if(index >= 0 && index < listWidget()->count())
-                {
-                    listWidget()->item(index)->setSelected(true);
-                }
-            }
-
-            setSizeGripEnabled(true);
-
+            m_handler = new ListBoxChoiceFieldHandler(formFieldChoice, this);
             break;
         }
 
@@ -118,7 +263,12 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
 
     setLayout(new QVBoxLayout(this));
     layout()->setContentsMargins(QMargins());
-    layout()->addWidget(m_widget);
+    layout()->addWidget(m_handler->widget());
+}
+
+FormFieldDialog::~FormFieldDialog()
+{
+    delete m_handler;
 }
 
 void FormFieldDialog::showEvent(QShowEvent* event)
@@ -127,41 +277,9 @@ void FormFieldDialog::showEvent(QShowEvent* event)
 
     if(!event->spontaneous())
     {
-        switch(m_formField->type())
-        {
-        default:
-        case Poppler::FormField::FormSignature:
-        case Poppler::FormField::FormButton:
-            break;
-        case Poppler::FormField::FormText:
-            switch(formFieldText()->textType())
-            {
-            case Poppler::FormFieldText::FileSelect:
-                break;
-            case Poppler::FormFieldText::Normal:
-                lineEdit()->selectAll();
-                break;
-            case Poppler::FormFieldText::Multiline:
-                plainTextEdit()->moveCursor(QTextCursor::End);
-                break;
-            }
+        m_handler->showWidget();
 
-            break;
-
-        case Poppler::FormField::FormChoice:
-#ifdef HAS_POPPLER_22
-
-            if(formFieldChoice()->isEditable())
-            {
-                comboBox()->lineEdit()->selectAll();
-            }
-
-#endif // HAS_POPPLER_22
-
-            break;
-        }
-
-        m_widget->setFocus();
+        m_handler->widget()->setFocus();
     }
 }
 
@@ -171,90 +289,7 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
 
     m_mutex->lock();
 
-    switch(m_formField->type())
-    {
-    default:
-    case Poppler::FormField::FormSignature:
-    case Poppler::FormField::FormButton:
-        break;
-    case Poppler::FormField::FormText:
-        switch(formFieldText()->textType())
-        {
-        case Poppler::FormFieldText::FileSelect:
-            break;
-        case Poppler::FormFieldText::Normal:
-            formFieldText()->setText(lineEdit()->text());
-            break;
-        case Poppler::FormFieldText::Multiline:
-            formFieldText()->setText(plainTextEdit()->toPlainText());
-            break;
-        }
-
-        break;
-    case Poppler::FormField::FormChoice:
-        switch(formFieldChoice()->choiceType())
-        {
-        case Poppler::FormFieldChoice::ComboBox:
-            formFieldChoice()->setCurrentChoices(QList< int >() << comboBox()->currentIndex());
-
-#ifdef HAS_POPPLER_22
-
-            if(formFieldChoice()->isEditable())
-            {
-                formFieldChoice()->setEditChoice(comboBox()->lineEdit()->text());
-            }
-
-#endif // HAS_POPPLER_22
-
-            break;
-        case Poppler::FormFieldChoice::ListBox:
-            QList< int > currentChoices;
-
-            for(int index = 0; index < listWidget()->count(); ++index)
-            {
-                if(listWidget()->item(index)->isSelected())
-                {
-                    currentChoices.append(index);
-                }
-            }
-
-            formFieldChoice()->setCurrentChoices(currentChoices);
-
-            break;
-        }
-
-        break;
-    }
+    m_handler->hideWidget();
 
     m_mutex->unlock();
-}
-
-Poppler::FormFieldText* FormFieldDialog::formFieldText() const
-{
-    return static_cast< Poppler::FormFieldText* >(m_formField);
-}
-
-Poppler::FormFieldChoice* FormFieldDialog::formFieldChoice() const
-{
-    return static_cast< Poppler::FormFieldChoice* >(m_formField);
-}
-
-QLineEdit* FormFieldDialog::lineEdit() const
-{
-    return qobject_cast< QLineEdit* >(m_widget);
-}
-
-QPlainTextEdit* FormFieldDialog::plainTextEdit() const
-{
-    return qobject_cast< QPlainTextEdit* >(m_widget);
-}
-
-QComboBox* FormFieldDialog::comboBox() const
-{
-    return qobject_cast< QComboBox* >(m_widget);
-}
-
-QListWidget* FormFieldDialog::listWidget() const
-{
-    return qobject_cast< QListWidget* >(m_widget);
 }
