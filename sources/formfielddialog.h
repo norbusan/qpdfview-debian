@@ -47,7 +47,6 @@ protected:
 
 private:
     QMutex* m_mutex;
-    Poppler::FormField* m_formField;
 
     class FormFieldHandler* m_handler;
 

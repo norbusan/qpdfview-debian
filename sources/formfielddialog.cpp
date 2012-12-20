@@ -218,13 +218,12 @@ private:
 
 FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, QWidget* parent) : QDialog(parent, Qt::Popup),
     m_mutex(mutex),
-    m_formField(formField),
     m_handler(0)
 {
     Poppler::FormFieldText* formFieldText = 0;
     Poppler::FormFieldChoice* formFieldChoice = 0;
 
-    switch(m_formField->type())
+    switch(formField->type())
     {
     case Poppler::FormField::FormSignature:
     case Poppler::FormField::FormButton:
