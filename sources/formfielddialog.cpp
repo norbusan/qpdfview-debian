@@ -220,43 +220,42 @@ FormFieldDialog::FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, Q
     m_mutex(mutex),
     m_handler(0)
 {
-    Poppler::FormFieldText* formFieldText = 0;
-    Poppler::FormFieldChoice* formFieldChoice = 0;
-
     switch(formField->type())
     {
     case Poppler::FormField::FormSignature:
     case Poppler::FormField::FormButton:
         break;
     case Poppler::FormField::FormText:
-        formFieldText = static_cast< Poppler::FormFieldText* >(formField);
-
-        switch(formFieldText->textType())
         {
-        case Poppler::FormFieldText::FileSelect:
-            break;
-        case Poppler::FormFieldText::Normal:
-            m_handler = new NormalTextFieldHandler(formFieldText, this);
-            break;
-        case Poppler::FormFieldText::Multiline:
-            m_handler = new MultilineTextFieldHandler(formFieldText, this);
-            break;
-        }
+            Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(formField);
 
+            switch(formFieldText->textType())
+            {
+            case Poppler::FormFieldText::FileSelect:
+                break;
+            case Poppler::FormFieldText::Normal:
+                m_handler = new NormalTextFieldHandler(formFieldText, this);
+                break;
+            case Poppler::FormFieldText::Multiline:
+                m_handler = new MultilineTextFieldHandler(formFieldText, this);
+                break;
+            }
+        }
         break;
     case Poppler::FormField::FormChoice:
-        formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
-
-        switch(formFieldChoice->choiceType())
         {
-        case Poppler::FormFieldChoice::ComboBox:
-            m_handler = new ComboBoxChoiceFieldHandler(formFieldChoice, this);
-            break;
-        case Poppler::FormFieldChoice::ListBox:
-            m_handler = new ListBoxChoiceFieldHandler(formFieldChoice, this);
-            break;
-        }
+            Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
 
+            switch(formFieldChoice->choiceType())
+            {
+            case Poppler::FormFieldChoice::ComboBox:
+                m_handler = new ComboBoxChoiceFieldHandler(formFieldChoice, this);
+                break;
+            case Poppler::FormFieldChoice::ListBox:
+                m_handler = new ListBoxChoiceFieldHandler(formFieldChoice, this);
+                break;
+            }
+        }
         break;
     }
 
