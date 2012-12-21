@@ -39,6 +39,7 @@ class FormFieldDialog : public QDialog
 
 public:
     FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, QWidget* parent = 0);
+    ~FormFieldDialog();
 
 protected:
     void showEvent(QShowEvent* event);
@@ -46,17 +47,8 @@ protected:
 
 private:
     QMutex* m_mutex;
-    Poppler::FormField* m_formField;
 
-    QWidget* m_widget;
-
-    Poppler::FormFieldText* formFieldText() const;
-    Poppler::FormFieldChoice* formFieldChoice() const;
-
-    QLineEdit* lineEdit() const;
-    QPlainTextEdit* plainTextEdit() const;
-    QComboBox* comboBox() const;
-    QListWidget* listWidget() const;
+    class FormFieldHandler* m_handler;
 
 };
 
