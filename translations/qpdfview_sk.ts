@@ -27,106 +27,106 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="573"/>
+        <location filename="../sources/documentview.cpp" line="570"/>
         <source>Name</source>
         <translation type="unfinished">Názov</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="573"/>
+        <location filename="../sources/documentview.cpp" line="570"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="573"/>
+        <location filename="../sources/documentview.cpp" line="570"/>
         <source>Embedded</source>
         <translation type="unfinished">Zabudované</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="573"/>
+        <location filename="../sources/documentview.cpp" line="570"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="573"/>
+        <location filename="../sources/documentview.cpp" line="570"/>
         <source>File</source>
         <translation type="unfinished">Súbor</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="581"/>
-        <location filename="../sources/documentview.cpp" line="582"/>
+        <location filename="../sources/documentview.cpp" line="578"/>
+        <location filename="../sources/documentview.cpp" line="579"/>
         <source>Yes</source>
         <translation type="unfinished">Áno</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="581"/>
-        <location filename="../sources/documentview.cpp" line="582"/>
+        <location filename="../sources/documentview.cpp" line="578"/>
+        <location filename="../sources/documentview.cpp" line="579"/>
         <source>No</source>
         <translation type="unfinished">Nie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="614"/>
-        <location filename="../sources/documentview.cpp" line="653"/>
+        <location filename="../sources/documentview.cpp" line="611"/>
+        <location filename="../sources/documentview.cpp" line="650"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odomknúť %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="614"/>
-        <location filename="../sources/documentview.cpp" line="653"/>
+        <location filename="../sources/documentview.cpp" line="611"/>
+        <location filename="../sources/documentview.cpp" line="650"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="886"/>
+        <location filename="../sources/documentview.cpp" line="883"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1333"/>
+        <location filename="../sources/documentview.cpp" line="1330"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1333"/>
+        <location filename="../sources/documentview.cpp" line="1330"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1378"/>
+        <location filename="../sources/documentview.cpp" line="1375"/>
         <source>Warning</source>
         <translation type="unfinished">Varovanie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1378"/>
+        <location filename="../sources/documentview.cpp" line="1375"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1519"/>
+        <location filename="../sources/documentview.cpp" line="1516"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Vrátiť sa na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1527"/>
+        <location filename="../sources/documentview.cpp" line="1524"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1532"/>
+        <location filename="../sources/documentview.cpp" line="1529"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1537"/>
+        <location filename="../sources/documentview.cpp" line="1534"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Prvá strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1542"/>
+        <location filename="../sources/documentview.cpp" line="1539"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;ledná strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1549"/>
+        <location filename="../sources/documentview.cpp" line="1546"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
@@ -523,74 +523,74 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="577"/>
+        <location filename="../sources/pageitem.cpp" line="574"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Prejsť na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="584"/>
+        <location filename="../sources/pageitem.cpp" line="581"/>
         <source>Open %1.</source>
         <translation type="unfinished">Otvoriť %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="611"/>
+        <location filename="../sources/pageitem.cpp" line="608"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Upraviť políčko formulára &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="794"/>
+        <location filename="../sources/pageitem.cpp" line="791"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovať &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="795"/>
+        <location filename="../sources/pageitem.cpp" line="792"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovať &amp;obrázok</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="796"/>
+        <location filename="../sources/pageitem.cpp" line="793"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Uložiť obrázok so &amp;súboru...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="843"/>
+        <location filename="../sources/pageitem.cpp" line="840"/>
         <source>Save image to file</source>
         <translation type="unfinished">Uložiť obrázok do súboru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="847"/>
+        <location filename="../sources/pageitem.cpp" line="844"/>
         <source>Warning</source>
         <translation type="unfinished">Varovanie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="847"/>
+        <location filename="../sources/pageitem.cpp" line="844"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Obrázok sa nemohol uložiť do súboru &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="862"/>
+        <location filename="../sources/pageitem.cpp" line="859"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Pridať &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="863"/>
+        <location filename="../sources/pageitem.cpp" line="860"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Pridať &amp;zvýraznenie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="923"/>
-        <location filename="../sources/pageitem.cpp" line="957"/>
+        <location filename="../sources/pageitem.cpp" line="920"/>
+        <location filename="../sources/pageitem.cpp" line="954"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="923"/>
-        <location filename="../sources/pageitem.cpp" line="957"/>
+        <location filename="../sources/pageitem.cpp" line="920"/>
+        <location filename="../sources/pageitem.cpp" line="954"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Na pridanie alebo odstránenie komentárov je vyžadovaná verzia 0.20.1 (alebo vyššia) knižnice Poppler.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="934"/>
+        <location filename="../sources/pageitem.cpp" line="931"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Odst&amp;rániť komentár</translation>
     </message>

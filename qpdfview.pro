@@ -49,6 +49,7 @@ TRANSLATIONS += \
     translations/qpdfview_fr.ts \
     translations/qpdfview_he.ts \
     translations/qpdfview_hr.ts \
+    translations/qpdfview_id.ts \
     translations/qpdfview_it.ts \
     translations/qpdfview_ky.ts \
     translations/qpdfview_my.ts \
