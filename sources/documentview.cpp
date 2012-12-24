@@ -1235,9 +1235,9 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
             }
         }
 
-        QMap< qreal, int >::const_iterator lowerBound = m_heightToIndex.lowerBound(-value);
+        QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
 
-        if(lowerBound != m_heightToIndex.constEnd())
+        if(lowerBound != m_heightToIndex.end())
         {
             int page = lowerBound.value() + 1;
 
