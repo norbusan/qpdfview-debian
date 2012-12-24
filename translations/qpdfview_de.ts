@@ -234,7 +234,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1491"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished">Öff&amp;nen ...</translation>
+        <translation type="unfinished">Öff&amp;nen...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1499"/>

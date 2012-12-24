@@ -174,17 +174,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="713"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ne mogu spremiti kopiju na &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="721"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spremi kao</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="733"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ne mogu spremiti kao &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="773"/>
@@ -229,7 +229,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1482"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označi &amp;sve</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1491"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1523"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spremi &amp;kao</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1531"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Raspon stranice</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="239"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrati postavke za svaku datoteku posebno:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
@@ -880,12 +880,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Boja pozadine:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Boja stranice:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="325"/>
