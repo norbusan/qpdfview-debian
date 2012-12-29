@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     QApplication::setOrganizationName("qpdfview");
     QApplication::setApplicationName("qpdfview");
 
-    QApplication::setApplicationVersion("0.3.7beta2");
+    QApplication::setApplicationVersion("0.3.7");
 
     QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
 
