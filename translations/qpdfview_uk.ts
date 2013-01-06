@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="721"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберегти як</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="733"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не вдалося зберегти як &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="773"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1523"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберегти &amp;як...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1531"/>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="40"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Діапазон сторінок:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="43"/>
@@ -731,17 +731,17 @@
     <message>
         <location filename="../sources/main.cpp" line="98"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порожнє ім&apos;я екземпляру не дозволяється.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Використання &apos;--instance&apos; потребує вказання імені екземпляру.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="146"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Використання &apos;--instance&apos; не дозволяється без &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="189"/>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="239"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Відновлювати налаштування окремих документів:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
@@ -880,12 +880,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Колір тла:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Колір паперу:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="325"/>
