@@ -731,7 +731,7 @@
     <message>
         <location filename="../sources/main.cpp" line="98"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prazna instanca imena nije dopuštena.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="140"/>
@@ -875,7 +875,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="304"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označite trajanje:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
