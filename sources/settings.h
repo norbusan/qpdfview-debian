@@ -73,11 +73,11 @@ public:
         bool invertColors() const;
         void setInvertColors(bool on);
 
-        Qt::KeyboardModifiers copyModifiers() const;
-        void setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers);
+        Qt::KeyboardModifiers copyToClipboardModifiers() const;
+        void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
 
-        Qt::KeyboardModifiers annotateModifiers() const;
-        void setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers);
+        Qt::KeyboardModifiers addAnnotationModifiers() const;
+        void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
 
     private:
         QSettings* m_settings;
@@ -153,8 +153,8 @@ public:
         Qt::KeyboardModifiers rotateModifiers() const;
         void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
 
-        Qt::KeyboardModifiers horizontalModifiers() const;
-        void setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers);
+        Qt::KeyboardModifiers scrollModifiers() const;
+        void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
 
         int highlightDuration() const;
         void setHighlightDuration(int highlightDuration);
@@ -291,8 +291,8 @@ public:
 
         static inline bool invertColors() { return false; }
 
-        static inline Qt::KeyboardModifiers copyModifiers() { return Qt::ShiftModifier; }
-        static inline Qt::KeyboardModifiers annotateModifiers() { return Qt::ControlModifier; }
+        static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
+        static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
 
     private:
         PageItem() {}
@@ -334,7 +334,7 @@ public:
 
         static inline Qt::KeyboardModifiers zoomModifiers() { return Qt::ControlModifier; }
         static inline Qt::KeyboardModifiers rotateModifiers() { return Qt::ShiftModifier; }
-        static inline Qt::KeyboardModifiers horizontalModifiers() { return Qt::AltModifier; }
+        static inline Qt::KeyboardModifiers scrollModifiers() { return Qt::AltModifier; }
 
         static inline int highlightDuration() { return 5000; }
 

@@ -60,11 +60,11 @@ public:
     static bool invertColors();
     static void setInvertColors(bool invertColors);
 
-    static const Qt::KeyboardModifiers& copyModifiers();
-    static void setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers);
+    static const Qt::KeyboardModifiers& copyToClipboardModifiers();
+    static void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
 
-    static const Qt::KeyboardModifiers& annotateModifiers();
-    static void setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers);
+    static const Qt::KeyboardModifiers& addAnnotationModifiers();
+    static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
 
     PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
     ~PageItem();
@@ -148,8 +148,8 @@ private:
 
     static bool s_invertColors;
 
-    static Qt::KeyboardModifiers s_copyModifiers;
-    static Qt::KeyboardModifiers s_annotateModifiers;
+    static Qt::KeyboardModifiers s_copyToClipboardModifiers;
+    static Qt::KeyboardModifiers s_addAnnotationModifiers;
 
     QMutex* m_mutex;
     Poppler::Page* m_page;

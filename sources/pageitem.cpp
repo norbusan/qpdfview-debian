@@ -38,8 +38,8 @@ QColor PageItem::s_paperColor(Qt::white);
 
 bool PageItem::s_invertColors = false;
 
-Qt::KeyboardModifiers PageItem::s_copyModifiers(Qt::ShiftModifier);
-Qt::KeyboardModifiers PageItem::s_annotateModifiers(Qt::ControlModifier);
+Qt::KeyboardModifiers PageItem::s_copyToClipboardModifiers(Qt::ShiftModifier);
+Qt::KeyboardModifiers PageItem::s_addAnnotationModifiers(Qt::ControlModifier);
 
 int PageItem::cacheSize()
 {
@@ -117,24 +117,24 @@ void PageItem::setInvertColors(bool invertColors)
     s_invertColors = invertColors;
 }
 
-const Qt::KeyboardModifiers& PageItem::copyModifiers()
+const Qt::KeyboardModifiers& PageItem::copyToClipboardModifiers()
 {
-    return s_copyModifiers;
+    return s_copyToClipboardModifiers;
 }
 
-void PageItem::setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers)
+void PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers)
 {
-    s_copyModifiers = copyModifiers;
+    s_copyToClipboardModifiers = copyToClipboardModifiers;
 }
 
-const Qt::KeyboardModifiers& PageItem::annotateModifiers()
+const Qt::KeyboardModifiers& PageItem::addAnnotationModifiers()
 {
-    return s_annotateModifiers;
+    return s_addAnnotationModifiers;
 }
 
-void PageItem::setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers)
+void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers)
 {
-    s_annotateModifiers = annotateModifiers;
+    s_addAnnotationModifiers = addAnnotationModifiers;
 }
 
 PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
@@ -627,15 +627,15 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyModifiers || event->modifiers() == s_annotateModifiers) && event->button() == Qt::LeftButton)
+    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyToClipboardModifiers || event->modifiers() == s_addAnnotationModifiers) && event->button() == Qt::LeftButton)
     {
         setCursor(Qt::CrossCursor);
 
-        if(event->modifiers() == s_copyModifiers)
+        if(event->modifiers() == s_copyToClipboardModifiers)
         {
             m_rubberBandMode = CopyToClipboardMode;
         }
-        else if(event->modifiers() == s_annotateModifiers)
+        else if(event->modifiers() == s_addAnnotationModifiers)
         {
             m_rubberBandMode = AddAnnotationMode;
         }

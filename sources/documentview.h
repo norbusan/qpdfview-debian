@@ -88,8 +88,8 @@ public:
     static const Qt::KeyboardModifiers& rotateModifiers();
     static void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
 
-    static const Qt::KeyboardModifiers& horizontalModifiers();
-    static void setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers);
+    static const Qt::KeyboardModifiers& scrollModifiers();
+    static void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
 
     static int highlightDuration();
     static void setHighlightDuration(int highlightDuration);
@@ -296,7 +296,7 @@ private:
 
     static Qt::KeyboardModifiers s_zoomModifiers;
     static Qt::KeyboardModifiers s_rotateModifiers;
-    static Qt::KeyboardModifiers s_horizontalModifiers;
+    static Qt::KeyboardModifiers s_scrollModifiers;
 
     static int s_highlightDuration;
 

@@ -123,10 +123,10 @@ private:
 
     QComboBox* m_zoomModifiersComboBox;
     QComboBox* m_rotateModifiersComboBox;
-    QComboBox* m_horizontalModifiersComboBox;
+    QComboBox* m_scrollModifiersComboBox;
 
-    QComboBox* m_copyModifiersComboBox;
-    QComboBox* m_annotateModifiersComboBox;
+    QComboBox* m_copyToClipboardModifiersComboBox;
+    QComboBox* m_addAnnotationModifiersComboBox;
 
     void createModifiersTab();
     void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);

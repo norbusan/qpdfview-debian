@@ -102,8 +102,8 @@ void Settings::refresh()
 
     ::PageItem::setInvertColors(pageItem()->invertColors());
 
-    ::PageItem::setCopyModifiers(pageItem()->copyModifiers());
-    ::PageItem::setAnnotateModifiers(pageItem()->annotateModifiers());
+    ::PageItem::setCopyToClipboardModifiers(pageItem()->copyToClipboardModifiers());
+    ::PageItem::setAddAnnotationModifiers(pageItem()->addAnnotationModifiers());
 
     ::DocumentView::setOpenUrl(documentView()->openUrl());
 
@@ -126,7 +126,7 @@ void Settings::refresh()
 
     ::DocumentView::setZoomModifiers(documentView()->zoomModifiers());
     ::DocumentView::setRotateModifiers(documentView()->rotateModifiers());
-    ::DocumentView::setHorizontalModifiers(documentView()->horizontalModifiers());
+    ::DocumentView::setScrollModifiers(documentView()->scrollModifiers());
 
     ::DocumentView::setHighlightDuration(documentView()->highlightDuration());
 
@@ -223,24 +223,24 @@ void Settings::PageItem::setInvertColors(bool on)
     m_settings->setValue("pageItem/invertColors", on);
 }
 
-Qt::KeyboardModifiers Settings::PageItem::copyModifiers() const
+Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
 {
-    return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyModifiers", static_cast< int >(Defaults::PageItem::copyModifiers())).toInt());
+    return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyToClipboardModifiers", static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())).toInt());
 }
 
-void Settings::PageItem::setCopyModifiers(const Qt::KeyboardModifiers& copyModifiers)
+void Settings::PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers)
 {
-    m_settings->setValue("pageItem/copyModifiers", static_cast< int >(copyModifiers));
+    m_settings->setValue("pageItem/copyToClipboardModifiers", static_cast< int >(copyToClipboardModifiers));
 }
 
-Qt::KeyboardModifiers Settings::PageItem::annotateModifiers() const
+Qt::KeyboardModifiers Settings::PageItem::addAnnotationModifiers() const
 {
-    return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/annotateModifiers", static_cast< int >(Defaults::PageItem::annotateModifiers())).toInt());
+    return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/addAnnotationModifiers", static_cast< int >(Defaults::PageItem::addAnnotationModifiers())).toInt());
 }
 
-void Settings::PageItem::setAnnotateModifiers(const Qt::KeyboardModifiers& annotateModifiers)
+void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers)
 {
-    m_settings->setValue("pageItem/annotateModifiers", static_cast< int >(annotateModifiers));
+    m_settings->setValue("pageItem/addAnnotationModifiers", static_cast< int >(addAnnotationModifiers));
 }
 
 // presentation view
@@ -401,14 +401,14 @@ void Settings::DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rot
     m_settings->setValue("documentView/rotateModifiers", static_cast< int >(rotateModifiers));
 }
 
-Qt::KeyboardModifiers Settings::DocumentView::horizontalModifiers() const
+Qt::KeyboardModifiers Settings::DocumentView::scrollModifiers() const
 {
-    return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/horizontalModifiers", static_cast< int >(Defaults::DocumentView::horizontalModifiers())).toInt());
+    return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/scrollModifiers", static_cast< int >(Defaults::DocumentView::scrollModifiers())).toInt());
 }
 
-void Settings::DocumentView::setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers)
+void Settings::DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
 {
-    m_settings->setValue("documentView/horizontalModifiers", static_cast< int >(horizontalModifiers));
+    m_settings->setValue("documentView/scrollModifiers", static_cast< int >(scrollModifiers));
 }
 
 int Settings::DocumentView::highlightDuration() const

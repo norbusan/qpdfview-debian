@@ -61,7 +61,7 @@ qreal DocumentView::s_zoomBy = 0.1;
 
 Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
-Qt::KeyboardModifiers DocumentView::s_horizontalModifiers(Qt::AltModifier);
+Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
 
 int DocumentView::s_highlightDuration = 5000;
 
@@ -224,14 +224,14 @@ void DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifie
     s_rotateModifiers = rotateModifiers;
 }
 
-const Qt::KeyboardModifiers& DocumentView::horizontalModifiers()
+const Qt::KeyboardModifiers& DocumentView::scrollModifiers()
 {
-    return s_horizontalModifiers;
+    return s_scrollModifiers;
 }
 
-void DocumentView::setHorizontalModifiers(const Qt::KeyboardModifiers& horizontalModifiers)
+void DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
 {
-    s_horizontalModifiers = horizontalModifiers;
+    s_scrollModifiers = scrollModifiers;
 }
 
 int DocumentView::highlightDuration()
@@ -1465,7 +1465,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == s_horizontalModifiers)
+    else if(event->modifiers() == s_scrollModifiers)
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
         QApplication::sendEvent(horizontalScrollBar(), &wheelEvent);

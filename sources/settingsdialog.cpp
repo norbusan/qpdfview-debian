@@ -119,10 +119,10 @@ void SettingsDialog::accept()
 
     m_settings->documentView()->setZoomModifiers(static_cast<Qt::KeyboardModifier>(m_zoomModifiersComboBox->itemData(m_zoomModifiersComboBox->currentIndex()).toInt()));
     m_settings->documentView()->setRotateModifiers(static_cast<Qt::KeyboardModifier>(m_rotateModifiersComboBox->itemData(m_rotateModifiersComboBox->currentIndex()).toInt()));
-    m_settings->documentView()->setHorizontalModifiers(static_cast<Qt::KeyboardModifier>(m_horizontalModifiersComboBox->itemData(m_horizontalModifiersComboBox->currentIndex()).toInt()));
+    m_settings->documentView()->setScrollModifiers(static_cast<Qt::KeyboardModifier>(m_scrollModifiersComboBox->itemData(m_scrollModifiersComboBox->currentIndex()).toInt()));
 
-    m_settings->pageItem()->setCopyModifiers(static_cast<Qt::KeyboardModifier>(m_copyModifiersComboBox->itemData(m_copyModifiersComboBox->currentIndex()).toInt()));
-    m_settings->pageItem()->setAnnotateModifiers(static_cast<Qt::KeyboardModifier>(m_annotateModifiersComboBox->itemData(m_annotateModifiersComboBox->currentIndex()).toInt()));
+    m_settings->pageItem()->setCopyToClipboardModifiers(static_cast<Qt::KeyboardModifier>(m_copyToClipboardModifiersComboBox->itemData(m_copyToClipboardModifiersComboBox->currentIndex()).toInt()));
+    m_settings->pageItem()->setAddAnnotationModifiers(static_cast<Qt::KeyboardModifier>(m_addAnnotationModifiersComboBox->itemData(m_addAnnotationModifiersComboBox->currentIndex()).toInt()));
 
     QDialog::accept();
 }
@@ -187,10 +187,10 @@ void SettingsDialog::on_defaults_clicked()
 
     m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::zoomModifiers())));
     m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::rotateModifiers())));
-    m_horizontalModifiersComboBox->setCurrentIndex(m_horizontalModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::horizontalModifiers())));
+    m_scrollModifiersComboBox->setCurrentIndex(m_scrollModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::scrollModifiers())));
 
-    m_copyModifiersComboBox->setCurrentIndex(m_copyModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyModifiers())));
-    m_annotateModifiersComboBox->setCurrentIndex(m_annotateModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::annotateModifiers())));
+    m_copyToClipboardModifiersComboBox->setCurrentIndex(m_copyToClipboardModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())));
+    m_addAnnotationModifiersComboBox->setCurrentIndex(m_addAnnotationModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::addAnnotationModifiers())));
 }
 
 void SettingsDialog::createBehaviorTab()
@@ -485,31 +485,31 @@ void SettingsDialog::createModifiersTab()
 
     createModifiersComboBox(m_zoomModifiersComboBox, m_settings->documentView()->zoomModifiers());
 
-    m_modifiersLayout->addRow(tr("Zoom modifiers:"), m_zoomModifiersComboBox);
+    m_modifiersLayout->addRow(tr("Zoom:"), m_zoomModifiersComboBox);
 
     // rototate modifiers
 
     createModifiersComboBox(m_rotateModifiersComboBox, m_settings->documentView()->rotateModifiers());
 
-    m_modifiersLayout->addRow(tr("Rotate modifiers:"), m_rotateModifiersComboBox);
+    m_modifiersLayout->addRow(tr("Rotate:"), m_rotateModifiersComboBox);
 
-    // horizontal modifiers
+    // scroll modifiers
 
-    createModifiersComboBox(m_horizontalModifiersComboBox, m_settings->documentView()->horizontalModifiers());
+    createModifiersComboBox(m_scrollModifiersComboBox, m_settings->documentView()->scrollModifiers());
 
-    m_modifiersLayout->addRow(tr("Horizontal modifiers:"), m_horizontalModifiersComboBox);
+    m_modifiersLayout->addRow(tr("Scroll:"), m_scrollModifiersComboBox);
 
-    // copy modifiers
+    // copy to clipboard modifiers
 
-    createModifiersComboBox(m_copyModifiersComboBox, m_settings->pageItem()->copyModifiers());
+    createModifiersComboBox(m_copyToClipboardModifiersComboBox, m_settings->pageItem()->copyToClipboardModifiers());
 
-    m_modifiersLayout->addRow(tr("Copy modifiers:"), m_copyModifiersComboBox);
+    m_modifiersLayout->addRow(tr("Copy to clipboard:"), m_copyToClipboardModifiersComboBox);
 
-    // annotate modifiers
+    // add annotation modifiers
 
-    createModifiersComboBox(m_annotateModifiersComboBox, m_settings->pageItem()->annotateModifiers());
+    createModifiersComboBox(m_addAnnotationModifiersComboBox, m_settings->pageItem()->addAnnotationModifiers());
 
-    m_modifiersLayout->addRow(tr("Annotate modifiers:"), m_annotateModifiersComboBox);
+    m_modifiersLayout->addRow(tr("Add annotation:"), m_addAnnotationModifiersComboBox);
 }
 
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
