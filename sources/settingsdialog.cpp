@@ -131,66 +131,66 @@ void SettingsDialog::on_defaults_clicked()
 {
     // behavior
 
-    m_openUrlCheckBox->setChecked(m_settings->documentView()->defaultOpenUrl());
+    m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());
 
-    m_autoRefreshCheckBox->setChecked(Settings::DocumentView::defaultAutoRefresh());
+    m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
 
-    m_trackRecentlyUsedCheckBox->setChecked(Settings::MainWindow::defaultTrackRecentlyUsed());
+    m_trackRecentlyUsedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyUsed());
 
-    m_restoreTabsCheckBox->setChecked(Settings::MainWindow::defaultRestoreTabs());
-    m_restoreBookmarksCheckBox->setChecked(Settings::MainWindow::defaultRestoreBookmarks());
-    m_restorePerFileSettingsCheckBox->setChecked(Settings::MainWindow::defaultRestorePerFileSettings());
+    m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
+    m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
+    m_restorePerFileSettingsCheckBox->setChecked(Defaults::MainWindow::restorePerFileSettings());
 
-    m_presentationSyncCheckBox->setChecked(Settings::PresentationView::defaultSync());
-    m_presentationScreenSpinBox->setValue(Settings::PresentationView::defaultScreen());
+    m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
+    m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
     m_sourceEditorLineEdit->clear();
 
     // graphics
 
-    m_decoratePagesCheckBox->setChecked(Settings::PageItem::defaultDecoratePages());
-    m_decorateLinksCheckBox->setChecked(Settings::PageItem::defaultDecorateLinks());
-    m_decorateFormFieldsCheckBox->setChecked(Settings::PageItem::defaultDecorateFormFields());
+    m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
+    m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
+    m_decorateFormFieldsCheckBox->setChecked(Defaults::PageItem::decorateFormFields());
 
-    m_highlightDurationSpinBox->setValue(Settings::DocumentView::defaultHighlightDuration());
+    m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
 
-    m_backgroundColorLineEdit->setText(Settings::PageItem::defaultBackgroundColor());
-    m_paperColorLineEdit->setText(Settings::PageItem::defaultPaperColor());
-    m_invertColorsCheckBox->setChecked(Settings::PageItem::defaultInvertColors());
+    m_backgroundColorLineEdit->setText(Defaults::PageItem::backgroundColor());
+    m_paperColorLineEdit->setText(Defaults::PageItem::paperColor());
+    m_invertColorsCheckBox->setChecked(Defaults::PageItem::invertColors());
 
-    m_overprintPreviewCheckBox->setChecked(Settings::DocumentView::defaultOverprintPreview());
+    m_overprintPreviewCheckBox->setChecked(Defaults::DocumentView::overprintPreview());
 
-    m_pagesPerRowSpinBox->setValue(Settings::DocumentView::defaultPagesPerRow());
+    m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
-    m_pageSpacingSpinBox->setValue(Settings::DocumentView::defaultPageSpacing());
-    m_thumbnailSpacingSpinBox->setValue(Settings::DocumentView::defaultThumbnailSpacing());
+    m_pageSpacingSpinBox->setValue(Defaults::DocumentView::pageSpacing());
+    m_thumbnailSpacingSpinBox->setValue(Defaults::DocumentView::thumbnailSpacing());
 
-    m_thumbnailSizeSpinBox->setValue(Settings::DocumentView::defaultThumbnailSize());
+    m_thumbnailSizeSpinBox->setValue(Defaults::DocumentView::thumbnailSize());
 
-    m_antialiasingCheckBox->setChecked(Settings::DocumentView::defaultAntialiasing());
-    m_textAntialiasingCheckBox->setChecked(Settings::DocumentView::defaultTextAntialiasing());
-    m_textHintingCheckBox->setChecked(Settings::DocumentView::defaultTextHinting());
+    m_antialiasingCheckBox->setChecked(Defaults::DocumentView::antialiasing());
+    m_textAntialiasingCheckBox->setChecked(Defaults::DocumentView::textAntialiasing());
+    m_textHintingCheckBox->setChecked(Defaults::DocumentView::textHinting());
 
-    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Settings::PageItem::defaultCacheSize()));
-    m_prefetchCheckBox->setChecked(Settings::DocumentView::defaultPrefetch());
+    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
+    m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
 
     // interface
 
-    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Settings::MainWindow::defaultTabPosition())));
-    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Settings::MainWindow::defaultTabVisibility())));
+    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
+    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
 
-    m_fileToolBarLineEdit->setText(Settings::MainWindow::defaultFileToolBar().join(","));
-    m_editToolBarLineEdit->setText(Settings::MainWindow::defaultEditToolBar().join(","));
-    m_viewToolBarLineEdit->setText(Settings::MainWindow::defaultViewToolBar().join(","));
+    m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
+    m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
+    m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
     // modifiers
 
-    m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultZoomModifiers())));
-    m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultRotateModifiers())));
-    m_horizontalModifiersComboBox->setCurrentIndex(m_horizontalModifiersComboBox->findData(static_cast< int >(Settings::DocumentView::defaultHorizontalModifiers())));
+    m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::zoomModifiers())));
+    m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::rotateModifiers())));
+    m_horizontalModifiersComboBox->setCurrentIndex(m_horizontalModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::horizontalModifiers())));
 
-    m_copyModifiersComboBox->setCurrentIndex(m_copyModifiersComboBox->findData(static_cast< int >(Settings::PageItem::defaultCopyModifiers())));
-    m_annotateModifiersComboBox->setCurrentIndex(m_annotateModifiersComboBox->findData(static_cast< int >(Settings::PageItem::defaultAnnotateModifiers())));
+    m_copyModifiersComboBox->setCurrentIndex(m_copyModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyModifiers())));
+    m_annotateModifiersComboBox->setCurrentIndex(m_annotateModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::annotateModifiers())));
 }
 
 void SettingsDialog::createBehaviorTab()
