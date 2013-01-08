@@ -291,7 +291,7 @@ bool PDFPage::canAddAnnotations() const
 
 #else
 
-    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
+    QMessageBox::information(0, QObject::tr("Information"), QObject::tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
 
     return false;
 
