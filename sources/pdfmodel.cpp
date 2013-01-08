@@ -1,8 +1,85 @@
 #include "pdfmodel.h"
 
-#include <QImage>
-
 #include <poppler-qt4.h>
+#include <poppler-form.h>
+
+#include "annotationdialog.h"
+#include "formfielddialog.h"
+
+PDFAnnotation::PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation) :
+    m_mutex(mutex),
+    m_annotation(annotation)
+{
+}
+
+PDFAnnotation::~PDFAnnotation()
+{
+    delete m_annotation;
+}
+
+QRectF PDFAnnotation::boundary() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    return m_annotation->boundary().normalized();
+}
+
+QDialog* PDFAnnotation::showDialog(const QPoint& screenPos)
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
+
+    annotationDialog->move(screenPos);
+
+    annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
+    annotationDialog->show();
+
+    return annotationDialog;
+}
+
+PDFFormField::PDFFormField(QMutex* mutex, Poppler::FormField* formField) :
+    m_mutex(mutex),
+    m_formField(formField)
+{
+}
+
+PDFFormField::~PDFFormField()
+{
+    delete m_formField;
+}
+
+QRectF PDFFormField::boundary() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    return m_formField->rect().normalized();
+}
+
+QDialog* PDFFormField::showDialog(const QPoint& screenPos)
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    if(m_formField->type() == Poppler::FormField::FormText || m_formField->type() == Poppler::FormField::FormChoice)
+    {
+        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField);
+
+        formFieldDialog->move(screenPos);
+
+        formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
+        formFieldDialog->show();
+
+        return formFieldDialog;
+    }
+    else if(m_formField->type() == Poppler::FormField::FormButton)
+    {
+        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
+
+        formFieldButton->setState(!formFieldButton->state());
+    }
+
+    return 0;
+}
 
 PDFPage::PDFPage(QMutex* mutex, Poppler::Page* page) :
     m_mutex(mutex),
@@ -117,6 +194,83 @@ QList< Link > PDFPage::links() const
     return links;
 }
 
+QList< Annotation* > PDFPage::annotations() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    QList< Annotation* > annotations;
+
+    foreach(Poppler::Annotation* annotation, m_page->annotations())
+    {
+        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight)
+        {
+            annotations.append(new PDFAnnotation(m_mutex, annotation));
+            continue;
+        }
+
+        delete annotation;
+    }
+
+    return annotations;
+}
+
+QList< FormField* > PDFPage::formFields() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    QList< FormField* > formFields;
+
+    foreach(Poppler::FormField* formField, m_page->formFields())
+    {
+        if(!formField->isVisible() || formField->isReadOnly())
+        {
+            delete formField;
+            continue;
+        }
+
+        switch(formField->type())
+        {
+        default:
+        case Poppler::FormField::FormSignature:
+            delete formField;
+            break;
+        case Poppler::FormField::FormText:
+            switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
+            {
+            default:
+            case Poppler::FormFieldText::FileSelect:
+                delete formField;
+                break;
+            case Poppler::FormFieldText::Normal:
+            case Poppler::FormFieldText::Multiline:
+                formFields.append(new PDFFormField(m_mutex, formField));
+                break;
+            }
+
+            break;
+        case Poppler::FormField::FormChoice:
+            formFields.append(new PDFFormField(m_mutex, formField));
+            break;
+        case Poppler::FormField::FormButton:
+            switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
+            {
+            default:
+            case Poppler::FormFieldButton::Push:
+                delete formField;
+                break;
+            case Poppler::FormFieldButton::CheckBox:
+            case Poppler::FormFieldButton::Radio:
+                formFields.append(new PDFFormField(m_mutex, formField));
+                break;
+            }
+
+            break;
+        }
+    }
+
+    return formFields;
+}
+
 Document* PDFDocument::load(const QString& filePath)
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
@@ -170,4 +324,11 @@ void PDFDocument::setTextHinting(bool on)
     QMutexLocker mutexLocker(&m_mutex);
 
     m_document->setRenderHint(Poppler::Document::TextHinting, on);
+}
+
+void PDFDocument::setPaperColor(const QColor& paperColor)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    m_document->setPaperColor(paperColor);
 }

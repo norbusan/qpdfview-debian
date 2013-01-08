@@ -6,11 +6,51 @@
 
 namespace Poppler
 {
-class Page;
+class Annotation;
 class Document;
+class FormField;
+class Page;
 }
 
 #include "model.h"
+
+class PDFAnnotation : public Annotation
+{
+    friend class PDFPage;
+
+public:
+    ~PDFAnnotation();
+
+    QRectF boundary() const;
+
+    QDialog* showDialog(const QPoint& screenPos);
+
+private:
+    PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
+
+    mutable QMutex* m_mutex;
+    Poppler::Annotation* m_annotation;
+
+};
+
+class PDFFormField : public FormField
+{
+    friend class PDFPage;
+
+public:
+    ~PDFFormField();
+
+    QRectF boundary() const;
+
+    QDialog* showDialog(const QPoint& screenPos);
+
+private:
+    PDFFormField(QMutex* mutex, Poppler::FormField* formField);
+
+    mutable QMutex* m_mutex;
+    Poppler::FormField* m_formField;
+
+};
 
 class PDFPage : public Page
 {
@@ -24,6 +64,10 @@ public:
     QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
     QList< Link > links() const;
+
+    QList< Annotation* > annotations() const;
+
+    QList< FormField* > formFields() const;
 
 private:
     PDFPage(QMutex* mutex, Poppler::Page* page);
@@ -47,6 +91,8 @@ public:
     void setAntialiasing(bool on);
     void setTextAntialiasing(bool on);
     void setTextHinting(bool on);
+
+    void setPaperColor(const QColor& paperColor);
 
 private:
     PDFDocument(Poppler::Document* document);

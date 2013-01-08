@@ -7,6 +7,8 @@
 #include <QRectF>
 #include <QString>
 
+class QColor;
+class QDialog;
 class QImage;
 class QSizeF;
 class QStandardItemModel;
@@ -36,7 +38,7 @@ public:
 
     virtual QRectF boundary() const = 0;
 
-    virtual void executeDialog(const QPoint& screenPos) = 0;
+    virtual QDialog* showDialog(const QPoint& screenPos) = 0;
 };
 
 class FormField
@@ -46,7 +48,7 @@ public:
 
     virtual QRectF boundary() const = 0;
 
-    virtual void executeDialog(const QPoint& screenPos) = 0;
+    virtual QDialog* showDialog(const QPoint& screenPos) = 0;
 };
 
 class Page
@@ -84,6 +86,8 @@ public:
     virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextHinting(bool on) { Q_UNUSED(on); }
+
+    virtual void setPaperColor(const QColor& paperColor) { Q_UNUSED(paperColor); }
 
     virtual void loadOutline(QStandardItemModel* outlineModel) const { Q_UNUSED(outlineModel); }
     virtual void loadProperties(QStandardItemModel* propertiesModel) const { Q_UNUSED(propertiesModel); }
