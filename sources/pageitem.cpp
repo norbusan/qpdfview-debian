@@ -761,7 +761,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
-    if(m_page->supportsAddingAnnotations())
+    if(m_page->canAddAnnotations())
     {
         QMenu* menu = new QMenu();
 
@@ -778,6 +778,9 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
             if(action == addTextAction)
             {
+                boundary.setWidth(24.0 / m_size.width());
+                boundary.setHeight(24.0 / m_size.height());
+
                 annotation = m_page->addTextAnnotation(boundary);
             }
             else if(action == addHighlightAction)
@@ -794,80 +797,9 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     }
 }
 
-/* TODO
-#ifdef HAS_POPPLER_20
-
-    QMenu* menu = new QMenu();
-
-    QAction* addTextAction = menu->addAction(tr("Add &text"));
-    QAction* addHighlightAction = menu->addAction(tr("Add &highlight"));
-
-    QAction* action = menu->exec(screenPos);
-
-    if(action == addTextAction || action == addHighlightAction)
-    {
-        QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
-
-        Poppler::Annotation::Style style;
-        style.setColor(Qt::yellow);
-
-        Poppler::Annotation::Popup popup;
-        popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
-
-        Poppler::Annotation* annotation = 0;
-
-        if(action == addTextAction)
-        {
-            boundary.setWidth(24.0 / m_size.width());
-            boundary.setHeight(24.0 / m_size.height());
-
-            annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
-        }
-        else if(action == addHighlightAction)
-        {
-            Poppler::HighlightAnnotation* highlightAnnotation = new Poppler::HighlightAnnotation();
-
-            Poppler::HighlightAnnotation::Quad quad;
-            quad.points[0] = boundary.topLeft();
-            quad.points[1] = boundary.topRight();
-            quad.points[2] = boundary.bottomRight();
-            quad.points[3] = boundary.bottomLeft();
-
-            highlightAnnotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
-
-            annotation = highlightAnnotation;
-        }
-
-        annotation->setBoundary(boundary);
-        annotation->setStyle(style);
-        annotation->setPopup(popup);
-
-        m_mutex->lock();
-
-        m_annotations.append(annotation);
-        m_page->addAnnotation(annotation);
-
-        m_mutex->unlock();
-
-        refresh();
-
-        editAnnotation(annotation, screenPos);
-    }
-
-    delete menu;
-
-#else
-
-    Q_UNUSED(screenPos);
-
-    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
-
-#endif // HAS_POPPLER_20
-*/
-
 void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
 {
-    if(m_page->supportsRemovingAnnotations())
+    if(m_page->canAddAnnotations())
     {
         QMenu* menu = new QMenu();
 
@@ -877,6 +809,7 @@ void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
 
         if(action == removeAnnotationAction)
         {
+            m_annotations.removeAll(annotation);
             m_page->removeAnnotation(annotation);
 
             refresh();
@@ -885,39 +818,6 @@ void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
         delete menu;
     }
 }
-
-/* TODO
-#ifdef HAS_POPPLER_20
-
-    QMenu* menu = new QMenu();
-
-    QAction* removeAnnotationAction = menu->addAction(tr("&Remove annotation"));
-
-    QAction* action = menu->exec(screenPos);
-
-    if(action == removeAnnotationAction)
-    {
-        m_mutex->lock();
-
-        m_annotations.removeAll(annotation);
-        m_page->removeAnnotation(annotation);
-
-        m_mutex->unlock();
-
-        refresh();
-    }
-
-    delete menu;
-
-#else
-
-    Q_UNUSED(annotation);
-    Q_UNUSED(screenPos);
-
-    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
-
-#endif // HAS_POPPLER_20
-*/
 
 void PageItem::editAnnotation(Annotation* annotation, const QPoint& screenPos)
 {

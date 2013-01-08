@@ -72,6 +72,11 @@ public:
 
     QList< Annotation* > annotations() const;
 
+    bool canAddAnnotations() const;
+    Annotation* addTextAnnotation(const QRectF& boundary);
+    Annotation* addHighlightAnnotation(const QRectF& boundary);
+    void removeAnnotation(Annotation* annotation);
+
     QList< FormField* > formFields() const;
 
 private:
@@ -93,6 +98,11 @@ public:
 
     Page* page(int index) const;
 
+    bool isLocked() const;
+    bool unlock(const QString& password);
+
+    bool save(const QString& filePath, bool withChanges) const;
+
     void setAntialiasing(bool on);
     void setTextAntialiasing(bool on);
     void setTextHinting(bool on);
@@ -100,6 +110,10 @@ public:
     void setOverprintPreview(bool on);
 
     void setPaperColor(const QColor& paperColor);
+
+    void loadOutline(QStandardItemModel *outlineModel) const;
+    void loadProperties(QStandardItemModel *propertiesModel) const;
+    void loadFonts(QStandardItemModel* fontsModel) const;
 
 private:
     PDFDocument(Poppler::Document* document);

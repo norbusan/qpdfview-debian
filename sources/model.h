@@ -10,6 +10,7 @@
 class QColor;
 class QDialog;
 class QImage;
+class QPrinter;
 class QSizeF;
 class QStandardItemModel;
 
@@ -69,9 +70,7 @@ public:
 
     virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
 
-    virtual bool supportsAddingAnnotations() const { return false; }
-    virtual bool supportsRemovingAnnotations() const { return false; }
-
+    virtual bool canAddAnnotations() const { return false; }
     virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
     virtual Annotation* addHighlightAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
     virtual void removeAnnotation(Annotation* annotation) { Q_UNUSED(annotation); }
@@ -91,6 +90,11 @@ public:
 
     virtual Page* page(int index) const = 0;
 
+    virtual bool isLocked() const { return false; }
+    virtual bool unlock(const QString& password) { Q_UNUSED(password); return false; }
+
+    virtual bool save(const QString& filePath, bool withChanges) const { Q_UNUSED(filePath); Q_UNUSED(withChanges); return false; }
+
     virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextHinting(bool on) { Q_UNUSED(on); }
@@ -101,6 +105,7 @@ public:
 
     virtual void loadOutline(QStandardItemModel* outlineModel) const { Q_UNUSED(outlineModel); }
     virtual void loadProperties(QStandardItemModel* propertiesModel) const { Q_UNUSED(propertiesModel); }
+    virtual void loadFonts(QStandardItemModel* fontsModel) const { Q_UNUSED(fontsModel); }
 
 };
 

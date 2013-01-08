@@ -1,5 +1,8 @@
 #include "pdfmodel.h"
 
+#include <QMessageBox>
+#include <QStandardItemModel>
+
 #include <poppler-qt4.h>
 #include <poppler-form.h>
 
@@ -280,6 +283,99 @@ QList< Annotation* > PDFPage::annotations() const
     return annotations;
 }
 
+bool PDFPage::canAddAnnotations() const
+{
+#ifdef HAS_POPPLER_20
+
+    return true;
+
+#else
+
+    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
+
+    return false;
+
+#endif // HAS_POPPLER_20
+}
+
+Annotation* PDFPage::addTextAnnotation(const QRectF& boundary)
+{
+#ifdef HAS_POPPLER_20
+
+    Poppler::Annotation::Style style;
+    style.setColor(Qt::yellow);
+
+    Poppler::Annotation::Popup popup;
+    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
+    Poppler::HighlightAnnotation* annotation = new Poppler::HighlightAnnotation();
+
+    Poppler::HighlightAnnotation::Quad quad;
+    quad.points[0] = boundary.topLeft();
+    quad.points[1] = boundary.topRight();
+    quad.points[2] = boundary.bottomRight();
+    quad.points[3] = boundary.bottomLeft();
+
+    annotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+    annotation->setPopup(popup);
+
+    m_page->addAnnotation(annotation);
+
+    return new PDFAnnotation(m_mutex, annotation);
+
+#else
+
+    Q_UNUSED(boundary);
+
+    return 0;
+
+#endif // HAS_POPPLER_20
+
+}
+
+Annotation* PDFPage::addHighlightAnnotation(const QRectF& boundary)
+{
+#ifdef HAS_POPPLER_20
+
+    Poppler::Annotation::Style style;
+    style.setColor(Qt::yellow);
+
+    Poppler::Annotation::Popup popup;
+    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
+    Poppler::Annotation* annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+    annotation->setPopup(popup);
+
+    m_page->addAnnotation(annotation);
+
+    return new PDFAnnotation(m_mutex, annotation);
+
+#else
+
+    Q_UNUSED(boundary);
+
+    return 0;
+
+#endif // HAS_POPPLER_20
+}
+
+void PDFPage::removeAnnotation(Annotation* annotation)
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+#ifdef HAS_POPPLER_20
+
+    m_page->removeAnnotation(static_cast< PDFAnnotation* >(annotation)->m_annotation);
+
+#endif // HAS_POPPLER_20
+}
+
 QList< FormField* > PDFPage::formFields() const
 {
     QMutexLocker mutexLocker(m_mutex);
@@ -371,6 +467,40 @@ Page* PDFDocument::page(int index) const
     return page != 0 ? new PDFPage(&m_mutex, page) : 0;
 }
 
+bool PDFDocument::isLocked() const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    return m_document->isLocked();
+}
+
+bool PDFDocument::unlock(const QString& password)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    return m_document->unlock(password.toLatin1(), password.toLatin1());
+}
+
+bool PDFDocument::save(const QString& filePath, bool withChanges) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
+
+    pdfConverter->setOutputFileName(filePath);
+
+    if(withChanges)
+    {
+        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
+    }
+
+    bool ok = pdfConverter->convert();
+
+    delete pdfConverter;
+
+    return ok;
+}
+
 void PDFDocument::setAntialiasing(bool on)
 {
     QMutexLocker mutexLocker(&m_mutex);
@@ -400,6 +530,10 @@ void PDFDocument::setOverprintPreview(bool on)
 
     m_document->setRenderHint(Poppler::Document::OverprintPreview, on);
 
+#else
+
+    Q_UNUSED(on);
+
 #endif // HAS_POPPLER_22
 }
 
@@ -408,4 +542,136 @@ void PDFDocument::setPaperColor(const QColor& paperColor)
     QMutexLocker mutexLocker(&m_mutex);
 
     m_document->setPaperColor(paperColor);
+}
+
+static void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
+{
+    QDomElement element = node.toElement();
+
+    QStandardItem* item = new QStandardItem();
+
+    item->setFlags(Qt::ItemIsEnabled);
+
+    item->setText(element.tagName());
+    item->setToolTip(element.tagName());
+
+    Poppler::LinkDestination* linkDestination = 0;
+
+    if(element.hasAttribute("Destination"))
+    {
+        linkDestination = new Poppler::LinkDestination(element.attribute("Destination"));
+    }
+    else if(element.hasAttribute("DestinationName"))
+    {
+        linkDestination = document->linkDestination(element.attribute("DestinationName"));
+    }
+
+    if(linkDestination != 0)
+    {
+        int page = linkDestination->pageNumber();
+        qreal left = 0.0;
+        qreal top = 0.0;
+
+        page = page >= 1 ? page : 1;
+        page = page <= document->numPages() ? page : document->numPages();
+
+        if(linkDestination->isChangeLeft())
+        {
+            left = linkDestination->left();
+
+            left = left >= 0.0 ? left : 0.0;
+            left = left <= 1.0 ? left : 1.0;
+        }
+
+        if(linkDestination->isChangeTop())
+        {
+            top = linkDestination->top();
+
+            top = top >= 0.0 ? top : 0.0;
+            top = top <= 1.0 ? top : 1.0;
+        }
+
+        item->setData(page, Qt::UserRole + 1);
+        item->setData(left, Qt::UserRole + 2);
+        item->setData(top, Qt::UserRole + 3);
+
+        delete linkDestination;
+    }
+
+    parent->appendRow(item);
+
+    QDomNode siblingNode = node.nextSibling();
+    if(!siblingNode.isNull())
+    {
+        loadOutline(document, siblingNode, parent);
+    }
+
+    QDomNode childNode = node.firstChild();
+    if(!childNode.isNull())
+    {
+        loadOutline(document, childNode, item);
+    }
+}
+
+void PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    QDomDocument* toc = m_document->toc();
+
+    if(toc != 0)
+    {
+        ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
+
+        delete toc;
+    }
+}
+
+void PDFDocument::loadProperties(QStandardItemModel* propertiesModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    QStringList keys = m_document->infoKeys();
+
+    propertiesModel->setRowCount(keys.count());
+    propertiesModel->setColumnCount(2);
+
+    for(int index = 0; index < keys.count(); ++index)
+    {
+        QString key = keys.at(index);
+        QString value = m_document->info(key);
+
+        if(value.startsWith("D:"))
+        {
+            value = m_document->date(key).toString();
+        }
+
+        propertiesModel->setItem(index, 0, new QStandardItem(key));
+        propertiesModel->setItem(index, 1, new QStandardItem(value));
+    }
+}
+
+void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    QList< Poppler::FontInfo > fonts = m_document->fonts();
+
+    mutexLocker.unlock();
+
+    fontsModel->setRowCount(fonts.count());
+    fontsModel->setColumnCount(5);
+
+    fontsModel->setHorizontalHeaderLabels(QStringList() << QObject::tr("Name") << QObject::tr("Type") << QObject::tr("Embedded") << QObject::tr("Subset") << QObject::tr("File"));
+
+    for(int index = 0; index < fonts.count(); ++index)
+    {
+        Poppler::FontInfo& font = fonts[index];
+
+        fontsModel->setItem(index, 0, new QStandardItem(font.name()));
+        fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));
+        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? QObject::tr("Yes") : QObject::tr("No")));
+        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? QObject::tr("Yes") : QObject::tr("No")));
+        fontsModel->setItem(index, 4, new QStandardItem(font.file()));
+    }
 }

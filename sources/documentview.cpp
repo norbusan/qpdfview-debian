@@ -34,6 +34,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include <QPrinter>
 #include <QProcess>
+#include <QProgressDialog>
 #include <QScrollBar>
 #include <QStandardItemModel>
 #include <QTemporaryFile>
@@ -577,35 +578,11 @@ QStandardItemModel* DocumentView::propertiesModel() const
 
 QStandardItemModel* DocumentView::fontsModel()
 {
-    /* TODO
-    m_mutex.lock();
-
-    QList< Poppler::FontInfo > fonts = m_document->fonts();
-
-    m_mutex.unlock();
-
     QStandardItemModel* fontsModel = new QStandardItemModel();
 
-    fontsModel->setRowCount(fonts.count());
-    fontsModel->setColumnCount(5);
-
-    fontsModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
-
-    for(int index = 0; index < fonts.count(); ++index)
-    {
-        Poppler::FontInfo& font = fonts[index];
-
-        fontsModel->setItem(index, 0, new QStandardItem(font.name()));
-        fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));
-        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 4, new QStandardItem(font.file()));
-    }
+    m_document->loadFonts(fontsModel);
 
     return fontsModel;
-    */
-
-    return new QStandardItemModel();
 }
 
 QGraphicsScene* DocumentView::thumbnailsScene() const
@@ -631,18 +608,16 @@ bool DocumentView::open(const QString& filePath)
 
     if(document != 0)
     {
-        /* TODO
         if(document->isLocked())
         {
             QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
 
-            if(document->unlock(password.toLatin1(), password.toLatin1()))
+            if(document->unlock(password))
             {
                 delete document;
                 return false;
             }
         }
-        */
 
         m_filePath = filePath;
 
@@ -672,18 +647,16 @@ bool DocumentView::refresh()
 
     if(document != 0)
     {
-        /* TODO
         if(document->isLocked())
         {
             QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(m_filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
 
-            if(document->unlock(password.toLatin1(), password.toLatin1()))
+            if(document->unlock(password))
             {
                 delete document;
                 return false;
             }
         }
-        */
 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
@@ -705,35 +678,13 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
-    /* TODO
-    m_mutex.lock();
-
-    Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
-
-    pdfConverter->setOutputFileName(filePath);
-
-    if(withChanges)
-    {
-        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
-    }
-
-    bool ok = pdfConverter->convert();
-
-    delete pdfConverter;
-
-    m_mutex.unlock();
-
-    return ok;
-    */
-
-    return false;
+    return m_document->save(filePath, withChanges);
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 {
     int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
     int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
-    int numberUp = 1;
 
 #ifdef WITH_CUPS
 
@@ -802,6 +753,8 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
             num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options);
             break;
         }
+
+        int numberUp = 1;
 
         switch(printOptions.numberUp)
         {
@@ -926,18 +879,14 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
         QApplication::processEvents();
 
         {
-            m_mutex.lock();
+            Page* page = m_document->page(index);
 
-            Poppler::Page* page = m_document->page(index);
+            qreal pageWidth =  printer->physicalDpiX() / 72.0 * page->size().width();
+            qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().height();
 
-            qreal pageWidth =  printer->physicalDpiX() / 72.0 * page->pageSizeF().width();
-            qreal pageHeight = printer->physicalDpiY() / 72.0 * page->pageSizeF().height();
-
-            QImage image = page->renderToImage(printer->physicalDpiX(), printer->physicalDpiY());
+            QImage image = page->render(printer->physicalDpiX(), printer->physicalDpiY());
 
             delete page;
-
-            m_mutex.unlock();
 
             qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
 
@@ -1851,116 +1800,13 @@ void DocumentView::prepareOutline()
     m_outlineModel->clear();
 
     m_document->loadOutline(m_outlineModel);
-
-    /* TODO
-    QDomDocument* toc = m_document->toc();
-
-    if(toc != 0)
-    {
-        prepareOutline(toc->firstChild(), m_outlineModel->invisibleRootItem());
-
-        delete toc;
-    }
-    */
 }
-
-/* TODO
-void DocumentView::prepareOutline(const QDomNode& node, QStandardItem* parent)
-{
-    QDomElement element = node.toElement();
-
-    QStandardItem* item = new QStandardItem();
-
-    item->setFlags(Qt::ItemIsEnabled);
-
-    item->setText(element.tagName());
-    item->setToolTip(element.tagName());
-
-    Poppler::LinkDestination* linkDestination = 0;
-
-    if(element.hasAttribute("Destination"))
-    {
-        linkDestination = new Poppler::LinkDestination(element.attribute("Destination"));
-    }
-    else if(element.hasAttribute("DestinationName"))
-    {
-        linkDestination = m_document->linkDestination(element.attribute("DestinationName"));
-    }
-
-    if(linkDestination != 0)
-    {
-        int page = linkDestination->pageNumber();
-        qreal left = 0.0;
-        qreal top = 0.0;
-
-        page = page >= 1 ? page : 1;
-        page = page <= m_numberOfPages ? page : m_numberOfPages;
-
-        if(linkDestination->isChangeLeft())
-        {
-            left = linkDestination->left();
-
-            left = left >= 0.0 ? left : 0.0;
-            left = left <= 1.0 ? left : 1.0;
-        }
-
-        if(linkDestination->isChangeTop())
-        {
-            top = linkDestination->top();
-
-            top = top >= 0.0 ? top : 0.0;
-            top = top <= 1.0 ? top : 1.0;
-        }
-
-        item->setData(page, Qt::UserRole + 1);
-        item->setData(left, Qt::UserRole + 2);
-        item->setData(top, Qt::UserRole + 3);
-
-        delete linkDestination;
-    }
-
-    parent->appendRow(item);
-
-    QDomNode siblingNode = node.nextSibling();
-    if(!siblingNode.isNull())
-    {
-        prepareOutline(siblingNode, parent);
-    }
-
-    QDomNode childNode = node.firstChild();
-    if(!childNode.isNull())
-    {
-        prepareOutline(childNode, item);
-    }
-}
-*/
 
 void DocumentView::prepareProperties()
 {
     m_propertiesModel->clear();
 
     m_document->loadProperties(m_propertiesModel);
-
-    /* TODO
-    QStringList keys = m_document->infoKeys();
-
-    m_propertiesModel->setRowCount(keys.count());
-    m_propertiesModel->setColumnCount(2);
-
-    for(int index = 0; index < keys.count(); ++index)
-    {
-        QString key = keys.at(index);
-        QString value = m_document->info(key);
-
-        if(value.startsWith("D:"))
-        {
-            value = m_document->date(key).toString();
-        }
-
-        m_propertiesModel->setItem(index, 0, new QStandardItem(key));
-        m_propertiesModel->setItem(index, 1, new QStandardItem(value));
-    }
-    */
 }
 
 void DocumentView::prepareScene()
