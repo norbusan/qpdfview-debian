@@ -1015,27 +1015,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Priblíženie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otočenie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrolovanie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skopírovať  do schránky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pridať komentár:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
