@@ -40,8 +40,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QUrl>
 
-#include <poppler-qt4.h>
-
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
@@ -54,6 +52,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
+#include "model.h"
 #include "pageitem.h"
 #include "searchthread.h"
 #include "presentationview.h"
@@ -280,7 +279,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
     m_autoRefreshTimer(0),
     m_prefetchTimer(0),
-    m_mutex(),
     m_document(0),
     m_filePath(),
     m_numberOfPages(-1),
@@ -579,6 +577,7 @@ QStandardItemModel* DocumentView::propertiesModel() const
 
 QStandardItemModel* DocumentView::fontsModel()
 {
+    /* TODO
     m_mutex.lock();
 
     QList< Poppler::FontInfo > fonts = m_document->fonts();
@@ -604,6 +603,9 @@ QStandardItemModel* DocumentView::fontsModel()
     }
 
     return fontsModel;
+    */
+
+    return new QStandardItemModel();
 }
 
 QGraphicsScene* DocumentView::thumbnailsScene() const
@@ -625,10 +627,11 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Poppler::Document* document = Poppler::Document::load(filePath);
+    Document* document = Document::load(filePath);
 
     if(document != 0)
     {
+        /* TODO
         if(document->isLocked())
         {
             QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
@@ -639,10 +642,11 @@ bool DocumentView::open(const QString& filePath)
                 return false;
             }
         }
+        */
 
         m_filePath = filePath;
 
-        m_numberOfPages = document->numPages();
+        m_numberOfPages = document->numberOfPages();
         m_currentPage = 1;
 
         m_returnToPage.clear();
@@ -664,10 +668,11 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Poppler::Document* document = Poppler::Document::load(m_filePath);
+    Document* document = Document::load(m_filePath);
 
     if(document != 0)
     {
+        /* TODO
         if(document->isLocked())
         {
             QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(m_filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
@@ -678,11 +683,12 @@ bool DocumentView::refresh()
                 return false;
             }
         }
+        */
 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_numberOfPages = document->numPages();
+        m_numberOfPages = document->numberOfPages();
         m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : m_numberOfPages;
 
         prepareDocument(document);
@@ -699,6 +705,7 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
+    /* TODO
     m_mutex.lock();
 
     Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
@@ -717,6 +724,9 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
     m_mutex.unlock();
 
     return ok;
+    */
+
+    return false;
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
@@ -1076,7 +1086,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
         indices.append(index);
     }
 
-    m_searchThread->start(&m_mutex, m_document, indices, text, matchCase);
+    m_searchThread->start(m_document, indices, text, matchCase);
 }
 
 void DocumentView::cancelSearch()
@@ -1226,7 +1236,7 @@ void DocumentView::presentation(bool sync, int screen)
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(&m_mutex, m_document);
+    PresentationView* presentationView = new PresentationView(m_document);
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 
@@ -1674,7 +1684,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
-void DocumentView::prepareDocument(Poppler::Document* document)
+void DocumentView::prepareDocument(Document* document)
 {
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
@@ -1701,17 +1711,13 @@ void DocumentView::prepareDocument(Poppler::Document* document)
         m_autoRefreshWatcher->addPath(m_filePath);
     }
 
-    m_document->setRenderHint(Poppler::Document::Antialiasing, s_antialiasing);
-    m_document->setRenderHint(Poppler::Document::TextAntialiasing, s_textAntialiasing);
-    m_document->setRenderHint(Poppler::Document::TextHinting, s_textHinting);
+    m_document->setAntialiasing(s_antialiasing);
+    m_document->setTextAntialiasing(s_textAntialiasing);
+    m_document->setTextHinting(s_textHinting);
+
+    m_document->setOverprintPreview(s_overprintPreview);
 
     m_document->setPaperColor(PageItem::paperColor());
-
-#ifdef HAS_POPPLER_22
-
-    m_document->setRenderHint(Poppler::Document::OverprintPreview, s_overprintPreview);
-
-#endif // HAS_POPPLER_22
 
     preparePages();
     prepareThumbnails();
@@ -1732,7 +1738,7 @@ void DocumentView::preparePages()
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = new PageItem(&m_mutex, m_document->page(index), index);
+        PageItem* page = new PageItem(m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setRubberBandMode(m_rubberBandMode);
@@ -1780,7 +1786,7 @@ void DocumentView::prepareThumbnails()
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(&m_mutex, m_document->page(index), index);
+        ThumbnailItem* page = new ThumbnailItem(m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
@@ -1844,6 +1850,9 @@ void DocumentView::prepareOutline()
 {
     m_outlineModel->clear();
 
+    m_document->loadOutline(m_outlineModel);
+
+    /* TODO
     QDomDocument* toc = m_document->toc();
 
     if(toc != 0)
@@ -1852,8 +1861,10 @@ void DocumentView::prepareOutline()
 
         delete toc;
     }
+    */
 }
 
+/* TODO
 void DocumentView::prepareOutline(const QDomNode& node, QStandardItem* parent)
 {
     QDomElement element = node.toElement();
@@ -1922,11 +1933,15 @@ void DocumentView::prepareOutline(const QDomNode& node, QStandardItem* parent)
         prepareOutline(childNode, item);
     }
 }
+*/
 
 void DocumentView::prepareProperties()
 {
     m_propertiesModel->clear();
 
+    m_document->loadProperties(m_propertiesModel);
+
+    /* TODO
     QStringList keys = m_document->infoKeys();
 
     m_propertiesModel->setRowCount(keys.count());
@@ -1945,6 +1960,7 @@ void DocumentView::prepareProperties()
         m_propertiesModel->setItem(index, 0, new QStandardItem(key));
         m_propertiesModel->setItem(index, 1, new QStandardItem(value));
     }
+    */
 }
 
 void DocumentView::prepareScene()

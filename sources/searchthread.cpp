@@ -21,14 +21,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "searchthread.h"
 
-#include <QMutex>
-
-#include <poppler-qt4.h>
+#include "model.h"
 
 SearchThread::SearchThread(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
-    m_mutex(0),
     m_document(0),
     m_indices(),
     m_text(),
@@ -62,45 +59,11 @@ void SearchThread::run()
             return;
         }
 
-        QList< QRectF > results;
+        Page* page = m_document->page(index);
 
-        m_mutex->lock();
-
-        Poppler::Page* page = m_document->page(index);
-
-#if defined(HAS_POPPLER_22)
-
-        results = page->search(m_text, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
-
-#elif defined(HAS_POPPLER_14)
-
-        double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
-
-        while(page->search(m_text, left, top, right, bottom, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-        {
-            QRectF rect;
-            rect.setLeft(left);
-            rect.setTop(top);
-            rect.setRight(right);
-            rect.setBottom(bottom);
-
-            results.append(rect);
-        }
-
-#else
-
-        QRectF rect;
-
-        while(page->search(m_text, rect, Poppler::Page::NextResult, m_matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-        {
-            results.append(rect);
-        }
-
-#endif
+        QList< QRectF > results = page->search(m_text, m_matchCase);
 
         delete page;
-
-        m_mutex->unlock();
 
         emit resultsReady(index, results);
 
@@ -114,9 +77,8 @@ void SearchThread::run()
     emit finished();
 }
 
-void SearchThread::start(QMutex* mutex, Poppler::Document* document, const QList< int >& indices, const QString& text, bool matchCase)
+void SearchThread::start(Document* document, const QList< int >& indices, const QString& text, bool matchCase)
 {
-    m_mutex = mutex;
     m_document = document;
 
     m_indices = indices;

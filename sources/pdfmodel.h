@@ -22,6 +22,7 @@ public:
     ~PDFAnnotation();
 
     QRectF boundary() const;
+    QString contents() const;
 
     QDialog* showDialog(const QPoint& screenPos);
 
@@ -41,6 +42,7 @@ public:
     ~PDFFormField();
 
     QRectF boundary() const;
+    QString name() const;
 
     QDialog* showDialog(const QPoint& screenPos);
 
@@ -63,8 +65,9 @@ public:
 
     QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
-    QList< Link > links() const;
+    QList< Link* > links() const;
 
+    QString text(const QRectF &rect) const;
     QList< QRectF > search(const QString &text, bool matchCase) const;
 
     QList< Annotation* > annotations() const;
@@ -93,6 +96,8 @@ public:
     void setAntialiasing(bool on);
     void setTextAntialiasing(bool on);
     void setTextHinting(bool on);
+
+    void setOverprintPreview(bool on);
 
     void setPaperColor(const QColor& paperColor);
 

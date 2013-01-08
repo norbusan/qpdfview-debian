@@ -37,6 +37,7 @@ public:
     virtual ~Annotation() {}
 
     virtual QRectF boundary() const = 0;
+    virtual QString contents() const = 0;
 
     virtual QDialog* showDialog(const QPoint& screenPos) = 0;
 };
@@ -47,6 +48,7 @@ public:
     virtual ~FormField() {}
 
     virtual QRectF boundary() const = 0;
+    virtual QString name() const = 0;
 
     virtual QDialog* showDialog(const QPoint& screenPos) = 0;
 };
@@ -60,11 +62,15 @@ public:
 
     virtual QImage render(qreal horizontalResolution = 72.0, qreal verticalResolution = 72.0, Rotation rotation = RotateBy0, const QRect& boundingRect = QRect()) const = 0;
 
-    virtual QList< Link > links() const { return QList< Link >(); }
+    virtual QList< Link* > links() const { return QList< Link* >(); }
 
+    virtual QString text(const QRectF& rect) const { Q_UNUSED(rect); return QString(); }
     virtual QList< QRectF > search(const QString& text, bool matchCase) const { Q_UNUSED(text); Q_UNUSED(matchCase); return QList< QRectF >(); }
 
     virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
+
+    virtual bool supportsAddingAnnotations() const { return false; }
+    virtual bool supportsRemovingAnnotations() const { return false; }
 
     virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
     virtual Annotation* addHighlightAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
@@ -88,6 +94,8 @@ public:
     virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextHinting(bool on) { Q_UNUSED(on); }
+
+    virtual void setOverprintPreview(bool on) { Q_UNUSED(on); }
 
     virtual void setPaperColor(const QColor& paperColor) { Q_UNUSED(paperColor); }
 

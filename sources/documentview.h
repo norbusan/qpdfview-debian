@@ -33,14 +33,10 @@ class QDomNode;
 class QStandardItem;
 class QStandardItemModel;
 
-namespace Poppler
-{
-class Document;
-}
-
 #include "global.h"
 #include "printoptions.h"
 
+class Document;
 class PageItem;
 class ThumbnailItem;
 class SearchThread;
@@ -250,8 +246,7 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    QMutex m_mutex;
-    Poppler::Document* m_document;
+    Document* m_document;
 
     QString m_filePath;
     int m_numberOfPages;
@@ -290,15 +285,13 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
-    void prepareDocument(Poppler::Document* document);
+    void prepareDocument(Document* document);
 
     void preparePages();
 
     void prepareThumbnails();
 
     void prepareOutline();
-    void prepareOutline(const QDomNode& node, QStandardItem* parent);
-
     void prepareProperties();
 
     void prepareScene();

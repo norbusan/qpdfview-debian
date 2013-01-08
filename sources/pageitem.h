@@ -26,17 +26,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFutureWatcher>
 #include <QGraphicsObject>
 
-class QMutex;
+#include "global.h"
 
-namespace Poppler
-{
 class Annotation;
 class FormField;
-class Link;
+struct Link;
 class Page;
-}
-
-#include "global.h"
 
 class PageItem : public QGraphicsObject
 {
@@ -70,7 +65,7 @@ public:
     static const Qt::KeyboardModifiers& addAnnotationModifiers();
     static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
 
-    PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
+    PageItem(Page* page, int index, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -148,15 +143,14 @@ private:
     static Qt::KeyboardModifiers s_copyToClipboardModifiers;
     static Qt::KeyboardModifiers s_addAnnotationModifiers;
 
-    QMutex* m_mutex;
-    Poppler::Page* m_page;
+    Page* m_page;
 
     int m_index;
     QSizeF m_size;
 
-    QList< Poppler::Link* > m_links;
-    QList< Poppler::Annotation* > m_annotations;
-    QList< Poppler::FormField* > m_formFields;
+    QList< Link* > m_links;
+    QList< Annotation* > m_annotations;
+    QList< FormField* > m_formFields;
 
     QList< QRectF > m_highlights;
 
@@ -166,10 +160,10 @@ private:
     void copyToClipboard(const QPoint& screenPos);
 
     void addAnnotation(const QPoint& screenPos);
-    void removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
-    void editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos);
+    void removeAnnotation(Annotation* annotation, const QPoint& screenPos);
+    void editAnnotation(Annotation* annotation, const QPoint& screenPos);
 
-    void editFormField(Poppler::FormField* formField, const QPoint& screenPos);
+    void editFormField(FormField* formField, const QPoint& screenPos);
 
     // geometry
 
@@ -199,7 +193,7 @@ class ThumbnailItem : public PageItem
     Q_OBJECT
 
 public:
-    ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent = 0);
+    ThumbnailItem(Page* page, int index, QGraphicsItem* parent = 0);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);

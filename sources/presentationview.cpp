@@ -26,12 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QToolTip>
 
-#include <poppler-qt4.h>
-
+#include "model.h"
 #include "pageitem.h"
 
-PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document, QWidget* parent) : QWidget(parent),
-    m_mutex(0),
+PresentationView::PresentationView(Document* document, QWidget* parent) : QWidget(parent),
     m_document(0),
     m_numberOfPages(-1),
     m_currentPage(1),
@@ -52,10 +50,9 @@ PresentationView::PresentationView(QMutex* mutex, Poppler::Document* document, Q
 
     connect(this, SIGNAL(imageReady(int,qreal,QImage)), SLOT(on_imageReady(int,qreal,QImage)));
 
-    m_mutex = mutex;
     m_document = document;
 
-    m_numberOfPages = m_document->numPages();
+    m_numberOfPages = m_document->numberOfPages();
 
     prepareView();
 }
@@ -240,19 +237,17 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::mousePressEvent(QMouseEvent* event)
 {
-    foreach(Poppler::LinkGoto* link, m_links)
+    foreach(Link* link, m_links)
     {
-        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+        if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
         {
-            int page = link->destination().pageNumber();
+            if(link->page != -1)
+            {
+                jumpToPage(link->page);
 
-            page = page >= 1 ? page : 1;
-            page = page <= m_numberOfPages ? page : m_numberOfPages;
-
-            jumpToPage(page);
-
-            event->accept();
-            return;
+                event->accept();
+                return;
+            }
         }
     }
 
@@ -261,14 +256,17 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
 
 void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
-    foreach(Poppler::LinkGoto* link, m_links)
+    foreach(Link* link, m_links)
     {
-        if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+        if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
         {
-            setCursor(Qt::PointingHandCursor);
-            QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->destination().pageNumber()));
+            if(link->page != -1)
+            {
+                setCursor(Qt::PointingHandCursor);
+                QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->page));
 
-            return;
+                return;
+            }
         }
     }
 
@@ -278,39 +276,15 @@ void PresentationView::mouseMoveEvent(QMouseEvent* event)
 
 void PresentationView::prepareView()
 {
-    m_mutex->lock();
+    Page* page = m_document->page(m_currentPage - 1);
 
-    Poppler::Page* page = m_document->page(m_currentPage - 1);
+    QSizeF size = page->size();
 
-    QSizeF size = page->pageSizeF();
+    qDeleteAll(m_links);
 
-    {
-        // links
-
-        qDeleteAll(m_links);
-
-        m_links.clear();
-
-        foreach(Poppler::Link* link, page->links())
-        {
-            if(link->linkType() == Poppler::Link::Goto)
-            {
-                Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
-
-                if(!linkGoto->isExternal())
-                {
-                    m_links.append(linkGoto);
-                    continue;
-                }
-            }
-
-            delete link;
-        }
-    }
+    m_links = page->links();
 
     delete page;
-
-    m_mutex->unlock();
 
     {
         m_scaleFactor = qMin(width() / size.width(), height() / size.height());
@@ -332,16 +306,14 @@ void PresentationView::prepareView()
 
 void PresentationView::render(int index, qreal scaleFactor)
 {
-    QMutexLocker mutexLocker(m_mutex);
-
     if(m_render->isCanceled())
     {
         return;
     }
 
-    Poppler::Page* page = m_document->page(index);
+    Page* page = m_document->page(index);
 
-    QImage image = page->renderToImage(scaleFactor * 72.0, scaleFactor * 72.0);
+    QImage image = page->render(72.0 * scaleFactor, 72.0 * scaleFactor);
 
     delete page;
 

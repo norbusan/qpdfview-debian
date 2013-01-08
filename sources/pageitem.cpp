@@ -32,11 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QToolTip>
 
-#include <poppler-qt4.h>
-#include <poppler-form.h>
-
-#include "annotationdialog.h"
-#include "formfielddialog.h"
+#include "model.h"
 
 QCache< PageItem*, QImage > PageItem::s_cache(32 * 1024 * 1024);
 
@@ -148,8 +144,7 @@ void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotat
     s_addAnnotationModifiers = addAnnotationModifiers;
 }
 
-PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
-    m_mutex(0),
+PageItem::PageItem(Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(0),
     m_index(-1),
     m_size(),
@@ -175,89 +170,14 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
 
     connect(this, SIGNAL(imageReady(int,int,qreal,Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Rotation,bool,QImage)));
 
-    m_mutex = mutex;
     m_page = page;
 
     m_index = index;
-    m_size = m_page->pageSizeF();
+    m_size = m_page->size();
 
-    foreach(Poppler::Link* link, m_page->links())
-    {
-        if(link->linkType() == Poppler::Link::Goto)
-        {
-            if(!static_cast< Poppler::LinkGoto* >(link)->isExternal())
-            {
-                m_links.append(link);
-                continue;
-            }
-        }
-        else if(link->linkType() == Poppler::Link::Browse)
-        {
-            m_links.append(link);
-            continue;
-        }
-
-        delete link;
-    }
-
-    foreach(Poppler::Annotation* annotation, m_page->annotations())
-    {
-        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight)
-        {
-            m_annotations.append(annotation);
-            continue;
-        }
-
-        delete annotation;
-    }
-
-    foreach(Poppler::FormField* formField, m_page->formFields())
-    {
-        if(!formField->isVisible() || formField->isReadOnly())
-        {
-            delete formField;
-            continue;
-        }
-
-        switch(formField->type())
-        {
-        default:
-        case Poppler::FormField::FormSignature:
-            delete formField;
-            break;
-        case Poppler::FormField::FormText:
-            switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
-            {
-            default:
-            case Poppler::FormFieldText::FileSelect:
-                delete formField;
-                break;
-            case Poppler::FormFieldText::Normal:
-            case Poppler::FormFieldText::Multiline:
-                m_formFields.append(formField);
-                break;
-            }
-
-            break;
-        case Poppler::FormField::FormChoice:
-            m_formFields.append(formField);
-            break;
-        case Poppler::FormField::FormButton:
-            switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
-            {
-            default:
-            case Poppler::FormFieldButton::Push:
-                delete formField;
-                break;
-            case Poppler::FormFieldButton::CheckBox:
-            case Poppler::FormFieldButton::Radio:
-                m_formFields.append(formField);
-                break;
-            }
-
-            break;
-        }
-    }
+    m_links = m_page->links();
+    m_annotations = m_page->annotations();
+    m_formFields = m_page->formFields();
 
     prepareGeometry();
 }
@@ -336,9 +256,9 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red));
 
-        foreach(Poppler::Link* link, m_links)
+        foreach(Link* link, m_links)
         {
-            painter->drawRect(link->linkArea().normalized());
+            painter->drawRect(link->boundary);
         }
 
         painter->restore();
@@ -353,9 +273,9 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::blue));
 
-        foreach(Poppler::FormField* formField, m_formFields)
+        foreach(FormField* formField, m_formFields)
         {
-            painter->drawRect(formField->rect().normalized());
+            painter->drawRect(formField->boundary());
         }
 
         painter->restore();
@@ -581,21 +501,21 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
     {
         // links
 
-        foreach(Poppler::Link* link, m_links)
+        foreach(Link* link, m_links)
         {
-            if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
             {
-                if(link->linkType() == Poppler::Link::Goto)
+                if(link->page != -1)
                 {
                     setCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(static_cast< Poppler::LinkGoto* >(link)->destination().pageNumber()));
+                    QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link->page));
 
                     return;
                 }
-                else if(link->linkType() == Poppler::Link::Browse)
+                else if(!link->url.isNull())
                 {
                     setCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->screenPos(), tr("Open %1.").arg(static_cast< Poppler::LinkBrowse* >(link)->url()));
+                    QToolTip::showText(event->screenPos(), tr("Open %1.").arg(link->url));
 
                     return;
                 }
@@ -604,9 +524,9 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // annotations
 
-        foreach(Poppler::Annotation* annotation, m_annotations)
+        foreach(Annotation* annotation, m_annotations)
         {
-            if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), annotation->contents());
@@ -617,9 +537,9 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // form fields
 
-        foreach(Poppler::FormField* formField, m_formFields)
+        foreach(FormField* formField, m_formFields)
         {
-            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(formField->boundary()).contains(event->pos()))
             {
                 setCursor(Qt::PointingHandCursor);
                 QToolTip::showText(event->screenPos(), tr("Edit form field '%1'.").arg(formField->name()));
@@ -671,28 +591,22 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     {
         // links
 
-        foreach(Poppler::Link* link, m_links)
+        foreach(Link* link, m_links)
         {
-            if(m_normalizedTransform.mapRect(link->linkArea().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
             {
                 unsetCursor();
 
-                if(link->linkType() == Poppler::Link::Goto)
+                if(link->page != -1)
                 {
-                    Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
-
-                    int page = linkGoto->destination().pageNumber();
-                    qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
-                    qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
-
-                    emit linkClicked(page, left, top);
+                    emit linkClicked(link->page, link->left, link->top);
 
                     event->accept();
                     return;
                 }
-                else if(link->linkType() == Poppler::Link::Browse)
+                else if(!link->url.isNull())
                 {
-                    emit linkClicked(static_cast< Poppler::LinkBrowse* >(link)->url());
+                    emit linkClicked(link->url);
 
                     event->accept();
                     return;
@@ -702,9 +616,9 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         // annotations
 
-        foreach(Poppler::Annotation* annotation, m_annotations)
+        foreach(Annotation* annotation, m_annotations)
         {
-            if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
             {
                 unsetCursor();
 
@@ -717,9 +631,9 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         // form fields
 
-        foreach(Poppler::FormField* formField, m_formFields)
+        foreach(FormField* formField, m_formFields)
         {
-            if(m_normalizedTransform.mapRect(formField->rect().normalized()).contains(event->pos()))
+            if(m_normalizedTransform.mapRect(formField->boundary()).contains(event->pos()))
             {
                 unsetCursor();
 
@@ -785,9 +699,9 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
-    foreach(Poppler::Annotation* annotation, m_annotations)
+    foreach(Annotation* annotation, m_annotations)
     {
-        if(m_normalizedTransform.mapRect(annotation->boundary().normalized()).contains(event->pos()))
+        if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
         {
             unsetCursor();
 
@@ -813,13 +727,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
     if(action == copyTextAction)
     {
-        QString text;
-
-        m_mutex->lock();
-
-        text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
-
-        m_mutex->unlock();
+        QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
 
         if(!text.isEmpty())
         {
@@ -828,48 +736,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
-        m_mutex->lock();
-
-        double xres;
-        double yres;
-
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            xres = m_scaleFactor * m_physicalDpiX;
-            yres = m_scaleFactor * m_physicalDpiY;
-            break;
-        case RotateBy90:
-        case RotateBy270:
-            xres = m_scaleFactor * m_physicalDpiY;
-            yres = m_scaleFactor * m_physicalDpiX;
-            break;
-        }
-
-        Poppler::Page::Rotation rotate;
-
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-            rotate = Poppler::Page::Rotate0;
-            break;
-        case RotateBy90:
-            rotate = Poppler::Page::Rotate90;
-            break;
-        case RotateBy180:
-            rotate = Poppler::Page::Rotate180;
-            break;
-        case RotateBy270:
-            rotate = Poppler::Page::Rotate270;
-            break;
-        }
-
-        QImage image = m_page->renderToImage(xres, yres, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), rotate);
-
-        m_mutex->unlock();
+        QImage image = m_page->render(m_physicalDpiX * m_scaleFactor,  m_scaleFactor * m_physicalDpiY, m_rotation, m_rubberBand.toRect());
 
         if(!image.isNull())
         {
@@ -894,6 +761,40 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
+    if(m_page->supportsAddingAnnotations())
+    {
+        QMenu* menu = new QMenu();
+
+        QAction* addTextAction = menu->addAction(tr("Add &text"));
+        QAction* addHighlightAction = menu->addAction(tr("Add &highlight"));
+
+        QAction* action = menu->exec(screenPos);
+
+        if(action == addTextAction || action == addHighlightAction)
+        {
+            QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
+
+            Annotation* annotation = 0;
+
+            if(action == addTextAction)
+            {
+                annotation = m_page->addTextAnnotation(boundary);
+            }
+            else if(action == addHighlightAction)
+            {
+                annotation = m_page->addHighlightAnnotation(boundary);
+            }
+
+            refresh();
+
+            editAnnotation(annotation, screenPos);
+        }
+
+        delete menu;
+    }
+}
+
+/* TODO
 #ifdef HAS_POPPLER_20
 
     QMenu* menu = new QMenu();
@@ -962,10 +863,30 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
 
 #endif // HAS_POPPLER_20
+*/
+
+void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
+{
+    if(m_page->supportsRemovingAnnotations())
+    {
+        QMenu* menu = new QMenu();
+
+        QAction* removeAnnotationAction = menu->addAction(tr("&Remove annotation"));
+
+        QAction* action = menu->exec(screenPos);
+
+        if(action == removeAnnotationAction)
+        {
+            m_page->removeAnnotation(annotation);
+
+            refresh();
+        }
+
+        delete menu;
+    }
 }
 
-void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
-{
+/* TODO
 #ifdef HAS_POPPLER_20
 
     QMenu* menu = new QMenu();
@@ -996,37 +917,23 @@ void PageItem::removeAnnotation(Poppler::Annotation* annotation, const QPoint& s
     QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
 
 #endif // HAS_POPPLER_20
+*/
+
+void PageItem::editAnnotation(Annotation* annotation, const QPoint& screenPos)
+{
+    annotation->showDialog(screenPos);
 }
 
-void PageItem::editAnnotation(Poppler::Annotation* annotation, const QPoint& screenPos)
+void PageItem::editFormField(FormField* formField, const QPoint& screenPos)
 {
-    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, annotation);
+    QDialog* formFieldDialog = formField->showDialog(screenPos);
 
-    annotationDialog->move(screenPos);
-
-    annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
-    annotationDialog->show();
-}
-
-void PageItem::editFormField(Poppler::FormField* formField, const QPoint& screenPos)
-{
-    if(formField->type() == Poppler::FormField::FormText || formField->type() == Poppler::FormField::FormChoice)
+    if(formFieldDialog != 0)
     {
-        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, formField);
-
-        formFieldDialog->move(screenPos);
-
-        formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
-        formFieldDialog->show();
-
         connect(formFieldDialog, SIGNAL(destroyed()), SLOT(refresh()));
     }
-    else if(formField->type() == Poppler::FormField::FormButton)
+    else
     {
-        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(formField);
-
-        formFieldButton->setState(!formFieldButton->state());
-
         refresh();
     }
 }
@@ -1078,51 +985,12 @@ void PageItem::prepareGeometry()
 
 void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch)
 {
-    QMutexLocker mutexLocker(m_mutex);
-
     if(m_render->isCanceled() && !prefetch)
     {
         return;
     }
 
-    double xres;
-    double yres;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        xres = scaleFactor * physicalDpiX;
-        yres = scaleFactor * physicalDpiY;
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        xres = scaleFactor * physicalDpiY;
-        yres = scaleFactor * physicalDpiX;
-        break;
-    }
-
-    Poppler::Page::Rotation rotate;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-        rotate = Poppler::Page::Rotate0;
-        break;
-    case RotateBy90:
-        rotate = Poppler::Page::Rotate90;
-        break;
-    case RotateBy180:
-        rotate = Poppler::Page::Rotate180;
-        break;
-    case RotateBy270:
-        rotate = Poppler::Page::Rotate270;
-        break;
-    }
-
-    QImage image = m_page->renderToImage(xres, yres, -1, -1, -1, -1, rotate);
+    QImage image = m_page->render(physicalDpiX * scaleFactor, physicalDpiY * scaleFactor, rotation);
 
     if(m_render->isCanceled() && !prefetch)
     {
@@ -1132,7 +1000,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
     emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
 }
 
-ThumbnailItem::ThumbnailItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem* parent) : PageItem(mutex, page, index, parent)
+ThumbnailItem::ThumbnailItem(Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, parent)
 {
     setAcceptHoverEvents(false);
 }

@@ -25,12 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QRectF>
 #include <QThread>
 
-class QMutex;
-
-namespace Poppler
-{
 class Document;
-}
 
 class SearchThread : public QThread
 {
@@ -45,7 +40,7 @@ public:
     void run();
 
 public slots:
-    void start(QMutex* mutex, Poppler::Document* document, const QList< int >& indices, const QString& text, bool matchCase);
+    void start(Document* document, const QList< int >& indices, const QString& text, bool matchCase);
     void cancel();
 
 signals:
@@ -59,8 +54,7 @@ private:
     bool m_wasCanceled;
     int m_progress;
 
-    QMutex* m_mutex;
-    Poppler::Document* m_document;
+    Document* m_document;
 
     QList< int > m_indices;
     QString m_text;

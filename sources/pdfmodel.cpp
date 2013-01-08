@@ -24,6 +24,13 @@ QRectF PDFAnnotation::boundary() const
     return m_annotation->boundary().normalized();
 }
 
+QString PDFAnnotation::contents() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    return m_annotation->contents();
+}
+
 QDialog* PDFAnnotation::showDialog(const QPoint& screenPos)
 {
     QMutexLocker mutexLocker(m_mutex);
@@ -54,6 +61,13 @@ QRectF PDFFormField::boundary() const
     QMutexLocker mutexLocker(m_mutex);
 
     return m_formField->rect().normalized();
+}
+
+QString PDFFormField::name() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    return m_formField->name();
 }
 
 QDialog* PDFFormField::showDialog(const QPoint& screenPos)
@@ -156,11 +170,11 @@ QImage PDFPage::render(qreal horizontalResolution, qreal verticalResolution, Rot
     return m_page->renderToImage(xres, yres, x, y, w, h, rotate);
 }
 
-QList< Link > PDFPage::links() const
+QList< Link* > PDFPage::links() const
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    QList< Link > links;
+    QList< Link* > links;
 
     foreach(Poppler::Link* link, m_page->links())
     {
@@ -175,7 +189,13 @@ QList< Link > PDFPage::links() const
                 qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
                 qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
 
-                links.append(Link(boundary, page, left, top));
+                left = left >= 0.0 ? left : 0.0;
+                left = left <= 1.0 ? left : 1.0;
+
+                top = top >= 0.0 ? top : 0.0;
+                top = top <= 1.0 ? top : 1.0;
+
+                links.append(new Link(boundary, page, left, top));
             }
         }
         else if(link->linkType() == Poppler::Link::Browse)
@@ -185,13 +205,20 @@ QList< Link > PDFPage::links() const
             QRectF boundary = linkBrowse->linkArea().normalized();
             QString url = linkBrowse->url();
 
-            links.append(Link(boundary, url));
+            links.append(new Link(boundary, url));
         }
 
         delete link;
     }
 
     return links;
+}
+
+QString PDFPage::text(const QRectF& rect) const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    return m_page->text(rect);
 }
 
 QList< QRectF > PDFPage::search(const QString& text, bool matchCase) const
@@ -363,6 +390,17 @@ void PDFDocument::setTextHinting(bool on)
     QMutexLocker mutexLocker(&m_mutex);
 
     m_document->setRenderHint(Poppler::Document::TextHinting, on);
+}
+
+void PDFDocument::setOverprintPreview(bool on)
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+#ifdef HAS_POPPLER_22
+
+    m_document->setRenderHint(Poppler::Document::OverprintPreview, on);
+
+#endif // HAS_POPPLER_22
 }
 
 void PDFDocument::setPaperColor(const QColor& paperColor)

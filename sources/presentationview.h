@@ -26,20 +26,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStack>
 #include <QWidget>
 
-class QMutex;
-
-namespace Poppler
-{
 class Document;
-class LinkGoto;
-}
+class Link;
 
 class PresentationView : public QWidget
 {
     Q_OBJECT
 
 public:
-    PresentationView(QMutex* mutex, Poppler::Document* document, QWidget* parent = 0);
+    PresentationView(Document* document, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -77,15 +72,14 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 
 private:
-    QMutex* m_mutex;
-    Poppler::Document* m_document;
+    Document* m_document;
 
     int m_numberOfPages;
     int m_currentPage;
 
     QStack< int > m_returnToPage;
 
-    QList< Poppler::LinkGoto* > m_links;
+    QList< Link* > m_links;
 
     qreal m_scaleFactor;
 
