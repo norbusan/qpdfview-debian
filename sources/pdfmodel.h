@@ -65,6 +65,8 @@ public:
 
     QList< Link > links() const;
 
+    QList< QRectF > search(const QString &text, bool matchCase) const;
+
     QList< Annotation* > annotations() const;
 
     QList< FormField* > formFields() const;

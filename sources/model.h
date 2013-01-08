@@ -62,6 +62,8 @@ public:
 
     virtual QList< Link > links() const { return QList< Link >(); }
 
+    virtual QList< QRectF > search(const QString& text, bool matchCase) const { Q_UNUSED(text); Q_UNUSED(matchCase); return QList< QRectF >(); }
+
     virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
 
     virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }

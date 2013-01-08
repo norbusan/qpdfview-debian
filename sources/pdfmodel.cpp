@@ -194,6 +194,45 @@ QList< Link > PDFPage::links() const
     return links;
 }
 
+QList< QRectF > PDFPage::search(const QString& text, bool matchCase) const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    QList< QRectF > results;
+
+#if defined(HAS_POPPLER_22)
+
+    results = m_page->search(text, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
+
+#elif defined(HAS_POPPLER_14)
+
+    double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
+
+    while(m_page->search(text, left, top, right, bottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    {
+        QRectF rect;
+        rect.setLeft(left);
+        rect.setTop(top);
+        rect.setRight(right);
+        rect.setBottom(bottom);
+
+        results.append(rect);
+    }
+
+#else
+
+    QRectF rect;
+
+    while(m_page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    {
+        results.append(rect);
+    }
+
+#endif
+
+    return results;
+}
+
 QList< Annotation* > PDFPage::annotations() const
 {
     QMutexLocker mutexLocker(m_mutex);
