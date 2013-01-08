@@ -86,8 +86,8 @@ void SettingsDialog::accept()
 
     m_settings->documentView()->setHighlightDuration(m_highlightDurationSpinBox->value());
 
-    m_settings->pageItem()->setBackgroundColor(m_backgroundColorLineEdit->text());
-    m_settings->pageItem()->setPaperColor(m_paperColorLineEdit->text());
+    m_settings->pageItem()->setBackgroundColor(m_backgroundColorComboBox->currentText());
+    m_settings->pageItem()->setPaperColor(m_paperColorComboBox->currentText());
     m_settings->pageItem()->setInvertColors(m_invertColorsCheckBox->isChecked());
 
     m_settings->documentView()->setOverprintPreview(m_overprintPreviewCheckBox->isChecked());
@@ -154,8 +154,8 @@ void SettingsDialog::on_defaults_clicked()
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
 
-    m_backgroundColorLineEdit->setText(Defaults::PageItem::backgroundColor());
-    m_paperColorLineEdit->setText(Defaults::PageItem::paperColor());
+    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor());
+    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor());
     m_invertColorsCheckBox->setChecked(Defaults::PageItem::invertColors());
 
     m_overprintPreviewCheckBox->setChecked(Defaults::DocumentView::overprintPreview());
@@ -307,17 +307,23 @@ void SettingsDialog::createGraphicsTab()
 
     // background color
 
-    m_backgroundColorLineEdit = new QLineEdit(this);
-    m_backgroundColorLineEdit->setText(m_settings->pageItem()->backgroundColor());
+    m_backgroundColorComboBox = new QComboBox(this);
+    m_backgroundColorComboBox->setEditable(true);
+    m_backgroundColorComboBox->setInsertPolicy(QComboBox::NoInsert);
+    m_backgroundColorComboBox->addItems(QColor::colorNames());
+    m_backgroundColorComboBox->lineEdit()->setText(m_settings->pageItem()->backgroundColor());
 
-    m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorLineEdit);
+    m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorComboBox);
 
     // paper color
 
-    m_paperColorLineEdit = new QLineEdit(this);
-    m_paperColorLineEdit->setText(m_settings->pageItem()->paperColor());
+    m_paperColorComboBox = new QComboBox(this);
+    m_paperColorComboBox->setEditable(true);
+    m_paperColorComboBox->setInsertPolicy(QComboBox::NoInsert);
+    m_paperColorComboBox->addItems(QColor::colorNames());
+    m_paperColorComboBox->lineEdit()->setText(m_settings->pageItem()->paperColor());
 
-    m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorLineEdit);
+    m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
 
     // invert colors
 

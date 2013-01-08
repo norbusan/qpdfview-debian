@@ -86,8 +86,8 @@ private:
 
     QSpinBox* m_highlightDurationSpinBox;
 
-    QLineEdit* m_backgroundColorLineEdit;
-    QLineEdit* m_paperColorLineEdit;
+    QComboBox* m_backgroundColorComboBox;
+    QComboBox* m_paperColorComboBox;
     QCheckBox* m_invertColorsCheckBox;
 
     QCheckBox* m_overprintPreviewCheckBox;
