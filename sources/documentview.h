@@ -23,16 +23,25 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define DOCUMENTVIEW_H
 
 #include <QGraphicsView>
+#include <QMap>
+#include <QMutex>
 #include <QStack>
 
 class QFileSystemWatcher;
+class QMutex;
+class QDomNode;
 class QStandardItem;
 class QStandardItemModel;
 
-#include <poppler-qt4.h>
+namespace Poppler
+{
+class Document;
+}
 
-#include "pageitem.h"
+#include "global.h"
 
+class PageItem;
+class ThumbnailItem;
 class SearchThread;
 class PresentationView;
 
@@ -129,14 +138,14 @@ public:
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
 
-    Poppler::Page::Rotation rotation() const;
-    void setRotation(Poppler::Page::Rotation rotation);
+    Rotation rotation() const;
+    void setRotation(Rotation rotation);
 
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
-    PageItem::RubberBandMode rubberBandMode() const;
-    void setRubberBandMode(PageItem::RubberBandMode rubberBandMode);
+    RubberBandMode rubberBandMode() const;
+    void setRubberBandMode(RubberBandMode rubberBandMode);
 
     bool searchWasCanceled() const;
     int searchProgress() const;
@@ -204,10 +213,10 @@ signals:
     void layoutModeChanged(DocumentView::LayoutMode layoutMode);
     void scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
-    void rotationChanged(Poppler::Page::Rotation rotation);
+    void rotationChanged(Rotation rotation);
 
     void highlightAllChanged(bool highlightAll);
-    void rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode);
+    void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
     void searchProgressed(int progress);
     void searchFinished();
@@ -325,10 +334,10 @@ private:
     LayoutMode m_layoutMode;
     ScaleMode m_scaleMode;
     qreal m_scaleFactor;
-    Poppler::Page::Rotation m_rotation;
+    Rotation m_rotation;
 
     bool m_highlightAll;
-    PageItem::RubberBandMode m_rubberBandMode;
+    RubberBandMode m_rubberBandMode;
 
     QGraphicsScene* m_pagesScene;
     QVector< PageItem* > m_pages;

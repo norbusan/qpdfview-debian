@@ -4,6 +4,7 @@ TARGET = qpdfview
 TEMPLATE = app
 
 HEADERS += \
+    sources/global.h \
     sources/annotationdialog.h \
     sources/formfielddialog.h \
     sources/pageitem.h \

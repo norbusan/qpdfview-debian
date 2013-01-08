@@ -28,7 +28,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QMutex;
 
-#include <poppler-qt4.h>
+namespace Poppler
+{
+class Annotation;
+class FormField;
+class Link;
+class Page;
+}
+
+#include "global.h"
 
 class PageItem : public QGraphicsObject
 {
@@ -74,13 +82,6 @@ public:
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights, int duration = 0);
 
-    enum RubberBandMode
-    {
-        ModifiersMode = 0,
-        CopyToClipboardMode = 1,
-        AddAnnotationMode = 2
-    };
-
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
@@ -91,14 +92,14 @@ public:
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
 
-    Poppler::Page::Rotation rotation() const;
-    void setRotation(Poppler::Page::Rotation rotation);
+    Rotation rotation() const;
+    void setRotation(Rotation rotation);
 
     const QTransform& transform() const;
     const QTransform& normalizedTransform() const;
 
 signals:
-    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
+    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image);
 
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
@@ -118,7 +119,7 @@ public slots:
 
 protected slots:
     void on_render_finished();
-    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image);
+    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -176,7 +177,7 @@ private:
     int m_physicalDpiY;
 
     qreal m_scaleFactor;
-    Poppler::Page::Rotation m_rotation;
+    Rotation m_rotation;
 
     QTransform m_transform;
     QTransform m_normalizedTransform;
@@ -189,7 +190,7 @@ private:
     // render
 
     QFutureWatcher< void >* m_render;
-    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch);
+    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch);
 
 };
 

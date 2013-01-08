@@ -32,6 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QToolTip>
 
+#include <poppler-qt4.h>
 #include <poppler-form.h>
 
 #include "annotationdialog.h"
@@ -160,7 +161,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_physicalDpiX(72),
     m_physicalDpiY(72),
     m_scaleFactor(1.0),
-    m_rotation(Poppler::Page::Rotate0),
+    m_rotation(DoNotRotate),
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
@@ -172,7 +173,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_render = new QFutureWatcher< void >(this);
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
-    connect(this, SIGNAL(imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Poppler::Page::Rotation,bool,QImage)));
+    connect(this, SIGNAL(imageReady(int,int,qreal,Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Rotation,bool,QImage)));
 
     m_mutex = mutex;
     m_page = page;
@@ -417,22 +418,25 @@ void PageItem::setHighlights(const QList< QRectF >& highlights, int duration)
     }
 }
 
-PageItem::RubberBandMode PageItem::rubberBandMode() const
+RubberBandMode PageItem::rubberBandMode() const
 {
     return m_rubberBandMode;
 }
 
-void PageItem::setRubberBandMode(PageItem::RubberBandMode rubberBandMode)
+void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
 {
-    m_rubberBandMode = rubberBandMode;
+    if(m_rubberBandMode != rubberBandMode && rubberBandMode >= 0 && rubberBandMode <= NumberOfRubberBandModes)
+    {
+        m_rubberBandMode = rubberBandMode;
 
-    if(m_rubberBandMode == ModifiersMode)
-    {
-        unsetCursor();
-    }
-    else
-    {
-        setCursor(Qt::CrossCursor);
+        if(m_rubberBandMode == ModifiersMode)
+        {
+            unsetCursor();
+        }
+        else
+        {
+            setCursor(Qt::CrossCursor);
+        }
     }
 }
 
@@ -448,7 +452,7 @@ int PageItem::physicalDpiY() const
 
 void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
 {
-    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY)
+    if((m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY) && physicalDpiX > 0 && physicalDpiY > 0)
     {
         refresh();
 
@@ -467,7 +471,7 @@ qreal PageItem::scaleFactor() const
 
 void PageItem::setScaleFactor(qreal scaleFactor)
 {
-    if(m_scaleFactor != scaleFactor)
+    if(m_scaleFactor != scaleFactor && scaleFactor > 0.0)
     {
         refresh();
 
@@ -478,14 +482,14 @@ void PageItem::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Poppler::Page::Rotation PageItem::rotation() const
+Rotation PageItem::rotation() const
 {
     return m_rotation;
 }
 
-void PageItem::setRotation(Poppler::Page::Rotation rotation)
+void PageItem::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         refresh();
 
@@ -542,7 +546,7 @@ void PageItem::on_render_finished()
     update();
 }
 
-void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch, QImage image)
+void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image)
 {
     if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation)
     {
@@ -824,21 +828,44 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
-        QImage image;
-
         m_mutex->lock();
+
+        double xres;
+        double yres;
 
         switch(m_rotation)
         {
-        case Poppler::Page::Rotate0:
-        case Poppler::Page::Rotate90:
-            image = m_page->renderToImage(m_scaleFactor * m_physicalDpiX, m_scaleFactor * m_physicalDpiY, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
+        default:
+        case DoNotRotate:
+        case RotateBy180:
+            xres = m_scaleFactor * m_physicalDpiX;
+            yres = m_scaleFactor * m_physicalDpiY;
             break;
-        case Poppler::Page::Rotate180:
-        case Poppler::Page::Rotate270:
-            image = m_page->renderToImage(m_scaleFactor * m_physicalDpiY, m_scaleFactor * m_physicalDpiX, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), m_rotation);
+        case RotateBy90:
+        case RotateBy270:
             break;
         }
+
+        Poppler::Page::Rotation rotate;
+
+        switch(m_rotation)
+        {
+        default:
+        case DoNotRotate:
+            rotate = Poppler::Page::Rotate0;
+            break;
+        case RotateBy90:
+            rotate = Poppler::Page::Rotate90;
+            break;
+        case RotateBy180:
+            rotate = Poppler::Page::Rotate180;
+            break;
+        case RotateBy270:
+            rotate = Poppler::Page::Rotate270;
+            break;
+        }
+
+        QImage image = m_page->renderToImage(xres, yres, m_rubberBand.x(), m_rubberBand.y(), m_rubberBand.width(), m_rubberBand.height(), rotate);
 
         m_mutex->unlock();
 
@@ -1009,17 +1036,18 @@ void PageItem::prepareGeometry()
 
     switch(m_rotation)
     {
-    case Poppler::Page::Rotate0:
+    default:
+    case DoNotRotate:
         break;
-    case Poppler::Page::Rotate90:
+    case RotateBy90:
         m_transform.rotate(90.0);
         m_normalizedTransform.rotate(90.0);
         break;
-    case Poppler::Page::Rotate180:
+    case RotateBy180:
         m_transform.rotate(180.0);
         m_normalizedTransform.rotate(180.0);
         break;
-    case Poppler::Page::Rotate270:
+    case RotateBy270:
         m_transform.rotate(270.0);
         m_normalizedTransform.rotate(270.0);
         break;
@@ -1027,13 +1055,14 @@ void PageItem::prepareGeometry()
 
     switch(m_rotation)
     {
-    case Poppler::Page::Rotate0:
-    case Poppler::Page::Rotate90:
+    default:
+    case DoNotRotate:
+    case RotateBy180:
         m_transform.scale(m_scaleFactor * m_physicalDpiX / 72.0, m_scaleFactor * m_physicalDpiY / 72.0);
         m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiX / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiY / 72.0 * m_size.height());
         break;
-    case Poppler::Page::Rotate180:
-    case Poppler::Page::Rotate270:
+    case RotateBy90:
+    case RotateBy270:
         m_transform.scale(m_scaleFactor * m_physicalDpiY / 72.0, m_scaleFactor * m_physicalDpiX / 72.0);
         m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiY / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiX / 72.0 * m_size.height());
         break;
@@ -1045,7 +1074,7 @@ void PageItem::prepareGeometry()
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 }
 
-void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Poppler::Page::Rotation rotation, bool prefetch)
+void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch)
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -1054,19 +1083,44 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Pop
         return;
     }
 
-    QImage image;
+    double xres;
+    double yres;
 
     switch(rotation)
     {
-    case Poppler::Page::Rotate0:
-    case Poppler::Page::Rotate90:
-        image = m_page->renderToImage(scaleFactor * physicalDpiX, scaleFactor * physicalDpiY, -1, -1, -1, -1, rotation);
+    default:
+    case DoNotRotate:
+    case RotateBy180:
+        xres = scaleFactor * physicalDpiX;
+        yres = scaleFactor * physicalDpiY;
         break;
-    case Poppler::Page::Rotate180:
-    case Poppler::Page::Rotate270:
-        image = m_page->renderToImage(scaleFactor * physicalDpiY, scaleFactor * physicalDpiX, -1, -1, -1, -1, rotation);
+    case RotateBy90:
+    case RotateBy270:
+        xres = scaleFactor * physicalDpiY;
+        yres = scaleFactor * physicalDpiX;
         break;
     }
+
+    Poppler::Page::Rotation rotate;
+
+    switch(rotation)
+    {
+    default:
+    case DoNotRotate:
+        rotate = Poppler::Page::Rotate0;
+        break;
+    case RotateBy90:
+        rotate = Poppler::Page::Rotate90;
+        break;
+    case RotateBy180:
+        rotate = Poppler::Page::Rotate180;
+        break;
+    case RotateBy270:
+        rotate = Poppler::Page::Rotate270;
+        break;
+    }
+
+    QImage image = m_page->renderToImage(xres, yres, -1, -1, -1, -1, rotate);
 
     if(m_render->isCanceled() && !prefetch)
     {

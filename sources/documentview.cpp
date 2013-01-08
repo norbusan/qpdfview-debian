@@ -32,6 +32,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QScrollBar>
 #include <QStandardItemModel>
 
+#include <poppler-qt4.h>
+
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
@@ -44,6 +46,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
+#include "pageitem.h"
 #include "searchthread.h"
 #include "presentationview.h"
 
@@ -281,9 +284,9 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactor),
     m_scaleFactor(1.0),
-    m_rotation(Poppler::Page::Rotate0),
+    m_rotation(DoNotRotate),
     m_highlightAll(false),
-    m_rubberBandMode(PageItem::ModifiersMode),
+    m_rubberBandMode(ModifiersMode),
     m_pagesScene(0),
     m_pages(),
     m_heightToIndex(),
@@ -356,7 +359,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
-    connect(this, SIGNAL(rotationChanged(Poppler::Page::Rotation)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 }
@@ -477,14 +480,14 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Poppler::Page::Rotation DocumentView::rotation() const
+Rotation DocumentView::rotation() const
 {
     return m_rotation;
 }
 
-void DocumentView::setRotation(Poppler::Page::Rotation rotation)
+void DocumentView::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         m_rotation = rotation;
 
@@ -525,14 +528,14 @@ void DocumentView::setHighlightAll(bool highlightAll)
     }
 }
 
-PageItem::RubberBandMode DocumentView::rubberBandMode() const
+RubberBandMode DocumentView::rubberBandMode() const
 {
     return m_rubberBandMode;
 }
 
-void DocumentView::setRubberBandMode(PageItem::RubberBandMode rubberBandMode)
+void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
 {
-    if(m_rubberBandMode != rubberBandMode)
+    if(m_rubberBandMode != rubberBandMode && rubberBandMode > 0 && rubberBandMode <= NumberOfRubberBandModes)
     {
         m_rubberBandMode = rubberBandMode;
 
@@ -1171,17 +1174,18 @@ void DocumentView::rotateLeft()
 {
     switch(rotation())
     {
-    case Poppler::Page::Rotate0:
-        setRotation(Poppler::Page::Rotate270);
+    default:
+    case DoNotRotate:
+        setRotation(RotateBy270);
         break;
-    case Poppler::Page::Rotate90:
-        setRotation(Poppler::Page::Rotate0);
+    case RotateBy90:
+        setRotation(DoNotRotate);
         break;
-    case Poppler::Page::Rotate180:
-        setRotation(Poppler::Page::Rotate90);
+    case RotateBy180:
+        setRotation(RotateBy90);
         break;
-    case Poppler::Page::Rotate270:
-        setRotation(Poppler::Page::Rotate180);
+    case RotateBy270:
+        setRotation(RotateBy180);
         break;
     }
 }
@@ -1190,17 +1194,18 @@ void DocumentView::rotateRight()
 {
     switch(rotation())
     {
-    case Poppler::Page::Rotate0:
-        setRotation(Poppler::Page::Rotate90);
+    default:
+    case DoNotRotate:
+        setRotation(RotateBy90);
         break;
-    case Poppler::Page::Rotate90:
-        setRotation(Poppler::Page::Rotate180);
+    case RotateBy90:
+        setRotation(RotateBy180);
         break;
-    case Poppler::Page::Rotate180:
-        setRotation(Poppler::Page::Rotate270);
+    case RotateBy180:
+        setRotation(RotateBy270);
         break;
-    case Poppler::Page::Rotate270:
-        setRotation(Poppler::Page::Rotate0);
+    case RotateBy270:
+        setRotation(DoNotRotate);
         break;
     }
 }
@@ -1344,7 +1349,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
 
 void DocumentView::on_pages_rubberBandFinished()
 {
-    setRubberBandMode(PageItem::ModifiersMode);
+    setRubberBandMode(ModifiersMode);
 }
 
 void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
@@ -1971,13 +1976,14 @@ void DocumentView::prepareScene()
 
             switch(m_rotation)
             {
-            case Poppler::Page::Rotate0:
-            case Poppler::Page::Rotate180:
+            default:
+            case DoNotRotate:
+            case RotateBy180:
                 pageWidth = physicalDpiX() / 72.0 * size.width();
                 pageHeight = physicalDpiY() / 72.0 * size.height();
                 break;
-            case Poppler::Page::Rotate90:
-            case Poppler::Page::Rotate270:
+            case RotateBy90:
+            case RotateBy270:
                 pageWidth = physicalDpiX() / 72.0 * size.height();
                 pageHeight = physicalDpiY() / 72.0 * size.width();
                 break;

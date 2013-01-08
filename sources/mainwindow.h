@@ -46,6 +46,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_DBUS
 
+#include "global.h"
 #include "documentview.h"
 
 class TabWidget;
@@ -85,10 +86,10 @@ protected slots:
     void on_currentTab_layoutModeChanged(DocumentView::LayoutMode layoutMode);
     void on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
-    void on_currentTab_rotationChanged(Poppler::Page::Rotation rotation);
+    void on_currentTab_rotationChanged(Rotation rotation);
 
     void on_currentTab_highlightAllChanged(bool highlightAll);
-    void on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode);
+    void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
     void on_currentTab_searchProgressed(int progress);
     void on_currentTab_searchFinished();

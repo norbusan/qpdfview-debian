@@ -176,8 +176,8 @@ public:
         qreal scaleFactor() const;
         void setScaleFactor(qreal scaleFactor);
 
-        Poppler::Page::Rotation rotation() const;
-        void setRotation(Poppler::Page::Rotation rotation);
+        Rotation rotation() const;
+        void setRotation(Rotation rotation);
 
         bool highlightAll() const;
         void setHighlightAll(bool on);
@@ -348,7 +348,7 @@ public:
 
         static inline qreal scaleFactor() { return 1.0; }
 
-        static inline Poppler::Page::Rotation rotation() { return Poppler::Page::Rotate0; }
+        static inline Rotation rotation() { return DoNotRotate; }
 
         static inline bool highlightAll() { return false; }
 

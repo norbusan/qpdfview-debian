@@ -473,12 +473,12 @@ void Settings::DocumentView::setScaleFactor(qreal scaleFactor)
     m_settings->setValue("documentView/scaleFactor", scaleFactor);
 }
 
-Poppler::Page::Rotation Settings::DocumentView::rotation() const
+Rotation Settings::DocumentView::rotation() const
 {
-    return static_cast< Poppler::Page::Rotation >(m_settings->value("documentView/rotation", static_cast< uint >(Defaults::DocumentView::rotation())).toUInt());
+    return static_cast< Rotation >(m_settings->value("documentView/rotation", static_cast< uint >(Defaults::DocumentView::rotation())).toUInt());
 }
 
-void Settings::DocumentView::setRotation(Poppler::Page::Rotation rotation)
+void Settings::DocumentView::setRotation(Rotation rotation)
 {
     m_settings->setValue("documentView/rotation", static_cast< uint >(rotation));
 }

@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#include "pageitem.h"
 #include "printoptionswidget.h"
 #include "miscellaneous.h"
 #include "settings.h"
@@ -165,10 +166,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(layoutModeChanged(DocumentView::LayoutMode)), SLOT(on_currentTab_layoutModeChanged(DocumentView::LayoutMode)));
         connect(newTab, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), SLOT(on_currentTab_scaleModeChanged(DocumentView::ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
-        connect(newTab, SIGNAL(rotationChanged(Poppler::Page::Rotation)), SLOT(on_currentTab_rotationChanged(Poppler::Page::Rotation)));
+        connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
-        connect(newTab, SIGNAL(rubberBandModeChanged(PageItem::RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode)));
+        connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
         connect(newTab, SIGNAL(searchProgressed(int)), SLOT(on_currentTab_searchProgressed(int)));
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
@@ -534,7 +535,7 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
     }
 }
 
-void MainWindow::on_currentTab_rotationChanged(Poppler::Page::Rotation rotation)
+void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
 {
     if(senderIsCurrentTab())
     {
@@ -552,12 +553,12 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
     }
 }
 
-void MainWindow::on_currentTab_rubberBandModeChanged(PageItem::RubberBandMode rubberBandMode)
+void MainWindow::on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode)
 {
     if(senderIsCurrentTab())
     {
-        m_copyToClipboardAction->setChecked(rubberBandMode == PageItem::CopyToClipboardMode);
-        m_addAnnotationAction->setChecked(rubberBandMode == PageItem::AddAnnotationMode);
+        m_copyToClipboardAction->setChecked(rubberBandMode == CopyToClipboardMode);
+        m_addAnnotationAction->setChecked(rubberBandMode == AddAnnotationMode);
     }
 }
 
@@ -901,12 +902,12 @@ void MainWindow::on_cancelSearch_triggered()
 
 void MainWindow::on_copyToClipboard_triggered(bool checked)
 {
-    currentTab()->setRubberBandMode(checked ? PageItem::CopyToClipboardMode : PageItem::ModifiersMode);
+    currentTab()->setRubberBandMode(checked ? CopyToClipboardMode : ModifiersMode);
 }
 
 void MainWindow::on_addAnnotation_triggered(bool checked)
 {
-    currentTab()->setRubberBandMode(checked ? PageItem::AddAnnotationMode : PageItem::ModifiersMode);
+    currentTab()->setRubberBandMode(checked ? AddAnnotationMode : ModifiersMode);
 }
 
 void MainWindow::on_settings_triggered()
@@ -2240,7 +2241,7 @@ void MainWindow::restoreTabs()
                 currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(4).toUInt()));
                 currentTab()->setScaleFactor(query.value(5).toReal());
 
-                currentTab()->setRotation(static_cast< Poppler::Page::Rotation >(query.value(6).toUInt()));
+                currentTab()->setRotation(static_cast< Rotation >(query.value(6).toUInt()));
 
                 currentTab()->jumpToPage(query.value(1).toInt());
             }
@@ -2437,7 +2438,7 @@ void MainWindow::restorePerFileSettings(DocumentView* tab)
             tab->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(3).toUInt()));
             tab->setScaleFactor(query.value(4).toReal());
 
-            tab->setRotation(static_cast< Poppler::Page::Rotation >(query.value(5).toUInt()));
+            tab->setRotation(static_cast< Rotation >(query.value(5).toUInt()));
 
             tab->jumpToPage(query.value(0).toInt(), false);
         }
