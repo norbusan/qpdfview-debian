@@ -29,7 +29,7 @@ class QComboBox;
 class QFormLayout;
 class QLineEdit;
 
-#include "global.h"
+#include "printoptions.h"
 
 class PrintOptionsWidget : public QWidget
 {

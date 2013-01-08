@@ -39,6 +39,7 @@ class Document;
 }
 
 #include "global.h"
+#include "printoptions.h"
 
 class PageItem;
 class ThumbnailItem;

@@ -161,7 +161,7 @@ PageItem::PageItem(QMutex* mutex, Poppler::Page* page, int index, QGraphicsItem*
     m_physicalDpiX(72),
     m_physicalDpiY(72),
     m_scaleFactor(1.0),
-    m_rotation(DoNotRotate),
+    m_rotation(RotateBy0),
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
@@ -489,7 +489,7 @@ Rotation PageItem::rotation() const
 
 void PageItem::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfDirections)
     {
         refresh();
 
@@ -836,7 +836,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
         switch(m_rotation)
         {
         default:
-        case DoNotRotate:
+        case RotateBy0:
         case RotateBy180:
             xres = m_scaleFactor * m_physicalDpiX;
             yres = m_scaleFactor * m_physicalDpiY;
@@ -853,7 +853,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
         switch(m_rotation)
         {
         default:
-        case DoNotRotate:
+        case RotateBy0:
             rotate = Poppler::Page::Rotate0;
             break;
         case RotateBy90:
@@ -1039,7 +1039,7 @@ void PageItem::prepareGeometry()
     switch(m_rotation)
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
         break;
     case RotateBy90:
         m_transform.rotate(90.0);
@@ -1058,7 +1058,7 @@ void PageItem::prepareGeometry()
     switch(m_rotation)
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
     case RotateBy180:
         m_transform.scale(m_scaleFactor * m_physicalDpiX / 72.0, m_scaleFactor * m_physicalDpiY / 72.0);
         m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiX / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiY / 72.0 * m_size.height());
@@ -1091,7 +1091,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
     switch(rotation)
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
     case RotateBy180:
         xres = scaleFactor * physicalDpiX;
         yres = scaleFactor * physicalDpiY;
@@ -1108,7 +1108,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
     switch(rotation)
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
         rotate = Poppler::Page::Rotate0;
         break;
     case RotateBy90:

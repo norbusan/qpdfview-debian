@@ -353,7 +353,7 @@ public:
 
         static inline qreal scaleFactor() { return 1.0; }
 
-        static inline Rotation rotation() { return DoNotRotate; }
+        static inline Rotation rotation() { return RotateBy0; }
 
         static inline bool highlightAll() { return false; }
 

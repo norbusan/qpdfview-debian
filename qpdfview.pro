@@ -10,6 +10,7 @@ HEADERS += \
     sources/pageitem.h \
     sources/searchthread.h \
     sources/presentationview.h \
+    sources/printoptions.h \
     sources/documentview.h \
     sources/printoptionswidget.h \
     sources/miscellaneous.h \

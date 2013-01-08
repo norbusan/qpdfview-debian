@@ -292,7 +292,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
-    m_rotation(DoNotRotate),
+    m_rotation(RotateBy0),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pagesScene(0),
@@ -496,7 +496,7 @@ Rotation DocumentView::rotation() const
 
 void DocumentView::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfDirections)
     {
         m_rotation = rotation;
 
@@ -1184,11 +1184,11 @@ void DocumentView::rotateLeft()
     switch(rotation())
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
         setRotation(RotateBy270);
         break;
     case RotateBy90:
-        setRotation(DoNotRotate);
+        setRotation(RotateBy0);
         break;
     case RotateBy180:
         setRotation(RotateBy90);
@@ -1204,7 +1204,7 @@ void DocumentView::rotateRight()
     switch(rotation())
     {
     default:
-    case DoNotRotate:
+    case RotateBy0:
         setRotation(RotateBy90);
         break;
     case RotateBy90:
@@ -1214,7 +1214,7 @@ void DocumentView::rotateRight()
         setRotation(RotateBy270);
         break;
     case RotateBy270:
-        setRotation(DoNotRotate);
+        setRotation(RotateBy0);
         break;
     }
 }
@@ -1986,7 +1986,7 @@ void DocumentView::prepareScene()
             switch(m_rotation)
             {
             default:
-            case DoNotRotate:
+            case RotateBy0:
             case RotateBy180:
                 pageWidth = physicalDpiX() / 72.0 * size.width();
                 pageHeight = physicalDpiY() / 72.0 * size.height();
