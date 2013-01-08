@@ -34,6 +34,12 @@ SOURCES += \
     sources/mainwindow.cpp \
     sources/main.cpp
 
+PDF_HEADERS = sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
+PDF_SOURCES = sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
+
+PS_HEADERS = sources/psmodel.h
+PS_SOURCES = sources/psmodel.cpp
+
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
     translations/qpdfview_bs.ts \
@@ -88,8 +94,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     CONFIG += link_pkgconfig
 
     !without_pdf : system(pkg-config --exists poppler-qt4) {
-        HEADERS += sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
-        SOURCES += sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
+        HEADERS += $$PDF_HEADERS
+        SOURCES += $$PDF_SOURCES
 
         DEFINES += WITH_PDF
         PKGCONFIG += poppler-qt4
@@ -100,11 +106,25 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     }
 
     !without_ps : system(pkg-config --exists libspectre) {
-        HEADERS += sources/psmodel.h
-        SOURCES += sources/psmodel.cpp
+        HEADERS += $$PS_HEADERS
+        SOURCES += $$PS_SOURCES
 
         DEFINES += WITH_PS
         PKGCONFIG += libspectre
+    }
+} else {
+    !without_pdf {
+        HEADERS += $$PDF_HEADERS
+        SOURCES += $$PDF_SOURCES
+
+        DEFINES += WITH_PDF
+    }
+
+    !without_ps {
+        HEADERS += $$PS_HEADERS
+        SOURCES += $$PS_SOURCES
+
+        DEFINES += WITH_PS
     }
 }
 
