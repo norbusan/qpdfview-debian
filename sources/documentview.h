@@ -106,6 +106,9 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    bool canSave() const;
+    QString saveFilter() const;
+
     bool continousMode() const;
     void setContinousMode(bool continousMode);
 

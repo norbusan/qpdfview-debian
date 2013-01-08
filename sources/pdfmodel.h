@@ -101,7 +101,11 @@ public:
     bool isLocked() const;
     bool unlock(const QString& password);
 
+    bool canSave() const;
+    QString saveFilter() const;
     bool save(const QString& filePath, bool withChanges) const;
+
+    bool canPrint() const;
 
     void setAntialiasing(bool on);
     void setTextAntialiasing(bool on);

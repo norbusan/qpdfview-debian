@@ -369,7 +369,7 @@ public:
         static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
         static QString path();
-        static QString filter();
+        static QString openFilter();
 
     private:
         MainWindow() {}

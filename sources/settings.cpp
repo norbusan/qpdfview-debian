@@ -715,7 +715,7 @@ QString Defaults::MainWindow::path()
 #endif // QT_VERSION
 }
 
-QString Defaults::MainWindow::filter()
+QString Defaults::MainWindow::openFilter()
 {
     QStringList filter;
 

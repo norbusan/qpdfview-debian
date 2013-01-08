@@ -93,7 +93,11 @@ public:
     virtual bool isLocked() const { return false; }
     virtual bool unlock(const QString& password) { Q_UNUSED(password); return false; }
 
+    virtual bool canSave() const { return false; }
+    virtual QString saveFilter() const { return QString(); }
     virtual bool save(const QString& filePath, bool withChanges) const { Q_UNUSED(filePath); Q_UNUSED(withChanges); return false; }
+
+    virtual bool canPrint() const { return false; }
 
     virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }

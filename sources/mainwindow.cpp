@@ -277,8 +277,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     if(index != -1)
     {
         m_refreshAction->setEnabled(true);
-        m_saveCopyAction->setEnabled(true);
-        m_saveAsAction->setEnabled(true);
+        m_saveCopyAction->setEnabled(currentTab()->canSave());
+        m_saveAsAction->setEnabled(currentTab()->canSave());
         m_printAction->setEnabled(true);
 
         m_previousPageAction->setEnabled(true);
@@ -697,7 +697,7 @@ void MainWindow::on_open_triggered()
     if(m_tabWidget->currentIndex() != -1)
     {
         QString path = m_settings->mainWindow()->openPath();
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, Defaults::MainWindow::filter());
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, Defaults::MainWindow::openFilter());
 
         if(!filePath.isEmpty())
         {
@@ -713,7 +713,7 @@ void MainWindow::on_open_triggered()
 void MainWindow::on_openInNewTab_triggered()
 {
     QString path = m_settings->mainWindow()->openPath();
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, Defaults::MainWindow::filter());
+    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, Defaults::MainWindow::openFilter());
 
     if(!filePaths.isEmpty())
     {
@@ -741,7 +741,7 @@ void MainWindow::on_refresh_triggered()
 void MainWindow::on_saveCopy_triggered()
 {
     QString path = m_settings->mainWindow()->savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), Defaults::MainWindow::filter());
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter());
 
     if(!filePath.isEmpty())
     {
@@ -759,7 +759,7 @@ void MainWindow::on_saveCopy_triggered()
 void MainWindow::on_saveAs_triggered()
 {
     QString path = m_settings->mainWindow()->savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), Defaults::MainWindow::filter());
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter());
 
     if(!filePath.isEmpty())
     {

@@ -481,6 +481,16 @@ bool PDFDocument::unlock(const QString& password)
     return m_document->unlock(password.toLatin1(), password.toLatin1());
 }
 
+bool PDFDocument::canSave() const
+{
+    return true;
+}
+
+QString PDFDocument::saveFilter() const
+{
+    return "Portable document format (*.pdf)";
+}
+
 bool PDFDocument::save(const QString& filePath, bool withChanges) const
 {
     QMutexLocker mutexLocker(&m_mutex);
@@ -499,6 +509,11 @@ bool PDFDocument::save(const QString& filePath, bool withChanges) const
     delete pdfConverter;
 
     return ok;
+}
+
+bool PDFDocument::canPrint() const
+{
+    return true;
 }
 
 void PDFDocument::setAntialiasing(bool on)
