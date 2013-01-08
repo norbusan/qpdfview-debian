@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#include "documentview.h"
+#include "global.h"
 #include "miscellaneous.h"
 
 class Settings : public QObject
@@ -167,11 +167,11 @@ public:
         bool continuousMode() const;
         void setContinuousMode(bool on);
 
-        ::DocumentView::LayoutMode layoutMode() const;
-        void setLayoutMode(::DocumentView::LayoutMode layoutMode);
+        LayoutMode layoutMode() const;
+        void setLayoutMode(LayoutMode layoutMode);
 
-        ::DocumentView::ScaleMode scaleMode() const;
-        void setScaleMode(::DocumentView::ScaleMode scaleMode);
+        ScaleMode scaleMode() const;
+        void setScaleMode(ScaleMode scaleMode);
 
         qreal scaleFactor() const;
         void setScaleFactor(qreal scaleFactor);
@@ -342,9 +342,9 @@ public:
 
         static inline bool continuousMode() { return false; }
 
-        static inline ::DocumentView::LayoutMode layoutMode() { return ::DocumentView::SinglePageMode; }
+        static inline LayoutMode layoutMode() { return SinglePageMode; }
 
-        static inline ::DocumentView::ScaleMode scaleMode() { return ::DocumentView::ScaleFactor; }
+        static inline ScaleMode scaleMode() { return ScaleFactorMode; }
 
         static inline qreal scaleFactor() { return 1.0; }
 

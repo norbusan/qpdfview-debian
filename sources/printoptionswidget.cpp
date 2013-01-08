@@ -40,50 +40,50 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
 
     m_pageSetComboBox = new QComboBox(this);
-    m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(DocumentView::PrintOptions::AllPages));
-    m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(DocumentView::PrintOptions::EvenPages));
-    m_pageSetComboBox->addItem(tr("Odd pages"), static_cast< uint >(DocumentView::PrintOptions::OddPages));
+    m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(PrintOptions::AllPages));
+    m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(PrintOptions::EvenPages));
+    m_pageSetComboBox->addItem(tr("Odd pages"), static_cast< uint >(PrintOptions::OddPages));
     m_pageSetComboBox->setCurrentIndex(0);
 
     m_formLayout->addRow(tr("Page set:"), m_pageSetComboBox);
 
     m_numberUpComboBox = new QComboBox(this);
-    m_numberUpComboBox->addItem(tr("Single page"), static_cast< uint >(DocumentView::PrintOptions::SinglePage));
-    m_numberUpComboBox->addItem(tr("Two pages"), static_cast< uint >(DocumentView::PrintOptions::TwoPages));
-    m_numberUpComboBox->addItem(tr("Four pages"), static_cast< uint >(DocumentView::PrintOptions::FourPages));
-    m_numberUpComboBox->addItem(tr("Six pages"), static_cast< uint >(DocumentView::PrintOptions::SixPages));
-    m_numberUpComboBox->addItem(tr("Nine pages"), static_cast< uint >(DocumentView::PrintOptions::NinePages));
-    m_numberUpComboBox->addItem(tr("Sixteen pages"), static_cast< uint >(DocumentView::PrintOptions::SixteenPages));
+    m_numberUpComboBox->addItem(tr("Single page"), static_cast< uint >(PrintOptions::SinglePage));
+    m_numberUpComboBox->addItem(tr("Two pages"), static_cast< uint >(PrintOptions::TwoPages));
+    m_numberUpComboBox->addItem(tr("Four pages"), static_cast< uint >(PrintOptions::FourPages));
+    m_numberUpComboBox->addItem(tr("Six pages"), static_cast< uint >(PrintOptions::SixPages));
+    m_numberUpComboBox->addItem(tr("Nine pages"), static_cast< uint >(PrintOptions::NinePages));
+    m_numberUpComboBox->addItem(tr("Sixteen pages"), static_cast< uint >(PrintOptions::SixteenPages));
     m_numberUpComboBox->setCurrentIndex(0);
 
     m_formLayout->addRow(tr("Number-up:"), m_numberUpComboBox);
 
     m_numberUpLayoutComboBox = new QComboBox(this);
-    m_numberUpLayoutComboBox->addItem(tr("Bottom to top and left to right"), static_cast< uint >(DocumentView::PrintOptions::BottomTopLeftRight));
-    m_numberUpLayoutComboBox->addItem(tr("Bottom to top and right to left"), static_cast< uint >(DocumentView::PrintOptions::BottomTopRightLeft));
-    m_numberUpLayoutComboBox->addItem(tr("Left to right and bottom to top"), static_cast< uint >(DocumentView::PrintOptions::LeftRightBottomTop));
-    m_numberUpLayoutComboBox->addItem(tr("Left to right and top to bottom"), static_cast< uint >(DocumentView::PrintOptions::LeftRightTopBottom));
-    m_numberUpLayoutComboBox->addItem(tr("Right to left and bottom to top"), static_cast< uint >(DocumentView::PrintOptions::RightLeftBottomTop));
-    m_numberUpLayoutComboBox->addItem(tr("Right to left and top to bottom"), static_cast< uint >(DocumentView::PrintOptions::RightLeftTopBottom));
-    m_numberUpLayoutComboBox->addItem(tr("Top to bottom and left to right"), static_cast< uint >(DocumentView::PrintOptions::TopBottomLeftRight));
-    m_numberUpLayoutComboBox->addItem(tr("Top to bottom and right to left"), static_cast< uint >(DocumentView::PrintOptions::TopBottomRightLeft));
+    m_numberUpLayoutComboBox->addItem(tr("Bottom to top and left to right"), static_cast< uint >(PrintOptions::BottomTopLeftRight));
+    m_numberUpLayoutComboBox->addItem(tr("Bottom to top and right to left"), static_cast< uint >(PrintOptions::BottomTopRightLeft));
+    m_numberUpLayoutComboBox->addItem(tr("Left to right and bottom to top"), static_cast< uint >(PrintOptions::LeftRightBottomTop));
+    m_numberUpLayoutComboBox->addItem(tr("Left to right and top to bottom"), static_cast< uint >(PrintOptions::LeftRightTopBottom));
+    m_numberUpLayoutComboBox->addItem(tr("Right to left and bottom to top"), static_cast< uint >(PrintOptions::RightLeftBottomTop));
+    m_numberUpLayoutComboBox->addItem(tr("Right to left and top to bottom"), static_cast< uint >(PrintOptions::RightLeftTopBottom));
+    m_numberUpLayoutComboBox->addItem(tr("Top to bottom and left to right"), static_cast< uint >(PrintOptions::TopBottomLeftRight));
+    m_numberUpLayoutComboBox->addItem(tr("Top to bottom and right to left"), static_cast< uint >(PrintOptions::TopBottomRightLeft));
     m_numberUpLayoutComboBox->setCurrentIndex(3);
 
     m_formLayout->addRow(tr("Number-up layout:"), m_numberUpLayoutComboBox);
 }
 
-DocumentView::PrintOptions PrintOptionsWidget::printOptions() const
+PrintOptions PrintOptionsWidget::printOptions() const
 {
-    DocumentView::PrintOptions printOptions;
+    PrintOptions printOptions;
 
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
     printOptions.landscape = m_landscapeCheckBox->isChecked();
 
     printOptions.pageRanges = m_pageRangesLineEdit->text();
-    printOptions.pageSet = static_cast< DocumentView::PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());
+    printOptions.pageSet = static_cast< PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());
 
-    printOptions.numberUp = static_cast< DocumentView::PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt());
-    printOptions.numberUpLayout = static_cast< DocumentView::PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt());
+    printOptions.numberUp = static_cast< PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt());
+    printOptions.numberUpLayout = static_cast< PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt());
 
     return printOptions;
 }

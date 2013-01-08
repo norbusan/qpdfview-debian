@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "mainwindow.h"
 
 #include "pageitem.h"
+#include "documentview.h"
 #include "printoptionswidget.h"
 #include "miscellaneous.h"
 #include "settings.h"
@@ -163,8 +164,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
 
         connect(newTab, SIGNAL(continousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
-        connect(newTab, SIGNAL(layoutModeChanged(DocumentView::LayoutMode)), SLOT(on_currentTab_layoutModeChanged(DocumentView::LayoutMode)));
-        connect(newTab, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), SLOT(on_currentTab_scaleModeChanged(DocumentView::ScaleMode)));
+        connect(newTab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
+        connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
         connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
@@ -251,8 +252,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_findNextAction->setEnabled(true);
         m_cancelSearchAction->setEnabled(true);
 
-        m_copyToClipboardAction->setEnabled(true);
-        m_addAnnotationAction->setEnabled(true);
+        m_copyToClipboardModeAction->setEnabled(true);
+        m_addAnnotationModeAction->setEnabled(true);
 
         m_continuousModeAction->setEnabled(true);
         m_twoPagesModeAction->setEnabled(true);
@@ -262,8 +263,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_zoomInAction->setEnabled(true);
         m_zoomOutAction->setEnabled(true);
         m_originalSizeAction->setEnabled(true);
-        m_fitToPageWidthAction->setEnabled(true);
-        m_fitToPageSizeAction->setEnabled(true);
+        m_fitToPageWidthModeAction->setEnabled(true);
+        m_fitToPageSizeModeAction->setEnabled(true);
 
         m_rotateLeftAction->setEnabled(true);
         m_rotateRightAction->setEnabled(true);
@@ -332,8 +333,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_findNextAction->setEnabled(false);
         m_cancelSearchAction->setEnabled(false);
 
-        m_copyToClipboardAction->setEnabled(false);
-        m_addAnnotationAction->setEnabled(false);
+        m_copyToClipboardModeAction->setEnabled(false);
+        m_addAnnotationModeAction->setEnabled(false);
 
         m_continuousModeAction->setEnabled(false);
         m_twoPagesModeAction->setEnabled(false);
@@ -343,8 +344,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_zoomInAction->setEnabled(false);
         m_zoomOutAction->setEnabled(false);
         m_originalSizeAction->setEnabled(false);
-        m_fitToPageWidthAction->setEnabled(false);
-        m_fitToPageSizeAction->setEnabled(false);
+        m_fitToPageWidthModeAction->setEnabled(false);
+        m_fitToPageSizeModeAction->setEnabled(false);
 
         m_rotateLeftAction->setEnabled(false);
         m_rotateRightAction->setEnabled(false);
@@ -389,16 +390,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_currentPageSpinBox->setSuffix(" / 1");
         m_scaleFactorComboBox->setCurrentIndex(4);
 
-        m_copyToClipboardAction->setChecked(false);
-        m_addAnnotationAction->setChecked(false);
+        m_copyToClipboardModeAction->setChecked(false);
+        m_addAnnotationModeAction->setChecked(false);
 
         m_continuousModeAction->setChecked(false);
         m_twoPagesModeAction->setChecked(false);
         m_twoPagesWithCoverPageModeAction->setChecked(false);
         m_multiplePagesModeAction->setChecked(false);
 
-        m_fitToPageSizeAction->setChecked(false);
-        m_fitToPageWidthAction->setChecked(false);
+        m_fitToPageSizeModeAction->setChecked(false);
+        m_fitToPageWidthModeAction->setChecked(false);
     }
 }
 
@@ -469,43 +470,43 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     }
 }
 
-void MainWindow::on_currentTab_layoutModeChanged(DocumentView::LayoutMode layoutMode)
+void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
 {
     if(senderIsCurrentTab())
     {
-        m_twoPagesModeAction->setChecked(layoutMode == DocumentView::TwoPagesMode);
-        m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == DocumentView::TwoPagesWithCoverPageMode);
-        m_multiplePagesModeAction->setChecked(layoutMode == DocumentView::MultiplePagesMode);
+        m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
+        m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
+        m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
 
         m_settings->documentView()->setLayoutMode(layoutMode);
     }
 }
 
-void MainWindow::on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMode)
+void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
 {
     if(senderIsCurrentTab())
     {
         switch(scaleMode)
         {
         default:
-        case DocumentView::ScaleFactor:
-            m_fitToPageWidthAction->setChecked(false);
-            m_fitToPageSizeAction->setChecked(false);
+        case ScaleFactorMode:
+            m_fitToPageWidthModeAction->setChecked(false);
+            m_fitToPageSizeModeAction->setChecked(false);
 
             on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
             break;
-        case DocumentView::FitToPageWidth:
-            m_fitToPageWidthAction->setChecked(true);
-            m_fitToPageSizeAction->setChecked(false);
+        case FitToPageWidthMode:
+            m_fitToPageWidthModeAction->setChecked(true);
+            m_fitToPageSizeModeAction->setChecked(false);
 
             m_scaleFactorComboBox->setCurrentIndex(0);
 
             m_zoomInAction->setEnabled(true);
             m_zoomOutAction->setEnabled(true);
             break;
-        case DocumentView::FitToPageSize:
-            m_fitToPageWidthAction->setChecked(false);
-            m_fitToPageSizeAction->setChecked(true);
+        case FitToPageSizeMode:
+            m_fitToPageWidthModeAction->setChecked(false);
+            m_fitToPageSizeModeAction->setChecked(true);
 
             m_scaleFactorComboBox->setCurrentIndex(1);
 
@@ -522,7 +523,7 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
 {
     if(senderIsCurrentTab())
     {
-        if(currentTab()->scaleMode() == DocumentView::ScaleFactor)
+        if(currentTab()->scaleMode() == ScaleFactorMode)
         {
             m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
@@ -557,8 +558,8 @@ void MainWindow::on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMo
 {
     if(senderIsCurrentTab())
     {
-        m_copyToClipboardAction->setChecked(rubberBandMode == CopyToClipboardMode);
-        m_addAnnotationAction->setChecked(rubberBandMode == AddAnnotationMode);
+        m_copyToClipboardModeAction->setChecked(rubberBandMode == CopyToClipboardMode);
+        m_addAnnotationModeAction->setChecked(rubberBandMode == AddAnnotationMode);
     }
 }
 
@@ -603,11 +604,11 @@ void MainWindow::on_scaleFactor_activated(int index)
 {
     if(index == 0)
     {
-        currentTab()->setScaleMode(DocumentView::FitToPageWidth);
+        currentTab()->setScaleMode(FitToPageWidthMode);
     }
     else if(index == 1)
     {
-        currentTab()->setScaleMode(DocumentView::FitToPageSize);
+        currentTab()->setScaleMode(FitToPageSizeMode);
     }
     else
     {
@@ -617,7 +618,7 @@ void MainWindow::on_scaleFactor_activated(int index)
         if(ok)
         {
             currentTab()->setScaleFactor(scaleFactor);
-            currentTab()->setScaleMode(DocumentView::ScaleFactor);
+            currentTab()->setScaleMode(ScaleFactorMode);
         }
     }
 
@@ -637,7 +638,7 @@ void MainWindow::on_scaleFactor_editingFinished()
         if(ok)
         {
             currentTab()->setScaleFactor(scaleFactor);
-            currentTab()->setScaleMode(DocumentView::ScaleFactor);
+            currentTab()->setScaleMode(ScaleFactorMode);
         }
 
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
@@ -900,12 +901,12 @@ void MainWindow::on_cancelSearch_triggered()
     }
 }
 
-void MainWindow::on_copyToClipboard_triggered(bool checked)
+void MainWindow::on_copyToClipboardMode_triggered(bool checked)
 {
     currentTab()->setRubberBandMode(checked ? CopyToClipboardMode : ModifiersMode);
 }
 
-void MainWindow::on_addAnnotation_triggered(bool checked)
+void MainWindow::on_addAnnotationMode_triggered(bool checked)
 {
     currentTab()->setRubberBandMode(checked ? AddAnnotationMode : ModifiersMode);
 }
@@ -938,17 +939,17 @@ void MainWindow::on_continuousMode_triggered(bool checked)
 
 void MainWindow::on_twoPagesMode_triggered(bool checked)
 {
-    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesMode : DocumentView::SinglePageMode);
+    currentTab()->setLayoutMode(checked ? TwoPagesMode : SinglePageMode);
 }
 
 void MainWindow::on_twoPagesWithCoverPageMode_triggered(bool checked)
 {
-    currentTab()->setLayoutMode(checked ? DocumentView::TwoPagesWithCoverPageMode : DocumentView::SinglePageMode);
+    currentTab()->setLayoutMode(checked ? TwoPagesWithCoverPageMode : SinglePageMode);
 }
 
 void MainWindow::on_multiplePagesMode_triggered(bool checked)
 {
-    currentTab()->setLayoutMode(checked ? DocumentView::MultiplePagesMode : DocumentView::SinglePageMode);
+    currentTab()->setLayoutMode(checked ? MultiplePagesMode : SinglePageMode);
 }
 
 void MainWindow::on_zoomIn_triggered()
@@ -966,14 +967,14 @@ void MainWindow::on_originalSize_triggered()
     currentTab()->originalSize();
 }
 
-void MainWindow::on_fitToPageWidth_triggered(bool checked)
+void MainWindow::on_fitToPageWidthMode_triggered(bool checked)
 {
-    currentTab()->setScaleMode(checked ? DocumentView::FitToPageWidth : DocumentView::ScaleFactor);
+    currentTab()->setScaleMode(checked ? FitToPageWidthMode : ScaleFactorMode);
 }
 
-void MainWindow::on_fitToPageSize_triggered(bool checked)
+void MainWindow::on_fitToPageSizeMode_triggered(bool checked)
 {
-    currentTab()->setScaleMode(checked ? DocumentView::FitToPageSize : DocumentView::ScaleFactor);
+    currentTab()->setScaleMode(checked ? FitToPageSizeMode : ScaleFactorMode);
 }
 
 void MainWindow::on_rotateLeft_triggered()
@@ -1613,21 +1614,21 @@ void MainWindow::createActions()
     m_cancelSearchAction->setIconVisibleInMenu(true);
     connect(m_cancelSearchAction, SIGNAL(triggered()), SLOT(on_cancelSearch_triggered()));
 
-    // copy to clipboard
+    // copy to clipboard mode
 
-    m_copyToClipboardAction = new QAction(tr("&Copy to clipboard"), this);
-    m_copyToClipboardAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
-    m_copyToClipboardAction->setCheckable(true);
-    m_copyToClipboardAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
-    connect(m_copyToClipboardAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboard_triggered(bool)));
+    m_copyToClipboardModeAction = new QAction(tr("&Copy to clipboard"), this);
+    m_copyToClipboardModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    m_copyToClipboardModeAction->setCheckable(true);
+    m_copyToClipboardModeAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
+    connect(m_copyToClipboardModeAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboardMode_triggered(bool)));
 
-    // add annotation
+    // add annotation mode
 
-    m_addAnnotationAction = new QAction(tr("&Add annotation"), this);
-    m_addAnnotationAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
-    m_addAnnotationAction->setCheckable(true);
-    m_addAnnotationAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
-    connect(m_addAnnotationAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotation_triggered(bool)));
+    m_addAnnotationModeAction = new QAction(tr("&Add annotation"), this);
+    m_addAnnotationModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
+    m_addAnnotationModeAction->setCheckable(true);
+    m_addAnnotationModeAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
+    connect(m_addAnnotationModeAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotationMode_triggered(bool)));
 
     // settings
 
@@ -1690,21 +1691,21 @@ void MainWindow::createActions()
     m_originalSizeAction->setIconVisibleInMenu(true);
     connect(m_originalSizeAction, SIGNAL(triggered()), SLOT(on_originalSize_triggered()));
 
-    // fit to page width
+    // fit to page width mode
 
-    m_fitToPageWidthAction = new QAction(tr("Fit to page width"), this);
-    m_fitToPageWidthAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_9));
-    m_fitToPageWidthAction->setCheckable(true);
-    m_fitToPageWidthAction->setIcon(QIcon(":icons/fit-to-page-width.svg"));
-    connect(m_fitToPageWidthAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageWidth_triggered(bool)));
+    m_fitToPageWidthModeAction = new QAction(tr("Fit to page width"), this);
+    m_fitToPageWidthModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_9));
+    m_fitToPageWidthModeAction->setCheckable(true);
+    m_fitToPageWidthModeAction->setIcon(QIcon(":icons/fit-to-page-width.svg"));
+    connect(m_fitToPageWidthModeAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageWidthMode_triggered(bool)));
 
-    // fit to page size
+    // fit to page size mode
 
-    m_fitToPageSizeAction = new QAction(tr("Fit to page size"), this);
-    m_fitToPageSizeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
-    m_fitToPageSizeAction->setCheckable(true);
-    m_fitToPageSizeAction->setIcon(QIcon(":icons/fit-to-page-size.svg"));
-    connect(m_fitToPageSizeAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageSize_triggered(bool)));
+    m_fitToPageSizeModeAction = new QAction(tr("Fit to page size"), this);
+    m_fitToPageSizeModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
+    m_fitToPageSizeModeAction->setCheckable(true);
+    m_fitToPageSizeModeAction->setIcon(QIcon(":icons/fit-to-page-size.svg"));
+    connect(m_fitToPageSizeModeAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageSizeMode_triggered(bool)));
 
     // rotate left
 
@@ -1852,8 +1853,8 @@ void MainWindow::createToolBars()
         else if(action == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
         else if(action == "jumpToPage") { m_editToolBar->addAction(m_jumpToPageAction); }
         else if(action == "search") { m_editToolBar->addAction(m_searchAction); }
-        else if(action == "copyToClipboard") { m_editToolBar->addAction(m_copyToClipboardAction); }
-        else if(action == "addAnnotation") { m_editToolBar->addAction(m_addAnnotationAction); }
+        else if(action == "copyToClipboardMode") { m_editToolBar->addAction(m_copyToClipboardModeAction); }
+        else if(action == "addAnnotationMode") { m_editToolBar->addAction(m_addAnnotationModeAction); }
     }
 
     // view
@@ -1871,8 +1872,8 @@ void MainWindow::createToolBars()
         else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
         else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
         else if(action == "originalSize") { m_viewToolBar->addAction(m_originalSizeAction); }
-        else if(action == "fitToPageWidth") { m_viewToolBar->addAction(m_fitToPageWidthAction); }
-        else if(action == "fitToPageSize") { m_viewToolBar->addAction(m_fitToPageSizeAction); }
+        else if(action == "fitToPageWidthMode") { m_viewToolBar->addAction(m_fitToPageWidthModeAction); }
+        else if(action == "fitToPageSizeMode") { m_viewToolBar->addAction(m_fitToPageSizeModeAction); }
         else if(action == "rotateLeft") { m_viewToolBar->addAction(m_rotateLeftAction); }
         else if(action == "rotateRight") { m_viewToolBar->addAction(m_rotateRightAction); }
         else if(action == "fullscreen") { m_viewToolBar->addAction(m_fullscreenAction); }
@@ -2038,8 +2039,8 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_findNextAction);
     m_editMenu->addAction(m_cancelSearchAction);
     m_editMenu->addSeparator();
-    m_editMenu->addAction(m_copyToClipboardAction);
-    m_editMenu->addAction(m_addAnnotationAction);
+    m_editMenu->addAction(m_copyToClipboardModeAction);
+    m_editMenu->addAction(m_addAnnotationModeAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_settingsAction);
 
@@ -2054,8 +2055,8 @@ void MainWindow::createMenus()
     m_viewMenu->addAction(m_zoomInAction);
     m_viewMenu->addAction(m_zoomOutAction);
     m_viewMenu->addAction(m_originalSizeAction);
-    m_viewMenu->addAction(m_fitToPageWidthAction);
-    m_viewMenu->addAction(m_fitToPageSizeAction);
+    m_viewMenu->addAction(m_fitToPageWidthModeAction);
+    m_viewMenu->addAction(m_fitToPageSizeModeAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_rotateLeftAction);
     m_viewMenu->addAction(m_rotateRightAction);
@@ -2236,9 +2237,9 @@ void MainWindow::restoreTabs()
             if(openInNewTab(query.value(0).toString()))
             {
                 currentTab()->setContinousMode(static_cast< bool >(query.value(2).toUInt()));
-                currentTab()->setLayoutMode(static_cast< DocumentView::LayoutMode >(query.value(3).toUInt()));
+                currentTab()->setLayoutMode(static_cast< LayoutMode >(query.value(3).toUInt()));
 
-                currentTab()->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(4).toUInt()));
+                currentTab()->setScaleMode(static_cast< ScaleMode >(query.value(4).toUInt()));
                 currentTab()->setScaleFactor(query.value(5).toReal());
 
                 currentTab()->setRotation(static_cast< Rotation >(query.value(6).toUInt()));
@@ -2433,9 +2434,9 @@ void MainWindow::restorePerFileSettings(DocumentView* tab)
         if(query.next())
         {
             tab->setContinousMode(query.value(1).toBool());
-            tab->setLayoutMode(static_cast< DocumentView::LayoutMode >(query.value(2).toUInt()));
+            tab->setLayoutMode(static_cast< LayoutMode >(query.value(2).toUInt()));
 
-            tab->setScaleMode(static_cast< DocumentView::ScaleMode >(query.value(3).toUInt()));
+            tab->setScaleMode(static_cast< ScaleMode >(query.value(3).toUInt()));
             tab->setScaleFactor(query.value(4).toReal());
 
             tab->setRotation(static_cast< Rotation >(query.value(5).toUInt()));

@@ -282,7 +282,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_returnToTop(),
     m_continuousMode(false),
     m_layoutMode(SinglePageMode),
-    m_scaleMode(ScaleFactor),
+    m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
     m_rotation(DoNotRotate),
     m_highlightAll(false),
@@ -357,7 +357,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer->setSingleShot(true);
 
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
-    connect(this, SIGNAL(scaleModeChanged(DocumentView::ScaleMode)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(layoutModeChanged(LayoutMode)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
 
@@ -410,12 +411,12 @@ void DocumentView::setContinousMode(bool continousMode)
     }
 }
 
-DocumentView::LayoutMode DocumentView::layoutMode() const
+LayoutMode DocumentView::layoutMode() const
 {
     return m_layoutMode;
 }
 
-void DocumentView::setLayoutMode(DocumentView::LayoutMode layoutMode)
+void DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
     if(m_layoutMode != layoutMode && layoutMode >= 0 && layoutMode < NumberOfLayoutModes)
     {
@@ -435,7 +436,7 @@ void DocumentView::setLayoutMode(DocumentView::LayoutMode layoutMode)
     }
 }
 
-DocumentView::ScaleMode DocumentView::scaleMode() const
+ScaleMode DocumentView::scaleMode() const
 {
     return m_scaleMode;
 }
@@ -467,7 +468,7 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
     {
         m_scaleFactor = scaleFactor;
 
-        if(m_scaleMode == ScaleFactor)
+        if(m_scaleMode == ScaleFactorMode)
         {
             qreal left = 0.0, top = 0.0;
             saveLeftAndTop(left, top);
@@ -1140,10 +1141,10 @@ void DocumentView::findNext()
 
 void DocumentView::zoomIn()
 {
-    if(scaleMode() != ScaleFactor)
+    if(scaleMode() != ScaleFactorMode)
     {
         setScaleFactor(qMin(m_pages.at(m_currentPage - 1)->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
-        setScaleMode(ScaleFactor);
+        setScaleMode(ScaleFactorMode);
     }
     else
     {
@@ -1153,10 +1154,10 @@ void DocumentView::zoomIn()
 
 void DocumentView::zoomOut()
 {
-    if(scaleMode() != ScaleFactor)
+    if(scaleMode() != ScaleFactorMode)
     {
         setScaleFactor(qMax(m_pages.at(m_currentPage - 1)->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
-        setScaleMode(ScaleFactor);
+        setScaleMode(ScaleFactorMode);
     }
     else
     {
@@ -1167,7 +1168,7 @@ void DocumentView::zoomOut()
 void DocumentView::originalSize()
 {
     setScaleFactor(1.0);
-    setScaleMode(ScaleFactor);
+    setScaleMode(ScaleFactorMode);
 }
 
 void DocumentView::rotateLeft()
@@ -1403,7 +1404,7 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 {
     QGraphicsView::resizeEvent(event);
 
-    if(m_scaleMode != ScaleFactor)
+    if(m_scaleMode != ScaleFactorMode)
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
@@ -1947,7 +1948,7 @@ void DocumentView::prepareScene()
         PageItem* page = m_pages.at(index);
         QSizeF size = page->size();
 
-        if(m_scaleMode != ScaleFactor)
+        if(m_scaleMode != ScaleFactorMode)
         {
             qreal visibleWidth = 0.0;
             qreal visibleHeight = 0.0;
@@ -1992,12 +1993,12 @@ void DocumentView::prepareScene()
             switch(m_scaleMode)
             {
             default:
-            case ScaleFactor:
+            case ScaleFactorMode:
                 break;
-            case FitToPageWidth:
+            case FitToPageWidthMode:
                 scaleFactor = visibleWidth / pageWidth;
                 break;
-            case FitToPageSize:
+            case FitToPageSizeMode:
                 scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
                 break;
             }

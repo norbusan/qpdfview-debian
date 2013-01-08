@@ -31,7 +31,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#include "documentview.h"
+#include "global.h"
 
 class PrintOptionsWidget : public QWidget
 {
@@ -40,7 +40,7 @@ class PrintOptionsWidget : public QWidget
 public:
     explicit PrintOptionsWidget(QWidget* parent = 0);
 
-    DocumentView::PrintOptions printOptions() const;
+    PrintOptions printOptions() const;
 
 private:
     QFormLayout* m_formLayout;

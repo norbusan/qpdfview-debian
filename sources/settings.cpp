@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 #include "pageitem.h"
+#include "documentview.h"
 
 Settings::Settings(QObject* parent) : QObject(parent)
 {
@@ -443,22 +444,22 @@ void Settings::DocumentView::setContinuousMode(bool on)
     m_settings->setValue("documentView/continuousMode", on);
 }
 
-DocumentView::LayoutMode Settings::DocumentView::layoutMode() const
+LayoutMode Settings::DocumentView::layoutMode() const
 {
-    return static_cast< ::DocumentView::LayoutMode >(m_settings->value("documentView/layoutMode", static_cast< uint >(Defaults::DocumentView::layoutMode())).toUInt());
+    return static_cast< LayoutMode >(m_settings->value("documentView/layoutMode", static_cast< uint >(Defaults::DocumentView::layoutMode())).toUInt());
 }
 
-void Settings::DocumentView::setLayoutMode(::DocumentView::LayoutMode layoutMode)
+void Settings::DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
     m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
 }
 
-DocumentView::ScaleMode Settings::DocumentView::scaleMode() const
+ScaleMode Settings::DocumentView::scaleMode() const
 {
-    return static_cast< ::DocumentView::ScaleMode >(m_settings->value("documentView/scaleMode", static_cast< uint >(Defaults::DocumentView::scaleMode())).toUInt());
+    return static_cast< ScaleMode >(m_settings->value("documentView/scaleMode", static_cast< uint >(Defaults::DocumentView::scaleMode())).toUInt());
 }
 
-void Settings::DocumentView::setScaleMode(::DocumentView::ScaleMode scaleMode)
+void Settings::DocumentView::setScaleMode(ScaleMode scaleMode)
 {
     m_settings->setValue("documentView/scaleMode", static_cast< uint >(scaleMode));
 }

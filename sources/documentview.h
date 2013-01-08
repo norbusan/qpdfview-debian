@@ -112,25 +112,8 @@ public:
     bool continousMode() const;
     void setContinousMode(bool continousMode);
 
-    enum LayoutMode
-    {
-        SinglePageMode = 0,
-        TwoPagesMode = 1,
-        TwoPagesWithCoverPageMode = 2,
-        MultiplePagesMode = 3,
-        NumberOfLayoutModes = 4
-    };
-
     LayoutMode layoutMode() const;
     void setLayoutMode(LayoutMode layoutMode);
-
-    enum ScaleMode
-    {
-        ScaleFactor = 0,
-        FitToPageWidth = 1,
-        FitToPageSize = 2,
-        NumberOfScaleModes = 3
-    };
 
     ScaleMode scaleMode() const;
     void setScaleMode(ScaleMode scaleMode);
@@ -158,60 +141,14 @@ public:
 
     QStandardItemModel* fontsModel();
 
-    struct PrintOptions
-    {
-        bool fitToPage;
-        bool landscape;
-
-        QString pageRanges;
-
-        enum PageSet
-        {
-            AllPages = 0,
-            EvenPages = 1,
-            OddPages = 2
-        };
-
-        PageSet pageSet;
-
-        enum NumberUp
-        {
-            SinglePage = 0,
-            TwoPages = 1,
-            FourPages = 2,
-            SixPages = 3,
-            NinePages = 4,
-            SixteenPages = 5
-        };
-
-        NumberUp numberUp;
-
-        enum NumberUpLayout
-        {
-            BottomTopLeftRight = 0,
-            BottomTopRightLeft = 1,
-            LeftRightBottomTop = 2,
-            LeftRightTopBottom = 3,
-            RightLeftBottomTop = 4,
-            RightLeftTopBottom = 5,
-            TopBottomLeftRight = 6,
-            TopBottomRightLeft = 7
-        };
-
-        NumberUpLayout numberUpLayout;
-
-        PrintOptions() : fitToPage(false), landscape(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
-
-    };
-
 signals:
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
     void currentPageChanged(int currentPage, bool returnTo = false);
 
     void continousModeChanged(bool continousMode);
-    void layoutModeChanged(DocumentView::LayoutMode layoutMode);
-    void scaleModeChanged(DocumentView::ScaleMode scaleMode);
+    void layoutModeChanged(LayoutMode layoutMode);
+    void scaleModeChanged(ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
 

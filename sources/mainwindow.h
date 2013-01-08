@@ -47,8 +47,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_DBUS
 
 #include "global.h"
-#include "documentview.h"
 
+class DocumentView;
 class TabWidget;
 class TreeView;
 class ComboBox;
@@ -83,8 +83,8 @@ protected slots:
     void on_currentTab_currentPageChanged(int currentPage);
 
     void on_currentTab_continuousModeChanged(bool continuousMode);
-    void on_currentTab_layoutModeChanged(DocumentView::LayoutMode layoutMode);
-    void on_currentTab_scaleModeChanged(DocumentView::ScaleMode scaleMode);
+    void on_currentTab_layoutModeChanged(LayoutMode layoutMode);
+    void on_currentTab_scaleModeChanged(ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
     void on_currentTab_rotationChanged(Rotation rotation);
 
@@ -125,8 +125,8 @@ protected slots:
     void on_findNext_triggered();
     void on_cancelSearch_triggered();
 
-    void on_copyToClipboard_triggered(bool checked);
-    void on_addAnnotation_triggered(bool checked);
+    void on_copyToClipboardMode_triggered(bool checked);
+    void on_addAnnotationMode_triggered(bool checked);
 
     void on_settings_triggered();
 
@@ -138,8 +138,8 @@ protected slots:
     void on_zoomIn_triggered();
     void on_zoomOut_triggered();
     void on_originalSize_triggered();
-    void on_fitToPageWidth_triggered(bool checked);
-    void on_fitToPageSize_triggered(bool checked);
+    void on_fitToPageWidthMode_triggered(bool checked);
+    void on_fitToPageSizeMode_triggered(bool checked);
 
     void on_rotateLeft_triggered();
     void on_rotateRight_triggered();
@@ -224,8 +224,8 @@ private:
     QAction* m_findNextAction;
     QAction* m_cancelSearchAction;
 
-    QAction* m_copyToClipboardAction;
-    QAction* m_addAnnotationAction;
+    QAction* m_copyToClipboardModeAction;
+    QAction* m_addAnnotationModeAction;
 
     QAction* m_settingsAction;
 
@@ -237,8 +237,8 @@ private:
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
     QAction* m_originalSizeAction;
-    QAction* m_fitToPageWidthAction;
-    QAction* m_fitToPageSizeAction;
+    QAction* m_fitToPageWidthModeAction;
+    QAction* m_fitToPageSizeModeAction;
 
     QAction* m_rotateLeftAction;
     QAction* m_rotateRightAction;
