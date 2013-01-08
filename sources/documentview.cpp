@@ -21,6 +21,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+#include <QApplication>
+#include <QInputDialog>
+#include <QDesktopWidget>
+#include <QDesktopServices>
+#include <QKeyEvent>
+#include <QMenu>
+#include <QMessageBox>
+#include <QPrinter>
+#include <QScrollBar>
+#include <QStandardItemModel>
+
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
@@ -307,7 +318,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_highlight->setVisible(false);
     m_pagesScene->addItem(m_highlight);
 
-    QColor highlightColor = QApplication::palette().color(QPalette::Highlight);
+    QColor highlightColor = palette().color(QPalette::Highlight);
 
     highlightColor.setAlpha(127);
     m_highlight->setBrush(QBrush(highlightColor));

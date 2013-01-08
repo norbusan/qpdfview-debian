@@ -22,15 +22,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PAGEITEM_H
 #define PAGEITEM_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QCache>
+#include <QFutureWatcher>
+#include <QGraphicsObject>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QtConcurrent>
-#include <QtWidgets>
-
-#endif // QT_VERSION
+class QMutex;
 
 #include <poppler-qt4.h>
 
@@ -70,7 +66,7 @@ public:
     ~PageItem();
 
     QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget* widget);
 
     int index() const;
     const QSizeF& size() const;

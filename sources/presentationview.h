@@ -22,17 +22,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRESENTATIONVIEW_H
 #define PRESENTATIONVIEW_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QFutureWatcher>
+#include <QStack>
+#include <QWidget>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+class QMutex;
 
-#include <QtConcurrent>
-#include <QtWidgets>
-
-#endif // QT_VERSION
-
-#include <poppler-qt4.h>
+namespace Poppler
+{
+class Document;
+class LinkGoto;
+}
 
 class PresentationView : public QWidget
 {

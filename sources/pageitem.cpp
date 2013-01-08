@@ -21,7 +21,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pageitem.h"
 
-#include <poppler-annotation.h>
+#include <QApplication>
+#include <QClipboard>
+#include <QtConcurrentRun>
+#include <QFileDialog>
+#include <QGraphicsSceneHoverEvent>
+#include <QMenu>
+#include <QMessageBox>
+#include <QPainter>
+#include <QTimer>
+#include <QToolTip>
+
 #include <poppler-form.h>
 
 #include "annotationdialog.h"
@@ -270,7 +280,7 @@ QRectF PageItem::boundingRect() const
     return m_boundingRect;
 }
 
-void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget* widget)
 {
     QImage image;
 
@@ -356,7 +366,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     painter->setTransform(m_transform, true);
 
-    QColor highlightColor = QApplication::palette().color(QPalette::Highlight);
+    QColor highlightColor = widget->palette().color(QPalette::Highlight);
 
     highlightColor.setAlpha(127);
 
