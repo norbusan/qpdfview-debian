@@ -47,6 +47,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QToolButton>
 #include <QVBoxLayout>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+#include <QStandardPaths>
+
+#else
+
+#include <QDesktopServices>
+
+#endif // QT_VERSION
+
 #ifdef WITH_SQL
 
 #include <QSqlError>

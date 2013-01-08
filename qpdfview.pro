@@ -5,8 +5,7 @@ TEMPLATE = app
 
 HEADERS += \
     sources/global.h \
-    sources/annotationdialog.h \
-    sources/formfielddialog.h \
+    sources/model.h \
     sources/pageitem.h \
     sources/searchthread.h \
     sources/presentationview.h \
@@ -21,8 +20,7 @@ HEADERS += \
     sources/mainwindow.h
 
 SOURCES += \
-    sources/annotationdialog.cpp \
-    sources/formfielddialog.cpp \
+    sources/model.cpp \
     sources/pageitem.cpp \
     sources/searchthread.cpp \
     sources/presentationview.cpp \
@@ -88,11 +86,26 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
 
 !without_pkgconfig {
     CONFIG += link_pkgconfig
-    PKGCONFIG += poppler-qt4
 
-    system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
-    system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
-    system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
+    !without_pdf : system(pkg-config --exists poppler-qt4) {
+        HEADERS += sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
+        SOURCES += sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
+
+        DEFINES += WITH_PDF
+        PKGCONFIG += poppler-qt4
+
+        system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+        system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
+        system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
+    }
+
+    !without_ps : system(pkg-config --exists libspectre) {
+        HEADERS += sources/psmodel.h
+        SOURCES += sources/psmodel.cpp
+
+        DEFINES += WITH_PS
+        PKGCONFIG += libspectre
+    }
 }
 
 !without_cups {

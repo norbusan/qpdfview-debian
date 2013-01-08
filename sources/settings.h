@@ -25,16 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QStandardPaths>
-
-#else
-
-#include <QDesktopServices>
-
-#endif // QT_VERSION
-
 class QSettings;
 
 #include "global.h"
@@ -378,20 +368,8 @@ public:
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
-        static inline QString path()
-        {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-            return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-
-#else
-
-            return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-
-#endif // QT_VERSION
-        }
-
-        static inline QString filter() { return "Portable document format (*.pdf)"; }
+        static QString path();
+        static QString filter();
 
     private:
         MainWindow() {}

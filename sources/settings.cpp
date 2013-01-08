@@ -24,6 +24,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QSettings>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+#include <QStandardPaths>
+
+#else
+
+#include <QDesktopServices>
+
+#endif // QT_VERSION
+
 #include "pageitem.h"
 #include "documentview.h"
 
@@ -690,4 +700,36 @@ QStringList Settings::MainWindow::trimmed(const QStringList& list)
     }
 
     return result;
+}
+
+QString Defaults::MainWindow::path()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+
+#else
+
+    return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+
+#endif // QT_VERSION
+}
+
+QString Defaults::MainWindow::filter()
+{
+    QStringList filter;
+
+#ifdef WITH_PDF
+
+    filter.append("Portable document format (*.pdf)");
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    filter.append("PostScript (*.ps)");
+
+#endif // WITH_PS
+
+    return filter.join(";;");
 }

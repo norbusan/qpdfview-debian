@@ -1,4 +1,5 @@
-Release 0.3.8:
+Release 0.4:
+  * Added support for multiple formats.
   * Dropped support for storing tabs and bookmarks as XML files.
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
   * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
