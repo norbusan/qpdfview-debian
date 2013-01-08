@@ -22,16 +22,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef FORMFIELDDIALOG_H
 #define FORMFIELDDIALOG_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QDialog>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+class QMutex;
 
-#include <QtWidgets>
-
-#endif // QT_VERSION
-
-#include <poppler-form.h>
+namespace Poppler
+{
+class FormField;
+}
 
 class FormFieldDialog : public QDialog
 {

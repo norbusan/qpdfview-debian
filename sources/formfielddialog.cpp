@@ -21,6 +21,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "formfielddialog.h"
 
+#include <QComboBox>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMutex>
+#include <QPlainTextEdit>
+#include <QVBoxLayout>
+
+#include <poppler-form.h>
+
 class FormFieldHandler
 {
 public:

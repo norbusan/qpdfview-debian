@@ -22,16 +22,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ANNOTATIONDIALOG_H
 #define ANNOTATIONDIALOG_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QDialog>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+class QMutex;
+class QPlainTextEdit;
 
-#include <QtWidgets>
-
-#endif // QT_VERSION
-
-#include <poppler-annotation.h>
+namespace Poppler
+{
+class Annotation;
+}
 
 class AnnotationDialog : public QDialog
 {

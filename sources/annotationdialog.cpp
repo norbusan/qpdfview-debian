@@ -21,6 +21,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "annotationdialog.h"
 
+#include <QMutex>
+#include <QPlainTextEdit>
+#include <QVBoxLayout>
+
+#include <poppler-annotation.h>
+
 AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent) : QDialog(parent, Qt::Popup),
     m_mutex(mutex),
     m_annotation(annotation),

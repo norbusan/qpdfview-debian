@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pageitem.h"
 
+#include <poppler-annotation.h>
+#include <poppler-form.h>
+
 #include "annotationdialog.h"
 #include "formfielddialog.h"
 
