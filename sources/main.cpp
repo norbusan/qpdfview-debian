@@ -22,6 +22,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#include <QApplication>
+#include <QDebug>
+#include <QDir>
+#include <QLocale>
+#include <QTranslator>
+
+#ifdef WITH_DBUS
+
+#include <QDBusInterface>
+#include <QDBusReply>
+
+#endif // WITH_DBUS
+
 #ifdef WITH_SYNCTEX
 
 #include <synctex_parser.h>

@@ -22,9 +22,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SEARCHTHREAD_H
 #define SEARCHTHREAD_H
 
-#include <QtCore>
+#include <QRectF>
+#include <QThread>
 
-#include <poppler-qt4.h>
+class QMutex;
+
+namespace Poppler
+{
+class Document;
+}
 
 class SearchThread : public QThread
 {

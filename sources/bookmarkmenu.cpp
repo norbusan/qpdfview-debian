@@ -21,6 +21,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bookmarkmenu.h"
 
+#include <QFileInfo>
+
 BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(parent)
 {
     QFileInfo fileInfo(filePath);

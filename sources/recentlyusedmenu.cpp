@@ -21,6 +21,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "recentlyusedmenu.h"
 
+#include <QFileInfo>
+
 RecentlyUsedMenu::RecentlyUsedMenu(QWidget* parent) : QMenu(parent)
 {
     menuAction()->setText(tr("Recently &used"));

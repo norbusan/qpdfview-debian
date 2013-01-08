@@ -23,14 +23,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MY_SETTINGS_H
 #define MY_SETTINGS_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QObject>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-#include <QtWidgets>
+#include <QStandardPaths>
+
+#else
+
+#include <QDesktopServices>
 
 #endif // QT_VERSION
+
+class QSettings;
 
 #include "global.h"
 #include "miscellaneous.h"

@@ -24,27 +24,24 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtCore>
-#include <QtGui>
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QtWidgets>
-#include <QtPrintSupport>
-
-#endif // QT_VERSION
+#include <QMainWindow>
 
 #ifdef WITH_SQL
 
-#include <QtSql>
+#include <QSqlDatabase>
 
 #endif // WITH_SQL
 
 #ifdef WITH_DBUS
 
-#include <QtDBus>
+#include <QDBusAbstractAdaptor>
 
 #endif // WITH_DBUS
+
+class QCheckBox;
+class QGraphicsView;
+class QModelIndex;
+class QTableView;
 
 #include "global.h"
 

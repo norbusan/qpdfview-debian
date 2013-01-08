@@ -21,6 +21,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "searchthread.h"
 
+#include <QMutex>
+
+#include <poppler-qt4.h>
+
 SearchThread::SearchThread(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),

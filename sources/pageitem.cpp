@@ -843,6 +843,8 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
             break;
         case RotateBy90:
         case RotateBy270:
+            xres = m_scaleFactor * m_physicalDpiY;
+            yres = m_scaleFactor * m_physicalDpiX;
             break;
         }
 

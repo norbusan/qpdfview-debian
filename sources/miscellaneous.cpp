@@ -21,6 +21,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "miscellaneous.h"
 
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
+
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
 }
@@ -206,7 +210,7 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     painter.setCompositionMode(QPainter::CompositionMode_Darken);
-    painter.fillRect(rect().x(), rect().y(), m_progress * width() / 100, rect().height(), QApplication::palette().highlight());
+    painter.fillRect(rect().x(), rect().y(), m_progress * width() / 100, rect().height(), palette().highlight());
 }
 
 void ProgressLineEdit::keyPressEvent(QKeyEvent* event)

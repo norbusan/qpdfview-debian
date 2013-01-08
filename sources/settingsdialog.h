@@ -23,14 +23,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QDialog>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QtWidgets>
-
-#endif // QT_VERSION
+class QCheckBox;
+class QComboBox;
+class QDialogButtonBox;
+class QDoubleSpinBox;
+class QFormLayout;
+class QLineEdit;
+class QSpinBox;
+class QTabWidget;
 
 class Settings;
 

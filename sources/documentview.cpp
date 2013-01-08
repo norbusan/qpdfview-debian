@@ -25,12 +25,20 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QInputDialog>
 #include <QDesktopWidget>
 #include <QDesktopServices>
+#include <QDir>
+#include <QFileInfo>
+#include <QFileSystemWatcher>
 #include <QKeyEvent>
+#include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPrinter>
+#include <QProcess>
 #include <QScrollBar>
 #include <QStandardItemModel>
+#include <QTemporaryFile>
+#include <QTimer>
+#include <QUrl>
 
 #include <poppler-qt4.h>
 

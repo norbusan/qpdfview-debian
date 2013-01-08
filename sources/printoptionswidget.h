@@ -22,14 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRINTOPTIONSWIDGET_H
 #define PRINTOPTIONSWIDGET_H
 
-#include <QtCore>
-#include <QtGui>
+#include <QWidget>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QtWidgets>
-
-#endif // QT_VERSION
+class QCheckBox;
+class QComboBox;
+class QFormLayout;
+class QLineEdit;
 
 #include "global.h"
 

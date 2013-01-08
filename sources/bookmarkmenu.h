@@ -22,14 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BOOKMARKMENU_H
 #define BOOKMARKMENU_H
 
-#include <QtCore>
-#include <QtGui>
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QtWidgets>
-
-#endif // QT_VERSION
+#include <QMenu>
 
 class BookmarkMenu : public QMenu
 {

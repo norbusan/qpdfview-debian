@@ -21,6 +21,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "printoptionswidget.h"
 
+#include <QCheckBox>
+#include <QComboBox>
+#include <QFormLayout>
+#include <QLineEdit>
+
 PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
 {
     setWindowTitle(tr("Extended options"));

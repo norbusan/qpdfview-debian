@@ -23,6 +23,37 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mainwindow.h"
 
+#include <QApplication>
+#include <QCheckBox>
+#include <QCryptographicHash>
+#include <QDateTime>
+#include <QDialogButtonBox>
+#include <QDockWidget>
+#include <QDragEnterEvent>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QHeaderView>
+#include <QInputDialog>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QScrollBar>
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QTextBrowser>
+#include <QTimer>
+#include <QToolBar>
+#include <QToolButton>
+#include <QVBoxLayout>
+
+#ifdef WITH_SQL
+
+#include <QSqlError>
+#include <QSqlQuery>
+
+#endif // WITH_SQL
+
 #include "pageitem.h"
 #include "documentview.h"
 #include "printoptionswidget.h"

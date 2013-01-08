@@ -22,7 +22,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settingsdialog.h"
 
-#include <poppler-qt4.h>
+#include <QApplication>
+#include <QCheckBox>
+#include <QDesktopWidget>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QPushButton>
+
+namespace Poppler
+{
+bool isOverprintPreviewAvailable();
+}
 
 #include "miscellaneous.h"
 #include "settings.h"
