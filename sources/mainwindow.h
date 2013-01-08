@@ -302,11 +302,9 @@ private:
     void createDatabase();
 
     void restoreTabs();
-    void restoreTabsFromXml(bool removeFile);
     void saveTabs();
 
     void restoreBookmarks();
-    void restoreBookmarksFromXml(bool removeFile);
     void saveBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);

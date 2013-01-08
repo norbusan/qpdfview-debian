@@ -240,6 +240,8 @@ void SettingsDialog::createBehaviorTab()
 
 #ifndef WITH_SQL
 
+    m_restoreTabsCheckBox->setEnabled(false);
+    m_restoreBookmarksCheckBox->setEnabled(false);
     m_restorePerFileSettingsCheckBox->setEnabled(false);
 
 #endif // WITH_SQL

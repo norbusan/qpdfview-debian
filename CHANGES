@@ -1,4 +1,5 @@
 Release 0.3.8:
+  * Dropped support for storing tabs and bookmarks as XML files.
   * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
   * Updated Croatian translation. Thanks to freedomrun.
 
