@@ -254,7 +254,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1554"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished">Speichern &amp;unter…</translation>
+        <translation type="unfinished">Speichern &amp;unter …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1562"/>
@@ -1017,27 +1017,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skalieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bildlauf:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">In Zwischenablage kopieren:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anmerkung hinzufügen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>

@@ -1017,27 +1017,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zoom:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotate:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scroll:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copy to clipboard:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Add annotation:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
