@@ -84,19 +84,19 @@ public:
 
     virtual QImage render(qreal horizontalResolution = 72.0, qreal verticalResolution = 72.0, Rotation rotation = RotateBy0, const QRect& boundingRect = QRect()) const = 0;
 
-    virtual QList< Link* > links() const { return QList< Link* >(); }
+    virtual QList< Link* > links() const;
 
-    virtual QString text(const QRectF& rect) const { Q_UNUSED(rect); return QString(); }
-    virtual QList< QRectF > search(const QString& text, bool matchCase) const { Q_UNUSED(text); Q_UNUSED(matchCase); return QList< QRectF >(); }
+    virtual QString text(const QRectF& rect) const;
+    virtual QList< QRectF > search(const QString& text, bool matchCase) const;
 
-    virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
+    virtual QList< Annotation* > annotations() const;
 
-    virtual bool canAddAndRemoveAnnotations() const { return false; }
-    virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
-    virtual Annotation* addHighlightAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
-    virtual void removeAnnotation(Annotation* annotation) { Q_UNUSED(annotation); }
+    virtual bool canAddAndRemoveAnnotations() const;
+    virtual Annotation* addTextAnnotation(const QRectF& boundary);
+    virtual Annotation* addHighlightAnnotation(const QRectF& boundary);
+    virtual void removeAnnotation(Annotation* annotation);
 
-    virtual QList< FormField* > formFields() const { return QList< FormField* >(); }
+    virtual QList< FormField* > formFields() const;
 
 };
 
@@ -111,26 +111,27 @@ public:
 
     virtual Page* page(int index) const = 0;
 
-    virtual bool isLocked() const { return false; }
-    virtual bool unlock(const QString& password) { Q_UNUSED(password); return false; }
+    virtual bool isLocked() const;
+    virtual bool unlock(const QString& password);
 
-    virtual bool canSave() const { return false; }
-    virtual QString saveFilter() const { return QString(); }
-    virtual bool save(const QString& filePath, bool withChanges) const { Q_UNUSED(filePath); Q_UNUSED(withChanges); return false; }
+    virtual bool canSave() const;
+    virtual QString saveFilter() const;
+    virtual bool save(const QString& filePath, bool withChanges) const;
 
-    virtual bool canBePrinted() const { return false; }
+    virtual bool canBePrinted() const;
 
-    virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
-    virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }
-    virtual void setTextHinting(bool on) { Q_UNUSED(on); }
+    virtual void setAntialiasing(bool on);
+    virtual void setTextAntialiasing(bool on);
+    virtual void setTextHinting(bool on);
 
-    virtual void setOverprintPreview(bool on) { Q_UNUSED(on); }
+    virtual void setOverprintPreview(bool on);
 
-    virtual void setPaperColor(const QColor& paperColor) { Q_UNUSED(paperColor); }
+    virtual void setPaperColor(const QColor& paperColor);
 
-    virtual void loadOutline(QStandardItemModel* outlineModel) const { Q_UNUSED(outlineModel); }
-    virtual void loadProperties(QStandardItemModel* propertiesModel) const { Q_UNUSED(propertiesModel); }
-    virtual void loadFonts(QStandardItemModel* fontsModel) const { Q_UNUSED(fontsModel); }
+    virtual void loadOutline(QStandardItemModel* outlineModel) const;
+    virtual void loadProperties(QStandardItemModel* propertiesModel) const;
+
+    virtual void loadFonts(QStandardItemModel* fontsModel) const;
 
 };
 
