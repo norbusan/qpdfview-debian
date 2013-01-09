@@ -287,7 +287,7 @@ int main(int argc, char** argv)
 
 #ifdef WITH_SIGNALS
 
-    if(!SignalHandler::prepare())
+    if(!SignalHandler::prepareSignals())
     {
         qFatal("Could not prepare signal handler!");
 

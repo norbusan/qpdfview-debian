@@ -22,6 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SIGNALHANDLER_H
 #define SIGNALHANDLER_H
 
+#include <signal.h>
+
 #include <QObject>
 
 class QSocketNotifier;
@@ -31,7 +33,7 @@ class SignalHandler : public QObject
     Q_OBJECT
 
 public:
-    static bool prepare();
+    static bool prepareSignals();
 
     explicit SignalHandler(QObject* parent = 0);
 
@@ -40,18 +42,14 @@ signals:
     void sigtermReceived();
 
 private slots:
-    void on_sigint_activated();
-    void on_sigterm_activated();
+    void on_socketNotifier_activated();
 
 private:
-    static void sigintHandler(int);
-    static void sigtermHandler(int);
+    static int s_sockets[2];
 
-    static int s_sigintSockets[2];
-    static int s_sigtermSockets[2];
+    static void handleSignals(int, siginfo_t* siginfo, void*);
 
-    QSocketNotifier* m_sigintNotifier;
-    QSocketNotifier* m_sigtermNotifier;
+    QSocketNotifier* m_socketNotifier;
 
 };
 

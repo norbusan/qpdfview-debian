@@ -21,46 +21,33 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "signalhandler.h"
 
-#include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
 #include <QSocketNotifier>
 
-int SignalHandler::s_sigintSockets[2];
-int SignalHandler::s_sigtermSockets[2];
+int SignalHandler::s_sockets[2];
 
-bool SignalHandler::prepare()
+bool SignalHandler::prepareSignals()
 {
-    if(socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigintSockets) != 0)
+    if(socketpair(AF_UNIX, SOCK_STREAM, 0, s_sockets) != 0)
     {
         return false;
     }
 
-    if(socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigtermSockets) != 0)
+    struct sigaction sigAction;
+
+    sigAction.sa_sigaction = SignalHandler::handleSignals;
+    sigemptyset(&sigAction.sa_mask);
+    sigAction.sa_flags = SA_RESTART|SA_SIGINFO;
+
+    if(sigaction(SIGINT, &sigAction, 0) != 0)
     {
         return false;
     }
 
-    struct sigaction sigintAction;
-
-    sigintAction.sa_handler = SignalHandler::sigintHandler;
-    sigemptyset(&sigintAction.sa_mask);
-    sigintAction.sa_flags = SA_RESTART;
-
-    if(sigaction(SIGINT, &sigintAction, 0) != 0)
-    {
-        return false;
-    }
-
-    struct sigaction sigtermAction;
-
-    sigtermAction.sa_handler = SignalHandler::sigtermHandler;
-    sigemptyset(&sigtermAction.sa_mask);
-    sigtermAction.sa_flags = SA_RESTART;
-
-    if(sigaction(SIGTERM, &sigtermAction, 0) != 0)
+    if(sigaction(SIGTERM, &sigAction, 0) != 0)
     {
         return false;
     }
@@ -69,48 +56,33 @@ bool SignalHandler::prepare()
 }
 
 SignalHandler::SignalHandler(QObject* parent) : QObject(parent),
-    m_sigintNotifier(0),
-    m_sigtermNotifier(0)
+    m_socketNotifier(0)
 {
-    m_sigintNotifier = new QSocketNotifier(s_sigintSockets[1], QSocketNotifier::Read, this);
-    connect(m_sigintNotifier, SIGNAL(activated(int)), SLOT(on_sigint_activated()));
-
-    m_sigtermNotifier = new QSocketNotifier(s_sigtermSockets[1], QSocketNotifier::Read, this);
-    connect(m_sigtermNotifier, SIGNAL(activated(int)), SLOT(on_sigterm_activated()));
+    m_socketNotifier = new QSocketNotifier(s_sockets[1], QSocketNotifier::Read, this);
+    connect(m_socketNotifier, SIGNAL(activated(int)), SLOT(on_socketNotifier_activated()));
 }
 
-void SignalHandler::on_sigint_activated()
+void SignalHandler::on_socketNotifier_activated()
 {
-    m_sigintNotifier->setEnabled(false);
+    m_socketNotifier->setEnabled(false);
 
-    char c;
-    read(s_sigintSockets[1], &c, sizeof(c));
+    int signo;
+    read(s_sockets[1], &signo, sizeof(signo));
 
-    emit sigintReceived();
+    switch(signo)
+    {
+    case SIGINT:
+        emit sigintReceived();
+        break;
+    case SIGTERM:
+        emit sigtermReceived();
+        break;
+    }
 
-    m_sigintNotifier->setEnabled(true);
+    m_socketNotifier->setEnabled(true);
 }
 
-void SignalHandler::on_sigterm_activated()
+void SignalHandler::handleSignals(int, siginfo_t* siginfo, void*)
 {
-    m_sigtermNotifier->setEnabled(false);
-
-    char c;
-    read(s_sigtermSockets[1], &c, sizeof(c));
-
-    emit sigtermReceived();
-
-    m_sigtermNotifier->setEnabled(true);
-}
-
-void SignalHandler::sigintHandler(int)
-{
-    char c = 1;
-    write(s_sigintSockets[0], &c, sizeof(c));
-}
-
-void SignalHandler::sigtermHandler(int)
-{
-    char c = 1;
-    write(s_sigtermSockets[0], &c, sizeof(c));
+    write(s_sockets[0], &siginfo->si_signo, sizeof(siginfo->si_signo));
 }
