@@ -5,6 +5,7 @@ Release 0.4:
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
   * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
   * Updated Croatian translation. Thanks to freedomrun.
+  * Updated Slovak translation. Thanks to DAG Software.
 
 Release 0.3.7:
   * Added persistent per-file settings.
