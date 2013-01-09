@@ -40,6 +40,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
+#ifdef WITH_SIGNALS
+
+#include "signalhandler.h"
+
+#endif // WITH_SIGNALS
+
 struct File
 {
     QString filePath;
@@ -278,6 +284,23 @@ int main(int argc, char** argv)
     MainWindow* mainWindow = new MainWindow();
 
 #endif // WITH_DBUS
+
+#ifdef WITH_SIGNALS
+
+    if(!SignalHandler::prepare())
+    {
+        qFatal("Could not prepare signal handler!");
+
+        delete mainWindow;
+        return 1;
+    }
+
+    SignalHandler signalHandler;
+
+    QObject::connect(&signalHandler, SIGNAL(sigintReceived()), mainWindow, SLOT(close()));
+    QObject::connect(&signalHandler, SIGNAL(sigtermReceived()), mainWindow, SLOT(close()));
+
+#endif // WITH_SIGNALS
 
     mainWindow->show();
     mainWindow->setAttribute(Qt::WA_DeleteOnClose);

@@ -141,6 +141,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
 }
 
+!without_signals {
+    DEFINES += WITH_SIGNALS
+
+    HEADERS += sources/signalhandler.h
+    SOURCES += sources/signalhandler.cpp
+}
+
 target.path = $${TARGET_INSTALL_PATH}
 
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
