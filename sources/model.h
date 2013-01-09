@@ -22,7 +22,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DOCUMENTMODEL_H
 #define DOCUMENTMODEL_H
 
-#include <QtGlobal>
 #include <QList>
 #include <QRect>
 #include <QRectF>

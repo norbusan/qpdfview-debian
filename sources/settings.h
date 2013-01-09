@@ -23,8 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MY_SETTINGS_H
 #define MY_SETTINGS_H
 
-#include <QObject>
-
 class QSettings;
 
 #include "global.h"
