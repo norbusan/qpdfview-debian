@@ -33,12 +33,12 @@ int SignalHandler::s_sigtermSockets[2];
 
 bool SignalHandler::prepare()
 {
-    if(::socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigintSockets))
+    if(socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigintSockets) != 0)
     {
         return false;
     }
 
-    if(::socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigtermSockets))
+    if(socketpair(AF_UNIX, SOCK_STREAM, 0, s_sigtermSockets) != 0)
     {
         return false;
     }
@@ -46,10 +46,10 @@ bool SignalHandler::prepare()
     struct sigaction sigintAction;
 
     sigintAction.sa_handler = SignalHandler::sigintHandler;
-    ::sigemptyset(&sigintAction.sa_mask);
+    sigemptyset(&sigintAction.sa_mask);
     sigintAction.sa_flags = SA_RESTART;
 
-    if(::sigaction(SIGINT, &sigintAction, 0) > 0)
+    if(sigaction(SIGINT, &sigintAction, 0) != 0)
     {
         return false;
     }
@@ -57,10 +57,10 @@ bool SignalHandler::prepare()
     struct sigaction sigtermAction;
 
     sigtermAction.sa_handler = SignalHandler::sigtermHandler;
-    ::sigemptyset(&sigtermAction.sa_mask);
+    sigemptyset(&sigtermAction.sa_mask);
     sigtermAction.sa_flags = SA_RESTART;
 
-    if(::sigaction(SIGTERM, &sigtermAction, 0) > 0)
+    if(sigaction(SIGTERM, &sigtermAction, 0) != 0)
     {
         return false;
     }
@@ -84,7 +84,7 @@ void SignalHandler::on_sigint_activated()
     m_sigintNotifier->setEnabled(false);
 
     char c;
-    ::read(s_sigintSockets[1], &c, sizeof(c));
+    read(s_sigintSockets[1], &c, sizeof(c));
 
     emit sigintReceived();
 
@@ -96,7 +96,7 @@ void SignalHandler::on_sigterm_activated()
     m_sigtermNotifier->setEnabled(false);
 
     char c;
-    ::read(s_sigtermSockets[1], &c, sizeof(c));
+    read(s_sigtermSockets[1], &c, sizeof(c));
 
     emit sigtermReceived();
 
@@ -106,11 +106,11 @@ void SignalHandler::on_sigterm_activated()
 void SignalHandler::sigintHandler(int)
 {
     char c = 1;
-    ::write(s_sigintSockets[0], &c, sizeof(c));
+    write(s_sigintSockets[0], &c, sizeof(c));
 }
 
 void SignalHandler::sigtermHandler(int)
 {
     char c = 1;
-    ::write(s_sigtermSockets[0], &c, sizeof(c));
+    write(s_sigtermSockets[0], &c, sizeof(c));
 }
