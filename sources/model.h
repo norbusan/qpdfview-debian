@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #ifndef DOCUMENTMODEL_H
 #define DOCUMENTMODEL_H
 
@@ -70,7 +91,7 @@ public:
 
     virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
 
-    virtual bool canAddAnnotations() const { return false; }
+    virtual bool canAddAndRemoveAnnotations() const { return false; }
     virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
     virtual Annotation* addHighlightAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
     virtual void removeAnnotation(Annotation* annotation) { Q_UNUSED(annotation); }
@@ -97,7 +118,7 @@ public:
     virtual QString saveFilter() const { return QString(); }
     virtual bool save(const QString& filePath, bool withChanges) const { Q_UNUSED(filePath); Q_UNUSED(withChanges); return false; }
 
-    virtual bool canPrint() const { return false; }
+    virtual bool canBePrinted() const { return false; }
 
     virtual void setAntialiasing(bool on) { Q_UNUSED(on); }
     virtual void setTextAntialiasing(bool on) { Q_UNUSED(on); }

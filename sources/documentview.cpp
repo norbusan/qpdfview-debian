@@ -698,7 +698,7 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
 #ifdef WITH_CUPS
 
-    if(m_document->canPrint())
+    if(m_document->canBePrinted())
     {
         int num_dests = 0;
         cups_dest_t* dests = 0;

@@ -1,3 +1,24 @@
+/*
+
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 #include "pdfmodel.h"
 
 #include <QMessageBox>
@@ -283,7 +304,7 @@ QList< Annotation* > PDFPage::annotations() const
     return annotations;
 }
 
-bool PDFPage::canAddAnnotations() const
+bool PDFPage::canAddAndRemoveAnnotations() const
 {
 #ifdef HAS_POPPLER_20
 
@@ -511,7 +532,7 @@ bool PDFDocument::save(const QString& filePath, bool withChanges) const
     return ok;
 }
 
-bool PDFDocument::canPrint() const
+bool PDFDocument::canBePrinted() const
 {
     return true;
 }

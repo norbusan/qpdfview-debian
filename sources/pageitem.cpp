@@ -761,7 +761,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
-    if(m_page->canAddAnnotations())
+    if(m_page->canAddAndRemoveAnnotations())
     {
         QMenu* menu = new QMenu();
 
@@ -799,7 +799,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
 void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
 {
-    if(m_page->canAddAnnotations())
+    if(m_page->canAddAndRemoveAnnotations())
     {
         QMenu* menu = new QMenu();
 
