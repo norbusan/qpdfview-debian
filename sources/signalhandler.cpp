@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "signalhandler.h"
 
+#include <signal.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -37,9 +38,9 @@ bool SignalHandler::prepareSignals()
 
     struct sigaction sigAction;
 
-    sigAction.sa_sigaction = SignalHandler::handleSignals;
+    sigAction.sa_handler = SignalHandler::handleSignals;
     sigemptyset(&sigAction.sa_mask);
-    sigAction.sa_flags = SA_RESTART|SA_SIGINFO;
+    sigAction.sa_flags = SA_RESTART;
 
     if(sigaction(SIGINT, &sigAction, 0) != 0)
     {
@@ -65,10 +66,10 @@ void SignalHandler::on_socketNotifier_activated()
 {
     m_socketNotifier->setEnabled(false);
 
-    int signo;
-    read(s_sockets[1], &signo, sizeof(signo));
+    int sigNumber;
+    read(s_sockets[1], &sigNumber, sizeof(int));
 
-    switch(signo)
+    switch(sigNumber)
     {
     case SIGINT:
         emit sigintReceived();
@@ -81,7 +82,7 @@ void SignalHandler::on_socketNotifier_activated()
     m_socketNotifier->setEnabled(true);
 }
 
-void SignalHandler::handleSignals(int, siginfo_t* siginfo, void*)
+void SignalHandler::handleSignals(int sigNumber)
 {
-    write(s_sockets[0], &siginfo->si_signo, sizeof(siginfo->si_signo));
+    write(s_sockets[0], &sigNumber, sizeof(int));
 }
