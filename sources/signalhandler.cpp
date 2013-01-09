@@ -21,7 +21,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "signalhandler.h"
 
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
