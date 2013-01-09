@@ -31,7 +31,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDockWidget>
 #include <QDragEnterEvent>
 #include <QFileDialog>
-#include <QFileInfo>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QMenuBar>

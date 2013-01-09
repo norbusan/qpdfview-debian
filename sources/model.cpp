@@ -21,7 +21,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-#include <QString>
 #include <QFileInfo>
 
 #include "pdfmodel.h"

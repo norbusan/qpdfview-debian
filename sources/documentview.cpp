@@ -26,7 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopWidget>
 #include <QDesktopServices>
 #include <QDir>
-#include <QFileInfo>
 #include <QFileSystemWatcher>
 #include <QKeyEvent>
 #include <qmath.h>

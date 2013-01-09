@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
-#include <QLocale>
 #include <QTranslator>
 
 #ifdef WITH_DBUS

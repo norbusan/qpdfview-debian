@@ -25,8 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpinBox>
-#include <QTabBar>
-#include <QTabWidget>
 #include <QTreeView>
 
 // tab bar
