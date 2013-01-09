@@ -788,6 +788,8 @@ void PageItem::addAnnotation(const QPoint& screenPos)
                 annotation = m_page->addHighlightAnnotation(boundary);
             }
 
+            m_annotations.append(annotation);
+
             refresh();
 
             editAnnotation(annotation, screenPos);
