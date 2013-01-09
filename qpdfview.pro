@@ -34,12 +34,6 @@ SOURCES += \
     sources/mainwindow.cpp \
     sources/main.cpp
 
-PDF_HEADERS = sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
-PDF_SOURCES = sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
-
-PS_HEADERS = sources/psmodel.h
-PS_SOURCES = sources/psmodel.cpp
-
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
     translations/qpdfview_bs.ts \
@@ -89,6 +83,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     DEFINES += WITH_DBUS
     QT += dbus
 }
+
+PDF_HEADERS = sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
+PDF_SOURCES = sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
+
+PS_HEADERS = sources/psmodel.h
+PS_SOURCES = sources/psmodel.cpp
 
 !without_pkgconfig {
     CONFIG += link_pkgconfig

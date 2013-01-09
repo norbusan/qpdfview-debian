@@ -23,8 +23,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
+#ifdef WITH_PDF
+
 #include "pdfmodel.h"
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
 #include "psmodel.h"
+
+#endif // WITH_PS
 
 QList< Link* > Page::links() const
 {
