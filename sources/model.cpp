@@ -40,14 +40,14 @@ QList< Link* > Page::links() const
     return QList< Link* >();
 }
 
-QString Page::text(const QRectF &rect) const
+QString Page::text(const QRectF& rect) const
 {
     Q_UNUSED(rect);
 
     return QString();
 }
 
-QList< QRectF > Page::search(const QString &text, bool matchCase) const
+QList< QRectF > Page::search(const QString& text, bool matchCase) const
 {
     Q_UNUSED(text);
     Q_UNUSED(matchCase);

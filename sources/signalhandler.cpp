@@ -44,11 +44,17 @@ bool SignalHandler::prepareSignals()
 
     if(sigaction(SIGINT, &sigAction, 0) != 0)
     {
+        close(s_sockets[0]);
+        close(s_sockets[1]);
+
         return false;
     }
 
     if(sigaction(SIGTERM, &sigAction, 0) != 0)
     {
+        close(s_sockets[0]);
+        close(s_sockets[1]);
+
         return false;
     }
 

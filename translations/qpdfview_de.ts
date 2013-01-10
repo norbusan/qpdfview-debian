@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/main.cpp" line="299"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konnte Signalbehandlung nicht vorbereiten.</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>

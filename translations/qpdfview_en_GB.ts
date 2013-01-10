@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -702,7 +702,7 @@
     <message>
         <location filename="../sources/main.cpp" line="299"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Could not prepare signal handler.</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
