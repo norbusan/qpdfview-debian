@@ -58,9 +58,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchthread.h"
 #include "presentationview.h"
 
-DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
-DocumentLoader* DocumentView::s_psDocumentLoader = 0;
-
 bool DocumentView::s_openUrl = false;
 
 bool DocumentView::s_autoRefresh = false;
@@ -92,76 +89,8 @@ int DocumentView::s_highlightDuration = 5000;
 
 QString DocumentView::s_sourceEditor;
 
-QStringList DocumentView::s_openFilter;
-
-static bool loadPlugins(DocumentLoader*& documentLoader, const QString& pluginName)
-{
-    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(pluginName));
-
-    pluginLoader.load();
-    if(!pluginLoader.isLoaded())
-    {
-#ifdef QT_DEBUG
-
-        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(pluginName));
-
-        pluginLoader.load();
-        if(!pluginLoader.load())
-        {
-            qDebug() << "Could not load plug-in:" << pluginName;
-            qDebug() << pluginLoader.errorString();
-            return false;
-        }
-
-#else
-
-        qDebug() << "Could not load plug-in:" << pluginName;
-        qDebug() << pluginLoader.errorString();
-        return false;
-
-#endif // QT_DEBUG
-    }
-
-    DocumentLoader* instance = qobject_cast< DocumentLoader* >(pluginLoader.instance());
-
-    if(instance != 0)
-    {
-        documentLoader = instance;
-    }
-    else
-    {
-        qDebug() << "Could not instantiate plug-in:" << pluginName;
-        qDebug() << pluginLoader.errorString();
-        return false;
-    }
-
-    return true;
-}
-
-bool DocumentView::loadPlugins()
-{
-    s_openFilter.clear();
-
-#ifdef WITH_PDF
-
-    if(::loadPlugins(s_pdfDocumentLoader, PDF_PLUGIN_NAME))
-    {
-        s_openFilter.append("Portable document format (*.pdf)");
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(::loadPlugins(s_psDocumentLoader, PS_PLUGIN_NAME))
-    {
-        s_openFilter.append("PostScript (*.ps)");
-    }
-
-#endif // WITH_PS
-
-    return s_pdfDocumentLoader != 0 || s_psDocumentLoader != 0;
-}
+DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
+DocumentLoader* DocumentView::s_psDocumentLoader = 0;
 
 bool DocumentView::openUrl()
 {
@@ -472,9 +401,23 @@ int DocumentView::currentPage() const
     return m_currentPage;
 }
 
-const QStringList& DocumentView::openFilter()
+QStringList DocumentView::openFilter()
 {
-    return s_openFilter;
+    QStringList openFilter;
+
+#ifdef WITH_PDF
+
+    openFilter.append("Portable document format (*.pdf)");
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    openFilter.append("PostScript (*.ps)");
+
+#endif // WITH_PS
+
+    return openFilter;
 }
 
 QStringList DocumentView::saveFilter() const
@@ -1638,19 +1581,84 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
+bool DocumentView::loadPlugin(DocumentLoader*& documentLoader, const QString& name)
+{
+    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(name));
+
+    pluginLoader.load();
+    if(!pluginLoader.isLoaded())
+    {
+        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(name));
+
+        pluginLoader.load();
+        if(!pluginLoader.load())
+        {
+            qDebug() << "Could not load plug-in:" << name;
+            qDebug() << pluginLoader.errorString();
+
+            return false;
+        }
+    }
+
+    DocumentLoader* instance = qobject_cast< DocumentLoader* >(pluginLoader.instance());
+
+    if(instance != 0)
+    {
+        documentLoader = instance;
+    }
+    else
+    {
+        qDebug() << "Could not instantiate plug-in:" << name;
+        qDebug() << pluginLoader.errorString();
+
+        return false;
+    }
+
+    return true;
+}
+
 Document* DocumentView::loadDocument(const QString& filePath)
 {
     QFileInfo fileInfo(filePath);
 
-    if(s_pdfDocumentLoader != 0 && fileInfo.suffix() == "pdf")
+#ifdef WITH_PDF
+
+    if(fileInfo.suffix() == "pdf")
     {
+        if(s_pdfDocumentLoader == 0)
+        {
+            if(!loadPlugin(s_pdfDocumentLoader, PDF_PLUGIN_NAME))
+            {
+                QMessageBox::critical(this, tr("Critical"), tr("Could not load PDF plug-in!"));
+
+                return 0;
+            }
+        }
+
         return s_pdfDocumentLoader->loadDocument(filePath);
     }
 
-    if(s_psDocumentLoader != 0 && fileInfo.suffix() == "ps")
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    if(fileInfo.suffix() == "ps")
     {
+        if(s_psDocumentLoader == 0)
+        {
+            if(!loadPlugin(s_psDocumentLoader, PS_PLUGIN_NAME))
+            {
+                QMessageBox::critical(this, tr("Critical"), tr("Could not load PS plug-in!"));
+
+                return 0;
+            }
+
+        }
+
         return s_psDocumentLoader->loadDocument(filePath);
     }
+
+#endif // WITH_PS
 
     return 0;
 }

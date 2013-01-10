@@ -288,14 +288,6 @@ int main(int argc, char** argv)
 
 #endif // WITH_DBUS
 
-    if(!DocumentView::loadPlugins())
-    {
-        QMessageBox::critical(mainWindow, QObject::tr("Critical"), QObject::tr("Could not load plug-ins!"));
-
-        delete mainWindow;
-        return 1;
-    }
-
 #ifdef WITH_SIGNALS
 
     if(SignalHandler::prepareSignals())

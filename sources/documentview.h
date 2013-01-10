@@ -49,8 +49,6 @@ class DocumentView : public QGraphicsView
     Q_OBJECT
 
 public:
-    static bool loadPlugins();
-
     static bool openUrl();
     static void setOpenUrl(bool openUrl);
 
@@ -110,7 +108,7 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
-    static const QStringList& openFilter();
+    static QStringList openFilter();
     QStringList saveFilter() const;
 
     bool canSave() const;
@@ -219,11 +217,6 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
-    static DocumentLoader* s_pdfDocumentLoader;
-    static DocumentLoader* s_psDocumentLoader;
-
-    static Document* loadDocument(const QString& filePath);
-
     static bool s_openUrl;
 
     static bool s_autoRefresh;
@@ -255,7 +248,11 @@ private:
 
     static QString s_sourceEditor;
 
-    static QStringList s_openFilter;
+    static DocumentLoader* s_pdfDocumentLoader;
+    static DocumentLoader* s_psDocumentLoader;
+
+    bool loadPlugin(DocumentLoader*& documentLoader, const QString& name);
+    Document* loadDocument(const QString& filePath);
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
