@@ -27,71 +27,87 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="712"/>
-        <location filename="../sources/documentview.cpp" line="751"/>
+        <location filename="../sources/documentview.cpp" line="645"/>
+        <location filename="../sources/documentview.cpp" line="684"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="712"/>
-        <location filename="../sources/documentview.cpp" line="751"/>
+        <location filename="../sources/documentview.cpp" line="645"/>
+        <location filename="../sources/documentview.cpp" line="684"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="971"/>
+        <location filename="../sources/documentview.cpp" line="904"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1414"/>
+        <location filename="../sources/documentview.cpp" line="1347"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1414"/>
+        <location filename="../sources/documentview.cpp" line="1347"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1459"/>
+        <location filename="../sources/documentview.cpp" line="1392"/>
         <source>Warning</source>
         <translation type="unfinished">Warnung</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1459"/>
+        <location filename="../sources/documentview.cpp" line="1392"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1600"/>
+        <location filename="../sources/documentview.cpp" line="1533"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1608"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Vorige Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1613"/>
+        <location filename="../sources/documentview.cpp" line="1546"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nächste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1618"/>
+        <location filename="../sources/documentview.cpp" line="1551"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Erste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1623"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Letzte Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1630"/>
+        <location filename="../sources/documentview.cpp" line="1563"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Aktualisieren</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1672"/>
+        <location filename="../sources/documentview.cpp" line="1701"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1672"/>
+        <source>Could not load PDF plug-in!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1701"/>
+        <source>Could not load PS plug-in!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -700,17 +716,7 @@
         <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="293"/>
-        <source>Critical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="293"/>
-        <source>Could not load plug-ins!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="310"/>
+        <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Konnte Signalbehandlung nicht vorbereiten.</translation>
     </message>

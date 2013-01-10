@@ -27,71 +27,87 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="712"/>
-        <location filename="../sources/documentview.cpp" line="751"/>
+        <location filename="../sources/documentview.cpp" line="645"/>
+        <location filename="../sources/documentview.cpp" line="684"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="712"/>
-        <location filename="../sources/documentview.cpp" line="751"/>
+        <location filename="../sources/documentview.cpp" line="645"/>
+        <location filename="../sources/documentview.cpp" line="684"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="971"/>
+        <location filename="../sources/documentview.cpp" line="904"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1414"/>
+        <location filename="../sources/documentview.cpp" line="1347"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1414"/>
+        <location filename="../sources/documentview.cpp" line="1347"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1459"/>
+        <location filename="../sources/documentview.cpp" line="1392"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1459"/>
+        <location filename="../sources/documentview.cpp" line="1392"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1600"/>
+        <location filename="../sources/documentview.cpp" line="1533"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rna a la pàgina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1608"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Pàgina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1613"/>
+        <location filename="../sources/documentview.cpp" line="1546"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pàgi&amp;na següent</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1618"/>
+        <location filename="../sources/documentview.cpp" line="1551"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Primera pàgina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1623"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima pàgina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1630"/>
+        <location filename="../sources/documentview.cpp" line="1563"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Refresca</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1672"/>
+        <location filename="../sources/documentview.cpp" line="1701"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1672"/>
+        <source>Could not load PDF plug-in!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1701"/>
+        <source>Could not load PS plug-in!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -700,17 +716,7 @@
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="293"/>
-        <source>Critical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="293"/>
-        <source>Could not load plug-ins!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="310"/>
+        <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished"></translation>
     </message>
