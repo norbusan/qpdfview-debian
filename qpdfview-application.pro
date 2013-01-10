@@ -63,12 +63,38 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     QT += dbus
 }
 
-!without_pkgconfig {
-    !without_pdf : system(pkg-config --exists poppler-qt4):DEFINES += WITH_PDF
-    !without_ps : system(pkg-config --exists libspectre):DEFINES += WITH_PS
-} else {
-    !without_pdf:DEFINES += WITH_PDF
-    !without_ps:DEFINES += WITH_PS
+!without_pdf {
+    DEFINES += WITH_PDF
+
+    static_pdf_plugin {
+        DEFINES += STATIC_PDF_PLUGIN
+        LIBS += $$PDF_PLUGIN_NAME
+
+        QT += xml
+
+        !without_pkgconfig {
+            CONFIG += link_pkgconfig
+            PKGCONFIG += poppler-qt4
+
+            system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+            system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
+            system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
+        }
+    }
+}
+
+!without_ps {
+    DEFINES += WITH_PS
+
+    static_ps_plugin {
+        DEFINES += STATIC_PS_PLUGIN
+        LIBS += $$PS_PLUGIN_NAME
+
+        !without_pkgconfig {
+            CONFIG += link_pkgconfig
+            PKGCONFIG += libspectre
+        }
+    }
 }
 
 !without_cups {

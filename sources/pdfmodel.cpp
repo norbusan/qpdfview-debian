@@ -705,6 +705,11 @@ void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
     }
 }
 
+PDFDocumentLoader::PDFDocumentLoader(QObject* parent) : QObject(parent)
+{
+    setObjectName("PDFDocumentLoader");
+}
+
 Document* PDFDocumentLoader::loadDocument(const QString& filePath) const
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
@@ -712,4 +717,4 @@ Document* PDFDocumentLoader::loadDocument(const QString& filePath) const
     return document != 0 ? new PDFDocument(document) : 0;
 }
 
-Q_EXPORT_PLUGIN2(qpdfview-pdf, PDFDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_pdf, PDFDocumentLoader)

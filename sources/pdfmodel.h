@@ -155,6 +155,8 @@ class PDFDocumentLoader : public QObject, DocumentLoader
     Q_INTERFACES(DocumentLoader)
 
 public:
+    PDFDocumentLoader(QObject* parent = 0);
+
     Document* loadDocument(const QString& filePath) const;
 
 };

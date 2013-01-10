@@ -1,8 +1,9 @@
 include(qpdfview.pri)
 
-TARGET = qpdfview-ps
+TARGET = qpdfview_ps
 TEMPLATE = lib
 CONFIG += plugin
+static_ps_plugin:CONFIG += static
 
 OBJECTS_DIR = .objects-ps
 

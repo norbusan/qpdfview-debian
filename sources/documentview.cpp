@@ -1581,7 +1581,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
-bool DocumentView::loadPlugin(DocumentLoader*& documentLoader, const QString& name)
+DocumentLoader* DocumentView::loadPlugin(const QString& name)
 {
     QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(name));
 
@@ -1596,25 +1596,55 @@ bool DocumentView::loadPlugin(DocumentLoader*& documentLoader, const QString& na
             qDebug() << "Could not load plug-in:" << name;
             qDebug() << pluginLoader.errorString();
 
-            return false;
+            return 0;
         }
     }
 
-    DocumentLoader* instance = qobject_cast< DocumentLoader* >(pluginLoader.instance());
+    DocumentLoader* documentLoader = qobject_cast< DocumentLoader* >(pluginLoader.instance());
 
-    if(instance != 0)
+    if(documentLoader != 0)
     {
-        documentLoader = instance;
+        return documentLoader;
     }
     else
     {
         qDebug() << "Could not instantiate plug-in:" << name;
         qDebug() << pluginLoader.errorString();
 
-        return false;
+        return 0;
+    }
+}
+
+#ifdef STATIC_PDF_PLUGIN
+
+Q_IMPORT_PLUGIN(qpdfview_pdf)
+
+#endif // STATIC_PDF_PLUGIN
+
+#ifdef STATIC_PS_PLUGIN
+
+Q_IMPORT_PLUGIN(qpdfview_ps)
+
+#endif // STATIC_PS_PLUGIN
+
+DocumentLoader* DocumentView::loadStaticPlugin(const QString& name)
+{
+    foreach(QObject* object, QPluginLoader::staticInstances())
+    {
+        if(object->objectName() == name)
+        {
+            DocumentLoader* documentLoader = qobject_cast< DocumentLoader* >(object);
+
+            if(documentLoader != 0)
+            {
+                return documentLoader;
+            }
+        }
     }
 
-    return true;
+    qDebug() << "Could not load static plug-in:" << name;
+
+    return 0;
 }
 
 Document* DocumentView::loadDocument(const QString& filePath)
@@ -1627,7 +1657,17 @@ Document* DocumentView::loadDocument(const QString& filePath)
     {
         if(s_pdfDocumentLoader == 0)
         {
-            if(!loadPlugin(s_pdfDocumentLoader, PDF_PLUGIN_NAME))
+#ifndef STATIC_PDF_PLUGIN
+            DocumentLoader* pdfDocumentLoader = loadPlugin(PDF_PLUGIN_NAME);
+#else
+            DocumentLoader* pdfDocumentLoader = loadStaticPlugin("PDFDocumentLoader");
+#endif // STATIC_PDF_PLUGIN
+
+            if(pdfDocumentLoader != 0)
+            {
+                s_pdfDocumentLoader = pdfDocumentLoader;
+            }
+            else
             {
                 QMessageBox::critical(this, tr("Critical"), tr("Could not load PDF plug-in!"));
 
@@ -1646,7 +1686,17 @@ Document* DocumentView::loadDocument(const QString& filePath)
     {
         if(s_psDocumentLoader == 0)
         {
-            if(!loadPlugin(s_psDocumentLoader, PS_PLUGIN_NAME))
+#ifndef STATIC_PS_PLUGIN
+            DocumentLoader* psDocumentLoader = loadPlugin(PS_PLUGIN_NAME);
+#else
+            DocumentLoader* psDocumentLoader = loadStaticPlugin("PSDocumentLoader");
+#endif // STATIC_PS_PLUGIN
+
+            if(psDocumentLoader != 0)
+            {
+                s_psDocumentLoader = psDocumentLoader;
+            }
+            else
             {
                 QMessageBox::critical(this, tr("Critical"), tr("Could not load PS plug-in!"));
 

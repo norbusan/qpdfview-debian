@@ -1,8 +1,9 @@
 include(qpdfview.pri)
 
-TARGET = $$qtLibraryTarget(qpdfview-pdf)
+TARGET = qpdfview_pdf
 TEMPLATE = lib
 CONFIG += plugin
+static_pdf_plugin:CONFIG += static
 
 OBJECTS_DIR = .objects-pdf
 
