@@ -4,6 +4,8 @@ TARGET = qpdfview-ps
 TEMPLATE = lib
 CONFIG += plugin
 
+OBJECTS_DIR = .objects-ps
+
 HEADERS = sources/global.h sources/model.h sources/psmodel.h
 SOURCES = sources/model.cpp sources/psmodel.cpp
 

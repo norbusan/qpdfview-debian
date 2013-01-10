@@ -4,6 +4,8 @@ TARGET = $$qtLibraryTarget(qpdfview-pdf)
 TEMPLATE = lib
 CONFIG += plugin
 
+OBJECTS_DIR = .objects-pdf
+
 HEADERS = sources/global.h sources/model.h sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
 SOURCES = sources/model.cpp sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
 
