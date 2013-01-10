@@ -714,22 +714,3 @@ QString Defaults::MainWindow::path()
 
 #endif // QT_VERSION
 }
-
-QString Defaults::MainWindow::openFilter()
-{
-    QStringList filter;
-
-#ifdef WITH_PDF
-
-    filter.append("Portable document format (*.pdf)");
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    filter.append("PostScript (*.ps)");
-
-#endif // WITH_PS
-
-    return filter.join(";;");
-}

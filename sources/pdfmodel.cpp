@@ -454,13 +454,6 @@ QList< FormField* > PDFPage::formFields() const
     return formFields;
 }
 
-Document* PDFDocument::load(const QString& filePath)
-{
-    Poppler::Document* document = Poppler::Document::load(filePath);
-
-    return document != 0 ? new PDFDocument(document) : 0;
-}
-
 PDFDocument::PDFDocument(Poppler::Document* document) :
     m_mutex(),
     m_document(document)
@@ -502,14 +495,14 @@ bool PDFDocument::unlock(const QString& password)
     return m_document->unlock(password.toLatin1(), password.toLatin1());
 }
 
+QStringList PDFDocument::saveFilter() const
+{
+    return QStringList() << "Portable document format (*.pdf)";
+}
+
 bool PDFDocument::canSave() const
 {
     return true;
-}
-
-QString PDFDocument::saveFilter() const
-{
-    return "Portable document format (*.pdf)";
 }
 
 bool PDFDocument::save(const QString& filePath, bool withChanges) const
@@ -711,3 +704,12 @@ void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
         fontsModel->setItem(index, 4, new QStandardItem(font.file()));
     }
 }
+
+Document* PDFDocumentLoader::loadDocument(const QString& filePath) const
+{
+    Poppler::Document* document = Poppler::Document::load(filePath);
+
+    return document != 0 ? new PDFDocument(document) : 0;
+}
+
+Q_EXPORT_PLUGIN2(qpdfview-pdf, PDFDocumentLoader)

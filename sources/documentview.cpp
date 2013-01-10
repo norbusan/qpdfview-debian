@@ -31,6 +31,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPluginLoader>
 #include <QPrinter>
 #include <QProcess>
 #include <QProgressDialog>
@@ -56,6 +57,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "searchthread.h"
 #include "presentationview.h"
+
+DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
+DocumentLoader* DocumentView::s_psDocumentLoader = 0;
 
 bool DocumentView::s_openUrl = false;
 
@@ -87,6 +91,87 @@ Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
 int DocumentView::s_highlightDuration = 5000;
 
 QString DocumentView::s_sourceEditor;
+
+QStringList DocumentView::s_openFilter;
+
+static bool loadPlugins(DocumentLoader*& documentLoader, const QString& pluginName)
+{
+    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(pluginName));
+
+    pluginLoader.load();
+    if(!pluginLoader.isLoaded())
+    {
+#ifdef QT_DEBUG
+
+        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(pluginName));
+
+        pluginLoader.load();
+        if(!pluginLoader.load())
+        {
+            qDebug() << "Could not load plug-in:" << pluginName;
+            qDebug() << pluginLoader.errorString();
+            return false;
+        }
+
+#else
+
+        qDebug() << "Could not load plug-in:" << pluginName;
+        qDebug() << pluginLoader.errorString();
+        return false;
+
+#endif // QT_DEBUG
+    }
+
+    DocumentLoader* instance = qobject_cast< DocumentLoader* >(pluginLoader.instance());
+
+    if(instance != 0)
+    {
+        documentLoader = instance;
+    }
+    else
+    {
+        qDebug() << "Could not instantiate plug-in:" << pluginName;
+        qDebug() << pluginLoader.errorString();
+        return false;
+    }
+
+    return true;
+}
+
+bool DocumentView::loadPlugins()
+{
+    s_openFilter.clear();
+
+#ifdef WITH_PDF
+
+    if(::loadPlugins(s_pdfDocumentLoader, PDF_PLUGIN_NAME))
+    {
+        s_openFilter.append("Portable document format (*.pdf)");
+    }
+    else
+    {
+        return false;
+    }
+
+#endif // WITH_PDF
+
+    /* TODO
+#ifdef WITH_PS
+
+    if(::loadPlugins(s_psDocumentLoader, PS_PLUGIN_NAME))
+    {
+        s_openFilter.append("PostScript (*.ps)");
+    }
+    else
+    {
+        return false;
+    }
+
+#endif // WITH_PS
+    */
+
+    return true;
+}
 
 bool DocumentView::openUrl()
 {
@@ -397,14 +482,19 @@ int DocumentView::currentPage() const
     return m_currentPage;
 }
 
+const QStringList& DocumentView::openFilter()
+{
+    return s_openFilter;
+}
+
+QStringList DocumentView::saveFilter() const
+{
+    return m_document->saveFilter();
+}
+
 bool DocumentView::canSave() const
 {
     return m_document->canSave();
-}
-
-QString DocumentView::saveFilter() const
-{
-    return m_document->saveFilter();
 }
 
 bool DocumentView::continousMode() const
@@ -613,7 +703,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Document* document = Document::load(filePath);
+    Document* document = loadDocument(filePath);
 
     if(document != 0)
     {
@@ -652,7 +742,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Document* document = Document::load(m_filePath);
+    Document* document = loadDocument(m_filePath);
 
     if(document != 0)
     {
@@ -1556,6 +1646,23 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
         delete menu;
     }
+}
+
+Document* DocumentView::loadDocument(const QString& filePath)
+{
+    QFileInfo fileInfo(filePath);
+
+    if(s_pdfDocumentLoader != 0 && fileInfo.suffix() == "pdf")
+    {
+        return s_pdfDocumentLoader->loadDocument(filePath);
+    }
+
+    if(s_psDocumentLoader != 0 && fileInfo.suffix() == "ps")
+    {
+        return s_psDocumentLoader->loadDocument(filePath);
+    }
+
+    return 0;
 }
 
 int DocumentView::currentPageForPage(int page) const

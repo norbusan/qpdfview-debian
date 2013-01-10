@@ -38,6 +38,7 @@ class QStandardItemModel;
 #include "printoptions.h"
 
 class Document;
+class DocumentLoader;
 class PageItem;
 class ThumbnailItem;
 class SearchThread;
@@ -48,6 +49,8 @@ class DocumentView : public QGraphicsView
     Q_OBJECT
 
 public:
+    static bool loadPlugins();
+
     static bool openUrl();
     static void setOpenUrl(bool openUrl);
 
@@ -107,8 +110,10 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    static const QStringList& openFilter();
+    QStringList saveFilter() const;
+
     bool canSave() const;
-    QString saveFilter() const;
 
     bool continousMode() const;
     void setContinousMode(bool continousMode);
@@ -214,6 +219,11 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
+    static DocumentLoader* s_pdfDocumentLoader;
+    static DocumentLoader* s_psDocumentLoader;
+
+    static Document* loadDocument(const QString& filePath);
+
     static bool s_openUrl;
 
     static bool s_autoRefresh;
@@ -244,6 +254,8 @@ private:
     static int s_highlightDuration;
 
     static QString s_sourceEditor;
+
+    static QStringList s_openFilter;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

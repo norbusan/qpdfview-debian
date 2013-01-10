@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define DOCUMENTMODEL_H
 
 #include <QList>
+#include <QtPlugin>
 #include <QRect>
 #include <QRectF>
 #include <QString>
@@ -102,8 +103,6 @@ public:
 class Document
 {
 public:
-    static Document* load(const QString& filePath);
-
     virtual ~Document() {}
 
     virtual int numberOfPages() const = 0;
@@ -113,8 +112,9 @@ public:
     virtual bool isLocked() const;
     virtual bool unlock(const QString& password);
 
+    virtual QStringList saveFilter() const;
+
     virtual bool canSave() const;
-    virtual QString saveFilter() const;
     virtual bool save(const QString& filePath, bool withChanges) const;
 
     virtual bool canBePrinted() const;
@@ -133,5 +133,16 @@ public:
     virtual void loadFonts(QStandardItemModel* fontsModel) const;
 
 };
+
+class DocumentLoader
+{
+public:
+    virtual ~DocumentLoader() {}
+
+    virtual Document* loadDocument(const QString& filePath) const = 0;
+
+};
+
+Q_DECLARE_INTERFACE(DocumentLoader, "local.qpdfview.DocumentLoader");
 
 #endif // DOCUMENTMODEL_H

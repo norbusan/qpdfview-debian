@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QMessageBox>
 #include <QTranslator>
 
 #ifdef WITH_DBUS
@@ -39,6 +40,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <synctex_parser.h>
 
 #endif // WITH_SYNCTEX
+
+#include "documentview.h"
 
 #ifdef WITH_SIGNALS
 
@@ -284,6 +287,14 @@ int main(int argc, char** argv)
     MainWindow* mainWindow = new MainWindow();
 
 #endif // WITH_DBUS
+
+    if(!DocumentView::loadPlugins())
+    {
+        QMessageBox::critical(mainWindow, QObject::tr("Critical"), QObject::tr("Could not load plug-ins!"));
+
+        delete mainWindow;
+        return 1;
+    }
 
 #ifdef WITH_SIGNALS
 

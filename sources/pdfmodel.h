@@ -110,9 +110,9 @@ private:
 
 class PDFDocument : public Document
 {
-public:
-    static Document* load(const QString &filePath);
+    friend class PDFDocumentLoader;
 
+public:
     ~PDFDocument();
 
     int numberOfPages() const;
@@ -122,8 +122,9 @@ public:
     bool isLocked() const;
     bool unlock(const QString& password);
 
+    QStringList saveFilter() const;
+
     bool canSave() const;
-    QString saveFilter() const;
     bool save(const QString& filePath, bool withChanges) const;
 
     bool canBePrinted() const;
@@ -145,6 +146,16 @@ private:
 
     mutable QMutex m_mutex;
     Poppler::Document* m_document;
+
+};
+
+class PDFDocumentLoader : public QObject, DocumentLoader
+{
+    Q_OBJECT
+    Q_INTERFACES(DocumentLoader)
+
+public:
+    Document* loadDocument(const QString& filePath) const;
 
 };
 

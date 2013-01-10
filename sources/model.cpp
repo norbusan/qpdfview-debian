@@ -21,19 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-#include <QFileInfo>
-
-#ifdef WITH_PDF
-
-#include "pdfmodel.h"
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-#include "psmodel.h"
-
-#endif // WITH_PS
+#include <QStringList>
 
 QList< Link* > Page::links() const
 {
@@ -89,33 +77,6 @@ QList< FormField* > Page::formFields() const
      return QList< FormField* >();
 }
 
-Document* Document::load(const QString& filePath)
-{
-    QFileInfo fileInfo(filePath);
-
-#ifdef WITH_PDF
-
-    if(fileInfo.suffix() == "pdf")
-    {
-        return PDFDocument::load(filePath);
-    }
-
-#endif // WITH_PDF
-
-    /* TODO
-#ifdef WITH_PS
-
-    if(fileInfo.suffix() == "ps")
-    {
-        return PSDocument::load(filePath);
-    }
-
-#endif // WITH_PS
-    */
-
-    return 0;
-}
-
 bool Document::isLocked() const
 {
     return false;
@@ -128,14 +89,14 @@ bool Document::unlock(const QString& password)
     return false;
 }
 
+QStringList Document::saveFilter() const
+{
+    return QStringList();
+}
+
 bool Document::canSave() const
 {
     return false;
-}
-
-QString Document::saveFilter() const
-{
-    return QString();
 }
 
 bool Document::save(const QString& filePath, bool withChanges) const
