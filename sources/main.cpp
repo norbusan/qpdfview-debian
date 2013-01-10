@@ -297,8 +297,8 @@ int main(int argc, char** argv)
 
     SignalHandler signalHandler;
 
-    QObject::connect(&signalHandler, SIGNAL(sigintReceived()), mainWindow, SLOT(close()));
-    QObject::connect(&signalHandler, SIGNAL(sigtermReceived()), mainWindow, SLOT(close()));
+    QObject::connect(&signalHandler, SIGNAL(sigIntReceived()), mainWindow, SLOT(close()));
+    QObject::connect(&signalHandler, SIGNAL(sigTermReceived()), mainWindow, SLOT(close()));
 
 #endif // WITH_SIGNALS
 

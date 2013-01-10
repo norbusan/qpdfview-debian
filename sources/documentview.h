@@ -27,9 +27,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 #include <QStack>
 
+class QDomNode;
 class QFileSystemWatcher;
 class QMutex;
-class QDomNode;
+class QPrinter;
 class QStandardItem;
 class QStandardItemModel;
 
