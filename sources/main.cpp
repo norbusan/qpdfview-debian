@@ -287,18 +287,17 @@ int main(int argc, char** argv)
 
 #ifdef WITH_SIGNALS
 
-    if(!SignalHandler::prepareSignals())
+    if(SignalHandler::prepareSignals())
     {
-        qFatal("Could not prepare signal handler!");
+        SignalHandler* signalHandler = new SignalHandler(mainWindow);
 
-        delete mainWindow;
-        return 1;
+        QObject::connect(signalHandler, SIGNAL(sigIntReceived()), mainWindow, SLOT(close()));
+        QObject::connect(signalHandler, SIGNAL(sigTermReceived()), mainWindow, SLOT(close()));
     }
-
-    SignalHandler signalHandler;
-
-    QObject::connect(&signalHandler, SIGNAL(sigIntReceived()), mainWindow, SLOT(close()));
-    QObject::connect(&signalHandler, SIGNAL(sigTermReceived()), mainWindow, SLOT(close()));
+    else
+    {
+        qWarning() << QObject::tr("Could not prepare signal handler.");
+    }
 
 #endif // WITH_SIGNALS
 
