@@ -715,7 +715,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/main.cpp" line="310"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se připravit zacházení se signálem.</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
@@ -725,7 +725,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je potřeba knihovna Poppler ve verzi  0.20.1.</translation>
+        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze knihovny Poppler 0.20.1 či vyšší.</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="694"/>
@@ -740,12 +740,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/pdfmodel.cpp" line="694"/>
         <source>Embedded</source>
-        <translation type="unfinished">Vložené</translation>
+        <translation type="unfinished">Vložený</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="694"/>
         <source>Subset</source>
-        <translation type="unfinished">Podmnožina</translation>
+        <translation type="unfinished">Podskupina</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="694"/>
@@ -1033,27 +1033,27 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="483"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvětšení:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otočit:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="495"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="501"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopírovat do schránky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="507"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přidat poznámku:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="513"/>
