@@ -27,69 +27,69 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="623"/>
-        <location filename="../sources/documentview.cpp" line="662"/>
+        <location filename="../sources/documentview.cpp" line="622"/>
+        <location filename="../sources/documentview.cpp" line="661"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquiar %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="623"/>
-        <location filename="../sources/documentview.cpp" line="662"/>
+        <location filename="../sources/documentview.cpp" line="622"/>
+        <location filename="../sources/documentview.cpp" line="661"/>
         <source>Password:</source>
         <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="882"/>
+        <location filename="../sources/documentview.cpp" line="881"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1324"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1324"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Abrir URLs ta desactivao na configuración.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1370"/>
+        <location filename="../sources/documentview.cpp" line="1369"/>
         <source>Warning</source>
         <translation type="unfinished">Avisu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1370"/>
+        <location filename="../sources/documentview.cpp" line="1369"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nun s&apos;alcontraron datos SyncTeX pa «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1511"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rnar a páxina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1519"/>
+        <location filename="../sources/documentview.cpp" line="1518"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Páxina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1524"/>
+        <location filename="../sources/documentview.cpp" line="1523"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Páxina siguie&amp;nte</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1529"/>
+        <location filename="../sources/documentview.cpp" line="1528"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pri&amp;mera páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1534"/>
+        <location filename="../sources/documentview.cpp" line="1533"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1540"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Anova&amp;r</translation>
     </message>
@@ -541,7 +541,7 @@
         <translation type="unfinished">Amestar &amp;rescampláu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="806"/>
+        <location filename="../sources/pageitem.cpp" line="808"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Desanicia&amp;r anotación</translation>
     </message>
@@ -680,69 +680,74 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="111"/>
+        <location filename="../sources/main.cpp" line="116"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Nun se permite un nome d&apos;instancia baleru.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="153"/>
+        <location filename="../sources/main.cpp" line="158"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Pa usar &apos;--instance&apos; fai falta un nome d&apos;instancia.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="159"/>
+        <location filename="../sources/main.cpp" line="164"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Nun se permite usar &apos;--instance&apos; ensin usar &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="202"/>
+        <location filename="../sources/main.cpp" line="207"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nun s&apos;alcontraron datos SyncTeX pa «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="294"/>
+        <location filename="../sources/main.cpp" line="299"/>
+        <source>Could not prepare signal handler.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="294"/>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">P&apos;amestar o quitar anotaciones ye necesaria la versión 0.20.1 o mayor de la biblioteca Poppler.</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Name</source>
         <translation type="unfinished">Nome</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Type</source>
         <translation type="unfinished">Triba</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Embedded</source>
         <translation type="unfinished">Empotráu</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Subset</source>
         <translation type="unfinished">Subconxuntu</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>File</source>
         <translation type="unfinished">Ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="688"/>
-        <location filename="../sources/pdfmodel.cpp" line="689"/>
+        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Yes</source>
         <translation type="unfinished">Si</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="688"/>
-        <location filename="../sources/pdfmodel.cpp" line="689"/>
+        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>No</source>
         <translation type="unfinished">Non</translation>
     </message>

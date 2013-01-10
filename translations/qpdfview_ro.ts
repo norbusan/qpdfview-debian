@@ -27,69 +27,69 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="623"/>
-        <location filename="../sources/documentview.cpp" line="662"/>
+        <location filename="../sources/documentview.cpp" line="622"/>
+        <location filename="../sources/documentview.cpp" line="661"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Deblocare %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="623"/>
-        <location filename="../sources/documentview.cpp" line="662"/>
+        <location filename="../sources/documentview.cpp" line="622"/>
+        <location filename="../sources/documentview.cpp" line="661"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="882"/>
+        <location filename="../sources/documentview.cpp" line="881"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1324"/>
         <source>Information</source>
         <translation type="unfinished">Informații</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1324"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Accesarea URL-urilor este dezactivată din configurări.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1370"/>
+        <location filename="../sources/documentview.cpp" line="1369"/>
         <source>Warning</source>
         <translation type="unfinished">Atenție</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1370"/>
+        <location filename="../sources/documentview.cpp" line="1369"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1511"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">Întoa&amp;rcere la pagina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1519"/>
+        <location filename="../sources/documentview.cpp" line="1518"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Pagina anterioară</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1524"/>
+        <location filename="../sources/documentview.cpp" line="1523"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pagi&amp;na următoare</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1529"/>
+        <location filename="../sources/documentview.cpp" line="1528"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Prima pa&amp;gină</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1534"/>
+        <location filename="../sources/documentview.cpp" line="1533"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">U&amp;ltima pagină</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1540"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Reactualizează</translation>
     </message>
@@ -541,7 +541,7 @@
         <translation type="unfinished">Adaugă &amp;evidențiere</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="806"/>
+        <location filename="../sources/pageitem.cpp" line="808"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Ște&amp;rge notiță</translation>
     </message>
@@ -680,69 +680,74 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="111"/>
+        <location filename="../sources/main.cpp" line="116"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Nu sunt permise câpuri goale.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="153"/>
+        <location filename="../sources/main.cpp" line="158"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Utilizarea „--instance” trebuie să aibă un nume.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="159"/>
+        <location filename="../sources/main.cpp" line="164"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Utilizarea „--instance” nu este permisă fără a utiliza și „--unique”.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="202"/>
+        <location filename="../sources/main.cpp" line="207"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="294"/>
+        <location filename="../sources/main.cpp" line="299"/>
+        <source>Could not prepare signal handler.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Information</source>
         <translation type="unfinished">Informații</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="294"/>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Pentru adăugarea sau ștergerea notițelor este necesară versiunea 0.20.1 sau mai mare a bibliotecii Poppler.</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Name</source>
         <translation type="unfinished">Nume</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Type</source>
         <translation type="unfinished">Tip</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Embedded</source>
         <translation type="unfinished">Încorporat</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="680"/>
+        <location filename="../sources/pdfmodel.cpp" line="701"/>
         <source>File</source>
         <translation type="unfinished">Fișier</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="688"/>
-        <location filename="../sources/pdfmodel.cpp" line="689"/>
+        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Yes</source>
         <translation type="unfinished">Da</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="688"/>
-        <location filename="../sources/pdfmodel.cpp" line="689"/>
+        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>No</source>
         <translation type="unfinished">Nu</translation>
     </message>
