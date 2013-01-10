@@ -29,11 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QPushButton>
 
-namespace Poppler
-{
-bool isOverprintPreviewAvailable();
-}
-
 #include "miscellaneous.h"
 #include "settings.h"
 
@@ -348,16 +343,6 @@ void SettingsDialog::createGraphicsTab()
     m_overprintPreviewCheckBox->setChecked(m_settings->documentView()->overprintPreview());
 
     m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
-
-#ifdef HAS_POPPLER_22
-
-    m_overprintPreviewCheckBox->setEnabled(Poppler::isOverprintPreviewAvailable());
-
-#else
-
-    m_overprintPreviewCheckBox->setEnabled(false);
-
-#endif // HAS_POPPLER_22
 
     // pages per row
 
