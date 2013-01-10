@@ -148,29 +148,19 @@ bool DocumentView::loadPlugins()
     {
         s_openFilter.append("Portable document format (*.pdf)");
     }
-    else
-    {
-        return false;
-    }
 
 #endif // WITH_PDF
 
-    /* TODO
 #ifdef WITH_PS
 
     if(::loadPlugins(s_psDocumentLoader, PS_PLUGIN_NAME))
     {
         s_openFilter.append("PostScript (*.ps)");
     }
-    else
-    {
-        return false;
-    }
 
 #endif // WITH_PS
-    */
 
-    return true;
+    return s_pdfDocumentLoader != 0 || s_psDocumentLoader != 0;
 }
 
 bool DocumentView::openUrl()
