@@ -21,6 +21,7 @@ QT += core xml gui
     system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
 }
 
-target.path = $${PLUGIN_INSTALL_PATH}
-
-INSTALLS += target
+!static_pdf_plugin {
+    target.path = $${PLUGIN_INSTALL_PATH}
+    INSTALLS += target
+}

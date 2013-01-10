@@ -17,6 +17,7 @@ QT += core gui
     PKGCONFIG += libspectre
 }
 
-target.path = $${PLUGIN_INSTALL_PATH}
-
-INSTALLS += target
+!static_ps_plugin {
+    target.path = $${PLUGIN_INSTALL_PATH}
+    INSTALLS += target
+}
