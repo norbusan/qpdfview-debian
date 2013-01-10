@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS += qpdfview-main.pro
+SUBDIRS += qpdfview-application.pro
 
 !without_pkgconfig {
     !without_pdf : system(pkg-config --exists poppler-qt4) {
