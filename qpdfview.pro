@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS += qpdfview-application.pro
+CONFIG += ordered
 
 !without_pdf {
     SUBDIRS += qpdfview-pdf-plugin.pro
@@ -10,6 +10,8 @@ SUBDIRS += qpdfview-application.pro
     SUBDIRS += qpdfview-ps-plugin.pro
     qpdfview-application.pro.depends = qpdfview-ps-plugin.pro
 }
+
+SUBDIRS += qpdfview-application.pro
 
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \

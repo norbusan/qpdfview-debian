@@ -70,6 +70,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     static_pdf_plugin {
         DEFINES += STATIC_PDF_PLUGIN
         LIBS += $$PDF_PLUGIN_NAME
+        PRE_TARGETDEPS += $$PDF_PLUGIN_NAME
 
         QT += xml
 
@@ -90,6 +91,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     static_ps_plugin {
         DEFINES += STATIC_PS_PLUGIN
         LIBS += $$PS_PLUGIN_NAME
+        PRE_TARGETDEPS += $$PS_PLUGIN_NAME
 
         !without_pkgconfig {
             CONFIG += link_pkgconfig
