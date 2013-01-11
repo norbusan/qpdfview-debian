@@ -5,7 +5,8 @@ TEMPLATE = lib
 CONFIG += plugin
 static_pdf_plugin:CONFIG += static
 
-OBJECTS_DIR = .objects-pdf
+OBJECTS_DIR = objects-pdf
+MOC_DIR = moc-pdf
 
 HEADERS = sources/global.h sources/model.h sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
 SOURCES = sources/model.cpp sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp

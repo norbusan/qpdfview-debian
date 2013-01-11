@@ -3,7 +3,8 @@ include(qpdfview.pri)
 TARGET = qpdfview
 TEMPLATE = app
 
-OBJECTS_DIR = .objects
+OBJECTS_DIR = objects
+MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
