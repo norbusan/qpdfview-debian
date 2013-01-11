@@ -1581,19 +1581,19 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
-DocumentLoader* DocumentView::loadPlugin(const QString& name)
+DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 {
-    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(name));
+    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
 
     pluginLoader.load();
     if(!pluginLoader.isLoaded())
     {
-        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(name));
+        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
         pluginLoader.load();
         if(!pluginLoader.load())
         {
-            qDebug() << "Could not load plug-in:" << name;
+            qDebug() << "Could not load plug-in:" << fileName;
             qDebug() << pluginLoader.errorString();
 
             return 0;
@@ -1608,7 +1608,7 @@ DocumentLoader* DocumentView::loadPlugin(const QString& name)
     }
     else
     {
-        qDebug() << "Could not instantiate plug-in:" << name;
+        qDebug() << "Could not instantiate plug-in:" << fileName;
         qDebug() << pluginLoader.errorString();
 
         return 0;
@@ -1627,11 +1627,11 @@ Q_IMPORT_PLUGIN(qpdfview_ps)
 
 #endif // STATIC_PS_PLUGIN
 
-DocumentLoader* DocumentView::loadStaticPlugin(const QString& name)
+DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
 {
     foreach(QObject* object, QPluginLoader::staticInstances())
     {
-        if(object->objectName() == name)
+        if(object->objectName() == objectName)
         {
             DocumentLoader* documentLoader = qobject_cast< DocumentLoader* >(object);
 
@@ -1642,7 +1642,7 @@ DocumentLoader* DocumentView::loadStaticPlugin(const QString& name)
         }
     }
 
-    qDebug() << "Could not load static plug-in:" << name;
+    qDebug() << "Could not load static plug-in:" << objectName;
 
     return 0;
 }

@@ -251,8 +251,8 @@ private:
     static DocumentLoader* s_pdfDocumentLoader;
     static DocumentLoader* s_psDocumentLoader;
 
-    DocumentLoader* loadPlugin(const QString& name);
-    DocumentLoader* loadStaticPlugin(const QString& name);
+    DocumentLoader* loadPlugin(const QString& fileName);
+    DocumentLoader* loadStaticPlugin(const QString& objectName);
     Document* loadDocument(const QString& filePath);
 
     QFileSystemWatcher* m_autoRefreshWatcher;
