@@ -32,10 +32,10 @@ qpdfview \- tabbed PDF viewer
 .B qpdfview
 is a simple viewer for document files in the portable document format (PDF). It uses the Poppler library for rendering and the Qt toolkit for its interface.
 .SH OPTIONS
-.IP --unique
+.IP \-\-unique
 If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
-.IP "--instance name"
-Sets the name of the current instance opened using the "--unique" option. This allows to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
+.IP "\-\-instance name"
+Sets the name of the current instance opened using the "\-\-unique" option. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
@@ -66,17 +66,17 @@ opens "foo.pdf" in the first tab displaying the third page of the document and "
 
 Subsequent execution of the commands
 .RE
-.B qpdfview --unique foo.pdf bar.pdf
+.B qpdfview \-\-unique foo.pdf bar.pdf
 .RS
 and
 .RE
-.B qpdfview --unique foo.pdf#5
+.B qpdfview \-\-unique foo.pdf#5
 .RS
 opens "foo.pdf" and "bar.pdf", then reloads "foo.pdf" and displays its fifth page.
 
 Subsequent execution of the commands
 .RE
-.B qpdfview --unique foo.pdf
+.B qpdfview \-\-unique foo.pdf
 .RS
 and
 .RE
@@ -84,13 +84,13 @@ and
 .RS
 and
 .RE
-.B qpdfview --unique foo1.pdf bar1.pdf
+.B qpdfview \-\-unique foo1.pdf bar1.pdf
 .RS
 opens "foo.pdf" in the first window, "bar.pdf" in a second window and then "foo1.pdf" and "bar1.pdf" in additional tabs in the first window.
 
 The command
 .RE
-.B qpdfview --unique foobar.pdf#src:foobar.tex:42:0
+.B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
 .RS
 opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
 .SH BUGS
