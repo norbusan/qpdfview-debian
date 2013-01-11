@@ -37,12 +37,6 @@ SOURCES += \
     sources/mainwindow.cpp \
     sources/main.cpp
 
-DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
-
-DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
-DEFINES += PDF_PLUGIN_NAME=\\\"$${PDF_PLUGIN_NAME}\\\"
-DEFINES += PS_PLUGIN_NAME=\\\"$${PS_PLUGIN_NAME}\\\"
-
 QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
@@ -64,6 +58,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     QT += dbus
 }
 
+DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
+
 !without_pdf {
     DEFINES += WITH_PDF
 
@@ -78,7 +74,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
             CONFIG += link_pkgconfig
             PKGCONFIG += poppler-qt4
         }
+
+        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
+    } else {
+        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.so
     }
+
+    DEFINES += PDF_PLUGIN_NAME=\\\"$${PDF_PLUGIN_NAME}\\\"
 }
 
 !without_ps {
@@ -93,7 +95,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
             CONFIG += link_pkgconfig
             PKGCONFIG += libspectre
         }
+
+        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
+    } else {
+        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.so
     }
+
+    DEFINES += PS_PLUGIN_NAME=\\\"$${PS_PLUGIN_NAME}\\\"
 }
 
 !without_cups {
@@ -120,6 +128,8 @@ target.path = $${TARGET_INSTALL_PATH}
 
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
 data.path = $${DATA_INSTALL_PATH}
+
+DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
 
 launcher.files = miscellaneous/qpdfview.desktop
 launcher.path = $${LAUNCHER_INSTALL_PATH}
