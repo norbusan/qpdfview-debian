@@ -64,6 +64,8 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     DEFINES += WITH_PDF
 
     static_pdf_plugin {
+        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
+
         DEFINES += STATIC_PDF_PLUGIN
         LIBS += $$PDF_PLUGIN_NAME
         PRE_TARGETDEPS += $$PDF_PLUGIN_NAME
@@ -74,8 +76,6 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
             CONFIG += link_pkgconfig
             PKGCONFIG += poppler-qt4
         }
-
-        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
     } else {
         isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.so
     }
@@ -87,6 +87,8 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     DEFINES += WITH_PS
 
     static_ps_plugin {
+        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
+
         DEFINES += STATIC_PS_PLUGIN
         LIBS += $$PS_PLUGIN_NAME
         PRE_TARGETDEPS += $$PS_PLUGIN_NAME
@@ -95,8 +97,6 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
             CONFIG += link_pkgconfig
             PKGCONFIG += libspectre
         }
-
-        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
     } else {
         isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.so
     }
