@@ -2,13 +2,13 @@ TEMPLATE = subdirs
 SUBDIRS += qpdfview-application.pro
 
 !without_pdf {
-    SUBDIRS += qpdfview-pdf.pro
-	qpdfview-application.pro.depends = qpdfview-pdf.pro
+    SUBDIRS += qpdfview-pdf-plugin.pro
+    qpdfview-application.pro.depends = qpdfview-pdf-plugin.pro
 }
 
 !without_ps {
-    SUBDIRS += qpdfview-ps.pro
-    qpdfview-application.pro.depends = qpdfview-ps.pro
+    SUBDIRS += qpdfview-ps-plugin.pro
+    qpdfview-application.pro.depends = qpdfview-ps-plugin.pro
 }
 
 TRANSLATIONS += \
@@ -39,4 +39,3 @@ TRANSLATIONS += \
     translations/qpdfview_ug.ts \
     translations/qpdfview_uk.ts \
     translations/qpdfview_zh_CN.ts
-
