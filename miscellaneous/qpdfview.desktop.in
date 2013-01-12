@@ -7,4 +7,4 @@ GenericName=PDF viewer
 Comment=A tabbed PDF viewer using the poppler library.
 Categories=Viewer;Office;
 Exec=qpdfview --unique %F
-MimeType=application/pdf;application/x-pdf;text/pdf;text/x-pdf;image/pdf;image/x-pdf;
+MimeType=application/pdf;application/x-pdf;text/pdf;text/x-pdf;image/pdf;image/x-pdf;application/postscript;image/vnd.djvu;image/x-djvu;
