@@ -908,6 +908,12 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
         return;
     }
 
+    if(image.isNull())
+    {
+        image = QImage(24, 24, QImage::Format_Mono);
+        image.fill(Qt::color0);
+    }
+
     emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
 }
 
