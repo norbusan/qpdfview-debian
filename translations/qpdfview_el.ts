@@ -500,6 +500,59 @@
     </message>
 </context>
 <context>
+    <name>PDFDocument</name>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Name</source>
+        <translation type="unfinished">Όνομα</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Type</source>
+        <translation type="unfinished">Τύπος</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Embedded</source>
+        <translation type="unfinished">Ενσωματωμένο</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Subset</source>
+        <translation type="unfinished">Υποσύνολο</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>File</source>
+        <translation type="unfinished">Αρχείο</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <source>Yes</source>
+        <translation type="unfinished">Ναι</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <source>No</source>
+        <translation type="unfinished">Όχι</translation>
+    </message>
+</context>
+<context>
+    <name>PDFPage</name>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
+        <source>Information</source>
+        <translation type="unfinished">Πληροφορία</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <translation type="unfinished">Απαιτείται η έκδοση της βιβλιοθήκης Poppler 0.20.1 ή νεότερη για να προσθέσετε και να αφαιρέσετε σχολιασμούς.</translation>
+    </message>
+</context>
+<context>
     <name>PageItem</name>
     <message>
         <location filename="../sources/pageitem.cpp" line="511"/>
@@ -719,53 +772,6 @@
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="315"/>
-        <source>Information</source>
-        <translation type="unfinished">Πληροφορία</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="315"/>
-        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Απαιτείται η έκδοση της βιβλιοθήκης Poppler 0.20.1 ή νεότερη για να προσθέσετε και να αφαιρέσετε σχολιασμούς.</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Name</source>
-        <translation type="unfinished">Όνομα</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Type</source>
-        <translation type="unfinished">Τύπος</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Embedded</source>
-        <translation type="unfinished">Ενσωματωμένο</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Subset</source>
-        <translation type="unfinished">Υποσύνολο</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>File</source>
-        <translation type="unfinished">Αρχείο</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
-        <source>Yes</source>
-        <translation type="unfinished">Ναι</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
-        <source>No</source>
-        <translation type="unfinished">Όχι</translation>
     </message>
 </context>
 <context>

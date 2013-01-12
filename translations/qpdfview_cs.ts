@@ -503,6 +503,59 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     </message>
 </context>
 <context>
+    <name>PDFDocument</name>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Name</source>
+        <translation type="unfinished">Název</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Embedded</source>
+        <translation type="unfinished">Vložený</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>Subset</source>
+        <translation type="unfinished">Podskupina</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <source>File</source>
+        <translation type="unfinished">Soubor</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <source>Yes</source>
+        <translation type="unfinished">Ano</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <source>No</source>
+        <translation type="unfinished">Ne</translation>
+    </message>
+</context>
+<context>
+    <name>PDFPage</name>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
+        <source>Information</source>
+        <translation type="unfinished">Informace</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="315"/>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze knihovny Poppler 0.20.1 či vyšší.</translation>
+    </message>
+</context>
+<context>
     <name>PageItem</name>
     <message>
         <location filename="../sources/pageitem.cpp" line="511"/>
@@ -722,53 +775,6 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Nepodařilo se připravit zacházení se signálem.</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="315"/>
-        <source>Information</source>
-        <translation type="unfinished">Informace</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="315"/>
-        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze knihovny Poppler 0.20.1 či vyšší.</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Name</source>
-        <translation type="unfinished">Název</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Type</source>
-        <translation type="unfinished">Typ</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Embedded</source>
-        <translation type="unfinished">Vložený</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>Subset</source>
-        <translation type="unfinished">Podskupina</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
-        <source>File</source>
-        <translation type="unfinished">Soubor</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
-        <source>Yes</source>
-        <translation type="unfinished">Ano</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
-        <source>No</source>
-        <translation type="unfinished">Ne</translation>
     </message>
 </context>
 <context>
