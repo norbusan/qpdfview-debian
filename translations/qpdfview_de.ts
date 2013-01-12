@@ -27,85 +27,90 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="645"/>
-        <location filename="../sources/documentview.cpp" line="684"/>
+        <location filename="../sources/documentview.cpp" line="423"/>
+        <source>Supported formats (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="650"/>
+        <location filename="../sources/documentview.cpp" line="689"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="645"/>
-        <location filename="../sources/documentview.cpp" line="684"/>
+        <location filename="../sources/documentview.cpp" line="650"/>
+        <location filename="../sources/documentview.cpp" line="689"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="904"/>
+        <location filename="../sources/documentview.cpp" line="909"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1352"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1352"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1397"/>
         <source>Warning</source>
         <translation type="unfinished">Warnung</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1397"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1533"/>
+        <location filename="../sources/documentview.cpp" line="1538"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Zu Seite %1 zurückkehren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1546"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Vorige Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1551"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nächste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1551"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Erste Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1561"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Letzte Seite</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1563"/>
+        <location filename="../sources/documentview.cpp" line="1568"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1672"/>
-        <location filename="../sources/documentview.cpp" line="1701"/>
+        <location filename="../sources/documentview.cpp" line="1677"/>
+        <location filename="../sources/documentview.cpp" line="1706"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1672"/>
+        <location filename="../sources/documentview.cpp" line="1677"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1701"/>
+        <location filename="../sources/documentview.cpp" line="1706"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -502,39 +507,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Embedded</source>
         <translation type="unfinished">Eingebettet</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Subset</source>
         <translation type="unfinished">Teilmenge</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>File</source>
         <translation type="unfinished">Datei</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <location filename="../sources/pdfmodel.cpp" line="706"/>
+        <location filename="../sources/pdfmodel.cpp" line="707"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <location filename="../sources/pdfmodel.cpp" line="706"/>
+        <location filename="../sources/pdfmodel.cpp" line="707"/>
         <source>No</source>
         <translation type="unfinished">Nein</translation>
     </message>
@@ -550,6 +555,39 @@
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Das Hinzufügen oder Entfernen von Anmerkungen benötigt die Poppler-Bibliothek in Version 0.20.1 oder höher.</translation>
+    </message>
+</context>
+<context>
+    <name>PSDocument</name>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="237"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="238"/>
+        <source>For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="239"/>
+        <source>Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="240"/>
+        <source>Creation date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="241"/>
+        <source>Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="242"/>
+        <source>Language level</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

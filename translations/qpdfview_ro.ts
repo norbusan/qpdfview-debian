@@ -27,85 +27,90 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="645"/>
-        <location filename="../sources/documentview.cpp" line="684"/>
+        <location filename="../sources/documentview.cpp" line="423"/>
+        <source>Supported formats (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="650"/>
+        <location filename="../sources/documentview.cpp" line="689"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Deblocare %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="645"/>
-        <location filename="../sources/documentview.cpp" line="684"/>
+        <location filename="../sources/documentview.cpp" line="650"/>
+        <location filename="../sources/documentview.cpp" line="689"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="904"/>
+        <location filename="../sources/documentview.cpp" line="909"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1352"/>
         <source>Information</source>
         <translation type="unfinished">Informații</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1347"/>
+        <location filename="../sources/documentview.cpp" line="1352"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Accesarea URL-urilor este dezactivată din configurări.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1397"/>
         <source>Warning</source>
         <translation type="unfinished">Atenție</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1392"/>
+        <location filename="../sources/documentview.cpp" line="1397"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1533"/>
+        <location filename="../sources/documentview.cpp" line="1538"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">Întoa&amp;rcere la pagina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1546"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Pagina anterioară</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1551"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pagi&amp;na următoare</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1551"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Prima pa&amp;gină</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1561"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">U&amp;ltima pagină</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1563"/>
+        <location filename="../sources/documentview.cpp" line="1568"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Reactualizează</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1672"/>
-        <location filename="../sources/documentview.cpp" line="1701"/>
+        <location filename="../sources/documentview.cpp" line="1677"/>
+        <location filename="../sources/documentview.cpp" line="1706"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1672"/>
+        <location filename="../sources/documentview.cpp" line="1677"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1701"/>
+        <location filename="../sources/documentview.cpp" line="1706"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -502,39 +507,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Name</source>
         <translation type="unfinished">Nume</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Type</source>
         <translation type="unfinished">Tip</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Embedded</source>
         <translation type="unfinished">Încorporat</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="694"/>
+        <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>File</source>
         <translation type="unfinished">Fișier</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <location filename="../sources/pdfmodel.cpp" line="706"/>
+        <location filename="../sources/pdfmodel.cpp" line="707"/>
         <source>Yes</source>
         <translation type="unfinished">Da</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
-        <location filename="../sources/pdfmodel.cpp" line="703"/>
+        <location filename="../sources/pdfmodel.cpp" line="706"/>
+        <location filename="../sources/pdfmodel.cpp" line="707"/>
         <source>No</source>
         <translation type="unfinished">Nu</translation>
     </message>
@@ -550,6 +555,39 @@
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Pentru adăugarea sau ștergerea notițelor este necesară versiunea 0.20.1 sau mai mare a bibliotecii Poppler.</translation>
+    </message>
+</context>
+<context>
+    <name>PSDocument</name>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="237"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="238"/>
+        <source>For</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="239"/>
+        <source>Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="240"/>
+        <source>Creation date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="241"/>
+        <source>Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="242"/>
+        <source>Language level</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
