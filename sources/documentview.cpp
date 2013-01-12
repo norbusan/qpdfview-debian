@@ -91,6 +91,7 @@ QString DocumentView::s_sourceEditor;
 
 DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
 DocumentLoader* DocumentView::s_psDocumentLoader = 0;
+DocumentLoader* DocumentView::s_djvuDocumentLoader = 0;
 
 bool DocumentView::openUrl()
 {
@@ -419,6 +420,14 @@ QStringList DocumentView::openFilter()
     supportedFormats.append("*.ps");
 
 #endif // WITH_PS
+
+#ifdef WITH_DJVU
+
+    openFilter.append("DjVu (*.djvu *.djv)");
+    supportedFormats.append("*.djvu");
+    supportedFormats.append("*.djv");
+
+#endif // WITH_DJVU
 
     openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
 
@@ -1714,6 +1723,36 @@ Document* DocumentView::loadDocument(const QString& filePath)
     }
 
 #endif // WITH_PS
+
+#ifdef WITH_DJVU
+
+    if(fileInfo.suffix() == "djvu" || fileInfo.suffix() == "djv")
+    {
+        if(s_djvuDocumentLoader == 0)
+        {
+#ifndef STATIC_DJVU_PLUGIN
+            DocumentLoader* djvuDocumentLoader = loadPlugin(DJVU_PLUGIN_NAME);
+#else
+            DocumentLoader* djvuDocumentLoader = loadStaticPlugin("DjVuDocumentLoader");
+#endif // STATIC_DJVU_PLUGIN
+
+            if(djvuDocumentLoader != 0)
+            {
+                s_djvuDocumentLoader = djvuDocumentLoader;
+            }
+            else
+            {
+                QMessageBox::critical(this, tr("Critical"), tr("Could not load DjVu plug-in!"));
+
+                return 0;
+            }
+
+        }
+
+        return s_djvuDocumentLoader->loadDocument(filePath);
+    }
+
+#endif // WITH_DJVU
 
     return 0;
 }

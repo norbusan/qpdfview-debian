@@ -11,6 +11,11 @@ CONFIG += ordered
     qpdfview-application.pro.depends = qpdfview-ps-plugin.pro
 }
 
+!without_djvu {
+    SUBDIRS += qpdfview-djvu-plugin.pro
+    qpdfview-application.pro.depends = qpdfview-djvu-plugin.pro
+}
+
 SUBDIRS += qpdfview-application.pro
 
 TRANSLATIONS += \

@@ -2,7 +2,7 @@ qpdfview is a tabbed PDF viewer using the Poppler library.
 
 The project homepage is "https://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
-It depends on libQtCore, libQtGui. It also depends on libQtSvg, libQtSql, libQtDBus, libcups resp. libz if SVG, SQL, D-Bus, CUPS resp. SyncTeX support is enabled. The PDF plug-in depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. The PS plug-in depends on libQtCore, libQtGui and libspectre.
+It depends on libQtCore, libQtGui. It also depends on libQtSvg, libQtSql, libQtDBus, libcups resp. libz if SVG, SQL, D-Bus, CUPS resp. SyncTeX support is enabled. The PDF plug-in depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. The PS plug-in depends on libQtCore, libQtGui and libspectre. The DjVu plug-in depends on libQtCore, libQtGui and libdjvulibre.
 
 It is built using "qmake qpdfview.pro" and "make". It is installed using "make install". The installation paths are defined in "qpdfview.pri".
 
@@ -12,9 +12,11 @@ The following build-time options are available:
     * 'without_dbus' disables D-Bus support, i.e. the '--unique' command-line option will not be available.
     * 'without_pkgconfig' disables the use of pkg-config, i.e. compiler and linker options have to be configured manually in "qpdfview.pri".
     * 'without_pdf' disables PDF support, i.e. the PDF plug-in using Poppler will not be built.
-    * 'without_ps' disabled PS support, i.e. the PS plug-in using libspectre will not be built.
+    * 'without_ps' disables PS support, i.e. the PS plug-in using libspectre will not be built.
+    * 'without_djvu' disables DjVu support, i.e. the DjVu plug-in using DjVuLibre will not be built.
     * 'static_pdf_plugin' links the PDF plug-in statically instead of dynamically.
     * 'static_ps_plugin' links the PS plug-in statically instead of dynamically.
+    * 'static_djvu_plugin' links the DjVu plug-in statically instead of dynamically.
     * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file.
     * 'without_synctex' disables SyncTeX support, i.e. the program will not perform forward and inverse search for sources.
     * 'without_signals' disabled support for UNIX signals, i.e. the program will not save bookmarks, tabs and per-file settings on receiving SIGINT or SIGTERM.

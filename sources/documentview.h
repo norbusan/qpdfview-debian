@@ -250,6 +250,7 @@ private:
 
     static DocumentLoader* s_pdfDocumentLoader;
     static DocumentLoader* s_psDocumentLoader;
+    static DocumentLoader* s_djvuDocumentLoader;
 
     DocumentLoader* loadPlugin(const QString& fileName);
     DocumentLoader* loadStaticPlugin(const QString& objectName);

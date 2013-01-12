@@ -104,6 +104,27 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     DEFINES += PS_PLUGIN_NAME=\\\"$${PS_PLUGIN_NAME}\\\"
 }
 
+!without_djvu {
+    DEFINES += WITH_DJVU
+
+    static_djvu_plugin {
+        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.a
+
+        DEFINES += STATIC_DJVU_PLUGIN
+        LIBS += $$DJVU_PLUGIN_NAME
+        PRE_TARGETDEPS += $$DJVU_PLUGIN_NAME
+
+        !without_pkgconfig {
+            CONFIG += link_pkgconfig
+            PKGCONFIG += ddjvuapi
+        }
+    } else {
+        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.so
+    }
+
+    DEFINES += DJVU_PLUGIN_NAME=\\\"$${DJVU_PLUGIN_NAME}\\\"
+}
+
 !without_cups {
     DEFINES += WITH_CUPS
     LIBS += $$system(cups-config --libs)
