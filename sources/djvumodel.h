@@ -22,12 +22,56 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PDFMODEL_H
 #define PDFMODEL_H
 
-#include <QObject>
+#include <QMutex>
+
+typedef struct ddjvu_context_s ddjvu_context_t;
+typedef struct ddjvu_document_s ddjvu_document_t;
+typedef struct ddjvu_page_s ddjvu_page_t;
 
 #include "model.h"
 
 namespace Model
 {
+
+class DjVuPage : public Page
+{
+    friend class DjVuDocument;
+
+public:
+    ~DjVuPage();
+
+    QSizeF size() const;
+
+    QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+
+private:
+    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_page_t* page);
+
+    mutable QMutex* m_mutex;
+    ddjvu_context_t* m_context;
+    ddjvu_page_t* m_page;
+
+};
+
+class DjVuDocument : public Document
+{
+    friend class DjVuDocumentLoader;
+
+public:
+    ~DjVuDocument();
+
+    int numberOfPages() const;
+
+    Page* page(int index) const;
+
+private:
+    DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
+
+    mutable QMutex m_mutex;
+    ddjvu_context_t* m_context;
+    ddjvu_document_t* m_document;
+
+};
 
 class DjVuDocumentLoader : public QObject, DocumentLoader
 {

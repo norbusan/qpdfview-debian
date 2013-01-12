@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 
 #include <libdjvu/ddjvuapi.h>
+#include <libdjvu/miniexp.h>
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
 {
