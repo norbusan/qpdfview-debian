@@ -25,8 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 
 typedef struct ddjvu_context_s ddjvu_context_t;
+typedef struct ddjvu_format_s ddjvu_format_t;
 typedef struct ddjvu_document_s ddjvu_document_t;
-typedef struct ddjvu_page_s ddjvu_page_t;
 
 #include "model.h"
 
@@ -45,11 +45,15 @@ public:
     QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
 private:
-    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_page_t* page);
+    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document, int index, const QSizeF& size);
 
     mutable QMutex* m_mutex;
     ddjvu_context_t* m_context;
-    ddjvu_page_t* m_page;
+    ddjvu_format_t* m_format;
+    ddjvu_document_t* m_document;
+
+    int m_index;
+    QSizeF m_size;
 
 };
 
@@ -65,10 +69,11 @@ public:
     Page* page(int index) const;
 
 private:
-    DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
+    DjVuDocument(ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document);
 
     mutable QMutex m_mutex;
     ddjvu_context_t* m_context;
+    ddjvu_format_t* m_format;
     ddjvu_document_t* m_document;
 
 };
