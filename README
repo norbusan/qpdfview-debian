@@ -14,9 +14,9 @@ The following build-time options are available:
     * 'without_pdf' disables PDF support, i.e. the PDF plug-in using Poppler will not be built.
     * 'without_ps' disables PS support, i.e. the PS plug-in using libspectre will not be built.
     * 'without_djvu' disables DjVu support, i.e. the DjVu plug-in using DjVuLibre will not be built.
-    * 'static_pdf_plugin' links the PDF plug-in statically instead of dynamically.
-    * 'static_ps_plugin' links the PS plug-in statically instead of dynamically.
-    * 'static_djvu_plugin' links the DjVu plug-in statically instead of dynamically.
+    * 'static_pdf_plugin' links the PDF plug-in statically (This could lead to linker dependency collisions.)
+    * 'static_ps_plugin' links the PS plug-in statically. (This could lead to linker dependency collisions.)
+    * 'static_djvu_plugin' links the DjVu plug-in statically. (This could lead to linker dependency collisions.)
     * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file.
     * 'without_synctex' disables SyncTeX support, i.e. the program will not perform forward and inverse search for sources.
     * 'without_signals' disabled support for UNIX signals, i.e. the program will not save bookmarks, tabs and per-file settings on receiving SIGINT or SIGTERM.
