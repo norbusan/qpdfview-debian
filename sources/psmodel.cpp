@@ -124,7 +124,7 @@ QImage PSPage::render(qreal horizontalResolution, qreal verticalResolution, Rota
         return QImage();
 
     QImage auxiliaryImage(pageData, rowLength / 4, h, QImage::Format_RGB32);
-    QImage image = boundingRect.isNull() ? auxiliaryImage.copy(0, 0, w, h) : auxiliaryImage.copy(boundingRect);
+    QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, w, h) : auxiliaryImage.copy(boundingRect));
 
     free(pageData);
 
