@@ -305,9 +305,6 @@ private:
 
     void prepareThumbnails();
 
-    void prepareOutline();
-    void prepareProperties();
-
     void prepareScene();
     void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0);
 

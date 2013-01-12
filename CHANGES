@@ -1,5 +1,6 @@
 Release 0.4:
   * Added support for multiple formats.
+  * Added support for PostScript. Thanks to Alexander Volkov.
   * Added support for UNIX signals.
   * Dropped support for storing tabs and bookmarks as XML files.
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.

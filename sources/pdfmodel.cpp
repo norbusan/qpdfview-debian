@@ -650,6 +650,8 @@ void PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     if(toc != 0)
     {
+        outlineModel->clear();
+
         ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
 
         delete toc;
@@ -662,6 +664,7 @@ void PDFDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
     QStringList keys = m_document->infoKeys();
 
+    propertiesModel->clear();
     propertiesModel->setRowCount(keys.count());
     propertiesModel->setColumnCount(2);
 
@@ -688,6 +691,7 @@ void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
 
     mutexLocker.unlock();
 
+    fontsModel->clear();
     fontsModel->setRowCount(fonts.count());
     fontsModel->setColumnCount(5);
 

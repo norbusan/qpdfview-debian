@@ -1583,12 +1583,12 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 {
-    QPluginLoader pluginLoader(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
+    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
     pluginLoader.load();
     if(!pluginLoader.isLoaded())
     {
-        pluginLoader.setFileName(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
+        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
 
         pluginLoader.load();
         if(!pluginLoader.load())
@@ -1835,8 +1835,9 @@ void DocumentView::prepareDocument(Document* document)
 
     preparePages();
     prepareThumbnails();
-    prepareOutline();
-    prepareProperties();
+
+    m_document->loadOutline(m_outlineModel);
+    m_document->loadProperties(m_propertiesModel);
 
     if(s_prefetch)
     {
@@ -1958,20 +1959,6 @@ void DocumentView::prepareThumbnails()
     }
 
     m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
-}
-
-void DocumentView::prepareOutline()
-{
-    m_outlineModel->clear();
-
-    m_document->loadOutline(m_outlineModel);
-}
-
-void DocumentView::prepareProperties()
-{
-    m_propertiesModel->clear();
-
-    m_document->loadProperties(m_propertiesModel);
 }
 
 void DocumentView::prepareScene()
