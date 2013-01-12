@@ -404,18 +404,23 @@ int DocumentView::currentPage() const
 QStringList DocumentView::openFilter()
 {
     QStringList openFilter;
+    QStringList supportedFormats;
 
 #ifdef WITH_PDF
 
     openFilter.append("Portable document format (*.pdf)");
+    supportedFormats.append("*.pdf");
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
     openFilter.append("PostScript (*.ps)");
+    supportedFormats.append("*.ps");
 
 #endif // WITH_PS
+
+    openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
 
     return openFilter;
 }
