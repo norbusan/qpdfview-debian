@@ -22,8 +22,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PDFMODEL_H
 #define PDFMODEL_H
 
-#include <QSizeF>
+#include <QCoreApplication>
 #include <QMutex>
+#include <QSizeF>
 
 namespace Poppler
 {
@@ -77,6 +78,8 @@ private:
 
 class PDFPage : public Page
 {
+    Q_DECLARE_TR_FUNCTIONS(PDFPage)
+
     friend class PDFDocument;
 
 public:
@@ -110,6 +113,8 @@ private:
 
 class PDFDocument : public Document
 {
+    Q_DECLARE_TR_FUNCTIONS(PDFDocument)
+
     friend class PDFDocumentLoader;
 
 public:

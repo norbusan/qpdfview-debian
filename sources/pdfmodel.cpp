@@ -312,7 +312,7 @@ bool PDFPage::canAddAndRemoveAnnotations() const
 
 #else
 
-    QMessageBox::information(0, QObject::tr("Information"), QObject::tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
+    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
 
     return false;
 
@@ -691,7 +691,7 @@ void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
     fontsModel->setRowCount(fonts.count());
     fontsModel->setColumnCount(5);
 
-    fontsModel->setHorizontalHeaderLabels(QStringList() << QObject::tr("Name") << QObject::tr("Type") << QObject::tr("Embedded") << QObject::tr("Subset") << QObject::tr("File"));
+    fontsModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
 
     for(int index = 0; index < fonts.count(); ++index)
     {
@@ -699,8 +699,8 @@ void PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
 
         fontsModel->setItem(index, 0, new QStandardItem(font.name()));
         fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));
-        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? QObject::tr("Yes") : QObject::tr("No")));
-        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? QObject::tr("Yes") : QObject::tr("No")));
+        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? tr("Yes") : tr("No")));
+        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? tr("Yes") : tr("No")));
         fontsModel->setItem(index, 4, new QStandardItem(font.file()));
     }
 }
