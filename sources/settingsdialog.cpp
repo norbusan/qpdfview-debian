@@ -29,7 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QPushButton>
 
-#include "miscellaneous.h"
 #include "settings.h"
 
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)

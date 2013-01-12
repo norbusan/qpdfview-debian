@@ -67,7 +67,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "documentview.h"
 #include "printoptionswidget.h"
-#include "miscellaneous.h"
 #include "settings.h"
 #include "settingsdialog.h"
 #include "recentlyusedmenu.h"

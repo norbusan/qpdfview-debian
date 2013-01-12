@@ -27,7 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStandardItemModel>
 
 #include <libspectre/spectre-document.h>
-#include <libspectre/spectre-page.h>
 
 PSPage::PSPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
     m_mutex(mutex),
