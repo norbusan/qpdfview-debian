@@ -28,10 +28,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+namespace Model
+{
+struct Link;
 class Annotation;
 class FormField;
-struct Link;
 class Page;
+}
 
 class PageItem : public QGraphicsObject
 {
@@ -65,7 +68,7 @@ public:
     static const Qt::KeyboardModifiers& addAnnotationModifiers();
     static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
 
-    PageItem(Page* page, int index, QGraphicsItem* parent = 0);
+    PageItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -143,14 +146,14 @@ private:
     static Qt::KeyboardModifiers s_copyToClipboardModifiers;
     static Qt::KeyboardModifiers s_addAnnotationModifiers;
 
-    Page* m_page;
+    Model::Page* m_page;
 
     int m_index;
     QSizeF m_size;
 
-    QList< Link* > m_links;
-    QList< Annotation* > m_annotations;
-    QList< FormField* > m_formFields;
+    QList< Model::Link* > m_links;
+    QList< Model::Annotation* > m_annotations;
+    QList< Model::FormField* > m_formFields;
 
     QList< QRectF > m_highlights;
 
@@ -160,10 +163,10 @@ private:
     void copyToClipboard(const QPoint& screenPos);
 
     void addAnnotation(const QPoint& screenPos);
-    void removeAnnotation(Annotation* annotation, const QPoint& screenPos);
-    void editAnnotation(Annotation* annotation, const QPoint& screenPos);
+    void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+    void editAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
 
-    void editFormField(FormField* formField, const QPoint& screenPos);
+    void editFormField(Model::FormField* formField, const QPoint& screenPos);
 
     // geometry
 
@@ -193,7 +196,7 @@ class ThumbnailItem : public PageItem
     Q_OBJECT
 
 public:
-    ThumbnailItem(Page* page, int index, QGraphicsItem* parent = 0);
+    ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);

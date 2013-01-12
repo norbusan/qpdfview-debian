@@ -89,9 +89,9 @@ int DocumentView::s_highlightDuration = 5000;
 
 QString DocumentView::s_sourceEditor;
 
-DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
-DocumentLoader* DocumentView::s_psDocumentLoader = 0;
-DocumentLoader* DocumentView::s_djvuDocumentLoader = 0;
+Model::DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
+Model::DocumentLoader* DocumentView::s_psDocumentLoader = 0;
+Model::DocumentLoader* DocumentView::s_djvuDocumentLoader = 0;
 
 bool DocumentView::openUrl()
 {
@@ -650,7 +650,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Document* document = loadDocument(filePath);
+    Model::Document* document = loadDocument(filePath);
 
     if(document != 0)
     {
@@ -689,7 +689,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Document* document = loadDocument(m_filePath);
+    Model::Document* document = loadDocument(m_filePath);
 
     if(document != 0)
     {
@@ -928,7 +928,7 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
         QApplication::processEvents();
 
         {
-            Page* page = m_document->page(index);
+            Model::Page* page = m_document->page(index);
 
             qreal pageWidth =  printer->physicalDpiX() / 72.0 * page->size().width();
             qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().height();
@@ -1595,7 +1595,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
-DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
+Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
@@ -1614,7 +1614,7 @@ DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
         }
     }
 
-    DocumentLoader* documentLoader = qobject_cast< DocumentLoader* >(pluginLoader.instance());
+    Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
 
     if(documentLoader != 0)
     {
@@ -1641,13 +1641,13 @@ Q_IMPORT_PLUGIN(qpdfview_ps)
 
 #endif // STATIC_PS_PLUGIN
 
-DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
+Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
 {
     foreach(QObject* object, QPluginLoader::staticInstances())
     {
         if(object->objectName() == objectName)
         {
-            DocumentLoader* documentLoader = qobject_cast< DocumentLoader* >(object);
+            Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(object);
 
             if(documentLoader != 0)
             {
@@ -1661,7 +1661,7 @@ DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
     return 0;
 }
 
-Document* DocumentView::loadDocument(const QString& filePath)
+Model::Document* DocumentView::loadDocument(const QString& filePath)
 {
     QFileInfo fileInfo(filePath);
 
@@ -1672,9 +1672,9 @@ Document* DocumentView::loadDocument(const QString& filePath)
         if(s_pdfDocumentLoader == 0)
         {
 #ifndef STATIC_PDF_PLUGIN
-            DocumentLoader* pdfDocumentLoader = loadPlugin(PDF_PLUGIN_NAME);
+            Model::DocumentLoader* pdfDocumentLoader = loadPlugin(PDF_PLUGIN_NAME);
 #else
-            DocumentLoader* pdfDocumentLoader = loadStaticPlugin("PDFDocumentLoader");
+            Model::DocumentLoader* pdfDocumentLoader = loadStaticPlugin("PDFDocumentLoader");
 #endif // STATIC_PDF_PLUGIN
 
             if(pdfDocumentLoader != 0)
@@ -1701,9 +1701,9 @@ Document* DocumentView::loadDocument(const QString& filePath)
         if(s_psDocumentLoader == 0)
         {
 #ifndef STATIC_PS_PLUGIN
-            DocumentLoader* psDocumentLoader = loadPlugin(PS_PLUGIN_NAME);
+            Model::DocumentLoader* psDocumentLoader = loadPlugin(PS_PLUGIN_NAME);
 #else
-            DocumentLoader* psDocumentLoader = loadStaticPlugin("PSDocumentLoader");
+            Model::DocumentLoader* psDocumentLoader = loadStaticPlugin("PSDocumentLoader");
 #endif // STATIC_PS_PLUGIN
 
             if(psDocumentLoader != 0)
@@ -1731,9 +1731,9 @@ Document* DocumentView::loadDocument(const QString& filePath)
         if(s_djvuDocumentLoader == 0)
         {
 #ifndef STATIC_DJVU_PLUGIN
-            DocumentLoader* djvuDocumentLoader = loadPlugin(DJVU_PLUGIN_NAME);
+            Model::DocumentLoader* djvuDocumentLoader = loadPlugin(DJVU_PLUGIN_NAME);
 #else
-            DocumentLoader* djvuDocumentLoader = loadStaticPlugin("DjVuDocumentLoader");
+            Model::DocumentLoader* djvuDocumentLoader = loadStaticPlugin("DjVuDocumentLoader");
 #endif // STATIC_DJVU_PLUGIN
 
             if(djvuDocumentLoader != 0)
@@ -1842,7 +1842,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
-void DocumentView::prepareDocument(Document* document)
+void DocumentView::prepareDocument(Model::Document* document)
 {
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();

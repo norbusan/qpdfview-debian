@@ -1,3 +1,5 @@
+include(qpdfview.pri)
+
 TEMPLATE = subdirs
 CONFIG += ordered
 

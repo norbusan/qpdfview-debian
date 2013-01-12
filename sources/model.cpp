@@ -23,19 +23,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QStringList>
 
-QList< Link* > Page::links() const
+QList< Model::Link* > Model::Page::links() const
 {
     return QList< Link* >();
 }
 
-QString Page::text(const QRectF& rect) const
+QString Model::Page::text(const QRectF& rect) const
 {
     Q_UNUSED(rect);
 
     return QString();
 }
 
-QList< QRectF > Page::search(const QString& text, bool matchCase) const
+QList< QRectF > Model::Page::search(const QString& text, bool matchCase) const
 {
     Q_UNUSED(text);
     Q_UNUSED(matchCase);
@@ -43,63 +43,63 @@ QList< QRectF > Page::search(const QString& text, bool matchCase) const
     return QList< QRectF >();
 }
 
-QList< Annotation* > Page::annotations() const
+QList< Model::Annotation* > Model::Page::annotations() const
 {
     return QList< Annotation* >();
 }
 
-bool Page::canAddAndRemoveAnnotations() const
+bool Model::Page::canAddAndRemoveAnnotations() const
 {
     return false;
 }
 
-Annotation* Page::addTextAnnotation(const QRectF& boundary)
+Model::Annotation* Model::Page::addTextAnnotation(const QRectF& boundary)
 {
     Q_UNUSED(boundary);
 
     return 0;
 }
 
-Annotation* Page::addHighlightAnnotation(const QRectF& boundary)
+Model::Annotation* Model::Page::addHighlightAnnotation(const QRectF& boundary)
 {
     Q_UNUSED(boundary);
 
     return 0;
 }
 
-void Page::removeAnnotation(Annotation* annotation)
+void Model::Page::removeAnnotation(Annotation* annotation)
 {
     Q_UNUSED(annotation);
 }
 
-QList< FormField* > Page::formFields() const
+QList< Model::FormField* > Model::Page::formFields() const
 {
      return QList< FormField* >();
 }
 
-bool Document::isLocked() const
+bool Model::Document::isLocked() const
 {
     return false;
 }
 
-bool Document::unlock(const QString& password)
+bool Model::Document::unlock(const QString& password)
 {
     Q_UNUSED(password);
 
     return false;
 }
 
-QStringList Document::saveFilter() const
+QStringList Model::Document::saveFilter() const
 {
     return QStringList();
 }
 
-bool Document::canSave() const
+bool Model::Document::canSave() const
 {
     return false;
 }
 
-bool Document::save(const QString& filePath, bool withChanges) const
+bool Model::Document::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(filePath);
     Q_UNUSED(withChanges);
@@ -107,47 +107,47 @@ bool Document::save(const QString& filePath, bool withChanges) const
     return false;
 }
 
-bool Document::canBePrinted() const
+bool Model::Document::canBePrinted() const
 {
     return false;
 }
 
-void Document::setAntialiasing(bool on)
+void Model::Document::setAntialiasing(bool on)
 {
     Q_UNUSED(on);
 }
 
-void Document::setTextAntialiasing(bool on)
+void Model::Document::setTextAntialiasing(bool on)
 {
     Q_UNUSED(on);
 }
 
-void Document::setTextHinting(bool on)
+void Model::Document::setTextHinting(bool on)
 {
     Q_UNUSED(on);
 }
 
-void Document::setOverprintPreview(bool on)
+void Model::Document::setOverprintPreview(bool on)
 {
     Q_UNUSED(on);
 }
 
-void Document::setPaperColor(const QColor& paperColor)
+void Model::Document::setPaperColor(const QColor& paperColor)
 {
     Q_UNUSED(paperColor);
 }
 
-void Document::loadOutline(QStandardItemModel* outlineModel) const
+void Model::Document::loadOutline(QStandardItemModel* outlineModel) const
 {
     Q_UNUSED(outlineModel);
 }
 
-void Document::loadProperties(QStandardItemModel* propertiesModel) const
+void Model::Document::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Q_UNUSED(propertiesModel);
 }
 
-void Document::loadFonts(QStandardItemModel* fontsModel) const
+void Model::Document::loadFonts(QStandardItemModel* fontsModel) const
 {
     Q_UNUSED(fontsModel);
 }

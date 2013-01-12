@@ -32,6 +32,9 @@ struct SpectreRenderContext;
 
 #include "model.h"
 
+namespace Model
+{
+
 class PSPage : public Page
 {
     friend class PSDocument;
@@ -89,7 +92,7 @@ private:
 class PSDocumentLoader : public QObject, DocumentLoader
 {
     Q_OBJECT
-    Q_INTERFACES(DocumentLoader)
+    Q_INTERFACES(Model::DocumentLoader)
 
 public:
     PSDocumentLoader(QObject* parent = 0);
@@ -97,5 +100,7 @@ public:
     Document* loadDocument(const QString& filePath) const;
 
 };
+
+}
 
 #endif // PSMODEL_H

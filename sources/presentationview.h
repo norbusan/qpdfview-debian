@@ -26,15 +26,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStack>
 #include <QWidget>
 
+namespace Model
+{
+struct Link;
 class Document;
-class Link;
+}
 
 class PresentationView : public QWidget
 {
     Q_OBJECT
 
 public:
-    PresentationView(Document* document, QWidget* parent = 0);
+    PresentationView(Model::Document* document, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -72,14 +75,14 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 
 private:
-    Document* m_document;
+    Model::Document* m_document;
 
     int m_numberOfPages;
     int m_currentPage;
 
     QStack< int > m_returnToPage;
 
-    QList< Link* > m_links;
+    QList< Model::Link* > m_links;
 
     qreal m_scaleFactor;
 

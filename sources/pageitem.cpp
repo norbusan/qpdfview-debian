@@ -144,7 +144,7 @@ void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotat
     s_addAnnotationModifiers = addAnnotationModifiers;
 }
 
-PageItem::PageItem(Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
+PageItem::PageItem(Model::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(0),
     m_index(-1),
     m_size(),
@@ -256,7 +256,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red));
 
-        foreach(Link* link, m_links)
+        foreach(Model::Link* link, m_links)
         {
             painter->drawRect(link->boundary);
         }
@@ -273,7 +273,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::blue));
 
-        foreach(FormField* formField, m_formFields)
+        foreach(Model::FormField* formField, m_formFields)
         {
             painter->drawRect(formField->boundary());
         }
@@ -501,7 +501,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
     {
         // links
 
-        foreach(Link* link, m_links)
+        foreach(Model::Link* link, m_links)
         {
             if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
             {
@@ -524,7 +524,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // annotations
 
-        foreach(Annotation* annotation, m_annotations)
+        foreach(Model::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
             {
@@ -537,7 +537,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // form fields
 
-        foreach(FormField* formField, m_formFields)
+        foreach(Model::FormField* formField, m_formFields)
         {
             if(m_normalizedTransform.mapRect(formField->boundary()).contains(event->pos()))
             {
@@ -591,7 +591,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     {
         // links
 
-        foreach(Link* link, m_links)
+        foreach(Model::Link* link, m_links)
         {
             if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
             {
@@ -616,7 +616,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         // annotations
 
-        foreach(Annotation* annotation, m_annotations)
+        foreach(Model::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
             {
@@ -631,7 +631,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         // form fields
 
-        foreach(FormField* formField, m_formFields)
+        foreach(Model::FormField* formField, m_formFields)
         {
             if(m_normalizedTransform.mapRect(formField->boundary()).contains(event->pos()))
             {
@@ -699,7 +699,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
-    foreach(Annotation* annotation, m_annotations)
+    foreach(Model::Annotation* annotation, m_annotations)
     {
         if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
         {
@@ -783,7 +783,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
         {
             QRectF boundary = m_normalizedTransform.inverted().mapRect(m_rubberBand);
 
-            Annotation* annotation = 0;
+            Model::Annotation* annotation = 0;
 
             if(action == addTextAction)
             {
@@ -808,7 +808,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     }
 }
 
-void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
+void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {
@@ -830,12 +830,12 @@ void PageItem::removeAnnotation(Annotation* annotation, const QPoint& screenPos)
     }
 }
 
-void PageItem::editAnnotation(Annotation* annotation, const QPoint& screenPos)
+void PageItem::editAnnotation(Model::Annotation* annotation, const QPoint& screenPos)
 {
     annotation->showDialog(screenPos);
 }
 
-void PageItem::editFormField(FormField* formField, const QPoint& screenPos)
+void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPos)
 {
     QDialog* formFieldDialog = formField->showDialog(screenPos);
 
@@ -911,7 +911,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
     emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
 }
 
-ThumbnailItem::ThumbnailItem(Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, parent)
+ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, parent)
 {
     setAcceptHoverEvents(false);
 }

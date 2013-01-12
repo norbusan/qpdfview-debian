@@ -28,20 +28,20 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libspectre/spectre-document.h>
 
-PSPage::PSPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
+Model::PSPage::PSPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
     m_mutex(mutex),
     m_page(page),
     m_renderContext(renderContext)
 {
 }
 
-PSPage::~PSPage()
+Model::PSPage::~PSPage()
 {
     spectre_page_free(m_page);
     m_page = 0;
 }
 
-QSizeF PSPage::size() const
+QSizeF Model::PSPage::size() const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -53,7 +53,7 @@ QSizeF PSPage::size() const
     return QSizeF(w, h);
 }
 
-QImage PSPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -131,14 +131,14 @@ QImage PSPage::render(qreal horizontalResolution, qreal verticalResolution, Rota
     return image;
 }
 
-PSDocument::PSDocument(SpectreDocument* document) :
+Model::PSDocument::PSDocument(SpectreDocument* document) :
     m_mutex(),
     m_document(document)
 {
     m_renderContext = spectre_render_context_new();
 }
 
-PSDocument::~PSDocument()
+Model::PSDocument::~PSDocument()
 {
     spectre_render_context_free(m_renderContext);
     m_renderContext = 0;
@@ -147,14 +147,14 @@ PSDocument::~PSDocument()
     m_document = 0;
 }
 
-int PSDocument::numberOfPages() const
+int Model::PSDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return spectre_document_get_n_pages(m_document);
 }
 
-Page* PSDocument::page(int index) const
+Model::Page* Model::PSDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -163,17 +163,17 @@ Page* PSDocument::page(int index) const
     return page != 0 ? new PSPage(&m_mutex, page, m_renderContext) : 0;
 }
 
-QStringList PSDocument::saveFilter() const
+QStringList Model::PSDocument::saveFilter() const
 {
     return QStringList() << "PostScript (*.ps)";
 }
 
-bool PSDocument::canSave() const
+bool Model::PSDocument::canSave() const
 {
     return true;
 }
 
-bool PSDocument::save(const QString& filePath, bool withChanges) const
+bool Model::PSDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges)
 
@@ -184,12 +184,12 @@ bool PSDocument::save(const QString& filePath, bool withChanges) const
     return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
 }
 
-bool PSDocument::canBePrinted() const
+bool Model::PSDocument::canBePrinted() const
 {
     return true;
 }
 
-void PSDocument::setAntialiasing(bool on)
+void Model::PSDocument::setAntialiasing(bool on)
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -204,7 +204,7 @@ void PSDocument::setAntialiasing(bool on)
     spectre_render_context_set_antialias_bits(m_renderContext, on ? 4 : 1, antialiasText);
 }
 
-void PSDocument::setTextAntialiasing(bool on)
+void Model::PSDocument::setTextAntialiasing(bool on)
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -219,7 +219,7 @@ void PSDocument::setTextAntialiasing(bool on)
     spectre_render_context_set_antialias_bits(m_renderContext, antialiasGraphics, on ? 2 : 1);
 }
 
-void PSDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -241,12 +241,12 @@ void PSDocument::loadProperties(QStandardItemModel* propertiesModel) const
     propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
 }
 
-PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
+Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
 {
     setObjectName("PSDocumentLoader");
 }
 
-Document* PSDocumentLoader::loadDocument(const QString& filePath) const
+Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) const
 {
     SpectreDocument* document = spectre_document_new();
     spectre_document_load(document, QFile::encodeName(filePath));
@@ -260,4 +260,4 @@ Document* PSDocumentLoader::loadDocument(const QString& filePath) const
     return new PSDocument(document);
 }
 
-Q_EXPORT_PLUGIN2(qpdfview_ps, PSDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_ps, Model::PSDocumentLoader)

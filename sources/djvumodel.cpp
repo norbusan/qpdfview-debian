@@ -25,16 +25,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libdjvu/ddjvuapi.h>
 
-DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
+Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
 {
     setObjectName("DjVuDocumentLoader");
 }
 
-Document* DjVuDocumentLoader::loadDocument(const QString& filePath) const
+Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath) const
 {
     qDebug() << "DjVu plug-in not implemented yet!";
 
     return 0;
 }
 
-Q_EXPORT_PLUGIN2(qpdfview_djvu, DjVuDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_djvu, Model::DjVuDocumentLoader)

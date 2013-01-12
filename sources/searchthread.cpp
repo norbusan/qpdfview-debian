@@ -59,7 +59,7 @@ void SearchThread::run()
             return;
         }
 
-        Page* page = m_document->page(index);
+        Model::Page* page = m_document->page(index);
 
         QList< QRectF > results = page->search(m_text, m_matchCase);
 
@@ -77,7 +77,7 @@ void SearchThread::run()
     emit finished();
 }
 
-void SearchThread::start(Document* document, const QList< int >& indices, const QString& text, bool matchCase)
+void SearchThread::start(Model::Document* document, const QList< int >& indices, const QString& text, bool matchCase)
 {
     m_document = document;
 

@@ -35,6 +35,9 @@ class Page;
 
 #include "model.h"
 
+namespace Model
+{
+
 class PDFAnnotation : public Annotation
 {
     friend class PDFPage;
@@ -156,7 +159,7 @@ private:
 class PDFDocumentLoader : public QObject, DocumentLoader
 {
     Q_OBJECT
-    Q_INTERFACES(DocumentLoader)
+    Q_INTERFACES(Model::DocumentLoader)
 
 public:
     PDFDocumentLoader(QObject* parent = 0);
@@ -164,5 +167,7 @@ public:
     Document* loadDocument(const QString& filePath) const;
 
 };
+
+}
 
 #endif // PDFMODEL_H

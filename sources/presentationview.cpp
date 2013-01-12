@@ -29,7 +29,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "model.h"
 #include "pageitem.h"
 
-PresentationView::PresentationView(Document* document, QWidget* parent) : QWidget(parent),
+PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QWidget(parent),
     m_document(0),
     m_numberOfPages(-1),
     m_currentPage(1),
@@ -237,7 +237,7 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::mousePressEvent(QMouseEvent* event)
 {
-    foreach(Link* link, m_links)
+    foreach(Model::Link* link, m_links)
     {
         if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
         {
@@ -256,7 +256,7 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
 
 void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
-    foreach(Link* link, m_links)
+    foreach(Model::Link* link, m_links)
     {
         if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
         {
@@ -276,7 +276,7 @@ void PresentationView::mouseMoveEvent(QMouseEvent* event)
 
 void PresentationView::prepareView()
 {
-    Page* page = m_document->page(m_currentPage - 1);
+    Model::Page* page = m_document->page(m_currentPage - 1);
 
     QSizeF size = page->size();
 
@@ -311,7 +311,7 @@ void PresentationView::render(int index, qreal scaleFactor)
         return;
     }
 
-    Page* page = m_document->page(index);
+    Model::Page* page = m_document->page(index);
 
     QImage image = page->render(72.0 * scaleFactor, 72.0 * scaleFactor);
 

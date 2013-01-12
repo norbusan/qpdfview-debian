@@ -37,6 +37,9 @@ class QStandardItemModel;
 
 #include "global.h"
 
+namespace Model
+{
+
 struct Link
 {
     QRectF boundary;
@@ -143,6 +146,8 @@ public:
 
 };
 
-Q_DECLARE_INTERFACE(DocumentLoader, "local.qpdfview.DocumentLoader");
+}
+
+Q_DECLARE_INTERFACE(Model::DocumentLoader, "local.qpdfview.DocumentLoader");
 
 #endif // DOCUMENTMODEL_H

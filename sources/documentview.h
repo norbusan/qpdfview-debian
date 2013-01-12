@@ -37,8 +37,12 @@ class QStandardItemModel;
 #include "global.h"
 #include "printoptions.h"
 
+namespace Model
+{
 class Document;
 class DocumentLoader;
+}
+
 class PageItem;
 class ThumbnailItem;
 class SearchThread;
@@ -248,20 +252,20 @@ private:
 
     static QString s_sourceEditor;
 
-    static DocumentLoader* s_pdfDocumentLoader;
-    static DocumentLoader* s_psDocumentLoader;
-    static DocumentLoader* s_djvuDocumentLoader;
+    static Model::DocumentLoader* s_pdfDocumentLoader;
+    static Model::DocumentLoader* s_psDocumentLoader;
+    static Model::DocumentLoader* s_djvuDocumentLoader;
 
-    DocumentLoader* loadPlugin(const QString& fileName);
-    DocumentLoader* loadStaticPlugin(const QString& objectName);
-    Document* loadDocument(const QString& filePath);
+    Model::DocumentLoader* loadPlugin(const QString& fileName);
+    Model::DocumentLoader* loadStaticPlugin(const QString& objectName);
+    Model::Document* loadDocument(const QString& filePath);
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
 
     QTimer* m_prefetchTimer;
 
-    Document* m_document;
+    Model::Document* m_document;
 
     QString m_filePath;
     int m_numberOfPages;
@@ -300,7 +304,7 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
-    void prepareDocument(Document* document);
+    void prepareDocument(Model::Document* document);
 
     void preparePages();
 

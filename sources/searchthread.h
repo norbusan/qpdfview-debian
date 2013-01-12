@@ -25,7 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QRectF>
 #include <QThread>
 
+namespace Model
+{
 class Document;
+}
 
 class SearchThread : public QThread
 {
@@ -40,7 +43,7 @@ public:
     void run();
 
 public slots:
-    void start(Document* document, const QList< int >& indices, const QString& text, bool matchCase);
+    void start(Model::Document* document, const QList< int >& indices, const QString& text, bool matchCase);
     void cancel();
 
 signals:
@@ -54,7 +57,7 @@ private:
     bool m_wasCanceled;
     int m_progress;
 
-    Document* m_document;
+    Model::Document* m_document;
 
     QList< int > m_indices;
     QString m_text;

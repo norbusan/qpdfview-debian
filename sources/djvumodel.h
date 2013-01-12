@@ -26,10 +26,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
+namespace Model
+{
+
 class DjVuDocumentLoader : public QObject, DocumentLoader
 {
     Q_OBJECT
-    Q_INTERFACES(DocumentLoader)
+    Q_INTERFACES(Model::DocumentLoader)
 
 public:
     DjVuDocumentLoader(QObject* parent = 0);
@@ -37,5 +40,7 @@ public:
     Document* loadDocument(const QString& filePath) const;
 
 };
+
+}
 
 #endif // PDFMODEL_H
