@@ -153,13 +153,13 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     default:
     case RotateBy0:
     case RotateBy180:
-        pagerect.w = qCeil(horizontalResolution / 72.0 * m_size.width());
-        pagerect.h = qCeil(verticalResolution / 72.0 * m_size.height());
+        pagerect.w = qRound(horizontalResolution / 72.0 * m_size.width());
+        pagerect.h = qRound(verticalResolution / 72.0 * m_size.height());
         break;
     case RotateBy90:
     case RotateBy270:
-        pagerect.w = qCeil(horizontalResolution / 72.0 * m_size.height());
-        pagerect.h = qCeil(verticalResolution / 72.0 * m_size.width());
+        pagerect.w = qRound(horizontalResolution / 72.0 * m_size.height());
+        pagerect.h = qRound(verticalResolution / 72.0 * m_size.width());
         break;
     }
 
