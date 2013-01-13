@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFile>
 #include <QImage>
+#include <qmath.h>
 
 #include <libdjvu/ddjvuapi.h>
 
@@ -152,13 +153,13 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     default:
     case RotateBy0:
     case RotateBy180:
-        pagerect.w = horizontalResolution / 72.0 * m_size.width();
-        pagerect.h = verticalResolution / 72.0 * m_size.height();
+        pagerect.w = qCeil(horizontalResolution / 72.0 * m_size.width());
+        pagerect.h = qCeil(verticalResolution / 72.0 * m_size.height());
         break;
     case RotateBy90:
     case RotateBy270:
-        pagerect.w = horizontalResolution / 72.0 * m_size.height();
-        pagerect.h = verticalResolution / 72.0 * m_size.width();
+        pagerect.w = qCeil(horizontalResolution / 72.0 * m_size.height());
+        pagerect.h = qCeil(verticalResolution / 72.0 * m_size.width());
         break;
     }
 
