@@ -312,4 +312,8 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     return new DjVuDocument(context, document);
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_EXPORT_PLUGIN2(qpdfview_djvu, Model::DjVuDocumentLoader)
+
+#endif // QT_VERSION

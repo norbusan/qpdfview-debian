@@ -721,4 +721,8 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
     return document != 0 ? new PDFDocument(document) : 0;
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_EXPORT_PLUGIN2(qpdfview_pdf, Model::PDFDocumentLoader)
+
+#endif // QT_VERSION

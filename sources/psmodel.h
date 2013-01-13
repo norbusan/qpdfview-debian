@@ -94,6 +94,12 @@ class PSDocumentLoader : public QObject, DocumentLoader
     Q_OBJECT
     Q_INTERFACES(Model::DocumentLoader)
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    Q_PLUGIN_METADATA(IID "local.qpdfview.DocumentLoader")
+
+#endif // QT_VERSION
+
 public:
     PSDocumentLoader(QObject* parent = 0);
 

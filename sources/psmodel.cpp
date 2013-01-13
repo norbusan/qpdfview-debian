@@ -258,4 +258,8 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
     return new PSDocument(document);
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_EXPORT_PLUGIN2(qpdfview_ps, Model::PSDocumentLoader)
+
+#endif // QT_VERSION
