@@ -44,79 +44,79 @@
         <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="918"/>
+        <location filename="../sources/documentview.cpp" line="1722"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1361"/>
+        <location filename="../sources/documentview.cpp" line="1129"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1361"/>
+        <location filename="../sources/documentview.cpp" line="1129"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Abrir URLs ta desactivao na configuración.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1406"/>
+        <location filename="../sources/documentview.cpp" line="1174"/>
         <source>Warning</source>
         <translation type="unfinished">Avisu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1406"/>
+        <location filename="../sources/documentview.cpp" line="1174"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nun s&apos;alcontraron datos SyncTeX pa «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1547"/>
+        <location filename="../sources/documentview.cpp" line="1315"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rnar a páxina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1555"/>
+        <location filename="../sources/documentview.cpp" line="1323"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Páxina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1560"/>
+        <location filename="../sources/documentview.cpp" line="1328"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Páxina siguie&amp;nte</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1565"/>
+        <location filename="../sources/documentview.cpp" line="1333"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pri&amp;mera páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1570"/>
+        <location filename="../sources/documentview.cpp" line="1338"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima páxina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
+        <location filename="../sources/documentview.cpp" line="1345"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Anova&amp;r</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1686"/>
-        <location filename="../sources/documentview.cpp" line="1715"/>
-        <location filename="../sources/documentview.cpp" line="1745"/>
+        <location filename="../sources/documentview.cpp" line="1454"/>
+        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1513"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1686"/>
+        <location filename="../sources/documentview.cpp" line="1454"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1715"/>
+        <location filename="../sources/documentview.cpp" line="1483"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1745"/>
+        <location filename="../sources/documentview.cpp" line="1513"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -566,32 +566,32 @@
 <context>
     <name>PSDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="241"/>
+        <location filename="../sources/psmodel.cpp" line="234"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="242"/>
+        <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Created for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="243"/>
+        <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="244"/>
+        <location filename="../sources/psmodel.cpp" line="237"/>
         <source>Creation date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="245"/>
+        <location filename="../sources/psmodel.cpp" line="238"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="246"/>
+        <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Language level</source>
         <translation type="unfinished"></translation>
     </message>
@@ -681,111 +681,106 @@
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="41"/>
-        <source>Landscape:</source>
-        <translation type="unfinished">Paisaxe</translation>
-    </message>
-    <message>
-        <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Page ranges:</source>
         <translation type="unfinished">Rangos de páxines:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="48"/>
+        <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>All pages</source>
         <translation type="unfinished">Toles páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="49"/>
+        <location filename="../sources/printoptionswidget.cpp" line="45"/>
         <source>Even pages</source>
         <translation type="unfinished">Páxines pares</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="50"/>
+        <location filename="../sources/printoptionswidget.cpp" line="46"/>
         <source>Odd pages</source>
         <translation type="unfinished">Páxines impares</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="53"/>
+        <location filename="../sources/printoptionswidget.cpp" line="49"/>
         <source>Page set:</source>
         <translation type="unfinished">Conxuntu de páxines:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="56"/>
+        <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Single page</source>
         <translation type="unfinished">Páxina simple</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="57"/>
+        <location filename="../sources/printoptionswidget.cpp" line="53"/>
         <source>Two pages</source>
         <translation type="unfinished">Dos páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="58"/>
+        <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Four pages</source>
         <translation type="unfinished">Cuatro páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="59"/>
+        <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Six pages</source>
         <translation type="unfinished">Seyes páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="60"/>
+        <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Nine pages</source>
         <translation type="unfinished">Nueve páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="61"/>
+        <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Dieciséis páxines</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="64"/>
+        <location filename="../sources/printoptionswidget.cpp" line="60"/>
         <source>Number-up:</source>
         <translation type="unfinished">Númberu:</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="67"/>
+        <location filename="../sources/printoptionswidget.cpp" line="63"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">D&apos;abaxo a arriba y d&apos;izquierda a drecha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="68"/>
+        <location filename="../sources/printoptionswidget.cpp" line="64"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">D&apos;abaxo a arriba y de drecha a izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="69"/>
+        <location filename="../sources/printoptionswidget.cpp" line="65"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">D&apos;izquierda a drecha y d&apos;abaxo a arriba</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="70"/>
+        <location filename="../sources/printoptionswidget.cpp" line="66"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">D&apos;izquierda a drecha y d&apos;arriba a abaxo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="71"/>
+        <location filename="../sources/printoptionswidget.cpp" line="67"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">De drecha a izquierda y d&apos;abaxo a arriba</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="72"/>
+        <location filename="../sources/printoptionswidget.cpp" line="68"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">De drecha a izquierda y d&apos;arriba a abaxo</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="73"/>
+        <location filename="../sources/printoptionswidget.cpp" line="69"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">D&apos;arriba a abaxo y d&apos;izquierda a drecha</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="74"/>
+        <location filename="../sources/printoptionswidget.cpp" line="70"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">D&apos;arriba a abaxo y de drecha a izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/printoptionswidget.cpp" line="77"/>
+        <location filename="../sources/printoptionswidget.cpp" line="73"/>
         <source>Number-up layout:</source>
         <translation type="unfinished"></translation>
     </message>
