@@ -71,11 +71,11 @@ static void wait_for_message_tag(ddjvu_context_t* context, ddjvu_message_tag_t t
     }
 }
 
-Model::DjVuPage::DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document, int index, const QSizeF& size) :
+Model::DjVuPage::DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_document_t* document, ddjvu_format_t* format, int index, const QSizeF& size) :
     m_mutex(mutex),
     m_context(context),
-    m_format(format),
     m_document(document),
+    m_format(format),
     m_index(index),
     m_size(size)
 {
@@ -190,19 +190,24 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     return ok == FALSE ? QImage() : image;
 }
 
-Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document) :
+Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
     m_mutex(),
     m_context(context),
-    m_format(format),
-    m_document(document)
+    m_document(document),
+    m_format(0)
 {
+    unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
+
+    m_format = ddjvu_format_create(DDJVU_FORMAT_RGBMASK32, 4, mask);
+    ddjvu_format_set_row_order(m_format, 1);
+    ddjvu_format_set_y_direction(m_format, 1);
 }
 
 Model::DjVuDocument::~DjVuDocument()
 {
     ddjvu_document_release(m_document);
-    ddjvu_format_release(m_format);
     ddjvu_context_release(m_context);
+    ddjvu_format_release(m_format);
 }
 
 int Model::DjVuDocument::numberOfPages() const
@@ -238,7 +243,7 @@ Model::Page* Model::DjVuDocument::page(int index) const
         return 0;
     }
 
-    return new DjVuPage(&m_mutex, m_context, m_format, m_document, index, 72.0 / pageinfo.dpi * QSizeF(pageinfo.width, pageinfo.height));
+    return new DjVuPage(&m_mutex, m_context, m_document, m_format, index, 72.0 / pageinfo.dpi * QSizeF(pageinfo.width, pageinfo.height));
 }
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
@@ -249,18 +254,10 @@ Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
 Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath) const
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
-
-    unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
-
-    ddjvu_format_t* format = ddjvu_format_create(DDJVU_FORMAT_RGBMASK32, 4, mask);
-    ddjvu_format_set_row_order(format, 1);
-    ddjvu_format_set_y_direction(format, 1);
-
     ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
 
     if(document == 0)
     {
-        ddjvu_format_release(format);
         ddjvu_context_release(context);
         return 0;
     }
@@ -270,12 +267,11 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     if(ddjvu_document_decoding_error(document))
     {
         ddjvu_document_release(document);
-        ddjvu_format_release(format);
         ddjvu_context_release(context);
         return 0;
     }
 
-    return new DjVuDocument(context, format, document);
+    return new DjVuDocument(context, document);
 }
 
 Q_EXPORT_PLUGIN2(qpdfview_djvu, Model::DjVuDocumentLoader)

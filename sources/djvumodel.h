@@ -45,12 +45,12 @@ public:
     QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
 private:
-    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document, int index, const QSizeF& size);
+    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_document_t* document, ddjvu_format_t* format, int index, const QSizeF& size);
 
     mutable QMutex* m_mutex;
     ddjvu_context_t* m_context;
-    ddjvu_format_t* m_format;
     ddjvu_document_t* m_document;
+    ddjvu_format_t* m_format;
 
     int m_index;
     QSizeF m_size;
@@ -69,12 +69,12 @@ public:
     Page* page(int index) const;
 
 private:
-    DjVuDocument(ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document);
+    DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
 
     mutable QMutex m_mutex;
     ddjvu_context_t* m_context;
-    ddjvu_format_t* m_format;
     ddjvu_document_t* m_document;
+    ddjvu_format_t* m_format;
 
 };
 
