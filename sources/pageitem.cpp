@@ -740,11 +740,11 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
         if(s_cache.contains(this))
         {
-            image = s_cache.object(this)->copy(m_rubberBand.toRect());
+            image = s_cache.object(this)->copy(m_rubberBand.translated(-m_boundingRect.topLeft()).toRect());
         }
         else
         {
-            image = m_page->render(m_physicalDpiX * m_scaleFactor,  m_scaleFactor * m_physicalDpiY, m_rotation, m_rubberBand.toRect());
+            image = m_page->render(m_physicalDpiX * m_scaleFactor,  m_scaleFactor * m_physicalDpiY, m_rotation, m_rubberBand.translated(-m_boundingRect.topLeft()).toRect());
         }
 
         if(!image.isNull())

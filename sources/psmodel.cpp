@@ -101,13 +101,11 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
         return QImage();
     }
 
-    if (!pageData)
-        return QImage();
-
     QImage auxiliaryImage(pageData, rowLength / 4, h, QImage::Format_RGB32);
-    QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, w, h) : auxiliaryImage.copy(boundingRect));
+    QImage image(auxiliaryImage.copy(0, 0, w, h));
 
     free(pageData);
+    pageData = 0;
 
     QTransform transform;
 
@@ -128,6 +126,11 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
         transform.rotate(270.0);
         image = image.transformed(transform);
         break;
+    }
+
+    if(!boundingRect.isNull())
+    {
+        image = image.copy(boundingRect);
     }
 
     return image;
