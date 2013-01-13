@@ -229,7 +229,7 @@ void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     QMutexLocker mutexLocker(&m_mutex);
 
     QString title = QString::fromLocal8Bit(spectre_document_get_title(m_document));
-    QString docFor = QString::fromLocal8Bit(spectre_document_get_for(m_document));
+    QString createdFor = QString::fromLocal8Bit(spectre_document_get_for(m_document));
     QString creator = QString::fromLocal8Bit(spectre_document_get_creator(m_document));
     QString creationDate = QString::fromLocal8Bit(spectre_document_get_creation_date(m_document));
     QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
@@ -239,7 +239,7 @@ void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     propertiesModel->setColumnCount(2);
 
     propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Title")) << new QStandardItem(title));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("For")) << new QStandardItem(docFor));
+    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Created for")) << new QStandardItem(createdFor));
     propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Creator")) << new QStandardItem(creator));
     propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Creation date")) << new QStandardItem(creationDate));
     propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Format")) << new QStandardItem(format));

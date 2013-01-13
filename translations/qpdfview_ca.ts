@@ -566,32 +566,32 @@
 <context>
     <name>PSDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="236"/>
+        <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="237"/>
-        <source>For</source>
+        <location filename="../sources/psmodel.cpp" line="242"/>
+        <source>Created for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="238"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="239"/>
+        <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Creation date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="240"/>
+        <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="241"/>
+        <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Language level</source>
         <translation type="unfinished"></translation>
     </message>

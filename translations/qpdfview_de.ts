@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="432"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unterstützte Formate (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="659"/>
@@ -103,22 +103,22 @@
         <location filename="../sources/documentview.cpp" line="1715"/>
         <location filename="../sources/documentview.cpp" line="1745"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kritischer Fehler</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1686"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1715"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PS Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1745"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DjVu Plug-in konnte nicht geladen werden!</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mittels der Poppler-Bibliothek dar. Weitere Informationen sind unter &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; verfügbar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mittels der Poppler-Bibliothek dar. Weitere Informationen sind unter &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; verfügbar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
@@ -566,34 +566,34 @@
 <context>
     <name>PSDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="236"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/psmodel.cpp" line="237"/>
-        <source>For</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/psmodel.cpp" line="238"/>
-        <source>Creator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/psmodel.cpp" line="239"/>
-        <source>Creation date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/psmodel.cpp" line="240"/>
-        <source>Format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/psmodel.cpp" line="241"/>
-        <source>Language level</source>
+        <source>Title</source>
+        <translation type="unfinished">Titel</translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="242"/>
+        <source>Created for</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="243"/>
+        <source>Creator</source>
+        <translation type="unfinished">Ersteller</translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="244"/>
+        <source>Creation date</source>
+        <translation type="unfinished">Erstellungsdatum</translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="245"/>
+        <source>Format</source>
+        <translation type="unfinished">Format</translation>
+    </message>
+    <message>
+        <location filename="../sources/psmodel.cpp" line="246"/>
+        <source>Language level</source>
+        <translation type="unfinished">Sprachniveau</translation>
     </message>
 </context>
 <context>
