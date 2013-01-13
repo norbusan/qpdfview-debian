@@ -271,6 +271,9 @@ private:
     int m_numberOfPages;
     int m_currentPage;
 
+    bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions);
+    bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
+
     QStack< int > m_returnToPage;
     QStack< qreal > m_returnToLeft;
     QStack< qreal > m_returnToTop;
