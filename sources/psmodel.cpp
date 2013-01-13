@@ -78,34 +78,15 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
     double xscale = xres / 72.0;
     double yscale = yres / 72.0;
 
-    int rotate;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-        rotate = 0;
-        break;
-    case RotateBy90:
-        rotate = 90;
-        break;
-    case RotateBy180:
-        rotate = 180;
-        break;
-    case RotateBy270:
-        rotate = 270;
-        break;
-    }
-
-    spectre_render_context_set_rotation(m_renderContext, rotate);
     spectre_render_context_set_scale(m_renderContext, xscale, yscale);
 
-    int w = -1;
-    int h = -1;
+    int w;
+    int h;
 
     spectre_page_get_size(m_page, &w, &h);
-    w = qCeil(w * xscale);
-    h = qCeil(h * yscale);
+
+    w = qRound(w * xscale);
+    h = qRound(h * yscale);
 
     unsigned char* pageData = 0;
     int rowLength = 0;
@@ -127,6 +108,27 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
     QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, w, h) : auxiliaryImage.copy(boundingRect));
 
     free(pageData);
+
+    QTransform transform;
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+        break;
+    case RotateBy90:
+        transform.rotate(90.0);
+        image = image.transformed(transform);
+        break;
+    case RotateBy180:
+        transform.rotate(180.0);
+        image = image.transformed(transform);
+        break;
+    case RotateBy270:
+        transform.rotate(270.0);
+        image = image.transformed(transform);
+        break;
+    }
 
     return image;
 }
