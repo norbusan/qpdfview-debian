@@ -573,7 +573,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erstellt für</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
