@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012 Adam Reichold
+Copyright 2013 Adam Reichold
 
 This file is part of qpdfview.
 

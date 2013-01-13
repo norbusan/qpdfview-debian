@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012 Adam Reichold
+Copyright 2012-2013 Adam Reichold
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -1327,7 +1327,7 @@ void MainWindow::on_contents_triggered()
 
 void MainWindow::on_about_triggered()
 {
-    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library. See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012 Adam Reichold</p>").arg(QApplication::applicationVersion()));
+    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed PDF viewer using the poppler library. See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 Adam Reichold</p>").arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::on_highlightAll_clicked(bool checked)

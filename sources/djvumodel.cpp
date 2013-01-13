@@ -70,8 +70,6 @@ static void wait_for_message_tag(ddjvu_context_t* context, ddjvu_message_tag_t t
     }
 }
 
-static unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
-
 Model::DjVuPage::DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_format_t* format, ddjvu_document_t* document, int index, const QSizeF& size) :
     m_mutex(mutex),
     m_context(context),
@@ -98,13 +96,18 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     ddjvu_status_t status;
     ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_document, m_index);
 
+    if(page == 0)
+    {
+        return QImage();
+    }
+
     while(true)
     {
         status = ddjvu_page_decoding_status(page);
 
         if(status < DDJVU_JOB_OK)
         {
-            ::clear_message_queue(m_context, true);
+            clear_message_queue(m_context, true);
         }
         else
         {
@@ -141,7 +144,8 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     ddjvu_rect_t pagerect;
 
-    pagerect.x = pagerect.y = 0;
+    pagerect.x = 0;
+    pagerect.y = 0;
 
     switch(rotation)
     {
@@ -162,7 +166,8 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     if(boundingRect.isNull())
     {
-        renderrect.x = renderrect.y = 0;
+        renderrect.x = pagerect.x;
+        renderrect.y = pagerect.y;
         renderrect.w = pagerect.w;
         renderrect.h = pagerect.h;
     }
@@ -178,7 +183,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
 
-    ::clear_message_queue(m_context, false);
+    clear_message_queue(m_context, false);
 
     ddjvu_page_release(page);
     return ok == FALSE ? QImage() : image;
@@ -219,7 +224,7 @@ Model::Page* Model::DjVuDocument::page(int index) const
 
         if(status < DDJVU_JOB_OK)
         {
-            ::clear_message_queue(m_context, true);
+            clear_message_queue(m_context, true);
         }
         else
         {
@@ -244,11 +249,13 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
 
-    ddjvu_format_t* format = ddjvu_format_create(DDJVU_FORMAT_RGBMASK32, 4, ::mask);
+    unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
+
+    ddjvu_format_t* format = ddjvu_format_create(DDJVU_FORMAT_RGBMASK32, 4, mask);
     ddjvu_format_set_row_order(format, 1);
     ddjvu_format_set_y_direction(format, 1);
 
-    ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), true);
+    ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
 
     if(document == 0)
     {
@@ -257,7 +264,7 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
         return 0;
     }
 
-    ::wait_for_message_tag(context, DDJVU_DOCINFO);
+    wait_for_message_tag(context, DDJVU_DOCINFO);
 
     if(ddjvu_document_decoding_error(document))
     {
