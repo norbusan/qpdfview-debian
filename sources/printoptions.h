@@ -26,7 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 struct PrintOptions
 {
     bool fitToPage;
-    bool landscape;
 
     QString pageRanges;
 
@@ -65,7 +64,7 @@ struct PrintOptions
 
     NumberUpLayout numberUpLayout;
 
-    PrintOptions() : fitToPage(false), landscape(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+    PrintOptions() : fitToPage(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
 
 };
 

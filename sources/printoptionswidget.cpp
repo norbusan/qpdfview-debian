@@ -36,10 +36,6 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
 
     m_formLayout->addRow(tr("Fit to page:"), m_fitToPageCheckBox);
 
-    m_landscapeCheckBox = new QCheckBox(this);
-
-    m_formLayout->addRow(tr("Landscape:"), m_landscapeCheckBox);
-
     m_pageRangesLineEdit = new QLineEdit(this);
 
     m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
@@ -82,7 +78,6 @@ PrintOptions PrintOptionsWidget::printOptions() const
     PrintOptions printOptions;
 
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
-    printOptions.landscape = m_landscapeCheckBox->isChecked();
 
     printOptions.pageRanges = m_pageRangesLineEdit->text();
     printOptions.pageSet = static_cast< PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());

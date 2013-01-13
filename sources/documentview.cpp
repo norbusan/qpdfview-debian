@@ -1567,7 +1567,15 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
         num_options = cupsAddOption("fit-to-page", printOptions.fitToPage ? "true" : "false", num_options, &options);
 
-        num_options = cupsAddOption("landscape", printOptions.landscape ? "true" : "false", num_options, &options);
+        switch(printer->orientation())
+        {
+        case QPrinter::Portrait:
+            num_options = cupsAddOption("landscape", "false", num_options, &options);
+            break;
+        case QPrinter::Landscape:
+            num_options = cupsAddOption("landscape", "true", num_options, &options);
+            break;
+        }
 
         switch(printer->colorMode())
         {
