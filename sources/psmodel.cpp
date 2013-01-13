@@ -57,28 +57,42 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
 {
     QMutexLocker mutexLocker(m_mutex);
 
-    double xres;
-    double yres;
+    double xscale;
+    double yscale;
 
     switch(rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        xres = horizontalResolution;
-        yres = verticalResolution;
+        xscale = horizontalResolution / 72.0;
+        yscale = verticalResolution / 72.0;
         break;
     case RotateBy90:
     case RotateBy270:
-        xres = verticalResolution;
-        yres = horizontalResolution;
+        xscale = verticalResolution / 72.0;
+        yscale = horizontalResolution / 72.0;
         break;
     }
 
-    double xscale = xres / 72.0;
-    double yscale = yres / 72.0;
-
     spectre_render_context_set_scale(m_renderContext, xscale, yscale);
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+        spectre_render_context_set_rotation(m_renderContext, 0);
+        break;
+    case RotateBy90:
+        spectre_render_context_set_rotation(m_renderContext, 90);
+        break;
+    case RotateBy180:
+        spectre_render_context_set_rotation(m_renderContext, 180);
+        break;
+    case RotateBy270:
+        spectre_render_context_set_rotation(m_renderContext, 270);
+        break;
+    }
 
     int w;
     int h;
@@ -87,6 +101,11 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
 
     w = qRound(w * xscale);
     h = qRound(h * yscale);
+
+    if(rotation == RotateBy90 || rotation == RotateBy270)
+    {
+        qSwap(w, h);
+    }
 
     unsigned char* pageData = 0;
     int rowLength = 0;
@@ -102,36 +121,10 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
     }
 
     QImage auxiliaryImage(pageData, rowLength / 4, h, QImage::Format_RGB32);
-    QImage image(auxiliaryImage.copy(0, 0, w, h));
+    QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, w, h) : auxiliaryImage.copy(boundingRect));
 
     free(pageData);
     pageData = 0;
-
-    QTransform transform;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-        break;
-    case RotateBy90:
-        transform.rotate(90.0);
-        image = image.transformed(transform);
-        break;
-    case RotateBy180:
-        transform.rotate(180.0);
-        image = image.transformed(transform);
-        break;
-    case RotateBy270:
-        transform.rotate(270.0);
-        image = image.transformed(transform);
-        break;
-    }
-
-    if(!boundingRect.isNull())
-    {
-        image = image.copy(boundingRect);
-    }
 
     return image;
 }
