@@ -21,9 +21,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "djvumodel.h"
 
+#include <stdio.h>
+
 #include <QFile>
 #include <QImage>
 #include <qmath.h>
+#include <QStringList>
 
 #include <libdjvu/ddjvuapi.h>
 
@@ -244,6 +247,41 @@ Model::Page* Model::DjVuDocument::page(int index) const
     }
 
     return new DjVuPage(&m_mutex, m_context, m_document, m_format, index, 72.0 / pageinfo.dpi * QSizeF(pageinfo.width, pageinfo.height));
+}
+
+QStringList Model::DjVuDocument::saveFilter() const
+{
+    return QStringList() << "DjVu (*.djvu *.djv)";
+}
+
+bool Model::DjVuDocument::canSave() const
+{
+    return true;
+}
+
+bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
+{
+    Q_UNUSED(withChanges);
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+    FILE* file = fopen(QFile::encodeName(filePath), "w+");
+
+    if(file == 0)
+    {
+        return false;
+    }
+
+    ddjvu_job_t* job = ddjvu_document_save(m_document, file, 0, 0);
+
+    while (!ddjvu_job_done(job))
+    {
+        clear_message_queue(m_context, true);
+    }
+
+    fclose(file);
+
+    return !ddjvu_job_error(job);
 }
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)

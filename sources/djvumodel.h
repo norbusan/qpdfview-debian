@@ -68,6 +68,11 @@ public:
 
     Page* page(int index) const;
 
+    QStringList saveFilter() const;
+
+    bool canSave() const;
+    bool save(const QString& filePath, bool withChanges) const;
+
 private:
     DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
 
