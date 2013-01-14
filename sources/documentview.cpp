@@ -1367,12 +1367,10 @@ Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
-    pluginLoader.load();
-    if(!pluginLoader.isLoaded())
+    if(!pluginLoader.load())
     {
         pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
 
-        pluginLoader.load();
         if(!pluginLoader.load())
         {
             qDebug() << "Could not load plug-in:" << fileName;
