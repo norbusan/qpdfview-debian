@@ -132,7 +132,7 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private:
-    static QCache< PageItem*, QImage > s_cache;
+    static QCache< PageItem*, QPixmap > s_cache;
 
     static bool s_decoratePages;
     static bool s_decorateLinks;
@@ -180,7 +180,7 @@ private:
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
-    QImage m_image;
+    QPixmap m_pixmap;
 
     void prepareGeometry();
 

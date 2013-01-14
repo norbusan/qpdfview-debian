@@ -34,7 +34,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-QCache< PageItem*, QImage > PageItem::s_cache(32 * 1024 * 1024);
+QCache< PageItem*, QPixmap > PageItem::s_cache(32 * 1024 * 1024);
 
 bool PageItem::s_decoratePages = true;
 bool PageItem::s_decorateLinks = true;
@@ -160,7 +160,7 @@ PageItem::PageItem(Model::Page* page, int index, QGraphicsItem* parent) : QGraph
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
-    m_image(),
+    m_pixmap(),
     m_render(0)
 {
     setAcceptHoverEvents(true);
@@ -203,20 +203,21 @@ QRectF PageItem::boundingRect() const
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget* widget)
 {
-    QImage image;
+    QPixmap pixmap;
 
     if(s_cache.contains(this))
     {
-        image = *s_cache.object(this);
+        pixmap = *s_cache.object(this);
     }
     else
     {
-        if(!m_image.isNull())
+        if(!m_pixmap.isNull())
         {
-            image = m_image;
-            m_image = QImage();
+            pixmap = m_pixmap;
+            m_pixmap = QPixmap();
 
-            s_cache.insert(this, new QImage(image), image.byteCount());
+            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+            s_cache.insert(this, new QPixmap(pixmap), cost);
         }
         else
         {
@@ -237,14 +238,14 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         painter->fillRect(m_boundingRect, QBrush(paperColor));
 
-        painter->drawImage(m_boundingRect.topLeft(), image);
+        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
 
         painter->setPen(QPen(s_invertColors ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
     }
     else
     {
-        painter->drawImage(m_boundingRect.topLeft(), image);
+        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
     }
 
     // links
@@ -458,7 +459,7 @@ void PageItem::cancelRender()
 {
     m_render->cancel();
 
-    m_image = QImage();
+    m_pixmap = QPixmap();
 }
 
 void PageItem::on_render_finished()
@@ -475,13 +476,16 @@ void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFact
 
     if(prefetch)
     {
-        s_cache.insert(this, new QImage(image), image.byteCount());
+        QPixmap pixmap = QPixmap::fromImage(image);
+
+        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+        s_cache.insert(this, new QPixmap(pixmap), cost);
     }
     else
     {
         if(!m_render->isCanceled())
         {
-            m_image = image;
+            m_pixmap = QPixmap::fromImage(image);
         }
     }
 }
@@ -735,7 +739,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 
         if(s_cache.contains(this))
         {
-            image = s_cache.object(this)->copy(m_rubberBand.translated(-m_boundingRect.topLeft()).toRect());
+            image = s_cache.object(this)->copy(m_rubberBand.translated(-m_boundingRect.topLeft()).toRect()).toImage();
         }
         else
         {
