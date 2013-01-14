@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="432"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Podporované formáty (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="659"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="698"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1129"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1483"/>
         <location filename="../sources/documentview.cpp" line="1513"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kritické</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1454"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načítať PDF plugin!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1483"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načátať PostScript plugin!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1513"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načítať DjVu plugin!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1722"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je prehliadač PDF súborov na  kartách pomocou knižnice poppler. Ďalšie informácie hľadajte na &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;. &lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/b&gt;&lt;p&gt;qpdfview je prehliadač PDF súborov na kartách pomocou knižnice poppler. Ďalšie informácie nájdete na &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;&lt;p&gt;Do slovenského jazyka preložil &lt;b&gt;DAG Software&lt;/b&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
@@ -525,7 +525,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Embedded</source>
-        <translation type="unfinished">Zabudované</translation>
+        <translation type="unfinished">Vložené</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Na pridanie alebo odstránenie komentárov je vyžadovaná verzia 0.20.1 (alebo vyššia) knižnice Poppler.</translation>
+        <translation type="unfinished">Na pridávanie alebo odstraňovanie komentárov je vyžadovaná knižnica Poppler vo verzii 0.20.1 alebo vyššej.</translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="234"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vytvorené pre</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vytvoril</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="237"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dátum vytvorenia</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="238"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formát</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Úroveň jazyka</translation>
     </message>
 </context>
 <context>
@@ -810,7 +810,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo se pripraviť obsluhovanie signálu.</translation>
     </message>
 </context>
 <context>
