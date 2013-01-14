@@ -473,11 +473,6 @@ void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFact
         return;
     }
 
-    if(s_invertColors)
-    {
-        image.invertPixels();
-    }
-
     if(prefetch)
     {
         s_cache.insert(this, new QImage(image), image.byteCount());
@@ -910,8 +905,13 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
 
     if(image.isNull())
     {
-        image = QImage(24, 24, QImage::Format_Mono);
+        image = QImage(1, 1, QImage::Format_Mono);
         image.fill(Qt::color0);
+    }
+
+    if(s_invertColors)
+    {
+        image.invertPixels();
     }
 
     emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);

@@ -146,11 +146,6 @@ void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
         return;
     }
 
-    if(PageItem::invertColors())
-    {
-        image.invertPixels();
-    }
-
     if(!m_render->isCanceled())
     {
         m_image = image;
@@ -320,6 +315,17 @@ void PresentationView::render(int index, qreal scaleFactor)
     if(m_render->isCanceled())
     {
         return;
+    }
+
+    if(image.isNull())
+    {
+        image = QImage(1, 1, QImage::Format_Mono);
+        image.fill(Qt::color0);
+    }
+
+    if(PageItem::invertColors())
+    {
+        image.invertPixels();
     }
 
     emit imageReady(index, scaleFactor, image);
