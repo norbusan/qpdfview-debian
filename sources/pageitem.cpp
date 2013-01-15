@@ -259,7 +259,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         foreach(Model::Link* link, m_links)
         {
-            painter->drawRect(link->boundary);
+            painter->drawPath(link->boundary);
         }
 
         painter->restore();
@@ -502,7 +502,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         foreach(Model::Link* link, m_links)
         {
-            if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
+            if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
                 if(link->page != -1)
                 {
@@ -592,7 +592,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
         foreach(Model::Link* link, m_links)
         {
-            if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
+            if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
                 unsetCursor();
 

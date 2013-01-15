@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtPlugin>
 #include <QRect>
 #include <QRectF>
+#include <QPainterPath>
 #include <QString>
 
 class QColor;
@@ -42,7 +43,7 @@ namespace Model
 
 struct Link
 {
-    QRectF boundary;
+    QPainterPath boundary;
 
     int page;
     qreal left;
@@ -51,8 +52,14 @@ struct Link
     QString url;
 
     Link() : boundary(), page(-1), left(0.0), top(0.0), url() {}
-    Link(const QRectF& boundary, int page, qreal left, qreal top) : boundary(boundary), page(page), left(left), top(top), url() {}
-    Link(const QRectF& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
+    Link(const QRectF& boundary, int page, qreal left, qreal top) : page(page), left(left), top(top), url()
+    {
+        this->boundary.addRect(boundary);
+    }
+    Link(const QRectF& boundary, const QString& url) : page(-1), left(0.0), top(0.0), url(url)
+    {
+        this->boundary.addRect(boundary);
+    }
 
 };
 
