@@ -152,8 +152,9 @@ DESKTOP_FILE = miscellaneous/qpdfview.desktop
 !without_pdf:MIME_TYPES += application/pdf application/x-pdf text/pdf text/x-pdf image/pdf image/x-pdf
 !without_ps:MIME_TYPES += application/postscript
 !without_djvu:MIME_TYPES += image/vnd.djvu image/x-djvu
+MIME_TYPES = $$join(MIME_TYPES,";","",";")
 
-system("sed -e \"s,DATA_INSTALL_PATH,$${DATA_INSTALL_PATH},\" -e \"s,MIME_TYPES,$$join(MIME_TYPES,";","",";"),\" $${DESKTOP_FILE}.in > $${DESKTOP_FILE}")
+system("sed -e \"s,DATA_INSTALL_PATH,$${DATA_INSTALL_PATH},\" -e \"s,MIME_TYPES,$${MIME_TYPES},\" $${DESKTOP_FILE}.in > $${DESKTOP_FILE}")
 
 
 target.path = $${TARGET_INSTALL_PATH}
