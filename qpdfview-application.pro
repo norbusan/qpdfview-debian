@@ -145,17 +145,29 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     SOURCES += sources/signalhandler.cpp
 }
 
+DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
+
+
+DESKTOP_FILE = miscellaneous/qpdfview.desktop
+!without_pdf:MIME_TYPES += application/pdf application/x-pdf text/pdf text/x-pdf image/pdf image/x-pdf
+!without_ps:MIME_TYPES += application/postscript
+!without_djvu:MIME_TYPES += image/vnd.djvu image/x-djvu
+
+desktop_file.target = $${DESKTOP_FILE}
+desktop_file.depends = $${DESKTOP_FILE}.in
+desktop_file.commands = $(SED) -e \"s,DATA_INSTALL_PATH,$${DATA_INSTALL_PATH},\" -e \"s,MIME_TYPES,$$join(MIME_TYPES,";","",";"),\" $${DESKTOP_FILE}.in > $${DESKTOP_FILE}
+QMAKE_EXTRA_TARGETS += desktop_file
+PRE_TARGETDEPS += $${DESKTOP_FILE}
+QMAKE_CLEAN += $${DESKTOP_FILE}
+
+
 target.path = $${TARGET_INSTALL_PATH}
 
 data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
 data.path = $${DATA_INSTALL_PATH}
 
-DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
-
-launcher.files = miscellaneous/qpdfview.desktop
+launcher.files = $${DESKTOP_FILE}
 launcher.path = $${LAUNCHER_INSTALL_PATH}
-
-system(sed \"s/DATA_INSTALL_PATH/$$replace(DATA_INSTALL_PATH, "/", "\\/")/\" miscellaneous/qpdfview.desktop.in > miscellaneous/qpdfview.desktop)
 
 manual.files = miscellaneous/qpdfview.1
 manual.path = $${MANUAL_INSTALL_PATH}
