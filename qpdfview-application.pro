@@ -147,8 +147,7 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
 
-
-DESKTOP_FILE = miscellaneous/qpdfview.desktop
+DESKTOP_FILE = $${_PRO_FILE_PWD_}/miscellaneous/qpdfview.desktop
 !without_pdf:MIME_TYPES += application/pdf application/x-pdf text/pdf text/x-pdf image/pdf image/x-pdf
 !without_ps:MIME_TYPES += application/postscript
 !without_djvu:MIME_TYPES += image/vnd.djvu image/x-djvu
