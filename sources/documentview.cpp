@@ -589,7 +589,7 @@ RubberBandMode DocumentView::rubberBandMode() const
 
 void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
 {
-    if(m_rubberBandMode != rubberBandMode && rubberBandMode > 0 && rubberBandMode <= NumberOfRubberBandModes)
+    if(m_rubberBandMode != rubberBandMode && rubberBandMode >= 0 && rubberBandMode < NumberOfRubberBandModes)
     {
         m_rubberBandMode = rubberBandMode;
 
