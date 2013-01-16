@@ -234,7 +234,7 @@ void PresentationView::mousePressEvent(QMouseEvent* event)
 {
     foreach(Model::Link* link, m_links)
     {
-        if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
+        if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
         {
             if(link->page != -1)
             {
@@ -253,7 +253,7 @@ void PresentationView::mouseMoveEvent(QMouseEvent* event)
 {
     foreach(Model::Link* link, m_links)
     {
-        if(m_normalizedTransform.mapRect(link->boundary).contains(event->pos()))
+        if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
         {
             if(link->page != -1)
             {

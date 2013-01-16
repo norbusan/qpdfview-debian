@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define DOCUMENTMODEL_H
 
 #include <QList>
+#include <QPainterPath>
 #include <QtPlugin>
 #include <QRect>
 #include <QRectF>
@@ -42,7 +43,7 @@ namespace Model
 
 struct Link
 {
-    QRectF boundary;
+    QPainterPath boundary;
 
     int page;
     qreal left;
@@ -51,8 +52,10 @@ struct Link
     QString url;
 
     Link() : boundary(), page(-1), left(0.0), top(0.0), url() {}
-    Link(const QRectF& boundary, int page, qreal left, qreal top) : boundary(boundary), page(page), left(left), top(top), url() {}
-    Link(const QRectF& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
+    Link(const QRectF& boundingRect, int page, qreal left, qreal top) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
+    Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), url(url) { boundary.addRect(boundingRect); }
+    Link(const QPainterPath& boundary, int page, qreal left, qreal top) : boundary(boundary), page(page), left(left), top(top), url() {}
+    Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
 
 };
 
