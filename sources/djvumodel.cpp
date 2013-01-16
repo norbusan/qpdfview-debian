@@ -201,6 +201,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
 {
     QList< Link* > links;
 
+    bool pageNamesInitialized = false;
+    QHash< QString, int > pageNames;
+
     miniexp_t annots;
     while ( ( annots = ddjvu_document_get_pageanno( m_document, m_index ) ) == miniexp_dummy )
         clear_message_queue( m_context, true );
@@ -209,10 +212,6 @@ QList< Model::Link* > Model::DjVuPage::links() const
         return links;
 
     int l = miniexp_length( annots );
-
-    QList<ddjvu_fileinfo_t> documentFiles;
-    bool documentFilesInitialized = false;
-    QHash<QString, int> pageNamesCache;
 
     for ( int i = 0; i < l; ++i )
     {
@@ -223,6 +222,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
             continue;
 
         QString type;
+
         if ( miniexp_symbolp( miniexp_nth( 0, miniexp_nth( 3, cur ) ) ) )
             type = QString::fromUtf8( miniexp_to_name( miniexp_nth( 0, miniexp_nth( 3, cur ) ) ) );
 
@@ -239,8 +239,8 @@ QList< Model::Link* > Model::DjVuPage::links() const
                 QPoint p = QPoint( miniexp_to_int( miniexp_nth( 1, area ) ), miniexp_to_int( miniexp_nth( 2, area ) ) );
                 QSize s = QSize( miniexp_to_int( miniexp_nth( 3, area ) ), miniexp_to_int( miniexp_nth( 4, area ) ) );
                 p.setY(m_size.height() - p.y() - s.height());
-
                 QRectF rect(p, s);
+
                 if ( type == QLatin1String( "rect" ) )
                 {
                     linkBoundary.addRect(rect);
@@ -290,54 +290,49 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
             if( ( target.length() > 0 ) && target.at(0) == QLatin1Char( '#' ) )
             {
-                int targetPage = -1;
-
                 target.remove( 0, 1 );
+
                 bool ok = false;
-                int tmpPage = target.toInt(&ok);
+                int targetPage = target.toInt(&ok);
 
                 if (!ok)
                 {
-                    targetPage = pageNamesCache.value(target, -1);
-
-                    if (targetPage == -1)
+                    if (!pageNamesInitialized)
                     {
-                        if (!documentFilesInitialized)
+                        ddjvu_fileinfo_t fileinfo;
+
+                        const int fileNum = ddjvu_document_get_filenum( m_document );
+
+                        for ( int i = 0; i < fileNum; ++i )
                         {
-                            const int fileNum = ddjvu_document_get_filenum( m_document );
-                            ddjvu_fileinfo_t info;
-                            for ( int i = 0; i < fileNum; ++i )
-                            {
-                                if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &info ) )
-                                    continue;
-                                if ( info.type != 'P' )
-                                    continue;
+                            if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &fileinfo ) )
+                                continue;
+                            if ( fileinfo.type != 'P' )
+                                continue;
 
-                                documentFiles.append(info);
-                            }
-
-                            documentFilesInitialized = true;
+                            pageNames[QString::fromUtf8(fileinfo.id)] = fileinfo.pageno + 1;
+                            pageNames[QString::fromUtf8(fileinfo.name)] = fileinfo.pageno + 1;
+                            pageNames[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno + 1;
                         }
 
-                        const QByteArray utfName = target.toUtf8();
+                        pageNamesInitialized = true;
+                    }
 
-                        for ( int i = 0; i < documentFiles.size(); ++i )
-                        {
-                            const ddjvu_fileinfo_t& info = documentFiles.at(i);
-
-                            if ( ( utfName == info.id ) || ( utfName == info.name ) || ( utfName == info.title ) )
-                            {
-                                targetPage = info.pageno + 1;
-                                pageNamesCache.insert( target, targetPage );
-                                break;
-                            }
-                        }
+                    if(pageNames.contains(target))
+                    {
+                        targetPage = pageNames.value(target, -1);
+                    }
+                    else
+                    {
+                        continue;
                     }
                 }
                 else
-                    targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? m_index + tmpPage : tmpPage;
+                {
+                    targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? m_index + targetPage : targetPage;
+                }
 
-                link = new Link(linkBoundary, targetPage, 0.0, 0.0);
+                link = new Link(linkBoundary, targetPage);
             }
             else
             {

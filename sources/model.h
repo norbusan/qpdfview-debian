@@ -52,9 +52,9 @@ struct Link
     QString url;
 
     Link() : boundary(), page(-1), left(0.0), top(0.0), url() {}
-    Link(const QRectF& boundingRect, int page, qreal left, qreal top) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
+    Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
     Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), url(url) { boundary.addRect(boundingRect); }
-    Link(const QPainterPath& boundary, int page, qreal left, qreal top) : boundary(boundary), page(page), left(left), top(top), url() {}
+    Link(const QPainterPath& boundary, int page, qreal left = 0.0, qreal top = 0.0) : boundary(boundary), page(page), left(left), top(top), url() {}
     Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
 
 };
