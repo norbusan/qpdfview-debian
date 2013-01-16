@@ -310,17 +310,17 @@ QList< Model::Link* > Model::DjVuPage::links() const
                             if ( fileinfo.type != 'P' )
                                 continue;
 
-                            pageNames[QString::fromUtf8(fileinfo.id)] = fileinfo.pageno + 1;
-                            pageNames[QString::fromUtf8(fileinfo.name)] = fileinfo.pageno + 1;
-                            pageNames[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno + 1;
+                            pageNames[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno + 1;
+                            pageNames[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno + 1;
+                            pageNames[ QString::fromUtf8( fileinfo.title ) ] = fileinfo.pageno + 1;
                         }
 
                         pageNamesInitialized = true;
                     }
 
-                    if(pageNames.contains(target))
+                    if( pageNames.contains( target ) )
                     {
-                        targetPage = pageNames.value(target, -1);
+                        targetPage = pageNames[ target ];
                     }
                     else
                     {
