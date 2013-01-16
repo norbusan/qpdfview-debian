@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 #include <QFile>
-#include <QHash>
 #include <QImage>
 #include <qmath.h>
 #include <QStringList>
@@ -77,11 +76,8 @@ static void wait_for_message_tag(ddjvu_context_t* context, ddjvu_message_tag_t t
     }
 }
 
-Model::DjVuPage::DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_document_t* document, ddjvu_format_t* format, int index, const ddjvu_pageinfo_t& pageinfo) :
-    m_mutex(mutex),
-    m_context(context),
-    m_document(document),
-    m_format(format),
+Model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo) :
+    m_parent(parent),
     m_index(index),
     m_size(pageinfo.width, pageinfo.height),
     m_resolution(pageinfo.dpi)
@@ -99,10 +95,10 @@ QSizeF Model::DjVuPage::size() const
 
 QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
-    QMutexLocker mutexLocker(m_mutex);
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
 
     ddjvu_status_t status;
-    ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_document, m_index);
+    ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_parent->m_document, m_index);
 
     if(page == 0)
     {
@@ -115,7 +111,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
         if(status < DDJVU_JOB_OK)
         {
-            clear_message_queue(m_context, true);
+            clear_message_queue(m_parent->m_context, true);
         }
         else
         {
@@ -189,9 +185,9 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     QImage image(renderrect.w, renderrect.h, QImage::Format_RGB32);
 
-    int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
+    int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_parent->m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
 
-    clear_message_queue(m_context, false);
+    clear_message_queue(m_parent->m_context, false);
 
     ddjvu_page_release(page);
     return ok == FALSE ? QImage() : image;
@@ -201,12 +197,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
 {
     QList< Link* > links;
 
-    bool pageNamesInitialized = false;
-    QHash< QString, int > pageNames;
-
     miniexp_t annots;
-    while ( ( annots = ddjvu_document_get_pageanno( m_document, m_index ) ) == miniexp_dummy )
-        clear_message_queue( m_context, true );
+    while ( ( annots = ddjvu_document_get_pageanno( m_parent->m_document, m_index ) ) == miniexp_dummy )
+        clear_message_queue( m_parent->m_context, true );
 
     if ( !miniexp_listp( annots ) )
         return links;
@@ -297,30 +290,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
                 if (!ok)
                 {
-                    if (!pageNamesInitialized)
+                    if ( m_parent->m_indexByName.contains( target ) )
                     {
-                        ddjvu_fileinfo_t fileinfo;
-
-                        const int fileNum = ddjvu_document_get_filenum( m_document );
-
-                        for ( int i = 0; i < fileNum; ++i )
-                        {
-                            if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &fileinfo ) )
-                                continue;
-                            if ( fileinfo.type != 'P' )
-                                continue;
-
-                            pageNames[QString::fromUtf8(fileinfo.id)] = fileinfo.pageno + 1;
-                            pageNames[QString::fromUtf8(fileinfo.name)] = fileinfo.pageno + 1;
-                            pageNames[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno + 1;
-                        }
-
-                        pageNamesInitialized = true;
-                    }
-
-                    if(pageNames.contains(target))
-                    {
-                        targetPage = pageNames.value(target, -1);
+                        targetPage = m_parent->m_indexByName[ target ] + 1;
                     }
                     else
                     {
@@ -351,13 +323,30 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     m_mutex(),
     m_context(context),
     m_document(document),
-    m_format(0)
+    m_format(0),
+    m_indexByName()
 {
     unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
 
     m_format = ddjvu_format_create(DDJVU_FORMAT_RGBMASK32, 4, mask);
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
+
+    ddjvu_fileinfo_t fileinfo;
+
+    const int fileNum = ddjvu_document_get_filenum( m_document );
+
+    for ( int i = 0; i < fileNum; ++i )
+    {
+        if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &fileinfo ) )
+            continue;
+        if ( fileinfo.type != 'P' )
+            continue;
+
+        m_indexByName[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno;
+        m_indexByName[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno;
+        m_indexByName[ QString::fromUtf8( fileinfo.title ) ] = fileinfo.pageno;
+    }
 }
 
 Model::DjVuDocument::~DjVuDocument()
@@ -400,7 +389,7 @@ Model::Page* Model::DjVuDocument::page(int index) const
         return 0;
     }
 
-    return new DjVuPage(&m_mutex, m_context, m_document, m_format, index, pageinfo);
+    return new DjVuPage(this, index, pageinfo);
 }
 
 QStringList Model::DjVuDocument::saveFilter() const
