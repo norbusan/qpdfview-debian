@@ -44,7 +44,7 @@
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1720"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
@@ -99,24 +99,24 @@
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
-        <location filename="../sources/documentview.cpp" line="1483"/>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -602,62 +602,62 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="511"/>
+        <location filename="../sources/pageitem.cpp" line="510"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Jít na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="518"/>
+        <location filename="../sources/pageitem.cpp" line="517"/>
         <source>Open %1.</source>
         <translation type="unfinished">Otevřít %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="545"/>
+        <location filename="../sources/pageitem.cpp" line="544"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Upravit formulářové pole &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="721"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="722"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovat &amp;obrázek</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="724"/>
+        <location filename="../sources/pageitem.cpp" line="723"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Uložit obrázek do &amp;souboru...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="758"/>
+        <location filename="../sources/pageitem.cpp" line="757"/>
         <source>Save image to file</source>
         <translation type="unfinished">Uložit obrázek do souboru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit obrázek do souboru &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="777"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Přidat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="778"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="817"/>
+        <location filename="../sources/pageitem.cpp" line="816"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstranit poznámku</translation>
     </message>
@@ -665,7 +665,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/presentationview.cpp" line="266"/>
+        <location filename="../sources/presentationview.cpp" line="261"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Jít na stranu %1.</translation>
     </message>

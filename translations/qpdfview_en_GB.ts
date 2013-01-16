@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="432"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supported formats (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="659"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="698"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1129"/>
@@ -99,26 +94,31 @@
         <translation type="unfinished">&amp;Refresh</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
-        <location filename="../sources/documentview.cpp" line="1483"/>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Critical</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Could not load PDF plug-in!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Could not load PS plug-in!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Could not load DjVu plug-in!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1720"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
@@ -568,93 +568,93 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="234"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Title</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Created for</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creator</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="237"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creation date</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="238"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Language level</translation>
     </message>
 </context>
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="511"/>
+        <location filename="../sources/pageitem.cpp" line="510"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Go to page %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="518"/>
+        <location filename="../sources/pageitem.cpp" line="517"/>
         <source>Open %1.</source>
         <translation type="unfinished">Open %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="545"/>
+        <location filename="../sources/pageitem.cpp" line="544"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Edit form field &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="721"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Copy &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="722"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copy &amp;image</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="724"/>
+        <location filename="../sources/pageitem.cpp" line="723"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Save image to &amp;file...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="758"/>
+        <location filename="../sources/pageitem.cpp" line="757"/>
         <source>Save image to file</source>
         <translation type="unfinished">Save image to file</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Warning</source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Could not save image to file &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="777"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Add &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="778"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Add &amp;highlight</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="817"/>
+        <location filename="../sources/pageitem.cpp" line="816"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Remove annotation</translation>
     </message>
@@ -662,7 +662,7 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/presentationview.cpp" line="266"/>
+        <location filename="../sources/presentationview.cpp" line="261"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Go to page %1.</translation>
     </message>

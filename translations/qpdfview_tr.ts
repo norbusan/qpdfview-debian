@@ -44,7 +44,7 @@
         <translation type="unfinished">Açarsöz:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1720"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılıyor...</translation>
     </message>
@@ -99,24 +99,24 @@
         <translation type="unfinished">&amp;Yenile</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
-        <location filename="../sources/documentview.cpp" line="1483"/>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1483"/>
+        <location filename="../sources/documentview.cpp" line="1481"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1513"/>
+        <location filename="../sources/documentview.cpp" line="1511"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -599,62 +599,62 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="511"/>
+        <location filename="../sources/pageitem.cpp" line="510"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1. sayfaya git.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="518"/>
+        <location filename="../sources/pageitem.cpp" line="517"/>
         <source>Open %1.</source>
         <translation type="unfinished">%1 dosyasını aç.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="545"/>
+        <location filename="../sources/pageitem.cpp" line="544"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="721"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Metni &amp;kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="722"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Görüntüyü kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="724"/>
+        <location filename="../sources/pageitem.cpp" line="723"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Görüntüyü &amp;dosyaya kaydet...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="758"/>
+        <location filename="../sources/pageitem.cpp" line="757"/>
         <source>Save image to file</source>
         <translation type="unfinished">Görüntüyü dosyaya kaydet</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="762"/>
+        <location filename="../sources/pageitem.cpp" line="761"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Görüntü &apos;%1&apos; dosyasına kaydedilemedi.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="777"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">&amp;Metin ekle</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="778"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Vurgu ekle</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="817"/>
+        <location filename="../sources/pageitem.cpp" line="816"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Notu &amp;kaldır</translation>
     </message>
@@ -662,7 +662,7 @@
 <context>
     <name>PresentationView</name>
     <message>
-        <location filename="../sources/presentationview.cpp" line="266"/>
+        <location filename="../sources/presentationview.cpp" line="261"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1. sayfaya git.</translation>
     </message>
