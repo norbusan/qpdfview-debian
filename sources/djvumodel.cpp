@@ -86,17 +86,127 @@ Model::DjVuPage::DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_documen
     m_size(pageinfo.width, pageinfo.height),
     m_resolution(pageinfo.dpi)
 {
-    initializeLinks();
 }
 
-void Model::DjVuPage::initializeLinks()
+Model::DjVuPage::~DjVuPage()
 {
+}
+
+QSizeF Model::DjVuPage::size() const
+{
+    return 72.0 / m_resolution * m_size;
+}
+
+QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    ddjvu_status_t status;
+    ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_document, m_index);
+
+    if(page == 0)
+    {
+        return QImage();
+    }
+
+    while(true)
+    {
+        status = ddjvu_page_decoding_status(page);
+
+        if(status < DDJVU_JOB_OK)
+        {
+            clear_message_queue(m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if(status >= DDJVU_JOB_FAILED)
+    {
+        ddjvu_page_release(page);
+        return QImage();
+    }
+
+    ddjvu_page_rotation_t rot;
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+        rot = DDJVU_ROTATE_0;
+        break;
+    case RotateBy90:
+        rot = DDJVU_ROTATE_270;
+        break;
+    case RotateBy180:
+        rot = DDJVU_ROTATE_180;
+        break;
+    case RotateBy270:
+        rot = DDJVU_ROTATE_90;
+        break;
+    }
+
+    ddjvu_page_set_rotation(page, rot);
+
+    ddjvu_rect_t pagerect;
+
+    pagerect.x = 0;
+    pagerect.y = 0;
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        pagerect.w = qRound(horizontalResolution / m_resolution * m_size.width());
+        pagerect.h = qRound(verticalResolution / m_resolution * m_size.height());
+        break;
+    case RotateBy90:
+    case RotateBy270:
+        pagerect.w = qRound(horizontalResolution / m_resolution * m_size.height());
+        pagerect.h = qRound(verticalResolution / m_resolution * m_size.width());
+        break;
+    }
+
+    ddjvu_rect_t renderrect;
+
+    if(boundingRect.isNull())
+    {
+        renderrect.x = pagerect.x;
+        renderrect.y = pagerect.y;
+        renderrect.w = pagerect.w;
+        renderrect.h = pagerect.h;
+    }
+    else
+    {
+        renderrect.x = boundingRect.x();
+        renderrect.y = boundingRect.y();
+        renderrect.w = boundingRect.width();
+        renderrect.h = boundingRect.height();
+    }
+
+    QImage image(renderrect.w, renderrect.h, QImage::Format_RGB32);
+
+    int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
+
+    clear_message_queue(m_context, false);
+
+    ddjvu_page_release(page);
+    return ok == FALSE ? QImage() : image;
+}
+
+QList< Model::Link* > Model::DjVuPage::links() const
+{
+    QList< Link* > links;
+
     miniexp_t annots;
     while ( ( annots = ddjvu_document_get_pageanno( m_document, m_index ) ) == miniexp_dummy )
         clear_message_queue( m_context, true );
 
     if ( !miniexp_listp( annots ) )
-        return;
+        return links;
 
     int l = miniexp_length( annots );
 
@@ -235,123 +345,11 @@ void Model::DjVuPage::initializeLinks()
             }
 
             if (link)
-                m_links.append(link);
-        }
-    }
-}
-
-Model::DjVuPage::~DjVuPage()
-{
-}
-
-QSizeF Model::DjVuPage::size() const
-{
-    return 72.0 / m_resolution * m_size;
-}
-
-QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
-{
-    QMutexLocker mutexLocker(m_mutex);
-
-    ddjvu_status_t status;
-    ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_document, m_index);
-
-    if(page == 0)
-    {
-        return QImage();
-    }
-
-    while(true)
-    {
-        status = ddjvu_page_decoding_status(page);
-
-        if(status < DDJVU_JOB_OK)
-        {
-            clear_message_queue(m_context, true);
-        }
-        else
-        {
-            break;
+                links.append(link);
         }
     }
 
-    if(status >= DDJVU_JOB_FAILED)
-    {
-        ddjvu_page_release(page);
-        return QImage();
-    }
-
-    ddjvu_page_rotation_t rot;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-        rot = DDJVU_ROTATE_0;
-        break;
-    case RotateBy90:
-        rot = DDJVU_ROTATE_270;
-        break;
-    case RotateBy180:
-        rot = DDJVU_ROTATE_180;
-        break;
-    case RotateBy270:
-        rot = DDJVU_ROTATE_90;
-        break;
-    }
-
-    ddjvu_page_set_rotation(page, rot);
-
-    ddjvu_rect_t pagerect;
-
-    pagerect.x = 0;
-    pagerect.y = 0;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        pagerect.w = qRound(horizontalResolution / m_resolution * m_size.width());
-        pagerect.h = qRound(verticalResolution / m_resolution * m_size.height());
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        pagerect.w = qRound(horizontalResolution / m_resolution * m_size.height());
-        pagerect.h = qRound(verticalResolution / m_resolution * m_size.width());
-        break;
-    }
-
-    ddjvu_rect_t renderrect;
-
-    if(boundingRect.isNull())
-    {
-        renderrect.x = pagerect.x;
-        renderrect.y = pagerect.y;
-        renderrect.w = pagerect.w;
-        renderrect.h = pagerect.h;
-    }
-    else
-    {
-        renderrect.x = boundingRect.x();
-        renderrect.y = boundingRect.y();
-        renderrect.w = boundingRect.width();
-        renderrect.h = boundingRect.height();
-    }
-
-    QImage image(renderrect.w, renderrect.h, QImage::Format_RGB32);
-
-    int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
-
-    clear_message_queue(m_context, false);
-
-    ddjvu_page_release(page);
-    return ok == FALSE ? QImage() : image;
-}
-
-QList< Model::Link* > Model::DjVuPage::links() const
-{
-    return m_links;
+    return links;
 }
 
 Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :

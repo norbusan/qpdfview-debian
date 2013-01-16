@@ -50,7 +50,6 @@ public:
 
 private:
     DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_document_t* document, ddjvu_format_t* format, int index, const ddjvu_pageinfo_t& pageinfo);
-    void initializeLinks();
 
     mutable QMutex* m_mutex;
     ddjvu_context_t* m_context;
@@ -61,7 +60,6 @@ private:
     QSizeF m_size;
     int m_resolution;
 
-    QList< Link* > m_links;
 };
 
 class DjVuDocument : public Document
