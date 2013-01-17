@@ -1433,7 +1433,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_PDF
 
-    if(fileInfo.suffix() == "pdf")
+    if(fileInfo.suffix().toLower() == "pdf")
     {
         if(s_pdfDocumentLoader == 0)
         {
@@ -1462,7 +1462,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_PS
 
-    if(fileInfo.suffix() == "ps")
+    if(fileInfo.suffix().toLower() == "ps")
     {
         if(s_psDocumentLoader == 0)
         {
@@ -1492,7 +1492,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_DJVU
 
-    if(fileInfo.suffix() == "djvu" || fileInfo.suffix() == "djv")
+    if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
     {
         if(s_djvuDocumentLoader == 0)
         {
