@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PDFMODEL_H
 #define PDFMODEL_H
 
+#include <QHash>
 #include <QMutex>
 
 typedef struct ddjvu_context_s ddjvu_context_t;
@@ -49,12 +50,9 @@ public:
     QList< Link* > links() const;
 
 private:
-    DjVuPage(QMutex* mutex, ddjvu_context_t* context, ddjvu_document_t* document, ddjvu_format_t* format, int index, const ddjvu_pageinfo_t& pageinfo);
+    DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);
 
-    mutable QMutex* m_mutex;
-    ddjvu_context_t* m_context;
-    ddjvu_document_t* m_document;
-    ddjvu_format_t* m_format;
+    const class DjVuDocument* m_parent;
 
     int m_index;
     QSizeF m_size;
@@ -64,6 +62,7 @@ private:
 
 class DjVuDocument : public Document
 {
+    friend class DjVuPage;
     friend class DjVuDocumentLoader;
 
 public:
@@ -85,6 +84,8 @@ private:
     ddjvu_context_t* m_context;
     ddjvu_document_t* m_document;
     ddjvu_format_t* m_format;
+
+    QHash< QString, int > m_indexByName;
 
 };
 
