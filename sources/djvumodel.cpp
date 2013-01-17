@@ -343,9 +343,9 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
         if ( fileinfo.type != 'P' )
             continue;
 
-        m_indexByName[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno;
-        m_indexByName[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno;
         m_indexByName[ QString::fromUtf8( fileinfo.title ) ] = fileinfo.pageno;
+        m_indexByName[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno;
+        m_indexByName[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno;
     }
 }
 
