@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtConcurrentRun>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QShortcut>
 #include <QTimer>
 #include <QToolTip>
 
@@ -49,6 +50,9 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
+
     m_document = document;
 
     m_numberOfPages = m_document->numberOfPages();
@@ -64,6 +68,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     {
         PageItem* page = new PageItem(m_document->page(index), index);
 
+        page->setPresentationMode(true);
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         m_pagesScene->addItem(page);

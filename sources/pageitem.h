@@ -77,6 +77,9 @@ public:
     int index() const;
     const QSizeF& size() const;
 
+    bool presentationMode() const;
+    void setPresentationMode(bool presentationMode);
+
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights, int duration = 0);
 
@@ -154,6 +157,8 @@ private:
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
+
+    bool m_presentationMode;
 
     QList< QRectF > m_highlights;
 
