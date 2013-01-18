@@ -26,9 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStack>
 #include <QGraphicsView>
 
+#include "global.h"
+
 namespace Model
 {
-struct Link;
 class Document;
 }
 
@@ -47,6 +48,8 @@ public:
 
 signals:
     void currentPageChanged(int currentPage, bool returnTo = false);
+
+    void rotationChanged(Rotation rotation);
     
 public slots:
     void show();
@@ -57,6 +60,9 @@ public slots:
     void lastPage();
 
     void jumpToPage(int page, bool returnTo = true);
+
+    void rotateLeft();
+    void rotateRight();
 
 protected slots:
     void on_prefetch_timeout();
@@ -76,6 +82,8 @@ private:
 
     int m_numberOfPages;
     int m_currentPage;
+
+    Rotation m_rotation;
 
     QStack< int > m_returnToPage;
 

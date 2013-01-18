@@ -36,6 +36,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_document(0),
     m_numberOfPages(-1),
     m_currentPage(1),
+    m_rotation(RotateBy0),
     m_returnToPage(),
     m_pagesScene(0),
     m_pages()
@@ -87,7 +88,9 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_prefetchTimer->setSingleShot(true);
 
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
-    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(on_prefetch_timeout()));
+    connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
+
+    connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
     if(DocumentView::prefetch())
     {
@@ -161,6 +164,56 @@ void PresentationView::jumpToPage(int page, bool returnTo)
 
         emit currentPageChanged(m_currentPage, returnTo);
     }
+}
+
+void PresentationView::rotateLeft()
+{
+    switch(m_rotation)
+    {
+    default:
+    case RotateBy0:
+        m_rotation = RotateBy270;
+        break;
+    case RotateBy90:
+        m_rotation = RotateBy0;
+        break;
+    case RotateBy180:
+        m_rotation = RotateBy90;
+        break;
+    case RotateBy270:
+        m_rotation = RotateBy180;
+        break;
+    }
+
+    prepareScene();
+    prepareView();
+
+    emit rotationChanged(m_rotation);
+}
+
+void PresentationView::rotateRight()
+{
+    switch(m_rotation)
+    {
+    default:
+    case RotateBy0:
+        m_rotation = RotateBy90;
+        break;
+    case RotateBy90:
+        m_rotation = RotateBy180;
+        break;
+    case RotateBy180:
+        m_rotation = RotateBy270;
+        break;
+    case RotateBy270:
+        m_rotation = RotateBy0;
+        break;
+    }
+
+    prepareScene();
+    prepareView();
+
+    emit rotationChanged(m_rotation);
 }
 
 void PresentationView::on_prefetch_timeout()
@@ -250,7 +303,21 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == Qt::NoModifier)
+    if(event->modifiers() == DocumentView::rotateModifiers())
+    {
+        if(event->delta() > 0)
+        {
+            rotateLeft();
+        }
+        else
+        {
+            rotateRight();
+        }
+
+        event->accept();
+        return;
+    }
+    else if(event->modifiers() == Qt::NoModifier)
     {
         if(event->delta() > 0 && m_currentPage != 1)
         {
@@ -281,12 +348,28 @@ void PresentationView::prepareScene()
         qreal visibleWidth = viewport()->width();
         qreal visibleHeight = viewport()->height();
 
-        qreal pageWidth = physicalDpiX() / 72.0 * size.width();
-        qreal pageHeight = physicalDpiY() / 72.0 * size.height();
+        qreal pageWidth = 0.0;
+        qreal pageHeight = 0.0;
+
+        switch(m_rotation)
+        {
+        default:
+        case RotateBy0:
+        case RotateBy180:
+            pageWidth = physicalDpiX() / 72.0 * size.width();
+            pageHeight = physicalDpiY() / 72.0 * size.height();
+            break;
+        case RotateBy90:
+        case RotateBy270:
+            pageWidth = physicalDpiX() / 72.0 * size.height();
+            pageHeight = physicalDpiY() / 72.0 * size.width();
+            break;
+        }
 
         qreal scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
 
         page->setScaleFactor(scaleFactor);
+        page->setRotation(m_rotation);
     }
 }
 
@@ -299,6 +382,8 @@ void PresentationView::prepareView()
         if(index == m_currentPage - 1)
         {
             page->setVisible(true);
+
+            setSceneRect(page->boundingRect().translated(page->pos()));
         }
         else
         {
