@@ -522,7 +522,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
                     return;
                 }
-                else if(!link->url.isNull())
+                else if(!link->url.isNull() && !m_presentationMode)
                 {
                     setCursor(Qt::PointingHandCursor);
                     QToolTip::showText(event->screenPos(), tr("Open %1.").arg(link->url));
@@ -614,7 +614,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     event->accept();
                     return;
                 }
-                else if(!link->url.isNull())
+                else if(!link->url.isNull() && !m_presentationMode)
                 {
                     emit linkClicked(link->url);
 
