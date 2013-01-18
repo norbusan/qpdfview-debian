@@ -1627,6 +1627,8 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
     return 0;
 }
 
+#ifdef WITH_CUPS
+
 bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions)
 {
     int num_dests = 0;
@@ -1814,6 +1816,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
     return jobId >= 1;
 }
+
+#endif // WITH_CUPS
 
 bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions)
 {
