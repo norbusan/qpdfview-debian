@@ -74,6 +74,9 @@ public:
     static bool prefetch();
     static void setPrefetch(bool prefetch);
 
+    static int prefetchDistance();
+    static void setPrefetchDistance(int prefetchDistance);
+
     static int pagesPerRow();
     static void setPagesPerRow(int pagesPerRow);
 
@@ -232,6 +235,7 @@ private:
     static bool s_overprintPreview;
 
     static bool s_prefetch;
+    static int s_prefetchDistance;
 
     static int s_pagesPerRow;
 

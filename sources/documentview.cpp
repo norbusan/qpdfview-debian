@@ -69,6 +69,7 @@ bool DocumentView::s_textHinting = false;
 bool DocumentView::s_overprintPreview = false;
 
 bool DocumentView::s_prefetch = false;
+int DocumentView::s_prefetchDistance = 1;
 
 int DocumentView::s_pagesPerRow = 3;
 
@@ -161,6 +162,19 @@ bool DocumentView::prefetch()
 void DocumentView::setPrefetch(bool prefetch)
 {
     s_prefetch = prefetch;
+}
+
+int DocumentView::prefetchDistance()
+{
+    return s_prefetchDistance;
+}
+
+void DocumentView::setPrefetchDistance(int prefetchDistance)
+{
+    if(prefetchDistance >= 1)
+    {
+        s_prefetchDistance = prefetchDistance;
+    }
 }
 
 int DocumentView::pagesPerRow()
@@ -1081,17 +1095,17 @@ void DocumentView::on_prefetch_timeout()
     {
     default:
     case SinglePageMode:
-        fromPage -= 1;
-        toPage += 1;
+        fromPage -= s_prefetchDistance;
+        toPage += s_prefetchDistance;
         break;
     case TwoPagesMode:
     case TwoPagesWithCoverPageMode:
-        fromPage -= 2;
-        toPage += 3;
+        fromPage -= 2 * s_prefetchDistance;
+        toPage += 2 * s_prefetchDistance + 1;
         break;
     case MultiplePagesMode:
-        fromPage -= s_pagesPerRow;
-        toPage += 2 * s_pagesPerRow - 1;
+        fromPage -= s_pagesPerRow * s_prefetchDistance;
+        toPage += s_pagesPerRow * (s_prefetchDistance + 1) - 1;
         break;
     }
 
