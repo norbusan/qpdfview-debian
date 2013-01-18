@@ -25,9 +25,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 #include <QFile>
-#include <QImage>
 #include <qmath.h>
 #include <QStringList>
+#include <QStandardItemModel>
 
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
@@ -417,7 +417,7 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 
     ddjvu_job_t* job = ddjvu_document_save(m_document, file, 0, 0);
 
-    while (!ddjvu_job_done(job))
+    while(!ddjvu_job_done(job))
     {
         clear_message_queue(m_context, true);
     }
@@ -425,6 +425,66 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
     fclose(file);
 
     return !ddjvu_job_error(job);
+}
+
+void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    propertiesModel->clear();
+    propertiesModel->setColumnCount(2);
+
+    miniexp_t annoExp;
+
+    while(true)
+    {
+        annoExp = ddjvu_document_get_anno(m_document, TRUE);
+
+        if(annoExp == miniexp_dummy)
+        {
+            clear_message_queue(m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if(!miniexp_listp(annoExp) || miniexp_length(annoExp) == 0)
+    {
+        return;
+    }
+
+    miniexp_t listExp = miniexp_nth(0, annoExp);
+    int length = miniexp_length(listExp);
+
+    if(length <= 1)
+    {
+        return;
+    }
+
+    if(qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
+    {
+        return;
+    }
+
+    for(int n = 1; n < length; ++n)
+    {
+        miniexp_t keyValueExp = miniexp_nth(n, listExp);
+
+        if(miniexp_length(keyValueExp) != 2)
+        {
+            continue;
+        }
+
+        QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
+        QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
+
+        if(!key.isEmpty() && !value.isEmpty())
+        {
+            propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+        }
+    }
 }
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)

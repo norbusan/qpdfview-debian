@@ -77,6 +77,8 @@ public:
     bool canSave() const;
     bool save(const QString& filePath, bool withChanges) const;
 
+    void loadProperties(QStandardItemModel* propertiesModel) const;
+
 private:
     DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
 
