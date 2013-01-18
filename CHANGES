@@ -1,8 +1,10 @@
 Release 0.4:
   * Added support for multiple formats.
+  * Added format detection using libmagic.
   * Added support for PostScript. Thanks to Alexander Volkov.
   * Added rudimentary support for DjVu.
   * Added support for hyperlinks in DjVu documents. Thanks to Alexander Volkov.
+  * Added support for properties of DjVu documents.
   * Added support for UNIX signals.
   * Dropped support for storing tabs and bookmarks as XML files.
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
