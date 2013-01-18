@@ -443,7 +443,8 @@ QStringList DocumentView::openFilter()
 #ifdef WITH_PS
 
     openFilter.append("PostScript (*.ps)");
-    supportedFormats.append("*.ps");
+    openFilter.append("Encapsulated PostScript (*.eps)");
+    supportedFormats.append("*.ps *.eps");
 
 #endif // WITH_PS
 

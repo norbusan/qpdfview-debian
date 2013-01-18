@@ -163,7 +163,16 @@ Model::Page* Model::PSDocument::page(int index) const
 
 QStringList Model::PSDocument::saveFilter() const
 {
-    return QStringList() << "PostScript (*.ps)";
+    QMutexLocker mutexLocker(&m_mutex);
+
+    if(spectre_document_is_eps(m_document))
+    {
+        return QStringList() << "Encapsulated PostScript (*.eps)";
+    }
+    else
+    {
+        return QStringList() << "PostScript (*.ps)";
+    }
 }
 
 bool Model::PSDocument::canSave() const
