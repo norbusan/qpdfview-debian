@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
 
-static void clear_message_queue(ddjvu_context_t* context, bool wait)
+static void clearMessageQueue(ddjvu_context_t* context, bool wait)
 {
     if(wait)
     {
@@ -52,7 +52,7 @@ static void clear_message_queue(ddjvu_context_t* context, bool wait)
     }
 }
 
-static void wait_for_message_tag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
+static void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
 {
     ddjvu_message_wait(context);
 
@@ -111,7 +111,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
         if(status < DDJVU_JOB_OK)
         {
-            clear_message_queue(m_parent->m_context, true);
+            clearMessageQueue(m_parent->m_context, true);
         }
         else
         {
@@ -187,7 +187,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_parent->m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
 
-    clear_message_queue(m_parent->m_context, false);
+    clearMessageQueue(m_parent->m_context, false);
 
     ddjvu_page_release(page);
     return ok == FALSE ? QImage() : image;
@@ -199,7 +199,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
     miniexp_t annots;
     while ( ( annots = ddjvu_document_get_pageanno( m_parent->m_document, m_index ) ) == miniexp_dummy )
-        clear_message_queue( m_parent->m_context, true );
+        clearMessageQueue( m_parent->m_context, true );
 
     if ( !miniexp_listp( annots ) )
         return links;
@@ -332,20 +332,23 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
 
-    ddjvu_fileinfo_t fileinfo;
+    int fileNum = ddjvu_document_get_filenum(m_document);
 
-    const int fileNum = ddjvu_document_get_filenum( m_document );
-
-    for ( int i = 0; i < fileNum; ++i )
+    for(int index = 0; index < fileNum; ++index)
     {
-        if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &fileinfo ) )
-            continue;
-        if ( fileinfo.type != 'P' )
-            continue;
+        ddjvu_fileinfo_t fileinfo;
 
-        m_indexByName[ QString::fromUtf8( fileinfo.title ) ] = fileinfo.pageno;
-        m_indexByName[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno;
-        m_indexByName[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno;
+        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK)
+        {
+            continue;
+        }
+
+        if(fileinfo.type != 'P')
+        {
+            continue;
+        }
+
+        m_indexByName[QString::fromUtf8(fileinfo.id)] = m_indexByName[QString::fromUtf8(fileinfo.name)] = m_indexByName[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno;
     }
 }
 
@@ -376,7 +379,7 @@ Model::Page* Model::DjVuDocument::page(int index) const
 
         if(status < DDJVU_JOB_OK)
         {
-            clear_message_queue(m_context, true);
+            clearMessageQueue(m_context, true);
         }
         else
         {
@@ -419,7 +422,7 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 
     while(!ddjvu_job_done(job))
     {
-        clear_message_queue(m_context, true);
+        clearMessageQueue(m_context, true);
     }
 
     fclose(file);
@@ -442,7 +445,7 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
 
         if(annoExp == miniexp_dummy)
         {
-            clear_message_queue(m_context, true);
+            clearMessageQueue(m_context, true);
         }
         else
         {
@@ -455,34 +458,36 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
         return;
     }
 
-    miniexp_t listExp = miniexp_nth(0, annoExp);
-    int length = miniexp_length(listExp);
-
-    if(length <= 1)
+    for(int annoN = 0; annoN < miniexp_length(annoExp); ++annoN)
     {
-        return;
-    }
+        miniexp_t listExp = miniexp_nth(annoN, annoExp);
 
-    if(qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
-    {
-        return;
-    }
-
-    for(int n = 1; n < length; ++n)
-    {
-        miniexp_t keyValueExp = miniexp_nth(n, listExp);
-
-        if(miniexp_length(keyValueExp) != 2)
+        if(miniexp_length(listExp) <= 1)
         {
             continue;
         }
 
-        QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
-        QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
-
-        if(!key.isEmpty() && !value.isEmpty())
+        if(qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
         {
-            propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+            continue;
+        }
+
+        for(int listN = 0; listN < miniexp_length(listExp); ++listN)
+        {
+            miniexp_t keyValueExp = miniexp_nth(listN, listExp);
+
+            if(miniexp_length(keyValueExp) != 2)
+            {
+                continue;
+            }
+
+            QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
+            QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
+
+            if(!key.isEmpty() && !value.isEmpty())
+            {
+                propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+            }
         }
     }
 }
@@ -503,7 +508,7 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
         return 0;
     }
 
-    wait_for_message_tag(context, DDJVU_DOCINFO);
+    waitForMessageTag(context, DDJVU_DOCINFO);
 
     if(ddjvu_document_decoding_error(document))
     {
