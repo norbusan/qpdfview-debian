@@ -24,45 +24,89 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtConcurrentRun>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QTimer>
 #include <QToolTip>
 
 #include "model.h"
 #include "pageitem.h"
+#include "documentview.h"
 
-PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QWidget(parent),
+PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QGraphicsView(parent),
+    m_prefetchTimer(0),
     m_document(0),
     m_numberOfPages(-1),
     m_currentPage(1),
     m_returnToPage(),
-    m_links(),
-    m_scaleFactor(1.0),
-    m_normalizedTransform(),
-    m_boundingRect(),
-    m_image(),
-    m_render(0)
+    m_pagesScene(0),
+    m_pages()
 {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
-    setMouseTracking(true);
 
-    m_render = new QFutureWatcher< void >(this);
-    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+    setAcceptDrops(false);
 
-    connect(this, SIGNAL(imageReady(int,qreal,QImage)), SLOT(on_imageReady(int,qreal,QImage)));
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     m_document = document;
 
     m_numberOfPages = m_document->numberOfPages();
 
+    // pages
+
+    m_pagesScene = new QGraphicsScene(this);
+    setScene(m_pagesScene);
+
+    m_pages.reserve(m_numberOfPages);
+
+    for(int index = 0; index < m_numberOfPages; ++index)
+    {
+        PageItem* page = new PageItem(m_document->page(index), index);
+
+        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+
+        m_pagesScene->addItem(page);
+        m_pages.append(page);
+
+        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
+    }
+
+    QColor backgroundColor = backgroundColor = PageItem::paperColor();
+
+    if(PageItem::invertColors())
+    {
+        backgroundColor.setRgb(~backgroundColor.rgb());
+    }
+
+    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+
+    // prefetch
+
+    m_prefetchTimer = new QTimer(this);
+    m_prefetchTimer->setInterval(250);
+    m_prefetchTimer->setSingleShot(true);
+
+    connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(m_prefetchTimer, SIGNAL(timeout()), this, SLOT(on_prefetch_timeout()));
+
+    if(DocumentView::prefetch())
+    {
+        m_prefetchTimer->blockSignals(false);
+        m_prefetchTimer->start();
+    }
+    else
+    {
+        m_prefetchTimer->blockSignals(true);
+        m_prefetchTimer->stop();
+    }
+
+    prepareScene();
     prepareView();
 }
 
 PresentationView::~PresentationView()
 {
-    m_render->cancel();
-    m_render->waitForFinished();
-
-    qDeleteAll(m_links);
+    qDeleteAll(m_pages);
 }
 
 int PresentationView::numberOfPages() const
@@ -119,65 +163,39 @@ void PresentationView::jumpToPage(int page, bool returnTo)
     }
 }
 
-void PresentationView::startRender()
+void PresentationView::on_prefetch_timeout()
 {
-    if(!m_render->isRunning())
+    int fromPage = m_currentPage, toPage = m_currentPage;
+
+    fromPage -= DocumentView::prefetchDistance();
+    toPage += DocumentView::prefetchDistance();
+
+    fromPage = fromPage >= 1 ? fromPage : 1;
+    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+
+    for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_render->setFuture(QtConcurrent::run(this, &PresentationView::render, m_currentPage - 1, m_scaleFactor));
+        m_pages.at(index)->startRender(true);
     }
 }
 
-void PresentationView::cancelRender()
+void PresentationView::on_pages_linkClicked(int page, qreal left, qreal top)
 {
-    m_render->cancel();
+    Q_UNUSED(left);
+    Q_UNUSED(top);
 
-    m_image = QImage();
+    page = page >= 1 ? page : 1;
+    page = page <= m_numberOfPages ? page : m_numberOfPages;
+
+    jumpToPage(page, true);
 }
 
-void PresentationView::on_render_finished()
+void PresentationView::resizeEvent(QResizeEvent* event)
 {
-    update();
-}
+    QGraphicsView::resizeEvent(event);
 
-void PresentationView::on_imageReady(int index, qreal scaleFactor, QImage image)
-{
-    if(m_currentPage - 1 != index || !qFuzzyCompare(m_scaleFactor, scaleFactor))
-    {
-        return;
-    }
-
-    if(!m_render->isCanceled())
-    {
-        m_image = image;
-    }
-}
-
-void PresentationView::resizeEvent(QResizeEvent*)
-{
+    prepareScene();
     prepareView();
-}
-
-void PresentationView::paintEvent(QPaintEvent*)
-{
-    QPainter painter(this);
-
-    QColor backgroundColor = PageItem::paperColor();
-
-    if(PageItem::invertColors())
-    {
-        backgroundColor.setRgb(~backgroundColor.rgb());
-    }
-
-    painter.fillRect(rect(), QBrush(backgroundColor));
-
-    if(!m_image.isNull())
-    {
-        painter.drawImage(m_boundingRect.topLeft(), m_image);
-    }
-    else
-    {
-        startRender();
-    }
 }
 
 void PresentationView::keyPressEvent(QKeyEvent* event)
@@ -230,103 +248,66 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
     QWidget::keyPressEvent(event);
 }
 
-void PresentationView::mousePressEvent(QMouseEvent* event)
+void PresentationView::wheelEvent(QWheelEvent* event)
 {
-    foreach(Model::Link* link, m_links)
+    if(event->modifiers() == Qt::NoModifier)
     {
-        if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
+        if(event->delta() > 0 && m_currentPage != 1)
         {
-            if(link->page != -1)
-            {
-                jumpToPage(link->page);
+            previousPage();
 
-                event->accept();
-                return;
-            }
+            event->accept();
+            return;
+        }
+        else if(event->delta() < 0 && m_currentPage != m_numberOfPages)
+        {
+            nextPage();
+
+            event->accept();
+            return;
         }
     }
 
-    QWidget::mousePressEvent(event);
+    QGraphicsView::wheelEvent(event);
 }
 
-void PresentationView::mouseMoveEvent(QMouseEvent* event)
+void PresentationView::prepareScene()
 {
-    foreach(Model::Link* link, m_links)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
-        if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
-        {
-            if(link->page != -1)
-            {
-                setCursor(Qt::PointingHandCursor);
-                QToolTip::showText(event->globalPos(), tr("Go to page %1.").arg(link->page));
+        PageItem* page = m_pages.at(index);
+        QSizeF size = page->size();
 
-                return;
-            }
-        }
+        qreal visibleWidth = viewport()->width();
+        qreal visibleHeight = viewport()->height();
+
+        qreal pageWidth = physicalDpiX() / 72.0 * size.width();
+        qreal pageHeight = physicalDpiY() / 72.0 * size.height();
+
+        qreal scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
+
+        page->setScaleFactor(scaleFactor);
     }
-
-    unsetCursor();
-    QToolTip::hideText();
 }
 
 void PresentationView::prepareView()
 {
-    Model::Page* page = m_document->page(m_currentPage - 1);
-
-    QSizeF size = page->size();
-
-    qDeleteAll(m_links);
-
-    m_links = page->links();
-
-    delete page;
-
+    for(int index = 0; index < m_pages.count(); ++index)
     {
-        m_scaleFactor = qMin(width() / size.width(), height() / size.height());
+        PageItem* page = m_pages.at(index);
 
-        m_boundingRect.setLeft(0.5 * (width() - m_scaleFactor * size.width()));
-        m_boundingRect.setTop(0.5 * (height() - m_scaleFactor * size.height()));
-        m_boundingRect.setWidth(m_scaleFactor * size.width());
-        m_boundingRect.setHeight(m_scaleFactor * size.height());
+        if(index == m_currentPage - 1)
+        {
+            page->setVisible(true);
+        }
+        else
+        {
+            page->setVisible(false);
 
-        m_normalizedTransform.reset();
-        m_normalizedTransform.translate(m_boundingRect.left(), m_boundingRect.top());
-        m_normalizedTransform.scale(m_boundingRect.width(), m_boundingRect.height());
+            page->cancelRender();
+        }
+
     }
 
-    cancelRender();
-
-    update();
-}
-
-void PresentationView::render(int index, qreal scaleFactor)
-{
-    if(m_render->isCanceled())
-    {
-        return;
-    }
-
-    Model::Page* page = m_document->page(index);
-
-    QImage image = page->render(72.0 * scaleFactor, 72.0 * scaleFactor);
-
-    delete page;
-
-    if(m_render->isCanceled())
-    {
-        return;
-    }
-
-    if(image.isNull())
-    {
-        image = QImage(1, 1, QImage::Format_Mono);
-        image.fill(Qt::color0);
-    }
-
-    if(PageItem::invertColors())
-    {
-        image.invertPixels();
-    }
-
-    emit imageReady(index, scaleFactor, image);
+    viewport()->update();
 }

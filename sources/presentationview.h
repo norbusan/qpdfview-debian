@@ -24,7 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFutureWatcher>
 #include <QStack>
-#include <QWidget>
+#include <QGraphicsView>
 
 namespace Model
 {
@@ -32,7 +32,9 @@ struct Link;
 class Document;
 }
 
-class PresentationView : public QWidget
+class PageItem;
+
+class PresentationView : public QGraphicsView
 {
     Q_OBJECT
 
@@ -45,8 +47,6 @@ public:
 
 signals:
     void currentPageChanged(int currentPage, bool returnTo = false);
-
-    void imageReady(int index, qreal scaleFactor, QImage image);
     
 public slots:
     void show();
@@ -58,23 +58,20 @@ public slots:
 
     void jumpToPage(int page, bool returnTo = true);
 
-    void startRender();
-    void cancelRender();
-
 protected slots:
-    void on_render_finished();
-    void on_imageReady(int index, qreal scaleFactor, QImage image);
+    void on_prefetch_timeout();
+
+    void on_pages_linkClicked(int page, qreal left, qreal top);
 
 protected:
-    void resizeEvent(QResizeEvent*);
-    void paintEvent(QPaintEvent*);
+    void resizeEvent(QResizeEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
-
-    void mousePressEvent(QMouseEvent* event);
-    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent* event);
 
 private:
+    QTimer* m_prefetchTimer;
+
     Model::Document* m_document;
 
     int m_numberOfPages;
@@ -82,21 +79,11 @@ private:
 
     QStack< int > m_returnToPage;
 
-    QList< Model::Link* > m_links;
+    QGraphicsScene* m_pagesScene;
+    QVector< PageItem* > m_pages;
 
-    qreal m_scaleFactor;
-
-    QTransform m_normalizedTransform;
-    QRectF m_boundingRect;
-
-    QImage m_image;
-
+    void prepareScene();
     void prepareView();
-
-    // render
-
-    QFutureWatcher< void >* m_render;
-    void render(int index, qreal scaleFactor);
     
 };
 
