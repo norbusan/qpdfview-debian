@@ -329,6 +329,35 @@ Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
     Poppler::Annotation::Popup popup;
     popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
 
+    Poppler::Annotation* annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+    annotation->setPopup(popup);
+
+    m_page->addAnnotation(annotation);
+
+    return new PDFAnnotation(m_mutex, annotation);
+
+#else
+
+    Q_UNUSED(boundary);
+
+    return 0;
+
+#endif // HAS_POPPLER_20
+}
+
+Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary)
+{
+#ifdef HAS_POPPLER_20
+
+    Poppler::Annotation::Style style;
+    style.setColor(Qt::yellow);
+
+    Poppler::Annotation::Popup popup;
+    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
     Poppler::HighlightAnnotation* annotation = new Poppler::HighlightAnnotation();
 
     Poppler::HighlightAnnotation::Quad quad;
@@ -355,35 +384,6 @@ Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 
 #endif // HAS_POPPLER_20
 
-}
-
-Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary)
-{
-#ifdef HAS_POPPLER_20
-
-    Poppler::Annotation::Style style;
-    style.setColor(Qt::yellow);
-
-    Poppler::Annotation::Popup popup;
-    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
-
-    Poppler::Annotation* annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
-
-    annotation->setBoundary(boundary);
-    annotation->setStyle(style);
-    annotation->setPopup(popup);
-
-    m_page->addAnnotation(annotation);
-
-    return new PDFAnnotation(m_mutex, annotation);
-
-#else
-
-    Q_UNUSED(boundary);
-
-    return 0;
-
-#endif // HAS_POPPLER_20
 }
 
 void Model::PDFPage::removeAnnotation(Annotation* annotation)
