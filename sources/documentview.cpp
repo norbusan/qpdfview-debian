@@ -41,6 +41,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QUrl>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+#include <QMimeDatabase>
+
+#endif // QT_VERSION
+
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
@@ -1437,6 +1443,30 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 {
     enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = UnknownType;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QMimeDatabase mimeDatabase;
+    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath);
+
+    if(mimeType.name() == "application/pdf")
+    {
+        fileType = PDF;
+    }
+    else if(mimeType.name() == "application/postscript")
+    {
+        fileType = PS;
+    }
+    else if(mimeType.name() == "image/vnd.djvu")
+    {
+        fileType = DjVu;
+    }
+    else
+    {
+        qDebug() << "Unknown file type:" << mimeType.name();
+    }
+
+#else
+
 #ifdef WITH_MAGIC
 
     magic_t cookie = magic_open(MAGIC_MIME_TYPE);
@@ -1487,6 +1517,8 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
     }
 
 #endif // WITH_MAGIC
+
+#endif // QT_VERSION
 
 #ifdef WITH_PDF
 
