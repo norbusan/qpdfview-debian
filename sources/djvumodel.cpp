@@ -5,6 +5,8 @@ Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
 
+The implementation is based on KDjVu by Pino Toscano.
+
 qpdfview is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -430,6 +432,103 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
+static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
+{
+    for(int outlineN = qMax(0, offset); outlineN < miniexp_length(outlineExp); ++outlineN)
+    {
+        miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
+
+        if(miniexp_length(bookmarkExp) < 2)
+        {
+            continue;
+        }
+
+        if(!miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
+        {
+            continue;
+        }
+
+        QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
+        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
+
+        if(!title.isEmpty() && !destination.isEmpty())
+        {
+            if(destination.at(0) == QLatin1Char('#'))
+            {
+                destination.remove(0,1);
+
+                bool ok = false;
+                int destinationPage = destination.toInt(&ok);
+
+                if(!ok)
+                {
+                    if(indexByName.contains(destination))
+                    {
+                        destinationPage = indexByName[destination] + 1;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                QStandardItem* item = new QStandardItem();
+
+                item->setFlags(Qt::ItemIsEnabled);
+
+                item->setText(title);
+                item->setToolTip(title);
+
+                item->setData(destinationPage, Qt::UserRole + 1);
+
+                parent->appendRow(item);
+
+                if(miniexp_length(bookmarkExp) > 2)
+                {
+                    loadOutline(bookmarkExp, 2, item, indexByName);
+                }
+            }
+        }
+    }
+}
+
+void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    outlineModel->clear();
+
+    miniexp_t outlineExp;
+
+    while(true)
+    {
+        outlineExp = ddjvu_document_get_outline(m_document);
+
+        if(outlineExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if(miniexp_length(outlineExp) <= 1)
+    {
+        return;
+    }
+
+    if(qstrncmp(miniexp_to_name(miniexp_nth(0, outlineExp)), "bookmarks", 77) != 0)
+    {
+        return;
+    }
+
+    ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
+
+    ddjvu_miniexp_release(m_document, outlineExp);
+}
+
 void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     QMutexLocker mutexLocker(&m_mutex);
@@ -485,6 +584,8 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
             }
         }
     }
+
+    ddjvu_miniexp_release(m_document, annoExp);
 }
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)

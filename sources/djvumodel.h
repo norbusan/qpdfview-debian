@@ -5,6 +5,8 @@ Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
 
+The implementation is based on KDjVu by Pino Toscano.
+
 qpdfview is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -77,6 +79,7 @@ public:
     bool canSave() const;
     bool save(const QString& filePath, bool withChanges) const;
 
+    void loadOutline(QStandardItemModel* outlineModel) const;
     void loadProperties(QStandardItemModel* propertiesModel) const;
 
 private:
