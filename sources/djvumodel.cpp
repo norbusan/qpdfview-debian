@@ -453,11 +453,6 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
         }
     }
 
-    if(!miniexp_listp(annoExp) || miniexp_length(annoExp) == 0)
-    {
-        return;
-    }
-
     for(int annoN = 0; annoN < miniexp_length(annoExp); ++annoN)
     {
         miniexp_t listExp = miniexp_nth(annoN, annoExp);
@@ -472,7 +467,7 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
             continue;
         }
 
-        for(int listN = 0; listN < miniexp_length(listExp); ++listN)
+        for(int listN = 1; listN < miniexp_length(listExp); ++listN)
         {
             miniexp_t keyValueExp = miniexp_nth(listN, listExp);
 
