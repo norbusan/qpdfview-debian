@@ -2,7 +2,7 @@ qpdfview is a tabbed PDF viewer using the Poppler library.
 
 The project homepage is "https://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
-It depends on libQtCore, libQtGui. It also depends on libQtSvg, libQtSql, libQtDBus, libcups resp. libz if SVG, SQL, D-Bus, CUPS resp. SyncTeX support is enabled. The PDF plug-in depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. The PS plug-in depends on libQtCore, libQtGui and libspectre. The DjVu plug-in depends on libQtCore, libQtGui and libdjvulibre.
+It depends on libQtCore, libQtGui. It also depends on libQtSvg, libQtSql, libQtDBus, libcups, resp. libz if SVG, SQL, D-Bus, CUPS, resp. SyncTeX support is enabled. It also depends on libmagic if Qt version 4 is used and libmagic support is enabled. The PDF plug-in depends on libQtCore, libQtXml, libQtGui and libpoppler-qt4. The PS plug-in depends on libQtCore, libQtGui and libspectre. The DjVu plug-in depends on libQtCore, libQtGui and libdjvulibre.
 
 It is built using "qmake qpdfview.pro" and "make". It is installed using "make install". The installation paths are defined in "qpdfview.pri".
 
@@ -19,6 +19,7 @@ The following build-time options are available:
     * 'static_djvu_plugin' links the DjVu plug-in statically. (This could lead to linker dependency collisions.)
     * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file.
     * 'without_synctex' disables SyncTeX support, i.e. the program will not perform forward and inverse search for sources.
+    * 'without_magic' disables libmagic support, i.e. the program will determine file type using the file suffix.
     * 'without_signals' disabled support for UNIX signals, i.e. the program will not save bookmarks, tabs and per-file settings on receiving SIGINT or SIGTERM.
 
 The fallback and application-specific icons are from the tango icon theme available at "http://tango.freedesktop.org".

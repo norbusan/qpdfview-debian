@@ -138,6 +138,11 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
 }
 
+lessThan(QT_MAJOR_VERSION, 5) : !without_magic {
+    DEFINES += WITH_MAGIC
+    LIBS += -lmagic
+}
+
 !without_signals {
     DEFINES += WITH_SIGNALS
 

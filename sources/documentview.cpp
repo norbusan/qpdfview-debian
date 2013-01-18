@@ -41,6 +41,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QUrl>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+#include <QMimeDatabase>
+
+#endif // QT_VERSION
+
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
@@ -52,6 +58,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <synctex_parser.h>
 
 #endif // WITH_SYNCTEX
+
+#ifdef WITH_MAGIC
+
+#include <magic.h>
+
+#endif // WITH_MAGIC
 
 #include "model.h"
 #include "pageitem.h"
@@ -431,7 +443,8 @@ QStringList DocumentView::openFilter()
 #ifdef WITH_PS
 
     openFilter.append("PostScript (*.ps)");
-    supportedFormats.append("*.ps");
+    openFilter.append("Encapsulated PostScript (*.eps)");
+    supportedFormats.append("*.ps *.eps");
 
 #endif // WITH_PS
 
@@ -1443,11 +1456,88 @@ Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
 
 Model::Document* DocumentView::loadDocument(const QString& filePath)
 {
+    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = UnknownType;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QMimeDatabase mimeDatabase;
+    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath);
+
+    if(mimeType.name() == "application/pdf")
+    {
+        fileType = PDF;
+    }
+    else if(mimeType.name() == "application/postscript")
+    {
+        fileType = PS;
+    }
+    else if(mimeType.name() == "image/vnd.djvu")
+    {
+        fileType = DjVu;
+    }
+    else
+    {
+        qDebug() << "Unknown file type:" << mimeType.name();
+    }
+
+#else
+
+#ifdef WITH_MAGIC
+
+    magic_t cookie = magic_open(MAGIC_MIME_TYPE);
+
+    if(magic_load(cookie, 0) == 0)
+    {
+        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
+
+        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
+        {
+            fileType = PDF;
+        }
+        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
+        {
+            fileType = PS;
+        }
+        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
+        {
+            fileType = DjVu;
+        }
+        else
+        {
+            qDebug() << "Unknown file type:" << mime_type;
+        }
+    }
+
+    magic_close(cookie);
+
+#else
+
     QFileInfo fileInfo(filePath);
+
+    if(fileInfo.suffix().toLower() == "pdf")
+    {
+        fileType = PDF;
+    }
+    else if(fileInfo.suffix().toLower() == "ps")
+    {
+        fileType = PS;
+    }
+    else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
+    {
+        fileType = DjVu;
+    }
+    else
+    {
+        qDebug() << "Unkown file type:" << fileInfo.suffix().toLower();
+    }
+
+#endif // WITH_MAGIC
+
+#endif // QT_VERSION
 
 #ifdef WITH_PDF
 
-    if(fileInfo.suffix().toLower() == "pdf")
+    if(fileType == PDF)
     {
         if(s_pdfDocumentLoader == 0)
         {
@@ -1476,7 +1566,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_PS
 
-    if(fileInfo.suffix().toLower() == "ps")
+    if(fileType == PS)
     {
         if(s_psDocumentLoader == 0)
         {
@@ -1506,7 +1596,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_DJVU
 
-    if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
+    if(fileType == DjVu)
     {
         if(s_djvuDocumentLoader == 0)
         {
@@ -1536,6 +1626,8 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
     return 0;
 }
+
+#ifdef WITH_CUPS
 
 bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions)
 {
@@ -1724,6 +1816,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
     return jobId >= 1;
 }
+
+#endif // WITH_CUPS
 
 bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions)
 {

@@ -275,7 +275,12 @@ private:
     int m_numberOfPages;
     int m_currentPage;
 
+#ifdef WITH_CUPS
+
     bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions);
+
+#endif // WITH_CUPS
+
     bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
 
     QStack< int > m_returnToPage;

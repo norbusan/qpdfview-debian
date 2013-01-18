@@ -5,6 +5,8 @@ Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
 
+The implementation is based on KDjVu by Pino Toscano.
+
 qpdfview is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -25,14 +27,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 #include <QFile>
-#include <QImage>
 #include <qmath.h>
 #include <QStringList>
+#include <QStandardItemModel>
 
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
 
-static void clear_message_queue(ddjvu_context_t* context, bool wait)
+static void clearMessageQueue(ddjvu_context_t* context, bool wait)
 {
     if(wait)
     {
@@ -52,7 +54,7 @@ static void clear_message_queue(ddjvu_context_t* context, bool wait)
     }
 }
 
-static void wait_for_message_tag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
+static void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
 {
     ddjvu_message_wait(context);
 
@@ -111,7 +113,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
         if(status < DDJVU_JOB_OK)
         {
-            clear_message_queue(m_parent->m_context, true);
+            clearMessageQueue(m_parent->m_context, true);
         }
         else
         {
@@ -187,7 +189,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_parent->m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
 
-    clear_message_queue(m_parent->m_context, false);
+    clearMessageQueue(m_parent->m_context, false);
 
     ddjvu_page_release(page);
     return ok == FALSE ? QImage() : image;
@@ -195,104 +197,131 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
 QList< Model::Link* > Model::DjVuPage::links() const
 {
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
     QList< Link* > links;
 
-    miniexp_t annots;
-    while ( ( annots = ddjvu_document_get_pageanno( m_parent->m_document, m_index ) ) == miniexp_dummy )
-        clear_message_queue( m_parent->m_context, true );
+    miniexp_t pageAnnoExp;
 
-    if ( !miniexp_listp( annots ) )
-        return links;
-
-    int l = miniexp_length( annots );
-
-    for ( int i = 0; i < l; ++i )
+    while(true)
     {
-        miniexp_t cur = miniexp_nth( i, annots );
-        int num = miniexp_length( cur );
-        if ( ( num < 4 ) || !miniexp_symbolp( miniexp_nth( 0, cur ) ) ||
-             ( qstrncmp( miniexp_to_name( miniexp_nth( 0, cur ) ), "maparea", 7 ) != 0 ) )
+        pageAnnoExp = ddjvu_document_get_pageanno(m_parent->m_document, m_index);
+
+        if(pageAnnoExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_parent->m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    int pageAnnoExpLength = miniexp_length(pageAnnoExp);
+
+    for(int pageAnnoN = 0; pageAnnoN < pageAnnoExpLength; ++pageAnnoN)
+    {
+        miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
+
+        if(miniexp_length(linkExp) <= 3)
+        {
             continue;
+        }
+
+        if(qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0)
+        {
+            continue;
+        }
 
         QString type;
 
-        if ( miniexp_symbolp( miniexp_nth( 0, miniexp_nth( 3, cur ) ) ) )
-            type = QString::fromUtf8( miniexp_to_name( miniexp_nth( 0, miniexp_nth( 3, cur ) ) ) );
-
-        if ( type == QLatin1String( "rect" ) ||
-             type == QLatin1String( "oval" ) ||
-             type == QLatin1String( "poly" ) )
+        if(miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
         {
-            QPainterPath linkBoundary;
+            type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
+        }
 
-            miniexp_t area = miniexp_nth( 3, cur );
-            int arealength = miniexp_length( area );
-            if ( ( arealength == 5 ) && ( type == QLatin1String( "rect" ) || type == QLatin1String( "oval" ) ) )
+        if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
+        {
+            // boundary
+
+            QPainterPath boundary;
+
+            miniexp_t areaExp = miniexp_nth(3, linkExp);
+            int areaExpLength = miniexp_length( areaExp );
+
+            if(areaExpLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
             {
-                QPoint p = QPoint( miniexp_to_int( miniexp_nth( 1, area ) ), miniexp_to_int( miniexp_nth( 2, area ) ) );
-                QSize s = QSize( miniexp_to_int( miniexp_nth( 3, area ) ), miniexp_to_int( miniexp_nth( 4, area ) ) );
-                p.setY(m_size.height() - p.y() - s.height());
+                QPoint p(miniexp_to_int(miniexp_nth(1, areaExp)), miniexp_to_int(miniexp_nth(2, areaExp)));
+                QSize s(miniexp_to_int(miniexp_nth(3, areaExp)), miniexp_to_int(miniexp_nth(4, areaExp)));
+
+                p.setY(m_size.height() - s.height() - p.y());
+
                 QRectF rect(p, s);
 
-                if ( type == QLatin1String( "rect" ) )
+                if(type == QLatin1String("rect"))
                 {
-                    linkBoundary.addRect(rect);
+                    boundary.addRect(rect);
                 }
                 else
                 {
-                    linkBoundary.addEllipse(rect);
+                    boundary.addEllipse(rect);
                 }
             }
-            else if ( ( arealength > 0 ) && ( arealength % 2 == 1 ) &&
-                      type == QLatin1String( "poly" ) )
+            else if(areaExpLength > 0 && areaExpLength % 2 == 1 && type == QLatin1String("poly"))
             {
-                QPolygon poly;
-                for ( int j = 1; j < arealength; j += 2 )
+                QPolygon polygon;
+
+                for(int areaExpN = 1; areaExpN < areaExpLength; areaExpN += 2)
                 {
-                    int x = miniexp_to_int( miniexp_nth( j, area ) );
-                    int y = m_size.height() - miniexp_to_int( miniexp_nth( j + 1, area ) );
-                    poly << QPoint( x, y );
+                    QPoint p(miniexp_to_int(miniexp_nth(areaExpN, areaExp)), miniexp_to_int(miniexp_nth(areaExpN + 1, areaExp)));
+
+                    p.setY(m_size.height() - p.y());
+
+                    polygon << p;
                 }
 
-                linkBoundary.addPolygon(poly);
+                boundary.addPolygon(polygon);
             }
 
-            if ( linkBoundary.isEmpty() )
+            if(boundary.isEmpty())
+            {
                 continue;
+            }
 
-            linkBoundary = QTransform::fromScale(1.0 / m_size.width(), 1.0 / m_size.height()).map(linkBoundary);
+            boundary = QTransform::fromScale(1.0 / m_size.width(), 1.0 / m_size.height()).map(boundary);
+
+            // target
 
             QString target;
 
-            miniexp_t urlexp = miniexp_nth( 1, cur );
-            if ( miniexp_stringp( urlexp ) )
+            miniexp_t targetExp = miniexp_nth(1, linkExp);
+
+            if(miniexp_stringp(targetExp))
             {
-                target = QString::fromUtf8( miniexp_to_str( miniexp_nth( 1, cur ) ) );
+                target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, linkExp)));
             }
-            else if ( miniexp_listp( urlexp ) && ( miniexp_length( urlexp ) == 3 ) &&
-                      miniexp_symbolp( miniexp_nth( 0, urlexp ) ) &&
-                      ( qstrncmp( miniexp_to_name( miniexp_nth( 0, urlexp ) ), "url", 3 ) == 0 ) )
+            else if(miniexp_length(targetExp) == 3 && qstrncmp(miniexp_to_name(miniexp_nth(0, targetExp)), "url", 3) == 0)
             {
-                target = QString::fromUtf8( miniexp_to_str( miniexp_nth( 1, urlexp ) ) );
+                target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, targetExp)));
             }
 
-            if ( target.isEmpty() )
+            if(target.isEmpty())
+            {
                 continue;
+            }
 
-            Link* link = 0;
-
-            if( ( target.length() > 0 ) && target.at(0) == QLatin1Char( '#' ) )
+            if(target.at(0) == QLatin1Char('#'))
             {
-                target.remove( 0, 1 );
+                target.remove(0, 1);
 
                 bool ok = false;
                 int targetPage = target.toInt(&ok);
 
-                if (!ok)
+                if(!ok)
                 {
-                    if ( m_parent->m_indexByName.contains( target ) )
+                    if(m_parent->m_indexByName.contains(target))
                     {
-                        targetPage = m_parent->m_indexByName[ target ] + 1;
+                        targetPage = m_parent->m_indexByName[target] + 1;
                     }
                     else
                     {
@@ -304,15 +333,12 @@ QList< Model::Link* > Model::DjVuPage::links() const
                     targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? m_index + targetPage : targetPage;
                 }
 
-                link = new Link(linkBoundary, targetPage);
+                links.append(new Link(boundary, targetPage));
             }
             else
             {
-                link = new Link(linkBoundary, target);
+                links.append(new Link(boundary, target));
             }
-
-            if (link)
-                links.append(link);
         }
     }
 
@@ -332,20 +358,23 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
 
-    ddjvu_fileinfo_t fileinfo;
+    int fileNum = ddjvu_document_get_filenum(m_document);
 
-    const int fileNum = ddjvu_document_get_filenum( m_document );
-
-    for ( int i = 0; i < fileNum; ++i )
+    for(int index = 0; index < fileNum; ++index)
     {
-        if ( DDJVU_JOB_OK != ddjvu_document_get_fileinfo( m_document, i, &fileinfo ) )
-            continue;
-        if ( fileinfo.type != 'P' )
-            continue;
+        ddjvu_fileinfo_t fileinfo;
 
-        m_indexByName[ QString::fromUtf8( fileinfo.title ) ] = fileinfo.pageno;
-        m_indexByName[ QString::fromUtf8( fileinfo.name ) ] = fileinfo.pageno;
-        m_indexByName[ QString::fromUtf8( fileinfo.id ) ] = fileinfo.pageno;
+        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK)
+        {
+            continue;
+        }
+
+        if(fileinfo.type != 'P')
+        {
+            continue;
+        }
+
+        m_indexByName[QString::fromUtf8(fileinfo.id)] = m_indexByName[QString::fromUtf8(fileinfo.name)] = m_indexByName[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno;
     }
 }
 
@@ -376,7 +405,7 @@ Model::Page* Model::DjVuDocument::page(int index) const
 
         if(status < DDJVU_JOB_OK)
         {
-            clear_message_queue(m_context, true);
+            clearMessageQueue(m_context, true);
         }
         else
         {
@@ -417,14 +446,176 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 
     ddjvu_job_t* job = ddjvu_document_save(m_document, file, 0, 0);
 
-    while (!ddjvu_job_done(job))
+    while(!ddjvu_job_done(job))
     {
-        clear_message_queue(m_context, true);
+        clearMessageQueue(m_context, true);
     }
 
     fclose(file);
 
     return !ddjvu_job_error(job);
+}
+
+static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
+{
+    int outlineExpLength = miniexp_length(outlineExp);
+
+    for(int outlineN = qMax(0, offset); outlineN < outlineExpLength; ++outlineN)
+    {
+        miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
+        int bookmarkExpLength = miniexp_length(bookmarkExp);
+
+        if(bookmarkExpLength < 2)
+        {
+            continue;
+        }
+
+        if(!miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
+        {
+            continue;
+        }
+
+        QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
+        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
+
+        if(!title.isEmpty() && !destination.isEmpty())
+        {
+            if(destination.at(0) == QLatin1Char('#'))
+            {
+                destination.remove(0,1);
+
+                bool ok = false;
+                int destinationPage = destination.toInt(&ok);
+
+                if(!ok)
+                {
+                    if(indexByName.contains(destination))
+                    {
+                        destinationPage = indexByName[destination] + 1;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                QStandardItem* item = new QStandardItem();
+
+                item->setFlags(Qt::ItemIsEnabled);
+
+                item->setText(title);
+                item->setToolTip(title);
+
+                item->setData(destinationPage, Qt::UserRole + 1);
+
+                parent->appendRow(item);
+
+                if(bookmarkExpLength > 2)
+                {
+                    loadOutline(bookmarkExp, 2, item, indexByName);
+                }
+            }
+        }
+    }
+}
+
+void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    outlineModel->clear();
+
+    miniexp_t outlineExp;
+
+    while(true)
+    {
+        outlineExp = ddjvu_document_get_outline(m_document);
+
+        if(outlineExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if(miniexp_length(outlineExp) <= 1)
+    {
+        return;
+    }
+
+    if(qstrncmp(miniexp_to_name(miniexp_nth(0, outlineExp)), "bookmarks", 9) != 0)
+    {
+        return;
+    }
+
+    ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
+
+    ddjvu_miniexp_release(m_document, outlineExp);
+}
+
+void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    propertiesModel->clear();
+    propertiesModel->setColumnCount(2);
+
+    miniexp_t annoExp;
+
+    while(true)
+    {
+        annoExp = ddjvu_document_get_anno(m_document, TRUE);
+
+        if(annoExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    int annoExpLength = miniexp_length(annoExp);
+
+    for(int annoN = 0; annoN < annoExpLength; ++annoN)
+    {
+        miniexp_t listExp = miniexp_nth(annoN, annoExp);
+        int listExpLength = miniexp_length(listExp);
+
+        if(listExpLength <= 1)
+        {
+            continue;
+        }
+
+        if(qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
+        {
+            continue;
+        }
+
+        for(int listN = 1; listN < listExpLength; ++listN)
+        {
+            miniexp_t keyValueExp = miniexp_nth(listN, listExp);
+
+            if(miniexp_length(keyValueExp) != 2)
+            {
+                continue;
+            }
+
+            QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
+            QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
+
+            if(!key.isEmpty() && !value.isEmpty())
+            {
+                propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+            }
+        }
+    }
+
+    ddjvu_miniexp_release(m_document, annoExp);
 }
 
 Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
@@ -443,7 +634,7 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
         return 0;
     }
 
-    wait_for_message_tag(context, DDJVU_DOCINFO);
+    waitForMessageTag(context, DDJVU_DOCINFO);
 
     if(ddjvu_document_decoding_error(document))
     {
