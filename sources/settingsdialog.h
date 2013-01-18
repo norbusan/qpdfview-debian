@@ -107,6 +107,7 @@ private:
 
     QComboBox* m_cacheSizeComboBox;
     QCheckBox* m_prefetchCheckBox;
+    QSpinBox* m_prefetchDistanceSpinBox;
 
     void createGraphicsTab();
 

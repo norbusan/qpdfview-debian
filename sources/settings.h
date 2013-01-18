@@ -125,8 +125,12 @@ public:
 
         bool overprintPreview() const;
         void setOverprintPreview(bool on);
+
         bool prefetch() const;
         void setPrefetch(bool on);
+
+        int prefetchDistance() const;
+        void setPrefetchDistance(int prefetchDistance);
 
         int pagesPerRow() const;
         void setPagesPerRow(int pagesPerRow);
@@ -317,6 +321,7 @@ public:
         static inline bool overprintPreview() { return false; }
 
         static inline bool prefetch() { return false; }
+        static inline int prefetchDistance() { return 1; }
 
         static inline int pagesPerRow() { return 3; }
 

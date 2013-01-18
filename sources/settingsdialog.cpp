@@ -109,6 +109,7 @@ void SettingsDialog::accept()
 
     m_settings->pageItem()->setCacheSize(m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()).toInt());
     m_settings->documentView()->setPrefetch(m_prefetchCheckBox->isChecked());
+    m_settings->documentView()->setPrefetchDistance(m_prefetchDistanceSpinBox->value());
 
     // interface
 
@@ -177,6 +178,7 @@ void SettingsDialog::on_defaults_clicked()
 
     m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
     m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
+    m_prefetchDistanceSpinBox->setValue(Defaults::DocumentView::prefetchDistance());
 
     // interface
 
@@ -423,6 +425,14 @@ void SettingsDialog::createGraphicsTab()
     m_prefetchCheckBox->setChecked(m_settings->documentView()->prefetch());
 
     m_graphicsLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
+
+    // prefetch distance
+
+    m_prefetchDistanceSpinBox = new QSpinBox(this);
+    m_prefetchDistanceSpinBox->setRange(1, 10);
+    m_prefetchDistanceSpinBox->setValue(m_settings->documentView()->prefetchDistance());
+
+    m_graphicsLayout->addRow(tr("Prefetch distance:"), m_prefetchDistanceSpinBox);
 }
 
 void SettingsDialog::createInterfaceTab()

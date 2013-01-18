@@ -354,6 +354,16 @@ void Settings::DocumentView::setPrefetch(bool on)
     m_settings->setValue("documentView/prefetch", on);
 }
 
+int Settings::DocumentView::prefetchDistance() const
+{
+    return m_settings->value("documentView/prefetchDistance", Defaults::DocumentView::prefetchDistance()).toInt();
+}
+
+void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
+{
+    m_settings->setValue("documentView/prefetchDistance", prefetchDistance);
+}
+
 int Settings::DocumentView::pagesPerRow() const
 {
     return m_settings->value("documentView/pagesPerRow", Defaults::DocumentView::pagesPerRow()).toInt();
