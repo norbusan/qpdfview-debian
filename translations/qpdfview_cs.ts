@@ -27,98 +27,98 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="458"/>
+        <location filename="../sources/documentview.cpp" line="459"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Podporované formáty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="685"/>
-        <location filename="../sources/documentview.cpp" line="724"/>
+        <location filename="../sources/documentview.cpp" line="686"/>
+        <location filename="../sources/documentview.cpp" line="725"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odemknout %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="685"/>
-        <location filename="../sources/documentview.cpp" line="724"/>
+        <location filename="../sources/documentview.cpp" line="686"/>
+        <location filename="../sources/documentview.cpp" line="725"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1823"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1155"/>
+        <location filename="../sources/documentview.cpp" line="1156"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1155"/>
+        <location filename="../sources/documentview.cpp" line="1156"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1200"/>
+        <location filename="../sources/documentview.cpp" line="1201"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1200"/>
+        <location filename="../sources/documentview.cpp" line="1201"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1341"/>
+        <location filename="../sources/documentview.cpp" line="1342"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Návrat na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1349"/>
+        <location filename="../sources/documentview.cpp" line="1350"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1354"/>
+        <location filename="../sources/documentview.cpp" line="1355"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1359"/>
+        <location filename="../sources/documentview.cpp" line="1360"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;První strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1364"/>
+        <location filename="../sources/documentview.cpp" line="1365"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;lední strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1371"/>
+        <location filename="../sources/documentview.cpp" line="1372"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1555"/>
-        <location filename="../sources/documentview.cpp" line="1584"/>
-        <location filename="../sources/documentview.cpp" line="1614"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
+        <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vážné</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1555"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se nahrát přídavný modul PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se nahrát přídavný modul PS!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1614"/>
+        <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se nahrát přídavný modul DjVu!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1828"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,10 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Program qpdfview je prohlížeč souborů PDF v 
-kartách pomocí knihovny poppler. Další informace hledejte na &lt;a 
-href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;. 
-&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview prohlížeč souborů PDF v kartách používající knihovnu poppler. Další informace hledejte na &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
@@ -533,7 +530,7 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Subset</source>
-        <translation type="unfinished">Podskupina</translation>
+        <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
@@ -563,40 +560,40 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze knihovny Poppler 0.20.1 či vyšší.</translation>
+        <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze 0.20.1 nebo vyšší knihovny Poppler.</translation>
     </message>
 </context>
 <context>
     <name>PSDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="234"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Název</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="235"/>
+        <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vytvořeno pro</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="236"/>
+        <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tvůrce</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="237"/>
+        <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datum vytvoření</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="238"/>
+        <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formát</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="239"/>
+        <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Úroveň jazyka</translation>
     </message>
 </context>
 <context>
@@ -1019,12 +1016,12 @@ href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Prefetch:</source>
-        <translation type="unfinished">Načítat dopředu:</translation>
+        <translation type="unfinished">Přednatažení:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vzdálenost přednatažení</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
