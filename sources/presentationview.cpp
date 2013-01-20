@@ -225,7 +225,7 @@ void PresentationView::on_prefetch_timeout()
 {
     int fromPage = m_currentPage, toPage = m_currentPage;
 
-    fromPage -= DocumentView::prefetchDistance();
+    fromPage -= DocumentView::prefetchDistance() / 2 + 1;
     toPage += DocumentView::prefetchDistance();
 
     fromPage = fromPage >= 1 ? fromPage : 1;
