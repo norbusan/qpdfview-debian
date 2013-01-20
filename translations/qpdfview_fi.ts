@@ -27,96 +27,96 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="458"/>
+        <location filename="../sources/documentview.cpp" line="459"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="685"/>
-        <location filename="../sources/documentview.cpp" line="724"/>
+        <location filename="../sources/documentview.cpp" line="686"/>
+        <location filename="../sources/documentview.cpp" line="725"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Lukitse %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="685"/>
-        <location filename="../sources/documentview.cpp" line="724"/>
+        <location filename="../sources/documentview.cpp" line="686"/>
+        <location filename="../sources/documentview.cpp" line="725"/>
         <source>Password:</source>
         <translation type="unfinished">Salasana:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1823"/>
+        <location filename="../sources/documentview.cpp" line="1828"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tulostetaan tiedostoa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1155"/>
+        <location filename="../sources/documentview.cpp" line="1156"/>
         <source>Information</source>
         <translation type="unfinished">Tiedot</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1155"/>
+        <location filename="../sources/documentview.cpp" line="1156"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1200"/>
+        <location filename="../sources/documentview.cpp" line="1201"/>
         <source>Warning</source>
         <translation type="unfinished">Varoitus</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1200"/>
+        <location filename="../sources/documentview.cpp" line="1201"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1341"/>
+        <location filename="../sources/documentview.cpp" line="1342"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Palaa sivulle %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1349"/>
+        <location filename="../sources/documentview.cpp" line="1350"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Edellinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1354"/>
+        <location filename="../sources/documentview.cpp" line="1355"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Seuraava sivu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1359"/>
+        <location filename="../sources/documentview.cpp" line="1360"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Ensimmäinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1364"/>
+        <location filename="../sources/documentview.cpp" line="1365"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Viimeinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1371"/>
+        <location filename="../sources/documentview.cpp" line="1372"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Päivitä</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1555"/>
-        <location filename="../sources/documentview.cpp" line="1584"/>
-        <location filename="../sources/documentview.cpp" line="1614"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
+        <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1555"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1614"/>
+        <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -566,32 +566,32 @@
 <context>
     <name>PSDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="234"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="235"/>
+        <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="236"/>
+        <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="237"/>
+        <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="238"/>
+        <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="239"/>
+        <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
         <translation type="unfinished"></translation>
     </message>

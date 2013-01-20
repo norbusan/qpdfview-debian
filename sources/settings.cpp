@@ -129,6 +129,7 @@ void Settings::refresh()
     ::DocumentView::setOverprintPreview(documentView()->overprintPreview());
 
     ::DocumentView::setPrefetch(documentView()->prefetch());
+    ::DocumentView::setPrefetchDistance(documentView()->prefetchDistance());
 
     ::DocumentView::setPagesPerRow(documentView()->pagesPerRow());
 
