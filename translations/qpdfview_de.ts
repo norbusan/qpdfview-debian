@@ -1021,7 +1021,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reichweite des Vorausladens:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
