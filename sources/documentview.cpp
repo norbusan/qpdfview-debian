@@ -1108,16 +1108,16 @@ void DocumentView::on_prefetch_timeout()
     {
     default:
     case SinglePageMode:
-        fromPage -= s_prefetchDistance / 2 + 1;
+        fromPage -= s_prefetchDistance / 2;
         toPage += s_prefetchDistance;
         break;
     case TwoPagesMode:
     case TwoPagesWithCoverPageMode:
-        fromPage -= s_prefetchDistance + 2;
+        fromPage -= s_prefetchDistance;
         toPage += 2 * s_prefetchDistance + 1;
         break;
     case MultiplePagesMode:
-        fromPage -= s_pagesPerRow * (s_prefetchDistance / 2 + 1);
+        fromPage -= s_pagesPerRow * (s_prefetchDistance / 2);
         toPage += s_pagesPerRow * (s_prefetchDistance + 1) - 1;
         break;
     }

@@ -150,6 +150,7 @@ PageItem::PageItem(Model::Page* page, int index, QGraphicsItem* parent) : QGraph
     m_size(),
     m_links(),
     m_annotations(),
+    m_presentationMode(false),
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
@@ -227,7 +228,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // page
 
-    if(s_decoratePages)
+    if(s_decoratePages && !m_presentationMode)
     {
         QColor paperColor = s_paperColor;
 
@@ -250,7 +251,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // links
 
-    if(s_decorateLinks)
+    if(s_decorateLinks && !m_presentationMode)
     {
         painter->save();
 
@@ -267,7 +268,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // form fields
 
-    if(s_decorateFormFields)
+    if(s_decorateFormFields && !m_presentationMode)
     {
         painter->save();
 
@@ -320,6 +321,16 @@ int PageItem::index() const
 const QSizeF& PageItem::size() const
 {
     return m_size;
+}
+
+bool PageItem::presentationMode() const
+{
+    return m_presentationMode;
+}
+
+void PageItem::setPresentationMode(bool presentationMode)
+{
+    m_presentationMode = presentationMode;
 }
 
 const QList< QRectF >& PageItem::highlights() const
@@ -449,6 +460,11 @@ void PageItem::clearHighlights()
 
 void PageItem::startRender(bool prefetch)
 {
+    if(prefetch && s_cache.contains(this))
+    {
+        return;
+    }
+
     if(!m_render->isRunning())
     {
         m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, prefetch));
@@ -511,7 +527,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
                     return;
                 }
-                else if(!link->url.isNull())
+                else if(!link->url.isNull() && !m_presentationMode)
                 {
                     setCursor(Qt::PointingHandCursor);
                     QToolTip::showText(event->screenPos(), tr("Open %1.").arg(link->url));
@@ -603,7 +619,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     event->accept();
                     return;
                 }
-                else if(!link->url.isNull())
+                else if(!link->url.isNull() && !m_presentationMode)
                 {
                     emit linkClicked(link->url);
 

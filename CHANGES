@@ -6,6 +6,8 @@ Release 0.4:
   * Added support for hyperlinks in DjVu documents. Thanks to Alexander Volkov.
   * Added support for outline and properties of DjVu documents.
   * Added support for UNIX signals.
+  * Small improvements to prefetching.
+  * Changed presentation view to support rotation, caching and prefetching.
   * Dropped support for storing tabs and bookmarks as XML files.
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
   * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
