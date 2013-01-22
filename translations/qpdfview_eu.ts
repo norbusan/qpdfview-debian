@@ -599,72 +599,64 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="510"/>
+        <location filename="../sources/pageitem.cpp" line="526"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Joan %1 orrira</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="517"/>
+        <location filename="../sources/pageitem.cpp" line="533"/>
         <source>Open %1.</source>
         <translation type="unfinished">Ireki %1</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="544"/>
+        <location filename="../sources/pageitem.cpp" line="560"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Editatu &apos;%1&apos; inprimaki-eremua.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="721"/>
+        <location filename="../sources/pageitem.cpp" line="737"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopiatu &amp;testua</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="738"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopiatu &amp;irudia</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="739"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Gorde irudia &amp;fitxategian...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="757"/>
+        <location filename="../sources/pageitem.cpp" line="773"/>
         <source>Save image to file</source>
         <translation type="unfinished">Gorde irudia fitxategian</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="761"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Warning</source>
         <translation type="unfinished">Abisua</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="761"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Ezin izan da gorde irudia &apos;%1&apos; fitxategian.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="776"/>
+        <location filename="../sources/pageitem.cpp" line="792"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Gehitu &amp;testua</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="777"/>
+        <location filename="../sources/pageitem.cpp" line="793"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Gehitu &amp;nabarmentzea</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="816"/>
+        <location filename="../sources/pageitem.cpp" line="832"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Kendu oharra</translation>
-    </message>
-</context>
-<context>
-    <name>PresentationView</name>
-    <message>
-        <location filename="../sources/presentationview.cpp" line="261"/>
-        <source>Go to page %1.</source>
-        <translation type="unfinished">Joan %1 orrira</translation>
     </message>
 </context>
 <context>
