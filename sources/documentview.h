@@ -29,7 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QDomNode;
 class QFileSystemWatcher;
-class QMutex;
 class QPrinter;
 class QStandardItem;
 class QStandardItemModel;

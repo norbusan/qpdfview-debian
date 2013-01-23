@@ -28,7 +28,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFile>
 #include <qmath.h>
-#include <QStringList>
 #include <QStandardItemModel>
 
 #include <libdjvu/ddjvuapi.h>
