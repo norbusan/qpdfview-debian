@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGraphicsView>
 #include <QMap>
-#include <QMutex>
 #include <QStack>
 
 class QDomNode;
