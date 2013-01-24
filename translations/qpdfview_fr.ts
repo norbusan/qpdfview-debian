@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="459"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formats supportés (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="686"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="725"/>
         <source>Password:</source>
         <translation type="unfinished">Mot de passe :</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1828"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Impression de &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1156"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1585"/>
         <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Critique</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">N&apos;a pas pu charger le greffon PDF !</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1585"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">N&apos;a pas pu charger le greffon PS !</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1615"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">N&apos;a pas pu charger le greffon DjVu !</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1828"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Impression de &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -169,12 +169,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="761"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enregistrer sous</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="773"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">N&apos;a pas pu enregistrer en tant que &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="813"/>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1330"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview est un visionneur de fichiers PDF utilisant la bibliothèque poppler. Voyez &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
@@ -244,7 +244,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1563"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enregistrer &amp;sous...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1571"/>
@@ -520,7 +520,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation type="unfinished">Tapez</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
@@ -530,7 +530,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
         <source>Subset</source>
-        <translation type="unfinished">Sous-ensemble</translation>
+        <translation type="unfinished">Sous-dossier</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="698"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="315"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Une version 0.20.1 ou supérieure de la bibliothèque Poppler est nécessaire pour ajouter ou supprimer des annotations.</translation>
+        <translation type="unfinished">La version 0.20.1 ou une version supérieure de la librairie Poppler est requise afin d&apos;ajouter ou de supprimer des annotations.</translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titre</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Créé pour</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Créateur</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Date de création</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Niveau de langue</translation>
     </message>
 </context>
 <context>
@@ -936,12 +936,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="322"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Couleur de l&apos;arrière-plan :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="332"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Couleur du papier :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="339"/>
@@ -1078,27 +1078,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zoom :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pivoter :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Défiler :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copier dans le presse-papiers :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajouter des annotations :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
