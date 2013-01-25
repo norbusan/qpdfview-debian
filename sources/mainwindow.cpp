@@ -141,8 +141,6 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
         if(currentTab()->open(filePath))
         {
-            restorePerFileSettings(currentTab());
-
             QFileInfo fileInfo(filePath);
 
             m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
@@ -150,6 +148,8 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
+
+            restorePerFileSettings(currentTab());
 
             currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
@@ -183,8 +183,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->setRotation(m_settings->documentView()->rotation());
         newTab->setHighlightAll(m_settings->documentView()->highlightAll());
 
-        restorePerFileSettings(newTab);
-
         QFileInfo fileInfo(filePath);
 
         m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
@@ -217,6 +215,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
 
         newTab->show();
+
+        restorePerFileSettings(newTab);
 
         newTab->jumpToPage(page, false);
         newTab->setFocus();
