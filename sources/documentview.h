@@ -221,6 +221,9 @@ protected:
 
     void contextMenuEvent(QContextMenuEvent* event);
 
+private slots:
+    void loadSupplementaryInformation();
+
 private:
     static bool s_openUrl;
 

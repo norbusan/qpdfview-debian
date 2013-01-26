@@ -176,9 +176,7 @@ PageItem::PageItem(Model::Page* page, int index, QGraphicsItem* parent) : QGraph
     m_index = index;
     m_size = m_page->size();
 
-    m_links = m_page->links();
-    m_annotations = m_page->annotations();
-    m_formFields = m_page->formFields();
+    QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
     prepareGeometry();
 }
@@ -728,6 +726,15 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
     }
 
     event->ignore();
+}
+
+void PageItem::loadInteractiveElements()
+{
+    m_links = m_page->links();
+    m_annotations = m_page->annotations();
+    m_formFields = m_page->formFields();
+
+    update();
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)

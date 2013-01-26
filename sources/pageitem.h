@@ -134,6 +134,9 @@ protected:
 
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
+private slots:
+    void loadInteractiveElements();
+
 private:
     static QCache< PageItem*, QPixmap > s_cache;
 
