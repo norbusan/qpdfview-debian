@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pdfmodel.h"
 
+#include <QDebug>
 #include <QMessageBox>
 #include <QStandardItemModel>
 
@@ -206,19 +207,24 @@ QList< Model::Link* > Model::PDFPage::links() const
         {
             Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
 
-            if(!linkGoto->isExternal())
+            QRectF boundary = linkGoto->linkArea().normalized();
+            int page = linkGoto->destination().pageNumber();
+
+            qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
+            qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
+
+            left = left >= 0.0 ? left : 0.0;
+            left = left <= 1.0 ? left : 1.0;
+
+            top = top >= 0.0 ? top : 0.0;
+            top = top <= 1.0 ? top : 1.0;
+
+            if(linkGoto->isExternal())
             {
-                QRectF boundary = linkGoto->linkArea().normalized();
-                int page = linkGoto->destination().pageNumber();
-                qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
-                qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
-
-                left = left >= 0.0 ? left : 0.0;
-                left = left <= 1.0 ? left : 1.0;
-
-                top = top >= 0.0 ? top : 0.0;
-                top = top <= 1.0 ? top : 1.0;
-
+                links.append(new Link(boundary, linkGoto->fileName(), page));
+            }
+            else
+            {
                 links.append(new Link(boundary, page, left, top));
             }
         }
