@@ -1390,12 +1390,6 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
-void DocumentView::loadSupplementaryInformation()
-{
-    m_document->loadOutline(m_outlineModel);
-    m_document->loadProperties(m_propertiesModel);
-}
-
 Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
@@ -2018,7 +2012,8 @@ void DocumentView::prepareDocument(Model::Document* document)
     preparePages();
     prepareThumbnails();
 
-    QTimer::singleShot(0, this, SLOT(loadSupplementaryInformation()));
+    m_document->loadOutline(m_outlineModel);
+    m_document->loadProperties(m_propertiesModel);
 
     if(s_prefetch)
     {
