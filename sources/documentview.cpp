@@ -1440,6 +1440,12 @@ Q_IMPORT_PLUGIN(qpdfview_ps)
 
 #endif // STATIC_PS_PLUGIN
 
+#ifdef STATIC_DJVU_PLUGIN
+
+Q_IMPORT_PLUGIN(qpdfview_djvu)
+
+#endif // STATIC_DJVU_PLUGIN
+
 Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
 {
     foreach(QObject* object, QPluginLoader::staticInstances())
