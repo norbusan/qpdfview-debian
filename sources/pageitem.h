@@ -68,7 +68,7 @@ public:
     static const Qt::KeyboardModifiers& addAnnotationModifiers();
     static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
 
-    PageItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
+    PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -76,9 +76,6 @@ public:
 
     int index() const;
     const QSizeF& size() const;
-
-    bool presentationMode() const;
-    void setPresentationMode(bool presentationMode);
 
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights, int duration = 0);
@@ -135,7 +132,7 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private slots:
-    void loadInteractiveElements();
+    virtual void loadInteractiveElements();
 
 private:
     static QCache< PageItem*, QPixmap > s_cache;
@@ -208,8 +205,14 @@ public:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
     void mouseMoveEvent(QGraphicsSceneMouseEvent*);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
+
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
+
+private slots:
+    void loadInteractiveElements();
 
 };
 

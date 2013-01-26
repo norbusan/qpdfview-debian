@@ -66,9 +66,8 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = new PageItem(m_document->page(index), index);
+        PageItem* page = new PageItem(m_document->page(index), index, true);
 
-        page->setPresentationMode(true);
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         m_pagesScene->addItem(page);

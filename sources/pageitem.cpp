@@ -144,13 +144,13 @@ void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotat
     s_addAnnotationModifiers = addAnnotationModifiers;
 }
 
-PageItem::PageItem(Model::Page* page, int index, QGraphicsItem* parent) : QGraphicsObject(parent),
+PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(0),
     m_index(-1),
     m_size(),
     m_links(),
     m_annotations(),
-    m_presentationMode(false),
+    m_presentationMode(presentationMode),
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
@@ -319,16 +319,6 @@ int PageItem::index() const
 const QSizeF& PageItem::size() const
 {
     return m_size;
-}
-
-bool PageItem::presentationMode() const
-{
-    return m_presentationMode;
-}
-
-void PageItem::setPresentationMode(bool presentationMode)
-{
-    m_presentationMode = presentationMode;
 }
 
 const QList< QRectF >& PageItem::highlights() const
@@ -535,6 +525,12 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             }
         }
 
+        if(m_presentationMode)
+        {
+            event->ignore();
+            return;
+        }
+
         // annotations
 
         foreach(Model::Annotation* annotation, m_annotations)
@@ -574,7 +570,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyToClipboardModifiers || event->modifiers() == s_addAnnotationModifiers) && event->button() == Qt::LeftButton)
+    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyToClipboardModifiers || event->modifiers() == s_addAnnotationModifiers) && event->button() == Qt::LeftButton && !m_presentationMode)
     {
         setCursor(Qt::CrossCursor);
 
@@ -627,6 +623,12 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
+        if(m_presentationMode)
+        {
+            event->ignore();
+            return;
+        }
+
         // annotations
 
         foreach(Model::Annotation* annotation, m_annotations)
@@ -675,8 +677,13 @@ void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             m_rubberBand.setBottomRight(event->pos());
 
             update();
+
+            event->accept();
+            return;
         }
     }
+
+    event->ignore();
 }
 
 void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -712,6 +719,12 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
+    if(m_presentationMode)
+    {
+        event->ignore();
+        return;
+    }
+
     foreach(Model::Annotation* annotation, m_annotations)
     {
         if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
@@ -731,8 +744,12 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 void PageItem::loadInteractiveElements()
 {
     m_links = m_page->links();
-    m_annotations = m_page->annotations();
-    m_formFields = m_page->formFields();
+
+    if(!m_presentationMode)
+    {
+        m_annotations = m_page->annotations();
+        m_formFields = m_page->formFields();
+    }
 
     update();
 }
@@ -944,7 +961,7 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
     emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
 }
 
-ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, parent)
+ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent)
 {
     setAcceptHoverEvents(false);
 }
@@ -954,10 +971,22 @@ void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
     emit linkClicked(index() + 1);
 }
 
+void ThumbnailItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
+{
+}
+
 void ThumbnailItem::mouseMoveEvent(QGraphicsSceneMouseEvent*)
 {
 }
 
 void ThumbnailItem::mouseReleaseEvent(QGraphicsSceneMouseEvent*)
+{
+}
+
+void ThumbnailItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
+{
+}
+
+void ThumbnailItem::loadInteractiveElements()
 {
 }
