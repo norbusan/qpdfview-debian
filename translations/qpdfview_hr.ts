@@ -513,39 +513,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Name</source>
         <translation type="unfinished">Naziv</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Type</source>
         <translation type="unfinished">Tip</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Embedded</source>
         <translation type="unfinished">Ugrađen</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
         <translation type="unfinished">Podskup</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>File</source>
         <translation type="unfinished">Datoteka</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
         <translation type="unfinished">Da</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>No</source>
         <translation type="unfinished">Ne</translation>
     </message>

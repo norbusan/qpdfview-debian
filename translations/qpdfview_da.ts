@@ -513,39 +513,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Name</source>
         <translation type="unfinished">Navn</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Embedded</source>
         <translation type="unfinished">Indlejret</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
         <translation type="unfinished">Undersæt</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>File</source>
         <translation type="unfinished">Fil</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>No</source>
         <translation type="unfinished">Nej</translation>
     </message>

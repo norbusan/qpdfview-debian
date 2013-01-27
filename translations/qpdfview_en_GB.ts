@@ -513,39 +513,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Embedded</source>
         <translation type="unfinished">Embedded</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>File</source>
         <translation type="unfinished">File</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
         <translation type="unfinished">Yes</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>No</source>
         <translation type="unfinished">No</translation>
     </message>
@@ -606,7 +606,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="521"/>
         <source>Go to page %1 of file &quot;%2&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Go to page %1 of file &quot;%2&quot;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="529"/>

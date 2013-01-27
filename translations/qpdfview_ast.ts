@@ -513,39 +513,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Name</source>
         <translation type="unfinished">Nome</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Type</source>
         <translation type="unfinished">Triba</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Embedded</source>
         <translation type="unfinished">Empotráu</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
         <translation type="unfinished">Subconxuntu</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="704"/>
+        <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>File</source>
         <translation type="unfinished">Ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
         <translation type="unfinished">Si</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="712"/>
-        <location filename="../sources/pdfmodel.cpp" line="713"/>
+        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>No</source>
         <translation type="unfinished">Non</translation>
     </message>
