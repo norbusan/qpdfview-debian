@@ -327,6 +327,8 @@ bool Model::PDFPage::canAddAndRemoveAnnotations() const
 
 Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 {
+    QMutexLocker mutexLocker(m_mutex);
+
 #ifdef HAS_POPPLER_20
 
     Poppler::Annotation::Style style;
@@ -356,6 +358,8 @@ Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 
 Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary)
 {
+    QMutexLocker mutexLocker(m_mutex);
+
 #ifdef HAS_POPPLER_20
 
     Poppler::Annotation::Style style;
@@ -694,8 +698,6 @@ void Model::PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
     QMutexLocker mutexLocker(&m_mutex);
 
     QList< Poppler::FontInfo > fonts = m_document->fonts();
-
-    mutexLocker.unlock();
 
     fontsModel->clear();
     fontsModel->setRowCount(fonts.count());
