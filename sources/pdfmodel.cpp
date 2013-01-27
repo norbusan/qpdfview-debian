@@ -404,6 +404,10 @@ void Model::PDFPage::removeAnnotation(Annotation* annotation)
 
     m_page->removeAnnotation(static_cast< PDFAnnotation* >(annotation)->m_annotation);
 
+#else
+
+    Q_UNUSED(annotation);
+
 #endif // HAS_POPPLER_20
 }
 
