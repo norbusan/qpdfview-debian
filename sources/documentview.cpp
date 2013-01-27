@@ -1157,6 +1157,13 @@ void DocumentView::on_pages_linkClicked(const QString& url)
     }
 }
 
+void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
+{
+    QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : QFileInfo(m_filePath).dir().filePath(fileName);
+
+    emit linkClicked(filePath, page);
+}
+
 void DocumentView::on_pages_rubberBandFinished()
 {
     setRubberBandMode(ModifiersMode);
@@ -2039,6 +2046,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
+        connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 

@@ -161,6 +161,8 @@ signals:
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
 
+    void linkClicked(const QString& filePath, int page);
+
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -208,6 +210,7 @@ protected slots:
 
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
+    void on_pages_linkClicked(const QString& fileName, int page);
 
     void on_pages_rubberBandFinished();
 

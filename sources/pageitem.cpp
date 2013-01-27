@@ -508,10 +508,18 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
-                if(link->page != -1)
+                if(link->page != -1 && (link->url.isNull() || !m_presentationMode))
                 {
                     setCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link->page));
+
+                    if(link->url.isNull())
+                    {
+                        QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link->page));
+                    }
+                    else
+                    {
+                        QToolTip::showText(event->screenPos(), tr("Go to page %1 of file \"%2\".").arg(link->page).arg(link->url));
+                    }
 
                     return;
                 }
@@ -606,9 +614,16 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                if(link->page != -1)
+                if(link->page != -1 && (link->url.isNull() || !m_presentationMode))
                 {
-                    emit linkClicked(link->page, link->left, link->top);
+                    if(link->url.isNull())
+                    {
+                        emit linkClicked(link->page, link->left, link->top);
+                    }
+                    else
+                    {
+                        emit linkClicked(link->url, link->page);
+                    }
 
                     event->accept();
                     return;

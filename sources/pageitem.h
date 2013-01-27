@@ -101,6 +101,7 @@ signals:
 
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
+    void linkClicked(const QString& fileName, int page);
 
     void rubberBandStarted();
     void rubberBandFinished();
