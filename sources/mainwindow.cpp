@@ -207,6 +207,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
         connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
+        connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
+
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
@@ -582,6 +584,11 @@ void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
     {
         m_settings->documentView()->setRotation(rotation);
     }
+}
+
+void MainWindow::on_currentTab_linkClicked(const QString& filePath, int page)
+{
+    jumpToPageOrOpenInNewTab(filePath, page, true);
 }
 
 void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)

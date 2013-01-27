@@ -85,6 +85,8 @@ protected slots:
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
     void on_currentTab_rotationChanged(Rotation rotation);
 
+    void on_currentTab_linkClicked(const QString& filePath, int page);
+
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
