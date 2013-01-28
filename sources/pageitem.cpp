@@ -535,7 +535,8 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         if(m_presentationMode)
         {
-            event->ignore();
+            unsetCursor();
+            QToolTip::hideText();
             return;
         }
 
