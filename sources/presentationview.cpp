@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtConcurrentRun>
 #include <QKeyEvent>
-#include <QPainter>
 #include <QShortcut>
 #include <QTimer>
 #include <QToolTip>
