@@ -21,11 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "presentationview.h"
 
-#include <QtConcurrentRun>
 #include <QKeyEvent>
 #include <QShortcut>
 #include <QTimer>
-#include <QToolTip>
 
 #include "model.h"
 #include "pageitem.h"
