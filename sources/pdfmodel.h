@@ -93,8 +93,8 @@ public:
 
     QList< Link* > links() const;
 
-    QString text(const QRectF &rect) const;
-    QList< QRectF > search(const QString &text, bool matchCase) const;
+    QString text(const QRectF& rect) const;
+    QList< QRectF > search(const QString& text, bool matchCase) const;
 
     QList< Annotation* > annotations() const;
 
@@ -144,8 +144,8 @@ public:
 
     void setPaperColor(const QColor& paperColor);
 
-    void loadOutline(QStandardItemModel *outlineModel) const;
-    void loadProperties(QStandardItemModel *propertiesModel) const;
+    void loadOutline(QStandardItemModel* outlineModel) const;
+    void loadProperties(QStandardItemModel* propertiesModel) const;
     void loadFonts(QStandardItemModel* fontsModel) const;
 
 private:

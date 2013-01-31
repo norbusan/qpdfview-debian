@@ -33,7 +33,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_prefetchTimer(0),
     m_document(0),
     m_numberOfPages(-1),
-    m_currentPage(1),
+    m_currentPage(-1),
     m_rotation(RotateBy0),
     m_returnToPage(),
     m_pagesScene(0),
@@ -53,6 +53,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_document = document;
 
     m_numberOfPages = m_document->numberOfPages();
+    m_currentPage = 1;
 
     // pages
 
@@ -376,7 +377,7 @@ void PresentationView::prepareScene()
 
 void PresentationView::prepareView()
 {
-    for(int index = 0; index < m_pages.count(); ++index)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = m_pages.at(index);
 

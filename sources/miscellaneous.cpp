@@ -132,12 +132,12 @@ void TreeView::contextMenuEvent(QContextMenuEvent* event)
 
     if(!event->isAccepted())
     {
-        QMenu* menu = new QMenu();
+        QMenu menu;
 
-        QAction* expandAllAction = menu->addAction(tr("&Expand all"));
-        QAction* collapseAllAction = menu->addAction(tr("&Collapse all"));
+        QAction* expandAllAction = menu.addAction(tr("&Expand all"));
+        QAction* collapseAllAction = menu.addAction(tr("&Collapse all"));
 
-        QAction* action = menu->exec(event->globalPos());
+        QAction* action = menu.exec(event->globalPos());
 
         if(action == expandAllAction)
         {
@@ -147,8 +147,6 @@ void TreeView::contextMenuEvent(QContextMenuEvent* event)
         {
             collapseAll(indexAt(event->pos()));
         }
-
-        delete menu;
     }
 }
 

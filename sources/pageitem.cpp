@@ -249,7 +249,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // links
 
-    if(s_decorateLinks && !m_presentationMode)
+    if(s_decorateLinks && !m_presentationMode && !m_links.isEmpty())
     {
         painter->save();
 
@@ -266,7 +266,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // form fields
 
-    if(s_decorateFormFields && !m_presentationMode)
+    if(s_decorateFormFields && !m_presentationMode && !m_formFields.isEmpty())
     {
         painter->save();
 
@@ -283,20 +283,23 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // highlights
 
-    painter->save();
-
-    painter->setTransform(m_transform, true);
-
-    QColor highlightColor = widget->palette().color(QPalette::Highlight);
-
-    highlightColor.setAlpha(127);
-
-    foreach(QRectF highlight, m_highlights)
+    if(!m_highlights.isEmpty())
     {
-        painter->fillRect(highlight.normalized(), QBrush(highlightColor));
-    }
+        painter->save();
 
-    painter->restore();
+        painter->setTransform(m_transform, true);
+
+        QColor highlightColor = widget->palette().color(QPalette::Highlight);
+
+        highlightColor.setAlpha(127);
+
+        foreach(QRectF highlight, m_highlights)
+        {
+            painter->fillRect(highlight.normalized(), QBrush(highlightColor));
+        }
+
+        painter->restore();
+    }
 
     // rubber band
 
@@ -518,7 +521,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
                     }
                     else
                     {
-                        QToolTip::showText(event->screenPos(), tr("Go to page %1 of file \"%2\".").arg(link->page).arg(link->url));
+                        QToolTip::showText(event->screenPos(), tr("Go to page %1 of file '%2'.").arg(link->page).arg(link->url));
                     }
 
                     return;
@@ -526,7 +529,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
                 else if(!link->url.isNull() && !m_presentationMode)
                 {
                     setCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->screenPos(), tr("Open %1.").arg(link->url));
+                    QToolTip::showText(event->screenPos(), tr("Open '%1'.").arg(link->url));
 
                     return;
                 }
@@ -772,13 +775,13 @@ void PageItem::loadInteractiveElements()
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
 {
-    QMenu* menu = new QMenu();
+    QMenu menu;
 
-    QAction* copyTextAction = menu->addAction(tr("Copy &text"));
-    QAction* copyImageAction = menu->addAction(tr("Copy &image"));
-    QAction* saveImageToFileAction = menu->addAction(tr("Save image to &file..."));
+    QAction* copyTextAction = menu.addAction(tr("Copy &text"));
+    QAction* copyImageAction = menu.addAction(tr("Copy &image"));
+    QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
 
-    QAction* action = menu->exec(screenPos);
+    QAction* action = menu.exec(screenPos);
 
     if(action == copyTextAction)
     {
@@ -819,20 +822,18 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
             }
         }
     }
-
-    delete menu;
 }
 
 void PageItem::addAnnotation(const QPoint& screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {
-        QMenu* menu = new QMenu();
+        QMenu menu;
 
-        QAction* addTextAction = menu->addAction(tr("Add &text"));
-        QAction* addHighlightAction = menu->addAction(tr("Add &highlight"));
+        QAction* addTextAction = menu.addAction(tr("Add &text"));
+        QAction* addHighlightAction = menu.addAction(tr("Add &highlight"));
 
-        QAction* action = menu->exec(screenPos);
+        QAction* action = menu.exec(screenPos);
 
         if(action == addTextAction || action == addHighlightAction)
         {
@@ -858,8 +859,6 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
             editAnnotation(annotation, screenPos);
         }
-
-        delete menu;
     }
 }
 
@@ -867,11 +866,11 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
 {
     if(m_page->canAddAndRemoveAnnotations())
     {
-        QMenu* menu = new QMenu();
+        QMenu menu;
 
-        QAction* removeAnnotationAction = menu->addAction(tr("&Remove annotation"));
+        QAction* removeAnnotationAction = menu.addAction(tr("&Remove annotation"));
 
-        QAction* action = menu->exec(screenPos);
+        QAction* action = menu.exec(screenPos);
 
         if(action == removeAnnotationAction)
         {
@@ -880,8 +879,6 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
 
             refresh();
         }
-
-        delete menu;
     }
 }
 

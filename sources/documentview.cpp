@@ -296,7 +296,7 @@ void DocumentView::setHighlightDuration(int highlightDuration)
     s_highlightDuration = highlightDuration;
 }
 
-const QString &DocumentView::sourceEditor()
+const QString& DocumentView::sourceEditor()
 {
     return s_sourceEditor;
 }
@@ -385,6 +385,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshTimer->setSingleShot(true);
 
     connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
+
     connect(m_autoRefreshTimer, SIGNAL(timeout()), this, SLOT(refresh()));
 
     // prefetch
@@ -957,7 +958,7 @@ void DocumentView::zoomIn()
     }
     else
     {
-        setScaleFactor(qMin(scaleFactor() + s_zoomBy, s_maximumScaleFactor));
+        setScaleFactor(qMin(m_scaleFactor + s_zoomBy, s_maximumScaleFactor));
     }
 }
 
@@ -970,7 +971,7 @@ void DocumentView::zoomOut()
     }
     else
     {
-        setScaleFactor(qMax(scaleFactor() - s_zoomBy, s_minimumScaleFactor));
+        setScaleFactor(qMax(m_scaleFactor - s_zoomBy, s_minimumScaleFactor));
     }
 }
 
@@ -982,7 +983,7 @@ void DocumentView::originalSize()
 
 void DocumentView::rotateLeft()
 {
-    switch(rotation())
+    switch(m_rotation)
     {
     default:
     case RotateBy0:
@@ -1002,7 +1003,7 @@ void DocumentView::rotateLeft()
 
 void DocumentView::rotateRight()
 {
-    switch(rotation())
+    switch(m_rotation)
     {
     default:
     case RotateBy0:
@@ -1195,7 +1196,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 sourceLine = sourceLine >= 0 ? sourceLine : 0;
                 sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
-                QProcess::startDetached(s_sourceEditor.arg(QFileInfo(QDir(path), sourceName).absoluteFilePath(), QString::number(sourceLine), QString::number(sourceColumn)));
+                QProcess::startDetached(s_sourceEditor.arg(QDir(path).absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
 
                 break;
             }
@@ -1344,44 +1345,44 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     {
         event->setAccepted(true);
 
-        QMenu* menu = new QMenu();
+        QMenu menu;
 
-        QAction* returnToPageAction = menu->addAction(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
+        QAction* returnToPageAction = menu.addAction(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
         returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
         returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
         returnToPageAction->setIconVisibleInMenu(true);
         returnToPageAction->setVisible(!m_returnToPage.isEmpty());
 
-        menu->addSeparator();
+        menu.addSeparator();
 
-        QAction* previousPageAction = menu->addAction(tr("&Previous page"));
+        QAction* previousPageAction = menu.addAction(tr("&Previous page"));
         previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
         previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
         previousPageAction->setIconVisibleInMenu(true);
 
-        QAction* nextPageAction = menu->addAction(tr("&Next page"));
+        QAction* nextPageAction = menu.addAction(tr("&Next page"));
         nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
         nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
         nextPageAction->setIconVisibleInMenu(true);
 
-        QAction* firstPageAction = menu->addAction(tr("&First page"));
+        QAction* firstPageAction = menu.addAction(tr("&First page"));
         firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
         firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
         firstPageAction->setIconVisibleInMenu(true);
 
-        QAction* lastPageAction = menu->addAction(tr("&Last page"));
+        QAction* lastPageAction = menu.addAction(tr("&Last page"));
         lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
         lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
         lastPageAction->setIconVisibleInMenu(true);
 
-        menu->addSeparator();
+        menu.addSeparator();
 
-        QAction* refreshAction = menu->addAction(tr("&Refresh"));
+        QAction* refreshAction = menu.addAction(tr("&Refresh"));
         refreshAction->setShortcut(QKeySequence::Refresh);
         refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
         refreshAction->setIconVisibleInMenu(true);
 
-        QAction* action = menu->exec(event->globalPos());
+        QAction* action = menu.exec(event->globalPos());
 
         if(action == returnToPageAction)
         {
@@ -1392,8 +1393,6 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
         else if(action == firstPageAction) { firstPage(); }
         else if(action == lastPageAction) { lastPage(); }
         else if(action == refreshAction) { refresh(); }
-
-        delete menu;
     }
 }
 
@@ -1416,17 +1415,13 @@ Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 
     Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
 
-    if(documentLoader != 0)
-    {
-        return documentLoader;
-    }
-    else
+    if(documentLoader == 0)
     {
         qDebug() << "Could not instantiate plug-in:" << fileName;
         qDebug() << pluginLoader.errorString();
-
-        return 0;
     }
+
+    return documentLoader;
 }
 
 #ifdef STATIC_PDF_PLUGIN
@@ -2315,7 +2310,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    for(int index = 0; index < m_pages.count(); ++index)
+    for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = m_pages.at(index);
 

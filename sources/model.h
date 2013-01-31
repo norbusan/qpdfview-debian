@@ -52,12 +52,15 @@ struct Link
     QString url;
 
     Link() : boundary(), page(-1), left(0.0), top(0.0), url() {}
-    Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
-    Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), url(url) { boundary.addRect(boundingRect); }
-    Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(0.0), top(0.0), url(fileName) { boundary.addRect(boundingRect); }
+
     Link(const QPainterPath& boundary, int page, qreal left = 0.0, qreal top = 0.0) : boundary(boundary), page(page), left(left), top(top), url() {}
+    Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
+
     Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
+    Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), url(url) { boundary.addRect(boundingRect); }
+
     Link(const QPainterPath& boundary, const QString& fileName, int page) : boundary(boundary), page(page), left(0.0), top(0.0), url(fileName) {}
+    Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(0.0), top(0.0), url(fileName) { boundary.addRect(boundingRect); }
 
 };
 
@@ -70,6 +73,7 @@ public:
     virtual QString contents() const = 0;
 
     virtual QDialog* showDialog(const QPoint& screenPos) = 0;
+
 };
 
 class FormField
@@ -81,6 +85,7 @@ public:
     virtual QString name() const = 0;
 
     virtual QDialog* showDialog(const QPoint& screenPos) = 0;
+
 };
 
 class Page
@@ -153,6 +158,6 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(Model::DocumentLoader, "local.qpdfview.DocumentLoader");
+Q_DECLARE_INTERFACE(Model::DocumentLoader, "local.qpdfview.DocumentLoader")
 
 #endif // DOCUMENTMODEL_H
