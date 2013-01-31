@@ -27,96 +27,96 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="459"/>
+        <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="686"/>
-        <location filename="../sources/documentview.cpp" line="725"/>
+        <location filename="../sources/documentview.cpp" line="687"/>
+        <location filename="../sources/documentview.cpp" line="726"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="686"/>
-        <location filename="../sources/documentview.cpp" line="725"/>
+        <location filename="../sources/documentview.cpp" line="687"/>
+        <location filename="../sources/documentview.cpp" line="726"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1841"/>
+        <location filename="../sources/documentview.cpp" line="1836"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1156"/>
+        <location filename="../sources/documentview.cpp" line="1157"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1156"/>
+        <location filename="../sources/documentview.cpp" line="1157"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1208"/>
+        <location filename="../sources/documentview.cpp" line="1209"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1208"/>
+        <location filename="../sources/documentview.cpp" line="1209"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1349"/>
+        <location filename="../sources/documentview.cpp" line="1350"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rna a la pàgina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1357"/>
+        <location filename="../sources/documentview.cpp" line="1358"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Pàgina anterior</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1363"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pàgi&amp;na següent</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1367"/>
+        <location filename="../sources/documentview.cpp" line="1368"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Primera pàgina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1372"/>
+        <location filename="../sources/documentview.cpp" line="1373"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Ú&amp;ltima pàgina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1379"/>
+        <location filename="../sources/documentview.cpp" line="1380"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Refresca</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1569"/>
-        <location filename="../sources/documentview.cpp" line="1598"/>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1564"/>
+        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1569"/>
+        <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1598"/>
+        <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -599,62 +599,62 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="517"/>
+        <location filename="../sources/pageitem.cpp" line="520"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Ves a la pàgina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="521"/>
-        <source>Go to page %1 of file &quot;%2&quot;.</source>
+        <location filename="../sources/pageitem.cpp" line="524"/>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="529"/>
-        <source>Open %1.</source>
-        <translation type="unfinished">Obre %1.</translation>
+        <location filename="../sources/pageitem.cpp" line="532"/>
+        <source>Open &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="562"/>
+        <location filename="../sources/pageitem.cpp" line="566"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Edita formulari &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="776"/>
+        <location filename="../sources/pageitem.cpp" line="780"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Còpia &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="777"/>
+        <location filename="../sources/pageitem.cpp" line="781"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Còpia &amp;imatge</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="778"/>
+        <location filename="../sources/pageitem.cpp" line="782"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Desa imatge a un &amp;fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="812"/>
+        <location filename="../sources/pageitem.cpp" line="816"/>
         <source>Save image to file</source>
         <translation type="unfinished">Desa imatge a un fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="816"/>
+        <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="816"/>
+        <location filename="../sources/pageitem.cpp" line="820"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">No s&apos;ha pogut guardar la imatge a l&apos;arxiu &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="831"/>
+        <location filename="../sources/pageitem.cpp" line="833"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Afegix &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="832"/>
+        <location filename="../sources/pageitem.cpp" line="834"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Destaca</translation>
     </message>
