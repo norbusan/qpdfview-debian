@@ -240,12 +240,12 @@ void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     propertiesModel->clear();
     propertiesModel->setColumnCount(2);
 
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Title")) << new QStandardItem(title));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Created for")) << new QStandardItem(createdFor));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Creator")) << new QStandardItem(creator));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Creation date")) << new QStandardItem(creationDate));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Format")) << new QStandardItem(format));
-    propertiesModel->appendRow(QList<QStandardItem*>() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Title")) << new QStandardItem(title));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Created for")) << new QStandardItem(createdFor));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creator")) << new QStandardItem(creator));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creation date")) << new QStandardItem(creationDate));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Format")) << new QStandardItem(format));
+    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
 }
 
 Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
@@ -256,11 +256,13 @@ Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
 Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) const
 {
     SpectreDocument* document = spectre_document_new();
+
     spectre_document_load(document, QFile::encodeName(filePath));
 
     if (spectre_document_status(document) != SPECTRE_STATUS_SUCCESS)
     {
         spectre_document_free(document);
+
         return 0;
     }
 

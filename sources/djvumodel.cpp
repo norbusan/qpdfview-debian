@@ -123,29 +123,26 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     if(status >= DDJVU_JOB_FAILED)
     {
         ddjvu_page_release(page);
+
         return QImage();
     }
-
-    ddjvu_page_rotation_t rot;
 
     switch(rotation)
     {
     default:
     case RotateBy0:
-        rot = DDJVU_ROTATE_0;
+        ddjvu_page_set_rotation(page, DDJVU_ROTATE_0);
         break;
     case RotateBy90:
-        rot = DDJVU_ROTATE_270;
+        ddjvu_page_set_rotation(page, DDJVU_ROTATE_270);
         break;
     case RotateBy180:
-        rot = DDJVU_ROTATE_180;
+        ddjvu_page_set_rotation(page, DDJVU_ROTATE_180);
         break;
     case RotateBy270:
-        rot = DDJVU_ROTATE_90;
+        ddjvu_page_set_rotation(page, DDJVU_ROTATE_90);
         break;
     }
-
-    ddjvu_page_set_rotation(page, rot);
 
     ddjvu_rect_t pagerect;
 
@@ -186,12 +183,16 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
 
     QImage image(renderrect.w, renderrect.h, QImage::Format_RGB32);
 
-    int ok = ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_parent->m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits()));
+    if(!ddjvu_page_render(page, DDJVU_RENDER_COLOR, &pagerect, &renderrect, m_parent->m_format, image.bytesPerLine(), reinterpret_cast< char* >(image.bits())))
+    {
+        image = QImage();
+    }
 
     clearMessageQueue(m_parent->m_context, false);
 
     ddjvu_page_release(page);
-    return ok == FALSE ? QImage() : image;
+
+    return image;
 }
 
 QList< Model::Link* > Model::DjVuPage::links() const
@@ -522,8 +523,6 @@ void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    outlineModel->clear();
-
     miniexp_t outlineExp;
 
     while(true)
@@ -549,6 +548,8 @@ void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     {
         return;
     }
+
+    outlineModel->clear();
 
     ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
 
@@ -630,6 +631,7 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     if(document == 0)
     {
         ddjvu_context_release(context);
+
         return 0;
     }
 
@@ -639,6 +641,7 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     {
         ddjvu_document_release(document);
         ddjvu_context_release(context);
+
         return 0;
     }
 
