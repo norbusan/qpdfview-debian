@@ -78,9 +78,9 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document. Without effect if the last/first/first/last page of the document is already displayed.</li>
+	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document.</li>
     <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the current tab.</li>
-	<li><b>Search...</b> Opens the search tool bar at the bottom of the window. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. If the shift modifier is held when the return key is pressed, the search starts in all tabs instead of just the current tab.</li>
+	<li><b>Search...</b> Opens the search tool bar below the main view. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. If the shift modifier is held when the return key is pressed, the search starts in all tabs instead of just the current tab.</li>
 	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the search term in the document.</li>
 	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
 	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be dragged to copy texts or images.</li>
@@ -100,11 +100,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
 	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
 	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
-    	<li><b>Fit to page width</b> Determines the scale factor such that all pages fully fit into the main view horizontally.</li>
+    <li><b>Fit to page width</b> Determines the scale factor such that all pages fully fit into the main view horizontally.</li>
 	<li><b>Fit to page size</b> Determines the scale factor such that all pages fully fit into the main view horizontally and vertically.</li>
 	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
 	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for accessing often used actions.</li>
+	<li><b>Tool bars</b> This menu contains a list of available tool bars for accessing frequently used actions.</li>
 	<li><b>Docks</b> This menu contains a list of available docks for displaying supplementary information.</li>
 	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
 	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown maximized and without decoration.</li>
@@ -122,7 +122,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Close all tabs but current tab</b> Closes all tabs except for the current tab.</li>
 </ul>
 
-<p>This menu contains a list of all tabs which can be made the current tab by clicking on the corresponding menu item. Tabs can also be closed by middle-clicking on them.</p>
+<p>This menu contains a list of all tabs which can be made the current tab by clicking on the corresponding menu item. Tabs can also be closed by middle-clicking.</p>
 
 <h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
 
@@ -134,7 +134,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Remove all bookmarks</b> Removes all bookmarks.</li>
     <li><b>Open</b> Opens the corresponding file in the current tab. If there is no tab, the file is opened in a new tab.</li>
     <li><b>Open in new tab</b> Opens the corresponding file in a new tab.</li>
-    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding file is open and opens the corresponding file in a new tab otherwise.</li>
+    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding file is already open. Otherwise the corresponding file is opened in a new tab.</li>
 </ul>
 
 <h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
@@ -146,13 +146,13 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
 
-<p>The backspace/space key skips to the previous/next page. The home/end key skips to the first/last page. The arrow, page up and page down keys scroll the viewport. The return key returns to the page before the last jump.</p>
+<p>The backspace/space key skips to the previous/next page. (Holding the shift modifier reverses this.) The home/end key skips to the first/last page. The arrow, page up and page down keys scroll the viewport. The return key returns to the page before the last jump.</p>
 
 <p>Using the mouse wheel scrolls up and down. Holding <b>ALT</b> while using the mouse wheel scrolls left and right. Holding <b>CTRL</b> while using the mouse wheel scales the document. Holding <b>SHIFT</b> while using the mouse wheel rotates the document. (Keyboard modifiers can be changed in the settings dialog.)</p>
 
 <p>Links are highlighted by red frames (if enabled in the settings). Left-click on a link to show the linked page or open the linked URL in the default browser (if enabled in the settings). Hovering over a link displays its destination as a tool tip.</p>
 
-<p>Form fields are highlighted by blue frames (if enabled in the settings). Left-click on a form field to edit its contents.</p>
+<p>Form fields are highlighted by blue frames (if enabled in the settings). Left-click on a form field to edit its contents. Hovering over a form field displays its name as a tool tip.</p>
 
 <p>The source of a position in the document is requested by double-clicking which opens the first matching <em>SyncTeX</em> node using the source editor.</p>
 
@@ -162,11 +162,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
 
-<p>The <em>outline</em> dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view. The context menu can be used to expand/collapse all items (below the selected item).</p>
+<p>The <em>outline</em> dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view. The context menu can be used to expand/collapse all items below the selected item.</p>
 
-<p>The <em>properties</em> dock displays further information supplied by the document.</p>
+<p>The <em>properties</em> dock displays additional information contained in the document.</p>
 
-<p>The <em>thumbnails</em> dock displays small versions of the pages. A left click on an entry jumps to the respective page in the main view.</p>
+<p>The <em>thumbnails</em> dock displays smaller versions of the pages of the document. A left click on an entry jumps to the respective page in the main view.</p>
 
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
@@ -175,11 +175,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <ul>
     <li><b>Open URL</b> Determines whether links to URL are opened in the default browser.</li>
     <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if changed on disk.</li>
-    <li><b>Track recently used</b> If enabled, a recently used menu is available and lists the ten most recently used documents. (Effective after restart.)</li>
+    <li><b>Track recently used</b> If enabled, a recently used menu is available and lists the ten most recently used files. (Effective after restart.)</li>
     <li><b>Restore tabs</b> If enabled, tabs and their properties are saved on ending the program and restored on restart.</li>
     <li><b>Restore bookmarks</b> If enabled, bookmarks are saved on ending the program and restored on restart.</li>
     <li><b>Restore per-file settings</b> If enabled, per-file settings are saved/restored on opening/closing tabs.</li>
-    <li><b>Synchronize presentation</b> If enabled, the main view and the presentation view will display the same page.</li>
+    <li><b>Synchronize presentation</b> If enabled, the main view can be used to control the presentation view.</li>
     <li><b>Presentation screen</b> The index of the screen to display the presentation view on. </li>
     <li><b>Source editor</b> The program which is started to edit sources. '%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number.</li>
 </ul>
@@ -194,6 +194,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Background color</b> Determines the color of the background using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
     <li><b>Paper color</b> Determines the color of pages using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
     <li><b>Invert colors</b> Determines whether pages are rendered with inverted colors.</li>
+    <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink on top of another is displayed.</li>
     <li><b>Pages per row</b> Number of pages per row in the 'multiple pages' layout mode.</li>
     <li><b>Page spacing</b> Determines both vertical and horizontal space displayed between pages.</li>
     <li><b>Thumbnail spacing</b> Determines both vertical and horizontal space displayed between thumbnails.</li>
