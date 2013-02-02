@@ -39,6 +39,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPrintDialog>
 #include <QPrinter>
 #include <QScrollBar>
+#include <QShortcut>
 #include <QStandardItemModel>
 #include <QTableView>
 #include <QTextBrowser>
@@ -1597,6 +1598,8 @@ void MainWindow::createActions()
     m_previousPageAction->setIconVisibleInMenu(true);
     connect(m_previousPageAction, SIGNAL(triggered()), SLOT(on_previousPage_triggered()));
 
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(on_previousPage_triggered()));
+
     // next page
 
     m_nextPageAction = new QAction(tr("&Next page"), this);
@@ -1604,6 +1607,8 @@ void MainWindow::createActions()
     m_nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
     m_nextPageAction->setIconVisibleInMenu(true);
     connect(m_nextPageAction, SIGNAL(triggered()), SLOT(on_nextPage_triggered()));
+
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(on_nextPage_triggered()));
 
     // first page
 

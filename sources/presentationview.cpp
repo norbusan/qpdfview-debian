@@ -47,6 +47,9 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(previousPage()));
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(nextPage()));
+
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
 
