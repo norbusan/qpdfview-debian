@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formats suportats (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="687"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="726"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1836"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1593"/>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Crític</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PDF!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PS!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de DjVu!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1836"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1338"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview és un visor de PDF amb pestanyes que usa la biblioteca poppler. Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview és un visor de PDFs amb pestanyes que usa la llibreria poppler. Vaja a &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1501"/>
@@ -541,7 +541,7 @@
         <location filename="../sources/pdfmodel.cpp" line="718"/>
         <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation type="unfinished">Sí</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="718"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Per afegir o llevar anotacions és necesària la versió 0.20.1 o superior de la biblioteca Poppler.</translation>
+        <translation type="unfinished">Es necessita la versió 0.20.1 o superior de la llibreria Poppler per afegir o eliminar anotacions.</translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Títol</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creat per</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creador</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Data de creació</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nivell de llengua</translation>
     </message>
 </context>
 <context>
@@ -606,12 +606,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="524"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ves a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="532"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obre &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
@@ -807,7 +807,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut preparar el gestor de senyals.</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1018,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Distància de precàrrega:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
@@ -1083,27 +1083,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ampliació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gira:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desplaçament:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Còpia al porta-papers:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afegix anotació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>

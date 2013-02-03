@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formatos sofitaos (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="687"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="726"/>
         <source>Password:</source>
         <translation type="unfinished">Contraseña:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1836"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1593"/>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Críticu</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡Nun pudo cargase&apos;l complementu PDF!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡Nun pudo cargase&apos;l complementu PS!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡Nun pudo cargase&apos;l complementu DjVu!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1836"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1338"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview ye un visor de PDF con llingüetes qu&apos;usa la biblioteca poppler. Visita &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pa mayor información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview ye un visor de PDFs con llingüetes qu&apos;usa la biblioteca poppler. Visite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pa más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1501"/>
@@ -541,7 +541,7 @@
         <location filename="../sources/pdfmodel.cpp" line="718"/>
         <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation type="unfinished">Sí</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="718"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">P&apos;amestar o quitar anotaciones ye necesaria la versión 0.20.1 o mayor de la biblioteca Poppler.</translation>
+        <translation type="unfinished">Necesitase la versión 0.20.1 o superior de la biblioteca Poppler p&apos;amestar o desaniciar anotaciones.</translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Títulu</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creáu por</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Creador</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Data de creación</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formatu</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nivel del llinguax</translation>
     </message>
 </context>
 <context>
@@ -606,12 +606,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="524"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dir a la páxina %1 del ficheru &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="532"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
@@ -779,7 +779,7 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="73"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diseñu de numberación:</translation>
     </message>
 </context>
 <context>
@@ -807,7 +807,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nun se pudo preparar el xestor de señales.</translation>
     </message>
 </context>
 <context>
@@ -971,27 +971,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="374"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espaciáu de miniatures:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="384"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tamañu de miniatures:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialias:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="398"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialias del testu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Axuste del testu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="410"/>
@@ -1003,137 +1003,137 @@
         <location filename="../sources/settingsdialog.cpp" line="416"/>
         <location filename="../sources/settingsdialog.cpp" line="417"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="420"/>
         <source>Cache size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tamañu de la caché:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Precarga:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Distancia de precarga:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arriba</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="444"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abaxo</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="445"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Izquierda</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Drecha</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="449"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posición de llingüeta:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuando faiga falta</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="455"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Siempres</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="456"/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nunca</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visibilidá de la llingüeta:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="467"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra de ferramientes ficheros:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="475"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra de ferramientes edición:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="483"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barra de ferramientes vista:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ampliación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Xirar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desplazamientu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar al cartafueyu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Amestar anotación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayús</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="523"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Control</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="525"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayúscules y Control</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="526"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayúscules y Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="527"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Control y Alt</translation>
     </message>
 </context>
 <context>
@@ -1141,12 +1141,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="137"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Espander too</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="138"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Colapsar too</translation>
     </message>
 </context>
 </TS>

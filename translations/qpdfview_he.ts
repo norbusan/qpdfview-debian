@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תבניות נתמכות (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="687"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="726"/>
         <source>Password:</source>
         <translation type="unfinished">ססמה:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1836"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1593"/>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">קריטי</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא ניתן לטעון את תוסף ה־PDF!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא ניתן לטעון את תוסף ה־PS!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לא ניתן לטעון את תוסף ה־DjVu!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1836"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1338"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview הנו מציג PDF עם תמיכה בלשוניות המבוסס על הספרייה poppler. ניתן לקבל פרטים נוספים &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;להלן.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1501"/>
@@ -530,7 +530,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
-        <translation type="unfinished">תת־ערכה</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
@@ -555,12 +555,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Information</source>
-        <translation type="unfinished">פרטים</translation>
+        <translation type="unfinished">מידע</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">נדרשת גרסה 0.20.1 ומעלה של ספריית ה־Poppler כדי להוסיף או להסיר הערות.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כותרת</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">נוצר עבור</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">יוצר</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תאריך היצירה</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מבנה</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">רמת השפה</translation>
     </message>
 </context>
 <context>
@@ -606,12 +606,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="524"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מעבר לעמוד %1 בקובץ &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="532"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">פתיחת &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
@@ -1083,27 +1083,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מרחק מתצוגה:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיבוב:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">גלילה:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">העתקה ללוח הגזירים:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הוספת הערה:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
