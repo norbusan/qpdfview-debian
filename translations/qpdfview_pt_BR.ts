@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formatos suportados (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="687"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="726"/>
         <source>Password:</source>
         <translation type="unfinished">Senha:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1836"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Imprimindo &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
@@ -103,22 +98,27 @@
         <location filename="../sources/documentview.cpp" line="1593"/>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Crítico</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Não foi possível carregar o plug-in PDF!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Não foi possível carregar o plug-in PS!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Não foi possível carregar o plug-in DjVu!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1836"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Imprimindo &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1338"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview é um visualizador de PDF com abas utilizando a biblioteca poppler. Veja &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para mais informações.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview é um visualizador de PDF com abas usando a biblioteca poppler. Veja &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para mais informações.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1501"/>
@@ -525,7 +525,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Embedded</source>
-        <translation type="unfinished">Embutido</translation>
+        <translation type="unfinished">Incorporado</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
@@ -555,12 +555,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Information</source>
-        <translation type="unfinished">Informações</translation>
+        <translation type="unfinished">Informação</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Versão 0.20.1 ou superior da biblioteca Poppler é necessário para adicionar ou remover anotações.</translation>
+        <translation type="unfinished">Versão 0.20.1 ou maior da biblioteca Poppler é necessária para adicionar ou remover anotações.</translation>
     </message>
 </context>
 <context>
@@ -568,32 +568,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Título</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Criado para</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Criador</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Data de criação</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formato</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nível da linguagem</translation>
     </message>
 </context>
 <context>
@@ -606,12 +606,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="524"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ir para a página %1 do arquivo &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="532"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
@@ -807,7 +807,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Não foi possível preparar manipulador de sinal.</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1018,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Distância pré-obtida:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
@@ -1083,27 +1083,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zoom:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Girar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rolar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar para a área de transferência:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adicionar anotação:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
