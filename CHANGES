@@ -11,7 +11,7 @@ Release 0.4:
   * Changed presentation view to support rotation, caching and prefetching.
   * Dropped support for storing tabs and bookmarks as XML files.
   * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
-  * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
+  * Updated Ukrainian translation. Thanks to Vladimir Smolyar and yurchor.
   * Updated Croatian translation. Thanks to freedomrun.
   * Updated Slovak translation. Thanks to DAG Software.
   * Updated Czech translation. Thanks to Pavel Fric.
@@ -22,7 +22,8 @@ Release 0.4:
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.
   * Updated Catalan translation. Thanks to VPablo.
   * Updated Asturian translation. Thanks to Xuacu Saturio.
-  * Updated French translation. Thanks to Sylvie Gallet.
+  * Updated French translation. Thanks to Sylvie Gallet and Tanguy Herrmann.
+  * Updated Italian translation. Thanks to Claudio Arseni.
   * Added Malay translation. Thanks to abuyop.
 
 Release 0.3.7:
