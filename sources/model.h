@@ -49,18 +49,18 @@ struct Link
     qreal left;
     qreal top;
 
-    QString url;
+    QString urlOrFileName;
 
-    Link() : boundary(), page(-1), left(0.0), top(0.0), url() {}
+    Link() : boundary(), page(-1), left(0.0), top(0.0), urlOrFileName() {}
 
-    Link(const QPainterPath& boundary, int page, qreal left = 0.0, qreal top = 0.0) : boundary(boundary), page(page), left(left), top(top), url() {}
-    Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), url() { boundary.addRect(boundingRect); }
+    Link(const QPainterPath& boundary, int page, qreal left = 0.0, qreal top = 0.0) : boundary(boundary), page(page), left(left), top(top), urlOrFileName() {}
+    Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), urlOrFileName() { boundary.addRect(boundingRect); }
 
-    Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), url(url) {}
-    Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), url(url) { boundary.addRect(boundingRect); }
+    Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), urlOrFileName(url) {}
+    Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), urlOrFileName(url) { boundary.addRect(boundingRect); }
 
-    Link(const QPainterPath& boundary, const QString& fileName, int page) : boundary(boundary), page(page), left(0.0), top(0.0), url(fileName) {}
-    Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(0.0), top(0.0), url(fileName) { boundary.addRect(boundingRect); }
+    Link(const QPainterPath& boundary, const QString& fileName, int page) : boundary(boundary), page(page), left(0.0), top(0.0), urlOrFileName(fileName) {}
+    Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(0.0), top(0.0), urlOrFileName(fileName) { boundary.addRect(boundingRect); }
 
 };
 

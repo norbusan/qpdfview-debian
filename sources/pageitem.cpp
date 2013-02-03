@@ -511,25 +511,25 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
-                if(link->page != -1 && (link->url.isNull() || !m_presentationMode))
+                if(link->page != -1 && (link->urlOrFileName.isNull() || !m_presentationMode))
                 {
                     setCursor(Qt::PointingHandCursor);
 
-                    if(link->url.isNull())
+                    if(link->urlOrFileName.isNull())
                     {
                         QToolTip::showText(event->screenPos(), tr("Go to page %1.").arg(link->page));
                     }
                     else
                     {
-                        QToolTip::showText(event->screenPos(), tr("Go to page %1 of file '%2'.").arg(link->page).arg(link->url));
+                        QToolTip::showText(event->screenPos(), tr("Go to page %1 of file '%2'.").arg(link->page).arg(link->urlOrFileName));
                     }
 
                     return;
                 }
-                else if(!link->url.isNull() && !m_presentationMode)
+                else if(!link->urlOrFileName.isNull() && !m_presentationMode)
                 {
                     setCursor(Qt::PointingHandCursor);
-                    QToolTip::showText(event->screenPos(), tr("Open '%1'.").arg(link->url));
+                    QToolTip::showText(event->screenPos(), tr("Open '%1'.").arg(link->urlOrFileName));
 
                     return;
                 }
@@ -618,23 +618,23 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                if(link->page != -1 && (link->url.isNull() || !m_presentationMode))
+                if(link->page != -1 && (link->urlOrFileName.isNull() || !m_presentationMode))
                 {
-                    if(link->url.isNull())
+                    if(link->urlOrFileName.isNull())
                     {
                         emit linkClicked(link->page, link->left, link->top);
                     }
                     else
                     {
-                        emit linkClicked(link->url, link->page);
+                        emit linkClicked(link->urlOrFileName, link->page);
                     }
 
                     event->accept();
                     return;
                 }
-                else if(!link->url.isNull() && !m_presentationMode)
+                else if(!link->urlOrFileName.isNull() && !m_presentationMode)
                 {
-                    emit linkClicked(link->url);
+                    emit linkClicked(link->urlOrFileName);
 
                     event->accept();
                     return;
