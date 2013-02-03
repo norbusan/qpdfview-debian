@@ -535,19 +535,19 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="718"/>
         <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="718"/>
         <location filename="../sources/pdfmodel.cpp" line="719"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie</translation>
     </message>
 </context>
 <context>
@@ -555,12 +555,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Information</source>
-        <translation type="unfinished">Informacja</translation>
+        <translation>Informacje</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub usuwać adnotacje.</translation>
     </message>
 </context>
 <context>
@@ -568,27 +568,27 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Tytuł</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation>Stworzone dla</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation>Twórca</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data utworzenia</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
@@ -1093,12 +1093,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przewijaj:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished">Kopiuj do schowka:</translation>
+        <translation>Kopiuj do schowka:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>

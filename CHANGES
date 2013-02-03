@@ -17,11 +17,13 @@ Release 0.4:
   * Updated Czech translation. Thanks to Pavel Fric.
   * Updated British English translation. Thanks to Andi Chandler.
   * Updated French translation. Thanks to Hélion du Mas des Bourboux.
-  * Updated Polish translation. Thanks to Mateusz Łukasik.
+  * Updated Polish translation. Thanks to Mateusz Łukasik and Mike08.
   * Updated Brazilian Portguese translation. Thanks to Phillipe Smith.
   * Updated Hebrew translation. Thanks to Yaron Shahrabani.
   * Updated Catalan translation. Thanks to VPablo.
   * Updated Asturian translation. Thanks to Xuacu Saturio.
+  * Updated French translation. Thanks to Sylvie Gallet.
+  * Added Malay translation. Thanks to abuyop.
 
 Release 0.3.7:
   * Added persistent per-file settings.
