@@ -1469,7 +1469,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
     QMimeDatabase mimeDatabase;
-    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath);
+    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
     if(mimeType.name() == "application/pdf")
     {
@@ -1492,7 +1492,7 @@ Model::Document* DocumentView::loadDocument(const QString& filePath)
 
 #ifdef WITH_MAGIC
 
-    magic_t cookie = magic_open(MAGIC_MIME_TYPE);
+    magic_t cookie = magic_open(MAGIC_MIME_TYPE | MAGIC_SYMLINK);
 
     if(magic_load(cookie, 0) == 0)
     {
