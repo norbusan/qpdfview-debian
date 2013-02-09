@@ -41,6 +41,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class QCheckBox;
 class QGraphicsView;
 class QModelIndex;
+class QShortcut;
 class QTableView;
 
 #include "global.h"
@@ -155,6 +156,7 @@ protected slots:
     void on_closeAllTabsButCurrentTab_triggered();
 
     void on_tab_triggered();
+    void on_tabShortcut_activated();
 
     void on_previousBookmark_triggered();
     void on_nextBookmark_triggered();
@@ -252,6 +254,8 @@ private:
     QAction* m_closeTabAction;
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
+
+    QShortcut* m_tabShortcut[9];
 
     QAction* m_previousBookmarkAction;
     QAction* m_nextBookmarkAction;

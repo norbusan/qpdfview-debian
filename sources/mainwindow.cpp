@@ -1191,6 +1191,19 @@ void MainWindow::on_tab_triggered()
     }
 }
 
+void MainWindow::on_tabShortcut_activated()
+{
+    for(int index = 0; index < 9; ++index)
+    {
+        if(sender() == m_tabShortcut[index])
+        {
+            m_tabWidget->setCurrentIndex(index);
+
+            break;
+        }
+    }
+}
+
 void MainWindow::on_previousBookmark_triggered()
 {
     BookmarkMenu* bookmark = bookmarkForCurrentTab();
@@ -1827,6 +1840,13 @@ void MainWindow::createActions()
     m_closeAllTabsButCurrentTabAction = new QAction(tr("Close all tabs &but current tab"), this);
     m_closeAllTabsButCurrentTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
     connect(m_closeAllTabsButCurrentTabAction, SIGNAL(triggered()), SLOT(on_closeAllTabsButCurrentTab_triggered()));
+
+    // tab shortcuts
+
+    for(int index = 0; index < 9; ++index)
+    {
+        m_tabShortcut[index] = new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1 + index), this, SLOT(on_tabShortcut_activated()));
+    }
 
     // previous bookmark
 
