@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="460"/>
         <source>Supported formats (%1)</source>
-        <translation>Wspierany formaty (%1)</translation>
+        <translation>Wspierane formaty (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="687"/>
@@ -51,7 +51,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
         <source>Information</source>
-        <translation>Informacja</translation>
+        <translation>Informacje</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
@@ -108,17 +108,17 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
         <source>Could not load PDF plug-in!</source>
-        <translation>Nie możliwe załadowanie pluginu PDF!</translation>
+        <translation>Nie można załadować pluginu PDF!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load PS plug-in!</source>
-        <translation>Nie możliwe załadowanie pluginu PS!</translation>
+        <translation>Nie można załadować pluginu PS!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation>Nie możliwe załadowanie pluginu DjVu!</translation>
+        <translation>Nie można załadować pluginu DjVu!</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1338"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview jest to przeglądarka dokumentół PDF oparta o bibliotekę poppler. Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; by uzyskać więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview jest to przeglądarka dokumentów PDF oparta o bibliotekę poppler. Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; by uzyskać więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1501"/>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1502"/>
         <source>Page size</source>
-        <translation>Cała strona</translation>
+        <translation>Rozmiar strony</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1529"/>
