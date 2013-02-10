@@ -194,7 +194,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         m_tabWidget->setCurrentIndex(index);
 
         QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
-        connect(tabAction, SIGNAL(triggered()), SLOT(on_tab_triggered()));
+        connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
 
         m_tabsMenu->addAction(tabAction);
 
@@ -1178,7 +1178,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     m_tabWidget->setCurrentIndex(index);
 }
 
-void MainWindow::on_tab_triggered()
+void MainWindow::on_tabAction_triggered()
 {
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
@@ -1195,7 +1195,7 @@ void MainWindow::on_tabShortcut_activated()
 {
     for(int index = 0; index < 9; ++index)
     {
-        if(sender() == m_tabShortcut[index])
+        if(sender() == m_tabShortcuts[index])
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -1845,7 +1845,7 @@ void MainWindow::createActions()
 
     for(int index = 0; index < 9; ++index)
     {
-        m_tabShortcut[index] = new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1 + index), this, SLOT(on_tabShortcut_activated()));
+        m_tabShortcuts[index] = new QShortcut(QKeySequence(Qt::ALT + Qt::Key_1 + index), this, SLOT(on_tabShortcut_activated()));
     }
 
     // previous bookmark
