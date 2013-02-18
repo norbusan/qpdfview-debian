@@ -44,11 +44,6 @@
         <translation type="unfinished">Adgangskode:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1836"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Udskriver &apos;%1&apos;...</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="1157"/>
         <source>Information</source>
         <translation type="unfinished">Oplysninger</translation>
@@ -103,7 +98,7 @@
         <location filename="../sources/documentview.cpp" line="1593"/>
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kritisk</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1564"/>
@@ -119,6 +114,11 @@
         <location filename="../sources/documentview.cpp" line="1623"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1836"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Udskriver &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1351"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library. See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Adam Reichold&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview er en PDF-læser med faneblade som bruger poppler-biblioteket. Se &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for flere oplysninger.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt; {1&lt;?} {2012-2013 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1514"/>
@@ -530,7 +530,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
         <source>Subset</source>
-        <translation type="unfinished">Undersæt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="710"/>
@@ -560,7 +560,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="321"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Version 0.20.1 eller højere af Poppler-biblioteket er nødvendigt for at tilføje eller fjerne annoteringer.</translation>
+        <translation type="unfinished">Der kræves version 0.20 eller højere af biblioteket Poppler, for at tilføje eller fjerne annoteringer.</translation>
     </message>
 </context>
 <context>
@@ -568,12 +568,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titel</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprettet for</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="245"/>
@@ -583,12 +583,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprettelsesdato</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="247"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="248"/>
@@ -606,12 +606,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="524"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gå til side %1 i filen &quot;%2&quot;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="532"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åbn &quot;%1&quot;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
@@ -807,7 +807,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kunne ikke klargøre signalhåndteringen.</translation>
     </message>
 </context>
 <context>
@@ -1018,7 +1018,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afstand for afhent på forkant:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
@@ -1098,12 +1098,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopiér til udklipsholder:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilføj annotering:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
