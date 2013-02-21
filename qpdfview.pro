@@ -29,6 +29,7 @@ TRANSLATIONS += \
     translations/qpdfview_de.ts \
     translations/qpdfview_el.ts \
     translations/qpdfview_en_GB.ts \
+    translations/qpdfview_eo.ts \
     translations/qpdfview_es.ts \
     translations/qpdfview_eu.ts \
     translations/qpdfview_fi.ts \
