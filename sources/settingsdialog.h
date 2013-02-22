@@ -41,7 +41,7 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget* parent = 0);
+    SettingsDialog(Settings* settings, QWidget* parent = 0);
 
 public slots:
     void accept();

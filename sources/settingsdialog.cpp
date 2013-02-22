@@ -31,10 +31,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 
-SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
+SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(parent),
+    m_settings(settings)
 {
-    m_settings = new Settings(this);
-
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->addTab(new QWidget(this), tr("&Behavior"));
     m_tabWidget->addTab(new QWidget(this), tr("&Graphics"));

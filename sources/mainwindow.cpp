@@ -961,7 +961,7 @@ void MainWindow::on_addAnnotationMode_triggered(bool checked)
 
 void MainWindow::on_settings_triggered()
 {
-    SettingsDialog* settingsDialog = new SettingsDialog(this);
+    SettingsDialog* settingsDialog = new SettingsDialog(m_settings, this);
 
     if(settingsDialog->exec() == QDialog::Accepted)
     {
@@ -978,6 +978,8 @@ void MainWindow::on_settings_triggered()
             }
         }
     }
+
+    delete settingsDialog;
 }
 
 void MainWindow::on_continuousMode_triggered(bool checked)
