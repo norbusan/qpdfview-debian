@@ -322,6 +322,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
+    m_invertColors(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pagesScene(0),
@@ -577,6 +578,33 @@ void DocumentView::setRotation(Rotation rotation)
         prepareView();
 
         emit rotationChanged(m_rotation);
+    }
+}
+
+bool DocumentView::invertColors() const
+{
+    return m_invertColors;
+}
+
+void DocumentView::setInvertColors(bool invertColors)
+{
+    if(m_invertColors != invertColors)
+    {
+        m_invertColors = invertColors;
+
+        foreach(PageItem* page, m_pages)
+        {
+            page->setInvertColors(m_invertColors);
+        }
+
+        foreach(PageItem* page, m_thumbnails)
+        {
+            page->setInvertColors(m_invertColors);
+        }
+
+        prepareBackground();
+
+        emit invertColorsChanged(m_invertColors);
     }
 }
 
@@ -2013,6 +2041,7 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     preparePages();
     prepareThumbnails();
+    prepareBackground();
 
     m_document->loadOutline(m_outlineModel);
     m_document->loadProperties(m_propertiesModel);
@@ -2047,24 +2076,6 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
     }
-
-    QColor backgroundColor;
-
-    if(PageItem::decoratePages())
-    {
-        backgroundColor = PageItem::backgroundColor();
-    }
-    else
-    {
-        backgroundColor = PageItem::paperColor();
-
-        if(PageItem::invertColors())
-        {
-            backgroundColor.setRgb(~backgroundColor.rgb());
-        }
-    }
-
-    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareThumbnails()
@@ -2120,7 +2131,10 @@ void DocumentView::prepareThumbnails()
     }
 
     m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+}
 
+void DocumentView::prepareBackground()
+{
     QColor backgroundColor;
 
     if(PageItem::decoratePages())
@@ -2131,12 +2145,13 @@ void DocumentView::prepareThumbnails()
     {
         backgroundColor = PageItem::paperColor();
 
-        if(PageItem::invertColors())
+        if(m_invertColors)
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
     }
 
+    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
     m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 

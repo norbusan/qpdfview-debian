@@ -59,9 +59,6 @@ public:
     static const QColor& paperColor();
     static void setPaperColor(const QColor& paperColor);
 
-    static bool invertColors();
-    static void setInvertColors(bool invertColors);
-
     static const Qt::KeyboardModifiers& copyToClipboardModifiers();
     static void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
 
@@ -76,6 +73,9 @@ public:
 
     int index() const;
     const QSizeF& size() const;
+
+    bool invertColors();
+    void setInvertColors(bool invertColors);
 
     const QList< QRectF >& highlights() const;
     void setHighlights(const QList< QRectF >& highlights, int duration = 0);
@@ -97,7 +97,7 @@ public:
     const QTransform& normalizedTransform() const;
 
 signals:
-    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image);
+    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
@@ -118,7 +118,7 @@ public slots:
 
 protected slots:
     void on_render_finished();
-    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image);
+    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -145,8 +145,6 @@ private:
     static QColor s_backgroundColor;
     static QColor s_paperColor;
 
-    static bool s_invertColors;
-
     static Qt::KeyboardModifiers s_copyToClipboardModifiers;
     static Qt::KeyboardModifiers s_addAnnotationModifiers;
 
@@ -160,6 +158,7 @@ private:
     QList< Model::FormField* > m_formFields;
 
     bool m_presentationMode;
+    bool m_invertColors;
 
     QList< QRectF > m_highlights;
 
@@ -192,8 +191,32 @@ private:
 
     // render
 
+    struct RenderOptions
+    {
+        int physicalDpiX;
+        int physicalDpiY;
+
+        qreal scaleFactor;
+        Rotation rotation;
+
+        bool invertColors;
+
+        bool prefetch;
+
+        RenderOptions(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch) :
+            physicalDpiX(physicalDpiX),
+            physicalDpiY(physicalDpiY),
+            scaleFactor(scaleFactor),
+            rotation(rotation),
+            invertColors(invertColors),
+            prefetch(prefetch)
+        {
+        }
+
+    };
+
     QFutureWatcher< void >* m_render;
-    void render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch);
+    void render(const RenderOptions& renderOptions);
 
 };
 

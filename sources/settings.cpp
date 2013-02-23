@@ -113,7 +113,8 @@ void Settings::refresh()
     ::PageItem::setBackgroundColor(pageItem()->backgroundColor());
     ::PageItem::setPaperColor(pageItem()->paperColor());
 
-    ::PageItem::setInvertColors(pageItem()->invertColors());
+    // TODO: per-tab property
+    //::PageItem::setInvertColors(pageItem()->invertColors());
 
     ::PageItem::setCopyToClipboardModifiers(pageItem()->copyToClipboardModifiers());
     ::PageItem::setAddAnnotationModifiers(pageItem()->addAnnotationModifiers());

@@ -133,6 +133,9 @@ public:
     Rotation rotation() const;
     void setRotation(Rotation rotation);
 
+    bool invertColors() const;
+    void setInvertColors(bool invertColors);
+
     bool highlightAll() const;
     void setHighlightAll(bool highlightAll);
 
@@ -163,6 +166,7 @@ signals:
 
     void linkClicked(const QString& filePath, int page);
 
+    void invertColorsChanged(bool invertColors);
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -301,6 +305,7 @@ private:
     qreal m_scaleFactor;
     Rotation m_rotation;
 
+    bool m_invertColors;
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 
@@ -318,10 +323,9 @@ private:
     QStandardItemModel* m_propertiesModel;
 
     void prepareDocument(Model::Document* document);
-
     void preparePages();
-
     void prepareThumbnails();
+    void prepareBackground();
 
     void prepareScene();
     void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0);

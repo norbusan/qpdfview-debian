@@ -77,14 +77,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
     }
 
-    QColor backgroundColor = backgroundColor = PageItem::paperColor();
-
-    if(PageItem::invertColors())
-    {
-        backgroundColor.setRgb(~backgroundColor.rgb());
-    }
-
-    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+    m_pagesScene->setBackgroundBrush(QBrush(PageItem::paperColor()));
 
     // prefetch
 

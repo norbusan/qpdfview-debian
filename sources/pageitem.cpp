@@ -43,8 +43,6 @@ bool PageItem::s_decorateFormFields = true;
 QColor PageItem::s_backgroundColor(Qt::darkGray);
 QColor PageItem::s_paperColor(Qt::white);
 
-bool PageItem::s_invertColors = false;
-
 Qt::KeyboardModifiers PageItem::s_copyToClipboardModifiers(Qt::ShiftModifier);
 Qt::KeyboardModifiers PageItem::s_addAnnotationModifiers(Qt::ControlModifier);
 
@@ -114,16 +112,6 @@ void PageItem::setPaperColor(const QColor& paperColor)
     }
 }
 
-bool PageItem::invertColors()
-{
-    return s_invertColors;
-}
-
-void PageItem::setInvertColors(bool invertColors)
-{
-    s_invertColors = invertColors;
-}
-
 const Qt::KeyboardModifiers& PageItem::copyToClipboardModifiers()
 {
     return s_copyToClipboardModifiers;
@@ -151,6 +139,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_links(),
     m_annotations(),
     m_presentationMode(presentationMode),
+    m_invertColors(false),
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
@@ -169,7 +158,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_render = new QFutureWatcher< void >(this);
     connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
 
-    connect(this, SIGNAL(imageReady(int,int,qreal,Rotation,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Rotation,bool,QImage)));
+    connect(this, SIGNAL(imageReady(int,int,qreal,Rotation,bool,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Rotation,bool,bool,QImage)));
 
     m_page = page;
 
@@ -230,7 +219,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     {
         QColor paperColor = s_paperColor;
 
-        if(s_invertColors)
+        if(m_invertColors)
         {
             paperColor.setRgb(~paperColor.rgb());
         }
@@ -239,7 +228,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
 
-        painter->setPen(QPen(s_invertColors ? Qt::white : Qt::black));
+        painter->setPen(QPen(m_invertColors ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
     }
     else
@@ -306,7 +295,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     if(!m_rubberBand.isNull())
     {
         QPen pen;
-        pen.setColor(s_invertColors ? Qt::white : Qt::black);
+        pen.setColor(m_invertColors ? Qt::white : Qt::black);
         pen.setStyle(Qt::DashLine);
 
         painter->setPen(pen);
@@ -322,6 +311,18 @@ int PageItem::index() const
 const QSizeF& PageItem::size() const
 {
     return m_size;
+}
+
+bool PageItem::invertColors()
+{
+    return m_invertColors;
+}
+
+void PageItem::setInvertColors(bool invertColors)
+{
+    m_invertColors = invertColors;
+
+    refresh();
 }
 
 const QList< QRectF >& PageItem::highlights() const
@@ -458,7 +459,7 @@ void PageItem::startRender(bool prefetch)
 
     if(!m_render->isRunning())
     {
-        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, prefetch));
+        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, RenderOptions(m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, prefetch)));
     }
 }
 
@@ -474,9 +475,9 @@ void PageItem::on_render_finished()
     update();
 }
 
-void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch, QImage image)
+void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
 {
-    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation)
+    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
         return;
     }
@@ -946,16 +947,16 @@ void PageItem::prepareGeometry()
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 }
 
-void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool prefetch)
+void PageItem::render(const RenderOptions& renderOptions)
 {
-    if(m_render->isCanceled() && !prefetch)
+    if(m_render->isCanceled() && !renderOptions.prefetch)
     {
         return;
     }
 
-    QImage image = m_page->render(physicalDpiX * scaleFactor, physicalDpiY * scaleFactor, rotation);
+    QImage image = m_page->render(renderOptions.physicalDpiX * renderOptions.scaleFactor, renderOptions.physicalDpiY * renderOptions.scaleFactor, renderOptions.rotation);
 
-    if(m_render->isCanceled() && !prefetch)
+    if(m_render->isCanceled() && !renderOptions.prefetch)
     {
         return;
     }
@@ -966,12 +967,12 @@ void PageItem::render(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rot
         image.fill(Qt::color0);
     }
 
-    if(s_invertColors)
+    if(renderOptions.invertColors)
     {
         image.invertPixels();
     }
 
-    emit imageReady(physicalDpiX, physicalDpiY, scaleFactor, rotation, prefetch, image);
+    emit imageReady(renderOptions.physicalDpiX, renderOptions.physicalDpiY, renderOptions.scaleFactor, renderOptions.rotation, renderOptions.invertColors, renderOptions.prefetch, image);
 }
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent)
