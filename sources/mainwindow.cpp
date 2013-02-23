@@ -470,8 +470,8 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
         {
             QFileInfo fileInfo(filePath);
 
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
-            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
+            m_tabWidget->setTabText(index, fileInfo.completeBaseName());
+            m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
 
             foreach(QAction* tabAction, m_tabsMenu->actions())
             {
