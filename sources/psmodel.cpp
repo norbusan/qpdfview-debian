@@ -229,7 +229,7 @@ Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) 
     // graphics antialias bits
 
     m_graphicsAntialiasBitsSpinBox = new QSpinBox(this);
-    m_graphicsAntialiasBitsSpinBox->setRange(1, 8);
+    m_graphicsAntialiasBitsSpinBox->setRange(1, 4);
     m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("ps/graphicsAntialiasBits", 4).toInt());
 
     m_layout->addRow(tr("Graphics antialias bits:"), m_graphicsAntialiasBitsSpinBox);
@@ -237,7 +237,7 @@ Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) 
     // text antialias bits
 
     m_textAntialisBitsSpinBox = new QSpinBox(this);
-    m_textAntialisBitsSpinBox->setRange(1, 8);
+    m_textAntialisBitsSpinBox->setRange(1, 2);
     m_textAntialisBitsSpinBox->setValue(m_settings->value("ps/textAntialiasBits", 2).toInt());
 
     m_layout->addRow(tr("Text antialias bits:"), m_textAntialisBitsSpinBox);
