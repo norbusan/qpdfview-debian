@@ -42,14 +42,22 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 #ifdef WITH_PDF
 
     m_pdfSettingsWidget = DocumentView::createPDFSettingsWidget();
-    m_graphicsTabWidget->addTab(m_pdfSettingsWidget, "PDF");
+
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_graphicsTabWidget->addTab(m_pdfSettingsWidget, "PDF");
+    }
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
     m_psSettingsWidget = DocumentView::createPSSettingsWidget();
-    m_graphicsTabWidget->addTab(m_psSettingsWidget, "PS");
+
+    if(m_psSettingsWidget != 0)
+    {
+        m_graphicsTabWidget->addTab(m_psSettingsWidget, "PS");
+    }
 
 #endif // WITH_PS
 
@@ -86,13 +94,19 @@ void SettingsDialog::accept()
 {
 #ifdef WITH_PDF
 
-    m_pdfSettingsWidget->accept();
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_pdfSettingsWidget->accept();
+    }
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    m_psSettingsWidget->accept();
+    if(m_psSettingsWidget != 0)
+    {
+        m_psSettingsWidget->accept();
+    }
 
 #endif // WITH_PS
 
@@ -160,13 +174,19 @@ void SettingsDialog::on_defaults_clicked()
 {
 #ifdef WITH_PDF
 
-    m_pdfSettingsWidget->reset();
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_pdfSettingsWidget->reset();
+    }
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    m_psSettingsWidget->reset();
+    if(m_psSettingsWidget != 0)
+    {
+        m_psSettingsWidget->reset();
+    }
 
 #endif // WITH_PS
 
