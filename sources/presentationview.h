@@ -46,10 +46,18 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    Rotation rotation() const;
+    void setRotation(Rotation rotation);
+
+    bool invertColors() const;
+    void setInvertColors(bool invertColors);
+
 signals:
     void currentPageChanged(int currentPage, bool returnTo = false);
 
     void rotationChanged(Rotation rotation);
+
+    void invertColorsChanged(bool invertColors);
     
 public slots:
     void show();
@@ -84,6 +92,8 @@ private:
     int m_currentPage;
 
     Rotation m_rotation;
+
+    bool m_invertColors;
 
     QStack< int > m_returnToPage;
 

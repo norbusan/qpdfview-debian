@@ -35,12 +35,15 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_numberOfPages(-1),
     m_currentPage(-1),
     m_rotation(RotateBy0),
+    m_invertColors(false),
     m_returnToPage(),
     m_pagesScene(0),
     m_pages()
 {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
+
+    setFrameShape(QFrame::NoFrame);
 
     setAcceptDrops(false);
 
@@ -120,6 +123,53 @@ int PresentationView::currentPage() const
     return m_currentPage;
 }
 
+Rotation PresentationView::rotation() const
+{
+    return m_rotation;
+}
+
+void PresentationView::setRotation(Rotation rotation)
+{
+    if(m_rotation != rotation)
+    {
+        m_rotation = rotation;
+
+        prepareScene();
+        prepareView();
+
+        emit rotationChanged(m_rotation);
+    }
+}
+
+bool PresentationView::invertColors() const
+{
+    return m_invertColors;
+}
+
+void PresentationView::setInvertColors(bool invertColors)
+{
+    if(m_invertColors != invertColors)
+    {
+        m_invertColors = invertColors;
+
+        foreach(PageItem* page, m_pages)
+        {
+            page->setInvertColors(m_invertColors);
+        }
+
+        QColor backgroundColor = PageItem::paperColor();
+
+        if(m_invertColors)
+        {
+            backgroundColor.setRgb(~backgroundColor.rgb());
+        }
+
+        m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+
+        emit invertColorsChanged(m_invertColors);
+    }
+}
+
 void PresentationView::show()
 {
     QWidget::show();
@@ -170,23 +220,18 @@ void PresentationView::rotateLeft()
     {
     default:
     case RotateBy0:
-        m_rotation = RotateBy270;
+        setRotation(RotateBy270);
         break;
     case RotateBy90:
-        m_rotation = RotateBy0;
+        setRotation(RotateBy0);
         break;
     case RotateBy180:
-        m_rotation = RotateBy90;
+        setRotation(RotateBy90);
         break;
     case RotateBy270:
-        m_rotation = RotateBy180;
+        setRotation(RotateBy180);
         break;
     }
-
-    prepareScene();
-    prepareView();
-
-    emit rotationChanged(m_rotation);
 }
 
 void PresentationView::rotateRight()
@@ -195,23 +240,18 @@ void PresentationView::rotateRight()
     {
     default:
     case RotateBy0:
-        m_rotation = RotateBy90;
+        setRotation(RotateBy90);
         break;
     case RotateBy90:
-        m_rotation = RotateBy180;
+        setRotation(RotateBy180);
         break;
     case RotateBy180:
-        m_rotation = RotateBy270;
+        setRotation(RotateBy270);
         break;
     case RotateBy270:
-        m_rotation = RotateBy0;
+        setRotation(RotateBy0);
         break;
     }
-
-    prepareScene();
-    prepareView();
-
-    emit rotationChanged(m_rotation);
 }
 
 void PresentationView::on_prefetch_timeout()
@@ -291,6 +331,14 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
     case Qt::Key_F12:
     case Qt::Key_Escape:
         close();
+
+        event->accept();
+        return;
+    }
+
+    if(event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_I)
+    {
+        setInvertColors(!invertColors());
 
         event->accept();
         return;
