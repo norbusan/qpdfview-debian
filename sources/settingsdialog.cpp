@@ -29,14 +29,33 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QPushButton>
 
+#include "model.h"
+#include "documentview.h"
 #include "settings.h"
 
 SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(parent),
     m_settings(settings)
 {
+    m_graphicsTabWidget = new QTabWidget(this);
+    m_graphicsTabWidget->addTab(new QWidget(this), tr("General"));
+
+#ifdef WITH_PDF
+
+    m_graphicsTabWidget->addTab(DocumentView::createPDFSettingsWidget(), "PDF");
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    m_graphicsTabWidget->addTab(DocumentView::createPSSettingsWidget(), "PS");
+
+#endif // WITH_PS
+
+    m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
+
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->addTab(new QWidget(this), tr("&Behavior"));
-    m_tabWidget->addTab(new QWidget(this), tr("&Graphics"));
+    m_tabWidget->addTab(m_graphicsTabWidget, tr("&Graphics"));
     m_tabWidget->addTab(new QWidget(this), tr("&Interface"));
     m_tabWidget->addTab(new QWidget(this), tr("&Modifiers"));
 
@@ -48,7 +67,6 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
-    m_graphicsLayout = new QFormLayout(m_tabWidget->widget(1));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
     m_modifiersLayout = new QFormLayout(m_tabWidget->widget(3));
 
@@ -92,18 +110,12 @@ void SettingsDialog::accept()
     m_settings->pageItem()->setBackgroundColor(m_backgroundColorComboBox->currentText());
     m_settings->pageItem()->setPaperColor(m_paperColorComboBox->currentText());
 
-    m_settings->documentView()->setOverprintPreview(m_overprintPreviewCheckBox->isChecked());
-
     m_settings->documentView()->setPagesPerRow(m_pagesPerRowSpinBox->value());
 
     m_settings->documentView()->setPageSpacing(m_pageSpacingSpinBox->value());
     m_settings->documentView()->setThumbnailSpacing(m_thumbnailSpacingSpinBox->value());
 
     m_settings->documentView()->setThumbnailSize(m_thumbnailSizeSpinBox->value());
-
-    m_settings->documentView()->setAntialiasing(m_antialiasingCheckBox->isChecked());
-    m_settings->documentView()->setTextAntialiasing(m_textAntialiasingCheckBox->isChecked());
-    m_settings->documentView()->setTextHinting(m_textHintingCheckBox->isChecked());
 
     m_settings->pageItem()->setCacheSize(m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()).toInt());
     m_settings->documentView()->setPrefetch(m_prefetchCheckBox->isChecked());
@@ -160,18 +172,12 @@ void SettingsDialog::on_defaults_clicked()
     m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor());
     m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor());
 
-    m_overprintPreviewCheckBox->setChecked(Defaults::DocumentView::overprintPreview());
-
     m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
     m_pageSpacingSpinBox->setValue(Defaults::DocumentView::pageSpacing());
     m_thumbnailSpacingSpinBox->setValue(Defaults::DocumentView::thumbnailSpacing());
 
     m_thumbnailSizeSpinBox->setValue(Defaults::DocumentView::thumbnailSize());
-
-    m_antialiasingCheckBox->setChecked(Defaults::DocumentView::antialiasing());
-    m_textAntialiasingCheckBox->setChecked(Defaults::DocumentView::textAntialiasing());
-    m_textHintingCheckBox->setChecked(Defaults::DocumentView::textHinting());
 
     m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
     m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
@@ -328,13 +334,6 @@ void SettingsDialog::createGraphicsTab()
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
 
-    // overprint preview
-
-    m_overprintPreviewCheckBox = new QCheckBox(this);
-    m_overprintPreviewCheckBox->setChecked(m_settings->documentView()->overprintPreview());
-
-    m_graphicsLayout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
-
     // pages per row
 
     m_pagesPerRowSpinBox = new QSpinBox(this);
@@ -372,27 +371,6 @@ void SettingsDialog::createGraphicsTab()
     m_thumbnailSizeSpinBox->setValue(m_settings->documentView()->thumbnailSize());
 
     m_graphicsLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
-
-    // antialiasing
-
-    m_antialiasingCheckBox = new QCheckBox(this);
-    m_antialiasingCheckBox->setChecked(m_settings->documentView()->antialiasing());
-
-    m_graphicsLayout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
-
-    // text antialising
-
-    m_textAntialiasingCheckBox = new QCheckBox(this);
-    m_textAntialiasingCheckBox->setChecked(m_settings->documentView()->textAntialiasing());
-
-    m_graphicsLayout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
-
-    // text hinting
-
-    m_textHintingCheckBox = new QCheckBox(this);
-    m_textHintingCheckBox->setChecked(m_settings->documentView()->textHinting());
-
-    m_graphicsLayout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
 
     // cache size
 

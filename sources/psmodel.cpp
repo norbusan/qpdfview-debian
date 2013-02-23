@@ -316,7 +316,7 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
 
 Model::SettingsWidget* Model::PSDocumentLoader::createSettingsWidget() const
 {
-    return 0;
+    return new PSSettingsWidget(m_settings);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)

@@ -52,12 +52,14 @@ protected slots:
 private:
     Settings* m_settings;
 
+    QTabWidget* m_graphicsTabWidget;
+    QFormLayout* m_graphicsLayout;
+
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
 
     QFormLayout* m_behaviorLayout;
-    QFormLayout* m_graphicsLayout;
     QFormLayout* m_interfaceLayout;
     QFormLayout* m_modifiersLayout;
 
@@ -91,18 +93,12 @@ private:
     QComboBox* m_backgroundColorComboBox;
     QComboBox* m_paperColorComboBox;
 
-    QCheckBox* m_overprintPreviewCheckBox;
-
     QSpinBox* m_pagesPerRowSpinBox;
 
     QDoubleSpinBox* m_pageSpacingSpinBox;
     QDoubleSpinBox* m_thumbnailSpacingSpinBox;
 
     QDoubleSpinBox* m_thumbnailSizeSpinBox;
-
-    QCheckBox* m_antialiasingCheckBox;
-    QCheckBox* m_textAntialiasingCheckBox;
-    QCheckBox* m_textHintingCheckBox;
 
     QComboBox* m_cacheSizeComboBox;
     QCheckBox* m_prefetchCheckBox;
