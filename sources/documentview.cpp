@@ -1057,8 +1057,10 @@ void DocumentView::presentation(bool sync, int screen)
     connect(this, SIGNAL(filePathChanged(QString)), presentationView, SLOT(close()));
     connect(this, SIGNAL(numberOfPagesChanged(int)), presentationView, SLOT(close()));
 
-    presentationView->jumpToPage(currentPage(), false);
+    presentationView->setRotation(rotation());
     presentationView->setInvertColors(invertColors());
+
+    presentationView->jumpToPage(currentPage(), false);
 
     if(sync)
     {
