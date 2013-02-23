@@ -1374,23 +1374,23 @@ void MainWindow::on_contents_triggered()
 
 void MainWindow::on_about_triggered()
 {
-    QMessageBox::about(this, tr("About qpdfview"), tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed document viewer using Qt.</p>"
+    QMessageBox::about(this, tr("About qpdfview"), (tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed document viewer using Qt.</p>"
                                                       "<p>This version includes:"
-                                                      "<ul>"
+                                                      "<ul>")
 #ifdef WITH_PDF
-                                                      "<li>PDF support using Poppler</li>"
+                                                      + tr("<li>PDF support using Poppler</li>")
 #endif // WITH_PDF
 #ifdef WITH_PS
-                                                      "<li>PS support using libspectre</li>"
+                                                      + tr("<li>PS support using libspectre</li>")
 #endif // WITH_PS
 #ifdef WITH_DJVU
-                                                      "<li>DjVu support using DjVuLibre</li>"
+                                                      + tr("<li>DjVu support using DjVuLibre</li>")
 #endif // WITH_DJVU
 #ifdef WITH_CUPS
-                                                      "<li>Printing support using CUPS</li>"
+                                                      + tr("<li>Printing support using CUPS</li>")
 #endif // WITH_CUPS
-                                                      "</ul>"
-                                                      "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 The qpdfview developers</p>").arg(QApplication::applicationVersion()));
+                                                      + tr("</ul>"
+                                                      "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 The qpdfview developers</p>")).arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::on_highlightAll_clicked(bool checked)
