@@ -140,12 +140,6 @@ public:
 
     bool canBePrinted() const;
 
-    void setAntialiasing(bool on);
-    void setTextAntialiasing(bool on);
-    void setTextHinting(bool on);
-
-    void setOverprintPreview(bool on);
-
     void setPaperColor(const QColor& paperColor);
 
     void loadOutline(QStandardItemModel* outlineModel) const;

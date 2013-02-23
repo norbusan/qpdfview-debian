@@ -74,12 +74,6 @@ bool DocumentView::s_openUrl = false;
 
 bool DocumentView::s_autoRefresh = false;
 
-bool DocumentView::s_antialiasing = true;
-bool DocumentView::s_textAntialiasing = true;
-bool DocumentView::s_textHinting = false;
-
-bool DocumentView::s_overprintPreview = false;
-
 bool DocumentView::s_prefetch = false;
 int DocumentView::s_prefetchDistance = 1;
 
@@ -138,46 +132,6 @@ bool DocumentView::autoRefresh()
 void DocumentView::setAutoRefresh(bool autoRefresh)
 {
     s_autoRefresh = autoRefresh;
-}
-
-bool DocumentView::antialiasing()
-{
-    return s_antialiasing;
-}
-
-void DocumentView::setAntialiasing(bool antialiasing)
-{
-    s_antialiasing = antialiasing;
-}
-
-bool DocumentView::textAntialiasing()
-{
-    return s_textAntialiasing;
-}
-
-void DocumentView::setTextAntialiasing(bool textAntialiasing)
-{
-    s_textAntialiasing = textAntialiasing;
-}
-
-bool DocumentView::textHinting()
-{
-    return s_textHinting;
-}
-
-void DocumentView::setTextHinting(bool textHinting)
-{
-    s_textHinting = textHinting;
-}
-
-bool DocumentView::overprintPreview()
-{
-    return s_overprintPreview;
-}
-
-void DocumentView::setOverprintPreview(bool overprintPreview)
-{
-    s_overprintPreview = overprintPreview;
 }
 
 bool DocumentView::prefetch()
@@ -2087,12 +2041,6 @@ void DocumentView::prepareDocument(Model::Document* document)
     {
         m_autoRefreshWatcher->addPath(m_filePath);
     }
-
-    m_document->setAntialiasing(s_antialiasing);
-    m_document->setTextAntialiasing(s_textAntialiasing);
-    m_document->setTextHinting(s_textHinting);
-
-    m_document->setOverprintPreview(s_overprintPreview);
 
     m_document->setPaperColor(PageItem::paperColor());
 

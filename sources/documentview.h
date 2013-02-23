@@ -58,18 +58,6 @@ public:
     static bool autoRefresh();
     static void setAutoRefresh(bool autoRefresh);
 
-    static bool antialiasing();
-    static void setAntialiasing(bool antialiasing);
-
-    static bool textAntialiasing();
-    static void setTextAntialiasing(bool textAntialiasing);
-
-    static bool textHinting();
-    static void setTextHinting(bool textHinting);
-
-    static bool overprintPreview();
-    static void setOverprintPreview(bool overprintPreview);
-
     static bool prefetch();
     static void setPrefetch(bool prefetch);
 
@@ -245,12 +233,6 @@ private:
     static bool s_openUrl;
 
     static bool s_autoRefresh;
-
-    static bool s_antialiasing;
-    static bool s_textAntialiasing;
-    static bool s_textHinting;
-
-    static bool s_overprintPreview;
 
     static bool s_prefetch;
     static int s_prefetchDistance;

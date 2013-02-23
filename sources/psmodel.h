@@ -79,9 +79,6 @@ public:
 
     bool canBePrinted() const;
 
-    void setAntialiasing(bool on);
-    void setTextAntialiasing(bool on);
-
     void loadProperties(QStandardItemModel* propertiesModel) const;
 
 private:

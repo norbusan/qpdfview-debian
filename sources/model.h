@@ -133,12 +133,6 @@ public:
 
     virtual bool canBePrinted() const;
 
-    virtual void setAntialiasing(bool on);
-    virtual void setTextAntialiasing(bool on);
-    virtual void setTextHinting(bool on);
-
-    virtual void setOverprintPreview(bool on);
-
     virtual void setPaperColor(const QColor& paperColor);
 
     virtual void loadOutline(QStandardItemModel* outlineModel) const;

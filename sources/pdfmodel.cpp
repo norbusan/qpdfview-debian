@@ -547,42 +547,6 @@ bool Model::PDFDocument::canBePrinted() const
     return true;
 }
 
-void Model::PDFDocument::setAntialiasing(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-    m_document->setRenderHint(Poppler::Document::Antialiasing, on);
-}
-
-void Model::PDFDocument::setTextAntialiasing(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-    m_document->setRenderHint(Poppler::Document::TextAntialiasing, on);
-}
-
-void Model::PDFDocument::setTextHinting(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-    m_document->setRenderHint(Poppler::Document::TextHinting, on);
-}
-
-void Model::PDFDocument::setOverprintPreview(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-#ifdef HAS_POPPLER_22
-
-    m_document->setRenderHint(Poppler::Document::OverprintPreview, on);
-
-#else
-
-    Q_UNUSED(on);
-
-#endif // HAS_POPPLER_22
-}
-
 void Model::PDFDocument::setPaperColor(const QColor& paperColor)
 {
     QMutexLocker mutexLocker(&m_mutex);

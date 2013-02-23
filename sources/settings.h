@@ -111,18 +111,6 @@ public:
         bool autoRefresh() const;
         void setAutoRefresh(bool on);
 
-        bool antialiasing() const;
-        void setAntialiasing(bool on);
-
-        bool textAntialiasing() const;
-        void setTextAntialiasing(bool on);
-
-        bool textHinting() const;
-        void setTextHinting(bool on);
-
-        bool overprintPreview() const;
-        void setOverprintPreview(bool on);
-
         bool prefetch() const;
         void setPrefetch(bool on);
 
@@ -311,12 +299,6 @@ public:
         static inline bool openUrl() { return false; }
 
         static inline bool autoRefresh() { return false; }
-
-        static inline bool antialiasing() { return true; }
-        static inline bool textAntialiasing() { return true; }
-        static inline bool textHinting() { return false; }
-
-        static inline bool overprintPreview() { return false; }
 
         static inline bool prefetch() { return false; }
         static inline int prefetchDistance() { return 1; }

@@ -199,36 +199,6 @@ bool Model::PSDocument::canBePrinted() const
     return true;
 }
 
-void Model::PSDocument::setAntialiasing(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-    int antialiasGraphics = 1;
-    int antialiasText = 1;
-
-    spectre_render_context_get_antialias_bits(m_renderContext, &antialiasGraphics, &antialiasText);
-
-    if ((antialiasGraphics == 4) == on)
-        return;
-
-    spectre_render_context_set_antialias_bits(m_renderContext, on ? 4 : 1, antialiasText);
-}
-
-void Model::PSDocument::setTextAntialiasing(bool on)
-{
-    QMutexLocker mutexLocker(&m_mutex);
-
-    int antialiasGraphics = 1;
-    int antialiasText = 1;
-
-    spectre_render_context_get_antialias_bits(m_renderContext, &antialiasGraphics, &antialiasText);
-
-    if ((antialiasText == 2) == on)
-        return;
-
-    spectre_render_context_set_antialias_bits(m_renderContext, antialiasGraphics, on ? 2 : 1);
-}
-
 void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     QMutexLocker mutexLocker(&m_mutex);

@@ -41,13 +41,15 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
 #ifdef WITH_PDF
 
-    m_graphicsTabWidget->addTab(DocumentView::createPDFSettingsWidget(), "PDF");
+    m_pdfSettingsWidget = DocumentView::createPDFSettingsWidget();
+    m_graphicsTabWidget->addTab(m_pdfSettingsWidget, "PDF");
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    m_graphicsTabWidget->addTab(DocumentView::createPSSettingsWidget(), "PS");
+    m_psSettingsWidget = DocumentView::createPSSettingsWidget();
+    m_graphicsTabWidget->addTab(m_psSettingsWidget, "PS");
 
 #endif // WITH_PS
 
@@ -82,6 +84,18 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
 void SettingsDialog::accept()
 {
+#ifdef WITH_PDF
+
+    m_pdfSettingsWidget->accept();
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    m_psSettingsWidget->accept();
+
+#endif // WITH_PS
+
     // behavior
 
     m_settings->documentView()->setOpenUrl(m_openUrlCheckBox->isChecked());
@@ -144,6 +158,18 @@ void SettingsDialog::accept()
 
 void SettingsDialog::on_defaults_clicked()
 {
+#ifdef WITH_PDF
+
+    m_pdfSettingsWidget->reset();
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    m_psSettingsWidget->reset();
+
+#endif // WITH_PS
+
     // behavior
 
     m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());

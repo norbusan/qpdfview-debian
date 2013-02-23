@@ -112,26 +112,6 @@ bool Model::Document::canBePrinted() const
     return false;
 }
 
-void Model::Document::setAntialiasing(bool on)
-{
-    Q_UNUSED(on);
-}
-
-void Model::Document::setTextAntialiasing(bool on)
-{
-    Q_UNUSED(on);
-}
-
-void Model::Document::setTextHinting(bool on)
-{
-    Q_UNUSED(on);
-}
-
-void Model::Document::setOverprintPreview(bool on)
-{
-    Q_UNUSED(on);
-}
-
 void Model::Document::setPaperColor(const QColor& paperColor)
 {
     Q_UNUSED(paperColor);

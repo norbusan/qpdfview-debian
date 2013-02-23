@@ -120,12 +120,6 @@ void Settings::refresh()
 
     ::DocumentView::setAutoRefresh(documentView()->autoRefresh());
 
-    ::DocumentView::setAntialiasing(documentView()->antialiasing());
-    ::DocumentView::setTextAntialiasing(documentView()->textAntialiasing());
-    ::DocumentView::setTextHinting(documentView()->textHinting());
-
-    ::DocumentView::setOverprintPreview(documentView()->overprintPreview());
-
     ::DocumentView::setPrefetch(documentView()->prefetch());
     ::DocumentView::setPrefetchDistance(documentView()->prefetchDistance());
 
@@ -291,46 +285,6 @@ bool Settings::DocumentView::autoRefresh() const
 void Settings::DocumentView::setAutoRefresh(bool on)
 {
     m_settings->setValue("documentView/autoRefresh", on);
-}
-
-bool Settings::DocumentView::antialiasing() const
-{
-    return m_settings->value("documentView/antialiasing", Defaults::DocumentView::antialiasing()).toBool();
-}
-
-void Settings::DocumentView::setAntialiasing(bool on)
-{
-    m_settings->setValue("documentView/antialiasing", on);
-}
-
-bool Settings::DocumentView::textAntialiasing() const
-{
-    return m_settings->value("documentView/textAntialiasing", Defaults::DocumentView::textAntialiasing()).toBool();
-}
-
-void Settings::DocumentView::setTextAntialiasing(bool on)
-{
-    m_settings->setValue("documentView/textAntialiasing", on);
-}
-
-bool Settings::DocumentView::textHinting() const
-{
-    return m_settings->value("documentView/textHinting", Defaults::DocumentView::textHinting()).toBool();
-}
-
-void Settings::DocumentView::setTextHinting(bool on)
-{
-    m_settings->setValue("documentView/textHinting", on);
-}
-
-bool Settings::DocumentView::overprintPreview() const
-{
-    return m_settings->value("documentView/overprintPreview", Defaults::DocumentView::overprintPreview()).toBool();
-}
-
-void Settings::DocumentView::setOverprintPreview(bool on)
-{
-    m_settings->setValue("documentView/overprintPreview", on);
 }
 
 bool Settings::DocumentView::prefetch() const

@@ -34,6 +34,11 @@ class QLineEdit;
 class QSpinBox;
 class QTabWidget;
 
+namespace Model
+{
+class SettingsWidget;
+}
+
 class Settings;
 
 class SettingsDialog : public QDialog
@@ -54,6 +59,18 @@ private:
 
     QTabWidget* m_graphicsTabWidget;
     QFormLayout* m_graphicsLayout;
+
+#ifdef WITH_PDF
+
+    Model::SettingsWidget* m_pdfSettingsWidget;
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    Model::SettingsWidget* m_psSettingsWidget;
+
+#endif // WITH_PS
 
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;
