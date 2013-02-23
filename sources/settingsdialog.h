@@ -90,7 +90,6 @@ private:
 
     QComboBox* m_backgroundColorComboBox;
     QComboBox* m_paperColorComboBox;
-    QCheckBox* m_invertColorsCheckBox;
 
     QCheckBox* m_overprintPreviewCheckBox;
 

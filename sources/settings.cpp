@@ -113,9 +113,6 @@ void Settings::refresh()
     ::PageItem::setBackgroundColor(pageItem()->backgroundColor());
     ::PageItem::setPaperColor(pageItem()->paperColor());
 
-    // TODO: per-tab property
-    //::PageItem::setInvertColors(pageItem()->invertColors());
-
     ::PageItem::setCopyToClipboardModifiers(pageItem()->copyToClipboardModifiers());
     ::PageItem::setAddAnnotationModifiers(pageItem()->addAnnotationModifiers());
 
@@ -226,16 +223,6 @@ void Settings::PageItem::setPaperColor(const QString& color)
     m_settings->setValue("pageItem/paperColor", QColor(color).isValid() ? color : Defaults::PageItem::paperColor());
 
 #endif // QT_VERSION
-}
-
-bool Settings::PageItem::invertColors() const
-{
-    return m_settings->value("pageItem/invertColors", Defaults::PageItem::invertColors()).toBool();
-}
-
-void Settings::PageItem::setInvertColors(bool on)
-{
-    m_settings->setValue("pageItem/invertColors", on);
 }
 
 Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
@@ -506,6 +493,16 @@ Rotation Settings::DocumentView::rotation() const
 void Settings::DocumentView::setRotation(Rotation rotation)
 {
     m_settings->setValue("documentView/rotation", static_cast< uint >(rotation));
+}
+
+bool Settings::DocumentView::invertColors() const
+{
+    return m_settings->value("documentView/invertColors", Defaults::DocumentView::invertColors()).toBool();
+}
+
+void Settings::DocumentView::setInvertColors(bool on)
+{
+    m_settings->setValue("documentView/invertColors", on);
 }
 
 bool Settings::DocumentView::highlightAll() const

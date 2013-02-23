@@ -63,9 +63,6 @@ public:
         QString paperColor() const;
         void setPaperColor(const QString& color);
 
-        bool invertColors() const;
-        void setInvertColors(bool on);
-
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
         void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
 
@@ -175,6 +172,9 @@ public:
 
         Rotation rotation() const;
         void setRotation(Rotation rotation);
+
+        bool invertColors() const;
+        void setInvertColors(bool on);
 
         bool highlightAll() const;
         void setHighlightAll(bool on);
@@ -286,8 +286,6 @@ public:
         static inline QString backgroundColor() { return "gray"; }
         static inline QString paperColor() { return "white"; }
 
-        static inline bool invertColors() { return false; }
-
         static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
         static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
 
@@ -347,6 +345,8 @@ public:
         static inline qreal scaleFactor() { return 1.0; }
 
         static inline Rotation rotation() { return RotateBy0; }
+
+        static inline bool invertColors() { return false; }
 
         static inline bool highlightAll() { return false; }
 

@@ -88,6 +88,7 @@ protected slots:
 
     void on_currentTab_linkClicked(const QString& filePath, int page);
 
+    void on_currentTab_invertColorsChanged(bool invertColors);
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -143,6 +144,8 @@ protected slots:
 
     void on_rotateLeft_triggered();
     void on_rotateRight_triggered();
+
+    void on_invertColors_triggered(bool checked);
 
     void on_fonts_triggered();
 
@@ -243,6 +246,8 @@ private:
 
     QAction* m_rotateLeftAction;
     QAction* m_rotateRightAction;
+
+    QAction* m_invertColorsAction;
 
     QAction* m_fontsAction;
 

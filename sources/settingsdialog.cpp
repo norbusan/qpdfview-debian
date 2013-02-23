@@ -91,7 +91,6 @@ void SettingsDialog::accept()
 
     m_settings->pageItem()->setBackgroundColor(m_backgroundColorComboBox->currentText());
     m_settings->pageItem()->setPaperColor(m_paperColorComboBox->currentText());
-    m_settings->pageItem()->setInvertColors(m_invertColorsCheckBox->isChecked());
 
     m_settings->documentView()->setOverprintPreview(m_overprintPreviewCheckBox->isChecked());
 
@@ -160,7 +159,6 @@ void SettingsDialog::on_defaults_clicked()
 
     m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor());
     m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor());
-    m_invertColorsCheckBox->setChecked(Defaults::PageItem::invertColors());
 
     m_overprintPreviewCheckBox->setChecked(Defaults::DocumentView::overprintPreview());
 
@@ -329,13 +327,6 @@ void SettingsDialog::createGraphicsTab()
     m_paperColorComboBox->lineEdit()->setText(m_settings->pageItem()->paperColor());
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
-
-    // invert colors
-
-    m_invertColorsCheckBox = new QCheckBox(this);
-    m_invertColorsCheckBox->setChecked(m_settings->pageItem()->invertColors());
-
-    m_graphicsLayout->addRow(tr("Invert colors:"), m_invertColorsCheckBox);
 
     // overprint preview
 

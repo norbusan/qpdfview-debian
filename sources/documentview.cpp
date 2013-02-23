@@ -2063,6 +2063,7 @@ void DocumentView::preparePages()
         PageItem* page = new PageItem(m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+        page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
         m_pagesScene->addItem(page);
@@ -2094,6 +2095,7 @@ void DocumentView::prepareThumbnails()
         ThumbnailItem* page = new ThumbnailItem(m_document->page(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+        page->setInvertColors(m_invertColors);
 
         m_thumbnailsScene->addItem(page);
         m_thumbnails.append(page);

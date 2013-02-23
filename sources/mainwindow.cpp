@@ -182,6 +182,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->setScaleMode(m_settings->documentView()->scaleMode());
         newTab->setScaleFactor(m_settings->documentView()->scaleFactor());
         newTab->setRotation(m_settings->documentView()->rotation());
+        newTab->setInvertColors(m_settings->documentView()->invertColors());
         newTab->setHighlightAll(m_settings->documentView()->highlightAll());
 
         QFileInfo fileInfo(filePath);
@@ -210,6 +211,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
 
+        connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
@@ -312,6 +314,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_rotateLeftAction->setEnabled(true);
         m_rotateRightAction->setEnabled(true);
 
+        m_invertColorsAction->setEnabled(true);
+
         m_fontsAction->setEnabled(true);
 
         m_presentationAction->setEnabled(true);
@@ -354,6 +358,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
         on_currentTab_rotationChanged(currentTab()->rotation());
 
+        on_currentTab_invertColorsChanged(currentTab()->invertColors());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }
@@ -392,6 +397,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_rotateLeftAction->setEnabled(false);
         m_rotateRightAction->setEnabled(false);
+
+        m_invertColorsAction->setEnabled(false);
 
         m_fontsAction->setEnabled(false);
 
@@ -443,6 +450,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_fitToPageSizeModeAction->setChecked(false);
         m_fitToPageWidthModeAction->setChecked(false);
+
+        m_invertColorsAction->setChecked(false);
     }
 }
 
@@ -590,6 +599,16 @@ void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
 void MainWindow::on_currentTab_linkClicked(const QString& filePath, int page)
 {
     jumpToPageOrOpenInNewTab(filePath, page, true);
+}
+
+void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
+{
+    if(senderIsCurrentTab())
+    {
+        m_invertColorsAction->setChecked(invertColors);
+
+        m_settings->documentView()->setInvertColors(invertColors);
+    }
 }
 
 void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
@@ -1035,6 +1054,11 @@ void MainWindow::on_rotateLeft_triggered()
 void MainWindow::on_rotateRight_triggered()
 {
     currentTab()->rotateRight();
+}
+
+void MainWindow::on_invertColors_triggered(bool checked)
+{
+    currentTab()->setInvertColors(checked);
 }
 
 void MainWindow::on_fonts_triggered()
@@ -1806,6 +1830,13 @@ void MainWindow::createActions()
     m_rotateRightAction->setIconVisibleInMenu(true);
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(on_rotateRight_triggered()));
 
+    // invert colors
+
+    m_invertColorsAction = new QAction(tr("Invert colors"), this);
+    m_invertColorsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
+    m_invertColorsAction->setCheckable(true);
+    connect(m_invertColorsAction, SIGNAL(triggered(bool)), SLOT(on_invertColors_triggered(bool)));
+
     // fonts
 
     m_fontsAction = new QAction(tr("Fonts..."), this);
@@ -2150,6 +2181,8 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_rotateLeftAction);
     m_viewMenu->addAction(m_rotateRightAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_invertColorsAction);
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));
