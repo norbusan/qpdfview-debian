@@ -21,8 +21,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pdfmodel.h"
 
+#include <QCheckBox>
 #include <QDebug>
+#include <QFormLayout>
 #include <QMessageBox>
+#include <QSettings>
 #include <QStandardItemModel>
 
 #include <poppler-qt4.h>
@@ -721,16 +724,100 @@ void Model::PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
     }
 }
 
+Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
+    m_settings(settings)
+{
+    m_layout = new QFormLayout(this);
+
+    // antialiasing
+
+    m_antialiasingCheckBox = new QCheckBox(this);
+    m_antialiasingCheckBox->setChecked(m_settings->value("pdf/antialiasing", true).toBool());
+
+    m_layout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
+
+    // text antialising
+
+    m_textAntialiasingCheckBox = new QCheckBox(this);
+    m_textAntialiasingCheckBox->setChecked(m_settings->value("pdf/textAntialiasing", true).toBool());
+
+    m_layout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
+
+    // text hinting
+
+    m_textHintingCheckBox = new QCheckBox(this);
+    m_textHintingCheckBox->setChecked(m_settings->value("pdf/textHinting", false).toBool());
+
+    m_layout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
+
+#ifdef HAS_POPPLER_22
+
+    // overprint preview
+
+    m_overprintPreviewCheckBox = new QCheckBox(this);
+    m_overprintPreviewCheckBox->setChecked(m_settings->value("pdf/overprintPreview", false).toBool());
+
+    m_layout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
+
+#endif // HAS_POPPLER_22
+}
+
+void Model::PDFSettingsWidget::accept()
+{
+    m_settings->setValue("pdf/antialiasing", m_antialiasingCheckBox->isChecked());
+    m_settings->setValue("pdf/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
+    m_settings->setValue("pdf/textHinting", m_textHintingCheckBox->isChecked());
+
+#ifdef HAS_POPPLER_22
+
+    m_settings->setValue("pdf/overprintPreview", m_overprintPreviewCheckBox->isChecked());
+
+#endif // HAS_POPPLER_22
+}
+
+void Model::PDFSettingsWidget::reset()
+{
+    m_antialiasingCheckBox->setChecked(true);
+    m_textAntialiasingCheckBox->setChecked(true);
+    m_textHintingCheckBox->setChecked(false);
+
+#ifdef HAS_POPPLER_22
+
+    m_overprintPreviewCheckBox->setChecked(false);
+
+#endif // HAS_POPPLER_22
+}
+
 Model::PDFDocumentLoader::PDFDocumentLoader(QObject* parent) : QObject(parent)
 {
     setObjectName("PDFDocumentLoader");
+
+    m_settings = new QSettings("qpdfview", "qpdfview", this);
 }
 
 Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath) const
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
 
+    if(document != 0)
+    {
+        document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("pdf/antialiasing", false).toBool());
+        document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("pdf/textAntialiasing", false).toBool());
+        document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("pdf/textHinting", false).toBool());
+
+#ifdef HAS_POPPLER_22
+
+        document->setRenderHint(Poppler::Document::OverprintPreview, m_settings->value("pdf/overprintPreview", false).toBool());
+
+#endif // HAS_POPPLER_22
+    }
+
     return document != 0 ? new PDFDocument(document) : 0;
+}
+
+Model::SettingsWidget* Model::PDFDocumentLoader::createSettingsWidget() const
+{
+    return new PDFSettingsWidget(m_settings);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)

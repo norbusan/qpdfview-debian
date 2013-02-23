@@ -26,6 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCoreApplication>
 #include <QMutex>
 
+class QFormLayout;
+class QSettings;
+class QSpinBox;
+
 struct SpectrePage;
 struct SpectreDocument;
 struct SpectreRenderContext;
@@ -81,11 +85,31 @@ public:
     void loadProperties(QStandardItemModel* propertiesModel) const;
 
 private:
-    PSDocument(SpectreDocument* document);
+    PSDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
 
     mutable QMutex m_mutex;
     SpectreDocument* m_document;
     SpectreRenderContext* m_renderContext;
+
+};
+
+class PSSettingsWidget : public SettingsWidget
+{
+    Q_OBJECT
+
+public:
+    PSSettingsWidget(QSettings* settings, QWidget* parent = 0);
+
+    void accept();
+    void reset();
+
+private:
+    QSettings* m_settings;
+
+    QFormLayout* m_layout;
+
+    QSpinBox* m_graphicsAntialiasBitsSpinBox;
+    QSpinBox* m_textAntialisBitsSpinBox;
 
 };
 
@@ -104,6 +128,11 @@ public:
     PSDocumentLoader(QObject* parent = 0);
 
     Document* loadDocument(const QString& filePath) const;
+
+    SettingsWidget* createSettingsWidget() const;
+
+private:
+    QSettings* m_settings;
 
 };
 

@@ -23,7 +23,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "psmodel.h"
 
 #include <QFile>
+#include <QFormLayout>
 #include <qmath.h>
+#include <QSettings>
+#include <QSpinBox>
 #include <QStandardItemModel>
 
 #include <libspectre/spectre-document.h>
@@ -129,11 +132,11 @@ QImage Model::PSPage::render(qreal horizontalResolution, qreal verticalResolutio
     return image;
 }
 
-Model::PSDocument::PSDocument(SpectreDocument* document) :
+Model::PSDocument::PSDocument(SpectreDocument* document, SpectreRenderContext* renderContext) :
     m_mutex(),
-    m_document(document)
+    m_document(document),
+    m_renderContext(renderContext)
 {
-    m_renderContext = spectre_render_context_new();
 }
 
 Model::PSDocument::~PSDocument()
@@ -248,9 +251,45 @@ void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
 }
 
+Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
+    m_settings(settings)
+{
+    m_layout = new QFormLayout(this);
+
+    // graphics antialias bits
+
+    m_graphicsAntialiasBitsSpinBox = new QSpinBox(this);
+    m_graphicsAntialiasBitsSpinBox->setRange(1, 8);
+    m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("ps/graphicsAntialiasBits", 4).toInt());
+
+    m_layout->addRow(tr("Graphics antialias bits:"), m_graphicsAntialiasBitsSpinBox);
+
+    // text antialias bits
+
+    m_textAntialisBitsSpinBox = new QSpinBox(this);
+    m_textAntialisBitsSpinBox->setRange(1, 8);
+    m_textAntialisBitsSpinBox->setValue(m_settings->value("ps/textAntialiasBits", 2).toInt());
+
+    m_layout->addRow(tr("Text antialias bits:"), m_textAntialisBitsSpinBox);
+}
+
+void Model::PSSettingsWidget::accept()
+{
+    m_settings->setValue("ps/graphicsAntialiasBits", m_graphicsAntialiasBitsSpinBox->value());
+    m_settings->setValue("ps/textAntialiasBits", m_textAntialisBitsSpinBox->value());
+}
+
+void Model::PSSettingsWidget::reset()
+{
+    m_graphicsAntialiasBitsSpinBox->setValue(4);
+    m_textAntialisBitsSpinBox->setValue(2);
+}
+
 Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
 {
     setObjectName("PSDocumentLoader");
+
+    m_settings = new QSettings("qpdfview", "qpdfview", this);
 }
 
 Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) const
@@ -266,7 +305,18 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
         return 0;
     }
 
-    return new PSDocument(document);
+    SpectreRenderContext* renderContext = spectre_render_context_new();
+
+    spectre_render_context_set_antialias_bits(renderContext,
+                                              m_settings->value("ps/graphicsAntialiasBits", 4).toInt(),
+                                              m_settings->value("ps/textAntialiasBits", 2).toInt());
+
+    return new PSDocument(document, renderContext);
+}
+
+Model::SettingsWidget* Model::PSDocumentLoader::createSettingsWidget() const
+{
+    return 0;
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)

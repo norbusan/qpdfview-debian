@@ -648,6 +648,11 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     return new DjVuDocument(context, document);
 }
 
+Model::SettingsWidget* Model::DjVuDocumentLoader::createSettingsWidget() const
+{
+    return 0;
+}
+
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
 Q_EXPORT_PLUGIN2(qpdfview_djvu, Model::DjVuDocumentLoader)

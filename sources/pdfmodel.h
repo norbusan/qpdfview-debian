@@ -25,6 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCoreApplication>
 #include <QMutex>
 
+class QCheckBox;
+class QFormLayout;
+class QSettings;
+
 namespace Poppler
 {
 class Annotation;
@@ -156,6 +160,33 @@ private:
 
 };
 
+class PDFSettingsWidget : public SettingsWidget
+{
+    Q_OBJECT
+
+public:
+    PDFSettingsWidget(QSettings* settings, QWidget* parent = 0);
+
+    void accept();
+    void reset();
+
+private:
+    QSettings* m_settings;
+
+    QFormLayout* m_layout;
+
+    QCheckBox* m_antialiasingCheckBox;
+    QCheckBox* m_textAntialiasingCheckBox;
+    QCheckBox* m_textHintingCheckBox;
+
+#ifdef HAS_POPPLER_22
+
+    QCheckBox* m_overprintPreviewCheckBox;
+
+#endif // HAS_POPPLER_22
+
+};
+
 class PDFDocumentLoader : public QObject, DocumentLoader
 {
     Q_OBJECT
@@ -171,6 +202,11 @@ public:
     PDFDocumentLoader(QObject* parent = 0);
 
     Document* loadDocument(const QString& filePath) const;
+
+    SettingsWidget* createSettingsWidget() const;
+
+private:
+    QSettings* m_settings;
 
 };
 

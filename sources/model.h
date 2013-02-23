@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QRect>
 #include <QRectF>
 #include <QString>
+#include <QWidget>
 
 class QColor;
 class QDialog;
@@ -147,12 +148,26 @@ public:
 
 };
 
+class SettingsWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit SettingsWidget(QWidget* parent = 0);
+
+    virtual void accept();
+    virtual void reset();
+
+};
+
 class DocumentLoader
 {
 public:
     virtual ~DocumentLoader() {}
 
     virtual Document* loadDocument(const QString& filePath) const = 0;
+
+    virtual SettingsWidget* createSettingsWidget() const = 0;
 
 };
 

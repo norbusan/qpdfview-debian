@@ -151,3 +151,15 @@ void Model::Document::loadFonts(QStandardItemModel* fontsModel) const
 {
     Q_UNUSED(fontsModel);
 }
+
+Model::SettingsWidget::SettingsWidget(QWidget* parent) : QWidget(parent)
+{
+}
+
+void Model::SettingsWidget::accept()
+{
+}
+
+void Model::SettingsWidget::reset()
+{
+}
