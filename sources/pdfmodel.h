@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 
 class QCheckBox;
+class QComboBox;
 class QFormLayout;
 class QSettings;
 
@@ -171,7 +172,16 @@ private:
 
     QCheckBox* m_antialiasingCheckBox;
     QCheckBox* m_textAntialiasingCheckBox;
+
+#ifdef HAS_POPPLER_18
+
+    QComboBox* m_textHintingComboBox;
+
+#else
+
     QCheckBox* m_textHintingCheckBox;
+
+#endif // HAS_POPPLER_18
 
 #ifdef HAS_POPPLER_22
 

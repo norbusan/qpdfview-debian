@@ -18,6 +18,7 @@ QT += core xml gui
     PKGCONFIG += poppler-qt4
 
     system(pkg-config --atleast-version=0.14 poppler-qt4):DEFINES += HAS_POPPLER_14
+    system(pkg-config --atleast-version=0.18 poppler-qt4):DEFINES += HAS_POPPLER_18
     system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
     system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
     system(pkg-config --atleast-version=0.24 poppler-qt4):DEFINES += HAS_POPPLER_24

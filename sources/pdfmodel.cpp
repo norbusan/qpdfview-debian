@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pdfmodel.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDebug>
 #include <QFormLayout>
 #include <QMessageBox>
@@ -709,10 +710,24 @@ Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent
 
     // text hinting
 
+#ifdef HAS_POPPLER_18
+
+    m_textHintingComboBox = new QComboBox(this);
+    m_textHintingComboBox->addItem(tr("None"));
+    m_textHintingComboBox->addItem(tr("Full"));
+    m_textHintingComboBox->addItem(tr("Reduced"));
+    m_textHintingComboBox->setCurrentIndex(m_settings->value("pdf/textHinting").toInt());
+
+    m_layout->addRow(tr("Text hinting:"), m_textHintingComboBox);
+
+#else
+
     m_textHintingCheckBox = new QCheckBox(this);
     m_textHintingCheckBox->setChecked(m_settings->value("pdf/textHinting", false).toBool());
 
     m_layout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
+
+#endif // HAS_POPPLER_18
 
 #ifdef HAS_POPPLER_22
 
@@ -730,7 +745,17 @@ void Model::PDFSettingsWidget::accept()
 {
     m_settings->setValue("pdf/antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings->setValue("pdf/textAntialiasing", m_textAntialiasingCheckBox->isChecked());
+
+#ifdef HAS_POPPLER_18
+
+    m_settings->setValue("pdf/textHinting", m_textHintingComboBox->currentIndex());
+
+#else
+
     m_settings->setValue("pdf/textHinting", m_textHintingCheckBox->isChecked());
+
+#endif // HAS_POPPLER_18
+
 
 #ifdef HAS_POPPLER_22
 
@@ -743,7 +768,16 @@ void Model::PDFSettingsWidget::reset()
 {
     m_antialiasingCheckBox->setChecked(true);
     m_textAntialiasingCheckBox->setChecked(true);
+
+#ifdef HAS_POPPLER_18
+
+    m_textHintingComboBox->setCurrentIndex(0);
+
+#else
+
     m_textHintingCheckBox->setChecked(false);
+
+#endif // HAS_POPPLER_18
 
 #ifdef HAS_POPPLER_22
 
@@ -767,7 +801,30 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
     {
         document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("pdf/antialiasing", false).toBool());
         document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("pdf/textAntialiasing", false).toBool());
+
+#ifdef HAS_POPPLER_18
+
+        switch(m_settings->value("pdf/textHinting").toInt())
+        {
+        default:
+        case 0:
+            document->setRenderHint(Poppler::Document::TextHinting, false);
+            break;
+        case 1:
+            document->setRenderHint(Poppler::Document::TextHinting, true);
+            document->setRenderHint(Poppler::Document::TextSlightHinting, false);
+            break;
+        case 2:
+            document->setRenderHint(Poppler::Document::TextHinting, true);
+            document->setRenderHint(Poppler::Document::TextSlightHinting, true);
+            break;
+        }
+
+#else
+
         document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("pdf/textHinting", false).toBool());
+
+#endif // HAS_POPPLER_18
 
 #ifdef HAS_POPPLER_22
 
