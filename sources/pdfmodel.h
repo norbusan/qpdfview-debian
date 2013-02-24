@@ -189,6 +189,12 @@ private:
 
 #endif // HAS_POPPLER_22
 
+#ifdef HAS_POPPLER_24
+
+    QComboBox* m_thinLineModeComboBox;
+
+#endif // HAS_POPPLER_24
+
 };
 
 class PDFDocumentLoader : public QObject, DocumentLoader

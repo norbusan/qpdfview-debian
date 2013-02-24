@@ -716,7 +716,7 @@ Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent
     m_textHintingComboBox->addItem(tr("None"));
     m_textHintingComboBox->addItem(tr("Full"));
     m_textHintingComboBox->addItem(tr("Reduced"));
-    m_textHintingComboBox->setCurrentIndex(m_settings->value("pdf/textHinting").toInt());
+    m_textHintingComboBox->setCurrentIndex(m_settings->value("pdf/textHinting", 0).toInt());
 
     m_layout->addRow(tr("Text hinting:"), m_textHintingComboBox);
 
@@ -739,6 +739,18 @@ Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent
     m_layout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
 
 #endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+    m_thinLineModeComboBox = new QComboBox(this);
+    m_thinLineModeComboBox->addItem(tr("None"));
+    m_thinLineModeComboBox->addItem(tr("Solid"));
+    m_thinLineModeComboBox->addItem(tr("Shaped"));
+    m_thinLineModeComboBox->setCurrentIndex(m_settings->value("pdf/thinLineMode", 0).toInt());
+
+    m_layout->addRow(tr("Thin line mode:"), m_thinLineModeComboBox);
+
+#endif // HAS_POPPLER_24
 }
 
 void Model::PDFSettingsWidget::accept()
@@ -762,6 +774,12 @@ void Model::PDFSettingsWidget::accept()
     m_settings->setValue("pdf/overprintPreview", m_overprintPreviewCheckBox->isChecked());
 
 #endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+    m_settings->setValue("pdf/thinLineMode", m_thinLineModeComboBox->currentIndex());
+
+#endif // HAS_POPPLER_24
 }
 
 void Model::PDFSettingsWidget::reset()
@@ -784,6 +802,12 @@ void Model::PDFSettingsWidget::reset()
     m_overprintPreviewCheckBox->setChecked(false);
 
 #endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+    m_thinLineModeComboBox->setCurrentIndex(0);
+
+#endif // HAS_POPPLER_24
 }
 
 Model::PDFDocumentLoader::PDFDocumentLoader(QObject* parent) : QObject(parent)
@@ -804,7 +828,7 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
 
 #ifdef HAS_POPPLER_18
 
-        switch(m_settings->value("pdf/textHinting").toInt())
+        switch(m_settings->value("pdf/textHinting", 0).toInt())
         {
         default:
         case 0:
@@ -831,6 +855,27 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
         document->setRenderHint(Poppler::Document::OverprintPreview, m_settings->value("pdf/overprintPreview", false).toBool());
 
 #endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+        switch(m_settings->value("pdf/thinLineMode", 0).toInt())
+        {
+        default:
+        case 0:
+            document->setRenderHint(Poppler::Document::ThinLineSolid, false);
+            document->setRenderHint(Poppler::Document::ThinLineShape, false);
+            break;
+        case 1:
+            document->setRenderHint(Poppler::Document::ThinLineSolid, true);
+            document->setRenderHint(Poppler::Document::ThinLineShape, false);
+            break;
+        case 2:
+            document->setRenderHint(Poppler::Document::ThinLineSolid, false);
+            document->setRenderHint(Poppler::Document::ThinLineShape, true);
+            break;
+        }
+
+#endif // HAS_POPPLER_24
     }
 
     return document != 0 ? new PDFDocument(document) : 0;
