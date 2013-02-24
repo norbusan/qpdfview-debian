@@ -1,5 +1,10 @@
 Release 0.4.1:
+  * Added per-plug-in settings for PDF and PS plug-ins.
+  * Added granular hinting and thin line mode settings for the PDF plug-in.
+  * Changed color inversion to a per-tab property.
+  * Improved rotation and color inversion in the presentation view.
   * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
+  * Updated Czech translation. Thanks to Pavel Fric.
   * Added Esperanto translation. Thanks to Donald Rogers.
 
 Release 0.4:
