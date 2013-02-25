@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je prehliadač dokumentov na kartách používajúci Qt.&lt;/p&gt;&lt;p&gt;Táto verzia obsahuje:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF podpora používajúca Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PostScript podpora používajúca libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;DjVu podpora používajúca DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora tlače používajúca CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pozrite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pre ďalšie informácie.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Vývojári qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Invertovať farby</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -543,56 +543,56 @@
 <context>
     <name>Model::PDFSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Vyhladzovanie:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Vyhladzovanie textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="716"/>
-        <location filename="../sources/pdfmodel.cpp" line="746"/>
+        <location filename="../sources/pdfmodel.cpp" line="816"/>
+        <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
-        <translation type="unfinished">Nič</translation>
+        <translation type="unfinished">Žiadne</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="717"/>
+        <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Plné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zmenšené</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="721"/>
-        <location filename="../sources/pdfmodel.cpp" line="728"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Hinting textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="739"/>
+        <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Náhľad pretlače:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="747"/>
+        <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pevné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="748"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zkosené</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="751"/>
+        <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Režim tenkej čiary:</translation>
     </message>
 </context>
 <context>
@@ -600,50 +600,50 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bity grafického vyhladzovania:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bity vyhladzovania textu:</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Name</source>
         <translation type="unfinished">Názov</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Embedded</source>
         <translation type="unfinished">Vložené</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>File</source>
         <translation type="unfinished">Súbor</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>Yes</source>
         <translation type="unfinished">Áno</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>No</source>
         <translation type="unfinished">Nie</translation>
     </message>
@@ -651,12 +651,12 @@
 <context>
     <name>PDFPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Na pridávanie alebo odstraňovanie komentárov je vyžadovaná knižnica Poppler vo verzii 0.20.1 alebo vyššej.</translation>
     </message>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished">Všeobecné</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Správanie</translation>
@@ -1065,11 +1070,6 @@
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Veľkosť miniatúr:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>

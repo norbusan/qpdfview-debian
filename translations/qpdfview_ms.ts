@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview merupakan pelihat dokumen bertab yang menggunakan Qt.&lt;/p&gt;&lt;p&gt;Versi ini menyertakan:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Sokongan PDF menggunakan Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Sokongan PS menggunakan libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Sokongan DjVu menggunakan DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Sokongan cetakan menggunakan CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Rujuk &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; untuk maklumat lanjut.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Pembangun qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Songsangkan warna</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -543,56 +543,56 @@
 <context>
     <name>Model::PDFSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antialias:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Antialias teks:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="716"/>
-        <location filename="../sources/pdfmodel.cpp" line="746"/>
+        <location filename="../sources/pdfmodel.cpp" line="816"/>
+        <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
         <translation type="unfinished">Tiada</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="717"/>
+        <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Penuh</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Terkurang</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="721"/>
-        <location filename="../sources/pdfmodel.cpp" line="728"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Pembayang teks:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="739"/>
+        <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Pratonton lebih-cetak:</translation>
+        <translation type="unfinished">Pratonton cetak lampau:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="747"/>
+        <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tegar</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="748"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Berbentuk</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="751"/>
+        <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mod garis nipis:</translation>
     </message>
 </context>
 <context>
@@ -600,50 +600,50 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bit antialias grafik:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bit antialias teks:</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Name</source>
         <translation type="unfinished">Nama</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Type</source>
         <translation type="unfinished">Jenis</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Embedded</source>
         <translation type="unfinished">Terbenam</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>File</source>
         <translation type="unfinished">Fail</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>Yes</source>
         <translation type="unfinished">Ya</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>No</source>
         <translation type="unfinished">Tidak</translation>
     </message>
@@ -651,12 +651,12 @@
 <context>
     <name>PDFPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Versi 0.201.1 atau lebih terkini bagi pustaka Poppler diperlukan untuk tambah atau buang anotasi.</translation>
     </message>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished">Am</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Kelakuan</translation>
@@ -1065,11 +1070,6 @@
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Saiz thumbnail:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>

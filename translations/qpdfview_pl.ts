@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview to przeglądarka dokumentów z zakładkami używająca interfejs Qt.&lt;/p&gt;&lt;p&gt;Ta wersja zawiera:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Obsługa formatu PDF za pomocą Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Wsparcie PS przy użyciu libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Wsparcie DjVu przy użyciu DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Drukowanie wspieranie przez użyciu CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/ul&gt;&lt;p&gt;Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; po więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwróć kolory</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -543,56 +543,56 @@
 <context>
     <name>Model::PDFSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Wygładzanie:</translation>
+        <translation>Antyaliasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Wygładzanie tekstu:</translation>
+        <translation>Wygładzanie tekstu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="716"/>
-        <location filename="../sources/pdfmodel.cpp" line="746"/>
+        <location filename="../sources/pdfmodel.cpp" line="816"/>
+        <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
-        <translation type="unfinished">Brak</translation>
+        <translation>Żadne</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="717"/>
+        <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Pełne</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation>Zredukowano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="721"/>
-        <location filename="../sources/pdfmodel.cpp" line="728"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Hinting tekstu:</translation>
+        <translation>Tekst podpowiedzi:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="739"/>
+        <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Podgląd nadrukowania:</translation>
+        <translation>Podgląd wydruku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="747"/>
+        <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation>Stały</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="748"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation>Uformowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="751"/>
+        <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb cienkiej linii:</translation>
     </message>
 </context>
 <context>
@@ -600,50 +600,50 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias grafiki:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias tekstu:</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Embedded</source>
         <translation>Dołączone</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Subset</source>
         <translation>Podzbiór</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>Yes</source>
         <translation>Tak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
@@ -651,12 +651,12 @@
 <context>
     <name>PDFPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Information</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub usuwać adnotacje.</translation>
     </message>
@@ -1069,7 +1069,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="40"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogólne</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>

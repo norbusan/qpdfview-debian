@@ -6,12 +6,12 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="35"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="40"/>
         <source>Open in new &amp;tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi en nova langeto</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
@@ -21,7 +21,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="72"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salti al paĝo %1</translation>
     </message>
 </context>
 <context>
@@ -29,19 +29,19 @@
     <message>
         <location filename="../sources/documentview.cpp" line="451"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Subtenataj formatoj (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="705"/>
         <location filename="../sources/documentview.cpp" line="744"/>
         <source>Unlock %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malŝlosi je %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="705"/>
         <location filename="../sources/documentview.cpp" line="744"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pasvorto</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1178"/>
@@ -51,7 +51,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1178"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi je URL estas malŝaltita en la agordaĵoj.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1230"/>
@@ -108,17 +108,17 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1475"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kromprogramo PS ne estas ŝargebla!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1507"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kromprogramo DjVu ne estas ŝargebla!</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1878"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Presado de &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -138,38 +138,38 @@
         <location filename="../sources/mainwindow.cpp" line="167"/>
         <location filename="../sources/mainwindow.cpp" line="240"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; ne estas malfermebla.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="726"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="742"/>
         <source>Open in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi en nova langeto</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="763"/>
         <location filename="../sources/mainwindow.cpp" line="996"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; ne estas aktualigebla.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="770"/>
         <source>Save copy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konservi ekzempleron</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="780"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekzemplero ne estas konservebla ĉe &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="788"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Konservi kiel</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="800"/>
@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview estas langeta dokumentvidigilo uzante je Qt.&lt;/p&gt;&lt;p&gt;Ĉi tiu versio inkludas:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF subteno uzanta je Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PS subteno uzanta je libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;DjVu subteno uzanta je DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Presada subteno uzanta je CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; por plua informo.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 La programantoj de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inversigi kolorojn</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -543,56 +543,56 @@
 <context>
     <name>Model::PDFSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="702"/>
+        <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Glatigo:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="709"/>
+        <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teksta glatigo:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="716"/>
-        <location filename="../sources/pdfmodel.cpp" line="746"/>
+        <location filename="../sources/pdfmodel.cpp" line="816"/>
+        <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neniu</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="717"/>
+        <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Plena</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="718"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reduktita</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="721"/>
-        <location filename="../sources/pdfmodel.cpp" line="728"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Agordindikoj:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="739"/>
+        <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Surpresa antaŭvido:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="747"/>
+        <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Solida</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="748"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formita</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="751"/>
+        <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maldiklinia reĝimo:</translation>
     </message>
 </context>
 <context>
@@ -600,50 +600,50 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bitoj de grafika glatigo:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bitoj de teksta glatigo:</translation>
     </message>
 </context>
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Name</source>
         <translation type="unfinished">Nomo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Type</source>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Embedded</source>
         <translation type="unfinished">Enkorpigita</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>Subset</source>
         <translation type="unfinished">Subaro</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="678"/>
+        <location filename="../sources/pdfmodel.cpp" line="778"/>
         <source>File</source>
         <translation type="unfinished">Dosiero</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>Yes</source>
         <translation type="unfinished">Jes</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="686"/>
-        <location filename="../sources/pdfmodel.cpp" line="687"/>
+        <location filename="../sources/pdfmodel.cpp" line="786"/>
+        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>No</source>
         <translation type="unfinished">Ne</translation>
     </message>
@@ -651,14 +651,14 @@
 <context>
     <name>PDFPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Information</source>
         <translation type="unfinished">Informo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="325"/>
+        <location filename="../sources/pdfmodel.cpp" line="373"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versio 0.20.1 aŭ posta de la Poppler-biblioteko estas bezonata por enmeti aŭ forigi notojn.</translation>
     </message>
 </context>
 <context>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished">Ĝenerala</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">Konduto</translation>
@@ -951,12 +956,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="258"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malfermi je URL:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="265"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aŭtomate aktualigi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="271"/>
@@ -964,112 +969,107 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="495"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Efikas post restarto.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="273"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trako uzita antaŭnelonge:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="280"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaŭri langetojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="287"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaŭri legosignojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Restaŭri laŭdosierajn agordojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="309"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sinkronigi prezentaĵon:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apriora</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prezentaĵa fenestro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; estas anstataŭigita de la absoluta vojo. &apos;%2&apos; kaj &apos;%3&apos; estas anstataŭigitaj de la nombro de linio aŭ kolumno respektive.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="326"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Redaktinto de la font:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="336"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekoracii paĝojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="343"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekoracii ligilojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="350"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekoracii formularajn kampojn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="358"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neniu</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="361"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Emfazi daŭron:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="371"/>
         <source>Background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fona koloro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Papera koloro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="389"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paĝoj en vico:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
         <source>Page spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paĝa interspaco:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spaco inter miniaturoj:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grando de miniaturo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>
@@ -1081,137 +1081,137 @@
         <location filename="../sources/settingsdialog.cpp" line="430"/>
         <location filename="../sources/settingsdialog.cpp" line="431"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="434"/>
         <source>Cache size:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grando de kaŝmemoro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antaŭakiro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="449"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Distanco de antaŭakiro:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supro</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="458"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Malsupro</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maldekstra</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="460"/>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekstra</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="463"/>
         <source>Tab position:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pozicio de langeto:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>As needed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Laŭbezone</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="469"/>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ĉiam</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="470"/>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neniam</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="473"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Langeta videblo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="481"/>
         <source>File tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dosiera ilobreto:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ilobreto Redakti:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ilobreto Vido:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="506"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zomi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="512"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Turni:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="518"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rulumi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopii al tondejo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="530"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enmeti noton:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="536"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Majuskliga klavo</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="537"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stirklavo</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="538"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt-klavo</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Shift and Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maj kaj Stir</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="540"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maj kaj Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="541"/>
         <source>Control and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stir kaj Alt</translation>
     </message>
 </context>
 <context>
@@ -1219,12 +1219,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="137"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etendi ĉiujn</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="138"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maletendi ĉiujn</translation>
     </message>
 </context>
 </TS>
