@@ -294,9 +294,11 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
 {
     QDialog::hideEvent(event);
 
-    m_mutex->lock();
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     m_handler->hideWidget();
-
-    m_mutex->unlock();
 }

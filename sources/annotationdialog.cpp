@@ -57,9 +57,11 @@ void AnnotationDialog::hideEvent(QHideEvent* event)
 {
     QDialog::hideEvent(event);
 
-    m_mutex->lock();
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     m_annotation->setContents(m_plainTextEdit->toPlainText());
-
-    m_mutex->unlock();
 }

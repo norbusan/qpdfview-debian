@@ -48,21 +48,33 @@ Model::PDFAnnotation::~PDFAnnotation()
 
 QRectF Model::PDFAnnotation::boundary() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_annotation->boundary().normalized();
 }
 
 QString Model::PDFAnnotation::contents() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_annotation->contents();
 }
 
 QDialog* Model::PDFAnnotation::showDialog(const QPoint& screenPos)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
 
@@ -87,21 +99,33 @@ Model::PDFFormField::~PDFFormField()
 
 QRectF Model::PDFFormField::boundary() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_formField->rect().normalized();
 }
 
 QString Model::PDFFormField::name() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_formField->name();
 }
 
 QDialog* Model::PDFFormField::showDialog(const QPoint& screenPos)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     if(m_formField->type() == Poppler::FormField::FormText || m_formField->type() == Poppler::FormField::FormChoice)
     {
@@ -137,14 +161,22 @@ Model::PDFPage::~PDFPage()
 
 QSizeF Model::PDFPage::size() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_page->pageSizeF();
 }
 
 QImage Model::PDFPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     double xres;
     double yres;
@@ -201,7 +233,11 @@ QImage Model::PDFPage::render(qreal horizontalResolution, qreal verticalResoluti
 
 QList< Model::Link* > Model::PDFPage::links() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QList< Link* > links;
 
@@ -250,14 +286,22 @@ QList< Model::Link* > Model::PDFPage::links() const
 
 QString Model::PDFPage::text(const QRectF& rect) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_page->text(rect);
 }
 
 QList< QRectF > Model::PDFPage::search(const QString& text, bool matchCase) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QList< QRectF > results;
 
@@ -296,7 +340,11 @@ QList< QRectF > Model::PDFPage::search(const QString& text, bool matchCase) cons
 
 QList< Model::Annotation* > Model::PDFPage::annotations() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QList< Annotation* > annotations;
 
@@ -331,7 +379,11 @@ bool Model::PDFPage::canAddAndRemoveAnnotations() const
 
 Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
 #ifdef HAS_POPPLER_20
 
@@ -362,7 +414,11 @@ Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 
 Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
 #ifdef HAS_POPPLER_20
 
@@ -402,7 +458,11 @@ Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary
 
 void Model::PDFPage::removeAnnotation(Annotation* annotation)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
 #ifdef HAS_POPPLER_20
 
@@ -417,7 +477,11 @@ void Model::PDFPage::removeAnnotation(Annotation* annotation)
 
 QList< Model::FormField* > Model::PDFPage::formFields() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QList< FormField* > formFields;
 
@@ -485,14 +549,22 @@ Model::PDFDocument::~PDFDocument()
 
 int Model::PDFDocument::numberOfPages() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_document->numPages();
 }
 
 Model::Page* Model::PDFDocument::page(int index) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     Poppler::Page* page = m_document->page(index);
 
@@ -501,14 +573,22 @@ Model::Page* Model::PDFDocument::page(int index) const
 
 bool Model::PDFDocument::isLocked() const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_document->isLocked();
 }
 
 bool Model::PDFDocument::unlock(const QString& password)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     return m_document->unlock(password.toLatin1(), password.toLatin1());
 }
@@ -525,7 +605,11 @@ bool Model::PDFDocument::canSave() const
 
 bool Model::PDFDocument::save(const QString& filePath, bool withChanges) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
 
@@ -550,7 +634,11 @@ bool Model::PDFDocument::canBePrinted() const
 
 void Model::PDFDocument::setPaperColor(const QColor& paperColor)
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     m_document->setPaperColor(paperColor);
 }
@@ -626,7 +714,11 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
 
 void Model::PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QDomDocument* toc = m_document->toc();
 
@@ -642,7 +734,11 @@ void Model::PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
 
 void Model::PDFDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QStringList keys = m_document->infoKeys();
 
@@ -667,7 +763,11 @@ void Model::PDFDocument::loadProperties(QStandardItemModel* propertiesModel) con
 
 void Model::PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
+#ifndef HAS_POPPLER_24
+
     QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
 
     QList< Poppler::FontInfo > fonts = m_document->fonts();
 
