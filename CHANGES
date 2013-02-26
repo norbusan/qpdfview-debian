@@ -1,6 +1,8 @@
 Release 0.4.1:
   * Added per-plug-in settings for PDF and PS plug-ins.
   * Added granular hinting and thin line mode settings for the PDF plug-in.
+  * Added progress and errors icons for page rendering.
+  * Added Vim-style keyboard scrolling.
   * Changed color inversion to a per-tab property.
   * Improved rotation and color inversion in the presentation view.
   * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
