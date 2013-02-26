@@ -116,6 +116,9 @@ void Settings::refresh()
     ::PageItem::setCopyToClipboardModifiers(pageItem()->copyToClipboardModifiers());
     ::PageItem::setAddAnnotationModifiers(pageItem()->addAnnotationModifiers());
 
+    ::PageItem::setProgressIcon(QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg")));
+    ::PageItem::setErrorIcon(QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg")));
+
     ::DocumentView::setOpenUrl(documentView()->openUrl());
 
     ::DocumentView::setAutoRefresh(documentView()->autoRefresh());

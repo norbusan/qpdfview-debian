@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QGraphicsSceneHoverEvent>
+#include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPainter>
@@ -45,6 +46,9 @@ QColor PageItem::s_paperColor(Qt::white);
 
 Qt::KeyboardModifiers PageItem::s_copyToClipboardModifiers(Qt::ShiftModifier);
 Qt::KeyboardModifiers PageItem::s_addAnnotationModifiers(Qt::ControlModifier);
+
+QIcon PageItem::s_progressIcon;
+QIcon PageItem::s_errorIcon;
 
 int PageItem::cacheSize()
 {
@@ -130,6 +134,26 @@ const Qt::KeyboardModifiers& PageItem::addAnnotationModifiers()
 void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers)
 {
     s_addAnnotationModifiers = addAnnotationModifiers;
+}
+
+const QIcon& PageItem::progressIcon()
+{
+    return s_progressIcon;
+}
+
+void PageItem::setProgressIcon(const QIcon& progressIcon)
+{
+    s_progressIcon = progressIcon;
+}
+
+const QIcon& PageItem::errorIcon()
+{
+    return s_errorIcon;
+}
+
+void PageItem::setErrorIcon(const QIcon& errorIcon)
+{
+    s_errorIcon = errorIcon;
 }
 
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
@@ -225,15 +249,24 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         }
 
         painter->fillRect(m_boundingRect, QBrush(paperColor));
+    }
 
-        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
+    if(pixmap.isNull())
+    {
+        qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
-        painter->setPen(QPen(m_invertColors ? Qt::white : Qt::black));
-        painter->drawRect(m_boundingRect);
+        s_progressIcon.paint(painter, rect.toRect());
     }
     else
     {
         painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
+    }
+
+    if(s_decoratePages && !m_presentationMode)
+    {
+        painter->setPen(QPen(m_invertColors ? Qt::white : Qt::black));
+        painter->drawRect(m_boundingRect);
     }
 
     // links
@@ -480,6 +513,18 @@ void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFact
     if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
         return;
+    }
+
+    if(image.isNull())
+    {
+        qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
+
+        image = QImage(qFloor(0.01 * m_boundingRect.width() + extent), qFloor(0.01 * m_boundingRect.height() + extent), QImage::Format_ARGB32);
+        image.fill(Qt::transparent);
+
+        QPainter painter(&image);
+        s_errorIcon.paint(&painter, rect.toRect());
     }
 
     if(prefetch)
@@ -959,12 +1004,6 @@ void PageItem::render(const RenderOptions& renderOptions)
     if(m_render->isCanceled() && !renderOptions.prefetch)
     {
         return;
-    }
-
-    if(image.isNull())
-    {
-        image = QImage(1, 1, QImage::Format_Mono);
-        image.fill(Qt::color0);
     }
 
     if(renderOptions.invertColors)

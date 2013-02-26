@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCache>
 #include <QFutureWatcher>
 #include <QGraphicsObject>
+#include <QIcon>
 
 #include "global.h"
 
@@ -64,6 +65,12 @@ public:
 
     static const Qt::KeyboardModifiers& addAnnotationModifiers();
     static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
+
+    static const QIcon& progressIcon();
+    static void setProgressIcon(const QIcon& progressIcon);
+
+    static const QIcon& errorIcon();
+    static void setErrorIcon(const QIcon& errorIcon);
 
     PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
@@ -147,6 +154,9 @@ private:
 
     static Qt::KeyboardModifiers s_copyToClipboardModifiers;
     static Qt::KeyboardModifiers s_addAnnotationModifiers;
+
+    static QIcon s_progressIcon;
+    static QIcon s_errorIcon;
 
     Model::Page* m_page;
 
