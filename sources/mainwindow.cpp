@@ -771,13 +771,6 @@ void MainWindow::on_saveCopy_triggered()
 
     if(!filePath.isEmpty())
     {
-        if(QFileInfo(filePath).absoluteFilePath() == QFileInfo(currentTab()->filePath()).absoluteFilePath())
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Overwriting a file with itself is not possible."));
-
-            return;
-        }
-
         if(currentTab()->save(filePath, false))
         {
             m_settings->mainWindow()->setSavePath(QFileInfo(filePath).absolutePath());
@@ -796,13 +789,6 @@ void MainWindow::on_saveAs_triggered()
 
     if(!filePath.isEmpty())
     {
-        if(QFileInfo(filePath).absoluteFilePath() == QFileInfo(currentTab()->filePath()).absoluteFilePath())
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Overwriting a file with itself is not possible."));
-
-            return;
-        }
-
         if(currentTab()->save(filePath, true))
         {
             open(filePath, currentTab()->currentPage());

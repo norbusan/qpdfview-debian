@@ -770,7 +770,49 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
-    return m_document->save(filePath, withChanges);
+    if(QFileInfo(m_filePath).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
+    {
+        QTemporaryFile temporaryFile;
+        QFile file(filePath);
+
+        if(temporaryFile.open())
+        {
+            temporaryFile.close();
+
+            if(m_document->save(temporaryFile.fileName(), withChanges))
+            {
+                if(temporaryFile.open())
+                {
+                    if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+                    {
+                        const qint64 maxSize = 4096;
+                        qint64 size = -1;
+
+                        char* data = new char[maxSize];
+
+                        while(!temporaryFile.atEnd())
+                        {
+                            size = temporaryFile.read(data, maxSize);
+                            file.write(data, size);
+                        }
+
+                        delete[] data;
+
+                        temporaryFile.close();
+                        file.close();
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    else
+    {
+        return m_document->save(filePath, withChanges);
+    }
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
@@ -1875,7 +1917,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         {
             temporaryFile.close();
 
-            if(save(temporaryFile.fileName(), true))
+            if(m_document->save(temporaryFile.fileName(), true))
             {
                 jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
 
