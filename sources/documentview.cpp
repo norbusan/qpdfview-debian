@@ -1287,6 +1287,36 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         }
     }
 
+    if(event->modifiers() == Qt::NoModifier)
+    {
+        int key = -1;
+
+        switch(event->key())
+        {
+        case Qt::Key_H:
+            key = Qt::Key_Left;
+            break;
+        case Qt::Key_J:
+            key = Qt::Key_Down;
+            break;
+        case Qt::Key_K:
+            key = Qt::Key_Up;
+            break;
+        case Qt::Key_L:
+            key = Qt::Key_Right;
+            break;
+        }
+
+        if(key != -1)
+        {
+            QKeyEvent keyEvent(event->type(), key, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
+            QApplication::sendEvent(this, &keyEvent);
+
+            event->accept();
+            return;
+        }
+    }
+
     QGraphicsView::keyPressEvent(event);
 }
 
