@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/qpdfview.svg</file>
+    	<file>icons/image-loading.svg</file>
+    	<file>icons/image-missing.svg</file>
         <file>icons/document-open.svg</file>
         <file>icons/tab-new.svg</file>
         <file>icons/view-refresh.svg</file>
