@@ -770,49 +770,43 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
-    if(QFileInfo(m_filePath).absoluteFilePath() == QFileInfo(filePath).absoluteFilePath())
+    QTemporaryFile temporaryFile;
+    QFile file(filePath);
+
+    if(temporaryFile.open())
     {
-        QTemporaryFile temporaryFile;
-        QFile file(filePath);
+        temporaryFile.close();
 
-        if(temporaryFile.open())
+        if(m_document->save(temporaryFile.fileName(), withChanges))
         {
-            temporaryFile.close();
-
-            if(m_document->save(temporaryFile.fileName(), withChanges))
+            if(temporaryFile.open())
             {
-                if(temporaryFile.open())
+                if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
                 {
-                    if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+                    const qint64 maxSize = 4096;
+                    qint64 size = -1;
+
+                    char* data = new char[maxSize];
+
+                    while(!temporaryFile.atEnd())
                     {
-                        const qint64 maxSize = 4096;
-                        qint64 size = -1;
+                        size = temporaryFile.read(data, maxSize);
 
-                        char* data = new char[maxSize];
-
-                        while(!temporaryFile.atEnd())
+                        if(size == -1 || file.write(data, size) == -1)
                         {
-                            size = temporaryFile.read(data, maxSize);
-                            file.write(data, size);
+                            delete[] data;
+                            return false;
                         }
-
-                        delete[] data;
-
-                        temporaryFile.close();
-                        file.close();
-
-                        return true;
                     }
+
+                    delete[] data;
+                    return true;
                 }
             }
         }
+    }
 
-        return false;
-    }
-    else
-    {
-        return m_document->save(filePath, withChanges);
-    }
+    return false;
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
