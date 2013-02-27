@@ -51,6 +51,8 @@ public:
 
     QList< Link* > links() const;
 
+    QString text(const QRectF& rect) const;
+
 private:
     DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);
 

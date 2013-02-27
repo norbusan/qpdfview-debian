@@ -342,7 +342,75 @@ QList< Model::Link* > Model::DjVuPage::links() const
         }
     }
 
+    ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
+
     return links;
+}
+
+static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
+{
+    int textExpLength = miniexp_length(textExp);
+
+    if(textExpLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+    {
+        int xmin = miniexp_to_int(miniexp_nth(1, textExp));
+        int ymin = miniexp_to_int(miniexp_nth(2, textExp));
+        int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+        int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+
+        if(rect.intersects(QRect(xmin, pageHeight - ymax, xmax - xmin, ymax - ymin)))
+        {
+            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
+            {
+                return QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+            }
+            else
+            {
+                QStringList text;
+
+                for(int textN = 5; textN < textExpLength; ++textN)
+                {
+                    text.append(loadText(miniexp_nth(textN, textExp), rect, pageHeight));
+                }
+
+                if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "line", 4) == 0)
+                {
+                    return text.join(" ");
+                }
+                else
+                {
+                    return text.join("\n");
+                }
+            }
+        }
+    }
+
+    return QString();
+}
+
+QString Model::DjVuPage::text(const QRectF& rect) const
+{
+    miniexp_t pageTextExp;
+
+    while(true)
+    {
+        pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+
+        if(pageTextExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_parent->m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    QString text = loadText(pageTextExp, QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).mapRect(rect).toRect(), m_size.height());
+
+    ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+
+    return text;
 }
 
 Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
@@ -465,7 +533,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
         miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
         int bookmarkExpLength = miniexp_length(bookmarkExp);
 
-        if(bookmarkExpLength < 2)
+        if(bookmarkExpLength <= 1)
         {
             continue;
         }
@@ -510,7 +578,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
 
                 parent->appendRow(item);
 
-                if(bookmarkExpLength > 2)
+                if(bookmarkExpLength >= 3)
                 {
                     loadOutline(bookmarkExp, 2, item, indexByName);
                 }
