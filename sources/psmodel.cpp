@@ -230,7 +230,7 @@ Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) 
 
     m_graphicsAntialiasBitsSpinBox = new QSpinBox(this);
     m_graphicsAntialiasBitsSpinBox->setRange(1, 4);
-    m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("ps/graphicsAntialiasBits", 4).toInt());
+    m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("graphicsAntialiasBits", 4).toInt());
 
     m_layout->addRow(tr("Graphics antialias bits:"), m_graphicsAntialiasBitsSpinBox);
 
@@ -238,15 +238,15 @@ Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) 
 
     m_textAntialisBitsSpinBox = new QSpinBox(this);
     m_textAntialisBitsSpinBox->setRange(1, 2);
-    m_textAntialisBitsSpinBox->setValue(m_settings->value("ps/textAntialiasBits", 2).toInt());
+    m_textAntialisBitsSpinBox->setValue(m_settings->value("textAntialiasBits", 2).toInt());
 
     m_layout->addRow(tr("Text antialias bits:"), m_textAntialisBitsSpinBox);
 }
 
 void Model::PSSettingsWidget::accept()
 {
-    m_settings->setValue("ps/graphicsAntialiasBits", m_graphicsAntialiasBitsSpinBox->value());
-    m_settings->setValue("ps/textAntialiasBits", m_textAntialisBitsSpinBox->value());
+    m_settings->setValue("graphicsAntialiasBits", m_graphicsAntialiasBitsSpinBox->value());
+    m_settings->setValue("textAntialiasBits", m_textAntialisBitsSpinBox->value());
 }
 
 void Model::PSSettingsWidget::reset()
@@ -259,7 +259,7 @@ Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
 {
     setObjectName("PSDocumentLoader");
 
-    m_settings = new QSettings("qpdfview", "qpdfview", this);
+    m_settings = new QSettings("qpdfview", "ps-plugin", this);
 }
 
 Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) const
@@ -278,8 +278,8 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
     SpectreRenderContext* renderContext = spectre_render_context_new();
 
     spectre_render_context_set_antialias_bits(renderContext,
-                                              m_settings->value("ps/graphicsAntialiasBits", 4).toInt(),
-                                              m_settings->value("ps/textAntialiasBits", 2).toInt());
+                                              m_settings->value("graphicsAntialiasBits", 4).toInt(),
+                                              m_settings->value("textAntialiasBits", 2).toInt());
 
     return new PSDocument(document, renderContext);
 }

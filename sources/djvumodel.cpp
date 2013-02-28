@@ -217,9 +217,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
         }
     }
 
-    int pageAnnoExpLength = miniexp_length(pageAnnoExp);
+    int pageAnnoLength = miniexp_length(pageAnnoExp);
 
-    for(int pageAnnoN = 0; pageAnnoN < pageAnnoExpLength; ++pageAnnoN)
+    for(int pageAnnoN = 0; pageAnnoN < pageAnnoLength; ++pageAnnoN)
     {
         miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
 
@@ -247,9 +247,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
             QPainterPath boundary;
 
             miniexp_t areaExp = miniexp_nth(3, linkExp);
-            int areaExpLength = miniexp_length( areaExp );
+            int areaLength = miniexp_length( areaExp );
 
-            if(areaExpLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
+            if(areaLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
             {
                 QPoint p(miniexp_to_int(miniexp_nth(1, areaExp)), miniexp_to_int(miniexp_nth(2, areaExp)));
                 QSize s(miniexp_to_int(miniexp_nth(3, areaExp)), miniexp_to_int(miniexp_nth(4, areaExp)));
@@ -267,11 +267,11 @@ QList< Model::Link* > Model::DjVuPage::links() const
                     boundary.addEllipse(rect);
                 }
             }
-            else if(areaExpLength > 0 && areaExpLength % 2 == 1 && type == QLatin1String("poly"))
+            else if(areaLength > 0 && areaLength % 2 == 1 && type == QLatin1String("poly"))
             {
                 QPolygon polygon;
 
-                for(int areaExpN = 1; areaExpN < areaExpLength; areaExpN += 2)
+                for(int areaExpN = 1; areaExpN < areaLength; areaExpN += 2)
                 {
                     QPoint p(miniexp_to_int(miniexp_nth(areaExpN, areaExp)), miniexp_to_int(miniexp_nth(areaExpN + 1, areaExp)));
 
@@ -349,9 +349,9 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
 static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
 {
-    int textExpLength = miniexp_length(textExp);
+    int textLength = miniexp_length(textExp);
 
-    if(textExpLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+    if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
     {
         int xmin = miniexp_to_int(miniexp_nth(1, textExp));
         int ymin = miniexp_to_int(miniexp_nth(2, textExp));
@@ -368,7 +368,7 @@ static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
             {
                 QStringList text;
 
-                for(int textN = 5; textN < textExpLength; ++textN)
+                for(int textN = 5; textN < textLength; ++textN)
                 {
                     text.append(loadText(miniexp_nth(textN, textExp), rect, pageHeight));
                 }
@@ -526,14 +526,14 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 
 static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
 {
-    int outlineExpLength = miniexp_length(outlineExp);
+    int outlineLength = miniexp_length(outlineExp);
 
-    for(int outlineN = qMax(0, offset); outlineN < outlineExpLength; ++outlineN)
+    for(int outlineN = qMax(0, offset); outlineN < outlineLength; ++outlineN)
     {
         miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
-        int bookmarkExpLength = miniexp_length(bookmarkExp);
+        int bookmarkLength = miniexp_length(bookmarkExp);
 
-        if(bookmarkExpLength <= 1)
+        if(bookmarkLength <= 1)
         {
             continue;
         }
@@ -578,7 +578,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
 
                 parent->appendRow(item);
 
-                if(bookmarkExpLength >= 3)
+                if(bookmarkLength >= 3)
                 {
                     loadOutline(bookmarkExp, 2, item, indexByName);
                 }
@@ -647,14 +647,14 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
         }
     }
 
-    int annoExpLength = miniexp_length(annoExp);
+    int annoLength = miniexp_length(annoExp);
 
-    for(int annoN = 0; annoN < annoExpLength; ++annoN)
+    for(int annoN = 0; annoN < annoLength; ++annoN)
     {
         miniexp_t listExp = miniexp_nth(annoN, annoExp);
-        int listExpLength = miniexp_length(listExp);
+        int listLength = miniexp_length(listExp);
 
-        if(listExpLength <= 1)
+        if(listLength <= 1)
         {
             continue;
         }
@@ -664,7 +664,7 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
             continue;
         }
 
-        for(int listN = 1; listN < listExpLength; ++listN)
+        for(int listN = 1; listN < listLength; ++listN)
         {
             miniexp_t keyValueExp = miniexp_nth(listN, listExp);
 
