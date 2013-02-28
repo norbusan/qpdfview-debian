@@ -52,6 +52,7 @@ public:
     QList< Link* > links() const;
 
     QString text(const QRectF& rect) const;
+    QList< QRectF > search(const QString& text, bool matchCase) const;
 
 private:
     DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);

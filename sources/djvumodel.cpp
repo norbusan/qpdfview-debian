@@ -390,6 +390,8 @@ static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
 
 QString Model::DjVuPage::text(const QRectF& rect) const
 {
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
     miniexp_t pageTextExp;
 
     while(true)
@@ -411,6 +413,98 @@ QString Model::DjVuPage::text(const QRectF& rect) const
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
 
     return text;
+}
+
+QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) const
+{
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
+    miniexp_t pageTextExp;
+
+    while(true)
+    {
+        pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+
+        if(pageTextExp == miniexp_dummy)
+        {
+            clearMessageQueue(m_parent->m_context, true);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    QList< miniexp_t > words;
+    QList< QRectF > results;
+
+    words.append(pageTextExp);
+
+    QRectF rect;
+    int index = 0;
+
+    while(!words.isEmpty())
+    {
+        miniexp_t textExp = words.takeFirst();
+
+        int textLength = miniexp_length(textExp);
+
+        if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+        {
+            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
+            {
+                QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+
+                if(text.indexOf(word, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive) == index)
+                {
+                    int xmin = miniexp_to_int(miniexp_nth(1, textExp));
+                    int ymin = miniexp_to_int(miniexp_nth(2, textExp));
+                    int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+                    int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+
+                    rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
+
+                    index += word.length();
+
+                    while(text.length() > index && text.at(index).isSpace())
+                    {
+                        ++index;
+                    }
+
+                    if(text.length() == index)
+                    {
+                        results.append(rect);
+
+                        rect = QRectF();
+                        index = 0;
+                    }
+                }
+                else
+                {
+                    rect = QRectF();
+                    index = 0;
+                }
+            }
+            else
+            {
+                for(int textN = 5; textN < textLength; ++textN)
+                {
+                    words.append(miniexp_nth(textN, textExp));
+                }
+            }
+        }
+    }
+
+    ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+
+    QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).inverted();
+
+    for(int index = 0; index < results.size(); ++index)
+    {
+        results[index] = transform.mapRect(results[index]);
+    }
+
+    return results;
 }
 
 Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
