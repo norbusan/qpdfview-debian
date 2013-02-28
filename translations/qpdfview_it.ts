@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -44,79 +44,79 @@
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Apertura degli URL disabilitata nelle impostazioni.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>Warning</source>
         <translation type="unfinished">Avviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1443"/>
+        <location filename="../sources/documentview.cpp" line="1437"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Ritorna alla pagina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1451"/>
+        <location filename="../sources/documentview.cpp" line="1445"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Pagina precedente</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1450"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Pagina &amp;successiva</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1461"/>
+        <location filename="../sources/documentview.cpp" line="1455"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Pr&amp;ima pagina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1466"/>
+        <location filename="../sources/documentview.cpp" line="1460"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Ultima pagina</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1467"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Aggio&amp;rna</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
-        <location filename="../sources/documentview.cpp" line="1547"/>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Critical</source>
         <translation type="unfinished">Critico</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Impossibile caricare il plugin PDF</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1547"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Impossibile caricare il plugin PS</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Impossibile caricare il plugin DjVu</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1950"/>
+        <location filename="../sources/documentview.cpp" line="1944"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview è un isualizzatore di documenti a schede che usa Qt.&lt;/p&gt;&lt;p&gt;Questa versione include:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto a PDF con l&apos;uso di Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto a PS con l&apos;uso di libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto a DjVu con l&apos;uso di DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto per la stammpa con l&apos;uo di CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consultare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per maggiori informazioni.&lt;/p&gt;&lt;p&gt;© 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inverti colori</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -572,12 +572,12 @@
         <location filename="../sources/pdfmodel.cpp" line="821"/>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Approssimazione testo (hinting):</translation>
+        <translation type="unfinished">Approssimazione testo:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Anteprima sovrastampa:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
@@ -699,7 +699,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished">Va alla pagina %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="570"/>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished">Generali</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">Co&amp;mportamento</translation>
@@ -1065,11 +1070,6 @@
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Dimensione miniatura:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>

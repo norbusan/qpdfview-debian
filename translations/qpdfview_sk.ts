@@ -44,79 +44,79 @@
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>Warning</source>
         <translation type="unfinished">Varovanie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1443"/>
+        <location filename="../sources/documentview.cpp" line="1437"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">&amp;Vrátiť sa na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1451"/>
+        <location filename="../sources/documentview.cpp" line="1445"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1450"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1461"/>
+        <location filename="../sources/documentview.cpp" line="1455"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Prvá strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1466"/>
+        <location filename="../sources/documentview.cpp" line="1460"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;ledná strana</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1467"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
-        <location filename="../sources/documentview.cpp" line="1547"/>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Critical</source>
         <translation type="unfinished">Kritické</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načítať PDF plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1547"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načátať PostScript plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načítať DjVu plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1950"/>
+        <location filename="../sources/documentview.cpp" line="1944"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>

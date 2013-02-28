@@ -44,79 +44,79 @@
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Information</source>
         <translation type="unfinished">Інформація</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1220"/>
+        <location filename="../sources/documentview.cpp" line="1214"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Перехід за посиланням заборонено у налаштуваннях.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1272"/>
+        <location filename="../sources/documentview.cpp" line="1266"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1443"/>
+        <location filename="../sources/documentview.cpp" line="1437"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">Повернутися на &amp;сторінку %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1451"/>
+        <location filename="../sources/documentview.cpp" line="1445"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Попередня сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1450"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Наступна сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1461"/>
+        <location filename="../sources/documentview.cpp" line="1455"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Перша сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1466"/>
+        <location filename="../sources/documentview.cpp" line="1460"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Остання сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1473"/>
+        <location filename="../sources/documentview.cpp" line="1467"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Оновити</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
-        <location filename="../sources/documentview.cpp" line="1547"/>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Critical</source>
         <translation type="unfinished">Критична</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
+        <location filename="../sources/documentview.cpp" line="1510"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток обробки PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1547"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток обробки PS!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1579"/>
+        <location filename="../sources/documentview.cpp" line="1573"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток обробки DjVu!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1950"/>
+        <location filename="../sources/documentview.cpp" line="1944"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
