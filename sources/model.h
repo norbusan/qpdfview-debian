@@ -23,10 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define DOCUMENTMODEL_H
 
 #include <QList>
-#include <QPainterPath>
 #include <QtPlugin>
 #include <QRect>
-#include <QRectF>
 #include <QString>
 #include <QWidget>
 
