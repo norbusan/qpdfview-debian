@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview é um leitor de documentos com abas usando QT.&lt;/p&gt;&lt;p&gt;Esta versão inclui:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suporte a PDF usando Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suporte a PS usando libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suporte a DjVu usando DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Support a impressão usando CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Veja &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para mais informações.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Os desenvolvedores do qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -399,7 +399,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inverter as cores</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1842"/>
@@ -550,49 +550,49 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Suavização de texto:</translation>
+        <translation type="unfinished">Suavização do texto:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
-        <translation type="unfinished">Nenhuma</translation>
+        <translation type="unfinished">Nenhum</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Completo</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reduzido</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="821"/>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Sugestão de texto:</translation>
+        <translation type="unfinished">Texto sugerindo:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Visualizar impressão sobre:</translation>
+        <translation type="unfinished">Visualização de superimposição:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sólido</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Com Formas</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modo de linha fina:</translation>
     </message>
 </context>
 <context>
@@ -600,12 +600,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pedaços de gráficos antialias:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pedaços de texto antialias:</translation>
     </message>
 </context>
 <context>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished">Geral</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Comportamento</translation>
@@ -1065,11 +1070,6 @@
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Tamanho das miniaturas:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>

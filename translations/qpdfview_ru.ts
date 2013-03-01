@@ -199,32 +199,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1377"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview — просмотрщик документов со вкладками, использующий Qt.&lt;/p&gt;&lt;p&gt;В этой версии:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1381"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">поддержка PDF используя Poppler</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1384"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">поддержка PS используя libspectre</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1387"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">поддержка DjVu используя DjVuLibre</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1390"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">поддержка печати используя CUPS</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1392"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Подробнее смотрите &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; здесь.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Разработчики qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -259,7 +259,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1610"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">О&amp;бновить</translation>
+        <translation type="unfinished">&amp;Обновить</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1618"/>
@@ -545,12 +545,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Сглаживание:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Сглаживание текста:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
@@ -572,12 +572,12 @@
         <location filename="../sources/pdfmodel.cpp" line="821"/>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Детализация шрифта:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Предварительный просмотр:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
@@ -924,6 +924,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="40"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="67"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Поведение</translation>
@@ -1065,11 +1070,6 @@
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Размер миниатюр:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="40"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>
