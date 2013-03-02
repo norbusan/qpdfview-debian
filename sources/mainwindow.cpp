@@ -1597,6 +1597,9 @@ void MainWindow::createActions()
     m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
+    m_openAction->setObjectName("open");
+    m_settings->shortcuts()->addAction(m_openAction);
+
     // open in new tab
 
     m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
@@ -1604,6 +1607,9 @@ void MainWindow::createActions()
     m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
     m_openInNewTabAction->setIconVisibleInMenu(true);
     connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
+
+    m_openInNewTabAction->setObjectName("openInNewTab");
+    m_settings->shortcuts()->addAction(m_openInNewTabAction);
 
     // refresh
 

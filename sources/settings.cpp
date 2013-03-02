@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 
+#include <QAction>
 #include <QSettings>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -45,6 +46,8 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_presentationView = new PresentationView(m_settings);
     m_documentView = new DocumentView(m_settings);
     m_mainWindow = new MainWindow(m_settings);
+
+    m_shortcuts = new Shortcuts(m_settings);
 }
 
 Settings::~Settings()
@@ -53,6 +56,8 @@ Settings::~Settings()
     delete m_presentationView;
     delete m_documentView;
     delete m_mainWindow;
+
+    delete m_shortcuts;
 }
 
 QString Settings::fileName() const
@@ -98,6 +103,16 @@ Settings::MainWindow* Settings::mainWindow()
 const Settings::MainWindow* Settings::mainWindow() const
 {
     return m_mainWindow;
+}
+
+Settings::Shortcuts* Settings::shortcuts()
+{
+    return m_shortcuts;
+}
+
+const Settings::Shortcuts* Settings::shortcuts() const
+{
+    return m_shortcuts;
 }
 
 void Settings::refresh()
@@ -666,6 +681,30 @@ QStringList Settings::MainWindow::trimmed(const QStringList& list)
     }
 
     return result;
+}
+
+Settings::Shortcuts::Shortcuts(QSettings* settings) :
+    m_settings(settings),
+    m_actions(),
+    m_defaultShortcuts()
+{
+}
+
+void Settings::Shortcuts::addAction(QAction* action)
+{
+    if(!action->objectName().isEmpty())
+    {
+        m_actions.insert(action);
+        m_defaultShortcuts.insert(action, action->shortcut());
+
+        action->setShortcut(QKeySequence(m_settings->value("shortcuts/" + action->objectName(), action->shortcut()).value< QKeySequence >()));
+    }
+}
+
+void Settings::Shortcuts::removeAction(QAction* action)
+{
+    m_actions.remove(action);
+    m_defaultShortcuts.remove(action);
 }
 
 QString Defaults::MainWindow::path()

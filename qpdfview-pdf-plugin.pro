@@ -13,6 +13,8 @@ SOURCES = sources/model.cpp sources/pdfmodel.cpp sources/annotationdialog.cpp so
 
 QT += core xml gui
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 !without_pkgconfig {
     CONFIG += link_pkgconfig
     PKGCONFIG += poppler-qt4

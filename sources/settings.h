@@ -246,6 +246,27 @@ public:
     MainWindow* mainWindow();
     const MainWindow* mainWindow() const;
 
+    // shortcuts
+
+    class Shortcuts
+    {
+    public:
+        Shortcuts(QSettings* settings);
+
+        void addAction(QAction* action);
+        void removeAction(QAction* action);
+
+    private:
+        QSettings* m_settings;
+
+        QSet< QAction* > m_actions;
+        QMap< QAction*, QKeySequence > m_defaultShortcuts;
+
+    };
+
+    Shortcuts* shortcuts();
+    const Shortcuts* shortcuts() const;
+
 public slots:
     void refresh();
 
@@ -256,6 +277,8 @@ private:
     PresentationView* m_presentationView;
     DocumentView* m_documentView;
     MainWindow* m_mainWindow;
+
+    Shortcuts* m_shortcuts;
 
 };
 
