@@ -87,7 +87,7 @@ public:
     static void setSkipBackwardShortcut(const QKeySequence& shortcut);
 
     static const QKeySequence& skipForwardShortcut();
-    static void skipForwardShortcut(const QKeySequence& shortcut);
+    static void setSkipForwardShortcut(const QKeySequence& shortcut);
 
     static const Qt::KeyboardModifiers& zoomModifiers();
     static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);

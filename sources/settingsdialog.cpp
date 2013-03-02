@@ -29,6 +29,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QHeaderView>
 #include <QPushButton>
+#include <QShortcut>
 #include <QTableView>
 
 #include "model.h"
@@ -561,11 +562,11 @@ void SettingsDialog::createModifiersTab()
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
 {
     comboBox = new QComboBox(this);
-    comboBox->addItem(tr("Shift"), static_cast< int >(Qt::ShiftModifier));
-    comboBox->addItem(tr("Control"), static_cast< int >(Qt::ControlModifier));
-    comboBox->addItem(tr("Alt"), static_cast< int >(Qt::AltModifier));
-    comboBox->addItem(tr("Shift and Control"), static_cast< int >(Qt::ShiftModifier | Qt::ControlModifier));
-    comboBox->addItem(tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
-    comboBox->addItem(tr("Control and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
+    comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));
+    comboBox->addItem(QShortcut::tr("Ctrl"), static_cast< int >(Qt::ControlModifier));
+    comboBox->addItem(QShortcut::tr("Alt"), static_cast< int >(Qt::AltModifier));
+    comboBox->addItem(QShortcut::tr("Shift and Ctrl"), static_cast< int >(Qt::ShiftModifier | Qt::ControlModifier));
+    comboBox->addItem(QShortcut::tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
+    comboBox->addItem(QShortcut::tr("Ctrl and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }

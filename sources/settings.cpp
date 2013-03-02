@@ -48,6 +48,24 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_mainWindow = new MainWindow(m_settings);
 
     m_shortcuts = new Shortcuts(m_settings);
+
+    m_returnToPageAction = new QAction(tr("Return to page"), this);
+    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
+
+    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
+    m_shortcuts->addAction(m_returnToPageAction);
+
+    m_skipBackwardAction = new QAction(tr("Skip backward"), this);
+    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
+
+    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
+    m_shortcuts->addAction(m_skipBackwardAction);
+
+    m_skipForwardAction = new QAction(tr("Skip forward"), this);
+    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
+
+    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
+    m_shortcuts->addAction(m_skipForwardAction);
 }
 
 Settings::~Settings()
@@ -147,6 +165,10 @@ void Settings::refresh()
     ::DocumentView::setThumbnailSpacing(documentView()->thumbnailSpacing());
 
     ::DocumentView::setThumbnailSize(documentView()->thumbnailSize());
+
+    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
+    ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
+    ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
 
     ::DocumentView::setZoomModifiers(documentView()->zoomModifiers());
     ::DocumentView::setRotateModifiers(documentView()->rotateModifiers());

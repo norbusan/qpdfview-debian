@@ -253,7 +253,7 @@ const QKeySequence& DocumentView::skipForwardShortcut()
     return s_skipForwardShortcut;
 }
 
-void DocumentView::skipForwardShortcut(const QKeySequence& shortcut)
+void DocumentView::setSkipForwardShortcut(const QKeySequence& shortcut)
 {
     s_skipForwardShortcut = shortcut;
 }

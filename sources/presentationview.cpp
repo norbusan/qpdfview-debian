@@ -214,6 +214,14 @@ void PresentationView::jumpToPage(int page, bool returnTo)
     }
 }
 
+void PresentationView::returnToPage()
+{
+    if(!m_returnToPage.isEmpty())
+    {
+        jumpToPage(m_returnToPage.pop(), false);
+    }
+}
+
 void PresentationView::rotateLeft()
 {
     switch(m_rotation)
@@ -320,10 +328,7 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
         event->accept();
         return;
     case Qt::Key_Return:
-        if(!m_returnToPage.isEmpty())
-        {
-            jumpToPage(m_returnToPage.pop(), false);
-        }
+        returnToPage();
 
         event->accept();
         return;

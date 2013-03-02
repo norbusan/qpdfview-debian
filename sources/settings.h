@@ -286,6 +286,10 @@ private:
 
     Shortcuts* m_shortcuts;
 
+    QAction* m_returnToPageAction;
+    QAction* m_skipBackwardAction;
+    QAction* m_skipForwardAction;
+
 };
 
 class Defaults

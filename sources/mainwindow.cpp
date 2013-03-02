@@ -1709,7 +1709,7 @@ void MainWindow::createActions()
     m_previousPageAction->setObjectName(QLatin1String("previousPage"));
 
     m_previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(on_previousPage_triggered()));
+    m_settings->shortcuts()->addAction(m_previousPageAction);
 
     m_previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
     m_previousPageAction->setIconVisibleInMenu(true);
@@ -1722,7 +1722,7 @@ void MainWindow::createActions()
     m_nextPageAction->setObjectName(QLatin1String("nextPage"));
 
     m_nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(on_nextPage_triggered()));
+    m_settings->shortcuts()->addAction(m_nextPageAction);
 
     m_nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
     m_nextPageAction->setIconVisibleInMenu(true);

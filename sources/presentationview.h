@@ -69,6 +69,8 @@ public slots:
 
     void jumpToPage(int page, bool returnTo = true);
 
+    void returnToPage();
+
     void rotateLeft();
     void rotateRight();
 
