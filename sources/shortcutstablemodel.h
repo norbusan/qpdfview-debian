@@ -32,7 +32,7 @@ class ShortcutsTableModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    ShortcutsTableModel(const QSet< QAction* >& actions, const QMap< QAction*, QKeySequence >& defaultShortcuts, QObject* parent = 0);
+    ShortcutsTableModel(const QList< QAction* >& actions, const QMap< QAction*, QKeySequence >& defaultShortcuts, QObject* parent = 0);
 
     int columnCount(const QModelIndex& parent) const;
     int rowCount(const QModelIndex& parent) const;

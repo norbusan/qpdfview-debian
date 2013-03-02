@@ -264,7 +264,8 @@ public:
     private:
         QSettings* m_settings;
 
-        QSet< QAction* > m_actions;
+        QList< QAction* > m_actions;
+
         QMap< QAction*, QKeySequence > m_defaultShortcuts;
 
     };

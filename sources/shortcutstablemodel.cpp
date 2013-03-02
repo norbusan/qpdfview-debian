@@ -24,8 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QAction>
 #include <QSet>
 
-ShortcutsTableModel::ShortcutsTableModel(const QSet< QAction* >& actions, const QMap< QAction*, QKeySequence >& defaultShortcuts, QObject* parent) : QAbstractTableModel(parent),
-    m_actions(actions.toList()),
+ShortcutsTableModel::ShortcutsTableModel(const QList< QAction* >& actions, const QMap< QAction*, QKeySequence >& defaultShortcuts, QObject* parent) : QAbstractTableModel(parent),
+    m_actions(actions),
     m_defaultShortcuts(defaultShortcuts),
     m_shortcuts()
 {
@@ -91,7 +91,7 @@ QVariant ShortcutsTableModel::data(const QModelIndex& index, int role) const
         switch(index.column())
         {
         case 0:
-            return m_actions.at(index.row())->text();
+            return m_actions.at(index.row())->text().remove(QLatin1Char('&'));
             break;
         case 1:
             return m_shortcuts.value(m_actions.at(index.row()));

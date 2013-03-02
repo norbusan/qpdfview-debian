@@ -667,14 +667,14 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
         if(m_searchToolBar->isVisible())
         {
             menu.addSeparator();
-            menu.addActions(QList< QAction* >() << m_findNextAction << m_findPreviousAction << m_cancelSearchAction);
+            menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
         }
 
         menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
 
         menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction);
+        menu.addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
 
         menu.exec(currentTab()->mapToGlobal(pos));
     }

@@ -694,7 +694,7 @@ void Settings::Shortcuts::addAction(QAction* action)
 {
     if(!action->objectName().isEmpty())
     {
-        m_actions.insert(action);
+        m_actions.append(action);
         m_defaultShortcuts.insert(action, action->shortcut());
 
         action->setShortcut(QKeySequence(m_settings->value("shortcuts/" + action->objectName(), action->shortcut()).value< QKeySequence >()));
@@ -703,7 +703,7 @@ void Settings::Shortcuts::addAction(QAction* action)
 
 void Settings::Shortcuts::removeAction(QAction* action)
 {
-    m_actions.remove(action);
+    m_actions.removeAll(action);
     m_defaultShortcuts.remove(action);
 }
 
