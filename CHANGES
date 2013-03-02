@@ -1,4 +1,5 @@
 Release 0.4.1:
+  * Added configurable keyboard shortcuts.
   * Added per-plug-in settings for PDF and PS plug-ins.
   * Added granular hinting and thin line mode settings for the PDF plug-in.
   * Added progress and errors icons for page rendering.
