@@ -1617,7 +1617,7 @@ void MainWindow::createActions()
     // open
 
     m_openAction = new QAction(tr("&Open..."), this);
-    m_openAction->setObjectName("open");
+    m_openAction->setObjectName(QLatin1String("open"));
 
     m_openAction->setShortcut(QKeySequence::Open);
     m_settings->shortcuts()->addAction(m_openAction);
@@ -1630,7 +1630,7 @@ void MainWindow::createActions()
     // open in new tab
 
     m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
-    m_openInNewTabAction->setObjectName("openInNewTab");
+    m_openInNewTabAction->setObjectName(QLatin1String("openInNewTab"));
 
     m_openInNewTabAction->setShortcut(QKeySequence::AddTab);
     m_settings->shortcuts()->addAction(m_openInNewTabAction);
@@ -1643,7 +1643,7 @@ void MainWindow::createActions()
     // refresh
 
     m_refreshAction = new QAction(tr("&Refresh"), this);
-    m_refreshAction->setObjectName("refresh");
+    m_refreshAction->setObjectName(QLatin1String("refresh"));
 
     m_refreshAction->setShortcut(QKeySequence::Refresh);
     m_settings->shortcuts()->addAction(m_refreshAction);
@@ -1656,7 +1656,7 @@ void MainWindow::createActions()
     // save copy
 
     m_saveCopyAction = new QAction(tr("&Save copy..."), this);
-    m_saveCopyAction->setObjectName("saveCopy");
+    m_saveCopyAction->setObjectName(QLatin1String("saveCopy"));
 
     m_saveCopyAction->setShortcut(QKeySequence::Save);
     m_settings->shortcuts()->addAction(m_saveCopyAction);
@@ -1669,7 +1669,7 @@ void MainWindow::createActions()
     // save as
 
     m_saveAsAction = new QAction(tr("Save &as..."), this);
-    m_saveAsAction->setObjectName("saveAs");
+    m_saveAsAction->setObjectName(QLatin1String("saveAs"));
 
     m_saveAsAction->setShortcut(QKeySequence::SaveAs);
     m_settings->shortcuts()->addAction(m_saveAsAction);
@@ -1682,7 +1682,7 @@ void MainWindow::createActions()
     // print
 
     m_printAction = new QAction(tr("&Print..."), this);
-    m_printAction->setObjectName("print");
+    m_printAction->setObjectName(QLatin1String("print"));
 
     m_printAction->setShortcut(QKeySequence::Print);
     m_settings->shortcuts()->addAction(m_printAction);
@@ -1695,7 +1695,7 @@ void MainWindow::createActions()
     // exit
 
     m_exitAction = new QAction(tr("&Exit"), this);
-    m_exitAction->setObjectName("exit");
+    m_exitAction->setObjectName(QLatin1String("exit"));
 
     m_exitAction->setShortcut(QKeySequence::Quit);
     m_exitAction->setIcon(QIcon::fromTheme("application-exit"));
@@ -1706,7 +1706,7 @@ void MainWindow::createActions()
     // previous page
 
     m_previousPageAction = new QAction(tr("&Previous page"), this);
-    m_previousPageAction->setObjectName("previousPage");
+    m_previousPageAction->setObjectName(QLatin1String("previousPage"));
 
     m_previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
     new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(on_previousPage_triggered()));
@@ -1719,7 +1719,7 @@ void MainWindow::createActions()
     // next page
 
     m_nextPageAction = new QAction(tr("&Next page"), this);
-    m_nextPageAction->setObjectName("nextPage");
+    m_nextPageAction->setObjectName(QLatin1String("nextPage"));
 
     m_nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
     new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(on_nextPage_triggered()));
@@ -1732,7 +1732,7 @@ void MainWindow::createActions()
     // first page
 
     m_firstPageAction = new QAction(tr("&First page"), this);
-    m_firstPageAction->setObjectName("firstPage");
+    m_firstPageAction->setObjectName(QLatin1String("firstPage"));
 
     m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
     m_settings->shortcuts()->addAction(m_firstPageAction);
@@ -1745,7 +1745,7 @@ void MainWindow::createActions()
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
-    m_lastPageAction->setObjectName("lastPage");
+    m_lastPageAction->setObjectName(QLatin1String("lastPage"));
 
     m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
     m_settings->shortcuts()->addAction(m_lastPageAction);
@@ -1758,7 +1758,7 @@ void MainWindow::createActions()
     // jump to page
 
     m_jumpToPageAction = new QAction(tr("&Jump to page..."), this);
-    m_jumpToPageAction->setObjectName("jumpToPage");
+    m_jumpToPageAction->setObjectName(QLatin1String("jumpToPage"));
 
     m_jumpToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
     m_settings->shortcuts()->addAction(m_jumpToPageAction);
@@ -1771,7 +1771,7 @@ void MainWindow::createActions()
     // search
 
     m_searchAction = new QAction(tr("&Search..."), this);
-    m_searchAction->setObjectName("search");
+    m_searchAction->setObjectName(QLatin1String("search"));
 
     m_searchAction->setShortcut(QKeySequence::Find);
     m_settings->shortcuts()->addAction(m_searchAction);
@@ -1784,7 +1784,7 @@ void MainWindow::createActions()
     // find previous
 
     m_findPreviousAction = new QAction(tr("Find previous"), this);
-    m_findPreviousAction->setObjectName("findPrevious");
+    m_findPreviousAction->setObjectName(QLatin1String("findPrevious"));
 
     m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
     m_settings->shortcuts()->addAction(m_findPreviousAction);
@@ -1797,7 +1797,7 @@ void MainWindow::createActions()
     // find next
 
     m_findNextAction = new QAction(tr("Find next"), this);
-    m_findNextAction->setObjectName("findNext");
+    m_findNextAction->setObjectName(QLatin1String("findNext"));
 
     m_findNextAction->setShortcut(QKeySequence::FindNext);
     m_settings->shortcuts()->addAction(m_findNextAction);
@@ -1810,7 +1810,7 @@ void MainWindow::createActions()
     // cancel search
 
     m_cancelSearchAction = new QAction(tr("Cancel search"), this);
-    m_cancelSearchAction->setObjectName("cancelSearch");
+    m_cancelSearchAction->setObjectName(QLatin1String("cancelSearch"));
 
     m_cancelSearchAction->setShortcut(QKeySequence(Qt::Key_Escape));
     m_settings->shortcuts()->addAction(m_cancelSearchAction);
@@ -1823,7 +1823,7 @@ void MainWindow::createActions()
     // copy to clipboard mode
 
     m_copyToClipboardModeAction = new QAction(tr("&Copy to clipboard"), this);
-    m_copyToClipboardModeAction->setObjectName("copyToClipboardMode");
+    m_copyToClipboardModeAction->setObjectName(QLatin1String("copyToClipboardMode"));
 
     m_copyToClipboardModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     m_settings->shortcuts()->addAction(m_copyToClipboardModeAction);
@@ -1836,7 +1836,7 @@ void MainWindow::createActions()
     // add annotation mode
 
     m_addAnnotationModeAction = new QAction(tr("&Add annotation"), this);
-    m_addAnnotationModeAction->setObjectName("addAnnotationMode");
+    m_addAnnotationModeAction->setObjectName(QLatin1String("addAnnotationMode"));
 
     m_addAnnotationModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
     m_settings->shortcuts()->addAction(m_addAnnotationModeAction);
@@ -1855,95 +1855,154 @@ void MainWindow::createActions()
     // continuous mode
 
     m_continuousModeAction = new QAction(tr("&Continuous"), this);
+    m_continuousModeAction->setObjectName(QLatin1String("continuousMode"));
+
     m_continuousModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_7));
-    m_continuousModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_continuousModeAction);
+
     m_continuousModeAction->setIcon(QIcon(":icons/continuous.svg"));
+
+    m_continuousModeAction->setCheckable(true);
     connect(m_continuousModeAction, SIGNAL(triggered(bool)), SLOT(on_continuousMode_triggered(bool)));
 
     // two pages mode
 
     m_twoPagesModeAction = new QAction(tr("&Two pages"), this);
+    m_twoPagesModeAction->setObjectName(QLatin1String("twoPagesMode"));
+
     m_twoPagesModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
-    m_twoPagesModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_twoPagesModeAction);
+
     m_twoPagesModeAction->setIcon(QIcon(":icons/two-pages.svg"));
+
+    m_twoPagesModeAction->setCheckable(true);
     connect(m_twoPagesModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesMode_triggered(bool)));
 
     // two pages with cover page mode
 
     m_twoPagesWithCoverPageModeAction = new QAction(tr("Two pages &with cover page"), this);
+    m_twoPagesWithCoverPageModeAction->setObjectName(QLatin1String("twoPagesWithCoverPageMode"));
+
     m_twoPagesWithCoverPageModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
-    m_twoPagesWithCoverPageModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_twoPagesWithCoverPageModeAction);
+
     m_twoPagesWithCoverPageModeAction->setIcon(QIcon(":icons/two-pages-with-cover-page.svg"));
+
+    m_twoPagesWithCoverPageModeAction->setCheckable(true);
     connect(m_twoPagesWithCoverPageModeAction, SIGNAL(triggered(bool)), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)));
 
     // multiple pages mode
 
     m_multiplePagesModeAction = new QAction(tr("&Multiple pages"), this);
+    m_multiplePagesModeAction->setObjectName(QLatin1String("multiplePagesMode"));
+
     m_multiplePagesModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_4));
-    m_multiplePagesModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_multiplePagesModeAction);
+
     m_multiplePagesModeAction->setIcon(QIcon(":icons/multiple-pages.svg"));
+
+    m_multiplePagesModeAction->setCheckable(true);
     connect(m_multiplePagesModeAction, SIGNAL(triggered(bool)), SLOT(on_multiplePagesMode_triggered(bool)));
 
     // zoom in
 
     m_zoomInAction = new QAction(tr("Zoom &in"), this);
+    m_zoomInAction->setObjectName(QLatin1String("zoomIn"));
+
     m_zoomInAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
+    m_settings->shortcuts()->addAction(m_zoomInAction);
+
     m_zoomInAction->setIcon(QIcon::fromTheme("zoom-in", QIcon(":icons/zoom-in.svg")));
     m_zoomInAction->setIconVisibleInMenu(true);
+
     connect(m_zoomInAction, SIGNAL(triggered()), SLOT(on_zoomIn_triggered()));
 
     // zoom out
 
     m_zoomOutAction = new QAction(tr("Zoom &out"), this);
+    m_zoomOutAction->setObjectName(QLatin1String("zoomOut"));
+
     m_zoomOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
+    m_settings->shortcuts()->addAction(m_zoomOutAction);
+
     m_zoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":icons/zoom-out.svg")));
     m_zoomOutAction->setIconVisibleInMenu(true);
+
     connect(m_zoomOutAction, SIGNAL(triggered()), SLOT(on_zoomOut_triggered()));
 
     // original size
 
     m_originalSizeAction = new QAction(tr("Original &size"), this);
+    m_originalSizeAction->setObjectName(QLatin1String("originalSize"));
+
     m_originalSizeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
+    m_settings->shortcuts()->addAction(m_originalSizeAction);
+
     m_originalSizeAction->setIcon(QIcon::fromTheme("zoom-original", QIcon(":icons/zoom-original.svg")));
     m_originalSizeAction->setIconVisibleInMenu(true);
+
     connect(m_originalSizeAction, SIGNAL(triggered()), SLOT(on_originalSize_triggered()));
 
     // fit to page width mode
 
     m_fitToPageWidthModeAction = new QAction(tr("Fit to page width"), this);
+    m_fitToPageWidthModeAction->setObjectName(QLatin1String("fitToPageWidthMode"));
+
     m_fitToPageWidthModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_9));
-    m_fitToPageWidthModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_fitToPageWidthModeAction);
+
     m_fitToPageWidthModeAction->setIcon(QIcon(":icons/fit-to-page-width.svg"));
+
+    m_fitToPageWidthModeAction->setCheckable(true);
     connect(m_fitToPageWidthModeAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageWidthMode_triggered(bool)));
 
     // fit to page size mode
 
     m_fitToPageSizeModeAction = new QAction(tr("Fit to page size"), this);
+    m_fitToPageSizeModeAction->setObjectName(QLatin1String("fitToPageSizeMode"));
+
     m_fitToPageSizeModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_8));
-    m_fitToPageSizeModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_fitToPageSizeModeAction);
+
     m_fitToPageSizeModeAction->setIcon(QIcon(":icons/fit-to-page-size.svg"));
+
+    m_fitToPageSizeModeAction->setCheckable(true);
     connect(m_fitToPageSizeModeAction, SIGNAL(triggered(bool)), SLOT(on_fitToPageSizeMode_triggered(bool)));
 
     // rotate left
 
     m_rotateLeftAction = new QAction(tr("Rotate &left"), this);
+    m_rotateLeftAction->setObjectName(QLatin1String("rotateLeft"));
+
     m_rotateLeftAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left));
+    m_settings->shortcuts()->addAction(m_rotateLeftAction);
+
     m_rotateLeftAction->setIcon(QIcon::fromTheme("object-rotate-left", QIcon(":icons/object-rotate-left.svg")));
     m_rotateLeftAction->setIconVisibleInMenu(true);
+
     connect(m_rotateLeftAction, SIGNAL(triggered()), SLOT(on_rotateLeft_triggered()));
 
     // rotate right
 
     m_rotateRightAction = new QAction(tr("Rotate &right"), this);
+    m_rotateRightAction->setObjectName(QLatin1String("rotateRight"));
+
     m_rotateRightAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right));
+    m_settings->shortcuts()->addAction(m_rotateRightAction);
+
     m_rotateRightAction->setIcon(QIcon::fromTheme("object-rotate-right", QIcon(":icons/object-rotate-right.svg")));
     m_rotateRightAction->setIconVisibleInMenu(true);
+
     connect(m_rotateRightAction, SIGNAL(triggered()), SLOT(on_rotateRight_triggered()));
 
     // invert colors
 
     m_invertColorsAction = new QAction(tr("Invert colors"), this);
+    m_invertColorsAction->setObjectName(QLatin1String("invertColors"));
+
     m_invertColorsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
+    m_settings->shortcuts()->addAction(m_invertColorsAction);
+
     m_invertColorsAction->setCheckable(true);
     connect(m_invertColorsAction, SIGNAL(triggered(bool)), SLOT(on_invertColors_triggered(bool)));
 
@@ -1955,49 +2014,80 @@ void MainWindow::createActions()
     // fullscreen
 
     m_fullscreenAction = new QAction(tr("&Fullscreen"), this);
-    m_fullscreenAction->setCheckable(true);
+    m_fullscreenAction->setObjectName(QLatin1String("fullscreen"));
+
     m_fullscreenAction->setShortcut(QKeySequence(Qt::Key_F11));
+    m_settings->shortcuts()->addAction(m_fullscreenAction);
+
     m_fullscreenAction->setIcon(QIcon::fromTheme("view-fullscreen", QIcon(":icons/view-fullscreen.svg")));
+
+    m_fullscreenAction->setCheckable(true);
     connect(m_fullscreenAction, SIGNAL(triggered(bool)), SLOT(on_fullscreen_triggered(bool)));
 
     // presentation
 
     m_presentationAction = new QAction(tr("&Presentation..."), this);
+    m_presentationAction->setObjectName(QLatin1String("presentation"));
+
     m_presentationAction->setShortcut(QKeySequence(Qt::Key_F12));
+    m_settings->shortcuts()->addAction(m_presentationAction);
+
     m_presentationAction->setIcon(QIcon::fromTheme("x-office-presentation", QIcon(":icons/x-office-presentation.svg")));
     m_presentationAction->setIconVisibleInMenu(true);
+
     connect(m_presentationAction, SIGNAL(triggered()), SLOT(on_presentation_triggered()));
 
     // previous tab
 
     m_previousTabAction = new QAction(tr("&Previous tab"), this);
+    m_previousTabAction->setObjectName(QLatin1String("previousTab"));
+
     m_previousTabAction->setShortcut(QKeySequence::PreviousChild);
+    m_settings->shortcuts()->addAction(m_previousTabAction);
+
     connect(m_previousTabAction, SIGNAL(triggered()), SLOT(on_previousTab_triggered()));
 
     // next tab
 
     m_nextTabAction = new QAction(tr("&Next tab"), this);
+    m_nextTabAction->setObjectName(QLatin1String("nextTab"));
+
     m_nextTabAction->setShortcut(QKeySequence::NextChild);
+    m_settings->shortcuts()->addAction(m_nextTabAction);
+
     connect(m_nextTabAction, SIGNAL(triggered()), SLOT(on_nextTab_triggered()));
 
     // close tab
 
     m_closeTabAction = new QAction(tr("&Close tab"), this);
+    m_closeTabAction->setObjectName(QLatin1String("closeTab"));
+
     m_closeTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_W));
+    m_settings->shortcuts()->addAction(m_closeTabAction);
+
     m_closeTabAction->setIcon(QIcon::fromTheme("window-close"));
     m_closeTabAction->setIconVisibleInMenu(true);
+
     connect(m_closeTabAction, SIGNAL(triggered()), SLOT(on_closeTab_triggered()));
 
     // close all tabs
 
     m_closeAllTabsAction = new QAction(tr("Close &all tabs"), this);
+    m_closeAllTabsAction->setObjectName(QLatin1String("closeAllTabs"));
+
     m_closeAllTabsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W));
+    m_settings->shortcuts()->addAction(m_closeAllTabsAction);
+
     connect(m_closeAllTabsAction, SIGNAL(triggered()), SLOT(on_closeAllTabs_triggered()));
 
     // close all tabs but current tab
 
     m_closeAllTabsButCurrentTabAction = new QAction(tr("Close all tabs &but current tab"), this);
+    m_closeAllTabsButCurrentTabAction->setObjectName(QLatin1String("closeAllTabsButCurrent"));
+
     m_closeAllTabsButCurrentTabAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W));
+    m_settings->shortcuts()->addAction(m_closeAllTabsButCurrentTabAction);
+
     connect(m_closeAllTabsButCurrentTabAction, SIGNAL(triggered()), SLOT(on_closeAllTabsButCurrentTab_triggered()));
 
     // tab shortcuts
@@ -2010,46 +2100,73 @@ void MainWindow::createActions()
     // previous bookmark
 
     m_previousBookmarkAction = new QAction(tr("&Previous bookmark"), this);
+    m_previousBookmarkAction->setObjectName(QLatin1String("previousBookmarkAction"));
+
     m_previousBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
+    m_settings->shortcuts()->addAction(m_previousBookmarkAction);
+
     connect(m_previousBookmarkAction, SIGNAL(triggered()), SLOT(on_previousBookmark_triggered()));
 
     // next bookmark
 
     m_nextBookmarkAction = new QAction(tr("&Next bookmark"), this);
+    m_nextBookmarkAction->setObjectName(QLatin1String("nextBookmarkAction"));
+
     m_nextBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
+    m_settings->shortcuts()->addAction(m_nextBookmarkAction);
+
     connect(m_nextBookmarkAction, SIGNAL(triggered()), SLOT(on_nextBookmark_triggered()));
 
     // add bookmark
 
     m_addBookmarkAction = new QAction(tr("&Add bookmark"), this);
+    m_addBookmarkAction->setObjectName(QLatin1String("addBookmark"));
+
     m_addBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
+    m_settings->shortcuts()->addAction(m_addBookmarkAction);
+
     connect(m_addBookmarkAction, SIGNAL(triggered()), SLOT(on_addBookmark_triggered()));
 
     // remove bookmark
 
     m_removeBookmarkAction = new QAction(tr("&Remove bookmark"), this);
+    m_removeBookmarkAction->setObjectName(QLatin1String("removeBookmark"));
+
     m_removeBookmarkAction->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    m_settings->shortcuts()->addAction(m_removeBookmarkAction);
+
     connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
 
     // remove all bookmarks
 
     m_removeAllBookmarksAction = new QAction(tr("Remove all bookmarks"), this);
+    m_removeAllBookmarksAction->setObjectName(QLatin1String("removeAllBookmark"));
+
     m_removeAllBookmarksAction->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_B));
+    m_settings->shortcuts()->addAction(m_removeAllBookmarksAction);
+
     connect(m_removeAllBookmarksAction, SIGNAL(triggered()), SLOT(on_removeAllBookmarks_triggered()));
 
     // contents
 
     m_contentsAction = new QAction(tr("&Contents"), this);
+    m_contentsAction->setObjectName(QLatin1String("contents"));
+
     m_contentsAction->setShortcut(QKeySequence::HelpContents);
+    m_settings->shortcuts()->addAction(m_contentsAction);
+
     m_contentsAction->setIcon(QIcon::fromTheme("help-contents"));
     m_contentsAction->setIconVisibleInMenu(true);
+
     connect(m_contentsAction, SIGNAL(triggered()), SLOT(on_contents_triggered()));
 
     // about
 
     m_aboutAction = new QAction(tr("&About"), this);
+
     m_aboutAction->setIcon(QIcon::fromTheme("help-about"));
     m_aboutAction->setIconVisibleInMenu(true);
+
     connect(m_aboutAction, SIGNAL(triggered()), SLOT(on_about_triggered()));
 }
 
@@ -2058,7 +2175,7 @@ void MainWindow::createToolBars()
     // file
 
     m_fileToolBar = addToolBar(tr("&File"));
-    m_fileToolBar->setObjectName("fileToolBar");
+    m_fileToolBar->setObjectName(QLatin1String("fileToolBar"));
 
     foreach(QString action, m_settings->mainWindow()->fileToolBar())
     {
@@ -2073,7 +2190,7 @@ void MainWindow::createToolBars()
     // edit
 
     m_editToolBar = addToolBar(tr("&Edit"));
-    m_editToolBar->setObjectName("editToolBar");
+    m_editToolBar->setObjectName(QLatin1String("editToolBar"));
 
     foreach(QString action, m_settings->mainWindow()->editToolBar())
     {
@@ -2091,7 +2208,7 @@ void MainWindow::createToolBars()
     // view
 
     m_viewToolBar = addToolBar(tr("&View"));
-    m_viewToolBar->setObjectName("viewToolBar");
+    m_viewToolBar->setObjectName(QLatin1String("viewToolBar"));
 
     foreach(QString action, m_settings->mainWindow()->viewToolBar())
     {
@@ -2114,7 +2231,7 @@ void MainWindow::createToolBars()
     // search
 
     m_searchToolBar = new QToolBar(tr("&Search"), this);
-    m_searchToolBar->setObjectName("searchToolBar");
+    m_searchToolBar->setObjectName(QLatin1String("searchToolBar"));
 
     m_searchToolBar->setHidden(true);
     m_searchToolBar->setMovable(false);
@@ -2134,13 +2251,16 @@ void MainWindow::createDocks()
     // outline
 
     m_outlineDock = new QDockWidget(tr("&Outline"), this);
-    m_outlineDock->setObjectName("outlineDock");
+    m_outlineDock->setObjectName(QLatin1String("outlineDock"));
     m_outlineDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     m_outlineDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
 
+    m_outlineDock->toggleViewAction()->setObjectName(QLatin1String("outlineDockToggleView"));
     m_outlineDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F6));
+    m_settings->shortcuts()->addAction(m_outlineDock->toggleViewAction());
+
     m_outlineDock->hide();
 
     m_outlineView = new TreeView(this);
@@ -2166,13 +2286,16 @@ void MainWindow::createDocks()
     // properties
 
     m_propertiesDock = new QDockWidget(tr("&Properties"), this);
-    m_propertiesDock->setObjectName("propertiesDock");
+    m_propertiesDock->setObjectName(QLatin1String("propertiesDock"));
     m_propertiesDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     m_propertiesDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     addDockWidget(Qt::LeftDockWidgetArea, m_propertiesDock);
 
+    m_propertiesDock->toggleViewAction()->setObjectName(QLatin1String("propertiesDockToggleView"));
     m_propertiesDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F7));
+    m_settings->shortcuts()->addAction(m_propertiesDock->toggleViewAction());
+
     m_propertiesDock->hide();
 
     m_propertiesView = new QTableView(this);
@@ -2199,13 +2322,16 @@ void MainWindow::createDocks()
     // thumbnails
 
     m_thumbnailsDock = new QDockWidget(tr("&Thumbnails"), this);
-    m_thumbnailsDock->setObjectName("thumbnailsDock");
+    m_thumbnailsDock->setObjectName(QLatin1String("thumbnailsDock"));
     m_thumbnailsDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     m_thumbnailsDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
 
+    m_thumbnailsDock->setObjectName(QLatin1String("thumbnailsDockToggleView"));
     m_thumbnailsDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F8));
+    m_settings->shortcuts()->addAction(m_thumbnailsDock->toggleViewAction());
+
     m_thumbnailsDock->hide();
 
     m_thumbnailsView = new QGraphicsView(this);
