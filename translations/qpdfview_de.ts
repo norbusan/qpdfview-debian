@@ -179,22 +179,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1406"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished">PDF-Unterstützung mittels Poppler</translation>
+        <translation type="unfinished">&lt;li&gt;PDF-Unterstützung mittels Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished">PS-Unterstützung mittels libspectre</translation>
+        <translation type="unfinished">&lt;li&gt;PS-Unterstützung mittels libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1412"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished">DjVu-Unterstützung mittels DjVuLibre</translation>
+        <translation type="unfinished">&lt;li&gt;DjVu-Unterstützung mittels DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished">Druckunterstützung mittels CUPS</translation>
+        <translation type="unfinished">&lt;li&gt;Druckunterstützung mittels CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1417"/>
