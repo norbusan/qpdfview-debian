@@ -78,11 +78,6 @@ Settings::~Settings()
     delete m_shortcuts;
 }
 
-QString Settings::fileName() const
-{
-    return m_settings->fileName();
-}
-
 Settings::PageItem* Settings::pageItem()
 {
     return m_pageItem;
@@ -135,6 +130,7 @@ const Settings::Shortcuts* Settings::shortcuts() const
 
 void Settings::refresh()
 {
+    m_shortcuts->sync();
     m_settings->sync();
 
     ::PageItem::setCacheSize(pageItem()->cacheSize());
@@ -740,8 +736,6 @@ void Settings::Shortcuts::sync()
     {
         m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut());
     }
-
-    m_settings->sync();
 }
 
 QString Defaults::MainWindow::path()

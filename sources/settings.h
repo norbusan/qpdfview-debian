@@ -37,8 +37,6 @@ public:
     explicit Settings(QObject* parent = 0);
     ~Settings();
 
-    QString fileName() const;
-
     // page item
 
     class PageItem

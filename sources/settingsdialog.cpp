@@ -135,8 +135,6 @@ void SettingsDialog::accept()
 
     qobject_cast< ShortcutsTableModel* >(m_shortcutsTableView->model())->accept();
 
-    m_settings->shortcuts()->sync();
-
     // behavior
 
     m_settings->documentView()->setOpenUrl(m_openUrlCheckBox->isChecked());
