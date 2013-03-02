@@ -1067,6 +1067,7 @@ void MainWindow::on_fonts_triggered()
     QDialog* dialog = new QDialog(this);
 
     QTableView* tableView = new QTableView(dialog);
+    tableView->setModel(fontsModel);
 
     tableView->setAlternatingRowColors(true);
     tableView->setSortingEnabled(true);
@@ -1086,8 +1087,6 @@ void MainWindow::on_fonts_triggered()
 #endif // QT_VERSION
 
     tableView->verticalHeader()->setVisible(false);
-
-    tableView->setModel(fontsModel);
 
     QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);
     connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));

@@ -27,6 +27,7 @@ class QSettings;
 
 #include "global.h"
 #include "miscellaneous.h"
+#include "shortcutstablemodel.h"
 
 class Settings : public QObject
 {
@@ -255,6 +256,10 @@ public:
 
         void addAction(QAction* action);
         void removeAction(QAction* action);
+
+        ShortcutsTableModel* createTableModel() const;
+
+        void sync();
 
     private:
         QSettings* m_settings;

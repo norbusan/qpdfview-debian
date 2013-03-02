@@ -32,6 +32,7 @@ class QDoubleSpinBox;
 class QFormLayout;
 class QLineEdit;
 class QSpinBox;
+class QTableView;
 class QTabWidget;
 
 namespace Model
@@ -71,6 +72,8 @@ private:
     Model::SettingsWidget* m_psSettingsWidget;
 
 #endif // WITH_PS
+
+    QTableView* m_shortcutsTableView;
 
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;

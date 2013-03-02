@@ -27,7 +27,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopWidget>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QHeaderView>
 #include <QPushButton>
+#include <QTableView>
 
 #include "model.h"
 #include "documentview.h"
@@ -63,10 +65,30 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
     m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
 
+    m_shortcutsTableView = new QTableView(this);
+    m_shortcutsTableView->setModel(m_settings->shortcuts()->createTableModel());
+
+    m_shortcutsTableView->setAlternatingRowColors(true);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_shortcutsTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    m_shortcutsTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+
+#else
+
+    m_shortcutsTableView->horizontalHeader()->setResizeMode(0, QHeaderView::ResizeToContents);
+    m_shortcutsTableView->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+
+    m_shortcutsTableView->verticalHeader()->setVisible(false);
+
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->addTab(new QWidget(this), tr("&Behavior"));
     m_tabWidget->addTab(m_graphicsTabWidget, tr("&Graphics"));
     m_tabWidget->addTab(new QWidget(this), tr("&Interface"));
+    m_tabWidget->addTab(m_shortcutsTableView, tr("&Shortcuts"));
     m_tabWidget->addTab(new QWidget(this), tr("&Modifiers"));
 
     m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
@@ -78,7 +100,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
-    m_modifiersLayout = new QFormLayout(m_tabWidget->widget(3));
+    m_modifiersLayout = new QFormLayout(m_tabWidget->widget(4));
 
     setLayout(new QVBoxLayout(this));
     layout()->addWidget(m_tabWidget);
@@ -109,6 +131,10 @@ void SettingsDialog::accept()
     }
 
 #endif // WITH_PS
+
+    qobject_cast< ShortcutsTableModel* >(m_shortcutsTableView->model())->accept();
+
+    m_settings->shortcuts()->sync();
 
     // behavior
 
@@ -189,6 +215,8 @@ void SettingsDialog::on_defaults_clicked()
     }
 
 #endif // WITH_PS
+
+    qobject_cast< ShortcutsTableModel* >(m_shortcutsTableView->model())->reset();
 
     // behavior
 

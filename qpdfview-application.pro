@@ -17,6 +17,7 @@ HEADERS += \
     sources/printoptionswidget.h \
     sources/miscellaneous.h \
     sources/settings.h \
+    sources/shortcutstablemodel.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
@@ -31,6 +32,7 @@ SOURCES += \
     sources/printoptionswidget.cpp \
     sources/miscellaneous.cpp \
     sources/settings.cpp \
+    sources/shortcutstablemodel.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
     sources/bookmarkmenu.cpp \

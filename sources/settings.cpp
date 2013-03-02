@@ -707,6 +707,21 @@ void Settings::Shortcuts::removeAction(QAction* action)
     m_defaultShortcuts.remove(action);
 }
 
+ShortcutsTableModel* Settings::Shortcuts::createTableModel() const
+{
+    return new ShortcutsTableModel(m_actions, m_defaultShortcuts);
+}
+
+void Settings::Shortcuts::sync()
+{
+    foreach(QAction* action, m_actions)
+    {
+        m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut());
+    }
+
+    m_settings->sync();
+}
+
 QString Defaults::MainWindow::path()
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
