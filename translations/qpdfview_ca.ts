@@ -27,71 +27,71 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="462"/>
+        <location filename="../sources/documentview.cpp" line="494"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formats suportats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="716"/>
-        <location filename="../sources/documentview.cpp" line="755"/>
+        <location filename="../sources/documentview.cpp" line="748"/>
+        <location filename="../sources/documentview.cpp" line="787"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="716"/>
-        <location filename="../sources/documentview.cpp" line="755"/>
+        <location filename="../sources/documentview.cpp" line="748"/>
+        <location filename="../sources/documentview.cpp" line="787"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1233"/>
+        <location filename="../sources/documentview.cpp" line="1265"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1233"/>
+        <location filename="../sources/documentview.cpp" line="1265"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1285"/>
+        <location filename="../sources/documentview.cpp" line="1317"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1285"/>
+        <location filename="../sources/documentview.cpp" line="1317"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1454"/>
+        <location filename="../sources/documentview.cpp" line="1494"/>
         <source>&amp;Return to page %1</source>
         <translation type="unfinished">To&amp;rna a la pàgina %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
-        <location filename="../sources/documentview.cpp" line="1516"/>
-        <location filename="../sources/documentview.cpp" line="1548"/>
+        <location filename="../sources/documentview.cpp" line="1526"/>
+        <location filename="../sources/documentview.cpp" line="1557"/>
+        <location filename="../sources/documentview.cpp" line="1589"/>
         <source>Critical</source>
         <translation type="unfinished">Crític</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1485"/>
+        <location filename="../sources/documentview.cpp" line="1526"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1516"/>
+        <location filename="../sources/documentview.cpp" line="1557"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PS!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1548"/>
+        <location filename="../sources/documentview.cpp" line="1589"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de DjVu!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1919"/>
+        <location filename="../sources/documentview.cpp" line="1960"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
@@ -884,6 +884,39 @@
     </message>
 </context>
 <context>
+    <name>QShortcut</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="565"/>
+        <source>Shift</source>
+        <translation type="unfinished">Maj</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="566"/>
+        <source>Ctrl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="567"/>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="568"/>
+        <source>Shift and Ctrl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="569"/>
+        <source>Shift and Alt</source>
+        <translation type="unfinished">Majúscules + ALT</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="570"/>
+        <source>Ctrl and Alt</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RecentlyUsedMenu</name>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="28"/>
@@ -897,162 +930,179 @@
     </message>
 </context>
 <context>
+    <name>Settings</name>
+    <message>
+        <location filename="../sources/settings.cpp" line="52"/>
+        <source>Return to page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="58"/>
+        <source>Skip backward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="64"/>
+        <source>Skip forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="88"/>
+        <location filename="../sources/settingsdialog.cpp" line="89"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Comportament</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
+        <location filename="../sources/settingsdialog.cpp" line="90"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">&amp;Gràfics</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="90"/>
+        <location filename="../sources/settingsdialog.cpp" line="91"/>
         <source>&amp;Interface</source>
         <translation type="unfinished">&amp;Interfície</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="91"/>
+        <location filename="../sources/settingsdialog.cpp" line="92"/>
         <source>&amp;Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="92"/>
+        <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Modificadors</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="98"/>
+        <location filename="../sources/settingsdialog.cpp" line="99"/>
         <source>Defaults</source>
         <translation type="unfinished">Valors per defecte</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="286"/>
+        <location filename="../sources/settingsdialog.cpp" line="287"/>
         <source>Open URL:</source>
         <translation type="unfinished">Obre URL:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="293"/>
+        <location filename="../sources/settingsdialog.cpp" line="294"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Auto-actualització:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="299"/>
-        <location filename="../sources/settingsdialog.cpp" line="507"/>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
-        <location filename="../sources/settingsdialog.cpp" line="523"/>
+        <location filename="../sources/settingsdialog.cpp" line="300"/>
+        <location filename="../sources/settingsdialog.cpp" line="508"/>
+        <location filename="../sources/settingsdialog.cpp" line="516"/>
+        <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Efectiu desprès de reiniciar.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <location filename="../sources/settingsdialog.cpp" line="302"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Rastreja recents:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="308"/>
+        <location filename="../sources/settingsdialog.cpp" line="309"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Restaura pestanyes:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="315"/>
+        <location filename="../sources/settingsdialog.cpp" line="316"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Restaura marcadors:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="322"/>
+        <location filename="../sources/settingsdialog.cpp" line="323"/>
         <source>Restore per-file settings:</source>
         <translation type="unfinished">Restaura opcions per cada fitxer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="337"/>
+        <location filename="../sources/settingsdialog.cpp" line="338"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Sincronitza presentació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="343"/>
+        <location filename="../sources/settingsdialog.cpp" line="344"/>
         <source>Default</source>
         <translation type="unfinished">Per defecte</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="346"/>
+        <location filename="../sources/settingsdialog.cpp" line="347"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Pantalla de presentació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="352"/>
+        <location filename="../sources/settingsdialog.cpp" line="353"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; es canviarà pel camí absolut. &apos;%2&apos; resp. &apos;%3&apos; es canviarà per la línia resp. del número de la columna.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="354"/>
+        <location filename="../sources/settingsdialog.cpp" line="355"/>
         <source>Source editor:</source>
         <translation type="unfinished">Editor de codi:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="364"/>
+        <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Decora pàgines:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="371"/>
+        <location filename="../sources/settingsdialog.cpp" line="372"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Decora enllaços:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="378"/>
+        <location filename="../sources/settingsdialog.cpp" line="379"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Decora camps del formulari:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <location filename="../sources/settingsdialog.cpp" line="387"/>
         <source>None</source>
         <translation type="unfinished">Cap</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="389"/>
+        <location filename="../sources/settingsdialog.cpp" line="390"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Remarca la durada:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="399"/>
+        <location filename="../sources/settingsdialog.cpp" line="400"/>
         <source>Background color:</source>
         <translation type="unfinished">Color de fons:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="409"/>
+        <location filename="../sources/settingsdialog.cpp" line="410"/>
         <source>Paper color:</source>
         <translation type="unfinished">Color del paper:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="417"/>
+        <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Pàgines per fila:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="427"/>
+        <location filename="../sources/settingsdialog.cpp" line="428"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Espaiat de pàgina:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="437"/>
+        <location filename="../sources/settingsdialog.cpp" line="438"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Espaiat de miniatures:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="447"/>
+        <location filename="../sources/settingsdialog.cpp" line="448"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Mida de les miniatures:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="42"/>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
         <location filename="../sources/settingsdialog.cpp" line="455"/>
@@ -1060,138 +1110,109 @@
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <location filename="../sources/settingsdialog.cpp" line="458"/>
         <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <location filename="../sources/settingsdialog.cpp" line="460"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="462"/>
+        <location filename="../sources/settingsdialog.cpp" line="463"/>
         <source>Cache size:</source>
         <translation type="unfinished">Mida de la memòria cau:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="469"/>
+        <location filename="../sources/settingsdialog.cpp" line="470"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Precarrega:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="477"/>
+        <location filename="../sources/settingsdialog.cpp" line="478"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Distància de precàrrega:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="485"/>
+        <location filename="../sources/settingsdialog.cpp" line="486"/>
         <source>Top</source>
         <translation type="unfinished">Superior</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="486"/>
+        <location filename="../sources/settingsdialog.cpp" line="487"/>
         <source>Bottom</source>
         <translation type="unfinished">Inferior</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="487"/>
+        <location filename="../sources/settingsdialog.cpp" line="488"/>
         <source>Left</source>
         <translation type="unfinished">Esquerra</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="488"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Right</source>
         <translation type="unfinished">Dreta</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="491"/>
+        <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Tab position:</source>
         <translation type="unfinished">Posició de pestanya:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="496"/>
+        <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source>As needed</source>
         <translation type="unfinished">Quan calgui</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="497"/>
+        <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Always</source>
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="498"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
         <source>Never</source>
         <translation type="unfinished">Mai</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="501"/>
+        <location filename="../sources/settingsdialog.cpp" line="502"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visibilitat de la pestanya:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="509"/>
+        <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Arxiu barra d&apos;eines:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="517"/>
+        <location filename="../sources/settingsdialog.cpp" line="518"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Edita la barra d&apos;eines:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="525"/>
+        <location filename="../sources/settingsdialog.cpp" line="526"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Vore barra d&apos;eines:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="534"/>
+        <location filename="../sources/settingsdialog.cpp" line="535"/>
         <source>Zoom:</source>
         <translation type="unfinished">Ampliació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="540"/>
+        <location filename="../sources/settingsdialog.cpp" line="541"/>
         <source>Rotate:</source>
         <translation type="unfinished">Gira:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="546"/>
+        <location filename="../sources/settingsdialog.cpp" line="547"/>
         <source>Scroll:</source>
         <translation type="unfinished">Desplaçament:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="552"/>
+        <location filename="../sources/settingsdialog.cpp" line="553"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Còpia al porta-papers:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="558"/>
+        <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Afegix anotació:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="564"/>
-        <source>Shift</source>
-        <translation type="unfinished">Maj</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="565"/>
-        <source>Control</source>
-        <translation type="unfinished">Control</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="566"/>
-        <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="567"/>
-        <source>Shift and Control</source>
-        <translation type="unfinished">Majúscules + Control</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="568"/>
-        <source>Shift and Alt</source>
-        <translation type="unfinished">Majúscules + ALT</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="569"/>
-        <source>Control and Alt</source>
-        <translation type="unfinished">Control + Alt</translation>
     </message>
 </context>
 <context>
