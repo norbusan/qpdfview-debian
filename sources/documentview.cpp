@@ -310,7 +310,7 @@ void DocumentView::setSourceEditor(const QString& sourceEditor)
 
 #ifdef WITH_PDF
 
-Model::SettingsWidget *DocumentView::createPDFSettingsWidget()
+Model::SettingsWidget* DocumentView::createPDFSettingsWidget()
 {
     preparePDFDocumentLoader();
 
@@ -321,7 +321,7 @@ Model::SettingsWidget *DocumentView::createPDFSettingsWidget()
 
 #ifdef WITH_PS
 
-Model::SettingsWidget *DocumentView::createPSSettingsWidget()
+Model::SettingsWidget* DocumentView::createPSSettingsWidget()
 {
     preparePSDocumentLoader();
 
@@ -375,15 +375,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
-
-    m_returnToPageAction = new QAction(this);
-
-    m_returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-    m_returnToPageAction->setIconVisibleInMenu(true);
-
-    connect(m_returnToPageAction, SIGNAL(triggered()), SLOT(returnToPage()));
-
-    addAction(m_returnToPageAction);
 
     // highlight
 
@@ -461,6 +452,11 @@ int DocumentView::numberOfPages() const
 int DocumentView::currentPage() const
 {
     return m_currentPage;
+}
+
+const QVector< int >& DocumentView::visitedPages() const
+{
+    return m_returnToPage;
 }
 
 QStringList DocumentView::openFilter()
@@ -1490,10 +1486,6 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     if(!event->isAccepted())
     {
         event->setAccepted(true);
-
-        m_returnToPageAction->setText(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
-        m_returnToPageAction->setVisible(!m_returnToPage.isEmpty());
-        m_returnToPageAction->setShortcut(s_returnToPageShortcut);
 
         emit customContextMenuRequested(event->pos());
     }

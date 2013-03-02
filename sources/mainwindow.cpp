@@ -662,7 +662,16 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        menu.addActions(currentTab()->actions());
+        const QVector< int >& visitedPages = currentTab()->visitedPages();
+
+        if(!visitedPages.isEmpty())
+        {
+            QAction* returnToPageAction = menu.addAction(tr("&Return to page %1").arg(visitedPages.first()),
+                                                         currentTab(), SLOT(returnToPage()), DocumentView::returnToPageShortcut());
+
+            returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+            returnToPageAction->setIconVisibleInMenu(true);
+        }
 
         if(m_searchToolBar->isVisible())
         {

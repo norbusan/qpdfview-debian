@@ -123,6 +123,8 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    const QVector< int >& visitedPages() const;
+
     static QStringList openFilter();
     QStringList saveFilter() const;
 
@@ -317,8 +319,6 @@ private:
 #endif // WITH_CUPS
 
     bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
-
-    QAction* m_returnToPageAction;
 
     QStack< int > m_returnToPage;
     QStack< qreal > m_returnToLeft;
