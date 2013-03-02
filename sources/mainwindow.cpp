@@ -1591,160 +1591,239 @@ void MainWindow::createActions()
     // open
 
     m_openAction = new QAction(tr("&Open..."), this);
+    m_openAction->setObjectName("open");
+
     m_openAction->setShortcut(QKeySequence::Open);
+    m_settings->shortcuts()->addAction(m_openAction);
+
     m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
     m_openAction->setIconVisibleInMenu(true);
-    connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
-    m_openAction->setObjectName("open");
-    m_settings->shortcuts()->addAction(m_openAction);
+    connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
     // open in new tab
 
     m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
+    m_openInNewTabAction->setObjectName("openInNewTab");
+
     m_openInNewTabAction->setShortcut(QKeySequence::AddTab);
+    m_settings->shortcuts()->addAction(m_openInNewTabAction);
+
     m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
     m_openInNewTabAction->setIconVisibleInMenu(true);
-    connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
 
-    m_openInNewTabAction->setObjectName("openInNewTab");
-    m_settings->shortcuts()->addAction(m_openInNewTabAction);
+    connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
 
     // refresh
 
     m_refreshAction = new QAction(tr("&Refresh"), this);
+    m_refreshAction->setObjectName("refresh");
+
     m_refreshAction->setShortcut(QKeySequence::Refresh);
+    m_settings->shortcuts()->addAction(m_refreshAction);
+
     m_refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
     m_refreshAction->setIconVisibleInMenu(true);
+
     connect(m_refreshAction, SIGNAL(triggered()), SLOT(on_refresh_triggered()));
 
     // save copy
 
     m_saveCopyAction = new QAction(tr("&Save copy..."), this);
+    m_saveCopyAction->setObjectName("saveCopy");
+
     m_saveCopyAction->setShortcut(QKeySequence::Save);
+    m_settings->shortcuts()->addAction(m_saveCopyAction);
+
     m_saveCopyAction->setIcon(QIcon::fromTheme("document-save", QIcon(":icons/document-save.svg")));
     m_saveCopyAction->setIconVisibleInMenu(true);
+
     connect(m_saveCopyAction, SIGNAL(triggered()), SLOT(on_saveCopy_triggered()));
 
     // save as
 
     m_saveAsAction = new QAction(tr("Save &as..."), this);
+    m_saveAsAction->setObjectName("saveAs");
+
     m_saveAsAction->setShortcut(QKeySequence::SaveAs);
+    m_settings->shortcuts()->addAction(m_saveAsAction);
+
     m_saveAsAction->setIcon(QIcon::fromTheme("document-save-as", QIcon(":icons/document-save-as.svg")));
     m_saveAsAction->setIconVisibleInMenu(true);
+
     connect(m_saveAsAction, SIGNAL(triggered()), SLOT(on_saveAs_triggered()));
 
     // print
 
     m_printAction = new QAction(tr("&Print..."), this);
+    m_printAction->setObjectName("print");
+
     m_printAction->setShortcut(QKeySequence::Print);
+    m_settings->shortcuts()->addAction(m_printAction);
+
     m_printAction->setIcon(QIcon::fromTheme("document-print", QIcon(":icons/document-print.svg")));
     m_printAction->setIconVisibleInMenu(true);
+
     connect(m_printAction, SIGNAL(triggered()), SLOT(on_print_triggered()));
 
     // exit
 
     m_exitAction = new QAction(tr("&Exit"), this);
+    m_exitAction->setObjectName("exit");
+
     m_exitAction->setShortcut(QKeySequence::Quit);
     m_exitAction->setIcon(QIcon::fromTheme("application-exit"));
+
     m_exitAction->setIconVisibleInMenu(true);
     connect(m_exitAction, SIGNAL(triggered()), SLOT(close()));
 
     // previous page
 
     m_previousPageAction = new QAction(tr("&Previous page"), this);
+    m_previousPageAction->setObjectName("previousPage");
+
     m_previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(on_previousPage_triggered()));
+
     m_previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
     m_previousPageAction->setIconVisibleInMenu(true);
-    connect(m_previousPageAction, SIGNAL(triggered()), SLOT(on_previousPage_triggered()));
 
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(on_previousPage_triggered()));
+    connect(m_previousPageAction, SIGNAL(triggered()), SLOT(on_previousPage_triggered()));
 
     // next page
 
     m_nextPageAction = new QAction(tr("&Next page"), this);
+    m_nextPageAction->setObjectName("nextPage");
+
     m_nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(on_nextPage_triggered()));
+
     m_nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
     m_nextPageAction->setIconVisibleInMenu(true);
-    connect(m_nextPageAction, SIGNAL(triggered()), SLOT(on_nextPage_triggered()));
 
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(on_nextPage_triggered()));
+    connect(m_nextPageAction, SIGNAL(triggered()), SLOT(on_nextPage_triggered()));
 
     // first page
 
     m_firstPageAction = new QAction(tr("&First page"), this);
+    m_firstPageAction->setObjectName("firstPage");
+
     m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
+    m_settings->shortcuts()->addAction(m_firstPageAction);
+
     m_firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
     m_firstPageAction->setIconVisibleInMenu(true);
+
     connect(m_firstPageAction, SIGNAL(triggered()), SLOT(on_firstPage_triggered()));
 
     // last page
 
     m_lastPageAction = new QAction(tr("&Last page"), this);
+    m_lastPageAction->setObjectName("lastPage");
+
     m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
+    m_settings->shortcuts()->addAction(m_lastPageAction);
+
     m_lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
     m_lastPageAction->setIconVisibleInMenu(true);
+
     connect(m_lastPageAction, SIGNAL(triggered()), SLOT(on_lastPage_triggered()));
 
     // jump to page
 
     m_jumpToPageAction = new QAction(tr("&Jump to page..."), this);
+    m_jumpToPageAction->setObjectName("jumpToPage");
+
     m_jumpToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
+    m_settings->shortcuts()->addAction(m_jumpToPageAction);
+
     m_jumpToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
     m_jumpToPageAction->setIconVisibleInMenu(true);
+
     connect(m_jumpToPageAction, SIGNAL(triggered()), SLOT(on_jumpToPage_triggered()));
 
     // search
 
     m_searchAction = new QAction(tr("&Search..."), this);
+    m_searchAction->setObjectName("search");
+
     m_searchAction->setShortcut(QKeySequence::Find);
+    m_settings->shortcuts()->addAction(m_searchAction);
+
     m_searchAction->setIcon(QIcon::fromTheme("edit-find", QIcon(":icons/edit-find.svg")));
     m_searchAction->setIconVisibleInMenu(true);
+
     connect(m_searchAction, SIGNAL(triggered()), SLOT(on_search_triggered()));
 
     // find previous
 
     m_findPreviousAction = new QAction(tr("Find previous"), this);
+    m_findPreviousAction->setObjectName("findPrevious");
+
     m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
+    m_settings->shortcuts()->addAction(m_findPreviousAction);
+
     m_findPreviousAction->setIcon(QIcon::fromTheme("go-up", QIcon(":icons/go-up.svg")));
     m_findPreviousAction->setIconVisibleInMenu(true);
+
     connect(m_findPreviousAction, SIGNAL(triggered()), SLOT(on_findPrevious_triggered()));
 
     // find next
 
     m_findNextAction = new QAction(tr("Find next"), this);
+    m_findNextAction->setObjectName("findNext");
+
     m_findNextAction->setShortcut(QKeySequence::FindNext);
+    m_settings->shortcuts()->addAction(m_findNextAction);
+
     m_findNextAction->setIcon(QIcon::fromTheme("go-down", QIcon(":icons/go-down.svg")));
     m_findNextAction->setIconVisibleInMenu(true);
+
     connect(m_findNextAction, SIGNAL(triggered()), SLOT(on_findNext_triggered()));
 
     // cancel search
 
     m_cancelSearchAction = new QAction(tr("Cancel search"), this);
+    m_cancelSearchAction->setObjectName("cancelSearch");
+
     m_cancelSearchAction->setShortcut(QKeySequence(Qt::Key_Escape));
+    m_settings->shortcuts()->addAction(m_cancelSearchAction);
+
     m_cancelSearchAction->setIcon(QIcon::fromTheme("process-stop", QIcon(":icons/process-stop.svg")));
     m_cancelSearchAction->setIconVisibleInMenu(true);
+
     connect(m_cancelSearchAction, SIGNAL(triggered()), SLOT(on_cancelSearch_triggered()));
 
     // copy to clipboard mode
 
     m_copyToClipboardModeAction = new QAction(tr("&Copy to clipboard"), this);
+    m_copyToClipboardModeAction->setObjectName("copyToClipboardMode");
+
     m_copyToClipboardModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
-    m_copyToClipboardModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_copyToClipboardModeAction);
+
     m_copyToClipboardModeAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
+
+    m_copyToClipboardModeAction->setCheckable(true);
     connect(m_copyToClipboardModeAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboardMode_triggered(bool)));
 
     // add annotation mode
 
     m_addAnnotationModeAction = new QAction(tr("&Add annotation"), this);
+    m_addAnnotationModeAction->setObjectName("addAnnotationMode");
+
     m_addAnnotationModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
-    m_addAnnotationModeAction->setCheckable(true);
+    m_settings->shortcuts()->addAction(m_addAnnotationModeAction);
+
     m_addAnnotationModeAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
+
+    m_addAnnotationModeAction->setCheckable(true);
     connect(m_addAnnotationModeAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotationMode_triggered(bool)));
 
     // settings
 
     m_settingsAction = new QAction(tr("Settings..."), this);
+
     connect(m_settingsAction, SIGNAL(triggered()), SLOT(on_settings_triggered()));
 
     // continuous mode

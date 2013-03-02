@@ -1443,29 +1443,24 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
         menu.addSeparator();
 
         QAction* previousPageAction = menu.addAction(tr("&Previous page"));
-        previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
         previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
         previousPageAction->setIconVisibleInMenu(true);
 
         QAction* nextPageAction = menu.addAction(tr("&Next page"));
-        nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
         nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
         nextPageAction->setIconVisibleInMenu(true);
 
         QAction* firstPageAction = menu.addAction(tr("&First page"));
-        firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
         firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
         firstPageAction->setIconVisibleInMenu(true);
 
         QAction* lastPageAction = menu.addAction(tr("&Last page"));
-        lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
         lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
         lastPageAction->setIconVisibleInMenu(true);
 
         menu.addSeparator();
 
         QAction* refreshAction = menu.addAction(tr("&Refresh"));
-        refreshAction->setShortcut(QKeySequence::Refresh);
         refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
         refreshAction->setIconVisibleInMenu(true);
 
