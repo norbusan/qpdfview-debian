@@ -44,11 +44,6 @@
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1960"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="1265"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
@@ -94,6 +89,11 @@
         <location filename="../sources/documentview.cpp" line="1589"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">DjVu Plug-in konnte nicht geladen werden!</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1960"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>
 </context>
 <context>
@@ -174,32 +174,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1402"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview ist ein Dokumentenbetrachter der Qt verwendet.&lt;/p&gt;&lt;p&gt;Diese Version enthält:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1406"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF-Unterstützung mittels Poppler</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PS-Unterstützung mittels libspectre</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1412"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DjVu-Unterstützung mittels DjVuLibre</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Druckunterstützung mittels CUPS</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1417"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Siehe &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; für weitere Informationen.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Die qpdfview-Entwickler&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1581"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farben umkehren</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2011"/>
@@ -531,23 +531,23 @@
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>None</source>
-        <translation type="unfinished">Keine</translation>
+        <translation type="unfinished">Kein</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voll</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reduziert</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="821"/>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Text-Hinting:</translation>
+        <translation type="unfinished">Text_Hinting:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
@@ -557,17 +557,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fest</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geformt</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dünne-Linien-Modus:</translation>
     </message>
 </context>
 <context>
@@ -575,12 +575,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bits für Grafik-Antialiasing:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bits für Text-Antialiasing:</translation>
     </message>
 </context>
 <context>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strg</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
@@ -903,7 +903,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Umschalt und Strg</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
@@ -913,7 +913,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="570"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strg und Alt</translation>
     </message>
 </context>
 <context>
@@ -934,21 +934,26 @@
     <message>
         <location filename="../sources/settings.cpp" line="52"/>
         <source>Return to page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zu Seite zurückkehren</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="58"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rückwärts springen</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="64"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vorwärts springen</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation type="unfinished">Allgemein</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="89"/>
         <source>&amp;Behavior</source>
@@ -967,7 +972,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="92"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Tastenkürzel</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
@@ -1098,11 +1103,6 @@
         <translation type="unfinished">Größe der Vorschaubilder:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
         <location filename="../sources/settingsdialog.cpp" line="455"/>
@@ -1220,12 +1220,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktion</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tastenkürzel</translation>
     </message>
 </context>
 <context>
