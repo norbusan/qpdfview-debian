@@ -66,6 +66,30 @@ Settings::Settings(QObject* parent) : QObject(parent)
 
     m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
     m_shortcuts->addAction(m_skipForwardAction);
+
+    m_moveUpAction = new QAction(tr("Move up"), this);
+    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
+
+    m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
+    m_shortcuts->addAction(m_moveUpAction);
+
+    m_moveDownAction = new QAction(tr("Move down"), this);
+    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
+
+    m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
+    m_shortcuts->addAction(m_moveDownAction);
+
+    m_moveLeftAction = new QAction(tr("Move left"), this);
+    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
+
+    m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
+    m_shortcuts->addAction(m_moveLeftAction);
+
+    m_moveRightAction = new QAction(tr("Move right"), this);
+    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
+
+    m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
+    m_shortcuts->addAction(m_moveRightAction);
 }
 
 Settings::~Settings()
@@ -163,8 +187,14 @@ void Settings::refresh()
     ::DocumentView::setThumbnailSize(documentView()->thumbnailSize());
 
     ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
+
     ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
     ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
+
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveUp, m_moveUpAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveDown, m_moveDownAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveLeft, m_moveLeftAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveRight, m_moveRightAction->shortcut());
 
     ::DocumentView::setZoomModifiers(documentView()->zoomModifiers());
     ::DocumentView::setRotateModifiers(documentView()->rotateModifiers());

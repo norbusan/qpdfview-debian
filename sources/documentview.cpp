@@ -92,6 +92,8 @@ QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
 QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
 
+QKeySequence DocumentView::s_movementShortcuts[4] = { QKeySequence(Qt::Key_Up), QKeySequence(Qt::Key_Down), QKeySequence(Qt::Key_Left), QKeySequence(Qt::Key_Right) };
+
 Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
 Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
@@ -256,6 +258,16 @@ const QKeySequence& DocumentView::skipForwardShortcut()
 void DocumentView::setSkipForwardShortcut(const QKeySequence& shortcut)
 {
     s_skipForwardShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::movementShortcuts(DocumentView::MovementDirection direction)
+{
+    return s_movementShortcuts[direction];
+}
+
+void DocumentView::setMovementShortcuts(DocumentView::MovementDirection direction, const QKeySequence& shortcut)
+{
+    s_movementShortcuts[direction] = shortcut;
 }
 
 const Qt::KeyboardModifiers& DocumentView::zoomModifiers()
@@ -1337,7 +1349,9 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(s_returnToPageShortcut.matches(QKeySequence(event->modifiers() + event->key())))
+    QKeySequence keySequence(event->modifiers() + event->key());
+
+    if(s_returnToPageShortcut.matches(keySequence))
     {
         returnToPage();
 
@@ -1347,7 +1361,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     if(!m_continuousMode)
     {
-        if(s_skipBackwardShortcut.matches(QKeySequence(event->modifiers() + event->key()))
+        if(s_skipBackwardShortcut.matches(keySequence)
                 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
@@ -1357,7 +1371,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(QKeySequence(event->modifiers() + event->key()))
+        else if(s_skipForwardShortcut.matches(keySequence)
                 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
         {
             nextPage();
@@ -1371,32 +1385,29 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     int key = -1;
 
-    if(s_skipBackwardShortcut.matches(event->modifiers() + event->key()))
+    if(s_skipBackwardShortcut.matches(keySequence))
     {
         key = Qt::Key_PageUp;
     }
-    else if(s_skipForwardShortcut.matches(event->modifiers() + event->key()))
+    else if(s_skipForwardShortcut.matches(keySequence))
     {
         key = Qt::Key_PageDown;
     }
-
-    if(event->modifiers() == Qt::NoModifier)
+    else if(s_movementShortcuts[MoveUp].matches(keySequence))
     {
-        switch(event->key())
-        {
-        case Qt::Key_H:
-            key = Qt::Key_Left;
-            break;
-        case Qt::Key_J:
-            key = Qt::Key_Down;
-            break;
-        case Qt::Key_K:
-            key = Qt::Key_Up;
-            break;
-        case Qt::Key_L:
-            key = Qt::Key_Right;
-            break;
-        }
+        key = Qt::Key_Up;
+    }
+    else if(s_movementShortcuts[MoveDown].matches(keySequence))
+    {
+        key = Qt::Key_Down;
+    }
+    else if(s_movementShortcuts[MoveLeft].matches(keySequence))
+    {
+        key = Qt::Key_Left;
+    }
+    else if(s_movementShortcuts[MoveRight].matches(keySequence))
+    {
+        key = Qt::Key_Right;
     }
 
     if(key != -1)

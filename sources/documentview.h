@@ -89,6 +89,17 @@ public:
     static const QKeySequence& skipForwardShortcut();
     static void setSkipForwardShortcut(const QKeySequence& shortcut);
 
+    enum MovementDirection
+    {
+        MoveUp = 0,
+        MoveDown = 1,
+        MoveLeft = 2,
+        MoveRight = 3
+    };
+
+    static const QKeySequence& movementShortcuts(MovementDirection direction);
+    static void setMovementShortcuts(MovementDirection direction, const QKeySequence& shortcut);
+
     static const Qt::KeyboardModifiers& zoomModifiers();
     static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
 
@@ -264,6 +275,8 @@ private:
     static QKeySequence s_returnToPageShortcut;
     static QKeySequence s_skipBackwardShortcut;
     static QKeySequence s_skipForwardShortcut;
+
+    static QKeySequence s_movementShortcuts[4];
 
     static Qt::KeyboardModifiers s_zoomModifiers;
     static Qt::KeyboardModifiers s_rotateModifiers;
