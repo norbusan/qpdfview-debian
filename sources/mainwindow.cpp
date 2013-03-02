@@ -219,6 +219,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
         connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
 
+        connect(newTab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
+
         newTab->show();
 
         restorePerFileSettings(newTab);
@@ -651,6 +653,30 @@ void MainWindow::on_currentTab_searchCanceled()
     if(senderIsCurrentTab())
     {
         m_searchProgressLineEdit->setProgress(0);
+    }
+}
+
+void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
+{
+    if(senderIsCurrentTab())
+    {
+        QMenu menu;
+
+        menu.addActions(currentTab()->actions());
+
+        if(m_searchToolBar->isVisible())
+        {
+            menu.addSeparator();
+            menu.addActions(QList< QAction* >() << m_findNextAction << m_findPreviousAction << m_cancelSearchAction);
+        }
+
+        menu.addSeparator();
+        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
+
+        menu.addSeparator();
+        menu.addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction);
+
+        menu.exec(currentTab()->mapToGlobal(pos));
     }
 }
 

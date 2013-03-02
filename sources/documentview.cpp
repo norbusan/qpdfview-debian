@@ -342,6 +342,17 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
+    m_returnToPageAction = new QAction(this);
+    m_returnToPageAction->setObjectName("returnToPage");
+
+    m_returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
+
+    m_returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+    m_returnToPageAction->setIconVisibleInMenu(true);
+
+    connect(m_returnToPageAction, SIGNAL(triggered()), SLOT(returnToPage()));
+    addAction(m_returnToPageAction);
+
     // highlight
 
     m_highlight = new QGraphicsRectItem();
@@ -916,6 +927,14 @@ void DocumentView::jumpToHighlight(const QRectF& highlight)
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
 }
 
+void DocumentView::returnToPage()
+{
+    if(!m_returnToPage.isEmpty())
+    {
+        jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
+    }
+}
+
 void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
@@ -1432,49 +1451,10 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     {
         event->setAccepted(true);
 
-        QMenu menu;
+        m_returnToPageAction->setText(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
+        m_returnToPageAction->setVisible(!m_returnToPage.isEmpty());
 
-        QAction* returnToPageAction = menu.addAction(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
-        returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
-        returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-        returnToPageAction->setIconVisibleInMenu(true);
-        returnToPageAction->setVisible(!m_returnToPage.isEmpty());
-
-        menu.addSeparator();
-
-        QAction* previousPageAction = menu.addAction(tr("&Previous page"));
-        previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
-        previousPageAction->setIconVisibleInMenu(true);
-
-        QAction* nextPageAction = menu.addAction(tr("&Next page"));
-        nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
-        nextPageAction->setIconVisibleInMenu(true);
-
-        QAction* firstPageAction = menu.addAction(tr("&First page"));
-        firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
-        firstPageAction->setIconVisibleInMenu(true);
-
-        QAction* lastPageAction = menu.addAction(tr("&Last page"));
-        lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
-        lastPageAction->setIconVisibleInMenu(true);
-
-        menu.addSeparator();
-
-        QAction* refreshAction = menu.addAction(tr("&Refresh"));
-        refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
-        refreshAction->setIconVisibleInMenu(true);
-
-        QAction* action = menu.exec(event->globalPos());
-
-        if(action == returnToPageAction)
-        {
-            jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
-        }
-        else if(action == previousPageAction) { previousPage(); }
-        else if(action == nextPageAction) { nextPage(); }
-        else if(action == firstPageAction) { firstPage(); }
-        else if(action == lastPageAction) { lastPage(); }
-        else if(action == refreshAction) { refresh(); }
+        emit customContextMenuRequested(event->pos());
     }
 }
 

@@ -191,6 +191,8 @@ public slots:
     void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
     void jumpToHighlight(const QRectF& highlight);
 
+    void returnToPage();
+
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
@@ -302,6 +304,8 @@ private:
 #endif // WITH_CUPS
 
     bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
+
+    QAction* m_returnToPageAction;
 
     QStack< int > m_returnToPage;
     QStack< qreal > m_returnToLeft;

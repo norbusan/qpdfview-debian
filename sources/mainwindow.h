@@ -96,6 +96,8 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchCanceled();
 
+    void on_currentTab_customContextMenuRequested(const QPoint& pos);
+
     void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
 
