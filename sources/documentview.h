@@ -80,6 +80,15 @@ public:
     static qreal maximumScaleFactor();
     static qreal zoomBy();
 
+    static const QKeySequence& returnToPageShortcut();
+    static void setReturnToPageShortcut(const QKeySequence& shortcut);
+
+    static const QKeySequence& skipBackwardShortcut();
+    static void setSkipBackwardShortcut(const QKeySequence& shortcut);
+
+    static const QKeySequence& skipForwardShortcut();
+    static void skipForwardShortcut(const QKeySequence& shortcut);
+
     static const Qt::KeyboardModifiers& zoomModifiers();
     static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
 
@@ -249,6 +258,10 @@ private:
     static qreal s_minimumScaleFactor;
     static qreal s_maximumScaleFactor;
     static qreal s_zoomBy;
+
+    static QKeySequence s_returnToPageShortcut;
+    static QKeySequence s_skipBackwardShortcut;
+    static QKeySequence s_skipForwardShortcut;
 
     static Qt::KeyboardModifiers s_zoomModifiers;
     static Qt::KeyboardModifiers s_rotateModifiers;

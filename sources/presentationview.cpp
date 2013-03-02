@@ -320,7 +320,6 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
         event->accept();
         return;
     case Qt::Key_Return:
-    case Qt::Key_Enter:
         if(!m_returnToPage.isEmpty())
         {
             jumpToPage(m_returnToPage.pop(), false);

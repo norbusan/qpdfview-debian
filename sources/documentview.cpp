@@ -88,6 +88,10 @@ qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
 qreal DocumentView::s_zoomBy = 0.1;
 
+QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
+QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
+QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
+
 Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
 Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
@@ -224,6 +228,36 @@ qreal DocumentView::zoomBy()
     return s_zoomBy;
 }
 
+const QKeySequence& DocumentView::returnToPageShortcut()
+{
+    return s_returnToPageShortcut;
+}
+
+void DocumentView::setReturnToPageShortcut(const QKeySequence& shortcut)
+{
+    s_returnToPageShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::skipBackwardShortcut()
+{
+    return s_skipBackwardShortcut;
+}
+
+void DocumentView::setSkipBackwardShortcut(const QKeySequence& shortcut)
+{
+    s_skipBackwardShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::skipForwardShortcut()
+{
+    return s_skipForwardShortcut;
+}
+
+void DocumentView::skipForwardShortcut(const QKeySequence& shortcut)
+{
+    s_skipForwardShortcut = shortcut;
+}
+
 const Qt::KeyboardModifiers& DocumentView::zoomModifiers()
 {
     return s_zoomModifiers;
@@ -343,14 +377,12 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
     m_returnToPageAction = new QAction(this);
-    m_returnToPageAction->setObjectName("returnToPage");
-
-    m_returnToPageAction->setShortcut(QKeySequence(Qt::Key_Return));
 
     m_returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
     m_returnToPageAction->setIconVisibleInMenu(true);
 
     connect(m_returnToPageAction, SIGNAL(triggered()), SLOT(returnToPage()));
+
     addAction(m_returnToPageAction);
 
     // highlight
@@ -1309,20 +1341,18 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter)
+    if(s_returnToPageShortcut.matches(QKeySequence(event->modifiers() + event->key())))
     {
-        if(!m_returnToPage.isEmpty())
-        {
-            jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
-        }
+        returnToPage();
 
         event->accept();
         return;
     }
 
-    if(!m_continuousMode && event->modifiers() == Qt::NoModifier)
+    if(!m_continuousMode)
     {
-        if(event->key() == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(s_skipBackwardShortcut.matches(QKeySequence(event->modifiers() + event->key()))
+                && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
 
@@ -1331,7 +1361,8 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(event->key() == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+        else if(s_skipForwardShortcut.matches(QKeySequence(event->modifiers() + event->key()))
+                && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
         {
             nextPage();
 
@@ -1342,10 +1373,19 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         }
     }
 
+    int key = -1;
+
+    if(s_skipBackwardShortcut.matches(event->modifiers() + event->key()))
+    {
+        key = Qt::Key_PageUp;
+    }
+    else if(s_skipForwardShortcut.matches(event->modifiers() + event->key()))
+    {
+        key = Qt::Key_PageDown;
+    }
+
     if(event->modifiers() == Qt::NoModifier)
     {
-        int key = -1;
-
         switch(event->key())
         {
         case Qt::Key_H:
@@ -1361,15 +1401,15 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             key = Qt::Key_Right;
             break;
         }
+    }
 
-        if(key != -1)
-        {
-            QKeyEvent keyEvent(event->type(), key, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
-            QApplication::sendEvent(this, &keyEvent);
+    if(key != -1)
+    {
+        QKeyEvent keyEvent(event->type(), key, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
+        QGraphicsView::keyPressEvent(&keyEvent);
 
-            event->accept();
-            return;
-        }
+        event->accept();
+        return;
     }
 
     QGraphicsView::keyPressEvent(event);
@@ -1453,6 +1493,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
         m_returnToPageAction->setText(tr("&Return to page %1").arg(!m_returnToPage.isEmpty() ? m_returnToPage.top() : -1));
         m_returnToPageAction->setVisible(!m_returnToPage.isEmpty());
+        m_returnToPageAction->setShortcut(s_returnToPageShortcut);
 
         emit customContextMenuRequested(event->pos());
     }
