@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="564"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
@@ -903,7 +903,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift a Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
@@ -913,7 +913,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl a Alt</translation>
     </message>
 </context>
 <context>
@@ -934,37 +934,37 @@
     <message>
         <location filename="../sources/settings.cpp" line="52"/>
         <source>Return to page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Návrat na stranu</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="58"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skočit zpět</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="64"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skočit vpřed</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="70"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout nahoru</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="76"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout dolů</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="82"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout vlevo</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="88"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout vpravo</translation>
     </message>
 </context>
 <context>
@@ -992,7 +992,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="92"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zkratky</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Činnost</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klávesová zkratka</translation>
     </message>
 </context>
 <context>
