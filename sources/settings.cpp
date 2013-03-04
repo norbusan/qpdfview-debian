@@ -48,54 +48,6 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_mainWindow = new MainWindow(m_settings);
 
     m_shortcuts = new Shortcuts(m_settings);
-
-    // skip backward and skip forward shortcuts
-
-    m_skipBackwardAction = new QAction(tr("Skip backward"), this);
-    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
-
-    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
-    m_shortcuts->addAction(m_skipBackwardAction);
-
-    m_skipForwardAction = new QAction(tr("Skip forward"), this);
-    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
-
-    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
-    m_shortcuts->addAction(m_skipForwardAction);
-
-    // movement shortcuts
-
-    m_moveUpAction = new QAction(tr("Move up"), this);
-    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
-
-    m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
-    m_shortcuts->addAction(m_moveUpAction);
-
-    m_moveDownAction = new QAction(tr("Move down"), this);
-    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
-
-    m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
-    m_shortcuts->addAction(m_moveDownAction);
-
-    m_moveLeftAction = new QAction(tr("Move left"), this);
-    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
-
-    m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
-    m_shortcuts->addAction(m_moveLeftAction);
-
-    m_moveRightAction = new QAction(tr("Move right"), this);
-    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
-
-    m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
-    m_shortcuts->addAction(m_moveRightAction);
-
-    // return to page shortcut
-
-    m_returnToPageAction = new QAction(tr("Return to page"), this);
-    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
-
-    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
-    m_shortcuts->addAction(m_returnToPageAction);
 }
 
 Settings::~Settings()
@@ -191,16 +143,6 @@ void Settings::refresh()
     ::DocumentView::setThumbnailSpacing(documentView()->thumbnailSpacing());
 
     ::DocumentView::setThumbnailSize(documentView()->thumbnailSize());
-
-    ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
-    ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
-
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveUp, m_moveUpAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveDown, m_moveDownAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveLeft, m_moveLeftAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveRight, m_moveRightAction->shortcut());
-
-    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 
     ::DocumentView::setZoomModifiers(documentView()->zoomModifiers());
     ::DocumentView::setRotateModifiers(documentView()->rotateModifiers());
@@ -742,6 +684,68 @@ Settings::Shortcuts::Shortcuts(QSettings* settings) :
     m_actions(),
     m_defaultShortcuts()
 {
+    // skip backward shortcut
+
+    m_skipBackwardAction = new QAction(tr("Skip backward"), 0);
+    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
+
+    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
+    addAction(m_skipBackwardAction);
+
+    // skip forward shortcut
+
+    m_skipForwardAction = new QAction(tr("Skip forward"), 0);
+    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
+
+    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
+    addAction(m_skipForwardAction);
+
+    // movement shortcuts
+
+    m_moveUpAction = new QAction(tr("Move up"), 0);
+    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
+
+    m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
+    addAction(m_moveUpAction);
+
+    m_moveDownAction = new QAction(tr("Move down"), 0);
+    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
+
+    m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
+    addAction(m_moveDownAction);
+
+    m_moveLeftAction = new QAction(tr("Move left"), 0);
+    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
+
+    m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
+    addAction(m_moveLeftAction);
+
+    m_moveRightAction = new QAction(tr("Move right"), 0);
+    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
+
+    m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
+    addAction(m_moveRightAction);
+
+    // return to page shortcut
+
+    m_returnToPageAction = new QAction(tr("Return to page"), 0);
+    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
+
+    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
+    addAction(m_returnToPageAction);
+}
+
+Settings::Shortcuts::~Shortcuts()
+{
+    delete m_skipBackwardAction;
+    delete m_skipForwardAction;
+
+    delete m_moveUpAction;
+    delete m_moveDownAction;
+    delete m_moveLeftAction;
+    delete m_moveRightAction;
+
+    delete m_returnToPageAction;
 }
 
 void Settings::Shortcuts::addAction(QAction* action)
@@ -772,6 +776,16 @@ void Settings::Shortcuts::sync()
     {
         m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut());
     }
+
+    ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
+    ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
+
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveUp, m_moveUpAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveDown, m_moveDownAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveLeft, m_moveLeftAction->shortcut());
+    ::DocumentView::setMovementShortcuts(::DocumentView::MoveRight, m_moveRightAction->shortcut());
+
+    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 }
 
 QString Defaults::MainWindow::path()

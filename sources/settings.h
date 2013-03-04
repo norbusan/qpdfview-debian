@@ -251,6 +251,7 @@ public:
     {
     public:
         Shortcuts(QSettings* settings);
+        ~Shortcuts();
 
         void addAction(QAction* action);
         void removeAction(QAction* action);
@@ -265,6 +266,16 @@ public:
         QList< QAction* > m_actions;
 
         QMap< QAction*, QKeySequence > m_defaultShortcuts;
+
+        QAction* m_skipBackwardAction;
+        QAction* m_skipForwardAction;
+
+        QAction* m_moveUpAction;
+        QAction* m_moveDownAction;
+        QAction* m_moveLeftAction;
+        QAction* m_moveRightAction;
+
+        QAction* m_returnToPageAction;
 
     };
 
@@ -283,16 +294,6 @@ private:
     MainWindow* m_mainWindow;
 
     Shortcuts* m_shortcuts;
-
-    QAction* m_skipBackwardAction;
-    QAction* m_skipForwardAction;
-
-    QAction* m_moveUpAction;
-    QAction* m_moveDownAction;
-    QAction* m_moveLeftAction;
-    QAction* m_moveRightAction;
-
-    QAction* m_returnToPageAction;
 
 };
 

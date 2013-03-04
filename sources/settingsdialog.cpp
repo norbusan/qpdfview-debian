@@ -69,6 +69,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
     m_shortcutsTableView = new QTableView(this);
     m_shortcutsTableView->setModel(m_settings->shortcuts()->createTableModel());
 
+    m_shortcutsTableView->setFrameShape(QFrame::NoFrame);
     m_shortcutsTableView->setAlternatingRowColors(true);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
