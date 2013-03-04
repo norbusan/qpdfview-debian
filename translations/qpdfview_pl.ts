@@ -44,11 +44,6 @@
         <translation>Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1963"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation>Drukowanie &apos;%1&apos;...</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="1273"/>
         <source>Information</source>
         <translation>Informacje</translation>
@@ -90,6 +85,11 @@
         <source>Could not load DjVu plug-in!</source>
         <translation>Nie można załadować pluginu DjVu!</translation>
     </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1963"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation>Drukowanie &apos;%1&apos;...</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -113,7 +113,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished">&amp;Powróć do strony %1</translation>
+        <translation>&amp;Powrót do strony %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="761"/>
@@ -738,6 +738,13 @@
     </message>
 </context>
 <context>
+    <name>PresentationView</name>
+    <message>
+        <source>Go to page %1.</source>
+        <translation type="obsolete">Idź do strony %1.</translation>
+    </message>
+</context>
+<context>
     <name>PrintOptionsWidget</name>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="31"/>
@@ -888,32 +895,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="563"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="564"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift i Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Shift i Alt</translation>
+        <translation>Shift i Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl i Alt</translation>
     </message>
 </context>
 <context>
@@ -934,41 +941,46 @@
     <message>
         <location filename="../sources/settings.cpp" line="52"/>
         <source>Return to page</source>
-        <translation type="unfinished"></translation>
+        <translation>Powrót do strony</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="58"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeskocz wstecz</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="64"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejdź naprzód</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="70"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń w górę</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="76"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń w dół</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="82"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń w lewo</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="88"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń w prawo</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation>Ogólne</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="89"/>
         <source>&amp;Behavior</source>
@@ -987,7 +999,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="92"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skróty</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
@@ -1118,11 +1130,6 @@
         <translation>Wielkość miniatury:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation>Ogólne</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="451"/>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
@@ -1240,12 +1247,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Akcja</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekwencja klawiszy</translation>
     </message>
 </context>
 <context>
