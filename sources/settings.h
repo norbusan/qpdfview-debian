@@ -284,8 +284,6 @@ private:
 
     Shortcuts* m_shortcuts;
 
-    QAction* m_returnToPageAction;
-
     QAction* m_skipBackwardAction;
     QAction* m_skipForwardAction;
 
@@ -293,6 +291,8 @@ private:
     QAction* m_moveDownAction;
     QAction* m_moveLeftAction;
     QAction* m_moveRightAction;
+
+    QAction* m_returnToPageAction;
 
 };
 

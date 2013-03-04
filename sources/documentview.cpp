@@ -88,11 +88,12 @@ qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
 qreal DocumentView::s_zoomBy = 0.1;
 
-QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
 QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
 
 QKeySequence DocumentView::s_movementShortcuts[4] = { QKeySequence(Qt::Key_Up), QKeySequence(Qt::Key_Down), QKeySequence(Qt::Key_Left), QKeySequence(Qt::Key_Right) };
+
+QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
 
 Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
 Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
@@ -230,16 +231,6 @@ qreal DocumentView::zoomBy()
     return s_zoomBy;
 }
 
-const QKeySequence& DocumentView::returnToPageShortcut()
-{
-    return s_returnToPageShortcut;
-}
-
-void DocumentView::setReturnToPageShortcut(const QKeySequence& shortcut)
-{
-    s_returnToPageShortcut = shortcut;
-}
-
 const QKeySequence& DocumentView::skipBackwardShortcut()
 {
     return s_skipBackwardShortcut;
@@ -268,6 +259,16 @@ const QKeySequence& DocumentView::movementShortcuts(DocumentView::MovementDirect
 void DocumentView::setMovementShortcuts(DocumentView::MovementDirection direction, const QKeySequence& shortcut)
 {
     s_movementShortcuts[direction] = shortcut;
+}
+
+const QKeySequence& DocumentView::returnToPageShortcut()
+{
+    return s_returnToPageShortcut;
+}
+
+void DocumentView::setReturnToPageShortcut(const QKeySequence& shortcut)
+{
+    s_returnToPageShortcut = shortcut;
 }
 
 const Qt::KeyboardModifiers& DocumentView::zoomModifiers()

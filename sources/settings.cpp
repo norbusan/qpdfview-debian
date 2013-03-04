@@ -49,11 +49,7 @@ Settings::Settings(QObject* parent) : QObject(parent)
 
     m_shortcuts = new Shortcuts(m_settings);
 
-    m_returnToPageAction = new QAction(tr("Return to page"), this);
-    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
-
-    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
-    m_shortcuts->addAction(m_returnToPageAction);
+    // skip backward and skip forward shortcuts
 
     m_skipBackwardAction = new QAction(tr("Skip backward"), this);
     m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
@@ -66,6 +62,8 @@ Settings::Settings(QObject* parent) : QObject(parent)
 
     m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
     m_shortcuts->addAction(m_skipForwardAction);
+
+    // movement shortcuts
 
     m_moveUpAction = new QAction(tr("Move up"), this);
     m_moveUpAction->setObjectName(QLatin1String("moveUp"));
@@ -90,6 +88,14 @@ Settings::Settings(QObject* parent) : QObject(parent)
 
     m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
     m_shortcuts->addAction(m_moveRightAction);
+
+    // return to page shortcut
+
+    m_returnToPageAction = new QAction(tr("Return to page"), this);
+    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
+
+    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
+    m_shortcuts->addAction(m_returnToPageAction);
 }
 
 Settings::~Settings()
@@ -186,8 +192,6 @@ void Settings::refresh()
 
     ::DocumentView::setThumbnailSize(documentView()->thumbnailSize());
 
-    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
-
     ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
     ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
 
@@ -195,6 +199,8 @@ void Settings::refresh()
     ::DocumentView::setMovementShortcuts(::DocumentView::MoveDown, m_moveDownAction->shortcut());
     ::DocumentView::setMovementShortcuts(::DocumentView::MoveLeft, m_moveLeftAction->shortcut());
     ::DocumentView::setMovementShortcuts(::DocumentView::MoveRight, m_moveRightAction->shortcut());
+
+    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 
     ::DocumentView::setZoomModifiers(documentView()->zoomModifiers());
     ::DocumentView::setRotateModifiers(documentView()->rotateModifiers());
