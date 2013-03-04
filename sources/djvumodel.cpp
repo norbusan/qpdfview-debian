@@ -412,7 +412,7 @@ QString Model::DjVuPage::text(const QRectF& rect) const
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
 
-    return text;
+    return text.trimmed();
 }
 
 QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) const
@@ -497,7 +497,7 @@ QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) con
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
 
-    QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).inverted();
+    QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
     for(int index = 0; index < results.size(); ++index)
     {
