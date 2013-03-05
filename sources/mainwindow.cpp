@@ -1388,7 +1388,7 @@ void MainWindow::on_contents_triggered()
     QDialog* dialog = new QDialog(this);
 
     QTextBrowser* textBrowser = new QTextBrowser(dialog);
-    textBrowser->setSearchPaths(QStringList() << DATA_INSTALL_PATH << QDir(QApplication::applicationDirPath()).filePath("data"));
+    textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH);
     textBrowser->setSource(QUrl("help.html"));
 
     QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);

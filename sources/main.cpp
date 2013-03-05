@@ -82,13 +82,13 @@ int main(int argc, char** argv)
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
 
-    if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
-    else if(translator.load(QLocale::system(), "qpdfview", "_", QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
+    if(translator.load(QLocale::system(), "qpdfview", "_", QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
+    else if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
 
 #else
 
-    if(translator.load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
-    else if(translator.load("qpdfview_" + QLocale::system().name(), QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
+    if(translator.load("qpdfview_" + QLocale::system().name(), QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
+    else if(translator.load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
 
 #endif // QT_VERSION
 
