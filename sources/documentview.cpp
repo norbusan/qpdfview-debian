@@ -1350,9 +1350,9 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    QKeySequence keySequence(event->modifiers() + event->key());
+    QKeySequence shortcut(event->modifiers() + event->key());
 
-    if(s_returnToPageShortcut.matches(keySequence))
+    if(s_returnToPageShortcut.matches(shortcut))
     {
         returnToPage();
 
@@ -1362,7 +1362,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     if(!m_continuousMode)
     {
-        if(s_skipBackwardShortcut.matches(keySequence)
+        if(s_skipBackwardShortcut.matches(shortcut)
                 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
@@ -1372,7 +1372,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(keySequence)
+        else if(s_skipForwardShortcut.matches(shortcut)
                 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
         {
             nextPage();
@@ -1386,27 +1386,27 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     int key = -1;
 
-    if(s_skipBackwardShortcut.matches(keySequence))
+    if(s_skipBackwardShortcut.matches(shortcut))
     {
         key = Qt::Key_PageUp;
     }
-    else if(s_skipForwardShortcut.matches(keySequence))
+    else if(s_skipForwardShortcut.matches(shortcut))
     {
         key = Qt::Key_PageDown;
     }
-    else if(s_movementShortcuts[MoveUp].matches(keySequence))
+    else if(s_movementShortcuts[MoveUp].matches(shortcut))
     {
         key = Qt::Key_Up;
     }
-    else if(s_movementShortcuts[MoveDown].matches(keySequence))
+    else if(s_movementShortcuts[MoveDown].matches(shortcut))
     {
         key = Qt::Key_Down;
     }
-    else if(s_movementShortcuts[MoveLeft].matches(keySequence))
+    else if(s_movementShortcuts[MoveLeft].matches(shortcut))
     {
         key = Qt::Key_Left;
     }
-    else if(s_movementShortcuts[MoveRight].matches(keySequence))
+    else if(s_movementShortcuts[MoveRight].matches(shortcut))
     {
         key = Qt::Key_Right;
     }
