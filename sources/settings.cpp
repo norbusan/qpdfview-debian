@@ -774,7 +774,7 @@ void Settings::Shortcuts::sync()
 {
     foreach(QAction* action, m_actions)
     {
-        m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut());
+        m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut().toString(QKeySequence::PortableText));
     }
 
     ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
