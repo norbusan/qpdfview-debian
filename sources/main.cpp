@@ -116,7 +116,7 @@ int main(int argc, char** argv)
             {
                 if(argument.isEmpty())
                 {
-                    qWarning() << QObject::tr("An empty instance name is not allowed.");
+                    qCritical() << QObject::tr("An empty instance name is not allowed.");
                     return 1;
                 }
 
@@ -158,13 +158,13 @@ int main(int argc, char** argv)
 
         if(instanceNameIsNext)
         {
-            qWarning() << QObject::tr("Using '--instance' requires an instance name.");
+            qCritical() << QObject::tr("Using '--instance' requires an instance name.");
             return 1;
         }
 
         if(!unique && !instanceName.isEmpty())
         {
-            qWarning() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
+            qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
             return 1;
         }
     }
@@ -243,7 +243,7 @@ int main(int argc, char** argv)
 
                     if(!reply.isValid())
                     {
-                        qDebug() << QDBusConnection::sessionBus().lastError().message();
+                        qCritical() << QDBusConnection::sessionBus().lastError().message();
 
                         delete interface;
                         return 1;
@@ -261,7 +261,7 @@ int main(int argc, char** argv)
 
                 if(!QDBusConnection::sessionBus().registerService(serviceName))
                 {
-                    qDebug() << QDBusConnection::sessionBus().lastError().message();
+                    qCritical() << QDBusConnection::sessionBus().lastError().message();
 
                     delete mainWindow;
                     return 1;
@@ -269,7 +269,7 @@ int main(int argc, char** argv)
 
                 if(!QDBusConnection::sessionBus().registerObject("/MainWindow", mainWindow))
                 {
-                    qDebug() << QDBusConnection::sessionBus().lastError().message();
+                    qCritical() << QDBusConnection::sessionBus().lastError().message();
 
                     delete mainWindow;
                     return 1;

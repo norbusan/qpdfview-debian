@@ -1608,8 +1608,8 @@ Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 
         if(!pluginLoader.load())
         {
-            qDebug() << "Could not load plug-in:" << fileName;
-            qDebug() << pluginLoader.errorString();
+            qCritical() << "Could not load plug-in:" << fileName;
+            qCritical() << pluginLoader.errorString();
 
             return 0;
         }
@@ -1619,8 +1619,8 @@ Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
 
     if(documentLoader == 0)
     {
-        qDebug() << "Could not instantiate plug-in:" << fileName;
-        qDebug() << pluginLoader.errorString();
+        qCritical() << "Could not instantiate plug-in:" << fileName;
+        qCritical() << pluginLoader.errorString();
     }
 
     return documentLoader;
@@ -1641,7 +1641,7 @@ Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
         }
     }
 
-    qDebug() << "Could not load static plug-in:" << objectName;
+    qCritical() << "Could not load static plug-in:" << objectName;
 
     return 0;
 }
@@ -1937,14 +1937,14 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
                 if(jobId < 1)
                 {
-                    qDebug() << cupsLastErrorString();
+                    qWarning() << cupsLastErrorString();
                 }
             }
         }
     }
     else
     {
-        qDebug() << cupsLastErrorString();
+        qWarning() << cupsLastErrorString();
     }
 
     cupsFreeDests(num_dests, dests);

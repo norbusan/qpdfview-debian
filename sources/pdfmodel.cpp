@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDebug>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
