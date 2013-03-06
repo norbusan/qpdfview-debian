@@ -3,10 +3,9 @@ Release 0.4.1:
   * Added per-plug-in settings for PDF and PS plug-ins.
   * Added granular hinting and thin line mode settings for the PDF plug-in.
   * Added progress and errors icons for page rendering.
-  * Added Vim-style keyboard scrolling.
-  * Added workaround for overwriting a file with itself using temporary file.
+  * Added workaround for overwriting a file with itself using a temporary file.
   * Added rudimentary text extraction and search support for DjVu documents.
-  * Changed color inversion to a per-tab property.
+  * Changed color inversion to be a per-tab property.
   * Improved rotation and color inversion in the presentation view.
   * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
   * Updated Czech translation. Thanks to Pavel Fric.
@@ -15,7 +14,8 @@ Release 0.4.1:
   * Updated Slovak translation. Thanks to DAG Software.
   * Updated Italian translation. Thanks to Claudio Arseni.
   * Updated Russian translation. Thanks to Kyrill Detinov.
-  * Updated Brazilian Portuguese. Thanks to Phillipe Smith.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
   * Added Esperanto translation. Thanks to Donald Rogers.
 
 Release 0.4:

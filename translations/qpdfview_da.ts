@@ -2,6 +2,1004 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">&amp;Åbn</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Åbn i ny&amp;t faneblad</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">F&amp;jern bogmærke</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Gå til side %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Understøttede formater (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Lås %1 op</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Adgangskode:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Oplysninger</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Åbning af hjemmesider er deaktiveret i indstillingerne.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Advarsel</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">SyncTeX-data for &apos;%1&apos; kunne ikke findes.</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Kritisk</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">PDF-udvidelsesmodulet kunne ikke indlæses!</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">PS-udvidelsesmodulet kunne ikke indlæses!</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">DjVu-udvidelsesmodulet kunne ikke indlæses!</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Udskriver &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Advarsel</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Kunne ikke åbne &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Åbn</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Åbn i nyt faneblad</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Kunne ikke opdatere &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Gem kopi</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Kunne ikke gemme kopi i &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Gem som</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Kunne ikke gemme som &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Kunne ikke udskrive &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Gå til side</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Side:</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Om qpdfview</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Sidebredde</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Sidestørrelse</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Versalfølsom</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Marker &amp;alle</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Åbn...</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Åbn i nyt &amp;faneblad...</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Opdater</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Gem kopi...</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Gem &amp;som...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Udskriv...</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Afslut</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Foregående side</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Næste side</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Første &amp;side</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Sidste side</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Gå til side...</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Søg...</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Find forrige</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Find næste</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Fortryd søgning</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Kopier til udklipsholder</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Tilføj &amp;notat</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Indstillinger...</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Fortløbende</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;To sider</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">To sider &amp;med forside</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Flere sider</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Fors&amp;tør</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">For&amp;mindsk</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Oprindelig &amp;størrelse</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Tilpas sidebredden</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Tilpas sidestørrelsen</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Roter til &amp;venstre</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Roter til &amp;højre</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Skrifttyper...</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Fuldskærm</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Præsentation...</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Forrige faneblad</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Næste faneblad</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Luk faneblad</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Luk &amp;alle faneblade</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Luk alle &amp;undtagen dette faneblad</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Forrige bogmærke</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Næste bogmærke</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Tilføj bogmærke</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">F&amp;jern bogmærke</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Fjern alle bogmærker</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Indhold</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Om</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Filer</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Rediger</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Vis</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Søg</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Oversigt</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Egenskaber</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Miniaturebilleder</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Værktøjslinjer</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Paneler</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Faneblade</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Bogmærker</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Hjælp</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Navn</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Type</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Indlejret</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Fil</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Nej</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>PDFPage|</comment>
+        <translation type="obsolete">Oplysninger</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>PDFPage|</comment>
+        <translation type="obsolete">Der kræves version 0.20 eller højere af biblioteket Poppler, for at tilføje eller fjerne annoteringer.</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Titel</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Oprettet for</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Oprettet af</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Oprettelsesdato</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Format</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Sprogniveau</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Gå til side %1.</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Gå til side %1 i filen &quot;%2&quot;.</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Åbn &quot;%1&quot;.</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Rediger formularfeltet &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Kopier &amp;tekst</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Kopier &amp;billede</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Gem billede til &amp;fil...</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Gam billede til fil</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Advarsel</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Kunne ikke gemme billede til fil &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Tilføj &amp;tekst</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Tilføj &amp;markering</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">&amp;Fjern annotering</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Udvidede indstillinger</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Tilpas side:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sideintervaller:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Alle sider</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Lige sider</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Ulige sider</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sidevalg:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Enkelt side</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">To sider</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Fire sider</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Seks sider</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Ni sider</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Seksten sider</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sider per ark:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Nedefra til top og venstre til højre</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Nedefra til top og højre til venstre</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Venstre til højre og nedefra og op</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Venstre til højre og oppefra og ned</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Højre til venstre og nedefra og op</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Højre til venstre og top til bund</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Oppefra og ned og venstre til højre</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Oppefra og ned og højre til venstre</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sideopsætning:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Navnet på instansen kan ikke stå tomt.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Anvendes &apos;--instance&apos; kræver det et navn på den instans.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Det er ikke tilladt at bruge &apos;--instance&apos; uden også at bruge &apos;--unique&apos;.</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">SyncTeX-data for &apos;%1&apos; kunne ikke findes.</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Kunne ikke klargøre signalhåndteringen.</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">Senest &amp;brugte</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">&amp;Ryd liste</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Opførsel</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">G&amp;rafik</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Grænseflade</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Tilpasninger</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Standardværdier</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Åbn adresse:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Automatisk genindlæsning:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Benyttes efter genstart.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Husk senest anvendte:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Genskab faneblade:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Genskab bogmærker:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Genskab filindstillinger:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Synkroniser præsentation:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Standard</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Præsentationsskærm</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&apos;%1&apos; erstattes af den absolutte filsti. &apos;%2&apos; og &apos;%3&apos; erstattes hhv. af linje- og kolonnenummer.</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Kilderedigering:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Pynt sider:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Pynt henvisninger:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Pynt formularfelter:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ingen</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Fremhæv varighed:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Baggrundsfarve:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Papirfarve:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Sider per række:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Sideafstand:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Miniatureafstand:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Miniaturestørrelse:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">%1 MB</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Cache-størrelse:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Forudindlæs:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Afstand for afhent på forkant:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Øverst</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Nederst</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Venstre</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Højre</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Fanebladsplacering:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Efter behov</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Altid</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Aldrig</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Synlighed af faneblad:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Filværktøjslinje:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Redigeringsværktøjslinje:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Vis-værktøjslinje:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Zoom:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Rotér:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Rul:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Kopiér til udklipsholder:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Tilføj annotering:</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Fold alle ud</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Fold alle sammen</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PresentationView|</comment>
+        <translation type="obsolete">Gå til side %1.</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="35"/>
@@ -27,66 +1025,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="502"/>
+        <location filename="../sources/documentview.cpp" line="503"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Understøttede formater (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="756"/>
-        <location filename="../sources/documentview.cpp" line="795"/>
+        <location filename="../sources/documentview.cpp" line="757"/>
+        <location filename="../sources/documentview.cpp" line="796"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Lås %1 op</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="756"/>
-        <location filename="../sources/documentview.cpp" line="795"/>
+        <location filename="../sources/documentview.cpp" line="757"/>
+        <location filename="../sources/documentview.cpp" line="796"/>
         <source>Password:</source>
         <translation type="unfinished">Adgangskode:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1273"/>
+        <location filename="../sources/documentview.cpp" line="1274"/>
         <source>Information</source>
         <translation type="unfinished">Oplysninger</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1273"/>
+        <location filename="../sources/documentview.cpp" line="1274"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Åbning af hjemmesider er deaktiveret i indstillingerne.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>Warning</source>
         <translation type="unfinished">Advarsel</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1325"/>
+        <location filename="../sources/documentview.cpp" line="1326"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX-data for &apos;%1&apos; kunne ikke findes.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1529"/>
-        <location filename="../sources/documentview.cpp" line="1560"/>
-        <location filename="../sources/documentview.cpp" line="1592"/>
+        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Critical</source>
         <translation type="unfinished">Kritisk</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1529"/>
+        <location filename="../sources/documentview.cpp" line="1530"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF-udvidelsesmodulet kunne ikke indlæses!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1560"/>
+        <location filename="../sources/documentview.cpp" line="1561"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PS-udvidelsesmodulet kunne ikke indlæses!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1592"/>
+        <location filename="../sources/documentview.cpp" line="1593"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DjVu-udvidelsesmodulet kunne ikke indlæses!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1963"/>
+        <location filename="../sources/documentview.cpp" line="1964"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Udskriver &apos;%1&apos;...</translation>
     </message>
@@ -113,7 +1111,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished">&amp;Tilbage til side %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="761"/>
@@ -518,54 +1516,54 @@
 <context>
     <name>Model::PDFSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="802"/>
+        <location filename="../sources/pdfmodel.cpp" line="801"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Kantudjævning</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="809"/>
+        <location filename="../sources/pdfmodel.cpp" line="808"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Tekstudjævning:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="816"/>
-        <location filename="../sources/pdfmodel.cpp" line="846"/>
+        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="845"/>
         <source>None</source>
         <translation type="unfinished">Ingen</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="817"/>
+        <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="818"/>
+        <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="821"/>
-        <location filename="../sources/pdfmodel.cpp" line="828"/>
+        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Teksthjælp:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="838"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Forvisning af overudskrivning:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="847"/>
+        <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="848"/>
+        <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Shaped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="851"/>
+        <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -586,39 +1584,39 @@
 <context>
     <name>PDFDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Name</source>
         <translation type="unfinished">Navn</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Embedded</source>
         <translation type="unfinished">Indlejret</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Subset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>File</source>
         <translation type="unfinished">Fil</translation>
     </message>
     <message>
+        <location filename="../sources/pdfmodel.cpp" line="785"/>
         <location filename="../sources/pdfmodel.cpp" line="786"/>
-        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>Yes</source>
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
+        <location filename="../sources/pdfmodel.cpp" line="785"/>
         <location filename="../sources/pdfmodel.cpp" line="786"/>
-        <location filename="../sources/pdfmodel.cpp" line="787"/>
         <source>No</source>
         <translation type="unfinished">Nej</translation>
     </message>
@@ -626,12 +1624,12 @@
 <context>
     <name>PDFPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="373"/>
+        <location filename="../sources/pdfmodel.cpp" line="372"/>
         <source>Information</source>
         <translation type="unfinished">Oplysninger</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="373"/>
+        <location filename="../sources/pdfmodel.cpp" line="372"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Der kræves version 0.20 eller højere af biblioteket Poppler, for at tilføje eller fjerne annoteringer.</translation>
     </message>
@@ -651,7 +1649,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oprettet af</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -666,7 +1664,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sprogniveau</translation>
     </message>
 </context>
 <context>
@@ -886,32 +1884,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="563"/>
-        <source>Shift</source>
-        <translation type="unfinished">Skift</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="564"/>
-        <source>Ctrl</source>
+        <source>Shift</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
-        <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <source>Ctrl</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
-        <source>Shift and Ctrl</source>
+        <source>Alt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
-        <source>Shift and Alt</source>
-        <translation type="unfinished">Skift og Alt</translation>
+        <source>Shift and Ctrl</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
+        <source>Shift and Alt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -932,198 +1930,197 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="52"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settings.cpp" line="58"/>
+        <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settings.cpp" line="64"/>
+        <location filename="../sources/settings.cpp" line="697"/>
         <source>Skip forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settings.cpp" line="70"/>
+        <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settings.cpp" line="76"/>
+        <location filename="../sources/settings.cpp" line="711"/>
         <source>Move down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settings.cpp" line="82"/>
+        <location filename="../sources/settings.cpp" line="717"/>
         <source>Move left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settings.cpp" line="88"/>
+        <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="89"/>
-        <source>&amp;Behavior</source>
-        <translation type="unfinished">&amp;Opførsel</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="90"/>
-        <source>&amp;Graphics</source>
-        <translation type="unfinished">G&amp;rafik</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="91"/>
-        <source>&amp;Interface</source>
-        <translation type="unfinished">&amp;Grænseflade</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="92"/>
-        <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="93"/>
-        <source>&amp;Modifiers</source>
-        <translation type="unfinished">&amp;Tilpasninger</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="99"/>
-        <source>Defaults</source>
-        <translation type="unfinished">Standardværdier</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
-        <source>Open URL:</source>
-        <translation type="unfinished">Åbn adresse:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="292"/>
-        <source>Auto-refresh:</source>
-        <translation type="unfinished">Automatisk genindlæsning:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="298"/>
-        <location filename="../sources/settingsdialog.cpp" line="506"/>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
-        <location filename="../sources/settingsdialog.cpp" line="522"/>
-        <source>Effective after restart.</source>
-        <translation type="unfinished">Benyttes efter genstart.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="300"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Husk senest anvendte:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="307"/>
-        <source>Restore tabs:</source>
-        <translation type="unfinished">Genskab faneblade:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="314"/>
-        <source>Restore bookmarks:</source>
-        <translation type="unfinished">Genskab bogmærker:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Restore per-file settings:</source>
-        <translation type="unfinished">Genskab filindstillinger:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="336"/>
-        <source>Synchronize presentation:</source>
-        <translation type="unfinished">Synkroniser præsentation:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="342"/>
-        <source>Default</source>
-        <translation type="unfinished">Standard</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="345"/>
-        <source>Presentation screen:</source>
-        <translation type="unfinished">Præsentationsskærm</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="351"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">&apos;%1&apos; erstattes af den absolutte filsti. &apos;%2&apos; og &apos;%3&apos; erstattes hhv. af linje- og kolonnenummer.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="353"/>
-        <source>Source editor:</source>
-        <translation type="unfinished">Kilderedigering:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="363"/>
-        <source>Decorate pages:</source>
-        <translation type="unfinished">Pynt sider:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="370"/>
-        <source>Decorate links:</source>
-        <translation type="unfinished">Pynt henvisninger:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="377"/>
-        <source>Decorate form fields:</source>
-        <translation type="unfinished">Pynt formularfelter:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="385"/>
-        <source>None</source>
-        <translation type="unfinished">Ingen</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="388"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Fremhæv varighed:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="398"/>
-        <source>Background color:</source>
-        <translation type="unfinished">Baggrundsfarve:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="408"/>
-        <source>Paper color:</source>
-        <translation type="unfinished">Papirfarve:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="416"/>
-        <source>Pages per row:</source>
-        <translation type="unfinished">Sider per række:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="426"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Sideafstand:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="436"/>
-        <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Miniatureafstand:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="446"/>
-        <source>Thumbnail size:</source>
-        <translation type="unfinished">Miniaturestørrelse:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="43"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="451"/>
+        <location filename="../sources/settingsdialog.cpp" line="90"/>
+        <source>&amp;Behavior</source>
+        <translation type="unfinished">&amp;Opførsel</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="91"/>
+        <source>&amp;Graphics</source>
+        <translation type="unfinished">G&amp;rafik</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="92"/>
+        <source>&amp;Interface</source>
+        <translation type="unfinished">&amp;Grænseflade</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="93"/>
+        <source>&amp;Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="94"/>
+        <source>&amp;Modifiers</source>
+        <translation type="unfinished">&amp;Tilpasninger</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="100"/>
+        <source>Defaults</source>
+        <translation type="unfinished">Standardværdier</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="286"/>
+        <source>Open URL:</source>
+        <translation type="unfinished">Åbn adresse:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="293"/>
+        <source>Auto-refresh:</source>
+        <translation type="unfinished">Automatisk genindlæsning:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="299"/>
+        <location filename="../sources/settingsdialog.cpp" line="507"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="523"/>
+        <source>Effective after restart.</source>
+        <translation type="unfinished">Benyttes efter genstart.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Husk senest anvendte:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="308"/>
+        <source>Restore tabs:</source>
+        <translation type="unfinished">Genskab faneblade:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="315"/>
+        <source>Restore bookmarks:</source>
+        <translation type="unfinished">Genskab bogmærker:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="322"/>
+        <source>Restore per-file settings:</source>
+        <translation type="unfinished">Genskab filindstillinger:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="337"/>
+        <source>Synchronize presentation:</source>
+        <translation type="unfinished">Synkroniser præsentation:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="343"/>
+        <source>Default</source>
+        <translation type="unfinished">Standard</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="346"/>
+        <source>Presentation screen:</source>
+        <translation type="unfinished">Præsentationsskærm</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="352"/>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished">&apos;%1&apos; erstattes af den absolutte filsti. &apos;%2&apos; og &apos;%3&apos; erstattes hhv. af linje- og kolonnenummer.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="354"/>
+        <source>Source editor:</source>
+        <translation type="unfinished">Kilderedigering:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="364"/>
+        <source>Decorate pages:</source>
+        <translation type="unfinished">Pynt sider:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="371"/>
+        <source>Decorate links:</source>
+        <translation type="unfinished">Pynt henvisninger:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="378"/>
+        <source>Decorate form fields:</source>
+        <translation type="unfinished">Pynt formularfelter:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="389"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Fremhæv varighed:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="399"/>
+        <source>Background color:</source>
+        <translation type="unfinished">Baggrundsfarve:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="409"/>
+        <source>Paper color:</source>
+        <translation type="unfinished">Papirfarve:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="417"/>
+        <source>Pages per row:</source>
+        <translation type="unfinished">Sider per række:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="427"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Sideafstand:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="437"/>
+        <source>Thumbnail spacing:</source>
+        <translation type="unfinished">Miniatureafstand:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="447"/>
+        <source>Thumbnail size:</source>
+        <translation type="unfinished">Miniaturestørrelse:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
@@ -1131,106 +2128,107 @@
         <location filename="../sources/settingsdialog.cpp" line="456"/>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <location filename="../sources/settingsdialog.cpp" line="458"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="461"/>
+        <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>Cache size:</source>
         <translation type="unfinished">Cache-størrelse:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="468"/>
+        <location filename="../sources/settingsdialog.cpp" line="469"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Forudindlæs:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="476"/>
+        <location filename="../sources/settingsdialog.cpp" line="477"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Afstand for afhent på forkant:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="484"/>
+        <location filename="../sources/settingsdialog.cpp" line="485"/>
         <source>Top</source>
         <translation type="unfinished">Øverst</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="485"/>
+        <location filename="../sources/settingsdialog.cpp" line="486"/>
         <source>Bottom</source>
         <translation type="unfinished">Nederst</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="486"/>
+        <location filename="../sources/settingsdialog.cpp" line="487"/>
         <source>Left</source>
         <translation type="unfinished">Venstre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="487"/>
+        <location filename="../sources/settingsdialog.cpp" line="488"/>
         <source>Right</source>
         <translation type="unfinished">Højre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="490"/>
+        <location filename="../sources/settingsdialog.cpp" line="491"/>
         <source>Tab position:</source>
         <translation type="unfinished">Fanebladsplacering:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="495"/>
+        <location filename="../sources/settingsdialog.cpp" line="496"/>
         <source>As needed</source>
         <translation type="unfinished">Efter behov</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="496"/>
+        <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source>Always</source>
         <translation type="unfinished">Altid</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="497"/>
+        <location filename="../sources/settingsdialog.cpp" line="498"/>
         <source>Never</source>
         <translation type="unfinished">Aldrig</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="500"/>
+        <location filename="../sources/settingsdialog.cpp" line="501"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Synlighed af faneblad:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="508"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Filværktøjslinje:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="516"/>
+        <location filename="../sources/settingsdialog.cpp" line="517"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Redigeringsværktøjslinje:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="524"/>
+        <location filename="../sources/settingsdialog.cpp" line="525"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Vis-værktøjslinje:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="533"/>
+        <location filename="../sources/settingsdialog.cpp" line="534"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zoom:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="539"/>
+        <location filename="../sources/settingsdialog.cpp" line="540"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotér:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="545"/>
+        <location filename="../sources/settingsdialog.cpp" line="546"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rul:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Kopiér til udklipsholder:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="557"/>
+        <location filename="../sources/settingsdialog.cpp" line="558"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Tilføj annotering:</translation>
     </message>
