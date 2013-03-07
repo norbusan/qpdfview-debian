@@ -1,6 +1,6 @@
 .\" 
 .\" 
-.\" Copyright 2012 Benjamin Eltzner
+.\" Copyright 2013 Benjamin Eltzner
 .\" Copyright 2012 Adam Reichold
 .\" Copyright 2012 Michał Trybus
 .\" 
@@ -35,7 +35,7 @@ is a simple viewer for document files in the portable document format (PDF). It 
 .IP \-\-unique
 If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
 .IP "\-\-instance name"
-Sets the name of the current instance opened using the "\-\-unique" option. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
+Used in combination with the "\-\-unique" option. Sets the name of the opened instance. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
@@ -88,6 +88,24 @@ and
 .RS
 opens "foo.pdf" in the first window, "bar.pdf" in a second window and then "foo1.pdf" and "bar1.pdf" in additional tabs in the first window.
 
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique \-\-instance a foo1.pdf bar1.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance b foo2.pdf bar2.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique foo3.pdf bar3.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance a foo1.pdf#4 bar4.pdf
+.RS
+opens "foo1.pdf" and "bar1.pdf" in the first window, "foo2.pdf" and "bar2.pdf" in the second window, "foo2.pdf" and "bar2.pdf" in the third window and then reloads "foo1.pdf" and displays its fourth page and opens "bar4.pdf" in an additional tab in the first window.
+
 The command
 .RE
 .B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
@@ -98,5 +116,3 @@ If you find a bug, please report it at
 .RS
 "https://launchpad.net/qpdfview".
 .RE
-.SH AUTHOR
-Benjamin Eltzner <b.eltzner@gmx.de>
