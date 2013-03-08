@@ -113,7 +113,7 @@ public:
 
     Document* loadDocument(const QString& filePath) const;
 
-    SettingsWidget* createSettingsWidget() const;
+    SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
 };
 

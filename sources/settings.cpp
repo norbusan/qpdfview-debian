@@ -765,9 +765,9 @@ void Settings::Shortcuts::removeAction(QAction* action)
     m_defaultShortcuts.remove(action);
 }
 
-ShortcutsTableModel* Settings::Shortcuts::createTableModel() const
+ShortcutsTableModel* Settings::Shortcuts::createTableModel(QObject* parent) const
 {
-    return new ShortcutsTableModel(m_actions, m_defaultShortcuts);
+    return new ShortcutsTableModel(m_actions, m_defaultShortcuts, parent);
 }
 
 void Settings::Shortcuts::sync()

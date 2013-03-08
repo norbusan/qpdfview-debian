@@ -117,13 +117,13 @@ public:
 
 #ifdef WITH_PDF
 
-    static Model::SettingsWidget* createPDFSettingsWidget();
+    static Model::SettingsWidget* createPDFSettingsWidget(QWidget* parent = 0);
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    static Model::SettingsWidget* createPSSettingsWidget();
+    static Model::SettingsWidget* createPSSettingsWidget(QWidget* parent = 0);
 
 #endif // WITH_PS
 

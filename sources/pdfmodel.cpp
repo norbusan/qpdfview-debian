@@ -980,9 +980,9 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
     return document != 0 ? new PDFDocument(document) : 0;
 }
 
-Model::SettingsWidget* Model::PDFDocumentLoader::createSettingsWidget() const
+Model::SettingsWidget* Model::PDFDocumentLoader::createSettingsWidget(QWidget* parent) const
 {
-    return new PDFSettingsWidget(m_settings);
+    return new PDFSettingsWidget(m_settings, parent);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)

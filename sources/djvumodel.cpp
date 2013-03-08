@@ -810,8 +810,10 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
     return new DjVuDocument(context, document);
 }
 
-Model::SettingsWidget* Model::DjVuDocumentLoader::createSettingsWidget() const
+Model::SettingsWidget* Model::DjVuDocumentLoader::createSettingsWidget(QWidget* parent) const
 {
+    Q_UNUSED(parent);
+
     return 0;
 }
 

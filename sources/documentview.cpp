@@ -323,22 +323,22 @@ void DocumentView::setSourceEditor(const QString& sourceEditor)
 
 #ifdef WITH_PDF
 
-Model::SettingsWidget* DocumentView::createPDFSettingsWidget()
+Model::SettingsWidget* DocumentView::createPDFSettingsWidget(QWidget* parent)
 {
     preparePDFDocumentLoader();
 
-    return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->createSettingsWidget() : 0;
+    return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->createSettingsWidget(parent) : 0;
 }
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-Model::SettingsWidget* DocumentView::createPSSettingsWidget()
+Model::SettingsWidget* DocumentView::createPSSettingsWidget(QWidget* parent)
 {
     preparePSDocumentLoader();
 
-    return s_psDocumentLoader != 0 ? s_psDocumentLoader->createSettingsWidget() : 0;
+    return s_psDocumentLoader != 0 ? s_psDocumentLoader->createSettingsWidget(parent) : 0;
 }
 
 #endif // WITH_PS

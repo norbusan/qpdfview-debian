@@ -44,7 +44,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
 #ifdef WITH_PDF
 
-    m_pdfSettingsWidget = DocumentView::createPDFSettingsWidget();
+    m_pdfSettingsWidget = DocumentView::createPDFSettingsWidget(this);
 
     if(m_pdfSettingsWidget != 0)
     {
@@ -55,7 +55,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
 #ifdef WITH_PS
 
-    m_psSettingsWidget = DocumentView::createPSSettingsWidget();
+    m_psSettingsWidget = DocumentView::createPSSettingsWidget(this);
 
     if(m_psSettingsWidget != 0)
     {
@@ -67,7 +67,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
     m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
 
     m_shortcutsTableView = new QTableView(this);
-    m_shortcutsTableView->setModel(m_settings->shortcuts()->createTableModel());
+    m_shortcutsTableView->setModel(m_settings->shortcuts()->createTableModel(this));
 
     m_shortcutsTableView->setFrameShape(QFrame::NoFrame);
     m_shortcutsTableView->setAlternatingRowColors(true);

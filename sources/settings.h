@@ -256,7 +256,7 @@ public:
         void addAction(QAction* action);
         void removeAction(QAction* action);
 
-        ShortcutsTableModel* createTableModel() const;
+        ShortcutsTableModel* createTableModel(QObject* parent = 0) const;
 
         void sync();
 

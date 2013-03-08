@@ -159,7 +159,7 @@ public:
 
     virtual Document* loadDocument(const QString& filePath) const = 0;
 
-    virtual SettingsWidget* createSettingsWidget() const = 0;
+    virtual SettingsWidget* createSettingsWidget(QWidget* parent = 0) const = 0;
 
 };
 

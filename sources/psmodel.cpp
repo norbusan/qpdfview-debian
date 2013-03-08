@@ -284,9 +284,9 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
     return new PSDocument(document, renderContext);
 }
 
-Model::SettingsWidget* Model::PSDocumentLoader::createSettingsWidget() const
+Model::SettingsWidget* Model::PSDocumentLoader::createSettingsWidget(QWidget* parent) const
 {
-    return new PSSettingsWidget(m_settings);
+    return new PSSettingsWidget(m_settings, parent);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
