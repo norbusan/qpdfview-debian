@@ -46,7 +46,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
-        <translation type="unfinished">Інформація</translation>
+        <translation type="unfinished">нформація</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1270"/>
@@ -113,7 +113,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished">Повернутися на &amp;сторінку %1</translation>
+        <translation type="unfinished">&amp;Повернутися до сторінки %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="761"/>
@@ -174,32 +174,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1411"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview — програма для перегляду документів на основі Qt.&lt;/p&gt;&lt;p&gt;Можливості цієї версії:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PDF на основі Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PS на основі libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1421"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка DjVu на основі DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка друку за допомогою CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Докладніші відомості можна знайти на сторінці &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; Розробники qpdfview, 2012–2013&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Інвертувати кольори</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2020"/>
@@ -536,38 +536,38 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Повне</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Спрощене</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
         <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Деталізація шрифту:</translation>
+        <translation type="unfinished">Гінтінґ тексту:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Попередній перегляд:</translation>
+        <translation type="unfinished">Перегляд наддруку:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Суцільний</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">За формою</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим тонких ліній:</translation>
     </message>
 </context>
 <context>
@@ -575,12 +575,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бітова карта згладжування зображень:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бітова карта згладжування тексту:</translation>
     </message>
 </context>
 <context>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
@@ -903,17 +903,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift і Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Alt+Shift</translation>
+        <translation type="unfinished">Shift і Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl і Alt</translation>
     </message>
 </context>
 <context>
@@ -932,43 +932,48 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="731"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прогорнути назад</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="697"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прогорнути вперед</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пересунути вгору</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="711"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пересунути вниз</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="717"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пересунути ліворуч</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пересунути праворуч</translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
+        <translation type="unfinished">Повернутися до сторінки</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation type="unfinished">Загальне</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="90"/>
         <source>&amp;Behavior</source>
@@ -987,7 +992,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Клавіатурні скорочення</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
@@ -1118,11 +1123,6 @@
         <translation type="unfinished">Розмір мініатюр:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дія</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Послідовність клавіш</translation>
     </message>
 </context>
 <context>
