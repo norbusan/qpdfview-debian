@@ -24,7 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "djvumodel.h"
 
-#include <stdio.h>
+#include <cstdio>
 
 #include <QFile>
 #include <qmath.h>
