@@ -27,66 +27,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="503"/>
+        <location filename="../sources/documentview.cpp" line="499"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formats suportats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
-        <location filename="../sources/documentview.cpp" line="1561"/>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
         <translation type="unfinished">Crític</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PS!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">No s&apos;ha pogut carregar el plugin de DjVu!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1964"/>
+        <location filename="../sources/documentview.cpp" line="1958"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
@@ -174,32 +174,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1411"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview és un visor de documents amb pestanyes fent ús de Qt.&lt;/p&gt;&lt;p&gt;Esta versió inclou:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport de PDF fent ús de Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport de PS fent ús de libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1421"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport de DjVu fent ús de DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport d&apos;impressió fent ús de CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Veja &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inverteix els colors</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2020"/>
@@ -520,12 +520,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="801"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Antidentat:</translation>
+        <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="808"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Antidentat de text:</translation>
+        <translation type="unfinished">Antialiasing del text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
@@ -536,12 +536,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Complet</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reduït</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
@@ -557,17 +557,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sòlid</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Amb forma</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mode de línia fina:</translation>
     </message>
 </context>
 <context>
@@ -575,12 +575,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bits antialias pels gràfics:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bits antialias pel text:</translation>
     </message>
 </context>
 <context>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
@@ -903,17 +903,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maj i Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Majúscules + ALT</translation>
+        <translation type="unfinished">Maj i Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl i Alt</translation>
     </message>
 </context>
 <context>
@@ -932,43 +932,48 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="731"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vés enrere</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="697"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vés endavant</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puja</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="711"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Baixa</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="717"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mou a l&apos;esquerra</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mou a la dreta</translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
+        <translation type="unfinished">Torna a la pàgina</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation type="unfinished">Genèriques</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="90"/>
         <source>&amp;Behavior</source>
@@ -987,7 +992,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Drecere&amp;s</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
@@ -1118,11 +1123,6 @@
         <translation type="unfinished">Mida de les miniatures:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acció</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seqüència de tecles</translation>
     </message>
 </context>
 <context>

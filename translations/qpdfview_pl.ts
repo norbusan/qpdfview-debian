@@ -27,66 +27,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="503"/>
+        <location filename="../sources/documentview.cpp" line="499"/>
         <source>Supported formats (%1)</source>
         <translation>Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Unlock %1</source>
         <translation>Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Password:</source>
         <translation>Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation>Otwieranie URL-i jest wyłączone w ustawieniach.</translation>
+        <translation>Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
-        <location filename="../sources/documentview.cpp" line="1561"/>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
         <translation>Krytyczny</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
         <source>Could not load PDF plug-in!</source>
         <translation>Nie można załadować pluginu PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
         <source>Could not load PS plug-in!</source>
         <translation>Nie można załadować pluginu PS!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Could not load DjVu plug-in!</source>
         <translation>Nie można załadować pluginu DjVu!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1964"/>
+        <location filename="../sources/documentview.cpp" line="1958"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
@@ -174,7 +174,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1411"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview to przeglądarka dokumentów z zakładkami używająca interfejs Qt.&lt;/p&gt;&lt;p&gt;Ta wersja zawiera:&lt;ul&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview to przeglądarka dokumentów z kartami używająca interfejsu Qt.&lt;/p&gt;&lt;p&gt;Ta wersja zawiera:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>

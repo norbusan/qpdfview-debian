@@ -27,66 +27,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="503"/>
+        <location filename="../sources/documentview.cpp" line="499"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Unterstützte Formate (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>Warning</source>
         <translation type="unfinished">Warnung</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
-        <location filename="../sources/documentview.cpp" line="1561"/>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
         <translation type="unfinished">Kritischer Fehler</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">PDF Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">PS Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">DjVu Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1964"/>
+        <location filename="../sources/documentview.cpp" line="1958"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
     </message>

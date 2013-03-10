@@ -27,66 +27,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="503"/>
+        <location filename="../sources/documentview.cpp" line="499"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Supported formats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Opening URL is disabled in the settings.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>Warning</source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
-        <location filename="../sources/documentview.cpp" line="1561"/>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
         <translation type="unfinished">Critical</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Could not load PDF plug-in!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Could not load PS plug-in!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Could not load DjVu plug-in!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1964"/>
+        <location filename="../sources/documentview.cpp" line="1958"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>

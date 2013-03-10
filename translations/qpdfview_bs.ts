@@ -27,66 +27,66 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="503"/>
+        <location filename="../sources/documentview.cpp" line="499"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Podržani formati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Otključaj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="757"/>
-        <location filename="../sources/documentview.cpp" line="796"/>
+        <location filename="../sources/documentview.cpp" line="753"/>
+        <location filename="../sources/documentview.cpp" line="792"/>
         <source>Password:</source>
         <translation type="unfinished">Šifra:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Information</source>
         <translation type="unfinished">Informacije</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1274"/>
+        <location filename="../sources/documentview.cpp" line="1270"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvaranje URL-a je onemogućeno u postavkama.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1326"/>
+        <location filename="../sources/documentview.cpp" line="1322"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nisu pronađeni.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
-        <location filename="../sources/documentview.cpp" line="1561"/>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
         <translation type="unfinished">Kritično</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1530"/>
+        <location filename="../sources/documentview.cpp" line="1572"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Nije moguće učitati PDF plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1561"/>
+        <location filename="../sources/documentview.cpp" line="1603"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Nije moguće učitati PS plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1593"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Nije moguće učitati DjVu plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1964"/>
+        <location filename="../sources/documentview.cpp" line="1958"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Štampam &apos;%1&apos;...</translation>
     </message>
