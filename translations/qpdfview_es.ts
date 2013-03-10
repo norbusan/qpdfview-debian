@@ -68,7 +68,7 @@
         <location filename="../sources/documentview.cpp" line="1603"/>
         <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Crítico</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1572"/>
@@ -108,12 +108,12 @@
         <location filename="../sources/mainwindow.cpp" line="167"/>
         <location filename="../sources/mainwindow.cpp" line="242"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <translation type="unfinished">No se pudo abrir &apos;%1&apos;.</translation>
+        <translation type="unfinished">No se pudo abrir «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>&amp;Return to page %1</source>
-        <translation type="unfinished">&amp;Volver a la página %1</translation>
+        <translation type="unfinished">&amp;Volver a la pág. %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="761"/>
@@ -129,7 +129,7 @@
         <location filename="../sources/mainwindow.cpp" line="798"/>
         <location filename="../sources/mainwindow.cpp" line="1031"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished">No se pudo actualizar &apos;%1&apos;.</translation>
+        <translation type="unfinished">No se pudo actualizar «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="805"/>
@@ -139,7 +139,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="815"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished">No se pudo guardar una copia en &apos;%1&apos;.</translation>
+        <translation type="unfinished">No se pudo guardar una copia en «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="823"/>
@@ -154,7 +154,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="875"/>
         <source>Could not print &apos;%1&apos;.</source>
-        <translation type="unfinished">No se pudo imprimir &apos;%1&apos;.</translation>
+        <translation type="unfinished">No se pudo imprimir «%1».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="914"/>
@@ -174,32 +174,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1411"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview es un visor de documentos con pestañas que usa Qt.&lt;/p&gt;&lt;p&gt;Esta versión incluye:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidad con PDF mediante Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidad con PS mediante libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1421"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidad con DjVu mediante DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidad con impresión mediante CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Vea &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012–2013 Los desarrolladores de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Invertir colores</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2020"/>
@@ -520,28 +520,28 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="801"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Suavizado</translation>
+        <translation type="unfinished">Bordes suaves:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="808"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Suavizado de texto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <location filename="../sources/pdfmodel.cpp" line="845"/>
         <source>None</source>
-        <translation type="unfinished">Nada</translation>
+        <translation type="unfinished">Ninguno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Completo</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reducido</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
@@ -557,7 +557,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sólido</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
@@ -567,7 +567,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modo de línea delgada:</translation>
     </message>
 </context>
 <context>
@@ -633,7 +633,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="372"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Para añadir o quitar anotaciones, se necesita la versión 0.20.1 o mayor de la biblioteca Poppler.</translation>
     </message>
 </context>
 <context>
@@ -860,17 +860,17 @@
     <message>
         <location filename="../sources/main.cpp" line="119"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished">Un nombre de instancia vacío no es permitido.</translation>
+        <translation type="unfinished">No se permite un nombre de instancia vacío.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="161"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Para usar «--instance» necesita un nombre de instancia.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="167"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se permite usar «--instance» sin usar «--unique».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="210"/>
@@ -880,7 +880,7 @@
     <message>
         <location filename="../sources/main.cpp" line="302"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo preparar el manejador de señales.</translation>
     </message>
 </context>
 <context>
@@ -888,12 +888,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="564"/>
         <source>Shift</source>
-        <translation type="unfinished">Mayúsculas</translation>
+        <translation type="unfinished">Mayús</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
@@ -903,17 +903,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mayús y Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Mayúsculas + ALT</translation>
+        <translation type="unfinished">Mayús y Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl y Alt</translation>
     </message>
 </context>
 <context>
@@ -932,11 +932,6 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="731"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
@@ -949,26 +944,36 @@
     <message>
         <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mover hacia arriba</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="711"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mover hacia abajo</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="717"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mover a la izquierda</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mover a la derecha</translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
+        <translation type="unfinished">Volver a la página</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="90"/>
         <source>&amp;Behavior</source>
@@ -1040,7 +1045,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished">Sinicronizar presentación:</translation>
+        <translation type="unfinished">Sincronizar la presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="343"/>
@@ -1116,11 +1121,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Tamaño de la miniatura:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
@@ -1212,7 +1212,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="534"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ampliación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="540"/>
@@ -1222,7 +1222,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="546"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desplazamiento:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="552"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acción</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Secuencia de teclas</translation>
     </message>
 </context>
 <context>
