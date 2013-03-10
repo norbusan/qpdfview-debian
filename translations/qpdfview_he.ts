@@ -174,32 +174,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1411"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview הנו מציג מסמכים בלשוניות לסביבת Qt.&lt;/p&gt;&lt;p&gt;גרסה זו כוללת:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1415"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;תמיכה ב־PDF באמצעות Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1418"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;תמיכה ב־PS באמצעות libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1421"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;תמיכה ב־DjVu באמצעות DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1424"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;תמיכה בהדפסה באמצעות CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;ניתן לעיין באתר &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; למידע נוסף.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 המתכנתים של qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1590"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">היפוך צבעים</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2020"/>
@@ -525,44 +525,44 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="808"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">החלקת קצוות טקסט:</translation>
+        <translation type="unfinished">החלקת קצוות גופנים:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <location filename="../sources/pdfmodel.cpp" line="845"/>
         <source>None</source>
-        <translation type="unfinished">ללא</translation>
+        <translation type="unfinished">אין</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מלא</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מצומצם</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
         <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">עיבוי טקסט:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">דוגמה של כל התוצר המודפס:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אחיד</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מעוצב</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
@@ -903,7 +903,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift ו־Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
@@ -913,7 +913,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl ו־Alt</translation>
     </message>
 </context>
 <context>
@@ -932,43 +932,48 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="731"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דילוג אחורה</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="697"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">דילוג קדימה</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזזה מעלה</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="711"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזזה למטה</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="717"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזזה שמאלה</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזזה ימינה</translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
+        <translation type="unfinished">חזרה לעמוד</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="43"/>
+        <source>General</source>
+        <translation type="unfinished">כללי</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="90"/>
         <source>&amp;Behavior</source>
@@ -987,7 +992,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;קיצורי מקשים</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="94"/>
@@ -1118,11 +1123,6 @@
         <translation type="unfinished">גודל תמונה ממוזערת:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="43"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="452"/>
         <location filename="../sources/settingsdialog.cpp" line="453"/>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="76"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">פעולה</translation>
     </message>
     <message>
         <location filename="../sources/shortcutstablemodel.cpp" line="79"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צירוף מקשים</translation>
     </message>
 </context>
 <context>
