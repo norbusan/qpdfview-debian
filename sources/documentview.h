@@ -29,7 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class QDomNode;
 class QFileSystemWatcher;
 class QPrinter;
-class QStandardItem;
 class QStandardItemModel;
 
 #include "global.h"
@@ -78,7 +77,6 @@ public:
 
     static qreal minimumScaleFactor();
     static qreal maximumScaleFactor();
-    static qreal zoomBy();
 
     static const QKeySequence& skipBackwardShortcut();
     static void setSkipBackwardShortcut(const QKeySequence& shortcut);
@@ -270,6 +268,7 @@ private:
 
     static qreal s_minimumScaleFactor;
     static qreal s_maximumScaleFactor;
+
     static qreal s_zoomBy;
 
     static QKeySequence s_skipBackwardShortcut;
@@ -286,6 +285,9 @@ private:
     static int s_highlightDuration;
 
     static QString s_sourceEditor;
+
+    static Model::DocumentLoader* loadPlugin(const QString& fileName);
+    static Model::DocumentLoader* loadStaticPlugin(const QString& objectName);
 
 #ifdef WITH_PDF
 
@@ -311,8 +313,6 @@ private:
 
 #endif // WITH_DJVU
 
-    static Model::DocumentLoader* loadPlugin(const QString& fileName);
-    static Model::DocumentLoader* loadStaticPlugin(const QString& objectName);
     static Model::Document* loadDocument(const QString& filePath);
 
     QFileSystemWatcher* m_autoRefreshWatcher;
@@ -334,9 +334,9 @@ private:
 
     bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
 
-    QStack< int > m_returnToPage;
-    QStack< qreal > m_returnToLeft;
-    QStack< qreal > m_returnToTop;
+    QStack< int > m_visitedPages;
+    QStack< qreal > m_leftOfVisitedPages;
+    QStack< qreal > m_topOfVisitedPages;
 
     int currentPageForPage(int page) const;
 

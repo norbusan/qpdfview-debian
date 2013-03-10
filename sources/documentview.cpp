@@ -86,6 +86,7 @@ qreal DocumentView::s_thumbnailSize = 150.0;
 
 qreal DocumentView::s_minimumScaleFactor = 0.1;
 qreal DocumentView::s_maximumScaleFactor = 10.0;
+
 qreal DocumentView::s_zoomBy = 0.1;
 
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
@@ -226,11 +227,6 @@ qreal DocumentView::maximumScaleFactor()
     return s_maximumScaleFactor;
 }
 
-qreal DocumentView::zoomBy()
-{
-    return s_zoomBy;
-}
-
 const QKeySequence& DocumentView::skipBackwardShortcut()
 {
     return s_skipBackwardShortcut;
@@ -351,9 +347,9 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
-    m_returnToPage(),
-    m_returnToLeft(),
-    m_returnToTop(),
+    m_visitedPages(),
+    m_leftOfVisitedPages(),
+    m_topOfVisitedPages(),
     m_continuousMode(false),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactorMode),
@@ -382,10 +378,10 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setScene(m_pagesScene);
 
+    setAcceptDrops(false);
+    setContextMenuPolicy(Qt::CustomContextMenu);
     setDragMode(QGraphicsView::ScrollHandDrag);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-
-    setAcceptDrops(false);
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
@@ -469,7 +465,7 @@ int DocumentView::currentPage() const
 
 const QVector< int >& DocumentView::visitedPages() const
 {
-    return m_returnToPage;
+    return m_visitedPages;
 }
 
 QStringList DocumentView::openFilter()
@@ -663,7 +659,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         if(m_highlightAll)
         {
-            for(int index = 0; index < m_numberOfPages; ++index)
+            for(int index = 0; index < m_pages.count(); ++index)
             {
                 m_pages.at(index)->setHighlights(m_results.values(index));
             }
@@ -768,9 +764,9 @@ bool DocumentView::open(const QString& filePath)
         m_numberOfPages = document->numberOfPages();
         m_currentPage = 1;
 
-        m_returnToPage.clear();
-        m_returnToLeft.clear();
-        m_returnToTop.clear();
+        m_visitedPages.clear();
+        m_leftOfVisitedPages.clear();
+        m_topOfVisitedPages.clear();
 
         prepareDocument(document);
 
@@ -944,8 +940,8 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
         {
             if(returnTo)
             {
-                m_returnToPage.push(m_currentPage);
-                m_returnToLeft.push(left); m_returnToTop.push(top);
+                m_visitedPages.push(m_currentPage);
+                m_leftOfVisitedPages.push(left); m_topOfVisitedPages.push(top);
             }
 
             m_currentPage = currentPageForPage(page);
@@ -970,9 +966,9 @@ void DocumentView::jumpToHighlight(const QRectF& highlight)
 
 void DocumentView::returnToPage()
 {
-    if(!m_returnToPage.isEmpty())
+    if(!m_visitedPages.isEmpty())
     {
-        jumpToPage(m_returnToPage.pop(), false, m_returnToLeft.pop(), m_returnToTop.pop());
+        jumpToPage(m_visitedPages.pop(), false, m_leftOfVisitedPages.pop(), m_topOfVisitedPages.pop());
     }
 }
 
@@ -1362,8 +1358,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     if(!m_continuousMode)
     {
-        if(s_skipBackwardShortcut.matches(shortcut)
-                && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(s_skipBackwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
 
@@ -1372,8 +1367,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(shortcut)
-                && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
         {
             nextPage();
 
@@ -1503,6 +1497,54 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
+Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
+{
+    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
+
+    if(!pluginLoader.load())
+    {
+        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
+
+        if(!pluginLoader.load())
+        {
+            qCritical() << "Could not load plug-in:" << fileName;
+            qCritical() << pluginLoader.errorString();
+
+            return 0;
+        }
+    }
+
+    Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
+
+    if(documentLoader == 0)
+    {
+        qCritical() << "Could not instantiate plug-in:" << fileName;
+        qCritical() << pluginLoader.errorString();
+    }
+
+    return documentLoader;
+}
+
+Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
+{
+    foreach(QObject* object, QPluginLoader::staticInstances())
+    {
+        if(object->objectName() == objectName)
+        {
+            Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(object);
+
+            if(documentLoader != 0)
+            {
+                return documentLoader;
+            }
+        }
+    }
+
+    qCritical() << "Could not load static plug-in:" << objectName;
+
+    return 0;
+}
+
 #ifdef WITH_PDF
 
 #ifdef STATIC_PDF_PLUGIN
@@ -1597,54 +1639,6 @@ void DocumentView::prepareDjVuDocumentLoader()
 }
 
 #endif // WITH_DJVU
-
-Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
-{
-    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
-
-    if(!pluginLoader.load())
-    {
-        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
-
-        if(!pluginLoader.load())
-        {
-            qCritical() << "Could not load plug-in:" << fileName;
-            qCritical() << pluginLoader.errorString();
-
-            return 0;
-        }
-    }
-
-    Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
-
-    if(documentLoader == 0)
-    {
-        qCritical() << "Could not instantiate plug-in:" << fileName;
-        qCritical() << pluginLoader.errorString();
-    }
-
-    return documentLoader;
-}
-
-Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
-{
-    foreach(QObject* object, QPluginLoader::staticInstances())
-    {
-        if(object->objectName() == objectName)
-        {
-            Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(object);
-
-            if(documentLoader != 0)
-            {
-                return documentLoader;
-            }
-        }
-    }
-
-    qCritical() << "Could not load static plug-in:" << objectName;
-
-    return 0;
-}
 
 Model::Document* DocumentView::loadDocument(const QString& filePath)
 {
@@ -2258,7 +2252,6 @@ void DocumentView::prepareScene()
     for(int index = 0; index < m_numberOfPages; ++index)
     {
         PageItem* page = m_pages.at(index);
-        QSizeF size = page->size();
 
         if(m_scaleMode != ScaleFactorMode)
         {
@@ -2292,13 +2285,13 @@ void DocumentView::prepareScene()
             default:
             case RotateBy0:
             case RotateBy180:
-                pageWidth = physicalDpiX() / 72.0 * size.width();
-                pageHeight = physicalDpiY() / 72.0 * size.height();
+                pageWidth = physicalDpiX() / 72.0 * page->size().width();
+                pageHeight = physicalDpiY() / 72.0 * page->size().height();
                 break;
             case RotateBy90:
             case RotateBy270:
-                pageWidth = physicalDpiX() / 72.0 * size.height();
-                pageHeight = physicalDpiY() / 72.0 * size.width();
+                pageWidth = physicalDpiX() / 72.0 * page->size().height();
+                pageHeight = physicalDpiY() / 72.0 * page->size().width();
                 break;
             }
 
