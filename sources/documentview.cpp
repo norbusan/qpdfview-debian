@@ -676,10 +676,20 @@ void DocumentView::setHighlightAll(bool highlightAll)
             {
                 m_pageItems.at(index)->setHighlights(m_results.values(index));
             }
+
+            for(int index = 0; index < m_thumbnailItems.count(); ++index)
+            {
+                m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
+            }
         }
         else
         {
             foreach(PageItem* page, m_pageItems)
+            {
+                page->clearHighlights();
+            }
+
+            foreach(PageItem* page, m_thumbnailItems)
             {
                 page->clearHighlights();
             }
@@ -1021,6 +1031,11 @@ void DocumentView::cancelSearch()
         page->clearHighlights();
     }
 
+    foreach(PageItem* page, m_thumbnailItems)
+    {
+        page->clearHighlights();
+    }
+
     prepareThumbnailsScene();
 
     prepareHighlight();
@@ -1225,6 +1240,7 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
     if(m_highlightAll)
     {
         m_pageItems.at(index)->setHighlights(m_results.values(index));
+        m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
     }
 
     if(s_limitThumbnailsToResults)
