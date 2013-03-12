@@ -355,15 +355,14 @@ private:
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 
-    QGraphicsScene* m_pagesScene;
     QVector< PageItem* > m_pages;
+    QVector< ThumbnailItem* > m_thumbnails;
 
     QMap< qreal, int > m_heightToIndex;
 
-    QGraphicsScene* m_thumbnailsScene;
-    QVector< ThumbnailItem* > m_thumbnails;
-
     QGraphicsRectItem* m_highlight;
+
+    QGraphicsScene* m_thumbnailsScene;
 
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;

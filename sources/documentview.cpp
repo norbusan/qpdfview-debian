@@ -358,25 +358,18 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
-    m_pagesScene(0),
     m_pages(),
-    m_heightToIndex(),
-    m_thumbnailsScene(0),
     m_thumbnails(),
+    m_heightToIndex(),
     m_highlight(0),
+    m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
     m_results(),
     m_currentResult(m_results.end()),
     m_searchThread(0)
 {
-    m_pagesScene = new QGraphicsScene(this);
-    m_thumbnailsScene = new QGraphicsScene(this);
-
-    m_outlineModel = new QStandardItemModel(this);
-    m_propertiesModel = new QStandardItemModel(this);
-
-    setScene(m_pagesScene);
+    setScene(new QGraphicsScene(this));
 
     setAcceptDrops(false);
     setContextMenuPolicy(Qt::CustomContextMenu);
@@ -385,12 +378,17 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
+    m_thumbnailsScene = new QGraphicsScene(this);
+
+    m_outlineModel = new QStandardItemModel(this);
+    m_propertiesModel = new QStandardItemModel(this);
+
     // highlight
 
     m_highlight = new QGraphicsRectItem();
 
     m_highlight->setVisible(false);
-    m_pagesScene->addItem(m_highlight);
+    scene()->addItem(m_highlight);
 
     QColor highlightColor = palette().color(QPalette::Highlight);
 
@@ -2154,7 +2152,7 @@ void DocumentView::preparePages()
         page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
-        m_pagesScene->addItem(page);
+        scene()->addItem(page);
         m_pages.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
@@ -2241,7 +2239,7 @@ void DocumentView::prepareBackground()
         }
     }
 
-    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+    scene()->setBackgroundBrush(QBrush(backgroundColor));
     m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
@@ -2401,15 +2399,15 @@ void DocumentView::prepareScene()
         }
     }
 
-    m_pagesScene->setSceneRect(left, 0.0, right - left, height);
+    scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
 void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 {
-    qreal left = m_pagesScene->sceneRect().left();
-    qreal top = m_pagesScene->sceneRect().top();
-    qreal width = m_pagesScene->sceneRect().width();
-    qreal height = m_pagesScene->sceneRect().height();
+    qreal left = scene()->sceneRect().left();
+    qreal top = scene()->sceneRect().top();
+    qreal width = scene()->sceneRect().width();
+    qreal height = scene()->sceneRect().height();
 
     int horizontalValue = 0;
     int verticalValue = 0;
