@@ -2133,8 +2133,17 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     m_document->setPaperColor(PageItem::paperColor());
 
-    preparePages();
-    prepareThumbnails();
+    QVector< Model::Page* > pages;
+
+    pages.reserve(m_numberOfPages);
+
+    for(int index = 0; index < m_numberOfPages; ++index)
+    {
+        pages.append(m_document->page(index));
+    }
+
+    preparePages(pages);
+    prepareThumbnails(pages);
     prepareBackground();
 
     m_document->loadOutline(m_outlineModel);
@@ -2147,14 +2156,14 @@ void DocumentView::prepareDocument(Model::Document* document)
     }
 }
 
-void DocumentView::preparePages()
+void DocumentView::preparePages(const QVector< Model::Page* >& pages)
 {
     m_pages.clear();
     m_pages.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = new PageItem(m_document->page(index), index);
+        PageItem* page = new PageItem(pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
@@ -2173,16 +2182,16 @@ void DocumentView::preparePages()
     }
 }
 
-void DocumentView::prepareThumbnails()
+void DocumentView::prepareThumbnails(const QVector< Model::Page* >& pages)
 {
     m_thumbnails.clear();
     m_thumbnails.reserve(m_numberOfPages);
 
-    m_thumbnailsScene->clear();
+//    m_thumbnailsScene->clear();
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(m_document->page(index), index);
+        ThumbnailItem* page = new ThumbnailItem(pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);

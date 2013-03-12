@@ -38,6 +38,7 @@ namespace Model
 {
 class Document;
 class DocumentLoader;
+class Page;
 class SettingsWidget;
 }
 
@@ -368,8 +369,8 @@ private:
     QStandardItemModel* m_propertiesModel;
 
     void prepareDocument(Model::Document* document);
-    void preparePages();
-    void prepareThumbnails();
+    void preparePages(const QVector< Model::Page* >& pages);
+    void prepareThumbnails(const QVector< Model::Page* >& pages);
     void prepareBackground();
 
     void prepareScene();
