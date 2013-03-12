@@ -36,7 +36,7 @@ class PrintOptionsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit PrintOptionsWidget(QWidget* parent = 0);
+    PrintOptionsWidget(const PrintOptions& printOptions = PrintOptions(), QWidget* parent = 0);
 
     PrintOptions printOptions() const;
 

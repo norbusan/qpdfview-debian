@@ -26,17 +26,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QLineEdit>
 
-PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
+PrintOptionsWidget::PrintOptionsWidget(const PrintOptions& printOptions, QWidget* parent) : QWidget(parent)
 {
     setWindowTitle(tr("Extended options"));
 
     m_formLayout = new QFormLayout(this);
 
     m_fitToPageCheckBox = new QCheckBox(this);
+    m_fitToPageCheckBox->setChecked(printOptions.fitToPage);
 
     m_formLayout->addRow(tr("Fit to page:"), m_fitToPageCheckBox);
 
     m_pageRangesLineEdit = new QLineEdit(this);
+    m_pageRangesLineEdit->setText(printOptions.pageRanges);
 
     m_formLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
 
@@ -44,7 +46,7 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(PrintOptions::AllPages));
     m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(PrintOptions::EvenPages));
     m_pageSetComboBox->addItem(tr("Odd pages"), static_cast< uint >(PrintOptions::OddPages));
-    m_pageSetComboBox->setCurrentIndex(0);
+    m_pageSetComboBox->setCurrentIndex(m_pageSetComboBox->findData(static_cast< uint >(printOptions.pageSet)));
 
     m_formLayout->addRow(tr("Page set:"), m_pageSetComboBox);
 
@@ -55,7 +57,7 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_numberUpComboBox->addItem(tr("Six pages"), static_cast< uint >(PrintOptions::SixPages));
     m_numberUpComboBox->addItem(tr("Nine pages"), static_cast< uint >(PrintOptions::NinePages));
     m_numberUpComboBox->addItem(tr("Sixteen pages"), static_cast< uint >(PrintOptions::SixteenPages));
-    m_numberUpComboBox->setCurrentIndex(0);
+    m_numberUpComboBox->setCurrentIndex(m_numberUpComboBox->findData(static_cast< uint >(printOptions.numberUp)));
 
     m_formLayout->addRow(tr("Number-up:"), m_numberUpComboBox);
 
@@ -68,7 +70,7 @@ PrintOptionsWidget::PrintOptionsWidget(QWidget* parent) : QWidget(parent)
     m_numberUpLayoutComboBox->addItem(tr("Right to left and top to bottom"), static_cast< uint >(PrintOptions::RightLeftTopBottom));
     m_numberUpLayoutComboBox->addItem(tr("Top to bottom and left to right"), static_cast< uint >(PrintOptions::TopBottomLeftRight));
     m_numberUpLayoutComboBox->addItem(tr("Top to bottom and right to left"), static_cast< uint >(PrintOptions::TopBottomRightLeft));
-    m_numberUpLayoutComboBox->setCurrentIndex(3);
+    m_numberUpLayoutComboBox->setCurrentIndex(m_numberUpLayoutComboBox->findData(static_cast< uint >(printOptions.numberUpLayout)));
 
     m_formLayout->addRow(tr("Number-up layout:"), m_numberUpLayoutComboBox);
 }

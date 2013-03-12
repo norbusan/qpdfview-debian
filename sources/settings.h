@@ -25,7 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QSettings;
 
+#include <QPrinter>
+
 #include "global.h"
+#include "printoptions.h"
 #include "miscellaneous.h"
 #include "shortcutstablemodel.h"
 
@@ -248,6 +251,27 @@ public:
     MainWindow* mainWindow();
     const MainWindow* mainWindow() const;
 
+    // printing
+
+    class Printing
+    {
+    public:
+        Printing(QSettings* settings);
+
+        void restorePrinterSettings(QPrinter* printer);
+        void savePrinterSettings(const QPrinter* printer);
+
+        PrintOptions printOptions();
+        void setPrintOptions(const PrintOptions& printOptions);
+
+    private:
+        QSettings* m_settings;
+
+    };
+
+    Printing* printing();
+    const Printing* printing() const;
+
     // shortcuts
 
     class Shortcuts
@@ -296,6 +320,7 @@ private:
     DocumentView* m_documentView;
     MainWindow* m_mainWindow;
 
+    Printing* m_printing;
     Shortcuts* m_shortcuts;
 
 };
@@ -400,6 +425,32 @@ public:
 
     private:
         MainWindow() {}
+
+    };
+
+    class Printing
+    {
+    public:
+        static inline int copyCount() { return 1; }
+        static inline bool collateCopies() { return false; }
+
+        static inline QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }
+
+        static inline QPrinter::Orientation orientation() { return QPrinter::Portrait; }
+
+        static inline QPrinter::ColorMode colorMode() { return QPrinter::Color; }
+
+        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexAuto; }
+
+        static inline bool fitToPage() { return false; }
+
+        static inline PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
+
+        static inline PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
+        static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
+
+    private:
+        Printing() {}
 
     };
 
