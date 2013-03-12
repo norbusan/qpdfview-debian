@@ -771,6 +771,8 @@ bool DocumentView::open(const QString& filePath)
         prepareScene();
         prepareView();
 
+        prepareThumbnailsScene();
+
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
@@ -806,6 +808,8 @@ bool DocumentView::refresh()
 
         prepareScene();
         prepareView(left, top);
+
+        prepareThumbnailsScene();
 
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
@@ -1001,6 +1005,8 @@ void DocumentView::cancelSearch()
     {
         page->clearHighlights();
     }
+
+    prepareThumbnailsScene();
 
     prepareHighlight();
 }
@@ -1205,6 +1211,8 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
     {
         m_pages.at(index)->setHighlights(m_results.values(index));
     }
+
+    prepareThumbnailsScene();
 
     if(m_results.contains(index) && m_currentResult == m_results.end())
     {
@@ -2172,10 +2180,6 @@ void DocumentView::prepareThumbnails()
 
     m_thumbnailsScene->clear();
 
-    qreal left = 0.0;
-    qreal right = 0.0;
-    qreal height = s_thumbnailSpacing;
-
     for(int index = 0; index < m_numberOfPages; ++index)
     {
         ThumbnailItem* page = new ThumbnailItem(m_document->page(index), index);
@@ -2187,38 +2191,7 @@ void DocumentView::prepareThumbnails()
         m_thumbnails.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
-
-        {
-            // prepare scale factor
-
-            QSizeF size = page->size();
-
-            qreal pageWidth = physicalDpiX() / 72.0 * size.width();
-            qreal pageHeight = physicalDpiY() / 72.0 * size.height();
-
-            page->setScaleFactor(qMin(s_thumbnailSize / pageWidth, s_thumbnailSize / pageHeight));
-        }
-
-        {
-            // prepare layout
-
-            QRectF boundingRect = page->boundingRect();
-
-            page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
-
-            left = qMin(left, -0.5f * boundingRect.width() - s_thumbnailSpacing);
-            right = qMax(right, 0.5f * boundingRect.width() + s_thumbnailSpacing);
-            height += boundingRect.height() + s_thumbnailSpacing;
-        }
-
-        QGraphicsSimpleTextItem* text = m_thumbnailsScene->addSimpleText(QString::number(index + 1));
-
-        text->setPos(-0.5 * text->boundingRect().width(), height);
-
-        height += text->boundingRect().height() + s_thumbnailSpacing;
     }
-
-    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
 }
 
 void DocumentView::prepareBackground()
@@ -2247,7 +2220,7 @@ void DocumentView::prepareScene()
 {
     // prepare scale factor and rotation
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = m_pages.at(index);
 
@@ -2326,7 +2299,7 @@ void DocumentView::prepareScene()
     qreal right = 0.0;
     qreal height = s_pageSpacing;
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = m_pages.at(index);
         QRectF boundingRect = page->boundingRect();
@@ -2412,7 +2385,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = m_pages.at(index);
 
@@ -2471,6 +2444,54 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     verticalScrollBar()->setValue(verticalValue);
 
     viewport()->update();
+}
+
+void DocumentView::prepareThumbnailsScene()
+{
+    qreal left = 0.0;
+    qreal right = 0.0;
+    qreal height = s_thumbnailSpacing;
+
+    for(int index = 0; index < m_thumbnails.count(); ++index)
+    {
+        PageItem* page = m_thumbnails.at(index);
+
+        if(!m_results.isEmpty() && !m_results.contains(index))
+        {
+            page->setVisible(false);
+
+            continue;
+        }
+
+        page->setVisible(true);
+
+        // prepare scale factor
+
+        qreal pageWidth = physicalDpiX() / 72.0 * page->size().width();
+        qreal pageHeight = physicalDpiY() / 72.0 * page->size().height();
+
+        page->setScaleFactor(qMin(s_thumbnailSize / pageWidth, s_thumbnailSize / pageHeight));
+
+        // prepare layout
+
+        QRectF boundingRect = page->boundingRect();
+
+        page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
+
+        left = qMin(left, -0.5f * boundingRect.width() - s_thumbnailSpacing);
+        right = qMax(right, 0.5f * boundingRect.width() + s_thumbnailSpacing);
+        height += boundingRect.height() + s_thumbnailSpacing;
+
+        // prepare label
+
+//        QGraphicsSimpleTextItem* text = m_thumbnailsScene->addSimpleText(QString::number(index + 1));
+
+//        text->setPos(-0.5 * text->boundingRect().width(), height);
+
+//        height += text->boundingRect().height() + s_thumbnailSpacing;
+    }
+
+    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
 }
 
 void DocumentView::prepareHighlight()

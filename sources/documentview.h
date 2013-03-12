@@ -375,6 +375,8 @@ private:
     void prepareScene();
     void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
+    void prepareThumbnailsScene();
+
     void prepareHighlight();
 
     // search
