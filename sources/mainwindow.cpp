@@ -2337,7 +2337,7 @@ void MainWindow::createDocks()
 
     addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
 
-    m_thumbnailsDock->setObjectName(QLatin1String("thumbnailsDockToggleView"));
+    m_thumbnailsDock->toggleViewAction()->setObjectName(QLatin1String("thumbnailsDockToggleView"));
     m_thumbnailsDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F8));
     m_settings->shortcuts()->addAction(m_thumbnailsDock->toggleViewAction());
 
