@@ -22,6 +22,7 @@ SUBDIRS += qpdfview-application.pro
 
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
+    translations/qpdfview_az.ts \
     translations/qpdfview_bg.ts \
     translations/qpdfview_bs.ts \
     translations/qpdfview_ca.ts \
