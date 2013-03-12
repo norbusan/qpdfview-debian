@@ -1703,7 +1703,7 @@ void MainWindow::createActions()
 
     // exit
 
-    m_exitAction = new QAction(tr("&Exit"), this);
+    m_exitAction = new QAction(tr("E&xit"), this);
     m_exitAction->setObjectName(QLatin1String("exit"));
 
     m_exitAction->setShortcut(QKeySequence::Quit);
