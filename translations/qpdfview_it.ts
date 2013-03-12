@@ -2,6 +2,1109 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">&amp;Apri</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Apri in nuova &amp;scheda</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">&amp;Rimuovi segnalibro</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Vai alla pagina %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Formati supportati (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Sblocca %1</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Password:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Informazioni</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Apertura degli URL disabilitata nelle impostazioni.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Avviso</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Impossibile trovare i dati SyncTeX per «%1».</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Critico</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Impossibile caricare il plugin PDF</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Impossibile caricare il plugin PS</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Impossibile caricare il plugin DjVu</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Stampa di «%1»...</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Avviso</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impossibile aprire «%1».</translation>
+    </message>
+    <message>
+        <source>&amp;Return to page %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Ritorna alla pagina %1</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Apri</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Apre in una nuova scheda</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impossibile aggiornare «%1».</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Salva una copia</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impossibile salvare in «%1».</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Salva come</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impossibile salvare come «%1»</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impossibile stampare «%1».</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Vai alla pagina</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Pagina:</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Informazioni su qpdfview</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview è un isualizzatore di documenti a schede che usa Qt.&lt;/p&gt;&lt;p&gt;Questa versione include:&lt;ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Supporto a PDF con l&apos;uso di Poppler&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Supporto a PS con l&apos;uso di libspectre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Supporto a DjVu con l&apos;uso di DjVuLibre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Supporto per la stammpa con l&apos;uo di CUPS&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;/ul&gt;&lt;p&gt;Consultare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per maggiori informazioni.&lt;/p&gt;&lt;p&gt;© 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Larghezza pagina</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Dimensione pagina</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Corrispondenza MAIUSCOLO/minuscolo</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">E&amp;videnzia tutto</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Apri...</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Apri in nuova &amp;scheda...</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Aggio&amp;rna</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Salva una copia...</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Sa&amp;lva come...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Stam&amp;pa...</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Esci</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Pagina precedente</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Pagina &amp;successiva</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Pr&amp;ima pagina</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Ultima pagina</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Vai alla pagina...</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">C&amp;erca...</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Trova precedente</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Trova successivo</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Annulla ricerca</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Copia negli appunti</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Aggiungi nota</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Impostazioni...</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Continuo</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Due pagine</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Due pagine co&amp;mpresa la copertina</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Pagine &amp;multiple</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">A&amp;umenta</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ri&amp;duci</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Dimen&amp;sione originale</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Adatta alla larghezza della pagina</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Adatta alla dimensione della pagina</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ruota a si&amp;nistra</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Ruota a destra</translation>
+    </message>
+    <message>
+        <source>Invert colors</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Inverti colori</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Caratteri...</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Sc&amp;hermo intero</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Presentazione...</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Scheda &amp;precedente</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">S&amp;cheda successiva</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Chiusi scheda</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Chiudi &amp;tutte le schede</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Chiudi tutte le schede t&amp;ranne questa</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Segnalibro &amp;precedente</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Seg&amp;nalibro successivo</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Aggiungi segnalibro</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Rimuovi segnalibro</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Rimuovi tutti i segnalibri</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Contenuti</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">I&amp;nformazioni</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;File</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Modifica</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Visualizza</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Cerca</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">St&amp;ruttura</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Proprietà</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Minia&amp;ture</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Barre degli s&amp;trumenti</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Elementi</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Schede</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Segnali&amp;bri</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">A&amp;iuto</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <comment>Model::PDFSettingsWidget|</comment>
+        <translation type="obsolete">Antialiasing:</translation>
+    </message>
+    <message>
+        <source>Text antialiasing:</source>
+        <comment>Model::PDFSettingsWidget|</comment>
+        <translation type="obsolete">Antialiasing del testo:</translation>
+    </message>
+    <message>
+        <source>Text hinting:</source>
+        <comment>Model::PDFSettingsWidget|</comment>
+        <translation type="obsolete">Approssimazione testo:</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Nome</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Tipo</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Incorporato</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Sottoinsieme</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">File</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">Sì</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>PDFDocument|</comment>
+        <translation type="obsolete">No</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>PDFPage|</comment>
+        <translation type="obsolete">Informazioni</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>PDFPage|</comment>
+        <translation type="obsolete">È necessaria la versione della libreria Poppler 0.20.1 o successiva per aggiungere o rimuovere note</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Titolo</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Creato per</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Autore</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Data di creazione</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Formato</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>PSDocument|</comment>
+        <translation type="obsolete">Livello linguaggio</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Va alla pagina %1</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Va alla pagina %1 del file «%2»</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Apre «%1»</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Modifica campo del form «%1».</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Copia &amp;testo</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Copia &amp;immagine</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Salva immagine in un &amp;file...</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Salva immagine in un file</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Avviso</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Impossibile salvare l&apos;immagine nel file «%1».</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Aggiungi &amp;testo</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Aggiungi e&amp;videnziazione</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">&amp;Rimuovi nota</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Opzioni estese</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Adatta alla pagina:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Intervalli di pagine:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Tutte le pagine</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Pagine pari</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Pagine dispari</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Impostazione pagina:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Pagina singola</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Due pagine</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Quattro pagine</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sei pagine</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Nove pagine</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Sedici pagine</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Pagine per foglio:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Dal basso verso l&apos;alto e da sinistra a destra</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Dal basso verso l&apos;alto e da destra a sinistra</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Da sinistra a destra e dal basso verso l&apos;alto</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Da sinistra a destra e dall&apos;alto verso il basso</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Da destra a sinistra e dal basso verso l&apos;alto</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Da destra a sinistra e dall&apos;alto verso il basso</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Dall&apos;alto verso il basso e da sinistra a destra</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Dall&apos;alto verso il basso e da destra a sinistra</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintOptionsWidget|</comment>
+        <translation type="obsolete">Disposizione pagine per foglio:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Non è consentito un nome vuoto dell&apos;istanza</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">L&apos;uso di &quot;--instance&quot; richiede il nome di un&apos;istanza</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">L&apos;uso di &quot;--instance&quot; non è consentito senza usare &quot;--unique&quot;</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Impossibile trovare i dati SyncTeX per «%1».</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Impossibile preparare il gestore di segnale</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Maiusc</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Ctrl</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Alt</translation>
+    </message>
+    <message>
+        <source>Shift and Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Maiusc e Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Maiusc e Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Ctrl e Alt</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">&amp;Usati di recente</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">Pulis&amp;ci elenco</translation>
+    </message>
+    <message>
+        <source>Skip backward</source>
+        <comment>Settings|</comment>
+        <translation type="obsolete">Salta indietro</translation>
+    </message>
+    <message>
+        <source>Skip forward</source>
+        <comment>Settings|</comment>
+        <translation type="obsolete">Salta avanti</translation>
+    </message>
+    <message>
+        <source>Move up</source>
+        <comment>Settings|</comment>
+        <translation type="obsolete">Sposta su</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Generali</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Co&amp;mportamento</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Grafiche</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Interfaccia</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Modificatori</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Predefiniti</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Aprire URL:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Aggiornare automaticamente:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Effettive al riavvio.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Memorizzare usati di recente:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ripristinare schede:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ripristinare segnalibri:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Modificare impostazioni per singoli fie:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Sincronizzare presentazione:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Predefinito</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Schermo per presentazione:</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Editor sorgente:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Decorare pagine:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Decorare collegamenti:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Decorare campo del form:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Nessuna</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Durata evidenziazione:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Colore di fondo:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Colore della carta:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Pagine per riga:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Spaziatura pagina:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Spaziatura miniatura:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Dimensione miniatura:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">%1 MB</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Dimensione cache:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Prefetch:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Distanza di prefetch:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">In alto</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">In basso</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">A sinistra</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">A destra</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Posizione scheda:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Quando necessaria</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Sempre</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Mai</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Visibilità scheda:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Barra degli strumenti «File»:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Barra degli strumenti «Modifica»:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Barra degli strumenti «Visualizza»:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ingrandimento:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Rotazione:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Scorrimento:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Copia negli appunti:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Aggiungi nota:</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Espandi tutto</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Comprimi tutto</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PresentationView|</comment>
+        <translation type="obsolete">Vai alla pagina %1.</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="35"/>
@@ -893,7 +1996,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
@@ -903,17 +2006,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maiusc e Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Miusc + Alt</translation>
+        <translation type="unfinished">Maiusc e Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl e Alt</translation>
     </message>
 </context>
 <context>
@@ -932,24 +2035,19 @@
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../sources/settings.cpp" line="731"/>
-        <source>Return to page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settings.cpp" line="689"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salta indietro</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="697"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salta avanti</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="705"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sposta su</translation>
     </message>
     <message>
         <location filename="../sources/settings.cpp" line="711"/>
@@ -964,6 +2062,11 @@
     <message>
         <location filename="../sources/settings.cpp" line="723"/>
         <source>Move right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settings.cpp" line="731"/>
+        <source>Return to page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
