@@ -547,12 +547,12 @@
         <location filename="../sources/pdfmodel.cpp" line="820"/>
         <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הינטינג של הטקסט:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תצוגה מקדימה להדפסת יתר:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
@@ -567,7 +567,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מצב קווים דקים:</translation>
     </message>
 </context>
 <context>
@@ -575,12 +575,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיביות החלקת גרפיקה:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סיביות החלקת טקסט:</translation>
     </message>
 </context>
 <context>
