@@ -1015,6 +1015,29 @@ void PageItem::render(const RenderOptions& renderOptions)
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent)
 {
     setAcceptHoverEvents(false);
+
+    QFontMetrics fontMetrics = QFontMetrics(QFont());
+
+    m_textWidth = fontMetrics.width(QString::number(index + 1));
+    m_textHeight = fontMetrics.height();
+}
+
+QRectF ThumbnailItem::boundingRect() const
+{
+    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * m_textHeight);
+}
+
+void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    PageItem::paint(painter, option, widget);
+
+    QRectF boundingRect = PageItem::boundingRect();
+
+    QPointF pos = boundingRect.bottomLeft();
+    pos.rx() += 0.5 * (boundingRect.width() - m_textWidth);
+    pos.ry() += m_textHeight;
+
+    painter->drawText(pos, QString::number(index() + 1));
 }
 
 void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)

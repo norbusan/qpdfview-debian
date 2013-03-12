@@ -237,6 +237,9 @@ class ThumbnailItem : public PageItem
 public:
     ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
 
+    QRectF boundingRect() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
@@ -247,6 +250,10 @@ protected:
 
 private slots:
     void loadInteractiveElements();
+
+private:
+    int m_textWidth;
+    int m_textHeight;
 
 };
 

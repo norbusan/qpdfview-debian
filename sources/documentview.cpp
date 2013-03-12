@@ -2206,8 +2206,6 @@ void DocumentView::prepareThumbnails()
     m_thumbnailItems.clear();
     m_thumbnailItems.reserve(m_numberOfPages);
 
-//    m_thumbnailsScene->clear();
-
     for(int index = 0; index < m_numberOfPages; ++index)
     {
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
@@ -2509,14 +2507,6 @@ void DocumentView::prepareThumbnailsScene()
         left = qMin(left, -0.5f * boundingRect.width() - s_thumbnailSpacing);
         right = qMax(right, 0.5f * boundingRect.width() + s_thumbnailSpacing);
         height += boundingRect.height() + s_thumbnailSpacing;
-
-        // prepare label
-
-//        QGraphicsSimpleTextItem* text = m_thumbnailsScene->addSimpleText(QString::number(index + 1));
-
-//        text->setPos(-0.5 * text->boundingRect().width(), height);
-
-//        height += text->boundingRect().height() + s_thumbnailSpacing;
     }
 
     m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
