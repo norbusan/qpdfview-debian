@@ -842,6 +842,9 @@ void MainWindow::on_print_triggered()
     QPrinter* printer = new QPrinter();
     QPrintDialog* printDialog = new QPrintDialog(printer, this);
 
+    m_settings->printing()->restorePrinterSettings(printer);
+    PrintOptions printOptions = m_settings->printing()->printOptions();
+
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
 
@@ -854,7 +857,7 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(this);
+    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(printOptions, this);
 
     printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
 
@@ -870,7 +873,12 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-        if(!currentTab()->print(printer, printOptionsWidget->printOptions()))
+        printOptions = printOptionsWidget->printOptions();
+
+        m_settings->printing()->savePrinterSettings(printer);
+        m_settings->printing()->setPrintOptions(printOptions);
+
+        if(!currentTab()->print(printer, printOptions))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
         }

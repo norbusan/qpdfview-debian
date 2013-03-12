@@ -23,7 +23,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MY_SETTINGS_H
 #define MY_SETTINGS_H
 
+class QPrinter;
 class QSettings;
+
+struct PrintOptions;
 
 #include "global.h"
 #include "miscellaneous.h"
@@ -245,6 +248,27 @@ public:
     MainWindow* mainWindow();
     const MainWindow* mainWindow() const;
 
+    // printing
+
+    class Printing
+    {
+    public:
+        Printing(QSettings* settings);
+
+        void restorePrinterSettings(QPrinter* printer);
+        void savePrinterSettings(const QPrinter* printer);
+
+        PrintOptions printOptions();
+        void setPrintOptions(const PrintOptions& printOptions);
+
+    private:
+        QSettings* m_settings;
+
+    };
+
+    Printing* printing();
+    const Printing* printing() const;
+
     // shortcuts
 
     class Shortcuts
@@ -293,6 +317,7 @@ private:
     DocumentView* m_documentView;
     MainWindow* m_mainWindow;
 
+    Printing* m_printing;
     Shortcuts* m_shortcuts;
 
 };

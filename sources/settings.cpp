@@ -47,6 +47,7 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_documentView = new DocumentView(m_settings);
     m_mainWindow = new MainWindow(m_settings);
 
+    m_printing = new Printing(m_settings);
     m_shortcuts = new Shortcuts(m_settings);
 }
 
@@ -57,6 +58,7 @@ Settings::~Settings()
     delete m_documentView;
     delete m_mainWindow;
 
+    delete m_printing;
     delete m_shortcuts;
 }
 
@@ -98,6 +100,16 @@ Settings::MainWindow* Settings::mainWindow()
 const Settings::MainWindow* Settings::mainWindow() const
 {
     return m_mainWindow;
+}
+
+Settings::Printing* Settings::printing()
+{
+    return m_printing;
+}
+
+const Settings::Printing* Settings::printing() const
+{
+    return m_printing;
 }
 
 Settings::Shortcuts* Settings::shortcuts()
@@ -677,6 +689,26 @@ QStringList Settings::MainWindow::trimmed(const QStringList& list)
     }
 
     return result;
+}
+
+
+Settings::Printing::Printing(QSettings* settings) : m_settings(settings) {}
+
+void Settings::Printing::restorePrinterSettings(QPrinter* printer)
+{
+}
+
+void Settings::Printing::savePrinterSettings(const QPrinter* printer)
+{
+}
+
+PrintOptions Settings::Printing::printOptions()
+{
+    return PrintOptions();
+}
+
+void Settings::Printing::setPrintOptions(const PrintOptions& printOptions)
+{
 }
 
 Settings::Shortcuts::Shortcuts(QSettings* settings) :
