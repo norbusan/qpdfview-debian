@@ -135,6 +135,8 @@ private:
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
 
+    QCheckBox* m_limitThumbnailsToResultsCheckBox;
+
     void createInterfaceTab();
 
     // modifiers

@@ -110,7 +110,7 @@ const Settings::Shortcuts* Settings::shortcuts() const
     return m_shortcuts;
 }
 
-void Settings::refresh()
+void Settings::sync()
 {
     m_shortcuts->sync();
     m_settings->sync();
@@ -138,6 +138,8 @@ void Settings::refresh()
     ::DocumentView::setPrefetchDistance(documentView()->prefetchDistance());
 
     ::DocumentView::setPagesPerRow(documentView()->pagesPerRow());
+
+    ::DocumentView::setLimitThumbnailsToResults(documentView()->limitThumbnailsToResults());
 
     ::DocumentView::setPageSpacing(documentView()->pageSpacing());
     ::DocumentView::setThumbnailSpacing(documentView()->thumbnailSpacing());
@@ -329,6 +331,16 @@ int Settings::DocumentView::pagesPerRow() const
 void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
     m_settings->setValue("documentView/pagesPerRow", pagesPerRow);
+}
+
+bool Settings::DocumentView::limitThumbnailsToResults() const
+{
+    return m_settings->value("documentView/limitThumbnailsToResults", Defaults::DocumentView::limitThumbnailsToResults()).toBool();
+}
+
+void Settings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
+{
+    m_settings->setValue("documentView/limitThumbnailsToResults", limitThumbnailsToResults);
 }
 
 qreal Settings::DocumentView::pageSpacing() const

@@ -119,6 +119,9 @@ public:
         int pagesPerRow() const;
         void setPagesPerRow(int pagesPerRow);
 
+        bool limitThumbnailsToResults() const;
+        void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
+
         qreal pageSpacing() const;
         void setPageSpacing(qreal pageSpacing);
 
@@ -283,7 +286,7 @@ public:
     const Shortcuts* shortcuts() const;
 
 public slots:
-    void refresh();
+    void sync();
 
 private:
     QSettings* m_settings;
@@ -342,6 +345,8 @@ public:
         static inline int prefetchDistance() { return 1; }
 
         static inline int pagesPerRow() { return 3; }
+
+        static inline bool limitThumbnailsToResults() { return false; }
 
         static inline qreal pageSpacing() { return 5.0; }
         static inline qreal thumbnailSpacing() { return 3.0; }

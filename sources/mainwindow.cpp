@@ -82,7 +82,7 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
 
         m_settings = new Settings(this);
 
-        m_settings->refresh();
+        m_settings->sync();
 
         if(m_settings->mainWindow()->hasIconTheme())
         {
@@ -1019,7 +1019,7 @@ void MainWindow::on_settings_triggered()
 
     if(settingsDialog->exec() == QDialog::Accepted)
     {
-        m_settings->refresh();
+        m_settings->sync();
 
         m_tabWidget->setTabPosition(m_settings->mainWindow()->tabPosition());
         m_tabWidget->setTabBarPolicy(m_settings->mainWindow()->tabVisibility());

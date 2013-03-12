@@ -184,6 +184,8 @@ void SettingsDialog::accept()
     m_settings->mainWindow()->setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     m_settings->mainWindow()->setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
+    m_settings->documentView()->setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
+
     // modifiers
 
     m_settings->documentView()->setZoomModifiers(static_cast<Qt::KeyboardModifier>(m_zoomModifiersComboBox->itemData(m_zoomModifiersComboBox->currentIndex()).toInt()));
@@ -265,6 +267,8 @@ void SettingsDialog::on_defaults_clicked()
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+
+    m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
 
     // modifiers
 
@@ -523,6 +527,13 @@ void SettingsDialog::createInterfaceTab()
     m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+
+    // limit thumbnails to results
+
+    m_limitThumbnailsToResultsCheckBox = new QCheckBox(this);
+    m_limitThumbnailsToResultsCheckBox->setChecked(m_settings->documentView()->limitThumbnailsToResults());
+
+    m_interfaceLayout->addRow(tr("Limit thumnails to results:"), m_limitThumbnailsToResultsCheckBox);
 }
 
 void SettingsDialog::createModifiersTab()
