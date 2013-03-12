@@ -984,7 +984,9 @@ void DocumentView::jumpToHighlight(const QRectF& highlight)
 {
     PageItem* page = m_pageItems.at(m_currentPage - 1);
 
-    page->setHighlights(QList< QRectF >() << highlight, s_highlightDuration);
+    page->setHighlights(QList< QRectF >() << highlight);
+
+    QTimer::singleShot(s_highlightDuration, page, SLOT(clearHighlights()));
 
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
     centerOn(page->transform().mapRect(highlight).translated(page->pos()).center());

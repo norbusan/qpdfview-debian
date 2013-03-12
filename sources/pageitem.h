@@ -85,7 +85,7 @@ public:
     void setInvertColors(bool invertColors);
 
     const QList< QRectF >& highlights() const;
-    void setHighlights(const QList< QRectF >& highlights, int duration = 0);
+    void setHighlights(const QList< QRectF >& highlights);
 
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
