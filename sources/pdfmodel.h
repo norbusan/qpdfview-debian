@@ -85,7 +85,7 @@ private:
 
 class PDFPage : public Page
 {
-    Q_DECLARE_TR_FUNCTIONS(PDFPage)
+    Q_DECLARE_TR_FUNCTIONS(Model::PDFPage)
 
     friend class PDFDocument;
 
@@ -120,7 +120,7 @@ private:
 
 class PDFDocument : public Document
 {
-    Q_DECLARE_TR_FUNCTIONS(PDFDocument)
+    Q_DECLARE_TR_FUNCTIONS(Model::PDFDocument)
 
     friend class PDFDocumentLoader;
 

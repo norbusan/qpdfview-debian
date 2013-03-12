@@ -61,7 +61,7 @@ private:
 
 class PSDocument : public Document
 {
-    Q_DECLARE_TR_FUNCTIONS(PSDocument)
+    Q_DECLARE_TR_FUNCTIONS(Model::PSDocument)
 
     friend class PSDocumentLoader;
 
