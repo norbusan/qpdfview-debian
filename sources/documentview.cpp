@@ -738,14 +738,14 @@ QStandardItemModel* DocumentView::fontsModel()
     return fontsModel;
 }
 
+const QVector< ThumbnailItem* >& DocumentView::thumbnailItems() const
+{
+    return m_thumbnailItems;
+}
+
 QGraphicsScene* DocumentView::thumbnailsScene() const
 {
     return m_thumbnailsScene;
-}
-
-const QVector< ThumbnailItem* >& DocumentView::thumbnails() const
-{
-    return m_thumbnailItems;
 }
 
 void DocumentView::show()
@@ -2485,6 +2485,8 @@ void DocumentView::prepareThumbnailsScene()
         if(s_limitThumbnailsToResults && !m_results.isEmpty() && !m_results.contains(index))
         {
             page->setVisible(false);
+
+            page->cancelRender();
 
             continue;
         }

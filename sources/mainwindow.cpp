@@ -510,7 +510,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnails().at(currentPage - 1));
+        m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
     }
 }
 
@@ -1453,7 +1453,7 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     {
         QRectF visibleRect = m_thumbnailsView->mapToScene(m_thumbnailsView->viewport()->rect()).boundingRect();
 
-        foreach(ThumbnailItem* page, currentTab()->thumbnails())
+        foreach(ThumbnailItem* page, currentTab()->thumbnailItems())
         {
             if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
             {

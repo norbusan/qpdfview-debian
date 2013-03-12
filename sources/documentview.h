@@ -170,8 +170,8 @@ public:
     bool searchWasCanceled() const;
     int searchProgress() const;
 
+    const QVector< ThumbnailItem* >& thumbnailItems() const;
     QGraphicsScene* thumbnailsScene() const;
-    const QVector< ThumbnailItem* >& thumbnails() const;
 
     QStandardItemModel* outlineModel() const;
     QStandardItemModel* propertiesModel() const;
