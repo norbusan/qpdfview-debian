@@ -696,19 +696,54 @@ Settings::Printing::Printing(QSettings* settings) : m_settings(settings) {}
 
 void Settings::Printing::restorePrinterSettings(QPrinter* printer)
 {
+    printer->setCopyCount(m_settings->value("printing/copyCount", Defaults::Printing::copyCount()).toInt());
+    printer->setCollateCopies(m_settings->value("printing/collateCopies", Defaults::Printing::collateCopies()).toBool());
+
+    printer->setPageOrder(static_cast< QPrinter::PageOrder >(m_settings->value("printing/pageOrder", static_cast< int >(Defaults::Printing::pageOrder())).toInt()));
+
+    printer->setOrientation(static_cast< QPrinter::Orientation >(m_settings->value("printing/orientation", static_cast< int >(Defaults::Printing::orientation())).toInt()));
+
+    printer->setColorMode(static_cast< QPrinter::ColorMode >(m_settings->value("printing/colorMode", static_cast< int >(Defaults::Printing::colorMode())).toInt()));
+
+    printer->setDuplex(static_cast< QPrinter::DuplexMode >(m_settings->value("printing/duplex", static_cast< int >(Defaults::Printing::duplex())).toInt()));
 }
 
 void Settings::Printing::savePrinterSettings(const QPrinter* printer)
 {
+    m_settings->setValue("printing/copyCount", printer->copyCount());
+    m_settings->setValue("printing/collateCopies", printer->collateCopies());
+
+    m_settings->setValue("printing/pageOrder", static_cast< int >(printer->pageOrder()));
+
+    m_settings->setValue("printing/orientation", static_cast< int >(printer->orientation()));
+
+    m_settings->setValue("printing/colorMode", static_cast< int >(printer->colorMode()));
+
+    m_settings->setValue("printing/dulpex", static_cast< int >(printer->duplex()));
 }
 
 PrintOptions Settings::Printing::printOptions()
 {
-    return PrintOptions();
+    PrintOptions printOptions;
+
+    printOptions.fitToPage = m_settings->value("printing/fitToPage", Defaults::Printing::fitToPage()).toBool();
+
+    printOptions.pageSet = static_cast< PrintOptions::PageSet >(m_settings->value("printing/pageSet", static_cast< uint >(Defaults::Printing::pageSet())).toUInt());
+
+    printOptions.numberUp = static_cast< PrintOptions::NumberUp >(m_settings->value("printing/numberUp", static_cast< uint >(Defaults::Printing::numberUp())).toUInt());
+    printOptions.numberUpLayout = static_cast< PrintOptions::NumberUpLayout >(m_settings->value("printing/numberUpLayout", static_cast< uint >(Defaults::Printing::numberUpLayout())).toUInt());
+
+    return printOptions;
 }
 
 void Settings::Printing::setPrintOptions(const PrintOptions& printOptions)
 {
+    m_settings->setValue("printing/fitToPage", printOptions.fitToPage);
+
+    m_settings->setValue("printing/pageSet", static_cast< uint >(printOptions.pageSet));
+
+    m_settings->setValue("printing/numberUp", static_cast< uint >(printOptions.numberUp));
+    m_settings->setValue("printing/numberUpLayout", static_cast< uint >(printOptions.numberUpLayout));
 }
 
 Settings::Shortcuts::Shortcuts(QSettings* settings) :

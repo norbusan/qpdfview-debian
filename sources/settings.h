@@ -23,12 +23,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MY_SETTINGS_H
 #define MY_SETTINGS_H
 
-class QPrinter;
 class QSettings;
 
-struct PrintOptions;
+#include <QPrinter>
 
 #include "global.h"
+#include "printoptions.h"
 #include "miscellaneous.h"
 #include "shortcutstablemodel.h"
 
@@ -420,6 +420,32 @@ public:
 
     private:
         MainWindow() {}
+
+    };
+
+    class Printing
+    {
+    public:
+        static inline int copyCount() { return 1; }
+        static inline bool collateCopies() { return false; }
+
+        static inline QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }
+
+        static inline QPrinter::Orientation orientation() { return QPrinter::Portrait; }
+
+        static inline QPrinter::ColorMode colorMode() { return QPrinter::Color; }
+
+        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexAuto; }
+
+        static inline bool fitToPage() { return false; }
+
+        static inline PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
+
+        static inline PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
+        static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
+
+    private:
+        Printing() {}
 
     };
 
