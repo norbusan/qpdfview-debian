@@ -79,6 +79,8 @@ int DocumentView::s_prefetchDistance = 1;
 
 int DocumentView::s_pagesPerRow = 3;
 
+bool DocumentView::s_limitThumbnailsToResults = false;
+
 qreal DocumentView::s_pageSpacing = 5.0;
 qreal DocumentView::s_thumbnailSpacing = 3.0;
 
@@ -176,6 +178,16 @@ void DocumentView::setPagesPerRow(int pagesPerRow)
     {
         s_pagesPerRow = pagesPerRow;
     }
+}
+
+bool DocumentView::limitThumbnailsToResults()
+{
+    return s_limitThumbnailsToResults;
+}
+
+void DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
+{
+    s_limitThumbnailsToResults = limitThumbnailsToResults;
 }
 
 qreal DocumentView::pageSpacing()
@@ -359,7 +371,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pages(),
-    m_thumbnails(),
+    m_pageItems(),
+    m_thumbnailItems(),
     m_heightToIndex(),
     m_highlight(0),
     m_thumbnailsScene(0),
@@ -440,8 +453,10 @@ DocumentView::~DocumentView()
     m_searchThread->cancel();
     m_searchThread->wait();
 
+    qDeleteAll(m_pageItems);
+    qDeleteAll(m_thumbnailItems);
+
     qDeleteAll(m_pages);
-    qDeleteAll(m_thumbnails);
 
     delete m_document;
 }
@@ -628,12 +643,12 @@ void DocumentView::setInvertColors(bool invertColors)
     {
         m_invertColors = invertColors;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setInvertColors(m_invertColors);
         }
 
-        foreach(PageItem* page, m_thumbnails)
+        foreach(PageItem* page, m_thumbnailItems)
         {
             page->setInvertColors(m_invertColors);
         }
@@ -657,14 +672,14 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         if(m_highlightAll)
         {
-            for(int index = 0; index < m_pages.count(); ++index)
+            for(int index = 0; index < m_pageItems.count(); ++index)
             {
-                m_pages.at(index)->setHighlights(m_results.values(index));
+                m_pageItems.at(index)->setHighlights(m_results.values(index));
             }
         }
         else
         {
-            foreach(PageItem* page, m_pages)
+            foreach(PageItem* page, m_pageItems)
             {
                 page->clearHighlights();
             }
@@ -685,7 +700,7 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     {
         m_rubberBandMode = rubberBandMode;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setRubberBandMode(m_rubberBandMode);
         }
@@ -730,7 +745,7 @@ QGraphicsScene* DocumentView::thumbnailsScene() const
 
 const QVector< ThumbnailItem* >& DocumentView::thumbnails() const
 {
-    return m_thumbnails;
+    return m_thumbnailItems;
 }
 
 void DocumentView::show()
@@ -957,7 +972,7 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
 
 void DocumentView::jumpToHighlight(const QRectF& highlight)
 {
-    PageItem* page = m_pages.at(m_currentPage - 1);
+    PageItem* page = m_pageItems.at(m_currentPage - 1);
 
     page->setHighlights(QList< QRectF >() << highlight, s_highlightDuration);
 
@@ -1001,7 +1016,7 @@ void DocumentView::cancelSearch()
     m_results.clear();
     m_currentResult = m_results.end();
 
-    foreach(PageItem* page, m_pages)
+    foreach(PageItem* page, m_pageItems)
     {
         page->clearHighlights();
     }
@@ -1067,7 +1082,7 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pages.at(m_currentPage - 1)->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
         setScaleMode(ScaleFactorMode);
     }
     else
@@ -1080,7 +1095,7 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pages.at(m_currentPage - 1)->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
         setScaleMode(ScaleFactorMode);
     }
     else
@@ -1171,7 +1186,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     {
         QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
             {
@@ -1209,10 +1224,13 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
 
     if(m_highlightAll)
     {
-        m_pages.at(index)->setHighlights(m_results.values(index));
+        m_pageItems.at(index)->setHighlights(m_results.values(index));
     }
 
-    prepareThumbnailsScene();
+    if(s_limitThumbnailsToResults)
+    {
+        prepareThumbnailsScene();
+    }
 
     if(m_results.contains(index) && m_currentResult == m_results.end())
     {
@@ -1247,7 +1265,7 @@ void DocumentView::on_prefetch_timeout()
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_pages.at(index)->startRender(true);
+        m_pageItems.at(index)->startRender(true);
     }
 }
 
@@ -2095,7 +2113,7 @@ int DocumentView::rightIndexForIndex(int index) const
 
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
-    PageItem* page = m_pages.at(m_currentPage - 1);
+    PageItem* page = m_pageItems.at(m_currentPage - 1);
 
     QRectF boundingRect = page->boundingRect().translated(page->pos());
     QPointF topLeft = mapToScene(viewport()->rect().topLeft());
@@ -2111,8 +2129,10 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     cancelSearch();
 
+    qDeleteAll(m_pageItems);
+    qDeleteAll(m_thumbnailItems);
+
     qDeleteAll(m_pages);
-    qDeleteAll(m_thumbnails);
 
     if(m_document != 0)
     {
@@ -2133,17 +2153,16 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     m_document->setPaperColor(PageItem::paperColor());
 
-    QVector< Model::Page* > pages;
-
-    pages.reserve(m_numberOfPages);
+    m_pages.clear();
+    m_pages.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        pages.append(m_document->page(index));
+        m_pages.append(m_document->page(index));
     }
 
-    preparePages(pages);
-    prepareThumbnails(pages);
+    preparePages();
+    prepareThumbnails();
     prepareBackground();
 
     m_document->loadOutline(m_outlineModel);
@@ -2156,21 +2175,21 @@ void DocumentView::prepareDocument(Model::Document* document)
     }
 }
 
-void DocumentView::preparePages(const QVector< Model::Page* >& pages)
+void DocumentView::preparePages()
 {
-    m_pages.clear();
-    m_pages.reserve(m_numberOfPages);
+    m_pageItems.clear();
+    m_pageItems.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = new PageItem(pages.at(index), index);
+        PageItem* page = new PageItem(m_pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
         scene()->addItem(page);
-        m_pages.append(page);
+        m_pageItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
@@ -2182,22 +2201,22 @@ void DocumentView::preparePages(const QVector< Model::Page* >& pages)
     }
 }
 
-void DocumentView::prepareThumbnails(const QVector< Model::Page* >& pages)
+void DocumentView::prepareThumbnails()
 {
-    m_thumbnails.clear();
-    m_thumbnails.reserve(m_numberOfPages);
+    m_thumbnailItems.clear();
+    m_thumbnailItems.reserve(m_numberOfPages);
 
 //    m_thumbnailsScene->clear();
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(pages.at(index), index);
+        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
 
         m_thumbnailsScene->addItem(page);
-        m_thumbnails.append(page);
+        m_thumbnailItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
     }
@@ -2229,9 +2248,9 @@ void DocumentView::prepareScene()
 {
     // prepare scale factor and rotation
 
-    for(int index = 0; index < m_pages.count(); ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(m_scaleMode != ScaleFactorMode)
         {
@@ -2308,9 +2327,9 @@ void DocumentView::prepareScene()
     qreal right = 0.0;
     qreal height = s_pageSpacing;
 
-    for(int index = 0; index < m_pages.count(); ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
         QRectF boundingRect = page->boundingRect();
 
         switch(m_layoutMode)
@@ -2394,9 +2413,9 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    for(int index = 0; index < m_pages.count(); ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(m_continuousMode)
         {
@@ -2461,11 +2480,11 @@ void DocumentView::prepareThumbnailsScene()
     qreal right = 0.0;
     qreal height = s_thumbnailSpacing;
 
-    for(int index = 0; index < m_thumbnails.count(); ++index)
+    for(int index = 0; index < m_thumbnailItems.count(); ++index)
     {
-        PageItem* page = m_thumbnails.at(index);
+        PageItem* page = m_thumbnailItems.at(index);
 
-        if(!m_results.isEmpty() && !m_results.contains(index))
+        if(s_limitThumbnailsToResults && !m_results.isEmpty() && !m_results.contains(index))
         {
             page->setVisible(false);
 
@@ -2509,7 +2528,7 @@ void DocumentView::prepareHighlight()
     {
         jumpToPage(m_currentResult.key() + 1);
 
-        PageItem* page = m_pages.at(m_currentResult.key());
+        PageItem* page = m_pageItems.at(m_currentResult.key());
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());

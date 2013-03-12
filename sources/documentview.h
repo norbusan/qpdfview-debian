@@ -67,6 +67,9 @@ public:
     static int pagesPerRow();
     static void setPagesPerRow(int pagesPerRow);
 
+    static bool limitThumbnailsToResults();
+    static void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
+
     static qreal pageSpacing();
     static void setPageSpacing(qreal pageSpacing);
 
@@ -262,6 +265,8 @@ private:
 
     static int s_pagesPerRow;
 
+    static bool s_limitThumbnailsToResults;
+
     static qreal s_pageSpacing;
     static qreal s_thumbnailSpacing;
 
@@ -356,8 +361,10 @@ private:
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 
-    QVector< PageItem* > m_pages;
-    QVector< ThumbnailItem* > m_thumbnails;
+    QVector< Model::Page* > m_pages;
+
+    QVector< PageItem* > m_pageItems;
+    QVector< ThumbnailItem* > m_thumbnailItems;
 
     QMap< qreal, int > m_heightToIndex;
 
@@ -369,8 +376,8 @@ private:
     QStandardItemModel* m_propertiesModel;
 
     void prepareDocument(Model::Document* document);
-    void preparePages(const QVector< Model::Page* >& pages);
-    void prepareThumbnails(const QVector< Model::Page* >& pages);
+    void preparePages();
+    void prepareThumbnails();
     void prepareBackground();
 
     void prepareScene();
