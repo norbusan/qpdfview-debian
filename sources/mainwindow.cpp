@@ -190,7 +190,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
 
-        int index = m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, newTab, fileInfo.completeBaseName());
+        int index = m_tabWidget->insertTab(m_settings->mainWindow()->newTabNextToCurrentTab() ? m_tabWidget->currentIndex() + 1 : m_tabWidget->count(), newTab, fileInfo.completeBaseName());
         m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
         m_tabWidget->setCurrentIndex(index);
 

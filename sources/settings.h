@@ -208,6 +208,9 @@ public:
         TabWidget::TabBarPolicy tabVisibility() const;
         void setTabVisibility(TabWidget::TabBarPolicy tabVisibility);
 
+        bool newTabNextToCurrentTab() const;
+        void setNewTabNextToCurrentTab(bool newTabNextToCurrentTab);
+
         QStringList fileToolBar() const;
         void setFileToolBar(const QStringList& fileToolBar);
 
@@ -416,6 +419,8 @@ public:
 
         static inline QTabWidget::TabPosition tabPosition() { return QTabWidget::North; }
         static inline TabWidget::TabBarPolicy tabVisibility() { return TabWidget::TabBarAsNeeded; }
+
+        static inline bool newTabNextToCurrentTab() { return true; }
 
         static inline QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }

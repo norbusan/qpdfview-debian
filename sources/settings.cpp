@@ -581,6 +581,16 @@ void Settings::MainWindow::setTabVisibility(TabWidget::TabBarPolicy tabVisibilit
     m_settings->setValue("mainWindow/tabVisibility", static_cast< uint >(tabVisibility));
 }
 
+bool Settings::MainWindow::newTabNextToCurrentTab() const
+{
+    return m_settings->value("mainWindow/newTabNextToCurrentTab", Defaults::MainWindow::newTabNextToCurrentTab()).toBool();
+}
+
+void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab)
+{
+    m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
+}
+
 QStringList Settings::MainWindow::fileToolBar() const
 {
     return m_settings->value("mainWindow/fileToolBar", Defaults::MainWindow::fileToolBar()).toStringList();

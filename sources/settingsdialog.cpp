@@ -180,6 +180,8 @@ void SettingsDialog::accept()
     m_settings->mainWindow()->setTabPosition(static_cast< QTabWidget::TabPosition >(m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()).toUInt()));
     m_settings->mainWindow()->setTabVisibility(static_cast< TabWidget::TabBarPolicy >(m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()).toUInt()));
 
+    m_settings->mainWindow()->setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
+
     m_settings->mainWindow()->setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     m_settings->mainWindow()->setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     m_settings->mainWindow()->setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -263,6 +265,8 @@ void SettingsDialog::on_defaults_clicked()
 
     m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
+
+    m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
 
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
@@ -503,6 +507,13 @@ void SettingsDialog::createInterfaceTab()
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(m_settings->mainWindow()->tabVisibility())));
 
     m_interfaceLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
+
+    // new tab next to current tab
+
+    m_newTabNextToCurrentTabCheckBox = new QCheckBox(this);
+    m_newTabNextToCurrentTabCheckBox->setChecked(m_settings->mainWindow()->newTabNextToCurrentTab());
+
+    m_interfaceLayout->addRow(tr("New tab next to current tab:"), m_newTabNextToCurrentTabCheckBox);
 
     // file tool bar
 
