@@ -646,12 +646,8 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
 {
     QDomElement element = node.toElement();
 
-    QStandardItem* item = new QStandardItem();
-
+    QStandardItem* item = new QStandardItem(element.tagName());
     item->setFlags(Qt::ItemIsEnabled);
-
-    item->setText(element.tagName());
-    item->setToolTip(element.tagName());
 
     Poppler::LinkDestination* linkDestination = 0;
 
@@ -689,14 +685,22 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
             top = top <= 1.0 ? top : 1.0;
         }
 
+        delete linkDestination;
+
         item->setData(page, Qt::UserRole + 1);
         item->setData(left, Qt::UserRole + 2);
         item->setData(top, Qt::UserRole + 3);
 
-        delete linkDestination;
-    }
+        QStandardItem* pageItem = new QStandardItem(QString::number(page));
+        pageItem->setFlags(Qt::NoItemFlags);
+        pageItem->setTextAlignment(Qt::AlignRight);
 
-    parent->appendRow(item);
+        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
+    }
+    else
+    {
+        parent->appendRow(item);
+    }
 
     QDomNode siblingNode = node.nextSibling();
     if(!siblingNode.isNull())

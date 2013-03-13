@@ -354,6 +354,19 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         }
 
         m_outlineView->setModel(currentTab()->outlineModel());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+    m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+    m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
         m_propertiesView->setModel(currentTab()->propertiesModel());
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
@@ -441,7 +454,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
-
         m_thumbnailsView->setScene(0);
 
         setWindowTitle(QLatin1String("qpdfview"));
@@ -2298,16 +2310,7 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_outlineView->header()->setSectionResizeMode(QHeaderView::Stretch);
-
-#else
-
-    m_outlineView->header()->setResizeMode(QHeaderView::Stretch);
-
-#endif // QT_VERSION
-
+    m_outlineView->header()->setStretchLastSection(false);
     m_outlineView->header()->setVisible(false);
 
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));

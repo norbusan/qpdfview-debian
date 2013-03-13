@@ -661,16 +661,16 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
                     }
                 }
 
-                QStandardItem* item = new QStandardItem();
-
+                QStandardItem* item = new QStandardItem(title);
                 item->setFlags(Qt::ItemIsEnabled);
-
-                item->setText(title);
-                item->setToolTip(title);
 
                 item->setData(destinationPage, Qt::UserRole + 1);
 
-                parent->appendRow(item);
+                QStandardItem* pageItem = new QStandardItem(QString::number(destinationPage));
+                pageItem->setFlags(Qt::NoItemFlags);
+                pageItem->setTextAlignment(Qt::AlignRight);
+
+                parent->appendRow(QList< QStandardItem* >() << item << pageItem);
 
                 if(bookmarkLength >= 3)
                 {
