@@ -52,9 +52,7 @@ public:
 
 public slots:
     void accept();
-
-protected slots:
-    void on_defaults_clicked();
+    void reset();
 
 private:
     Settings* m_settings;

@@ -421,7 +421,6 @@ public:
     class PrintDialog
     {
     public:
-        static inline int copyCount() { return 1; }
         static inline bool collateCopies() { return false; }
 
         static inline QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }

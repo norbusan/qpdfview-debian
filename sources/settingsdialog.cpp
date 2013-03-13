@@ -104,7 +104,7 @@ SettingsDialog::SettingsDialog(Settings* settings, ShortcutsHandler* shortcutsHa
     connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
-    connect(m_defaultsButton, SIGNAL(clicked()), SLOT(on_defaults_clicked()));
+    connect(m_defaultsButton, SIGNAL(clicked()), SLOT(reset()));
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
@@ -204,7 +204,7 @@ void SettingsDialog::accept()
     m_settings->pageItem()->setAddAnnotationModifiers(static_cast<Qt::KeyboardModifier>(m_addAnnotationModifiersComboBox->itemData(m_addAnnotationModifiersComboBox->currentIndex()).toInt()));
 }
 
-void SettingsDialog::on_defaults_clicked()
+void SettingsDialog::reset()
 {
 #ifdef WITH_PDF
 
