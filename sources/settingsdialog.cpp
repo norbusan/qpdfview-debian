@@ -35,9 +35,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "model.h"
 #include "documentview.h"
 #include "settings.h"
+#include "shortcutshandler.h"
 
-SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(parent),
-    m_settings(settings)
+SettingsDialog::SettingsDialog(Settings* settings, ShortcutsHandler* shortcutsHandler, QWidget* parent) : QDialog(parent),
+    m_settings(settings),
+    m_shortcutsHandler(shortcutsHandler)
 {
     m_graphicsTabWidget = new QTabWidget(this);
     m_graphicsTabWidget->addTab(new QWidget(this), tr("General"));
@@ -67,7 +69,7 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
     m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
 
     m_shortcutsTableView = new QTableView(this);
-    m_shortcutsTableView->setModel(m_settings->shortcuts()->createTableModel(this));
+    m_shortcutsTableView->setModel(m_shortcutsHandler);
 
     m_shortcutsTableView->setFrameShape(QFrame::NoFrame);
     m_shortcutsTableView->setAlternatingRowColors(true);
@@ -136,7 +138,7 @@ void SettingsDialog::accept()
 
 #endif // WITH_PS
 
-    qobject_cast< ShortcutsTableModel* >(m_shortcutsTableView->model())->accept();
+    m_shortcutsHandler->accept();
 
     // behavior
 
@@ -220,7 +222,7 @@ void SettingsDialog::on_defaults_clicked()
 
 #endif // WITH_PS
 
-    qobject_cast< ShortcutsTableModel* >(m_shortcutsTableView->model())->reset();
+    m_shortcutsHandler->reset();
 
     // behavior
 

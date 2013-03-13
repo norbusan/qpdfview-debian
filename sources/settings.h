@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MY_SETTINGS_H
 #define MY_SETTINGS_H
 
+class QKeySequence;
 class QSettings;
 
 #include <QPrinter>
@@ -30,7 +31,6 @@ class QSettings;
 #include "global.h"
 #include "printoptions.h"
 #include "miscellaneous.h"
-#include "shortcutstablemodel.h"
 
 class Settings : public QObject
 {
@@ -296,40 +296,8 @@ public:
 
     // shortcuts
 
-    class Shortcuts
-    {
-    public:
-        Shortcuts(QSettings* settings);
-        ~Shortcuts();
-
-        void addAction(QAction* action);
-        void removeAction(QAction* action);
-
-        ShortcutsTableModel* createTableModel(QObject* parent = 0) const;
-
-        void sync();
-
-    private:
-        QSettings* m_settings;
-
-        QList< QAction* > m_actions;
-
-        QMap< QAction*, QKeySequence > m_defaultShortcuts;
-
-        QAction* m_skipBackwardAction;
-        QAction* m_skipForwardAction;
-
-        QAction* m_moveUpAction;
-        QAction* m_moveDownAction;
-        QAction* m_moveLeftAction;
-        QAction* m_moveRightAction;
-
-        QAction* m_returnToPageAction;
-
-    };
-
-    Shortcuts* shortcuts();
-    const Shortcuts* shortcuts() const;
+    QKeySequence shortcut(const QString& objectName, const QKeySequence& defaultShortcut);
+    void setShortcut(const QString& objectName, const QKeySequence& shortcut);
 
 public slots:
     void sync();
@@ -342,8 +310,6 @@ private:
     DocumentView* m_documentView;
     MainWindow* m_mainWindow;
     PrintDialog* m_printDialog;
-
-    Shortcuts* m_shortcuts;
 
 };
 

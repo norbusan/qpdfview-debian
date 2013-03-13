@@ -53,6 +53,7 @@ class ComboBox;
 class SpinBox;
 class ProgressLineEdit;
 class Settings;
+class ShortcutsHandler;
 class RecentlyUsedMenu;
 class BookmarkMenu;
 
@@ -190,6 +191,7 @@ protected:
 
 private:
     Settings* m_settings;
+    ShortcutsHandler* m_shortcutsHandler;
 
     TabWidget* m_tabWidget;
 

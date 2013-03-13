@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 
-#include <QAction>
+#include <QKeySequence>
 #include <QSettings>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -47,8 +47,6 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_documentView = new DocumentView(m_settings);
     m_mainWindow = new MainWindow(m_settings);
     m_printDialog = new PrintDialog(m_settings);
-
-    m_shortcuts = new Shortcuts(m_settings);
 }
 
 Settings::~Settings()
@@ -58,8 +56,6 @@ Settings::~Settings()
     delete m_documentView;
     delete m_mainWindow;
     delete m_printDialog;
-
-    delete m_shortcuts;
 }
 
 Settings::PageItem* Settings::pageItem()
@@ -112,19 +108,18 @@ const Settings::PrintDialog* Settings::printDialog() const
     return m_printDialog;
 }
 
-Settings::Shortcuts* Settings::shortcuts()
+QKeySequence Settings::shortcut(const QString& objectName, const QKeySequence& defaultShortcut)
 {
-    return m_shortcuts;
+    return m_settings->value("shortcuts/" + objectName, defaultShortcut).value< QKeySequence >();
 }
 
-const Settings::Shortcuts* Settings::shortcuts() const
+void Settings::setShortcut(const QString& objectName, const QKeySequence& shortcut)
 {
-    return m_shortcuts;
+    m_settings->setValue("shortcuts/" + objectName, shortcut.toString(QKeySequence::PortableText));
 }
 
 void Settings::sync()
 {
-    m_shortcuts->sync();
     m_settings->sync();
 
     ::PageItem::setCacheSize(pageItem()->cacheSize());
@@ -805,117 +800,6 @@ PrintOptions::NumberUpLayout Settings::PrintDialog::numberUpLayout()
 void Settings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout)
 {
     m_settings->setValue("printDialog/numberUpLayout", static_cast< uint >(numberUpLayout));
-}
-
-// shortcuts
-
-Settings::Shortcuts::Shortcuts(QSettings* settings) :
-    m_settings(settings),
-    m_actions(),
-    m_defaultShortcuts()
-{
-    // skip backward shortcut
-
-    m_skipBackwardAction = new QAction(tr("Skip backward"), 0);
-    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
-
-    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
-    addAction(m_skipBackwardAction);
-
-    // skip forward shortcut
-
-    m_skipForwardAction = new QAction(tr("Skip forward"), 0);
-    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
-
-    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
-    addAction(m_skipForwardAction);
-
-    // movement shortcuts
-
-    m_moveUpAction = new QAction(tr("Move up"), 0);
-    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
-
-    m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
-    addAction(m_moveUpAction);
-
-    m_moveDownAction = new QAction(tr("Move down"), 0);
-    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
-
-    m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
-    addAction(m_moveDownAction);
-
-    m_moveLeftAction = new QAction(tr("Move left"), 0);
-    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
-
-    m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
-    addAction(m_moveLeftAction);
-
-    m_moveRightAction = new QAction(tr("Move right"), 0);
-    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
-
-    m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
-    addAction(m_moveRightAction);
-
-    // return to page shortcut
-
-    m_returnToPageAction = new QAction(tr("Return to page"), 0);
-    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
-
-    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
-    addAction(m_returnToPageAction);
-}
-
-Settings::Shortcuts::~Shortcuts()
-{
-    delete m_skipBackwardAction;
-    delete m_skipForwardAction;
-
-    delete m_moveUpAction;
-    delete m_moveDownAction;
-    delete m_moveLeftAction;
-    delete m_moveRightAction;
-
-    delete m_returnToPageAction;
-}
-
-void Settings::Shortcuts::addAction(QAction* action)
-{
-    if(!action->objectName().isEmpty())
-    {
-        m_actions.append(action);
-        m_defaultShortcuts.insert(action, action->shortcut());
-
-        action->setShortcut(QKeySequence(m_settings->value("shortcuts/" + action->objectName(), action->shortcut()).value< QKeySequence >()));
-    }
-}
-
-void Settings::Shortcuts::removeAction(QAction* action)
-{
-    m_actions.removeAll(action);
-    m_defaultShortcuts.remove(action);
-}
-
-ShortcutsTableModel* Settings::Shortcuts::createTableModel(QObject* parent) const
-{
-    return new ShortcutsTableModel(m_actions, m_defaultShortcuts, parent);
-}
-
-void Settings::Shortcuts::sync()
-{
-    foreach(QAction* action, m_actions)
-    {
-        m_settings->setValue("shortcuts/" + action->objectName(), action->shortcut().toString(QKeySequence::PortableText));
-    }
-
-    ::DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
-    ::DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
-
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveUp, m_moveUpAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveDown, m_moveDownAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveLeft, m_moveLeftAction->shortcut());
-    ::DocumentView::setMovementShortcuts(::DocumentView::MoveRight, m_moveRightAction->shortcut());
-
-    ::DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 }
 
 QString Defaults::MainWindow::path()
