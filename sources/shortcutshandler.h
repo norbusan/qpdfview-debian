@@ -51,13 +51,18 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role);
 
 public slots:
-    void accept();
+    bool submit();
+    void revert();
+
     void reset();
 
 private:
     Settings* m_settings;
 
     QList< QAction* > m_actions;
+
+    QMap< QAction*, QKeySequence > m_shortcuts;
+    QMap< QAction*, QKeySequence > m_defaultShortcuts;
 
     QAction* m_skipBackwardAction;
     QAction* m_skipForwardAction;
@@ -68,9 +73,6 @@ private:
     QAction* m_moveRightAction;
 
     QAction* m_returnToPageAction;
-
-    QMap< QAction*, QKeySequence > m_shortcuts;
-    QMap< QAction*, QKeySequence > m_defaultShortcuts;
 
 };
 

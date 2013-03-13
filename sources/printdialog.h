@@ -38,9 +38,9 @@ class PrintDialog : public QPrintDialog
     Q_OBJECT
 
 public:
-    PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent = 0);
-
     static QPrinter* createPrinter(Settings* settings);
+
+    PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent = 0);
 
     PrintOptions printOptions() const;
 

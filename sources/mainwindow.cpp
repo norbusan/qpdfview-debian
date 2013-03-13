@@ -77,25 +77,21 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
 {
     setObjectName(instanceName);
 
+    m_settings = new Settings(this);
+
+    m_settings->sync();
+
+    if(m_settings->mainWindow()->hasIconTheme())
     {
-        // settings
-
-        m_settings = new Settings(this);
-
-        m_settings->sync();
-
-        if(m_settings->mainWindow()->hasIconTheme())
-        {
-            QIcon::setThemeName(m_settings->mainWindow()->iconTheme());
-        }
-
-        if(m_settings->mainWindow()->hasStyleSheet())
-        {
-            qApp->setStyleSheet(m_settings->mainWindow()->styleSheet());
-        }
-
-        m_shortcutsHandler = new ShortcutsHandler(m_settings, this);
+        QIcon::setThemeName(m_settings->mainWindow()->iconTheme());
     }
+
+    if(m_settings->mainWindow()->hasStyleSheet())
+    {
+        qApp->setStyleSheet(m_settings->mainWindow()->styleSheet());
+    }
+
+    m_shortcutsHandler = new ShortcutsHandler(m_settings, this);
 
     setAcceptDrops(true);
 
@@ -192,7 +188,17 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         m_settings->mainWindow()->setOpenPath(fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
 
-        int index = m_tabWidget->insertTab(m_settings->mainWindow()->newTabNextToCurrentTab() ? m_tabWidget->currentIndex() + 1 : m_tabWidget->count(), newTab, fileInfo.completeBaseName());
+        int index;
+
+        if(m_settings->mainWindow()->newTabNextToCurrentTab())
+        {
+            index = m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, newTab, fileInfo.completeBaseName());
+        }
+        else
+        {
+            index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
+        }
+
         m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
         m_tabWidget->setCurrentIndex(index);
 

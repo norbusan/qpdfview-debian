@@ -69,7 +69,11 @@ SettingsDialog::SettingsDialog(Settings* settings, ShortcutsHandler* shortcutsHa
     m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
 
     m_shortcutsTableView = new QTableView(this);
+
     m_shortcutsTableView->setModel(m_shortcutsHandler);
+
+    connect(this, SIGNAL(accepted()), m_shortcutsHandler, SLOT(submit()));
+    connect(this, SIGNAL(rejected()), m_shortcutsHandler, SLOT(revert()));
 
     m_shortcutsTableView->setFrameShape(QFrame::NoFrame);
     m_shortcutsTableView->setAlternatingRowColors(true);
@@ -137,8 +141,6 @@ void SettingsDialog::accept()
     }
 
 #endif // WITH_PS
-
-    m_shortcutsHandler->accept();
 
     // behavior
 

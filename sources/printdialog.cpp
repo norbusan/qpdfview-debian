@@ -30,6 +30,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "printoptions.h"
 #include "settings.h"
 
+QPrinter* PrintDialog::createPrinter(Settings* settings)
+{
+    QPrinter* printer = new QPrinter();
+
+    printer->setCollateCopies(settings->printDialog()->collateCopies());
+    printer->setPageOrder(settings->printDialog()->pageOrder());
+    printer->setOrientation(settings->printDialog()->orientation());
+    printer->setColorMode(settings->printDialog()->colorMode());
+    printer->setDuplex(settings->printDialog()->duplex());
+
+    return printer;
+}
+
 PrintDialog::PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent) : QPrintDialog(printer, parent),
     m_settings(settings)
 {
@@ -81,19 +94,6 @@ PrintDialog::PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent)
 
     m_printOptionsWidget->setWindowTitle(tr("Extended options"));
     setOptionTabs(QList< QWidget* >() << m_printOptionsWidget);
-}
-
-QPrinter* PrintDialog::createPrinter(Settings* settings)
-{
-    QPrinter* printer = new QPrinter();
-
-    printer->setCollateCopies(settings->printDialog()->collateCopies());
-    printer->setPageOrder(settings->printDialog()->pageOrder());
-    printer->setOrientation(settings->printDialog()->orientation());
-    printer->setColorMode(settings->printDialog()->colorMode());
-    printer->setDuplex(settings->printDialog()->duplex());
-
-    return printer;
 }
 
 PrintOptions PrintDialog::printOptions() const

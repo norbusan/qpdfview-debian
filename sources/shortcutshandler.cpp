@@ -194,7 +194,7 @@ bool ShortcutsHandler::setData(const QModelIndex& index, const QVariant& value, 
     return false;
 }
 
-void ShortcutsHandler::accept()
+bool ShortcutsHandler::submit()
 {
     for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
@@ -215,6 +215,16 @@ void ShortcutsHandler::accept()
     DocumentView::setMovementShortcuts(DocumentView::MoveRight, m_moveRightAction->shortcut());
 
     DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
+
+    return true;
+}
+
+void ShortcutsHandler::revert()
+{
+    for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    {
+        iterator.value() = iterator.key()->shortcut();
+    }
 }
 
 void ShortcutsHandler::reset()
