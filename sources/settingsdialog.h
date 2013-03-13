@@ -133,6 +133,8 @@ private:
 
     QCheckBox* m_newTabNextToCurrentTabCheckBox;
 
+    QCheckBox* m_currentPageInWindowTitleCheckBox;
+
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;

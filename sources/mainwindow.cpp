@@ -444,7 +444,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_thumbnailsView->setScene(0);
 
-        setWindowTitle("qpdfview");
+        setWindowTitle(QLatin1String("qpdfview"));
 
         m_currentPageSpinBox->setValue(1);
         m_currentPageSpinBox->setSuffix(" / 1");
@@ -499,7 +499,7 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
 
     if(senderIsCurrentTab())
     {
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + " - qpdfview");
+        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
     }
 }
 
@@ -509,6 +509,8 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
     {
         m_currentPageSpinBox->setRange(1, numberOfPages);
         m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
+
+        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
     }
 }
 
@@ -519,6 +521,8 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         m_currentPageSpinBox->setValue(currentPage);
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
+
+        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
     }
 }
 
@@ -1534,6 +1538,18 @@ DocumentView* MainWindow::tab(int index) const
 bool MainWindow::senderIsCurrentTab() const
 {
     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+}
+
+QString MainWindow::windowTitleSuffixForCurrentTab() const
+{
+    if(m_settings->mainWindow()->currentPageInWindowTitle())
+    {
+        return QString(" (%1 / %2) - qpdfview").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+    }
+    else
+    {
+        return QLatin1String(" - qpdfview");
+    }
 }
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const

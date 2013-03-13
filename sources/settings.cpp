@@ -586,6 +586,16 @@ void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab
     m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
 }
 
+bool Settings::MainWindow::currentPageInWindowTitle() const
+{
+    return m_settings->value("mainWindow/currentPageInWindowTitle", Defaults::MainWindow::currentPageInWindowTitle()).toBool();
+}
+
+void Settings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText)
+{
+    m_settings->setValue("mainWindow/currentPageInWindowTitle", currentPageInTabText);
+}
+
 static QStringList trimmed(const QStringList& list)
 {
     QStringList trimmedList;

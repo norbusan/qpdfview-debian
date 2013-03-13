@@ -200,6 +200,8 @@ private:
 
     bool senderIsCurrentTab() const;
 
+    QString windowTitleSuffixForCurrentTab() const;
+
     BookmarkMenu* bookmarkForCurrentTab() const;
 
     SpinBox* m_currentPageSpinBox;

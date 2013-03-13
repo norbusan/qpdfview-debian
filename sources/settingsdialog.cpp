@@ -188,6 +188,8 @@ void SettingsDialog::accept()
 
     m_settings->mainWindow()->setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
 
+    m_settings->mainWindow()->setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
+
     m_settings->mainWindow()->setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     m_settings->mainWindow()->setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     m_settings->mainWindow()->setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -271,6 +273,8 @@ void SettingsDialog::reset()
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
 
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
+
+    m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
 
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
@@ -518,6 +522,13 @@ void SettingsDialog::createInterfaceTab()
     m_newTabNextToCurrentTabCheckBox->setChecked(m_settings->mainWindow()->newTabNextToCurrentTab());
 
     m_interfaceLayout->addRow(tr("New tab next to current tab:"), m_newTabNextToCurrentTabCheckBox);
+
+    // current page in window title
+
+    m_currentPageInWindowTitleCheckBox = new QCheckBox(this);
+    m_currentPageInWindowTitleCheckBox->setChecked(m_settings->mainWindow()->currentPageInWindowTitle());
+
+    m_interfaceLayout->addRow(tr("Current page in window title:"), m_currentPageInWindowTitleCheckBox);
 
     // file tool bar
 
