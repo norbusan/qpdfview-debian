@@ -247,33 +247,52 @@ public:
     private:
         QSettings* m_settings;
 
-        QStringList trimmed(const QStringList& list);
-
     };
 
     MainWindow* mainWindow();
     const MainWindow* mainWindow() const;
 
-    // printing
+    // print dialog
 
-    class Printing
+    class PrintDialog
     {
     public:
-        Printing(QSettings* settings);
+        PrintDialog(QSettings* settings);
 
-        void restorePrinterSettings(QPrinter* printer);
-        void savePrinterSettings(const QPrinter* printer);
+        bool collateCopies();
+        void setCollateCopies(bool collateCopies);
 
-        PrintOptions printOptions();
-        void setPrintOptions(const PrintOptions& printOptions);
+        QPrinter::PageOrder pageOrder();
+        void setPageOrder(QPrinter::PageOrder pageOrder);
+
+        QPrinter::Orientation orientation();
+        void setOrientation(QPrinter::Orientation orientation);
+
+        QPrinter::ColorMode colorMode();
+        void setColorMode(QPrinter::ColorMode colorMode);
+
+        QPrinter::DuplexMode duplex();
+        void setDuplex(QPrinter::DuplexMode duplex);
+
+        bool fitToPage();
+        void setFitToPage(bool fitToPage);
+
+        PrintOptions::PageSet pageSet();
+        void setPageSet(PrintOptions::PageSet pageSet);
+
+        PrintOptions::NumberUp numberUp();
+        void setNumberUp(PrintOptions::NumberUp numberUp);
+
+        PrintOptions::NumberUpLayout numberUpLayout();
+        void setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout);
 
     private:
         QSettings* m_settings;
 
     };
 
-    Printing* printing();
-    const Printing* printing() const;
+    PrintDialog* printDialog();
+    const PrintDialog* printDialog() const;
 
     // shortcuts
 
@@ -322,8 +341,8 @@ private:
     PresentationView* m_presentationView;
     DocumentView* m_documentView;
     MainWindow* m_mainWindow;
+    PrintDialog* m_printDialog;
 
-    Printing* m_printing;
     Shortcuts* m_shortcuts;
 
 };
@@ -433,7 +452,7 @@ public:
 
     };
 
-    class Printing
+    class PrintDialog
     {
     public:
         static inline int copyCount() { return 1; }
@@ -445,7 +464,7 @@ public:
 
         static inline QPrinter::ColorMode colorMode() { return QPrinter::Color; }
 
-        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexAuto; }
+        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexNone; }
 
         static inline bool fitToPage() { return false; }
 
@@ -455,7 +474,7 @@ public:
         static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
 
     private:
-        Printing() {}
+        PrintDialog() {}
 
     };
 

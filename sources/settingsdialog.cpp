@@ -116,6 +116,8 @@ SettingsDialog::SettingsDialog(Settings* settings, QWidget* parent) : QDialog(pa
 
 void SettingsDialog::accept()
 {
+    QDialog::accept();
+
 #ifdef WITH_PDF
 
     if(m_pdfSettingsWidget != 0)
@@ -196,8 +198,6 @@ void SettingsDialog::accept()
 
     m_settings->pageItem()->setCopyToClipboardModifiers(static_cast<Qt::KeyboardModifier>(m_copyToClipboardModifiersComboBox->itemData(m_copyToClipboardModifiersComboBox->currentIndex()).toInt()));
     m_settings->pageItem()->setAddAnnotationModifiers(static_cast<Qt::KeyboardModifier>(m_addAnnotationModifiersComboBox->itemData(m_addAnnotationModifiersComboBox->currentIndex()).toInt()));
-
-    QDialog::accept();
 }
 
 void SettingsDialog::on_defaults_clicked()

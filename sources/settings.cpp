@@ -46,8 +46,8 @@ Settings::Settings(QObject* parent) : QObject(parent)
     m_presentationView = new PresentationView(m_settings);
     m_documentView = new DocumentView(m_settings);
     m_mainWindow = new MainWindow(m_settings);
+    m_printDialog = new PrintDialog(m_settings);
 
-    m_printing = new Printing(m_settings);
     m_shortcuts = new Shortcuts(m_settings);
 }
 
@@ -57,8 +57,8 @@ Settings::~Settings()
     delete m_presentationView;
     delete m_documentView;
     delete m_mainWindow;
+    delete m_printDialog;
 
-    delete m_printing;
     delete m_shortcuts;
 }
 
@@ -102,14 +102,14 @@ const Settings::MainWindow* Settings::mainWindow() const
     return m_mainWindow;
 }
 
-Settings::Printing* Settings::printing()
+Settings::PrintDialog* Settings::printDialog()
 {
-    return m_printing;
+    return m_printDialog;
 }
 
-const Settings::Printing* Settings::printing() const
+const Settings::PrintDialog* Settings::printDialog() const
 {
-    return m_printing;
+    return m_printDialog;
 }
 
 Settings::Shortcuts* Settings::shortcuts()
@@ -591,6 +591,18 @@ void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab
     m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
 }
 
+static QStringList trimmed(const QStringList& list)
+{
+    QStringList trimmedList;
+
+    foreach(QString item, list)
+    {
+        trimmedList.append(item.trimmed());
+    }
+
+    return trimmedList;
+}
+
 QStringList Settings::MainWindow::fileToolBar() const
 {
     return m_settings->value("mainWindow/fileToolBar", Defaults::MainWindow::fileToolBar()).toStringList();
@@ -701,72 +713,101 @@ void Settings::MainWindow::setContentsDialogSize(const QSize& contentsDialogSize
     m_settings->setValue("mainWindow/contentsDialogSize", contentsDialogSize);
 }
 
-QStringList Settings::MainWindow::trimmed(const QStringList& list)
+// print dialog
+
+Settings::PrintDialog::PrintDialog(QSettings* settings) : m_settings(settings) {}
+
+bool Settings::PrintDialog::collateCopies()
 {
-    QStringList result;
-
-    foreach(QString item, list)
-    {
-        result.append(item.trimmed());
-    }
-
-    return result;
+    return m_settings->value("printDialog/collateCopies", Defaults::PrintDialog::collateCopies()).toBool();
 }
 
-
-Settings::Printing::Printing(QSettings* settings) : m_settings(settings) {}
-
-void Settings::Printing::restorePrinterSettings(QPrinter* printer)
+void Settings::PrintDialog::setCollateCopies(bool collateCopies)
 {
-    printer->setCopyCount(m_settings->value("printing/copyCount", Defaults::Printing::copyCount()).toInt());
-    printer->setCollateCopies(m_settings->value("printing/collateCopies", Defaults::Printing::collateCopies()).toBool());
-
-    printer->setPageOrder(static_cast< QPrinter::PageOrder >(m_settings->value("printing/pageOrder", static_cast< int >(Defaults::Printing::pageOrder())).toInt()));
-
-    printer->setOrientation(static_cast< QPrinter::Orientation >(m_settings->value("printing/orientation", static_cast< int >(Defaults::Printing::orientation())).toInt()));
-
-    printer->setColorMode(static_cast< QPrinter::ColorMode >(m_settings->value("printing/colorMode", static_cast< int >(Defaults::Printing::colorMode())).toInt()));
-
-    printer->setDuplex(static_cast< QPrinter::DuplexMode >(m_settings->value("printing/duplex", static_cast< int >(Defaults::Printing::duplex())).toInt()));
+    m_settings->setValue("printDialog/collateCopies", collateCopies);
 }
 
-void Settings::Printing::savePrinterSettings(const QPrinter* printer)
+QPrinter::PageOrder Settings::PrintDialog::pageOrder()
 {
-    m_settings->setValue("printing/copyCount", printer->copyCount());
-    m_settings->setValue("printing/collateCopies", printer->collateCopies());
-
-    m_settings->setValue("printing/pageOrder", static_cast< int >(printer->pageOrder()));
-
-    m_settings->setValue("printing/orientation", static_cast< int >(printer->orientation()));
-
-    m_settings->setValue("printing/colorMode", static_cast< int >(printer->colorMode()));
-
-    m_settings->setValue("printing/dulpex", static_cast< int >(printer->duplex()));
+    return static_cast< QPrinter::PageOrder >(m_settings->value("printDialog/pageOrder", static_cast< int >(Defaults::PrintDialog::pageOrder())).toInt());
 }
 
-PrintOptions Settings::Printing::printOptions()
+void Settings::PrintDialog::setPageOrder(QPrinter::PageOrder pageOrder)
 {
-    PrintOptions printOptions;
-
-    printOptions.fitToPage = m_settings->value("printing/fitToPage", Defaults::Printing::fitToPage()).toBool();
-
-    printOptions.pageSet = static_cast< PrintOptions::PageSet >(m_settings->value("printing/pageSet", static_cast< uint >(Defaults::Printing::pageSet())).toUInt());
-
-    printOptions.numberUp = static_cast< PrintOptions::NumberUp >(m_settings->value("printing/numberUp", static_cast< uint >(Defaults::Printing::numberUp())).toUInt());
-    printOptions.numberUpLayout = static_cast< PrintOptions::NumberUpLayout >(m_settings->value("printing/numberUpLayout", static_cast< uint >(Defaults::Printing::numberUpLayout())).toUInt());
-
-    return printOptions;
+    m_settings->setValue("printing/pageOrder", static_cast< int >(pageOrder));
 }
 
-void Settings::Printing::setPrintOptions(const PrintOptions& printOptions)
+QPrinter::Orientation Settings::PrintDialog::orientation()
 {
-    m_settings->setValue("printing/fitToPage", printOptions.fitToPage);
-
-    m_settings->setValue("printing/pageSet", static_cast< uint >(printOptions.pageSet));
-
-    m_settings->setValue("printing/numberUp", static_cast< uint >(printOptions.numberUp));
-    m_settings->setValue("printing/numberUpLayout", static_cast< uint >(printOptions.numberUpLayout));
+    return static_cast< QPrinter::Orientation >(m_settings->value("printDialog/orientation", static_cast< int >(Defaults::PrintDialog::orientation())).toInt());
 }
+
+void Settings::PrintDialog::setOrientation(QPrinter::Orientation orientation)
+{
+    m_settings->setValue("printDialog/orientation", static_cast< int >(orientation));
+}
+
+QPrinter::ColorMode Settings::PrintDialog::colorMode()
+{
+    return static_cast< QPrinter::ColorMode >(m_settings->value("printDialog/colorMode", static_cast< int >(Defaults::PrintDialog::colorMode())).toInt());
+}
+
+void Settings::PrintDialog::setColorMode(QPrinter::ColorMode colorMode)
+{
+    m_settings->setValue("printDialog/colorMode", static_cast< int >(colorMode));
+}
+
+QPrinter::DuplexMode Settings::PrintDialog::duplex()
+{
+    return static_cast< QPrinter::DuplexMode >(m_settings->value("printDialog/duplex", static_cast< int >(Defaults::PrintDialog::duplex())).toInt());
+}
+
+void Settings::PrintDialog::setDuplex(QPrinter::DuplexMode duplex)
+{
+    m_settings->setValue("printDialog/duplex", static_cast< int >(duplex));
+}
+
+bool Settings::PrintDialog::fitToPage()
+{
+    return m_settings->value("printDialog/fitToPage", Defaults::PrintDialog::fitToPage()).toBool();
+}
+
+void Settings::PrintDialog::setFitToPage(bool fitToPage)
+{
+    m_settings->setValue("printDialog/fitToPage", fitToPage);
+}
+
+PrintOptions::PageSet Settings::PrintDialog::pageSet()
+{
+    return static_cast< PrintOptions::PageSet >(m_settings->value("printDialog/pageSet", static_cast< uint >(Defaults::PrintDialog::pageSet())).toUInt());
+}
+
+void Settings::PrintDialog::setPageSet(PrintOptions::PageSet pageSet)
+{
+    m_settings->setValue("printDialog/pageSet", static_cast< uint >(pageSet));
+}
+
+PrintOptions::NumberUp Settings::PrintDialog::numberUp()
+{
+    return static_cast< PrintOptions::NumberUp >(m_settings->value("printDialog/numberUp", static_cast< uint >(Defaults::PrintDialog::numberUp())).toUInt());
+}
+
+void Settings::PrintDialog::setNumberUp(PrintOptions::NumberUp numberUp)
+{
+    m_settings->setValue("printDialog/numberUp", static_cast< uint >(numberUp));
+}
+
+PrintOptions::NumberUpLayout Settings::PrintDialog::numberUpLayout()
+{
+    return static_cast< PrintOptions::NumberUpLayout >(m_settings->value("printDialog/numberUpLayout", static_cast< uint >(Defaults::PrintDialog::numberUpLayout())).toUInt());
+}
+
+void Settings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout)
+{
+    m_settings->setValue("printDialog/numberUpLayout", static_cast< uint >(numberUpLayout));
+}
+
+// shortcuts
 
 Settings::Shortcuts::Shortcuts(QSettings* settings) :
     m_settings(settings),

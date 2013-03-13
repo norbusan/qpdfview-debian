@@ -36,7 +36,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QPrintDialog>
 #include <QPrinter>
 #include <QScrollBar>
 #include <QShortcut>
@@ -67,8 +66,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pageitem.h"
 #include "documentview.h"
-#include "printoptionswidget.h"
 #include "settings.h"
+#include "printdialog.h"
 #include "settingsdialog.h"
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
@@ -839,11 +838,8 @@ void MainWindow::on_saveAs_triggered()
 
 void MainWindow::on_print_triggered()
 {
-    QPrinter* printer = new QPrinter();
-    QPrintDialog* printDialog = new QPrintDialog(printer, this);
-
-    m_settings->printing()->restorePrinterSettings(printer);
-    PrintOptions printOptions = m_settings->printing()->printOptions();
+    QPrinter* printer = PrintDialog::createPrinter(m_settings);
+    PrintDialog* printDialog = new PrintDialog(m_settings, printer, this);
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
@@ -857,10 +853,6 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-    PrintOptionsWidget* printOptionsWidget = new PrintOptionsWidget(printOptions, this);
-
-    printDialog->setOptionTabs(QList< QWidget* >() << printOptionsWidget);
-
     if(printDialog->exec() == QDialog::Accepted)
     {
 
@@ -873,12 +865,7 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-        printOptions = printOptionsWidget->printOptions();
-
-        m_settings->printing()->savePrinterSettings(printer);
-        m_settings->printing()->setPrintOptions(printOptions);
-
-        if(!currentTab()->print(printer, printOptions))
+        if(!currentTab()->print(printer, printDialog->printOptions()))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
         }

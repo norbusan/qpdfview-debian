@@ -19,29 +19,39 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef PRINTOPTIONSWIDGET_H
-#define PRINTOPTIONSWIDGET_H
+#ifndef PRINTDIALOG_H
+#define PRINTDIALOG_H
 
-#include <QWidget>
+#include <QPrintDialog>
 
 class QCheckBox;
 class QComboBox;
 class QFormLayout;
 class QLineEdit;
+class QPrinter;
 
-#include "printoptions.h"
+struct PrintOptions;
+class Settings;
 
-class PrintOptionsWidget : public QWidget
+class PrintDialog : public QPrintDialog
 {
     Q_OBJECT
 
 public:
-    PrintOptionsWidget(const PrintOptions& printOptions = PrintOptions(), QWidget* parent = 0);
+    PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent = 0);
+
+    static QPrinter* createPrinter(Settings* settings);
 
     PrintOptions printOptions() const;
 
+public slots:
+    void accept();
+
 private:
-    QFormLayout* m_formLayout;
+    Settings* m_settings;
+
+    QWidget* m_printOptionsWidget;
+    QFormLayout* m_printOptionsLayout;
 
     QCheckBox* m_fitToPageCheckBox;
 
@@ -53,4 +63,4 @@ private:
 
 };
 
-#endif // PRINTOPTIONSWIDGET_H
+#endif // PRINTDIALOG_H

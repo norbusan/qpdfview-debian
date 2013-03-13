@@ -14,10 +14,10 @@ HEADERS += \
     sources/presentationview.h \
     sources/printoptions.h \
     sources/documentview.h \
-    sources/printoptionswidget.h \
     sources/miscellaneous.h \
     sources/settings.h \
     sources/shortcutstablemodel.h \
+    sources/printdialog.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
@@ -29,10 +29,10 @@ SOURCES += \
     sources/searchthread.cpp \
     sources/presentationview.cpp \
     sources/documentview.cpp \
-    sources/printoptionswidget.cpp \
     sources/miscellaneous.cpp \
     sources/settings.cpp \
     sources/shortcutstablemodel.cpp \
+    sources/printdialog.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
     sources/bookmarkmenu.cpp \
