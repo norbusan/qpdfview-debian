@@ -734,7 +734,7 @@ QPrinter::PageOrder Settings::PrintDialog::pageOrder()
 
 void Settings::PrintDialog::setPageOrder(QPrinter::PageOrder pageOrder)
 {
-    m_settings->setValue("printing/pageOrder", static_cast< int >(pageOrder));
+    m_settings->setValue("printDialog/pageOrder", static_cast< int >(pageOrder));
 }
 
 QPrinter::Orientation Settings::PrintDialog::orientation()
