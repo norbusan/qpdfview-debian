@@ -73,6 +73,8 @@ public slots:
 
     bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
 
+    void startSearch(const QString& text);
+
 protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
@@ -342,6 +344,8 @@ public slots:
     bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
 
     bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
+
+    Q_NOREPLY void startSearch(const QString& text);
 
     Q_NOREPLY void raiseAndActivate();
 

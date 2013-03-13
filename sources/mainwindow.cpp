@@ -286,6 +286,17 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
     return openInNewTab(filePath, page);
 }
 
+void MainWindow::startSearch(const QString& text)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        m_searchProgressLineEdit->setText(text);
+
+        on_search_triggered();
+        on_search_timeout();
+    }
+}
+
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if(index != -1)
@@ -357,13 +368,13 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
 #else
 
-    m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-    m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
 #endif // QT_VERSION
 
@@ -448,9 +459,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         {
             m_searchTimer->stop();
             m_searchProgressLineEdit->setProgress(0);
-
-            m_searchToolBar->setVisible(false);
         }
+
+        m_searchToolBar->setVisible(false);
 
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
@@ -941,10 +952,7 @@ void MainWindow::on_jumpToPage_triggered()
 
 void MainWindow::on_search_triggered()
 {
-    if(!m_searchToolBar->isVisible())
-    {
-        m_searchToolBar->setVisible(true);
-    }
+    m_searchToolBar->setVisible(true);
 
     m_searchProgressLineEdit->selectAll();
     m_searchProgressLineEdit->setFocus();
@@ -2914,6 +2922,11 @@ bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QR
 bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
 {
     return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump, highlight);
+}
+
+void MainWindowAdaptor::startSearch(const QString& text)
+{
+    mainWindow()->startSearch(text);
 }
 
 void MainWindowAdaptor::raiseAndActivate()

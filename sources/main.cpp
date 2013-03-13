@@ -93,8 +93,13 @@ int main(int argc, char** argv)
 #endif // QT_VERSION
 
     bool unique = false;
+
     bool instanceNameIsNext = false;
     QString instanceName = "";
+
+    bool searchTextIsNext = false;
+    QString searchText = "";
+
     QList< File > files;
 
     {
@@ -123,6 +128,17 @@ int main(int argc, char** argv)
                 instanceNameIsNext = false;
                 instanceName = argument;
             }
+            else if(searchTextIsNext)
+            {
+                if(argument.isEmpty())
+                {
+                    qCritical() << QObject::tr("An empty search text is not allowed.");
+                    return 1;
+                }
+
+                searchTextIsNext = false;
+                searchText = argument;
+            }
             else if(argument == "--unique")
             {
                 unique = true;
@@ -130,6 +146,10 @@ int main(int argc, char** argv)
             else if(argument == "--instance")
             {
                 instanceNameIsNext = true;
+            }
+            else if(argument == "--search")
+            {
+                searchTextIsNext = true;
             }
             else
             {
@@ -162,9 +182,14 @@ int main(int argc, char** argv)
             return 1;
         }
 
-        if(!unique && !instanceName.isEmpty())
+        if(searchTextIsNext)
         {
-            qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
+            qCritical() << QObject::tr("Using '--search' requires a search text.");
+        }
+
+        if(!unique && (!instanceName.isEmpty() || !searchText.isEmpty()))
+        {
+            qCritical() << QObject::tr("Using '--instance' or '--search' is not allowed without using '--unique'.");
             return 1;
         }
     }
@@ -250,6 +275,11 @@ int main(int argc, char** argv)
                     }
                 }
 
+                if(!searchText.isEmpty())
+                {
+                    interface->call("startSearch", searchText);
+                }
+
                 delete interface;
                 return 0;
             }
@@ -310,6 +340,11 @@ int main(int argc, char** argv)
     foreach(File file, files)
     {
         mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox);
+    }
+
+    if(!searchText.isEmpty())
+    {
+        mainWindow->startSearch(searchText);
     }
     
     return application.exec();
