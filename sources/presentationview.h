@@ -97,7 +97,7 @@ private:
 
     bool m_invertColors;
 
-    QStack< int > m_returnToPage;
+    QStack< int > m_visitedPages;
 
     QGraphicsScene* m_pagesScene;
     QVector< PageItem* > m_pages;

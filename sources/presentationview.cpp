@@ -36,7 +36,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_currentPage(-1),
     m_rotation(RotateBy0),
     m_invertColors(false),
-    m_returnToPage(),
+    m_visitedPages(),
     m_pagesScene(0),
     m_pages()
 {
@@ -203,7 +203,7 @@ void PresentationView::jumpToPage(int page, bool returnTo)
     {
         if(returnTo)
         {
-            m_returnToPage.push(m_currentPage);
+            m_visitedPages.push(m_currentPage);
         }
 
         m_currentPage = page;
@@ -216,9 +216,9 @@ void PresentationView::jumpToPage(int page, bool returnTo)
 
 void PresentationView::returnToPage()
 {
-    if(!m_returnToPage.isEmpty())
+    if(!m_visitedPages.isEmpty())
     {
-        jumpToPage(m_returnToPage.pop(), false);
+        jumpToPage(m_visitedPages.pop(), false);
     }
 }
 

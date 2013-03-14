@@ -20,13 +20,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef MY_SETTINGS_H
-#define MY_SETTINGS_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
+#include <QPrinter>
 
 class QKeySequence;
 class QSettings;
-
-#include <QPrinter>
 
 #include "global.h"
 #include "printoptions.h"

@@ -20,8 +20,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "mainwindow.h"
-
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
@@ -42,6 +40,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_SYNCTEX
 
 #include "documentview.h"
+#include "mainwindow.h"
 
 #ifdef WITH_SIGNALS
 

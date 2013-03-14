@@ -36,9 +36,9 @@ class QStandardItemModel;
 
 namespace Model
 {
+class Page;
 class Document;
 class DocumentLoader;
-class Page;
 class SettingsWidget;
 }
 
