@@ -536,7 +536,10 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
         m_currentPageSpinBox->setRange(1, numberOfPages);
         m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        if(m_settings->mainWindow()->currentPageInWindowTitle())
+        {
+            setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        }
     }
 }
 
@@ -548,7 +551,10 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        if(m_settings->mainWindow()->currentPageInWindowTitle())
+        {
+            setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        }
     }
 }
 
