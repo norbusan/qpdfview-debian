@@ -294,6 +294,8 @@ void MainWindow::startSearch(const QString& text)
 
         on_search_triggered();
         on_search_timeout();
+
+        currentTab()->setFocus();
     }
 }
 

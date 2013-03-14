@@ -182,15 +182,15 @@ int main(int argc, char** argv)
             return 1;
         }
 
+        if(!unique && !instanceName.isEmpty())
+        {
+            qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
+            return 1;
+        }
+
         if(searchTextIsNext)
         {
             qCritical() << QObject::tr("Using '--search' requires a search text.");
-        }
-
-        if(!unique && (!instanceName.isEmpty() || !searchText.isEmpty()))
-        {
-            qCritical() << QObject::tr("Using '--instance' or '--search' is not allowed without using '--unique'.");
-            return 1;
         }
     }
 
