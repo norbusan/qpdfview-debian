@@ -290,12 +290,13 @@ void MainWindow::startSearch(const QString& text)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
+        m_searchToolBar->setVisible(true);
+
         m_searchProgressLineEdit->setText(text);
 
-        on_search_triggered();
-        on_search_timeout();
-
         currentTab()->setFocus();
+
+        QTimer::singleShot(0, this, SLOT(on_search_timeout()));
     }
 }
 
