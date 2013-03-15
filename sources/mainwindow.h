@@ -248,6 +248,7 @@ private:
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
     QAction* m_originalSizeAction;
+
     QAction* m_fitToPageWidthModeAction;
     QAction* m_fitToPageSizeModeAction;
 
@@ -263,6 +264,7 @@ private:
 
     QAction* m_previousTabAction;
     QAction* m_nextTabAction;
+
     QAction* m_closeTabAction;
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
@@ -271,6 +273,7 @@ private:
 
     QAction* m_previousBookmarkAction;
     QAction* m_nextBookmarkAction;
+
     QAction* m_addBookmarkAction;
     QAction* m_removeBookmarkAction;
     QAction* m_removeAllBookmarksAction;
