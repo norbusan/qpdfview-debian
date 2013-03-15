@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCheckBox>
 #include <QCryptographicHash>
 #include <QDateTime>
+#include <QDebug>
 #include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QDragEnterEvent>

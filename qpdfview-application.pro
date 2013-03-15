@@ -9,9 +9,10 @@ MOC_DIR = moc
 HEADERS += \
     sources/global.h \
     sources/model.h \
+    sources/rendertask.h \
     sources/pageitem.h \
-    sources/searchthread.h \
     sources/presentationview.h \
+    sources/searchthread.h \
     sources/printoptions.h \
     sources/documentview.h \
     sources/miscellaneous.h \
@@ -24,9 +25,10 @@ HEADERS += \
     sources/mainwindow.h
 
 SOURCES += \
+    sources/rendertask.cpp \
     sources/pageitem.cpp \
-    sources/searchthread.cpp \
     sources/presentationview.cpp \
+    sources/searchthread.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
     sources/settings.cpp \

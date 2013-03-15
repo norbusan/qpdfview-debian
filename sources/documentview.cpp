@@ -66,8 +66,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 #include "pageitem.h"
-#include "searchthread.h"
 #include "presentationview.h"
+#include "searchthread.h"
 
 bool DocumentView::s_openUrl = false;
 

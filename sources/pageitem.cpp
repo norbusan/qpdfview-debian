@@ -23,17 +23,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QClipboard>
-#include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QGraphicsSceneHoverEvent>
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPainter>
+#include <QThreadPool>
 #include <QTimer>
 #include <QToolTip>
 
 #include "model.h"
+#include "rendertask.h"
 
 QCache< PageItem*, QPixmap > PageItem::s_cache(32 * 1024 * 1024);
 
@@ -175,14 +176,14 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_normalizedTransform(),
     m_boundingRect(),
     m_pixmap(),
-    m_render(0)
+    m_renderTask(0)
 {
     setAcceptHoverEvents(true);
 
-    m_render = new QFutureWatcher< void >(this);
-    connect(m_render, SIGNAL(finished()), SLOT(on_render_finished()));
+    m_renderTask = new RenderTask(this);
 
-    connect(this, SIGNAL(imageReady(int,int,qreal,Rotation,bool,bool,QImage)), SLOT(on_imageReady(int,int,qreal,Rotation,bool,bool,QImage)));
+    connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
+    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,Rotation,bool,bool,QImage)));
 
     m_page = page;
 
@@ -196,8 +197,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
 PageItem::~PageItem()
 {
-    m_render->cancel();
-    m_render->waitForFinished();
+    m_renderTask->cancel();
+    QThreadPool::globalInstance()->waitForDone();
 
     s_cache.remove(this);
 
@@ -483,25 +484,25 @@ void PageItem::startRender(bool prefetch)
         return;
     }
 
-    if(!m_render->isRunning())
+    if(!m_renderTask->isRunning())
     {
-        m_render->setFuture(QtConcurrent::run(this, &PageItem::render, RenderOptions(m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, prefetch)));
+        m_renderTask->start(m_page, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, prefetch);
     }
 }
 
 void PageItem::cancelRender()
 {
-    m_render->cancel();
+    m_renderTask->cancel();
 
     m_pixmap = QPixmap();
 }
 
-void PageItem::on_render_finished()
+void PageItem::on_renderTask_finished()
 {
     update();
 }
 
-void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
+void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
 {
     if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
@@ -529,7 +530,7 @@ void PageItem::on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFact
     }
     else
     {
-        if(!m_render->isCanceled())
+        if(!m_renderTask->wasCanceled())
         {
             m_pixmap = QPixmap::fromImage(image);
         }
@@ -983,28 +984,6 @@ void PageItem::prepareGeometry()
 
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
-}
-
-void PageItem::render(const RenderOptions& renderOptions)
-{
-    if(m_render->isCanceled() && !renderOptions.prefetch)
-    {
-        return;
-    }
-
-    QImage image = m_page->render(renderOptions.physicalDpiX * renderOptions.scaleFactor, renderOptions.physicalDpiY * renderOptions.scaleFactor, renderOptions.rotation);
-
-    if(m_render->isCanceled() && !renderOptions.prefetch)
-    {
-        return;
-    }
-
-    if(renderOptions.invertColors)
-    {
-        image.invertPixels();
-    }
-
-    emit imageReady(renderOptions.physicalDpiX, renderOptions.physicalDpiY, renderOptions.scaleFactor, renderOptions.rotation, renderOptions.invertColors, renderOptions.prefetch, image);
 }
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent)

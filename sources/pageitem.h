@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define PAGEITEM_H
 
 #include <QCache>
-#include <QFutureWatcher>
 #include <QGraphicsObject>
 #include <QIcon>
 
@@ -36,6 +35,8 @@ class Annotation;
 class FormField;
 class Page;
 }
+
+class RenderTask;
 
 class PageItem : public QGraphicsObject
 {
@@ -104,8 +105,6 @@ public:
     const QTransform& normalizedTransform() const;
 
 signals:
-    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
-
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
@@ -124,8 +123,8 @@ public slots:
     void cancelRender();
 
 protected slots:
-    void on_render_finished();
-    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void on_renderTask_finished();
+    void on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -199,34 +198,7 @@ private:
 
     void prepareGeometry();
 
-    // render
-
-    struct RenderOptions
-    {
-        int physicalDpiX;
-        int physicalDpiY;
-
-        qreal scaleFactor;
-        Rotation rotation;
-
-        bool invertColors;
-
-        bool prefetch;
-
-        RenderOptions(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch) :
-            physicalDpiX(physicalDpiX),
-            physicalDpiY(physicalDpiY),
-            scaleFactor(scaleFactor),
-            rotation(rotation),
-            invertColors(invertColors),
-            prefetch(prefetch)
-        {
-        }
-
-    };
-
-    QFutureWatcher< void >* m_render;
-    void render(const RenderOptions& renderOptions);
+    RenderTask* m_renderTask;
 
 };
 
