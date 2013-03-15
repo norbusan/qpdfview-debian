@@ -19,27 +19,29 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "shortcutshandler.h"
+#include "shortcuthandler.h"
 
 #include <QAction>
-#include <QSet>
+#include <QSettings>
 
 #include "documentview.h"
 #include "settings.h"
 
-ShortcutsHandler::ShortcutsHandler(Settings* settings, QObject* parent) : QAbstractTableModel(parent),
-    m_settings(settings),
+ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
+    m_settings(0),
     m_actions(),
     m_shortcuts(),
     m_defaultShortcuts()
 {
+    m_settings = new QSettings("qpdfview", "shortcuts", this);
+
     // skip backward shortcut
 
     m_skipBackwardAction = new QAction(tr("Skip backward"), this);
     m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
 
     m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
-    addAction(m_skipBackwardAction);
+    registerAction(m_skipBackwardAction);
 
     // skip forward shortcut
 
@@ -47,7 +49,7 @@ ShortcutsHandler::ShortcutsHandler(Settings* settings, QObject* parent) : QAbstr
     m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
 
     m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
-    addAction(m_skipForwardAction);
+    registerAction(m_skipForwardAction);
 
     // movement shortcuts
 
@@ -55,25 +57,25 @@ ShortcutsHandler::ShortcutsHandler(Settings* settings, QObject* parent) : QAbstr
     m_moveUpAction->setObjectName(QLatin1String("moveUp"));
 
     m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
-    addAction(m_moveUpAction);
+    registerAction(m_moveUpAction);
 
     m_moveDownAction = new QAction(tr("Move down"), this);
     m_moveDownAction->setObjectName(QLatin1String("moveDown"));
 
     m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
-    addAction(m_moveDownAction);
+    registerAction(m_moveDownAction);
 
     m_moveLeftAction = new QAction(tr("Move left"), this);
     m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
 
     m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
-    addAction(m_moveLeftAction);
+    registerAction(m_moveLeftAction);
 
     m_moveRightAction = new QAction(tr("Move right"), this);
     m_moveRightAction->setObjectName(QLatin1String("moveRight"));
 
     m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
-    addAction(m_moveRightAction);
+    registerAction(m_moveRightAction);
 
     // return to page shortcut
 
@@ -81,15 +83,15 @@ ShortcutsHandler::ShortcutsHandler(Settings* settings, QObject* parent) : QAbstr
     m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
 
     m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
-    addAction(m_returnToPageAction);
+    registerAction(m_returnToPageAction);
 }
 
-void ShortcutsHandler::addAction(QAction* action)
+void ShortcutHandler::registerAction(QAction* action)
 {
     if(!action->objectName().isEmpty())
     {
         QKeySequence defaultShortcut = action->shortcut();
-        QKeySequence shortcut = m_settings->shortcut(action->objectName(), action->shortcut());
+        QKeySequence shortcut = m_settings->value(action->objectName(), action->shortcut()).value< QKeySequence >();
 
         action->setShortcut(shortcut);
 
@@ -99,28 +101,21 @@ void ShortcutsHandler::addAction(QAction* action)
     }
 }
 
-void ShortcutsHandler::removeAction(QAction* action)
-{
-    m_actions.removeAll(action);
-    m_shortcuts.remove(action);
-    m_defaultShortcuts.remove(action);
-}
-
-int ShortcutsHandler::columnCount(const QModelIndex& parent) const
+int ShortcutHandler::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
 
     return 2;
 }
 
-int ShortcutsHandler::rowCount(const QModelIndex& parent) const
+int ShortcutHandler::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
 
     return m_actions.count();
 }
 
-Qt::ItemFlags ShortcutsHandler::flags(const QModelIndex& index) const
+Qt::ItemFlags ShortcutHandler::flags(const QModelIndex& index) const
 {
     switch(index.column())
     {
@@ -135,7 +130,7 @@ Qt::ItemFlags ShortcutsHandler::flags(const QModelIndex& index) const
     return Qt::NoItemFlags;
 }
 
-QVariant ShortcutsHandler::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ShortcutHandler::headerData(int section, Qt::Orientation orientation, int role) const
 {
     Q_UNUSED(orientation);
 
@@ -155,7 +150,7 @@ QVariant ShortcutsHandler::headerData(int section, Qt::Orientation orientation, 
     return QVariant();
 }
 
-QVariant ShortcutsHandler::data(const QModelIndex& index, int role) const
+QVariant ShortcutHandler::data(const QModelIndex& index, int role) const
 {
     if((role == Qt::DisplayRole || role == Qt::EditRole) && index.row() >= 0 && index.row() < m_actions.count())
     {
@@ -175,7 +170,7 @@ QVariant ShortcutsHandler::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-bool ShortcutsHandler::setData(const QModelIndex& index, const QVariant& value, int role)
+bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, int role)
 {
     if(role == Qt::EditRole && index.column() == 1 && index.row() >= 0 && index.row() < m_actions.count())
     {
@@ -194,7 +189,7 @@ bool ShortcutsHandler::setData(const QModelIndex& index, const QVariant& value, 
     return false;
 }
 
-bool ShortcutsHandler::submit()
+bool ShortcutHandler::submit()
 {
     for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
@@ -203,7 +198,7 @@ bool ShortcutsHandler::submit()
 
     foreach(QAction* action, m_actions)
     {
-        m_settings->setShortcut(action->objectName(), action->shortcut());
+        m_settings->setValue(action->objectName(), action->shortcut().toString(QKeySequence::PortableText));
     }
 
     DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
@@ -219,7 +214,7 @@ bool ShortcutsHandler::submit()
     return true;
 }
 
-void ShortcutsHandler::revert()
+void ShortcutHandler::revert()
 {
     for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
@@ -227,7 +222,7 @@ void ShortcutsHandler::revert()
     }
 }
 
-void ShortcutsHandler::reset()
+void ShortcutHandler::reset()
 {
     m_shortcuts = m_defaultShortcuts;
 

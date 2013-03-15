@@ -297,11 +297,6 @@ public:
     PrintDialog* printDialog();
     const PrintDialog* printDialog() const;
 
-    // shortcuts
-
-    QKeySequence shortcut(const QString& objectName, const QKeySequence& defaultShortcut);
-    void setShortcut(const QString& objectName, const QKeySequence& shortcut);
-
 public slots:
     void sync();
 

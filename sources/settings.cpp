@@ -108,16 +108,6 @@ const Settings::PrintDialog* Settings::printDialog() const
     return m_printDialog;
 }
 
-QKeySequence Settings::shortcut(const QString& objectName, const QKeySequence& defaultShortcut)
-{
-    return m_settings->value("shortcuts/" + objectName, defaultShortcut).value< QKeySequence >();
-}
-
-void Settings::setShortcut(const QString& objectName, const QKeySequence& shortcut)
-{
-    m_settings->setValue("shortcuts/" + objectName, shortcut.toString(QKeySequence::PortableText));
-}
-
 void Settings::sync()
 {
     m_settings->sync();

@@ -19,8 +19,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SHORTCUTSHANDLER_H
-#define SHORTCUTSHANDLER_H
+#ifndef SHORTCUTHANDLER_H
+#define SHORTCUTHANDLER_H
 
 #include <QAbstractTableModel>
 #include <QKeySequence>
@@ -28,17 +28,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class QAction;
 class QSettings;
 
-class Settings;
-
-class ShortcutsHandler : public QAbstractTableModel
+class ShortcutHandler : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    ShortcutsHandler(Settings* settings, QObject* parent = 0);
+    ShortcutHandler(QObject* parent = 0);
 
-    void addAction(QAction* action);
-    void removeAction(QAction* action);
+    void registerAction(QAction* action);
 
     int columnCount(const QModelIndex& parent) const;
     int rowCount(const QModelIndex& parent) const;
@@ -57,7 +54,7 @@ public slots:
     void reset();
 
 private:
-    Settings* m_settings;
+    QSettings* m_settings;
 
     QList< QAction* > m_actions;
 
@@ -76,4 +73,4 @@ private:
 
 };
 
-#endif // SHORTCUTSHANDLER_H
+#endif // SHORTCUTHANDLER_H

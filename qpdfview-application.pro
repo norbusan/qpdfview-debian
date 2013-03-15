@@ -16,7 +16,7 @@ HEADERS += \
     sources/documentview.h \
     sources/miscellaneous.h \
     sources/settings.h \
-    sources/shortcutshandler.h \
+    sources/shortcuthandler.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
@@ -31,7 +31,7 @@ SOURCES += \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
     sources/settings.cpp \
-    sources/shortcutshandler.cpp \
+    sources/shortcuthandler.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
