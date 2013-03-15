@@ -1697,148 +1697,20 @@ void MainWindow::createActions()
     m_printAction = createAction(tr("&Print..."), QLatin1String("print"), QLatin1String("document-print"), QKeySequence::Print, SLOT(on_print_triggered()));
     m_exitAction = createAction(tr("E&xit"), QLatin1String("exit"), QIcon::fromTheme("application-exit"), QKeySequence::Quit, SLOT(close()));
 
-    // previous page
+    m_previousPageAction = createAction(tr("&Previous page"), QLatin1String("previousPage"), QLatin1String("go-previous"), QKeySequence(Qt::Key_Backspace), SLOT(on_previousPage_triggered()));
+    m_nextPageAction = createAction(tr("&Next page"), QLatin1String("nextPage"), QLatin1String("go-next"), QKeySequence(Qt::Key_Space), SLOT(on_nextPage_triggered()));
+    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QKeySequence(Qt::Key_Home), SLOT(on_firstPage_triggered()));
+    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QKeySequence(Qt::Key_End), SLOT(on_lastPage_triggered()));
 
-    m_previousPageAction = new QAction(tr("&Previous page"), this);
-    m_previousPageAction->setObjectName(QLatin1String("previousPage"));
+    m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
-    m_previousPageAction->setShortcut(QKeySequence(Qt::Key_Backspace));
-    m_shortcutHandler->registerAction(m_previousPageAction);
+    m_searchAction = createAction(tr("&Search..."), QLatin1String("search"), QLatin1String("edit-find"), QKeySequence::Find, SLOT(on_search_triggered()));
+    m_findPreviousAction = createAction(tr("Find previous"), QLatin1String("findPrevious"), QLatin1String("go-up"), QKeySequence::FindPrevious, SLOT(on_findPrevious_triggered()));
+    m_findNextAction = createAction(tr("Find next"), QLatin1String("findNext"), QLatin1String("go-down"), QKeySequence::FindNext, SLOT(on_findNext_triggered()));
+    m_cancelSearchAction = createAction(tr("Cancel search"), QLatin1String("cancelSearch"), QLatin1String("process-stop"), QKeySequence(Qt::Key_Escape), SLOT(on_cancelSearch_triggered()));
 
-    m_previousPageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":icons/go-previous.svg")));
-    m_previousPageAction->setIconVisibleInMenu(true);
-
-    connect(m_previousPageAction, SIGNAL(triggered()), SLOT(on_previousPage_triggered()));
-
-    // next page
-
-    m_nextPageAction = new QAction(tr("&Next page"), this);
-    m_nextPageAction->setObjectName(QLatin1String("nextPage"));
-
-    m_nextPageAction->setShortcut(QKeySequence(Qt::Key_Space));
-    m_shortcutHandler->registerAction(m_nextPageAction);
-
-    m_nextPageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":icons/go-next.svg")));
-    m_nextPageAction->setIconVisibleInMenu(true);
-
-    connect(m_nextPageAction, SIGNAL(triggered()), SLOT(on_nextPage_triggered()));
-
-    // first page
-
-    m_firstPageAction = new QAction(tr("&First page"), this);
-    m_firstPageAction->setObjectName(QLatin1String("firstPage"));
-
-    m_firstPageAction->setShortcut(QKeySequence(Qt::Key_Home));
-    m_shortcutHandler->registerAction(m_firstPageAction);
-
-    m_firstPageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":icons/go-first.svg")));
-    m_firstPageAction->setIconVisibleInMenu(true);
-
-    connect(m_firstPageAction, SIGNAL(triggered()), SLOT(on_firstPage_triggered()));
-
-    // last page
-
-    m_lastPageAction = new QAction(tr("&Last page"), this);
-    m_lastPageAction->setObjectName(QLatin1String("lastPage"));
-
-    m_lastPageAction->setShortcut(QKeySequence(Qt::Key_End));
-    m_shortcutHandler->registerAction(m_lastPageAction);
-
-    m_lastPageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":icons/go-last.svg")));
-    m_lastPageAction->setIconVisibleInMenu(true);
-
-    connect(m_lastPageAction, SIGNAL(triggered()), SLOT(on_lastPage_triggered()));
-
-    // jump to page
-
-    m_jumpToPageAction = new QAction(tr("&Jump to page..."), this);
-    m_jumpToPageAction->setObjectName(QLatin1String("jumpToPage"));
-
-    m_jumpToPageAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
-    m_shortcutHandler->registerAction(m_jumpToPageAction);
-
-    m_jumpToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-    m_jumpToPageAction->setIconVisibleInMenu(true);
-
-    connect(m_jumpToPageAction, SIGNAL(triggered()), SLOT(on_jumpToPage_triggered()));
-
-    // search
-
-    m_searchAction = new QAction(tr("&Search..."), this);
-    m_searchAction->setObjectName(QLatin1String("search"));
-
-    m_searchAction->setShortcut(QKeySequence::Find);
-    m_shortcutHandler->registerAction(m_searchAction);
-
-    m_searchAction->setIcon(QIcon::fromTheme("edit-find", QIcon(":icons/edit-find.svg")));
-    m_searchAction->setIconVisibleInMenu(true);
-
-    connect(m_searchAction, SIGNAL(triggered()), SLOT(on_search_triggered()));
-
-    // find previous
-
-    m_findPreviousAction = new QAction(tr("Find previous"), this);
-    m_findPreviousAction->setObjectName(QLatin1String("findPrevious"));
-
-    m_findPreviousAction->setShortcut(QKeySequence::FindPrevious);
-    m_shortcutHandler->registerAction(m_findPreviousAction);
-
-    m_findPreviousAction->setIcon(QIcon::fromTheme("go-up", QIcon(":icons/go-up.svg")));
-    m_findPreviousAction->setIconVisibleInMenu(true);
-
-    connect(m_findPreviousAction, SIGNAL(triggered()), SLOT(on_findPrevious_triggered()));
-
-    // find next
-
-    m_findNextAction = new QAction(tr("Find next"), this);
-    m_findNextAction->setObjectName(QLatin1String("findNext"));
-
-    m_findNextAction->setShortcut(QKeySequence::FindNext);
-    m_shortcutHandler->registerAction(m_findNextAction);
-
-    m_findNextAction->setIcon(QIcon::fromTheme("go-down", QIcon(":icons/go-down.svg")));
-    m_findNextAction->setIconVisibleInMenu(true);
-
-    connect(m_findNextAction, SIGNAL(triggered()), SLOT(on_findNext_triggered()));
-
-    // cancel search
-
-    m_cancelSearchAction = new QAction(tr("Cancel search"), this);
-    m_cancelSearchAction->setObjectName(QLatin1String("cancelSearch"));
-
-    m_cancelSearchAction->setShortcut(QKeySequence(Qt::Key_Escape));
-    m_shortcutHandler->registerAction(m_cancelSearchAction);
-
-    m_cancelSearchAction->setIcon(QIcon::fromTheme("process-stop", QIcon(":icons/process-stop.svg")));
-    m_cancelSearchAction->setIconVisibleInMenu(true);
-
-    connect(m_cancelSearchAction, SIGNAL(triggered()), SLOT(on_cancelSearch_triggered()));
-
-    // copy to clipboard mode
-
-    m_copyToClipboardModeAction = new QAction(tr("&Copy to clipboard"), this);
-    m_copyToClipboardModeAction->setObjectName(QLatin1String("copyToClipboardMode"));
-
-    m_copyToClipboardModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
-    m_shortcutHandler->registerAction(m_copyToClipboardModeAction);
-
-    m_copyToClipboardModeAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":icons/edit-copy.svg")));
-
-    m_copyToClipboardModeAction->setCheckable(true);
-    connect(m_copyToClipboardModeAction, SIGNAL(triggered(bool)), SLOT(on_copyToClipboardMode_triggered(bool)));
-
-    // add annotation mode
-
-    m_addAnnotationModeAction = new QAction(tr("&Add annotation"), this);
-    m_addAnnotationModeAction->setObjectName(QLatin1String("addAnnotationMode"));
-
-    m_addAnnotationModeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
-    m_shortcutHandler->registerAction(m_addAnnotationModeAction);
-
-    m_addAnnotationModeAction->setIcon(QIcon::fromTheme("mail-attachment", QIcon(":icons/mail-attachment.svg")));
-
-    m_addAnnotationModeAction->setCheckable(true);
-    connect(m_addAnnotationModeAction, SIGNAL(triggered(bool)), SLOT(on_addAnnotationMode_triggered(bool)));
+    m_copyToClipboardModeAction = createAction(tr("&Copy to clipboard"), QLatin1String("copyToClipboardMode"), QLatin1String("edit-copy"), QKeySequence(Qt::CTRL + Qt::Key_C), SLOT(on_copyToClipboardMode_triggered(bool)), true);
+    m_addAnnotationModeAction = createAction(tr("&Add annotation"), QLatin1String("addAnnotationMode"), QLatin1String("mail-attachment"), QKeySequence(Qt::CTRL + Qt::Key_A), SLOT(on_addAnnotationMode_triggered(bool)), true);
 
     // settings
 

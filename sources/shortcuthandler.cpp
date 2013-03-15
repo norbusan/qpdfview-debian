@@ -88,17 +88,16 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
 
 void ShortcutHandler::registerAction(QAction* action)
 {
-    if(!action->objectName().isEmpty())
-    {
-        QKeySequence defaultShortcut = action->shortcut();
-        QKeySequence shortcut = m_settings->value(action->objectName(), action->shortcut()).value< QKeySequence >();
+    Q_ASSERT(!action->objectName().isEmpty());
 
-        action->setShortcut(shortcut);
+    QKeySequence defaultShortcut = action->shortcut();
+    QKeySequence shortcut = m_settings->value(action->objectName(), action->shortcut()).value< QKeySequence >();
 
-        m_actions.append(action);
-        m_shortcuts.insert(action, shortcut);
-        m_defaultShortcuts.insert(action, defaultShortcut);
-    }
+    action->setShortcut(shortcut);
+
+    m_actions.append(action);
+    m_shortcuts.insert(action, shortcut);
+    m_defaultShortcuts.insert(action, defaultShortcut);
 }
 
 int ShortcutHandler::columnCount(const QModelIndex& parent) const
