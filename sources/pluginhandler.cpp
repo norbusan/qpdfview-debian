@@ -329,7 +329,7 @@ void PluginHandler::loadDjVuPlugin()
 #ifndef STATIC_DJVU_PLUGIN
         Plugin* djvuPlugin = loadPlugin(DJVU_PLUGIN_NAME);
 #else
-        Plugin* djvuPlugin = loadStaticPlugin("DjVuDocumentLoader");
+        Plugin* djvuPlugin = loadStaticPlugin("DjVuPlugin");
 #endif // STATIC_DJVU_PLUGIN
 
         if(djvuPlugin != 0)

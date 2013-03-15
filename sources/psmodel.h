@@ -40,19 +40,19 @@ class PsPlugin;
 
 namespace Model
 {
-    class PSPage : public Page
+    class PsPage : public Page
     {
-        friend class PSDocument;
+        friend class PsDocument;
 
     public:
-        ~PSPage();
+        ~PsPage();
 
         QSizeF size() const;
 
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
     private:
-        PSPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext);
+        PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext);
 
         mutable QMutex* m_mutex;
         SpectrePage* m_page;
@@ -60,14 +60,14 @@ namespace Model
 
     };
 
-    class PSDocument : public Document
+    class PsDocument : public Document
     {
         Q_DECLARE_TR_FUNCTIONS(Model::PSDocument)
 
         friend class ::PsPlugin;
 
     public:
-        ~PSDocument();
+        ~PsDocument();
 
         int numberOfPages() const;
 
@@ -83,7 +83,7 @@ namespace Model
         void loadProperties(QStandardItemModel* propertiesModel) const;
 
     private:
-        PSDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
+        PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
 
         mutable QMutex m_mutex;
         SpectreDocument* m_document;

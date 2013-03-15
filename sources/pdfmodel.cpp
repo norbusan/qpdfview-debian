@@ -34,18 +34,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "annotationdialog.h"
 #include "formfielddialog.h"
 
-Model::PDFAnnotation::PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation) :
+Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) :
     m_mutex(mutex),
     m_annotation(annotation)
 {
 }
 
-Model::PDFAnnotation::~PDFAnnotation()
+Model::PdfAnnotation::~PdfAnnotation()
 {
     delete m_annotation;
 }
 
-QRectF Model::PDFAnnotation::boundary() const
+QRectF Model::PdfAnnotation::boundary() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -56,7 +56,7 @@ QRectF Model::PDFAnnotation::boundary() const
     return m_annotation->boundary().normalized();
 }
 
-QString Model::PDFAnnotation::contents() const
+QString Model::PdfAnnotation::contents() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -67,7 +67,7 @@ QString Model::PDFAnnotation::contents() const
     return m_annotation->contents();
 }
 
-QDialog* Model::PDFAnnotation::showDialog(const QPoint& screenPos)
+QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 {
 #ifndef HAS_POPPLER_24
 
@@ -85,18 +85,18 @@ QDialog* Model::PDFAnnotation::showDialog(const QPoint& screenPos)
     return annotationDialog;
 }
 
-Model::PDFFormField::PDFFormField(QMutex* mutex, Poppler::FormField* formField) :
+Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) :
     m_mutex(mutex),
     m_formField(formField)
 {
 }
 
-Model::PDFFormField::~PDFFormField()
+Model::PdfFormField::~PdfFormField()
 {
     delete m_formField;
 }
 
-QRectF Model::PDFFormField::boundary() const
+QRectF Model::PdfFormField::boundary() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -107,7 +107,7 @@ QRectF Model::PDFFormField::boundary() const
     return m_formField->rect().normalized();
 }
 
-QString Model::PDFFormField::name() const
+QString Model::PdfFormField::name() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -118,7 +118,7 @@ QString Model::PDFFormField::name() const
     return m_formField->name();
 }
 
-QDialog* Model::PDFFormField::showDialog(const QPoint& screenPos)
+QDialog* Model::PdfFormField::showDialog(const QPoint& screenPos)
 {
 #ifndef HAS_POPPLER_24
 
@@ -147,18 +147,18 @@ QDialog* Model::PDFFormField::showDialog(const QPoint& screenPos)
     return 0;
 }
 
-Model::PDFPage::PDFPage(QMutex* mutex, Poppler::Page* page) :
+Model::PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
     m_mutex(mutex),
     m_page(page)
 {
 }
 
-Model::PDFPage::~PDFPage()
+Model::PdfPage::~PdfPage()
 {
     delete m_page;
 }
 
-QSizeF Model::PDFPage::size() const
+QSizeF Model::PdfPage::size() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -169,7 +169,7 @@ QSizeF Model::PDFPage::size() const
     return m_page->pageSizeF();
 }
 
-QImage Model::PDFPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage Model::PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -230,7 +230,7 @@ QImage Model::PDFPage::render(qreal horizontalResolution, qreal verticalResoluti
     return m_page->renderToImage(xres, yres, x, y, w, h, rotate);
 }
 
-QList< Model::Link* > Model::PDFPage::links() const
+QList< Model::Link* > Model::PdfPage::links() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -283,7 +283,7 @@ QList< Model::Link* > Model::PDFPage::links() const
     return links;
 }
 
-QString Model::PDFPage::text(const QRectF& rect) const
+QString Model::PdfPage::text(const QRectF& rect) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -294,7 +294,7 @@ QString Model::PDFPage::text(const QRectF& rect) const
     return m_page->text(rect);
 }
 
-QList< QRectF > Model::PDFPage::search(const QString& text, bool matchCase) const
+QList< QRectF > Model::PdfPage::search(const QString& text, bool matchCase) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -337,7 +337,7 @@ QList< QRectF > Model::PDFPage::search(const QString& text, bool matchCase) cons
     return results;
 }
 
-QList< Model::Annotation* > Model::PDFPage::annotations() const
+QList< Model::Annotation* > Model::PdfPage::annotations() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -351,7 +351,7 @@ QList< Model::Annotation* > Model::PDFPage::annotations() const
     {
         if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight)
         {
-            annotations.append(new PDFAnnotation(m_mutex, annotation));
+            annotations.append(new PdfAnnotation(m_mutex, annotation));
             continue;
         }
 
@@ -361,7 +361,7 @@ QList< Model::Annotation* > Model::PDFPage::annotations() const
     return annotations;
 }
 
-bool Model::PDFPage::canAddAndRemoveAnnotations() const
+bool Model::PdfPage::canAddAndRemoveAnnotations() const
 {
 #ifdef HAS_POPPLER_20
 
@@ -376,7 +376,7 @@ bool Model::PDFPage::canAddAndRemoveAnnotations() const
 #endif // HAS_POPPLER_20
 }
 
-Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
+Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary)
 {
 #ifndef HAS_POPPLER_24
 
@@ -411,7 +411,7 @@ Model::Annotation* Model::PDFPage::addTextAnnotation(const QRectF& boundary)
 #endif // HAS_POPPLER_20
 }
 
-Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary)
+Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary)
 {
 #ifndef HAS_POPPLER_24
 
@@ -455,7 +455,7 @@ Model::Annotation* Model::PDFPage::addHighlightAnnotation(const QRectF& boundary
 
 }
 
-void Model::PDFPage::removeAnnotation(Annotation* annotation)
+void Model::PdfPage::removeAnnotation(Annotation* annotation)
 {
 #ifndef HAS_POPPLER_24
 
@@ -474,7 +474,7 @@ void Model::PDFPage::removeAnnotation(Annotation* annotation)
 #endif // HAS_POPPLER_20
 }
 
-QList< Model::FormField* > Model::PDFPage::formFields() const
+QList< Model::FormField* > Model::PdfPage::formFields() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -507,13 +507,13 @@ QList< Model::FormField* > Model::PDFPage::formFields() const
                 break;
             case Poppler::FormFieldText::Normal:
             case Poppler::FormFieldText::Multiline:
-                formFields.append(new PDFFormField(m_mutex, formField));
+                formFields.append(new PdfFormField(m_mutex, formField));
                 break;
             }
 
             break;
         case Poppler::FormField::FormChoice:
-            formFields.append(new PDFFormField(m_mutex, formField));
+            formFields.append(new PdfFormField(m_mutex, formField));
             break;
         case Poppler::FormField::FormButton:
             switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
@@ -524,7 +524,7 @@ QList< Model::FormField* > Model::PDFPage::formFields() const
                 break;
             case Poppler::FormFieldButton::CheckBox:
             case Poppler::FormFieldButton::Radio:
-                formFields.append(new PDFFormField(m_mutex, formField));
+                formFields.append(new PdfFormField(m_mutex, formField));
                 break;
             }
 
@@ -535,18 +535,18 @@ QList< Model::FormField* > Model::PDFPage::formFields() const
     return formFields;
 }
 
-Model::PDFDocument::PDFDocument(Poppler::Document* document) :
+Model::PdfDocument::PdfDocument(Poppler::Document* document) :
     m_mutex(),
     m_document(document)
 {
 }
 
-Model::PDFDocument::~PDFDocument()
+Model::PdfDocument::~PdfDocument()
 {
     delete m_document;
 }
 
-int Model::PDFDocument::numberOfPages() const
+int Model::PdfDocument::numberOfPages() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -557,7 +557,7 @@ int Model::PDFDocument::numberOfPages() const
     return m_document->numPages();
 }
 
-Model::Page* Model::PDFDocument::page(int index) const
+Model::Page* Model::PdfDocument::page(int index) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -567,10 +567,10 @@ Model::Page* Model::PDFDocument::page(int index) const
 
     Poppler::Page* page = m_document->page(index);
 
-    return page != 0 ? new PDFPage(&m_mutex, page) : 0;
+    return page != 0 ? new PdfPage(&m_mutex, page) : 0;
 }
 
-bool Model::PDFDocument::isLocked() const
+bool Model::PdfDocument::isLocked() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -581,7 +581,7 @@ bool Model::PDFDocument::isLocked() const
     return m_document->isLocked();
 }
 
-bool Model::PDFDocument::unlock(const QString& password)
+bool Model::PdfDocument::unlock(const QString& password)
 {
 #ifndef HAS_POPPLER_24
 
@@ -592,17 +592,17 @@ bool Model::PDFDocument::unlock(const QString& password)
     return m_document->unlock(password.toLatin1(), password.toLatin1());
 }
 
-QStringList Model::PDFDocument::saveFilter() const
+QStringList Model::PdfDocument::saveFilter() const
 {
     return QStringList() << "Portable document format (*.pdf)";
 }
 
-bool Model::PDFDocument::canSave() const
+bool Model::PdfDocument::canSave() const
 {
     return true;
 }
 
-bool Model::PDFDocument::save(const QString& filePath, bool withChanges) const
+bool Model::PdfDocument::save(const QString& filePath, bool withChanges) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -626,12 +626,12 @@ bool Model::PDFDocument::save(const QString& filePath, bool withChanges) const
     return ok;
 }
 
-bool Model::PDFDocument::canBePrintedUsingCUPS() const
+bool Model::PdfDocument::canBePrintedUsingCUPS() const
 {
     return true;
 }
 
-void Model::PDFDocument::setPaperColor(const QColor& paperColor)
+void Model::PdfDocument::setPaperColor(const QColor& paperColor)
 {
 #ifndef HAS_POPPLER_24
 
@@ -715,7 +715,7 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
     }
 }
 
-void Model::PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
+void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -735,7 +735,7 @@ void Model::PDFDocument::loadOutline(QStandardItemModel* outlineModel) const
     }
 }
 
-void Model::PDFDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -764,7 +764,7 @@ void Model::PDFDocument::loadProperties(QStandardItemModel* propertiesModel) con
     }
 }
 
-void Model::PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
+void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
 #ifndef HAS_POPPLER_24
 
@@ -981,7 +981,7 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 #endif // HAS_POPPLER_24
     }
 
-    return document != 0 ? new Model::PDFDocument(document) : 0;
+    return document != 0 ? new Model::PdfDocument(document) : 0;
 }
 
 SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const

@@ -44,12 +44,12 @@ class PdfPlugin;
 
 namespace Model
 {
-    class PDFAnnotation : public Annotation
+    class PdfAnnotation : public Annotation
     {
-        friend class PDFPage;
+        friend class PdfPage;
 
     public:
-        ~PDFAnnotation();
+        ~PdfAnnotation();
 
         QRectF boundary() const;
         QString contents() const;
@@ -57,19 +57,19 @@ namespace Model
         QDialog* showDialog(const QPoint& screenPos);
 
     private:
-        PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
+        PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
 
         mutable QMutex* m_mutex;
         Poppler::Annotation* m_annotation;
 
     };
 
-    class PDFFormField : public FormField
+    class PdfFormField : public FormField
     {
-        friend class PDFPage;
+        friend class PdfPage;
 
     public:
-        ~PDFFormField();
+        ~PdfFormField();
 
         QRectF boundary() const;
         QString name() const;
@@ -77,21 +77,21 @@ namespace Model
         QDialog* showDialog(const QPoint& screenPos);
 
     private:
-        PDFFormField(QMutex* mutex, Poppler::FormField* formField);
+        PdfFormField(QMutex* mutex, Poppler::FormField* formField);
 
         mutable QMutex* m_mutex;
         Poppler::FormField* m_formField;
 
     };
 
-    class PDFPage : public Page
+    class PdfPage : public Page
     {
         Q_DECLARE_TR_FUNCTIONS(Model::PDFPage)
 
-        friend class PDFDocument;
+        friend class PdfDocument;
 
     public:
-        ~PDFPage();
+        ~PdfPage();
 
         QSizeF size() const;
 
@@ -112,21 +112,21 @@ namespace Model
         QList< FormField* > formFields() const;
 
     private:
-        PDFPage(QMutex* mutex, Poppler::Page* page);
+        PdfPage(QMutex* mutex, Poppler::Page* page);
 
         mutable QMutex* m_mutex;
         Poppler::Page* m_page;
 
     };
 
-    class PDFDocument : public Document
+    class PdfDocument : public Document
     {
         Q_DECLARE_TR_FUNCTIONS(Model::PDFDocument)
 
         friend class ::PdfPlugin;
 
     public:
-        ~PDFDocument();
+        ~PdfDocument();
 
         int numberOfPages() const;
 
@@ -149,7 +149,7 @@ namespace Model
         void loadFonts(QStandardItemModel* fontsModel) const;
 
     private:
-        PDFDocument(Poppler::Document* document);
+        PdfDocument(Poppler::Document* document);
 
         mutable QMutex m_mutex;
         Poppler::Document* m_document;
