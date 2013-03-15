@@ -531,17 +531,17 @@
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <location filename="../sources/pdfmodel.cpp" line="845"/>
         <source>None</source>
-        <translation type="unfinished">Žiadne</translation>
+        <translation type="unfinished">Žiadny</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="816"/>
         <source>Full</source>
-        <translation type="unfinished">Plné</translation>
+        <translation type="unfinished">Plný</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished">Zmenšené</translation>
+        <translation type="unfinished">Čiastočný</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="322"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished">Nastavenia obnovenia pre súbor:</translation>
+        <translation type="unfinished">Obnoviť nastavenie súboru:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
