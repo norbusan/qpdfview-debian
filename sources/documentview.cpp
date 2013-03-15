@@ -1017,7 +1017,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
         indices.append(index);
     }
 
-    m_searchThread->start(m_document, indices, text, matchCase);
+    m_searchThread->start(m_pages, indices, text, matchCase);
 }
 
 void DocumentView::cancelSearch()

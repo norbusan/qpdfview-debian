@@ -26,7 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 SearchThread::SearchThread(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
-    m_document(0),
+    m_pages(),
     m_indices(),
     m_text(),
     m_matchCase(false)
@@ -59,11 +59,7 @@ void SearchThread::run()
             return;
         }
 
-        Model::Page* page = m_document->page(index);
-
-        QList< QRectF > results = page->search(m_text, m_matchCase);
-
-        delete page;
+        QList< QRectF > results = m_pages.at(index)->search(m_text, m_matchCase);
 
         emit resultsReady(index, results);
 
@@ -77,9 +73,9 @@ void SearchThread::run()
     emit finished();
 }
 
-void SearchThread::start(Model::Document* document, const QList< int >& indices, const QString& text, bool matchCase)
+void SearchThread::start(const QVector< Model::Page* >& pages, const QList< int >& indices, const QString& text, bool matchCase)
 {
-    m_document = document;
+    m_pages = pages;
 
     m_indices = indices;
     m_text = text;
