@@ -44,7 +44,7 @@ class SettingsWidget;
 
 class PageItem;
 class ThumbnailItem;
-class SearchThread;
+class SearchTask;
 class PresentationView;
 
 class DocumentView : public QGraphicsView
@@ -195,9 +195,8 @@ signals:
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
-    void searchProgressed(int progress);
     void searchFinished();
-    void searchCanceled();
+    void searchProgressChanged(int progress);
 
 public slots:
     void show();
@@ -235,7 +234,7 @@ public slots:
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
 
-    void on_searchThread_resultsReady(int index, QList< QRectF > results);
+    void on_searchTask_resultsReady(int index, QList< QRectF > results);
 
     void on_prefetch_timeout();
 
@@ -392,7 +391,7 @@ private:
     QMultiMap< int, QRectF > m_results;
     QMultiMap< int, QRectF >::iterator m_currentResult;
 
-    SearchThread* m_searchThread;
+    SearchTask* m_searchTask;
 
 };
 

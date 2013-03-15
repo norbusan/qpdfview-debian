@@ -11,9 +11,9 @@ HEADERS += \
     sources/model.h \
     sources/rendertask.h \
     sources/pageitem.h \
-    sources/presentationview.h \
-    sources/searchthread.h \
     sources/printoptions.h \
+    sources/presentationview.h \
+    sources/searchtask.h \
     sources/documentview.h \
     sources/miscellaneous.h \
     sources/settings.h \
@@ -28,7 +28,7 @@ SOURCES += \
     sources/rendertask.cpp \
     sources/pageitem.cpp \
     sources/presentationview.cpp \
-    sources/searchthread.cpp \
+    sources/searchtask.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
     sources/settings.cpp \

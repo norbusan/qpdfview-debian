@@ -67,7 +67,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "model.h"
 #include "pageitem.h"
 #include "presentationview.h"
-#include "searchthread.h"
+#include "searchtask.h"
 
 bool DocumentView::s_openUrl = false;
 
@@ -379,7 +379,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_propertiesModel(0),
     m_results(),
     m_currentResult(m_results.end()),
-    m_searchThread(0)
+    m_searchTask(0)
 {
     setScene(new QGraphicsScene(this));
 
@@ -412,13 +412,12 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     // search
 
-    m_searchThread = new SearchThread(this);
+    m_searchTask = new SearchTask(this);
 
-    connect(m_searchThread, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchThread_resultsReady(int,QList<QRectF>)));
+    connect(m_searchTask, SIGNAL(finished()), SIGNAL(searchFinished()));
+    connect(m_searchTask, SIGNAL(progressChanged(int)), SIGNAL(searchProgressChanged(int)));
 
-    connect(m_searchThread, SIGNAL(progressed(int)), SIGNAL(searchProgressed(int)));
-    connect(m_searchThread, SIGNAL(finished()), SIGNAL(searchFinished()));
-    connect(m_searchThread, SIGNAL(canceled()), SIGNAL(searchCanceled()));
+    connect(m_searchTask, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchTask_resultsReady(int,QList<QRectF>)));
 
     // auto-refresh
 
@@ -449,8 +448,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
 DocumentView::~DocumentView()
 {
-    m_searchThread->cancel();
-    m_searchThread->wait();
+    m_searchTask->cancel();
+    m_searchTask->wait();
 
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
@@ -720,12 +719,12 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
 
 bool DocumentView::searchWasCanceled() const
 {
-    return m_searchThread->wasCanceled();
+    return m_searchTask->wasCanceled();
 }
 
 int DocumentView::searchProgress() const
 {
-    return m_searchThread->progress();
+    return m_searchTask->progress();
 }
 
 QStandardItemModel* DocumentView::outlineModel() const
@@ -1004,7 +1003,9 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
 
-    QList< int > indices;
+    QVector< int > indices;
+
+    indices.reserve(m_numberOfPages);
 
     for(int index = m_currentPage - 1; index < m_numberOfPages; ++index)
     {
@@ -1016,13 +1017,13 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
         indices.append(index);
     }
 
-    m_searchThread->start(m_pages, indices, text, matchCase);
+    m_searchTask->start(m_pages, indices, text, matchCase);
 }
 
 void DocumentView::cancelSearch()
 {
-    m_searchThread->cancel();
-    m_searchThread->wait();
+    m_searchTask->cancel();
+    m_searchTask->wait();
 
     m_results.clear();
     m_currentResult = m_results.end();
@@ -1226,9 +1227,9 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > results)
+void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results)
 {
-    if(m_searchThread->wasCanceled())
+    if(m_searchTask->wasCanceled())
     {
         return;
     }

@@ -39,8 +39,8 @@ class RenderTask : public QObject, QRunnable
 public:
     explicit RenderTask(QObject* parent = 0);
 
-    bool isRunning();
-    bool wasCanceled();
+    bool isRunning() const;
+    bool wasCanceled() const;
 
     void run();
 

@@ -19,11 +19,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "searchthread.h"
+#include "searchtask.h"
 
 #include "model.h"
 
-SearchThread::SearchThread(QObject* parent) : QThread(parent),
+SearchTask::SearchTask(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
     m_pages(),
@@ -33,17 +33,17 @@ SearchThread::SearchThread(QObject* parent) : QThread(parent),
 {
 }
 
-bool SearchThread::wasCanceled() const
+bool SearchTask::wasCanceled() const
 {
     return m_wasCanceled;
 }
 
-int SearchThread::progress() const
+int SearchTask::progress() const
 {
     return m_progress;
 }
 
-void SearchThread::run()
+void SearchTask::run()
 {
     int indicesDone = 0;
     int indicesToDo = m_indices.count();
@@ -54,7 +54,7 @@ void SearchThread::run()
         {
             m_progress = 0;
 
-            emit canceled();
+            emit finished();
 
             return;
         }
@@ -65,7 +65,7 @@ void SearchThread::run()
 
         m_progress = 100 * ++indicesDone / indicesToDo;
 
-        emit progressed(m_progress);
+        emit progressChanged(m_progress);
     }
 
     m_progress = 0;
@@ -73,7 +73,7 @@ void SearchThread::run()
     emit finished();
 }
 
-void SearchThread::start(const QVector< Model::Page* >& pages, const QList< int >& indices, const QString& text, bool matchCase)
+void SearchTask::start(const QVector< Model::Page* >& pages, const QVector< int >& indices, const QString& text, bool matchCase)
 {
     m_pages = pages;
 
@@ -87,7 +87,7 @@ void SearchThread::start(const QVector< Model::Page* >& pages, const QList< int 
     QThread::start();
 }
 
-void SearchThread::cancel()
+void SearchTask::cancel()
 {
     m_wasCanceled = true;
 }

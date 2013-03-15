@@ -41,12 +41,12 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     connect(this, SIGNAL(finished()), SLOT(on_finished()));
 }
 
-bool RenderTask::isRunning()
+bool RenderTask::isRunning() const
 {
     return m_isRunning;
 }
 
-bool RenderTask::wasCanceled()
+bool RenderTask::wasCanceled() const
 {
     return m_wasCanceled;
 }

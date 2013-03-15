@@ -224,9 +224,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
-        connect(newTab, SIGNAL(searchProgressed(int)), SLOT(on_currentTab_searchProgressed(int)));
         connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
-        connect(newTab, SIGNAL(searchCanceled()), SLOT(on_currentTab_searchCanceled()));
+        connect(newTab, SIGNAL(searchProgressChanged(int)), SLOT(on_currentTab_searchProgressChanged(int)));
 
         connect(newTab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
 
@@ -671,14 +670,6 @@ void MainWindow::on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMo
     }
 }
 
-void MainWindow::on_currentTab_searchProgressed(int progress)
-{
-    if(senderIsCurrentTab())
-    {
-        m_searchProgressLineEdit->setProgress(progress);
-    }
-}
-
 void MainWindow::on_currentTab_searchFinished()
 {
     if(senderIsCurrentTab())
@@ -687,11 +678,11 @@ void MainWindow::on_currentTab_searchFinished()
     }
 }
 
-void MainWindow::on_currentTab_searchCanceled()
+void MainWindow::on_currentTab_searchProgressChanged(int progress)
 {
     if(senderIsCurrentTab())
     {
-        m_searchProgressLineEdit->setProgress(0);
+        m_searchProgressLineEdit->setProgress(progress);
     }
 }
 

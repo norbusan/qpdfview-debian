@@ -95,9 +95,8 @@ protected slots:
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
-    void on_currentTab_searchProgressed(int progress);
     void on_currentTab_searchFinished();
-    void on_currentTab_searchCanceled();
+    void on_currentTab_searchProgressChanged(int progress);
 
     void on_currentTab_customContextMenuRequested(const QPoint& pos);
 
