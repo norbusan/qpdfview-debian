@@ -9,7 +9,7 @@ OBJECTS_DIR = objects-pdf
 MOC_DIR = moc-pdf
 
 HEADERS = sources/global.h sources/model.h sources/pdfmodel.h sources/annotationdialog.h sources/formfielddialog.h
-SOURCES = sources/model.cpp sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
+SOURCES = sources/pdfmodel.cpp sources/annotationdialog.cpp sources/formfielddialog.cpp
 
 QT += core xml gui
 

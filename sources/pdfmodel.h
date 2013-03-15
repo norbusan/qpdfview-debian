@@ -139,7 +139,7 @@ public:
     bool canSave() const;
     bool save(const QString& filePath, bool withChanges) const;
 
-    bool canBePrinted() const;
+    bool canBePrintedUsingCUPS() const;
 
     void setPaperColor(const QColor& paperColor);
 

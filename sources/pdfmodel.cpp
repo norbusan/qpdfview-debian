@@ -626,7 +626,7 @@ bool Model::PDFDocument::save(const QString& filePath, bool withChanges) const
     return ok;
 }
 
-bool Model::PDFDocument::canBePrinted() const
+bool Model::PDFDocument::canBePrintedUsingCUPS() const
 {
     return true;
 }

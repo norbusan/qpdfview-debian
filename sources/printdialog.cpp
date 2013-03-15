@@ -22,12 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "printdialog.h"
 
 #include <QCheckBox>
-#include <QComboBox>
 #include <QFormLayout>
-#include <QLineEdit>
-#include <QPrinter>
 
-#include "printoptions.h"
 #include "settings.h"
 
 QPrinter* PrintDialog::createPrinter(Settings* settings)

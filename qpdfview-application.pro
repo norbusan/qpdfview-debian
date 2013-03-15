@@ -24,7 +24,6 @@ HEADERS += \
     sources/mainwindow.h
 
 SOURCES += \
-    sources/model.cpp \
     sources/pageitem.cpp \
     sources/searchthread.cpp \
     sources/presentationview.cpp \

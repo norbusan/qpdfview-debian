@@ -194,7 +194,7 @@ bool Model::PSDocument::save(const QString& filePath, bool withChanges) const
     return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
 }
 
-bool Model::PSDocument::canBePrinted() const
+bool Model::PSDocument::canBePrintedUsingCUPS() const
 {
     return true;
 }

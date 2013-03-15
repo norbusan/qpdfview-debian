@@ -36,7 +36,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QProcess>
 #include <QProgressDialog>
 #include <QScrollBar>
-#include <QStandardItemModel>
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QUrl>
@@ -888,7 +887,7 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 {
 #ifdef WITH_CUPS
 
-    if(m_document->canBePrinted())
+    if(m_document->canBePrintedUsingCUPS())
     {
         return printUsingCUPS(printer, printOptions);
     }
