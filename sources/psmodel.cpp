@@ -221,7 +221,7 @@ void Model::PSDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
 }
 
-Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
+PsSettingsWidget::PsSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
     m_settings(settings)
 {
     m_layout = new QFormLayout(this);
@@ -243,26 +243,26 @@ Model::PSSettingsWidget::PSSettingsWidget(QSettings* settings, QWidget* parent) 
     m_layout->addRow(tr("Text antialias bits:"), m_textAntialisBitsSpinBox);
 }
 
-void Model::PSSettingsWidget::accept()
+void PsSettingsWidget::accept()
 {
     m_settings->setValue("graphicsAntialiasBits", m_graphicsAntialiasBitsSpinBox->value());
     m_settings->setValue("textAntialiasBits", m_textAntialisBitsSpinBox->value());
 }
 
-void Model::PSSettingsWidget::reset()
+void PsSettingsWidget::reset()
 {
     m_graphicsAntialiasBitsSpinBox->setValue(4);
     m_textAntialisBitsSpinBox->setValue(2);
 }
 
-Model::PSDocumentLoader::PSDocumentLoader(QObject* parent) : QObject(parent)
+PsPlugin::PsPlugin(QObject* parent) : QObject(parent)
 {
-    setObjectName("PSDocumentLoader");
+    setObjectName("PsPlugin");
 
     m_settings = new QSettings("qpdfview", "ps-plugin", this);
 }
 
-Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) const
+Model::Document* PsPlugin::loadDocument(const QString& filePath) const
 {
     SpectreDocument* document = spectre_document_new();
 
@@ -281,16 +281,16 @@ Model::Document* Model::PSDocumentLoader::loadDocument(const QString& filePath) 
                                               m_settings->value("graphicsAntialiasBits", 4).toInt(),
                                               m_settings->value("textAntialiasBits", 2).toInt());
 
-    return new PSDocument(document, renderContext);
+    return new Model::PSDocument(document, renderContext);
 }
 
-Model::SettingsWidget* Model::PSDocumentLoader::createSettingsWidget(QWidget* parent) const
+SettingsWidget* PsPlugin::createSettingsWidget(QWidget* parent) const
 {
-    return new PSSettingsWidget(m_settings, parent);
+    return new PsSettingsWidget(m_settings, parent);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_ps, Model::PSDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_ps, PsPlugin)
 
 #endif // QT_VERSION

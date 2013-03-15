@@ -33,6 +33,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTableView>
 
 #include "model.h"
+#include "pluginhandler.h"
 #include "documentview.h"
 #include "settings.h"
 #include "shortcuthandler.h"
@@ -46,7 +47,7 @@ SettingsDialog::SettingsDialog(Settings* settings, ShortcutHandler* shortcutHand
 
 #ifdef WITH_PDF
 
-    m_pdfSettingsWidget = DocumentView::createPDFSettingsWidget(this);
+    m_pdfSettingsWidget = PluginHandler::createPdfSettingsWidget(this);
 
     if(m_pdfSettingsWidget != 0)
     {
@@ -57,7 +58,7 @@ SettingsDialog::SettingsDialog(Settings* settings, ShortcutHandler* shortcutHand
 
 #ifdef WITH_PS
 
-    m_psSettingsWidget = DocumentView::createPSSettingsWidget(this);
+    m_psSettingsWidget = PluginHandler::createPsSettingsWidget(this);
 
     if(m_psSettingsWidget != 0)
     {

@@ -780,12 +780,12 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
     ddjvu_miniexp_release(m_document, annoExp);
 }
 
-Model::DjVuDocumentLoader::DjVuDocumentLoader(QObject* parent) : QObject(parent)
+DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent)
 {
-    setObjectName("DjVuDocumentLoader");
+    setObjectName("DjVuPlugin");
 }
 
-Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath) const
+Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
     ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
@@ -807,18 +807,11 @@ Model::Document* Model::DjVuDocumentLoader::loadDocument(const QString& filePath
         return 0;
     }
 
-    return new DjVuDocument(context, document);
-}
-
-Model::SettingsWidget* Model::DjVuDocumentLoader::createSettingsWidget(QWidget* parent) const
-{
-    Q_UNUSED(parent);
-
-    return 0;
+    return new Model::DjVuDocument(context, document);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_djvu, Model::DjVuDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_djvu, DjVuPlugin)
 
 #endif // QT_VERSION

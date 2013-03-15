@@ -792,7 +792,7 @@ void Model::PDFDocument::loadFonts(QStandardItemModel* fontsModel) const
     }
 }
 
-Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
+PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
     m_settings(settings)
 {
     m_layout = new QFormLayout(this);
@@ -856,7 +856,7 @@ Model::PDFSettingsWidget::PDFSettingsWidget(QSettings* settings, QWidget* parent
 #endif // HAS_POPPLER_24
 }
 
-void Model::PDFSettingsWidget::accept()
+void PdfSettingsWidget::accept()
 {
     m_settings->setValue("antialiasing", m_antialiasingCheckBox->isChecked());
     m_settings->setValue("textAntialiasing", m_textAntialiasingCheckBox->isChecked());
@@ -885,7 +885,7 @@ void Model::PDFSettingsWidget::accept()
 #endif // HAS_POPPLER_24
 }
 
-void Model::PDFSettingsWidget::reset()
+void PdfSettingsWidget::reset()
 {
     m_antialiasingCheckBox->setChecked(true);
     m_textAntialiasingCheckBox->setChecked(true);
@@ -913,14 +913,14 @@ void Model::PDFSettingsWidget::reset()
 #endif // HAS_POPPLER_24
 }
 
-Model::PDFDocumentLoader::PDFDocumentLoader(QObject* parent) : QObject(parent)
+PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
 {
-    setObjectName("PDFDocumentLoader");
+    setObjectName("PdfPlugin");
 
     m_settings = new QSettings("qpdfview", "pdf-plugin", this);
 }
 
-Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath) const
+Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
 
@@ -981,16 +981,16 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
 #endif // HAS_POPPLER_24
     }
 
-    return document != 0 ? new PDFDocument(document) : 0;
+    return document != 0 ? new Model::PDFDocument(document) : 0;
 }
 
-Model::SettingsWidget* Model::PDFDocumentLoader::createSettingsWidget(QWidget* parent) const
+SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const
 {
-    return new PDFSettingsWidget(m_settings, parent);
+    return new PdfSettingsWidget(m_settings, parent);
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_pdf, Model::PDFDocumentLoader)
+Q_EXPORT_PLUGIN2(qpdfview_pdf, PdfPlugin)
 
 #endif // QT_VERSION

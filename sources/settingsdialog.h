@@ -35,11 +35,7 @@ class QSpinBox;
 class QTableView;
 class QTabWidget;
 
-namespace Model
-{
 class SettingsWidget;
-}
-
 class Settings;
 class ShortcutHandler;
 
@@ -63,13 +59,13 @@ private:
 
 #ifdef WITH_PDF
 
-    Model::SettingsWidget* m_pdfSettingsWidget;
+    SettingsWidget* m_pdfSettingsWidget;
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    Model::SettingsWidget* m_psSettingsWidget;
+    SettingsWidget* m_psSettingsWidget;
 
 #endif // WITH_PS
 

@@ -31,7 +31,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPluginLoader>
 #include <QPrinter>
 #include <QProcess>
 #include <QProgressDialog>
@@ -39,12 +38,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QUrl>
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QMimeDatabase>
-
-#endif // QT_VERSION
 
 #ifdef WITH_CUPS
 
@@ -58,13 +51,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
-#ifdef WITH_MAGIC
-
-#include <magic.h>
-
-#endif // WITH_MAGIC
-
 #include "model.h"
+#include "pluginhandler.h"
 #include "pageitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
@@ -104,24 +92,6 @@ Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
 int DocumentView::s_highlightDuration = 5000;
 
 QString DocumentView::s_sourceEditor;
-
-#ifdef WITH_PDF
-
-Model::DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-Model::DocumentLoader* DocumentView::s_psDocumentLoader = 0;
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-Model::DocumentLoader* DocumentView::s_djvuDocumentLoader = 0;
-
-#endif // WITH_DJVU
 
 bool DocumentView::openUrl()
 {
@@ -327,28 +297,6 @@ void DocumentView::setSourceEditor(const QString& sourceEditor)
 {
     s_sourceEditor = sourceEditor;
 }
-
-#ifdef WITH_PDF
-
-Model::SettingsWidget* DocumentView::createPDFSettingsWidget(QWidget* parent)
-{
-    preparePDFDocumentLoader();
-
-    return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-Model::SettingsWidget* DocumentView::createPSSettingsWidget(QWidget* parent)
-{
-    preparePSDocumentLoader();
-
-    return s_psDocumentLoader != 0 ? s_psDocumentLoader->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PS
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
@@ -765,7 +713,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Model::Document* document = loadDocument(filePath);
+    Model::Document* document = PluginHandler::loadDocument(filePath);
 
     if(document != 0)
     {
@@ -806,7 +754,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Model::Document* document = loadDocument(m_filePath);
+    Model::Document* document = PluginHandler::loadDocument(m_filePath);
 
     if(document != 0)
     {
@@ -1537,266 +1485,6 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
         emit customContextMenuRequested(event->pos());
     }
-}
-
-Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
-{
-    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
-
-    if(!pluginLoader.load())
-    {
-        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
-
-        if(!pluginLoader.load())
-        {
-            qCritical() << "Could not load plug-in:" << fileName;
-            qCritical() << pluginLoader.errorString();
-
-            return 0;
-        }
-    }
-
-    Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
-
-    if(documentLoader == 0)
-    {
-        qCritical() << "Could not instantiate plug-in:" << fileName;
-        qCritical() << pluginLoader.errorString();
-    }
-
-    return documentLoader;
-}
-
-Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
-{
-    foreach(QObject* object, QPluginLoader::staticInstances())
-    {
-        if(object->objectName() == objectName)
-        {
-            Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(object);
-
-            if(documentLoader != 0)
-            {
-                return documentLoader;
-            }
-        }
-    }
-
-    qCritical() << "Could not load static plug-in:" << objectName;
-
-    return 0;
-}
-
-#ifdef WITH_PDF
-
-#ifdef STATIC_PDF_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_pdf)
-
-#endif // STATIC_PDF_PLUGIN
-
-void DocumentView::preparePDFDocumentLoader()
-{
-    if(s_pdfDocumentLoader == 0)
-    {
-#ifndef STATIC_PDF_PLUGIN
-        Model::DocumentLoader* pdfDocumentLoader = loadPlugin(PDF_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* pdfDocumentLoader = loadStaticPlugin("PDFDocumentLoader");
-#endif // STATIC_PDF_PLUGIN
-
-        if(pdfDocumentLoader != 0)
-        {
-            s_pdfDocumentLoader = pdfDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PDF plug-in!"));
-        }
-    }
-}
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-#ifdef STATIC_PS_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_ps)
-
-#endif // STATIC_PS_PLUGIN
-
-void DocumentView::preparePSDocumentLoader()
-{
-    if(s_psDocumentLoader == 0)
-    {
-#ifndef STATIC_PS_PLUGIN
-        Model::DocumentLoader* psDocumentLoader = loadPlugin(PS_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* psDocumentLoader = loadStaticPlugin("PSDocumentLoader");
-#endif // STATIC_PS_PLUGIN
-
-        if(psDocumentLoader != 0)
-        {
-            s_psDocumentLoader = psDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PS plug-in!"));
-        }
-
-    }
-}
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-#ifdef STATIC_DJVU_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_djvu)
-
-#endif // STATIC_DJVU_PLUGIN
-
-void DocumentView::prepareDjVuDocumentLoader()
-{
-    if(s_djvuDocumentLoader == 0)
-    {
-#ifndef STATIC_DJVU_PLUGIN
-        Model::DocumentLoader* djvuDocumentLoader = loadPlugin(DJVU_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* djvuDocumentLoader = loadStaticPlugin("DjVuDocumentLoader");
-#endif // STATIC_DJVU_PLUGIN
-
-        if(djvuDocumentLoader != 0)
-        {
-            s_djvuDocumentLoader = djvuDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load DjVu plug-in!"));
-        }
-
-    }
-}
-
-#endif // WITH_DJVU
-
-Model::Document* DocumentView::loadDocument(const QString& filePath)
-{
-    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = UnknownType;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    QMimeDatabase mimeDatabase;
-    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
-
-    if(mimeType.name() == "application/pdf")
-    {
-        fileType = PDF;
-    }
-    else if(mimeType.name() == "application/postscript")
-    {
-        fileType = PS;
-    }
-    else if(mimeType.name() == "image/vnd.djvu")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unknown file type:" << mimeType.name();
-    }
-
-#else
-
-#ifdef WITH_MAGIC
-
-    magic_t cookie = magic_open(MAGIC_MIME_TYPE | MAGIC_SYMLINK);
-
-    if(magic_load(cookie, 0) == 0)
-    {
-        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
-
-        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
-        {
-            fileType = PDF;
-        }
-        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
-        {
-            fileType = PS;
-        }
-        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
-        {
-            fileType = DjVu;
-        }
-        else
-        {
-            qDebug() << "Unknown file type:" << mime_type;
-        }
-    }
-
-    magic_close(cookie);
-
-#else
-
-    QFileInfo fileInfo(filePath);
-
-    if(fileInfo.suffix().toLower() == "pdf")
-    {
-        fileType = PDF;
-    }
-    else if(fileInfo.suffix().toLower() == "ps")
-    {
-        fileType = PS;
-    }
-    else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unkown file type:" << fileInfo.suffix().toLower();
-    }
-
-#endif // WITH_MAGIC
-
-#endif // QT_VERSION
-
-#ifdef WITH_PDF
-
-    if(fileType == PDF)
-    {
-        preparePDFDocumentLoader();
-
-        return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(fileType == PS)
-    {
-        preparePSDocumentLoader();
-
-        return s_psDocumentLoader != 0 ? s_psDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    if(fileType == DjVu)
-    {
-        prepareDjVuDocumentLoader();
-
-        return s_djvuDocumentLoader != 0 ? s_djvuDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_DJVU
-
-    return 0;
 }
 
 #ifdef WITH_CUPS

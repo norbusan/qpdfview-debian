@@ -40,127 +40,129 @@ class Page;
 
 #include "model.h"
 
+class PdfPlugin;
+
 namespace Model
 {
+    class PDFAnnotation : public Annotation
+    {
+        friend class PDFPage;
 
-class PDFAnnotation : public Annotation
-{
-    friend class PDFPage;
+    public:
+        ~PDFAnnotation();
 
-public:
-    ~PDFAnnotation();
+        QRectF boundary() const;
+        QString contents() const;
 
-    QRectF boundary() const;
-    QString contents() const;
+        QDialog* showDialog(const QPoint& screenPos);
 
-    QDialog* showDialog(const QPoint& screenPos);
+    private:
+        PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
 
-private:
-    PDFAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
+        mutable QMutex* m_mutex;
+        Poppler::Annotation* m_annotation;
 
-    mutable QMutex* m_mutex;
-    Poppler::Annotation* m_annotation;
+    };
 
-};
+    class PDFFormField : public FormField
+    {
+        friend class PDFPage;
 
-class PDFFormField : public FormField
-{
-    friend class PDFPage;
+    public:
+        ~PDFFormField();
 
-public:
-    ~PDFFormField();
+        QRectF boundary() const;
+        QString name() const;
 
-    QRectF boundary() const;
-    QString name() const;
+        QDialog* showDialog(const QPoint& screenPos);
 
-    QDialog* showDialog(const QPoint& screenPos);
+    private:
+        PDFFormField(QMutex* mutex, Poppler::FormField* formField);
 
-private:
-    PDFFormField(QMutex* mutex, Poppler::FormField* formField);
+        mutable QMutex* m_mutex;
+        Poppler::FormField* m_formField;
 
-    mutable QMutex* m_mutex;
-    Poppler::FormField* m_formField;
+    };
 
-};
+    class PDFPage : public Page
+    {
+        Q_DECLARE_TR_FUNCTIONS(Model::PDFPage)
 
-class PDFPage : public Page
-{
-    Q_DECLARE_TR_FUNCTIONS(Model::PDFPage)
+        friend class PDFDocument;
 
-    friend class PDFDocument;
+    public:
+        ~PDFPage();
 
-public:
-    ~PDFPage();
+        QSizeF size() const;
 
-    QSizeF size() const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
-    QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QList< Link* > links() const;
 
-    QList< Link* > links() const;
+        QString text(const QRectF& rect) const;
+        QList< QRectF > search(const QString& text, bool matchCase) const;
 
-    QString text(const QRectF& rect) const;
-    QList< QRectF > search(const QString& text, bool matchCase) const;
+        QList< Annotation* > annotations() const;
 
-    QList< Annotation* > annotations() const;
+        bool canAddAndRemoveAnnotations() const;
+        Annotation* addTextAnnotation(const QRectF& boundary);
+        Annotation* addHighlightAnnotation(const QRectF& boundary);
+        void removeAnnotation(Annotation* annotation);
 
-    bool canAddAndRemoveAnnotations() const;
-    Annotation* addTextAnnotation(const QRectF& boundary);
-    Annotation* addHighlightAnnotation(const QRectF& boundary);
-    void removeAnnotation(Annotation* annotation);
+        QList< FormField* > formFields() const;
 
-    QList< FormField* > formFields() const;
+    private:
+        PDFPage(QMutex* mutex, Poppler::Page* page);
 
-private:
-    PDFPage(QMutex* mutex, Poppler::Page* page);
+        mutable QMutex* m_mutex;
+        Poppler::Page* m_page;
 
-    mutable QMutex* m_mutex;
-    Poppler::Page* m_page;
+    };
 
-};
+    class PDFDocument : public Document
+    {
+        Q_DECLARE_TR_FUNCTIONS(Model::PDFDocument)
 
-class PDFDocument : public Document
-{
-    Q_DECLARE_TR_FUNCTIONS(Model::PDFDocument)
+        friend class ::PdfPlugin;
 
-    friend class PDFDocumentLoader;
+    public:
+        ~PDFDocument();
 
-public:
-    ~PDFDocument();
+        int numberOfPages() const;
 
-    int numberOfPages() const;
+        Page* page(int index) const;
 
-    Page* page(int index) const;
+        bool isLocked() const;
+        bool unlock(const QString& password);
 
-    bool isLocked() const;
-    bool unlock(const QString& password);
+        QStringList saveFilter() const;
 
-    QStringList saveFilter() const;
+        bool canSave() const;
+        bool save(const QString& filePath, bool withChanges) const;
 
-    bool canSave() const;
-    bool save(const QString& filePath, bool withChanges) const;
+        bool canBePrintedUsingCUPS() const;
 
-    bool canBePrintedUsingCUPS() const;
+        void setPaperColor(const QColor& paperColor);
 
-    void setPaperColor(const QColor& paperColor);
+        void loadOutline(QStandardItemModel* outlineModel) const;
+        void loadProperties(QStandardItemModel* propertiesModel) const;
+        void loadFonts(QStandardItemModel* fontsModel) const;
 
-    void loadOutline(QStandardItemModel* outlineModel) const;
-    void loadProperties(QStandardItemModel* propertiesModel) const;
-    void loadFonts(QStandardItemModel* fontsModel) const;
+    private:
+        PDFDocument(Poppler::Document* document);
 
-private:
-    PDFDocument(Poppler::Document* document);
+        mutable QMutex m_mutex;
+        Poppler::Document* m_document;
 
-    mutable QMutex m_mutex;
-    Poppler::Document* m_document;
+    };
+}
 
-};
-
-class PDFSettingsWidget : public SettingsWidget
+class PdfSettingsWidget : public SettingsWidget
 {
     Q_OBJECT
 
 public:
-    PDFSettingsWidget(QSettings* settings, QWidget* parent = 0);
+    PdfSettingsWidget(QSettings* settings, QWidget* parent = 0);
 
     void accept();
     void reset();
@@ -197,21 +199,21 @@ private:
 
 };
 
-class PDFDocumentLoader : public QObject, DocumentLoader
+class PdfPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Model::DocumentLoader)
+    Q_INTERFACES(Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    Q_PLUGIN_METADATA(IID "local.qpdfview.DocumentLoader")
+    Q_PLUGIN_METADATA(IID "local.qpdfview.Plugin")
 
 #endif // QT_VERSION
 
 public:
-    PDFDocumentLoader(QObject* parent = 0);
+    PdfPlugin(QObject* parent = 0);
 
-    Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
@@ -219,7 +221,5 @@ private:
     QSettings* m_settings;
 
 };
-
-}
 
 #endif // PDFMODEL_H

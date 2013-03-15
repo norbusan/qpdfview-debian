@@ -38,8 +38,6 @@ namespace Model
 {
 class Page;
 class Document;
-class DocumentLoader;
-class SettingsWidget;
 }
 
 class PageItem;
@@ -116,18 +114,6 @@ public:
 
     static const QString& sourceEditor();
     static void setSourceEditor(const QString& sourceEditor);
-
-#ifdef WITH_PDF
-
-    static Model::SettingsWidget* createPDFSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    static Model::SettingsWidget* createPSSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PS
 
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
@@ -290,35 +276,6 @@ private:
     static int s_highlightDuration;
 
     static QString s_sourceEditor;
-
-    static Model::DocumentLoader* loadPlugin(const QString& fileName);
-    static Model::DocumentLoader* loadStaticPlugin(const QString& objectName);
-
-#ifdef WITH_PDF
-
-    static Model::DocumentLoader* s_pdfDocumentLoader;
-
-    static void preparePDFDocumentLoader();
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    static Model::DocumentLoader* s_psDocumentLoader;
-
-    static void preparePSDocumentLoader();
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    static Model::DocumentLoader* s_djvuDocumentLoader;
-
-    static void prepareDjVuDocumentLoader();
-
-#endif // WITH_DJVU
-
-    static Model::Document* loadDocument(const QString& filePath);
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
