@@ -1656,12 +1656,12 @@ void MainWindow::createWidgets()
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable)
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable)
 {
     QAction* action = new QAction(text, this);
     action->setObjectName(objectName);
 
-    action->setIcon(QIcon::fromTheme(iconName, QIcon(":icons/" + iconName + ".svg")));
+    action->setIcon(icon);
 
     action->setShortcut(shortcut);
     m_shortcutHandler->registerAction(action);
@@ -1682,6 +1682,11 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
     return action;
 }
 
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable)
+{
+    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(":icons/" + iconName + ".svg")), shortcut, member, checkable);
+}
+
 void MainWindow::createActions()
 {
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
@@ -1690,19 +1695,7 @@ void MainWindow::createActions()
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
     m_printAction = createAction(tr("&Print..."), QLatin1String("print"), QLatin1String("document-print"), QKeySequence::Print, SLOT(on_print_triggered()));
-
-    // exit
-
-    m_exitAction = new QAction(tr("E&xit"), this);
-    m_exitAction->setObjectName(QLatin1String("exit"));
-
-    m_exitAction->setShortcut(QKeySequence::Quit);
-    m_shortcutHandler->registerAction(m_exitAction);
-
-    m_exitAction->setIcon(QIcon::fromTheme("application-exit"));
-    m_exitAction->setIconVisibleInMenu(true);
-
-    connect(m_exitAction, SIGNAL(triggered()), SLOT(close()));
+    m_exitAction = createAction(tr("E&xit"), QLatin1String("exit"), QIcon::fromTheme("application-exit"), QKeySequence::Quit, SLOT(close()));
 
     // previous page
 

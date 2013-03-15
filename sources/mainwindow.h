@@ -278,6 +278,7 @@ private:
     QAction* m_contentsAction;
     QAction* m_aboutAction;
 
+    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false);
     QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false);
 
     void createActions();
