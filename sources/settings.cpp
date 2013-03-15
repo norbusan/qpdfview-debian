@@ -40,7 +40,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings::Settings(QObject* parent) : QObject(parent)
 {
-    m_settings = new QSettings(this);
+    m_settings = new QSettings("qpdfview", "qpdfview", this);
 
     m_pageItem = new PageItem(m_settings);
     m_presentationView = new PresentationView(m_settings);

@@ -1664,85 +1664,40 @@ void MainWindow::createWidgets()
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
 
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable)
+{
+    QAction* action = new QAction(text, this);
+    action->setObjectName(objectName);
+
+    action->setIcon(QIcon::fromTheme(iconName, QIcon(":icons/" + iconName + ".svg")));
+
+    action->setShortcut(shortcut);
+    m_shortcutsHandler->addAction(action);
+
+    if(checkable)
+    {
+        action->setCheckable(true);
+
+        connect(action, SIGNAL(triggered(bool)), member);
+    }
+    else
+    {
+        action->setIconVisibleInMenu(true);
+
+        connect(action, SIGNAL(triggered()), member);
+    }
+
+    return action;
+}
+
 void MainWindow::createActions()
 {
-    // open
-
-    m_openAction = new QAction(tr("&Open..."), this);
-    m_openAction->setObjectName(QLatin1String("open"));
-
-    m_openAction->setShortcut(QKeySequence::Open);
-    m_shortcutsHandler->addAction(m_openAction);
-
-    m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
-    m_openAction->setIconVisibleInMenu(true);
-
-    connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
-
-    // open in new tab
-
-    m_openInNewTabAction = new QAction(tr("Open in new &tab..."), this);
-    m_openInNewTabAction->setObjectName(QLatin1String("openInNewTab"));
-
-    m_openInNewTabAction->setShortcut(QKeySequence::AddTab);
-    m_shortcutsHandler->addAction(m_openInNewTabAction);
-
-    m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
-    m_openInNewTabAction->setIconVisibleInMenu(true);
-
-    connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
-
-    // refresh
-
-    m_refreshAction = new QAction(tr("&Refresh"), this);
-    m_refreshAction->setObjectName(QLatin1String("refresh"));
-
-    m_refreshAction->setShortcut(QKeySequence::Refresh);
-    m_shortcutsHandler->addAction(m_refreshAction);
-
-    m_refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":icons/view-refresh.svg")));
-    m_refreshAction->setIconVisibleInMenu(true);
-
-    connect(m_refreshAction, SIGNAL(triggered()), SLOT(on_refresh_triggered()));
-
-    // save copy
-
-    m_saveCopyAction = new QAction(tr("&Save copy..."), this);
-    m_saveCopyAction->setObjectName(QLatin1String("saveCopy"));
-
-    m_saveCopyAction->setShortcut(QKeySequence::Save);
-    m_shortcutsHandler->addAction(m_saveCopyAction);
-
-    m_saveCopyAction->setIcon(QIcon::fromTheme("document-save", QIcon(":icons/document-save.svg")));
-    m_saveCopyAction->setIconVisibleInMenu(true);
-
-    connect(m_saveCopyAction, SIGNAL(triggered()), SLOT(on_saveCopy_triggered()));
-
-    // save as
-
-    m_saveAsAction = new QAction(tr("Save &as..."), this);
-    m_saveAsAction->setObjectName(QLatin1String("saveAs"));
-
-    m_saveAsAction->setShortcut(QKeySequence::SaveAs);
-    m_shortcutsHandler->addAction(m_saveAsAction);
-
-    m_saveAsAction->setIcon(QIcon::fromTheme("document-save-as", QIcon(":icons/document-save-as.svg")));
-    m_saveAsAction->setIconVisibleInMenu(true);
-
-    connect(m_saveAsAction, SIGNAL(triggered()), SLOT(on_saveAs_triggered()));
-
-    // print
-
-    m_printAction = new QAction(tr("&Print..."), this);
-    m_printAction->setObjectName(QLatin1String("print"));
-
-    m_printAction->setShortcut(QKeySequence::Print);
-    m_shortcutsHandler->addAction(m_printAction);
-
-    m_printAction->setIcon(QIcon::fromTheme("document-print", QIcon(":icons/document-print.svg")));
-    m_printAction->setIconVisibleInMenu(true);
-
-    connect(m_printAction, SIGNAL(triggered()), SLOT(on_print_triggered()));
+    m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
+    m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
+    m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
+    m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
+    m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
+    m_printAction = createAction(tr("&Print..."), QLatin1String("print"), QLatin1String("document-print"), QKeySequence::Print, SLOT(on_print_triggered()));
 
     // exit
 
