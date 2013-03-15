@@ -400,7 +400,7 @@ Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary)
 
     m_page->addAnnotation(annotation);
 
-    return new PDFAnnotation(m_mutex, annotation);
+    return new PdfAnnotation(m_mutex, annotation);
 
 #else
 
@@ -443,7 +443,7 @@ Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary
 
     m_page->addAnnotation(annotation);
 
-    return new PDFAnnotation(m_mutex, annotation);
+    return new PdfAnnotation(m_mutex, annotation);
 
 #else
 
@@ -465,7 +465,7 @@ void Model::PdfPage::removeAnnotation(Annotation* annotation)
 
 #ifdef HAS_POPPLER_20
 
-    m_page->removeAnnotation(static_cast< PDFAnnotation* >(annotation)->m_annotation);
+    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation);
 
 #else
 

@@ -62,7 +62,7 @@ namespace Model
 
     class PsDocument : public Document
     {
-        Q_DECLARE_TR_FUNCTIONS(Model::PSDocument)
+        Q_DECLARE_TR_FUNCTIONS(Model::PsDocument)
 
         friend class ::PsPlugin;
 

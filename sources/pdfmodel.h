@@ -86,7 +86,7 @@ namespace Model
 
     class PdfPage : public Page
     {
-        Q_DECLARE_TR_FUNCTIONS(Model::PDFPage)
+        Q_DECLARE_TR_FUNCTIONS(Model::PdfPage)
 
         friend class PdfDocument;
 
@@ -121,7 +121,7 @@ namespace Model
 
     class PdfDocument : public Document
     {
-        Q_DECLARE_TR_FUNCTIONS(Model::PDFDocument)
+        Q_DECLARE_TR_FUNCTIONS(Model::PdfDocument)
 
         friend class ::PdfPlugin;
 
