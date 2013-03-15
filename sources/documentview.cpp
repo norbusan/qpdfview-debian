@@ -81,7 +81,10 @@ qreal DocumentView::s_zoomBy = 0.1;
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
 QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
 
-QKeySequence DocumentView::s_movementShortcuts[4] = { QKeySequence(Qt::Key_Up), QKeySequence(Qt::Key_Down), QKeySequence(Qt::Key_Left), QKeySequence(Qt::Key_Right) };
+QKeySequence DocumentView::s_moveUpShortcut(Qt::Key_Up);
+QKeySequence DocumentView::s_moveDownShortcut(Qt::Key_Down);
+QKeySequence DocumentView::s_moveLeftShortcut(Qt::Key_Left);
+QKeySequence DocumentView::s_moveRightShortcut(Qt::Key_Right);
 
 QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
 
@@ -228,14 +231,44 @@ void DocumentView::setSkipForwardShortcut(const QKeySequence& shortcut)
     s_skipForwardShortcut = shortcut;
 }
 
-const QKeySequence& DocumentView::movementShortcuts(DocumentView::MovementDirection direction)
+const QKeySequence& DocumentView::moveUpShortcut()
 {
-    return s_movementShortcuts[direction];
+    return s_moveUpShortcut;
 }
 
-void DocumentView::setMovementShortcuts(DocumentView::MovementDirection direction, const QKeySequence& shortcut)
+void DocumentView::setMoveUpShortcut(const QKeySequence& shortcut)
 {
-    s_movementShortcuts[direction] = shortcut;
+    s_moveUpShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::moveDownShortcut()
+{
+    return s_moveDownShortcut;
+}
+
+void DocumentView::setMoveDownShortcut(const QKeySequence& shortcut)
+{
+    s_moveDownShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::moveLeftShortcut()
+{
+    return s_moveLeftShortcut;
+}
+
+void DocumentView::setMoveLeftShortcut(const QKeySequence& shortcut)
+{
+    s_moveLeftShortcut = shortcut;
+}
+
+const QKeySequence& DocumentView::moveRightShortcut()
+{
+    return s_moveRightShortcut;
+}
+
+void DocumentView::setMoveRightShortcut(const QKeySequence& shortcut)
+{
+    s_moveRightShortcut = shortcut;
 }
 
 const QKeySequence& DocumentView::returnToPageShortcut()
@@ -1378,19 +1411,19 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         key = Qt::Key_PageDown;
     }
-    else if(s_movementShortcuts[MoveUp].matches(shortcut))
+    else if(s_moveUpShortcut.matches(shortcut))
     {
         key = Qt::Key_Up;
     }
-    else if(s_movementShortcuts[MoveDown].matches(shortcut))
+    else if(s_moveDownShortcut.matches(shortcut))
     {
         key = Qt::Key_Down;
     }
-    else if(s_movementShortcuts[MoveLeft].matches(shortcut))
+    else if(s_moveLeftShortcut.matches(shortcut))
     {
         key = Qt::Key_Left;
     }
-    else if(s_movementShortcuts[MoveRight].matches(shortcut))
+    else if(s_moveRightShortcut.matches(shortcut))
     {
         key = Qt::Key_Right;
     }

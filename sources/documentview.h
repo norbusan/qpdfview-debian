@@ -86,16 +86,17 @@ public:
     static const QKeySequence& skipForwardShortcut();
     static void setSkipForwardShortcut(const QKeySequence& shortcut);
 
-    enum MovementDirection
-    {
-        MoveUp = 0,
-        MoveDown = 1,
-        MoveLeft = 2,
-        MoveRight = 3
-    };
+    static const QKeySequence& moveUpShortcut();
+    static void setMoveUpShortcut(const QKeySequence& shortcut);
 
-    static const QKeySequence& movementShortcuts(MovementDirection direction);
-    static void setMovementShortcuts(MovementDirection direction, const QKeySequence& shortcut);
+    static const QKeySequence& moveDownShortcut();
+    static void setMoveDownShortcut(const QKeySequence& shortcut);
+
+    static const QKeySequence& moveLeftShortcut();
+    static void setMoveLeftShortcut(const QKeySequence& shortcut);
+
+    static const QKeySequence& moveRightShortcut();
+    static void setMoveRightShortcut(const QKeySequence& shortcut);
 
     static const QKeySequence& returnToPageShortcut();
     static void setReturnToPageShortcut(const QKeySequence& shortcut);
@@ -265,7 +266,10 @@ private:
     static QKeySequence s_skipBackwardShortcut;
     static QKeySequence s_skipForwardShortcut;
 
-    static QKeySequence s_movementShortcuts[4];
+    static QKeySequence s_moveUpShortcut;
+    static QKeySequence s_moveDownShortcut;
+    static QKeySequence s_moveLeftShortcut;
+    static QKeySequence s_moveRightShortcut;
 
     static QKeySequence s_returnToPageShortcut;
 

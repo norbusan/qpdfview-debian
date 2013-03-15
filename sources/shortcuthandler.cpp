@@ -51,30 +51,36 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
     m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
     registerAction(m_skipForwardAction);
 
-    // movement shortcuts
+    // move up shortcut
 
     m_moveUpAction = new QAction(tr("Move up"), this);
     m_moveUpAction->setObjectName(QLatin1String("moveUp"));
 
-    m_moveUpAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveUp));
+    m_moveUpAction->setShortcut(::DocumentView::moveUpShortcut());
     registerAction(m_moveUpAction);
+
+    // move down shortcut
 
     m_moveDownAction = new QAction(tr("Move down"), this);
     m_moveDownAction->setObjectName(QLatin1String("moveDown"));
 
-    m_moveDownAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveDown));
+    m_moveDownAction->setShortcut(::DocumentView::moveDownShortcut());
     registerAction(m_moveDownAction);
+
+    // move left shortcut
 
     m_moveLeftAction = new QAction(tr("Move left"), this);
     m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
 
-    m_moveLeftAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveLeft));
+    m_moveLeftAction->setShortcut(::DocumentView::moveLeftShortcut());
     registerAction(m_moveLeftAction);
+
+    // move right shortcut
 
     m_moveRightAction = new QAction(tr("Move right"), this);
     m_moveRightAction->setObjectName(QLatin1String("moveRight"));
 
-    m_moveRightAction->setShortcut(::DocumentView::movementShortcuts(::DocumentView::MoveRight));
+    m_moveRightAction->setShortcut(::DocumentView::moveRightShortcut());
     registerAction(m_moveRightAction);
 
     // return to page shortcut
@@ -203,10 +209,10 @@ bool ShortcutHandler::submit()
     DocumentView::setSkipBackwardShortcut(m_skipBackwardAction->shortcut());
     DocumentView::setSkipForwardShortcut(m_skipForwardAction->shortcut());
 
-    DocumentView::setMovementShortcuts(DocumentView::MoveUp, m_moveUpAction->shortcut());
-    DocumentView::setMovementShortcuts(DocumentView::MoveDown, m_moveDownAction->shortcut());
-    DocumentView::setMovementShortcuts(DocumentView::MoveLeft, m_moveLeftAction->shortcut());
-    DocumentView::setMovementShortcuts(DocumentView::MoveRight, m_moveRightAction->shortcut());
+    DocumentView::setMoveUpShortcut(m_moveUpAction->shortcut());
+    DocumentView::setMoveDownShortcut(m_moveDownAction->shortcut());
+    DocumentView::setMoveLeftShortcut(m_moveLeftAction->shortcut());
+    DocumentView::setMoveRightShortcut(m_moveRightAction->shortcut());
 
     DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 
