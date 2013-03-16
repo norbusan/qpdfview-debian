@@ -32,24 +32,24 @@ Settings* PrintDialog::s_settings = 0;
 
 QPrinter* PrintDialog::createPrinter()
 {
-    if(s_settings == 0)
-    {
-        s_settings = Settings::instance();
-    }
-
     QPrinter* printer = new QPrinter();
 
-    printer->setCollateCopies(s_settings->printDialog().collateCopies());
-    printer->setPageOrder(s_settings->printDialog().pageOrder());
-    printer->setOrientation(s_settings->printDialog().orientation());
-    printer->setColorMode(s_settings->printDialog().colorMode());
-    printer->setDuplex(s_settings->printDialog().duplex());
+    printer->setCollateCopies(Settings::instance()->printDialog().collateCopies());
+    printer->setPageOrder(Settings::instance()->printDialog().pageOrder());
+    printer->setOrientation(Settings::instance()->printDialog().orientation());
+    printer->setColorMode(Settings::instance()->printDialog().colorMode());
+    printer->setDuplex(Settings::instance()->printDialog().duplex());
 
     return printer;
 }
 
 PrintDialog::PrintDialog(QPrinter* printer, QWidget* parent) : QPrintDialog(printer, parent)
 {
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+
     // print options
 
     m_printOptionsWidget = new QWidget(this);
