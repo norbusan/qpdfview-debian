@@ -112,7 +112,7 @@ void Settings::sync()
 {
     m_settings->sync();
 
-    ::PageItem::setCacheSize(pageItem()->cacheSize());
+    /*::PageItem::setCacheSize(pageItem()->cacheSize());
 
     ::PageItem::setDecoratePages(pageItem()->decoratePages());
     ::PageItem::setDecorateLinks(pageItem()->decorateLinks());
@@ -125,9 +125,9 @@ void Settings::sync()
     ::PageItem::setAddAnnotationModifiers(pageItem()->addAnnotationModifiers());
 
     ::PageItem::setProgressIcon(QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg")));
-    ::PageItem::setErrorIcon(QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg")));
+    ::PageItem::setErrorIcon(QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg")));*/
 
-    ::DocumentView::setOpenUrl(documentView()->openUrl());
+    /*::DocumentView::setOpenUrl(documentView()->openUrl());
 
     ::DocumentView::setAutoRefresh(documentView()->autoRefresh());
 
@@ -149,7 +149,7 @@ void Settings::sync()
 
     ::DocumentView::setHighlightDuration(documentView()->highlightDuration());
 
-    ::DocumentView::setSourceEditor(documentView()->sourceEditor());
+    ::DocumentView::setSourceEditor(documentView()->sourceEditor());*/
 }
 
 // page item

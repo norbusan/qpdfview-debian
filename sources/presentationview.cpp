@@ -25,9 +25,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QTimer>
 
+#include "newsettings.h"
 #include "model.h"
 #include "pageitem.h"
 #include "documentview.h"
+
+NewSettings* PresentationView::s_settings = 0;
 
 PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
@@ -40,6 +43,11 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     m_pagesScene(0),
     m_pages()
 {
+    if(s_settings == 0)
+    {
+        s_settings = NewSettings::instance();
+    }
+
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
 
@@ -80,7 +88,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
     }
 
-    m_pagesScene->setBackgroundBrush(QBrush(PageItem::paperColor()));
+    m_pagesScene->setBackgroundBrush(QBrush(s_settings->pageItem().paperColor()));
 
     // prefetch
 
@@ -93,7 +101,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
-    if(DocumentView::prefetch())
+    if(s_settings->documentView().prefetch())
     {
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
@@ -157,7 +165,7 @@ void PresentationView::setInvertColors(bool invertColors)
             page->setInvertColors(m_invertColors);
         }
 
-        QColor backgroundColor = PageItem::paperColor();
+        QColor backgroundColor = s_settings->pageItem().paperColor();
 
         if(m_invertColors)
         {
@@ -266,8 +274,8 @@ void PresentationView::on_prefetch_timeout()
 {
     int fromPage = m_currentPage, toPage = m_currentPage;
 
-    fromPage -= DocumentView::prefetchDistance() / 2;
-    toPage += DocumentView::prefetchDistance();
+    fromPage -= s_settings->documentView().prefetchDistance() / 2;
+    toPage += s_settings->documentView().prefetchDistance();
 
     fromPage = fromPage >= 1 ? fromPage : 1;
     toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
@@ -353,7 +361,7 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == DocumentView::rotateModifiers())
+    if(event->modifiers() == s_settings->documentView().rotateModifiers())
     {
         if(event->delta() > 0)
         {

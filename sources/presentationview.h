@@ -33,6 +33,7 @@ namespace Model
 class Document;
 }
 
+class NewSettings;
 class PageItem;
 
 class PresentationView : public QGraphicsView
@@ -86,6 +87,8 @@ protected:
     void wheelEvent(QWheelEvent* event);
 
 private:
+    static NewSettings* s_settings;
+
     QTimer* m_prefetchTimer;
 
     Model::Document* m_document;

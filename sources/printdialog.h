@@ -31,16 +31,16 @@ class QLineEdit;
 class QPrinter;
 
 struct PrintOptions;
-class Settings;
+class NewSettings;
 
 class PrintDialog : public QPrintDialog
 {
     Q_OBJECT
 
 public:
-    static QPrinter* createPrinter(Settings* settings);
+    static QPrinter* createPrinter();
 
-    PrintDialog(Settings* settings, QPrinter* printer, QWidget* parent = 0);
+    PrintDialog(QPrinter* printer, QWidget* parent = 0);
 
     PrintOptions printOptions() const;
 
@@ -48,7 +48,7 @@ public slots:
     void accept();
 
 private:
-    Settings* m_settings;
+    static NewSettings* s_settings;
 
     QWidget* m_printOptionsWidget;
     QFormLayout* m_printOptionsLayout;

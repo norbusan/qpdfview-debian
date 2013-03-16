@@ -36,6 +36,7 @@ class FormField;
 class Page;
 }
 
+class NewSettings;
 class RenderTask;
 
 class PageItem : public QGraphicsObject
@@ -43,36 +44,6 @@ class PageItem : public QGraphicsObject
     Q_OBJECT
 
 public:
-    static int cacheSize();
-    static void setCacheSize(int cacheSize);
-
-    static bool decoratePages();
-    static void setDecoratePages(bool decoratePages);
-
-    static bool decorateLinks();
-    static void setDecorateLinks(bool decorateLinks);
-
-    static bool decorateFormFields();
-    static void setDecorateFormFields(bool decorateFormFields);
-
-    static const QColor& backgroundColor();
-    static void setBackgroundColor(const QColor& backgroundColor);
-
-    static const QColor& paperColor();
-    static void setPaperColor(const QColor& paperColor);
-
-    static const Qt::KeyboardModifiers& copyToClipboardModifiers();
-    static void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
-
-    static const Qt::KeyboardModifiers& addAnnotationModifiers();
-    static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
-
-    static const QIcon& progressIcon();
-    static void setProgressIcon(const QIcon& progressIcon);
-
-    static const QIcon& errorIcon();
-    static void setErrorIcon(const QIcon& errorIcon);
-
     PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
 
@@ -142,20 +113,9 @@ private slots:
     virtual void loadInteractiveElements();
 
 private:
+    static NewSettings* s_settings;
+
     static QCache< PageItem*, QPixmap > s_cache;
-
-    static bool s_decoratePages;
-    static bool s_decorateLinks;
-    static bool s_decorateFormFields;
-
-    static QColor s_backgroundColor;
-    static QColor s_paperColor;
-
-    static Qt::KeyboardModifiers s_copyToClipboardModifiers;
-    static Qt::KeyboardModifiers s_addAnnotationModifiers;
-
-    static QIcon s_progressIcon;
-    static QIcon s_errorIcon;
 
     Model::Page* m_page;
 

@@ -65,6 +65,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SQL
 
+#include "newsettings.h"
 #include "pageitem.h"
 #include "documentview.h"
 #include "settings.h"
@@ -74,8 +75,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
 
+NewSettings* MainWindow::s_settings = 0;
+
 MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
 {
+    if(s_settings == 0)
+    {
+        s_settings = NewSettings::instance();
+    }
+
     setObjectName(instanceName);
 
     m_settings = new Settings(this);
@@ -620,8 +628,8 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
 
-            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, DocumentView::maximumScaleFactor()));
-            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, DocumentView::minimumScaleFactor()));
+            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::maximumScaleFactor()));
+            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::minimumScaleFactor()));
         }
 
         m_settings->documentView()->setScaleFactor(scaleFactor);
@@ -764,8 +772,8 @@ void MainWindow::on_scaleFactor_editingFinished()
         bool ok = false;
         qreal scaleFactor = m_scaleFactorComboBox->lineEdit()->text().toInt(&ok) / 100.0;
 
-        scaleFactor = scaleFactor >= DocumentView::minimumScaleFactor() ? scaleFactor : DocumentView::minimumScaleFactor();
-        scaleFactor = scaleFactor <= DocumentView::maximumScaleFactor() ? scaleFactor : DocumentView::maximumScaleFactor();
+        scaleFactor = scaleFactor >= Defaults::DocumentView::minimumScaleFactor() ? scaleFactor : Defaults::DocumentView::minimumScaleFactor();
+        scaleFactor = scaleFactor <= Defaults::DocumentView::maximumScaleFactor() ? scaleFactor : Defaults::DocumentView::maximumScaleFactor();
 
         if(ok)
         {
@@ -869,8 +877,8 @@ void MainWindow::on_saveAs_triggered()
 
 void MainWindow::on_print_triggered()
 {
-    QPrinter* printer = PrintDialog::createPrinter(m_settings);
-    PrintDialog* printDialog = new PrintDialog(m_settings, printer, this);
+    QPrinter* printer = PrintDialog::createPrinter();
+    PrintDialog* printDialog = new PrintDialog(printer, this);
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);

@@ -33,129 +33,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QToolTip>
 
+#include "newsettings.h"
 #include "model.h"
 #include "rendertask.h"
 
-QCache< PageItem*, QPixmap > PageItem::s_cache(32 * 1024 * 1024);
+NewSettings* PageItem::s_settings = 0;
 
-bool PageItem::s_decoratePages = true;
-bool PageItem::s_decorateLinks = true;
-bool PageItem::s_decorateFormFields = true;
-
-QColor PageItem::s_backgroundColor(Qt::darkGray);
-QColor PageItem::s_paperColor(Qt::white);
-
-Qt::KeyboardModifiers PageItem::s_copyToClipboardModifiers(Qt::ShiftModifier);
-Qt::KeyboardModifiers PageItem::s_addAnnotationModifiers(Qt::ControlModifier);
-
-QIcon PageItem::s_progressIcon;
-QIcon PageItem::s_errorIcon;
-
-int PageItem::cacheSize()
-{
-    return s_cache.totalCost();
-}
-
-void PageItem::setCacheSize(int cacheSize)
-{
-    s_cache.setMaxCost(cacheSize);
-}
-
-bool PageItem::decoratePages()
-{
-    return s_decoratePages;
-}
-
-void PageItem::setDecoratePages(bool decoratePages)
-{
-    s_decoratePages = decoratePages;
-}
-
-bool PageItem::decorateLinks()
-{
-    return s_decorateLinks;
-}
-
-void PageItem::setDecorateLinks(bool decorateLinks)
-{
-    s_decorateLinks = decorateLinks;
-}
-
-bool PageItem::decorateFormFields()
-{
-    return s_decorateFormFields;
-}
-
-void PageItem::setDecorateFormFields(bool decorateFormFields)
-{
-    s_decorateFormFields = decorateFormFields;
-}
-
-const QColor& PageItem::backgroundColor()
-{
-    return s_backgroundColor;
-}
-
-void PageItem::setBackgroundColor(const QColor& backgroundColor)
-{
-    if(backgroundColor.isValid())
-    {
-        s_backgroundColor = backgroundColor;
-    }
-}
-
-const QColor& PageItem::paperColor()
-{
-    return s_paperColor;
-}
-
-void PageItem::setPaperColor(const QColor& paperColor)
-{
-    if(paperColor.isValid())
-    {
-        s_paperColor = paperColor;
-    }
-}
-
-const Qt::KeyboardModifiers& PageItem::copyToClipboardModifiers()
-{
-    return s_copyToClipboardModifiers;
-}
-
-void PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers)
-{
-    s_copyToClipboardModifiers = copyToClipboardModifiers;
-}
-
-const Qt::KeyboardModifiers& PageItem::addAnnotationModifiers()
-{
-    return s_addAnnotationModifiers;
-}
-
-void PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers)
-{
-    s_addAnnotationModifiers = addAnnotationModifiers;
-}
-
-const QIcon& PageItem::progressIcon()
-{
-    return s_progressIcon;
-}
-
-void PageItem::setProgressIcon(const QIcon& progressIcon)
-{
-    s_progressIcon = progressIcon;
-}
-
-const QIcon& PageItem::errorIcon()
-{
-    return s_errorIcon;
-}
-
-void PageItem::setErrorIcon(const QIcon& errorIcon)
-{
-    s_errorIcon = errorIcon;
-}
+QCache< PageItem*, QPixmap > PageItem::s_cache;
 
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(0),
@@ -178,6 +62,13 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_pixmap(),
     m_renderTask(0)
 {
+    if(s_settings == 0)
+    {
+        s_settings = NewSettings::instance();
+    }
+
+    s_cache.setMaxCost(s_settings->pageItem().cacheSize());
+
     setAcceptHoverEvents(true);
 
     m_renderTask = new RenderTask(this);
@@ -238,9 +129,9 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // page
 
-    if(s_decoratePages && !m_presentationMode)
+    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
     {
-        QColor paperColor = s_paperColor;
+        QColor paperColor = s_settings->pageItem().paperColor();
 
         if(m_invertColors)
         {
@@ -255,14 +146,14 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
         QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
-        s_progressIcon.paint(painter, rect.toRect());
+        s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
     }
     else
     {
         painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
     }
 
-    if(s_decoratePages && !m_presentationMode)
+    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
     {
         painter->setPen(QPen(m_invertColors ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
@@ -270,7 +161,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // links
 
-    if(s_decorateLinks && !m_presentationMode && !m_links.isEmpty())
+    if(s_settings->pageItem().decorateLinks() && !m_presentationMode && !m_links.isEmpty())
     {
         painter->save();
 
@@ -287,7 +178,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     // form fields
 
-    if(s_decorateFormFields && !m_presentationMode && !m_formFields.isEmpty())
+    if(s_settings->pageItem().decorateFormFields() && !m_presentationMode && !m_formFields.isEmpty())
     {
         painter->save();
 
@@ -518,7 +409,7 @@ void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qrea
         image.fill(Qt::transparent);
 
         QPainter painter(&image);
-        s_errorIcon.paint(&painter, rect.toRect());
+        s_settings->pageItem().errorIcon().paint(&painter, rect.toRect());
     }
 
     if(prefetch)
@@ -622,15 +513,17 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && (event->modifiers() == s_copyToClipboardModifiers || event->modifiers() == s_addAnnotationModifiers) && event->button() == Qt::LeftButton && !m_presentationMode)
+    if(m_rubberBandMode == ModifiersMode && !m_presentationMode
+            && (event->modifiers() == s_settings->pageItem().copyToClipboardModifiers() || event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
+            && event->button() == Qt::LeftButton)
     {
         setCursor(Qt::CrossCursor);
 
-        if(event->modifiers() == s_copyToClipboardModifiers)
+        if(event->modifiers() == s_settings->pageItem().copyToClipboardModifiers())
         {
             m_rubberBandMode = CopyToClipboardMode;
         }
-        else if(event->modifiers() == s_addAnnotationModifiers)
+        else if(event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
         {
             m_rubberBandMode = AddAnnotationMode;
         }

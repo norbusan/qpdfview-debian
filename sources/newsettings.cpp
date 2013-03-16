@@ -74,8 +74,11 @@ int NewSettings::PageItem::cacheSize() const
 
 void NewSettings::PageItem::setCacheSize(int cacheSize)
 {
-    m_cacheSize = cacheSize;
-    m_settings->setValue("pageItem/cacheSize", cacheSize);
+    if(cacheSize >= 0)
+    {
+        m_cacheSize = cacheSize;
+        m_settings->setValue("pageItem/cacheSize", cacheSize);
+    }
 }
 
 bool NewSettings::PageItem::decoratePages() const
@@ -266,8 +269,11 @@ int NewSettings::DocumentView::prefetchDistance() const
 
 void NewSettings::DocumentView::setPrefetchDistance(int prefetchDistance)
 {
-    m_prefetchDistance = prefetchDistance;
-    m_settings->setValue("documentView/prefetchDistance", prefetchDistance);
+    if(prefetchDistance > 0)
+    {
+        m_prefetchDistance = prefetchDistance;
+        m_settings->setValue("documentView/prefetchDistance", prefetchDistance);
+    }
 }
 
 int NewSettings::DocumentView::pagesPerRow() const
@@ -277,8 +283,11 @@ int NewSettings::DocumentView::pagesPerRow() const
 
 void NewSettings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
-    m_pagesPerRow = pagesPerRow;
-    m_settings->setValue("documentView/pagesPerRow", pagesPerRow);
+    if(pagesPerRow > 0)
+    {
+        m_pagesPerRow = pagesPerRow;
+        m_settings->setValue("documentView/pagesPerRow", pagesPerRow);
+    }
 }
 
 bool NewSettings::DocumentView::limitThumbnailsToResults() const
@@ -299,8 +308,11 @@ qreal NewSettings::DocumentView::pageSpacing() const
 
 void NewSettings::DocumentView::setPageSpacing(qreal pageSpacing)
 {
-    m_pageSpacing = pageSpacing;
-    m_settings->setValue("documentView/pageSpacing", pageSpacing);
+    if(pageSpacing >= 0.0)
+    {
+        m_pageSpacing = pageSpacing;
+        m_settings->setValue("documentView/pageSpacing", pageSpacing);
+    }
 }
 
 qreal NewSettings::DocumentView::thumbnailSpacing() const
@@ -310,8 +322,11 @@ qreal NewSettings::DocumentView::thumbnailSpacing() const
 
 void NewSettings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
 {
-    m_thumbnailSpacing = thumbnailSpacing;
-    m_settings->setValue("documentView/thumbnailSpacing", thumbnailSpacing);
+    if(thumbnailSpacing >= 0.0)
+    {
+        m_thumbnailSpacing = thumbnailSpacing;
+        m_settings->setValue("documentView/thumbnailSpacing", thumbnailSpacing);
+    }
 }
 
 qreal NewSettings::DocumentView::thumbnailSize() const
@@ -321,8 +336,11 @@ qreal NewSettings::DocumentView::thumbnailSize() const
 
 void NewSettings::DocumentView::setThumbnailSize(qreal thumbnailSize)
 {
-    m_thumbnailSize = thumbnailSize;
-    m_settings->setValue("documentView/thumbnailSize", thumbnailSize);
+    if(thumbnailSize > 0.0)
+    {
+        m_thumbnailSize = thumbnailSize;
+        m_settings->setValue("documentView/thumbnailSize", thumbnailSize);
+    }
 }
 
 bool NewSettings::DocumentView::matchCase() const
@@ -342,7 +360,10 @@ int NewSettings::DocumentView::highlightDuration() const
 
 void NewSettings::DocumentView::setHighlightDuration(int highlightDuration)
 {
-    m_settings->setValue("documentView/highlightDuration", highlightDuration);
+    if(highlightDuration >= 0)
+    {
+        m_settings->setValue("documentView/highlightDuration", highlightDuration);
+    }
 }
 
 QString NewSettings::DocumentView::sourceEditor() const
@@ -532,7 +553,10 @@ int NewSettings::MainWindow::tabPosition() const
 
 void NewSettings::MainWindow::setTabPosition(int tabPosition)
 {
-    m_settings->setValue("mainWindow/tabPosition", tabPosition);
+    if(tabPosition >= 0 && tabPosition < 4)
+    {
+        m_settings->setValue("mainWindow/tabPosition", tabPosition);
+    }
 }
 
 int NewSettings::MainWindow::tabVisibility() const
@@ -542,7 +566,10 @@ int NewSettings::MainWindow::tabVisibility() const
 
 void NewSettings::MainWindow::setTabVisibility(int tabVisibility)
 {
-    m_settings->setValue("mainWindow/tabVisibility", tabVisibility);
+    if(tabVisibility >= 0 && tabVisibility < 3)
+    {
+        m_settings->setValue("mainWindow/tabVisibility", tabVisibility);
+    }
 }
 
 bool NewSettings::MainWindow::newTabNextToCurrentTab() const

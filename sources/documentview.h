@@ -40,6 +40,7 @@ class Page;
 class Document;
 }
 
+class NewSettings;
 class PageItem;
 class ThumbnailItem;
 class SearchTask;
@@ -50,36 +51,6 @@ class DocumentView : public QGraphicsView
     Q_OBJECT
 
 public:
-    static bool openUrl();
-    static void setOpenUrl(bool openUrl);
-
-    static bool autoRefresh();
-    static void setAutoRefresh(bool autoRefresh);
-
-    static bool prefetch();
-    static void setPrefetch(bool prefetch);
-
-    static int prefetchDistance();
-    static void setPrefetchDistance(int prefetchDistance);
-
-    static int pagesPerRow();
-    static void setPagesPerRow(int pagesPerRow);
-
-    static bool limitThumbnailsToResults();
-    static void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
-
-    static qreal pageSpacing();
-    static void setPageSpacing(qreal pageSpacing);
-
-    static qreal thumbnailSpacing();
-    static void setThumbnailSpacing(qreal thumbnailSpacing);
-
-    static qreal thumbnailSize();
-    static void setThumbnailSize(qreal thumbnailSize);
-
-    static qreal minimumScaleFactor();
-    static qreal maximumScaleFactor();
-
     static const QKeySequence& skipBackwardShortcut();
     static void setSkipBackwardShortcut(const QKeySequence& shortcut);
 
@@ -100,21 +71,6 @@ public:
 
     static const QKeySequence& returnToPageShortcut();
     static void setReturnToPageShortcut(const QKeySequence& shortcut);
-
-    static const Qt::KeyboardModifiers& zoomModifiers();
-    static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
-
-    static const Qt::KeyboardModifiers& rotateModifiers();
-    static void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
-
-    static const Qt::KeyboardModifiers& scrollModifiers();
-    static void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
-
-    static int highlightDuration();
-    static void setHighlightDuration(int highlightDuration);
-
-    static const QString& sourceEditor();
-    static void setSourceEditor(const QString& sourceEditor);
 
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
@@ -242,26 +198,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
-    static bool s_openUrl;
-
-    static bool s_autoRefresh;
-
-    static bool s_prefetch;
-    static int s_prefetchDistance;
-
-    static int s_pagesPerRow;
-
-    static bool s_limitThumbnailsToResults;
-
-    static qreal s_pageSpacing;
-    static qreal s_thumbnailSpacing;
-
-    static qreal s_thumbnailSize;
-
-    static qreal s_minimumScaleFactor;
-    static qreal s_maximumScaleFactor;
-
-    static qreal s_zoomBy;
+    static NewSettings* s_settings;
 
     static QKeySequence s_skipBackwardShortcut;
     static QKeySequence s_skipForwardShortcut;
@@ -272,14 +209,6 @@ private:
     static QKeySequence s_moveRightShortcut;
 
     static QKeySequence s_returnToPageShortcut;
-
-    static Qt::KeyboardModifiers s_zoomModifiers;
-    static Qt::KeyboardModifiers s_rotateModifiers;
-    static Qt::KeyboardModifiers s_scrollModifiers;
-
-    static int s_highlightDuration;
-
-    static QString s_sourceEditor;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

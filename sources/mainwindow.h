@@ -46,6 +46,7 @@ class QTableView;
 
 #include "global.h"
 
+class NewSettings;
 class DocumentView;
 class TabWidget;
 class TreeView;
@@ -191,6 +192,8 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
+    static NewSettings* s_settings;
+
     Settings* m_settings;
     ShortcutHandler* m_shortcutHandler;
 
