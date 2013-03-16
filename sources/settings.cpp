@@ -802,7 +802,7 @@ void Settings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numbe
     m_settings->setValue("printDialog/numberUpLayout", static_cast< uint >(numberUpLayout));
 }
 
-QString Defaults::MainWindow::path()
+/*QString Defaults::MainWindow::path()
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -813,4 +813,4 @@ QString Defaults::MainWindow::path()
     return QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 
 #endif // QT_VERSION
-}
+}*/

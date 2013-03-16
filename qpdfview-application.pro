@@ -8,11 +8,12 @@ MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
+    sources/printoptions.h \
+    sources/newsettings.h \
     sources/model.h \
     sources/pluginhandler.h \
     sources/rendertask.h \
     sources/pageitem.h \
-    sources/printoptions.h \
     sources/presentationview.h \
     sources/searchtask.h \
     sources/documentview.h \
@@ -26,6 +27,7 @@ HEADERS += \
     sources/mainwindow.h
 
 SOURCES += \
+    sources/newsettings.cpp \
     sources/pluginhandler.cpp \
     sources/rendertask.cpp \
     sources/pageitem.cpp \
