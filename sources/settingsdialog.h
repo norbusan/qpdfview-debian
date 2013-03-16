@@ -35,8 +35,8 @@ class QSpinBox;
 class QTableView;
 class QTabWidget;
 
+class NewSettings;
 class SettingsWidget;
-class Settings;
 class ShortcutHandler;
 
 class SettingsDialog : public QDialog
@@ -44,14 +44,15 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    SettingsDialog(Settings* settings, ShortcutHandler* shortcutHandler, QWidget* parent = 0);
+    SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent = 0);
 
 public slots:
     void accept();
     void reset();
 
 private:
-    Settings* m_settings;
+    static NewSettings* s_settings;
+
     ShortcutHandler* m_shortcutHandler;
 
     QTabWidget* m_graphicsTabWidget;

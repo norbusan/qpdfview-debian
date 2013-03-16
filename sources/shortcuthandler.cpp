@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSettings>
 
 #include "documentview.h"
-#include "settings.h"
 
 ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
     m_settings(0),

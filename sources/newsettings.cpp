@@ -57,11 +57,8 @@ void NewSettings::PageItem::sync()
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
     m_decorateFormFields = m_settings->value("pageItem/decorateFormFields", Defaults::PageItem::decorateFormFields()).toBool();
 
-    QColor backgroundColor(m_settings->value("pageItem/backgroundColor", Defaults::PageItem::backgroundColor()).toString());
-    m_backgroundColor = backgroundColor.isValid() ? backgroundColor : Defaults::PageItem::backgroundColor();
-
-    QColor paperColor(m_settings->value("pageItem/paperColor", Defaults::PageItem::paperColor()).toString());
-    m_paperColor = paperColor.isValid() ? paperColor : Defaults::PageItem::paperColor();
+    m_backgroundColor = m_settings->value("pageItem/backgroundColor", Defaults::PageItem::backgroundColor()).value< QColor >();
+    m_paperColor = m_settings->value("pageItem/paperColor", Defaults::PageItem::paperColor()).value< QColor >();
 
     m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
@@ -119,11 +116,9 @@ QColor NewSettings::PageItem::backgroundColor() const
     return m_backgroundColor.name();
 }
 
-void NewSettings::PageItem::setBackgroundColor(const QString& color)
+void NewSettings::PageItem::setBackgroundColor(const QColor &color)
 {
-    QColor backgroundColor(color);
-    m_backgroundColor = backgroundColor.isValid() ? backgroundColor : Defaults::PageItem::backgroundColor();
-
+    m_backgroundColor = color;
     m_settings->setValue("pageItem/backgroundColor", color);
 }
 
@@ -132,11 +127,9 @@ QColor NewSettings::PageItem::paperColor() const
     return m_paperColor.name();
 }
 
-void NewSettings::PageItem::setPaperColor(const QString& color)
+void NewSettings::PageItem::setPaperColor(const QColor& color)
 {
-    QColor paperColor(color);
-    m_paperColor = paperColor.isValid() ? paperColor : Defaults::PageItem::paperColor();
-
+    m_paperColor = color;
     m_settings->setValue("pageItem/paperColor", color);
 }
 
@@ -185,15 +178,6 @@ NewSettings::PageItem::PageItem(QSettings* settings) :
 
 // presentation view
 
-void NewSettings::PresentationView::sync()
-{
-}
-
-NewSettings::PresentationView::PresentationView(QSettings* settings) :
-    m_settings(settings)
-{
-}
-
 bool NewSettings::PresentationView::sync() const
 {
     return m_settings->value("presentationView/sync", Defaults::PresentationView::sync()).toBool();
@@ -212,6 +196,11 @@ int NewSettings::PresentationView::screen() const
 void NewSettings::PresentationView::setScreen(int screen)
 {
     m_settings->setValue("presentationView/screen", screen);
+}
+
+NewSettings::PresentationView::PresentationView(QSettings* settings) :
+    m_settings(settings)
+{
 }
 
 // document view
@@ -492,10 +481,6 @@ NewSettings::DocumentView::DocumentView(QSettings *settings) :
 
 // main window
 
-void NewSettings::MainWindow::sync()
-{
-}
-
 bool NewSettings::MainWindow::trackRecentlyUsed() const
 {
     return m_settings->value("mainWindow/trackRecentlyUsed", Defaults::MainWindow::trackRecentlyUsed()).toBool();
@@ -721,10 +706,6 @@ NewSettings::MainWindow::MainWindow(QSettings* settings) :
 
 // print dialog
 
-void NewSettings::PrintDialog::sync()
-{
-}
-
 NewSettings::PrintDialog::PrintDialog(QSettings* settings) :
     m_settings(settings)
 {
@@ -825,10 +806,7 @@ void NewSettings::sync()
     m_settings->sync();
 
     m_pageItem.sync();
-    m_presentationView.sync();
     m_documentView.sync();
-    m_mainWindow.sync();
-    m_printDialog.sync();
 }
 
 NewSettings::PageItem& NewSettings::pageItem()

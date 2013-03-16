@@ -194,7 +194,6 @@ protected:
 private:
     static NewSettings* s_settings;
 
-    Settings* m_settings;
     ShortcutHandler* m_shortcutHandler;
 
     TabWidget* m_tabWidget;

@@ -18,7 +18,6 @@ HEADERS += \
     sources/searchtask.h \
     sources/documentview.h \
     sources/miscellaneous.h \
-    sources/settings.h \
     sources/shortcuthandler.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
@@ -35,7 +34,6 @@ SOURCES += \
     sources/searchtask.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
-    sources/settings.cpp \
     sources/shortcuthandler.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \

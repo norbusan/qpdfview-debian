@@ -61,10 +61,10 @@ public:
         void setDecorateFormFields(bool decorate);
 
         QColor backgroundColor() const;
-        void setBackgroundColor(const QString& color);
+        void setBackgroundColor(const QColor& color);
 
         QColor paperColor() const;
-        void setPaperColor(const QString& color);
+        void setPaperColor(const QColor& color);
 
         const QIcon& progressIcon() const;
         const QIcon& errorIcon() const;
@@ -100,8 +100,6 @@ public:
     class PresentationView
     {
     public:
-        void sync();
-
         bool sync() const;
         void setSync(bool sync);
 
@@ -216,8 +214,6 @@ public:
     class MainWindow
     {
     public:
-        void sync();
-
         bool trackRecentlyUsed() const;
         void setTrackRecentlyUsed(bool on);
 
@@ -291,8 +287,6 @@ public:
     class PrintDialog
     {
     public:
-        void sync();
-
         bool collateCopies();
         void setCollateCopies(bool collateCopies);
 
