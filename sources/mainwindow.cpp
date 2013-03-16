@@ -1697,7 +1697,7 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
 
 QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable)
 {
-    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(":icons/" + iconName + ".svg")), shortcut, member, checkable);
+    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcut, member, checkable);
 }
 
 void MainWindow::createActions()
@@ -1793,14 +1793,19 @@ void MainWindow::createToolBars()
     m_fileToolBar = addToolBar(tr("&File"));
     m_fileToolBar->setObjectName(QLatin1String("fileToolBar"));
 
-    foreach(QString action, s_settings->mainWindow().fileToolBar())
+    const QList< QAction* > fileActions = QList< QAction* >() << m_openAction << m_openInNewTabAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction;
+
+    foreach(QString actionName, s_settings->mainWindow().fileToolBar())
     {
-        if(action == "open") { m_fileToolBar->addAction(m_openAction); }
-        else if(action == "openInNewTab") { m_fileToolBar->addAction(m_openInNewTabAction); }
-        else if(action == "refresh") { m_fileToolBar->addAction(m_refreshAction); }
-        else if(action == "saveCopy") { m_fileToolBar->addAction(m_saveCopyAction); }
-        else if(action == "saveAs") { m_fileToolBar->addAction(m_saveAsAction); }
-        else if(action == "print") { m_fileToolBar->addAction(m_printAction); }
+        foreach(QAction* action, fileActions)
+        {
+            if(actionName == action->objectName())
+            {
+                m_fileToolBar->addAction(action);
+
+                break;
+            }
+        }
     }
 
     // edit
@@ -1808,17 +1813,27 @@ void MainWindow::createToolBars()
     m_editToolBar = addToolBar(tr("&Edit"));
     m_editToolBar->setObjectName(QLatin1String("editToolBar"));
 
-    foreach(QString action, s_settings->mainWindow().editToolBar())
+    const QList< QAction* > editActions = QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_copyToClipboardModeAction << m_addAnnotationModeAction;
+
+    foreach(QString actionName, s_settings->mainWindow().editToolBar())
     {
-        if(action == "currentPage") { m_currentPageSpinBox->setVisible(true); m_editToolBar->addWidget(m_currentPageSpinBox); }
-        else if(action == "previousPage") { m_editToolBar->addAction(m_previousPageAction); }
-        else if(action == "nextPage") { m_editToolBar->addAction(m_nextPageAction); }
-        else if(action == "firstPage") { m_editToolBar->addAction(m_firstPageAction); }
-        else if(action == "lastPage") { m_editToolBar->addAction(m_lastPageAction); }
-        else if(action == "jumpToPage") { m_editToolBar->addAction(m_jumpToPageAction); }
-        else if(action == "search") { m_editToolBar->addAction(m_searchAction); }
-        else if(action == "copyToClipboardMode") { m_editToolBar->addAction(m_copyToClipboardModeAction); }
-        else if(action == "addAnnotationMode") { m_editToolBar->addAction(m_addAnnotationModeAction); }
+        if(actionName == QLatin1String("currentPage"))
+        {
+            m_currentPageSpinBox->setVisible(true);
+            m_editToolBar->addWidget(m_currentPageSpinBox);
+
+            continue;
+        }
+
+        foreach(QAction* action, editActions)
+        {
+            if(actionName == action->objectName())
+            {
+                m_editToolBar->addAction(action);
+
+                break;
+            }
+        }
     }
 
     // view
@@ -1826,22 +1841,27 @@ void MainWindow::createToolBars()
     m_viewToolBar = addToolBar(tr("&View"));
     m_viewToolBar->setObjectName(QLatin1String("viewToolBar"));
 
-    foreach(QString action, s_settings->mainWindow().viewToolBar())
+    const QList< QAction* > viewActions = QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction;
+
+    foreach(QString actionName, s_settings->mainWindow().viewToolBar())
     {
-        if(action == "continuousMode") { m_viewToolBar->addAction(m_continuousModeAction); }
-        else if(action == "twoPagesMode") { m_viewToolBar->addAction(m_twoPagesModeAction); }
-        else if(action == "twoPagesWithCoverPageMode") { m_viewToolBar->addAction(m_twoPagesWithCoverPageModeAction); }
-        else if(action == "multiplePagesMode") { m_viewToolBar->addAction(m_multiplePagesModeAction); }
-        else if(action == "scaleFactor") { m_scaleFactorComboBox->setVisible(true); m_viewToolBar->addWidget(m_scaleFactorComboBox); }
-        else if(action == "zoomIn") { m_viewToolBar->addAction(m_zoomInAction); }
-        else if(action == "zoomOut") { m_viewToolBar->addAction(m_zoomOutAction); }
-        else if(action == "originalSize") { m_viewToolBar->addAction(m_originalSizeAction); }
-        else if(action == "fitToPageWidthMode") { m_viewToolBar->addAction(m_fitToPageWidthModeAction); }
-        else if(action == "fitToPageSizeMode") { m_viewToolBar->addAction(m_fitToPageSizeModeAction); }
-        else if(action == "rotateLeft") { m_viewToolBar->addAction(m_rotateLeftAction); }
-        else if(action == "rotateRight") { m_viewToolBar->addAction(m_rotateRightAction); }
-        else if(action == "fullscreen") { m_viewToolBar->addAction(m_fullscreenAction); }
-        else if(action == "presentation") { m_viewToolBar->addAction(m_presentationAction); }
+        if(actionName == QLatin1String("scaleFactor"))
+        {
+            m_scaleFactorComboBox->setVisible(true);
+            m_viewToolBar->addWidget(m_scaleFactorComboBox);
+
+            continue;
+        }
+
+        foreach(QAction* action, viewActions)
+        {
+            if(actionName == action->objectName())
+            {
+                m_viewToolBar->addAction(action);
+
+                break;
+            }
+        }
     }
 
     // search
@@ -1862,22 +1882,31 @@ void MainWindow::createToolBars()
     m_searchToolBar->addAction(m_cancelSearchAction);
 }
 
+QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
+{
+    QDockWidget* dock = new QDockWidget(text, this);
+
+    dock->setObjectName(objectName);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    dock->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
+    dock->toggleViewAction()->setShortcut(toggleViewShortcut);
+
+    m_shortcutHandler->registerAction(dock->toggleViewAction());
+
+    dock->hide();
+
+    return dock;
+}
+
 void MainWindow::createDocks()
 {
     // outline
 
-    m_outlineDock = new QDockWidget(tr("&Outline"), this);
-    m_outlineDock->setObjectName(QLatin1String("outlineDock"));
-    m_outlineDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    m_outlineDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    addDockWidget(Qt::LeftDockWidgetArea, m_outlineDock);
-
-    m_outlineDock->toggleViewAction()->setObjectName(QLatin1String("outlineDockToggleView"));
-    m_outlineDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F6));
-    m_shortcutHandler->registerAction(m_outlineDock->toggleViewAction());
-
-    m_outlineDock->hide();
+    m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
     m_outlineView = new TreeView(this);
     m_outlineView->setAlternatingRowColors(true);
@@ -1892,18 +1921,7 @@ void MainWindow::createDocks()
 
     // properties
 
-    m_propertiesDock = new QDockWidget(tr("&Properties"), this);
-    m_propertiesDock->setObjectName(QLatin1String("propertiesDock"));
-    m_propertiesDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    m_propertiesDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    addDockWidget(Qt::LeftDockWidgetArea, m_propertiesDock);
-
-    m_propertiesDock->toggleViewAction()->setObjectName(QLatin1String("propertiesDockToggleView"));
-    m_propertiesDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F7));
-    m_shortcutHandler->registerAction(m_propertiesDock->toggleViewAction());
-
-    m_propertiesDock->hide();
+    m_propertiesDock = createDock(tr("&Properties"), QLatin1String("propertiesDock"), QKeySequence(Qt::Key_F7));
 
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
@@ -1928,18 +1946,7 @@ void MainWindow::createDocks()
 
     // thumbnails
 
-    m_thumbnailsDock = new QDockWidget(tr("&Thumbnails"), this);
-    m_thumbnailsDock->setObjectName(QLatin1String("thumbnailsDock"));
-    m_thumbnailsDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    m_thumbnailsDock->setFeatures(QDockWidget::AllDockWidgetFeatures);
-
-    addDockWidget(Qt::RightDockWidgetArea, m_thumbnailsDock);
-
-    m_thumbnailsDock->toggleViewAction()->setObjectName(QLatin1String("thumbnailsDockToggleView"));
-    m_thumbnailsDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F8));
-    m_shortcutHandler->registerAction(m_thumbnailsDock->toggleViewAction());
-
-    m_thumbnailsDock->hide();
+    m_thumbnailsDock = createDock(tr("&Thumbnails"), QLatin1String("thumbnailsDock"), QKeySequence(Qt::Key_F8));
 
     m_thumbnailsView = new QGraphicsView(this);
 

@@ -305,6 +305,8 @@ private:
     QDockWidget* m_thumbnailsDock;
     QGraphicsView* m_thumbnailsView;
 
+    QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
+
     void createDocks();
 
     QMenu* m_fileMenu;
