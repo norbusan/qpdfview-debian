@@ -51,14 +51,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
-#include "newsettings.h"
+#include "settings.h"
 #include "model.h"
 #include "pluginhandler.h"
 #include "pageitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
 
-NewSettings* DocumentView::s_settings = 0;
+Settings* DocumentView::s_settings = 0;
 
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
 QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
@@ -173,7 +173,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 {
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     setScene(new QGraphicsScene(this));

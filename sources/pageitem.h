@@ -36,7 +36,7 @@ class FormField;
 class Page;
 }
 
-class NewSettings;
+class Settings;
 class RenderTask;
 
 class PageItem : public QGraphicsObject
@@ -113,7 +113,7 @@ private slots:
     virtual void loadInteractiveElements();
 
 private:
-    static NewSettings* s_settings;
+    static Settings* s_settings;
 
     static QCache< PageItem*, QPixmap > s_cache;
 

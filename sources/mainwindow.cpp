@@ -65,7 +65,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SQL
 
-#include "newsettings.h"
+#include "settings.h"
 #include "pageitem.h"
 #include "documentview.h"
 #include "miscellaneous.h"
@@ -75,7 +75,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
 
-NewSettings* MainWindow::s_settings = 0;
+Settings* MainWindow::s_settings = 0;
 
 MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
 {
@@ -83,7 +83,7 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
 
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     s_settings->sync();

@@ -40,7 +40,7 @@ class Page;
 class Document;
 }
 
-class NewSettings;
+class Settings;
 class PageItem;
 class ThumbnailItem;
 class SearchTask;
@@ -198,7 +198,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
-    static NewSettings* s_settings;
+    static Settings* s_settings;
 
     static QKeySequence s_skipBackwardShortcut;
     static QKeySequence s_skipForwardShortcut;

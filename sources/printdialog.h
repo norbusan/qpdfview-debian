@@ -31,7 +31,7 @@ class QLineEdit;
 class QPrinter;
 
 struct PrintOptions;
-class NewSettings;
+class Settings;
 
 class PrintDialog : public QPrintDialog
 {
@@ -48,7 +48,7 @@ public slots:
     void accept();
 
 private:
-    static NewSettings* s_settings;
+    static Settings* s_settings;
 
     QWidget* m_printOptionsWidget;
     QFormLayout* m_printOptionsLayout;

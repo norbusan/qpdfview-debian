@@ -35,20 +35,20 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSpinBox>
 #include <QTableView>
 
-#include "newsettings.h"
+#include "settings.h"
 #include "model.h"
 #include "pluginhandler.h"
 #include "documentview.h"
 #include "miscellaneous.h"
 #include "shortcuthandler.h"
 
-NewSettings* SettingsDialog::s_settings = 0;
+Settings* SettingsDialog::s_settings = 0;
 
 SettingsDialog::SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent) : QDialog(parent)
 {
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     m_shortcutHandler = shortcutHandler;

@@ -25,12 +25,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QTimer>
 
-#include "newsettings.h"
+#include "settings.h"
 #include "model.h"
 #include "pageitem.h"
 #include "documentview.h"
 
-NewSettings* PresentationView::s_settings = 0;
+Settings* PresentationView::s_settings = 0;
 
 PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
@@ -45,7 +45,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 {
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);

@@ -20,8 +20,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef NEWSETTINGS_H
-#define NEWSETTINGS_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 #include <QColor>
 #include <QIcon>
@@ -34,12 +34,12 @@ class QSettings;
 #include "global.h"
 #include "printoptions.h"
 
-class NewSettings : public QObject
+class Settings : public QObject
 {
     Q_OBJECT
 
 public:
-    static NewSettings* instance();
+    static Settings* instance();
 
     // page item
 
@@ -77,7 +77,7 @@ public:
 
     private:
         PageItem(QSettings* settings);
-        friend class NewSettings;
+        friend class Settings;
 
         QSettings* m_settings;
 
@@ -108,7 +108,7 @@ public:
 
     private:
         PresentationView(QSettings* settings);
-        friend class NewSettings;
+        friend class Settings;
 
         QSettings* m_settings;
 
@@ -191,7 +191,7 @@ public:
 
     private:
         DocumentView(QSettings* settings);
-        friend class NewSettings;
+        friend class Settings;
 
         QSettings* m_settings;
 
@@ -276,7 +276,7 @@ public:
 
     private:
         MainWindow(QSettings* settings);
-        friend class NewSettings;
+        friend class Settings;
 
         QSettings* m_settings;
 
@@ -316,7 +316,7 @@ public:
 
     private:
         PrintDialog(QSettings* settings);
-        friend class NewSettings;
+        friend class Settings;
 
         QSettings* m_settings;
 
@@ -331,9 +331,9 @@ public:
     PrintDialog& printDialog();
 
 private:
-    static NewSettings* s_instance;
+    static Settings* s_instance;
 
-    NewSettings(QObject* parent = 0);
+    Settings(QObject* parent = 0);
 
     QSettings* m_settings;
 
@@ -492,4 +492,4 @@ private:
 
 };
 
-#endif // NEWSETTINGS_H
+#endif // SETTINGS_H

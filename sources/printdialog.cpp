@@ -26,15 +26,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFormLayout>
 #include <QLineEdit>
 
-#include "newsettings.h"
+#include "settings.h"
 
-NewSettings* PrintDialog::s_settings = 0;
+Settings* PrintDialog::s_settings = 0;
 
 QPrinter* PrintDialog::createPrinter()
 {
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     QPrinter* printer = new QPrinter();

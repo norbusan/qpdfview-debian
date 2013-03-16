@@ -20,7 +20,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "newsettings.h"
+#include "settings.h"
 
 #include <QApplication>
 #include <QSettings>
@@ -35,13 +35,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-NewSettings* NewSettings::s_instance = 0;
+Settings* Settings::s_instance = 0;
 
-NewSettings* NewSettings::instance()
+Settings* Settings::instance()
 {
     if(s_instance == 0)
     {
-        s_instance = new NewSettings(qApp);
+        s_instance = new Settings(qApp);
     }
 
     return s_instance;
@@ -49,7 +49,7 @@ NewSettings* NewSettings::instance()
 
 // page item
 
-void NewSettings::PageItem::sync()
+void Settings::PageItem::sync()
 {
     m_cacheSize = m_settings->value("pageItem/cacheSize", Defaults::PageItem::cacheSize()).toInt();
 
@@ -64,12 +64,12 @@ void NewSettings::PageItem::sync()
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
 }
 
-int NewSettings::PageItem::cacheSize() const
+int Settings::PageItem::cacheSize() const
 {
     return m_cacheSize;
 }
 
-void NewSettings::PageItem::setCacheSize(int cacheSize)
+void Settings::PageItem::setCacheSize(int cacheSize)
 {
     if(cacheSize >= 0)
     {
@@ -78,92 +78,92 @@ void NewSettings::PageItem::setCacheSize(int cacheSize)
     }
 }
 
-bool NewSettings::PageItem::decoratePages() const
+bool Settings::PageItem::decoratePages() const
 {
     return m_decoratePages;
 }
 
-void NewSettings::PageItem::setDecoratePages(bool decorate)
+void Settings::PageItem::setDecoratePages(bool decorate)
 {
     m_decoratePages = decorate;
     m_settings->setValue("pageItem/decoratePages", decorate);
 }
 
-bool NewSettings::PageItem::decorateLinks() const
+bool Settings::PageItem::decorateLinks() const
 {
     return m_decorateLinks;
 }
 
-void NewSettings::PageItem::setDecorateLinks(bool decorate)
+void Settings::PageItem::setDecorateLinks(bool decorate)
 {
     m_decorateLinks = decorate;
     m_settings->setValue("pageItem/decorateLinks", decorate);
 }
 
-bool NewSettings::PageItem::decorateFormFields() const
+bool Settings::PageItem::decorateFormFields() const
 {
     return m_decorateFormFields;
 }
 
-void NewSettings::PageItem::setDecorateFormFields(bool decorate)
+void Settings::PageItem::setDecorateFormFields(bool decorate)
 {
     m_decorateFormFields = decorate;
     m_settings->setValue("pageItem/decorateFormFields", decorate);
 }
 
-QColor NewSettings::PageItem::backgroundColor() const
+QColor Settings::PageItem::backgroundColor() const
 {
     return m_backgroundColor.name();
 }
 
-void NewSettings::PageItem::setBackgroundColor(const QColor &color)
+void Settings::PageItem::setBackgroundColor(const QColor &color)
 {
     m_backgroundColor = color;
     m_settings->setValue("pageItem/backgroundColor", color);
 }
 
-QColor NewSettings::PageItem::paperColor() const
+QColor Settings::PageItem::paperColor() const
 {
     return m_paperColor.name();
 }
 
-void NewSettings::PageItem::setPaperColor(const QColor& color)
+void Settings::PageItem::setPaperColor(const QColor& color)
 {
     m_paperColor = color;
     m_settings->setValue("pageItem/paperColor", color);
 }
 
-const QIcon& NewSettings::PageItem::progressIcon() const
+const QIcon& Settings::PageItem::progressIcon() const
 {
     return m_progressIcon;
 }
 
-const QIcon& NewSettings::PageItem::errorIcon() const
+const QIcon& Settings::PageItem::errorIcon() const
 {
     return m_errorIcon;
 }
 
-Qt::KeyboardModifiers NewSettings::PageItem::copyToClipboardModifiers() const
+Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyToClipboardModifiers", static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())).toInt());
 }
 
-void NewSettings::PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers)
 {
     m_settings->setValue("pageItem/copyToClipboardModifiers", static_cast< int >(modifiers));
 }
 
-Qt::KeyboardModifiers NewSettings::PageItem::addAnnotationModifiers() const
+Qt::KeyboardModifiers Settings::PageItem::addAnnotationModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/addAnnotationModifiers", static_cast< int >(Defaults::PageItem::addAnnotationModifiers())).toInt());
 }
 
-void NewSettings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers)
 {
     m_settings->setValue("pageItem/addAnnotationModifiers", static_cast< int >(modifiers));
 }
 
-NewSettings::PageItem::PageItem(QSettings* settings) :
+Settings::PageItem::PageItem(QSettings* settings) :
     m_settings(settings),
     m_cacheSize(Defaults::PageItem::cacheSize()),
     m_decoratePages(Defaults::PageItem::decoratePages()),
@@ -178,34 +178,34 @@ NewSettings::PageItem::PageItem(QSettings* settings) :
 
 // presentation view
 
-bool NewSettings::PresentationView::sync() const
+bool Settings::PresentationView::sync() const
 {
     return m_settings->value("presentationView/sync", Defaults::PresentationView::sync()).toBool();
 }
 
-void NewSettings::PresentationView::setSync(bool sync)
+void Settings::PresentationView::setSync(bool sync)
 {
     m_settings->setValue("presentationView/sync", sync);
 }
 
-int NewSettings::PresentationView::screen() const
+int Settings::PresentationView::screen() const
 {
     return m_settings->value("presentationView/screen", Defaults::PresentationView::screen()).toInt();
 }
 
-void NewSettings::PresentationView::setScreen(int screen)
+void Settings::PresentationView::setScreen(int screen)
 {
     m_settings->setValue("presentationView/screen", screen);
 }
 
-NewSettings::PresentationView::PresentationView(QSettings* settings) :
+Settings::PresentationView::PresentationView(QSettings* settings) :
     m_settings(settings)
 {
 }
 
 // document view
 
-void NewSettings::DocumentView::sync()
+void Settings::DocumentView::sync()
 {
     m_prefetch = m_settings->value("documentView/prefetch", Defaults::DocumentView::prefetch()).toBool();
     m_prefetchDistance = m_settings->value("documentView/prefetchDistance", Defaults::DocumentView::prefetchDistance()).toInt();
@@ -220,43 +220,43 @@ void NewSettings::DocumentView::sync()
     m_thumbnailSize = m_settings->value("documentView/thumbnailSize", Defaults::DocumentView::thumbnailSize()).toReal();
 }
 
-bool NewSettings::DocumentView::openUrl() const
+bool Settings::DocumentView::openUrl() const
 {
     return m_settings->value("documentView/openUrl", Defaults::DocumentView::openUrl()).toBool();
 }
 
-void NewSettings::DocumentView::setOpenUrl(bool openUrl)
+void Settings::DocumentView::setOpenUrl(bool openUrl)
 {
     m_settings->setValue("documentView/openUrl", openUrl);
 }
 
-bool NewSettings::DocumentView::autoRefresh() const
+bool Settings::DocumentView::autoRefresh() const
 {
     return m_settings->value("documentView/autoRefresh", Defaults::DocumentView::autoRefresh()).toBool();
 }
 
-void NewSettings::DocumentView::setAutoRefresh(bool autoRefresh)
+void Settings::DocumentView::setAutoRefresh(bool autoRefresh)
 {
     m_settings->setValue("documentView/autoRefresh", autoRefresh);
 }
 
-bool NewSettings::DocumentView::prefetch() const
+bool Settings::DocumentView::prefetch() const
 {
     return m_prefetch;
 }
 
-void NewSettings::DocumentView::setPrefetch(bool prefetch)
+void Settings::DocumentView::setPrefetch(bool prefetch)
 {
     m_prefetch = prefetch;
     m_settings->setValue("documentView/prefetch", prefetch);
 }
 
-int NewSettings::DocumentView::prefetchDistance() const
+int Settings::DocumentView::prefetchDistance() const
 {
     return m_prefetchDistance;
 }
 
-void NewSettings::DocumentView::setPrefetchDistance(int prefetchDistance)
+void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
 {
     if(prefetchDistance > 0)
     {
@@ -265,12 +265,12 @@ void NewSettings::DocumentView::setPrefetchDistance(int prefetchDistance)
     }
 }
 
-int NewSettings::DocumentView::pagesPerRow() const
+int Settings::DocumentView::pagesPerRow() const
 {
     return m_pagesPerRow;
 }
 
-void NewSettings::DocumentView::setPagesPerRow(int pagesPerRow)
+void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
     if(pagesPerRow > 0)
     {
@@ -279,23 +279,23 @@ void NewSettings::DocumentView::setPagesPerRow(int pagesPerRow)
     }
 }
 
-bool NewSettings::DocumentView::limitThumbnailsToResults() const
+bool Settings::DocumentView::limitThumbnailsToResults() const
 {
     return m_limitThumbnailsToResults;
 }
 
-void NewSettings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
+void Settings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
 {
     m_limitThumbnailsToResults = limitThumbnailsToResults;
     m_settings->setValue("documentView/limitThumbnailsToResults", limitThumbnailsToResults);
 }
 
-qreal NewSettings::DocumentView::pageSpacing() const
+qreal Settings::DocumentView::pageSpacing() const
 {
     return m_pageSpacing;
 }
 
-void NewSettings::DocumentView::setPageSpacing(qreal pageSpacing)
+void Settings::DocumentView::setPageSpacing(qreal pageSpacing)
 {
     if(pageSpacing >= 0.0)
     {
@@ -304,12 +304,12 @@ void NewSettings::DocumentView::setPageSpacing(qreal pageSpacing)
     }
 }
 
-qreal NewSettings::DocumentView::thumbnailSpacing() const
+qreal Settings::DocumentView::thumbnailSpacing() const
 {
     return m_thumbnailSpacing;
 }
 
-void NewSettings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
+void Settings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
 {
     if(thumbnailSpacing >= 0.0)
     {
@@ -318,12 +318,12 @@ void NewSettings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
     }
 }
 
-qreal NewSettings::DocumentView::thumbnailSize() const
+qreal Settings::DocumentView::thumbnailSize() const
 {
     return m_thumbnailSize;
 }
 
-void NewSettings::DocumentView::setThumbnailSize(qreal thumbnailSize)
+void Settings::DocumentView::setThumbnailSize(qreal thumbnailSize)
 {
     if(thumbnailSize > 0.0)
     {
@@ -332,22 +332,22 @@ void NewSettings::DocumentView::setThumbnailSize(qreal thumbnailSize)
     }
 }
 
-bool NewSettings::DocumentView::matchCase() const
+bool Settings::DocumentView::matchCase() const
 {
     return m_settings->value("documentView/matchCase", Defaults::DocumentView::matchCase()).toBool();
 }
 
-void NewSettings::DocumentView::setMatchCase(bool matchCase)
+void Settings::DocumentView::setMatchCase(bool matchCase)
 {
     m_settings->setValue("documentView/matchCase", matchCase);
 }
 
-int NewSettings::DocumentView::highlightDuration() const
+int Settings::DocumentView::highlightDuration() const
 {
     return m_settings->value("documentView/highlightDuration", Defaults::DocumentView::highlightDuration()).toInt();
 }
 
-void NewSettings::DocumentView::setHighlightDuration(int highlightDuration)
+void Settings::DocumentView::setHighlightDuration(int highlightDuration)
 {
     if(highlightDuration >= 0)
     {
@@ -355,119 +355,119 @@ void NewSettings::DocumentView::setHighlightDuration(int highlightDuration)
     }
 }
 
-QString NewSettings::DocumentView::sourceEditor() const
+QString Settings::DocumentView::sourceEditor() const
 {
     return m_settings->value("documentView/sourceEditor", Defaults::DocumentView::sourceEditor()).toString();
 }
 
-void NewSettings::DocumentView::setSourceEditor(const QString& sourceEditor)
+void Settings::DocumentView::setSourceEditor(const QString& sourceEditor)
 {
     m_settings->setValue("documentView/sourceEditor", sourceEditor);
 }
 
-Qt::KeyboardModifiers NewSettings::DocumentView::zoomModifiers() const
+Qt::KeyboardModifiers Settings::DocumentView::zoomModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/zoomModifiers", static_cast< int >(Defaults::DocumentView::zoomModifiers())).toInt());
 }
 
-void NewSettings::DocumentView::setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers)
+void Settings::DocumentView::setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers)
 {
     m_settings->setValue("documentView/zoomModifiers", static_cast< int >(zoomModifiers));
 }
 
-Qt::KeyboardModifiers NewSettings::DocumentView::rotateModifiers() const
+Qt::KeyboardModifiers Settings::DocumentView::rotateModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/rotateModifiers", static_cast< int >(Defaults::DocumentView::rotateModifiers())).toInt());
 }
 
-void NewSettings::DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers)
+void Settings::DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers)
 {
     m_settings->setValue("documentView/rotateModifiers", static_cast< int >(rotateModifiers));
 }
 
-Qt::KeyboardModifiers NewSettings::DocumentView::scrollModifiers() const
+Qt::KeyboardModifiers Settings::DocumentView::scrollModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/scrollModifiers", static_cast< int >(Defaults::DocumentView::scrollModifiers())).toInt());
 }
 
-void NewSettings::DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
+void Settings::DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
 {
     m_settings->setValue("documentView/scrollModifiers", static_cast< int >(scrollModifiers));
 }
 
 // per-tab settings
 
-bool NewSettings::DocumentView::continuousMode() const
+bool Settings::DocumentView::continuousMode() const
 {
     return m_settings->value("documentView/continuousMode", Defaults::DocumentView::continuousMode()).toBool();
 }
 
-void NewSettings::DocumentView::setContinuousMode(bool continuousMode)
+void Settings::DocumentView::setContinuousMode(bool continuousMode)
 {
     m_settings->setValue("documentView/continuousMode", continuousMode);
 }
 
-LayoutMode NewSettings::DocumentView::layoutMode() const
+LayoutMode Settings::DocumentView::layoutMode() const
 {
     return static_cast< LayoutMode >(m_settings->value("documentView/layoutMode", static_cast< uint >(Defaults::DocumentView::layoutMode())).toUInt());
 }
 
-void NewSettings::DocumentView::setLayoutMode(LayoutMode layoutMode)
+void Settings::DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
     m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
 }
 
-ScaleMode NewSettings::DocumentView::scaleMode() const
+ScaleMode Settings::DocumentView::scaleMode() const
 {
     return static_cast< ScaleMode >(m_settings->value("documentView/scaleMode", static_cast< uint >(Defaults::DocumentView::scaleMode())).toUInt());
 }
 
-void NewSettings::DocumentView::setScaleMode(ScaleMode scaleMode)
+void Settings::DocumentView::setScaleMode(ScaleMode scaleMode)
 {
     m_settings->setValue("documentView/scaleMode", static_cast< uint >(scaleMode));
 }
 
-qreal NewSettings::DocumentView::scaleFactor() const
+qreal Settings::DocumentView::scaleFactor() const
 {
     return m_settings->value("documentView/scaleFactor", Defaults::DocumentView::scaleFactor()).toReal();
 }
 
-void NewSettings::DocumentView::setScaleFactor(qreal scaleFactor)
+void Settings::DocumentView::setScaleFactor(qreal scaleFactor)
 {
     m_settings->setValue("documentView/scaleFactor", scaleFactor);
 }
 
-Rotation NewSettings::DocumentView::rotation() const
+Rotation Settings::DocumentView::rotation() const
 {
     return static_cast< Rotation >(m_settings->value("documentView/rotation", static_cast< uint >(Defaults::DocumentView::rotation())).toUInt());
 }
 
-void NewSettings::DocumentView::setRotation(Rotation rotation)
+void Settings::DocumentView::setRotation(Rotation rotation)
 {
     m_settings->setValue("documentView/rotation", static_cast< uint >(rotation));
 }
 
-bool NewSettings::DocumentView::invertColors() const
+bool Settings::DocumentView::invertColors() const
 {
     return m_settings->value("documentView/invertColors", Defaults::DocumentView::invertColors()).toBool();
 }
 
-void NewSettings::DocumentView::setInvertColors(bool invertColors)
+void Settings::DocumentView::setInvertColors(bool invertColors)
 {
     m_settings->setValue("documentView/invertColors", invertColors);
 }
 
-bool NewSettings::DocumentView::highlightAll() const
+bool Settings::DocumentView::highlightAll() const
 {
     return m_settings->value("documentView/highlightAll", Defaults::DocumentView::highlightAll()).toBool();
 }
 
-void NewSettings::DocumentView::setHighlightAll(bool highlightAll)
+void Settings::DocumentView::setHighlightAll(bool highlightAll)
 {
     m_settings->setValue("documentView/highlightAll", highlightAll);
 }
 
-NewSettings::DocumentView::DocumentView(QSettings *settings) :
+Settings::DocumentView::DocumentView(QSettings *settings) :
     m_settings(settings),
     m_prefetch(Defaults::DocumentView::prefetch()),
     m_prefetchDistance(Defaults::DocumentView::prefetchDistance()),
@@ -481,62 +481,62 @@ NewSettings::DocumentView::DocumentView(QSettings *settings) :
 
 // main window
 
-bool NewSettings::MainWindow::trackRecentlyUsed() const
+bool Settings::MainWindow::trackRecentlyUsed() const
 {
     return m_settings->value("mainWindow/trackRecentlyUsed", Defaults::MainWindow::trackRecentlyUsed()).toBool();
 }
 
-void NewSettings::MainWindow::setTrackRecentlyUsed(bool on)
+void Settings::MainWindow::setTrackRecentlyUsed(bool on)
 {
     m_settings->setValue("mainWindow/trackRecentlyUsed", on);
 }
 
-QStringList NewSettings::MainWindow::recentlyUsed() const
+QStringList Settings::MainWindow::recentlyUsed() const
 {
     return m_settings->value("mainWindow/recentlyUsed").toStringList();
 }
 
-void NewSettings::MainWindow::setRecentlyUsed(const QStringList& recentlyUsed)
+void Settings::MainWindow::setRecentlyUsed(const QStringList& recentlyUsed)
 {
     m_settings->setValue("mainWindow/recentlyUsed", recentlyUsed);
 }
 
-bool NewSettings::MainWindow::restoreTabs() const
+bool Settings::MainWindow::restoreTabs() const
 {
     return m_settings->value("mainWindow/restoreTabs", Defaults::MainWindow::restoreTabs()).toBool();
 }
 
-void NewSettings::MainWindow::setRestoreTabs(bool on)
+void Settings::MainWindow::setRestoreTabs(bool on)
 {
     m_settings->setValue("mainWindow/restoreTabs", on);
 }
 
-bool NewSettings::MainWindow::restoreBookmarks() const
+bool Settings::MainWindow::restoreBookmarks() const
 {
     return m_settings->value("mainWindow/restoreBookmarks", Defaults::MainWindow::restoreBookmarks()).toBool();
 }
 
-void NewSettings::MainWindow::setRestoreBookmarks(bool on)
+void Settings::MainWindow::setRestoreBookmarks(bool on)
 {
     m_settings->setValue("mainWindow/restoreBookmarks", on);
 }
 
-bool NewSettings::MainWindow::restorePerFileSettings() const
+bool Settings::MainWindow::restorePerFileSettings() const
 {
     return m_settings->value("mainWindow/restorePerFileSettings", Defaults::MainWindow::restorePerFileSettings()).toBool();
 }
 
-void NewSettings::MainWindow::setRestorePerFileSettings(bool on)
+void Settings::MainWindow::setRestorePerFileSettings(bool on)
 {
     m_settings->setValue("mainWindow/restorePerFileSettings", on);
 }
 
-int NewSettings::MainWindow::tabPosition() const
+int Settings::MainWindow::tabPosition() const
 {
     return m_settings->value("mainWindow/tabPosition", Defaults::MainWindow::tabPosition()).toInt();
 }
 
-void NewSettings::MainWindow::setTabPosition(int tabPosition)
+void Settings::MainWindow::setTabPosition(int tabPosition)
 {
     if(tabPosition >= 0 && tabPosition < 4)
     {
@@ -544,12 +544,12 @@ void NewSettings::MainWindow::setTabPosition(int tabPosition)
     }
 }
 
-int NewSettings::MainWindow::tabVisibility() const
+int Settings::MainWindow::tabVisibility() const
 {
     return m_settings->value("mainWindow/tabVisibility", Defaults::MainWindow::tabVisibility()).toInt();
 }
 
-void NewSettings::MainWindow::setTabVisibility(int tabVisibility)
+void Settings::MainWindow::setTabVisibility(int tabVisibility)
 {
     if(tabVisibility >= 0 && tabVisibility < 3)
     {
@@ -557,22 +557,22 @@ void NewSettings::MainWindow::setTabVisibility(int tabVisibility)
     }
 }
 
-bool NewSettings::MainWindow::newTabNextToCurrentTab() const
+bool Settings::MainWindow::newTabNextToCurrentTab() const
 {
     return m_settings->value("mainWindow/newTabNextToCurrentTab", Defaults::MainWindow::newTabNextToCurrentTab()).toBool();
 }
 
-void NewSettings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab)
+void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab)
 {
     m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
 }
 
-bool NewSettings::MainWindow::currentPageInWindowTitle() const
+bool Settings::MainWindow::currentPageInWindowTitle() const
 {
     return m_settings->value("mainWindow/currentPageInWindowTitle", Defaults::MainWindow::currentPageInWindowTitle()).toBool();
 }
 
-void NewSettings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText)
+void Settings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText)
 {
     m_settings->setValue("mainWindow/currentPageInWindowTitle", currentPageInTabText);
 }
@@ -589,219 +589,219 @@ static QStringList trimmed(const QStringList& list)
     return trimmedList;
 }
 
-QStringList NewSettings::MainWindow::fileToolBar() const
+QStringList Settings::MainWindow::fileToolBar() const
 {
     return m_settings->value("mainWindow/fileToolBar", Defaults::MainWindow::fileToolBar()).toStringList();
 }
 
-void NewSettings::MainWindow::setFileToolBar(const QStringList& fileToolBar)
+void Settings::MainWindow::setFileToolBar(const QStringList& fileToolBar)
 {
     m_settings->setValue("mainWindow/fileToolBar", trimmed(fileToolBar));
 }
 
-QStringList NewSettings::MainWindow::editToolBar() const
+QStringList Settings::MainWindow::editToolBar() const
 {
     return m_settings->value("mainWindow/editToolBar", Defaults::MainWindow::editToolBar()).toStringList();
 }
 
-void NewSettings::MainWindow::setEditToolBar(const QStringList& editToolBar)
+void Settings::MainWindow::setEditToolBar(const QStringList& editToolBar)
 {
     m_settings->setValue("mainWindow/editToolBar", trimmed(editToolBar));
 }
 
-QStringList NewSettings::MainWindow::viewToolBar() const
+QStringList Settings::MainWindow::viewToolBar() const
 {
     return m_settings->value("mainWindow/viewToolBar", Defaults::MainWindow::viewToolBar()).toStringList();
 }
 
-void NewSettings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
+void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
 {
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
 }
 
-bool NewSettings::MainWindow::hasIconTheme() const
+bool Settings::MainWindow::hasIconTheme() const
 {
     return m_settings->contains("mainWindow/iconTheme");
 }
 
-QString NewSettings::MainWindow::iconTheme() const
+QString Settings::MainWindow::iconTheme() const
 {
     return m_settings->value("mainWindow/iconTheme").toString();
 }
 
-bool NewSettings::MainWindow::hasStyleSheet() const
+bool Settings::MainWindow::hasStyleSheet() const
 {
     return m_settings->contains("mainWindow/styleSheet");
 }
 
-QString NewSettings::MainWindow::styleSheet() const
+QString Settings::MainWindow::styleSheet() const
 {
     return m_settings->value("mainWindow/styleSheet").toString();
 }
 
-QByteArray NewSettings::MainWindow::geometry() const
+QByteArray Settings::MainWindow::geometry() const
 {
     return m_settings->value("mainWindow/geometry").toByteArray();
 }
 
-void NewSettings::MainWindow::setGeometry(const QByteArray& geometry)
+void Settings::MainWindow::setGeometry(const QByteArray& geometry)
 {
     m_settings->setValue("mainWindow/geometry", geometry);
 }
 
-QByteArray NewSettings::MainWindow::state() const
+QByteArray Settings::MainWindow::state() const
 {
     return m_settings->value("mainWindow/state").toByteArray();
 }
 
-void NewSettings::MainWindow::setState(const QByteArray& state)
+void Settings::MainWindow::setState(const QByteArray& state)
 {
     m_settings->setValue("mainWindow/state", state);
 }
 
-QString NewSettings::MainWindow::openPath() const
+QString Settings::MainWindow::openPath() const
 {
     return m_settings->value("mainWindow/openPath", Defaults::MainWindow::path()).toString();
 }
 
-void NewSettings::MainWindow::setOpenPath(const QString& openPath)
+void Settings::MainWindow::setOpenPath(const QString& openPath)
 {
     m_settings->setValue("mainWindow/openPath", openPath);
 }
 
-QString NewSettings::MainWindow::savePath() const
+QString Settings::MainWindow::savePath() const
 {
     return m_settings->value("mainWindow/savePath", Defaults::MainWindow::path()).toString();
 }
 
-void NewSettings::MainWindow::setSavePath(const QString& savePath)
+void Settings::MainWindow::setSavePath(const QString& savePath)
 {
     m_settings->setValue("mainWindow/savePath", savePath);
 }
 
-QSize NewSettings::MainWindow::fontsDialogSize(const QSize& sizeHint) const
+QSize Settings::MainWindow::fontsDialogSize(const QSize& sizeHint) const
 {
     return m_settings->value("mainWindow/fontsDialogSize", sizeHint).toSize();
 }
 
-void NewSettings::MainWindow::setFontsDialogSize(const QSize& fontsDialogSize)
+void Settings::MainWindow::setFontsDialogSize(const QSize& fontsDialogSize)
 {
     m_settings->setValue("mainWindow/fontsDialogSize", fontsDialogSize);
 }
 
-QSize NewSettings::MainWindow::contentsDialogSize(const QSize& sizeHint) const
+QSize Settings::MainWindow::contentsDialogSize(const QSize& sizeHint) const
 {
     return m_settings->value("mainWindow/contentsDialogSize", sizeHint).toSize();
 }
 
-void NewSettings::MainWindow::setContentsDialogSize(const QSize& contentsDialogSize)
+void Settings::MainWindow::setContentsDialogSize(const QSize& contentsDialogSize)
 {
     m_settings->setValue("mainWindow/contentsDialogSize", contentsDialogSize);
 }
 
-NewSettings::MainWindow::MainWindow(QSettings* settings) :
+Settings::MainWindow::MainWindow(QSettings* settings) :
     m_settings(settings)
 {
 }
 
 // print dialog
 
-NewSettings::PrintDialog::PrintDialog(QSettings* settings) :
+Settings::PrintDialog::PrintDialog(QSettings* settings) :
     m_settings(settings)
 {
 }
 
-bool NewSettings::PrintDialog::collateCopies()
+bool Settings::PrintDialog::collateCopies()
 {
     return m_settings->value("printDialog/collateCopies", Defaults::PrintDialog::collateCopies()).toBool();
 }
 
-void NewSettings::PrintDialog::setCollateCopies(bool collateCopies)
+void Settings::PrintDialog::setCollateCopies(bool collateCopies)
 {
     m_settings->setValue("printDialog/collateCopies", collateCopies);
 }
 
-QPrinter::PageOrder NewSettings::PrintDialog::pageOrder()
+QPrinter::PageOrder Settings::PrintDialog::pageOrder()
 {
     return static_cast< QPrinter::PageOrder >(m_settings->value("printDialog/pageOrder", static_cast< int >(Defaults::PrintDialog::pageOrder())).toInt());
 }
 
-void NewSettings::PrintDialog::setPageOrder(QPrinter::PageOrder pageOrder)
+void Settings::PrintDialog::setPageOrder(QPrinter::PageOrder pageOrder)
 {
     m_settings->setValue("printDialog/pageOrder", static_cast< int >(pageOrder));
 }
 
-QPrinter::Orientation NewSettings::PrintDialog::orientation()
+QPrinter::Orientation Settings::PrintDialog::orientation()
 {
     return static_cast< QPrinter::Orientation >(m_settings->value("printDialog/orientation", static_cast< int >(Defaults::PrintDialog::orientation())).toInt());
 }
 
-void NewSettings::PrintDialog::setOrientation(QPrinter::Orientation orientation)
+void Settings::PrintDialog::setOrientation(QPrinter::Orientation orientation)
 {
     m_settings->setValue("printDialog/orientation", static_cast< int >(orientation));
 }
 
-QPrinter::ColorMode NewSettings::PrintDialog::colorMode()
+QPrinter::ColorMode Settings::PrintDialog::colorMode()
 {
     return static_cast< QPrinter::ColorMode >(m_settings->value("printDialog/colorMode", static_cast< int >(Defaults::PrintDialog::colorMode())).toInt());
 }
 
-void NewSettings::PrintDialog::setColorMode(QPrinter::ColorMode colorMode)
+void Settings::PrintDialog::setColorMode(QPrinter::ColorMode colorMode)
 {
     m_settings->setValue("printDialog/colorMode", static_cast< int >(colorMode));
 }
 
-QPrinter::DuplexMode NewSettings::PrintDialog::duplex()
+QPrinter::DuplexMode Settings::PrintDialog::duplex()
 {
     return static_cast< QPrinter::DuplexMode >(m_settings->value("printDialog/duplex", static_cast< int >(Defaults::PrintDialog::duplex())).toInt());
 }
 
-void NewSettings::PrintDialog::setDuplex(QPrinter::DuplexMode duplex)
+void Settings::PrintDialog::setDuplex(QPrinter::DuplexMode duplex)
 {
     m_settings->setValue("printDialog/duplex", static_cast< int >(duplex));
 }
 
-bool NewSettings::PrintDialog::fitToPage()
+bool Settings::PrintDialog::fitToPage()
 {
     return m_settings->value("printDialog/fitToPage", Defaults::PrintDialog::fitToPage()).toBool();
 }
 
-void NewSettings::PrintDialog::setFitToPage(bool fitToPage)
+void Settings::PrintDialog::setFitToPage(bool fitToPage)
 {
     m_settings->setValue("printDialog/fitToPage", fitToPage);
 }
 
-PrintOptions::PageSet NewSettings::PrintDialog::pageSet()
+PrintOptions::PageSet Settings::PrintDialog::pageSet()
 {
     return static_cast< PrintOptions::PageSet >(m_settings->value("printDialog/pageSet", static_cast< uint >(Defaults::PrintDialog::pageSet())).toUInt());
 }
 
-void NewSettings::PrintDialog::setPageSet(PrintOptions::PageSet pageSet)
+void Settings::PrintDialog::setPageSet(PrintOptions::PageSet pageSet)
 {
     m_settings->setValue("printDialog/pageSet", static_cast< uint >(pageSet));
 }
 
-PrintOptions::NumberUp NewSettings::PrintDialog::numberUp()
+PrintOptions::NumberUp Settings::PrintDialog::numberUp()
 {
     return static_cast< PrintOptions::NumberUp >(m_settings->value("printDialog/numberUp", static_cast< uint >(Defaults::PrintDialog::numberUp())).toUInt());
 }
 
-void NewSettings::PrintDialog::setNumberUp(PrintOptions::NumberUp numberUp)
+void Settings::PrintDialog::setNumberUp(PrintOptions::NumberUp numberUp)
 {
     m_settings->setValue("printDialog/numberUp", static_cast< uint >(numberUp));
 }
 
-PrintOptions::NumberUpLayout NewSettings::PrintDialog::numberUpLayout()
+PrintOptions::NumberUpLayout Settings::PrintDialog::numberUpLayout()
 {
     return static_cast< PrintOptions::NumberUpLayout >(m_settings->value("printDialog/numberUpLayout", static_cast< uint >(Defaults::PrintDialog::numberUpLayout())).toUInt());
 }
 
-void NewSettings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout)
+void Settings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout)
 {
     m_settings->setValue("printDialog/numberUpLayout", static_cast< uint >(numberUpLayout));
 }
 
-void NewSettings::sync()
+void Settings::sync()
 {
     m_settings->sync();
 
@@ -809,32 +809,32 @@ void NewSettings::sync()
     m_documentView.sync();
 }
 
-NewSettings::PageItem& NewSettings::pageItem()
+Settings::PageItem& Settings::pageItem()
 {
     return m_pageItem;
 }
 
-NewSettings::PresentationView& NewSettings::presentationView()
+Settings::PresentationView& Settings::presentationView()
 {
     return m_presentationView;
 }
 
-NewSettings::DocumentView& NewSettings::documentView()
+Settings::DocumentView& Settings::documentView()
 {
     return m_documentView;
 }
 
-NewSettings::MainWindow& NewSettings::mainWindow()
+Settings::MainWindow& Settings::mainWindow()
 {
     return m_mainWindow;
 }
 
-NewSettings::PrintDialog& NewSettings::printDialog()
+Settings::PrintDialog& Settings::printDialog()
 {
     return m_printDialog;
 }
 
-NewSettings::NewSettings(QObject* parent) : QObject(parent),
+Settings::Settings(QObject* parent) : QObject(parent),
     m_settings(new QSettings("qpdfview", "qpdfview", this)),
     m_pageItem(m_settings),
     m_presentationView(m_settings),

@@ -33,11 +33,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QToolTip>
 
-#include "newsettings.h"
+#include "settings.h"
 #include "model.h"
 #include "rendertask.h"
 
-NewSettings* PageItem::s_settings = 0;
+Settings* PageItem::s_settings = 0;
 
 QCache< PageItem*, QPixmap > PageItem::s_cache;
 
@@ -64,7 +64,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 {
     if(s_settings == 0)
     {
-        s_settings = NewSettings::instance();
+        s_settings = Settings::instance();
     }
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());

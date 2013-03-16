@@ -35,7 +35,7 @@ class QSpinBox;
 class QTableView;
 class QTabWidget;
 
-class NewSettings;
+class Settings;
 class SettingsWidget;
 class ShortcutHandler;
 
@@ -51,7 +51,7 @@ public slots:
     void reset();
 
 private:
-    static NewSettings* s_settings;
+    static Settings* s_settings;
 
     ShortcutHandler* m_shortcutHandler;
 
