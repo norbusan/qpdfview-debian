@@ -922,8 +922,8 @@ Model::Document* Model::PDFDocumentLoader::loadDocument(const QString& filePath)
 
     if(document != 0)
     {
-        document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", false).toBool());
-        document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", false).toBool());
+        document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", true).toBool());
+        document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", true).toBool());
 
 #ifdef HAS_POPPLER_18
 
