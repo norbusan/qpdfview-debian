@@ -294,6 +294,8 @@ private:
 
     QToolBar* m_searchToolBar;
 
+    QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions, QWidget* widget = 0);
+
     void createToolBars();
 
     QDockWidget* m_outlineDock;

@@ -1616,6 +1616,7 @@ void MainWindow::createWidgets()
 
     m_currentPageSpinBox = new SpinBox(this);
 
+    m_currentPageSpinBox->setObjectName(QLatin1String("currentPage"));
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_currentPageSpinBox->setKeyboardTracking(false);
@@ -1629,6 +1630,7 @@ void MainWindow::createWidgets()
 
     m_scaleFactorComboBox = new ComboBox(this);
 
+    m_scaleFactorComboBox->setObjectName(QLatin1String("scaleFactor"));
     m_scaleFactorComboBox->setEditable(true);
     m_scaleFactorComboBox->setInsertPolicy(QComboBox::NoInsert);
 
@@ -1786,83 +1788,46 @@ void MainWindow::createActions()
     m_aboutAction = createAction(tr("&About"), QString(), QIcon::fromTheme("help-about"), QKeySequence(), SLOT(on_about_triggered()));
 }
 
+QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions, QWidget* widget)
+{
+    QToolBar* toolBar = addToolBar(text);
+
+    toolBar->setObjectName(objectName);
+
+    foreach(QString actionName, actionNames)
+    {
+        if(widget != 0 && widget->objectName() == actionName)
+        {
+            widget->setVisible(true);
+            toolBar->addWidget(widget);
+
+            continue;
+        }
+
+        foreach(QAction* action, actions)
+        {
+            if(actionName == action->objectName())
+            {
+                toolBar->addAction(action);
+
+                break;
+            }
+        }
+    }
+
+    return toolBar;
+}
+
 void MainWindow::createToolBars()
 {
-    // file
+    m_fileToolBar = createToolBar(tr("&File"), QLatin1String("fileToolBar"), s_settings->mainWindow().fileToolBar(),
+                                  QList< QAction* >() << m_openAction << m_openInNewTabAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
 
-    m_fileToolBar = addToolBar(tr("&File"));
-    m_fileToolBar->setObjectName(QLatin1String("fileToolBar"));
+    m_editToolBar = createToolBar(tr("&Edit"), QLatin1String("editToolBar"), s_settings->mainWindow().editToolBar(),
+                                  QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_copyToClipboardModeAction << m_addAnnotationModeAction, m_currentPageSpinBox);
 
-    const QList< QAction* > fileActions = QList< QAction* >() << m_openAction << m_openInNewTabAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction;
-
-    foreach(QString actionName, s_settings->mainWindow().fileToolBar())
-    {
-        foreach(QAction* action, fileActions)
-        {
-            if(actionName == action->objectName())
-            {
-                m_fileToolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
-
-    // edit
-
-    m_editToolBar = addToolBar(tr("&Edit"));
-    m_editToolBar->setObjectName(QLatin1String("editToolBar"));
-
-    const QList< QAction* > editActions = QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_copyToClipboardModeAction << m_addAnnotationModeAction;
-
-    foreach(QString actionName, s_settings->mainWindow().editToolBar())
-    {
-        if(actionName == QLatin1String("currentPage"))
-        {
-            m_currentPageSpinBox->setVisible(true);
-            m_editToolBar->addWidget(m_currentPageSpinBox);
-
-            continue;
-        }
-
-        foreach(QAction* action, editActions)
-        {
-            if(actionName == action->objectName())
-            {
-                m_editToolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
-
-    // view
-
-    m_viewToolBar = addToolBar(tr("&View"));
-    m_viewToolBar->setObjectName(QLatin1String("viewToolBar"));
-
-    const QList< QAction* > viewActions = QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction;
-
-    foreach(QString actionName, s_settings->mainWindow().viewToolBar())
-    {
-        if(actionName == QLatin1String("scaleFactor"))
-        {
-            m_scaleFactorComboBox->setVisible(true);
-            m_viewToolBar->addWidget(m_scaleFactorComboBox);
-
-            continue;
-        }
-
-        foreach(QAction* action, viewActions)
-        {
-            if(actionName == action->objectName())
-            {
-                m_viewToolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
+    m_viewToolBar = createToolBar(tr("&View"), QLatin1String("viewToolBar"), s_settings->mainWindow().viewToolBar(),
+                                  QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction, m_scaleFactorComboBox);
 
     // search
 
