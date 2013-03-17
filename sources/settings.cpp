@@ -47,6 +47,11 @@ Settings* Settings::instance()
     return s_instance;
 }
 
+Settings::~Settings()
+{
+    s_instance = 0;
+}
+
 // page item
 
 void Settings::PageItem::sync()

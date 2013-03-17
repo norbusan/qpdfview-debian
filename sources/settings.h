@@ -41,6 +41,8 @@ class Settings : public QObject
 public:
     static Settings* instance();
 
+    ~Settings();
+
     // page item
 
     class PageItem
