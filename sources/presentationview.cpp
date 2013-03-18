@@ -58,9 +58,6 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(previousPage()));
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(nextPage()));
-
     new QShortcut(QKeySequence(Qt::ALT + Qt::Key_Left), this, SLOT(jumpBackward()));
     new QShortcut(QKeySequence(Qt::ALT + Qt::Key_Right), this, SLOT(jumpForward()));
 
