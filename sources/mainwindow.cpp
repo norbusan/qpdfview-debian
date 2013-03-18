@@ -1933,8 +1933,7 @@ void MainWindow::createMenus()
     // file
 
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addAction(m_openAction);
-    m_fileMenu->addAction(m_openInNewTabAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(this);
 
@@ -1962,96 +1961,65 @@ void MainWindow::createMenus()
         }
     }
 
-    m_fileMenu->addAction(m_refreshAction);
-    m_fileMenu->addAction(m_saveCopyAction);
-    m_fileMenu->addAction(m_saveAsAction);
-    m_fileMenu->addAction(m_printAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
     // edit
 
     m_editMenu = menuBar()->addMenu(tr("&Edit"));
-    m_editMenu->addAction(m_previousPageAction);
-    m_editMenu->addAction(m_nextPageAction);
-    m_editMenu->addAction(m_firstPageAction);
-    m_editMenu->addAction(m_lastPageAction);
-    m_editMenu->addAction(m_jumpToPageAction);
+    m_editMenu->addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction);
     m_editMenu->addSeparator();
     m_editMenu->addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
     m_editMenu->addSeparator();
-    m_editMenu->addAction(m_searchAction);
-    m_editMenu->addAction(m_findPreviousAction);
-    m_editMenu->addAction(m_findNextAction);
-    m_editMenu->addAction(m_cancelSearchAction);
+    m_editMenu->addActions(QList< QAction* >() << m_searchAction << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
     m_editMenu->addSeparator();
-    m_editMenu->addAction(m_copyToClipboardModeAction);
-    m_editMenu->addAction(m_addAnnotationModeAction);
+    m_editMenu->addActions(QList< QAction* >() << m_copyToClipboardModeAction << m_addAnnotationModeAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_settingsAction);
 
     // view
 
     m_viewMenu = menuBar()->addMenu(tr("&View"));
-    m_viewMenu->addAction(m_continuousModeAction);
-    m_viewMenu->addAction(m_twoPagesModeAction);
-    m_viewMenu->addAction(m_twoPagesWithCoverPageModeAction);
-    m_viewMenu->addAction(m_multiplePagesModeAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_zoomInAction);
-    m_viewMenu->addAction(m_zoomOutAction);
-    m_viewMenu->addAction(m_originalSizeAction);
-    m_viewMenu->addAction(m_fitToPageWidthModeAction);
-    m_viewMenu->addAction(m_fitToPageSizeModeAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_rotateLeftAction);
-    m_viewMenu->addAction(m_rotateRightAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_rotateLeftAction << m_rotateRightAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addAction(m_invertColorsAction);
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));
-    toolBarsMenu->addAction(m_fileToolBar->toggleViewAction());
-    toolBarsMenu->addAction(m_editToolBar->toggleViewAction());
-    toolBarsMenu->addAction(m_viewToolBar->toggleViewAction());
+    toolBarsMenu->addActions(QList< QAction* >() << m_fileToolBar->toggleViewAction() << m_editToolBar->toggleViewAction() << m_viewToolBar->toggleViewAction());
 
     QMenu* docksMenu = m_viewMenu->addMenu(tr("&Docks"));
-    docksMenu->addAction(m_outlineDock->toggleViewAction());
-    docksMenu->addAction(m_propertiesDock->toggleViewAction());
-    docksMenu->addAction(m_thumbnailsDock->toggleViewAction());
+    docksMenu->addActions(QList< QAction* >() << m_outlineDock->toggleViewAction() << m_propertiesDock->toggleViewAction() << m_thumbnailsDock->toggleViewAction());
 
     m_viewMenu->addAction(m_fontsAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_fullscreenAction);
-    m_viewMenu->addAction(m_presentationAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_fullscreenAction << m_presentationAction);
 
     // tabs
 
     m_tabsMenu = menuBar()->addMenu(tr("&Tabs"));
-    m_tabsMenu->addAction(m_previousTabAction);
-    m_tabsMenu->addAction(m_nextTabAction);
+    m_tabsMenu->addActions(QList< QAction* >() << m_previousTabAction << m_nextTabAction);
     m_tabsMenu->addSeparator();
-    m_tabsMenu->addAction(m_closeTabAction);
-    m_tabsMenu->addAction(m_closeAllTabsAction);
-    m_tabsMenu->addAction(m_closeAllTabsButCurrentTabAction);
+    m_tabsMenu->addActions(QList< QAction* >() << m_closeTabAction << m_closeAllTabsAction << m_closeAllTabsButCurrentTabAction);
     m_tabsMenu->addSeparator();
 
     // bookmarks
 
     m_bookmarksMenu = menuBar()->addMenu(tr("&Bookmarks"));
-    m_bookmarksMenu->addAction(m_previousBookmarkAction);
-    m_bookmarksMenu->addAction(m_nextBookmarkAction);
+    m_bookmarksMenu->addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
     m_bookmarksMenu->addSeparator();
-    m_bookmarksMenu->addAction(m_addBookmarkAction);
-    m_bookmarksMenu->addAction(m_removeBookmarkAction);
-    m_bookmarksMenu->addAction(m_removeAllBookmarksAction);
+    m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 
     // help
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
-    m_helpMenu->addAction(m_contentsAction);
-    m_helpMenu->addAction(m_aboutAction);
+    m_helpMenu->addActions(QList< QAction* >() << m_contentsAction << m_aboutAction);
 }
 
 void MainWindow::createDatabase()
