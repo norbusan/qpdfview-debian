@@ -32,16 +32,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings* PresentationView::s_settings = 0;
 
-PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QGraphicsView(parent),
+PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
-    m_document(0),
     m_numberOfPages(-1),
     m_currentPage(-1),
     m_rotation(RotateBy0),
     m_invertColors(false),
-    m_visitedPages(),
-    m_pagesScene(0),
-    m_pages()
+    m_past(),
+    m_future(),
+    m_pages(),
+    m_pageItems()
 {
     if(s_settings == 0)
     {
@@ -61,34 +61,36 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(previousPage()));
     new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(nextPage()));
 
+    new QShortcut(QKeySequence(Qt::ALT + Qt::Key_Left), this, SLOT(jumpBackward()));
+    new QShortcut(QKeySequence(Qt::ALT + Qt::Key_Right), this, SLOT(jumpForward()));
+
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
 
-    m_document = document;
+    m_pages = pages;
 
-    m_numberOfPages = m_document->numberOfPages();
+    m_numberOfPages = m_pages.count();
     m_currentPage = 1;
 
     // pages
 
-    m_pagesScene = new QGraphicsScene(this);
-    setScene(m_pagesScene);
+    setScene(new QGraphicsScene(this));
 
-    m_pages.reserve(m_numberOfPages);
+    m_pageItems.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = new PageItem(m_document->page(index), index, true);
+        PageItem* page = new PageItem(m_pages.at(index), index, true);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
-        m_pagesScene->addItem(page);
-        m_pages.append(page);
+        scene()->addItem(page);
+        m_pageItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
     }
 
-    m_pagesScene->setBackgroundBrush(QBrush(s_settings->pageItem().paperColor()));
+    scene()->setBackgroundBrush(QBrush(s_settings->pageItem().paperColor()));
 
     // prefetch
 
@@ -118,7 +120,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 
 PresentationView::~PresentationView()
 {
-    qDeleteAll(m_pages);
+    qDeleteAll(m_pageItems);
 }
 
 int PresentationView::numberOfPages() const
@@ -160,7 +162,7 @@ void PresentationView::setInvertColors(bool invertColors)
     {
         m_invertColors = invertColors;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setInvertColors(m_invertColors);
         }
@@ -172,7 +174,7 @@ void PresentationView::setInvertColors(bool invertColors)
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
 
-        m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+        scene()->setBackgroundBrush(QBrush(backgroundColor));
 
         emit invertColorsChanged(m_invertColors);
     }
@@ -205,28 +207,40 @@ void PresentationView::lastPage()
     jumpToPage(m_numberOfPages);
 }
 
-void PresentationView::jumpToPage(int page, bool returnTo)
+void PresentationView::jumpToPage(int page, bool trackChange)
 {
     if(m_currentPage != page && page >= 1 && page <= m_numberOfPages)
     {
-        if(returnTo)
+        if(trackChange)
         {
-            m_visitedPages.push(m_currentPage);
+            m_past.append(m_currentPage);
         }
 
         m_currentPage = page;
 
         prepareView();
 
-        emit currentPageChanged(m_currentPage, returnTo);
+        emit currentPageChanged(m_currentPage, trackChange);
     }
 }
 
-void PresentationView::returnToPage()
+void PresentationView::jumpBackward()
 {
-    if(!m_visitedPages.isEmpty())
+    if(!m_past.isEmpty())
     {
-        jumpToPage(m_visitedPages.pop(), false);
+        m_future.prepend(m_currentPage);
+
+        jumpToPage(m_past.takeLast(), false);
+    }
+}
+
+void PresentationView::jumpForward()
+{
+    if(!m_future.isEmpty())
+    {
+        m_past.append(m_currentPage);
+
+        jumpToPage(m_future.takeFirst(), false);
     }
 }
 
@@ -282,7 +296,7 @@ void PresentationView::on_prefetch_timeout()
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_pages.at(index)->startRender(true);
+        m_pageItems.at(index)->startRender(true);
     }
 }
 
@@ -332,11 +346,6 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
         return;
     case Qt::Key_End:
         lastPage();
-
-        event->accept();
-        return;
-    case Qt::Key_Return:
-        returnToPage();
 
         event->accept();
         return;
@@ -400,7 +409,7 @@ void PresentationView::prepareScene()
 {
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
         QSizeF size = page->size();
 
         qreal visibleWidth = viewport()->width();
@@ -435,7 +444,7 @@ void PresentationView::prepareView()
 {
     for(int index = 0; index < m_numberOfPages; ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(index == m_currentPage - 1)
         {

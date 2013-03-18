@@ -22,15 +22,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRESENTATIONVIEW_H
 #define PRESENTATIONVIEW_H
 
-#include <QFutureWatcher>
-#include <QStack>
 #include <QGraphicsView>
 
 #include "global.h"
 
 namespace Model
 {
-class Document;
+class Page;
 }
 
 class Settings;
@@ -41,7 +39,7 @@ class PresentationView : public QGraphicsView
     Q_OBJECT
 
 public:
-    PresentationView(Model::Document* document, QWidget* parent = 0);
+    PresentationView(const QVector< Model::Page* >& pages, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -54,7 +52,7 @@ public:
     void setInvertColors(bool invertColors);
 
 signals:
-    void currentPageChanged(int currentPage, bool returnTo = false);
+    void currentPageChanged(int currentPage, bool trackChange = false);
 
     void rotationChanged(Rotation rotation);
 
@@ -68,9 +66,10 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page, bool returnTo = true);
+    void jumpToPage(int page, bool trackChange = true);
 
-    void returnToPage();
+    void jumpBackward();
+    void jumpForward();
 
     void rotateLeft();
     void rotateRight();
@@ -91,8 +90,6 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    Model::Document* m_document;
-
     int m_numberOfPages;
     int m_currentPage;
 
@@ -100,10 +97,12 @@ private:
 
     bool m_invertColors;
 
-    QStack< int > m_visitedPages;
+    QList< int > m_past;
+    QList< int > m_future;
 
-    QGraphicsScene* m_pagesScene;
-    QVector< PageItem* > m_pages;
+    QVector< Model::Page* > m_pages;
+
+    QVector< PageItem* > m_pageItems;
 
     void prepareScene();
     void prepareView();

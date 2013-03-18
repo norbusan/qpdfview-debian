@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QInputDialog>
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QDesktopServices>
 #include <QDir>
@@ -983,7 +984,7 @@ void DocumentView::presentation()
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(m_document);
+    PresentationView* presentationView = new PresentationView(m_pages);
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 
