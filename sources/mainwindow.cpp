@@ -164,7 +164,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
             if(!highlight.isNull())
             {
-                currentTab()->jumpToHighlight(highlight);
+                currentTab()->highlightOnCurrentPage(highlight);
             }
 
             return true;
@@ -246,7 +246,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         if(!highlight.isNull())
         {
-            newTab->jumpToHighlight(highlight);
+            newTab->highlightOnCurrentPage(highlight);
         }
 
         return true;
@@ -284,7 +284,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
             if(!highlight.isNull())
             {
-                currentTab()->jumpToHighlight(highlight);
+                currentTab()->highlightOnCurrentPage(highlight);
             }
 
             return true;
@@ -323,6 +323,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_lastPageAction->setEnabled(true);
 
         m_jumpToPageAction->setEnabled(true);
+
+        m_jumpBackwardAction->setEnabled(currentTab()->canJumpBackward());
+        m_jumpForwardAction->setEnabled(currentTab()->canJumpForward());
 
         m_searchAction->setEnabled(true);
         m_findPreviousAction->setEnabled(true);
@@ -420,6 +423,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_lastPageAction->setEnabled(false);
 
         m_jumpToPageAction->setEnabled(false);
+
+        m_jumpBackwardAction->setEnabled(false);
+        m_jumpForwardAction->setEnabled(false);
 
         m_searchAction->setEnabled(false);
         m_findPreviousAction->setEnabled(false);
@@ -554,9 +560,12 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
-
         setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+
+        m_jumpBackwardAction->setEnabled(currentTab()->canJumpBackward());
+        m_jumpForwardAction->setEnabled(currentTab()->canJumpForward());
+
+        m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
     }
 }
 
@@ -700,28 +709,17 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        const QVector< int >& visitedPages = currentTab()->visitedPages();
+        menu.addSeparator();
+        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction);
 
-        if(!visitedPages.isEmpty())
-        {
-            QAction* returnToPageAction = menu.addAction(tr("&Return to page %1").arg(visitedPages.first()),
-                                                         currentTab(), SLOT(returnToPage()), DocumentView::returnToPageShortcut());
-
-            returnToPageAction->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
-            returnToPageAction->setIconVisibleInMenu(true);
-        }
+        menu.addSeparator();
+        menu.addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
 
         if(m_searchToolBar->isVisible())
         {
             menu.addSeparator();
             menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
         }
-
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
-
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
 
         menu.exec(currentTab()->mapToGlobal(pos));
     }
@@ -951,6 +949,16 @@ void MainWindow::on_jumpToPage_triggered()
     {
         currentTab()->jumpToPage(page);
     }
+}
+
+void MainWindow::on_jumpBackward_triggered()
+{
+    currentTab()->jumpBackward();
+}
+
+void MainWindow::on_jumpForward_triggered()
+{
+    currentTab()->jumpForward();
 }
 
 void MainWindow::on_search_triggered()
@@ -1190,10 +1198,7 @@ void MainWindow::on_fullscreen_triggered(bool checked)
 
 void MainWindow::on_presentation_triggered()
 {
-    bool sync = s_settings->presentationView().sync();
-    int screen = s_settings->presentationView().screen();
-
-    currentTab()->presentation(sync, screen);
+    currentTab()->presentation();
 }
 
 void MainWindow::on_previousTab_triggered()
@@ -1723,6 +1728,9 @@ void MainWindow::createActions()
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
+    m_jumpBackwardAction = createAction(tr("Jump &backward"), QLatin1String("jumpBackward"), QLatin1String("media-seek-backward"), QKeySequence(Qt::ALT + Qt::Key_Left), SLOT(on_jumpBackward_triggered()));
+    m_jumpForwardAction = createAction(tr("Jump for&ward"), QLatin1String("jumpForward"), QLatin1String("media-seek-forward"), QKeySequence(Qt::ALT + Qt::Key_Right), SLOT(on_jumpForward_triggered()));
+
     m_searchAction = createAction(tr("&Search..."), QLatin1String("search"), QLatin1String("edit-find"), QKeySequence::Find, SLOT(on_search_triggered()));
     m_findPreviousAction = createAction(tr("Find previous"), QLatin1String("findPrevious"), QLatin1String("go-up"), QKeySequence::FindPrevious, SLOT(on_findPrevious_triggered()));
     m_findNextAction = createAction(tr("Find next"), QLatin1String("findNext"), QLatin1String("go-down"), QKeySequence::FindNext, SLOT(on_findNext_triggered()));
@@ -1969,6 +1977,8 @@ void MainWindow::createMenus()
     m_editMenu->addAction(m_firstPageAction);
     m_editMenu->addAction(m_lastPageAction);
     m_editMenu->addAction(m_jumpToPageAction);
+    m_editMenu->addSeparator();
+    m_editMenu->addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
     m_editMenu->addSeparator();
     m_editMenu->addAction(m_searchAction);
     m_editMenu->addAction(m_findPreviousAction);

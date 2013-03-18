@@ -81,14 +81,6 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
 
     m_moveRightAction->setShortcut(::DocumentView::moveRightShortcut());
     registerAction(m_moveRightAction);
-
-    // return to page shortcut
-
-    m_returnToPageAction = new QAction(tr("Return to page"), this);
-    m_returnToPageAction->setObjectName(QLatin1String("returnToPage"));
-
-    m_returnToPageAction->setShortcut(::DocumentView::returnToPageShortcut());
-    registerAction(m_returnToPageAction);
 }
 
 void ShortcutHandler::registerAction(QAction* action)
@@ -212,8 +204,6 @@ bool ShortcutHandler::submit()
     DocumentView::setMoveDownShortcut(m_moveDownAction->shortcut());
     DocumentView::setMoveLeftShortcut(m_moveLeftAction->shortcut());
     DocumentView::setMoveRightShortcut(m_moveRightAction->shortcut());
-
-    DocumentView::setReturnToPageShortcut(m_returnToPageAction->shortcut());
 
     return true;
 }

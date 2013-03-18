@@ -69,8 +69,6 @@ private:
     QAction* m_moveLeftAction;
     QAction* m_moveRightAction;
 
-    QAction* m_returnToPageAction;
-
 };
 
 #endif // SHORTCUTHANDLER_H

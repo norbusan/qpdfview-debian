@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGraphicsView>
 #include <QMap>
-#include <QStack>
 
 class QDomNode;
 class QFileSystemWatcher;
@@ -69,17 +68,12 @@ public:
     static const QKeySequence& moveRightShortcut();
     static void setMoveRightShortcut(const QKeySequence& shortcut);
 
-    static const QKeySequence& returnToPageShortcut();
-    static void setReturnToPageShortcut(const QKeySequence& shortcut);
-
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
     const QString& filePath() const;
     int numberOfPages() const;
     int currentPage() const;
-
-    const QVector< int >& visitedPages() const;
 
     static QStringList openFilter();
     QStringList saveFilter() const;
@@ -124,7 +118,7 @@ public:
 signals:
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
-    void currentPageChanged(int currentPage, bool returnTo = false);
+    void currentPageChanged(int currentPage, bool trackChange = false);
 
     void continousModeChanged(bool continousMode);
     void layoutModeChanged(LayoutMode layoutMode);
@@ -154,10 +148,15 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
-    void jumpToHighlight(const QRectF& highlight);
+    void jumpToPage(int page, bool trackChange = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
-    void returnToPage();
+    bool canJumpBackward() const;
+    void jumpBackward();
+
+    bool canJumpForward() const;
+    void jumpForward();
+
+    void highlightOnCurrentPage(const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
@@ -172,7 +171,7 @@ public slots:
     void rotateLeft();
     void rotateRight();
 
-    void presentation(bool sync = false, int screen = -1);
+    void presentation();
 
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
@@ -208,8 +207,6 @@ private:
     static QKeySequence s_moveLeftShortcut;
     static QKeySequence s_moveRightShortcut;
 
-    static QKeySequence s_returnToPageShortcut;
-
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
 
@@ -229,9 +226,18 @@ private:
 
     bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
 
-    QStack< int > m_visitedPages;
-    QStack< qreal > m_leftOfVisitedPages;
-    QStack< qreal > m_topOfVisitedPages;
+    struct Position
+    {
+        int page;
+        qreal left;
+        qreal top;
+
+        Position(int page, qreal left, qreal top) : page(page), left(left), top(top) {}
+
+    };
+
+    QList< Position > m_past;
+    QList< Position > m_future;
 
     int currentPageForPage(int page) const;
 

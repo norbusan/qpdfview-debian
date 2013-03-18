@@ -68,8 +68,6 @@ QKeySequence DocumentView::s_moveDownShortcut(Qt::Key_Down);
 QKeySequence DocumentView::s_moveLeftShortcut(Qt::Key_Left);
 QKeySequence DocumentView::s_moveRightShortcut(Qt::Key_Right);
 
-QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
-
 const QKeySequence& DocumentView::skipBackwardShortcut()
 {
     return s_skipBackwardShortcut;
@@ -130,16 +128,6 @@ void DocumentView::setMoveRightShortcut(const QKeySequence& shortcut)
     s_moveRightShortcut = shortcut;
 }
 
-const QKeySequence& DocumentView::returnToPageShortcut()
-{
-    return s_returnToPageShortcut;
-}
-
-void DocumentView::setReturnToPageShortcut(const QKeySequence& shortcut)
-{
-    s_returnToPageShortcut = shortcut;
-}
-
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
     m_autoRefreshTimer(0),
@@ -148,9 +136,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
-    m_visitedPages(),
-    m_leftOfVisitedPages(),
-    m_topOfVisitedPages(),
+    m_past(),
+    m_future(),
     m_continuousMode(false),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactorMode),
@@ -267,11 +254,6 @@ int DocumentView::numberOfPages() const
 int DocumentView::currentPage() const
 {
     return m_currentPage;
-}
-
-const QVector< int >& DocumentView::visitedPages() const
-{
-    return m_visitedPages;
 }
 
 QStringList DocumentView::openFilter()
@@ -580,9 +562,8 @@ bool DocumentView::open(const QString& filePath)
         m_numberOfPages = document->numberOfPages();
         m_currentPage = 1;
 
-        m_visitedPages.clear();
-        m_leftOfVisitedPages.clear();
-        m_topOfVisitedPages.clear();
+        m_past.clear();
+        m_future.clear();
 
         prepareDocument(document);
 
@@ -749,7 +730,7 @@ void DocumentView::lastPage()
     jumpToPage(m_numberOfPages);
 }
 
-void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
 {
     if(page >= 1 && page <= m_numberOfPages)
     {
@@ -758,22 +739,61 @@ void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal c
 
         if(m_currentPage != currentPageForPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
         {
-            if(returnTo)
+            if(trackChange)
             {
-                m_visitedPages.push(m_currentPage);
-                m_leftOfVisitedPages.push(left); m_topOfVisitedPages.push(top);
+                m_past.append(Position(m_currentPage, left, top));
             }
 
             m_currentPage = currentPageForPage(page);
 
             prepareView(changeLeft, changeTop);
 
-            emit currentPageChanged(m_currentPage, returnTo);
+            emit currentPageChanged(m_currentPage, trackChange);
         }
     }
 }
 
-void DocumentView::jumpToHighlight(const QRectF& highlight)
+bool DocumentView::canJumpBackward() const
+{
+    return !m_past.isEmpty();
+}
+
+void DocumentView::jumpBackward()
+{
+    if(!m_past.isEmpty())
+    {
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        m_future.prepend(Position(m_currentPage, left, top));
+
+        Position pos = m_past.takeLast();
+
+        jumpToPage(pos.page, false, pos.left, pos.top);
+    }
+}
+
+bool DocumentView::canJumpForward() const
+{
+    return !m_future.isEmpty();
+}
+
+void DocumentView::jumpForward()
+{
+    if(!m_future.isEmpty())
+    {
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        m_past.append(Position(m_currentPage, left, top));
+
+        Position pos = m_future.takeFirst();
+
+        jumpToPage(pos.page, false, pos.left, pos.top);
+    }
+}
+
+void DocumentView::highlightOnCurrentPage(const QRectF& highlight)
 {
     PageItem* page = m_pageItems.at(m_currentPage - 1);
 
@@ -784,14 +804,6 @@ void DocumentView::jumpToHighlight(const QRectF& highlight)
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
     centerOn(page->transform().mapRect(highlight).translated(page->pos()).center());
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-}
-
-void DocumentView::returnToPage()
-{
-    if(!m_visitedPages.isEmpty())
-    {
-        jumpToPage(m_visitedPages.pop(), false, m_leftOfVisitedPages.pop(), m_topOfVisitedPages.pop());
-    }
 }
 
 void DocumentView::startSearch(const QString& text, bool matchCase)
@@ -962,8 +974,10 @@ void DocumentView::rotateRight()
     }
 }
 
-void DocumentView::presentation(bool sync, int screen)
+void DocumentView::presentation()
 {
+    int screen = s_settings->presentationView().screen();
+
     if(screen < -1 || screen >= QApplication::desktop()->screenCount())
     {
         screen = -1;
@@ -985,7 +999,7 @@ void DocumentView::presentation(bool sync, int screen)
 
     presentationView->jumpToPage(currentPage(), false);
 
-    if(sync)
+    if(s_settings->presentationView().sync())
     {
         connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
         connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int,bool)));
@@ -1184,14 +1198,6 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
     QKeySequence shortcut(event->modifiers() + event->key());
-
-    if(s_returnToPageShortcut.matches(shortcut))
-    {
-        returnToPage();
-
-        event->accept();
-        return;
-    }
 
     if(!m_continuousMode)
     {

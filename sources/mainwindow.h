@@ -124,6 +124,9 @@ protected slots:
 
     void on_jumpToPage_triggered();
 
+    void on_jumpBackward_triggered();
+    void on_jumpForward_triggered();
+
     void on_search_triggered();
     void on_search_returnPressed(const Qt::KeyboardModifiers& modifiers);
     void on_search_timeout();
@@ -231,6 +234,9 @@ private:
     QAction* m_lastPageAction;
 
     QAction* m_jumpToPageAction;
+
+    QAction* m_jumpBackwardAction;
+    QAction* m_jumpForwardAction;
 
     QAction* m_searchAction;
     QAction* m_findPreviousAction;
