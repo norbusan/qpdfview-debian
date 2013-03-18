@@ -743,6 +743,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
             if(trackChange)
             {
                 m_past.append(Position(m_currentPage, left, top));
+                m_future.clear();
             }
 
             m_currentPage = currentPageForPage(page);
