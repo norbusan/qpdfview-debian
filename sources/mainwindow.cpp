@@ -1791,6 +1791,13 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
 
     foreach(QString actionName, actionNames)
     {
+        if(actionName == QLatin1String("separator"))
+        {
+            toolBar->addSeparator();
+
+            continue;
+        }
+
         if(widget != 0 && widget->objectName() == actionName)
         {
             widget->setVisible(true);
@@ -1819,7 +1826,7 @@ void MainWindow::createToolBars()
                                   QList< QAction* >() << m_openAction << m_openInNewTabAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
 
     m_editToolBar = createToolBar(tr("&Edit"), QLatin1String("editToolBar"), s_settings->mainWindow().editToolBar(),
-                                  QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_copyToClipboardModeAction << m_addAnnotationModeAction, m_currentPageSpinBox);
+                                  QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_jumpBackwardAction << m_jumpForwardAction << m_copyToClipboardModeAction << m_addAnnotationModeAction, m_currentPageSpinBox);
 
     m_viewToolBar = createToolBar(tr("&View"), QLatin1String("viewToolBar"), s_settings->mainWindow().viewToolBar(),
                                   QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction, m_scaleFactorComboBox);
