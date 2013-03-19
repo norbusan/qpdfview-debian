@@ -327,9 +327,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_jumpToPageAction->setEnabled(true);
 
         m_searchAction->setEnabled(true);
-        m_findPreviousAction->setEnabled(true);
-        m_findNextAction->setEnabled(true);
-        m_cancelSearchAction->setEnabled(true);
 
         m_copyToClipboardModeAction->setEnabled(true);
         m_addAnnotationModeAction->setEnabled(true);
@@ -429,9 +426,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_jumpForwardAction->setEnabled(false);
 
         m_searchAction->setEnabled(false);
-        m_findPreviousAction->setEnabled(false);
-        m_findNextAction->setEnabled(false);
-        m_cancelSearchAction->setEnabled(false);
 
         m_copyToClipboardModeAction->setEnabled(false);
         m_addAnnotationModeAction->setEnabled(false);
@@ -1008,31 +1002,17 @@ void MainWindow::on_search_timeout()
 
 void MainWindow::on_findPrevious_triggered()
 {
-    if(!m_searchToolBar->isVisible())
+    if(!m_searchProgressLineEdit->text().isEmpty())
     {
-        on_search_triggered();
-    }
-    else
-    {
-        if(!m_searchProgressLineEdit->text().isEmpty())
-        {
-            currentTab()->findPrevious();
-        }
+        currentTab()->findPrevious();
     }
 }
 
 void MainWindow::on_findNext_triggered()
 {
-    if(!m_searchToolBar->isVisible())
+    if(!m_searchProgressLineEdit->text().isEmpty())
     {
-        on_search_triggered();
-    }
-    else
-    {
-        if(!m_searchProgressLineEdit->text().isEmpty())
-        {
-            currentTab()->findNext();
-        }
+        currentTab()->findNext();
     }
 }
 
@@ -1849,7 +1829,15 @@ void MainWindow::createToolBars()
     m_searchToolBar = new QToolBar(tr("&Search"), this);
     m_searchToolBar->setObjectName(QLatin1String("searchToolBar"));
 
-    m_searchToolBar->setHidden(true);
+    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
+    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
+    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
+
+    m_findPreviousAction->setEnabled(false);
+    m_findNextAction->setEnabled(false);
+    m_cancelSearchAction->setEnabled(false);
+
+    m_searchToolBar->setVisible(false);
     m_searchToolBar->setMovable(false);
 
     addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
