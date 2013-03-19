@@ -1,0 +1,30 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<linearGradient id="linearGradient2679">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#d3d7cf"/>
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" id="linearGradient1401" x1="6.9889" x2="6.8974" y1="35" y2="21.188">
+<stop offset="0" stop-color="#adb0a8"/>
+<stop offset="1" stop-color="#464744"/>
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" id="linearGradient1426" x1="4.4399" x2="4.6768" y1="15.6875" y2="17.875">
+<stop offset="0"/>
+<stop offset="1" stop-color="#fff" stop-opacity="0"/>
+</linearGradient>
+<linearGradient gradientUnits="userSpaceOnUse" id="linearGradient2322" x1="24.4762" x2="23.7504" y1="13.6586" y2="36">
+<stop offset="0"/>
+<stop offset="1" stop-color="#fff" stop-opacity=".66"/>
+</linearGradient>
+<radialGradient cx="64.2271" cy="147.9935" gradientTransform="matrix(.22266,-.99627,2.12999,.47604,-290.946,20.8517)" gradientUnits="userSpaceOnUse" id="radialGradient1436" r="8.75" xlink:href="#linearGradient2679"/>
+<radialGradient cx="64.2271" cy="147.9935" gradientTransform="matrix(.22266,-.99627,2.12999,.47604,-308.946,20.8517)" gradientUnits="userSpaceOnUse" id="radialGradient1439" r="8.75" xlink:href="#linearGradient2679"/>
+</defs>
+<path d="m23.5004,13.5-17.5,10.5 17.5,10.5v-21zm18,0-17.5,10.5 17.5,10.5v-21z" fill="none" opacity=".15" stroke="url(#linearGradient2322)" stroke-linecap="square" stroke-linejoin="round" stroke-width="3"/>
+<path d="m23.5004,13.5-17.5,10.5 17.5,10.5v-21z" fill="url(#radialGradient1439)" fill-rule="evenodd"/>
+<path d="m41.5004,13.5-17.5,10.5 17.5,10.5v-21z" fill="url(#radialGradient1436)" fill-rule="evenodd"/>
+<path d="m41.5004,13.5-1.1875.7188 1.1875-.125v-.5938zm-18,.25-.4688.0312-3.9688,2.375 4.4375-.4062v-2z" fill="url(#linearGradient1426)" fill-rule="evenodd" opacity=".07"/>
+<path d="m23.5004,13.5-17.5,10.5 17.5,10.5v-21zm18,0-17.5,10.5 17.5,10.5v-21z" fill="none" stroke="url(#linearGradient1401)" stroke-linecap="square" stroke-linejoin="round"/>
+<path d="m23.0004,14.375-16.0312,9.625 16.0312,9.625v-19.25zm18,0-16.0312,9.625 16.0312,9.625v-19.25zm-19,1.7812v15.6875l-13.0938-7.8438 13.0938-7.8438zm18,0v15.6875l-13.0938-7.8438 13.0938-7.8438z" fill="#fff" fill-rule="evenodd"/>
+<path d="m9.9375,23.375 12-7.1875v6.75l-12,.4375z" fill="#fff" fill-rule="evenodd" opacity=".561"/>
+<path d="m29.3125,22.5 10.6875-6.3125v5.75l-10.6875.5625z" fill="#fff" fill-rule="evenodd" opacity=".561"/>
+</svg>

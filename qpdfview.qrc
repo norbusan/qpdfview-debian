@@ -14,6 +14,8 @@
         <file>icons/go-first.svg</file>
         <file>icons/go-last.svg</file>
         <file>icons/go-jump.svg</file>
+        <file>icons/media-seek-backward.svg</file>
+        <file>icons/media-seek-forward.svg</file>
         <file>icons/edit-find.svg</file>
         <file>icons/go-up.svg</file>
         <file>icons/go-down.svg</file>
