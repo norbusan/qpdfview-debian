@@ -576,6 +576,8 @@ bool DocumentView::open(const QString& filePath)
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_numberOfPages);
         emit currentPageChanged(m_currentPage);
+
+        emit canJumpChanged(false, false);
     }
 
     return document != 0;
@@ -744,6 +746,8 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
             {
                 m_past.append(Position(m_currentPage, left, top));
                 m_future.clear();
+
+                emit canJumpChanged(true, false);
             }
 
             m_currentPage = currentPageForPage(page);
@@ -772,6 +776,8 @@ void DocumentView::jumpBackward()
         Position pos = m_past.takeLast();
 
         jumpToPage(pos.page, false, pos.left, pos.top);
+
+        emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
 }
 
@@ -792,6 +798,8 @@ void DocumentView::jumpForward()
         Position pos = m_future.takeFirst();
 
         jumpToPage(pos.page, false, pos.left, pos.top);
+
+        emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
 }
 

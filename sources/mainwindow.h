@@ -84,6 +84,8 @@ protected slots:
     void on_currentTab_numberOfPagesChaned(int numberOfPages);
     void on_currentTab_currentPageChanged(int currentPage);
 
+    void on_currentTab_canJumpChanged(bool backward, bool forward);
+
     void on_currentTab_continuousModeChanged(bool continuousMode);
     void on_currentTab_layoutModeChanged(LayoutMode layoutMode);
     void on_currentTab_scaleModeChanged(ScaleMode scaleMode);

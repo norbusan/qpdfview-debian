@@ -120,6 +120,8 @@ signals:
     void numberOfPagesChanged(int numberOfPages);
     void currentPageChanged(int currentPage, bool trackChange = false);
 
+    void canJumpChanged(bool backward, bool forward);
+
     void continousModeChanged(bool continousMode);
     void layoutModeChanged(LayoutMode layoutMode);
     void scaleModeChanged(ScaleMode scaleMode);

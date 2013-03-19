@@ -220,6 +220,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
 
+        connect(newTab, SIGNAL(canJumpChanged(bool,bool)), SLOT(on_currentTab_canJumpChanged(bool,bool)));
+
         connect(newTab, SIGNAL(continousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
         connect(newTab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
@@ -324,9 +326,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_jumpToPageAction->setEnabled(true);
 
-        m_jumpBackwardAction->setEnabled(currentTab()->canJumpBackward());
-        m_jumpForwardAction->setEnabled(currentTab()->canJumpForward());
-
         m_searchAction->setEnabled(true);
         m_findPreviousAction->setEnabled(true);
         m_findNextAction->setEnabled(true);
@@ -399,6 +398,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_filePathChanged(currentTab()->filePath());
         on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
         on_currentTab_currentPageChanged(currentTab()->currentPage());
+
+        on_currentTab_canJumpChanged(currentTab()->canJumpBackward(), currentTab()->canJumpForward());
 
         on_currentTab_continuousModeChanged(currentTab()->continousMode());
         on_currentTab_layoutModeChanged(currentTab()->layoutMode());
@@ -562,10 +563,16 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
 
-        m_jumpBackwardAction->setEnabled(currentTab()->canJumpBackward());
-        m_jumpForwardAction->setEnabled(currentTab()->canJumpForward());
-
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
+    }
+}
+
+void MainWindow::on_currentTab_canJumpChanged(bool backward, bool forward)
+{
+    if(senderIsCurrentTab())
+    {
+        m_jumpBackwardAction->setEnabled(backward);
+        m_jumpForwardAction->setEnabled(forward);
     }
 }
 
@@ -1728,8 +1735,8 @@ void MainWindow::createActions()
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
-    m_jumpBackwardAction = createAction(tr("Jump &backward"), QLatin1String("jumpBackward"), QLatin1String("media-seek-backward"), QKeySequence(Qt::ALT + Qt::Key_Left), SLOT(on_jumpBackward_triggered()));
-    m_jumpForwardAction = createAction(tr("Jump for&ward"), QLatin1String("jumpForward"), QLatin1String("media-seek-forward"), QKeySequence(Qt::ALT + Qt::Key_Right), SLOT(on_jumpForward_triggered()));
+    m_jumpBackwardAction = createAction(tr("Jump &backward"), QLatin1String("jumpBackward"), QLatin1String("media-seek-backward"), QKeySequence(Qt::Key_Return), SLOT(on_jumpBackward_triggered()));
+    m_jumpForwardAction = createAction(tr("Jump for&ward"), QLatin1String("jumpForward"), QLatin1String("media-seek-forward"), QKeySequence(Qt::SHIFT + Qt::Key_Return), SLOT(on_jumpForward_triggered()));
 
     m_searchAction = createAction(tr("&Search..."), QLatin1String("search"), QLatin1String("edit-find"), QKeySequence::Find, SLOT(on_search_triggered()));
     m_findPreviousAction = createAction(tr("Find previous"), QLatin1String("findPrevious"), QLatin1String("go-up"), QKeySequence::FindPrevious, SLOT(on_findPrevious_triggered()));
