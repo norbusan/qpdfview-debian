@@ -136,7 +136,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_document(0),
     m_pages(),
     m_filePath(),
-    m_numberOfPages(-1),
     m_currentPage(-1),
     m_past(),
     m_future(),
@@ -249,7 +248,7 @@ const QString& DocumentView::filePath() const
 
 int DocumentView::numberOfPages() const
 {
-    return m_numberOfPages;
+    return m_pages.count();
 }
 
 int DocumentView::currentPage() const
@@ -559,8 +558,6 @@ bool DocumentView::open(const QString& filePath)
         }
 
         m_filePath = filePath;
-
-        m_numberOfPages = document->numberOfPages();
         m_currentPage = 1;
 
         m_past.clear();
@@ -574,7 +571,7 @@ bool DocumentView::open(const QString& filePath)
         prepareThumbnailsScene();
 
         emit filePathChanged(m_filePath);
-        emit numberOfPagesChanged(m_numberOfPages);
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
 
         emit canJumpChanged(false, false);
@@ -603,8 +600,7 @@ bool DocumentView::refresh()
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_numberOfPages = document->numberOfPages();
-        m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : m_numberOfPages;
+        m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
         prepareDocument(document);
 
@@ -613,7 +609,7 @@ bool DocumentView::refresh()
 
         prepareThumbnailsScene();
 
-        emit numberOfPagesChanged(m_numberOfPages);
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
     }
 
@@ -662,17 +658,20 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
-{
+{    
+    int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
+    int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
+
 #ifdef WITH_CUPS
 
     if(m_document->canBePrintedUsingCUPS())
     {
-        return printUsingCUPS(printer, printOptions);
+        return printUsingCUPS(printer, printOptions, fromPage, toPage);
     }
 
 #endif // WITH_CUPS
 
-    return printUsingQt(printer, printOptions);
+    return printUsingQt(printer, printOptions, fromPage, toPage);
 }
 
 void DocumentView::previousPage()
@@ -718,7 +717,7 @@ void DocumentView::nextPage()
         break;
     }
 
-    nextPage = nextPage <= m_numberOfPages ? nextPage : m_numberOfPages;
+    nextPage = qMin(nextPage, m_pages.count());
 
     jumpToPage(nextPage, false);
 }
@@ -730,12 +729,12 @@ void DocumentView::firstPage()
 
 void DocumentView::lastPage()
 {
-    jumpToPage(m_numberOfPages);
+    jumpToPage(m_pages.count());
 }
 
 void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
 {
-    if(page >= 1 && page <= m_numberOfPages)
+    if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
@@ -1083,8 +1082,8 @@ void DocumentView::on_prefetch_timeout()
         break;
     }
 
-    fromPage = fromPage >= 1 ? fromPage : 1;
-    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+    fromPage = qMax(fromPage, 1);
+    toPage = qMin(toPage, m_pages.count());
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
@@ -1094,8 +1093,8 @@ void DocumentView::on_prefetch_timeout()
 
 void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
 {
-    page = page >= 1 ? page : 1;
-    page = page <= m_numberOfPages ? page : m_numberOfPages;
+    page = qMax(page, 1);
+    page = qMin(page, m_pages.count());
 
     left = left >= 0.0 ? left : 0.0;
     left = left <= 1.0 ? left : 1.0;
@@ -1206,7 +1205,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
         {
             nextPage();
 
@@ -1307,7 +1306,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
                 event->accept();
                 return;
             }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
             {
                 nextPage();
 
@@ -1338,7 +1337,7 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 
 #ifdef WITH_CUPS
 
-bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions)
+bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
     int num_dests = 0;
     cups_dest_t* dests = 0;
@@ -1414,8 +1413,6 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
             break;
         }
 
-        int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
-        int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
         int numberUp = 1;
 
         switch(printOptions.numberUp)
@@ -1528,11 +1525,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
 #endif // WITH_CUPS
 
-bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions)
+bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
-    int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
-    int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
-
     QProgressDialog* progressDialog = new QProgressDialog(this);
     progressDialog->setLabelText(tr("Printing '%1'...").arg(m_filePath));
     progressDialog->setRange(fromPage - 1, toPage);
@@ -1661,7 +1655,7 @@ int DocumentView::rightIndexForIndex(int index) const
         break;
     }
 
-    rightIndex = rightIndex <= m_numberOfPages - 1 ? rightIndex : m_numberOfPages - 1;
+    rightIndex = qMin(rightIndex, m_pages.count() - 1);
 
     return rightIndex;
 }
@@ -1710,7 +1704,7 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     m_pages.clear();
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_document->numberOfPages(); ++index)
     {
         m_pages.append(m_document->page(index));
     }
@@ -1732,9 +1726,9 @@ void DocumentView::prepareDocument(Model::Document* document)
 void DocumentView::preparePages()
 {
     m_pageItems.clear();
-    m_pageItems.reserve(m_numberOfPages);
+    m_pageItems.reserve(m_pages.count());
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = new PageItem(m_pages.at(index), index);
 
@@ -1758,9 +1752,9 @@ void DocumentView::preparePages()
 void DocumentView::prepareThumbnails()
 {
     m_thumbnailItems.clear();
-    m_thumbnailItems.reserve(m_numberOfPages);
+    m_thumbnailItems.reserve(m_pages.count());
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
 

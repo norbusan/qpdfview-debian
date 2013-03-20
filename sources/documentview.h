@@ -218,16 +218,15 @@ private:
     QList< Model::Page* > m_pages;
 
     QString m_filePath;
-    int m_numberOfPages;
     int m_currentPage;
 
 #ifdef WITH_CUPS
 
-    bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions);
+    bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage);
 
 #endif // WITH_CUPS
 
-    bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
+    bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage);
 
     struct Position
     {
