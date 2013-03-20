@@ -32,15 +32,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings* PresentationView::s_settings = 0;
 
-PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
+PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
-    m_numberOfPages(-1),
-    m_currentPage(-1),
-    m_rotation(RotateBy0),
-    m_invertColors(false),
+    m_pages(pages),
+    m_currentPage(1),
     m_past(),
     m_future(),
-    m_pages(),
+    m_rotation(RotateBy0),
+    m_invertColors(false),
     m_pageItems()
 {
     if(s_settings == 0)
@@ -64,18 +63,11 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
 
-    m_pages = pages;
-
-    m_numberOfPages = m_pages.count();
-    m_currentPage = 1;
-
     // pages
 
     setScene(new QGraphicsScene(this));
 
-    m_pageItems.reserve(m_numberOfPages);
-
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
         PageItem* page = new PageItem(m_pages.at(index), index, true);
 
@@ -122,7 +114,7 @@ PresentationView::~PresentationView()
 
 int PresentationView::numberOfPages() const
 {
-    return m_numberOfPages;
+    return m_pages.count();
 }
 
 int PresentationView::currentPage() const
@@ -201,12 +193,12 @@ void PresentationView::firstPage()
 
 void PresentationView::lastPage()
 {
-    jumpToPage(m_numberOfPages);
+    jumpToPage(m_pages.count());
 }
 
 void PresentationView::jumpToPage(int page, bool trackChange)
 {
-    if(m_currentPage != page && page >= 1 && page <= m_numberOfPages)
+    if(m_currentPage != page && page >= 1 && page <= m_pages.count())
     {
         if(trackChange)
         {
@@ -288,8 +280,8 @@ void PresentationView::on_prefetch_timeout()
     fromPage -= s_settings->documentView().prefetchDistance() / 2;
     toPage += s_settings->documentView().prefetchDistance();
 
-    fromPage = fromPage >= 1 ? fromPage : 1;
-    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+    fromPage = qMax(fromPage, 1);
+    toPage = qMin(toPage, m_pages.count());
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
@@ -302,8 +294,8 @@ void PresentationView::on_pages_linkClicked(int page, qreal left, qreal top)
     Q_UNUSED(left);
     Q_UNUSED(top);
 
-    page = page >= 1 ? page : 1;
-    page = page <= m_numberOfPages ? page : m_numberOfPages;
+    page = qMax(page, 1);
+    page = qMin(page, m_pages.count());
 
     jumpToPage(page, true);
 }
@@ -390,7 +382,7 @@ void PresentationView::wheelEvent(QWheelEvent* event)
             event->accept();
             return;
         }
-        else if(event->delta() < 0 && m_currentPage != m_numberOfPages)
+        else if(event->delta() < 0 && m_currentPage != m_pages.count())
         {
             nextPage();
 
@@ -404,10 +396,9 @@ void PresentationView::wheelEvent(QWheelEvent* event)
 
 void PresentationView::prepareScene()
 {
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        QSizeF size = page->size();
 
         qreal visibleWidth = viewport()->width();
         qreal visibleHeight = viewport()->height();
@@ -420,13 +411,13 @@ void PresentationView::prepareScene()
         default:
         case RotateBy0:
         case RotateBy180:
-            pageWidth = physicalDpiX() / 72.0 * size.width();
-            pageHeight = physicalDpiY() / 72.0 * size.height();
+            pageWidth = physicalDpiX() / 72.0 * page->size().width();
+            pageHeight = physicalDpiY() / 72.0 * page->size().height();
             break;
         case RotateBy90:
         case RotateBy270:
-            pageWidth = physicalDpiX() / 72.0 * size.height();
-            pageHeight = physicalDpiY() / 72.0 * size.width();
+            pageWidth = physicalDpiX() / 72.0 * page->size().height();
+            pageHeight = physicalDpiY() / 72.0 * page->size().width();
             break;
         }
 
@@ -439,7 +430,7 @@ void PresentationView::prepareScene()
 
 void PresentationView::prepareView()
 {
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
 

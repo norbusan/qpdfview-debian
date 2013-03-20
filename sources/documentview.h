@@ -215,6 +215,7 @@ private:
     QTimer* m_prefetchTimer;
 
     Model::Document* m_document;
+    QVector< Model::Page* > m_pages;
 
     QString m_filePath;
     int m_numberOfPages;
@@ -257,8 +258,6 @@ private:
     bool m_invertColors;
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
-
-    QVector< Model::Page* > m_pages;
 
     QVector< PageItem* > m_pageItems;
     QVector< ThumbnailItem* > m_thumbnailItems;

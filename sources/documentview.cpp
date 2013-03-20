@@ -134,6 +134,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshTimer(0),
     m_prefetchTimer(0),
     m_document(0),
+    m_pages(),
     m_filePath(),
     m_numberOfPages(-1),
     m_currentPage(-1),
@@ -147,7 +148,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
-    m_pages(),
     m_pageItems(),
     m_thumbnailItems(),
     m_heightToIndex(),
@@ -993,7 +993,7 @@ void DocumentView::presentation()
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(m_pages);
+    PresentationView* presentationView = new PresentationView(m_pages.toList());
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 

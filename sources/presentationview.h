@@ -39,7 +39,7 @@ class PresentationView : public QGraphicsView
     Q_OBJECT
 
 public:
-    PresentationView(const QVector< Model::Page* >& pages, QWidget* parent = 0);
+    PresentationView(const QList< Model::Page* >& pages, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -90,17 +90,16 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    int m_numberOfPages;
+    QList< Model::Page* > m_pages;
+
     int m_currentPage;
-
-    Rotation m_rotation;
-
-    bool m_invertColors;
 
     QList< int > m_past;
     QList< int > m_future;
 
-    QVector< Model::Page* > m_pages;
+    Rotation m_rotation;
+
+    bool m_invertColors;
 
     QVector< PageItem* > m_pageItems;
 
