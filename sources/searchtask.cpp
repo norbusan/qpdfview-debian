@@ -27,9 +27,9 @@ SearchTask::SearchTask(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
     m_pages(),
-    m_indices(),
     m_text(),
-    m_matchCase(false)
+    m_matchCase(false),
+    m_beginAtPage(1)
 {
 }
 
@@ -45,10 +45,7 @@ int SearchTask::progress() const
 
 void SearchTask::run()
 {
-    int indicesDone = 0;
-    int indicesToDo = m_indices.count();
-
-    foreach(int index, m_indices)
+    for(int index = m_beginAtPage - 1; index < m_pages.count() + m_beginAtPage - 1; ++index)
     {
         if(m_wasCanceled)
         {
@@ -59,11 +56,11 @@ void SearchTask::run()
             return;
         }
 
-        QList< QRectF > results = m_pages.at(index)->search(m_text, m_matchCase);
+        QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase);
 
-        emit resultsReady(index, results);
+        emit resultsReady(index % m_pages.count(), results);
 
-        m_progress = 100 * ++indicesDone / indicesToDo;
+        m_progress = 100 * (index - m_beginAtPage)/ m_pages.count();
 
         emit progressChanged(m_progress);
     }
@@ -73,13 +70,13 @@ void SearchTask::run()
     emit finished();
 }
 
-void SearchTask::start(const QVector< Model::Page* >& pages, const QVector< int >& indices, const QString& text, bool matchCase)
+void SearchTask::start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
 {
     m_pages = pages;
 
-    m_indices = indices;
     m_text = text;
     m_matchCase = matchCase;
+    m_beginAtPage = beginAtPage;
 
     m_wasCanceled = false;
     m_progress = 0;

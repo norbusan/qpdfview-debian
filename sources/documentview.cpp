@@ -820,21 +820,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
 
-    QVector< int > indices;
-
-    indices.reserve(m_numberOfPages);
-
-    for(int index = m_currentPage - 1; index < m_numberOfPages; ++index)
-    {
-        indices.append(index);
-    }
-
-    for(int index = 0; index < m_currentPage - 1; ++index)
-    {
-        indices.append(index);
-    }
-
-    m_searchTask->start(m_pages, indices, text, matchCase);
+    m_searchTask->start(m_pages, text, matchCase, m_currentPage);
 }
 
 void DocumentView::cancelSearch()
@@ -993,7 +979,7 @@ void DocumentView::presentation()
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(m_pages.toList());
+    PresentationView* presentationView = new PresentationView(m_pages);
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 
@@ -1723,7 +1709,6 @@ void DocumentView::prepareDocument(Model::Document* document)
     m_document->setPaperColor(s_settings->pageItem().paperColor());
 
     m_pages.clear();
-    m_pages.reserve(m_numberOfPages);
 
     for(int index = 0; index < m_numberOfPages; ++index)
     {
