@@ -47,6 +47,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QToolBar>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QWidgetAction>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -1608,7 +1609,6 @@ void MainWindow::createWidgets()
 
     m_currentPageSpinBox = new SpinBox(this);
 
-    m_currentPageSpinBox->setObjectName(QLatin1String("currentPage"));
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_currentPageSpinBox->setKeyboardTracking(false);
@@ -1616,7 +1616,10 @@ void MainWindow::createWidgets()
     connect(m_currentPageSpinBox, SIGNAL(editingFinished()), SLOT(on_currentPage_editingFinished()));
     connect(m_currentPageSpinBox, SIGNAL(returnPressed()), SLOT(on_currentPage_returnPressed()));
 
-    m_currentPageSpinBox->setVisible(false);
+    m_currentPageAction = new QWidgetAction(this);
+
+    m_currentPageAction->setObjectName(QLatin1String("currentPage"));
+    m_currentPageAction->setDefaultWidget(m_currentPageSpinBox);
 
     // scale factor
 
@@ -1640,7 +1643,10 @@ void MainWindow::createWidgets()
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(on_scaleFactor_editingFinished()));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(returnPressed()), SLOT(on_scaleFactor_returnPressed()));
 
-    m_scaleFactorComboBox->setVisible(false);
+    m_scaleFactorAction = new QWidgetAction(this);
+
+    m_scaleFactorAction->setObjectName(QLatin1String("scaleFactor"));
+    m_scaleFactorAction->setDefaultWidget(m_scaleFactorComboBox);
 
     // search
 
@@ -1783,7 +1789,7 @@ void MainWindow::createActions()
     m_aboutAction = createAction(tr("&About"), QString(), QIcon::fromTheme("help-about"), QKeySequence(), SLOT(on_about_triggered()));
 }
 
-QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions, QWidget* widget)
+QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions)
 {
     QToolBar* toolBar = addToolBar(text);
 
@@ -1794,14 +1800,6 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
         if(actionName == QLatin1String("separator"))
         {
             toolBar->addSeparator();
-
-            continue;
-        }
-
-        if(widget != 0 && widget->objectName() == actionName)
-        {
-            widget->setVisible(true);
-            toolBar->addWidget(widget);
 
             continue;
         }
@@ -1826,10 +1824,10 @@ void MainWindow::createToolBars()
                                   QList< QAction* >() << m_openAction << m_openInNewTabAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
 
     m_editToolBar = createToolBar(tr("&Edit"), QLatin1String("editToolBar"), s_settings->mainWindow().editToolBar(),
-                                  QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_jumpBackwardAction << m_jumpForwardAction << m_copyToClipboardModeAction << m_addAnnotationModeAction, m_currentPageSpinBox);
+                                  QList< QAction* >() << m_currentPageAction << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_jumpBackwardAction << m_jumpForwardAction << m_copyToClipboardModeAction << m_addAnnotationModeAction);
 
     m_viewToolBar = createToolBar(tr("&View"), QLatin1String("viewToolBar"), s_settings->mainWindow().viewToolBar(),
-                                  QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction, m_scaleFactorComboBox);
+                                  QList< QAction* >() << m_scaleFactorAction << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction);
 
     // search
 

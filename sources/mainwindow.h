@@ -43,6 +43,7 @@ class QGraphicsView;
 class QModelIndex;
 class QShortcut;
 class QTableView;
+class QWidgetAction;
 
 #include "global.h"
 
@@ -213,7 +214,10 @@ private:
     BookmarkMenu* bookmarkForCurrentTab() const;
 
     SpinBox* m_currentPageSpinBox;
+    QWidgetAction* m_currentPageAction;
+
     ComboBox* m_scaleFactorComboBox;
+    QWidgetAction* m_scaleFactorAction;
 
     ProgressLineEdit* m_searchProgressLineEdit;
     QTimer* m_searchTimer;
@@ -302,7 +306,7 @@ private:
 
     QToolBar* m_searchToolBar;
 
-    QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions, QWidget* widget = 0);
+    QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions);
 
     void createToolBars();
 
