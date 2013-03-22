@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -487,12 +487,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2333"/>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Умалени снимки</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2433"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ленти с &amp;инструменти</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2438"/>
@@ -502,7 +502,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2450"/>
         <source>&amp;Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подпрозор&amp;ци</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2461"/>
@@ -541,13 +541,13 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Намален</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="820"/>
         <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подчертаване на текст:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
@@ -557,17 +557,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Непрекъснат</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="847"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оформени</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим на тънки линии:</translation>
     </message>
 </context>
 <context>
@@ -588,17 +588,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Име</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вид</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>Embedded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вграден</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="777"/>
@@ -608,19 +608,19 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="777"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Файл</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="785"/>
         <location filename="../sources/pdfmodel.cpp" line="786"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Да</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="785"/>
         <location filename="../sources/pdfmodel.cpp" line="786"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не</translation>
     </message>
 </context>
 <context>
@@ -641,32 +641,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="216"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Заглавие</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Създадено за</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Създател</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дата на създаване</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="220"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Форматиране</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ниво на изек</translation>
     </message>
 </context>
 <context>
@@ -674,42 +674,42 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="566"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Към страница %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="570"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Към страница %1 от файл &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="578"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отваряне на &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="612"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Промяна от поле &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="826"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копиране на &amp;текст</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="827"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копиране на &amp;снимка</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="828"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запазвнане на снимка в &amp;file...</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="862"/>
         <source>Save image to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запазване на снимка във файл</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="866"/>
@@ -719,12 +719,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="866"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не може да се запази снимка във файл &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="879"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавяне на &amp;текст</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="880"/>
@@ -742,22 +742,22 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="31"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Разширени опции</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="37"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подравняване към страница:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="41"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обхват на печата:</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="44"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всички страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="45"/>
@@ -777,32 +777,32 @@
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="52"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Една страница</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="53"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Две страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="54"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Четири страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="55"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шест страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="56"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Девет страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="57"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шестнадесет страници</translation>
     </message>
     <message>
         <location filename="../sources/printoptionswidget.cpp" line="60"/>
@@ -865,17 +865,17 @@
     <message>
         <location filename="../sources/main.cpp" line="161"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Използването на &apos;--instance&apos; изисква име на инстанция.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="167"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Използването на &apos;--instance&apos; не е разрешено без използване на &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="210"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Не са открити данните SyncTeX за &apos;%1&apos;.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="302"/>
@@ -888,32 +888,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="564"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="565"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="567"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift и Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift и Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl и Alt</translation>
     </message>
 </context>
 <context>
@@ -921,7 +921,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="28"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Последно &amp;използвани</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="37"/>
