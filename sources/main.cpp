@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QDir>
 #include <QMessageBox>
+#include <QScopedPointer>
 #include <QTranslator>
 
 #ifdef WITH_DBUS
@@ -255,7 +256,7 @@ int main(int argc, char** argv)
 
         if(unique)
         {
-            QDBusInterface* interface = new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus());
+            QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));
 
             if(interface->isValid())
             {
@@ -269,7 +270,6 @@ int main(int argc, char** argv)
                     {
                         qCritical() << QDBusConnection::sessionBus().lastError().message();
 
-                        delete interface;
                         return 1;
                     }
                 }
@@ -279,7 +279,6 @@ int main(int argc, char** argv)
                     interface->call("startSearch", searchText);
                 }
 
-                delete interface;
                 return 0;
             }
             else
