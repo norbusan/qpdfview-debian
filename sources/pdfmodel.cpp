@@ -40,11 +40,6 @@ Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotati
 {
 }
 
-Model::PdfAnnotation::~PdfAnnotation()
-{
-    delete m_annotation;
-}
-
 QRectF Model::PdfAnnotation::boundary() const
 {
 #ifndef HAS_POPPLER_24
@@ -75,7 +70,7 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 
 #endif // HAS_POPPLER_24
 
-    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
+    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation.data());
 
     annotationDialog->move(screenPos);
 
@@ -89,11 +84,6 @@ Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) 
     m_mutex(mutex),
     m_formField(formField)
 {
-}
-
-Model::PdfFormField::~PdfFormField()
-{
-    delete m_formField;
 }
 
 QRectF Model::PdfFormField::boundary() const
@@ -128,7 +118,7 @@ QDialog* Model::PdfFormField::showDialog(const QPoint& screenPos)
 
     if(m_formField->type() == Poppler::FormField::FormText || m_formField->type() == Poppler::FormField::FormChoice)
     {
-        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField);
+        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField.data());
 
         formFieldDialog->move(screenPos);
 
@@ -139,7 +129,7 @@ QDialog* Model::PdfFormField::showDialog(const QPoint& screenPos)
     }
     else if(m_formField->type() == Poppler::FormField::FormButton)
     {
-        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
+        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField.data());
 
         formFieldButton->setState(!formFieldButton->state());
     }
@@ -465,7 +455,7 @@ void Model::PdfPage::removeAnnotation(Annotation* annotation)
 
 #ifdef HAS_POPPLER_20
 
-    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation);
+    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation.data());
 
 #else
 
@@ -610,7 +600,7 @@ bool Model::PdfDocument::save(const QString& filePath, bool withChanges) const
 
 #endif // HAS_POPPLER_24
 
-    Poppler::PDFConverter* pdfConverter = m_document->pdfConverter();
+    QScopedPointer< Poppler::PDFConverter > pdfConverter(m_document->pdfConverter());
 
     pdfConverter->setOutputFileName(filePath);
 
@@ -619,11 +609,7 @@ bool Model::PdfDocument::save(const QString& filePath, bool withChanges) const
         pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
     }
 
-    bool ok = pdfConverter->convert();
-
-    delete pdfConverter;
-
-    return ok;
+    return pdfConverter->convert();
 }
 
 bool Model::PdfDocument::canBePrintedUsingCUPS() const

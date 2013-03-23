@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QCoreApplication>
 #include <QMutex>
+#include <QScopedPointer>
 
 class QCheckBox;
 class QComboBox;
@@ -49,8 +50,6 @@ namespace Model
         friend class PdfPage;
 
     public:
-        ~PdfAnnotation();
-
         QRectF boundary() const;
         QString contents() const;
 
@@ -60,7 +59,7 @@ namespace Model
         PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
 
         mutable QMutex* m_mutex;
-        Poppler::Annotation* m_annotation;
+        QScopedPointer< Poppler::Annotation > m_annotation;
 
     };
 
@@ -69,8 +68,6 @@ namespace Model
         friend class PdfPage;
 
     public:
-        ~PdfFormField();
-
         QRectF boundary() const;
         QString name() const;
 
@@ -80,7 +77,7 @@ namespace Model
         PdfFormField(QMutex* mutex, Poppler::FormField* formField);
 
         mutable QMutex* m_mutex;
-        Poppler::FormField* m_formField;
+        QScopedPointer< Poppler::FormField > m_formField;
 
     };
 
