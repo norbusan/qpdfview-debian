@@ -20,12 +20,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "mainwindow.h"
-
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
 #include <QMessageBox>
+#include <QScopedPointer>
 #include <QTranslator>
 
 #ifdef WITH_DBUS
@@ -42,6 +41,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_SYNCTEX
 
 #include "documentview.h"
+#include "mainwindow.h"
 
 #ifdef WITH_SIGNALS
 
@@ -93,8 +93,13 @@ int main(int argc, char** argv)
 #endif // QT_VERSION
 
     bool unique = false;
+
     bool instanceNameIsNext = false;
     QString instanceName = "";
+
+    bool searchTextIsNext = false;
+    QString searchText = "";
+
     QList< File > files;
 
     {
@@ -123,6 +128,17 @@ int main(int argc, char** argv)
                 instanceNameIsNext = false;
                 instanceName = argument;
             }
+            else if(searchTextIsNext)
+            {
+                if(argument.isEmpty())
+                {
+                    qCritical() << QObject::tr("An empty search text is not allowed.");
+                    return 1;
+                }
+
+                searchTextIsNext = false;
+                searchText = argument;
+            }
             else if(argument == "--unique")
             {
                 unique = true;
@@ -130,6 +146,10 @@ int main(int argc, char** argv)
             else if(argument == "--instance")
             {
                 instanceNameIsNext = true;
+            }
+            else if(argument == "--search")
+            {
+                searchTextIsNext = true;
             }
             else
             {
@@ -166,6 +186,11 @@ int main(int argc, char** argv)
         {
             qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
             return 1;
+        }
+
+        if(searchTextIsNext)
+        {
+            qCritical() << QObject::tr("Using '--search' requires a search text.");
         }
     }
 
@@ -231,7 +256,7 @@ int main(int argc, char** argv)
 
         if(unique)
         {
-            QDBusInterface* interface = new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus());
+            QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));
 
             if(interface->isValid())
             {
@@ -245,12 +270,15 @@ int main(int argc, char** argv)
                     {
                         qCritical() << QDBusConnection::sessionBus().lastError().message();
 
-                        delete interface;
                         return 1;
                     }
                 }
 
-                delete interface;
+                if(!searchText.isEmpty())
+                {
+                    interface->call("startSearch", searchText);
+                }
+
                 return 0;
             }
             else
@@ -310,6 +338,11 @@ int main(int argc, char** argv)
     foreach(File file, files)
     {
         mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox);
+    }
+
+    if(!searchText.isEmpty())
+    {
+        mainWindow->startSearch(searchText);
     }
     
     return application.exec();

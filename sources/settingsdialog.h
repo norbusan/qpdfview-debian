@@ -35,41 +35,38 @@ class QSpinBox;
 class QTableView;
 class QTabWidget;
 
-namespace Model
-{
-class SettingsWidget;
-}
-
 class Settings;
+class SettingsWidget;
+class ShortcutHandler;
 
 class SettingsDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    SettingsDialog(Settings* settings, QWidget* parent = 0);
+    SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent = 0);
 
 public slots:
     void accept();
-
-protected slots:
-    void on_defaults_clicked();
+    void reset();
 
 private:
-    Settings* m_settings;
+    static Settings* s_settings;
+
+    ShortcutHandler* m_shortcutHandler;
 
     QTabWidget* m_graphicsTabWidget;
     QFormLayout* m_graphicsLayout;
 
 #ifdef WITH_PDF
 
-    Model::SettingsWidget* m_pdfSettingsWidget;
+    SettingsWidget* m_pdfSettingsWidget;
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    Model::SettingsWidget* m_psSettingsWidget;
+    SettingsWidget* m_psSettingsWidget;
 
 #endif // WITH_PS
 
@@ -131,9 +128,15 @@ private:
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
 
+    QCheckBox* m_newTabNextToCurrentTabCheckBox;
+
+    QCheckBox* m_currentPageInWindowTitleCheckBox;
+
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
+
+    QCheckBox* m_limitThumbnailsToResultsCheckBox;
 
     void createInterfaceTab();
 

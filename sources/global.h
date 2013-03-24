@@ -23,8 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include <QString>
-
 enum Rotation
 {
     RotateBy0 = 0,

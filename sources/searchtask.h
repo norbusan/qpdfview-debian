@@ -19,49 +19,51 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SEARCHTHREAD_H
-#define SEARCHTHREAD_H
+#ifndef SEARCHTASK_H
+#define SEARCHTASK_H
 
 #include <QRectF>
 #include <QThread>
 
 namespace Model
 {
-class Document;
+class Page;
 }
 
-class SearchThread : public QThread
+class SearchTask : public QThread
 {
     Q_OBJECT
 
 public:
-    explicit SearchThread(QObject* parent = 0);
+    explicit SearchTask(QObject* parent = 0);
 
     bool wasCanceled() const;
+
     int progress() const;
 
     void run();
 
-public slots:
-    void start(Model::Document* document, const QList< int >& indices, const QString& text, bool matchCase);
-    void cancel();
-
 signals:
-    void progressed(int progress);
     void finished();
-    void canceled();
+
+    void progressChanged(int progress);
 
     void resultsReady(int index, QList< QRectF > results);
 
+public slots:
+    void start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
+    void cancel();
+
 private:
     bool m_wasCanceled;
+
     int m_progress;
 
-    Model::Document* m_document;
+    QList< Model::Page* > m_pages;
 
-    QList< int > m_indices;
     QString m_text;
     bool m_matchCase;
+    int m_beginAtPage;
 
 };
 

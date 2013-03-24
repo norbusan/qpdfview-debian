@@ -36,66 +36,68 @@ struct SpectreRenderContext;
 
 #include "model.h"
 
+class PsPlugin;
+
 namespace Model
 {
+    class PsPage : public Page
+    {
+        friend class PsDocument;
 
-class PSPage : public Page
-{
-    friend class PSDocument;
+    public:
+        ~PsPage();
 
-public:
-    ~PSPage();
+        QSizeF size() const;
 
-    QSizeF size() const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
-    QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+    private:
+        PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext);
 
-private:
-    PSPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext);
+        mutable QMutex* m_mutex;
+        SpectrePage* m_page;
+        SpectreRenderContext* m_renderContext;
 
-    mutable QMutex* m_mutex;
-    SpectrePage* m_page;
-    SpectreRenderContext* m_renderContext;
+    };
 
-};
+    class PsDocument : public Document
+    {
+        Q_DECLARE_TR_FUNCTIONS(Model::PsDocument)
 
-class PSDocument : public Document
-{
-    Q_DECLARE_TR_FUNCTIONS(PSDocument)
+        friend class ::PsPlugin;
 
-    friend class PSDocumentLoader;
+    public:
+        ~PsDocument();
 
-public:
-    ~PSDocument();
+        int numberOfPages() const;
 
-    int numberOfPages() const;
+        Page* page(int index) const;
 
-    Page* page(int index) const;
+        QStringList saveFilter() const;
 
-    QStringList saveFilter() const;
+        bool canSave() const;
+        bool save(const QString& filePath, bool withChanges) const;
 
-    bool canSave() const;
-    bool save(const QString& filePath, bool withChanges) const;
+        bool canBePrintedUsingCUPS() const;
 
-    bool canBePrinted() const;
+        void loadProperties(QStandardItemModel* propertiesModel) const;
 
-    void loadProperties(QStandardItemModel* propertiesModel) const;
+    private:
+        PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
 
-private:
-    PSDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
+        mutable QMutex m_mutex;
+        SpectreDocument* m_document;
+        SpectreRenderContext* m_renderContext;
 
-    mutable QMutex m_mutex;
-    SpectreDocument* m_document;
-    SpectreRenderContext* m_renderContext;
+    };
+}
 
-};
-
-class PSSettingsWidget : public SettingsWidget
+class PsSettingsWidget : public SettingsWidget
 {
     Q_OBJECT
 
 public:
-    PSSettingsWidget(QSettings* settings, QWidget* parent = 0);
+    PsSettingsWidget(QSettings* settings, QWidget* parent = 0);
 
     void accept();
     void reset();
@@ -110,21 +112,21 @@ private:
 
 };
 
-class PSDocumentLoader : public QObject, DocumentLoader
+class PsPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Model::DocumentLoader)
+    Q_INTERFACES(Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    Q_PLUGIN_METADATA(IID "local.qpdfview.DocumentLoader")
+    Q_PLUGIN_METADATA(IID "local.qpdfview.Plugin")
 
 #endif // QT_VERSION
 
 public:
-    PSDocumentLoader(QObject* parent = 0);
+    PsPlugin(QObject* parent = 0);
 
-    Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
@@ -132,7 +134,5 @@ private:
     QSettings* m_settings;
 
 };
-
-}
 
 #endif // PSMODEL_H

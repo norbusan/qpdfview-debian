@@ -35,88 +35,86 @@ typedef struct ddjvu_pageinfo_s ddjvu_pageinfo_t;
 
 #include "model.h"
 
+class DjVuPlugin;
+
 namespace Model
 {
+    class DjVuPage : public Page
+    {
+        friend class DjVuDocument;
 
-class DjVuPage : public Page
-{
-    friend class DjVuDocument;
+    public:
+        ~DjVuPage();
 
-public:
-    ~DjVuPage();
+        QSizeF size() const;
 
-    QSizeF size() const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
-    QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QList< Link* > links() const;
 
-    QList< Link* > links() const;
+        QString text(const QRectF& rect) const;
+        QList< QRectF > search(const QString& text, bool matchCase) const;
 
-    QString text(const QRectF& rect) const;
-    QList< QRectF > search(const QString& text, bool matchCase) const;
+    private:
+        DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);
 
-private:
-    DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);
+        const class DjVuDocument* m_parent;
 
-    const class DjVuDocument* m_parent;
+        int m_index;
+        QSizeF m_size;
+        int m_resolution;
 
-    int m_index;
-    QSizeF m_size;
-    int m_resolution;
+    };
 
-};
+    class DjVuDocument : public Document
+    {
+        friend class DjVuPage;
+        friend class ::DjVuPlugin;
 
-class DjVuDocument : public Document
-{
-    friend class DjVuPage;
-    friend class DjVuDocumentLoader;
+    public:
+        ~DjVuDocument();
 
-public:
-    ~DjVuDocument();
+        int numberOfPages() const;
 
-    int numberOfPages() const;
+        Page* page(int index) const;
 
-    Page* page(int index) const;
+        QStringList saveFilter() const;
 
-    QStringList saveFilter() const;
+        bool canSave() const;
+        bool save(const QString& filePath, bool withChanges) const;
 
-    bool canSave() const;
-    bool save(const QString& filePath, bool withChanges) const;
+        void loadOutline(QStandardItemModel* outlineModel) const;
+        void loadProperties(QStandardItemModel* propertiesModel) const;
 
-    void loadOutline(QStandardItemModel* outlineModel) const;
-    void loadProperties(QStandardItemModel* propertiesModel) const;
+    private:
+        DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
 
-private:
-    DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
+        mutable QMutex m_mutex;
+        ddjvu_context_t* m_context;
+        ddjvu_document_t* m_document;
+        ddjvu_format_t* m_format;
 
-    mutable QMutex m_mutex;
-    ddjvu_context_t* m_context;
-    ddjvu_document_t* m_document;
-    ddjvu_format_t* m_format;
+        QHash< QString, int > m_indexByName;
 
-    QHash< QString, int > m_indexByName;
+    };
+}
 
-};
-
-class DjVuDocumentLoader : public QObject, DocumentLoader
+class DjVuPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Model::DocumentLoader)
+    Q_INTERFACES(Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    Q_PLUGIN_METADATA(IID "local.qpdfview.DocumentLoader")
+    Q_PLUGIN_METADATA(IID "local.qpdfview.Plugin")
 
 #endif // QT_VERSION
 
 public:
-    DjVuDocumentLoader(QObject* parent = 0);
+    DjVuPlugin(QObject* parent = 0);
 
-    Document* loadDocument(const QString& filePath) const;
-
-    SettingsWidget* createSettingsWidget(QWidget* parent) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
 };
-
-}
 
 #endif // PDFMODEL_H

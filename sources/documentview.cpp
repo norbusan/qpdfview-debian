@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QInputDialog>
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QDesktopServices>
 #include <QDir>
@@ -31,21 +32,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPluginLoader>
 #include <QPrinter>
 #include <QProcess>
 #include <QProgressDialog>
 #include <QScrollBar>
-#include <QStandardItemModel>
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QUrl>
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-#include <QMimeDatabase>
-
-#endif // QT_VERSION
 
 #ifdef WITH_CUPS
 
@@ -59,173 +52,22 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
-#ifdef WITH_MAGIC
-
-#include <magic.h>
-
-#endif // WITH_MAGIC
-
+#include "settings.h"
 #include "model.h"
+#include "pluginhandler.h"
 #include "pageitem.h"
-#include "searchthread.h"
 #include "presentationview.h"
+#include "searchtask.h"
 
-bool DocumentView::s_openUrl = false;
-
-bool DocumentView::s_autoRefresh = false;
-
-bool DocumentView::s_prefetch = false;
-int DocumentView::s_prefetchDistance = 1;
-
-int DocumentView::s_pagesPerRow = 3;
-
-qreal DocumentView::s_pageSpacing = 5.0;
-qreal DocumentView::s_thumbnailSpacing = 3.0;
-
-qreal DocumentView::s_thumbnailSize = 150.0;
-
-qreal DocumentView::s_minimumScaleFactor = 0.1;
-qreal DocumentView::s_maximumScaleFactor = 10.0;
-
-qreal DocumentView::s_zoomBy = 0.1;
+Settings* DocumentView::s_settings = 0;
 
 QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
 QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
 
-QKeySequence DocumentView::s_movementShortcuts[4] = { QKeySequence(Qt::Key_Up), QKeySequence(Qt::Key_Down), QKeySequence(Qt::Key_Left), QKeySequence(Qt::Key_Right) };
-
-QKeySequence DocumentView::s_returnToPageShortcut(Qt::Key_Return);
-
-Qt::KeyboardModifiers DocumentView::s_zoomModifiers(Qt::ControlModifier);
-Qt::KeyboardModifiers DocumentView::s_rotateModifiers(Qt::ShiftModifier);
-Qt::KeyboardModifiers DocumentView::s_scrollModifiers(Qt::AltModifier);
-
-int DocumentView::s_highlightDuration = 5000;
-
-QString DocumentView::s_sourceEditor;
-
-#ifdef WITH_PDF
-
-Model::DocumentLoader* DocumentView::s_pdfDocumentLoader = 0;
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-Model::DocumentLoader* DocumentView::s_psDocumentLoader = 0;
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-Model::DocumentLoader* DocumentView::s_djvuDocumentLoader = 0;
-
-#endif // WITH_DJVU
-
-bool DocumentView::openUrl()
-{
-    return s_openUrl;
-}
-
-void DocumentView::setOpenUrl(bool openUrl)
-{
-    s_openUrl = openUrl;
-}
-
-bool DocumentView::autoRefresh()
-{
-    return s_autoRefresh;
-}
-
-void DocumentView::setAutoRefresh(bool autoRefresh)
-{
-    s_autoRefresh = autoRefresh;
-}
-
-bool DocumentView::prefetch()
-{
-    return s_prefetch;
-}
-
-void DocumentView::setPrefetch(bool prefetch)
-{
-    s_prefetch = prefetch;
-}
-
-int DocumentView::prefetchDistance()
-{
-    return s_prefetchDistance;
-}
-
-void DocumentView::setPrefetchDistance(int prefetchDistance)
-{
-    if(prefetchDistance >= 1)
-    {
-        s_prefetchDistance = prefetchDistance;
-    }
-}
-
-int DocumentView::pagesPerRow()
-{
-    return s_pagesPerRow;
-}
-
-void DocumentView::setPagesPerRow(int pagesPerRow)
-{
-    if(pagesPerRow >= 1)
-    {
-        s_pagesPerRow = pagesPerRow;
-    }
-}
-
-qreal DocumentView::pageSpacing()
-{
-    return s_pageSpacing;
-}
-
-void DocumentView::setPageSpacing(qreal pageSpacing)
-{
-    if(pageSpacing >= 0.0)
-    {
-        s_pageSpacing = pageSpacing;
-    }
-}
-
-qreal DocumentView::thumbnailSpacing()
-{
-    return s_thumbnailSpacing;
-}
-
-void DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
-{
-    if(thumbnailSpacing >= 0.0)
-    {
-        s_thumbnailSpacing = thumbnailSpacing;
-    }
-}
-
-qreal DocumentView::thumbnailSize()
-{
-    return s_thumbnailSize;
-}
-
-void DocumentView::setThumbnailSize(qreal thumbnailSize)
-{
-    if(thumbnailSize >= 0.0)
-    {
-        s_thumbnailSize = thumbnailSize;
-    }
-}
-
-qreal DocumentView::minimumScaleFactor()
-{
-    return s_minimumScaleFactor;
-}
-
-qreal DocumentView::maximumScaleFactor()
-{
-    return s_maximumScaleFactor;
-}
+QKeySequence DocumentView::s_moveUpShortcut(Qt::Key_Up);
+QKeySequence DocumentView::s_moveDownShortcut(Qt::Key_Down);
+QKeySequence DocumentView::s_moveLeftShortcut(Qt::Key_Left);
+QKeySequence DocumentView::s_moveRightShortcut(Qt::Key_Right);
 
 const QKeySequence& DocumentView::skipBackwardShortcut()
 {
@@ -247,109 +89,56 @@ void DocumentView::setSkipForwardShortcut(const QKeySequence& shortcut)
     s_skipForwardShortcut = shortcut;
 }
 
-const QKeySequence& DocumentView::movementShortcuts(DocumentView::MovementDirection direction)
+const QKeySequence& DocumentView::moveUpShortcut()
 {
-    return s_movementShortcuts[direction];
+    return s_moveUpShortcut;
 }
 
-void DocumentView::setMovementShortcuts(DocumentView::MovementDirection direction, const QKeySequence& shortcut)
+void DocumentView::setMoveUpShortcut(const QKeySequence& shortcut)
 {
-    s_movementShortcuts[direction] = shortcut;
+    s_moveUpShortcut = shortcut;
 }
 
-const QKeySequence& DocumentView::returnToPageShortcut()
+const QKeySequence& DocumentView::moveDownShortcut()
 {
-    return s_returnToPageShortcut;
+    return s_moveDownShortcut;
 }
 
-void DocumentView::setReturnToPageShortcut(const QKeySequence& shortcut)
+void DocumentView::setMoveDownShortcut(const QKeySequence& shortcut)
 {
-    s_returnToPageShortcut = shortcut;
+    s_moveDownShortcut = shortcut;
 }
 
-const Qt::KeyboardModifiers& DocumentView::zoomModifiers()
+const QKeySequence& DocumentView::moveLeftShortcut()
 {
-    return s_zoomModifiers;
+    return s_moveLeftShortcut;
 }
 
-void DocumentView::setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers)
+void DocumentView::setMoveLeftShortcut(const QKeySequence& shortcut)
 {
-    s_zoomModifiers = zoomModifiers;
+    s_moveLeftShortcut = shortcut;
 }
 
-const Qt::KeyboardModifiers& DocumentView::rotateModifiers()
+const QKeySequence& DocumentView::moveRightShortcut()
 {
-    return s_rotateModifiers;
+    return s_moveRightShortcut;
 }
 
-void DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers)
+void DocumentView::setMoveRightShortcut(const QKeySequence& shortcut)
 {
-    s_rotateModifiers = rotateModifiers;
+    s_moveRightShortcut = shortcut;
 }
-
-const Qt::KeyboardModifiers& DocumentView::scrollModifiers()
-{
-    return s_scrollModifiers;
-}
-
-void DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
-{
-    s_scrollModifiers = scrollModifiers;
-}
-
-int DocumentView::highlightDuration()
-{
-    return s_highlightDuration;
-}
-
-void DocumentView::setHighlightDuration(int highlightDuration)
-{
-    s_highlightDuration = highlightDuration;
-}
-
-const QString& DocumentView::sourceEditor()
-{
-    return s_sourceEditor;
-}
-
-void DocumentView::setSourceEditor(const QString& sourceEditor)
-{
-    s_sourceEditor = sourceEditor;
-}
-
-#ifdef WITH_PDF
-
-Model::SettingsWidget* DocumentView::createPDFSettingsWidget(QWidget* parent)
-{
-    preparePDFDocumentLoader();
-
-    return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-Model::SettingsWidget* DocumentView::createPSSettingsWidget(QWidget* parent)
-{
-    preparePSDocumentLoader();
-
-    return s_psDocumentLoader != 0 ? s_psDocumentLoader->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PS
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
     m_autoRefreshTimer(0),
     m_prefetchTimer(0),
     m_document(0),
+    m_pages(),
     m_filePath(),
-    m_numberOfPages(-1),
     m_currentPage(-1),
-    m_visitedPages(),
-    m_leftOfVisitedPages(),
-    m_topOfVisitedPages(),
+    m_past(),
+    m_future(),
     m_continuousMode(false),
     m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactorMode),
@@ -358,25 +147,23 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
-    m_pagesScene(0),
-    m_pages(),
+    m_pageItems(),
+    m_thumbnailItems(),
     m_heightToIndex(),
-    m_thumbnailsScene(0),
-    m_thumbnails(),
     m_highlight(0),
+    m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
     m_results(),
     m_currentResult(m_results.end()),
-    m_searchThread(0)
+    m_searchTask(0)
 {
-    m_pagesScene = new QGraphicsScene(this);
-    m_thumbnailsScene = new QGraphicsScene(this);
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
 
-    m_outlineModel = new QStandardItemModel(this);
-    m_propertiesModel = new QStandardItemModel(this);
-
-    setScene(m_pagesScene);
+    setScene(new QGraphicsScene(this));
 
     setAcceptDrops(false);
     setContextMenuPolicy(Qt::CustomContextMenu);
@@ -385,12 +172,17 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
+    m_thumbnailsScene = new QGraphicsScene(this);
+
+    m_outlineModel = new QStandardItemModel(this);
+    m_propertiesModel = new QStandardItemModel(this);
+
     // highlight
 
     m_highlight = new QGraphicsRectItem();
 
     m_highlight->setVisible(false);
-    m_pagesScene->addItem(m_highlight);
+    scene()->addItem(m_highlight);
 
     QColor highlightColor = palette().color(QPalette::Highlight);
 
@@ -402,13 +194,12 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     // search
 
-    m_searchThread = new SearchThread(this);
+    m_searchTask = new SearchTask(this);
 
-    connect(m_searchThread, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchThread_resultsReady(int,QList<QRectF>)));
+    connect(m_searchTask, SIGNAL(finished()), SIGNAL(searchFinished()));
+    connect(m_searchTask, SIGNAL(progressChanged(int)), SIGNAL(searchProgressChanged(int)));
 
-    connect(m_searchThread, SIGNAL(progressed(int)), SIGNAL(searchProgressed(int)));
-    connect(m_searchThread, SIGNAL(finished()), SIGNAL(searchFinished()));
-    connect(m_searchThread, SIGNAL(canceled()), SIGNAL(searchCanceled()));
+    connect(m_searchTask, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchTask_resultsReady(int,QList<QRectF>)));
 
     // auto-refresh
 
@@ -439,11 +230,13 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
 DocumentView::~DocumentView()
 {
-    m_searchThread->cancel();
-    m_searchThread->wait();
+    m_searchTask->cancel();
+    m_searchTask->wait();
+
+    qDeleteAll(m_pageItems);
+    qDeleteAll(m_thumbnailItems);
 
     qDeleteAll(m_pages);
-    qDeleteAll(m_thumbnails);
 
     delete m_document;
 }
@@ -455,17 +248,12 @@ const QString& DocumentView::filePath() const
 
 int DocumentView::numberOfPages() const
 {
-    return m_numberOfPages;
+    return m_pages.count();
 }
 
 int DocumentView::currentPage() const
 {
     return m_currentPage;
-}
-
-const QVector< int >& DocumentView::visitedPages() const
-{
-    return m_visitedPages;
 }
 
 QStringList DocumentView::openFilter()
@@ -584,7 +372,7 @@ qreal DocumentView::scaleFactor() const
 
 void DocumentView::setScaleFactor(qreal scaleFactor)
 {
-    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor >= s_minimumScaleFactor && scaleFactor <= s_maximumScaleFactor)
+    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor >= Defaults::DocumentView::minimumScaleFactor() && scaleFactor <= Defaults::DocumentView::maximumScaleFactor())
     {
         m_scaleFactor = scaleFactor;
 
@@ -630,12 +418,12 @@ void DocumentView::setInvertColors(bool invertColors)
     {
         m_invertColors = invertColors;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setInvertColors(m_invertColors);
         }
 
-        foreach(PageItem* page, m_thumbnails)
+        foreach(PageItem* page, m_thumbnailItems)
         {
             page->setInvertColors(m_invertColors);
         }
@@ -659,14 +447,24 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         if(m_highlightAll)
         {
-            for(int index = 0; index < m_pages.count(); ++index)
+            for(int index = 0; index < m_pageItems.count(); ++index)
             {
-                m_pages.at(index)->setHighlights(m_results.values(index));
+                m_pageItems.at(index)->setHighlights(m_results.values(index));
+            }
+
+            for(int index = 0; index < m_thumbnailItems.count(); ++index)
+            {
+                m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
             }
         }
         else
         {
-            foreach(PageItem* page, m_pages)
+            foreach(PageItem* page, m_pageItems)
+            {
+                page->clearHighlights();
+            }
+
+            foreach(PageItem* page, m_thumbnailItems)
             {
                 page->clearHighlights();
             }
@@ -687,7 +485,7 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     {
         m_rubberBandMode = rubberBandMode;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setRubberBandMode(m_rubberBandMode);
         }
@@ -698,12 +496,12 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
 
 bool DocumentView::searchWasCanceled() const
 {
-    return m_searchThread->wasCanceled();
+    return m_searchTask->wasCanceled();
 }
 
 int DocumentView::searchProgress() const
 {
-    return m_searchThread->progress();
+    return m_searchTask->progress();
 }
 
 QStandardItemModel* DocumentView::outlineModel() const
@@ -725,14 +523,14 @@ QStandardItemModel* DocumentView::fontsModel()
     return fontsModel;
 }
 
+const QVector< ThumbnailItem* >& DocumentView::thumbnailItems() const
+{
+    return m_thumbnailItems;
+}
+
 QGraphicsScene* DocumentView::thumbnailsScene() const
 {
     return m_thumbnailsScene;
-}
-
-const QVector< ThumbnailItem* >& DocumentView::thumbnails() const
-{
-    return m_thumbnails;
 }
 
 void DocumentView::show()
@@ -744,7 +542,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Model::Document* document = loadDocument(filePath);
+    Model::Document* document = PluginHandler::loadDocument(filePath);
 
     if(document != 0)
     {
@@ -760,22 +558,23 @@ bool DocumentView::open(const QString& filePath)
         }
 
         m_filePath = filePath;
-
-        m_numberOfPages = document->numberOfPages();
         m_currentPage = 1;
 
-        m_visitedPages.clear();
-        m_leftOfVisitedPages.clear();
-        m_topOfVisitedPages.clear();
+        m_past.clear();
+        m_future.clear();
 
         prepareDocument(document);
 
         prepareScene();
         prepareView();
 
+        prepareThumbnailsScene();
+
         emit filePathChanged(m_filePath);
-        emit numberOfPagesChanged(m_numberOfPages);
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
+
+        emit canJumpChanged(false, false);
     }
 
     return document != 0;
@@ -783,7 +582,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Model::Document* document = loadDocument(m_filePath);
+    Model::Document* document = PluginHandler::loadDocument(m_filePath);
 
     if(document != 0)
     {
@@ -801,15 +600,16 @@ bool DocumentView::refresh()
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_numberOfPages = document->numberOfPages();
-        m_currentPage = m_currentPage <= m_numberOfPages ? m_currentPage : m_numberOfPages;
+        m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
         prepareDocument(document);
 
         prepareScene();
         prepareView(left, top);
 
-        emit numberOfPagesChanged(m_numberOfPages);
+        prepareThumbnailsScene();
+
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
     }
 
@@ -858,17 +658,20 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
-{
+{    
+    int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
+    int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
+
 #ifdef WITH_CUPS
 
-    if(m_document->canBePrinted())
+    if(m_document->canBePrintedUsingCUPS())
     {
-        return printUsingCUPS(printer, printOptions);
+        return printUsingCUPS(printer, printOptions, fromPage, toPage);
     }
 
 #endif // WITH_CUPS
 
-    return printUsingQt(printer, printOptions);
+    return printUsingQt(printer, printOptions, fromPage, toPage);
 }
 
 void DocumentView::previousPage()
@@ -886,7 +689,7 @@ void DocumentView::previousPage()
         previousPage -= 2;
         break;
     case MultiplePagesMode:
-        previousPage -= s_pagesPerRow;
+        previousPage -= s_settings->documentView().pagesPerRow();
         break;
     }
 
@@ -910,11 +713,11 @@ void DocumentView::nextPage()
         nextPage += 2;
         break;
     case MultiplePagesMode:
-        nextPage += s_pagesPerRow;
+        nextPage += s_settings->documentView().pagesPerRow();
         break;
     }
 
-    nextPage = nextPage <= m_numberOfPages ? nextPage : m_numberOfPages;
+    nextPage = qMin(nextPage, m_pages.count());
 
     jumpToPage(nextPage, false);
 }
@@ -926,83 +729,118 @@ void DocumentView::firstPage()
 
 void DocumentView::lastPage()
 {
-    jumpToPage(m_numberOfPages);
+    jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool returnTo, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
 {
-    if(page >= 1 && page <= m_numberOfPages)
+    if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
         if(m_currentPage != currentPageForPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
         {
-            if(returnTo)
+            if(trackChange)
             {
-                m_visitedPages.push(m_currentPage);
-                m_leftOfVisitedPages.push(left); m_topOfVisitedPages.push(top);
+                m_past.append(Position(m_currentPage, left, top));
+                m_future.clear();
+
+                emit canJumpChanged(true, false);
             }
 
             m_currentPage = currentPageForPage(page);
 
             prepareView(changeLeft, changeTop);
 
-            emit currentPageChanged(m_currentPage, returnTo);
+            emit currentPageChanged(m_currentPage, trackChange);
         }
     }
 }
 
-void DocumentView::jumpToHighlight(const QRectF& highlight)
+bool DocumentView::canJumpBackward() const
 {
-    PageItem* page = m_pages.at(m_currentPage - 1);
+    return !m_past.isEmpty();
+}
 
-    page->setHighlights(QList< QRectF >() << highlight, s_highlightDuration);
+void DocumentView::jumpBackward()
+{
+    if(!m_past.isEmpty())
+    {
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        m_future.prepend(Position(m_currentPage, left, top));
+
+        Position pos = m_past.takeLast();
+
+        jumpToPage(pos.page, false, pos.left, pos.top);
+
+        emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
+    }
+}
+
+bool DocumentView::canJumpForward() const
+{
+    return !m_future.isEmpty();
+}
+
+void DocumentView::jumpForward()
+{
+    if(!m_future.isEmpty())
+    {
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        m_past.append(Position(m_currentPage, left, top));
+
+        Position pos = m_future.takeFirst();
+
+        jumpToPage(pos.page, false, pos.left, pos.top);
+
+        emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
+    }
+}
+
+void DocumentView::highlightOnCurrentPage(const QRectF& highlight)
+{
+    PageItem* page = m_pageItems.at(m_currentPage - 1);
+
+    page->setHighlights(QList< QRectF >() << highlight);
+
+    QTimer::singleShot(s_settings->documentView().highlightDuration(), page, SLOT(clearHighlights()));
 
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
     centerOn(page->transform().mapRect(highlight).translated(page->pos()).center());
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
 }
 
-void DocumentView::returnToPage()
-{
-    if(!m_visitedPages.isEmpty())
-    {
-        jumpToPage(m_visitedPages.pop(), false, m_leftOfVisitedPages.pop(), m_topOfVisitedPages.pop());
-    }
-}
-
 void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
 
-    QList< int > indices;
-
-    for(int index = m_currentPage - 1; index < m_numberOfPages; ++index)
-    {
-        indices.append(index);
-    }
-
-    for(int index = 0; index < m_currentPage - 1; ++index)
-    {
-        indices.append(index);
-    }
-
-    m_searchThread->start(m_document, indices, text, matchCase);
+    m_searchTask->start(m_pages, text, matchCase, m_currentPage);
 }
 
 void DocumentView::cancelSearch()
 {
-    m_searchThread->cancel();
-    m_searchThread->wait();
+    m_searchTask->cancel();
+    m_searchTask->wait();
 
     m_results.clear();
     m_currentResult = m_results.end();
 
-    foreach(PageItem* page, m_pages)
+    foreach(PageItem* page, m_pageItems)
     {
         page->clearHighlights();
     }
+
+    foreach(PageItem* page, m_thumbnailItems)
+    {
+        page->clearHighlights();
+    }
+
+    prepareThumbnailsScene();
 
     prepareHighlight();
 }
@@ -1063,12 +901,12 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pages.at(m_currentPage - 1)->scaleFactor() + s_zoomBy, s_maximumScaleFactor));
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMin(m_scaleFactor + s_zoomBy, s_maximumScaleFactor));
+        setScaleFactor(qMin(m_scaleFactor + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
     }
 }
 
@@ -1076,12 +914,12 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pages.at(m_currentPage - 1)->scaleFactor() - s_zoomBy, s_minimumScaleFactor));
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMax(m_scaleFactor - s_zoomBy, s_minimumScaleFactor));
+        setScaleFactor(qMax(m_scaleFactor - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
     }
 }
 
@@ -1131,14 +969,16 @@ void DocumentView::rotateRight()
     }
 }
 
-void DocumentView::presentation(bool sync, int screen)
+void DocumentView::presentation()
 {
+    int screen = s_settings->presentationView().screen();
+
     if(screen < -1 || screen >= QApplication::desktop()->screenCount())
     {
         screen = -1;
     }
 
-    PresentationView* presentationView = new PresentationView(m_document);
+    PresentationView* presentationView = new PresentationView(m_pages);
 
     presentationView->setGeometry(QApplication::desktop()->screenGeometry(screen));
 
@@ -1154,7 +994,7 @@ void DocumentView::presentation(bool sync, int screen)
 
     presentationView->jumpToPage(currentPage(), false);
 
-    if(sync)
+    if(s_settings->presentationView().sync())
     {
         connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
         connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int,bool)));
@@ -1167,7 +1007,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     {
         QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
             {
@@ -1191,9 +1031,9 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > results)
+void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results)
 {
-    if(m_searchThread->wasCanceled())
+    if(m_searchTask->wasCanceled())
     {
         return;
     }
@@ -1205,7 +1045,13 @@ void DocumentView::on_searchThread_resultsReady(int index, QList< QRectF > resul
 
     if(m_highlightAll)
     {
-        m_pages.at(index)->setHighlights(m_results.values(index));
+        m_pageItems.at(index)->setHighlights(m_results.values(index));
+        m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
+    }
+
+    if(s_settings->documentView().limitThumbnailsToResults())
+    {
+        prepareThumbnailsScene();
     }
 
     if(m_results.contains(index) && m_currentResult == m_results.end())
@@ -1222,33 +1068,33 @@ void DocumentView::on_prefetch_timeout()
     {
     default:
     case SinglePageMode:
-        fromPage -= s_prefetchDistance / 2;
-        toPage += s_prefetchDistance;
+        fromPage -= s_settings->documentView().prefetchDistance() / 2;
+        toPage += s_settings->documentView().prefetchDistance();
         break;
     case TwoPagesMode:
     case TwoPagesWithCoverPageMode:
-        fromPage -= s_prefetchDistance;
-        toPage += 2 * s_prefetchDistance + 1;
+        fromPage -= s_settings->documentView().prefetchDistance();
+        toPage += 2 * s_settings->documentView().prefetchDistance() + 1;
         break;
     case MultiplePagesMode:
-        fromPage -= s_pagesPerRow * (s_prefetchDistance / 2);
-        toPage += s_pagesPerRow * (s_prefetchDistance + 1) - 1;
+        fromPage -= s_settings->documentView().pagesPerRow() * (s_settings->documentView().prefetchDistance() / 2);
+        toPage += s_settings->documentView().pagesPerRow() * (s_settings->documentView().prefetchDistance() + 1) - 1;
         break;
     }
 
-    fromPage = fromPage >= 1 ? fromPage : 1;
-    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+    fromPage = qMax(fromPage, 1);
+    toPage = qMin(toPage, m_pages.count());
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_pages.at(index)->startRender(true);
+        m_pageItems.at(index)->startRender(true);
     }
 }
 
 void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
 {
-    page = page >= 1 ? page : 1;
-    page = page <= m_numberOfPages ? page : m_numberOfPages;
+    page = qMax(page, 1);
+    page = qMin(page, m_pages.count());
 
     left = left >= 0.0 ? left : 0.0;
     left = left <= 1.0 ? left : 1.0;
@@ -1261,7 +1107,7 @@ void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
 
 void DocumentView::on_pages_linkClicked(const QString& url)
 {
-    if(s_openUrl)
+    if(s_settings->documentView().openUrl())
     {
         QDesktopServices::openUrl(QUrl(url));
     }
@@ -1287,7 +1133,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
 {
 #ifdef WITH_SYNCTEX
 
-    if(s_sourceEditor.isEmpty())
+    if(s_settings->documentView().sourceEditor().isEmpty())
     {
         return;
     }
@@ -1309,7 +1155,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 sourceLine = sourceLine >= 0 ? sourceLine : 0;
                 sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
-                QProcess::startDetached(s_sourceEditor.arg(QDir(path).absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
+                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(QDir(path).absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
 
                 break;
             }
@@ -1348,14 +1194,6 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 {
     QKeySequence shortcut(event->modifiers() + event->key());
 
-    if(s_returnToPageShortcut.matches(shortcut))
-    {
-        returnToPage();
-
-        event->accept();
-        return;
-    }
-
     if(!m_continuousMode)
     {
         if(s_skipBackwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
@@ -1367,7 +1205,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
         {
             nextPage();
 
@@ -1388,19 +1226,19 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         key = Qt::Key_PageDown;
     }
-    else if(s_movementShortcuts[MoveUp].matches(shortcut))
+    else if(s_moveUpShortcut.matches(shortcut))
     {
         key = Qt::Key_Up;
     }
-    else if(s_movementShortcuts[MoveDown].matches(shortcut))
+    else if(s_moveDownShortcut.matches(shortcut))
     {
         key = Qt::Key_Down;
     }
-    else if(s_movementShortcuts[MoveLeft].matches(shortcut))
+    else if(s_moveLeftShortcut.matches(shortcut))
     {
         key = Qt::Key_Left;
     }
-    else if(s_movementShortcuts[MoveRight].matches(shortcut))
+    else if(s_moveRightShortcut.matches(shortcut))
     {
         key = Qt::Key_Right;
     }
@@ -1419,7 +1257,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == s_zoomModifiers)
+    if(event->modifiers() == s_settings->documentView().zoomModifiers())
     {
         if(event->delta() > 0)
         {
@@ -1433,7 +1271,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == s_rotateModifiers)
+    else if(event->modifiers() == s_settings->documentView().rotateModifiers())
     {
         if(event->delta() > 0)
         {
@@ -1447,7 +1285,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == s_scrollModifiers)
+    else if(event->modifiers() == s_settings->documentView().scrollModifiers())
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
         QApplication::sendEvent(horizontalScrollBar(), &wheelEvent);
@@ -1468,7 +1306,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
                 event->accept();
                 return;
             }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_numberOfPages))
+            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
             {
                 nextPage();
 
@@ -1497,269 +1335,9 @@ void DocumentView::contextMenuEvent(QContextMenuEvent* event)
     }
 }
 
-Model::DocumentLoader* DocumentView::loadPlugin(const QString& fileName)
-{
-    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
-
-    if(!pluginLoader.load())
-    {
-        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
-
-        if(!pluginLoader.load())
-        {
-            qCritical() << "Could not load plug-in:" << fileName;
-            qCritical() << pluginLoader.errorString();
-
-            return 0;
-        }
-    }
-
-    Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(pluginLoader.instance());
-
-    if(documentLoader == 0)
-    {
-        qCritical() << "Could not instantiate plug-in:" << fileName;
-        qCritical() << pluginLoader.errorString();
-    }
-
-    return documentLoader;
-}
-
-Model::DocumentLoader* DocumentView::loadStaticPlugin(const QString& objectName)
-{
-    foreach(QObject* object, QPluginLoader::staticInstances())
-    {
-        if(object->objectName() == objectName)
-        {
-            Model::DocumentLoader* documentLoader = qobject_cast< Model::DocumentLoader* >(object);
-
-            if(documentLoader != 0)
-            {
-                return documentLoader;
-            }
-        }
-    }
-
-    qCritical() << "Could not load static plug-in:" << objectName;
-
-    return 0;
-}
-
-#ifdef WITH_PDF
-
-#ifdef STATIC_PDF_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_pdf)
-
-#endif // STATIC_PDF_PLUGIN
-
-void DocumentView::preparePDFDocumentLoader()
-{
-    if(s_pdfDocumentLoader == 0)
-    {
-#ifndef STATIC_PDF_PLUGIN
-        Model::DocumentLoader* pdfDocumentLoader = loadPlugin(PDF_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* pdfDocumentLoader = loadStaticPlugin("PDFDocumentLoader");
-#endif // STATIC_PDF_PLUGIN
-
-        if(pdfDocumentLoader != 0)
-        {
-            s_pdfDocumentLoader = pdfDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PDF plug-in!"));
-        }
-    }
-}
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-#ifdef STATIC_PS_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_ps)
-
-#endif // STATIC_PS_PLUGIN
-
-void DocumentView::preparePSDocumentLoader()
-{
-    if(s_psDocumentLoader == 0)
-    {
-#ifndef STATIC_PS_PLUGIN
-        Model::DocumentLoader* psDocumentLoader = loadPlugin(PS_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* psDocumentLoader = loadStaticPlugin("PSDocumentLoader");
-#endif // STATIC_PS_PLUGIN
-
-        if(psDocumentLoader != 0)
-        {
-            s_psDocumentLoader = psDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PS plug-in!"));
-        }
-
-    }
-}
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-#ifdef STATIC_DJVU_PLUGIN
-
-Q_IMPORT_PLUGIN(qpdfview_djvu)
-
-#endif // STATIC_DJVU_PLUGIN
-
-void DocumentView::prepareDjVuDocumentLoader()
-{
-    if(s_djvuDocumentLoader == 0)
-    {
-#ifndef STATIC_DJVU_PLUGIN
-        Model::DocumentLoader* djvuDocumentLoader = loadPlugin(DJVU_PLUGIN_NAME);
-#else
-        Model::DocumentLoader* djvuDocumentLoader = loadStaticPlugin("DjVuDocumentLoader");
-#endif // STATIC_DJVU_PLUGIN
-
-        if(djvuDocumentLoader != 0)
-        {
-            s_djvuDocumentLoader = djvuDocumentLoader;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load DjVu plug-in!"));
-        }
-
-    }
-}
-
-#endif // WITH_DJVU
-
-Model::Document* DocumentView::loadDocument(const QString& filePath)
-{
-    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = UnknownType;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    QMimeDatabase mimeDatabase;
-    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
-
-    if(mimeType.name() == "application/pdf")
-    {
-        fileType = PDF;
-    }
-    else if(mimeType.name() == "application/postscript")
-    {
-        fileType = PS;
-    }
-    else if(mimeType.name() == "image/vnd.djvu")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unknown file type:" << mimeType.name();
-    }
-
-#else
-
-#ifdef WITH_MAGIC
-
-    magic_t cookie = magic_open(MAGIC_MIME_TYPE | MAGIC_SYMLINK);
-
-    if(magic_load(cookie, 0) == 0)
-    {
-        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
-
-        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
-        {
-            fileType = PDF;
-        }
-        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
-        {
-            fileType = PS;
-        }
-        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
-        {
-            fileType = DjVu;
-        }
-        else
-        {
-            qDebug() << "Unknown file type:" << mime_type;
-        }
-    }
-
-    magic_close(cookie);
-
-#else
-
-    QFileInfo fileInfo(filePath);
-
-    if(fileInfo.suffix().toLower() == "pdf")
-    {
-        fileType = PDF;
-    }
-    else if(fileInfo.suffix().toLower() == "ps")
-    {
-        fileType = PS;
-    }
-    else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unkown file type:" << fileInfo.suffix().toLower();
-    }
-
-#endif // WITH_MAGIC
-
-#endif // QT_VERSION
-
-#ifdef WITH_PDF
-
-    if(fileType == PDF)
-    {
-        preparePDFDocumentLoader();
-
-        return s_pdfDocumentLoader != 0 ? s_pdfDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(fileType == PS)
-    {
-        preparePSDocumentLoader();
-
-        return s_psDocumentLoader != 0 ? s_psDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    if(fileType == DjVu)
-    {
-        prepareDjVuDocumentLoader();
-
-        return s_djvuDocumentLoader != 0 ? s_djvuDocumentLoader->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_DJVU
-
-    return 0;
-}
-
 #ifdef WITH_CUPS
 
-bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions)
+bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
     int num_dests = 0;
     cups_dest_t* dests = 0;
@@ -1835,8 +1413,6 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
             break;
         }
 
-        int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
-        int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
         int numberUp = 1;
 
         switch(printOptions.numberUp)
@@ -1949,11 +1525,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
 #endif // WITH_CUPS
 
-bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions)
+bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
-    int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
-    int toPage = printer->toPage() != 0 ? printer->toPage() : m_numberOfPages;
-
     QProgressDialog* progressDialog = new QProgressDialog(this);
     progressDialog->setLabelText(tr("Printing '%1'...").arg(m_filePath));
     progressDialog->setRange(fromPage - 1, toPage);
@@ -2030,7 +1603,7 @@ int DocumentView::currentPageForPage(int page) const
         currentPage = page == 1 ? page : (page % 2 == 0 ? page : page - 1);
         break;
     case MultiplePagesMode:
-        currentPage = page - ((page - 1) % s_pagesPerRow);
+        currentPage = page - ((page - 1) % s_settings->documentView().pagesPerRow());
         break;
     }
 
@@ -2054,7 +1627,7 @@ int DocumentView::leftIndexForIndex(int index) const
         leftIndex = index == 0 ? index : (index % 2 != 0 ? index : index - 1);
         break;
     case MultiplePagesMode:
-        leftIndex = index - (index % s_pagesPerRow);
+        leftIndex = index - (index % s_settings->documentView().pagesPerRow());
         break;
     }
 
@@ -2078,18 +1651,18 @@ int DocumentView::rightIndexForIndex(int index) const
         rightIndex = index % 2 != 0 ? index + 1 : index;
         break;
     case MultiplePagesMode:
-        rightIndex = index - (index % s_pagesPerRow) + s_pagesPerRow - 1;
+        rightIndex = index - (index % s_settings->documentView().pagesPerRow()) + s_settings->documentView().pagesPerRow() - 1;
         break;
     }
 
-    rightIndex = rightIndex <= m_numberOfPages - 1 ? rightIndex : m_numberOfPages - 1;
+    rightIndex = qMin(rightIndex, m_pages.count() - 1);
 
     return rightIndex;
 }
 
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
-    PageItem* page = m_pages.at(m_currentPage - 1);
+    PageItem* page = m_pageItems.at(m_currentPage - 1);
 
     QRectF boundingRect = page->boundingRect().translated(page->pos());
     QPointF topLeft = mapToScene(viewport()->rect().topLeft());
@@ -2105,8 +1678,10 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     cancelSearch();
 
+    qDeleteAll(m_pageItems);
+    qDeleteAll(m_thumbnailItems);
+
     qDeleteAll(m_pages);
-    qDeleteAll(m_thumbnails);
 
     if(m_document != 0)
     {
@@ -2120,12 +1695,19 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     m_document = document;
 
-    if(s_autoRefresh)
+    if(s_settings->documentView().autoRefresh())
     {
         m_autoRefreshWatcher->addPath(m_filePath);
     }
 
-    m_document->setPaperColor(PageItem::paperColor());
+    m_document->setPaperColor(s_settings->pageItem().paperColor());
+
+    m_pages.clear();
+
+    for(int index = 0; index < m_document->numberOfPages(); ++index)
+    {
+        m_pages.append(m_document->page(index));
+    }
 
     preparePages();
     prepareThumbnails();
@@ -2134,7 +1716,7 @@ void DocumentView::prepareDocument(Model::Document* document)
     m_document->loadOutline(m_outlineModel);
     m_document->loadProperties(m_propertiesModel);
 
-    if(s_prefetch)
+    if(s_settings->documentView().prefetch())
     {
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
@@ -2143,19 +1725,19 @@ void DocumentView::prepareDocument(Model::Document* document)
 
 void DocumentView::preparePages()
 {
-    m_pages.clear();
-    m_pages.reserve(m_numberOfPages);
+    m_pageItems.clear();
+    m_pageItems.reserve(m_pages.count());
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
-        PageItem* page = new PageItem(m_document->page(index), index);
+        PageItem* page = new PageItem(m_pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
-        m_pagesScene->addItem(page);
-        m_pages.append(page);
+        scene()->addItem(page);
+        m_pageItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
@@ -2169,71 +1751,34 @@ void DocumentView::preparePages()
 
 void DocumentView::prepareThumbnails()
 {
-    m_thumbnails.clear();
-    m_thumbnails.reserve(m_numberOfPages);
+    m_thumbnailItems.clear();
+    m_thumbnailItems.reserve(m_pages.count());
 
-    m_thumbnailsScene->clear();
-
-    qreal left = 0.0;
-    qreal right = 0.0;
-    qreal height = s_thumbnailSpacing;
-
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(m_document->page(index), index);
+        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
 
         m_thumbnailsScene->addItem(page);
-        m_thumbnails.append(page);
+        m_thumbnailItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
-
-        {
-            // prepare scale factor
-
-            QSizeF size = page->size();
-
-            qreal pageWidth = physicalDpiX() / 72.0 * size.width();
-            qreal pageHeight = physicalDpiY() / 72.0 * size.height();
-
-            page->setScaleFactor(qMin(s_thumbnailSize / pageWidth, s_thumbnailSize / pageHeight));
-        }
-
-        {
-            // prepare layout
-
-            QRectF boundingRect = page->boundingRect();
-
-            page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
-
-            left = qMin(left, -0.5f * boundingRect.width() - s_thumbnailSpacing);
-            right = qMax(right, 0.5f * boundingRect.width() + s_thumbnailSpacing);
-            height += boundingRect.height() + s_thumbnailSpacing;
-        }
-
-        QGraphicsSimpleTextItem* text = m_thumbnailsScene->addSimpleText(QString::number(index + 1));
-
-        text->setPos(-0.5 * text->boundingRect().width(), height);
-
-        height += text->boundingRect().height() + s_thumbnailSpacing;
     }
-
-    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
 }
 
 void DocumentView::prepareBackground()
 {
     QColor backgroundColor;
 
-    if(PageItem::decoratePages())
+    if(s_settings->pageItem().decoratePages())
     {
-        backgroundColor = PageItem::backgroundColor();
+        backgroundColor = s_settings->pageItem().backgroundColor();
     }
     else
     {
-        backgroundColor = PageItem::paperColor();
+        backgroundColor = s_settings->pageItem().paperColor();
 
         if(m_invertColors)
         {
@@ -2241,17 +1786,19 @@ void DocumentView::prepareBackground()
         }
     }
 
-    m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+    scene()->setBackgroundBrush(QBrush(backgroundColor));
     m_thumbnailsScene->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void DocumentView::prepareScene()
 {
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
+
     // prepare scale factor and rotation
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(m_scaleMode != ScaleFactorMode)
         {
@@ -2267,18 +1814,18 @@ void DocumentView::prepareScene()
             {
             default:
             case SinglePageMode:
-                visibleWidth = viewport()->width() - 6.0 - 2.0 * s_pageSpacing;
+                visibleWidth = viewport()->width() - 6.0 - 2.0 * pageSpacing;
                 break;
             case TwoPagesMode:
             case TwoPagesWithCoverPageMode:
-                visibleWidth = (viewport()->width() - 6.0 - 3 * s_pageSpacing) / 2;
+                visibleWidth = (viewport()->width() - 6.0 - 3 * pageSpacing) / 2;
                 break;
             case MultiplePagesMode:
-                visibleWidth = (viewport()->width() - 6.0 - (s_pagesPerRow + 1) * s_pageSpacing) / s_pagesPerRow;
+                visibleWidth = (viewport()->width() - 6.0 - (s_settings->documentView().pagesPerRow() + 1) * pageSpacing) / s_settings->documentView().pagesPerRow();
                 break;
             }
 
-            visibleHeight = viewport()->height() - 2.0 * s_pageSpacing;
+            visibleHeight = viewport()->height() - 2.0 * pageSpacing;
 
             switch(m_rotation)
             {
@@ -2326,11 +1873,11 @@ void DocumentView::prepareScene()
 
     qreal left = 0.0;
     qreal right = 0.0;
-    qreal height = s_pageSpacing;
+    qreal height = pageSpacing;
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
         QRectF boundingRect = page->boundingRect();
 
         switch(m_layoutMode)
@@ -2339,61 +1886,61 @@ void DocumentView::prepareScene()
         case SinglePageMode:
             page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
-            m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
+            m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
             pageHeight = boundingRect.height();
 
-            left = qMin(left, -0.5f * boundingRect.width() - s_pageSpacing);
-            right = qMax(right, 0.5f * boundingRect.width() + s_pageSpacing);
-            height += pageHeight + s_pageSpacing;
+            left = qMin(left, -0.5f * boundingRect.width() - pageSpacing);
+            right = qMax(right, 0.5f * boundingRect.width() + pageSpacing);
+            height += pageHeight + pageSpacing;
 
             break;
         case TwoPagesMode:
         case TwoPagesWithCoverPageMode:
             if(index == leftIndexForIndex(index))
             {
-                page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * s_pageSpacing, height - boundingRect.top());
+                page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
 
-                m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
+                m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
                 pageHeight = boundingRect.height();
 
-                left = qMin(left, -boundingRect.width() - 1.5f * s_pageSpacing);
+                left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
 
                 if(index == rightIndexForIndex(index))
                 {
-                    right = qMax(right, 0.5f * s_pageSpacing);
-                    height += pageHeight + s_pageSpacing;
+                    right = qMax(right, 0.5f * pageSpacing);
+                    height += pageHeight + pageSpacing;
                 }
             }
             else
             {
-                page->setPos(-boundingRect.left() + 0.5 * s_pageSpacing, height - boundingRect.top());
+                page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
 
                 pageHeight = qMax(pageHeight, boundingRect.height());
 
-                right = qMax(right, boundingRect.width() + 1.5f * s_pageSpacing);
-                height += pageHeight + s_pageSpacing;
+                right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
+                height += pageHeight + pageSpacing;
             }
 
             break;
         case MultiplePagesMode:
-            page->setPos(left - boundingRect.left() + s_pageSpacing, height - boundingRect.top());
+            page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
 
             pageHeight = qMax(pageHeight, boundingRect.height());
-            left += boundingRect.width() + s_pageSpacing;
+            left += boundingRect.width() + pageSpacing;
 
             if(index == leftIndexForIndex(index))
             {
-                m_heightToIndex.insert(-height + s_pageSpacing + 0.3 * pageHeight, index);
+                m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
             }
 
             if(index == rightIndexForIndex(index))
             {
-                height += pageHeight + s_pageSpacing;
+                height += pageHeight + pageSpacing;
                 pageHeight = 0.0;
 
-                right = qMax(right, left + s_pageSpacing);
+                right = qMax(right, left + pageSpacing);
                 left = 0.0;
             }
 
@@ -2401,22 +1948,22 @@ void DocumentView::prepareScene()
         }
     }
 
-    m_pagesScene->setSceneRect(left, 0.0, right - left, height);
+    scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
 void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 {
-    qreal left = m_pagesScene->sceneRect().left();
-    qreal top = m_pagesScene->sceneRect().top();
-    qreal width = m_pagesScene->sceneRect().width();
-    qreal height = m_pagesScene->sceneRect().height();
+    qreal left = scene()->sceneRect().left();
+    qreal top = scene()->sceneRect().top();
+    qreal width = scene()->sceneRect().width();
+    qreal height = scene()->sceneRect().height();
 
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(m_continuousMode)
         {
@@ -2438,8 +1985,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
                 QRectF boundingRect = page->boundingRect().translated(page->pos());
 
-                top = boundingRect.top() - s_pageSpacing;
-                height = boundingRect.height() + 2.0 * s_pageSpacing;
+                top = boundingRect.top() - s_settings->documentView().pageSpacing();
+                height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
 
                 if(index == m_currentPage - 1)
                 {
@@ -2475,13 +2022,57 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     viewport()->update();
 }
 
+void DocumentView::prepareThumbnailsScene()
+{
+    const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
+
+    qreal left = 0.0;
+    qreal right = 0.0;
+    qreal height = thumbnailSpacing;
+
+    for(int index = 0; index < m_thumbnailItems.count(); ++index)
+    {
+        PageItem* page = m_thumbnailItems.at(index);
+
+        if(s_settings->documentView().limitThumbnailsToResults() && !m_results.isEmpty() && !m_results.contains(index))
+        {
+            page->setVisible(false);
+
+            page->cancelRender();
+
+            continue;
+        }
+
+        page->setVisible(true);
+
+        // prepare scale factor
+
+        qreal pageWidth = physicalDpiX() / 72.0 * page->size().width();
+        qreal pageHeight = physicalDpiY() / 72.0 * page->size().height();
+
+        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / pageWidth, s_settings->documentView().thumbnailSize() / pageHeight));
+
+        // prepare layout
+
+        QRectF boundingRect = page->boundingRect();
+
+        page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
+
+        left = qMin(left, -0.5f * boundingRect.width() - thumbnailSpacing);
+        right = qMax(right, 0.5f * boundingRect.width() + thumbnailSpacing);
+        height += boundingRect.height() + thumbnailSpacing;
+    }
+
+    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+}
+
 void DocumentView::prepareHighlight()
 {
     if(m_currentResult != m_results.end())
     {
         jumpToPage(m_currentResult.key() + 1);
 
-        PageItem* page = m_pages.at(m_currentResult.key());
+        PageItem* page = m_pageItems.at(m_currentResult.key());
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());

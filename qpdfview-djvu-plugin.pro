@@ -9,7 +9,7 @@ OBJECTS_DIR = objects-djvu
 MOC_DIR = moc-dvju
 
 HEADERS = sources/global.h sources/model.h sources/djvumodel.h
-SOURCES = sources/model.cpp sources/djvumodel.cpp
+SOURCES = sources/djvumodel.cpp
 
 QT += core gui
 

@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGraphicsView>
 #include <QMap>
-#include <QStack>
 
 class QDomNode;
 class QFileSystemWatcher;
@@ -36,14 +35,14 @@ class QStandardItemModel;
 
 namespace Model
 {
+class Page;
 class Document;
-class DocumentLoader;
-class SettingsWidget;
 }
 
+class Settings;
 class PageItem;
 class ThumbnailItem;
-class SearchThread;
+class SearchTask;
 class PresentationView;
 
 class DocumentView : public QGraphicsView
@@ -51,79 +50,23 @@ class DocumentView : public QGraphicsView
     Q_OBJECT
 
 public:
-    static bool openUrl();
-    static void setOpenUrl(bool openUrl);
-
-    static bool autoRefresh();
-    static void setAutoRefresh(bool autoRefresh);
-
-    static bool prefetch();
-    static void setPrefetch(bool prefetch);
-
-    static int prefetchDistance();
-    static void setPrefetchDistance(int prefetchDistance);
-
-    static int pagesPerRow();
-    static void setPagesPerRow(int pagesPerRow);
-
-    static qreal pageSpacing();
-    static void setPageSpacing(qreal pageSpacing);
-
-    static qreal thumbnailSpacing();
-    static void setThumbnailSpacing(qreal thumbnailSpacing);
-
-    static qreal thumbnailSize();
-    static void setThumbnailSize(qreal thumbnailSize);
-
-    static qreal minimumScaleFactor();
-    static qreal maximumScaleFactor();
-
     static const QKeySequence& skipBackwardShortcut();
     static void setSkipBackwardShortcut(const QKeySequence& shortcut);
 
     static const QKeySequence& skipForwardShortcut();
     static void setSkipForwardShortcut(const QKeySequence& shortcut);
 
-    enum MovementDirection
-    {
-        MoveUp = 0,
-        MoveDown = 1,
-        MoveLeft = 2,
-        MoveRight = 3
-    };
+    static const QKeySequence& moveUpShortcut();
+    static void setMoveUpShortcut(const QKeySequence& shortcut);
 
-    static const QKeySequence& movementShortcuts(MovementDirection direction);
-    static void setMovementShortcuts(MovementDirection direction, const QKeySequence& shortcut);
+    static const QKeySequence& moveDownShortcut();
+    static void setMoveDownShortcut(const QKeySequence& shortcut);
 
-    static const QKeySequence& returnToPageShortcut();
-    static void setReturnToPageShortcut(const QKeySequence& shortcut);
+    static const QKeySequence& moveLeftShortcut();
+    static void setMoveLeftShortcut(const QKeySequence& shortcut);
 
-    static const Qt::KeyboardModifiers& zoomModifiers();
-    static void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
-
-    static const Qt::KeyboardModifiers& rotateModifiers();
-    static void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
-
-    static const Qt::KeyboardModifiers& scrollModifiers();
-    static void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
-
-    static int highlightDuration();
-    static void setHighlightDuration(int highlightDuration);
-
-    static const QString& sourceEditor();
-    static void setSourceEditor(const QString& sourceEditor);
-
-#ifdef WITH_PDF
-
-    static Model::SettingsWidget* createPDFSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    static Model::SettingsWidget* createPSSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PS
+    static const QKeySequence& moveRightShortcut();
+    static void setMoveRightShortcut(const QKeySequence& shortcut);
 
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
@@ -131,8 +74,6 @@ public:
     const QString& filePath() const;
     int numberOfPages() const;
     int currentPage() const;
-
-    const QVector< int >& visitedPages() const;
 
     static QStringList openFilter();
     QStringList saveFilter() const;
@@ -166,8 +107,8 @@ public:
     bool searchWasCanceled() const;
     int searchProgress() const;
 
+    const QVector< ThumbnailItem* >& thumbnailItems() const;
     QGraphicsScene* thumbnailsScene() const;
-    const QVector< ThumbnailItem* >& thumbnails() const;
 
     QStandardItemModel* outlineModel() const;
     QStandardItemModel* propertiesModel() const;
@@ -177,7 +118,9 @@ public:
 signals:
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
-    void currentPageChanged(int currentPage, bool returnTo = false);
+    void currentPageChanged(int currentPage, bool trackChange = false);
+
+    void canJumpChanged(bool backward, bool forward);
 
     void continousModeChanged(bool continousMode);
     void layoutModeChanged(LayoutMode layoutMode);
@@ -191,9 +134,8 @@ signals:
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
-    void searchProgressed(int progress);
     void searchFinished();
-    void searchCanceled();
+    void searchProgressChanged(int progress);
 
 public slots:
     void show();
@@ -208,10 +150,15 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page, bool returnTo = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
-    void jumpToHighlight(const QRectF& highlight);
+    void jumpToPage(int page, bool trackChange = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
-    void returnToPage();
+    bool canJumpBackward() const;
+    void jumpBackward();
+
+    bool canJumpForward() const;
+    void jumpForward();
+
+    void highlightOnCurrentPage(const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
@@ -226,12 +173,12 @@ public slots:
     void rotateLeft();
     void rotateRight();
 
-    void presentation(bool sync = false, int screen = -1);
+    void presentation();
 
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
 
-    void on_searchThread_resultsReady(int index, QList< QRectF > results);
+    void on_searchTask_resultsReady(int index, QList< QRectF > results);
 
     void on_prefetch_timeout();
 
@@ -252,68 +199,15 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
-    static bool s_openUrl;
-
-    static bool s_autoRefresh;
-
-    static bool s_prefetch;
-    static int s_prefetchDistance;
-
-    static int s_pagesPerRow;
-
-    static qreal s_pageSpacing;
-    static qreal s_thumbnailSpacing;
-
-    static qreal s_thumbnailSize;
-
-    static qreal s_minimumScaleFactor;
-    static qreal s_maximumScaleFactor;
-
-    static qreal s_zoomBy;
+    static Settings* s_settings;
 
     static QKeySequence s_skipBackwardShortcut;
     static QKeySequence s_skipForwardShortcut;
 
-    static QKeySequence s_movementShortcuts[4];
-
-    static QKeySequence s_returnToPageShortcut;
-
-    static Qt::KeyboardModifiers s_zoomModifiers;
-    static Qt::KeyboardModifiers s_rotateModifiers;
-    static Qt::KeyboardModifiers s_scrollModifiers;
-
-    static int s_highlightDuration;
-
-    static QString s_sourceEditor;
-
-    static Model::DocumentLoader* loadPlugin(const QString& fileName);
-    static Model::DocumentLoader* loadStaticPlugin(const QString& objectName);
-
-#ifdef WITH_PDF
-
-    static Model::DocumentLoader* s_pdfDocumentLoader;
-
-    static void preparePDFDocumentLoader();
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    static Model::DocumentLoader* s_psDocumentLoader;
-
-    static void preparePSDocumentLoader();
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    static Model::DocumentLoader* s_djvuDocumentLoader;
-
-    static void prepareDjVuDocumentLoader();
-
-#endif // WITH_DJVU
-
-    static Model::Document* loadDocument(const QString& filePath);
+    static QKeySequence s_moveUpShortcut;
+    static QKeySequence s_moveDownShortcut;
+    static QKeySequence s_moveLeftShortcut;
+    static QKeySequence s_moveRightShortcut;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;
@@ -321,22 +215,31 @@ private:
     QTimer* m_prefetchTimer;
 
     Model::Document* m_document;
+    QList< Model::Page* > m_pages;
 
     QString m_filePath;
-    int m_numberOfPages;
     int m_currentPage;
 
 #ifdef WITH_CUPS
 
-    bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions);
+    bool printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage);
 
 #endif // WITH_CUPS
 
-    bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions);
+    bool printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage);
 
-    QStack< int > m_visitedPages;
-    QStack< qreal > m_leftOfVisitedPages;
-    QStack< qreal > m_topOfVisitedPages;
+    struct Position
+    {
+        int page;
+        qreal left;
+        qreal top;
+
+        Position(int page, qreal left, qreal top) : page(page), left(left), top(top) {}
+
+    };
+
+    QList< Position > m_past;
+    QList< Position > m_future;
 
     int currentPageForPage(int page) const;
 
@@ -355,15 +258,14 @@ private:
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 
-    QGraphicsScene* m_pagesScene;
-    QVector< PageItem* > m_pages;
+    QVector< PageItem* > m_pageItems;
+    QVector< ThumbnailItem* > m_thumbnailItems;
 
     QMap< qreal, int > m_heightToIndex;
 
-    QGraphicsScene* m_thumbnailsScene;
-    QVector< ThumbnailItem* > m_thumbnails;
-
     QGraphicsRectItem* m_highlight;
+
+    QGraphicsScene* m_thumbnailsScene;
 
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
@@ -376,6 +278,8 @@ private:
     void prepareScene();
     void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
+    void prepareThumbnailsScene();
+
     void prepareHighlight();
 
     // search
@@ -383,7 +287,7 @@ private:
     QMultiMap< int, QRectF > m_results;
     QMultiMap< int, QRectF >::iterator m_currentResult;
 
-    SearchThread* m_searchThread;
+    SearchTask* m_searchTask;
 
 };
 

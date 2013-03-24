@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define PAGEITEM_H
 
 #include <QCache>
-#include <QFutureWatcher>
 #include <QGraphicsObject>
 #include <QIcon>
 
@@ -37,41 +36,14 @@ class FormField;
 class Page;
 }
 
+class Settings;
+class RenderTask;
+
 class PageItem : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
-    static int cacheSize();
-    static void setCacheSize(int cacheSize);
-
-    static bool decoratePages();
-    static void setDecoratePages(bool decoratePages);
-
-    static bool decorateLinks();
-    static void setDecorateLinks(bool decorateLinks);
-
-    static bool decorateFormFields();
-    static void setDecorateFormFields(bool decorateFormFields);
-
-    static const QColor& backgroundColor();
-    static void setBackgroundColor(const QColor& backgroundColor);
-
-    static const QColor& paperColor();
-    static void setPaperColor(const QColor& paperColor);
-
-    static const Qt::KeyboardModifiers& copyToClipboardModifiers();
-    static void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
-
-    static const Qt::KeyboardModifiers& addAnnotationModifiers();
-    static void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
-
-    static const QIcon& progressIcon();
-    static void setProgressIcon(const QIcon& progressIcon);
-
-    static const QIcon& errorIcon();
-    static void setErrorIcon(const QIcon& errorIcon);
-
     PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
 
@@ -85,7 +57,7 @@ public:
     void setInvertColors(bool invertColors);
 
     const QList< QRectF >& highlights() const;
-    void setHighlights(const QList< QRectF >& highlights, int duration = 0);
+    void setHighlights(const QList< QRectF >& highlights);
 
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
@@ -104,8 +76,6 @@ public:
     const QTransform& normalizedTransform() const;
 
 signals:
-    void imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
-
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
@@ -124,8 +94,8 @@ public slots:
     void cancelRender();
 
 protected slots:
-    void on_render_finished();
-    void on_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void on_renderTask_finished();
+    void on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -143,20 +113,9 @@ private slots:
     virtual void loadInteractiveElements();
 
 private:
+    static Settings* s_settings;
+
     static QCache< PageItem*, QPixmap > s_cache;
-
-    static bool s_decoratePages;
-    static bool s_decorateLinks;
-    static bool s_decorateFormFields;
-
-    static QColor s_backgroundColor;
-    static QColor s_paperColor;
-
-    static Qt::KeyboardModifiers s_copyToClipboardModifiers;
-    static Qt::KeyboardModifiers s_addAnnotationModifiers;
-
-    static QIcon s_progressIcon;
-    static QIcon s_errorIcon;
 
     Model::Page* m_page;
 
@@ -199,34 +158,7 @@ private:
 
     void prepareGeometry();
 
-    // render
-
-    struct RenderOptions
-    {
-        int physicalDpiX;
-        int physicalDpiY;
-
-        qreal scaleFactor;
-        Rotation rotation;
-
-        bool invertColors;
-
-        bool prefetch;
-
-        RenderOptions(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch) :
-            physicalDpiX(physicalDpiX),
-            physicalDpiY(physicalDpiY),
-            scaleFactor(scaleFactor),
-            rotation(rotation),
-            invertColors(invertColors),
-            prefetch(prefetch)
-        {
-        }
-
-    };
-
-    QFutureWatcher< void >* m_render;
-    void render(const RenderOptions& renderOptions);
+    RenderTask* m_renderTask;
 
 };
 
@@ -236,6 +168,9 @@ class ThumbnailItem : public PageItem
 
 public:
     ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
+
+    QRectF boundingRect() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
@@ -247,6 +182,10 @@ protected:
 
 private slots:
     void loadInteractiveElements();
+
+private:
+    int m_textWidth;
+    int m_textHeight;
 
 };
 

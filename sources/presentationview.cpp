@@ -25,21 +25,28 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QTimer>
 
+#include "settings.h"
 #include "model.h"
 #include "pageitem.h"
 #include "documentview.h"
 
-PresentationView::PresentationView(Model::Document* document, QWidget* parent) : QGraphicsView(parent),
+Settings* PresentationView::s_settings = 0;
+
+PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
-    m_document(0),
-    m_numberOfPages(-1),
-    m_currentPage(-1),
+    m_pages(pages),
+    m_currentPage(1),
+    m_past(),
+    m_future(),
     m_rotation(RotateBy0),
     m_invertColors(false),
-    m_returnToPage(),
-    m_pagesScene(0),
-    m_pages()
+    m_pageItems()
 {
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowState(windowState() | Qt::WindowFullScreen);
 
@@ -50,37 +57,29 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Space), this, SLOT(previousPage()));
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Backspace), this, SLOT(nextPage()));
+    new QShortcut(QKeySequence(Qt::Key_Return), this, SLOT(jumpBackward()));
+    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Return), this, SLOT(jumpForward()));
 
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
     new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
 
-    m_document = document;
-
-    m_numberOfPages = m_document->numberOfPages();
-    m_currentPage = 1;
-
     // pages
 
-    m_pagesScene = new QGraphicsScene(this);
-    setScene(m_pagesScene);
+    setScene(new QGraphicsScene(this));
 
-    m_pages.reserve(m_numberOfPages);
-
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pages.count(); ++index)
     {
-        PageItem* page = new PageItem(m_document->page(index), index, true);
+        PageItem* page = new PageItem(m_pages.at(index), index, true);
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
-        m_pagesScene->addItem(page);
-        m_pages.append(page);
+        scene()->addItem(page);
+        m_pageItems.append(page);
 
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
     }
 
-    m_pagesScene->setBackgroundBrush(QBrush(PageItem::paperColor()));
+    scene()->setBackgroundBrush(QBrush(s_settings->pageItem().paperColor()));
 
     // prefetch
 
@@ -93,7 +92,7 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
-    if(DocumentView::prefetch())
+    if(s_settings->documentView().prefetch())
     {
         m_prefetchTimer->blockSignals(false);
         m_prefetchTimer->start();
@@ -110,12 +109,12 @@ PresentationView::PresentationView(Model::Document* document, QWidget* parent) :
 
 PresentationView::~PresentationView()
 {
-    qDeleteAll(m_pages);
+    qDeleteAll(m_pageItems);
 }
 
 int PresentationView::numberOfPages() const
 {
-    return m_numberOfPages;
+    return m_pages.count();
 }
 
 int PresentationView::currentPage() const
@@ -152,19 +151,19 @@ void PresentationView::setInvertColors(bool invertColors)
     {
         m_invertColors = invertColors;
 
-        foreach(PageItem* page, m_pages)
+        foreach(PageItem* page, m_pageItems)
         {
             page->setInvertColors(m_invertColors);
         }
 
-        QColor backgroundColor = PageItem::paperColor();
+        QColor backgroundColor = s_settings->pageItem().paperColor();
 
         if(m_invertColors)
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
 
-        m_pagesScene->setBackgroundBrush(QBrush(backgroundColor));
+        scene()->setBackgroundBrush(QBrush(backgroundColor));
 
         emit invertColorsChanged(m_invertColors);
     }
@@ -194,31 +193,43 @@ void PresentationView::firstPage()
 
 void PresentationView::lastPage()
 {
-    jumpToPage(m_numberOfPages);
+    jumpToPage(m_pages.count());
 }
 
-void PresentationView::jumpToPage(int page, bool returnTo)
+void PresentationView::jumpToPage(int page, bool trackChange)
 {
-    if(m_currentPage != page && page >= 1 && page <= m_numberOfPages)
+    if(m_currentPage != page && page >= 1 && page <= m_pages.count())
     {
-        if(returnTo)
+        if(trackChange)
         {
-            m_returnToPage.push(m_currentPage);
+            m_past.append(m_currentPage);
         }
 
         m_currentPage = page;
 
         prepareView();
 
-        emit currentPageChanged(m_currentPage, returnTo);
+        emit currentPageChanged(m_currentPage, trackChange);
     }
 }
 
-void PresentationView::returnToPage()
+void PresentationView::jumpBackward()
 {
-    if(!m_returnToPage.isEmpty())
+    if(!m_past.isEmpty())
     {
-        jumpToPage(m_returnToPage.pop(), false);
+        m_future.prepend(m_currentPage);
+
+        jumpToPage(m_past.takeLast(), false);
+    }
+}
+
+void PresentationView::jumpForward()
+{
+    if(!m_future.isEmpty())
+    {
+        m_past.append(m_currentPage);
+
+        jumpToPage(m_future.takeFirst(), false);
     }
 }
 
@@ -266,15 +277,15 @@ void PresentationView::on_prefetch_timeout()
 {
     int fromPage = m_currentPage, toPage = m_currentPage;
 
-    fromPage -= DocumentView::prefetchDistance() / 2;
-    toPage += DocumentView::prefetchDistance();
+    fromPage -= s_settings->documentView().prefetchDistance() / 2;
+    toPage += s_settings->documentView().prefetchDistance();
 
-    fromPage = fromPage >= 1 ? fromPage : 1;
-    toPage = toPage <= m_numberOfPages ? toPage : m_numberOfPages;
+    fromPage = qMax(fromPage, 1);
+    toPage = qMin(toPage, m_pages.count());
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_pages.at(index)->startRender(true);
+        m_pageItems.at(index)->startRender(true);
     }
 }
 
@@ -283,8 +294,8 @@ void PresentationView::on_pages_linkClicked(int page, qreal left, qreal top)
     Q_UNUSED(left);
     Q_UNUSED(top);
 
-    page = page >= 1 ? page : 1;
-    page = page <= m_numberOfPages ? page : m_numberOfPages;
+    page = qMax(page, 1);
+    page = qMin(page, m_pages.count());
 
     jumpToPage(page, true);
 }
@@ -327,11 +338,6 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
         event->accept();
         return;
-    case Qt::Key_Return:
-        returnToPage();
-
-        event->accept();
-        return;
     case Qt::Key_F12:
     case Qt::Key_Escape:
         close();
@@ -353,7 +359,7 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == DocumentView::rotateModifiers())
+    if(event->modifiers() == s_settings->documentView().rotateModifiers())
     {
         if(event->delta() > 0)
         {
@@ -376,7 +382,7 @@ void PresentationView::wheelEvent(QWheelEvent* event)
             event->accept();
             return;
         }
-        else if(event->delta() < 0 && m_currentPage != m_numberOfPages)
+        else if(event->delta() < 0 && m_currentPage != m_pages.count())
         {
             nextPage();
 
@@ -390,10 +396,9 @@ void PresentationView::wheelEvent(QWheelEvent* event)
 
 void PresentationView::prepareScene()
 {
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
-        QSizeF size = page->size();
+        PageItem* page = m_pageItems.at(index);
 
         qreal visibleWidth = viewport()->width();
         qreal visibleHeight = viewport()->height();
@@ -406,13 +411,13 @@ void PresentationView::prepareScene()
         default:
         case RotateBy0:
         case RotateBy180:
-            pageWidth = physicalDpiX() / 72.0 * size.width();
-            pageHeight = physicalDpiY() / 72.0 * size.height();
+            pageWidth = physicalDpiX() / 72.0 * page->size().width();
+            pageHeight = physicalDpiY() / 72.0 * page->size().height();
             break;
         case RotateBy90:
         case RotateBy270:
-            pageWidth = physicalDpiX() / 72.0 * size.height();
-            pageHeight = physicalDpiY() / 72.0 * size.width();
+            pageWidth = physicalDpiX() / 72.0 * page->size().height();
+            pageHeight = physicalDpiY() / 72.0 * page->size().width();
             break;
         }
 
@@ -425,9 +430,9 @@ void PresentationView::prepareScene()
 
 void PresentationView::prepareView()
 {
-    for(int index = 0; index < m_numberOfPages; ++index)
+    for(int index = 0; index < m_pageItems.count(); ++index)
     {
-        PageItem* page = m_pages.at(index);
+        PageItem* page = m_pageItems.at(index);
 
         if(index == m_currentPage - 1)
         {

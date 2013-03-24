@@ -8,31 +8,34 @@ MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
-    sources/model.h \
-    sources/pageitem.h \
-    sources/searchthread.h \
-    sources/presentationview.h \
     sources/printoptions.h \
-    sources/documentview.h \
-    sources/printoptionswidget.h \
-    sources/miscellaneous.h \
     sources/settings.h \
-    sources/shortcutstablemodel.h \
+    sources/model.h \
+    sources/pluginhandler.h \
+    sources/rendertask.h \
+    sources/pageitem.h \
+    sources/presentationview.h \
+    sources/searchtask.h \
+    sources/documentview.h \
+    sources/miscellaneous.h \
+    sources/shortcuthandler.h \
+    sources/printdialog.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
     sources/mainwindow.h
 
 SOURCES += \
-    sources/model.cpp \
-    sources/pageitem.cpp \
-    sources/searchthread.cpp \
-    sources/presentationview.cpp \
-    sources/documentview.cpp \
-    sources/printoptionswidget.cpp \
-    sources/miscellaneous.cpp \
     sources/settings.cpp \
-    sources/shortcutstablemodel.cpp \
+    sources/pluginhandler.cpp \
+    sources/rendertask.cpp \
+    sources/pageitem.cpp \
+    sources/presentationview.cpp \
+    sources/searchtask.cpp \
+    sources/documentview.cpp \
+    sources/miscellaneous.cpp \
+    sources/shortcuthandler.cpp \
+    sources/printdialog.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
     sources/bookmarkmenu.cpp \

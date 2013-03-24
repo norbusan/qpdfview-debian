@@ -43,9 +43,11 @@ class QGraphicsView;
 class QModelIndex;
 class QShortcut;
 class QTableView;
+class QWidgetAction;
 
 #include "global.h"
 
+class Settings;
 class DocumentView;
 class TabWidget;
 class TreeView;
@@ -53,6 +55,7 @@ class ComboBox;
 class SpinBox;
 class ProgressLineEdit;
 class Settings;
+class ShortcutHandler;
 class RecentlyUsedMenu;
 class BookmarkMenu;
 
@@ -72,6 +75,8 @@ public slots:
 
     bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
 
+    void startSearch(const QString& text);
+
 protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
@@ -79,6 +84,8 @@ protected slots:
     void on_currentTab_filePathChanged(const QString& filePath);
     void on_currentTab_numberOfPagesChaned(int numberOfPages);
     void on_currentTab_currentPageChanged(int currentPage);
+
+    void on_currentTab_canJumpChanged(bool backward, bool forward);
 
     void on_currentTab_continuousModeChanged(bool continuousMode);
     void on_currentTab_layoutModeChanged(LayoutMode layoutMode);
@@ -92,9 +99,8 @@ protected slots:
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
-    void on_currentTab_searchProgressed(int progress);
     void on_currentTab_searchFinished();
-    void on_currentTab_searchCanceled();
+    void on_currentTab_searchProgressChanged(int progress);
 
     void on_currentTab_customContextMenuRequested(const QPoint& pos);
 
@@ -120,6 +126,9 @@ protected slots:
     void on_lastPage_triggered();
 
     void on_jumpToPage_triggered();
+
+    void on_jumpBackward_triggered();
+    void on_jumpForward_triggered();
 
     void on_search_triggered();
     void on_search_returnPressed(const Qt::KeyboardModifiers& modifiers);
@@ -189,7 +198,9 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
-    Settings* m_settings;
+    static Settings* s_settings;
+
+    ShortcutHandler* m_shortcutHandler;
 
     TabWidget* m_tabWidget;
 
@@ -198,10 +209,15 @@ private:
 
     bool senderIsCurrentTab() const;
 
+    QString windowTitleSuffixForCurrentTab() const;
+
     BookmarkMenu* bookmarkForCurrentTab() const;
 
     SpinBox* m_currentPageSpinBox;
+    QWidgetAction* m_currentPageAction;
+
     ComboBox* m_scaleFactorComboBox;
+    QWidgetAction* m_scaleFactorAction;
 
     ProgressLineEdit* m_searchProgressLineEdit;
     QTimer* m_searchTimer;
@@ -225,6 +241,9 @@ private:
 
     QAction* m_jumpToPageAction;
 
+    QAction* m_jumpBackwardAction;
+    QAction* m_jumpForwardAction;
+
     QAction* m_searchAction;
     QAction* m_findPreviousAction;
     QAction* m_findNextAction;
@@ -243,6 +262,7 @@ private:
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
     QAction* m_originalSizeAction;
+
     QAction* m_fitToPageWidthModeAction;
     QAction* m_fitToPageSizeModeAction;
 
@@ -258,6 +278,7 @@ private:
 
     QAction* m_previousTabAction;
     QAction* m_nextTabAction;
+
     QAction* m_closeTabAction;
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
@@ -266,12 +287,16 @@ private:
 
     QAction* m_previousBookmarkAction;
     QAction* m_nextBookmarkAction;
+
     QAction* m_addBookmarkAction;
     QAction* m_removeBookmarkAction;
     QAction* m_removeAllBookmarksAction;
 
     QAction* m_contentsAction;
     QAction* m_aboutAction;
+
+    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false);
+    QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false);
 
     void createActions();
 
@@ -280,6 +305,8 @@ private:
     QToolBar* m_viewToolBar;
 
     QToolBar* m_searchToolBar;
+
+    QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions);
 
     void createToolBars();
 
@@ -291,6 +318,8 @@ private:
 
     QDockWidget* m_thumbnailsDock;
     QGraphicsView* m_thumbnailsView;
+
+    QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
 
     void createDocks();
 
@@ -338,6 +367,8 @@ public slots:
     bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF());
 
     bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF());
+
+    Q_NOREPLY void startSearch(const QString& text);
 
     Q_NOREPLY void raiseAndActivate();
 

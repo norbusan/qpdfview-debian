@@ -19,20 +19,23 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SHORTCUTSTABLEMODEL_H
-#define SHORTCUTSTABLEMODEL_H
+#ifndef SHORTCUTHANDLER_H
+#define SHORTCUTHANDLER_H
 
 #include <QAbstractTableModel>
 #include <QKeySequence>
 
 class QAction;
+class QSettings;
 
-class ShortcutsTableModel : public QAbstractTableModel
+class ShortcutHandler : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    ShortcutsTableModel(const QList< QAction* >& actions, const QMap< QAction*, QKeySequence >& defaultShortcuts, QObject* parent = 0);
+    ShortcutHandler(QObject* parent = 0);
+
+    void registerAction(QAction* action);
 
     int columnCount(const QModelIndex& parent) const;
     int rowCount(const QModelIndex& parent) const;
@@ -44,15 +47,28 @@ public:
     QVariant data(const QModelIndex& index, int role) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role);
 
-    void accept();
+public slots:
+    bool submit();
+    void revert();
+
     void reset();
 
 private:
+    QSettings* m_settings;
+
     QList< QAction* > m_actions;
 
-    QMap< QAction*, QKeySequence > m_defaultShortcuts;
     QMap< QAction*, QKeySequence > m_shortcuts;
+    QMap< QAction*, QKeySequence > m_defaultShortcuts;
+
+    QAction* m_skipBackwardAction;
+    QAction* m_skipForwardAction;
+
+    QAction* m_moveUpAction;
+    QAction* m_moveDownAction;
+    QAction* m_moveLeftAction;
+    QAction* m_moveRightAction;
 
 };
 
-#endif // SHORTCUTSTABLEMODEL_H
+#endif // SHORTCUTHANDLER_H

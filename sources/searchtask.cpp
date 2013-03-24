@@ -19,57 +19,50 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "searchthread.h"
+#include "searchtask.h"
 
 #include "model.h"
 
-SearchThread::SearchThread(QObject* parent) : QThread(parent),
+SearchTask::SearchTask(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
-    m_document(0),
-    m_indices(),
+    m_pages(),
     m_text(),
-    m_matchCase(false)
+    m_matchCase(false),
+    m_beginAtPage(1)
 {
 }
 
-bool SearchThread::wasCanceled() const
+bool SearchTask::wasCanceled() const
 {
     return m_wasCanceled;
 }
 
-int SearchThread::progress() const
+int SearchTask::progress() const
 {
     return m_progress;
 }
 
-void SearchThread::run()
+void SearchTask::run()
 {
-    int indicesDone = 0;
-    int indicesToDo = m_indices.count();
-
-    foreach(int index, m_indices)
+    for(int index = m_beginAtPage - 1; index < m_pages.count() + m_beginAtPage - 1; ++index)
     {
         if(m_wasCanceled)
         {
             m_progress = 0;
 
-            emit canceled();
+            emit finished();
 
             return;
         }
 
-        Model::Page* page = m_document->page(index);
+        QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase);
 
-        QList< QRectF > results = page->search(m_text, m_matchCase);
+        emit resultsReady(index % m_pages.count(), results);
 
-        delete page;
+        m_progress = 100 * (index - m_beginAtPage)/ m_pages.count();
 
-        emit resultsReady(index, results);
-
-        m_progress = 100 * ++indicesDone / indicesToDo;
-
-        emit progressed(m_progress);
+        emit progressChanged(m_progress);
     }
 
     m_progress = 0;
@@ -77,13 +70,13 @@ void SearchThread::run()
     emit finished();
 }
 
-void SearchThread::start(Model::Document* document, const QList< int >& indices, const QString& text, bool matchCase)
+void SearchTask::start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
 {
-    m_document = document;
+    m_pages = pages;
 
-    m_indices = indices;
     m_text = text;
     m_matchCase = matchCase;
+    m_beginAtPage = beginAtPage;
 
     m_wasCanceled = false;
     m_progress = 0;
@@ -91,7 +84,7 @@ void SearchThread::start(Model::Document* document, const QList< int >& indices,
     QThread::start();
 }
 
-void SearchThread::cancel()
+void SearchTask::cancel()
 {
     m_wasCanceled = true;
 }

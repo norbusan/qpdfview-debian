@@ -20,21 +20,27 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef MY_SETTINGS_H
-#define MY_SETTINGS_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
+#include <QColor>
+#include <QIcon>
+#include <QKeySequence>
+#include <QObject>
+#include <QPrinter>
 
 class QSettings;
 
 #include "global.h"
-#include "miscellaneous.h"
-#include "shortcutstablemodel.h"
+#include "printoptions.h"
 
 class Settings : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Settings(QObject* parent = 0);
+    static Settings* instance();
+
     ~Settings();
 
     // page item
@@ -42,82 +48,98 @@ public:
     class PageItem
     {
     public:
-        PageItem(QSettings* settings);
+        void sync();
 
         int cacheSize() const;
         void setCacheSize(int cacheSize);
 
         bool decoratePages() const;
-        void setDecoratePages(bool on);
+        void setDecoratePages(bool decorate);
 
         bool decorateLinks() const;
-        void setDecorateLinks(bool on);
+        void setDecorateLinks(bool decorate);
 
         bool decorateFormFields() const;
-        void setDecorateFormFields(bool on);
+        void setDecorateFormFields(bool decorate);
 
-        QString backgroundColor() const;
-        void setBackgroundColor(const QString& color);
+        QColor backgroundColor() const;
+        void setBackgroundColor(const QColor& color);
 
-        QString paperColor() const;
-        void setPaperColor(const QString& color);
+        QColor paperColor() const;
+        void setPaperColor(const QColor& color);
+
+        const QIcon& progressIcon() const;
+        const QIcon& errorIcon() const;
 
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
-        void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& copyToClipboardModifiers);
+        void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
 
         Qt::KeyboardModifiers addAnnotationModifiers() const;
-        void setAddAnnotationModifiers(const Qt::KeyboardModifiers& addAnnotationModifiers);
+        void setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers);
 
     private:
+        PageItem(QSettings* settings);
+        friend class Settings;
+
         QSettings* m_settings;
 
-    };
+        int m_cacheSize;
 
-    PageItem* pageItem();
-    const PageItem* pageItem() const;
+        bool m_decoratePages;
+        bool m_decorateLinks;
+        bool m_decorateFormFields;
+
+        QColor m_backgroundColor;
+        QColor m_paperColor;
+
+        QIcon m_progressIcon;
+        QIcon m_errorIcon;
+
+    };
 
     // presentation view
 
     class PresentationView
     {
     public:
-        PresentationView(QSettings* settings);
-
         bool sync() const;
-        void setSync(bool on);
+        void setSync(bool sync);
 
         int screen() const;
         void setScreen(int screen);
 
     private:
+        PresentationView(QSettings* settings);
+        friend class Settings;
+
         QSettings* m_settings;
 
     };
-
-    PresentationView* presentationView();
-    const PresentationView* presentationView() const;
 
     // document view
 
     class DocumentView
     {
     public:
-        DocumentView(QSettings* settings);
+        void sync();
 
         bool openUrl() const;
-        void setOpenUrl(bool on);
+        void setOpenUrl(bool openUrl);
 
         bool autoRefresh() const;
-        void setAutoRefresh(bool on);
+        void setAutoRefresh(bool autoRefresh);
 
         bool prefetch() const;
-        void setPrefetch(bool on);
+        void setPrefetch(bool prefetch);
 
         int prefetchDistance() const;
         void setPrefetchDistance(int prefetchDistance);
 
         int pagesPerRow() const;
         void setPagesPerRow(int pagesPerRow);
+
+        bool limitThumbnailsToResults() const;
+        void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
 
         qreal pageSpacing() const;
         void setPageSpacing(qreal pageSpacing);
@@ -128,6 +150,15 @@ public:
         qreal thumbnailSize() const;
         void setThumbnailSize(qreal thumbnailSize);
 
+        bool matchCase() const;
+        void setMatchCase(bool matchCase);
+
+        int highlightDuration() const;
+        void setHighlightDuration(int highlightDuration);
+
+        QString sourceEditor() const;
+        void setSourceEditor(const QString& sourceEditor);
+
         Qt::KeyboardModifiers zoomModifiers() const;
         void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
 
@@ -137,16 +168,10 @@ public:
         Qt::KeyboardModifiers scrollModifiers() const;
         void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
 
-        int highlightDuration() const;
-        void setHighlightDuration(int highlightDuration);
-
-        QString sourceEditor() const;
-        void setSourceEditor(const QString& sourceEditor);
-
         // per-tab settings
 
         bool continuousMode() const;
-        void setContinuousMode(bool on);
+        void setContinuousMode(bool continuousMode);
 
         LayoutMode layoutMode() const;
         void setLayoutMode(LayoutMode layoutMode);
@@ -161,26 +186,36 @@ public:
         void setRotation(Rotation rotation);
 
         bool invertColors() const;
-        void setInvertColors(bool on);
+        void setInvertColors(bool invertColors);
 
         bool highlightAll() const;
-        void setHighlightAll(bool on);
+        void setHighlightAll(bool highlightAll);
 
     private:
+        DocumentView(QSettings* settings);
+        friend class Settings;
+
         QSettings* m_settings;
 
-    };
+        bool m_prefetch;
+        int m_prefetchDistance;
 
-    DocumentView* documentView();
-    const DocumentView* documentView() const;
+        int m_pagesPerRow;
+
+        bool m_limitThumbnailsToResults;
+
+        qreal m_pageSpacing;
+        qreal m_thumbnailSpacing;
+
+        qreal m_thumbnailSize;
+
+    };
 
     // main window
 
     class MainWindow
     {
     public:
-        MainWindow(QSettings* settings);
-
         bool trackRecentlyUsed() const;
         void setTrackRecentlyUsed(bool on);
 
@@ -196,11 +231,17 @@ public:
         bool restorePerFileSettings() const;
         void setRestorePerFileSettings(bool on);
 
-        QTabWidget::TabPosition tabPosition() const;
-        void setTabPosition(QTabWidget::TabPosition tabPosition);
+        int tabPosition() const;
+        void setTabPosition(int tabPosition);
 
-        TabWidget::TabBarPolicy tabVisibility() const;
-        void setTabVisibility(TabWidget::TabBarPolicy tabVisibility);
+        int tabVisibility() const;
+        void setTabVisibility(int tabVisibility);
+
+        bool newTabNextToCurrentTab() const;
+        void setNewTabNextToCurrentTab(bool newTabNextToCurrentTab);
+
+        bool currentPageInWindowTitle() const;
+        void setCurrentPageInWindowTitle(bool currentPageInWindowTitle);
 
         QStringList fileToolBar() const;
         void setFileToolBar(const QStringList& fileToolBar);
@@ -236,66 +277,77 @@ public:
         void setContentsDialogSize(const QSize& contentsDialogSize);
 
     private:
-        QSettings* m_settings;
+        MainWindow(QSettings* settings);
+        friend class Settings;
 
-        QStringList trimmed(const QStringList& list);
+        QSettings* m_settings;
 
     };
 
-    MainWindow* mainWindow();
-    const MainWindow* mainWindow() const;
+    // print dialog
 
-    // shortcuts
-
-    class Shortcuts
+    class PrintDialog
     {
     public:
-        Shortcuts(QSettings* settings);
-        ~Shortcuts();
+        bool collateCopies();
+        void setCollateCopies(bool collateCopies);
 
-        void addAction(QAction* action);
-        void removeAction(QAction* action);
+        QPrinter::PageOrder pageOrder();
+        void setPageOrder(QPrinter::PageOrder pageOrder);
 
-        ShortcutsTableModel* createTableModel(QObject* parent = 0) const;
+        QPrinter::Orientation orientation();
+        void setOrientation(QPrinter::Orientation orientation);
 
-        void sync();
+        QPrinter::ColorMode colorMode();
+        void setColorMode(QPrinter::ColorMode colorMode);
+
+        QPrinter::DuplexMode duplex();
+        void setDuplex(QPrinter::DuplexMode duplex);
+
+        bool fitToPage();
+        void setFitToPage(bool fitToPage);
+
+        PrintOptions::PageSet pageSet();
+        void setPageSet(PrintOptions::PageSet pageSet);
+
+        PrintOptions::NumberUp numberUp();
+        void setNumberUp(PrintOptions::NumberUp numberUp);
+
+        PrintOptions::NumberUpLayout numberUpLayout();
+        void setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout);
 
     private:
+        PrintDialog(QSettings* settings);
+        friend class Settings;
+
         QSettings* m_settings;
-
-        QList< QAction* > m_actions;
-
-        QMap< QAction*, QKeySequence > m_defaultShortcuts;
-
-        QAction* m_skipBackwardAction;
-        QAction* m_skipForwardAction;
-
-        QAction* m_moveUpAction;
-        QAction* m_moveDownAction;
-        QAction* m_moveLeftAction;
-        QAction* m_moveRightAction;
-
-        QAction* m_returnToPageAction;
 
     };
 
-    Shortcuts* shortcuts();
-    const Shortcuts* shortcuts() const;
+    void sync();
 
-public slots:
-    void refresh();
+    PageItem& pageItem();
+    PresentationView& presentationView();
+    DocumentView& documentView();
+    MainWindow& mainWindow();
+    PrintDialog& printDialog();
 
 private:
+    static Settings* s_instance;
+
+    Settings(QObject* parent = 0);
+
     QSettings* m_settings;
 
-    PageItem* m_pageItem;
-    PresentationView* m_presentationView;
-    DocumentView* m_documentView;
-    MainWindow* m_mainWindow;
-
-    Shortcuts* m_shortcuts;
+    PageItem m_pageItem;
+    PresentationView m_presentationView;
+    DocumentView m_documentView;
+    MainWindow m_mainWindow;
+    PrintDialog m_printDialog;
 
 };
+
+// defaults
 
 class Defaults
 {
@@ -343,16 +395,26 @@ public:
 
         static inline int pagesPerRow() { return 3; }
 
+        static inline bool limitThumbnailsToResults() { return false; }
+
+        static inline qreal minimumScaleFactor() { return 0.1; }
+        static inline qreal maximumScaleFactor() { return 10.0; }
+
+        static inline qreal zoomBy() { return 0.1; }
+
         static inline qreal pageSpacing() { return 5.0; }
         static inline qreal thumbnailSpacing() { return 3.0; }
 
         static inline qreal thumbnailSize() { return 150.0; }
 
+        static inline bool matchCase() { return false; }
+
+        static inline int highlightDuration() { return 5000; }
+        static inline QString sourceEditor() { return QString(); }
+
         static inline Qt::KeyboardModifiers zoomModifiers() { return Qt::ControlModifier; }
         static inline Qt::KeyboardModifiers rotateModifiers() { return Qt::ShiftModifier; }
         static inline Qt::KeyboardModifiers scrollModifiers() { return Qt::AltModifier; }
-
-        static inline int highlightDuration() { return 5000; }
 
         // per-tab defaults
 
@@ -384,8 +446,12 @@ public:
         static inline bool restoreBookmarks() { return false; }
         static inline bool restorePerFileSettings() { return false; }
 
-        static inline QTabWidget::TabPosition tabPosition() { return QTabWidget::North; }
-        static inline TabWidget::TabBarPolicy tabVisibility() { return TabWidget::TabBarAsNeeded; }
+        static inline int tabPosition() { return 0; }
+        static inline int tabVisibility() { return 0; }
+
+        static inline bool newTabNextToCurrentTab() { return true; }
+
+        static inline bool currentPageInWindowTitle() { return false; }
 
         static inline QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
@@ -395,6 +461,31 @@ public:
 
     private:
         MainWindow() {}
+
+    };
+
+    class PrintDialog
+    {
+    public:
+        static inline bool collateCopies() { return false; }
+
+        static inline QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }
+
+        static inline QPrinter::Orientation orientation() { return QPrinter::Portrait; }
+
+        static inline QPrinter::ColorMode colorMode() { return QPrinter::Color; }
+
+        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexNone; }
+
+        static inline bool fitToPage() { return false; }
+
+        static inline PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
+
+        static inline PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
+        static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
+
+    private:
+        PrintDialog() {}
 
     };
 
