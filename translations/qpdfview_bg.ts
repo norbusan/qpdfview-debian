@@ -875,7 +875,7 @@
     <message>
         <location filename="../sources/main.cpp" line="210"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не са открити данните SyncTeX за &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="302"/>
