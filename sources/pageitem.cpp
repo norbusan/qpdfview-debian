@@ -779,11 +779,11 @@ void PageItem::addAnnotation(const QPoint& screenPos)
                 boundary.setWidth(24.0 / m_size.width());
                 boundary.setHeight(24.0 / m_size.height());
 
-                annotation = m_page->addTextAnnotation(boundary);
+                annotation = m_page->addTextAnnotation(boundary, s_settings->pageItem().annotationColor());
             }
             else if(action == addHighlightAction)
             {
-                annotation = m_page->addHighlightAnnotation(boundary);
+                annotation = m_page->addHighlightAnnotation(boundary, s_settings->pageItem().annotationColor());
             }
 
             m_annotations.append(annotation);

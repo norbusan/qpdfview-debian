@@ -2,10 +2,11 @@ Release 0.4.2:
   * Refactoring to improve code size and quality.
   * Added restoring and saving of printer settings.
   * Added command-line option to initiate a search in the current tab.
-  * Made the history mechanism bidirectional.
-  * Added possibility to limit thumbnails to search results.
+  * Added setting to determine the color of annotations added.
+  * Instead of return to page, there is now jump backward and forward.
+  * Added setting to limit thumbnails to search results.
   * Added setting on where to open new tabs.
-  * Added settings to display the current page in the window title.
+  * Added setting to display the current page in the window title.
 
 Release 0.4.1:
   * Added configurable keyboard shortcuts.

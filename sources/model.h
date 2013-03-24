@@ -103,8 +103,8 @@ namespace Model
         virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
 
         virtual bool canAddAndRemoveAnnotations() const { return false; }
-        virtual Annotation* addTextAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
-        virtual Annotation* addHighlightAnnotation(const QRectF& boundary) { Q_UNUSED(boundary); return 0; }
+        virtual Annotation* addTextAnnotation(const QRectF& boundary, const QColor& color) { Q_UNUSED(boundary); Q_UNUSED(color); return 0; }
+        virtual Annotation* addHighlightAnnotation(const QRectF& boundary, const QColor& color) { Q_UNUSED(boundary); Q_UNUSED(color); return 0; }
         virtual void removeAnnotation(Annotation* annotation) { Q_UNUSED(annotation); }
 
         virtual QList< FormField* > formFields() const { return QList< FormField* >(); }

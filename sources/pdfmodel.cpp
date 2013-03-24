@@ -366,7 +366,7 @@ bool Model::PdfPage::canAddAndRemoveAnnotations() const
 #endif // HAS_POPPLER_20
 }
 
-Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary)
+Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary, const QColor& color)
 {
 #ifndef HAS_POPPLER_24
 
@@ -377,7 +377,7 @@ Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary)
 #ifdef HAS_POPPLER_20
 
     Poppler::Annotation::Style style;
-    style.setColor(Qt::yellow);
+    style.setColor(color);
 
     Poppler::Annotation::Popup popup;
     popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
@@ -401,7 +401,7 @@ Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary)
 #endif // HAS_POPPLER_20
 }
 
-Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary)
+Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary, const QColor& color)
 {
 #ifndef HAS_POPPLER_24
 
@@ -412,7 +412,7 @@ Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary
 #ifdef HAS_POPPLER_20
 
     Poppler::Annotation::Style style;
-    style.setColor(Qt::yellow);
+    style.setColor(color);
 
     Poppler::Annotation::Popup popup;
     popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);

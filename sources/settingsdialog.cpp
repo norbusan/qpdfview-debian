@@ -169,6 +169,9 @@ void SettingsDialog::accept()
     s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
+    QColor annotationColor(m_annotationColorComboBox->currentText());
+    s_settings->pageItem().setAnnotationColor(annotationColor.isValid() ? annotationColor : Defaults::PageItem::annotationColor());
+
     s_settings->documentView().setSourceEditor(m_sourceEditorLineEdit->text());
 
     // graphics
@@ -258,6 +261,8 @@ void SettingsDialog::reset()
     m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
+    m_annotationColorComboBox->lineEdit()->setText(Defaults::PageItem::annotationColor().name());
+
     m_sourceEditorLineEdit->clear();
 
     // graphics
@@ -268,8 +273,8 @@ void SettingsDialog::reset()
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
 
-    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor());
-    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor());
+    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
+    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
 
     m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
@@ -375,6 +380,16 @@ void SettingsDialog::createBehaviorTab()
     m_presentationScreenSpinBox->setValue(s_settings->presentationView().screen());
 
     m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
+
+    // annotation color
+
+    m_annotationColorComboBox = new QComboBox(this);
+    m_annotationColorComboBox->setEditable(true);
+    m_annotationColorComboBox->setInsertPolicy(QComboBox::NoInsert);
+    m_annotationColorComboBox->addItems(QColor::colorNames());
+    m_annotationColorComboBox->lineEdit()->setText(s_settings->pageItem().annotationColor().name());
+
+    m_behaviorLayout->addRow(tr("Annotation color:"), m_annotationColorComboBox);
 
     // source editor
 

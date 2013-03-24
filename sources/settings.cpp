@@ -58,15 +58,15 @@ void Settings::PageItem::sync()
 {
     m_cacheSize = m_settings->value("pageItem/cacheSize", Defaults::PageItem::cacheSize()).toInt();
 
+    m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
+    m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
+
     m_decoratePages = m_settings->value("pageItem/decoratePages", Defaults::PageItem::decoratePages()).toBool();
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
     m_decorateFormFields = m_settings->value("pageItem/decorateFormFields", Defaults::PageItem::decorateFormFields()).toBool();
 
     m_backgroundColor = m_settings->value("pageItem/backgroundColor", Defaults::PageItem::backgroundColor()).value< QColor >();
     m_paperColor = m_settings->value("pageItem/paperColor", Defaults::PageItem::paperColor()).value< QColor >();
-
-    m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
-    m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
 }
 
 int Settings::PageItem::cacheSize() const
@@ -81,6 +81,16 @@ void Settings::PageItem::setCacheSize(int cacheSize)
         m_cacheSize = cacheSize;
         m_settings->setValue("pageItem/cacheSize", cacheSize);
     }
+}
+
+const QIcon& Settings::PageItem::progressIcon() const
+{
+    return m_progressIcon;
+}
+
+const QIcon& Settings::PageItem::errorIcon() const
+{
+    return m_errorIcon;
 }
 
 bool Settings::PageItem::decoratePages() const
@@ -138,14 +148,14 @@ void Settings::PageItem::setPaperColor(const QColor& color)
     m_settings->setValue("pageItem/paperColor", color);
 }
 
-const QIcon& Settings::PageItem::progressIcon() const
+QColor Settings::PageItem::annotationColor() const
 {
-    return m_progressIcon;
+    return m_settings->value("pageItem/annotationColor", Defaults::PageItem::annotationColor()).value< QColor >();
 }
 
-const QIcon& Settings::PageItem::errorIcon() const
+void Settings::PageItem::setAnnotationColor(const QColor &color)
 {
-    return m_errorIcon;
+    m_settings->setValue("pageItem/annotationColor", color);
 }
 
 Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
@@ -171,13 +181,13 @@ void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& 
 Settings::PageItem::PageItem(QSettings* settings) :
     m_settings(settings),
     m_cacheSize(Defaults::PageItem::cacheSize()),
+    m_progressIcon(),
+    m_errorIcon(),
     m_decoratePages(Defaults::PageItem::decoratePages()),
     m_decorateLinks(Defaults::PageItem::decorateLinks()),
     m_decorateFormFields(Defaults::PageItem::decorateFormFields()),
     m_backgroundColor(Defaults::PageItem::backgroundColor()),
-    m_paperColor(Defaults::PageItem::paperColor()),
-    m_progressIcon(),
-    m_errorIcon()
+    m_paperColor(Defaults::PageItem::paperColor())
 {
 }
 

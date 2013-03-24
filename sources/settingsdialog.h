@@ -95,6 +95,8 @@ private:
     QCheckBox* m_presentationSyncCheckBox;
     QSpinBox* m_presentationScreenSpinBox;
 
+    QComboBox* m_annotationColorComboBox;
+
     QLineEdit* m_sourceEditorLineEdit;
 
     void createBehaviorTab();

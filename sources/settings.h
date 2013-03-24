@@ -53,6 +53,9 @@ public:
         int cacheSize() const;
         void setCacheSize(int cacheSize);
 
+        const QIcon& progressIcon() const;
+        const QIcon& errorIcon() const;
+
         bool decoratePages() const;
         void setDecoratePages(bool decorate);
 
@@ -68,8 +71,8 @@ public:
         QColor paperColor() const;
         void setPaperColor(const QColor& color);
 
-        const QIcon& progressIcon() const;
-        const QIcon& errorIcon() const;
+        QColor annotationColor() const;
+        void setAnnotationColor(const QColor& color);
 
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
         void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
@@ -85,15 +88,15 @@ public:
 
         int m_cacheSize;
 
+        QIcon m_progressIcon;
+        QIcon m_errorIcon;
+
         bool m_decoratePages;
         bool m_decorateLinks;
         bool m_decorateFormFields;
 
         QColor m_backgroundColor;
         QColor m_paperColor;
-
-        QIcon m_progressIcon;
-        QIcon m_errorIcon;
 
     };
 
@@ -361,8 +364,9 @@ public:
         static inline bool decorateLinks() { return true; }
         static inline bool decorateFormFields() { return true; }
 
-        static inline QString backgroundColor() { return "gray"; }
-        static inline QString paperColor() { return "white"; }
+        static inline QColor backgroundColor() { return Qt::darkGray; }
+        static inline QColor paperColor() { return Qt::white; }
+        static inline QColor annotationColor() { return Qt::yellow; }
 
         static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
         static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }

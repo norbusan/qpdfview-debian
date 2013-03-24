@@ -102,8 +102,8 @@ namespace Model
         QList< Annotation* > annotations() const;
 
         bool canAddAndRemoveAnnotations() const;
-        Annotation* addTextAnnotation(const QRectF& boundary);
-        Annotation* addHighlightAnnotation(const QRectF& boundary);
+        Annotation* addTextAnnotation(const QRectF& boundary, const QColor& color);
+        Annotation* addHighlightAnnotation(const QRectF& boundary, const QColor& color);
         void removeAnnotation(Annotation* annotation);
 
         QList< FormField* > formFields() const;
