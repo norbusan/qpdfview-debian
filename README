@@ -1,4 +1,4 @@
-qpdfview is a tabbed document viewer using Poppler, libspectre, DjVuLibre and CUPS.
+qpdfview is a tabbed document viewer using Poppler, libspectre, DjVuLibre, CUPS and Qt, licensed under GPL version 2 or later.
 
 The project homepage is "https://launchpad.net/qpdfview". The project maintainer is "Adam Reichold <adamreichold@myopera.com>".
 
