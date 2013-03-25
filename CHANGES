@@ -7,6 +7,8 @@ Release 0.4.2:
   * Added setting to limit thumbnails to search results.
   * Added setting on where to open new tabs.
   * Added setting to display the current page in the window title.
+  * Updated Czech translation. Thanks Pavel Fric.
+  * Updated Malay translation. Thanks to abuyop.
 
 Release 0.4.1:
   * Added configurable keyboard shortcuts.
