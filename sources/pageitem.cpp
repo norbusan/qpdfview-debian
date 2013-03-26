@@ -89,7 +89,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 PageItem::~PageItem()
 {
     m_renderTask->cancel();
-    QThreadPool::globalInstance()->waitForDone();
+    m_renderTask->wait();
 
     s_cache.remove(this);
 

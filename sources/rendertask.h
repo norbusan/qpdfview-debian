@@ -23,7 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define RENDERTASK_H
 
 #include <QImage>
+#include <QMutex>
 #include <QRunnable>
+#include <QWaitCondition>
 
 #include "global.h"
 
@@ -39,6 +41,8 @@ class RenderTask : public QObject, QRunnable
 public:
     explicit RenderTask(QObject* parent = 0);
 
+    void wait() const;
+
     bool isRunning() const;
     bool wasCanceled() const;
 
@@ -53,10 +57,12 @@ public slots:
     void start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
     void cancel();
 
-protected slots:
-    void on_finished();
-
 private:
+    mutable QMutex m_mutex;
+    mutable QWaitCondition m_waitCondition;
+
+    void finish();
+
     bool m_isRunning;
     bool m_wasCanceled;
 

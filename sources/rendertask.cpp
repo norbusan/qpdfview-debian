@@ -37,8 +37,16 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_prefetch(false)
 {
     setAutoDelete(false);
+}
 
-    connect(this, SIGNAL(finished()), SLOT(on_finished()));
+void RenderTask::wait() const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    while(m_isRunning)
+    {
+        m_waitCondition.wait(&m_mutex);
+    }
 }
 
 bool RenderTask::isRunning() const
@@ -55,8 +63,7 @@ void RenderTask::run()
 {
     if(m_wasCanceled && !m_prefetch)
     {
-        emit finished();
-
+        finish();
         return;
     }
 
@@ -64,8 +71,7 @@ void RenderTask::run()
 
     if(m_wasCanceled && !m_prefetch)
     {
-        emit finished();
-
+        finish();
         return;
     }
 
@@ -76,7 +82,7 @@ void RenderTask::run()
 
     emit imageReady(m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
 
-    emit finished();
+    finish();
 }
 
 void RenderTask::start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
@@ -93,6 +99,8 @@ void RenderTask::start(Model::Page* page, int physicalDpiX, int physicalDpiY, qr
 
     m_prefetch = prefetch;
 
+    QMutexLocker mutexLocker(&m_mutex);
+
     m_isRunning = true;
     m_wasCanceled = false;
 
@@ -104,7 +112,13 @@ void RenderTask::cancel()
     m_wasCanceled = true;
 }
 
-void RenderTask::on_finished()
+void RenderTask::finish()
 {
+    emit finished();
+
+    QMutexLocker mutexLocker(&m_mutex);
+
     m_isRunning = false;
+
+    m_waitCondition.wakeAll();
 }
