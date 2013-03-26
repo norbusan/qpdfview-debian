@@ -514,7 +514,7 @@ QStandardItemModel* DocumentView::propertiesModel() const
     return m_propertiesModel;
 }
 
-QStandardItemModel* DocumentView::fontsModel()
+QStandardItemModel* DocumentView::fontsModel() const
 {
     QStandardItemModel* fontsModel = new QStandardItemModel();
 
@@ -969,7 +969,7 @@ void DocumentView::rotateRight()
     }
 }
 
-void DocumentView::presentation()
+void DocumentView::startPresentation()
 {
     int screen = s_settings->presentationView().screen();
 
@@ -1288,7 +1288,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     else if(event->modifiers() == s_settings->documentView().scrollModifiers())
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
-        QApplication::sendEvent(horizontalScrollBar(), &wheelEvent);
+        QGraphicsView::wheelEvent(&wheelEvent);
 
         event->accept();
         return;
@@ -1527,12 +1527,11 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
 bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
-    QProgressDialog* progressDialog = new QProgressDialog(this);
+    QScopedPointer< QProgressDialog > progressDialog(new QProgressDialog(this));
     progressDialog->setLabelText(tr("Printing '%1'...").arg(m_filePath));
     progressDialog->setRange(fromPage - 1, toPage);
 
-    QPainter painter;
-    painter.begin(printer);
+    QPainter painter(printer);
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
@@ -1540,31 +1539,27 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         QApplication::processEvents();
 
+        Model::Page* page = m_pages.at(index);
+
+        qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
+        qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
+
+        qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
+
+        if(printOptions.fitToPage)
         {
-            Model::Page* page = m_document->page(index);
-
-            qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
-            qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
-
-            QImage image = page->render(printer->physicalDpiX(), printer->physicalDpiY());
-
-            delete page;
-
-            qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
-
-            if(printOptions.fitToPage)
-            {
-                scaleFactorX = scaleFactorY = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
-            }
-            else
-            {
-                scaleFactorX = printer->logicalDpiX(); scaleFactorX /= printer->physicalDpiX();
-                scaleFactorY = printer->logicalDpiY(); scaleFactorY /= printer->physicalDpiY();
-            }
-
-            painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
-            painter.drawImage(QPointF(), image);
+            scaleFactorX = scaleFactorY = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
         }
+        else
+        {
+            scaleFactorX = printer->logicalDpiX(); scaleFactorX /= printer->physicalDpiX();
+            scaleFactorY = printer->logicalDpiY(); scaleFactorY /= printer->physicalDpiY();
+        }
+
+        QImage image = page->render(printer->physicalDpiX(), printer->physicalDpiY());
+
+        painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
+        painter.drawImage(QPointF(), image);
 
         if(index < toPage - 1)
         {
@@ -1575,14 +1570,10 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         if(progressDialog->wasCanceled())
         {
-            delete progressDialog;
             return false;
         }
     }
 
-    painter.end();
-
-    delete progressDialog;
     return true;
 }
 

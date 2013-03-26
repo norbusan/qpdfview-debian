@@ -1186,7 +1186,7 @@ void MainWindow::on_fullscreen_triggered(bool checked)
 
 void MainWindow::on_presentation_triggered()
 {
-    currentTab()->presentation();
+    currentTab()->startPresentation();
 }
 
 void MainWindow::on_previousTab_triggered()

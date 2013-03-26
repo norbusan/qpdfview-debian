@@ -113,7 +113,7 @@ public:
     QStandardItemModel* outlineModel() const;
     QStandardItemModel* propertiesModel() const;
 
-    QStandardItemModel* fontsModel();
+    QStandardItemModel* fontsModel() const;
 
 signals:
     void filePathChanged(const QString& filePath);
@@ -173,7 +173,7 @@ public slots:
     void rotateLeft();
     void rotateRight();
 
-    void presentation();
+    void startPresentation();
 
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
