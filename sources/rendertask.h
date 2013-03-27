@@ -41,7 +41,7 @@ class RenderTask : public QObject, QRunnable
 public:
     explicit RenderTask(QObject* parent = 0);
 
-    void wait() const;
+    void wait();
 
     bool isRunning() const;
     bool wasCanceled() const;
@@ -58,8 +58,8 @@ public slots:
     void cancel();
 
 private:
-    mutable QMutex m_mutex;
-    mutable QWaitCondition m_waitCondition;
+    QMutex m_mutex;
+    QWaitCondition m_waitCondition;
 
     void finish();
 

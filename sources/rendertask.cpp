@@ -39,7 +39,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     setAutoDelete(false);
 }
 
-void RenderTask::wait() const
+void RenderTask::wait()
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -64,6 +64,7 @@ void RenderTask::run()
     if(m_wasCanceled && !m_prefetch)
     {
         finish();
+
         return;
     }
 
@@ -72,6 +73,7 @@ void RenderTask::run()
     if(m_wasCanceled && !m_prefetch)
     {
         finish();
+
         return;
     }
 

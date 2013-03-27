@@ -29,7 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenu>
 #include <QMessageBox>
 #include <QPainter>
-#include <QThreadPool>
 #include <QTimer>
 #include <QToolTip>
 
@@ -471,6 +470,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             unsetCursor();
             QToolTip::hideText();
+
             return;
         }
 
