@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="287"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Podržani formati (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="551"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="591"/>
         <source>Password:</source>
         <translation type="unfinished">Lozinka:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1531"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1116"/>
@@ -67,6 +62,11 @@
         <location filename="../sources/documentview.cpp" line="1168"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1531"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -152,22 +152,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1439"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF podrška upotrebom Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1442"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PS podrška upotrebom libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1445"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;DjVu podrška upotrebom DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1448"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Printing podrška upotrebom CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1450"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">I&amp;zlaz</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -357,7 +357,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1754"/>
         <source>Invert colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Izokreni boje</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1756"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished">Podskup</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Poppler knjižnica verzije 0.20.1 ili viša je potrebna za dodavanje ili uklanjanje anotacija.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -556,7 +556,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="216"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naslov</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
@@ -571,12 +571,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datum izrade</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="220"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
@@ -587,19 +587,19 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="450"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Idi na stranicu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="454"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="462"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otvori &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="497"/>
@@ -673,7 +673,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Potpuno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="807"/>
@@ -684,12 +684,12 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Nagovještanje teksta:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Pregled pretiska:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
@@ -699,7 +699,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oblikovano</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
@@ -714,7 +714,7 @@
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kritično</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
@@ -737,37 +737,37 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Prilagodi stranici:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Raspon stranice</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Sve stranice</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished">Parne stranice</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
         <source>Odd pages</source>
-        <translation type="unfinished">Neparne stranice</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Skup stranica:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">Jedna sama stranica</translation>
+        <translation type="unfinished">Jedna stranica</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
@@ -802,42 +802,42 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">Od dna do vrha i s lijeva na desno</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">Od dna do vrha i s desna na lijevo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">S lijeva na desno i od dna do vrha</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">S lijeva na desno i od vrha do dna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">S desna na lijevo i od dna do vrha</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">S desna na lijevo i od vrha do dna</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">Od vrha do dna i s lijeva na desno</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">Od vrha do dna i s desna na lijevo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
@@ -847,7 +847,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Proširene opcije</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -911,7 +911,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="633"/>
@@ -921,7 +921,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="634"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift i Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="635"/>
@@ -931,7 +931,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="636"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl i Alt</translation>
     </message>
 </context>
 <context>
@@ -950,6 +950,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="57"/>
+        <source>General</source>
+        <translation type="unfinished">Općenito</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Ponašanje</translation>
@@ -967,7 +972,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="111"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Prečice</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="112"/>
@@ -1103,11 +1108,6 @@
         <translation type="unfinished">Veličina sličice:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="57"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
         <location filename="../sources/settingsdialog.cpp" line="499"/>
         <location filename="../sources/settingsdialog.cpp" line="500"/>
@@ -1217,7 +1217,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="607"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotiraj:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="613"/>
@@ -1240,32 +1240,32 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="39"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Preskoči unazad</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Preskoči unaprijed</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomakni gore</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="63"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomakni dolje</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="71"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomakni lijevo</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="79"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomakni desno</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="138"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Niz tipaka</translation>
     </message>
 </context>
 <context>

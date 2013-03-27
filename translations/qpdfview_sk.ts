@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">U&amp;končiť</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skočiť &amp;späť</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skočit &amp;dopredu</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -460,7 +460,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1882"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Obsah</translation>
+        <translation type="unfinished">P&amp;omocník</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1897"/>
@@ -513,7 +513,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Embedded</source>
-        <translation type="unfinished">Vložené</translation>
+        <translation type="unfinished">Zabudované</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Na pridávanie alebo odstraňovanie komentárov je vyžadovaná knižnica Poppler vo verzii 0.20.1 alebo vyššej.</translation>
+        <translation type="unfinished">&apos;%1&apos; je nahradené absolútnou cestou k súboru. &apos;%2&apos; resp. &apos;%3&apos; je nahradené číslom radku resp. stĺpca.</translation>
     </message>
 </context>
 <context>
@@ -587,17 +587,17 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="450"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Prejsť na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="454"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Prejsť na stranu %1 súboru &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="462"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Otvoriť &apos;%1&apos;.</translation>
     </message>
@@ -662,23 +662,23 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Vyhladzovanie textu:</translation>
+        <translation type="unfinished">Vyhlazovanie textu:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Nič</translation>
+        <translation type="unfinished">Žiadne</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
         <source>Full</source>
-        <translation type="unfinished">Plný</translation>
+        <translation type="unfinished">Úplné</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="807"/>
         <source>Reduced</source>
-        <translation type="unfinished">Čiastočný</translation>
+        <translation type="unfinished">Čiastočné</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="810"/>
@@ -699,7 +699,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished">Zkosené</translation>
+        <translation type="unfinished">Ohraničený</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
@@ -719,17 +719,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">Nepodarilo sa načítať PDF plugin!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">Nepodarilo sa načátať PostScript plugin!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">Nepodarilo sa načítať DjVu plugin!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -737,7 +737,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Prizpôsobiť strane:</translation>
+        <translation type="unfinished">Prispôsobiť strane:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
@@ -762,7 +762,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Nastavenie strany:</translation>
+        <translation type="unfinished">Súbor strán:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -802,52 +802,52 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">Spodok navrch a ľavé napravo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">Spodok na vrch a pravé naľavo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">Z ľava do prava a zdola hore</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">Z ľava do prava a zhora dole</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">Pravé do ľava a dolené na hor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">Pravé doľava a horné nadol</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">Od hora dole a z ľava do prava</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">Od dola hore a z prava do ľava</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Prepočítať rozloženie:</translation>
+        <translation type="unfinished">Prepočítať rozmiestnenie:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Rozšírené možnosti</translation>
+        <translation type="unfinished">Pokročilé možnosti</translation>
     </message>
 </context>
 <context>
@@ -855,7 +855,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Bity grafického vyhladzovania:</translation>
+        <translation type="unfinished">Bity vyhladzovania grafiky:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prázdny text na vyhľadanie nie je povolený.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použitie &apos;--search&apos; vyžaduje text na vyhľadanie.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farba poznámky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="398"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nová karta vedľa aktuálnej karty:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="561"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuálna strana v názve okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
         <source>Limit thumnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obmedziť počet miniatúr k výsledkom:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="39"/>
         <source>Skip backward</source>
-        <translation type="unfinished">Preskočiť dozadu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Preskočiť dopredu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished">Klávesová skratka</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

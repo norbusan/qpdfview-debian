@@ -587,17 +587,17 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="450"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Ir a la página %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="454"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Ir a la página %1 del archivo «%2».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="462"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Abrir «%1»</translation>
     </message>
