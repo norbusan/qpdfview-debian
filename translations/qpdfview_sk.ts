@@ -172,7 +172,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1450"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pozrite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pre ďalšie informácie.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Vývojári qpdfview&lt;/p&gt;</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pozrite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pre ďalšie informácie.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Vývojári qpdfview&lt;/p&gt;&lt;p&gt;Do slovenčiny preložil DAG Software &lt;i&gt;(Ďanovský Ján)&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1632"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">&apos;%1&apos; je nahradené absolútnou cestou k súboru. &apos;%2&apos; resp. &apos;%3&apos; je nahradené číslom radku resp. stĺpca.</translation>
+        <translation type="unfinished">Na vkladanie a odstraňovanie komentárov je vyžadovaná knižnica Poppler vo verzie 0.20.1 alebo vyššej.</translation>
     </message>
 </context>
 <context>
@@ -719,17 +719,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načítať PDF plugin!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načítať PostScript plugin!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodarilo sa načítať DjVu plugin!</translation>
     </message>
 </context>
 <context>
@@ -797,52 +797,52 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Prepočítať:</translation>
+        <translation type="unfinished">Na jednu stranu:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zdola hore a zľava doprava</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zdola hore a zprava doľava</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zľava doprava a zdola hore</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zľava doprava a zhora dolu</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zprava doľava a zdola hore</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zprava doľava a zhora dolu</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zhora dolu a zľava doprava</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zhora dolu a zprava doľava</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Prepočítať rozmiestnenie:</translation>
+        <translation type="unfinished">Rozloženie na strane:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -1240,12 +1240,12 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="39"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Preskočiť dozadu</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Preskočiť dopredu</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klávesová skratka</translation>
     </message>
 </context>
 <context>

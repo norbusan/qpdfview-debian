@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Quitter</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aller vers l&apos;a&amp;rrière</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aller vers l&apos;a&amp;vant</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -508,17 +508,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Type</source>
-        <translation type="unfinished">Tapez</translation>
+        <translation type="unfinished">Type</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Embedded</source>
-        <translation type="unfinished">Intégré</translation>
+        <translation type="unfinished">Incorporé</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished">Sous-dossier</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -543,12 +543,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation type="unfinished">Informations</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">La version 0.20.1 ou une version supérieure de la librairie Poppler est requise afin d&apos;ajouter ou de supprimer des annotations.</translation>
+        <translation type="unfinished">Version 0.20.1 ou supérieure de la bibliothèque Poppler est requise pour ajouter ou supprimer des annotations.</translation>
     </message>
 </context>
 <context>
@@ -684,27 +684,27 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Astuces de texte :</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Prévisualisation des surimpressions :</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Plein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished">Forme</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Mode ligne fine :</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -714,22 +714,22 @@
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Critical</source>
-        <translation type="unfinished">Critique</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">N&apos;a pas pu charger le greffon PDF !</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">N&apos;a pas pu charger le greffon PS !</translation>
+        <translation type="unfinished">Impossible de charger le greffon PS !</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">N&apos;a pas pu charger le greffon DjVu !</translation>
+        <translation type="unfinished">Impossible de charger le greffon DjVu !</translation>
     </message>
 </context>
 <context>
@@ -737,7 +737,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajuster à la page :</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
@@ -762,12 +762,12 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Ensemble de pages :</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">Une page</translation>
+        <translation type="unfinished">Page unique</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
@@ -797,57 +797,57 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Number-up:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">De bas en haut et de gauche à droite</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">De bas en haut et de droite à gauche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">De gauche à droite et de bas en haut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">De gauche à droite et de haut en bas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">De droite à gauche et de bas en haut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">De droite à gauche et de haut en bas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">De haut en bas et de gauche à droite</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">De haut en bas et de droite à gauche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Number-up layout:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Options étendues</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Bits d&apos;anti-crénelage graphique :</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Bits d&apos;anti-crénelage texte :</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1240,42 +1240,42 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="39"/>
         <source>Skip backward</source>
-        <translation type="unfinished">Retourner</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Avancer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
         <source>Move up</source>
-        <translation type="unfinished">Déplacer vers le haut</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="63"/>
         <source>Move down</source>
-        <translation type="unfinished">Déplacer vers le bas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="71"/>
         <source>Move left</source>
-        <translation type="unfinished">Déplacer vers la gauche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="79"/>
         <source>Move right</source>
-        <translation type="unfinished">Déplacer vers la droite</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="138"/>
         <source>Action</source>
-        <translation type="unfinished">Action</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished">Séquence de touches</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

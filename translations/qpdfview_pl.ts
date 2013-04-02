@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub  usuwać adnotacje.</translation>
     </message>
 </context>
 <context>

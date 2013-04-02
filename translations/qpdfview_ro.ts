@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="287"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formate suportate (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="551"/>
@@ -42,11 +42,6 @@
         <location filename="../sources/documentview.cpp" line="591"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1531"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1116"/>
@@ -67,6 +62,11 @@
         <location filename="../sources/documentview.cpp" line="1168"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1531"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
 </context>
 <context>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ieș&amp;ire</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -503,39 +503,39 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Name</source>
-        <translation type="unfinished">Nume</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Type</source>
-        <translation type="unfinished">Tip</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Embedded</source>
-        <translation type="unfinished">Încorporat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished">Subset</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>File</source>
-        <translation type="unfinished">Fișier</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="775"/>
         <location filename="../sources/pdfmodel.cpp" line="776"/>
         <source>Yes</source>
-        <translation type="unfinished">Da</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="775"/>
         <location filename="../sources/pdfmodel.cpp" line="776"/>
         <source>No</source>
-        <translation type="unfinished">Nu</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Pentru adăugarea sau ștergerea notițelor este necesară versiunea 0.20.1 sau mai mare a bibliotecii Poppler.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -657,12 +657,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="791"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Antialiasing:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Antialiasing text:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
@@ -684,12 +684,12 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Îmbunătățire (hinting) text:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Previzualizare supra-tipărire:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
@@ -737,37 +737,37 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Potrivire la pagina:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Interval pagini:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Toate paginile</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished">Pagini pare</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
         <source>Odd pages</source>
-        <translation type="unfinished">Pagini impare</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Set de pagini:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">O singură pagină</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
@@ -777,77 +777,77 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Four pages</source>
-        <translation type="unfinished">Patru pagini</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Six pages</source>
-        <translation type="unfinished">Șase pagini</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Nouă pagini</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished">Șaisprezece pagini</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Pagini pe coală:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">De jos în sus și de la stânga la dreapta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">De jos în sus și de la dreapta la stânga</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">De la dreapta la stânga și de jos în sus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">De la stânga la dreapta și de sus în jos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">De la dreapta la stânga și de jos în sus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">De la dreapta la stânga și de sus în jos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">De sus în jos și de la stânga la dreapta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">De sus în jos și de la dreapta la stânga</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Aranjare pagini pe coală:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Opțiuni extinse</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -906,7 +906,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
@@ -916,7 +916,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="633"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="634"/>
@@ -926,7 +926,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="635"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Shift și Alt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="636"/>
@@ -939,16 +939,21 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="28"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished">Deschise &amp;recent</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="37"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">Șterge &amp;lista</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="57"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>&amp;Behavior</source>
@@ -1101,11 +1106,6 @@
         <location filename="../sources/settingsdialog.cpp" line="493"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Dimensiune miniaturi:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="57"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>

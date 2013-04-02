@@ -46,7 +46,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1116"/>
         <source>Information</source>
-        <translation type="unfinished">нформація</translation>
+        <translation type="unfinished">Інформація</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1116"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ви&amp;йти</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Перейти &amp;назад</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Перейти в&amp;перед</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -543,7 +543,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Information</source>
-        <translation type="unfinished">нформація</translation>
+        <translation type="unfinished">Відомості</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
@@ -694,12 +694,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Суцільний</translation>
+        <translation type="unfinished">Суцільні</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished">За формою</translation>
+        <translation type="unfinished">Надати форму</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
@@ -714,22 +714,22 @@
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Critical</source>
-        <translation type="unfinished">Критична</translation>
+        <translation type="unfinished">Критична помилка</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">Не вдалося завантажити додаток обробки PDF!</translation>
+        <translation type="unfinished">Не вдалося завантажити додаток роботи з PDF!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">Не вдалося завантажити додаток обробки PS!</translation>
+        <translation type="unfinished">Не вдалося завантажити додаток роботи з PS!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">Не вдалося завантажити додаток обробки DjVu!</translation>
+        <translation type="unfinished">Не вдалося завантажити додаток роботи з DjVuPS!</translation>
     </message>
 </context>
 <context>
@@ -737,7 +737,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">За розміром сторінки</translation>
+        <translation type="unfinished">Підлаштовування під аркуш:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
@@ -747,7 +747,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Усі сторінки</translation>
+        <translation type="unfinished">Всі сторінки</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
@@ -787,7 +787,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Дев&apos;ять сторінок</translation>
+        <translation type="unfinished">Дев’ять сторінок</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
@@ -797,57 +797,57 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Сторінок на аркуші:</translation>
+        <translation type="unfinished">Розташовування:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">Знизу вгору зліва направо</translation>
+        <translation type="unfinished">Знизу вгору і зліва праворуч</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">Знизу вгору справа наліво</translation>
+        <translation type="unfinished">Знизу вгору і справа ліворуч</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">Зліва направо та знизу вгору</translation>
+        <translation type="unfinished">Зліва праворуч і знизу вгору</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">Зліва направо та згори вниз</translation>
+        <translation type="unfinished">Зліва праворуч і згори взниз</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">Справа наліво та знизу вгору</translation>
+        <translation type="unfinished">Справа ліворуч і знизу вгору</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">Справа наліво та згори вниз</translation>
+        <translation type="unfinished">Справа ліворуч і згори вниз</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">Згори вниз та зліва направо</translation>
+        <translation type="unfinished">Згори вниз і зліва праворуч</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">Згори вниз та справа наліво</translation>
+        <translation type="unfinished">Згори вниз і справа ліворуч</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Розташування сторінок:</translation>
+        <translation type="unfinished">Компонування сторінок:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Розширені налаштування</translation>
+        <translation type="unfinished">Додаткові параметри</translation>
     </message>
 </context>
 <context>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Бітова карта згладжування зображень:</translation>
+        <translation type="unfinished">Бітова маска згладжування графіки:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Бітова карта згладжування тексту:</translation>
+        <translation type="unfinished">Бітова маска згладжування тексту:</translation>
     </message>
 </context>
 <context>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не можна шукати порожній рядок.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Використання параметра «--search» вимагає зазначення тексту для пошуку.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Колір анотацій:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="398"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нова вкладка поряд з поточною:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="561"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поточна сторінка у заголовку вікна:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
         <source>Limit thumnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обмеження мініатюр до результатів:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>
@@ -1240,32 +1240,32 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="39"/>
         <source>Skip backward</source>
-        <translation type="unfinished">Прогорнути назад</translation>
+        <translation type="unfinished">Гортати назад</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Прогорнути вперед</translation>
+        <translation type="unfinished">Гортати вперед</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
         <source>Move up</source>
-        <translation type="unfinished">Пересунути вгору</translation>
+        <translation type="unfinished">Вгору</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="63"/>
         <source>Move down</source>
-        <translation type="unfinished">Пересунути вниз</translation>
+        <translation type="unfinished">Вниз</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="71"/>
         <source>Move left</source>
-        <translation type="unfinished">Пересунути ліворуч</translation>
+        <translation type="unfinished">Ліворуч</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="79"/>
         <source>Move right</source>
-        <translation type="unfinished">Пересунути праворуч</translation>
+        <translation type="unfinished">Праворуч</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="138"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished">Послідовність клавіш</translation>
+        <translation type="unfinished">Комбінація клавіш</translation>
     </message>
 </context>
 <context>

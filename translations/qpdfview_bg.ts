@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Изход</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -576,12 +576,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="220"/>
         <source>Format</source>
-        <translation type="unfinished">Форматиране</translation>
+        <translation type="unfinished">Формат</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished">Ниво на изек</translation>
+        <translation type="unfinished">Ниво на език</translation>
     </message>
 </context>
 <context>
@@ -644,12 +644,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="767"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавяне на п&amp;одчертаване</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="804"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">П&amp;ремахване на анотация</translation>
     </message>
 </context>
 <context>
@@ -657,18 +657,18 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="791"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Заглаждане:</translation>
+        <translation type="unfinished">Изглаждане:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изглаждане на текст:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Няма</translation>
+        <translation type="unfinished">Без</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Подчертаване на текст:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
@@ -694,17 +694,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Непрекъснат</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished">Оформени</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Режим на тънки линии:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -719,17 +719,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">Не може за се зареди приставката за PDF!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">Не може за се зареди приставката за PS!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">Не може за се зареди приставката за DjVu!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -737,17 +737,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Подравняване към страница:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Обхват на печата:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Всички страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
@@ -767,32 +767,32 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">Една страница</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
         <source>Two pages</source>
-        <translation type="unfinished">Две страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Four pages</source>
-        <translation type="unfinished">Четири страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Six pages</source>
-        <translation type="unfinished">Шест страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Девет страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished">Шестнадесет страници</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
@@ -847,7 +847,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Разширени опции</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/main.cpp" line="235"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Не са открити данните SyncTeX за &apos;%1&apos;.</translation>
+        <translation type="unfinished">Не са открити SyncTeX данни за &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="330"/>
@@ -1070,7 +1070,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="432"/>
         <source>None</source>
-        <translation type="unfinished">Няма</translation>
+        <translation type="unfinished">Без</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
