@@ -1206,8 +1206,8 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
-        <source>Limit thumnails to results:</source>
-        <translation type="unfinished">Miniaturları nəticə sayına limitlə:</translation>
+        <source>Limit thumbnails to results:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>

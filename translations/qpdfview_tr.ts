@@ -1103,6 +1103,11 @@
         <translation type="unfinished">Küçük resim boyutu:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="592"/>
+        <source>Limit thumbnails to results:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="57"/>
         <source>General</source>
         <translation type="unfinished"></translation>
@@ -1203,11 +1208,6 @@
         <location filename="../sources/settingsdialog.cpp" line="585"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Araç çubuğunu görüntüle:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="592"/>
-        <source>Limit thumnails to results:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>

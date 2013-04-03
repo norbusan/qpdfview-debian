@@ -589,7 +589,7 @@ void SettingsDialog::createInterfaceTab()
     m_limitThumbnailsToResultsCheckBox = new QCheckBox(this);
     m_limitThumbnailsToResultsCheckBox->setChecked(s_settings->documentView().limitThumbnailsToResults());
 
-    m_interfaceLayout->addRow(tr("Limit thumnails to results:"), m_limitThumbnailsToResultsCheckBox);
+    m_interfaceLayout->addRow(tr("Limit thumbnails to results:"), m_limitThumbnailsToResultsCheckBox);
 }
 
 void SettingsDialog::createModifiersTab()

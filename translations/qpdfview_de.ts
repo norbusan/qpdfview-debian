@@ -1206,7 +1206,7 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
-        <source>Limit thumnails to results:</source>
+        <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
