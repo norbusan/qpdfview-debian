@@ -81,7 +81,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <ul>
 	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document.</li>
     <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the current tab.</li>
-    <li><b>Jump backward/forward</b> TODO</li>
+    <li><b>Jump backward/forward</b> Jumps backward/forward in the history of page jumps.</li>
 	<li><b>Search...</b> Opens the search tool bar below the main view. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. If the Shift modifier is held when the return key is pressed, the search starts in all tabs instead of just the current tab.</li>
 	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the search term in the document.</li>
 	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
@@ -164,11 +164,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
 
-<p>The <em>outline</em> dock displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view. The context menu can be used to expand/collapse all items below the selected item.</p>
+<p>The <em>outline</em> view displays an overview of the contents of the document. A left click on an entry jumps to the respective page in the main view. The context menu can be used to expand/collapse all items below the selected item.</p>
 
-<p>The <em>properties</em> dock displays additional information contained in the document.</p>
+<p>The <em>properties</em> view displays additional information contained in the document.</p>
 
-<p>The <em>thumbnails</em> dock displays smaller versions of the pages of the document. A left click on an entry jumps to the respective page in the main view.</p>
+<p>The <em>thumbnails</em> view displays smaller versions of the pages of the document. A left click on an entry jumps to the respective page in the main view.</p>
 
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
@@ -183,7 +183,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>Restore per-file settings</b> If enabled, per-file settings are saved/restored on opening/closing tabs.</li>
     <li><b>Synchronize presentation</b> If enabled, the main view can be used to control the presentation view.</li>
     <li><b>Presentation screen</b> The index of the screen to display the presentation view on.</li>
-    <li><b>Annotation color</b> TODO</li>
+    <li><b>Annotation color</b> The color of annotations added by the program using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
     <li><b>Source editor</b> The program which is started to edit sources. '%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number.</li>
 </ul>
 
@@ -225,12 +225,12 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <ul>
     <li><b>Tab position</b> Defines at which edge of the main view tabs will be displayed.</li>
     <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than two documents are opened.</li>
-    <li><b>New tab next to current tab</b> TODO</li>
-    <li><b>Current page in window title</b> TODO</li>
+    <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the right of the active tab.</li>
+    <li><b>Current page in window title</b> If enabled, the current page and number of pages of the document in the active tab are displayed in the window title.</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs, print and separator. (Effective after restart.)</li>
     <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool bar. Available actions are currentPage, previousPage, nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward, search, copyToClipboardMode, addAnnotationMode and separator. (Effective after restart.)</li>
     <li><b>View tool bar</b> Defines which actions are visible in the view tool bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode, twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize, fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen, presentation and separator. (Effective after restart.)</li>
-    <li><b>Limit thumbnails to results</b> TODO</li>
+    <li><b>Limit thumbnails to results</b> If this option is enabled and a search is conducted, only the pages where the search term is found are displayed in the thumbnails view.</li>
 </ul>
 
 <h4><a name="shortcutsettings">Shortcut settings</a> <a href="#top">&uarr;</a></h4>

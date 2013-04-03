@@ -150,7 +150,7 @@ public slots:
     void firstPage();
     void lastPage();
 
-    bool jumpToPage(int page, bool trackChange = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
+    void jumpToPage(int page, bool trackChange = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
 
     bool canJumpBackward() const;
     void jumpBackward();
