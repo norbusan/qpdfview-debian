@@ -178,12 +178,12 @@ void PresentationView::show()
 
 void PresentationView::previousPage()
 {
-    jumpToPage(m_currentPage - 1, false);
+    jumpToPage(m_currentPage - 1);
 }
 
 void PresentationView::nextPage()
 {
-    jumpToPage(m_currentPage + 1, false);
+    jumpToPage(m_currentPage + 1);
 }
 
 void PresentationView::firstPage()

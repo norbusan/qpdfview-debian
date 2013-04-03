@@ -695,7 +695,7 @@ void DocumentView::previousPage()
 
     previousPage = previousPage >= 1 ? previousPage : 1;
 
-    jumpToPage(previousPage, false);
+    jumpToPage(previousPage);
 }
 
 void DocumentView::nextPage()
@@ -719,7 +719,7 @@ void DocumentView::nextPage()
 
     nextPage = qMin(nextPage, m_pages.count());
 
-    jumpToPage(nextPage, false);
+    jumpToPage(nextPage);
 }
 
 void DocumentView::firstPage()
