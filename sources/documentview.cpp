@@ -732,7 +732,7 @@ void DocumentView::lastPage()
     jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
+bool DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
 {
     if(page >= 1 && page <= m_pages.count())
     {
@@ -754,8 +754,12 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
             prepareView(changeLeft, changeTop);
 
             emit currentPageChanged(m_currentPage, trackChange);
+
+            return true;
         }
     }
+
+    return false;
 }
 
 bool DocumentView::canJumpBackward() const
@@ -770,11 +774,13 @@ void DocumentView::jumpBackward()
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_future.prepend(Position(m_currentPage, left, top));
+        Position pos(m_currentPage, left, top);
+        Position lastPos = m_past.takeLast();
 
-        Position pos = m_past.takeLast();
-
-        jumpToPage(pos.page, false, pos.left, pos.top);
+        if(jumpToPage(lastPos.page, false, lastPos.left, lastPos.top))
+        {
+            m_future.prepend(pos);
+        }
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
@@ -792,11 +798,13 @@ void DocumentView::jumpForward()
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_past.append(Position(m_currentPage, left, top));
+        Position pos(m_currentPage, left, top);
+        Position firstPos = m_future.takeFirst();
 
-        Position pos = m_future.takeFirst();
-
-        jumpToPage(pos.page, false, pos.left, pos.top);
+        if(jumpToPage(firstPos.page, false, firstPos.left, firstPos.top))
+        {
+            m_past.append(pos);
+        }
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
