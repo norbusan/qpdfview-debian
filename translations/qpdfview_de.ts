@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Beenden</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Springe &amp;rückwärts</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Springe vor&amp;wärts</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -668,7 +668,7 @@
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Keine</translation>
+        <translation type="unfinished">Kein</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Text_Hinting:</translation>
+        <translation type="unfinished">Text-Hinting:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
@@ -694,7 +694,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Fest</translation>
+        <translation type="unfinished">Gefüllt</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Dünne-Linien-Modus:</translation>
+        <translation type="unfinished">Modus für dünne Linien:</translation>
     </message>
 </context>
 <context>
@@ -719,17 +719,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">PDF Plug-in konnte nicht geladen werden!</translation>
+        <translation type="unfinished">PDF-Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">PS Plug-in konnte nicht geladen werden!</translation>
+        <translation type="unfinished">PS-Plug-in konnte nicht geladen werden!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">DjVu Plug-in konnte nicht geladen werden!</translation>
+        <translation type="unfinished">DjVu-Plug-in konnte nicht geladen werden!</translation>
     </message>
 </context>
 <context>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ein leerer Suchtext ist nicht zugelassen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--search&apos; benötigt einen Suchtext.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farbe für Anmerkungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="398"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neuer Reiter neben aktuellem Reiter:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="561"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuelle Seite im Fenstertitel:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vorschaubilder auf Ergebnisse beschränken:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>
