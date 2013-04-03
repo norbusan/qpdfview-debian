@@ -70,6 +70,12 @@ The command
 .RS
 opens "foo.pdf" in the first tab displaying the third page of the document and "bar.pdf" in the second tab displaying the beginning of the document.
 
+The command
+.RE
+.B qpdfview \-\-search foo bar.pdf
+.RS
+opens "bar.pdf" in the first tab and starts a search for "foo".
+
 Subsequent execution of the commands
 .RE
 .B qpdfview \-\-unique foo.pdf bar.pdf
@@ -111,6 +117,16 @@ and
 .B qpdfview \-\-unique \-\-instance a foo1.pdf#4 bar4.pdf
 .RS
 opens "foo1.pdf" and "bar1.pdf" in the first window, "foo2.pdf" and "bar2.pdf" in the second window, "foo2.pdf" and "bar2.pdf" in the third window and then reloads "foo1.pdf" and displays its fourth page and opens "bar4.pdf" in an additional tab in the first window.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique \-\-instance a foo.pdf bar.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance a \-\-search "foobar"
+.RS
+opens "foo.pdf" and "bar.pdf" in a window and then starts a search for the term "foobar" in the document in the active tab (which is the last opened "bar.pdf").
 
 The command
 .RE
