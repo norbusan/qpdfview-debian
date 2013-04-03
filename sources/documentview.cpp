@@ -1668,6 +1668,9 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 
     left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
+
+    left = left >= 0.0 ? left : 0.0;
+    top = top >= 0.0 ? top : 0.0;
 }
 
 void DocumentView::prepareDocument(Model::Document* document)
