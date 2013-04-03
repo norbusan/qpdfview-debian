@@ -147,7 +147,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1435"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview Qt-dən istifadə edən səkməli sənəd baxıcısıdır.&lt;/p&gt;&lt;p&gt;Bu versiyaya daxildir:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1439"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1450"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Əlavə məlumat üçün &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;-i ziyarət edin.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1632"/>
@@ -312,7 +312,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1741"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Başlıqla &amp;birgə iki səhifə</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1742"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt qrup</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -689,7 +689,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Çap həddini aşma ön baxışı</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nömrələr-üstə düzümü:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Qrafikanın bitlərinin hamarlanması:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mətn bitlərinin hamarlanması:</translation>
     </message>
 </context>
 <context>
@@ -878,12 +878,12 @@
     <message>
         <location filename="../sources/main.cpp" line="181"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; istifadə etdikdə instansiya adı mütləq göstərilməlidir.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; -dən istifadə &apos;--unique&apos; istifadə etmədən mümkün deyil.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="193"/>
