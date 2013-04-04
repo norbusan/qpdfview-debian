@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
-#include <QComboBox>
 #include <QDesktopWidget>
 #include <QDialogButtonBox>
 #include <QFormLayout>
