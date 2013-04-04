@@ -44,27 +44,27 @@
         <translation type="unfinished">Açarsöz:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1531"/>
+        <location filename="../sources/documentview.cpp" line="1529"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılıyor...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1116"/>
+        <location filename="../sources/documentview.cpp" line="1114"/>
         <source>Information</source>
         <translation type="unfinished">Bilgiler</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1116"/>
+        <location filename="../sources/documentview.cpp" line="1114"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Bağlantıları açmak ayarlardan kapatılmış durumda.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1166"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1166"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>

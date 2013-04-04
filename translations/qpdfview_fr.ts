@@ -44,27 +44,27 @@
         <translation type="unfinished">Mot de passe :</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1116"/>
+        <location filename="../sources/documentview.cpp" line="1114"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1116"/>
+        <location filename="../sources/documentview.cpp" line="1114"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">L&apos;ouverture d&apos;URL est désactivée dans les paramètres.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1166"/>
         <source>Warning</source>
         <translation type="unfinished">Avertissement</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1168"/>
+        <location filename="../sources/documentview.cpp" line="1166"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1531"/>
+        <location filename="../sources/documentview.cpp" line="1529"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de &apos;%1&apos;...</translation>
     </message>
