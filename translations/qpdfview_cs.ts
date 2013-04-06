@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Omezit náhledy na výsledky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
