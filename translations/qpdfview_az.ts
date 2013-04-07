@@ -1045,7 +1045,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="397"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; tam fayl ünvanı ilə əvəz olunacaq. . &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Görüntüləri axtarış sayı ilə limitlə:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
