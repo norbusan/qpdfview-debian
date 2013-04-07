@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="hr_HR">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -147,7 +147,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1435"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je preglednik dokumenata s mogućom upotrbom kartica, a napravljen je koristeći Qt.&lt;/p&gt;&lt;p&gt;Ova verzija uključuje:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1439"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1450"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pogledajte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; za više informacija.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Qpdfview razvojni programeri&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1632"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skok &amp;natrag</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skok nap&amp;rijed</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Podskupina</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -561,12 +561,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Napravljeno za</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tvorac</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -581,7 +581,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Razina jezika</translation>
     </message>
 </context>
 <context>
@@ -594,7 +594,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="454"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Idi na stranicu %1 datoteke &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="462"/>
@@ -668,7 +668,7 @@
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Nijedan</translation>
+        <translation type="unfinished">Nijedno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
@@ -678,7 +678,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="807"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Smanjeno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="810"/>
@@ -689,12 +689,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pregled pretiska:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Čvrsto</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Način tanke linije:</translation>
     </message>
 </context>
 <context>
@@ -719,7 +719,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ne mogu učitati PDF priključak!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
@@ -737,17 +737,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prilagodi stranici:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opseg stranica:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sve stranice</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
@@ -817,7 +817,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S lijeva na desno i vrha do dna</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="553"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nova kartica uz trenutnu karticu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="560"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trenutna stranica u naslovu prozora:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
@@ -1212,7 +1212,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zumiraj:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="606"/>
@@ -1227,7 +1227,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopiraj u međuspremnik:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
@@ -1270,7 +1270,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="138"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Akcija</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
