@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="es_ES">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -187,7 +187,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1663"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished">Coincidir &amp;capitalización</translation>
+        <translation type="unfinished">Distinguir &amp;mayúsculas/minúsculas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1664"/>
@@ -202,7 +202,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1708"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">Abrir en nueva &amp;pestaña</translation>
+        <translation type="unfinished">Abrir en una &amp;pestaña nueva…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1709"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Salir</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -252,7 +252,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1722"/>
         <source>&amp;Jump to page...</source>
-        <translation type="unfinished">&amp;Saltar a la página ...</translation>
+        <translation type="unfinished">&amp;Ir a la página…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
@@ -372,7 +372,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1759"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished">&amp;Presentación</translation>
+        <translation type="unfinished">&amp;Presentación…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1763"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Para añadir o quitar anotaciones, se necesita la versión 0.20.1 o mayor de la biblioteca Poppler.</translation>
+        <translation type="unfinished">Para añadir o eliminar anotaciones, se necesita la versión 0.20.1 o superior de la biblioteca Poppler.</translation>
     </message>
 </context>
 <context>
@@ -561,12 +561,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
         <source>Created for</source>
-        <translation type="unfinished">Creado para:</translation>
+        <translation type="unfinished">Creado para</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished">Autor</translation>
+        <translation type="unfinished">Creador</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -581,7 +581,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished">Nivel de idioma</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -604,7 +604,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="497"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished">Editar formulario &apos;%1&apos;.</translation>
+        <translation type="unfinished">Editar campo de formulario «%1».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="713"/>
@@ -614,12 +614,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="714"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished">Copuiar &amp;imagen</translation>
+        <translation type="unfinished">Copiar la &amp;imagen</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="715"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished">Guardar imagen a un &amp;archivo</translation>
+        <translation type="unfinished">G&amp;uardar imagen en un archivo…</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="749"/>
@@ -657,18 +657,18 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="791"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Bordes suaves:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suavizado del texto:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Nada</translation>
+        <translation type="unfinished">Ninguno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
@@ -694,7 +694,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Sólido</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Modo de línea delgada:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -737,12 +737,12 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajustar página:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Rangos de página:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
@@ -767,7 +767,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">Página simple</translation>
+        <translation type="unfinished">Una sola página</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
@@ -797,47 +797,47 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Más</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">De abajo a arriba y de izquierda a derecha</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">De abajo a arriba y de derecha a izquierda</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">De izquierda a derecha y de abajo a arriba</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">De izquierda a derecha y de arriba a abajo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">De derecha a izquierda y de abajo hacia arriba</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">De derecha a izquierda y de arriba a abajo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">De arriba a abajo y de izquierda a derecha</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">De arriba a abajo y de derecha a izquierda</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
@@ -847,7 +847,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Opciones extendidas</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Para usar «--search» se necesita un término de búsqueda.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color de la anotación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="397"/>
@@ -1060,7 +1060,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="416"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Decorate enlaces:</translation>
+        <translation type="unfinished">Decorar enlaces:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
@@ -1122,7 +1122,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="507"/>
         <source>Cache size:</source>
-        <translation type="unfinished">Tamaño de cahé:</translation>
+        <translation type="unfinished">Tamaño de caché:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="514"/>
@@ -1192,17 +1192,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Archivo barra de herramientas:</translation>
+        <translation type="unfinished">Barra de herramientas Archivo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="576"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Editar barra de herramientas:</translation>
+        <translation type="unfinished">Barra de herramientas Editar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="584"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Ver barra de herramientas:</translation>
+        <translation type="unfinished">Barra de herramientas Ver:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назад</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вперёд</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -513,12 +513,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Embedded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Встроенный</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подмножество</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -561,12 +561,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Создано для</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Создатель</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -662,7 +662,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сглаживание текста:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
@@ -673,7 +673,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Полное</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="807"/>
