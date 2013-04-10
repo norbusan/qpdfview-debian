@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="it_IT">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="815"/>
         <source>Open in new tab</source>
-        <translation type="unfinished">Apre in una nuova scheda</translation>
+        <translation type="unfinished">Apri nuova scheda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="836"/>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Esci</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Va indietro</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Va avanti</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">È necessaria la versione della libreria Poppler 0.20.1 o successiva per aggiungere o rimuovere note</translation>
+        <translation type="unfinished">È necessaria la libreria Poppler versione 0.20.1 o successiva per aggiungere o rimuovere le annotazioni.</translation>
     </message>
 </context>
 <context>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Approssimazione testo:</translation>
+        <translation type="unfinished">Approssimazione del testo:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
@@ -694,7 +694,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Solid</source>
-        <translation type="unfinished">Continua</translation>
+        <translation type="unfinished">Solida</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Modalità linea fine:</translation>
+        <translation type="unfinished">Modalità per le linee sottili:</translation>
     </message>
 </context>
 <context>
@@ -714,22 +714,22 @@
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Critical</source>
-        <translation type="unfinished">Critico</translation>
+        <translation type="unfinished">Attenzione</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">Impossibile caricare il plugin PDF</translation>
+        <translation type="unfinished">Impossibile caricare il plugin PDF.</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">Impossibile caricare il plugin PS</translation>
+        <translation type="unfinished">Impossibile caricare il plugin PS.</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">Impossibile caricare il plugin DjVu</translation>
+        <translation type="unfinished">Impossibile caricare il plugin DjVu.</translation>
     </message>
 </context>
 <context>
@@ -737,7 +737,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Adatta alla pagina:</translation>
+        <translation type="unfinished">Adattare alla pagina:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
@@ -762,7 +762,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Impostazione pagina:</translation>
+        <translation type="unfinished">Pagine da stampare:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -787,7 +787,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Nove pagine</translation>
+        <translation type="unfinished">NOve pagine</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
@@ -797,52 +797,52 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Pagine per foglio:</translation>
+        <translation type="unfinished">Number-up:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">Dal basso verso l&apos;alto e da sinistra a destra</translation>
+        <translation type="unfinished">Dal basso all&apos;alto e da sinistra a destra</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">Dal basso verso l&apos;alto e da destra a sinistra</translation>
+        <translation type="unfinished">Dal basso all&apos;alto e da destra a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">Da sinistra a destra e dal basso verso l&apos;alto</translation>
+        <translation type="unfinished">Da sinistra a destra e dal basso all&apos;alto</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">Da sinistra a destra e dall&apos;alto verso il basso</translation>
+        <translation type="unfinished">Da sinistra a destra e dall&apos;alto al basso</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">Da destra a sinistra e dal basso verso l&apos;alto</translation>
+        <translation type="unfinished">Da destra a sinistra e dal basso all&apos;alto</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">Da destra a sinistra e dall&apos;alto verso il basso</translation>
+        <translation type="unfinished">Da destra a sinistra e dall&apos;alto al basso</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">Dall&apos;alto verso il basso e da sinistra a destra</translation>
+        <translation type="unfinished">Dall&apos;alto al basso e da sinistra a destra</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">Dall&apos;alto verso il basso e da destra a sinistra</translation>
+        <translation type="unfinished">Dall&apos;alto al basso e da destra a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Disposizione pagine per foglio:</translation>
+        <translation type="unfinished">Disposizione number-up:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Non è consentita una stringa di ricerca vuota.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">L&apos;uso dell&apos;opzione &quot;--search&quot; richiede una ricerca testuale-</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Colore dell&apos;annotazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="397"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="553"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nuova scheda dopo quella attuale:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="560"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagina attuale nel titolo della finestra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Limitare le miniature nei risultati:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
@@ -1255,17 +1255,17 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="63"/>
         <source>Move down</source>
-        <translation type="unfinished">Muovi verso il basso</translation>
+        <translation type="unfinished">Sposta giù</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="71"/>
         <source>Move left</source>
-        <translation type="unfinished">Muovi verso sinistra</translation>
+        <translation type="unfinished">Sposta a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="79"/>
         <source>Move right</source>
-        <translation type="unfinished">Muovi verso destra</translation>
+        <translation type="unfinished">Sposta a destra</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="138"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished">Scorciatoia a tastiera</translation>
+        <translation type="unfinished">Scorciatoia da tastiera</translation>
     </message>
 </context>
 <context>
