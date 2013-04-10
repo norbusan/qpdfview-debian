@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1713"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei&amp;xir</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1717"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Torna enrere</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ves endavant</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Es necessita la versió 0.20.1 o superior de la llibreria Poppler per afegir o eliminar anotacions.</translation>
+        <translation type="unfinished">Es necessita una versió 2.20 o superior de la biblioteca Poppler per afegir o eliminar anotacions.</translation>
     </message>
 </context>
 <context>
@@ -561,12 +561,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="217"/>
         <source>Created for</source>
-        <translation type="unfinished">Creat per</translation>
+        <translation type="unfinished">Creat per a</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished">Creador</translation>
+        <translation type="unfinished">Autor</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -576,12 +576,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="220"/>
         <source>Format</source>
-        <translation type="unfinished">Format</translation>
+        <translation type="unfinished">Formatar</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished">Nivell de llengua</translation>
+        <translation type="unfinished">Nivell d&apos;idioma</translation>
     </message>
 </context>
 <context>
@@ -657,23 +657,23 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="791"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Antialiasing:</translation>
+        <translation type="unfinished">Antidentat:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Antialiasing del text:</translation>
+        <translation type="unfinished">Antidentat de text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
         <location filename="../sources/pdfmodel.cpp" line="835"/>
         <source>None</source>
-        <translation type="unfinished">Cap</translation>
+        <translation type="unfinished">Res</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="806"/>
         <source>Full</source>
-        <translation type="unfinished">Complet</translation>
+        <translation type="unfinished">Ple</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="807"/>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Ajuda de text:</translation>
+        <translation type="unfinished">Suggerències de text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
@@ -719,17 +719,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="276"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PDF!</translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el complement de PDF!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de PS!</translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el complement de PS!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">No s&apos;ha pogut carregar el plugin de DjVu!</translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el complement de DjVu!</translation>
     </message>
 </context>
 <context>
@@ -737,12 +737,12 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajustar a la pàgina:</translation>
+        <translation type="unfinished">Encaixa a la pàgina:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Pàgines a imprimir:</translation>
+        <translation type="unfinished">Interval de pàgines:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
@@ -752,22 +752,22 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished">Pàgines senars</translation>
+        <translation type="unfinished">Pàgines pars</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
         <source>Odd pages</source>
-        <translation type="unfinished">Pàgines pars</translation>
+        <translation type="unfinished">Pàgines senars</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Establir pàgina:</translation>
+        <translation type="unfinished">Conjunt de pàgines:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished">Pàgina simple</translation>
+        <translation type="unfinished">Només una pàgina</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
@@ -777,7 +777,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Four pages</source>
-        <translation type="unfinished">Quatre pàgines</translation>
+        <translation type="unfinished">Quatre págines</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
@@ -797,7 +797,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Fins a:</translation>
+        <translation type="unfinished">Augmenta número:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Disseny de les pàgines a cada pàgina:</translation>
+        <translation type="unfinished">Disseny del número de seguiment:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Bits antialias pels gràfics:</translation>
+        <translation type="unfinished">Bits del gràfics antidentat:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Bits antialias pel text:</translation>
+        <translation type="unfinished">Bits del text antidentat:</translation>
     </message>
 </context>
 <context>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No es permet una cadena de cerca buida.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">L&apos;ús de &apos;--search&apos; necessita un text de cerca.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1040,7 +1040,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color de l&apos;anotació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="397"/>
@@ -1182,12 +1182,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="553"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nova pestanya seguida de la actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="560"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pàgina actual al títol de la finestra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Limita miniatures als resultats:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
@@ -1245,7 +1245,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="47"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Vés endavant</translation>
+        <translation type="unfinished">Salta endavant</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="55"/>
