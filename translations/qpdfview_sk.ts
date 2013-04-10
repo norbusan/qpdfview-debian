@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="sk_SK">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obmedziť náhľady pre výsledky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>

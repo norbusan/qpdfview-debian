@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejdź &amp;do tyłu</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1725"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejdź do p&amp;rzodu</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1727"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Podzbiór</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="767"/>
@@ -684,12 +684,12 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst podpowiedzi:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Podgląd wydruku:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
@@ -699,12 +699,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation>Uformowane</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb cienkiej linii:</translation>
     </message>
 </context>
 <context>
@@ -762,7 +762,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybór stron:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -797,57 +797,57 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopia:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Od dołu do góry i od lewej do prawej</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Od dołu do góry i od prawej do lewej</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation>Od lewej do prawej i od dołu do góry</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Od lewej do prawej i od góry do dołu</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation>Od prawej do lewej i od dołu do góry</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Od prawej do lewej i od góry do dołu</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Od góry do dołu i od lewej do prawej</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Od góry do dołu i od prawej do lewej</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ kopii:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcje rozszerzone</translation>
     </message>
 </context>
 <context>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias grafiki:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias tekstu:</translation>
     </message>
 </context>
 <context>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyszukiwanie pustego tekstu jest niedozwolone.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użycie &apos;--search&apos; wymaga podania szukanego tekstu.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="235"/>
@@ -1187,7 +1187,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="560"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bieżąca strona w tytule okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit miniatur do:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
@@ -1275,7 +1275,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="141"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekwencja klawiszy</translation>
     </message>
 </context>
 <context>
