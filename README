@@ -22,4 +22,6 @@ The following build-time options are available:
     * 'without_magic' disables libmagic support, i.e. the program will determine file type using the file suffix.
     * 'without_signals' disabled support for UNIX signals, i.e. the program will not save bookmarks, tabs and per-file settings on receiving SIGINT or SIGTERM.
 
+For example, if one wants to build the program without support for CUPS and PostScript, one could run "qmake CONFIG+="without_cups without_ps" qpdfview.pro" instead of "qmake qpdfview.pro".
+
 The fallback and application-specific icons are derived from the Tango icon theme available at "http://tango.freedesktop.org".
