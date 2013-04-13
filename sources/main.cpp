@@ -191,6 +191,7 @@ int main(int argc, char** argv)
         if(searchTextIsNext)
         {
             qCritical() << QObject::tr("Using '--search' requires a search text.");
+            return 1;
         }
     }
 
