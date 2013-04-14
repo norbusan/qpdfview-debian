@@ -891,12 +891,12 @@
         <translation type="unfinished">Using &apos;--search&apos; requires a search text.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="235"/>
+        <location filename="../sources/main.cpp" line="236"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="330"/>
+        <location filename="../sources/main.cpp" line="331"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Could not prepare signal handler.</translation>
     </message>

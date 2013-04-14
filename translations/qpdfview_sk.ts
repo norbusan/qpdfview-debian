@@ -891,12 +891,12 @@
         <translation type="unfinished">Použitie &apos;--search&apos; vyžaduje text na vyhľadanie.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="235"/>
+        <location filename="../sources/main.cpp" line="236"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="330"/>
+        <location filename="../sources/main.cpp" line="331"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Nepodarilo se pripraviť obsluhovanie signálu.</translation>
     </message>

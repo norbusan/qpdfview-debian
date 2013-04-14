@@ -891,12 +891,12 @@
         <translation type="unfinished">&apos;--search&apos; istifadə etdikdə axtarılan mətn daxil edilməlidir.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="235"/>
+        <location filename="../sources/main.cpp" line="236"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos;  üçün SyncTeX verilənləri yüklənmədi.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="330"/>
+        <location filename="../sources/main.cpp" line="331"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Siqnal başlığını hazırlamaq mümkün deyil.</translation>
     </message>

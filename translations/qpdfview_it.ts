@@ -891,12 +891,12 @@
         <translation type="unfinished">L&apos;uso dell&apos;opzione &quot;--search&quot; richiede una ricerca testuale-</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="235"/>
+        <location filename="../sources/main.cpp" line="236"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="330"/>
+        <location filename="../sources/main.cpp" line="331"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Impossibile preparare il gestore di segnale</translation>
     </message>
