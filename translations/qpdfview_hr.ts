@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verzija 0.20.1 ili novija Poppler biblioteke su potrebni za dodavanje ili uklanjanje napomena.</translation>
     </message>
 </context>
 <context>
@@ -657,12 +657,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="791"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="798"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antialiasing teksta:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="805"/>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="810"/>
         <location filename="../sources/pdfmodel.cpp" line="817"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aludiranje teksta:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="828"/>
@@ -724,12 +724,12 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Greška pri učitavanju PS priključka!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Greška pri učitavanju DjVu priključka!</translation>
     </message>
 </context>
 <context>
@@ -752,17 +752,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parne stranice</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neparne stranice</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Set stranica:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -802,17 +802,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dno na vrh i lijevo na desno</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dno na vrh i desno na lijevo</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lijevo na desno i dno na vrh</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
@@ -822,32 +822,32 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desno na lijevo i dno na vrh</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desno na lijevo i vrh na dno</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrh na dno i lijevo na desno</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vrh na dno i desno na lijevo</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Broj van sučelja:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Proširene opcije</translation>
     </message>
 </context>
 <context>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bitovi grafičkog popravljanja:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bitovi ispravljanja teksta:</translation>
     </message>
 </context>
 <context>
@@ -873,22 +873,22 @@
     <message>
         <location filename="../sources/main.cpp" line="135"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prazan izraz nije dozvoljen.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="181"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Koristim &apos;--instance&apos; potražuje naziv instance.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Koristim &apos;--instance&apos; nije dozvoljeno bez korištenja &apos;--unique&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="193"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Korištenje &apos;--search&apos; potražuje upis teksta.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="236"/>
@@ -898,7 +898,7 @@
     <message>
         <location filename="../sources/main.cpp" line="331"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neuspjelo pripremanje signal poslužitelja.</translation>
     </message>
 </context>
 <context>
@@ -1040,12 +1040,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Boja napomene:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="397"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; je zamijenjen za apsolutnu putanju. &apos;%2&apos; resp. &apos;%3&apos; je zamijenjen za resp. broj stupca.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
@@ -1070,7 +1070,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="431"/>
         <source>None</source>
-        <translation type="unfinished">Nijedan</translation>
+        <translation type="unfinished">Nijedno</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="434"/>
@@ -1132,7 +1132,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pretpreuzmi udaljenost:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="530"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ograniči sličicu na rezultate:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
@@ -1222,7 +1222,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="612"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scroll:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1232,7 +1232,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dodaj napomenu:</translation>
     </message>
 </context>
 <context>
