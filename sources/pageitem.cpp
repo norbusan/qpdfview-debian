@@ -727,16 +727,8 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
-        QImage image;
-
-        if(s_cache.contains(this))
-        {
-            image = s_cache.object(this)->copy(m_rubberBand.translated(-m_boundingRect.topLeft()).toRect()).toImage();
-        }
-        else
-        {
-            image = m_page->render(m_physicalDpiX * m_scaleFactor,  m_scaleFactor * m_physicalDpiY, m_rotation, m_rubberBand.translated(-m_boundingRect.topLeft()).toRect());
-        }
+        QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
+        QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_physicalDpiX * m_scaleFactor, m_scaleFactor * m_physicalDpiY, m_rotation, rect);
 
         if(!image.isNull())
         {
