@@ -294,7 +294,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
         }
     }
 
-    return openInNewTab(filePath, page);
+    return openInNewTab(filePath, page, highlight);
 }
 
 void MainWindow::startSearch(const QString& text)
@@ -1625,7 +1625,6 @@ void MainWindow::createWidgets()
 
     m_scaleFactorComboBox = new ComboBox(this);
 
-    m_scaleFactorComboBox->setObjectName(QLatin1String("scaleFactor"));
     m_scaleFactorComboBox->setEditable(true);
     m_scaleFactorComboBox->setInsertPolicy(QComboBox::NoInsert);
 
