@@ -142,7 +142,7 @@ QMenu* MainWindow::createPopupMenu()
     return menu;
 }
 
-bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight)
+bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
@@ -172,14 +172,17 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
         }
         else
         {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not open '%1'.").arg(filePath));
+            if(!quiet)
+            {
+                QMessageBox::warning(this, tr("Warning"), tr("Could not open '%1'.").arg(filePath));
+            }
         }
     }
 
     return false;
 }
 
-bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& highlight)
+bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
     DocumentView* newTab = new DocumentView(this);
 
@@ -258,13 +261,16 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
     {
         delete newTab;
 
-        QMessageBox::warning(this, tr("Warning"), tr("Could not open '%1'.").arg(filePath));
+        if(!quiet)
+        {
+            QMessageBox::warning(this, tr("Warning"), tr("Could not open '%1'.").arg(filePath));
+        }
     }
 
     return false;
 }
 
-bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
+bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight, bool quiet)
 {
     QFileInfo fileInfo(filePath);
 
@@ -294,7 +300,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
         }
     }
 
-    return openInNewTab(filePath, page);
+    return openInNewTab(filePath, page, highlight, quiet);
 }
 
 void MainWindow::startSearch(const QString& text)
@@ -2424,19 +2430,19 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
-bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF& highlight)
+bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->open(filePath, page, highlight);
+    return mainWindow()->open(filePath, page, highlight, quiet);
 }
 
-bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF& highlight)
+bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->openInNewTab(filePath, page, highlight);
+    return mainWindow()->openInNewTab(filePath, page, highlight, quiet);
 }
 
-bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight)
+bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump, highlight);
+    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump, highlight, quiet);
 }
 
 void MainWindowAdaptor::startSearch(const QString& text)

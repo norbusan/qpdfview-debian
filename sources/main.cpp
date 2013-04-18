@@ -93,6 +93,7 @@ int main(int argc, char** argv)
 #endif // QT_VERSION
 
     bool unique = false;
+    bool quiet = false;
 
     bool instanceNameIsNext = false;
     QString instanceName = "";
@@ -142,6 +143,10 @@ int main(int argc, char** argv)
             else if(argument == "--unique")
             {
                 unique = true;
+            }
+            else if(argument == "--quiet")
+            {
+                quiet = true;
             }
             else if(argument == "--instance")
             {
@@ -265,7 +270,7 @@ int main(int argc, char** argv)
 
                 foreach(File file, files)
                 {
-                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true, file.enclosingBox);
+                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true, file.enclosingBox, quiet);
 
                     if(!reply.isValid())
                     {
@@ -338,7 +343,7 @@ int main(int argc, char** argv)
 
     foreach(File file, files)
     {
-        mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox);
+        mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox, quiet);
     }
 
     if(!searchText.isEmpty())
