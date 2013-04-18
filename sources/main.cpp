@@ -20,6 +20,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#include <iostream>
+
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
@@ -155,6 +157,12 @@ int main(int argc, char** argv)
             else if(argument == "--search")
             {
                 searchTextIsNext = true;
+            }
+            else if(argument == "--help")
+            {
+                std::cout << "Usage: qpdfview [options] [file[#page]] [file[#src:name:line:column]] ..." << std::endl;
+
+                return 0;
             }
             else
             {
