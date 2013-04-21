@@ -162,7 +162,14 @@ int main(int argc, char** argv)
             {
                 std::cout << "Usage: qpdfview [options] [file[#page]] [file[#src:name:line:column]] ..." << std::endl
                           << std::endl
-                          << "TODO" << std::endl;
+                          << "Available options:" << std::endl
+                          << "  --help                      Show this information" << std::endl
+                          << "  --quiet                     Suppress warning messages when opening files" << std::endl
+                          << "  --search text               Search for text in the current tab" << std::endl
+                          << "  --unique                    Open files as tabs in unique window" << std::endl
+                          << "  --unique --instance name    Open files as tabs in named instance" << std::endl
+                          << std::endl
+                          << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
 
                 return 0;
             }

@@ -32,18 +32,20 @@ qpdfview \- tabbed PDF viewer
 .B qpdfview
 is a simple viewer for document files in the portable document format (PDF). It uses the Poppler library for rendering and the Qt toolkit for its interface.
 .SH OPTIONS
+.IP "\-\-help"
+Displays usage information.
+.IP "\-\-quiet"
+Suppresses warning messages which are displayed if the program fails to open a file.
+.IP "\-\-search text"
+Initiates a search for
+.I text
+in the current tab.
 .IP \-\-unique
 If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
 .IP "\-\-instance name"
 Uses
 .I name
 as the name of the instance contacted or created using the "\-\-unique" option. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
-.IP "\-\-search text"
-Initiates a search for
-.I text
-in the current tab.
-.IP "\-\-quiet"
-TODO
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
@@ -71,6 +73,12 @@ The command
 .B qpdfview foo.pdf#3 bar.pdf
 .RS
 opens "foo.pdf" in the first tab displaying the third page of the document and "bar.pdf" in the second tab displaying the beginning of the document.
+
+The command
+.RE
+.B qpdfview \-\-quiet foobar/*
+.RS
+opens all files that can be opened in the directory "foobar", suppressing warning messages for files that cannot be opened.
 
 The command
 .RE
@@ -136,11 +144,6 @@ The command
 .RS
 opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
 
-The command
-.RE
-.B qpdfview \-\-quiet foobar/*
-.RS
-TODO
 .SH BUGS
 If you find a bug, please report it at
 .RS
