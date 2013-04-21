@@ -99,8 +99,6 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
         qApp->setStyleSheet(s_settings->mainWindow().styleSheet());
     }
 
-    m_shortcutHandler = new ShortcutHandler(this);
-
     setAcceptDrops(true);
 
     createWidgets();
@@ -1048,7 +1046,7 @@ void MainWindow::on_addAnnotationMode_triggered(bool checked)
 
 void MainWindow::on_settings_triggered()
 {
-    SettingsDialog* settingsDialog = new SettingsDialog(m_shortcutHandler, this);
+    SettingsDialog* settingsDialog = new SettingsDialog(this);
 
     if(settingsDialog->exec() == QDialog::Accepted)
     {
@@ -1681,7 +1679,7 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
 
     if(!objectName.isEmpty())
     {
-        m_shortcutHandler->registerAction(action);
+        ShortcutHandler::instance()->registerAction(action);
     }
 
     if(checkable)
@@ -1873,7 +1871,7 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     dock->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     dock->toggleViewAction()->setShortcut(toggleViewShortcut);
 
-    m_shortcutHandler->registerAction(dock->toggleViewAction());
+    ShortcutHandler::instance()->registerAction(dock->toggleViewAction());
 
     dock->hide();
 

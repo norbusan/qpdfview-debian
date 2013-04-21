@@ -43,14 +43,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings* SettingsDialog::s_settings = 0;
 
-SettingsDialog::SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent) : QDialog(parent)
+SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 {
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
     }
-
-    m_shortcutHandler = shortcutHandler;
 
     m_graphicsTabWidget = new QTabWidget(this);
     m_graphicsTabWidget->addTab(new QWidget(this), tr("General"));
@@ -81,10 +79,10 @@ SettingsDialog::SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent
 
     m_shortcutsTableView = new QTableView(this);
 
-    m_shortcutsTableView->setModel(m_shortcutHandler);
+    m_shortcutsTableView->setModel(ShortcutHandler::instance());
 
-    connect(this, SIGNAL(accepted()), m_shortcutHandler, SLOT(submit()));
-    connect(this, SIGNAL(rejected()), m_shortcutHandler, SLOT(revert()));
+    connect(this, SIGNAL(accepted()), ShortcutHandler::instance(), SLOT(submit()));
+    connect(this, SIGNAL(rejected()), ShortcutHandler::instance(), SLOT(revert()));
 
     m_shortcutsTableView->setFrameShape(QFrame::NoFrame);
     m_shortcutsTableView->setAlternatingRowColors(true);
@@ -243,7 +241,7 @@ void SettingsDialog::reset()
 
 #endif // WITH_PS
 
-    m_shortcutHandler->reset();
+    ShortcutHandler::instance()->reset();
 
     // behavior
 

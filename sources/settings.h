@@ -40,7 +40,6 @@ class Settings : public QObject
 
 public:
     static Settings* instance();
-
     ~Settings();
 
     // page item
@@ -337,7 +336,6 @@ public:
 
 private:
     static Settings* s_instance;
-
     Settings(QObject* parent = 0);
 
     QSettings* m_settings;

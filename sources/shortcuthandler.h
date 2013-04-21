@@ -33,7 +33,8 @@ class ShortcutHandler : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    ShortcutHandler(QObject* parent = 0);
+    static ShortcutHandler* instance();
+    ~ShortcutHandler();
 
     void registerAction(QAction* action);
 
@@ -54,6 +55,9 @@ public slots:
     void reset();
 
 private:
+    static ShortcutHandler* s_instance;
+    ShortcutHandler(QObject* parent = 0);
+
     QSettings* m_settings;
 
     QList< QAction* > m_actions;

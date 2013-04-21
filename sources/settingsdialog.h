@@ -37,14 +37,13 @@ class QTabWidget;
 
 class Settings;
 class SettingsWidget;
-class ShortcutHandler;
 
 class SettingsDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    SettingsDialog(ShortcutHandler* shortcutHandler, QWidget* parent = 0);
+    SettingsDialog(QWidget* parent = 0);
 
 public slots:
     void accept();
@@ -52,8 +51,6 @@ public slots:
 
 private:
     static Settings* s_settings;
-
-    ShortcutHandler* m_shortcutHandler;
 
     QTabWidget* m_graphicsTabWidget;
     QFormLayout* m_graphicsLayout;

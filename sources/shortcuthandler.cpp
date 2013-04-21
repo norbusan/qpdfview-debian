@@ -22,65 +22,26 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "shortcuthandler.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QSettings>
 
 #include "documentview.h"
 
-ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
-    m_settings(0),
-    m_actions(),
-    m_shortcuts(),
-    m_defaultShortcuts()
+ShortcutHandler* ShortcutHandler::s_instance = 0;
+
+ShortcutHandler* ShortcutHandler::instance()
 {
-    m_settings = new QSettings("qpdfview", "shortcuts", this);
+    if(s_instance == 0)
+    {
+        s_instance = new ShortcutHandler(qApp);
+    }
 
-    // skip backward shortcut
+    return s_instance;
+}
 
-    m_skipBackwardAction = new QAction(tr("Skip backward"), this);
-    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
-
-    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
-    registerAction(m_skipBackwardAction);
-
-    // skip forward shortcut
-
-    m_skipForwardAction = new QAction(tr("Skip forward"), this);
-    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
-
-    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
-    registerAction(m_skipForwardAction);
-
-    // move up shortcut
-
-    m_moveUpAction = new QAction(tr("Move up"), this);
-    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
-
-    m_moveUpAction->setShortcut(::DocumentView::moveUpShortcut());
-    registerAction(m_moveUpAction);
-
-    // move down shortcut
-
-    m_moveDownAction = new QAction(tr("Move down"), this);
-    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
-
-    m_moveDownAction->setShortcut(::DocumentView::moveDownShortcut());
-    registerAction(m_moveDownAction);
-
-    // move left shortcut
-
-    m_moveLeftAction = new QAction(tr("Move left"), this);
-    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
-
-    m_moveLeftAction->setShortcut(::DocumentView::moveLeftShortcut());
-    registerAction(m_moveLeftAction);
-
-    // move right shortcut
-
-    m_moveRightAction = new QAction(tr("Move right"), this);
-    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
-
-    m_moveRightAction->setShortcut(::DocumentView::moveRightShortcut());
-    registerAction(m_moveRightAction);
+ShortcutHandler::~ShortcutHandler()
+{
+    s_instance = 0;
 }
 
 void ShortcutHandler::registerAction(QAction* action)
@@ -221,4 +182,59 @@ void ShortcutHandler::reset()
     m_shortcuts = m_defaultShortcuts;
 
     emit dataChanged(createIndex(0, 1), createIndex(m_actions.count(), 1));
+}
+
+ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
+    m_settings(new QSettings("qpdfview", "shortcuts", this)),
+    m_actions(),
+    m_shortcuts(),
+    m_defaultShortcuts()
+{
+    // skip backward shortcut
+
+    m_skipBackwardAction = new QAction(tr("Skip backward"), this);
+    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
+
+    m_skipBackwardAction->setShortcut(::DocumentView::skipBackwardShortcut());
+    registerAction(m_skipBackwardAction);
+
+    // skip forward shortcut
+
+    m_skipForwardAction = new QAction(tr("Skip forward"), this);
+    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
+
+    m_skipForwardAction->setShortcut(::DocumentView::skipForwardShortcut());
+    registerAction(m_skipForwardAction);
+
+    // move up shortcut
+
+    m_moveUpAction = new QAction(tr("Move up"), this);
+    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
+
+    m_moveUpAction->setShortcut(::DocumentView::moveUpShortcut());
+    registerAction(m_moveUpAction);
+
+    // move down shortcut
+
+    m_moveDownAction = new QAction(tr("Move down"), this);
+    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
+
+    m_moveDownAction->setShortcut(::DocumentView::moveDownShortcut());
+    registerAction(m_moveDownAction);
+
+    // move left shortcut
+
+    m_moveLeftAction = new QAction(tr("Move left"), this);
+    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
+
+    m_moveLeftAction->setShortcut(::DocumentView::moveLeftShortcut());
+    registerAction(m_moveLeftAction);
+
+    // move right shortcut
+
+    m_moveRightAction = new QAction(tr("Move right"), this);
+    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
+
+    m_moveRightAction->setShortcut(::DocumentView::moveRightShortcut());
+    registerAction(m_moveRightAction);
 }
