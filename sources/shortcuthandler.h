@@ -48,6 +48,14 @@ public:
     QVariant data(const QModelIndex& index, int role) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role);
 
+    QKeySequence skipBackwardShortcut() const;
+    QKeySequence skipForwardShortcut() const;
+
+    QKeySequence moveUpShortcut() const;
+    QKeySequence moveDownShortcut() const;
+    QKeySequence moveLeftShortcut() const;
+    QKeySequence moveRightShortcut() const;
+
 public slots:
     bool submit();
     void revert();

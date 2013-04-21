@@ -44,30 +44,13 @@ class PageItem;
 class ThumbnailItem;
 class SearchTask;
 class PresentationView;
+class ShortcutHandler;
 
 class DocumentView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    static const QKeySequence& skipBackwardShortcut();
-    static void setSkipBackwardShortcut(const QKeySequence& shortcut);
-
-    static const QKeySequence& skipForwardShortcut();
-    static void setSkipForwardShortcut(const QKeySequence& shortcut);
-
-    static const QKeySequence& moveUpShortcut();
-    static void setMoveUpShortcut(const QKeySequence& shortcut);
-
-    static const QKeySequence& moveDownShortcut();
-    static void setMoveDownShortcut(const QKeySequence& shortcut);
-
-    static const QKeySequence& moveLeftShortcut();
-    static void setMoveLeftShortcut(const QKeySequence& shortcut);
-
-    static const QKeySequence& moveRightShortcut();
-    static void setMoveRightShortcut(const QKeySequence& shortcut);
-
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
@@ -200,14 +183,7 @@ protected:
 
 private:
     static Settings* s_settings;
-
-    static QKeySequence s_skipBackwardShortcut;
-    static QKeySequence s_skipForwardShortcut;
-
-    static QKeySequence s_moveUpShortcut;
-    static QKeySequence s_moveDownShortcut;
-    static QKeySequence s_moveLeftShortcut;
-    static QKeySequence s_moveRightShortcut;
+    static ShortcutHandler* s_shortcutHandler;
 
     QFileSystemWatcher* m_autoRefreshWatcher;
     QTimer* m_autoRefreshTimer;

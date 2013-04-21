@@ -58,76 +58,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
+#include "shortcuthandler.h"
 
 Settings* DocumentView::s_settings = 0;
-
-QKeySequence DocumentView::s_skipBackwardShortcut(Qt::Key_PageUp);
-QKeySequence DocumentView::s_skipForwardShortcut(Qt::Key_PageDown);
-
-QKeySequence DocumentView::s_moveUpShortcut(Qt::Key_Up);
-QKeySequence DocumentView::s_moveDownShortcut(Qt::Key_Down);
-QKeySequence DocumentView::s_moveLeftShortcut(Qt::Key_Left);
-QKeySequence DocumentView::s_moveRightShortcut(Qt::Key_Right);
-
-const QKeySequence& DocumentView::skipBackwardShortcut()
-{
-    return s_skipBackwardShortcut;
-}
-
-void DocumentView::setSkipBackwardShortcut(const QKeySequence& shortcut)
-{
-    s_skipBackwardShortcut = shortcut;
-}
-
-const QKeySequence& DocumentView::skipForwardShortcut()
-{
-    return s_skipForwardShortcut;
-}
-
-void DocumentView::setSkipForwardShortcut(const QKeySequence& shortcut)
-{
-    s_skipForwardShortcut = shortcut;
-}
-
-const QKeySequence& DocumentView::moveUpShortcut()
-{
-    return s_moveUpShortcut;
-}
-
-void DocumentView::setMoveUpShortcut(const QKeySequence& shortcut)
-{
-    s_moveUpShortcut = shortcut;
-}
-
-const QKeySequence& DocumentView::moveDownShortcut()
-{
-    return s_moveDownShortcut;
-}
-
-void DocumentView::setMoveDownShortcut(const QKeySequence& shortcut)
-{
-    s_moveDownShortcut = shortcut;
-}
-
-const QKeySequence& DocumentView::moveLeftShortcut()
-{
-    return s_moveLeftShortcut;
-}
-
-void DocumentView::setMoveLeftShortcut(const QKeySequence& shortcut)
-{
-    s_moveLeftShortcut = shortcut;
-}
-
-const QKeySequence& DocumentView::moveRightShortcut()
-{
-    return s_moveRightShortcut;
-}
-
-void DocumentView::setMoveRightShortcut(const QKeySequence& shortcut)
-{
-    s_moveRightShortcut = shortcut;
-}
+ShortcutHandler* DocumentView::s_shortcutHandler = 0;
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
@@ -161,6 +95,11 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
+    }
+
+    if(s_shortcutHandler == 0)
+    {
+        s_shortcutHandler = ShortcutHandler::instance();
     }
 
     setScene(new QGraphicsScene(this));
@@ -1194,7 +1133,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     if(!m_continuousMode)
     {
-        if(s_skipBackwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(shortcut.matches(s_shortcutHandler->skipBackwardShortcut()) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
 
@@ -1203,7 +1142,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_skipForwardShortcut.matches(shortcut) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
+        else if(shortcut.matches(s_shortcutHandler->skipForwardShortcut()) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
         {
             nextPage();
 
@@ -1216,27 +1155,27 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     int key = -1;
 
-    if(s_skipBackwardShortcut.matches(shortcut))
+    if(shortcut.matches(s_shortcutHandler->skipBackwardShortcut()))
     {
         key = Qt::Key_PageUp;
     }
-    else if(s_skipForwardShortcut.matches(shortcut))
+    else if(shortcut.matches(s_shortcutHandler->skipForwardShortcut()))
     {
         key = Qt::Key_PageDown;
     }
-    else if(s_moveUpShortcut.matches(shortcut))
+    else if(shortcut.matches(s_shortcutHandler->moveUpShortcut()))
     {
         key = Qt::Key_Up;
     }
-    else if(s_moveDownShortcut.matches(shortcut))
+    else if(shortcut.matches(s_shortcutHandler->moveDownShortcut()))
     {
         key = Qt::Key_Down;
     }
-    else if(s_moveLeftShortcut.matches(shortcut))
+    else if(shortcut.matches(s_shortcutHandler->moveLeftShortcut()))
     {
         key = Qt::Key_Left;
     }
-    else if(s_moveRightShortcut.matches(shortcut))
+    else if(shortcut.matches(s_shortcutHandler->moveRightShortcut()))
     {
         key = Qt::Key_Right;
     }

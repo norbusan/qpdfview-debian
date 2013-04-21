@@ -54,7 +54,6 @@ class TreeView;
 class ComboBox;
 class SpinBox;
 class ProgressLineEdit;
-class Settings;
 class RecentlyUsedMenu;
 class BookmarkMenu;
 
