@@ -55,10 +55,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "model.h"
 #include "pluginhandler.h"
+#include "shortcuthandler.h"
 #include "pageitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
-#include "shortcuthandler.h"
 
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;

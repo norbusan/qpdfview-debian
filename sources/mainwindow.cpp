@@ -67,10 +67,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_SQL
 
 #include "settings.h"
+#include "shortcuthandler.h"
 #include "pageitem.h"
 #include "documentview.h"
 #include "miscellaneous.h"
-#include "shortcuthandler.h"
 #include "printdialog.h"
 #include "settingsdialog.h"
 #include "recentlyusedmenu.h"

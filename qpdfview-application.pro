@@ -12,13 +12,13 @@ HEADERS += \
     sources/settings.h \
     sources/model.h \
     sources/pluginhandler.h \
+    sources/shortcuthandler.h \
     sources/rendertask.h \
     sources/pageitem.h \
     sources/presentationview.h \
     sources/searchtask.h \
     sources/documentview.h \
     sources/miscellaneous.h \
-    sources/shortcuthandler.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
@@ -28,13 +28,13 @@ HEADERS += \
 SOURCES += \
     sources/settings.cpp \
     sources/pluginhandler.cpp \
+    sources/shortcuthandler.cpp \
     sources/rendertask.cpp \
     sources/pageitem.cpp \
     sources/presentationview.cpp \
     sources/searchtask.cpp \
     sources/documentview.cpp \
     sources/miscellaneous.cpp \
-    sources/shortcuthandler.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \

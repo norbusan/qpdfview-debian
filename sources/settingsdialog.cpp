@@ -37,9 +37,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "model.h"
 #include "pluginhandler.h"
+#include "shortcuthandler.h"
 #include "documentview.h"
 #include "miscellaneous.h"
-#include "shortcuthandler.h"
 
 Settings* SettingsDialog::s_settings = 0;
 
