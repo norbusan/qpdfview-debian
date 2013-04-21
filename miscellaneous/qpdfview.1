@@ -42,6 +42,8 @@ as the name of the instance contacted or created using the "\-\-unique" option. 
 Initiates a search for
 .I text
 in the current tab.
+.IP "\-\-quiet"
+TODO
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
@@ -133,6 +135,12 @@ The command
 .B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
 .RS
 opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
+
+The command
+.RE
+.B qpdfview \-\-quiet foobar/*
+.RS
+TODO
 .SH BUGS
 If you find a bug, please report it at
 .RS
