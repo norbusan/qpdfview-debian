@@ -21,7 +21,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "shortcuthandler.h"
 
-#include <QAction>
 #include <QApplication>
 #include <QSettings>
 
@@ -144,36 +143,6 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
     }
 
     return false;
-}
-
-QKeySequence ShortcutHandler::skipBackwardShortcut() const
-{
-    return m_skipBackwardAction->shortcut();
-}
-
-QKeySequence ShortcutHandler::skipForwardShortcut() const
-{
-    return m_skipForwardAction->shortcut();
-}
-
-QKeySequence ShortcutHandler::moveUpShortcut() const
-{
-    return m_moveUpAction->shortcut();
-}
-
-QKeySequence ShortcutHandler::moveDownShortcut() const
-{
-    return m_moveDownAction->shortcut();
-}
-
-QKeySequence ShortcutHandler::moveLeftShortcut() const
-{
-    return m_moveLeftAction->shortcut();
-}
-
-QKeySequence ShortcutHandler::moveRightShortcut() const
-{
-    return m_moveRightAction->shortcut();
 }
 
 bool ShortcutHandler::submit()

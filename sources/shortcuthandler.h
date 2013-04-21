@@ -23,9 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define SHORTCUTHANDLER_H
 
 #include <QAbstractTableModel>
+#include <QAction>
 #include <QKeySequence>
 
-class QAction;
 class QSettings;
 
 class ShortcutHandler : public QAbstractTableModel
@@ -48,13 +48,13 @@ public:
     QVariant data(const QModelIndex& index, int role) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role);
 
-    QKeySequence skipBackwardShortcut() const;
-    QKeySequence skipForwardShortcut() const;
+    inline QKeySequence skipBackwardShortcut() const { return m_skipBackwardAction->shortcut(); }
+    inline QKeySequence skipForwardShortcut() const { return m_skipForwardAction->shortcut(); }
 
-    QKeySequence moveUpShortcut() const;
-    QKeySequence moveDownShortcut() const;
-    QKeySequence moveLeftShortcut() const;
-    QKeySequence moveRightShortcut() const;
+    inline QKeySequence moveUpShortcut() const { return m_moveUpAction->shortcut(); }
+    inline QKeySequence moveDownShortcut() const { return m_moveDownAction->shortcut(); }
+    inline QKeySequence moveLeftShortcut() const { return m_moveLeftAction->shortcut(); }
+    inline QKeySequence moveRightShortcut() const { return m_moveRightAction->shortcut(); }
 
 public slots:
     bool submit();

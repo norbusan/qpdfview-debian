@@ -69,11 +69,6 @@ void Settings::PageItem::sync()
     m_paperColor = m_settings->value("pageItem/paperColor", Defaults::PageItem::paperColor()).value< QColor >();
 }
 
-int Settings::PageItem::cacheSize() const
-{
-    return m_cacheSize;
-}
-
 void Settings::PageItem::setCacheSize(int cacheSize)
 {
     if(cacheSize >= 0)
@@ -83,30 +78,10 @@ void Settings::PageItem::setCacheSize(int cacheSize)
     }
 }
 
-const QIcon& Settings::PageItem::progressIcon() const
-{
-    return m_progressIcon;
-}
-
-const QIcon& Settings::PageItem::errorIcon() const
-{
-    return m_errorIcon;
-}
-
-bool Settings::PageItem::decoratePages() const
-{
-    return m_decoratePages;
-}
-
 void Settings::PageItem::setDecoratePages(bool decorate)
 {
     m_decoratePages = decorate;
     m_settings->setValue("pageItem/decoratePages", decorate);
-}
-
-bool Settings::PageItem::decorateLinks() const
-{
-    return m_decorateLinks;
 }
 
 void Settings::PageItem::setDecorateLinks(bool decorate)
@@ -115,31 +90,16 @@ void Settings::PageItem::setDecorateLinks(bool decorate)
     m_settings->setValue("pageItem/decorateLinks", decorate);
 }
 
-bool Settings::PageItem::decorateFormFields() const
-{
-    return m_decorateFormFields;
-}
-
 void Settings::PageItem::setDecorateFormFields(bool decorate)
 {
     m_decorateFormFields = decorate;
     m_settings->setValue("pageItem/decorateFormFields", decorate);
 }
 
-QColor Settings::PageItem::backgroundColor() const
-{
-    return m_backgroundColor.name();
-}
-
 void Settings::PageItem::setBackgroundColor(const QColor &color)
 {
     m_backgroundColor = color;
     m_settings->setValue("pageItem/backgroundColor", color);
-}
-
-QColor Settings::PageItem::paperColor() const
-{
-    return m_paperColor.name();
 }
 
 void Settings::PageItem::setPaperColor(const QColor& color)
@@ -255,20 +215,10 @@ void Settings::DocumentView::setAutoRefresh(bool autoRefresh)
     m_settings->setValue("documentView/autoRefresh", autoRefresh);
 }
 
-bool Settings::DocumentView::prefetch() const
-{
-    return m_prefetch;
-}
-
 void Settings::DocumentView::setPrefetch(bool prefetch)
 {
     m_prefetch = prefetch;
     m_settings->setValue("documentView/prefetch", prefetch);
-}
-
-int Settings::DocumentView::prefetchDistance() const
-{
-    return m_prefetchDistance;
 }
 
 void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
@@ -280,11 +230,6 @@ void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
     }
 }
 
-int Settings::DocumentView::pagesPerRow() const
-{
-    return m_pagesPerRow;
-}
-
 void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
     if(pagesPerRow > 0)
@@ -294,20 +239,10 @@ void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
     }
 }
 
-bool Settings::DocumentView::limitThumbnailsToResults() const
-{
-    return m_limitThumbnailsToResults;
-}
-
 void Settings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
 {
     m_limitThumbnailsToResults = limitThumbnailsToResults;
     m_settings->setValue("documentView/limitThumbnailsToResults", limitThumbnailsToResults);
-}
-
-qreal Settings::DocumentView::pageSpacing() const
-{
-    return m_pageSpacing;
 }
 
 void Settings::DocumentView::setPageSpacing(qreal pageSpacing)
@@ -319,11 +254,6 @@ void Settings::DocumentView::setPageSpacing(qreal pageSpacing)
     }
 }
 
-qreal Settings::DocumentView::thumbnailSpacing() const
-{
-    return m_thumbnailSpacing;
-}
-
 void Settings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
 {
     if(thumbnailSpacing >= 0.0)
@@ -331,11 +261,6 @@ void Settings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
         m_thumbnailSpacing = thumbnailSpacing;
         m_settings->setValue("documentView/thumbnailSpacing", thumbnailSpacing);
     }
-}
-
-qreal Settings::DocumentView::thumbnailSize() const
-{
-    return m_thumbnailSize;
 }
 
 void Settings::DocumentView::setThumbnailSize(qreal thumbnailSize)

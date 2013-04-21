@@ -49,25 +49,25 @@ public:
     public:
         void sync();
 
-        int cacheSize() const;
+        inline int cacheSize() const { return m_cacheSize; }
         void setCacheSize(int cacheSize);
 
-        const QIcon& progressIcon() const;
-        const QIcon& errorIcon() const;
+        inline const QIcon& progressIcon() const { return m_progressIcon; }
+        inline const QIcon& errorIcon() const { return m_errorIcon; }
 
-        bool decoratePages() const;
+        inline bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decorate);
 
-        bool decorateLinks() const;
+        inline bool decorateLinks() const { return m_decorateLinks; }
         void setDecorateLinks(bool decorate);
 
-        bool decorateFormFields() const;
+        inline bool decorateFormFields() const { return m_decorateFormFields; }
         void setDecorateFormFields(bool decorate);
 
-        QColor backgroundColor() const;
+        inline QColor backgroundColor() const { return m_backgroundColor; }
         void setBackgroundColor(const QColor& color);
 
-        QColor paperColor() const;
+        inline QColor paperColor() const { return m_paperColor; }
         void setPaperColor(const QColor& color);
 
         QColor annotationColor() const;
@@ -131,25 +131,25 @@ public:
         bool autoRefresh() const;
         void setAutoRefresh(bool autoRefresh);
 
-        bool prefetch() const;
+        inline bool prefetch() const { return m_prefetch; }
         void setPrefetch(bool prefetch);
 
-        int prefetchDistance() const;
+        inline int prefetchDistance() const { return m_prefetchDistance; }
         void setPrefetchDistance(int prefetchDistance);
 
-        int pagesPerRow() const;
+        inline int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
-        bool limitThumbnailsToResults() const;
+        inline bool limitThumbnailsToResults() const { return m_limitThumbnailsToResults; }
         void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
 
-        qreal pageSpacing() const;
+        inline qreal pageSpacing() const { return m_pageSpacing; }
         void setPageSpacing(qreal pageSpacing);
 
-        qreal thumbnailSpacing() const;
+        inline qreal thumbnailSpacing() const { return m_thumbnailSpacing; }
         void setThumbnailSpacing(qreal thumbnailSpacing);
 
-        qreal thumbnailSize() const;
+        inline qreal thumbnailSize() const { return m_thumbnailSize; }
         void setThumbnailSize(qreal thumbnailSize);
 
         bool matchCase() const;
