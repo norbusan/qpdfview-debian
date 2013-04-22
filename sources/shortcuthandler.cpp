@@ -160,7 +160,7 @@ QVariant ShortcutHandler::data(const QModelIndex& index, int role) const
             return action->text().remove(QLatin1Char('&'));
             break;
         case 1:
-            return toStringList(m_shortcuts.value(action), QKeySequence::NativeText).join(",");
+            return toStringList(m_shortcuts.value(action), QKeySequence::NativeText).join(";");
             break;
         }
     }
@@ -172,7 +172,7 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
 {
     if(role == Qt::EditRole && index.column() == 1 && index.row() >= 0 && index.row() < m_actions.count())
     {
-        QList< QKeySequence > shortcuts = toShortcuts(value.toString().split(",", QString::SkipEmptyParts));
+        QList< QKeySequence > shortcuts = toShortcuts(value.toString().split(";", QString::SkipEmptyParts));
 
         if(!shortcuts.isEmpty())
         {
