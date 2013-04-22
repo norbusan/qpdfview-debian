@@ -26,6 +26,35 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+static QList< QKeySequence > toShortcuts(const QStringList& stringList)
+{
+    QList< QKeySequence > shortcuts;
+
+    foreach(QString string, stringList)
+    {
+        QKeySequence shortcut(string.trimmed());
+
+        if(!shortcut.isEmpty())
+        {
+            shortcuts.append(shortcut);
+        }
+    }
+
+    return shortcuts;
+}
+
+static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::SequenceFormat format)
+{
+    QStringList stringList;
+
+    foreach(QKeySequence shortcut, shortcuts)
+    {
+        stringList.append(shortcut.toString(format));
+    }
+
+    return stringList;
+}
+
 ShortcutHandler* ShortcutHandler::s_instance = 0;
 
 ShortcutHandler* ShortcutHandler::instance()
@@ -48,12 +77,12 @@ void ShortcutHandler::registerAction(QAction* action)
     Q_ASSERT(!action->objectName().isEmpty());
 
     QKeySequence defaultShortcut = action->shortcut();
-    QKeySequence shortcut = m_settings->value(action->objectName(), action->shortcut()).value< QKeySequence >();
+    QList< QKeySequence > shortcuts = toShortcuts(m_settings->value(action->objectName(), action->shortcut()).toStringList());
 
-    action->setShortcut(shortcut);
+    action->setShortcuts(shortcuts);
 
     m_actions.append(action);
-    m_shortcuts.insert(action, shortcut);
+    m_shortcuts.insert(action, shortcuts);
     m_defaultShortcuts.insert(action, defaultShortcut);
 }
 
@@ -110,17 +139,17 @@ QVariant ShortcutHandler::data(const QModelIndex& index, int role) const
 {
     if((role == Qt::DisplayRole || role == Qt::EditRole) && index.row() >= 0 && index.row() < m_actions.count())
     {
+        QAction* action = m_actions.at(index.row());
+
         switch(index.column())
         {
         case 0:
-            return m_actions.at(index.row())->text().remove(QLatin1Char('&'));
+            return action->text().remove(QLatin1Char('&'));
             break;
         case 1:
-            return m_shortcuts.value(m_actions.at(index.row()));
+            return toStringList(m_shortcuts.value(action), QKeySequence::NativeText).join(",");
             break;
         }
-
-        return QString::number(index.row()) + ":" + QString::number(index.column());
     }
 
     return QVariant();
@@ -130,11 +159,11 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
 {
     if(role == Qt::EditRole && index.column() == 1 && index.row() >= 0 && index.row() < m_actions.count())
     {
-        QKeySequence shortcut(value.toString());
+        QList< QKeySequence > shortcuts = toShortcuts(value.toString().split(",", QString::SkipEmptyParts));
 
-        if(!shortcut.isEmpty() || value.toString().isEmpty())
+        if(!shortcuts.isEmpty())
         {
-            m_shortcuts.insert(m_actions.at(index.row()), shortcut);
+            m_shortcuts.insert(m_actions.at(index.row()), shortcuts);
 
             emit dataChanged(index, index);
 
@@ -147,14 +176,14 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
 
 bool ShortcutHandler::submit()
 {
-    for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
-        iterator.key()->setShortcut(iterator.value());
+        iterator.key()->setShortcuts(iterator.value());
     }
 
     foreach(QAction* action, m_actions)
     {
-        m_settings->setValue(action->objectName(), action->shortcut().toString(QKeySequence::PortableText));
+        m_settings->setValue(action->objectName(), toStringList(action->shortcuts(), QKeySequence::PortableText));
     }
 
     return true;
@@ -162,15 +191,18 @@ bool ShortcutHandler::submit()
 
 void ShortcutHandler::revert()
 {
-    for(QMap< QAction*, QKeySequence >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
-        iterator.value() = iterator.key()->shortcut();
+        iterator.value() = iterator.key()->shortcuts();
     }
 }
 
 void ShortcutHandler::reset()
 {
-    m_shortcuts = m_defaultShortcuts;
+    for(QMap< QAction*, QKeySequence >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
+    {
+        m_shortcuts.insert(iterator.key(), QList< QKeySequence >() << iterator.value());
+    }
 
     emit dataChanged(createIndex(0, 1), createIndex(m_actions.count(), 1));
 }

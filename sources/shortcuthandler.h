@@ -70,7 +70,7 @@ private:
 
     QList< QAction* > m_actions;
 
-    QMap< QAction*, QKeySequence > m_shortcuts;
+    QMap< QAction*, QList< QKeySequence > > m_shortcuts;
     QMap< QAction*, QKeySequence > m_defaultShortcuts;
 
     QAction* m_skipBackwardAction;
