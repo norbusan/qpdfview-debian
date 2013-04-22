@@ -1,6 +1,7 @@
 Release 0.4.3:
   * Added command-line options '--quiet' and '--help'.
   * Fixed custom movement shortcuts not being activated after program initialization.
+  * Added support for multiple shortcuts for each action.
 
 Release 0.4.2:
   * Refactoring to improve code size and quality.
