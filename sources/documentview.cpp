@@ -1129,11 +1129,11 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    QKeySequence shortcut(event->modifiers() + event->key());
+    QKeySequence keySequence(event->modifiers() + event->key());
 
     if(!m_continuousMode)
     {
-        if(shortcut.matches(s_shortcutHandler->skipBackwardShortcut()) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(s_shortcutHandler->matchesSkipBackward(keySequence) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
 
@@ -1142,7 +1142,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(shortcut.matches(s_shortcutHandler->skipForwardShortcut()) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
+        else if(s_shortcutHandler->matchesSkipForward(keySequence) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
         {
             nextPage();
 
@@ -1155,27 +1155,27 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
     int key = -1;
 
-    if(shortcut.matches(s_shortcutHandler->skipBackwardShortcut()))
+    if(s_shortcutHandler->matchesSkipBackward(keySequence))
     {
         key = Qt::Key_PageUp;
     }
-    else if(shortcut.matches(s_shortcutHandler->skipForwardShortcut()))
+    else if(s_shortcutHandler->matchesSkipForward(keySequence))
     {
         key = Qt::Key_PageDown;
     }
-    else if(shortcut.matches(s_shortcutHandler->moveUpShortcut()))
+    else if(s_shortcutHandler->matchesMoveUp(keySequence))
     {
         key = Qt::Key_Up;
     }
-    else if(shortcut.matches(s_shortcutHandler->moveDownShortcut()))
+    else if(s_shortcutHandler->matchesMoveDown(keySequence))
     {
         key = Qt::Key_Down;
     }
-    else if(shortcut.matches(s_shortcutHandler->moveLeftShortcut()))
+    else if(s_shortcutHandler->matchesMoveLeft(keySequence))
     {
         key = Qt::Key_Left;
     }
-    else if(shortcut.matches(s_shortcutHandler->moveRightShortcut()))
+    else if(s_shortcutHandler->matchesMoveRight(keySequence))
     {
         key = Qt::Key_Right;
     }

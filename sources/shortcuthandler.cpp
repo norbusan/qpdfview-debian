@@ -55,6 +55,19 @@ static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequ
     return stringList;
 }
 
+static bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
+{
+    foreach(QKeySequence shortcut, shortcuts)
+    {
+        if(keySequence.matches(shortcut))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 ShortcutHandler* ShortcutHandler::s_instance = 0;
 
 ShortcutHandler* ShortcutHandler::instance()
@@ -172,6 +185,36 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
     }
 
     return false;
+}
+
+bool ShortcutHandler::matchesSkipBackward(const QKeySequence& keySequence) const
+{
+    return matches(keySequence, m_skipBackwardAction->shortcuts());
+}
+
+bool ShortcutHandler::matchesSkipForward(const QKeySequence &keySequence) const
+{
+    return matches(keySequence, m_skipForwardAction->shortcuts());
+}
+
+bool ShortcutHandler::matchesMoveUp(const QKeySequence &keySequence) const
+{
+    return matches(keySequence, m_moveUpAction->shortcuts());
+}
+
+bool ShortcutHandler::matchesMoveDown(const QKeySequence &keySequence) const
+{
+    return matches(keySequence, m_moveDownAction->shortcuts());
+}
+
+bool ShortcutHandler::matchesMoveLeft(const QKeySequence &keySequence) const
+{
+    return matches(keySequence, m_moveLeftAction->shortcuts());
+}
+
+bool ShortcutHandler::matchesMoveRight(const QKeySequence &keySequence) const
+{
+    return matches(keySequence, m_moveRightAction->shortcuts());
 }
 
 bool ShortcutHandler::submit()

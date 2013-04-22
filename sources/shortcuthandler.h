@@ -48,13 +48,13 @@ public:
     QVariant data(const QModelIndex& index, int role) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role);
 
-    inline QKeySequence skipBackwardShortcut() const { return m_skipBackwardAction->shortcut(); }
-    inline QKeySequence skipForwardShortcut() const { return m_skipForwardAction->shortcut(); }
+    bool matchesSkipBackward(const QKeySequence& keySequence) const;
+    bool matchesSkipForward(const QKeySequence& keySequence) const;
 
-    inline QKeySequence moveUpShortcut() const { return m_moveUpAction->shortcut(); }
-    inline QKeySequence moveDownShortcut() const { return m_moveDownAction->shortcut(); }
-    inline QKeySequence moveLeftShortcut() const { return m_moveLeftAction->shortcut(); }
-    inline QKeySequence moveRightShortcut() const { return m_moveRightAction->shortcut(); }
+    bool matchesMoveUp(const QKeySequence& keySequence) const;
+    bool matchesMoveDown(const QKeySequence& keySequence) const;
+    bool matchesMoveLeft(const QKeySequence& keySequence) const;
+    bool matchesMoveRight(const QKeySequence& keySequence) const;
 
 public slots:
     bool submit();
