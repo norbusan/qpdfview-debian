@@ -393,6 +393,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 #endif // QT_VERSION
 
+        m_outlineView->header()->setStretchLastSection(false);
+
         m_propertiesView->setModel(currentTab()->propertiesModel());
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
@@ -1888,7 +1890,6 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    m_outlineView->header()->setStretchLastSection(false);
     m_outlineView->header()->setVisible(false);
 
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
