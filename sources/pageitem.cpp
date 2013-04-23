@@ -204,7 +204,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         foreach(QRectF highlight, m_highlights)
         {
-            painter->fillRect(highlight.normalized(), widget->palette().highlightedText());
+            painter->fillRect(highlight.normalized(), widget->palette().highlight());
         }
 
         painter->restore();

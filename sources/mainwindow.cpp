@@ -241,6 +241,9 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         connect(newTab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
 
+        connect(newTab->outlineModel(), SIGNAL(modelReset()), SLOT(on_model_reset()));
+        connect(newTab->propertiesModel(), SIGNAL(modelReset()), SLOT(on_model_reset()));
+
         newTab->show();
 
         restorePerFileSettings(newTab);
@@ -380,24 +383,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         }
 
         m_outlineView->setModel(currentTab()->outlineModel());
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-        m_outlineView->header()->setStretchLastSection(false);
-
         m_propertiesView->setModel(currentTab()->propertiesModel());
-
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
+
+        on_model_reset();
 
         on_currentTab_filePathChanged(currentTab()->filePath());
         on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
@@ -1462,6 +1451,39 @@ void MainWindow::on_highlightAll_clicked(bool checked)
     currentTab()->setHighlightAll(checked);
 }
 
+void MainWindow::on_model_reset()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+    m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+    m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_outlineView->header()->setStretchLastSection(false);
+    m_outlineView->header()->setVisible(false);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_propertiesView->horizontalHeader()->setVisible(false);
+    m_propertiesView->verticalHeader()->setVisible(false);
+}
+
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
@@ -1890,8 +1912,6 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    m_outlineView->header()->setVisible(false);
-
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
 
     m_outlineDock->setWidget(m_outlineView);
@@ -1903,21 +1923,6 @@ void MainWindow::createDocks()
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    m_propertiesView->horizontalHeader()->setVisible(false);
-    m_propertiesView->verticalHeader()->setVisible(false);
 
     m_propertiesDock->setWidget(m_propertiesView);
 

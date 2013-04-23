@@ -185,6 +185,8 @@ protected slots:
 
     void on_highlightAll_clicked(bool checked);
 
+    void on_model_reset();
+
     void on_outline_clicked(const QModelIndex& index);
 
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
