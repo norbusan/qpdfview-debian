@@ -200,13 +200,13 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         painter->setTransform(m_transform, true);
 
-        QColor highlightColor = widget->palette().color(QPalette::Highlight);
+        painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 
-        highlightColor.setAlpha(127);
+        QBrush highlightBrush = QBrush(widget->palette().color(QPalette::Highlight));
 
         foreach(QRectF highlight, m_highlights)
         {
-            painter->fillRect(highlight.normalized(), QBrush(highlightColor));
+            painter->fillRect(highlight.normalized(), highlightBrush);
         }
 
         painter->restore();

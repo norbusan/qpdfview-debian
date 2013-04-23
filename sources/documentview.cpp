@@ -59,6 +59,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
+#include "miscellaneous.h"
 
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
@@ -123,13 +124,10 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_highlight->setVisible(false);
     scene()->addItem(m_highlight);
 
-    QColor highlightColor = palette().color(QPalette::Highlight);
+    m_highlight->setPen(QPen(Qt::transparent));
+    m_highlight->setBrush(QBrush(palette().color(QPalette::Highlight)));
 
-    highlightColor.setAlpha(127);
-    m_highlight->setBrush(QBrush(highlightColor));
-
-    highlightColor.setAlpha(255);
-    m_highlight->setPen(QPen(highlightColor));
+    m_highlight->setGraphicsEffect(new GraphicsCompositionModeEffect(QPainter::CompositionMode_Multiply, this));
 
     // search
 

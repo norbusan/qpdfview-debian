@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 #include <QMouseEvent>
-#include <QPainter>
 
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
@@ -219,4 +218,31 @@ void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
     {
         emit returnPressed(event->modifiers());
     }
+}
+
+GraphicsCompositionModeEffect::GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent) : QGraphicsEffect(parent),
+    m_compositionMode(compositionMode)
+{
+}
+
+QPainter::CompositionMode GraphicsCompositionModeEffect::compositionMode() const
+{
+    return m_compositionMode;
+}
+
+void GraphicsCompositionModeEffect::setCompositionMode(QPainter::CompositionMode compositionMode)
+{
+    m_compositionMode = compositionMode;
+}
+
+void GraphicsCompositionModeEffect::draw(QPainter* painter)
+{
+    painter->save();
+
+    painter->setCompositionMode(m_compositionMode);
+
+    drawSource(painter);
+
+    painter->restore();
+
 }

@@ -17,8 +17,8 @@ HEADERS += \
     sources/pageitem.h \
     sources/presentationview.h \
     sources/searchtask.h \
-    sources/documentview.h \
     sources/miscellaneous.h \
+    sources/documentview.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
@@ -33,8 +33,8 @@ SOURCES += \
     sources/pageitem.cpp \
     sources/presentationview.cpp \
     sources/searchtask.cpp \
-    sources/documentview.cpp \
     sources/miscellaneous.cpp \
+    sources/documentview.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
