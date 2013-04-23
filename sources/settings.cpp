@@ -187,6 +187,7 @@ void Settings::DocumentView::sync()
 
     m_pagesPerRow = m_settings->value("documentView/pagesPerRow", Defaults::DocumentView::pagesPerRow()).toInt();
 
+    m_highlightCurrentThumbnail = m_settings->value("documentView/highlightCurrentThumbnail", Defaults::DocumentView::highlightCurrentThumbnail()).toBool();
     m_limitThumbnailsToResults = m_settings->value("documentView/limitThumbnailsToResults", Defaults::DocumentView::limitThumbnailsToResults()).toBool();
 
     m_pageSpacing = m_settings->value("documentView/pageSpacing", Defaults::DocumentView::pageSpacing()).toReal();
@@ -237,6 +238,12 @@ void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
         m_pagesPerRow = pagesPerRow;
         m_settings->setValue("documentView/pagesPerRow", pagesPerRow);
     }
+}
+
+void Settings::DocumentView::setHighlightCurrentThumbnail(bool highlightCurrentThumbnail)
+{
+    m_highlightCurrentThumbnail = highlightCurrentThumbnail;
+    m_settings->setValue("documentView/highlightCurrentThumbnail", highlightCurrentThumbnail);
 }
 
 void Settings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToResults)
@@ -412,6 +419,7 @@ Settings::DocumentView::DocumentView(QSettings *settings) :
     m_prefetch(Defaults::DocumentView::prefetch()),
     m_prefetchDistance(Defaults::DocumentView::prefetchDistance()),
     m_pagesPerRow(Defaults::DocumentView::pagesPerRow()),
+    m_highlightCurrentThumbnail(Defaults::DocumentView::highlightCurrentThumbnail()),
     m_limitThumbnailsToResults(Defaults::DocumentView::limitThumbnailsToResults()),
     m_pageSpacing(Defaults::DocumentView::pageSpacing()),
     m_thumbnailSpacing(Defaults::DocumentView::thumbnailSpacing()),

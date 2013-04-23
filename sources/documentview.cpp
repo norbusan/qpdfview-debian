@@ -125,7 +125,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     scene()->addItem(m_highlight);
 
     m_highlight->setPen(QPen(Qt::transparent));
-    m_highlight->setBrush(QBrush(palette().color(QPalette::Highlight)));
+    m_highlight->setBrush(palette().highlightedText());
 
     m_highlight->setGraphicsEffect(new GraphicsCompositionModeEffect(QPainter::CompositionMode_Multiply, this));
 
@@ -961,6 +961,14 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
                 m_currentPage = page;
 
                 emit currentPageChanged(m_currentPage);
+
+                if(s_settings->documentView().highlightCurrentThumbnail())
+                {
+                    for(int index = 0; index < m_thumbnailItems.count(); ++index)
+                    {
+                        m_thumbnailItems.at(index)->setHighlight(index == m_currentPage - 1);
+                    }
+                }
             }
         }
     }
@@ -1890,6 +1898,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
+    bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
+
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
@@ -1941,6 +1951,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
                 page->stackBefore(m_highlight);
             }
         }
+
+        m_thumbnailItems.at(index)->setHighlight(highlightCurrentThumbnail && (index == m_currentPage - 1));
     }
 
     setSceneRect(left, top, width, height);

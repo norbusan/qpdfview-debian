@@ -202,11 +202,9 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 
-        QBrush highlightBrush = QBrush(widget->palette().color(QPalette::Highlight));
-
         foreach(QRectF highlight, m_highlights)
         {
-            painter->fillRect(highlight.normalized(), highlightBrush);
+            painter->fillRect(highlight.normalized(), widget->palette().highlightedText());
         }
 
         painter->restore();
@@ -879,6 +877,8 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
 
     m_textWidth = fontMetrics.width(QString::number(index + 1));
     m_textHeight = fontMetrics.height();
+
+    m_highlight = false;
 }
 
 QRectF ThumbnailItem::boundingRect() const
@@ -897,6 +897,32 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     pos.ry() += m_textHeight;
 
     painter->drawText(pos, QString::number(index() + 1));
+
+    if(m_highlight)
+    {
+        painter->save();
+
+        painter->setCompositionMode(QPainter::CompositionMode_Multiply);
+
+        painter->fillRect(boundingRect, widget->palette().highlight());
+
+        painter->restore();
+    }
+}
+
+bool ThumbnailItem::highlight() const
+{
+    return m_highlight;
+}
+
+void ThumbnailItem::setHighlight(bool highlight)
+{
+    if(m_highlight != highlight)
+    {
+        m_highlight = highlight;
+
+        update();
+    }
 }
 
 void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)

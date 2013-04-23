@@ -140,6 +140,9 @@ public:
         inline int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
+        inline bool highlightCurrentThumbnail() const { return m_highlightCurrentThumbnail; }
+        void setHighlightCurrentThumbnail(bool highlightCurrentThumbnail);
+
         inline bool limitThumbnailsToResults() const { return m_limitThumbnailsToResults; }
         void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
 
@@ -204,6 +207,7 @@ public:
 
         int m_pagesPerRow;
 
+        bool m_highlightCurrentThumbnail;
         bool m_limitThumbnailsToResults;
 
         qreal m_pageSpacing;
@@ -397,6 +401,7 @@ public:
 
         static inline int pagesPerRow() { return 3; }
 
+        static inline bool highlightCurrentThumbnail() { return false; }
         static inline bool limitThumbnailsToResults() { return false; }
 
         static inline qreal minimumScaleFactor() { return 0.1; }

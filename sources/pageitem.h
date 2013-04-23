@@ -172,6 +172,9 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
+    bool highlight() const;
+    void setHighlight(bool highlight);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
@@ -186,6 +189,8 @@ private slots:
 private:
     int m_textWidth;
     int m_textHeight;
+
+    bool m_highlight;
 
 };
 
