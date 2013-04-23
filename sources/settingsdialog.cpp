@@ -209,6 +209,7 @@ void SettingsDialog::accept()
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
+    s_settings->documentView().setHighlightCurrentThumbnail(m_highlightCurrentThumbnailCheckBox->isChecked());
     s_settings->documentView().setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
 
     // modifiers
@@ -297,6 +298,7 @@ void SettingsDialog::reset()
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
+    m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
     m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
 
     // modifiers
@@ -580,6 +582,13 @@ void SettingsDialog::createInterfaceTab()
     m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+
+    // highlight current thumbnail
+
+    m_highlightCurrentThumbnailCheckBox = new QCheckBox(this);
+    m_highlightCurrentThumbnailCheckBox->setChecked(s_settings->documentView().highlightCurrentThumbnail());
+
+    m_interfaceLayout->addRow(tr("Highlight current thumbnail:"), m_highlightCurrentThumbnailCheckBox);
 
     // limit thumbnails to results
 
