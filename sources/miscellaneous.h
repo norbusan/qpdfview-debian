@@ -29,6 +29,26 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSpinBox>
 #include <QTreeView>
 
+// graphics composition mode effect
+
+class GraphicsCompositionModeEffect : public QGraphicsEffect
+{
+    Q_OBJECT
+
+public:
+    explicit GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent = 0);
+
+    QPainter::CompositionMode compositionMode() const;
+    void setCompositionMode(QPainter::CompositionMode compositionMode);
+
+protected:
+    void draw(QPainter* painter);
+
+private:
+    QPainter::CompositionMode m_compositionMode;
+
+};
+
 // tab bar
 
 class TabBar : public QTabBar
@@ -152,26 +172,6 @@ protected:
 
 private:
     int m_progress;
-
-};
-
-// graphics composition mode effect
-
-class GraphicsCompositionModeEffect : public QGraphicsEffect
-{
-    Q_OBJECT
-
-public:
-    explicit GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent = 0);
-
-    QPainter::CompositionMode compositionMode() const;
-    void setCompositionMode(QPainter::CompositionMode compositionMode);
-
-protected:
-    void draw(QPainter* painter);
-
-private:
-    QPainter::CompositionMode m_compositionMode;
 
 };
 

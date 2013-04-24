@@ -1,7 +1,11 @@
 Release 0.4.3:
-  * Added command-line options '--quiet' and '--help'.
   * Fixed custom movement shortcuts not being activated after program initialization.
+  * Fixed default scroll area shortcuts not being shadowed completely.
+  * Fixed outline view layout on open and refresh.
+  * Improved drawing of search result highlights.
+  * Added command-line options '--quiet' and '--help'.
   * Added support for multiple shortcuts for each action.
+  * Added option to highlight the current thumbnail.
 
 Release 0.4.2:
   * Refactoring to improve code size and quality.
