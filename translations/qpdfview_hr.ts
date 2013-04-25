@@ -64,7 +64,7 @@
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1489"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
@@ -73,427 +73,427 @@
     <name>MainWindow</name>
     <message>
         <location filename="../sources/mainwindow.cpp" line="175"/>
-        <location filename="../sources/mainwindow.cpp" line="264"/>
-        <location filename="../sources/mainwindow.cpp" line="842"/>
-        <location filename="../sources/mainwindow.cpp" line="859"/>
-        <location filename="../sources/mainwindow.cpp" line="879"/>
-        <location filename="../sources/mainwindow.cpp" line="915"/>
-        <location filename="../sources/mainwindow.cpp" line="1064"/>
+        <location filename="../sources/mainwindow.cpp" line="267"/>
+        <location filename="../sources/mainwindow.cpp" line="831"/>
+        <location filename="../sources/mainwindow.cpp" line="848"/>
+        <location filename="../sources/mainwindow.cpp" line="868"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
+        <location filename="../sources/mainwindow.cpp" line="1053"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="175"/>
-        <location filename="../sources/mainwindow.cpp" line="264"/>
+        <location filename="../sources/mainwindow.cpp" line="267"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Ne mogu otvoriti &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="805"/>
+        <location filename="../sources/mainwindow.cpp" line="794"/>
         <source>Open</source>
         <translation type="unfinished">Otvori</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="821"/>
+        <location filename="../sources/mainwindow.cpp" line="810"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Otvori u novoj kartici</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="842"/>
-        <location filename="../sources/mainwindow.cpp" line="1064"/>
+        <location filename="../sources/mainwindow.cpp" line="831"/>
+        <location filename="../sources/mainwindow.cpp" line="1053"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Ne mogu osvježiti &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="849"/>
+        <location filename="../sources/mainwindow.cpp" line="838"/>
         <source>Save copy</source>
         <translation type="unfinished">Spremi kopiju</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="859"/>
+        <location filename="../sources/mainwindow.cpp" line="848"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Ne mogu spremiti kopiju na &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="867"/>
+        <location filename="../sources/mainwindow.cpp" line="856"/>
         <source>Save as</source>
         <translation type="unfinished">Spremi kao</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="879"/>
+        <location filename="../sources/mainwindow.cpp" line="868"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Ne mogu spremiti kao &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="915"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Ne može se ispisati &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="954"/>
+        <location filename="../sources/mainwindow.cpp" line="943"/>
         <source>Jump to page</source>
         <translation type="unfinished">Skoči na stranicu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="954"/>
+        <location filename="../sources/mainwindow.cpp" line="943"/>
         <source>Page:</source>
         <translation type="unfinished">Stranica:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1441"/>
+        <location filename="../sources/mainwindow.cpp" line="1430"/>
         <source>About qpdfview</source>
         <translation type="unfinished">O qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1441"/>
+        <location filename="../sources/mainwindow.cpp" line="1430"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je preglednik dokumenata s mogućom upotrbom kartica, a napravljen je koristeći Qt.&lt;/p&gt;&lt;p&gt;Ova verzija uključuje:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1445"/>
+        <location filename="../sources/mainwindow.cpp" line="1434"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF podrška upotrebom Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1448"/>
+        <location filename="../sources/mainwindow.cpp" line="1437"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PS podrška upotrebom libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1451"/>
+        <location filename="../sources/mainwindow.cpp" line="1440"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;DjVu podrška upotrebom DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1454"/>
+        <location filename="../sources/mainwindow.cpp" line="1443"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Printing podrška upotrebom CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1456"/>
+        <location filename="../sources/mainwindow.cpp" line="1445"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pogledajte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; za više informacija.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Qpdfview razvojni programeri&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1637"/>
+        <location filename="../sources/mainwindow.cpp" line="1659"/>
         <source>Page width</source>
         <translation type="unfinished">Širina stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1638"/>
+        <location filename="../sources/mainwindow.cpp" line="1660"/>
         <source>Page size</source>
         <translation type="unfinished">Veličina stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1668"/>
+        <location filename="../sources/mainwindow.cpp" line="1690"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Odgovara &amp;slučaju</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1669"/>
+        <location filename="../sources/mainwindow.cpp" line="1691"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Označi &amp;sve</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1712"/>
+        <location filename="../sources/mainwindow.cpp" line="1734"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Otvori...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1713"/>
+        <location filename="../sources/mainwindow.cpp" line="1735"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Otvori u novoj &amp;kartici...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1714"/>
+        <location filename="../sources/mainwindow.cpp" line="1736"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Osvježi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1715"/>
+        <location filename="../sources/mainwindow.cpp" line="1737"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Spremi kopiju...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1716"/>
+        <location filename="../sources/mainwindow.cpp" line="1738"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Spremi &amp;kao</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1717"/>
+        <location filename="../sources/mainwindow.cpp" line="1739"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Tiskanje...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1718"/>
+        <location filename="../sources/mainwindow.cpp" line="1740"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">I&amp;zlaz</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1722"/>
+        <location filename="../sources/mainwindow.cpp" line="1744"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Prethodna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1723"/>
+        <location filename="../sources/mainwindow.cpp" line="1745"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Sljedeća stranica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="1746"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Početna stranica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1725"/>
+        <location filename="../sources/mainwindow.cpp" line="1747"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Posljednja stranica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1727"/>
+        <location filename="../sources/mainwindow.cpp" line="1749"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;Skoči na stranicu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1729"/>
+        <location filename="../sources/mainwindow.cpp" line="1751"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Skok &amp;natrag</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1730"/>
+        <location filename="../sources/mainwindow.cpp" line="1752"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Skok nap&amp;rijed</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1732"/>
+        <location filename="../sources/mainwindow.cpp" line="1754"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Traži...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1733"/>
+        <location filename="../sources/mainwindow.cpp" line="1755"/>
         <source>Find previous</source>
         <translation type="unfinished">Pronađi prethodno</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1734"/>
+        <location filename="../sources/mainwindow.cpp" line="1756"/>
         <source>Find next</source>
         <translation type="unfinished">Pronađi sljedeće</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1735"/>
+        <location filename="../sources/mainwindow.cpp" line="1757"/>
         <source>Cancel search</source>
         <translation type="unfinished">Otkaži pretraživanje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1737"/>
+        <location filename="../sources/mainwindow.cpp" line="1759"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Kopiraj u međuspremnik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1738"/>
+        <location filename="../sources/mainwindow.cpp" line="1760"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Dodaj anotaciju</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1740"/>
+        <location filename="../sources/mainwindow.cpp" line="1762"/>
         <source>Settings...</source>
         <translation type="unfinished">Postavke...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1744"/>
+        <location filename="../sources/mainwindow.cpp" line="1766"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Neprekidno</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1745"/>
+        <location filename="../sources/mainwindow.cpp" line="1767"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Dvije stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1746"/>
+        <location filename="../sources/mainwindow.cpp" line="1768"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Dvije stranice &amp;sa naslovnicom</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1747"/>
+        <location filename="../sources/mainwindow.cpp" line="1769"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Višestruke stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1749"/>
+        <location filename="../sources/mainwindow.cpp" line="1771"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Zumiraj &amp;unutra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1750"/>
+        <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">Zumiraj &amp;van</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1751"/>
+        <location filename="../sources/mainwindow.cpp" line="1773"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Originalna &amp;veličina</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1753"/>
+        <location filename="../sources/mainwindow.cpp" line="1775"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Podesi prema širini stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1754"/>
+        <location filename="../sources/mainwindow.cpp" line="1776"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Prilagodi po veličini stranice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1756"/>
+        <location filename="../sources/mainwindow.cpp" line="1778"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Rotiraj &amp;lijevo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1757"/>
+        <location filename="../sources/mainwindow.cpp" line="1779"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Rotiraj &amp;desno</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1759"/>
+        <location filename="../sources/mainwindow.cpp" line="1781"/>
         <source>Invert colors</source>
         <translation type="unfinished">Izokreni boje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1761"/>
+        <location filename="../sources/mainwindow.cpp" line="1783"/>
         <source>Fonts...</source>
         <translation type="unfinished">Fontovi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1763"/>
+        <location filename="../sources/mainwindow.cpp" line="1785"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Na cijelom zaslonu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1764"/>
+        <location filename="../sources/mainwindow.cpp" line="1786"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Prezentacija...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1768"/>
+        <location filename="../sources/mainwindow.cpp" line="1790"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Prethodna kartica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1769"/>
+        <location filename="../sources/mainwindow.cpp" line="1791"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Sljedeća kartica</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1771"/>
+        <location filename="../sources/mainwindow.cpp" line="1793"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Zatvori karticu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1772"/>
+        <location filename="../sources/mainwindow.cpp" line="1794"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Zatvori &amp;sve kartice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1773"/>
+        <location filename="../sources/mainwindow.cpp" line="1795"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Zatvorite sve kartice &amp;osim trenutnu karticu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1784"/>
+        <location filename="../sources/mainwindow.cpp" line="1806"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Pijašnja oznaka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1785"/>
+        <location filename="../sources/mainwindow.cpp" line="1807"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Sljedeća oznaka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1787"/>
+        <location filename="../sources/mainwindow.cpp" line="1809"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Dodaj oznaku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1788"/>
+        <location filename="../sources/mainwindow.cpp" line="1810"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Ukloni oznaku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1789"/>
+        <location filename="../sources/mainwindow.cpp" line="1811"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Uklonite sve oznake</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1793"/>
+        <location filename="../sources/mainwindow.cpp" line="1815"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Sadržaj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1794"/>
+        <location filename="../sources/mainwindow.cpp" line="1816"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1828"/>
-        <location filename="../sources/mainwindow.cpp" line="1939"/>
+        <location filename="../sources/mainwindow.cpp" line="1850"/>
+        <location filename="../sources/mainwindow.cpp" line="1944"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1831"/>
-        <location filename="../sources/mainwindow.cpp" line="1974"/>
+        <location filename="../sources/mainwindow.cpp" line="1853"/>
+        <location filename="../sources/mainwindow.cpp" line="1979"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Uredi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1834"/>
-        <location filename="../sources/mainwindow.cpp" line="1987"/>
+        <location filename="../sources/mainwindow.cpp" line="1856"/>
+        <location filename="../sources/mainwindow.cpp" line="1992"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Prikaz</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1839"/>
+        <location filename="../sources/mainwindow.cpp" line="1861"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Pretraživanje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1887"/>
+        <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Obris</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1901"/>
+        <location filename="../sources/mainwindow.cpp" line="1921"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Karakteristike</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1926"/>
+        <location filename="../sources/mainwindow.cpp" line="1931"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Sličice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1997"/>
+        <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Alatne trake</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2000"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Dokovi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2009"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Kartice</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2017"/>
+        <location filename="../sources/mainwindow.cpp" line="2022"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Oznake</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2025"/>
+        <location filename="../sources/mainwindow.cpp" line="2030"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Pomoć</translation>
     </message>
@@ -1070,7 +1070,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="431"/>
         <source>None</source>
-        <translation type="unfinished">Nijedno</translation>
+        <translation type="unfinished">Nijedan</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="434"/>
@@ -1207,7 +1207,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Označite trenutnu sličicu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
@@ -1243,6 +1243,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Akcija</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Niz tipaka</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">Preskoči unazad</translation>
@@ -1272,26 +1282,16 @@
         <source>Move right</source>
         <translation type="unfinished">Pomakni desno</translation>
     </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Akcija</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Niz tipaka</translation>
-    </message>
 </context>
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="136"/>
+        <location filename="../sources/miscellaneous.cpp" line="163"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Raširi sve</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="137"/>
+        <location filename="../sources/miscellaneous.cpp" line="164"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Sažmi sve</translation>
     </message>

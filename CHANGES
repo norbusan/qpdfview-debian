@@ -6,6 +6,10 @@ Release 0.4.3:
   * Added command-line options '--quiet' and '--help'.
   * Added support for multiple shortcuts for each action.
   * Added option to highlight the current thumbnail.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Croatian translation. Thanks to freedomrun.
 
 Release 0.4.2:
   * Refactoring to improve code size and quality.
