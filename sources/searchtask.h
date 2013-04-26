@@ -44,8 +44,6 @@ public:
     void run();
 
 signals:
-    void finished();
-
     void progressChanged(int progress);
 
     void resultsReady(int index, QList< QRectF > results);

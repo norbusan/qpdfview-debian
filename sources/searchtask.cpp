@@ -51,8 +51,6 @@ void SearchTask::run()
         {
             m_progress = 0;
 
-            emit finished();
-
             return;
         }
 
@@ -66,8 +64,6 @@ void SearchTask::run()
     }
 
     m_progress = 0;
-
-    emit finished();
 }
 
 void SearchTask::start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
