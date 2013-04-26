@@ -682,6 +682,8 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
 
 void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
+    Document::loadOutline(outlineModel);
+
     QMutexLocker mutexLocker(&m_mutex);
 
     miniexp_t outlineExp;
@@ -710,8 +712,6 @@ void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         return;
     }
 
-    outlineModel->clear();
-
     ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
 
     ddjvu_miniexp_release(m_document, outlineExp);
@@ -719,9 +719,10 @@ void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 
 void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
+    Document::loadProperties(propertiesModel);
+
     QMutexLocker mutexLocker(&m_mutex);
 
-    propertiesModel->clear();
     propertiesModel->setColumnCount(2);
 
     miniexp_t annoExp;

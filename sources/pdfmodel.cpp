@@ -703,6 +703,8 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
 
 void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
+    Document::loadOutline(outlineModel);
+
 #ifndef HAS_POPPLER_24
 
     QMutexLocker mutexLocker(&m_mutex);
@@ -713,8 +715,6 @@ void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     if(toc != 0)
     {
-        outlineModel->clear();
-
         ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
 
         delete toc;
@@ -723,6 +723,8 @@ void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 
 void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
+    Document::loadProperties(propertiesModel);
+
 #ifndef HAS_POPPLER_24
 
     QMutexLocker mutexLocker(&m_mutex);
@@ -731,7 +733,6 @@ void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) con
 
     QStringList keys = m_document->infoKeys();
 
-    propertiesModel->clear();
     propertiesModel->setRowCount(keys.count());
     propertiesModel->setColumnCount(2);
 
@@ -752,6 +753,8 @@ void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) con
 
 void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
+    Document::Document::loadFonts(fontsModel);
+
 #ifndef HAS_POPPLER_24
 
     QMutexLocker mutexLocker(&m_mutex);
@@ -760,7 +763,6 @@ void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 
     QList< Poppler::FontInfo > fonts = m_document->fonts();
 
-    fontsModel->clear();
     fontsModel->setRowCount(fonts.count());
     fontsModel->setColumnCount(5);
 

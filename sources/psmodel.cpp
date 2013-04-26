@@ -201,6 +201,8 @@ bool Model::PsDocument::canBePrintedUsingCUPS() const
 
 void Model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
+    Document::loadProperties(propertiesModel);
+
     QMutexLocker mutexLocker(&m_mutex);
 
     QString title = QString::fromLocal8Bit(spectre_document_get_title(m_document));
@@ -210,7 +212,6 @@ void Model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
     QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
 
-    propertiesModel->clear();
     propertiesModel->setColumnCount(2);
 
     propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Title")) << new QStandardItem(title));
