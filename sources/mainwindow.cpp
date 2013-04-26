@@ -1456,18 +1456,26 @@ void MainWindow::on_model_reset()
     if(m_outlineView->header()->count() > 0)
     {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
         m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
 #else
+
         m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+
 #endif // QT_VERSION
     }
 
     if(m_outlineView->header()->count() > 1)
     {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
         m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
 #else
+
         m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
 #endif // QT_VERSION
     }
 
