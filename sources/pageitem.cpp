@@ -200,7 +200,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->save();
 
         painter->setTransform(m_transform, true);
-        painter->setPen(QPen(Qt::transparent));
+        painter->setPen(QPen(s_settings->pageItem().highlightColor()));
         painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 

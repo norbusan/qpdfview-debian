@@ -2027,11 +2027,13 @@ void DocumentView::prepareHighlight()
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());
+        m_highlight->setRect(m_currentResult.value().normalized());
+
         m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
 
-        page->stackBefore(m_highlight);
+        m_highlight->update();
 
-        m_highlight->setRect(m_currentResult.value().normalized());
+        page->stackBefore(m_highlight);
 
         disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
         centerOn(m_highlight);
