@@ -166,6 +166,11 @@ void SettingsDialog::accept()
     s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
+    QColor highlightColor(m_highlightColorComboBox->currentText());
+    s_settings->pageItem().setHighlightColor(highlightColor.isValid() ? highlightColor : Defaults::PageItem::highlightColor());
+
+    s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
+
     QColor annotationColor(m_annotationColorComboBox->currentText());
     s_settings->pageItem().setAnnotationColor(annotationColor.isValid() ? annotationColor : Defaults::PageItem::annotationColor());
 
@@ -176,8 +181,6 @@ void SettingsDialog::accept()
     s_settings->pageItem().setDecoratePages(m_decoratePagesCheckBox->isChecked());
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
-
-    s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
 
     QColor backgroundColor(m_backgroundColorComboBox->currentText());
     s_settings->pageItem().setBackgroundColor(backgroundColor.isValid() ? backgroundColor : Defaults::PageItem::backgroundColor());
@@ -259,6 +262,8 @@ void SettingsDialog::reset()
     m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
+    m_highlightColorComboBox->lineEdit()->setText(Defaults::PageItem::highlightColor().name());
+    m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
     m_annotationColorComboBox->lineEdit()->setText(Defaults::PageItem::annotationColor().name());
 
     m_sourceEditorLineEdit->clear();
@@ -268,8 +273,6 @@ void SettingsDialog::reset()
     m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
     m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
     m_decorateFormFieldsCheckBox->setChecked(Defaults::PageItem::decorateFormFields());
-
-    m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
 
     m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
     m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
@@ -380,6 +383,27 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
+    // highlight color
+
+    m_highlightColorComboBox = new QComboBox(this);
+    m_highlightColorComboBox->setEditable(true);
+    m_highlightColorComboBox->setInsertPolicy(QComboBox::NoInsert);
+    m_highlightColorComboBox->addItems(QColor::colorNames());
+    m_highlightColorComboBox->lineEdit()->setText(s_settings->pageItem().highlightColor().name());
+
+    m_behaviorLayout->addRow(tr("Highlight color:"), m_highlightColorComboBox);
+
+    // highlight duration
+
+    m_highlightDurationSpinBox = new QSpinBox(this);
+    m_highlightDurationSpinBox->setSuffix(" ms");
+    m_highlightDurationSpinBox->setRange(0, 60000);
+    m_highlightDurationSpinBox->setSingleStep(500);
+    m_highlightDurationSpinBox->setSpecialValueText(tr("None"));
+    m_highlightDurationSpinBox->setValue(s_settings->documentView().highlightDuration());
+
+    m_behaviorLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
+
     // annotation color
 
     m_annotationColorComboBox = new QComboBox(this);
@@ -421,17 +445,6 @@ void SettingsDialog::createGraphicsTab()
     m_decorateFormFieldsCheckBox->setChecked(s_settings->pageItem().decorateFormFields());
 
     m_graphicsLayout->addRow(tr("Decorate form fields:"), m_decorateFormFieldsCheckBox);
-
-    // highlight duration
-
-    m_highlightDurationSpinBox = new QSpinBox(this);
-    m_highlightDurationSpinBox->setSuffix(" ms");
-    m_highlightDurationSpinBox->setRange(0, 60000);
-    m_highlightDurationSpinBox->setSingleStep(500);
-    m_highlightDurationSpinBox->setSpecialValueText(tr("None"));
-    m_highlightDurationSpinBox->setValue(s_settings->documentView().highlightDuration());
-
-    m_graphicsLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
 
     // background color
 

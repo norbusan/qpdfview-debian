@@ -120,12 +120,10 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     // highlight
 
     m_highlight = new QGraphicsRectItem();
+    m_highlight->setGraphicsEffect(new GraphicsCompositionModeEffect(QPainter::CompositionMode_Multiply, this));
 
     m_highlight->setVisible(false);
     scene()->addItem(m_highlight);
-
-    m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
-    m_highlight->setGraphicsEffect(new GraphicsCompositionModeEffect(QPainter::CompositionMode_Multiply, this));
 
     // search
 
@@ -2029,6 +2027,7 @@ void DocumentView::prepareHighlight()
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());
+        m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
 
         page->stackBefore(m_highlight);
 
