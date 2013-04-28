@@ -29,7 +29,7 @@ enum Rotation
     RotateBy90 = 1,
     RotateBy180 = 2,
     RotateBy270 = 3,
-    NumberOfDirections = 4
+    NumberOfRotations = 4
 };
 
 enum RubberBandMode

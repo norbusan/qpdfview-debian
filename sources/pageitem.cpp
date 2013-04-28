@@ -328,7 +328,7 @@ Rotation PageItem::rotation() const
 
 void PageItem::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfDirections)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         refresh();
 

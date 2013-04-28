@@ -174,7 +174,6 @@ DocumentView::~DocumentView()
     qDeleteAll(m_thumbnailItems);
 
     qDeleteAll(m_pages);
-
     delete m_document;
 }
 
@@ -333,7 +332,7 @@ Rotation DocumentView::rotation() const
 
 void DocumentView::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfDirections)
+    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         m_rotation = rotation;
 

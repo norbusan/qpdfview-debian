@@ -29,16 +29,6 @@ GraphicsCompositionModeEffect::GraphicsCompositionModeEffect(QPainter::Compositi
 {
 }
 
-QPainter::CompositionMode GraphicsCompositionModeEffect::compositionMode() const
-{
-    return m_compositionMode;
-}
-
-void GraphicsCompositionModeEffect::setCompositionMode(QPainter::CompositionMode compositionMode)
-{
-    m_compositionMode = compositionMode;
-}
-
 void GraphicsCompositionModeEffect::draw(QPainter* painter)
 {
     painter->save();

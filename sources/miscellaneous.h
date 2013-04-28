@@ -36,10 +36,7 @@ class GraphicsCompositionModeEffect : public QGraphicsEffect
     Q_OBJECT
 
 public:
-    explicit GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent = 0);
-
-    QPainter::CompositionMode compositionMode() const;
-    void setCompositionMode(QPainter::CompositionMode compositionMode);
+    GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent = 0);
 
 protected:
     void draw(QPainter* painter);
