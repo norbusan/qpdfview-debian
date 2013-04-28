@@ -1739,7 +1739,7 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    const qreal pageSpacing = s_settings->documentView().pageSpacing();
+    qreal pageSpacing = s_settings->documentView().pageSpacing();
 
     // prepare scale factor and rotation
 
@@ -1975,17 +1975,19 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
 void DocumentView::prepareThumbnailsScene()
 {
-    const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
+    qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = thumbnailSpacing;
 
+    bool limitThumbnailsToResults = s_settings->documentView().limitThumbnailsToResults();
+
     for(int index = 0; index < m_thumbnailItems.count(); ++index)
     {
         PageItem* page = m_thumbnailItems.at(index);
 
-        if(s_settings->documentView().limitThumbnailsToResults() && !m_results.isEmpty() && !m_results.contains(index))
+        if(limitThumbnailsToResults && !m_results.isEmpty() && !m_results.contains(index))
         {
             page->setVisible(false);
 

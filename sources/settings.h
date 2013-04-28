@@ -64,13 +64,13 @@ public:
         inline bool decorateFormFields() const { return m_decorateFormFields; }
         void setDecorateFormFields(bool decorate);
 
-        inline QColor backgroundColor() const { return m_backgroundColor; }
+        inline const QColor& backgroundColor() const { return m_backgroundColor; }
         void setBackgroundColor(const QColor& color);
 
-        inline QColor paperColor() const { return m_paperColor; }
+        inline const QColor& paperColor() const { return m_paperColor; }
         void setPaperColor(const QColor& color);
 
-        QColor highlightColor() const { return m_highlightColor; }
+        inline const QColor& highlightColor() const { return m_highlightColor; }
         void setHighlightColor(const QColor& color);
 
         QColor annotationColor() const;
