@@ -67,19 +67,8 @@ PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* 
 
     setScene(new QGraphicsScene(this));
 
-    for(int index = 0; index < m_pages.count(); ++index)
-    {
-        PageItem* page = new PageItem(m_pages.at(index), index, true);
-
-        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
-
-        scene()->addItem(page);
-        m_pageItems.append(page);
-
-        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
-    }
-
-    scene()->setBackgroundBrush(QBrush(s_settings->pageItem().paperColor()));
+    preparePages();
+    prepareBackground();
 
     // prefetch
 
@@ -156,14 +145,7 @@ void PresentationView::setInvertColors(bool invertColors)
             page->setInvertColors(m_invertColors);
         }
 
-        QColor backgroundColor = s_settings->pageItem().paperColor();
-
-        if(m_invertColors)
-        {
-            backgroundColor.setRgb(~backgroundColor.rgb());
-        }
-
-        scene()->setBackgroundBrush(QBrush(backgroundColor));
+        prepareBackground();
 
         emit invertColorsChanged(m_invertColors);
     }
@@ -392,6 +374,33 @@ void PresentationView::wheelEvent(QWheelEvent* event)
     }
 
     QGraphicsView::wheelEvent(event);
+}
+
+void PresentationView::preparePages()
+{
+    for(int index = 0; index < m_pages.count(); ++index)
+    {
+        PageItem* page = new PageItem(m_pages.at(index), index, true);
+
+        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+
+        scene()->addItem(page);
+        m_pageItems.append(page);
+
+        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
+    }
+}
+
+void PresentationView::prepareBackground()
+{
+    QColor backgroundColor = s_settings->pageItem().paperColor();
+
+    if(m_invertColors)
+    {
+        backgroundColor.setRgb(~backgroundColor.rgb());
+    }
+
+    scene()->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void PresentationView::prepareScene()

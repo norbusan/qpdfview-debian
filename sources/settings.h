@@ -70,6 +70,9 @@ public:
         inline QColor paperColor() const { return m_paperColor; }
         void setPaperColor(const QColor& color);
 
+        QColor highlightColor() const { return m_highlightColor; }
+        void setHighlightColor(const QColor& color);
+
         QColor annotationColor() const;
         void setAnnotationColor(const QColor& color);
 
@@ -96,6 +99,8 @@ public:
 
         QColor m_backgroundColor;
         QColor m_paperColor;
+
+        QColor m_highlightColor;
 
     };
 
@@ -368,6 +373,8 @@ public:
 
         static inline QColor backgroundColor() { return Qt::darkGray; }
         static inline QColor paperColor() { return Qt::white; }
+
+        static inline QColor highlightColor() { return Qt::yellow; }
         static inline QColor annotationColor() { return Qt::yellow; }
 
         static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }

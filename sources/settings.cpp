@@ -67,6 +67,8 @@ void Settings::PageItem::sync()
 
     m_backgroundColor = m_settings->value("pageItem/backgroundColor", Defaults::PageItem::backgroundColor()).value< QColor >();
     m_paperColor = m_settings->value("pageItem/paperColor", Defaults::PageItem::paperColor()).value< QColor >();
+
+    m_highlightColor = m_settings->value("pageItem/highlightColor", Defaults::PageItem::highlightColor()).value< QColor >();
 }
 
 void Settings::PageItem::setCacheSize(int cacheSize)
@@ -108,6 +110,12 @@ void Settings::PageItem::setPaperColor(const QColor& color)
     m_settings->setValue("pageItem/paperColor", color);
 }
 
+void Settings::PageItem::setHighlightColor(const QColor& color)
+{
+    m_highlightColor = color;
+    m_settings->setValue("pageItem/highlightColor", color);
+}
+
 QColor Settings::PageItem::annotationColor() const
 {
     return m_settings->value("pageItem/annotationColor", Defaults::PageItem::annotationColor()).value< QColor >();
@@ -147,7 +155,8 @@ Settings::PageItem::PageItem(QSettings* settings) :
     m_decorateLinks(Defaults::PageItem::decorateLinks()),
     m_decorateFormFields(Defaults::PageItem::decorateFormFields()),
     m_backgroundColor(Defaults::PageItem::backgroundColor()),
-    m_paperColor(Defaults::PageItem::paperColor())
+    m_paperColor(Defaults::PageItem::paperColor()),
+    m_highlightColor(Defaults::PageItem::highlightColor())
 {
 }
 

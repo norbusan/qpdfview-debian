@@ -102,7 +102,7 @@ QRectF PageItem::boundingRect() const
     return m_boundingRect;
 }
 
-void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget* widget)
+void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     QPixmap pixmap;
 
@@ -142,6 +142,8 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(pixmap.isNull())
     {
+        // progess icon
+
         qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
         QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
@@ -154,7 +156,6 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(s_settings->pageItem().decoratePages() && !m_presentationMode)
     {
-        painter->setPen(QPen(m_invertColors ? Qt::white : Qt::black));
         painter->drawRect(m_boundingRect);
     }
 
@@ -199,12 +200,13 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->save();
 
         painter->setTransform(m_transform, true);
-
+        painter->setPen(QPen(Qt::transparent));
+        painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 
         foreach(QRectF highlight, m_highlights)
         {
-            painter->fillRect(highlight.normalized(), widget->palette().highlight());
+            painter->drawRect(highlight.normalized());
         }
 
         painter->restore();
@@ -214,12 +216,18 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     if(!m_rubberBand.isNull())
     {
+        painter->save();
+
         QPen pen;
-        pen.setColor(m_invertColors ? Qt::white : Qt::black);
+        pen.setColor(Qt::white);
         pen.setStyle(Qt::DashLine);
 
         painter->setPen(pen);
+        painter->setCompositionMode(QPainter::CompositionMode_Difference);
+
         painter->drawRect(m_rubberBand);
+
+        painter->restore();
     }
 }
 
@@ -399,6 +407,8 @@ void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qrea
 
     if(image.isNull())
     {
+        // error icon
+
         qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
         QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
 

@@ -48,7 +48,7 @@ public:
     ~PageItem();
 
     QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget* widget);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     int index() const;
     const QSizeF& size() const;

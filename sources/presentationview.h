@@ -103,6 +103,9 @@ private:
 
     QVector< PageItem* > m_pageItems;
 
+    void preparePages();
+    void prepareBackground();
+
     void prepareScene();
     void prepareView();
     

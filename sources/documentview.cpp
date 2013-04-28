@@ -124,9 +124,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_highlight->setVisible(false);
     scene()->addItem(m_highlight);
 
-    m_highlight->setPen(QPen(Qt::transparent));
-    m_highlight->setBrush(palette().highlight());
-
+    m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
     m_highlight->setGraphicsEffect(new GraphicsCompositionModeEffect(QPainter::CompositionMode_Multiply, this));
 
     // search
