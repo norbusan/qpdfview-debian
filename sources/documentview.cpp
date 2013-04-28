@@ -2031,8 +2031,6 @@ void DocumentView::prepareHighlight()
 
         m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
 
-        m_highlight->update();
-
         page->stackBefore(m_highlight);
 
         disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
@@ -2045,4 +2043,6 @@ void DocumentView::prepareHighlight()
     {
         m_highlight->setVisible(false);
     }
+
+    viewport()->update();
 }
