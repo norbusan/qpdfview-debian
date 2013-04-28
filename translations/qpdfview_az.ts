@@ -996,9 +996,9 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
-        <location filename="../sources/settingsdialog.cpp" line="579"/>
-        <location filename="../sources/settingsdialog.cpp" line="587"/>
-        <location filename="../sources/settingsdialog.cpp" line="595"/>
+        <location filename="../sources/settingsdialog.cpp" line="572"/>
+        <location filename="../sources/settingsdialog.cpp" line="580"/>
+        <location filename="../sources/settingsdialog.cpp" line="588"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Yenidən başlatdıqda təsirlidir.</translation>
     </message>
@@ -1190,22 +1190,22 @@
         <translation type="unfinished">Yeni səkmə hazırkının dalınca:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="573"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Hazırkı səhifə pəncərənin başlığında:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="581"/>
+        <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Fayl alətlər paneli:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="589"/>
+        <location filename="../sources/settingsdialog.cpp" line="582"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Alətlər panelini redaktə et:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Alətlər panelinə bax:</translation>
     </message>

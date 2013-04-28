@@ -996,9 +996,9 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
-        <location filename="../sources/settingsdialog.cpp" line="579"/>
-        <location filename="../sources/settingsdialog.cpp" line="587"/>
-        <location filename="../sources/settingsdialog.cpp" line="595"/>
+        <location filename="../sources/settingsdialog.cpp" line="572"/>
+        <location filename="../sources/settingsdialog.cpp" line="580"/>
+        <location filename="../sources/settingsdialog.cpp" line="588"/>
         <source>Effective after restart.</source>
         <translation>Zmiany dostępne po ponownym uruchomieniu.</translation>
     </message>
@@ -1190,22 +1190,22 @@
         <translation>Nowa zakładka obok bieżącej zakładki:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="573"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Current page in window title:</source>
         <translation>Bieżąca strona w tytule okna:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="581"/>
+        <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation>Pasek narzędziowy &quot;Plik&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="589"/>
+        <location filename="../sources/settingsdialog.cpp" line="582"/>
         <source>Edit tool bar:</source>
         <translation>Pasek narzędziowy &quot;Edycja&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>View tool bar:</source>
         <translation>Pasek narzędziowy &quot;Widok&quot;:</translation>
     </message>

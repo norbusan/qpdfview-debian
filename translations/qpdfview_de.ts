@@ -996,9 +996,9 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
-        <location filename="../sources/settingsdialog.cpp" line="579"/>
-        <location filename="../sources/settingsdialog.cpp" line="587"/>
-        <location filename="../sources/settingsdialog.cpp" line="595"/>
+        <location filename="../sources/settingsdialog.cpp" line="572"/>
+        <location filename="../sources/settingsdialog.cpp" line="580"/>
+        <location filename="../sources/settingsdialog.cpp" line="588"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Nach Neustart wirksam.</translation>
     </message>
@@ -1075,7 +1075,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farbe der Hervorhebungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
@@ -1190,22 +1190,22 @@
         <translation type="unfinished">Neuer Reiter neben aktuellem Reiter:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="573"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Aktuelle Seite im Fenstertitel:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="581"/>
+        <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Datei-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="589"/>
+        <location filename="../sources/settingsdialog.cpp" line="582"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Bearbeiten-Werkzeugleiste:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Ansicht-Werkzeugleiste:</translation>
     </message>
