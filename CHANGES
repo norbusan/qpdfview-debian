@@ -2,7 +2,7 @@ Release 0.4.3:
   * Fixed custom movement shortcuts not being activated after program initialization.
   * Fixed default scroll area shortcuts not being shadowed completely.
   * Fixed outline view layout on open and refresh and trying to set resize mode of non-existent outline view columns.
-  * Improved drawing of search result highlights.
+  * Improved drawing of search result highlights and added a setting for the highlight color.
   * Added command-line options '--quiet' and '--help'.
   * Added support for multiple shortcuts for each action.
   * Added option to highlight the current thumbnail.
