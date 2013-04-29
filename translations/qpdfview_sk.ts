@@ -1038,6 +1038,21 @@
         <translation type="unfinished">Obrazovka prezentovania:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Farba zvýraznenia:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">Nič</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Trvanie zvýraznenia:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Farba poznámky:</translation>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Orámovať políčka formulára:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">Nič</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Trvanie zvýraznenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1190,11 +1190,6 @@
         <translation type="unfinished">Nová karta vedľa aktuálnej karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Aktuálna strana v názve okna:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Panel nástrojov pre Súbor:</translation>
@@ -1208,6 +1203,11 @@
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Panel nástrojov pre Zobraziť:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Aktuálna strana v názve okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>

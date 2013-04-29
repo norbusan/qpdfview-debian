@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Ви&amp;далити закладку</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="72"/>
@@ -417,7 +417,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1824"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Видалити закладку</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1825"/>
@@ -1038,6 +1038,21 @@
         <translation type="unfinished">Екран презентації:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Колір підсвічування:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">Немає</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Тривалість підсвічування:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Колір анотацій:</translation>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Виділяти поля форм:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">Немає</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Тривалість підсвічування:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1190,11 +1190,6 @@
         <translation type="unfinished">Нова вкладка поряд з поточною:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Поточна сторінка у заголовку вікна:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Панель &quot;Файл&quot;:</translation>
@@ -1208,6 +1203,11 @@
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Панель &quot;Перегляд&quot;:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Поточна сторінка у заголовку вікна:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>
