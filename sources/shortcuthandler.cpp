@@ -174,7 +174,7 @@ bool ShortcutHandler::setData(const QModelIndex& index, const QVariant& value, i
     {
         QList< QKeySequence > shortcuts = toShortcuts(value.toString().split(";", QString::SkipEmptyParts));
 
-        if(!shortcuts.isEmpty())
+        if(!shortcuts.isEmpty() || value.toString().isEmpty())
         {
             m_shortcuts.insert(m_actions.at(index.row()), shortcuts);
 
