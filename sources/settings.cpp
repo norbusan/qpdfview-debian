@@ -240,6 +240,16 @@ void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
     }
 }
 
+int Settings::DocumentView::autoRefreshTimeout() const
+{
+    return m_settings->value("documentView/autoRefreshTimeout", Defaults::DocumentView::autoRefreshTimeout()).toInt();
+}
+
+int Settings::DocumentView::prefetchTimeout() const
+{
+    return m_settings->value("documentView/prefetchTimeout", Defaults::DocumentView::prefetchTimeout()).toInt();
+}
+
 void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
     if(pagesPerRow > 0)

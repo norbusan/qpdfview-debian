@@ -142,6 +142,9 @@ public:
         inline int prefetchDistance() const { return m_prefetchDistance; }
         void setPrefetchDistance(int prefetchDistance);
 
+        int autoRefreshTimeout() const;
+        int prefetchTimeout() const;
+
         inline int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
@@ -405,6 +408,9 @@ public:
 
         static inline bool prefetch() { return false; }
         static inline int prefetchDistance() { return 1; }
+
+        static inline int autoRefreshTimeout() { return 750; }
+        static inline int prefetchTimeout() { return 250; }
 
         static inline int pagesPerRow() { return 3; }
 

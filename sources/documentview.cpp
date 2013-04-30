@@ -139,7 +139,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher = new QFileSystemWatcher(this);
 
     m_autoRefreshTimer = new QTimer(this);
-    m_autoRefreshTimer->setInterval(500);
+    m_autoRefreshTimer->setInterval(s_settings->documentView().autoRefreshTimeout());
     m_autoRefreshTimer->setSingleShot(true);
 
     connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
@@ -149,7 +149,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     // prefetch
 
     m_prefetchTimer = new QTimer(this);
-    m_prefetchTimer->setInterval(250);
+    m_prefetchTimer->setInterval(s_settings->documentView().prefetchTimeout());
     m_prefetchTimer->setSingleShot(true);
 
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
