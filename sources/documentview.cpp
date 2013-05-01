@@ -1180,20 +1180,12 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         key = Qt::Key_Right;
     }
-    else
+    else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
+            event->key() == Qt::Key_Up || event->key() == Qt::Key_Down ||
+            event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
     {
-        switch(event->key())
-        {
-        default:
-            break;
-        case Qt::Key_PageUp:
-        case Qt::Key_PageDown:
-        case Qt::Key_Up:
-        case Qt::Key_Down:
-        case Qt::Key_Left:
-        case Qt::Key_Right:
-            return;
-        }
+        event->ignore();
+        return;
     }
 
     if(key != -1)

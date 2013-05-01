@@ -59,7 +59,7 @@ static bool matches(const QKeySequence& keySequence, const QList< QKeySequence >
 {
     foreach(QKeySequence shortcut, shortcuts)
     {
-        if(keySequence.matches(shortcut))
+        if(keySequence.matches(shortcut) == QKeySequence::ExactMatch)
         {
             return true;
         }
