@@ -57,14 +57,6 @@ PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    new QShortcut(QKeySequence(Qt::Key_Return), this, SLOT(jumpBackward()));
-    new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Return), this, SLOT(jumpForward()));
-
-    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Left), this, SLOT(rotateLeft()));
-    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Right), this, SLOT(rotateRight()));
-
-    // pages
-
     setScene(new QGraphicsScene(this));
 
     preparePages();
@@ -292,7 +284,7 @@ void PresentationView::resizeEvent(QResizeEvent* event)
 
 void PresentationView::keyPressEvent(QKeyEvent* event)
 {
-    switch(event->key())
+    switch(event->modifiers() + event->key())
     {
     case Qt::Key_PageUp:
     case Qt::Key_Up:
@@ -320,17 +312,34 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
         event->accept();
         return;
-    case Qt::Key_F12:
-    case Qt::Key_Escape:
-        close();
+    case Qt::CTRL + Qt::Key_Return:
+        jumpBackward();
 
         event->accept();
         return;
-    }
+    case Qt::CTRL + Qt::SHIFT + Qt::Key_Return:
+        jumpForward();
 
-    if(event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_I)
-    {
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_Left:
+        rotateLeft();
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_Right:
+        rotateRight();
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_I:
         setInvertColors(!invertColors());
+
+        event->accept();
+        return;
+    case Qt::Key_F12:
+    case Qt::Key_Escape:
+        close();
 
         event->accept();
         return;
