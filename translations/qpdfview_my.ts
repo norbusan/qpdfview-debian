@@ -44,7 +44,7 @@
         <translation type="unfinished">စကားဝှက် −</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; ကိုစာရွက်ထုတ်နေပါသည်</translation>
     </message>

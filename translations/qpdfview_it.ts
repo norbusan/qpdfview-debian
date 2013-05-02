@@ -64,7 +64,7 @@
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>

@@ -64,7 +64,7 @@
         <translation type="unfinished">&apos;%1&apos;  üçün SyncTeX verilənləri yüklənmədi.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; çap olunur...</translation>
     </message>

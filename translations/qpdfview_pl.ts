@@ -64,7 +64,7 @@
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
@@ -497,6 +497,10 @@
         <source>&amp;Help</source>
         <translation>P&amp;omoc</translation>
     </message>
+    <message>
+        <source>&amp;Exit</source>
+        <translation type="obsolete">Za&amp;kończ</translation>
+    </message>
 </context>
 <context>
     <name>Model::PdfDocument</name>
@@ -730,6 +734,13 @@
         <location filename="../sources/pluginhandler.cpp" line="341"/>
         <source>Could not load DjVu plug-in!</source>
         <translation>Nie można wczytać wtyczki DjVu!</translation>
+    </message>
+</context>
+<context>
+    <name>PresentationView</name>
+    <message>
+        <source>Go to page %1.</source>
+        <translation type="obsolete">Idź do strony %1.</translation>
     </message>
 </context>
 <context>
@@ -1075,7 +1086,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
         <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor podświetlenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>

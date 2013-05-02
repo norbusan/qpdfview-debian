@@ -64,7 +64,7 @@
         <translation type="unfinished">SyncTeX-data for &apos;%1&apos; kunne ikke findes.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Udskriver &apos;%1&apos;...</translation>
     </message>
