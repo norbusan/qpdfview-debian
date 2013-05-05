@@ -1038,6 +1038,21 @@
         <translation type="unfinished">Promítací obrazovka:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Barva zvýraznění:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">Žádný</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Doba trvání zvýraznění:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Barva poznámky:</translation>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Obtáhnout formulářová pole:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">Žádné</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Doba trvání zvýraznění:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1190,11 +1190,6 @@
         <translation type="unfinished">Nová karta vedle nynější karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Nynější strana v názvu okna:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Panel nástrojů pro soubor:</translation>
@@ -1210,9 +1205,14 @@
         <translation type="unfinished">Panel nástrojů pro pohled:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Nynější strana v názvu okna:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zvýraznit nynější náhled:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
@@ -1248,6 +1248,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Činnost</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Klávesová zkratka</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">Skočit zpět</translation>
@@ -1276,16 +1286,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">Posunout doprava</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Činnost</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Klávesová zkratka</translation>
     </message>
 </context>
 <context>

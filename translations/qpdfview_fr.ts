@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="769"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jeu partiel</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="769"/>
@@ -689,7 +689,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sur-imprimer l’aperçu :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="842"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mode ligne mince :</translation>
     </message>
 </context>
 <context>
@@ -1038,6 +1038,21 @@
         <translation type="unfinished">Écran de présentation :</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Couleur de surlignement :</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">Aucun</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Durée de mise en surbrillance :</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Couleur d&apos;annotation</translation>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Décorer les champs de formulaire :</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">Aucun</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Durée de mise en surbrillance :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1187,12 +1187,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nouvel onglet à côté de l&apos;onglet courant :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
@@ -1210,14 +1205,19 @@
         <translation type="unfinished">Barre d&apos;outils Affichage :</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Page courante dans le titre de la fenêtre :</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Surligner la miniature courante :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Limiter les miniatures aux résultats :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="620"/>
@@ -1248,6 +1248,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Action</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Séquence clavier</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
@@ -1276,16 +1286,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">Déplacer vers la droite</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Action</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Séquence clavier</translation>
     </message>
 </context>
 <context>
