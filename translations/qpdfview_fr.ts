@@ -1260,12 +1260,12 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reculer</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="268"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avancer</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
