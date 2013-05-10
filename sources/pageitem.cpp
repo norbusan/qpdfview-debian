@@ -888,7 +888,7 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
     m_textWidth = fontMetrics.width(QString::number(index + 1));
     m_textHeight = fontMetrics.height();
 
-    m_highlight = false;
+    m_current = false;
 }
 
 QRectF ThumbnailItem::boundingRect() const
@@ -908,7 +908,7 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 
     painter->drawText(pos, QString::number(index() + 1));
 
-    if(m_highlight)
+    if(m_current)
     {
         painter->save();
 
@@ -920,16 +920,16 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     }
 }
 
-bool ThumbnailItem::highlight() const
+bool ThumbnailItem::isCurrent() const
 {
-    return m_highlight;
+    return m_current;
 }
 
-void ThumbnailItem::setHighlight(bool highlight)
+void ThumbnailItem::setCurrent(bool current)
 {
-    if(m_highlight != highlight)
+    if(m_current != current)
     {
-        m_highlight = highlight;
+        m_current = current;
 
         update();
     }
