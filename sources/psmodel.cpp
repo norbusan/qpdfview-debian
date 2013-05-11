@@ -205,12 +205,12 @@ void Model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) cons
 
     QMutexLocker mutexLocker(&m_mutex);
 
-    QString title = QString::fromLocal8Bit(spectre_document_get_title(m_document));
-    QString createdFor = QString::fromLocal8Bit(spectre_document_get_for(m_document));
-    QString creator = QString::fromLocal8Bit(spectre_document_get_creator(m_document));
-    QString creationDate = QString::fromLocal8Bit(spectre_document_get_creation_date(m_document));
-    QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
-    QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
+    const QString title = QString::fromLocal8Bit(spectre_document_get_title(m_document));
+    const QString createdFor = QString::fromLocal8Bit(spectre_document_get_for(m_document));
+    const QString creator = QString::fromLocal8Bit(spectre_document_get_creator(m_document));
+    const QString creationDate = QString::fromLocal8Bit(spectre_document_get_creation_date(m_document));
+    const QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
+    const QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
 
     propertiesModel->setColumnCount(2);
 

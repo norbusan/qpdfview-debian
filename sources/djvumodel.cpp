@@ -216,7 +216,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
         }
     }
 
-    int pageAnnoLength = miniexp_length(pageAnnoExp);
+    const int pageAnnoLength = miniexp_length(pageAnnoExp);
 
     for(int pageAnnoN = 0; pageAnnoN < pageAnnoLength; ++pageAnnoN)
     {
@@ -246,7 +246,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
             QPainterPath boundary;
 
             miniexp_t areaExp = miniexp_nth(3, linkExp);
-            int areaLength = miniexp_length( areaExp );
+            const int areaLength = miniexp_length( areaExp );
 
             if(areaLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
             {
@@ -255,7 +255,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
                 p.setY(m_size.height() - s.height() - p.y());
 
-                QRectF rect(p, s);
+                const QRectF rect(p, s);
 
                 if(type == QLatin1String("rect"))
                 {
@@ -348,14 +348,14 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
 static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
 {
-    int textLength = miniexp_length(textExp);
+    const int textLength = miniexp_length(textExp);
 
     if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
     {
-        int xmin = miniexp_to_int(miniexp_nth(1, textExp));
-        int ymin = miniexp_to_int(miniexp_nth(2, textExp));
-        int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-        int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+        const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
+        const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
+        const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+        const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
 
         if(rect.intersects(QRect(xmin, pageHeight - ymax, xmax - xmin, ymax - ymin)))
         {
@@ -407,7 +407,7 @@ QString Model::DjVuPage::text(const QRectF& rect) const
         }
     }
 
-    QString text = loadText(pageTextExp, QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).mapRect(rect).toRect(), m_size.height());
+    const QString text = loadText(pageTextExp, QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).mapRect(rect).toRect(), m_size.height());
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
 
@@ -446,20 +446,20 @@ QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) con
     {
         miniexp_t textExp = words.takeFirst();
 
-        int textLength = miniexp_length(textExp);
+        const int textLength = miniexp_length(textExp);
 
         if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
         {
             if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
             {
-                QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+                const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
 
                 if(text.indexOf(word, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive) == index)
                 {
-                    int xmin = miniexp_to_int(miniexp_nth(1, textExp));
-                    int ymin = miniexp_to_int(miniexp_nth(2, textExp));
-                    int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-                    int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+                    const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
+                    const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
+                    const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+                    const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
 
                     rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
 
@@ -519,7 +519,7 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
 
-    int fileNum = ddjvu_document_get_filenum(m_document);
+    const int fileNum = ddjvu_document_get_filenum(m_document);
 
     for(int index = 0; index < fileNum; ++index)
     {
@@ -619,12 +619,12 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 
 static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
 {
-    int outlineLength = miniexp_length(outlineExp);
+    const int outlineLength = miniexp_length(outlineExp);
 
     for(int outlineN = qMax(0, offset); outlineN < outlineLength; ++outlineN)
     {
         miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
-        int bookmarkLength = miniexp_length(bookmarkExp);
+        const int bookmarkLength = miniexp_length(bookmarkExp);
 
         if(bookmarkLength <= 1)
         {
@@ -636,7 +636,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
             continue;
         }
 
-        QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
+        const QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
         QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
 
         if(!title.isEmpty() && !destination.isEmpty())
@@ -741,12 +741,12 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
         }
     }
 
-    int annoLength = miniexp_length(annoExp);
+    const int annoLength = miniexp_length(annoExp);
 
     for(int annoN = 0; annoN < annoLength; ++annoN)
     {
         miniexp_t listExp = miniexp_nth(annoN, annoExp);
-        int listLength = miniexp_length(listExp);
+        const int listLength = miniexp_length(listExp);
 
         if(listLength <= 1)
         {
@@ -767,8 +767,8 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
                 continue;
             }
 
-            QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
-            QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
+            const QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
+            const QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
 
             if(!key.isEmpty() && !value.isEmpty())
             {
