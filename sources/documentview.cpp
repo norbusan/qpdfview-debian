@@ -591,8 +591,8 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 {    
-    int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
-    int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
+    const int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
+    const int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
 
 #ifdef WITH_CUPS
 
@@ -704,7 +704,7 @@ void DocumentView::jumpBackward()
 
         m_future.prepend(Position(m_currentPage, left, top));
 
-        Position pos = m_past.takeLast();
+        const Position pos = m_past.takeLast();
         jumpToPage(pos.page, false, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
@@ -725,7 +725,7 @@ void DocumentView::jumpForward()
 
         m_past.append(Position(m_currentPage, left, top));
 
-        Position pos = m_future.takeFirst();
+        const Position pos = m_future.takeFirst();
         jumpToPage(pos.page, false, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
@@ -901,12 +901,7 @@ void DocumentView::rotateRight()
 
 void DocumentView::startPresentation()
 {
-    int screen = s_settings->presentationView().screen();
-
-    if(screen < -1 || screen >= QApplication::desktop()->screenCount())
-    {
-        screen = -1;
-    }
+    const int screen = s_settings->presentationView().screen();
 
     PresentationView* presentationView = new PresentationView(m_pages);
 
@@ -935,7 +930,7 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 {
     if(m_continuousMode)
     {
-        QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
+        const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
         foreach(PageItem* page, m_pageItems)
         {
@@ -945,11 +940,11 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
             }
         }
 
-        QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
+        const QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
 
         if(lowerBound != m_heightToIndex.end())
         {
-            int page = lowerBound.value() + 1;
+            const int page = lowerBound.value() + 1;
 
             if(m_currentPage != page)
             {
@@ -1057,7 +1052,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
 
 void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
 {
-    QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : QFileInfo(m_filePath).dir().filePath(fileName);
+    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : QFileInfo(m_filePath).dir().filePath(fileName);
 
     emit linkClicked(filePath, page);
 }
@@ -1076,7 +1071,9 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
         return;
     }
 
-    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(QFileInfo(m_filePath).absoluteFilePath().toLocal8Bit(), 0, 1);
+    const QFileInfo fileInfo(m_filePath);
+
+    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1);
 
     if(scanner != 0)
     {
@@ -1084,8 +1081,6 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
         {
             for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
             {
-                QString path = QFileInfo(m_filePath).path();
-
                 QString sourceName = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
                 int sourceLine = synctex_node_line(node);
                 int sourceColumn = synctex_node_column(node);
@@ -1093,7 +1088,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 sourceLine = sourceLine >= 0 ? sourceLine : 0;
                 sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
-                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(QDir(path).absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
+                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(fileInfo.dir().absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
 
                 break;
             }
@@ -1103,7 +1098,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     }
     else
     {
-        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(QFileInfo(m_filePath).absoluteFilePath()));
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(fileInfo.absoluteFilePath()));
     }
 
 #else
@@ -1484,10 +1479,10 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         QApplication::processEvents();
 
-        Model::Page* page = m_pages.at(index);
+        const Model::Page* page = m_pages.at(index);
 
-        qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
-        qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
+        const qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
+        const qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
 
         qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
 
@@ -1598,10 +1593,10 @@ int DocumentView::rightIndexForIndex(int index) const
 
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
-    PageItem* page = m_pageItems.at(m_currentPage - 1);
+    const PageItem* page = m_pageItems.at(m_currentPage - 1);
 
-    QRectF boundingRect = page->boundingRect().translated(page->pos());
-    QPointF topLeft = mapToScene(viewport()->rect().topLeft());
+    const QRectF boundingRect = page->boundingRect().translated(page->pos());
+    const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
     left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
@@ -1731,7 +1726,7 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    qreal pageSpacing = s_settings->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
     // prepare scale factor and rotation
 
@@ -1817,7 +1812,7 @@ void DocumentView::prepareScene()
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        QRectF boundingRect = page->boundingRect();
+        const QRectF boundingRect = page->boundingRect();
 
         switch(m_layoutMode)
         {
@@ -1900,11 +1895,12 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
+    const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
 
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
+        const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
         if(m_continuousMode)
         {
@@ -1912,8 +1908,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
             if(index == m_currentPage - 1)
             {
-                QRectF boundingRect = page->boundingRect().translated(page->pos());
-
                 horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
                 verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
             }
@@ -1923,8 +1917,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
             if(leftIndexForIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
-
-                QRectF boundingRect = page->boundingRect().translated(page->pos());
 
                 top = boundingRect.top() - s_settings->documentView().pageSpacing();
                 height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
@@ -1967,13 +1959,13 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
 void DocumentView::prepareThumbnailsScene()
 {
-    qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
+    const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = thumbnailSpacing;
 
-    bool limitThumbnailsToResults = s_settings->documentView().limitThumbnailsToResults();
+    const bool limitThumbnailsToResults = s_settings->documentView().limitThumbnailsToResults();
 
     for(int index = 0; index < m_thumbnailItems.count(); ++index)
     {
@@ -1992,14 +1984,14 @@ void DocumentView::prepareThumbnailsScene()
 
         // prepare scale factor
 
-        qreal pageWidth = physicalDpiX() / 72.0 * page->size().width();
-        qreal pageHeight = physicalDpiY() / 72.0 * page->size().height();
+        const qreal pageWidth = physicalDpiX() / 72.0 * page->size().width();
+        const qreal pageHeight = physicalDpiY() / 72.0 * page->size().height();
 
         page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / pageWidth, s_settings->documentView().thumbnailSize() / pageHeight));
 
         // prepare layout
 
-        QRectF boundingRect = page->boundingRect();
+        const QRectF boundingRect = page->boundingRect();
 
         page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
@@ -2021,8 +2013,8 @@ void DocumentView::prepareHighlight()
 
         m_highlight->setPos(page->pos());
         m_highlight->setTransform(page->transform());
-        m_highlight->setRect(m_currentResult.value().normalized());
 
+        m_highlight->setRect(m_currentResult.value().normalized());
         m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
 
         page->stackBefore(m_highlight);

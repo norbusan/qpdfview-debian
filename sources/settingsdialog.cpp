@@ -166,12 +166,12 @@ void SettingsDialog::accept()
     s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
-    QColor highlightColor(m_highlightColorComboBox->currentText());
+    const QColor highlightColor(m_highlightColorComboBox->currentText());
     s_settings->pageItem().setHighlightColor(highlightColor.isValid() ? highlightColor : Defaults::PageItem::highlightColor());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
 
-    QColor annotationColor(m_annotationColorComboBox->currentText());
+    const QColor annotationColor(m_annotationColorComboBox->currentText());
     s_settings->pageItem().setAnnotationColor(annotationColor.isValid() ? annotationColor : Defaults::PageItem::annotationColor());
 
     s_settings->documentView().setSourceEditor(m_sourceEditorLineEdit->text());
@@ -182,10 +182,10 @@ void SettingsDialog::accept()
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
 
-    QColor backgroundColor(m_backgroundColorComboBox->currentText());
+    const QColor backgroundColor(m_backgroundColorComboBox->currentText());
     s_settings->pageItem().setBackgroundColor(backgroundColor.isValid() ? backgroundColor : Defaults::PageItem::backgroundColor());
 
-    QColor paperColor(m_paperColorComboBox->currentText());
+    const QColor paperColor(m_paperColorComboBox->currentText());
     s_settings->pageItem().setPaperColor(paperColor.isValid() ? paperColor : Defaults::PageItem::paperColor());
 
     s_settings->documentView().setPagesPerRow(m_pagesPerRowSpinBox->value());

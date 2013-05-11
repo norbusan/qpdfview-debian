@@ -230,14 +230,14 @@ QList< Model::Link* > Model::PdfPage::links() const
 
     QList< Link* > links;
 
-    foreach(Poppler::Link* link, m_page->links())
+    foreach(const Poppler::Link* link, m_page->links())
     {
         if(link->linkType() == Poppler::Link::Goto)
         {
-            Poppler::LinkGoto* linkGoto = static_cast< Poppler::LinkGoto* >(link);
+            const Poppler::LinkGoto* linkGoto = static_cast< const Poppler::LinkGoto* >(link);
 
-            QRectF boundary = linkGoto->linkArea().normalized();
-            int page = linkGoto->destination().pageNumber();
+            const QRectF boundary = linkGoto->linkArea().normalized();
+            const int page = linkGoto->destination().pageNumber();
 
             qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
             qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
@@ -259,10 +259,10 @@ QList< Model::Link* > Model::PdfPage::links() const
         }
         else if(link->linkType() == Poppler::Link::Browse)
         {
-            Poppler::LinkBrowse* linkBrowse = static_cast< Poppler::LinkBrowse* >(link);
+            const Poppler::LinkBrowse* linkBrowse = static_cast< const Poppler::LinkBrowse* >(link);
 
-            QRectF boundary = linkBrowse->linkArea().normalized();
-            QString url = linkBrowse->url();
+            const QRectF boundary = linkBrowse->linkArea().normalized();
+            const QString url = linkBrowse->url();
 
             links.append(new Link(boundary, url));
         }
@@ -630,7 +630,7 @@ void Model::PdfDocument::setPaperColor(const QColor& paperColor)
 
 static void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
 {
-    QDomElement element = node.toElement();
+    const QDomElement element = node.toElement();
 
     QStandardItem* item = new QStandardItem(element.tagName());
     item->setFlags(Qt::ItemIsEnabled);
@@ -688,13 +688,13 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
         parent->appendRow(item);
     }
 
-    QDomNode siblingNode = node.nextSibling();
+    const QDomNode& siblingNode = node.nextSibling();
     if(!siblingNode.isNull())
     {
         loadOutline(document, siblingNode, parent);
     }
 
-    QDomNode childNode = node.firstChild();
+    const QDomNode& childNode = node.firstChild();
     if(!childNode.isNull())
     {
         loadOutline(document, childNode, item);
@@ -738,7 +738,7 @@ void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) con
 
     for(int index = 0; index < keys.count(); ++index)
     {
-        QString key = keys.at(index);
+        const QString key = keys.at(index);
         QString value = m_document->info(key);
 
         if(value.startsWith("D:"))
@@ -761,7 +761,7 @@ void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 
 #endif // HAS_POPPLER_24
 
-    QList< Poppler::FontInfo > fonts = m_document->fonts();
+    const QList< Poppler::FontInfo > fonts = m_document->fonts();
 
     fontsModel->setRowCount(fonts.count());
     fontsModel->setColumnCount(5);
@@ -770,7 +770,7 @@ void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 
     for(int index = 0; index < fonts.count(); ++index)
     {
-        Poppler::FontInfo& font = fonts[index];
+        const Poppler::FontInfo& font = fonts[index];
 
         fontsModel->setItem(index, 0, new QStandardItem(font.name()));
         fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));

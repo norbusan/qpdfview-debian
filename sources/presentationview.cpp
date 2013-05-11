@@ -418,8 +418,8 @@ void PresentationView::prepareScene()
     {
         PageItem* page = m_pageItems.at(index);
 
-        qreal visibleWidth = viewport()->width();
-        qreal visibleHeight = viewport()->height();
+        const qreal visibleWidth = viewport()->width();
+        const qreal visibleHeight = viewport()->height();
 
         qreal pageWidth = 0.0;
         qreal pageHeight = 0.0;
@@ -439,7 +439,7 @@ void PresentationView::prepareScene()
             break;
         }
 
-        qreal scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
+        const qreal scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
 
         page->setScaleFactor(scaleFactor);
         page->setRotation(m_rotation);

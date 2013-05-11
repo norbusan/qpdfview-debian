@@ -64,7 +64,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
         delete first;
     }
 
-    QFileInfo fileInfo(filePath);
+    const QFileInfo fileInfo(filePath);
 
     QAction* action = new QAction(fileInfo.completeBaseName(), this);
     action->setToolTip(fileInfo.absoluteFilePath());
@@ -91,7 +91,7 @@ QStringList RecentlyUsedMenu::filePaths() const
 {
     QStringList filePaths;
 
-    foreach(QAction* action, m_openActionGroup->actions())
+    foreach(const QAction* action, m_openActionGroup->actions())
     {
         filePaths.append(action->data().toString());
     }

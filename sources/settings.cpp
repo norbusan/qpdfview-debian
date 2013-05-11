@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QSettings>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -174,7 +175,14 @@ void Settings::PresentationView::setSync(bool sync)
 
 int Settings::PresentationView::screen() const
 {
-    return m_settings->value("presentationView/screen", Defaults::PresentationView::screen()).toInt();
+    int screen = m_settings->value("presentationView/screen", Defaults::PresentationView::screen()).toInt();
+
+    if(screen < -1 || screen >= QApplication::desktop()->screenCount())
+    {
+        screen = -1;
+    }
+
+    return screen;
 }
 
 void Settings::PresentationView::setScreen(int screen)
@@ -548,7 +556,7 @@ static QStringList trimmed(const QStringList& list)
 {
     QStringList trimmedList;
 
-    foreach(QString item, list)
+    foreach(const QString& item, list)
     {
         trimmedList.append(item.trimmed());
     }

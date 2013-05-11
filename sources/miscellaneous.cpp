@@ -150,10 +150,10 @@ void TreeView::contextMenuEvent(QContextMenuEvent* event)
     {
         QMenu menu;
 
-        QAction* expandAllAction = menu.addAction(tr("&Expand all"));
-        QAction* collapseAllAction = menu.addAction(tr("&Collapse all"));
+        const QAction* expandAllAction = menu.addAction(tr("&Expand all"));
+        const QAction* collapseAllAction = menu.addAction(tr("&Collapse all"));
 
-        QAction* action = menu.exec(event->globalPos());
+        const QAction* action = menu.exec(event->globalPos());
 
         if(action == expandAllAction)
         {

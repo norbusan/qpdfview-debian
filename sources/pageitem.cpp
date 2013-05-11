@@ -144,8 +144,8 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     {
         // progess icon
 
-        qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-        QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
+        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
         s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
     }
@@ -168,7 +168,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red));
 
-        foreach(Model::Link* link, m_links)
+        foreach(const Model::Link* link, m_links)
         {
             painter->drawPath(link->boundary);
         }
@@ -185,7 +185,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::blue));
 
-        foreach(Model::FormField* formField, m_formFields)
+        foreach(const Model::FormField* formField, m_formFields)
         {
             painter->drawRect(formField->boundary());
         }
@@ -204,7 +204,7 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
         painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 
-        foreach(QRectF highlight, m_highlights)
+        foreach(const QRectF highlight, m_highlights)
         {
             painter->drawRect(highlight.normalized());
         }
@@ -409,8 +409,8 @@ void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qrea
     {
         // error icon
 
-        qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-        QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
+        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        const QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
 
         image = QImage(qFloor(0.01 * m_boundingRect.width() + extent), qFloor(0.01 * m_boundingRect.height() + extent), QImage::Format_ARGB32);
         image.fill(Qt::transparent);
@@ -421,10 +421,10 @@ void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qrea
 
     if(prefetch)
     {
-        QPixmap pixmap = QPixmap::fromImage(image);
+        QPixmap* pixmap = new QPixmap(QPixmap::fromImage(image));
 
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(this, new QPixmap(pixmap), cost);
+        int cost = pixmap->width() * pixmap->height() * pixmap->depth() / 8;
+        s_cache.insert(this, pixmap, cost);
     }
     else
     {
@@ -445,7 +445,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
     {
         // links
 
-        foreach(Model::Link* link, m_links)
+        foreach(const Model::Link* link, m_links)
         {
             if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
@@ -484,7 +484,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // annotations
 
-        foreach(Model::Annotation* annotation, m_annotations)
+        foreach(const Model::Annotation* annotation, m_annotations)
         {
             if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
             {
@@ -497,7 +497,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
         // form fields
 
-        foreach(Model::FormField* formField, m_formFields)
+        foreach(const Model::FormField* formField, m_formFields)
         {
             if(m_normalizedTransform.mapRect(formField->boundary()).contains(event->pos()))
             {
@@ -553,7 +553,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     {
         // links
 
-        foreach(Model::Link* link, m_links)
+        foreach(const Model::Link* link, m_links)
         {
             if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
@@ -718,15 +718,15 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 {
     QMenu menu;
 
-    QAction* copyTextAction = menu.addAction(tr("Copy &text"));
-    QAction* copyImageAction = menu.addAction(tr("Copy &image"));
-    QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
+    const QAction* copyTextAction = menu.addAction(tr("Copy &text"));
+    const QAction* copyImageAction = menu.addAction(tr("Copy &image"));
+    const QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
 
-    QAction* action = menu.exec(screenPos);
+    const QAction* action = menu.exec(screenPos);
 
     if(action == copyTextAction)
     {
-        QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
+        const QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
 
         if(!text.isEmpty())
         {
@@ -735,8 +735,8 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
-        QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_physicalDpiX * m_scaleFactor, m_scaleFactor * m_physicalDpiY, m_rotation, rect);
+        const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
+        const QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_physicalDpiX * m_scaleFactor, m_scaleFactor * m_physicalDpiY, m_rotation, rect);
 
         if(!image.isNull())
         {
@@ -746,7 +746,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
             }
             else if(action == saveImageToFileAction)
             {
-                QString fileName = QFileDialog::getSaveFileName(0, tr("Save image to file"), QDir::homePath(), "Portable network graphics (*.png)");
+                const QString fileName = QFileDialog::getSaveFileName(0, tr("Save image to file"), QDir::homePath(), "Portable network graphics (*.png)");
 
                 if(!image.save(fileName, "PNG"))
                 {
@@ -763,10 +763,10 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     {
         QMenu menu;
 
-        QAction* addTextAction = menu.addAction(tr("Add &text"));
-        QAction* addHighlightAction = menu.addAction(tr("Add &highlight"));
+        const QAction* addTextAction = menu.addAction(tr("Add &text"));
+        const QAction* addHighlightAction = menu.addAction(tr("Add &highlight"));
 
-        QAction* action = menu.exec(screenPos);
+        const QAction* action = menu.exec(screenPos);
 
         if(action == addTextAction || action == addHighlightAction)
         {
@@ -801,9 +801,9 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
     {
         QMenu menu;
 
-        QAction* removeAnnotationAction = menu.addAction(tr("&Remove annotation"));
+        const QAction* removeAnnotationAction = menu.addAction(tr("&Remove annotation"));
 
-        QAction* action = menu.exec(screenPos);
+        const QAction* action = menu.exec(screenPos);
 
         if(action == removeAnnotationAction)
         {
@@ -883,7 +883,7 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
 {
     setAcceptHoverEvents(false);
 
-    QFontMetrics fontMetrics = QFontMetrics(QFont());
+    const QFontMetrics fontMetrics = QFontMetrics(QFont());
 
     m_textWidth = fontMetrics.width(QString::number(index + 1));
     m_textHeight = fontMetrics.height();
@@ -900,7 +900,7 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 {
     PageItem::paint(painter, option, widget);
 
-    QRectF boundingRect = PageItem::boundingRect();
+    const QRectF boundingRect = PageItem::boundingRect();
 
     QPointF pos = boundingRect.bottomLeft();
     pos.rx() += 0.5 * (boundingRect.width() - m_textWidth);

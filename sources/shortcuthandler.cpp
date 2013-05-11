@@ -30,7 +30,7 @@ static QList< QKeySequence > toShortcuts(const QStringList& stringList)
 {
     QList< QKeySequence > shortcuts;
 
-    foreach(QString string, stringList)
+    foreach(const QString& string, stringList)
     {
         QKeySequence shortcut(string.trimmed());
 
@@ -47,7 +47,7 @@ static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequ
 {
     QStringList stringList;
 
-    foreach(QKeySequence shortcut, shortcuts)
+    foreach(const QKeySequence& shortcut, shortcuts)
     {
         stringList.append(shortcut.toString(format));
     }
@@ -57,7 +57,7 @@ static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequ
 
 static bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
 {
-    foreach(QKeySequence shortcut, shortcuts)
+    foreach(const QKeySequence& shortcut, shortcuts)
     {
         if(keySequence.matches(shortcut) == QKeySequence::ExactMatch)
         {
@@ -89,8 +89,8 @@ void ShortcutHandler::registerAction(QAction* action)
 {
     Q_ASSERT(!action->objectName().isEmpty());
 
-    QKeySequence defaultShortcut = action->shortcut();
-    QList< QKeySequence > shortcuts = toShortcuts(m_settings->value(action->objectName(), action->shortcut()).toStringList());
+    const QKeySequence defaultShortcut = action->shortcut();
+    const QList< QKeySequence > shortcuts = toShortcuts(m_settings->value(action->objectName(), action->shortcut()).toStringList());
 
     action->setShortcuts(shortcuts);
 
@@ -192,27 +192,27 @@ bool ShortcutHandler::matchesSkipBackward(const QKeySequence& keySequence) const
     return matches(keySequence, m_skipBackwardAction->shortcuts());
 }
 
-bool ShortcutHandler::matchesSkipForward(const QKeySequence &keySequence) const
+bool ShortcutHandler::matchesSkipForward(const QKeySequence& keySequence) const
 {
     return matches(keySequence, m_skipForwardAction->shortcuts());
 }
 
-bool ShortcutHandler::matchesMoveUp(const QKeySequence &keySequence) const
+bool ShortcutHandler::matchesMoveUp(const QKeySequence& keySequence) const
 {
     return matches(keySequence, m_moveUpAction->shortcuts());
 }
 
-bool ShortcutHandler::matchesMoveDown(const QKeySequence &keySequence) const
+bool ShortcutHandler::matchesMoveDown(const QKeySequence& keySequence) const
 {
     return matches(keySequence, m_moveDownAction->shortcuts());
 }
 
-bool ShortcutHandler::matchesMoveLeft(const QKeySequence &keySequence) const
+bool ShortcutHandler::matchesMoveLeft(const QKeySequence& keySequence) const
 {
     return matches(keySequence, m_moveLeftAction->shortcuts());
 }
 
-bool ShortcutHandler::matchesMoveRight(const QKeySequence &keySequence) const
+bool ShortcutHandler::matchesMoveRight(const QKeySequence& keySequence) const
 {
     return matches(keySequence, m_moveRightAction->shortcuts());
 }
@@ -224,7 +224,7 @@ bool ShortcutHandler::submit()
         iterator.key()->setShortcuts(iterator.value());
     }
 
-    foreach(QAction* action, m_actions)
+    foreach(const QAction* action, m_actions)
     {
         m_settings->setValue(action->objectName(), toStringList(action->shortcuts(), QKeySequence::PortableText));
     }

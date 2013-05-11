@@ -25,7 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(parent)
 {
-    QFileInfo fileInfo(filePath);
+    const QFileInfo fileInfo(filePath);
 
     menuAction()->setText(fileInfo.completeBaseName());
     menuAction()->setToolTip(fileInfo.absoluteFilePath());
@@ -100,7 +100,7 @@ QList< int > BookmarkMenu::pages() const
 {
     QList< int > pages;
 
-    foreach(QAction* action, m_jumpToPageActionGroup->actions())
+    foreach(const QAction* action, m_jumpToPageActionGroup->actions())
     {
         pages.append(action->data().toInt());
     }

@@ -54,7 +54,7 @@ void SearchTask::run()
             return;
         }
 
-        QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase);
+        const QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase);
 
         emit resultsReady(index % m_pages.count(), results);
 

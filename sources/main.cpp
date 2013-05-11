@@ -118,7 +118,7 @@ int main(int argc, char** argv)
             arguments.removeFirst();
         }
 
-        foreach(QString argument, arguments)
+        foreach(const QString& argument, arguments)
         {
             if(instanceNameIsNext)
             {
@@ -285,7 +285,7 @@ int main(int argc, char** argv)
             {
                 interface->call("raiseAndActivate");
 
-                foreach(File file, files)
+                foreach(const File& file, files)
                 {
                     QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true, file.enclosingBox, quiet);
 
@@ -358,7 +358,7 @@ int main(int argc, char** argv)
     mainWindow->show();
     mainWindow->setAttribute(Qt::WA_DeleteOnClose);
 
-    foreach(File file, files)
+    foreach(const File& file, files)
     {
         mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox, quiet);
     }

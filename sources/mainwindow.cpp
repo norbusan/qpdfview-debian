@@ -148,7 +148,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
         if(currentTab()->open(filePath))
         {
-            QFileInfo fileInfo(filePath);
+            const QFileInfo fileInfo(filePath);
 
             s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
             m_recentlyUsedMenu->addOpenAction(filePath);
@@ -194,7 +194,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->setInvertColors(s_settings->documentView().invertColors());
         newTab->setHighlightAll(s_settings->documentView().highlightAll());
 
-        QFileInfo fileInfo(filePath);
+        const QFileInfo fileInfo(filePath);
 
         s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
@@ -273,7 +273,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
 bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight, bool quiet)
 {
-    QFileInfo fileInfo(filePath);
+    const QFileInfo fileInfo(filePath);
 
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
@@ -509,7 +509,7 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
     {
         if(sender() == m_tabWidget->widget(index))
         {
-            QFileInfo fileInfo(filePath);
+            const QFileInfo fileInfo(filePath);
 
             m_tabWidget->setTabText(index, fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
@@ -748,7 +748,7 @@ void MainWindow::on_scaleFactor_activated(int index)
     else
     {
         bool ok = false;
-        qreal scaleFactor = m_scaleFactorComboBox->itemData(index).toReal(&ok);
+        const qreal scaleFactor = m_scaleFactorComboBox->itemData(index).toReal(&ok);
 
         if(ok)
         {
@@ -790,8 +790,8 @@ void MainWindow::on_open_triggered()
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        QString path = s_settings->mainWindow().openPath();
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, DocumentView::openFilter().join(";;"));
+        const QString path = s_settings->mainWindow().openPath();
+        const QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, DocumentView::openFilter().join(";;"));
 
         if(!filePath.isEmpty())
         {
@@ -806,14 +806,14 @@ void MainWindow::on_open_triggered()
 
 void MainWindow::on_openInNewTab_triggered()
 {
-    QString path = s_settings->mainWindow().openPath();
-    QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, DocumentView::openFilter().join(";;"));
+    const QString path = s_settings->mainWindow().openPath();
+    const QStringList filePaths = QFileDialog::getOpenFileNames(this, tr("Open in new tab"), path, DocumentView::openFilter().join(";;"));
 
     if(!filePaths.isEmpty())
     {
         disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-        foreach(QString filePath, filePaths)
+        foreach(const QString& filePath, filePaths)
         {
             openInNewTab(filePath);
         }
@@ -834,8 +834,8 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
-    QString path = s_settings->mainWindow().savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
+    const QString path = s_settings->mainWindow().savePath();
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
@@ -852,8 +852,8 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
-    QString path = s_settings->mainWindow().savePath();
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
+    const QString path = s_settings->mainWindow().savePath();
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
@@ -905,8 +905,8 @@ void MainWindow::on_print_triggered()
         }
     }
 
-    delete printer;
     delete printDialog;
+    delete printer;
 }
 
 void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
@@ -940,7 +940,7 @@ void MainWindow::on_lastPage_triggered()
 void MainWindow::on_jumpToPage_triggered()
 {
     bool ok = false;
-    int page = QInputDialog::getInt(this, tr("Jump to page"), tr("Page:"), currentTab()->currentPage(), 1, currentTab()->numberOfPages(), 1, &ok);
+    const int page = QInputDialog::getInt(this, tr("Jump to page"), tr("Page:"), currentTab()->currentPage(), 1, currentTab()->numberOfPages(), 1, &ok);
 
     if(ok)
     {
@@ -1157,8 +1157,8 @@ void MainWindow::on_fonts_triggered()
     dialog->exec();
     s_settings->mainWindow().setFontsDialogSize(dialog->size());
 
-    delete fontsModel;
     delete dialog;
+    delete fontsModel;
 }
 
 void MainWindow::on_fullscreen_triggered(bool checked)
@@ -1235,24 +1235,22 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
     DocumentView* newTab = currentTab();
 
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    m_tabWidget->removeTab(m_tabWidget->currentIndex());
+
+    while(m_tabWidget->count() > 0)
     {
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        savePerFileSettings(tab(0));
 
-        m_tabWidget->removeTab(m_tabWidget->currentIndex());
-
-        while(m_tabWidget->count() > 0)
-        {
-            savePerFileSettings(tab(0));
-
-            delete m_tabWidget->widget(0);
-        }
-
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        delete m_tabWidget->widget(0);
     }
 
-    QFileInfo fileInfo(newTab->filePath());
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
+    const QFileInfo fileInfo(newTab->filePath());
+
+    const int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
     m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
     m_tabWidget->setCurrentIndex(index);
 }
@@ -1285,7 +1283,7 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+    const BookmarkMenu* bookmark = bookmarkForCurrentTab();
 
     if(bookmark != 0)
     {
@@ -1311,7 +1309,7 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+    const BookmarkMenu* bookmark = bookmarkForCurrentTab();
 
     if(bookmark != 0)
     {
@@ -1369,7 +1367,7 @@ void MainWindow::on_removeBookmark_triggered()
 
 void MainWindow::on_removeAllBookmarks_triggered()
 {
-    foreach(QAction* action, m_bookmarksMenu->actions())
+    foreach(const QAction* action, m_bookmarksMenu->actions())
     {
         BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
@@ -1501,9 +1499,9 @@ void MainWindow::on_model_reset()
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
-    int page = m_outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
-    qreal left = m_outlineView->model()->data(index, Qt::UserRole + 2).toReal();
-    qreal top = m_outlineView->model()->data(index, Qt::UserRole + 3).toReal();
+    const int page = m_outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+    const qreal left = m_outlineView->model()->data(index, Qt::UserRole + 2).toReal();
+    const qreal top = m_outlineView->model()->data(index, Qt::UserRole + 3).toReal();
 
     if(ok)
     {
@@ -1517,7 +1515,7 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
 
     if(m_thumbnailsView->scene() != 0)
     {
-        QRectF visibleRect = m_thumbnailsView->mapToScene(m_thumbnailsView->viewport()->rect()).boundingRect();
+        const QRectF visibleRect = m_thumbnailsView->mapToScene(m_thumbnailsView->viewport()->rect()).boundingRect();
 
         foreach(ThumbnailItem* page, currentTab()->thumbnailItems())
         {
@@ -1539,9 +1537,9 @@ void MainWindow::closeEvent(QCloseEvent* event)
         savePerFileSettings(tab(index));
     }
 
-    removeToolBar(m_searchToolBar);
-
     s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
+
+    removeToolBar(m_searchToolBar);
 
     s_settings->documentView().setMatchCase(m_matchCaseCheckBox->isChecked());
 
@@ -1567,7 +1565,7 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-        foreach(QUrl url, event->mimeData()->urls())
+        foreach(const QUrl& url, event->mimeData()->urls())
         {
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
             if(url.isLocalFile())
@@ -1597,7 +1595,7 @@ DocumentView* MainWindow::tab(int index) const
 
 bool MainWindow::senderIsCurrentTab() const
 {
-    return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
 QString MainWindow::windowTitleSuffixForCurrentTab() const
@@ -1836,7 +1834,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
 
     toolBar->setObjectName(objectName);
 
-    foreach(QString actionName, actionNames)
+    foreach(const QString& actionName, actionNames)
     {
         if(actionName == QLatin1String("separator"))
         {
@@ -1962,7 +1960,7 @@ void MainWindow::createMenus()
 
     if(s_settings->mainWindow().trackRecentlyUsed())
     {
-        foreach(QString filePath, s_settings->mainWindow().recentlyUsed())
+        foreach(const QString& filePath, s_settings->mainWindow().recentlyUsed())
         {
             m_recentlyUsedMenu->addOpenAction(filePath);
         }
@@ -2051,11 +2049,11 @@ void MainWindow::createDatabase()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
 #else
 
-    QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+    const QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 
 #endif // QT_VERSION
 
@@ -2069,7 +2067,7 @@ void MainWindow::createDatabase()
     {
         m_database.transaction();
 
-        QStringList tables = m_database.tables();
+        const QStringList tables = m_database.tables();
         QSqlQuery query(m_database);
 
         // tabs
@@ -2282,7 +2280,7 @@ void MainWindow::restoreBookmarks()
 
             QStringList pages = query.value(1).toString().split(",", QString::SkipEmptyParts);
 
-            foreach(QString page, pages)
+            foreach(const QString& page, pages)
             {
                 bookmark->addJumpToPageAction(page.toInt());
             }
@@ -2322,15 +2320,15 @@ void MainWindow::saveBookmarks()
                           "(filePath,pages)"
                           " VALUES (?,?)");
 
-            foreach(QAction* action, m_bookmarksMenu->actions())
+            foreach(const QAction* action, m_bookmarksMenu->actions())
             {
-                BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+                const BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
                 if(bookmark != 0)
                 {
                     QStringList pages;
 
-                    foreach(int page, bookmark->pages())
+                    foreach(const int page, bookmark->pages())
                     {
                         pages.append(QString::number(page));
                     }

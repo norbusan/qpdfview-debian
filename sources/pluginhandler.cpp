@@ -66,8 +66,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-    QMimeDatabase mimeDatabase;
-    QMimeType mimeType = mimeDatabase.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
+    const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
     if(mimeType.name() == "application/pdf")
     {
@@ -118,7 +117,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
 
 #else
 
-    QFileInfo fileInfo(filePath);
+    const QFileInfo fileInfo(filePath);
 
     if(fileInfo.suffix().toLower() == "pdf")
     {
