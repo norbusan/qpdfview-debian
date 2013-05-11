@@ -222,22 +222,12 @@ QList< Model::Link* > Model::DjVuPage::links() const
     {
         miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
 
-        if(miniexp_length(linkExp) <= 3)
+        if(miniexp_length(linkExp) <= 3 || qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0 || !miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
         {
             continue;
         }
 
-        if(qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0)
-        {
-            continue;
-        }
-
-        QString type;
-
-        if(miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
-        {
-            type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
-        }
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
 
         if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
         {
@@ -255,15 +245,15 @@ QList< Model::Link* > Model::DjVuPage::links() const
 
                 p.setY(m_size.height() - s.height() - p.y());
 
-                const QRectF rect(p, s);
+                const QRectF r(p, s);
 
                 if(type == QLatin1String("rect"))
                 {
-                    boundary.addRect(rect);
+                    boundary.addRect(r);
                 }
                 else
                 {
-                    boundary.addEllipse(rect);
+                    boundary.addEllipse(r);
                 }
             }
             else if(areaLength > 0 && areaLength % 2 == 1 && type == QLatin1String("poly"))
@@ -525,12 +515,7 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     {
         ddjvu_fileinfo_t fileinfo;
 
-        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK)
-        {
-            continue;
-        }
-
-        if(fileinfo.type != 'P')
+        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK || fileinfo.type != 'P')
         {
             continue;
         }
@@ -626,12 +611,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
         miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
         const int bookmarkLength = miniexp_length(bookmarkExp);
 
-        if(bookmarkLength <= 1)
-        {
-            continue;
-        }
-
-        if(!miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
+        if(bookmarkLength <= 1 || !miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
         {
             continue;
         }
@@ -748,12 +728,7 @@ void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
         miniexp_t listExp = miniexp_nth(annoN, annoExp);
         const int listLength = miniexp_length(listExp);
 
-        if(listLength <= 1)
-        {
-            continue;
-        }
-
-        if(qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
+        if(listLength <= 1 || qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
         {
             continue;
         }
