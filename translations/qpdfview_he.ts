@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="he_IL">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -227,7 +227,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1752"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">י&amp;ציאה</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1756"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="769"/>
         <source>Subset</source>
-        <translation type="unfinished">תת־ערכה</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="769"/>
@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">נדרשת גרסה 0.20.1 ומעלה של ספריית Poppler כי להוסיף או להסיר הערות מהמסמך.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -576,7 +576,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Format</source>
-        <translation type="unfinished">מבנה</translation>
+        <translation type="unfinished">עיצוב</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="222"/>
@@ -668,7 +668,7 @@
         <location filename="../sources/pdfmodel.cpp" line="807"/>
         <location filename="../sources/pdfmodel.cpp" line="837"/>
         <source>None</source>
-        <translation type="unfinished">ללא</translation>
+        <translation type="unfinished">אין</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="808"/>
@@ -678,18 +678,18 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="809"/>
         <source>Reduced</source>
-        <translation type="unfinished">מצומצם</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="812"/>
         <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">הינטינג של הטקסט:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">תצוגה מקדימה להדפסת יתר:</translation>
+        <translation type="unfinished">טווחי</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
@@ -699,12 +699,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Shaped</source>
-        <translation type="unfinished">מעוצב</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="842"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">מצב קווים דקים:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -742,7 +742,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">טווח עמודים:</translation>
+        <translation type="unfinished">טווחי עמודים:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
@@ -762,7 +762,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">ערכת עמודים:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -797,17 +797,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">לפי הסדר:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">מלמטה למעלה ומשמאל לימין</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">מלמטה למעלה ומימין לשמאל</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
@@ -817,7 +817,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">משמאל לימין ומלעלה למטה</translation>
+        <translation type="unfinished">משמאל לימין ומלמעלה למטה</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
@@ -832,17 +832,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">מלמעלה למטרה ומשמאל לימין</translation>
+        <translation type="unfinished">מלמעלה למטה ומשמאל לימין</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">למלעלה למטה ומימין לשמאל</translation>
+        <translation type="unfinished">מלמעלה למטה ומימין לשמאל</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">פריסה לפי הסדר:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">סיביות החלקת גרפיקה:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">סיביות החלקת טקסט:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1038,9 +1038,24 @@
         <translation type="unfinished">מסך המצגת:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">צבע ההדגשה:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">ללא</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">משך ההדגשה:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">צבע ההערות:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="421"/>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">עיצוב שדות הטופס:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">ללא</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">משך ההדגשה:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1187,12 +1187,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לשונית חדשה ליד הלשונית הנוכחית:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
@@ -1210,9 +1205,14 @@
         <translation type="unfinished">סרגל כלים הצגה:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">העמוד הנוכחי בכותרת החלון:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הדגשת התמונה הממוזערת הנוכחית:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
@@ -1248,6 +1248,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">פעולה</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">צירוף מקשים</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">דילוג אחורה</translation>
@@ -1260,7 +1270,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
         <source>Move up</source>
-        <translation type="unfinished">הזזה מעלה</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="282"/>
@@ -1276,16 +1286,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">הזזה ימינה</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">פעולה</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">צירוף מקשים</translation>
     </message>
 </context>
 <context>

@@ -1038,6 +1038,21 @@
         <translation type="unfinished">Pantalla de presentació:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Color de ressaltat:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Remarca la durada:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Color de l&apos;anotació:</translation>
@@ -1066,21 +1081,6 @@
         <location filename="../sources/settingsdialog.cpp" line="447"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Decora camps del formulari:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>None</source>
-        <translation type="unfinished">Cap</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Remarca la durada:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
@@ -1190,11 +1190,6 @@
         <translation type="unfinished">Nova pestanya seguida de la actual:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Pàgina actual al títol de la finestra:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="574"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Arxiu barra d&apos;eines:</translation>
@@ -1210,9 +1205,14 @@
         <translation type="unfinished">Vore barra d&apos;eines:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Pàgina actual al títol de la finestra:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="604"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ressalta la miniatura actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
@@ -1248,6 +1248,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Acció</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Seqüència de tecles</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">Vés enrere</translation>
@@ -1276,16 +1286,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">Mou a la dreta</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Acció</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Seqüència de tecles</translation>
     </message>
 </context>
 <context>
