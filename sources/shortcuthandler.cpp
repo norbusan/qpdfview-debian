@@ -43,7 +43,7 @@ static QList< QKeySequence > toShortcuts(const QStringList& stringList)
     return shortcuts;
 }
 
-static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::SequenceFormat format)
+static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::SequenceFormat format = QKeySequence::PortableText)
 {
     QStringList stringList;
 
@@ -89,14 +89,14 @@ void ShortcutHandler::registerAction(QAction* action)
 {
     Q_ASSERT(!action->objectName().isEmpty());
 
-    const QKeySequence defaultShortcut = action->shortcut();
-    const QList< QKeySequence > shortcuts = toShortcuts(m_settings->value(action->objectName(), action->shortcut()).toStringList());
+    const QList< QKeySequence > defaultShortcuts = action->shortcuts();
+    const QList< QKeySequence > shortcuts = toShortcuts(m_settings->value(action->objectName(), toStringList(defaultShortcuts)).toStringList());
 
     action->setShortcuts(shortcuts);
 
     m_actions.append(action);
     m_shortcuts.insert(action, shortcuts);
-    m_defaultShortcuts.insert(action, defaultShortcut);
+    m_defaultShortcuts.insert(action, defaultShortcuts);
 }
 
 int ShortcutHandler::columnCount(const QModelIndex& parent) const
@@ -226,7 +226,7 @@ bool ShortcutHandler::submit()
 
     foreach(const QAction* action, m_actions)
     {
-        m_settings->setValue(action->objectName(), toStringList(action->shortcuts(), QKeySequence::PortableText));
+        m_settings->setValue(action->objectName(), toStringList(action->shortcuts()));
     }
 
     return true;
@@ -242,9 +242,9 @@ void ShortcutHandler::revert()
 
 void ShortcutHandler::reset()
 {
-    for(QMap< QAction*, QKeySequence >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
+    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
     {
-        m_shortcuts.insert(iterator.key(), QList< QKeySequence >() << iterator.value());
+        m_shortcuts.insert(iterator.key(), iterator.value());
     }
 
     emit dataChanged(createIndex(0, 1), createIndex(m_actions.count(), 1));
