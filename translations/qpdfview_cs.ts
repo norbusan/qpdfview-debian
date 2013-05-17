@@ -460,7 +460,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1921"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">Pře&amp;hled</translation>
+        <translation type="unfinished">&amp;Osnova</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1933"/>
