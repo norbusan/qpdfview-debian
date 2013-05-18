@@ -29,7 +29,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="219"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished">Formatos compatíbeis (%1)</translation>
+        <translation type="unfinished">Formatos admitidos (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="483"/>
@@ -152,22 +152,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1432"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatíbel con PDF usando Poppler&lt;/li&gt;</translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade con PDF usando Poppler&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1435"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatíbel con PS usando libspectre&lt;/li&gt;</translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade con PS usando libspectre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1438"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatíbel con DjVu usando DjVuLibre&lt;/li&gt;</translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade con DjVu usando DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1441"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Permite imprimir usando CUPS&lt;/li&gt;</translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade de impresión usando CUPS&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1443"/>
@@ -187,12 +187,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1702"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished">Diferenciar maiús/minús</translation>
+        <translation type="unfinished">Distinguir &amp;maiúsculas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1703"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished">&amp;Destacar todos</translation>
+        <translation type="unfinished">Destacar &amp;todos</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1746"/>
@@ -202,7 +202,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1747"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">&amp;Abrir nunha nova lapela...</translation>
+        <translation type="unfinished">Abrir nunha nova &amp;lapela...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1748"/>
@@ -217,7 +217,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished">&amp;Gardar como...</translation>
+        <translation type="unfinished">Gardar &amp;como...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1751"/>
@@ -232,12 +232,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1756"/>
         <source>&amp;Previous page</source>
-        <translation type="unfinished">&amp;Páxina anterior</translation>
+        <translation type="unfinished">Páxina &amp;anterior</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1757"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">&amp;Páxina seguinte</translation>
+        <translation type="unfinished">Páxina &amp;seguinte</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1758"/>
@@ -257,12 +257,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1763"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished">&amp;Ir cara a atrás</translation>
+        <translation type="unfinished">Ir cara a a&amp;trás</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1764"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished">&amp;Ir cara a adiante</translation>
+        <translation type="unfinished">Ir cara a a&amp;diante</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1766"/>
@@ -432,7 +432,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1828"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Acerca de</translation>
+        <translation type="unfinished">&amp;Sobre</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1862"/>
@@ -480,7 +480,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2017"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Paneis</translation>
+        <translation type="unfinished">&amp;Docas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2026"/>
@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="812"/>
         <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Texto do consello:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
@@ -699,7 +699,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Con forma</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="842"/>
@@ -797,7 +797,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Subir o número:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Subir o número da capa:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -878,17 +878,17 @@
     <message>
         <location filename="../sources/main.cpp" line="203"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished">O uso de &apos;--instance&apos; require un nome de instancia.</translation>
+        <translation type="unfinished">O uso de «--instance» require un nome de instancia.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="209"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished">O uso de &apos;--instance&apos; non se permite sen usar &apos;--unique&apos;.</translation>
+        <translation type="unfinished">Non se permite o uso de «--instance» sen usar «--unique».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="215"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished">O uso de &apos;--search&apos; require un texto de busca.</translation>
+        <translation type="unfinished">O uso de «--search» require un texto de busca.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="258"/>
@@ -1060,7 +1060,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="421"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">«%1» é substituído pola ruta absoluta ao ficheiro «%2» correspondente, «%3» é substituído pola liña correspondente ao número de columna.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
