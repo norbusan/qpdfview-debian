@@ -684,7 +684,7 @@
         <location filename="../sources/pdfmodel.cpp" line="812"/>
         <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Texto do consello:</translation>
+        <translation type="unfinished">Optimización do texto:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
@@ -797,7 +797,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Subir o número:</translation>
+        <translation type="unfinished">Número de páxinas:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Subir o número da capa:</translation>
+        <translation type="unfinished">Disposición das páxinas:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -1065,7 +1065,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Source editor:</source>
-        <translation type="unfinished">Editor de código:</translation>
+        <translation type="unfinished">Editor de orixes:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
@@ -1217,7 +1217,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished">Limitar as miniaturas aos resultados:</translation>
+        <translation type="unfinished">Mostrar só as miniaturas con resultados:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="620"/>
