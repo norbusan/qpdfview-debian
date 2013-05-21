@@ -303,31 +303,31 @@ public:
     class PrintDialog
     {
     public:
-        bool collateCopies();
+        bool collateCopies() const;
         void setCollateCopies(bool collateCopies);
 
-        QPrinter::PageOrder pageOrder();
+        QPrinter::PageOrder pageOrder() const;
         void setPageOrder(QPrinter::PageOrder pageOrder);
 
-        QPrinter::Orientation orientation();
+        QPrinter::Orientation orientation() const;
         void setOrientation(QPrinter::Orientation orientation);
 
-        QPrinter::ColorMode colorMode();
+        QPrinter::ColorMode colorMode() const;
         void setColorMode(QPrinter::ColorMode colorMode);
 
-        QPrinter::DuplexMode duplex();
+        QPrinter::DuplexMode duplex() const;
         void setDuplex(QPrinter::DuplexMode duplex);
 
-        bool fitToPage();
+        bool fitToPage() const;
         void setFitToPage(bool fitToPage);
 
-        PrintOptions::PageSet pageSet();
+        PrintOptions::PageSet pageSet() const;
         void setPageSet(PrintOptions::PageSet pageSet);
 
-        PrintOptions::NumberUp numberUp();
+        PrintOptions::NumberUp numberUp() const;
         void setNumberUp(PrintOptions::NumberUp numberUp);
 
-        PrintOptions::NumberUpLayout numberUpLayout();
+        PrintOptions::NumberUpLayout numberUpLayout() const;
         void setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout);
 
     private:
