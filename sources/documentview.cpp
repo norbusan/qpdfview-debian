@@ -377,29 +377,14 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        if(m_highlightAll)
+        for(int index = 0; index < m_pageItems.count(); ++index)
         {
-            for(int index = 0; index < m_pageItems.count(); ++index)
-            {
-                m_pageItems.at(index)->setHighlights(m_results.values(index));
-            }
-
-            for(int index = 0; index < m_thumbnailItems.count(); ++index)
-            {
-                m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
-            }
+            m_pageItems.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
         }
-        else
-        {
-            foreach(PageItem* page, m_pageItems)
-            {
-                page->clearHighlights();
-            }
 
-            foreach(PageItem* page, m_thumbnailItems)
-            {
-                page->clearHighlights();
-            }
+        for(int index = 0; index < m_thumbnailItems.count(); ++index)
+        {
+            m_thumbnailItems.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
         }
 
         emit highlightAllChanged(m_highlightAll);
@@ -732,17 +717,25 @@ void DocumentView::jumpForward()
     }
 }
 
-void DocumentView::highlightOnCurrentPage(const QRectF& highlight)
+void DocumentView::temporaryHighlight(const QRectF& highlight)
 {
     PageItem* page = m_pageItems.at(m_currentPage - 1);
 
-    page->setHighlights(QList< QRectF >() << highlight);
+    m_highlight->setPos(page->pos());
+    m_highlight->setTransform(page->transform());
 
-    QTimer::singleShot(s_settings->documentView().highlightDuration(), page, SLOT(clearHighlights()));
+    m_highlight->setRect(highlight.normalized());
+    m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
+
+    page->stackBefore(m_highlight);
 
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-    centerOn(page->transform().mapRect(highlight).translated(page->pos()).center());
+    centerOn(m_highlight);
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+
+    m_highlight->setVisible(true);
+
+    QTimer::singleShot(s_settings->documentView().highlightDuration(), this, SLOT(on_temporaryHighlight_timeout()));
 }
 
 void DocumentView::startSearch(const QString& text, bool matchCase)
@@ -762,12 +755,12 @@ void DocumentView::cancelSearch()
 
     foreach(PageItem* page, m_pageItems)
     {
-        page->clearHighlights();
+        page->setHighlights(QList< QRectF >());
     }
 
     foreach(PageItem* page, m_thumbnailItems)
     {
-        page->clearHighlights();
+        page->setHighlights(QList< QRectF >());
     }
 
     prepareThumbnailsScene();
@@ -1022,6 +1015,11 @@ void DocumentView::on_prefetch_timeout()
     {
         m_pageItems.at(index)->startRender(true);
     }
+}
+
+void DocumentView::on_temporaryHighlight_timeout()
+{
+    m_highlight->setVisible(false);
 }
 
 void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)

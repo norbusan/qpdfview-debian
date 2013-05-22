@@ -366,13 +366,6 @@ void PageItem::refresh()
     update();
 }
 
-void PageItem::clearHighlights()
-{
-    m_highlights.clear();
-
-    update();
-}
-
 void PageItem::startRender(bool prefetch)
 {
     if(prefetch && s_cache.contains(this))

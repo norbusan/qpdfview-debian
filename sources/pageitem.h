@@ -88,8 +88,6 @@ signals:
 public slots:
     void refresh();
 
-    void clearHighlights();
-
     void startRender(bool prefetch = false);
     void cancelRender();
 

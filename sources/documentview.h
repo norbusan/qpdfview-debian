@@ -141,7 +141,7 @@ public slots:
     bool canJumpForward() const;
     void jumpForward();
 
-    void highlightOnCurrentPage(const QRectF& highlight);
+    void temporaryHighlight(const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
@@ -164,6 +164,8 @@ protected slots:
     void on_searchTask_resultsReady(int index, QList< QRectF > results);
 
     void on_prefetch_timeout();
+
+    void on_temporaryHighlight_timeout();
 
     void on_pages_linkClicked(int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
