@@ -957,35 +957,6 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results)
-{
-    if(m_searchTask->wasCanceled())
-    {
-        return;
-    }
-
-    while(!results.isEmpty())
-    {
-        m_results.insertMulti(index, results.takeLast());
-    }
-
-    if(m_highlightAll)
-    {
-        m_pageItems.at(index)->setHighlights(m_results.values(index));
-        m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
-    }
-
-    if(s_settings->documentView().limitThumbnailsToResults())
-    {
-        prepareThumbnailsScene();
-    }
-
-    if(m_results.contains(index) && m_currentResult == m_results.end())
-    {
-        findNext();
-    }
-}
-
 void DocumentView::on_prefetch_timeout()
 {
     int fromPage = m_currentPage, toPage = m_currentPage;
@@ -1020,6 +991,35 @@ void DocumentView::on_prefetch_timeout()
 void DocumentView::on_temporaryHighlight_timeout()
 {
     m_highlight->setVisible(false);
+}
+
+void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results)
+{
+    if(m_searchTask->wasCanceled())
+    {
+        return;
+    }
+
+    while(!results.isEmpty())
+    {
+        m_results.insertMulti(index, results.takeLast());
+    }
+
+    if(m_highlightAll)
+    {
+        m_pageItems.at(index)->setHighlights(m_results.values(index));
+        m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
+    }
+
+    if(s_settings->documentView().limitThumbnailsToResults())
+    {
+        prepareThumbnailsScene();
+    }
+
+    if(m_results.contains(index) && m_currentResult == m_results.end())
+    {
+        findNext();
+    }
 }
 
 void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
