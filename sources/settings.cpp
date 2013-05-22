@@ -686,7 +686,7 @@ Settings::PrintDialog::PrintDialog(QSettings* settings) :
 {
 }
 
-bool Settings::PrintDialog::collateCopies()
+bool Settings::PrintDialog::collateCopies() const
 {
     return m_settings->value("printDialog/collateCopies", Defaults::PrintDialog::collateCopies()).toBool();
 }
@@ -696,7 +696,7 @@ void Settings::PrintDialog::setCollateCopies(bool collateCopies)
     m_settings->setValue("printDialog/collateCopies", collateCopies);
 }
 
-QPrinter::PageOrder Settings::PrintDialog::pageOrder()
+QPrinter::PageOrder Settings::PrintDialog::pageOrder() const
 {
     return static_cast< QPrinter::PageOrder >(m_settings->value("printDialog/pageOrder", static_cast< int >(Defaults::PrintDialog::pageOrder())).toInt());
 }
@@ -706,7 +706,7 @@ void Settings::PrintDialog::setPageOrder(QPrinter::PageOrder pageOrder)
     m_settings->setValue("printDialog/pageOrder", static_cast< int >(pageOrder));
 }
 
-QPrinter::Orientation Settings::PrintDialog::orientation()
+QPrinter::Orientation Settings::PrintDialog::orientation() const
 {
     return static_cast< QPrinter::Orientation >(m_settings->value("printDialog/orientation", static_cast< int >(Defaults::PrintDialog::orientation())).toInt());
 }
@@ -716,7 +716,7 @@ void Settings::PrintDialog::setOrientation(QPrinter::Orientation orientation)
     m_settings->setValue("printDialog/orientation", static_cast< int >(orientation));
 }
 
-QPrinter::ColorMode Settings::PrintDialog::colorMode()
+QPrinter::ColorMode Settings::PrintDialog::colorMode() const
 {
     return static_cast< QPrinter::ColorMode >(m_settings->value("printDialog/colorMode", static_cast< int >(Defaults::PrintDialog::colorMode())).toInt());
 }
@@ -726,7 +726,7 @@ void Settings::PrintDialog::setColorMode(QPrinter::ColorMode colorMode)
     m_settings->setValue("printDialog/colorMode", static_cast< int >(colorMode));
 }
 
-QPrinter::DuplexMode Settings::PrintDialog::duplex()
+QPrinter::DuplexMode Settings::PrintDialog::duplex() const
 {
     return static_cast< QPrinter::DuplexMode >(m_settings->value("printDialog/duplex", static_cast< int >(Defaults::PrintDialog::duplex())).toInt());
 }
@@ -736,7 +736,7 @@ void Settings::PrintDialog::setDuplex(QPrinter::DuplexMode duplex)
     m_settings->setValue("printDialog/duplex", static_cast< int >(duplex));
 }
 
-bool Settings::PrintDialog::fitToPage()
+bool Settings::PrintDialog::fitToPage() const
 {
     return m_settings->value("printDialog/fitToPage", Defaults::PrintDialog::fitToPage()).toBool();
 }
@@ -746,7 +746,7 @@ void Settings::PrintDialog::setFitToPage(bool fitToPage)
     m_settings->setValue("printDialog/fitToPage", fitToPage);
 }
 
-PrintOptions::PageSet Settings::PrintDialog::pageSet()
+PrintOptions::PageSet Settings::PrintDialog::pageSet() const
 {
     return static_cast< PrintOptions::PageSet >(m_settings->value("printDialog/pageSet", static_cast< uint >(Defaults::PrintDialog::pageSet())).toUInt());
 }
@@ -756,7 +756,7 @@ void Settings::PrintDialog::setPageSet(PrintOptions::PageSet pageSet)
     m_settings->setValue("printDialog/pageSet", static_cast< uint >(pageSet));
 }
 
-PrintOptions::NumberUp Settings::PrintDialog::numberUp()
+PrintOptions::NumberUp Settings::PrintDialog::numberUp() const
 {
     return static_cast< PrintOptions::NumberUp >(m_settings->value("printDialog/numberUp", static_cast< uint >(Defaults::PrintDialog::numberUp())).toUInt());
 }
@@ -766,7 +766,7 @@ void Settings::PrintDialog::setNumberUp(PrintOptions::NumberUp numberUp)
     m_settings->setValue("printDialog/numberUp", static_cast< uint >(numberUp));
 }
 
-PrintOptions::NumberUpLayout Settings::PrintDialog::numberUpLayout()
+PrintOptions::NumberUpLayout Settings::PrintDialog::numberUpLayout() const
 {
     return static_cast< PrintOptions::NumberUpLayout >(m_settings->value("printDialog/numberUpLayout", static_cast< uint >(Defaults::PrintDialog::numberUpLayout())).toUInt());
 }
