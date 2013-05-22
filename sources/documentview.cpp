@@ -719,21 +719,7 @@ void DocumentView::jumpForward()
 
 void DocumentView::temporaryHighlight(const QRectF& highlight)
 {
-    PageItem* page = m_pageItems.at(m_currentPage - 1);
-
-    m_highlight->setPos(page->pos());
-    m_highlight->setTransform(page->transform());
-
-    m_highlight->setRect(highlight.normalized());
-    m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
-
-    page->stackBefore(m_highlight);
-
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-    centerOn(m_highlight);
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-
-    m_highlight->setVisible(true);
+    prepareHighlight(m_currentPage - 1, highlight);
 
     QTimer::singleShot(s_settings->documentView().highlightDuration(), this, SLOT(on_temporaryHighlight_timeout()));
 }
@@ -765,7 +751,7 @@ void DocumentView::cancelSearch()
 
     prepareThumbnailsScene();
 
-    prepareHighlight();
+    m_highlight->setVisible(false);
 }
 
 void DocumentView::findPrevious()
@@ -791,7 +777,16 @@ void DocumentView::findPrevious()
         m_currentResult = --m_results.end();
     }
 
-    prepareHighlight();
+    if(m_currentResult != m_results.end())
+    {
+        jumpToPage(m_currentResult.key() + 1);
+
+        prepareHighlight(m_currentResult.key(), m_currentResult.value());
+    }
+    else
+    {
+        m_highlight->setVisible(false);
+    }
 }
 
 void DocumentView::findNext()
@@ -817,7 +812,16 @@ void DocumentView::findNext()
         m_currentResult = m_results.begin();
     }
 
-    prepareHighlight();
+    if(m_currentResult != m_results.end())
+    {
+        jumpToPage(m_currentResult.key() + 1);
+
+        prepareHighlight(m_currentResult.key(), m_currentResult.value());
+    }
+    else
+    {
+        m_highlight->setVisible(false);
+    }
 }
 
 void DocumentView::zoomIn()
@@ -2001,32 +2005,23 @@ void DocumentView::prepareThumbnailsScene()
     m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareHighlight()
+void DocumentView::prepareHighlight(int index, const QRectF& rect)
 {
-    if(m_currentResult != m_results.end())
-    {
-        jumpToPage(m_currentResult.key() + 1);
+    PageItem* page = m_pageItems.at(index);
 
-        PageItem* page = m_pageItems.at(m_currentResult.key());
+    m_highlight->setPos(page->pos());
+    m_highlight->setTransform(page->transform());
 
-        m_highlight->setPos(page->pos());
-        m_highlight->setTransform(page->transform());
+    m_highlight->setRect(rect.normalized());
+    m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
 
-        m_highlight->setRect(m_currentResult.value().normalized());
-        m_highlight->setBrush(QBrush(s_settings->pageItem().highlightColor()));
+    page->stackBefore(m_highlight);
 
-        page->stackBefore(m_highlight);
+    m_highlight->setVisible(true);
 
-        disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-        centerOn(m_highlight);
-        connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
-
-        m_highlight->setVisible(true);
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
+    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+    centerOn(m_highlight);
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
 
     viewport()->update();
 }

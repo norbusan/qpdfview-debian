@@ -258,7 +258,7 @@ private:
 
     void prepareThumbnailsScene();
 
-    void prepareHighlight();
+    void prepareHighlight(int index, const QRectF& highlight);
 
     // search
 
