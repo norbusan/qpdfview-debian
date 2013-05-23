@@ -717,11 +717,14 @@ void DocumentView::jumpForward()
     }
 }
 
-void DocumentView::temporaryHighlight(const QRectF& highlight)
+void DocumentView::temporaryHighlight(int page, const QRectF& highlight)
 {
-    prepareHighlight(m_currentPage - 1, highlight);
+    if(page >= 1 && page <= m_pages.count() && !highlight.isNull())
+    {
+        prepareHighlight(page - 1, highlight);
 
-    QTimer::singleShot(s_settings->documentView().highlightDuration(), this, SLOT(on_temporaryHighlight_timeout()));
+        QTimer::singleShot(s_settings->documentView().highlightDuration(), this, SLOT(on_temporaryHighlight_timeout()));
+    }
 }
 
 void DocumentView::startSearch(const QString& text, bool matchCase)

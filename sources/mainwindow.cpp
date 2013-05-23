@@ -163,7 +163,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
             if(!highlight.isNull())
             {
-                currentTab()->temporaryHighlight(highlight);
+                currentTab()->temporaryHighlight(page, highlight);
             }
 
             return true;
@@ -253,7 +253,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         if(!highlight.isNull())
         {
-            newTab->temporaryHighlight(highlight);
+            newTab->temporaryHighlight(page, highlight);
         }
 
         return true;
@@ -294,7 +294,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
             if(!highlight.isNull())
             {
-                currentTab()->temporaryHighlight(highlight);
+                currentTab()->temporaryHighlight(page, highlight);
             }
 
             return true;

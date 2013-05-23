@@ -141,7 +141,7 @@ public slots:
     bool canJumpForward() const;
     void jumpForward();
 
-    void temporaryHighlight(const QRectF& highlight);
+    void temporaryHighlight(int page, const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
