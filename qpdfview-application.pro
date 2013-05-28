@@ -134,7 +134,12 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 !without_cups {
     DEFINES += WITH_CUPS
-    LIBS += $$system(cups-config --libs)
+
+    !isEmpty(CUPS_LIBS) {
+        LIBS += $$CUPS_LIBS
+    } else {
+        LIBS += $$system(cups-config --libs)
+    }
 }
 
 !without_synctex {
@@ -180,3 +185,6 @@ manual.files = miscellaneous/qpdfview.1
 manual.path = $${MANUAL_INSTALL_PATH}
 
 INSTALLS += target data launcher manual
+
+win32:RC_FILE = qpdfview_win32.rc
+os2:RC_FILE = qpdfview_os2.rc

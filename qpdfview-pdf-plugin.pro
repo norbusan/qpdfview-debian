@@ -5,6 +5,9 @@ TEMPLATE = lib
 CONFIG += plugin
 static_pdf_plugin:CONFIG += static
 
+TARGET_SHORT = qpdfpdf
+!isEmpty(PLUGIN_DESTDIR): DESTDIR = $$PLUGIN_DESTDIR
+
 OBJECTS_DIR = objects-pdf
 MOC_DIR = moc-pdf
 
@@ -24,6 +27,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
     system(pkg-config --atleast-version=0.20.1 poppler-qt4):DEFINES += HAS_POPPLER_20
     system(pkg-config --atleast-version=0.22 poppler-qt4):DEFINES += HAS_POPPLER_22
     system(pkg-config --atleast-version=0.24 poppler-qt4):DEFINES += HAS_POPPLER_24
+} else {
+    DEFINES += $$PDF_PLUGIN_DEFINES
+    INCLUDEPATH += $$PDF_PLUGIN_INCLUDEPATH
+    LIBS += $$PDF_PLUGIN_LIBS
 }
 
 !static_pdf_plugin {
