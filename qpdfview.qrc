@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/qpdfview.svg</file>
+    	<file>icons/image-loading.svg</file>
+    	<file>icons/image-missing.svg</file>
+        <file>icons/document-open.svg</file>
+        <file>icons/tab-new.svg</file>
+        <file>icons/view-refresh.svg</file>
+        <file>icons/document-print.svg</file>
+        <file>icons/document-save.svg</file>
+        <file>icons/document-save-as.svg</file>
+        <file>icons/go-previous.svg</file>
+        <file>icons/go-next.svg</file>
+        <file>icons/go-first.svg</file>
+        <file>icons/go-last.svg</file>
+        <file>icons/go-jump.svg</file>
+        <file>icons/media-seek-backward.svg</file>
+        <file>icons/media-seek-forward.svg</file>
+        <file>icons/edit-find.svg</file>
+        <file>icons/go-up.svg</file>
+        <file>icons/go-down.svg</file>
+        <file>icons/process-stop.svg</file>
+        <file>icons/edit-copy.svg</file>
+        <file>icons/mail-attachment.svg</file>
+        <file>icons/continuous.svg</file>
+        <file>icons/two-pages.svg</file>
+        <file>icons/two-pages-with-cover-page.svg</file>
+        <file>icons/multiple-pages.svg</file>
+        <file>icons/zoom-in.svg</file>
+        <file>icons/zoom-out.svg</file>
+        <file>icons/zoom-original.svg</file>
+        <file>icons/fit-to-page-width.svg</file>
+        <file>icons/fit-to-page-size.svg</file>
+        <file>icons/object-rotate-left.svg</file>
+        <file>icons/object-rotate-right.svg</file>
+        <file>icons/view-fullscreen.svg</file>
+        <file>icons/x-office-presentation.svg</file>
+    </qresource>
+</RCC>

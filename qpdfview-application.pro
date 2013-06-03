@@ -52,7 +52,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
     DEFINES += WITH_SVG
     QT += svg
 
-    RESOURCES += icons/qpdfview.qrc
+    RESOURCES += qpdfview.qrc
 }
 
 !without_sql {
