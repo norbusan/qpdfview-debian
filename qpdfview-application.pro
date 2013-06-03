@@ -52,7 +52,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
     DEFINES += WITH_SVG
     QT += svg
 
-    RESOURCES += qpdfview.qrc
+    RESOURCES += icons/qpdfview.qrc
 }
 
 !without_sql {
@@ -186,5 +186,5 @@ manual.path = $${MANUAL_INSTALL_PATH}
 
 INSTALLS += target data launcher manual
 
-win32:RC_FILE = qpdfview_win32.rc
-os2:RC_FILE = qpdfview_os2.rc
+win32:RC_FILE = icons/qpdfview_win32.rc
+os2:RC_FILE = icons/qpdfview_os2.rc
