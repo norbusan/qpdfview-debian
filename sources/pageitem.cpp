@@ -873,7 +873,9 @@ void PageItem::prepareGeometry()
 }
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
     m_text(QString::number(index + 1)),
+#endif // QT_VERSION
     m_current(false)
 {
     setAcceptHoverEvents(false);
@@ -881,7 +883,15 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
 
 QRectF ThumbnailItem::boundingRect() const
 {
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
     return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * m_text.size().height());
+
+#else
+
+    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * QFontMetrics(QFont()).height());
+
+#endif // QT_VERSION
 }
 
 void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -889,6 +899,9 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     PageItem::paint(painter, option, widget);
 
     const QRectF boundingRect = PageItem::boundingRect();
+
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
     const QSizeF textSize = m_text.size();
 
     QPointF pos = boundingRect.bottomLeft();
@@ -896,6 +909,19 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     pos.ry() += 0.5 * textSize.height();
 
     painter->drawStaticText(pos, m_text);
+
+#else
+
+    const QString text = QString::number(index() + 1);
+    const QFontMetrics fontMetrics = QFontMetrics(QFont());
+
+    QPointF pos = boundingRect.bottomLeft();
+    pos.rx() += 0.5 * (boundingRect.width() - fontMetrics.width(text));
+    pos.ry() += fontMetrics.height();
+
+    painter->drawText(pos, text);
+
+#endif // QT_VERSION
 
     if(m_current)
     {

@@ -25,7 +25,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCache>
 #include <QGraphicsObject>
 #include <QIcon>
+
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
 #include <QStaticText>
+
+#endif // QT_VERSION
 
 #include "global.h"
 
@@ -186,7 +191,12 @@ private slots:
     void loadInteractiveElements();
 
 private:
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
     QStaticText m_text;
+
+#endif // QT_VERSION
+
     bool m_current;
 
 };
