@@ -872,21 +872,16 @@ void PageItem::prepareGeometry()
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 }
 
-ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent)
+ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
+    m_text(QString::number(index + 1)),
+    m_current(false)
 {
     setAcceptHoverEvents(false);
-
-    const QFontMetrics fontMetrics = QFontMetrics(QFont());
-
-    m_textWidth = fontMetrics.width(QString::number(index + 1));
-    m_textHeight = fontMetrics.height();
-
-    m_current = false;
 }
 
 QRectF ThumbnailItem::boundingRect() const
 {
-    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * m_textHeight);
+    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * m_text.size().height());
 }
 
 void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -894,19 +889,19 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     PageItem::paint(painter, option, widget);
 
     const QRectF boundingRect = PageItem::boundingRect();
+    const QSizeF textSize = m_text.size();
 
     QPointF pos = boundingRect.bottomLeft();
-    pos.rx() += 0.5 * (boundingRect.width() - m_textWidth);
-    pos.ry() += m_textHeight;
+    pos.rx() += 0.5 * (boundingRect.width() - textSize.width());
+    pos.ry() += 0.5 * textSize.height();
 
-    painter->drawText(pos, QString::number(index() + 1));
+    painter->drawStaticText(pos, m_text);
 
     if(m_current)
     {
         painter->save();
 
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
-
         painter->fillRect(boundingRect, widget->palette().highlight());
 
         painter->restore();

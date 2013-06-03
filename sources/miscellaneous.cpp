@@ -34,7 +34,6 @@ void GraphicsCompositionModeEffect::draw(QPainter* painter)
     painter->save();
 
     painter->setCompositionMode(m_compositionMode);
-
     drawSource(painter);
 
     painter->restore();
@@ -224,7 +223,6 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     painter.setCompositionMode(QPainter::CompositionMode_Multiply);
-
     painter.fillRect(x(), y(), m_progress * width() / 100, height(), palette().highlight());
 }
 

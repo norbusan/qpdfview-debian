@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCache>
 #include <QGraphicsObject>
 #include <QIcon>
+#include <QStaticText>
 
 #include "global.h"
 
@@ -185,9 +186,7 @@ private slots:
     void loadInteractiveElements();
 
 private:
-    int m_textWidth;
-    int m_textHeight;
-
+    QStaticText m_text;
     bool m_current;
 
 };
