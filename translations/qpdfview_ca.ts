@@ -32,39 +32,39 @@
         <translation type="unfinished">Formats suportats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
-        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="468"/>
+        <location filename="../sources/documentview.cpp" line="508"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
-        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="468"/>
+        <location filename="../sources/documentview.cpp" line="508"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1049"/>
+        <location filename="../sources/documentview.cpp" line="1054"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1049"/>
+        <location filename="../sources/documentview.cpp" line="1054"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1101"/>
+        <location filename="../sources/documentview.cpp" line="1106"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1101"/>
+        <location filename="../sources/documentview.cpp" line="1106"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1471"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
@@ -587,67 +587,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="458"/>
+        <location filename="../sources/pageitem.cpp" line="451"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Ves a la pàgina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="462"/>
+        <location filename="../sources/pageitem.cpp" line="455"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Ves a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="470"/>
+        <location filename="../sources/pageitem.cpp" line="463"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Obre &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="505"/>
+        <location filename="../sources/pageitem.cpp" line="498"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Edita formulari &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="721"/>
+        <location filename="../sources/pageitem.cpp" line="714"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Còpia &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="715"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Còpia &amp;imatge</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="716"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Desa imatge a un &amp;fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="749"/>
+        <location filename="../sources/pageitem.cpp" line="742"/>
         <source>Save image to file</source>
         <translation type="unfinished">Desa imatge a un fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="746"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="746"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">No s&apos;ha pogut guardar la imatge a l&apos;arxiu &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="766"/>
+        <location filename="../sources/pageitem.cpp" line="759"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Afegix &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="767"/>
+        <location filename="../sources/pageitem.cpp" line="760"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Destaca</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="797"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Elimina anotació</translation>
     </message>
@@ -1291,12 +1291,12 @@
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="153"/>
+        <location filename="../sources/miscellaneous.cpp" line="152"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Expandeix-ho tot</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="154"/>
+        <location filename="../sources/miscellaneous.cpp" line="153"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Col·lapsa tot:</translation>
     </message>

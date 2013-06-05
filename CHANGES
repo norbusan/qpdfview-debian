@@ -1,3 +1,6 @@
+Release 0.4.4:
+  * Added partial Portuguese translation. Thanks to Sérgio Marques.
+
 Release 0.4.3:
   * Fixed custom movement shortcuts not being activated after program initialization.
   * Fixed default scroll area shortcuts not being shadowed completely.

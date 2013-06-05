@@ -32,39 +32,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
-        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="468"/>
+        <location filename="../sources/documentview.cpp" line="508"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="483"/>
-        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="468"/>
+        <location filename="../sources/documentview.cpp" line="508"/>
         <source>Password:</source>
         <translation type="unfinished">စကားဝှက် −</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1471"/>
+        <location filename="../sources/documentview.cpp" line="1476"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; ကိုစာရွက်ထုတ်နေပါသည်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1049"/>
+        <location filename="../sources/documentview.cpp" line="1054"/>
         <source>Information</source>
         <translation type="unfinished">အချက်အလက်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1049"/>
+        <location filename="../sources/documentview.cpp" line="1054"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Opening URL is disabled in the settings.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1101"/>
+        <location filename="../sources/documentview.cpp" line="1106"/>
         <source>Warning</source>
         <translation type="unfinished">သတိပေးချက်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1101"/>
+        <location filename="../sources/documentview.cpp" line="1106"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
@@ -587,67 +587,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="458"/>
+        <location filename="../sources/pageitem.cpp" line="451"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1 စာမျက်နှာသို့သွားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="462"/>
+        <location filename="../sources/pageitem.cpp" line="455"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="470"/>
+        <location filename="../sources/pageitem.cpp" line="463"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="505"/>
+        <location filename="../sources/pageitem.cpp" line="498"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="721"/>
+        <location filename="../sources/pageitem.cpp" line="714"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;t စာများကိုကူးမည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="722"/>
+        <location filename="../sources/pageitem.cpp" line="715"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;i ပုံများကိုကူးမည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="723"/>
+        <location filename="../sources/pageitem.cpp" line="716"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">&amp;f ပုံများကိုဖိုင်ထဲသို့သိမ်းမည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="749"/>
+        <location filename="../sources/pageitem.cpp" line="742"/>
         <source>Save image to file</source>
         <translation type="unfinished">ပုံများကို ဖိုင်ထဲသိမ်းမည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="746"/>
         <source>Warning</source>
         <translation type="unfinished">သတိပေးချက်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="753"/>
+        <location filename="../sources/pageitem.cpp" line="746"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; ဖိုင်ထဲသို့ပုံ မသိမ်းနိုင်ပါ</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="766"/>
+        <location filename="../sources/pageitem.cpp" line="759"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">&amp;t စာများထည့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="767"/>
+        <location filename="../sources/pageitem.cpp" line="760"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="804"/>
+        <location filename="../sources/pageitem.cpp" line="797"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;R မှတ်သားစာဖြုတ်မည်</translation>
     </message>
@@ -1291,12 +1291,12 @@
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="153"/>
+        <location filename="../sources/miscellaneous.cpp" line="152"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;E အားလုံးကိုဖြန့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="154"/>
+        <location filename="../sources/miscellaneous.cpp" line="153"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;C အားလုံးကိုချုံ့မည်</translation>
     </message>
