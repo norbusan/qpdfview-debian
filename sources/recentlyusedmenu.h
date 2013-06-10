@@ -29,7 +29,7 @@ class RecentlyUsedMenu : public QMenu
     Q_OBJECT
 
 public:
-    explicit RecentlyUsedMenu(QWidget* parent = 0);
+    explicit RecentlyUsedMenu(int count, QWidget* parent = 0);
 
     void addOpenAction(const QString& filePath);
     void removeOpenAction(const QString& filePath);
@@ -44,6 +44,8 @@ protected slots:
     void on_clearList_triggered();
 
 private:
+    int m_count;
+
     QActionGroup* m_openActionGroup;
     QAction* m_separatorAction;
     QAction* m_clearListAction;

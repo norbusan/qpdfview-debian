@@ -466,6 +466,16 @@ void Settings::MainWindow::setTrackRecentlyUsed(bool on)
     m_settings->setValue("mainWindow/trackRecentlyUsed", on);
 }
 
+int Settings::MainWindow::recentlyUsedCount() const
+{
+    return m_settings->value("mainWindow/recentlyUsedCount", Defaults::MainWindow::recentlyUsedCount()).toInt();
+}
+
+void Settings::MainWindow::setRecentlyUsedCount(int recentlyUsedCount)
+{
+    m_settings->setValue("mainWindow/recentlyUsedCount", recentlyUsedCount);
+}
+
 QStringList Settings::MainWindow::recentlyUsed() const
 {
     return m_settings->value("mainWindow/recentlyUsed").toStringList();

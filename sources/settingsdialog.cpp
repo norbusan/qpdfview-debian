@@ -206,6 +206,8 @@ void SettingsDialog::accept()
 
     s_settings->mainWindow().setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
 
+    s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
+
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -294,6 +296,8 @@ void SettingsDialog::reset()
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
 
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
+
+    m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
 
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
@@ -564,6 +568,15 @@ void SettingsDialog::createInterfaceTab()
     m_newTabNextToCurrentTabCheckBox->setChecked(s_settings->mainWindow().newTabNextToCurrentTab());
 
     m_interfaceLayout->addRow(tr("New tab next to current tab:"), m_newTabNextToCurrentTabCheckBox);
+
+    // recently used count
+
+    m_recentlyUsedCountSpinBox = new QSpinBox(this);
+    m_recentlyUsedCountSpinBox->setRange(1, 50);
+    m_recentlyUsedCountSpinBox->setValue(s_settings->mainWindow().recentlyUsedCount());
+    m_recentlyUsedCountSpinBox->setToolTip(tr("Effective after restart."));
+
+    m_interfaceLayout->addRow(tr("Recently used count:"), m_recentlyUsedCountSpinBox);
 
     // file tool bar
 

@@ -129,6 +129,8 @@ private:
 
     QCheckBox* m_newTabNextToCurrentTabCheckBox;
 
+    QSpinBox* m_recentlyUsedCountSpinBox;
+
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;

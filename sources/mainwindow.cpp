@@ -1956,7 +1956,7 @@ void MainWindow::createMenus()
     m_fileMenu = menuBar()->addMenu(tr("&File"));
     m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
-    m_recentlyUsedMenu = new RecentlyUsedMenu(this);
+    m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsedCount(), this);
 
     if(s_settings->mainWindow().trackRecentlyUsed())
     {

@@ -23,7 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
-RecentlyUsedMenu::RecentlyUsedMenu(QWidget* parent) : QMenu(parent)
+RecentlyUsedMenu::RecentlyUsedMenu(int count, QWidget* parent) : QMenu(parent),
+    m_count(count)
 {
     menuAction()->setText(tr("Recently &used"));
     menuAction()->setIcon(QIcon::fromTheme("document-open-recent"));
@@ -54,7 +55,7 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
         }
     }
 
-    if(m_openActionGroup->actions().count() == 10)
+    if(m_openActionGroup->actions().count() >= m_count)
     {
         QAction* first = m_openActionGroup->actions().first();
 
