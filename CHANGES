@@ -1,4 +1,5 @@
 Release 0.4.4:
+  * Added tool tip showing paper size to the thumbnails view.
   * Added setting for number of entries in the recently used list.
   * Updated Russian translation. Thanks to Kyrill Detinov and Rashid Aliyev.
   * Updated Azerbaijani translation. Thanks to Rashid Aliyev.
