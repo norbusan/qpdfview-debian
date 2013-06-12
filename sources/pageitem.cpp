@@ -879,6 +879,8 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
     m_current(false)
 {
     setAcceptHoverEvents(false);
+
+    prepareToolTip();
 }
 
 QRectF ThumbnailItem::boundingRect() const
@@ -972,4 +974,50 @@ void ThumbnailItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 
 void ThumbnailItem::loadInteractiveElements()
 {
+}
+
+void ThumbnailItem::prepareToolTip()
+{
+    const qreal width = size().width() / 72.0 * 25.4;
+    const qreal height = size().height() / 72.0 * 25.4;
+
+    const qreal longEdge = qMax(width, height);
+    const qreal shortEdge = qMin(width, height);
+
+    QString paperSize;
+
+    if(qAbs(longEdge - 279.4) <= 1.0 && qAbs(shortEdge - 215.9) <= 1.0)
+    {
+        paperSize = QLatin1String(" (Letter)");
+    }
+    else
+    {
+        qreal longEdgeA = 1189.0;
+        qreal shortEdgeA = 841.0;
+
+        qreal longEdgeB = 1414.0;
+        qreal shortEdgeB = 1000.0;
+
+        for(int i = 0; i <= 10; ++i)
+        {
+            if(qAbs(longEdge - longEdgeA) <= 1.0 && qAbs(shortEdge - shortEdgeA) <= 1.0)
+            {
+                paperSize = QString(" (A%1)").arg(i);
+                break;
+            }
+            else if(qAbs(longEdge - longEdgeB) <= 1.0 && qAbs(shortEdge - shortEdgeB) <= 1.0)
+            {
+                paperSize = QString(" (B%1)").arg(i);
+                break;
+            }
+
+            longEdgeA = shortEdgeA;
+            shortEdgeA /= qSqrt(2.0);
+
+            longEdgeB = shortEdgeB;
+            shortEdgeB /= qSqrt(2.0);
+        }
+    }
+
+    setToolTip(QString("%1 mm x %2 mm%3").arg(width, 0, 'f', 1).arg(height, 0, 'f', 1).arg(paperSize));
 }

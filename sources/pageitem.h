@@ -199,6 +199,8 @@ private:
 
     bool m_current;
 
+    void prepareToolTip();
+
 };
 
 #endif // PAGEITEM_H
