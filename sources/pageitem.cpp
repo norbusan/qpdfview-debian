@@ -879,8 +879,6 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent
     m_current(false)
 {
     setAcceptHoverEvents(false);
-
-    prepareToolTip();
 }
 
 QRectF ThumbnailItem::boundingRect() const
@@ -973,10 +971,6 @@ void ThumbnailItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 }
 
 void ThumbnailItem::loadInteractiveElements()
-{
-}
-
-void ThumbnailItem::prepareToolTip()
 {
     const qreal width = size().width() / 72.0 * 25.4;
     const qreal height = size().height() / 72.0 * 25.4;
