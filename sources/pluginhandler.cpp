@@ -123,7 +123,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         fileType = PDF;
     }
-    else if(fileInfo.suffix().toLower() == "ps")
+    else if(fileInfo.suffix().toLower() == "ps" || fileInfo.suffix().toLower() == "eps")
     {
         fileType = PS;
     }
@@ -205,11 +205,17 @@ Plugin* PluginHandler::loadPlugin(const QString& fileName)
 
     if(!pluginLoader.load())
     {
+        const QString firstFileName = pluginLoader.fileName();
+        const QString firstErrorString = pluginLoader.errorString();
+
         pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
 
         if(!pluginLoader.load())
         {
-            qCritical() << "Could not load plug-in:" << fileName;
+            qCritical() << "Could not load plug-in in first attempt:" << firstFileName;
+            qCritical() << firstErrorString;
+
+            qCritical() << "Could not load plug-in in second attempt:" << pluginLoader.fileName();
             qCritical() << pluginLoader.errorString();
 
             return 0;
@@ -220,7 +226,7 @@ Plugin* PluginHandler::loadPlugin(const QString& fileName)
 
     if(plugin == 0)
     {
-        qCritical() << "Could not instantiate plug-in:" << fileName;
+        qCritical() << "Could not instantiate plug-in:" << pluginLoader.fileName();
         qCritical() << pluginLoader.errorString();
     }
 
