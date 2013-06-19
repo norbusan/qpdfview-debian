@@ -1,4 +1,5 @@
 Release 0.4.4:
+  * Improved building on Windows and OS/2 and plug-in handling on all platforms. Thanks to Silvan Scherrer.
   * Added tool tip showing paper size to the thumbnails view.
   * Added setting for number of entries in the recently used list.
   * Updated Russian translation. Thanks to Kyrill Detinov and Rashid Aliyev.
