@@ -115,6 +115,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(reset()));
 
+    m_defaultsOnTabButton = m_dialogButtonBox->addButton(tr("Defaults on tab"), QDialogButtonBox::ResetRole);
+    connect(m_defaultsOnTabButton, SIGNAL(clicked()), SLOT(resetCurrentTab()));
+
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
     m_modifiersLayout = new QFormLayout(m_tabWidget->widget(4));
@@ -229,93 +232,40 @@ void SettingsDialog::accept()
 
 void SettingsDialog::reset()
 {
-#ifdef WITH_PDF
+    resetBehaviorTab();
 
-    if(m_pdfSettingsWidget != 0)
-    {
-        m_pdfSettingsWidget->reset();
-    }
+    resetGraphicsTab();
 
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(m_psSettingsWidget != 0)
-    {
-        m_psSettingsWidget->reset();
-    }
-
-#endif // WITH_PS
+    resetInterfaceTab();
 
     ShortcutHandler::instance()->reset();
 
-    // behavior
+    resetModifiersTab();
+}
 
-    m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());
-
-    m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
-
-    m_trackRecentlyUsedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyUsed());
-
-    m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
-    m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
-    m_restorePerFileSettingsCheckBox->setChecked(Defaults::MainWindow::restorePerFileSettings());
-
-    m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
-    m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
-
-    m_highlightColorComboBox->lineEdit()->setText(Defaults::PageItem::highlightColor().name());
-    m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
-    m_annotationColorComboBox->lineEdit()->setText(Defaults::PageItem::annotationColor().name());
-
-    m_sourceEditorLineEdit->clear();
-
-    // graphics
-
-    m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
-    m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
-    m_decorateFormFieldsCheckBox->setChecked(Defaults::PageItem::decorateFormFields());
-
-    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
-    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
-
-    m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
-
-    m_pageSpacingSpinBox->setValue(Defaults::DocumentView::pageSpacing());
-    m_thumbnailSpacingSpinBox->setValue(Defaults::DocumentView::thumbnailSpacing());
-
-    m_thumbnailSizeSpinBox->setValue(Defaults::DocumentView::thumbnailSize());
-
-    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
-    m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
-    m_prefetchDistanceSpinBox->setValue(Defaults::DocumentView::prefetchDistance());
-
-    // interface
-
-    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
-    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
-
-    m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
-
-    m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
-
-    m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
-    m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
-    m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
-
-    m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
-
-    m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
-    m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
-
-    // modifiers
-
-    m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::zoomModifiers())));
-    m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::rotateModifiers())));
-    m_scrollModifiersComboBox->setCurrentIndex(m_scrollModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::scrollModifiers())));
-
-    m_copyToClipboardModifiersComboBox->setCurrentIndex(m_copyToClipboardModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())));
-    m_addAnnotationModifiersComboBox->setCurrentIndex(m_addAnnotationModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::addAnnotationModifiers())));
+void SettingsDialog::resetCurrentTab()
+{
+    switch(m_tabWidget->currentIndex())
+    {
+    default:
+        reset();
+        break;
+    case 0:
+        resetBehaviorTab();
+        break;
+    case 1:
+        resetGraphicsTab();
+        break;
+    case 2:
+        resetInterfaceTab();
+        break;
+    case 3:
+        ShortcutHandler::instance()->reset();
+        break;
+    case 4:
+        resetModifiersTab();
+        break;
+    }
 }
 
 void SettingsDialog::createBehaviorTab()
@@ -425,6 +375,28 @@ void SettingsDialog::createBehaviorTab()
     m_sourceEditorLineEdit->setToolTip(tr("'%1' is replaced by the absolute file path. '%2' resp. '%3' is replaced by line resp. column number."));
 
     m_behaviorLayout->addRow(tr("Source editor:"), m_sourceEditorLineEdit);
+}
+
+void SettingsDialog::resetBehaviorTab()
+{
+    m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());
+
+    m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
+
+    m_trackRecentlyUsedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyUsed());
+
+    m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
+    m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
+    m_restorePerFileSettingsCheckBox->setChecked(Defaults::MainWindow::restorePerFileSettings());
+
+    m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
+    m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
+
+    m_highlightColorComboBox->lineEdit()->setText(Defaults::PageItem::highlightColor().name());
+    m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
+    m_annotationColorComboBox->lineEdit()->setText(Defaults::PageItem::annotationColor().name());
+
+    m_sourceEditorLineEdit->clear();
 }
 
 void SettingsDialog::createGraphicsTab()
@@ -539,6 +511,45 @@ void SettingsDialog::createGraphicsTab()
     m_graphicsLayout->addRow(tr("Prefetch distance:"), m_prefetchDistanceSpinBox);
 }
 
+void SettingsDialog::resetGraphicsTab()
+{
+#ifdef WITH_PDF
+
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_pdfSettingsWidget->reset();
+    }
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    if(m_psSettingsWidget != 0)
+    {
+        m_psSettingsWidget->reset();
+    }
+
+#endif // WITH_PS
+
+    m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
+    m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
+    m_decorateFormFieldsCheckBox->setChecked(Defaults::PageItem::decorateFormFields());
+
+    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
+    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
+
+    m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
+
+    m_pageSpacingSpinBox->setValue(Defaults::DocumentView::pageSpacing());
+    m_thumbnailSpacingSpinBox->setValue(Defaults::DocumentView::thumbnailSpacing());
+
+    m_thumbnailSizeSpinBox->setValue(Defaults::DocumentView::thumbnailSize());
+
+    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
+    m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
+    m_prefetchDistanceSpinBox->setValue(Defaults::DocumentView::prefetchDistance());
+}
+
 void SettingsDialog::createInterfaceTab()
 {
     // tab position
@@ -624,6 +635,25 @@ void SettingsDialog::createInterfaceTab()
     m_interfaceLayout->addRow(tr("Limit thumbnails to results:"), m_limitThumbnailsToResultsCheckBox);
 }
 
+void SettingsDialog::resetInterfaceTab()
+{
+    m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
+    m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
+
+    m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
+
+    m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
+
+    m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
+    m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
+    m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+
+    m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
+
+    m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
+    m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
+}
+
 void SettingsDialog::createModifiersTab()
 {
     // zoom modifiers
@@ -655,6 +685,16 @@ void SettingsDialog::createModifiersTab()
     createModifiersComboBox(m_addAnnotationModifiersComboBox, s_settings->pageItem().addAnnotationModifiers());
 
     m_modifiersLayout->addRow(tr("Add annotation:"), m_addAnnotationModifiersComboBox);
+}
+
+void SettingsDialog::resetModifiersTab()
+{
+    m_zoomModifiersComboBox->setCurrentIndex(m_zoomModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::zoomModifiers())));
+    m_rotateModifiersComboBox->setCurrentIndex(m_rotateModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::rotateModifiers())));
+    m_scrollModifiersComboBox->setCurrentIndex(m_scrollModifiersComboBox->findData(static_cast< int >(Defaults::DocumentView::scrollModifiers())));
+
+    m_copyToClipboardModifiersComboBox->setCurrentIndex(m_copyToClipboardModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())));
+    m_addAnnotationModifiersComboBox->setCurrentIndex(m_addAnnotationModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::addAnnotationModifiers())));
 }
 
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)

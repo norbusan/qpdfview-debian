@@ -48,6 +48,7 @@ public:
 public slots:
     void accept();
     void reset();
+    void resetCurrentTab();
 
 private:
     static Settings* s_settings;
@@ -72,6 +73,7 @@ private:
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
+    QPushButton* m_defaultsOnTabButton;
 
     QFormLayout* m_behaviorLayout;
     QFormLayout* m_interfaceLayout;
@@ -99,6 +101,7 @@ private:
     QLineEdit* m_sourceEditorLineEdit;
 
     void createBehaviorTab();
+    void resetBehaviorTab();
 
     // graphics
 
@@ -121,6 +124,7 @@ private:
     QSpinBox* m_prefetchDistanceSpinBox;
 
     void createGraphicsTab();
+    void resetGraphicsTab();
 
     // interface
 
@@ -141,6 +145,7 @@ private:
     QCheckBox* m_limitThumbnailsToResultsCheckBox;
 
     void createInterfaceTab();
+    void resetInterfaceTab();
 
     // modifiers
 
@@ -152,6 +157,8 @@ private:
     QComboBox* m_addAnnotationModifiersComboBox;
 
     void createModifiersTab();
+    void resetModifiersTab();
+
     void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
 
 };
