@@ -287,6 +287,9 @@ public:
         QString savePath() const;
         void setSavePath(const QString& savePath);
 
+        QSize settingsDialogSize(const QSize& sizeHint) const;
+        void setSettingsDialogSize(const QSize& settingsDialogSize);
+
         QSize fontsDialogSize(const QSize& sizeHint) const;
         void setFontsDialogSize(const QSize& fontsDialogSize);
 

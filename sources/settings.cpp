@@ -664,6 +664,16 @@ void Settings::MainWindow::setSavePath(const QString& savePath)
     m_settings->setValue("mainWindow/savePath", savePath);
 }
 
+QSize Settings::MainWindow::settingsDialogSize(const QSize& sizeHint) const
+{
+    return m_settings->value("mainWindow/settingsDialogSize", sizeHint).toSize();
+}
+
+void Settings::MainWindow::setSettingsDialogSize(const QSize& settingsDialogSize)
+{
+    m_settings->setValue("mainWindow/settingsDialogSize", settingsDialogSize);
+}
+
 QSize Settings::MainWindow::fontsDialogSize(const QSize& sizeHint) const
 {
     return m_settings->value("mainWindow/fontsDialogSize", sizeHint).toSize();

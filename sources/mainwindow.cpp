@@ -1039,6 +1039,8 @@ void MainWindow::on_settings_triggered()
 {
     SettingsDialog* settingsDialog = new SettingsDialog(this);
 
+    settingsDialog->resize(s_settings->mainWindow().settingsDialogSize(settingsDialog->sizeHint()));
+
     if(settingsDialog->exec() == QDialog::Accepted)
     {
         s_settings->sync();
@@ -1054,6 +1056,8 @@ void MainWindow::on_settings_triggered()
             }
         }
     }
+
+    s_settings->mainWindow().setSettingsDialogSize(settingsDialog->size());
 
     delete settingsDialog;
 }
