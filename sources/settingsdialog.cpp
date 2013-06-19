@@ -115,8 +115,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_defaultsButton = m_dialogButtonBox->addButton(tr("Defaults"), QDialogButtonBox::ResetRole);
     connect(m_defaultsButton, SIGNAL(clicked()), SLOT(reset()));
 
-    m_defaultsOnTabButton = m_dialogButtonBox->addButton(tr("Defaults on tab"), QDialogButtonBox::ResetRole);
-    connect(m_defaultsOnTabButton, SIGNAL(clicked()), SLOT(resetCurrentTab()));
+    m_defaultsOnCurrentTabButton = m_dialogButtonBox->addButton(tr("Defaults on current tab"), QDialogButtonBox::ResetRole);
+    connect(m_defaultsOnCurrentTabButton, SIGNAL(clicked()), SLOT(resetCurrentTab()));
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));

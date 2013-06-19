@@ -73,7 +73,7 @@ private:
     QTabWidget* m_tabWidget;
     QDialogButtonBox* m_dialogButtonBox;
     QPushButton* m_defaultsButton;
-    QPushButton* m_defaultsOnTabButton;
+    QPushButton* m_defaultsOnCurrentTabButton;
 
     QFormLayout* m_behaviorLayout;
     QFormLayout* m_interfaceLayout;
