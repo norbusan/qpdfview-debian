@@ -1076,7 +1076,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vorgaben auf aktuellem Reiter</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="348"/>
@@ -1198,7 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anzahl verwendeter Dateien:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="621"/>
