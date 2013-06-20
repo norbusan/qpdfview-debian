@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ви&amp;далити закладку</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="72"/>
@@ -417,7 +417,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1826"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Видалити закладку</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1827"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Типовий на поточній вкладці</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -1198,7 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нещодавно використане число:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
