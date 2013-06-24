@@ -395,6 +395,7 @@ Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary, con
 #else
 
     Q_UNUSED(boundary);
+    Q_UNUSED(color);
 
     return 0;
 
@@ -438,6 +439,7 @@ Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary
 #else
 
     Q_UNUSED(boundary);
+    Q_UNUSED(color);
 
     return 0;
 
