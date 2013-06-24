@@ -548,7 +548,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="362"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pentru a adăuga sau șterge adnotările este nevoie de versiunea 0.20.1 sau mai mare a bibliotecii popler.</translation>
     </message>
 </context>
 <context>
@@ -684,12 +684,12 @@
         <location filename="../sources/pdfmodel.cpp" line="812"/>
         <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reliefare text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Previziualizare suprapunere:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="838"/>
@@ -704,7 +704,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="842"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mod linie subțire:</translation>
     </message>
 </context>
 <context>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biți antialias grafică:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biți antialias text:</translation>
     </message>
 </context>
 <context>
@@ -873,7 +873,7 @@
     <message>
         <location filename="../sources/main.cpp" line="138"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nu este permis un câmp de căutare gol.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="203"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="../sources/main.cpp" line="215"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dacă utlizați „--search” trebuie să introduceți text.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="258"/>
@@ -898,7 +898,7 @@
     <message>
         <location filename="../sources/main.cpp" line="353"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nu s-a putut pregăti prelucrarea semnalelor (signal handler).</translation>
     </message>
 </context>
 <context>
@@ -972,7 +972,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Scurtături</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="109"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Setări implicite în tabul curent</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -1046,7 +1046,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="348"/>
         <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Culoare evidențiere:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="356"/>
@@ -1061,7 +1061,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Annotation color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Culoare adnotări:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>
@@ -1143,7 +1143,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="511"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interval pre-încărcare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="558"/>
@@ -1193,12 +1193,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="581"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tab nou lângă cel actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Numărătoare utilizată recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
@@ -1218,42 +1218,42 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="621"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagina curentă în titlul ferestrei:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="628"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Evidențiere pictogramă curentă:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="635"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Limitare pictograme la rezultate:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="663"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Panoramare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rotire:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>Scroll:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Derulare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="681"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiere în clipboard:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adăugare adnotare:</translation>
     </message>
 </context>
 <context>
@@ -1261,42 +1261,42 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="140"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Acțiune</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="143"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Secvență taste</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sari înapoi:</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="268"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sari înainte:</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sus</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="282"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jos</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="289"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stânga</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dreapta</translation>
     </message>
 </context>
 <context>

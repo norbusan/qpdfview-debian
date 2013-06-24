@@ -427,7 +427,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1831"/>
         <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Содержимое</translation>
+        <translation type="unfinished">&amp;Содержание</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1832"/>
@@ -460,7 +460,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1925"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Содержание</translation>
+        <translation type="unfinished">&amp;Оглавление</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1937"/>
@@ -747,7 +747,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Все виды</translation>
+        <translation type="unfinished">Все страницы</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
@@ -762,7 +762,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished">Сет страниц:</translation>
+        <translation type="unfinished">Печатать страницы:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
@@ -952,7 +952,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="54"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Общие</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
@@ -1266,17 +1266,17 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="143"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Последовательность клавиш</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назад</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="268"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вперёд</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
