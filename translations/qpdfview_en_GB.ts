@@ -501,39 +501,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="769"/>
+        <location filename="../sources/pdfmodel.cpp" line="771"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="769"/>
+        <location filename="../sources/pdfmodel.cpp" line="771"/>
         <source>Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="769"/>
+        <location filename="../sources/pdfmodel.cpp" line="771"/>
         <source>Embedded</source>
         <translation type="unfinished">Embedded</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="769"/>
+        <location filename="../sources/pdfmodel.cpp" line="771"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="769"/>
+        <location filename="../sources/pdfmodel.cpp" line="771"/>
         <source>File</source>
         <translation type="unfinished">File</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="777"/>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="779"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Yes</source>
         <translation type="unfinished">Yes</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="777"/>
-        <location filename="../sources/pdfmodel.cpp" line="778"/>
+        <location filename="../sources/pdfmodel.cpp" line="779"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>No</source>
         <translation type="unfinished">No</translation>
     </message>
@@ -655,54 +655,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="793"/>
+        <location filename="../sources/pdfmodel.cpp" line="795"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="800"/>
+        <location filename="../sources/pdfmodel.cpp" line="802"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Text antialiasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="807"/>
-        <location filename="../sources/pdfmodel.cpp" line="837"/>
+        <location filename="../sources/pdfmodel.cpp" line="809"/>
+        <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>None</source>
         <translation type="unfinished">None</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="808"/>
+        <location filename="../sources/pdfmodel.cpp" line="810"/>
         <source>Full</source>
         <translation type="unfinished">Full</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="809"/>
+        <location filename="../sources/pdfmodel.cpp" line="811"/>
         <source>Reduced</source>
         <translation type="unfinished">Reduced</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="812"/>
-        <location filename="../sources/pdfmodel.cpp" line="819"/>
+        <location filename="../sources/pdfmodel.cpp" line="814"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Text hinting:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="832"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Overprint preview:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
+        <location filename="../sources/pdfmodel.cpp" line="840"/>
         <source>Solid</source>
         <translation type="unfinished">Solid</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="841"/>
         <source>Shaped</source>
         <translation type="unfinished">Shaped</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="842"/>
+        <location filename="../sources/pdfmodel.cpp" line="844"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Thin line mode:</translation>
     </message>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Defaults on current tab</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -1198,7 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recently used count:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
