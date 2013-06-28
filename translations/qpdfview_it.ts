@@ -985,6 +985,11 @@
         <translation type="unfinished">Predefiniti</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
+        <source>Defaults on current tab</source>
+        <translation type="unfinished">Ripristina i valori predefiniti per la scheda attuale</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
         <source>Open URL:</source>
         <translation type="unfinished">Aprire URL:</translation>
@@ -1039,6 +1044,21 @@
         <translation type="unfinished">Schermo per presentazione:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="348"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Colore dell&apos;evidenziatore:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="356"/>
+        <source>None</source>
+        <translation type="unfinished">Nessuna</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="359"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Durata dell&apos;evidenziatore:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Colore dell&apos;annotazione:</translation>
@@ -1067,26 +1087,6 @@
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Decorare campo del form:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="356"/>
-        <source>None</source>
-        <translation type="unfinished">Nessuna</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="118"/>
-        <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="348"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="359"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Durata evidenziazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
@@ -1198,12 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="621"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Pagina attuale nel titolo della finestra:</translation>
+        <translation type="unfinished">Conteggio usati di recente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
@@ -1221,9 +1216,14 @@
         <translation type="unfinished">Barra degli strumenti «Visualizza»:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="621"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Pagina attuale nel titolo della finestra:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="628"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Evidenziare scheda corrente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="635"/>
@@ -1259,6 +1259,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Azione</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Scorciatoia da tastiera</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">Salta indietro</translation>
@@ -1287,16 +1297,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">Sposta a destra</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Azione</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Scorciatoia da tastiera</translation>
     </message>
 </context>
 <context>
