@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="hr_HR">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -501,39 +501,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Name</source>
         <translation type="unfinished">Naziv</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Type</source>
         <translation type="unfinished">Tip</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Embedded</source>
         <translation type="unfinished">Ugrađen</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Subset</source>
         <translation type="unfinished">Podskupina</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>File</source>
         <translation type="unfinished">Datoteka</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="779"/>
-        <location filename="../sources/pdfmodel.cpp" line="780"/>
+        <location filename="../sources/pdfmodel.cpp" line="788"/>
+        <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>Yes</source>
         <translation type="unfinished">Da</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="779"/>
-        <location filename="../sources/pdfmodel.cpp" line="780"/>
+        <location filename="../sources/pdfmodel.cpp" line="788"/>
+        <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>No</source>
         <translation type="unfinished">Ne</translation>
     </message>
@@ -541,12 +541,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="362"/>
+        <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Information</source>
         <translation type="unfinished">Informacija</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="362"/>
+        <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Verzija 0.20.1 ili novija Poppler biblioteke su potrebni za dodavanje ili uklanjanje napomena.</translation>
     </message>
@@ -655,54 +655,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="795"/>
+        <location filename="../sources/pdfmodel.cpp" line="804"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="802"/>
+        <location filename="../sources/pdfmodel.cpp" line="811"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Antialiasing teksta:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="809"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>None</source>
         <translation type="unfinished">Nijedno</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="810"/>
+        <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Full</source>
         <translation type="unfinished">Potpuno</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="811"/>
+        <location filename="../sources/pdfmodel.cpp" line="820"/>
         <source>Reduced</source>
         <translation type="unfinished">Smanjeno</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="814"/>
-        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Aludiranje teksta:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="832"/>
+        <location filename="../sources/pdfmodel.cpp" line="841"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Pregled pretiska:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="840"/>
+        <location filename="../sources/pdfmodel.cpp" line="849"/>
         <source>Solid</source>
         <translation type="unfinished">Čvrsto</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="841"/>
+        <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Shaped</source>
         <translation type="unfinished">Oblikovano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="844"/>
+        <location filename="../sources/pdfmodel.cpp" line="853"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Način tanke linije:</translation>
     </message>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zadano na trenutačnoj kartici</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -1198,7 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zbroj nedavno korištenih:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
