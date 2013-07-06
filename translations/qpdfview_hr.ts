@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="hr_HR">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zadano na trenutačnoj kartici</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
@@ -1198,7 +1198,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zbroj nedavno korištenih:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
