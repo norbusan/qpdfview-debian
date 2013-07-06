@@ -501,39 +501,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Name</source>
         <translation type="unfinished">Nome</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Type</source>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Embedded</source>
         <translation type="unfinished">Embutido</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Subset</source>
         <translation type="unfinished">Sublistar</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="771"/>
+        <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>File</source>
         <translation type="unfinished">Arquivo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="779"/>
-        <location filename="../sources/pdfmodel.cpp" line="780"/>
+        <location filename="../sources/pdfmodel.cpp" line="788"/>
+        <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>Yes</source>
         <translation type="unfinished">Sim</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="779"/>
-        <location filename="../sources/pdfmodel.cpp" line="780"/>
+        <location filename="../sources/pdfmodel.cpp" line="788"/>
+        <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>No</source>
         <translation type="unfinished">Não</translation>
     </message>
@@ -541,12 +541,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="362"/>
+        <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Information</source>
         <translation type="unfinished">Informações</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="362"/>
+        <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Versão 0.20.1 ou maior da biblioteca Poppler é necessária para adicionar ou remover anotações.</translation>
     </message>
@@ -655,54 +655,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="795"/>
+        <location filename="../sources/pdfmodel.cpp" line="804"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Suavização:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="802"/>
+        <location filename="../sources/pdfmodel.cpp" line="811"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Suvaização de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="809"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
+        <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>None</source>
         <translation type="unfinished">Nenhum</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="810"/>
+        <location filename="../sources/pdfmodel.cpp" line="819"/>
         <source>Full</source>
         <translation type="unfinished">Completo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="811"/>
+        <location filename="../sources/pdfmodel.cpp" line="820"/>
         <source>Reduced</source>
         <translation type="unfinished">Reduzido</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="814"/>
-        <location filename="../sources/pdfmodel.cpp" line="821"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Sugestão de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="832"/>
+        <location filename="../sources/pdfmodel.cpp" line="841"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Visualização de superimposição:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="840"/>
+        <location filename="../sources/pdfmodel.cpp" line="849"/>
         <source>Solid</source>
         <translation type="unfinished">Sólido</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="841"/>
+        <location filename="../sources/pdfmodel.cpp" line="850"/>
         <source>Shaped</source>
         <translation type="unfinished">Com Formas</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="844"/>
+        <location filename="../sources/pdfmodel.cpp" line="853"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Modo de linha fina:</translation>
     </message>
