@@ -480,7 +480,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2021"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Бекіткіштер</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2030"/>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ішкі жиын</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
@@ -868,7 +868,7 @@
     <message>
         <location filename="../sources/main.cpp" line="127"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экземплярдың бос атына рұқсат жоқ.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="138"/>
@@ -878,17 +878,17 @@
     <message>
         <location filename="../sources/main.cpp" line="203"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; опциясын қолдану экземпляр атын талап етеді.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="209"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--instance&apos; опциясын &apos;--unique&apos; опциясыз қолдану рұқсат етілмеген.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="215"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;--search&apos; опциясы іздеу үшін мәтінді талап етеді.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="258"/>
@@ -898,7 +898,7 @@
     <message>
         <location filename="../sources/main.cpp" line="353"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сигнал талдаушысын дайындау мүмкін емес.</translation>
     </message>
 </context>
 <context>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="109"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Түрлендіргіштер</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="115"/>
@@ -1026,7 +1026,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="314"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Жеке файлдарға қатысты баптауларды қалпына келтіру:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="329"/>
@@ -1041,7 +1041,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="338"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Презентация экраны</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="348"/>
@@ -1066,27 +1066,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; файлға дейінгі абсолютті орналасу жолымен алмастырылады. &apos;%2&apos; және &apos;%3&apos; сәйкесінше жол және баған нөмерімен алмастырылады.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="377"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бастапқы код түзеткіші:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бет қоршауы:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="416"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сілтемелерді ерекшелеу:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Формалар өрістерін ерекшелеу:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
@@ -1138,12 +1138,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="503"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Алдын-ала жүктеу:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="511"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Алдын-ала жүктеу қашықтығы:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="558"/>
