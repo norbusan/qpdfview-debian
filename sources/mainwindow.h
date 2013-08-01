@@ -130,7 +130,7 @@ protected slots:
 
     void on_search_triggered();
     void on_search_returnPressed(const Qt::KeyboardModifiers& modifiers);
-    void on_search_timeout();
+    void on_search_timeout(bool searchAllTabs = false);
     void on_findPrevious_triggered();
     void on_findNext_triggered();
     void on_cancelSearch_triggered();

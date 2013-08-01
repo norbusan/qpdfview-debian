@@ -968,31 +968,26 @@ void MainWindow::on_search_triggered()
 
 void MainWindow::on_search_returnPressed(const Qt::KeyboardModifiers& modifiers)
 {
-    if(modifiers == Qt::ShiftModifier)
-    {
-        m_searchTimer->stop();
+    on_search_timeout(modifiers == Qt::ShiftModifier);
+}
 
-        if(!m_searchProgressLineEdit->text().isEmpty())
+void MainWindow::on_search_timeout(bool searchAllTabs)
+{
+    m_searchTimer->stop();
+
+    if(!m_searchProgressLineEdit->text().isEmpty())
+    {
+        if(searchAllTabs)
         {
             for(int index = 0; index < m_tabWidget->count(); ++index)
             {
                 tab(index)->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
             }
         }
-    }
-    else
-    {
-        on_search_timeout();
-    }
-}
-
-void MainWindow::on_search_timeout()
-{
-    m_searchTimer->stop();
-
-    if(!m_searchProgressLineEdit->text().isEmpty())
-    {
-        currentTab()->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+        else
+        {
+            currentTab()->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
+        }
     }
 }
 
