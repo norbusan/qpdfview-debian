@@ -223,7 +223,7 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     painter.setCompositionMode(QPainter::CompositionMode_Multiply);
-    painter.fillRect(x(), y(), m_progress * width() / 100, height(), palette().highlight());
+    painter.fillRect(0, 0, m_progress * width() / 100, height(), palette().highlight());
 }
 
 void ProgressLineEdit::keyPressEvent(QKeyEvent* event)

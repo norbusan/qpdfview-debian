@@ -1,3 +1,6 @@
+Release 0.4.5:
+  * Fix an error in drawing the search progress and move the search widgets into a more flexible dock.
+
 Release 0.4.4:
   * Improved building on Windows and OS/2 and plug-in handling on all platforms. Thanks to Silvan Scherrer.
   * Added button to revert only the settings on the current tab of the settings dialog to their defaults.
