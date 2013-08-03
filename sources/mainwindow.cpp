@@ -1536,9 +1536,9 @@ void MainWindow::closeEvent(QCloseEvent* event)
         savePerFileSettings(tab(index));
     }
 
-    s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
+    m_searchDock->setVisible(false);
 
-    removeDockWidget(m_searchDock);
+    s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
     s_settings->documentView().setMatchCase(m_matchCaseCheckBox->isChecked());
 
@@ -1925,11 +1925,10 @@ void MainWindow::createDocks()
     // search
 
     m_searchDock = new QDockWidget(tr("&Search"), this);
+    m_searchDock->setObjectName(QLatin1String("searchDock"));
     m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
 
     addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
-
-    m_searchDock->hide();
 
     m_searchWidget = new QWidget(this);
 
@@ -1959,6 +1958,8 @@ void MainWindow::createDocks()
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
+
+    m_searchDock->setVisible(false);
 
     m_findPreviousAction->setEnabled(false);
     m_findNextAction->setEnabled(false);
