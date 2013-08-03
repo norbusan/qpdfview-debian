@@ -308,7 +308,7 @@ void MainWindow::startSearch(const QString& text)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        m_searchToolBar->setVisible(true);
+        m_searchDock->setVisible(true);
 
         m_searchProgressLineEdit->setText(text);
 
@@ -376,7 +376,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_matchCaseCheckBox->setEnabled(true);
         m_highlightAllCheckBox->setEnabled(true);
 
-        if(m_searchToolBar->isVisible())
+        if(m_searchDock->isVisible())
         {
             m_searchTimer->stop();
             m_searchProgressLineEdit->setProgress(currentTab()->searchProgress());
@@ -463,13 +463,13 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_matchCaseCheckBox->setEnabled(false);
         m_highlightAllCheckBox->setEnabled(false);
 
-        if(m_searchToolBar->isVisible())
+        if(m_searchDock->isVisible())
         {
             m_searchTimer->stop();
             m_searchProgressLineEdit->setProgress(0);
         }
 
-        m_searchToolBar->setVisible(false);
+        m_searchDock->setVisible(false);
 
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
@@ -712,7 +712,7 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
         menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
 
-        if(m_searchToolBar->isVisible())
+        if(m_searchDock->isVisible())
         {
             menu.addSeparator();
             menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
@@ -960,7 +960,7 @@ void MainWindow::on_jumpForward_triggered()
 
 void MainWindow::on_search_triggered()
 {
-    m_searchToolBar->setVisible(true);
+    m_searchDock->setVisible(true);
 
     m_searchProgressLineEdit->selectAll();
     m_searchProgressLineEdit->setFocus();
@@ -1012,7 +1012,7 @@ void MainWindow::on_cancelSearch_triggered()
     m_searchTimer->stop();
     m_searchProgressLineEdit->setProgress(0);
 
-    m_searchToolBar->setVisible(false);
+    m_searchDock->setVisible(false);
 
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
@@ -1538,7 +1538,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
-    removeToolBar(m_searchToolBar);
+    removeDockWidget(m_searchDock);
 
     s_settings->documentView().setMatchCase(m_matchCaseCheckBox->isChecked());
 
@@ -1866,31 +1866,6 @@ void MainWindow::createToolBars()
 
     m_viewToolBar = createToolBar(tr("&View"), QLatin1String("viewToolBar"), s_settings->mainWindow().viewToolBar(),
                                   QList< QAction* >() << m_scaleFactorAction << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction);
-
-    // search
-
-    m_searchToolBar = new QToolBar(tr("&Search"), this);
-    m_searchToolBar->setObjectName(QLatin1String("searchToolBar"));
-
-    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
-    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
-    connect(m_searchToolBar, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
-
-    m_findPreviousAction->setEnabled(false);
-    m_findNextAction->setEnabled(false);
-    m_cancelSearchAction->setEnabled(false);
-
-    m_searchToolBar->setVisible(false);
-    m_searchToolBar->setMovable(false);
-
-    addToolBar(Qt::BottomToolBarArea, m_searchToolBar);
-
-    m_searchToolBar->addWidget(m_searchProgressLineEdit);
-    m_searchToolBar->addWidget(m_matchCaseCheckBox);
-    m_searchToolBar->addWidget(m_highlightAllCheckBox);
-    m_searchToolBar->addAction(m_findPreviousAction);
-    m_searchToolBar->addAction(m_findNextAction);
-    m_searchToolBar->addAction(m_cancelSearchAction);
 }
 
 QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
@@ -1946,6 +1921,48 @@ void MainWindow::createDocks()
     connect(m_thumbnailsView->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_thumbnails_verticalScrollBar_valueChanged(int)));
 
     m_thumbnailsDock->setWidget(m_thumbnailsView);
+
+    // search
+
+    m_searchDock = new QDockWidget(tr("&Search"), this);
+    m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+
+    addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
+
+    m_searchDock->hide();
+
+    m_searchWidget = new QWidget(this);
+
+    QToolButton* findPreviousButton = new QToolButton(m_searchWidget);
+    findPreviousButton->setAutoRaise(true);
+    findPreviousButton->setDefaultAction(m_findPreviousAction);
+
+    QToolButton* findNextButton = new QToolButton(m_searchWidget);
+    findNextButton->setAutoRaise(true);
+    findNextButton->setDefaultAction(m_findNextAction);
+
+    QToolButton* cancelSearchButton = new QToolButton(m_searchWidget);
+    cancelSearchButton->setAutoRaise(true);
+    cancelSearchButton->setDefaultAction(m_cancelSearchAction);
+
+    QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
+    searchLayout->setRowStretch(2, 1);
+    searchLayout->addWidget(m_searchProgressLineEdit, 0, 0, 1, 5);
+    searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
+    searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
+    searchLayout->addWidget(findPreviousButton, 1, 2);
+    searchLayout->addWidget(findNextButton, 1, 3);
+    searchLayout->addWidget(cancelSearchButton, 1, 4);
+
+    m_searchDock->setWidget(m_searchWidget);
+
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
+
+    m_findPreviousAction->setEnabled(false);
+    m_findNextAction->setEnabled(false);
+    m_cancelSearchAction->setEnabled(false);
 }
 
 void MainWindow::createMenus()

@@ -302,8 +302,6 @@ private:
     QToolBar* m_editToolBar;
     QToolBar* m_viewToolBar;
 
-    QToolBar* m_searchToolBar;
-
     QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions);
 
     void createToolBars();
@@ -316,6 +314,9 @@ private:
 
     QDockWidget* m_thumbnailsDock;
     QGraphicsView* m_thumbnailsView;
+
+    QDockWidget* m_searchDock;
+    QWidget* m_searchWidget;
 
     QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
 
