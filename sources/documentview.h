@@ -248,6 +248,8 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
+    void loadFallbackOutline();
+
     void prepareDocument(Model::Document* document);
     void preparePages();
     void prepareThumbnails();

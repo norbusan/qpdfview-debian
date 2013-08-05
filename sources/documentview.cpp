@@ -1610,6 +1610,28 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = top >= 0.0 ? top : 0.0;
 }
 
+void DocumentView::loadFallbackOutline()
+{
+    if(m_outlineModel->rowCount() > 0)
+    {
+        return;
+    }
+
+    for(int page = 1; page <= m_pages.count(); ++page)
+    {
+        QStandardItem* item = new QStandardItem(tr("Page %1").arg(page));
+        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+        item->setData(page, Qt::UserRole + 1);
+
+        QStandardItem* pageItem = new QStandardItem(QString::number(page));
+        pageItem->setFlags(Qt::NoItemFlags);
+        pageItem->setTextAlignment(Qt::AlignRight);
+
+        m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
+    }
+}
+
 void DocumentView::prepareDocument(Model::Document* document)
 {
     m_prefetchTimer->blockSignals(true);
@@ -1654,6 +1676,8 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     m_document->loadOutline(m_outlineModel);
     m_document->loadProperties(m_propertiesModel);
+
+    loadFallbackOutline();
 
     if(s_settings->documentView().prefetch())
     {
