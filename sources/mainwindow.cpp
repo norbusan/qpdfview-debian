@@ -547,7 +547,21 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
 
 static bool synchronizeOutlineView(TreeView* outlineView, const QAbstractItemModel* model, const QModelIndex& parent, int currentPage)
 {
-    for(int row = model->rowCount(parent) - 1; row >= 0; --row)
+    for(int row = 0; row < model->rowCount(parent); ++row)
+    {
+        const QModelIndex index = model->index(row, 0, parent);
+
+        bool ok = false;
+        const int page = model->data(index, Qt::UserRole + 1).toInt(&ok);
+
+        if(ok && page == currentPage)
+        {
+            outlineView->setCurrentIndex(index);
+            return true;
+        }
+    }
+
+    for(int row = 0; row < model->rowCount(parent); ++row)
     {
         QModelIndex index = model->index(row, 0, parent);
 
@@ -558,30 +572,7 @@ static bool synchronizeOutlineView(TreeView* outlineView, const QAbstractItemMod
         }
     }
 
-    bool ok = false;
-    const int page = model->data(parent, Qt::UserRole + 1).toInt(&ok);
-
-    if(ok && page <= currentPage)
-    {
-        outlineView->setCurrentIndex(parent);
-        return true;
-    }
-
     return false;
-}
-
-static void synchronizeOutlineView(TreeView* outlineView, const QAbstractItemModel* model, int currentPage)
-{
-    for(int row = model->rowCount() - 1; row >= 0; --row)
-    {
-        const QModelIndex index = model->index(row, 0);
-
-        if(synchronizeOutlineView(outlineView, model, index, currentPage))
-        {
-            outlineView->expand(index);
-            return;
-        }
-    }
 }
 
 void MainWindow::on_currentTab_currentPageChanged(int currentPage)
@@ -594,7 +585,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
-            synchronizeOutlineView(m_outlineView, m_outlineView->model(), currentPage);
+            synchronizeOutlineView(m_outlineView, m_outlineView->model(), QModelIndex(), currentPage);
         }
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
