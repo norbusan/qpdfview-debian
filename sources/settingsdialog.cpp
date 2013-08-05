@@ -217,6 +217,8 @@ void SettingsDialog::accept()
 
     s_settings->mainWindow().setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
 
+    s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
+
     s_settings->documentView().setHighlightCurrentThumbnail(m_highlightCurrentThumbnailCheckBox->isChecked());
     s_settings->documentView().setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
 
@@ -620,6 +622,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Current page in window title:"), m_currentPageInWindowTitleCheckBox);
 
+    // synchronize outline view
+
+    m_synchronizeOutlineViewCheckBox = new QCheckBox(this);
+    m_synchronizeOutlineViewCheckBox->setChecked(s_settings->mainWindow().synchronizeOutlineView());
+
+    m_interfaceLayout->addRow(tr("Synchronize outline view:"), m_synchronizeOutlineViewCheckBox);
+
     // highlight current thumbnail
 
     m_highlightCurrentThumbnailCheckBox = new QCheckBox(this);
@@ -649,6 +658,8 @@ void SettingsDialog::resetInterfaceTab()
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
     m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
+
+    m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
 
     m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
     m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());

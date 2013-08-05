@@ -141,6 +141,8 @@ private:
 
     QCheckBox* m_currentPageInWindowTitleCheckBox;
 
+    QCheckBox* m_synchronizeOutlineViewCheckBox;
+
     QCheckBox* m_highlightCurrentThumbnailCheckBox;
     QCheckBox* m_limitThumbnailsToResultsCheckBox;
 
