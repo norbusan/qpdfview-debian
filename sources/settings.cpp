@@ -562,6 +562,16 @@ void Settings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText
     m_settings->setValue("mainWindow/currentPageInWindowTitle", currentPageInTabText);
 }
 
+bool Settings::MainWindow::synchronizeOutlineView() const
+{
+    return m_settings->value("mainWindow/synchronizeOutlineView", Defaults::MainWindow::synchronizeOutlineView()).toBool();
+}
+
+void Settings::MainWindow::setSynchronizeOutlineView(bool synchronizeOutlineView)
+{
+    m_settings->setValue("mainWindow/synchronizeOutlineView", synchronizeOutlineView);
+}
+
 static QStringList trimmed(const QStringList& list)
 {
     QStringList trimmedList;

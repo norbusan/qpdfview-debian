@@ -644,7 +644,7 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
     const QDomElement element = node.toElement();
 
     QStandardItem* item = new QStandardItem(element.tagName());
-    item->setFlags(Qt::ItemIsEnabled);
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
     Poppler::LinkDestination* linkDestination = 0;
 

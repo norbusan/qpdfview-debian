@@ -260,6 +260,9 @@ public:
         bool currentPageInWindowTitle() const;
         void setCurrentPageInWindowTitle(bool currentPageInWindowTitle);
 
+        bool synchronizeOutlineView() const;
+        void setSynchronizeOutlineView(bool synchronizeOutlineView);
+
         QStringList fileToolBar() const;
         void setFileToolBar(const QStringList& fileToolBar);
 
@@ -480,6 +483,8 @@ public:
         static inline bool newTabNextToCurrentTab() { return true; }
 
         static inline bool currentPageInWindowTitle() { return false; }
+
+        static inline bool synchronizeOutlineView() { return false; }
 
         static inline QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }

@@ -641,7 +641,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
                 }
 
                 QStandardItem* item = new QStandardItem(title);
-                item->setFlags(Qt::ItemIsEnabled);
+                item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
                 item->setData(destinationPage, Qt::UserRole + 1);
 
