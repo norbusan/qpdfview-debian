@@ -310,7 +310,7 @@ void MainWindow::startSearch(const QString& text)
     {
         m_searchDock->setVisible(true);
 
-        m_searchProgressLineEdit->setText(text);
+        m_searchLineEdit->setText(text);
 
         currentTab()->setFocus();
 
@@ -372,14 +372,14 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_currentPageSpinBox->setEnabled(true);
         m_scaleFactorComboBox->setEnabled(true);
-        m_searchProgressLineEdit->setEnabled(true);
+        m_searchLineEdit->setEnabled(true);
         m_matchCaseCheckBox->setEnabled(true);
         m_highlightAllCheckBox->setEnabled(true);
 
         if(m_searchDock->isVisible())
         {
-            m_searchTimer->stop();
-            m_searchProgressLineEdit->setProgress(currentTab()->searchProgress());
+            m_searchLineEdit->stopTimer();
+            m_searchLineEdit->setProgress(currentTab()->searchProgress());
         }
 
         m_outlineView->setModel(currentTab()->outlineModel());
@@ -459,14 +459,14 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_currentPageSpinBox->setEnabled(false);
         m_scaleFactorComboBox->setEnabled(false);
-        m_searchProgressLineEdit->setEnabled(false);
+        m_searchLineEdit->setEnabled(false);
         m_matchCaseCheckBox->setEnabled(false);
         m_highlightAllCheckBox->setEnabled(false);
 
         if(m_searchDock->isVisible())
         {
-            m_searchTimer->stop();
-            m_searchProgressLineEdit->setProgress(0);
+            m_searchLineEdit->stopTimer();
+            m_searchLineEdit->setProgress(0);
         }
 
         m_searchDock->setVisible(false);
@@ -688,7 +688,7 @@ void MainWindow::on_currentTab_searchFinished()
 {
     if(senderIsCurrentTab())
     {
-        m_searchProgressLineEdit->setProgress(0);
+        m_searchLineEdit->setProgress(0);
     }
 }
 
@@ -696,7 +696,7 @@ void MainWindow::on_currentTab_searchProgressChanged(int progress)
 {
     if(senderIsCurrentTab())
     {
-        m_searchProgressLineEdit->setProgress(progress);
+        m_searchLineEdit->setProgress(progress);
     }
 }
 
@@ -962,38 +962,13 @@ void MainWindow::on_search_triggered()
 {
     m_searchDock->setVisible(true);
 
-    m_searchProgressLineEdit->selectAll();
-    m_searchProgressLineEdit->setFocus();
-}
-
-void MainWindow::on_search_returnPressed(const Qt::KeyboardModifiers& modifiers)
-{
-    on_search_timeout(modifiers == Qt::ShiftModifier);
-}
-
-void MainWindow::on_search_timeout(bool searchAllTabs)
-{
-    m_searchTimer->stop();
-
-    if(!m_searchProgressLineEdit->text().isEmpty())
-    {
-        if(searchAllTabs)
-        {
-            for(int index = 0; index < m_tabWidget->count(); ++index)
-            {
-                tab(index)->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
-            }
-        }
-        else
-        {
-            currentTab()->startSearch(m_searchProgressLineEdit->text(), m_matchCaseCheckBox->isChecked());
-        }
-    }
+    m_searchLineEdit->selectAll();
+    m_searchLineEdit->setFocus();
 }
 
 void MainWindow::on_findPrevious_triggered()
 {
-    if(!m_searchProgressLineEdit->text().isEmpty())
+    if(!m_searchLineEdit->text().isEmpty())
     {
         currentTab()->findPrevious();
     }
@@ -1001,7 +976,7 @@ void MainWindow::on_findPrevious_triggered()
 
 void MainWindow::on_findNext_triggered()
 {
-    if(!m_searchProgressLineEdit->text().isEmpty())
+    if(!m_searchLineEdit->text().isEmpty())
     {
         currentTab()->findNext();
     }
@@ -1009,8 +984,8 @@ void MainWindow::on_findNext_triggered()
 
 void MainWindow::on_cancelSearch_triggered()
 {
-    m_searchTimer->stop();
-    m_searchProgressLineEdit->setProgress(0);
+    m_searchLineEdit->stopTimer();
+    m_searchLineEdit->setProgress(0);
 
     m_searchDock->setVisible(false);
 
@@ -1443,6 +1418,24 @@ void MainWindow::on_about_triggered()
                                                       "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 The qpdfview developers</p>")).arg(QApplication::applicationVersion()));
 }
 
+void MainWindow::on_searchInitiated(const QString& text, bool allTabs)
+{
+    if(!text.isEmpty())
+    {
+        if(allTabs)
+        {
+            for(int index = 0; index < m_tabWidget->count(); ++index)
+            {
+                tab(index)->startSearch(text, m_matchCaseCheckBox->isChecked());
+            }
+        }
+        else
+        {
+            currentTab()->startSearch(text, m_matchCaseCheckBox->isChecked());
+        }
+    }
+}
+
 void MainWindow::on_highlightAll_clicked(bool checked)
 {
     currentTab()->setHighlightAll(checked);
@@ -1688,19 +1681,11 @@ void MainWindow::createWidgets()
 
     // search
 
-    m_searchProgressLineEdit = new ProgressLineEdit(this);
-    m_searchTimer = new QTimer(this);
-
-    m_searchTimer->setInterval(2000);
-    m_searchTimer->setSingleShot(true);
-
-    connect(m_searchProgressLineEdit, SIGNAL(textEdited(QString)), m_searchTimer, SLOT(start()));
-    connect(m_searchProgressLineEdit, SIGNAL(returnPressed(Qt::KeyboardModifiers)), SLOT(on_search_returnPressed(Qt::KeyboardModifiers)));
-    connect(m_searchTimer, SIGNAL(timeout()), SLOT(on_search_timeout()));
-
+    m_searchLineEdit = new SearchLineEdit(this);
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), this);
     m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"), this);
 
+    connect(m_searchLineEdit, SIGNAL(searchInitiated(QString,bool)), SLOT(on_searchInitiated(QString,bool)));
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
 
@@ -1946,7 +1931,7 @@ void MainWindow::createDocks()
 
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);
-    searchLayout->addWidget(m_searchProgressLineEdit, 0, 0, 1, 5);
+    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 5);
     searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
     searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
     searchLayout->addWidget(findPreviousButton, 1, 2);

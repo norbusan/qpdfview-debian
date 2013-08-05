@@ -53,7 +53,7 @@ class TabWidget;
 class TreeView;
 class ComboBox;
 class SpinBox;
-class ProgressLineEdit;
+class SearchLineEdit;
 class RecentlyUsedMenu;
 class BookmarkMenu;
 
@@ -129,8 +129,6 @@ protected slots:
     void on_jumpForward_triggered();
 
     void on_search_triggered();
-    void on_search_returnPressed(const Qt::KeyboardModifiers& modifiers);
-    void on_search_timeout(bool searchAllTabs = false);
     void on_findPrevious_triggered();
     void on_findNext_triggered();
     void on_cancelSearch_triggered();
@@ -183,6 +181,7 @@ protected slots:
     void on_contents_triggered();
     void on_about_triggered();
 
+    void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
 
     void on_model_reset();
@@ -217,8 +216,7 @@ private:
     ComboBox* m_scaleFactorComboBox;
     QWidgetAction* m_scaleFactorAction;
 
-    ProgressLineEdit* m_searchProgressLineEdit;
-    QTimer* m_searchTimer;
+    SearchLineEdit* m_searchLineEdit;
     QCheckBox* m_matchCaseCheckBox;
     QCheckBox* m_highlightAllCheckBox;
 

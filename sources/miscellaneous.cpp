@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 #include <QMouseEvent>
+#include <QTimer>
 
 GraphicsCompositionModeEffect::GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent) : QGraphicsEffect(parent),
     m_compositionMode(compositionMode)
@@ -234,4 +235,35 @@ void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
     {
         emit returnPressed(event->modifiers());
     }
+}
+
+// search line edit
+
+SearchLineEdit::SearchLineEdit(QWidget* parent) : ProgressLineEdit(parent)
+{
+    m_timer = new QTimer(this);
+
+    m_timer->setInterval(2000);
+    m_timer->setSingleShot(true);
+
+    connect(this, SIGNAL(textEdited(QString)), m_timer, SLOT(start()));
+    connect(this, SIGNAL(returnPressed(Qt::KeyboardModifiers)), SLOT(on_returnPressed(Qt::KeyboardModifiers)));
+    connect(m_timer, SIGNAL(timeout()), SLOT(on_timeout()));
+}
+
+void SearchLineEdit::stopTimer()
+{
+    m_timer->stop();
+}
+
+void SearchLineEdit::on_timeout()
+{
+    emit searchInitiated(text());
+}
+
+void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
+{
+    stopTimer();
+
+    emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }

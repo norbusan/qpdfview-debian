@@ -172,4 +172,27 @@ private:
 
 };
 
+// search line edit
+
+class SearchLineEdit : public ProgressLineEdit
+{
+    Q_OBJECT
+
+public:
+    explicit SearchLineEdit(QWidget* parent = 0);
+
+    void stopTimer();
+
+signals:
+    void searchInitiated(const QString& text, bool allTabs = false);
+
+protected slots:
+    void on_timeout();
+    void on_returnPressed(const Qt::KeyboardModifiers& modifiers);
+
+private:
+    QTimer* m_timer;
+
+};
+
 #endif // MISCELLANEOUS_H
