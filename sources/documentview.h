@@ -90,6 +90,9 @@ public:
     bool searchWasCanceled() const;
     int searchProgress() const;
 
+    Qt::Orientation thumbnailsOrientation() const;
+    void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
+
     const QVector< ThumbnailItem* >& thumbnailItems() const;
     QGraphicsScene* thumbnailsScene() const;
 
@@ -243,6 +246,7 @@ private:
 
     QGraphicsRectItem* m_highlight;
 
+    Qt::Orientation m_thumbnailsOrientation;
     QGraphicsScene* m_thumbnailsScene;
 
     QStandardItemModel* m_outlineModel;

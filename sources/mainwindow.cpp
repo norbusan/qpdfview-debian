@@ -218,6 +218,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         m_tabsMenu->addAction(tabAction);
 
+        on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
+
         connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
@@ -1536,6 +1538,14 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
     }
 }
 
+void MainWindow::on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area)
+{
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        currentTab()->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
+    }
+}
+
 void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
 {
     Q_UNUSED(value);
@@ -1893,8 +1903,6 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     QDockWidget* dock = new QDockWidget(text, this);
 
     dock->setObjectName(objectName);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
@@ -1935,6 +1943,8 @@ void MainWindow::createDocks()
     // thumbnails
 
     m_thumbnailsDock = createDock(tr("&Thumbnails"), QLatin1String("thumbnailsDock"), QKeySequence(Qt::Key_F8));
+
+    connect(m_thumbnailsDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_thumbnails_dockLocationChanged(Qt::DockWidgetArea)));
 
     m_thumbnailsView = new QGraphicsView(this);
 

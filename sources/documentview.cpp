@@ -86,6 +86,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailItems(),
     m_heightToIndex(),
     m_highlight(0),
+    m_thumbnailsOrientation(Qt::Vertical),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
@@ -419,6 +420,21 @@ bool DocumentView::searchWasCanceled() const
 int DocumentView::searchProgress() const
 {
     return m_searchTask->progress();
+}
+
+Qt::Orientation DocumentView::thumbnailsOrientation() const
+{
+    return m_thumbnailsOrientation;
+}
+
+void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation)
+{
+    if(m_thumbnailsOrientation != thumbnailsOrientation)
+    {
+        m_thumbnailsOrientation = thumbnailsOrientation;
+
+        prepareThumbnailsScene();
+    }
 }
 
 QStandardItemModel* DocumentView::outlineModel() const
@@ -1991,8 +2007,9 @@ void DocumentView::prepareThumbnailsScene()
     const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
-    qreal right = 0.0;
-    qreal height = thumbnailSpacing;
+    qreal right = m_thumbnailsOrientation == Qt::Vertical ? 0.0 : thumbnailSpacing;
+    qreal top = 0.0;
+    qreal bottom = m_thumbnailsOrientation == Qt::Vertical ? thumbnailSpacing : 0.0;
 
     const bool limitThumbnailsToResults = s_settings->documentView().limitThumbnailsToResults();
 
@@ -2022,14 +2039,25 @@ void DocumentView::prepareThumbnailsScene()
 
         const QRectF boundingRect = page->boundingRect();
 
-        page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
+        if(m_thumbnailsOrientation == Qt::Vertical)
+        {
+            page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), bottom - boundingRect.top());
 
-        left = qMin(left, -0.5f * boundingRect.width() - thumbnailSpacing);
-        right = qMax(right, 0.5f * boundingRect.width() + thumbnailSpacing);
-        height += boundingRect.height() + thumbnailSpacing;
+            left = qMin(left, -0.5f * boundingRect.width() - thumbnailSpacing);
+            right = qMax(right, 0.5f * boundingRect.width() + thumbnailSpacing);
+            bottom += boundingRect.height() + thumbnailSpacing;
+        }
+        else
+        {
+            page->setPos(right - boundingRect.left(), -boundingRect.top() - 0.5 * boundingRect.height());
+
+            top = qMin(top, -0.5f * boundingRect.height() - thumbnailSpacing);
+            bottom = qMax(bottom, 0.5f * boundingRect.height() + thumbnailSpacing);
+            right += boundingRect.width() + thumbnailSpacing;
+        }
     }
 
-    m_thumbnailsScene->setSceneRect(left, 0.0, right - left, height);
+    m_thumbnailsScene->setSceneRect(left, top, right - left, bottom - top);
 }
 
 void DocumentView::prepareHighlight(int index, const QRectF& rect)
