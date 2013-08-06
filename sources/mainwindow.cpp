@@ -1540,9 +1540,9 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
 
 void MainWindow::on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area)
 {
-    if(m_tabWidget->currentIndex() != -1)
+    for(int index = 0; index < m_tabWidget->count(); ++index)
     {
-        currentTab()->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
+        tab(index)->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
     }
 }
 
