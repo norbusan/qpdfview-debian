@@ -1640,9 +1640,8 @@ void DocumentView::loadFallbackOutline()
 
         item->setData(page, Qt::UserRole + 1);
 
-        QStandardItem* pageItem = new QStandardItem(QString::number(page));
-        pageItem->setFlags(Qt::NoItemFlags);
-        pageItem->setTextAlignment(Qt::AlignRight);
+        QStandardItem* pageItem = item->clone();
+        pageItem->setText(QString::number(page));
 
         m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
     }

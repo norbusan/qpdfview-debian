@@ -688,9 +688,8 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
         item->setData(left, Qt::UserRole + 2);
         item->setData(top, Qt::UserRole + 3);
 
-        QStandardItem* pageItem = new QStandardItem(QString::number(page));
-        pageItem->setFlags(Qt::NoItemFlags);
-        pageItem->setTextAlignment(Qt::AlignRight);
+        QStandardItem* pageItem = item->clone();
+        pageItem->setText(QString::number(page));
 
         parent->appendRow(QList< QStandardItem* >() << item << pageItem);
     }

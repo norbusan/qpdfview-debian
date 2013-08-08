@@ -1925,6 +1925,7 @@ void MainWindow::createDocks()
     m_outlineView = new TreeView(this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
 
