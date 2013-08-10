@@ -1,8 +1,9 @@
 Release 0.4.5:
-  * Fix an error in drawing the search progress.
-  * Improve the layout of the search widgets.
-  * Add setting to heuristically synchronize the outline view to the current page.
-  * Improve thumbnails layout to change between horizontal and vertical according to dock location.
+  * Fixed an error in drawing the search progress.
+  * Fixed decorating links when using Qt5. 
+  * Improved the layout of the search widgets.
+  * Added setting to heuristically synchronize the outline view to the current page.
+  * Improved thumbnails layout to change between horizontal and vertical according to dock location.
 
 Release 0.4.4:
   * Improved building on Windows and OS/2 and plug-in handling on all platforms. Thanks to Silvan Scherrer.
