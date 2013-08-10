@@ -104,7 +104,7 @@ QRectF PageItem::boundingRect() const
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    paintPage(painter, renderPage());
+    paintPage(painter, cachedPixmap());
 
     paintLinks(painter);
     paintFormFields(painter);
@@ -754,13 +754,13 @@ void PageItem::prepareGeometry()
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 }
 
-QPixmap PageItem::renderPage()
+QPixmap PageItem::cachedPixmap()
 {
     QPixmap pixmap;
 
     if(s_cache.contains(this))
     {
-        return *s_cache.object(this);
+        pixmap = *s_cache.object(this);
     }
     else
     {
@@ -825,7 +825,6 @@ void PageItem::paintLinks(QPainter* painter) const
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-        // Set Qt4 compatibility render hint to resolve bug #1210733.
         painter->setRenderHint(QPainter::Qt4CompatiblePainting, true);
 
 #endif // QT_VERSION

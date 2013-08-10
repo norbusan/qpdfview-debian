@@ -166,7 +166,7 @@ private:
 
     // paint
 
-    QPixmap renderPage();
+    QPixmap cachedPixmap();
     void paintPage(QPainter* painter, const QPixmap& pixmap) const;
 
     void paintLinks(QPainter* painter) const;
