@@ -165,6 +165,9 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     {
         painter->save();
 
+        // Set Qt4 compatibility render hint to resolve bug #1210733.
+        painter->setRenderHint(QPainter::Qt4CompatiblePainting, true);
+
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red));
 
