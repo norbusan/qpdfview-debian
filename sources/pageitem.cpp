@@ -104,138 +104,13 @@ QRectF PageItem::boundingRect() const
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    QPixmap pixmap;
+    paintPage(painter, renderPage());
 
-    if(s_cache.contains(this))
-    {
-        pixmap = *s_cache.object(this);
-    }
-    else
-    {
-        if(!m_pixmap.isNull())
-        {
-            pixmap = m_pixmap;
-            m_pixmap = QPixmap();
+    paintLinks(painter);
+    paintFormFields(painter);
 
-            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(this, new QPixmap(pixmap), cost);
-        }
-        else
-        {
-            startRender();
-        }
-    }
-
-    // page
-
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
-    {
-        QColor paperColor = s_settings->pageItem().paperColor();
-
-        if(m_invertColors)
-        {
-            paperColor.setRgb(~paperColor.rgb());
-        }
-
-        painter->fillRect(m_boundingRect, QBrush(paperColor));
-    }
-
-    if(pixmap.isNull())
-    {
-        // progess icon
-
-        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
-
-        s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
-    }
-    else
-    {
-        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
-    }
-
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
-    {
-        painter->drawRect(m_boundingRect);
-    }
-
-    // links
-
-    if(s_settings->pageItem().decorateLinks() && !m_presentationMode && !m_links.isEmpty())
-    {
-        painter->save();
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        // Set Qt4 compatibility render hint to resolve bug #1210733.
-        painter->setRenderHint(QPainter::Qt4CompatiblePainting, true);
-
-#endif // QT_VERSION
-
-        painter->setTransform(m_normalizedTransform, true);
-        painter->setPen(QPen(Qt::red));
-
-        foreach(const Model::Link* link, m_links)
-        {
-            painter->drawPath(link->boundary);
-        }
-
-        painter->restore();
-    }
-
-    // form fields
-
-    if(s_settings->pageItem().decorateFormFields() && !m_presentationMode && !m_formFields.isEmpty())
-    {
-        painter->save();
-
-        painter->setTransform(m_normalizedTransform, true);
-        painter->setPen(QPen(Qt::blue));
-
-        foreach(const Model::FormField* formField, m_formFields)
-        {
-            painter->drawRect(formField->boundary());
-        }
-
-        painter->restore();
-    }
-
-    // highlights
-
-    if(!m_highlights.isEmpty())
-    {
-        painter->save();
-
-        painter->setTransform(m_transform, true);
-        painter->setPen(QPen(s_settings->pageItem().highlightColor()));
-        painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
-        painter->setCompositionMode(QPainter::CompositionMode_Multiply);
-
-        foreach(const QRectF highlight, m_highlights)
-        {
-            painter->drawRect(highlight.normalized());
-        }
-
-        painter->restore();
-    }
-
-    // rubber band
-
-    if(!m_rubberBand.isNull())
-    {
-        painter->save();
-
-        QPen pen;
-        pen.setColor(Qt::white);
-        pen.setStyle(Qt::DashLine);
-
-        painter->setPen(pen);
-        painter->setCompositionMode(QPainter::CompositionMode_Difference);
-
-        painter->drawRect(m_rubberBand);
-
-        painter->restore();
-    }
+    paintHighlights(painter);
+    paintRubberBand(painter);
 }
 
 int PageItem::index() const
@@ -877,6 +752,151 @@ void PageItem::prepareGeometry()
 
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
+}
+
+QPixmap PageItem::renderPage()
+{
+    QPixmap pixmap;
+
+    if(s_cache.contains(this))
+    {
+        return *s_cache.object(this);
+    }
+    else
+    {
+        if(!m_pixmap.isNull())
+        {
+            pixmap = m_pixmap;
+            m_pixmap = QPixmap();
+
+            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+            s_cache.insert(this, new QPixmap(pixmap), cost);
+
+            return pixmap;
+        }
+        else
+        {
+            startRender();
+        }
+    }
+
+    return pixmap;
+}
+
+void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
+{
+    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
+    {
+        QColor paperColor = s_settings->pageItem().paperColor();
+
+        if(m_invertColors)
+        {
+            paperColor.setRgb(~paperColor.rgb());
+        }
+
+        painter->fillRect(m_boundingRect, QBrush(paperColor));
+    }
+
+    if(pixmap.isNull())
+    {
+        // progess icon
+
+        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
+
+        s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
+    }
+    else
+    {
+        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
+    }
+
+    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
+    {
+        painter->drawRect(m_boundingRect);
+    }
+}
+
+void PageItem::paintLinks(QPainter* painter) const
+{
+    if(s_settings->pageItem().decorateLinks() && !m_presentationMode && !m_links.isEmpty())
+    {
+        painter->save();
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        // Set Qt4 compatibility render hint to resolve bug #1210733.
+        painter->setRenderHint(QPainter::Qt4CompatiblePainting, true);
+
+#endif // QT_VERSION
+
+        painter->setTransform(m_normalizedTransform, true);
+        painter->setPen(QPen(Qt::red));
+
+        foreach(const Model::Link* link, m_links)
+        {
+            painter->drawPath(link->boundary);
+        }
+
+        painter->restore();
+    }
+}
+
+void PageItem::paintFormFields(QPainter* painter) const
+{
+    if(s_settings->pageItem().decorateFormFields() && !m_presentationMode && !m_formFields.isEmpty())
+    {
+        painter->save();
+
+        painter->setTransform(m_normalizedTransform, true);
+        painter->setPen(QPen(Qt::blue));
+
+        foreach(const Model::FormField* formField, m_formFields)
+        {
+            painter->drawRect(formField->boundary());
+        }
+
+        painter->restore();
+    }
+}
+
+void PageItem::paintHighlights(QPainter* painter) const
+{
+    if(!m_highlights.isEmpty())
+    {
+        painter->save();
+
+        painter->setTransform(m_transform, true);
+        painter->setPen(QPen(s_settings->pageItem().highlightColor()));
+        painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
+        painter->setCompositionMode(QPainter::CompositionMode_Multiply);
+
+        foreach(const QRectF highlight, m_highlights)
+        {
+            painter->drawRect(highlight.normalized());
+        }
+
+        painter->restore();
+    }
+}
+
+void PageItem::paintRubberBand(QPainter* painter) const
+{
+    if(!m_rubberBand.isNull())
+    {
+        painter->save();
+
+        QPen pen;
+        pen.setColor(Qt::white);
+        pen.setStyle(Qt::DashLine);
+
+        painter->setPen(pen);
+        painter->setCompositionMode(QPainter::CompositionMode_Difference);
+
+        painter->drawRect(m_rubberBand);
+
+        painter->restore();
+    }
 }
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),

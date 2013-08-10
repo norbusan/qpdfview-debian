@@ -164,6 +164,17 @@ private:
 
     RenderTask* m_renderTask;
 
+    // paint
+
+    QPixmap renderPage();
+    void paintPage(QPainter* painter, const QPixmap& pixmap) const;
+
+    void paintLinks(QPainter* painter) const;
+    void paintFormFields(QPainter* painter) const;
+
+    void paintHighlights(QPainter* painter) const;
+    void paintRubberBand(QPainter* painter) const;
+
 };
 
 class ThumbnailItem : public PageItem
