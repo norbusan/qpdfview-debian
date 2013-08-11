@@ -1977,12 +1977,13 @@ void MainWindow::createDocks()
 
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);
-    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 5);
+    searchLayout->setColumnStretch(2, 1);
+    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 6);
     searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
     searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
-    searchLayout->addWidget(findPreviousButton, 1, 2);
-    searchLayout->addWidget(findNextButton, 1, 3);
-    searchLayout->addWidget(cancelSearchButton, 1, 4);
+    searchLayout->addWidget(findPreviousButton, 1, 3);
+    searchLayout->addWidget(findNextButton, 1, 4);
+    searchLayout->addWidget(cancelSearchButton, 1, 5);
 
     m_searchDock->setWidget(m_searchWidget);
 
