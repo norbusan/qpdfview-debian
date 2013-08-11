@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1 səhifəsinə keç.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">&apos;%2&apos; faylının %1 səhifəsinə keç</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; aç.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; xanasından redaktə et.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Mə&amp;tni kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Şəkl&amp;i kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Şəkli &amp;fayla yaz…</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation type="unfinished">Şəkli fayla yaz</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation type="unfinished">Xəbərdarlıq</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Şəkli  &apos;%1&apos; faylına yazmaq mümkün deyil.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Mətn əlavə e&amp;t</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Seçim əlavə et</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Qeydlə&amp;ri sil</translation>
     </message>

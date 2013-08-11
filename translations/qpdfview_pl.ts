@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation>Skocz do strony %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation>Przejdź do strony %1 pliku &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation>Otwórz &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation>Edytuj pole formularza &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation>Kopiuj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation>Kopiuj &amp;obraz</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation>Zapisz obraz do &amp;pliku...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation>Zapisz obraz do pliku</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation>Nie można zapisać obrazu do pliku &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation>Dodaj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation>Dodaj po&amp;dświetlenie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation>&amp;Usuń adnotację</translation>
     </message>

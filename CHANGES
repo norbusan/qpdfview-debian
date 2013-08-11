@@ -4,6 +4,8 @@ Release 0.4.5:
   * Improved the layout of the search widgets.
   * Added setting to heuristically synchronize the outline view to the current page.
   * Improved thumbnails layout to change between horizontal and vertical according to dock location.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
 
 Release 0.4.4:
   * Improved building on Windows and OS/2 and plug-in handling on all platforms. Thanks to Silvan Scherrer.

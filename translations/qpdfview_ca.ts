@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Ves a la pàgina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Ves a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Obre &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Edita formulari &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Còpia &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Còpia &amp;imatge</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Desa imatge a un &amp;fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation type="unfinished">Desa imatge a un fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">No s&apos;ha pogut guardar la imatge a l&apos;arxiu &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Afegix &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Destaca</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Elimina anotació</translation>
     </message>

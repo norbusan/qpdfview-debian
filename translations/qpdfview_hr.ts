@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Idi na stranicu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Idi na stranicu %1 datoteke &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Otvori &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Uredi iz polja &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopiraj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopiraj &amp;sliku</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Sačuvaj sliku u &amp;datoteci...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation type="unfinished">Sačuvaj sliku u datoteci</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nemoguće je spremiti sliku u datoteku &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Dodaj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Dodaj &amp;istakni</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstrani napomenu</translation>
     </message>

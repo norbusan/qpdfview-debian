@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1638"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сторінка %1</translation>
     </message>
 </context>
 <context>
@@ -458,11 +458,6 @@
         <translation type="unfinished">П&amp;ерегляд</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1923"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Зміст</translation>
@@ -476,6 +471,11 @@
         <location filename="../sources/mainwindow.cpp" line="1946"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Мініатюри</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2062"/>
@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Перейти до сторінки %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Перейти на сторінку %1 файла «%2».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Відкрити «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Редагувати поле &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Скопіювати &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Скопіювати &amp;зображення</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Зберегти зображення у &amp;файл...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation type="unfinished">Зберегти зображення у файл</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Неможливо зберегти зображення у файл &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Додати &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Додати &amp;підсвічування</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Видалити анотацію</translation>
     </message>
@@ -1228,7 +1228,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="630"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Синхронізувати перегляд ескізу:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="637"/>

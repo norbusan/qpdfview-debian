@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1638"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Halaman %1</translation>
     </message>
 </context>
 <context>
@@ -458,11 +458,6 @@
         <translation type="unfinished">&amp;Lihat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Gelintar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1923"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Garis&amp;luar</translation>
@@ -476,6 +471,11 @@
         <location filename="../sources/mainwindow.cpp" line="1946"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Thumbnail</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Gelintar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2062"/>
@@ -592,67 +592,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="451"/>
+        <location filename="../sources/pageitem.cpp" line="333"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Pergi ke halaman %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="455"/>
+        <location filename="../sources/pageitem.cpp" line="337"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Pergi ke halaman %1 dari fail &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Buka &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="498"/>
+        <location filename="../sources/pageitem.cpp" line="380"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Sunting medan borang &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="714"/>
+        <location filename="../sources/pageitem.cpp" line="596"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Salin &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="715"/>
+        <location filename="../sources/pageitem.cpp" line="597"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Salin &amp;imej</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="598"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Simpan imej ke &amp;fail...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="742"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to file</source>
         <translation type="unfinished">Simpan imej ke fail</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="746"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan imej ke fail &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="759"/>
+        <location filename="../sources/pageitem.cpp" line="641"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Tambah &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="760"/>
+        <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Tambah s&amp;orot</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="797"/>
+        <location filename="../sources/pageitem.cpp" line="679"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Buang anotasi</translation>
     </message>
@@ -1228,7 +1228,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="630"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Segerak paparan garis luar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="637"/>
