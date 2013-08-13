@@ -441,19 +441,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1891"/>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation type="unfinished">ھۆججەت(&amp;F)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1894"/>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">تەھرىر(&amp;E)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1897"/>
-        <location filename="../sources/mainwindow.cpp" line="2052"/>
+        <location filename="../sources/mainwindow.cpp" line="2053"/>
         <source>&amp;View</source>
         <translation type="unfinished">كۆرۈنۈش(&amp;V)</translation>
     </message>
@@ -478,27 +478,27 @@
         <translation type="unfinished">كىچىك سۈرەت(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2062"/>
+        <location filename="../sources/mainwindow.cpp" line="2063"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">قورال بالداقلار(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2065"/>
+        <location filename="../sources/mainwindow.cpp" line="2066"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">قونداقلار(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2074"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">بەتكۈچلەر(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2082"/>
+        <location filename="../sources/mainwindow.cpp" line="2083"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">خەتكۈچلەر(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2090"/>
+        <location filename="../sources/mainwindow.cpp" line="2091"/>
         <source>&amp;Help</source>
         <translation type="unfinished">ياردەم(&amp;H)</translation>
     </message>

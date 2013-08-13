@@ -441,19 +441,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1891"/>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fayl</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1894"/>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">Redaktə et</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1897"/>
-        <location filename="../sources/mainwindow.cpp" line="2052"/>
+        <location filename="../sources/mainwindow.cpp" line="2053"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Görünüş</translation>
     </message>
@@ -478,27 +478,27 @@
         <translation type="unfinished">Mİnatur görüntü</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2062"/>
+        <location filename="../sources/mainwindow.cpp" line="2063"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Alətlər paneli</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2065"/>
+        <location filename="../sources/mainwindow.cpp" line="2066"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Doklar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2074"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Səkmələr</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2082"/>
+        <location filename="../sources/mainwindow.cpp" line="2083"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Əlfəcinlər</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2090"/>
+        <location filename="../sources/mainwindow.cpp" line="2091"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Yardım</translation>
     </message>

@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1638"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagina %1</translation>
     </message>
 </context>
 <context>
@@ -441,26 +441,21 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1891"/>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;File</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1894"/>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Modifica</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1897"/>
-        <location filename="../sources/mainwindow.cpp" line="2052"/>
+        <location filename="../sources/mainwindow.cpp" line="2053"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Visualizza</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Cerca</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1923"/>
@@ -478,27 +473,32 @@
         <translation type="unfinished">Minia&amp;ture</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2062"/>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Cerca</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2063"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Barre degli s&amp;trumenti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2065"/>
+        <location filename="../sources/mainwindow.cpp" line="2066"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Elementi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2074"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Schede</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2082"/>
+        <location filename="../sources/mainwindow.cpp" line="2083"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Segnali&amp;bri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2090"/>
+        <location filename="../sources/mainwindow.cpp" line="2091"/>
         <source>&amp;Help</source>
         <translation type="unfinished">A&amp;iuto</translation>
     </message>

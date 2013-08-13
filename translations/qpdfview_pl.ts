@@ -441,19 +441,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1891"/>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation>&amp;Plik</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1894"/>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edycja</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1897"/>
-        <location filename="../sources/mainwindow.cpp" line="2052"/>
+        <location filename="../sources/mainwindow.cpp" line="2053"/>
         <source>&amp;View</source>
         <translation>&amp;Widok</translation>
     </message>
@@ -478,27 +478,27 @@
         <translation>&amp;Miniatury</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2062"/>
+        <location filename="../sources/mainwindow.cpp" line="2063"/>
         <source>&amp;Tool bars</source>
         <translation>Paski &amp;narzędzi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2065"/>
+        <location filename="../sources/mainwindow.cpp" line="2066"/>
         <source>&amp;Docks</source>
         <translation>&amp;Widoki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2074"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>&amp;Tabs</source>
         <translation>&amp;Karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2082"/>
+        <location filename="../sources/mainwindow.cpp" line="2083"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Zakładki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2090"/>
+        <location filename="../sources/mainwindow.cpp" line="2091"/>
         <source>&amp;Help</source>
         <translation>P&amp;omoc</translation>
     </message>
