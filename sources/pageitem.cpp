@@ -830,7 +830,7 @@ void PageItem::paintLinks(QPainter* painter) const
 #endif // QT_VERSION
 
         painter->setTransform(m_normalizedTransform, true);
-        painter->setPen(QPen(Qt::red));
+        painter->setPen(QPen(Qt::red, 0.0));
 
         foreach(const Model::Link* link, m_links)
         {
@@ -848,7 +848,7 @@ void PageItem::paintFormFields(QPainter* painter) const
         painter->save();
 
         painter->setTransform(m_normalizedTransform, true);
-        painter->setPen(QPen(Qt::blue));
+        painter->setPen(QPen(Qt::blue, 0.0));
 
         foreach(const Model::FormField* formField, m_formFields)
         {
@@ -866,7 +866,7 @@ void PageItem::paintHighlights(QPainter* painter) const
         painter->save();
 
         painter->setTransform(m_transform, true);
-        painter->setPen(QPen(s_settings->pageItem().highlightColor()));
+        painter->setPen(QPen(s_settings->pageItem().highlightColor(), 0.0));
         painter->setBrush(QBrush(s_settings->pageItem().highlightColor()));
         painter->setCompositionMode(QPainter::CompositionMode_Multiply);
 
@@ -885,11 +885,7 @@ void PageItem::paintRubberBand(QPainter* painter) const
     {
         painter->save();
 
-        QPen pen;
-        pen.setColor(Qt::white);
-        pen.setStyle(Qt::DashLine);
-
-        painter->setPen(pen);
+        painter->setPen(QPen(Qt::white, 0.0, Qt::DashLine));
         painter->setCompositionMode(QPainter::CompositionMode_Difference);
 
         painter->drawRect(m_rubberBand);
