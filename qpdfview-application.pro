@@ -186,5 +186,6 @@ manual.path = $${MANUAL_INSTALL_PATH}
 
 INSTALLS += target data launcher manual
 
+INCLUDEPATH += icons
 win32:RC_FILE = icons/qpdfview_win32.rc
 os2:RC_FILE = icons/qpdfview_os2.rc
