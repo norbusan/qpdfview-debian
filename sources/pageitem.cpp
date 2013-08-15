@@ -823,12 +823,6 @@ void PageItem::paintLinks(QPainter* painter) const
     {
         painter->save();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        painter->setRenderHint(QPainter::Qt4CompatiblePainting, true);
-
-#endif // QT_VERSION
-
         painter->setTransform(m_normalizedTransform, true);
         painter->setPen(QPen(Qt::red, 0.0));
 
