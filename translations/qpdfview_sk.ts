@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1638"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Strana %1</translation>
     </message>
 </context>
 <context>
@@ -458,11 +458,6 @@
         <translation type="unfinished">&amp;Zobraziť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Hľadať</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1923"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">P&amp;omocník</translation>
@@ -476,6 +471,11 @@
         <location filename="../sources/mainwindow.cpp" line="1946"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Miniatúry</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Hľadať</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2063"/>
@@ -1228,7 +1228,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="630"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synchronizovať zobrazenie obsahu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="637"/>

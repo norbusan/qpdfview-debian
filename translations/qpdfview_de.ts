@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1638"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seite %1</translation>
     </message>
 </context>
 <context>
@@ -458,11 +458,6 @@
         <translation type="unfinished">&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">S&amp;uchen</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1923"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Gliederung</translation>
@@ -476,6 +471,11 @@
         <location filename="../sources/mainwindow.cpp" line="1946"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Vorschaubilder</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">S&amp;uchen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2063"/>
@@ -990,6 +990,11 @@
         <translation type="unfinished">Vorgaben</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
+        <source>Defaults on current tab</source>
+        <translation type="unfinished">Vorgaben auf aktuellem Reiter</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="280"/>
         <source>Open URL:</source>
         <translation type="unfinished">URL öffnen:</translation>
@@ -1044,6 +1049,21 @@
         <translation type="unfinished">Präsentationsbildschirm:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="350"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Farbe der Hervorhebungen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="358"/>
+        <source>None</source>
+        <translation type="unfinished">Keine</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Dauer der Hervorhebungen:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="371"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Farbe für Anmerkungen:</translation>
@@ -1072,26 +1092,6 @@
         <location filename="../sources/settingsdialog.cpp" line="425"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Formularfelder verzieren:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="358"/>
-        <source>None</source>
-        <translation type="unfinished">Keine</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="118"/>
-        <source>Defaults on current tab</source>
-        <translation type="unfinished">Vorgaben auf aktuellem Reiter</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="350"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Farbe der Hervorhebungen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Dauer der Hervorhebungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
@@ -1206,11 +1206,6 @@
         <translation type="unfinished">Anzahl verwendeter Dateien:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="623"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Aktuelle Seite im Fenstertitel:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Datei-Werkzeugleiste:</translation>
@@ -1226,9 +1221,14 @@
         <translation type="unfinished">Ansicht-Werkzeugleiste:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="623"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Aktuelle Seite im Fenstertitel:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="630"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Übersicht abgleichen</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="637"/>
@@ -1269,6 +1269,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished">Aktion</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished">Tastenkürzel</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">Rückwärts springen</translation>
@@ -1297,16 +1307,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation type="unfinished">Nach rechts bewegen</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished">Aktion</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation type="unfinished">Tastenkürzel</translation>
     </message>
 </context>
 <context>
