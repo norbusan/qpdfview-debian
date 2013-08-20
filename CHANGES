@@ -1,5 +1,6 @@
 Release 0.4.5:
   * Fixed an error in drawing the search progress.
+  * Fixed an error preventing the annotation context menu from being displayed.
   * Fixed decorating links when using Qt5. 
   * Improved the layout of the search widgets.
   * Added setting to heuristically synchronize the outline view to the current page.
