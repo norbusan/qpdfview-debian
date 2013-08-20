@@ -871,8 +871,9 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_saveCopy_triggered()
 {
-    const QString path = s_settings->mainWindow().savePath();
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
+    const QDir dir = QDir(s_settings->mainWindow().savePath());
+    const QString fileName = QFileInfo(currentTab()->filePath()).fileName();
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(dir, fileName).filePath(), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
@@ -889,8 +890,9 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
-    const QString path = s_settings->mainWindow().savePath();
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(QDir(path), QFileInfo(currentTab()->filePath()).fileName()).filePath(), currentTab()->saveFilter().join(";;"));
+    const QDir dir = QDir(s_settings->mainWindow().savePath());
+    const QString fileName = QFileInfo(currentTab()->filePath()).fileName();
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), QFileInfo(dir, fileName).filePath(), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
