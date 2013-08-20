@@ -107,7 +107,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setScene(new QGraphicsScene(this));
 
     setAcceptDrops(false);
-    setContextMenuPolicy(Qt::CustomContextMenu);
     setDragMode(QGraphicsView::ScrollHandDrag);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
