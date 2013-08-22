@@ -49,6 +49,8 @@ protected slots:
     void on_removeBookmark_triggered();
 
 private:
+    Q_DISABLE_COPY(BookmarkMenu)
+
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
     QActionGroup* m_jumpToPageActionGroup;

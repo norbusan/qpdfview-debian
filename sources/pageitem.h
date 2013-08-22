@@ -117,6 +117,8 @@ private slots:
     virtual void loadInteractiveElements();
 
 private:
+    Q_DISABLE_COPY(PageItem)
+
     static Settings* s_settings;
 
     static QCache< PageItem*, QPixmap > s_cache;
@@ -202,6 +204,8 @@ private slots:
     void loadInteractiveElements();
 
 private:
+    Q_DISABLE_COPY(ThumbnailItem)
+
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
     QStaticText m_text;

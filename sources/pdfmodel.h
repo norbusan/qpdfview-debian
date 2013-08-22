@@ -56,6 +56,8 @@ namespace Model
         QDialog* showDialog(const QPoint& screenPos);
 
     private:
+        Q_DISABLE_COPY(PdfAnnotation)
+
         PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
 
         mutable QMutex* m_mutex;
@@ -74,6 +76,8 @@ namespace Model
         QDialog* showDialog(const QPoint& screenPos);
 
     private:
+        Q_DISABLE_COPY(PdfFormField)
+
         PdfFormField(QMutex* mutex, Poppler::FormField* formField);
 
         mutable QMutex* m_mutex;
@@ -109,6 +113,8 @@ namespace Model
         QList< FormField* > formFields() const;
 
     private:
+        Q_DISABLE_COPY(PdfPage)
+
         PdfPage(QMutex* mutex, Poppler::Page* page);
 
         mutable QMutex* m_mutex;
@@ -146,6 +152,8 @@ namespace Model
         void loadFonts(QStandardItemModel* fontsModel) const;
 
     private:
+        Q_DISABLE_COPY(PdfDocument)
+
         PdfDocument(Poppler::Document* document);
 
         mutable QMutex m_mutex;
@@ -165,6 +173,8 @@ public:
     void reset();
 
 private:
+    Q_DISABLE_COPY(PdfSettingsWidget)
+
     QSettings* m_settings;
 
     QFormLayout* m_layout;
@@ -215,6 +225,8 @@ public:
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
 private:
+    Q_DISABLE_COPY(PdfPlugin)
+
     QSettings* m_settings;
 
 };

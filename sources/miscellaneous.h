@@ -58,6 +58,9 @@ public:
 protected:
     void mousePressEvent(QMouseEvent* event);
 
+private:
+    Q_DISABLE_COPY(TabBar)
+
 };
 
 // tab widget
@@ -84,6 +87,8 @@ protected:
     void tabRemoved(int index);
 
 private:
+    Q_DISABLE_COPY(TabWidget)
+
     TabBarPolicy m_tabBarPolicy;
 
 };
@@ -104,6 +109,9 @@ public slots:
 protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
+private:
+    Q_DISABLE_COPY(TreeView)
+
 };
 
 // line edit
@@ -118,6 +126,9 @@ public:
 protected:
     void mousePressEvent(QMouseEvent* event);
 
+private:
+    Q_DISABLE_COPY(LineEdit)
+
 };
 
 // combo box
@@ -128,6 +139,9 @@ class ComboBox : public QComboBox
 
 public:
     explicit ComboBox(QWidget* parent = 0);
+
+private:
+    Q_DISABLE_COPY(ComboBox)
 
 };
 
@@ -145,6 +159,9 @@ signals:
 
 protected:
     void keyPressEvent(QKeyEvent* event);
+
+private:
+    Q_DISABLE_COPY(SpinBox)
 
 };
 
@@ -168,6 +185,8 @@ protected:
     void keyPressEvent(QKeyEvent* event);
 
 private:
+    Q_DISABLE_COPY(ProgressLineEdit)
+
     int m_progress;
 
 };
@@ -191,6 +210,8 @@ protected slots:
     void on_returnPressed(const Qt::KeyboardModifiers& modifiers);
 
 private:
+    Q_DISABLE_COPY(SearchLineEdit)
+
     QTimer* m_timer;
 
 };

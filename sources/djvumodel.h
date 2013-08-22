@@ -56,6 +56,8 @@ namespace Model
         QList< QRectF > search(const QString& text, bool matchCase) const;
 
     private:
+        Q_DISABLE_COPY(DjVuPage)
+
         DjVuPage(const class DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo);
 
         const class DjVuDocument* m_parent;
@@ -87,6 +89,8 @@ namespace Model
         void loadProperties(QStandardItemModel* propertiesModel) const;
 
     private:
+        Q_DISABLE_COPY(DjVuDocument)
+
         DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
 
         mutable QMutex m_mutex;

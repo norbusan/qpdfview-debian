@@ -52,6 +52,8 @@ namespace Model
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
     private:
+        Q_DISABLE_COPY(PsPage)
+
         PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext);
 
         mutable QMutex* m_mutex;
@@ -83,6 +85,8 @@ namespace Model
         void loadProperties(QStandardItemModel* propertiesModel) const;
 
     private:
+        Q_DISABLE_COPY(PsDocument)
+
         PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext);
 
         mutable QMutex m_mutex;
@@ -103,6 +107,8 @@ public:
     void reset();
 
 private:
+    Q_DISABLE_COPY(PsSettingsWidget)
+
     QSettings* m_settings;
 
     QFormLayout* m_layout;
@@ -131,6 +137,8 @@ public:
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
 private:
+    Q_DISABLE_COPY(PsPlugin)
+
     QSettings* m_settings;
 
 };

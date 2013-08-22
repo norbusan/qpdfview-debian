@@ -198,6 +198,8 @@ protected:
     void dropEvent(QDropEvent* event);
 
 private:
+    Q_DISABLE_COPY(MainWindow)
+
     static Settings* s_settings;
 
     TabWidget* m_tabWidget;

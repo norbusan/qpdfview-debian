@@ -44,6 +44,8 @@ protected slots:
     void on_clearList_triggered();
 
 private:
+    Q_DISABLE_COPY(RecentlyUsedMenu)
+
     int m_count;
 
     QActionGroup* m_openActionGroup;

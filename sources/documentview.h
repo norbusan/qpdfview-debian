@@ -187,6 +187,8 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 private:
+    Q_DISABLE_COPY(DocumentView)
+
     static Settings* s_settings;
     static ShortcutHandler* s_shortcutHandler;
 

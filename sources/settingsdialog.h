@@ -51,6 +51,8 @@ public slots:
     void resetCurrentTab();
 
 private:
+    Q_DISABLE_COPY(SettingsDialog)
+
     static Settings* s_settings;
 
     QTabWidget* m_graphicsTabWidget;

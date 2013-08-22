@@ -43,6 +43,8 @@ private slots:
     void on_socketNotifier_activated();
 
 private:
+    Q_DISABLE_COPY(SignalHandler)
+
     static int s_sockets[2];
 
     static void handleSignals(int sigNumber);

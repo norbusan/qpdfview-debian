@@ -356,6 +356,8 @@ public:
     PrintDialog& printDialog();
 
 private:
+    Q_DISABLE_COPY(Settings)
+
     static Settings* s_instance;
     Settings(QObject* parent = 0);
 

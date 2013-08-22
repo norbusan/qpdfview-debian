@@ -86,6 +86,8 @@ protected:
     void wheelEvent(QWheelEvent* event);
 
 private:
+    Q_DISABLE_COPY(PresentationView)
+
     static Settings* s_settings;
 
     QTimer* m_prefetchTimer;

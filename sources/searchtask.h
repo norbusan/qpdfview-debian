@@ -53,6 +53,8 @@ public slots:
     void cancel();
 
 private:
+    Q_DISABLE_COPY(SearchTask)
+
     bool m_wasCanceled;
 
     int m_progress;

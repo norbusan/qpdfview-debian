@@ -63,6 +63,8 @@ public slots:
     void reset();
 
 private:
+    Q_DISABLE_COPY(ShortcutHandler)
+
     static ShortcutHandler* s_instance;
     ShortcutHandler(QObject* parent = 0);
 

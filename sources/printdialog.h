@@ -48,6 +48,8 @@ public slots:
     void accept();
 
 private:
+    Q_DISABLE_COPY(PrintDialog)
+
     static Settings* s_settings;
 
     QWidget* m_printOptionsWidget;
