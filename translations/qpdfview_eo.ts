@@ -27,49 +27,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="220"/>
+        <location filename="../sources/documentview.cpp" line="219"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Subtenataj formatoj (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="524"/>
+        <location filename="../sources/documentview.cpp" line="483"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Malŝlosi je %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="484"/>
-        <location filename="../sources/documentview.cpp" line="524"/>
+        <location filename="../sources/documentview.cpp" line="483"/>
+        <location filename="../sources/documentview.cpp" line="523"/>
         <source>Password:</source>
         <translation type="unfinished">Pasvorto:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1070"/>
+        <location filename="../sources/documentview.cpp" line="1069"/>
         <source>Information</source>
         <translation type="unfinished">Informo</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1070"/>
+        <location filename="../sources/documentview.cpp" line="1069"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Malfermi je URL estas malŝaltita en la agordaĵoj.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1122"/>
+        <location filename="../sources/documentview.cpp" line="1121"/>
         <source>Warning</source>
         <translation type="unfinished">Averto</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1122"/>
+        <location filename="../sources/documentview.cpp" line="1121"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX datumoj por &apos;%1&apos; estas netroveblaj.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1492"/>
+        <location filename="../sources/documentview.cpp" line="1491"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Presado de &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1638"/>
+        <location filename="../sources/documentview.cpp" line="1637"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -79,11 +79,11 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="175"/>
         <location filename="../sources/mainwindow.cpp" line="269"/>
-        <location filename="../sources/mainwindow.cpp" line="868"/>
+        <location filename="../sources/mainwindow.cpp" line="867"/>
         <location filename="../sources/mainwindow.cpp" line="885"/>
-        <location filename="../sources/mainwindow.cpp" line="905"/>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
-        <location filename="../sources/mainwindow.cpp" line="1062"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
+        <location filename="../sources/mainwindow.cpp" line="940"/>
+        <location filename="../sources/mainwindow.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Averto</translation>
     </message>
@@ -94,18 +94,18 @@
         <translation type="unfinished">&apos;%1&apos; ne estas malfermebla.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="831"/>
+        <location filename="../sources/mainwindow.cpp" line="830"/>
         <source>Open</source>
         <translation type="unfinished">Malfermi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="847"/>
+        <location filename="../sources/mainwindow.cpp" line="846"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Malfermi en nova langeto</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="868"/>
-        <location filename="../sources/mainwindow.cpp" line="1062"/>
+        <location filename="../sources/mainwindow.cpp" line="867"/>
+        <location filename="../sources/mainwindow.cpp" line="1061"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; ne estas aktualigebla.</translation>
     </message>
@@ -120,385 +120,385 @@
         <translation type="unfinished">Ekzemplero ne estas konservebla ĉe &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="893"/>
+        <location filename="../sources/mainwindow.cpp" line="892"/>
         <source>Save as</source>
         <translation type="unfinished">Konservi kiel</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="905"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Ne estas konservebla kiel &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
+        <location filename="../sources/mainwindow.cpp" line="940"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; ne estas presebla.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="980"/>
+        <location filename="../sources/mainwindow.cpp" line="979"/>
         <source>Jump to page</source>
         <translation type="unfinished">Salti al paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="980"/>
+        <location filename="../sources/mainwindow.cpp" line="979"/>
         <source>Page:</source>
         <translation type="unfinished">Paĝo:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1439"/>
+        <location filename="../sources/mainwindow.cpp" line="1438"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Pri qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1439"/>
+        <location filename="../sources/mainwindow.cpp" line="1438"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview estas langeta dokumentvidigilo uzante je Qt.&lt;/p&gt;&lt;p&gt;Ĉi tiu versio inkludas:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1443"/>
+        <location filename="../sources/mainwindow.cpp" line="1442"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF subteno uzanta je Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1446"/>
+        <location filename="../sources/mainwindow.cpp" line="1445"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PS subteno uzanta je libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1449"/>
+        <location filename="../sources/mainwindow.cpp" line="1448"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;DjVu subteno uzanta je DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1452"/>
+        <location filename="../sources/mainwindow.cpp" line="1451"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Presada subteno uzanta je CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1454"/>
+        <location filename="../sources/mainwindow.cpp" line="1453"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; por plua informo.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 La programantoj de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1708"/>
+        <location filename="../sources/mainwindow.cpp" line="1707"/>
         <source>Page width</source>
         <translation type="unfinished">Larĝo de paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1709"/>
+        <location filename="../sources/mainwindow.cpp" line="1708"/>
         <source>Page size</source>
         <translation type="unfinished">Grando de paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1730"/>
+        <location filename="../sources/mainwindow.cpp" line="1729"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Kongruigi usklecon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1731"/>
+        <location filename="../sources/mainwindow.cpp" line="1730"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Emfazi ĉion</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1775"/>
+        <location filename="../sources/mainwindow.cpp" line="1774"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">Malfermi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1776"/>
+        <location filename="../sources/mainwindow.cpp" line="1775"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Malfermi en nova langeto...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1777"/>
+        <location filename="../sources/mainwindow.cpp" line="1776"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Aktualigi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1778"/>
+        <location filename="../sources/mainwindow.cpp" line="1777"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">Konservi ekzempleron...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1779"/>
+        <location filename="../sources/mainwindow.cpp" line="1778"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Konservi kiel...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1780"/>
+        <location filename="../sources/mainwindow.cpp" line="1779"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">Presi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1781"/>
+        <location filename="../sources/mainwindow.cpp" line="1780"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1785"/>
+        <location filename="../sources/mainwindow.cpp" line="1784"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Antaŭa paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1786"/>
+        <location filename="../sources/mainwindow.cpp" line="1785"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Sekva paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1787"/>
+        <location filename="../sources/mainwindow.cpp" line="1786"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Unua paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1788"/>
+        <location filename="../sources/mainwindow.cpp" line="1787"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Lasta paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1790"/>
+        <location filename="../sources/mainwindow.cpp" line="1789"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Salti al paĝo...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1792"/>
+        <location filename="../sources/mainwindow.cpp" line="1791"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1793"/>
+        <location filename="../sources/mainwindow.cpp" line="1792"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1795"/>
+        <location filename="../sources/mainwindow.cpp" line="1794"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">Serĉi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1796"/>
+        <location filename="../sources/mainwindow.cpp" line="1795"/>
         <source>Find previous</source>
         <translation type="unfinished">Serĉi antaŭan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1797"/>
+        <location filename="../sources/mainwindow.cpp" line="1796"/>
         <source>Find next</source>
         <translation type="unfinished">Serĉi sekvan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1798"/>
+        <location filename="../sources/mainwindow.cpp" line="1797"/>
         <source>Cancel search</source>
         <translation type="unfinished">Nuligi serĉon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1800"/>
+        <location filename="../sources/mainwindow.cpp" line="1799"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">Kopii al tondejo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1801"/>
+        <location filename="../sources/mainwindow.cpp" line="1800"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Enmeti noton</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1803"/>
+        <location filename="../sources/mainwindow.cpp" line="1802"/>
         <source>Settings...</source>
         <translation type="unfinished">Agordoj...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1807"/>
+        <location filename="../sources/mainwindow.cpp" line="1806"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">Kontinua</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1808"/>
+        <location filename="../sources/mainwindow.cpp" line="1807"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">Du paĝoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1809"/>
+        <location filename="../sources/mainwindow.cpp" line="1808"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Du paĝoj kun kovrila paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1810"/>
+        <location filename="../sources/mainwindow.cpp" line="1809"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">Pluraj paĝoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1812"/>
+        <location filename="../sources/mainwindow.cpp" line="1811"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Pligrandigi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1813"/>
+        <location filename="../sources/mainwindow.cpp" line="1812"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">Malpligrandigi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1814"/>
+        <location filename="../sources/mainwindow.cpp" line="1813"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Origina grando</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1816"/>
+        <location filename="../sources/mainwindow.cpp" line="1815"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Adapti al larĝo de paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1817"/>
+        <location filename="../sources/mainwindow.cpp" line="1816"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Adapti al grando de paĝo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1819"/>
+        <location filename="../sources/mainwindow.cpp" line="1818"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Turni maldekstren</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1820"/>
+        <location filename="../sources/mainwindow.cpp" line="1819"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Turni dekstren</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1822"/>
+        <location filename="../sources/mainwindow.cpp" line="1821"/>
         <source>Invert colors</source>
         <translation type="unfinished">Inversigi kolorojn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1824"/>
+        <location filename="../sources/mainwindow.cpp" line="1823"/>
         <source>Fonts...</source>
         <translation type="unfinished">Tiparoj...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1826"/>
+        <location filename="../sources/mainwindow.cpp" line="1825"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">Tutekrana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1827"/>
+        <location filename="../sources/mainwindow.cpp" line="1826"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">Prezentaĵo...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1831"/>
+        <location filename="../sources/mainwindow.cpp" line="1830"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">Antaŭa langeto</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1832"/>
+        <location filename="../sources/mainwindow.cpp" line="1831"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">Sekva langeto</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1834"/>
+        <location filename="../sources/mainwindow.cpp" line="1833"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">Fermi langeton</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1835"/>
+        <location filename="../sources/mainwindow.cpp" line="1834"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Fermi ĉiujn langetojn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1836"/>
+        <location filename="../sources/mainwindow.cpp" line="1835"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Fermi ĉiujn langetojn escepte de la aktuala</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1847"/>
+        <location filename="../sources/mainwindow.cpp" line="1846"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">Antaŭa legosigno</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1848"/>
+        <location filename="../sources/mainwindow.cpp" line="1847"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">Sekva legosigno</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1850"/>
+        <location filename="../sources/mainwindow.cpp" line="1849"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">Enmeti legosignon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1851"/>
+        <location filename="../sources/mainwindow.cpp" line="1850"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Forigi legosignon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1852"/>
+        <location filename="../sources/mainwindow.cpp" line="1851"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Forigi ĉiujn legosignojn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1856"/>
+        <location filename="../sources/mainwindow.cpp" line="1855"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Enhavo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1857"/>
+        <location filename="../sources/mainwindow.cpp" line="1856"/>
         <source>&amp;About</source>
         <translation type="unfinished">Pri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
-        <location filename="../sources/mainwindow.cpp" line="2005"/>
+        <location filename="../sources/mainwindow.cpp" line="1890"/>
+        <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>&amp;File</source>
         <translation type="unfinished">Dosiero</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1894"/>
-        <location filename="../sources/mainwindow.cpp" line="2040"/>
+        <location filename="../sources/mainwindow.cpp" line="1893"/>
+        <location filename="../sources/mainwindow.cpp" line="2039"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">Redakti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1897"/>
-        <location filename="../sources/mainwindow.cpp" line="2053"/>
+        <location filename="../sources/mainwindow.cpp" line="1896"/>
+        <location filename="../sources/mainwindow.cpp" line="2052"/>
         <source>&amp;View</source>
         <translation type="unfinished">Vido</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1958"/>
+        <location filename="../sources/mainwindow.cpp" line="1957"/>
         <source>&amp;Search</source>
         <translation type="unfinished">Serĉi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1923"/>
+        <location filename="../sources/mainwindow.cpp" line="1922"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Resumo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1936"/>
+        <location filename="../sources/mainwindow.cpp" line="1935"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">Atributoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1946"/>
+        <location filename="../sources/mainwindow.cpp" line="1945"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Miniaturoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2063"/>
+        <location filename="../sources/mainwindow.cpp" line="2062"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Ilobretoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2066"/>
+        <location filename="../sources/mainwindow.cpp" line="2065"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">dokoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2075"/>
+        <location filename="../sources/mainwindow.cpp" line="2074"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Langetoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2083"/>
+        <location filename="../sources/mainwindow.cpp" line="2082"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Legosignoj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2091"/>
+        <location filename="../sources/mainwindow.cpp" line="2090"/>
         <source>&amp;Help</source>
         <translation type="unfinished">Helpo</translation>
     </message>
