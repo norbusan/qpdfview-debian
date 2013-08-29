@@ -313,10 +313,9 @@ void MainWindow::startSearch(const QString& text)
         m_searchDock->setVisible(true);
 
         m_searchLineEdit->setText(text);
+        m_searchLineEdit->startSearch();
 
         currentTab()->setFocus();
-
-        QTimer::singleShot(0, this, SLOT(on_search_timeout()));
     }
 }
 

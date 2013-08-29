@@ -251,6 +251,11 @@ SearchLineEdit::SearchLineEdit(QWidget* parent) : ProgressLineEdit(parent)
     connect(m_timer, SIGNAL(timeout()), SLOT(on_timeout()));
 }
 
+void SearchLineEdit::startSearch()
+{
+    QTimer::singleShot(0, this, SLOT(on_timeout()));
+}
+
 void SearchLineEdit::stopTimer()
 {
     m_timer->stop();
