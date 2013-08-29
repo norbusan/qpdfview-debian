@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="bg_BG">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -71,7 +71,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1637"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страница %1</translation>
     </message>
 </context>
 <context>
@@ -262,12 +262,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1791"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прескачане на&amp;зад</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1792"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прескачане на&amp;пред</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1794"/>
@@ -458,11 +458,6 @@
         <translation type="unfinished">&amp;Изглед</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1957"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Търсене</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="1922"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Съдържание</translation>
@@ -476,6 +471,11 @@
         <location filename="../sources/mainwindow.cpp" line="1945"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Умалени снимки</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1957"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Търсене</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2062"/>
@@ -553,7 +553,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нужна е версия 0.20.1 или по- висока на библиотеката Poppler, за да се добавят или премахват анотации.</translation>
     </message>
 </context>
 <context>
@@ -699,17 +699,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Плътно</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="849"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оформено</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="852"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим на тънка линия:</translation>
     </message>
 </context>
 <context>
@@ -724,17 +724,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="281"/>
         <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не може да се зареди добавка за PDF!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="313"/>
         <source>Could not load PS plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не може да се зареди добавка за PS!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="346"/>
         <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не може да се зареди добавка за DjVu!</translation>
     </message>
 </context>
 <context>
@@ -742,42 +742,42 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Побиране в страницата:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обхват на печата:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всички страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дори страниците</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
         <source>Odd pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нечетни страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Набор от страници:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Single page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Единична страница</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
         <source>Two pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Две страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
@@ -787,17 +787,17 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Six pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шест страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Девет страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шестнадесет страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
@@ -807,42 +807,42 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отдолу нагоре и отляво надясно</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отдолу нагоре и отдясно наляво</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отляво на дясно и отдолу нагоре</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отляво надясно и отгоре надолу</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отдясно наляво и отдолу нагоре</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отдясно наляво и отгоре надолу</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отгоре надолу и отляво надясно</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отгоре надолу и от дясно на ляво</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
@@ -852,7 +852,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Разширени опции</translation>
     </message>
 </context>
 <context>
@@ -878,7 +878,7 @@
     <message>
         <location filename="../sources/main.cpp" line="138"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не е позволен празен текст за търсене.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="203"/>
@@ -893,7 +893,7 @@
     <message>
         <location filename="../sources/main.cpp" line="215"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Използването на &apos;--search&apos; изисква текст за търсене.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="258"/>
@@ -949,7 +949,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Изчистване на лист</translation>
     </message>
 </context>
 <context>
@@ -957,17 +957,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="54"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Основни</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пов&amp;едение</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="106"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Графека</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="107"/>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Б&amp;ързи клавиши</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="109"/>
@@ -987,17 +987,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="115"/>
         <source>Defaults</source>
+        <translation type="unfinished">Стандартни</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
+        <source>Defaults on current tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="280"/>
         <source>Open URL:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отваряне на URL:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="287"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Автоматично опресняване:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="293"/>
@@ -1006,41 +1011,56 @@
         <location filename="../sources/settingsdialog.cpp" line="606"/>
         <location filename="../sources/settingsdialog.cpp" line="614"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ефективно след рестартиране.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проследяване на последно използвани:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="302"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Възстановяване на раздели:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="309"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Възстановяване на отметки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="316"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Възстановяване на настройки според файл:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Синхронизация на презентация:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="337"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По подразбиране</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="340"/>
         <source>Presentation screen:</source>
+        <translation type="unfinished">Презентационен екран:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="350"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="358"/>
+        <source>None</source>
+        <translation type="unfinished">Без</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <source>Highlight duration:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1056,7 +1076,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
         <source>Source editor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Редактор на източник:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="411"/>
@@ -1071,26 +1091,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="425"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="358"/>
-        <source>None</source>
-        <translation type="unfinished">Без</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="118"/>
-        <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="350"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
-        <source>Highlight duration:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1206,11 +1206,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="623"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="600"/>
         <source>File tool bar:</source>
         <translation type="unfinished"></translation>
@@ -1223,6 +1218,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="616"/>
         <source>View tool bar:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="623"/>
+        <source>Current page in window title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1269,6 +1269,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
@@ -1296,16 +1306,6 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
