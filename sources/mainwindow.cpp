@@ -1956,7 +1956,7 @@ void MainWindow::createDocks()
 
     m_searchDock = new QDockWidget(tr("&Search"), this);
     m_searchDock->setObjectName(QLatin1String("searchDock"));
-    m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+    m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetVerticalTitleBar);
 
     addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
 
