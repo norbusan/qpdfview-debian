@@ -546,14 +546,14 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
     }
 }
 
-static bool synchronizeOutlineView(TreeView* outlineView, const QAbstractItemModel* model, const QModelIndex& parent, int currentPage)
+static bool synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
 {
-    for(int row = 0; row < model->rowCount(parent); ++row)
+    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
     {
-        const QModelIndex index = model->index(row, 0, parent);
+        const QModelIndex index = outlineView->model()->index(row, 0, parent);
 
         bool ok = false;
-        const int page = model->data(index, Qt::UserRole + 1).toInt(&ok);
+        const int page = outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
 
         if(ok && page == currentPage)
         {
@@ -562,11 +562,11 @@ static bool synchronizeOutlineView(TreeView* outlineView, const QAbstractItemMod
         }
     }
 
-    for(int row = 0; row < model->rowCount(parent); ++row)
+    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
     {
-        QModelIndex index = model->index(row, 0, parent);
+        const QModelIndex index = outlineView->model()->index(row, 0, parent);
 
-        if(synchronizeOutlineView(outlineView, model, index, currentPage))
+        if(synchronizeOutlineView(currentPage, outlineView, index))
         {
             outlineView->expand(index);
             return true;
@@ -586,7 +586,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
-            synchronizeOutlineView(m_outlineView, m_outlineView->model(), QModelIndex(), currentPage);
+            synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
         }
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
