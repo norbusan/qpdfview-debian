@@ -103,6 +103,8 @@ public:
     explicit TreeView(QWidget* parent = 0);
 
 public slots:
+    void expandAbove(const QModelIndex& child);
+
     void expandAll(const QModelIndex& index = QModelIndex());
     void collapseAll(const QModelIndex& index = QModelIndex());
 

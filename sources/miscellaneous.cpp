@@ -108,6 +108,14 @@ TreeView::TreeView(QWidget* parent) : QTreeView(parent)
 {
 }
 
+void TreeView::expandAbove(const QModelIndex& child)
+{
+    for(QModelIndex index = child.parent(); index.isValid(); index = index.parent())
+    {
+        expand(index);
+    }
+}
+
 void TreeView::expandAll(const QModelIndex& index)
 {
     if(index.isValid())

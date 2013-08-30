@@ -546,7 +546,7 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
     }
 }
 
-static bool synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
+static QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
 {
     for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
     {
@@ -557,23 +557,22 @@ static bool synchronizeOutlineView(int currentPage, TreeView* outlineView, const
 
         if(ok && page == currentPage)
         {
-            outlineView->setCurrentIndex(index);
-            return true;
+            return index;
         }
     }
 
     for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
     {
         const QModelIndex index = outlineView->model()->index(row, 0, parent);
+        const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
 
-        if(synchronizeOutlineView(currentPage, outlineView, index))
+        if(match.isValid())
         {
-            outlineView->expand(index);
-            return true;
+            return match;
         }
     }
 
-    return false;
+    return QModelIndex();
 }
 
 void MainWindow::on_currentTab_currentPageChanged(int currentPage)
@@ -586,7 +585,15 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
-            synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
+            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
+
+            if(match.isValid())
+            {
+                m_outlineView->collapseAll();
+
+                m_outlineView->expandAbove(match);
+                m_outlineView->setCurrentIndex(match);
+            }
         }
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
