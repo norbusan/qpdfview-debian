@@ -502,6 +502,8 @@ bool DocumentView::open(const QString& filePath)
 
         prepareThumbnailsScene();
 
+        emit documentChanged();
+
         emit filePathChanged(m_filePath);
         emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
@@ -540,6 +542,8 @@ bool DocumentView::refresh()
         prepareView(left, top);
 
         prepareThumbnailsScene();
+
+        emit documentChanged();
 
         emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);

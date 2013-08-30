@@ -220,6 +220,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
 
+        connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
+
         connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
@@ -242,9 +244,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(searchProgressChanged(int)), SLOT(on_currentTab_searchProgressChanged(int)));
 
         connect(newTab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
-
-        connect(newTab->outlineModel(), SIGNAL(modelReset()), SLOT(on_model_reset()));
-        connect(newTab->propertiesModel(), SIGNAL(modelReset()), SLOT(on_model_reset()));
 
         newTab->show();
 
@@ -387,7 +386,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(currentTab()->propertiesModel());
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
 
-        on_model_reset();
+        on_currentTab_documentChanged();
 
         on_currentTab_filePathChanged(currentTab()->filePath());
         on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
@@ -502,6 +501,53 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     savePerFileSettings(tab(index));
 
     delete m_tabWidget->widget(index);
+}
+
+void MainWindow::on_currentTab_documentChanged()
+{
+    if(m_outlineView->header()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_outlineView->header()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_outlineView->header()->setStretchLastSection(false);
+    m_outlineView->header()->setVisible(false);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_propertiesView->horizontalHeader()->setVisible(false);
+    m_propertiesView->verticalHeader()->setVisible(false);
 }
 
 void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
@@ -1482,53 +1528,6 @@ void MainWindow::on_searchInitiated(const QString& text, bool allTabs)
 void MainWindow::on_highlightAll_clicked(bool checked)
 {
     currentTab()->setHighlightAll(checked);
-}
-
-void MainWindow::on_model_reset()
-{
-    if(m_outlineView->header()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_outlineView->header()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
-
-    m_outlineView->header()->setStretchLastSection(false);
-    m_outlineView->header()->setVisible(false);
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    m_propertiesView->horizontalHeader()->setVisible(false);
-    m_propertiesView->verticalHeader()->setVisible(false);
 }
 
 void MainWindow::on_outline_clicked(const QModelIndex& index)

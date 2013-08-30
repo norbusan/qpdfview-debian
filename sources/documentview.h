@@ -102,6 +102,8 @@ public:
     QStandardItemModel* fontsModel() const;
 
 signals:
+    void documentChanged();
+
     void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
     void currentPageChanged(int currentPage, bool trackChange = false);

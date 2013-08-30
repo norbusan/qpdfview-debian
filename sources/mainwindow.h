@@ -79,6 +79,8 @@ protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
 
+    void on_currentTab_documentChanged();
+
     void on_currentTab_filePathChanged(const QString& filePath);
     void on_currentTab_numberOfPagesChaned(int numberOfPages);
     void on_currentTab_currentPageChanged(int currentPage);
@@ -183,8 +185,6 @@ protected slots:
 
     void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
-
-    void on_model_reset();
 
     void on_outline_clicked(const QModelIndex& index);
 
