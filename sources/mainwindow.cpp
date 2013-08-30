@@ -1906,8 +1906,8 @@ void MainWindow::createToolBars()
 QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
 {
     QDockWidget* dock = new QDockWidget(text, this);
-
     dock->setObjectName(objectName);
+    dock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
 
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
