@@ -531,6 +531,7 @@ void MainWindow::on_currentTab_documentChanged()
 #endif // QT_VERSION
     }
 
+    m_outlineView->header()->setMinimumSectionSize(0);
     m_outlineView->header()->setStretchLastSection(false);
     m_outlineView->header()->setVisible(false);
 

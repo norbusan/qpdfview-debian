@@ -647,6 +647,7 @@ static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent,
 
                 QStandardItem* pageItem = item->clone();
                 pageItem->setText(QString::number(destinationPage));
+                pageItem->setTextAlignment(Qt::AlignRight);
 
                 parent->appendRow(QList< QStandardItem* >() << item << pageItem);
 
