@@ -55,6 +55,9 @@ public:
         inline const QIcon& progressIcon() const { return m_progressIcon; }
         inline const QIcon& errorIcon() const { return m_errorIcon; }
 
+        inline bool keepObsoletePixmaps() const { return m_keepObsoletePixmaps; }
+        void setKeepObsoletePixmaps(bool keepObsoletePixmaps);
+
         inline bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decorate);
 
@@ -92,6 +95,8 @@ public:
 
         QIcon m_progressIcon;
         QIcon m_errorIcon;
+
+        bool m_keepObsoletePixmaps;
 
         bool m_decoratePages;
         bool m_decorateLinks;
@@ -380,6 +385,8 @@ public:
     {
     public:
         static inline int cacheSize() { return 32 * 1024 * 1024; }
+
+        static inline bool keepObsoletePixmaps() { return false; }
 
         static inline bool decoratePages() { return true; }
         static inline bool decorateLinks() { return true; }

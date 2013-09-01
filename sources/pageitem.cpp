@@ -243,7 +243,7 @@ const QTransform& PageItem::normalizedTransform() const
 
 void PageItem::refresh()
 {
-    if(/*s_settings->pageItem().keepObsoletePixmaps() &&*/ s_cache.contains(this))
+    if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
         m_obsoletePixmap = *s_cache.object(this);
         m_obsoleteTransform = m_transform.inverted();
