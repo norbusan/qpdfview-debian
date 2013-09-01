@@ -59,7 +59,9 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_normalizedTransform(),
     m_boundingRect(),
     m_pixmap(),
-    m_renderTask(0)
+    m_renderTask(0),
+    m_obsoletePixmap(),
+    m_obsoleteTransform()
 {
     if(s_settings == 0)
     {
@@ -241,6 +243,12 @@ const QTransform& PageItem::normalizedTransform() const
 
 void PageItem::refresh()
 {
+    if(/*s_settings->pageItem().keepObsoletePixmaps() &&*/ s_cache.contains(this))
+    {
+        m_obsoletePixmap = *s_cache.object(this);
+        m_obsoleteTransform = m_transform.inverted();
+    }
+
     cancelRender();
 
     s_cache.remove(this);
@@ -308,6 +316,8 @@ void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qrea
             m_pixmap = QPixmap::fromImage(image);
         }
     }
+
+    m_obsoletePixmap = QPixmap();
 }
 
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
@@ -797,7 +807,22 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
         painter->fillRect(m_boundingRect, QBrush(paperColor));
     }
 
-    if(pixmap.isNull())
+    if(!pixmap.isNull())
+    {
+        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
+    }
+    else if(!m_obsoletePixmap.isNull())
+    {
+        painter->save();
+
+        painter->setTransform(m_obsoleteTransform, true);
+        painter->setTransform(m_transform, true);
+
+        painter->drawPixmap(m_boundingRect.topLeft(), m_obsoletePixmap);
+
+        painter->restore();
+    }
+    else
     {
         // progess icon
 
@@ -805,10 +830,6 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
         const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
         s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
-    }
-    else
-    {
-        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
     }
 
     if(s_settings->pageItem().decoratePages() && !m_presentationMode)
