@@ -181,6 +181,8 @@ void SettingsDialog::accept()
 
     // graphics
 
+    s_settings->pageItem().setKeepObsoletePixmaps(m_keepObsoletePixmapsCheckBox->isChecked());
+
     s_settings->pageItem().setDecoratePages(m_decoratePagesCheckBox->isChecked());
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
@@ -403,6 +405,13 @@ void SettingsDialog::resetBehaviorTab()
 
 void SettingsDialog::createGraphicsTab()
 {
+    // keep obsolete pixmaps
+
+    m_keepObsoletePixmapsCheckBox = new QCheckBox(this);
+    m_keepObsoletePixmapsCheckBox->setChecked(s_settings->pageItem().keepObsoletePixmaps());
+
+    m_graphicsLayout->addRow(tr("Keep obsolete pixmaps:"), m_keepObsoletePixmapsCheckBox);
+
     // decorate pages
 
     m_decoratePagesCheckBox = new QCheckBox(this);
@@ -532,6 +541,8 @@ void SettingsDialog::resetGraphicsTab()
     }
 
 #endif // WITH_PS
+
+    m_keepObsoletePixmapsCheckBox->setChecked(Defaults::PageItem::keepObsoletePixmaps());
 
     m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
     m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
