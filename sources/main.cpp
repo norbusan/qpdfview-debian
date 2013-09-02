@@ -43,6 +43,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_SYNCTEX
 
 #include "documentview.h"
+#include "database.h"
 #include "mainwindow.h"
 
 #ifdef WITH_SIGNALS
@@ -172,6 +173,10 @@ int main(int argc, char** argv)
                           << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
 
                 return 0;
+            }
+            else if(argument == "--choose-instance")
+            {
+                instanceName = Database::instance()->chooseInstance();
             }
             else
             {

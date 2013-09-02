@@ -67,9 +67,15 @@ Database::~Database()
 
 QString Database::chooseInstance()
 {
+    QString instanceName = "";
+
+#ifdef WITH_SQL
+
     // TODO
 
-    return QString();
+#endif // WITH_SQL
+
+    return instanceName;
 }
 
 void Database::restoreTabs(const QString& instanceName)
