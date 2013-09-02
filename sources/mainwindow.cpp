@@ -567,7 +567,7 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
 
     if(senderIsCurrentTab())
     {
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -578,7 +578,7 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
         m_currentPageSpinBox->setRange(1, numberOfPages);
         m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -617,8 +617,6 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
-
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
             const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
@@ -633,6 +631,8 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         }
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
+
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -1662,15 +1662,18 @@ bool MainWindow::senderIsCurrentTab() const
      return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
-QString MainWindow::windowTitleSuffixForCurrentTab() const
+void MainWindow::setWindowTitleForCurrentTab()
 {
     if(s_settings->mainWindow().currentPageInWindowTitle())
     {
-        return QString(" (%1 / %2) - qpdfview").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+        setWindowTitle(QString("%3 (%1 / %2) - qpdfview")
+                       .arg(currentTab()->currentPage())
+                       .arg(currentTab()->numberOfPages())
+                       .arg(m_tabWidget->tabText(m_tabWidget->currentIndex())));
     }
     else
     {
-        return QLatin1String(" - qpdfview");
+        setWindowTitle(QString("%1 - qpdfview").arg(m_tabWidget->tabText(m_tabWidget->currentIndex())));
     }
 }
 

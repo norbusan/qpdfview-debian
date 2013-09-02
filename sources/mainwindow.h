@@ -208,7 +208,7 @@ private:
 
     bool senderIsCurrentTab() const;
 
-    QString windowTitleSuffixForCurrentTab() const;
+    void setWindowTitleForCurrentTab();
 
     BookmarkMenu* bookmarkForCurrentTab() const;
 
