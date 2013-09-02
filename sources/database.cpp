@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
+#include <QInputDialog>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -67,13 +68,43 @@ Database::~Database()
 
 QString Database::chooseInstance()
 {
-    QString instanceName = "";
+    QStringList instanceNames;
 
 #ifdef WITH_SQL
 
-    // TODO
+    if(m_database.isOpen())
+    {
+        m_database.transaction();
+
+        QSqlQuery query(m_database);
+        query.exec("SELECT DISTINCT(instanceName) FROM tabs_v2");
+
+        while(query.next())
+        {
+            if(!query.isActive())
+            {
+                qDebug() << query.lastError();
+                break;
+            }
+
+            if(!query.value(0).toString().isEmpty())
+            {
+                instanceNames.append(query.value(0).toString());
+            }
+        }
+
+        m_database.commit();
+    }
 
 #endif // WITH_SQL
+
+    bool ok = false;
+    QString instanceName = QInputDialog::getItem(0, tr("Choose instance"), tr("Instance:"), instanceNames, 0, true, &ok);
+
+    if(!ok)
+    {
+        instanceName = "";
+    }
 
     return instanceName;
 }
