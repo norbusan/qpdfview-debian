@@ -462,7 +462,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(0);
         m_thumbnailsView->setScene(0);
 
-        setWindowTitle(QLatin1String("qpdfview"));
+        setWindowTitleForCurrentTab();
 
         m_currentPageSpinBox->setValue(1);
         m_currentPageSpinBox->setSuffix(" / 1");
@@ -1662,17 +1662,31 @@ bool MainWindow::senderIsCurrentTab() const
 
 void MainWindow::setWindowTitleForCurrentTab()
 {
-    if(s_settings->mainWindow().currentPageInWindowTitle())
+    QString windowTitle;
+
+    if(m_tabWidget->currentIndex() != -1)
     {
-        setWindowTitle(QString("%3 (%1 / %2) - qpdfview")
-                       .arg(currentTab()->currentPage())
-                       .arg(currentTab()->numberOfPages())
-                       .arg(m_tabWidget->tabText(m_tabWidget->currentIndex())));
+        windowTitle += m_tabWidget->tabText(m_tabWidget->currentIndex());
+
+        if(s_settings->mainWindow().currentPageInWindowTitle())
+        {
+            windowTitle += QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+        }
+
+        windowTitle += QLatin1String(" - qpdfview");
+
     }
     else
     {
-        setWindowTitle(QString("%1 - qpdfview").arg(m_tabWidget->tabText(m_tabWidget->currentIndex())));
+        windowTitle += QLatin1String("qpdfview");
     }
+
+    if(s_settings->mainWindow().instanceNameInWindowTitle() && !qApp->objectName().isEmpty())
+    {
+        windowTitle += QString(" (%1)").arg(qApp->objectName());
+    }
+
+    setWindowTitle(windowTitle);
 }
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const

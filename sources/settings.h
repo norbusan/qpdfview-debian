@@ -260,6 +260,9 @@ public:
         bool currentPageInWindowTitle() const;
         void setCurrentPageInWindowTitle(bool currentPageInWindowTitle);
 
+        bool instanceNameInWindowTitle() const;
+        void setInstanceNameInWindowTitle(bool instanceNameInWindowTitle);
+
         bool synchronizeOutlineView() const;
         void setSynchronizeOutlineView(bool synchronizeOutlineView);
 
@@ -485,6 +488,7 @@ public:
         static inline bool newTabNextToCurrentTab() { return true; }
 
         static inline bool currentPageInWindowTitle() { return false; }
+        static inline bool instancfeNameInWindowTitle() { return false; }
 
         static inline bool synchronizeOutlineView() { return false; }
 

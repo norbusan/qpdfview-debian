@@ -216,6 +216,7 @@ void SettingsDialog::accept()
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
     s_settings->mainWindow().setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
+    s_settings->mainWindow().setInstanceNameInWindowTitle(m_instanceNameInWindowTitleCheckBox->isChecked());
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
 
@@ -622,6 +623,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Current page in window title:"), m_currentPageInWindowTitleCheckBox);
 
+    // instance name in window title
+
+    m_instanceNameInWindowTitleCheckBox = new QCheckBox(this);
+    m_instanceNameInWindowTitleCheckBox->setChecked(s_settings->mainWindow().instanceNameInWindowTitle());
+
+    m_interfaceLayout->addRow(tr("Instance name in window title:"), m_instanceNameInWindowTitleCheckBox);
+
     // synchronize outline view
 
     m_synchronizeOutlineViewCheckBox = new QCheckBox(this);
@@ -658,6 +666,7 @@ void SettingsDialog::resetInterfaceTab()
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
     m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
+    m_instanceNameInWindowTitleCheckBox->setChecked(Defaults::MainWindow::instancfeNameInWindowTitle());
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
 

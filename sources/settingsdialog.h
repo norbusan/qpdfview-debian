@@ -142,6 +142,7 @@ private:
     QLineEdit* m_viewToolBarLineEdit;
 
     QCheckBox* m_currentPageInWindowTitleCheckBox;
+    QCheckBox* m_instanceNameInWindowTitleCheckBox;
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
 
