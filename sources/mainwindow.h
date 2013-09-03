@@ -57,7 +57,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    MainWindow(const QString& instanceName = "", QWidget* parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
 
     QSize sizeHint() const;
     QMenu* createPopupMenu();

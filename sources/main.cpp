@@ -268,6 +268,8 @@ int main(int argc, char** argv)
 
 #endif // WITH_SYNCTEX
 
+    qApp->setObjectName(instanceName);
+
 #ifdef WITH_DBUS
 
     MainWindow* mainWindow = 0;
@@ -311,7 +313,7 @@ int main(int argc, char** argv)
             }
             else
             {
-                mainWindow = new MainWindow(instanceName);
+                mainWindow = new MainWindow();
 
                 new MainWindowAdaptor(mainWindow);
 

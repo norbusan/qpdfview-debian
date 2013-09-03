@@ -45,8 +45,8 @@ public:
 
     QString chooseInstance();
 
-    void restoreTabs(const QString& instanceName);
-    void saveTabs(const QString& instanceName, const QList< const DocumentView* >& tabs);
+    void restoreTabs();
+    void saveTabs(const QList< const DocumentView* >& tabs);
 
     void restoreBookmarks();
     void saveBookmarks(const QList< const BookmarkMenu* >& bookmarks);

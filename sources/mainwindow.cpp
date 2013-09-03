@@ -61,10 +61,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 
-MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
-    setObjectName(instanceName);
-
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
@@ -103,7 +101,7 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
     connect(s_database, SIGNAL(bookmarkRestored(QString,QList<int>)), SLOT(on_database_bookmarkRestored(QString,QList<int>)));
 
-    s_database->restoreTabs(objectName());
+    s_database->restoreTabs();
     s_database->restoreBookmarks();
 
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
@@ -1704,7 +1702,7 @@ void MainWindow::saveTabs()
         tabs.append(tab(index));
     }
 
-    s_database->saveTabs(objectName(), tabs);
+    s_database->saveTabs(tabs);
 }
 
 void MainWindow::saveBookmarks()
