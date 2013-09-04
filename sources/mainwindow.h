@@ -79,6 +79,8 @@ protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
 
+    void on_tabBar_customContextMenuRequested(const QPoint& pos);
+
     void on_currentTab_documentChanged();
 
     void on_currentTab_filePathChanged(const QString& filePath);
