@@ -68,7 +68,20 @@ void RenderTask::run()
         return;
     }
 
-    QImage image = m_page->render(m_physicalDpiX * m_scaleFactor, m_physicalDpiY * m_scaleFactor, m_rotation);
+    QImage image;
+
+    switch(m_rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        image = m_page->render(m_physicalDpiX * m_scaleFactor, m_physicalDpiY * m_scaleFactor, m_rotation);
+        break;
+    case RotateBy90:
+    case RotateBy270:
+        image = m_page->render(m_physicalDpiY * m_scaleFactor, m_physicalDpiX * m_scaleFactor, m_rotation);
+        break;
+    }
 
     if(m_wasCanceled && !m_prefetch)
     {
