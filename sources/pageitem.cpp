@@ -697,7 +697,7 @@ void PageItem::editAnnotation(Model::Annotation* annotation, const QPoint& scree
 
 void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPos)
 {
-    QDialog* formFieldDialog = formField->showDialog(screenPos);
+    const QDialog* formFieldDialog = formField->showDialog(screenPos);
 
     if(formFieldDialog != 0)
     {
