@@ -213,6 +213,8 @@ private:
 
     BookmarkMenu* bookmarkForCurrentTab() const;
 
+    bool saveModifications(DocumentView* tab, bool deleteTab);
+
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;
 

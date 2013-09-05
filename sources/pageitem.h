@@ -91,6 +91,8 @@ signals:
 
     void sourceRequested(int page, const QPointF& pos);
 
+    void wasModified();
+
 public slots:
     void refresh();
 
