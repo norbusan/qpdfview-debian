@@ -950,8 +950,6 @@ void MainWindow::on_saveAs_triggered()
         if(currentTab()->save(filePath, true))
         {
             open(filePath, currentTab()->currentPage());
-
-            s_settings->mainWindow().setSavePath(QFileInfo(filePath).absolutePath());
         }
         else
         {
