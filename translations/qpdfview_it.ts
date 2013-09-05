@@ -1228,7 +1228,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="630"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizzare vista struttura:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="637"/>
