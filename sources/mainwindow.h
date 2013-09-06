@@ -206,6 +206,7 @@ private:
 
     DocumentView* currentTab() const;
     DocumentView* tab(int index) const;
+    QList< DocumentView* > tabs() const;
 
     bool senderIsCurrentTab() const;
 

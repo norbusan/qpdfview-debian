@@ -1296,11 +1296,11 @@ void MainWindow::on_closeAllTabs_triggered()
 {
     disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    while(m_tabWidget->count() > 0)
+    foreach(DocumentView* tab, tabs())
     {
-        if(saveModifications(tab(0)))
+        if(saveModifications(tab))
         {
-            delete tab(0);
+            delete tab;
         }
     }
 
@@ -1321,11 +1321,11 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
     m_tabWidget->removeTab(oldIndex);
 
-    while(m_tabWidget->count() > 0)
+    foreach(DocumentView* tab, tabs())
     {
-        if(saveModifications(tab(0)))
+        if(saveModifications(tab))
         {
-            delete tab(0);
+            delete tab;
         }
     }
 
@@ -1691,6 +1691,18 @@ DocumentView* MainWindow::currentTab() const
 DocumentView* MainWindow::tab(int index) const
 {
     return qobject_cast< DocumentView* >(m_tabWidget->widget(index));
+}
+
+QList< DocumentView* > MainWindow::tabs() const
+{
+    QList< DocumentView* > tabs;
+
+    for(int index = 0; index < m_tabWidget->count(); ++index)
+    {
+        tabs.append(tab(index));
+    }
+
+    return tabs;
 }
 
 bool MainWindow::senderIsCurrentTab() const
