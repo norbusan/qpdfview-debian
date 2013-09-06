@@ -216,7 +216,7 @@ private:
     void saveTabs();
     void saveBookmarks();
 
-    bool saveModifications(DocumentView* tab, bool deleteOnSuccess);
+    bool saveModifications(DocumentView* tab);
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;

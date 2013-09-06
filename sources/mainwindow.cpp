@@ -138,7 +138,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        saveModifications(currentTab(), false);
+        saveModifications(currentTab());
 
         if(currentTab()->open(filePath))
         {
@@ -492,7 +492,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    saveModifications(tab(index), true);
+    if(saveModifications(tab(index)))
+    {
+        delete tab(index);
+    }
 }
 
 void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
@@ -1283,7 +1286,10 @@ void MainWindow::on_nextTab_triggered()
 
 void MainWindow::on_closeTab_triggered()
 {
-    saveModifications(currentTab(), true);
+    if(saveModifications(currentTab()))
+    {
+            delete currentTab();
+    }
 }
 
 void MainWindow::on_closeAllTabs_triggered()
@@ -1292,7 +1298,10 @@ void MainWindow::on_closeAllTabs_triggered()
 
     while(m_tabWidget->count() > 0)
     {
-        saveModifications(tab(0), true);
+        if(saveModifications(tab(0)))
+        {
+            delete tab(0);
+        }
     }
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
@@ -1314,7 +1323,10 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
     while(m_tabWidget->count() > 0)
     {
-        saveModifications(tab(0), true);
+        if(saveModifications(tab(0)))
+        {
+            delete tab(0);
+        }
     }
 
     const int newIndex = m_tabWidget->addTab(oldTab, tabText);
@@ -1623,7 +1635,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
-        if(!saveModifications(tab(index), false))
+        if(!saveModifications(tab(index)))
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -1762,11 +1774,9 @@ void MainWindow::saveBookmarks()
     s_database->saveBookmarks(bookmarks);
 }
 
-bool MainWindow::saveModifications(DocumentView* tab, bool deleteOnSuccess)
+bool MainWindow::saveModifications(DocumentView* tab)
 {
     s_database->savePerFileSettings(tab);
-
-    bool success = false;
 
     if(tab->wasModified())
     {
@@ -1780,7 +1790,7 @@ bool MainWindow::saveModifications(DocumentView* tab, bool deleteOnSuccess)
             {
                 if(tab->save(filePath, true))
                 {
-                    success = true;
+                    return true;
                 }
                 else
                 {
@@ -1790,20 +1800,13 @@ bool MainWindow::saveModifications(DocumentView* tab, bool deleteOnSuccess)
         }
         else if(button == QMessageBox::Discard)
         {
-            success = true;
+            return true;
         }
-    }
-    else
-    {
-        success = true;
+
+        return false;
     }
 
-    if(success && deleteOnSuccess)
-    {
-        delete tab;
-    }
-
-    return success;
+    return true;
 }
 
 void MainWindow::createWidgets()
