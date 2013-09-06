@@ -24,7 +24,8 @@ HEADERS += \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
     sources/database.h \
-    sources/mainwindow.h
+    sources/mainwindow.h \
+    sources/helpdialog.h
 
 SOURCES += \
     sources/settings.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     sources/bookmarkmenu.cpp \
     sources/database.cpp \
     sources/mainwindow.cpp \
-    sources/main.cpp
+    sources/main.cpp \
+    sources/helpdialog.cpp
 
 DEFINES += APPLICATION_VERSION=\\\"$${APPLICATION_VERSION}\\\"
 
