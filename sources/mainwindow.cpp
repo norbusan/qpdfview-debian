@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QDebug>
+#include <QDesktopServices>
 #include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QDragEnterEvent>
@@ -52,10 +53,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
 #include <QStandardPaths>
-
-#else
-
-#include <QDesktopServices>
 
 #endif // QT_VERSION
 
@@ -501,6 +498,27 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     savePerFileSettings(tab(index));
 
     delete m_tabWidget->widget(index);
+}
+
+void MainWindow::on_tabBar_customContextMenuRequested(const QPoint& pos)
+{
+    const int index = m_tabWidget->tabBar()->tabAt(pos);
+
+    if(index != -1)
+    {
+        QMenu menu;
+
+        const QAction* openContainingFolderAction = menu.addAction(tr("Open containing folder"));
+
+        const QAction* action = menu.exec(m_tabWidget->tabBar()->mapToGlobal(pos));
+
+        if(action == openContainingFolderAction)
+        {
+            const QString absolutePath = QFileInfo(tab(index)->filePath()).absolutePath();
+
+            QDesktopServices::openUrl(QString("file://%1").arg(absolutePath));
+        }
+    }
 }
 
 void MainWindow::on_currentTab_documentChanged()
@@ -1685,6 +1703,10 @@ void MainWindow::createWidgets()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
+
+    m_tabWidget->tabBar()->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect(m_tabWidget->tabBar(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
 
     // current page
 
