@@ -571,6 +571,16 @@ void Settings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText
     m_settings->setValue("mainWindow/currentPageInWindowTitle", currentPageInTabText);
 }
 
+bool Settings::MainWindow::instanceNameInWindowTitle() const
+{
+    return m_settings->value("mainWindow/instanceNameInWindowTitle", Defaults::MainWindow::instancfeNameInWindowTitle()).toBool();
+}
+
+void Settings::MainWindow::setInstanceNameInWindowTitle(bool instanceNameInWindowTitle)
+{
+    m_settings->setValue("mainWindow/instanceNameInWindowTitle", instanceNameInWindowTitle);
+}
+
 bool Settings::MainWindow::synchronizeOutlineView() const
 {
     return m_settings->value("mainWindow/synchronizeOutlineView", Defaults::MainWindow::synchronizeOutlineView()).toBool();

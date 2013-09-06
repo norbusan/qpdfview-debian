@@ -26,12 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMainWindow>
 
-#ifdef WITH_SQL
-
-#include <QSqlDatabase>
-
-#endif // WITH_SQL
-
 #ifdef WITH_DBUS
 
 #include <QDBusAbstractAdaptor>
@@ -56,13 +50,14 @@ class SpinBox;
 class SearchLineEdit;
 class RecentlyUsedMenu;
 class BookmarkMenu;
+class Database;
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    MainWindow(const QString& instanceName = "", QWidget* parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
 
     QSize sizeHint() const;
     QMenu* createPopupMenu();
@@ -193,6 +188,9 @@ protected slots:
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
+    void on_database_tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void on_database_bookmarkRestored(const QString& filePath, const QList< int >& pages);
+
 protected:
     void closeEvent(QCloseEvent* event);
 
@@ -203,6 +201,7 @@ private:
     Q_DISABLE_COPY(MainWindow)
 
     static Settings* s_settings;
+    static Database* s_database;
 
     TabWidget* m_tabWidget;
 
@@ -211,9 +210,12 @@ private:
 
     bool senderIsCurrentTab() const;
 
-    QString windowTitleSuffixForCurrentTab() const;
+    void setWindowTitleForCurrentTab();
 
     BookmarkMenu* bookmarkForCurrentTab() const;
+
+    void saveTabs();
+    void saveBookmarks();
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;
@@ -334,23 +336,6 @@ private:
     QMenu* m_helpMenu;
 
     void createMenus();
-
-#ifdef WITH_SQL
-
-    QSqlDatabase m_database;
-
-#endif // WITH_SQL
-
-    void createDatabase();
-
-    void restoreTabs();
-    void saveTabs();
-
-    void restoreBookmarks();
-    void saveBookmarks();
-
-    void restorePerFileSettings(DocumentView* tab);
-    void savePerFileSettings(const DocumentView* tab);
 
 };
 

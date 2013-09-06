@@ -25,8 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
-#include <QCryptographicHash>
-#include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDialogButtonBox>
@@ -56,13 +54,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
-#ifdef WITH_SQL
-
-#include <QSqlError>
-#include <QSqlQuery>
-
-#endif // WITH_SQL
-
 #include "settings.h"
 #include "shortcuthandler.h"
 #include "pageitem.h"
@@ -72,13 +63,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settingsdialog.h"
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
+#include "database.h"
 
 Settings* MainWindow::s_settings = 0;
+Database* MainWindow::s_database = 0;
 
-MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
-    setObjectName(instanceName);
-
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
@@ -109,10 +100,16 @@ MainWindow::MainWindow(const QString& instanceName, QWidget* parent) : QMainWind
 
     m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
 
-    createDatabase();
+    if(s_database == 0)
+    {
+        s_database = Database::instance();
+    }
 
-    restoreTabs();
-    restoreBookmarks();
+    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
+    connect(s_database, SIGNAL(bookmarkRestored(QString,QList<int>)), SLOT(on_database_bookmarkRestored(QString,QList<int>)));
+
+    s_database->restoreTabs();
+    s_database->restoreBookmarks();
 
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
@@ -141,7 +138,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        savePerFileSettings(currentTab());
+        s_database->savePerFileSettings(currentTab());
 
         if(currentTab()->open(filePath))
         {
@@ -153,7 +150,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
 
-            restorePerFileSettings(currentTab());
+            s_database->restorePerFileSettings(currentTab());
 
             currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
@@ -244,7 +241,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         newTab->show();
 
-        restorePerFileSettings(newTab);
+        s_database->restorePerFileSettings(newTab);
 
         newTab->jumpToPage(page, false);
         newTab->setFocus();
@@ -472,7 +469,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(0);
         m_thumbnailsView->setScene(0);
 
-        setWindowTitle(QLatin1String("qpdfview"));
+        setWindowTitleForCurrentTab();
 
         m_currentPageSpinBox->setValue(1);
         m_currentPageSpinBox->setSuffix(" / 1");
@@ -495,7 +492,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    savePerFileSettings(tab(index));
+    s_database->savePerFileSettings(tab(index));
 
     delete m_tabWidget->widget(index);
 }
@@ -596,7 +593,7 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
 
     if(senderIsCurrentTab())
     {
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -607,7 +604,7 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
         m_currentPageSpinBox->setRange(1, numberOfPages);
         m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -646,8 +643,6 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
     {
         m_currentPageSpinBox->setValue(currentPage);
 
-        setWindowTitle(m_tabWidget->tabText(m_tabWidget->currentIndex()) + windowTitleSuffixForCurrentTab());
-
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
             const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
@@ -662,6 +657,8 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         }
 
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
+
+        setWindowTitleForCurrentTab();
     }
 }
 
@@ -1290,7 +1287,7 @@ void MainWindow::on_nextTab_triggered()
 
 void MainWindow::on_closeTab_triggered()
 {
-    savePerFileSettings(currentTab());
+    s_database->savePerFileSettings(currentTab());
 
     delete m_tabWidget->currentWidget();
 }
@@ -1301,7 +1298,7 @@ void MainWindow::on_closeAllTabs_triggered()
 
     while(m_tabWidget->count() > 0)
     {
-        savePerFileSettings(tab(0));
+        s_database->savePerFileSettings(tab(0));
 
         delete m_tabWidget->widget(0);
     }
@@ -1321,7 +1318,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
     while(m_tabWidget->count() > 0)
     {
-        savePerFileSettings(tab(0));
+        s_database->savePerFileSettings(tab(0));
 
         delete m_tabWidget->widget(0);
     }
@@ -1586,6 +1583,38 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
+void MainWindow::on_database_tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
+{
+    if(openInNewTab(filePath))
+    {
+        currentTab()->setContinousMode(continousMode);
+        currentTab()->setLayoutMode(layoutMode);
+
+        currentTab()->setScaleMode(scaleMode);
+        currentTab()->setScaleFactor(scaleFactor);
+
+        currentTab()->setRotation(rotation);
+
+        currentTab()->jumpToPage(currentPage);
+    }
+}
+
+void MainWindow::on_database_bookmarkRestored(const QString& filePath, const QList<int>& pages)
+{
+    BookmarkMenu* bookmark = new BookmarkMenu(filePath, this);
+
+    foreach(const int page, pages)
+    {
+        bookmark->addJumpToPageAction(page);
+    }
+
+    connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+    connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+    connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+
+    m_bookmarksMenu->addMenu(bookmark);
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     saveTabs();
@@ -1593,7 +1622,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
-        savePerFileSettings(tab(index));
+        s_database->savePerFileSettings(tab(index));
     }
 
     m_searchDock->setVisible(false);
@@ -1657,16 +1686,33 @@ bool MainWindow::senderIsCurrentTab() const
      return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
-QString MainWindow::windowTitleSuffixForCurrentTab() const
+void MainWindow::setWindowTitleForCurrentTab()
 {
-    if(s_settings->mainWindow().currentPageInWindowTitle())
+    QString windowTitle;
+
+    if(m_tabWidget->currentIndex() != -1)
     {
-        return QString(" (%1 / %2) - qpdfview").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+        windowTitle += m_tabWidget->tabText(m_tabWidget->currentIndex());
+
+        if(s_settings->mainWindow().currentPageInWindowTitle())
+        {
+            windowTitle += QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+        }
+
+        windowTitle += QLatin1String(" - qpdfview");
+
     }
     else
     {
-        return QLatin1String(" - qpdfview");
+        windowTitle += QLatin1String("qpdfview");
     }
+
+    if(s_settings->mainWindow().instanceNameInWindowTitle() && !qApp->objectName().isEmpty())
+    {
+        windowTitle += QString(" (%1)").arg(qApp->objectName());
+    }
+
+    setWindowTitle(windowTitle);
 }
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
@@ -1685,6 +1731,35 @@ BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
     }
 
     return 0;
+}
+
+void MainWindow::saveTabs()
+{
+    QList< const DocumentView* > tabs;
+
+    for(int index = 0; index < m_tabWidget->count(); ++index)
+    {
+        tabs.append(tab(index));
+    }
+
+    s_database->saveTabs(tabs);
+}
+
+void MainWindow::saveBookmarks()
+{
+    QList< const BookmarkMenu* > bookmarks;
+
+    foreach(const QAction* action, m_bookmarksMenu->actions())
+    {
+        const BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+
+        if(bookmark != 0)
+        {
+            bookmarks.append(bookmark);
+        }
+    }
+
+    s_database->saveBookmarks(bookmarks);
 }
 
 void MainWindow::createWidgets()
@@ -2116,402 +2191,6 @@ void MainWindow::createMenus()
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addActions(QList< QAction* >() << m_contentsAction << m_aboutAction);
-}
-
-void MainWindow::createDatabase()
-{
-#ifdef WITH_SQL
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    const QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-
-#else
-
-    const QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-
-#endif // QT_VERSION
-
-    QDir().mkpath(path);
-
-    m_database = QSqlDatabase::addDatabase("QSQLITE");
-    m_database.setDatabaseName(QDir(path).filePath("database"));
-    m_database.open();
-
-    if(m_database.isOpen())
-    {
-        m_database.transaction();
-
-        const QStringList tables = m_database.tables();
-        QSqlQuery query(m_database);
-
-        // tabs
-
-        if(!tables.contains("tabs_v2"))
-        {
-            query.exec("CREATE TABLE tabs_v2 "
-                       "(filePath TEXT"
-                       ",instanceName TEXT"
-                       ",currentPage INTEGER"
-                       ",continuousMode INTEGER"
-                       ",layoutMode INTEGER"
-                       ",scaleMode INTEGER"
-                       ",scaleFactor REAL"
-                       ",rotation INTEGER)");
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-            }
-        }
-
-        // bookmarks
-
-        if(!tables.contains("bookmarks_v1"))
-        {
-            query.exec("CREATE TABLE bookmarks_v1 "
-                       "(filePath TEXT"
-                       ",pages TEXT)");
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-            }
-        }
-
-        // per-file settings
-
-        if(!tables.contains("perfilesettings_v1"))
-        {
-            query.exec("CREATE TABLE perfilesettings_v1 "
-                       "(lastUsed INTEGER"
-                       ",filePath TEXT PRIMARY KEY"
-                       ",currentPage INTEGER"
-                       ",continuousMode INTEGER"
-                       ",layoutMode INTEGER"
-                       ",scaleMode INTEGER"
-                       ",scaleFactor REAL"
-                       ",rotation INTEGER)");
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-            }
-        }
-
-        if(s_settings->mainWindow().restorePerFileSettings())
-        {
-            query.exec("DELETE FROM perfilesettings_v1 WHERE filePath IN (SELECT filePath FROM perfilesettings_v1 ORDER BY lastUsed DESC LIMIT -1 OFFSET 1000)");
-        }
-        else
-        {
-            query.exec("DELETE FROM perfilesettings_v1");
-        }
-
-        if(!query.isActive())
-        {
-            qDebug() << query.lastError();
-        }
-
-        m_database.commit();
-    }
-    else
-    {
-        qDebug() << m_database.lastError();
-    }
-
-#endif // WITH_SQL
-}
-
-void MainWindow::restoreTabs()
-{
-#ifdef WITH_SQL
-
-    if(m_database.isOpen())
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v2 WHERE instanceName==?");
-
-        query.bindValue(0, objectName());
-
-        query.exec();
-
-        while(query.next())
-        {
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-                break;
-            }
-
-            if(openInNewTab(query.value(0).toString()))
-            {
-                currentTab()->setContinousMode(static_cast< bool >(query.value(2).toUInt()));
-                currentTab()->setLayoutMode(static_cast< LayoutMode >(query.value(3).toUInt()));
-
-                currentTab()->setScaleMode(static_cast< ScaleMode >(query.value(4).toUInt()));
-                currentTab()->setScaleFactor(query.value(5).toReal());
-
-                currentTab()->setRotation(static_cast< Rotation >(query.value(6).toUInt()));
-
-                currentTab()->jumpToPage(query.value(1).toInt());
-            }
-        }
-
-        m_database.commit();
-    }
-
-#endif // WITH_SQL
-}
-
-void MainWindow::saveTabs()
-{
-#ifdef WITH_SQL
-
-    if(m_database.isOpen())
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-
-        if(s_settings->mainWindow().restoreTabs())
-        {
-            query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
-
-            query.bindValue(0, objectName());
-
-            query.exec();
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-            }
-
-            query.prepare("INSERT INTO tabs_v2 "
-                          "(filePath,instanceName,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
-                          " VALUES (?,?,?,?,?,?,?,?)");
-
-            for(int index = 0; index < m_tabWidget->count(); ++index)
-            {
-                query.bindValue(0, QFileInfo(tab(index)->filePath()).absoluteFilePath());
-                query.bindValue(1, objectName());
-                query.bindValue(2, tab(index)->currentPage());
-
-                query.bindValue(3, static_cast< uint >(tab(index)->continousMode()));
-                query.bindValue(4, static_cast< uint >(tab(index)->layoutMode()));
-
-                query.bindValue(5, static_cast< uint >(tab(index)->scaleMode()));
-                query.bindValue(6, tab(index)->scaleFactor());
-
-                query.bindValue(7, static_cast< uint >(tab(index)->rotation()));
-
-                query.exec();
-
-                if(!query.isActive())
-                {
-                    qDebug() << query.lastError();
-                    break;
-                }
-            }
-        }
-        else
-        {
-            query.exec("DELETE FROM tabs_v2");
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-            }
-        }
-
-        m_database.commit();
-    }
-
-#endif // WITH_SQL
-}
-
-void MainWindow::restoreBookmarks()
-{
-#ifdef WITH_SQL
-
-    if(m_database.isOpen())
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-        query.exec("SELECT filePath,pages FROM bookmarks_v1");
-
-        while(query.next())
-        {
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-                break;
-            }
-
-            BookmarkMenu* bookmark = new BookmarkMenu(query.value(0).toString(), this);
-
-            QStringList pages = query.value(1).toString().split(",", QString::SkipEmptyParts);
-
-            foreach(const QString& page, pages)
-            {
-                bookmark->addJumpToPageAction(page.toInt());
-            }
-
-            connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-            connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-            connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
-
-            m_bookmarksMenu->addMenu(bookmark);
-        }
-
-        m_database.commit();
-    }
-
-#endif // WITH_SQL
-}
-
-void MainWindow::saveBookmarks()
-{
-#ifdef WITH_SQL
-
-    if(m_database.isOpen())
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-        query.exec("DELETE FROM bookmarks_v1");
-
-        if(!query.isActive())
-        {
-            qDebug() << query.lastError();
-        }
-
-        if(s_settings->mainWindow().restoreBookmarks())
-        {
-            query.prepare("INSERT INTO bookmarks_v1 "
-                          "(filePath,pages)"
-                          " VALUES (?,?)");
-
-            foreach(const QAction* action, m_bookmarksMenu->actions())
-            {
-                const BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
-
-                if(bookmark != 0)
-                {
-                    QStringList pages;
-
-                    foreach(const int page, bookmark->pages())
-                    {
-                        pages.append(QString::number(page));
-                    }
-
-                    query.bindValue(0, QFileInfo(bookmark->filePath()).absoluteFilePath());
-                    query.bindValue(1, pages.join(","));
-
-                    query.exec();
-
-                    if(!query.isActive())
-                    {
-                        qDebug() << query.lastError();
-                        break;
-                    }
-                }
-            }
-        }
-
-        m_database.commit();
-    }
-
-#endif // WITH_SQL
-}
-
-void MainWindow::restorePerFileSettings(DocumentView* tab)
-{
-#ifdef WITH_SQL
-
-    if(s_settings->mainWindow().restorePerFileSettings() && m_database.isOpen() && tab != 0)
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-        query.prepare("SELECT currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM perfilesettings_v1 WHERE filePath==?");
-
-        query.bindValue(0, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
-
-        query.exec();
-
-        if(query.next())
-        {
-            tab->setContinousMode(query.value(1).toBool());
-            tab->setLayoutMode(static_cast< LayoutMode >(query.value(2).toUInt()));
-
-            tab->setScaleMode(static_cast< ScaleMode >(query.value(3).toUInt()));
-            tab->setScaleFactor(query.value(4).toReal());
-
-            tab->setRotation(static_cast< Rotation >(query.value(5).toUInt()));
-
-            tab->jumpToPage(query.value(0).toInt(), false);
-        }
-
-        if(!query.isActive())
-        {
-            qDebug() << query.lastError();
-        }
-
-        m_database.commit();
-    }
-
-#else
-
-    Q_UNUSED(tab);
-
-#endif // WITH_SQL
-}
-
-void MainWindow::savePerFileSettings(const DocumentView* tab)
-{
-#ifdef WITH_SQL
-
-    if(s_settings->mainWindow().restorePerFileSettings() && m_database.isOpen() && tab != 0)
-    {
-        m_database.transaction();
-
-        QSqlQuery query(m_database);
-        query.prepare("INSERT OR REPLACE INTO perfilesettings_v1 "
-                      "(lastUsed,filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
-                      " VALUES (?,?,?,?,?,?,?,?)");
-
-        query.bindValue(0, QDateTime::currentDateTime().toTime_t());
-
-        query.bindValue(1, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
-        query.bindValue(2, tab->currentPage());
-
-        query.bindValue(3, static_cast< uint >(tab->continousMode()));
-        query.bindValue(4, static_cast< uint >(tab->layoutMode()));
-
-        query.bindValue(5, static_cast< uint >(tab->scaleMode()));
-        query.bindValue(6, tab->scaleFactor());
-
-        query.bindValue(7, static_cast< uint >(tab->rotation()));
-
-        query.exec();
-
-        if(!query.isActive())
-        {
-            qDebug() << query.lastError();
-        }
-
-        m_database.commit();
-    }
-
-#else
-
-    Q_UNUSED(tab);
-
-#endif // WITH_SQL
 }
 
 #ifdef WITH_DBUS

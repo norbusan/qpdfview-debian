@@ -23,6 +23,7 @@ HEADERS += \
     sources/settingsdialog.h \
     sources/recentlyusedmenu.h \
     sources/bookmarkmenu.h \
+    sources/database.h \
     sources/mainwindow.h
 
 SOURCES += \
@@ -39,6 +40,7 @@ SOURCES += \
     sources/settingsdialog.cpp \
     sources/recentlyusedmenu.cpp \
     sources/bookmarkmenu.cpp \
+    sources/database.cpp \
     sources/mainwindow.cpp \
     sources/main.cpp
 

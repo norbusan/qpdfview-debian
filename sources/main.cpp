@@ -43,6 +43,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_SYNCTEX
 
 #include "documentview.h"
+#include "database.h"
 #include "mainwindow.h"
 
 #ifdef WITH_SIGNALS
@@ -173,6 +174,10 @@ int main(int argc, char** argv)
 
                 return 0;
             }
+            else if(argument == "--choose-instance")
+            {
+                instanceName = Database::instance()->chooseInstance();
+            }
             else
             {
                 File file;
@@ -263,6 +268,8 @@ int main(int argc, char** argv)
 
 #endif // WITH_SYNCTEX
 
+    qApp->setObjectName(instanceName);
+
 #ifdef WITH_DBUS
 
     MainWindow* mainWindow = 0;
@@ -306,7 +313,7 @@ int main(int argc, char** argv)
             }
             else
             {
-                mainWindow = new MainWindow(instanceName);
+                mainWindow = new MainWindow();
 
                 new MainWindowAdaptor(mainWindow);
 
