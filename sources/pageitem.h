@@ -166,6 +166,12 @@ private:
 
     RenderTask* m_renderTask;
 
+    // obsolete pixmap
+
+    QPixmap m_obsoletePixmap;
+    QPointF m_obsoleteTopLeft;
+    QTransform m_obsoleteTransform;
+
     // paint
 
     QPixmap cachedPixmap();

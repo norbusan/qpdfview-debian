@@ -62,6 +62,8 @@ void Settings::PageItem::sync()
     m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
 
+    m_keepObsoletePixmaps = m_settings->value("pageItem/keepObsoletePixmaps", Defaults::PageItem::keepObsoletePixmaps()).toBool();
+
     m_decoratePages = m_settings->value("pageItem/decoratePages", Defaults::PageItem::decoratePages()).toBool();
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
     m_decorateFormFields = m_settings->value("pageItem/decorateFormFields", Defaults::PageItem::decorateFormFields()).toBool();
@@ -79,6 +81,12 @@ void Settings::PageItem::setCacheSize(int cacheSize)
         m_cacheSize = cacheSize;
         m_settings->setValue("pageItem/cacheSize", cacheSize);
     }
+}
+
+void Settings::PageItem::setKeepObsoletePixmaps(bool keepObsoletePixmaps)
+{
+    m_keepObsoletePixmaps = keepObsoletePixmaps;
+    m_settings->setValue("pageItem/keepObsoletePixmaps", keepObsoletePixmaps);
 }
 
 void Settings::PageItem::setDecoratePages(bool decorate)
@@ -152,6 +160,7 @@ Settings::PageItem::PageItem(QSettings* settings) :
     m_cacheSize(Defaults::PageItem::cacheSize()),
     m_progressIcon(),
     m_errorIcon(),
+    m_keepObsoletePixmaps(Defaults::PageItem::keepObsoletePixmaps()),
     m_decoratePages(Defaults::PageItem::decoratePages()),
     m_decorateLinks(Defaults::PageItem::decorateLinks()),
     m_decorateFormFields(Defaults::PageItem::decorateFormFields()),
