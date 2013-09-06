@@ -43,6 +43,7 @@ void GraphicsCompositionModeEffect::draw(QPainter* painter)
 
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
+    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 void TabBar::mousePressEvent(QMouseEvent* event)
@@ -59,6 +60,8 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
     m_tabBarPolicy(TabBarAsNeeded)
 {
     setTabBar(new TabBar(this));
+
+    connect(tabBar(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
 }
 
 TabWidget::TabBarPolicy TabWidget::tabBarPolicy() const
@@ -82,6 +85,11 @@ void TabWidget::setTabBarPolicy(TabWidget::TabBarPolicy tabBarPolicy)
         tabBar()->setVisible(false);
         break;
     }
+}
+
+void TabWidget::on_tabBar_customContextMenuRequested(const QPoint &pos)
+{
+    emit tabContextMenuRequested(tabBar()->mapToGlobal(pos), tabBar()->tabAt(pos));
 }
 
 void TabWidget::tabInserted(int index)

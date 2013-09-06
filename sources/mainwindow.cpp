@@ -495,17 +495,15 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     saveModifications(tab(index), true);
 }
 
-void MainWindow::on_tabBar_customContextMenuRequested(const QPoint& pos)
+void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
 {
-    const int index = m_tabWidget->tabBar()->tabAt(pos);
-
     if(index != -1)
     {
         QMenu menu;
 
         const QAction* openContainingFolderAction = menu.addAction(tr("Open containing folder"));
 
-        const QAction* action = menu.exec(m_tabWidget->tabBar()->mapToGlobal(pos));
+        const QAction* action = menu.exec(globalPos);
 
         if(action == openContainingFolderAction)
         {
@@ -1764,9 +1762,11 @@ void MainWindow::saveBookmarks()
     s_database->saveBookmarks(bookmarks);
 }
 
-bool MainWindow::saveModifications(DocumentView* tab, bool deleteTab)
+bool MainWindow::saveModifications(DocumentView* tab, bool deleteOnSuccess)
 {
     s_database->savePerFileSettings(tab);
+
+    bool success = false;
 
     if(tab->wasModified())
     {
@@ -1780,35 +1780,30 @@ bool MainWindow::saveModifications(DocumentView* tab, bool deleteTab)
             {
                 if(tab->save(filePath, true))
                 {
-                    if(deleteTab)
-                    {
-                        delete tab;
-                    }
-
-                    return true;
+                    success = true;
                 }
                 else
                 {
                     QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
                 }
             }
-
-            return false;
         }
         else if(button == QMessageBox::Discard)
         {
-            if(deleteTab)
-            {
-                delete tab;
-            }
-
-            return true;
+            success = true;
         }
-
-        return false;
+    }
+    else
+    {
+        success = true;
     }
 
-    return true;
+    if(success && deleteOnSuccess)
+    {
+        delete tab;
+    }
+
+    return success;
 }
 
 void MainWindow::createWidgets()
@@ -1827,10 +1822,7 @@ void MainWindow::createWidgets()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
-
-    m_tabWidget->tabBar()->setContextMenuPolicy(Qt::CustomContextMenu);
-
-    connect(m_tabWidget->tabBar(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
+    connect(m_tabWidget, SIGNAL(tabContextMenuRequested(QPoint,int)), SLOT(on_tabWidget_tabContextMenuRequested(QPoint,int)));
 
     // current page
 

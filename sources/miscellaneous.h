@@ -82,6 +82,12 @@ public:
     TabBarPolicy tabBarPolicy() const;
     void setTabBarPolicy(TabBarPolicy tabBarPolicy);
 
+signals:
+    void tabContextMenuRequested(const QPoint& globalPos, int index);
+
+protected slots:
+    void on_tabBar_customContextMenuRequested(const QPoint& pos);
+
 protected:
     void tabInserted(int index);
     void tabRemoved(int index);
