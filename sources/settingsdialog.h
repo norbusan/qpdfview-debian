@@ -108,6 +108,7 @@ private:
     // graphics
 
     QCheckBox* m_keepObsoletePixmapsCheckBox;
+    QCheckBox* m_useDevicePixelRatioCheckBox;
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;

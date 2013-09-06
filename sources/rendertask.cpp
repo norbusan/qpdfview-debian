@@ -31,6 +31,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_page(0),
     m_physicalDpiX(72),
     m_physicalDpiY(72),
+    m_devicePixelRatio(1.0),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
@@ -68,20 +69,35 @@ void RenderTask::run()
         return;
     }
 
-    QImage image;
+    qreal resolutionX;
+    qreal resolutionY;
 
     switch(m_rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        image = m_page->render(m_physicalDpiX * m_scaleFactor, m_physicalDpiY * m_scaleFactor, m_rotation);
+        resolutionX = m_physicalDpiX * m_scaleFactor;
+        resolutionY = m_physicalDpiY * m_scaleFactor;
         break;
     case RotateBy90:
     case RotateBy270:
-        image = m_page->render(m_physicalDpiY * m_scaleFactor, m_physicalDpiX * m_scaleFactor, m_rotation);
+        resolutionX = m_physicalDpiY * m_scaleFactor;
+        resolutionY = m_physicalDpiX * m_scaleFactor;
         break;
     }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation);
+
+    image.setDevicePixelRatio(m_devicePixelRatio);
+
+#else
+
+    QImage image = m_page->render(resolutionX, resolutionY, m_rotation);
+
+#endif // QT_VERSION
 
     if(m_wasCanceled && !m_prefetch)
     {
@@ -95,17 +111,18 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit imageReady(m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
+    emit imageReady(m_physicalDpiX, m_physicalDpiY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
 
     finish();
 }
 
-void RenderTask::start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+void RenderTask::start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
 {
     m_page = page;
 
     m_physicalDpiX = physicalDpiX;
     m_physicalDpiY = physicalDpiY;
+    m_devicePixelRatio = devicePixelRatio;
 
     m_scaleFactor = scaleFactor;
     m_rotation = rotation;

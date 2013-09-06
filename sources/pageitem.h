@@ -72,6 +72,8 @@ public:
     int physicalDpiY() const;
     void setPhysicalDpi(int physicalDpiX, int physicalDpiY);
 
+    static qreal effectiveDevicePixelRatio();
+
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
 
@@ -101,7 +103,7 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);

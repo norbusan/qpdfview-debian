@@ -63,6 +63,7 @@ void Settings::PageItem::sync()
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
 
     m_keepObsoletePixmaps = m_settings->value("pageItem/keepObsoletePixmaps", Defaults::PageItem::keepObsoletePixmaps()).toBool();
+    m_useDevicePixelRatio = m_settings->value("pageItem/useDevicePixelRatio", Defaults::PageItem::useDevicePixelRatio()).toBool();
 
     m_decoratePages = m_settings->value("pageItem/decoratePages", Defaults::PageItem::decoratePages()).toBool();
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
@@ -87,6 +88,12 @@ void Settings::PageItem::setKeepObsoletePixmaps(bool keepObsoletePixmaps)
 {
     m_keepObsoletePixmaps = keepObsoletePixmaps;
     m_settings->setValue("pageItem/keepObsoletePixmaps", keepObsoletePixmaps);
+}
+
+void Settings::PageItem::setUseDevicePixelRatio(bool useDevicePixelRatio)
+{
+    m_useDevicePixelRatio = useDevicePixelRatio;
+    m_settings->setValue("pageItem/useDevicePixelRatio", useDevicePixelRatio);
 }
 
 void Settings::PageItem::setDecoratePages(bool decorate)

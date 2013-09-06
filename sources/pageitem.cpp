@@ -75,7 +75,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,Rotation,bool,bool,QImage)));
+    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)));
 
     m_page = page;
 
@@ -195,6 +195,19 @@ void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
     }
 }
 
+qreal PageItem::effectiveDevicePixelRatio()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return s_settings->pageItem().useDevicePixelRatio() ? qApp->devicePixelRatio() : 1.0;
+
+#else
+
+    return 1.0;
+
+#endif // QT_VERSION
+}
+
 qreal PageItem::scaleFactor() const
 {
     return m_scaleFactor;
@@ -266,7 +279,7 @@ void PageItem::startRender(bool prefetch)
 
     if(!m_renderTask->isRunning())
     {
-        m_renderTask->start(m_page, m_physicalDpiX, m_physicalDpiY, m_scaleFactor, m_rotation, m_invertColors, prefetch);
+        m_renderTask->start(m_page, m_physicalDpiX, m_physicalDpiY, effectiveDevicePixelRatio(), m_scaleFactor, m_rotation, m_invertColors, prefetch);
     }
 }
 
@@ -282,9 +295,9 @@ void PageItem::on_renderTask_finished()
     update();
 }
 
-void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
+void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
 {
-    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
+    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio) || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
         return;
     }
