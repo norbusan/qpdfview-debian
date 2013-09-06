@@ -246,6 +246,7 @@ void PageItem::refresh()
     if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
         m_obsoletePixmap = *s_cache.object(this);
+        m_obsoleteTopLeft = m_boundingRect.topLeft();
         m_obsoleteTransform = m_transform.inverted();
     }
 
@@ -818,7 +819,7 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
         painter->setTransform(m_obsoleteTransform, true);
         painter->setTransform(m_transform, true);
 
-        painter->drawPixmap(m_boundingRect.topLeft(), m_obsoletePixmap);
+        painter->drawPixmap(m_obsoleteTopLeft, m_obsoletePixmap);
 
         painter->restore();
     }
