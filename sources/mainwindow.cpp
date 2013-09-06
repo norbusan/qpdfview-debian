@@ -1745,7 +1745,7 @@ BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
     return 0;
 }
 
-void MainWindow::saveTabs()
+void MainWindow::saveTabs() const
 {
     QList< const DocumentView* > tabs;
 
@@ -1757,7 +1757,7 @@ void MainWindow::saveTabs()
     s_database->saveTabs(tabs);
 }
 
-void MainWindow::saveBookmarks()
+void MainWindow::saveBookmarks() const
 {
     QList< const BookmarkMenu* > bookmarks;
 

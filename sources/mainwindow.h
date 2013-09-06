@@ -213,8 +213,8 @@ private:
 
     BookmarkMenu* bookmarkForCurrentTab() const;
 
-    void saveTabs();
-    void saveBookmarks();
+    void saveTabs() const;
+    void saveBookmarks() const;
 
     bool saveModifications(DocumentView* tab);
 
