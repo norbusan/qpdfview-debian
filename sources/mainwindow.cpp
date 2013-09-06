@@ -138,7 +138,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        s_database->savePerFileSettings(currentTab());
+        saveModifications(currentTab(), false);
 
         if(currentTab()->open(filePath))
         {
@@ -492,9 +492,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    s_database->savePerFileSettings(tab(index));
-
-    delete m_tabWidget->widget(index);
+    saveModifications(tab(index), true);
 }
 
 void MainWindow::on_tabBar_customContextMenuRequested(const QPoint& pos)
@@ -1287,9 +1285,7 @@ void MainWindow::on_nextTab_triggered()
 
 void MainWindow::on_closeTab_triggered()
 {
-    s_database->savePerFileSettings(currentTab());
-
-    delete m_tabWidget->currentWidget();
+    saveModifications(currentTab(), true);
 }
 
 void MainWindow::on_closeAllTabs_triggered()
@@ -1298,38 +1294,38 @@ void MainWindow::on_closeAllTabs_triggered()
 
     while(m_tabWidget->count() > 0)
     {
-        s_database->savePerFileSettings(tab(0));
-
-        delete m_tabWidget->widget(0);
+        saveModifications(tab(0), true);
     }
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    on_tabWidget_currentChanged(-1);
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    DocumentView* newTab = currentTab();
-
     disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    m_tabWidget->removeTab(m_tabWidget->currentIndex());
+    DocumentView* oldTab = currentTab();
+
+    const int oldIndex = m_tabWidget->currentIndex();
+    const QString tabText = m_tabWidget->tabText(oldIndex);
+    const QString tabToolTip = m_tabWidget->tabToolTip(oldIndex);
+
+    m_tabWidget->removeTab(oldIndex);
 
     while(m_tabWidget->count() > 0)
     {
-        s_database->savePerFileSettings(tab(0));
-
-        delete m_tabWidget->widget(0);
+        saveModifications(tab(0), true);
     }
+
+    const int newIndex = m_tabWidget->addTab(oldTab, tabText);
+    m_tabWidget->setTabToolTip(newIndex, tabToolTip);
+    m_tabWidget->setCurrentIndex(newIndex);
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    const QFileInfo fileInfo(newTab->filePath());
-
-    const int index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
-    m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
-    m_tabWidget->setCurrentIndex(index);
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
 void MainWindow::on_tabAction_triggered()
@@ -1620,19 +1616,25 @@ void MainWindow::closeEvent(QCloseEvent* event)
     saveTabs();
     saveBookmarks();
 
-    for(int index = 0; index < m_tabWidget->count(); ++index)
-    {
-        s_database->savePerFileSettings(tab(index));
-    }
-
-    m_searchDock->setVisible(false);
-
     s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
     s_settings->documentView().setMatchCase(m_matchCaseCheckBox->isChecked());
 
     s_settings->mainWindow().setGeometry(m_fullscreenAction->isChecked() ? m_fullscreenAction->data().toByteArray() : saveGeometry());
     s_settings->mainWindow().setState(saveState());
+
+    for(int index = 0; index < m_tabWidget->count(); ++index)
+    {
+        if(!saveModifications(tab(index), false))
+        {
+            m_tabWidget->setCurrentIndex(index);
+
+            event->setAccepted(false);
+            return;
+        }
+    }
+
+    m_searchDock->setVisible(false);
 
     QMainWindow::closeEvent(event);
 }
@@ -1760,6 +1762,53 @@ void MainWindow::saveBookmarks()
     }
 
     s_database->saveBookmarks(bookmarks);
+}
+
+bool MainWindow::saveModifications(DocumentView* tab, bool deleteTab)
+{
+    s_database->savePerFileSettings(tab);
+
+    if(tab->wasModified())
+    {
+        const int button = QMessageBox::warning(this, tr("Warning"), tr("The document '%1' has been modified. Do you want to save your changes?").arg(tab->filePath()), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+
+        if(button == QMessageBox::Save)
+        {
+            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->filePath(), tab->saveFilter().join(";;"));
+
+            if(!filePath.isEmpty())
+            {
+                if(tab->save(filePath, true))
+                {
+                    if(deleteTab)
+                    {
+                        delete tab;
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
+                }
+            }
+
+            return false;
+        }
+        else if(button == QMessageBox::Discard)
+        {
+            if(deleteTab)
+            {
+                delete tab;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    return true;
 }
 
 void MainWindow::createWidgets()

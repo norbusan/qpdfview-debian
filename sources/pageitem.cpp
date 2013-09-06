@@ -697,6 +697,8 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             m_page->removeAnnotation(annotation);
 
             refresh();
+
+            emit wasModified();
         }
     }
 }
@@ -704,6 +706,8 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
 void PageItem::editAnnotation(Model::Annotation* annotation, const QPoint& screenPos)
 {
     annotation->showDialog(screenPos);
+
+    emit wasModified();
 }
 
 void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPos)
@@ -718,6 +722,8 @@ void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPo
     {
         refresh();
     }
+
+    emit wasModified();
 }
 
 void PageItem::prepareGeometry()

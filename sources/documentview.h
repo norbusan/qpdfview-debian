@@ -58,6 +58,8 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    bool wasModified() const;
+
     static QStringList openFilter();
     QStringList saveFilter() const;
 
@@ -180,6 +182,8 @@ protected slots:
 
     void on_pages_sourceRequested(int page, const QPointF& pos);
 
+    void on_pages_wasModified();
+
 protected:
     void resizeEvent(QResizeEvent* event);
 
@@ -204,6 +208,8 @@ private:
 
     QString m_filePath;
     int m_currentPage;
+
+    bool m_wasModified;
 
 #ifdef WITH_CUPS
 

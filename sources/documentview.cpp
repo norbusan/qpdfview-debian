@@ -72,6 +72,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_pages(),
     m_filePath(),
     m_currentPage(-1),
+    m_wasModified(false),
     m_past(),
     m_future(),
     m_continuousMode(false),
@@ -186,6 +187,11 @@ int DocumentView::numberOfPages() const
 int DocumentView::currentPage() const
 {
     return m_currentPage;
+}
+
+bool DocumentView::wasModified() const
+{
+    return m_wasModified;
 }
 
 QStringList DocumentView::openFilter()
@@ -492,6 +498,8 @@ bool DocumentView::open(const QString& filePath)
         m_filePath = filePath;
         m_currentPage = 1;
 
+        m_wasModified = false;
+
         m_past.clear();
         m_future.clear();
 
@@ -535,6 +543,8 @@ bool DocumentView::refresh()
         saveLeftAndTop(left, top);
 
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
+
+        m_wasModified = false;
 
         prepareDocument(document);
 
@@ -581,6 +591,11 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
                             delete[] data;
                             return false;
                         }
+                    }
+
+                    if(withChanges)
+                    {
+                        m_wasModified = false;
                     }
 
                     delete[] data;
@@ -1131,6 +1146,11 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     Q_UNUSED(pos);
 
 #endif // WITH_SYNCTEX
+}
+
+void DocumentView::on_pages_wasModified()
+{
+    m_wasModified = true;
 }
 
 void DocumentView::resizeEvent(QResizeEvent* event)
@@ -1728,6 +1748,8 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
+
+        connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }
 }
 
