@@ -2,6 +2,7 @@ Release 0.4.6:
   * Added function that keeps obsolete pixmaps and displays them until final rendering is available.
   * Added command-line option that displays a dialog to choose the name of the started instance.
   * Added confirmation dialog before closing a modified document.
+  * Added optional support for device pixel ratios that are unequal to one.
 
 Release 0.4.5:
   * Fixed an error in drawing the search progress.
