@@ -1110,7 +1110,7 @@ void MainWindow::on_addAnnotationMode_triggered(bool checked)
 
 void MainWindow::on_settings_triggered()
 {
-    SettingsDialog* settingsDialog = new SettingsDialog(this);
+    QScopedPointer< SettingsDialog > settingsDialog(new SettingsDialog(this));
 
     settingsDialog->resize(s_settings->mainWindow().settingsDialogSize(settingsDialog->sizeHint()));
 
@@ -1131,8 +1131,6 @@ void MainWindow::on_settings_triggered()
     }
 
     s_settings->mainWindow().setSettingsDialogSize(settingsDialog->size());
-
-    delete settingsDialog;
 }
 
 void MainWindow::on_continuousMode_triggered(bool checked)
@@ -1486,13 +1484,11 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int pa
 
 void MainWindow::on_contents_triggered()
 {
-    HelpDialog* dialog = new HelpDialog(this);
+    QScopedPointer< HelpDialog > dialog(new HelpDialog(this));
 
     dialog->resize(s_settings->mainWindow().contentsDialogSize(dialog->sizeHint()));
     dialog->exec();
     s_settings->mainWindow().setContentsDialogSize(dialog->size());
-
-    delete dialog;
 }
 
 void MainWindow::on_about_triggered()
