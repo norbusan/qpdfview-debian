@@ -61,6 +61,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "miscellaneous.h"
 #include "printdialog.h"
 #include "settingsdialog.h"
+#include "helpdialog.h"
 #include "recentlyusedmenu.h"
 #include "bookmarkmenu.h"
 #include "database.h"
@@ -1485,19 +1486,7 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int pa
 
 void MainWindow::on_contents_triggered()
 {
-    QDialog* dialog = new QDialog(this);
-
-    QTextBrowser* textBrowser = new QTextBrowser(dialog);
-    textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH);
-    textBrowser->setSource(QUrl("help.html"));
-
-    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);
-    connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
-    connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
-
-    dialog->setLayout(new QVBoxLayout(dialog));
-    dialog->layout()->addWidget(textBrowser);
-    dialog->layout()->addWidget(dialogButtonBox);
+    HelpDialog* dialog = new HelpDialog(this);
 
     dialog->resize(s_settings->mainWindow().contentsDialogSize(dialog->sizeHint()));
     dialog->exec();
