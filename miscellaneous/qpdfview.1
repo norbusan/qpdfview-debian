@@ -1,7 +1,7 @@
 .\" 
 .\" 
-.\" Copyright 2013 Benjamin Eltzner
-.\" Copyright 2012 Adam Reichold
+.\" Copyright 2012-2013 Benjamin Eltzner
+.\" Copyright 2012-2013 Adam Reichold
 .\" Copyright 2012 Michał Trybus
 .\" 
 .\" This file is part of qpdfview.
@@ -24,7 +24,7 @@
 .\"
 .TH QPDFVIEW 1 "July 2012"
 .SH NAME
-qpdfview \- tabbed PDF viewer
+qpdfview \- tabbed document viewer
 .SH SYNOPSIS
 .B qpdfview
 .I [options] [file[#page]] [file[#src:name:line:column]] ...
@@ -46,6 +46,8 @@ If an instance of qpdfview is started with this option, any files that are opene
 Uses
 .I name
 as the name of the instance contacted or created using the "\-\-unique" option. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name.
+.IP "\-\-choose-instance"
+TODO
 .IP [file[#page]]
 .I file
 specifies the file to open. The optional parameter
@@ -145,7 +147,6 @@ The command
 .B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
 .RS
 opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
-
 .SH BUGS
 If you find a bug, please report it at
 .RS
