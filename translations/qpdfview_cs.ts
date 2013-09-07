@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vybrat instanci</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instance:</translation>
     </message>
 </context>
 <context>
@@ -111,7 +111,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otevřít obsahující složku</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -204,7 +204,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1780"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokument &apos;%1&apos; byl změněn. Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1850"/>
@@ -1108,7 +1108,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zachovat zastaralé pixmapy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="428"/>
@@ -1265,7 +1265,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Název instance v názvu okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="664"/>

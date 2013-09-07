@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виберіть екземпляр</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Екземпляр:</translation>
     </message>
 </context>
 <context>
@@ -111,7 +111,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Відкрити теку, яка містить дані</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -204,7 +204,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1780"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">До документа «%1» внесено зміни. Хочете зберегти ці зміни?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1850"/>
@@ -1108,12 +1108,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберігати застарілі растрові зображення:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="428"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Використовувати співвідношення у пікселях пристрою:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
@@ -1265,7 +1265,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назва екземпляра у заголовку вікна:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="664"/>

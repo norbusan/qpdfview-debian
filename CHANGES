@@ -3,6 +3,8 @@ Release 0.4.6:
   * Added command-line option that displays a dialog to choose the name of the started instance.
   * Added confirmation dialog before closing a modified document.
   * Added optional support for device pixel ratios that are unequal to one.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Czech translation. Thanks to Pavel Fric.
 
 Release 0.4.5:
   * Fixed an error in drawing the search progress.
