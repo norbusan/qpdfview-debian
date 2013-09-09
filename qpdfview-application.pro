@@ -179,7 +179,7 @@ system("sed -e \"s:DATA_INSTALL_PATH:$${DATA_INSTALL_PATH}:\" -e \"s:MIME_TYPES:
 
 target.path = $${TARGET_INSTALL_PATH}
 
-data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help.html
+data.files = icons/qpdfview.svg translations/*.qm miscellaneous/help*.html
 data.path = $${DATA_INSTALL_PATH}
 
 launcher.files = $${DESKTOP_FILE}

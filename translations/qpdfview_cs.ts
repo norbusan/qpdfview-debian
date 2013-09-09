@@ -88,6 +88,15 @@
     </message>
 </context>
 <context>
+    <name>HelpDialog</name>
+    <message>
+        <location filename="../sources/helpdialog.cpp" line="36"/>
+        <source>help.html</source>
+        <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="../sources/mainwindow.cpp" line="170"/>
@@ -898,37 +907,37 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="128"/>
+        <location filename="../sources/main.cpp" line="134"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Prázdný název instance není povolen.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="139"/>
+        <location filename="../sources/main.cpp" line="145"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Prázdný text k vyhledání není při vyhledávání povolen.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="209"/>
+        <location filename="../sources/main.cpp" line="215"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Použití&apos;--instance&apos; vyžaduje název instance.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="215"/>
+        <location filename="../sources/main.cpp" line="221"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Použití&apos;--instance&apos; není povoleno bez použití &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="221"/>
+        <location filename="../sources/main.cpp" line="227"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Použití&apos;--search&apos; vyžaduje text k vyhledání.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="264"/>
+        <location filename="../sources/main.cpp" line="270"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="361"/>
+        <location filename="../sources/main.cpp" line="367"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Nepodařilo se připravit zacházení se signálem.</translation>
     </message>
