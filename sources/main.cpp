@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QLibraryInfo>
 #include <QMessageBox>
 #include <QScopedPointer>
 #include <QTranslator>
@@ -81,17 +82,22 @@ int main(int argc, char** argv)
 
     QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
 
-    QTranslator translator;
+    QTranslator toolkitTranslator;
+    QTranslator applicationTranslator;
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
 
-    if(translator.load(QLocale::system(), "qpdfview", "_", QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
-    else if(translator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
+    if(toolkitTranslator.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { application.installTranslator(&toolkitTranslator); }
+
+    if(applicationTranslator.load(QLocale::system(), "qpdfview", "_", QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&applicationTranslator); }
+    else if(applicationTranslator.load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { application.installTranslator(&applicationTranslator); }
 
 #else
 
-    if(translator.load("qpdfview_" + QLocale::system().name(), QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&translator); }
-    else if(translator.load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { application.installTranslator(&translator); }
+    if(toolkitTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { application.installTranslator(&toolkitTranslator); }
+
+    if(applicationTranslator.load("qpdfview_" + QLocale::system().name(), QDir(QApplication::applicationDirPath()).filePath("data"))) { application.installTranslator(&applicationTranslator); }
+    else if(applicationTranslator.load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { application.installTranslator(&applicationTranslator); }
 
 #endif // QT_VERSION
 
