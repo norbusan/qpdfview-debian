@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pilih kejadian</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kejadian:</translation>
     </message>
 </context>
 <context>
@@ -90,7 +90,7 @@
 <context>
     <name>HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="36"/>
+        <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
         <translation type="unfinished"></translation>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Buka folder yang mengandungi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1780"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokumen &apos;%1&apos; telah diubahsuai. Anda hendak simpan perubahan yang anda buat?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1850"/>
@@ -1117,12 +1117,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kekalkan peta pix lapuk:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="428"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guna nisbah piksel peranti:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="435"/>
@@ -1274,7 +1274,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nama kejadian dalam tajuk tetingkap:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="664"/>

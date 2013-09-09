@@ -84,13 +84,13 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páxina %1</translation>
     </message>
 </context>
 <context>
     <name>HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="36"/>
+        <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
         <translation type="unfinished"></translation>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir o cartafol contedor</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -494,11 +494,6 @@
         <translation type="unfinished">&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2100"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Buscar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2065"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Esquema</translation>
@@ -512,6 +507,11 @@
         <location filename="../sources/mainwindow.cpp" line="2088"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Miniaturas</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2100"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Buscar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2205"/>

@@ -90,7 +90,7 @@
 <context>
     <name>HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="36"/>
+        <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
         <translation type="unfinished"></translation>

@@ -3,8 +3,12 @@ Release 0.4.6:
   * Added command-line option that displays a dialog to choose the name of the started instance.
   * Added confirmation dialog before closing a modified document.
   * Added optional support for device pixel ratios that are unequal to one.
+  * Fixed loading of translation for Qt dialogs, e.g. the print dialog.
+  * Added support for translations of online help.
   * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
   * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Galician translation. Thanks to Marcos Lans.
+  * Updated Malay translation. Thanks to abuyop.
 
 Release 0.4.5:
   * Fixed an error in drawing the search progress.
