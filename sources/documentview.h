@@ -281,6 +281,8 @@ private:
     QMultiMap< int, QRectF > m_results;
     QMultiMap< int, QRectF >::iterator m_currentResult;
 
+    QMultiMap< int, QRectF >::iterator previousResult(QMultiMap< int, QRectF >::iterator result);
+
     SearchTask* m_searchTask;
 
 };

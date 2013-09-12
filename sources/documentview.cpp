@@ -797,21 +797,21 @@ void DocumentView::findPrevious()
     {
         if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
         {
-            --m_currentResult;
+            m_currentResult = previousResult(m_currentResult);
         }
         else
         {
-            m_currentResult = --m_results.upperBound(m_currentPage - 1);
+            m_currentResult = previousResult(m_results.upperBound(m_currentPage - 1));
         }
     }
     else
     {
-        m_currentResult = --m_results.upperBound(m_currentPage - 1);
+        m_currentResult = previousResult(m_results.upperBound(m_currentPage - 1));
     }
 
     if(m_currentResult == m_results.end())
     {
-        m_currentResult = --m_results.end();
+        m_currentResult = previousResult(m_results.end());
     }
 
     if(m_currentResult != m_results.end())
@@ -2104,4 +2104,9 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
 
     viewport()->update();
+}
+
+QMultiMap< int, QRectF >::iterator DocumentView::previousResult(QMultiMap< int, QRectF >::iterator result)
+{
+    return result != m_results.begin() ? result - 1 : m_results.end();
 }

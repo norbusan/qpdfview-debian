@@ -1096,6 +1096,8 @@ void MainWindow::on_cancelSearch_triggered()
     {
         tab(index)->cancelSearch();
     }
+
+    currentTab()->setFocus();
 }
 
 void MainWindow::on_copyToClipboardMode_triggered(bool checked)
