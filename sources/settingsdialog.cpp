@@ -345,11 +345,7 @@ void SettingsDialog::createBehaviorTab()
 
     // highlight color
 
-    m_highlightColorComboBox = new QComboBox(this);
-    m_highlightColorComboBox->setEditable(true);
-    m_highlightColorComboBox->setInsertPolicy(QComboBox::NoInsert);
-    m_highlightColorComboBox->addItems(QColor::colorNames());
-    m_highlightColorComboBox->lineEdit()->setText(s_settings->pageItem().highlightColor().name());
+    createColorComboBox(m_highlightColorComboBox, s_settings->pageItem().highlightColor());
 
     m_behaviorLayout->addRow(tr("Highlight color:"), m_highlightColorComboBox);
 
@@ -366,11 +362,7 @@ void SettingsDialog::createBehaviorTab()
 
     // annotation color
 
-    m_annotationColorComboBox = new QComboBox(this);
-    m_annotationColorComboBox->setEditable(true);
-    m_annotationColorComboBox->setInsertPolicy(QComboBox::NoInsert);
-    m_annotationColorComboBox->addItems(QColor::colorNames());
-    m_annotationColorComboBox->lineEdit()->setText(s_settings->pageItem().annotationColor().name());
+    createColorComboBox(m_annotationColorComboBox, s_settings->pageItem().annotationColor());
 
     m_behaviorLayout->addRow(tr("Annotation color:"), m_annotationColorComboBox);
 
@@ -450,21 +442,13 @@ void SettingsDialog::createGraphicsTab()
 
     // background color
 
-    m_backgroundColorComboBox = new QComboBox(this);
-    m_backgroundColorComboBox->setEditable(true);
-    m_backgroundColorComboBox->setInsertPolicy(QComboBox::NoInsert);
-    m_backgroundColorComboBox->addItems(QColor::colorNames());
-    m_backgroundColorComboBox->lineEdit()->setText(s_settings->pageItem().backgroundColor().name());
+    createColorComboBox(m_backgroundColorComboBox, s_settings->pageItem().backgroundColor());
 
     m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorComboBox);
 
     // paper color
 
-    m_paperColorComboBox = new QComboBox(this);
-    m_paperColorComboBox->setEditable(true);
-    m_paperColorComboBox->setInsertPolicy(QComboBox::NoInsert);
-    m_paperColorComboBox->addItems(QColor::colorNames());
-    m_paperColorComboBox->lineEdit()->setText(s_settings->pageItem().paperColor().name());
+    createColorComboBox(m_paperColorComboBox, s_settings->pageItem().paperColor());
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
 
@@ -741,6 +725,15 @@ void SettingsDialog::resetModifiersTab()
 
     m_copyToClipboardModifiersComboBox->setCurrentIndex(m_copyToClipboardModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())));
     m_addAnnotationModifiersComboBox->setCurrentIndex(m_addAnnotationModifiersComboBox->findData(static_cast< int >(Defaults::PageItem::addAnnotationModifiers())));
+}
+
+void SettingsDialog::createColorComboBox(QComboBox*& comboBox, const QColor& color)
+{
+    comboBox = new QComboBox(this);
+    comboBox->setEditable(true);
+    comboBox->setInsertPolicy(QComboBox::NoInsert);
+    comboBox->addItems(QColor::colorNames());
+    comboBox->lineEdit()->setText(color.name());
 }
 
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)

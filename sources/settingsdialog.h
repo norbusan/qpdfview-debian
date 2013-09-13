@@ -167,6 +167,9 @@ private:
     void createModifiersTab();
     void resetModifiersTab();
 
+    // helper methods
+
+    void createColorComboBox(QComboBox*& comboBox, const QColor& color);
     void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
 
 };
