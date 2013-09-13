@@ -6,5 +6,15 @@ Icon=DATA_INSTALL_PATH/qpdfview.svg
 GenericName=PDF viewer
 Comment=A tabbed PDF viewer using the poppler library.
 Categories=Viewer;Office;
+TryExec=qpdfview
 Exec=qpdfview --unique %F
 MimeType=MIME_TYPES
+Actions=ChooseInstance;NonUniqueInstance;
+
+[Desktop Action ChooseInstance]
+Name=Choose instance
+Exec=qpdfview --unique --choose-instance %F
+
+[Desktop Action NonUniqueInstance]
+Name=Non-unique instance
+Exec=qpdfview %F
