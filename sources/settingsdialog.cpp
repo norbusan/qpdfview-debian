@@ -194,6 +194,9 @@ void SettingsDialog::accept()
     const QColor paperColor(m_paperColorComboBox->currentText());
     s_settings->pageItem().setPaperColor(paperColor.isValid() ? paperColor : Defaults::PageItem::paperColor());
 
+    const QColor presentationBackgroundColor(m_presentationBackgroundColorComboBox->currentText());
+    s_settings->presentationView().setBackgroundColor(presentationBackgroundColor.isValid() ? presentationBackgroundColor : QColor());
+
     s_settings->documentView().setPagesPerRow(m_pagesPerRowSpinBox->value());
 
     s_settings->documentView().setPageSpacing(m_pageSpacingSpinBox->value());
@@ -452,6 +455,12 @@ void SettingsDialog::createGraphicsTab()
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
 
+    // presentation background color
+
+    createColorComboBox(m_presentationBackgroundColorComboBox, s_settings->presentationView().backgroundColor());
+
+    m_graphicsLayout->addRow(tr("Presentation background color:"), m_presentationBackgroundColorComboBox);
+
     // pages per row
 
     m_pagesPerRowSpinBox = new QSpinBox(this);
@@ -550,6 +559,8 @@ void SettingsDialog::resetGraphicsTab()
 
     m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
     m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
+
+    m_presentationBackgroundColorComboBox->lineEdit()->clear();
 
     m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
@@ -733,7 +744,7 @@ void SettingsDialog::createColorComboBox(QComboBox*& comboBox, const QColor& col
     comboBox->setEditable(true);
     comboBox->setInsertPolicy(QComboBox::NoInsert);
     comboBox->addItems(QColor::colorNames());
-    comboBox->lineEdit()->setText(color.name());
+    comboBox->lineEdit()->setText(color.isValid() ? color.name() : QString());
 }
 
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
