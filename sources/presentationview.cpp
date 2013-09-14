@@ -402,7 +402,12 @@ void PresentationView::preparePages()
 
 void PresentationView::prepareBackground()
 {
-    QColor backgroundColor = s_settings->pageItem().paperColor();
+    QColor backgroundColor = s_settings->presentationView().backgroundColor();
+
+    if(!backgroundColor.isValid())
+    {
+        backgroundColor = s_settings->pageItem().paperColor();
+    }
 
     if(m_invertColors)
     {

@@ -124,6 +124,9 @@ public:
         int screen() const;
         void setScreen(int screen);
 
+        QColor backgroundColor() const;
+        void setBackgroundColor(const QColor& backgroundColor);
+
     private:
         PresentationView(QSettings* settings);
         friend class Settings;

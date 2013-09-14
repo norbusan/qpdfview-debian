@@ -206,6 +206,16 @@ void Settings::PresentationView::setScreen(int screen)
     m_settings->setValue("presentationView/screen", screen);
 }
 
+QColor Settings::PresentationView::backgroundColor() const
+{
+    return m_settings->value("presentationView/backgroundColor").value< QColor >();
+}
+
+void Settings::PresentationView::setBackgroundColor(const QColor& backgroundColor)
+{
+    m_settings->setValue("presentationView/backgroundColor", backgroundColor);
+}
+
 Settings::PresentationView::PresentationView(QSettings* settings) :
     m_settings(settings)
 {
