@@ -423,6 +423,8 @@ public:
         static inline bool sync() { return false; }
         static inline int screen() { return -1; }
 
+        static inline QColor backgroundColor() { return QColor(); }
+
     private:
         PresentationView() {}
 
