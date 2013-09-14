@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz instancję</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Instancja:</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Strona %1</translation>
     </message>
 </context>
 <context>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>help.html</translation>
     </message>
 </context>
 <context>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz folder zawierający</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1782"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>The document &apos;%1&apos; has been modified. Do you want to save your changes?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1852"/>
@@ -494,11 +494,6 @@
         <translation>&amp;Widok</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2102"/>
-        <source>&amp;Search</source>
-        <translation>&amp;Wyszukaj</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2067"/>
         <source>&amp;Outline</source>
         <translation>&amp;Konspekt</translation>
@@ -512,6 +507,11 @@
         <location filename="../sources/mainwindow.cpp" line="2090"/>
         <source>&amp;Thumbnails</source>
         <translation>&amp;Miniatury</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2102"/>
+        <source>&amp;Search</source>
+        <translation>&amp;Wyszukaj</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2207"/>
@@ -1026,6 +1026,11 @@
         <translation>Domyślne</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
+        <source>Defaults on current tab</source>
+        <translation>Domyślne na bieżącej karcie</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Open URL:</source>
         <translation>Otwieraj URL-e:</translation>
@@ -1080,6 +1085,21 @@
         <translation>Ekran do prezentacji:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="350"/>
+        <source>Highlight color:</source>
+        <translation>Kolor podświetlenia:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="358"/>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <source>Highlight duration:</source>
+        <translation>Czas trwania podświetlenia:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Annotation color:</source>
         <translation>Kolor adnotacji:</translation>
@@ -1095,6 +1115,16 @@
         <translation>Edytor tekstu źródłowego:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="407"/>
+        <source>Keep obsolete pixmaps:</source>
+        <translation>Zachowaj przestarzałe mapy pikseli:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="420"/>
+        <source>Use device pixel ratio:</source>
+        <translation>Użyj współczynnika piksela urządzenia:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Decorate pages:</source>
         <translation>Dekoracje stron:</translation>
@@ -1108,36 +1138,6 @@
         <location filename="../sources/settingsdialog.cpp" line="441"/>
         <source>Decorate form fields:</source>
         <translation>Dekoracje pól formularza:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="358"/>
-        <source>None</source>
-        <translation>Brak</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="118"/>
-        <source>Defaults on current tab</source>
-        <translation>Domyślne na bieżącej karcie</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="350"/>
-        <source>Highlight color:</source>
-        <translation>Kolor podświetlenia:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
-        <source>Highlight duration:</source>
-        <translation>Czas trwania podświetlenia:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="407"/>
-        <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="420"/>
-        <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="447"/>
@@ -1252,11 +1252,6 @@
         <translation>Ostatnio używane liczba:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="634"/>
-        <source>Current page in window title:</source>
-        <translation>Bieżąca strona w tytule okna:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>File tool bar:</source>
         <translation>Pasek narzędziowy &quot;Plik&quot;:</translation>
@@ -1272,14 +1267,19 @@
         <translation>Pasek narzędziowy &quot;Widok&quot;:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="634"/>
+        <source>Current page in window title:</source>
+        <translation>Bieżąca strona w tytule okna:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="641"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa instancji w tytule okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronizuj widok konspektu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="655"/>
@@ -1320,6 +1320,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation>Działanie</translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation>Sekwencja klawiszy</translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation>Przejdź wstecz</translation>
@@ -1348,16 +1358,6 @@
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
         <translation>Idź w prawo</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation>Działanie</translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
-        <translation>Sekwencja klawiszy</translation>
     </message>
 </context>
 <context>

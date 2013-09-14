@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Choisir un lot de fichiers</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lot de fichiers</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Page %1</translation>
     </message>
 </context>
 <context>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouvrir le répertoire contenant le fichier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1782"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Le document « %1 » a été modifié. Voulez-vous enregistrer vos changements ?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1852"/>
@@ -485,7 +485,7 @@
         <location filename="../sources/mainwindow.cpp" line="2038"/>
         <location filename="../sources/mainwindow.cpp" line="2184"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Modifier</translation>
+        <translation type="unfinished">&amp;Édition</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2041"/>
@@ -980,7 +980,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="29"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished">Récemment &amp;utilisé</translation>
+        <translation type="unfinished">&amp;Récemment ouvert</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
@@ -1052,7 +1052,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="299"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Suivre récemment utilisé :</translation>
+        <translation type="unfinished">Suivre les fichiers récemment ouverts :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="306"/>
@@ -1117,7 +1117,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Conserver l&apos;affichage lors du zoom</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="420"/>
@@ -1274,7 +1274,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="641"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afficher le nom du lot de fichiers dans le titre de la fenêtre</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
@@ -1314,7 +1314,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="717"/>
         <source>Add annotation:</source>
-        <translation type="unfinished">Ajouter une annotations :</translation>
+        <translation type="unfinished">Ajouter une annotation :</translation>
     </message>
 </context>
 <context>

@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seleccionar instancia</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instancia:</translation>
     </message>
 </context>
 <context>
@@ -64,7 +64,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation type="unfinished">A apertura de URL está desactivada na configuración.</translation>
+        <translation type="unfinished">A apertura de URL está desactivada nos axustes.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1140"/>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
 </context>
 <context>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1782"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">O documento «%1» modificouse. Desexa gardar os cambios?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1852"/>
@@ -1117,12 +1117,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manter os mapas de píxeles obsoletos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="420"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar a taxa de píxeles do dispositivo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
@@ -1274,12 +1274,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="641"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nome da instancia no título da xanela:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizar a vista en esquema:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="655"/>
