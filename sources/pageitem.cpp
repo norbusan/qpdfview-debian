@@ -802,8 +802,6 @@ QPixmap PageItem::cachedPixmap()
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
             s_cache.insert(this, new QPixmap(pixmap), cost);
-
-            return pixmap;
         }
         else
         {
