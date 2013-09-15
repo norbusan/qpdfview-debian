@@ -256,14 +256,14 @@ const QTransform& PageItem::normalizedTransform() const
 
 void PageItem::refresh()
 {
+    cancelRender();
+
     if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
         m_obsoletePixmap = *s_cache.object(this);
         m_obsoleteTopLeft = m_boundingRect.topLeft();
         m_obsoleteTransform = m_transform.inverted();
     }
-
-    cancelRender();
 
     s_cache.remove(this);
 
@@ -288,6 +288,7 @@ void PageItem::cancelRender()
     m_renderTask->cancel();
 
     m_pixmap = QPixmap();
+    m_obsoletePixmap = QPixmap();
 }
 
 void PageItem::on_renderTask_finished()
