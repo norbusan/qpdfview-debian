@@ -43,7 +43,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 static void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
 {
-    comboBox->setCurrentText(color.isValid() ? color.name() : QString());
+    comboBox->lineEdit()->setText(color.isValid() ? color.name() : QString());
 }
 
 static QColor getValidColorFromCurrentText(QComboBox* comboBox, const QColor& defaultColor)
