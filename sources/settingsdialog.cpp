@@ -41,6 +41,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "miscellaneous.h"
 
+static void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
+{
+    comboBox->setCurrentText(color.isValid() ? color.name() : QString());
+}
+
+static QColor getValidColorFromCurrentText(QComboBox* comboBox, const QColor& defaultColor)
+{
+    const QColor color(comboBox->currentText());
+
+    return color.isValid() ? color : defaultColor;
+}
+
 Settings* SettingsDialog::s_settings = 0;
 
 SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
@@ -169,13 +181,9 @@ void SettingsDialog::accept()
     s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
-    const QColor highlightColor(m_highlightColorComboBox->currentText());
-    s_settings->pageItem().setHighlightColor(highlightColor.isValid() ? highlightColor : Defaults::PageItem::highlightColor());
-
+    s_settings->pageItem().setHighlightColor(getValidColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
-
-    const QColor annotationColor(m_annotationColorComboBox->currentText());
-    s_settings->pageItem().setAnnotationColor(annotationColor.isValid() ? annotationColor : Defaults::PageItem::annotationColor());
+    s_settings->pageItem().setAnnotationColor(getValidColorFromCurrentText(m_annotationColorComboBox, Defaults::PageItem::annotationColor()));
 
     s_settings->documentView().setSourceEditor(m_sourceEditorLineEdit->text());
 
@@ -188,11 +196,9 @@ void SettingsDialog::accept()
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
 
-    const QColor backgroundColor(m_backgroundColorComboBox->currentText());
-    s_settings->pageItem().setBackgroundColor(backgroundColor.isValid() ? backgroundColor : Defaults::PageItem::backgroundColor());
-
-    const QColor paperColor(m_paperColorComboBox->currentText());
-    s_settings->pageItem().setPaperColor(paperColor.isValid() ? paperColor : Defaults::PageItem::paperColor());
+    s_settings->pageItem().setBackgroundColor(getValidColorFromCurrentText(m_backgroundColorComboBox, Defaults::PageItem::backgroundColor()));
+    s_settings->pageItem().setPaperColor(getValidColorFromCurrentText(m_paperColorComboBox, Defaults::PageItem::paperColor()));
+    s_settings->presentationView().setBackgroundColor(getValidColorFromCurrentText(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor()));
 
     s_settings->documentView().setPagesPerRow(m_pagesPerRowSpinBox->value());
 
@@ -390,9 +396,9 @@ void SettingsDialog::resetBehaviorTab()
     m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
-    m_highlightColorComboBox->lineEdit()->setText(Defaults::PageItem::highlightColor().name());
+    setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
-    m_annotationColorComboBox->lineEdit()->setText(Defaults::PageItem::annotationColor().name());
+    setCurrentTextToColorName(m_annotationColorComboBox, Defaults::PageItem::annotationColor());
 
     m_sourceEditorLineEdit->clear();
 }
@@ -451,6 +457,12 @@ void SettingsDialog::createGraphicsTab()
     createColorComboBox(m_paperColorComboBox, s_settings->pageItem().paperColor());
 
     m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
+
+    // presentation background color
+
+    createColorComboBox(m_presentationBackgroundColorComboBox, s_settings->presentationView().backgroundColor());
+
+    m_graphicsLayout->addRow(tr("Presentation background color:"), m_presentationBackgroundColorComboBox);
 
     // pages per row
 
@@ -548,8 +560,9 @@ void SettingsDialog::resetGraphicsTab()
     m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());
     m_decorateFormFieldsCheckBox->setChecked(Defaults::PageItem::decorateFormFields());
 
-    m_backgroundColorComboBox->lineEdit()->setText(Defaults::PageItem::backgroundColor().name());
-    m_paperColorComboBox->lineEdit()->setText(Defaults::PageItem::paperColor().name());
+    setCurrentTextToColorName(m_backgroundColorComboBox, Defaults::PageItem::backgroundColor());
+    setCurrentTextToColorName(m_paperColorComboBox, Defaults::PageItem::paperColor());
+    setCurrentTextToColorName(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor());
 
     m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
@@ -733,7 +746,8 @@ void SettingsDialog::createColorComboBox(QComboBox*& comboBox, const QColor& col
     comboBox->setEditable(true);
     comboBox->setInsertPolicy(QComboBox::NoInsert);
     comboBox->addItems(QColor::colorNames());
-    comboBox->lineEdit()->setText(color.name());
+
+    setCurrentTextToColorName(comboBox, color);
 }
 
 void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
