@@ -10,11 +10,12 @@ Release 0.4.6:
   * Updated Ukrainian translation and added partial translation of the online help. Thanks to Yuri Chornoivan.
   * Updated Czech translation. Thanks to Pavel Fric.
   * Updated Galician translation and added partial translation of the online help. Thanks to Marcos Lans.
-  * Updated Malay translation. Thanks to abuyop.
+  * Updated Malay translation and added partial translation of the online help. Thanks to abuyop.
   * Updated Polish translation. Thanks to Mateusz Łukasik.
-  * Updated French translation. Thanks to Arnaud Schmittbuhl.
-  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated French translation and added partial translation of the online help. Thanks to Arnaud Schmittbuhl, Pierre Soulat and Pierre Slamich.
+  * Updated Italian translation and added partial translation of the online help. Thanks to Claudio Arseni.
   * Updated Catalan translation. Thanks to Marc Coll Carrillo.
+  * Added partial Bulgarian translation of the online help. Thanks to Atanas Kovachki.
 
 Release 0.4.5:
   * Fixed an error in drawing the search progress.

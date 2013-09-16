@@ -47,13 +47,13 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     </ol>
     <li><a href="#mainview">Vista principal</a></li>
     <li><a href="#auxiliaryviews">Vistas auxiliares</a></li>
-    <li><a href="#settings">Settings</a></li>
+    <li><a href="#settings">Axustes</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
-    	<li><a href="#graphicssettings">Graphics settings</a></li>
-    	<li><a href="#interfacesettings">Interface settings</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
-    	<li><a href="#modifiersettings">Modifier settings</a></li>
+    	<li><a href="#behaviorsettings">Axustes do comportamento</a></li>
+    	<li><a href="#graphicssettings">Axustes gráficos</a></li>
+    	<li><a href="#interfacesettings">Axustes da interface</a></li>
+    	<li><a href="#shortcutsettings">Axustes dos atallos</a></li>
+    	<li><a href="#modifiersettings">Axustes dos modificadores</a></li>
     </ol>
 </ol>
 
@@ -71,8 +71,8 @@ configuration files.</p>
 <h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
+	<li><b>Abrir...</b> Inicia o diálogo de selección do ficheiro para abrir na
+lapela actual. Se non hai aberta unha lapela, abrirase nunha nova.</li>
 	<li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
 tabs.</li>
 	<li><b>Recently used</b> Contains a list of the ten most recently used files (if
@@ -282,8 +282,11 @@ resp. column number.</li>
 <h4><a name="graphicssettings">Graphics settings</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Keep obsolete pixmaps</b> TODO</li>
-    <li><b>Use device pixel ratio</b> TODO</li>
+    <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
+factor, cached pixmaps will be used to draw approximations of final pixmaps
+until these are available at the cost of increased memory usage.</li>
+    <li><b>Use device pixel ratio</b> If enabled, the highest available device pixel
+ratio is used to render at physical and display at logical resolution.</li>
     <li><b>Decorate pages</b> Determines whether pages are set apart from the
 background.</li>
     <li><b>Decorate links</b> Determines whether links are highlighted by red
@@ -294,6 +297,9 @@ by blue frames.</li>
 color keywords or hexadecimal notation '#rrggbb'.</li>
     <li><b>Paper color</b> Determines the color of pages using SVG color keywords or
 hexadecimal notation '#rrggbb'.</li>
+    <li><b>Presentation background color</b> Overrides the paper color in the
+computation of the background color of the presentation view and is defined
+using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
     <li><b>Invert colors</b> Determines whether pages are rendered with inverted
 colors.</li>
     <li><b>Pages per row</b> Number of pages per row in the 'multiple pages' layout
