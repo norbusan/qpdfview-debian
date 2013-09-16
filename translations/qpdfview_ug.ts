@@ -628,67 +628,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="357"/>
+        <location filename="../sources/pageitem.cpp" line="359"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">بەت %1 غا يۆتكىلىدۇ.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="361"/>
+        <location filename="../sources/pageitem.cpp" line="363"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="369"/>
+        <location filename="../sources/pageitem.cpp" line="371"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="404"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="620"/>
+        <location filename="../sources/pageitem.cpp" line="622"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">تېكىست كۆچۈر(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="621"/>
+        <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">سۈرەت كۆچۈر(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="622"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">سۈرەتنى ھۆججەتكە ساقلا(&amp;F)…</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="648"/>
+        <location filename="../sources/pageitem.cpp" line="650"/>
         <source>Save image to file</source>
         <translation type="unfinished">سۈرەتنى ھۆججەتكە ساقلا</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Warning</source>
         <translation type="unfinished">ئاگاھلاندۇرۇش</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">سۈرەتنى ھۆججەت ‹%1› غا ساقلىيالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="665"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">تېكىست قوش(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="666"/>
+        <location filename="../sources/pageitem.cpp" line="668"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">يورۇتۇش قوش((&amp;H))</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="703"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished"></translation>
     </message>

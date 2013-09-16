@@ -628,67 +628,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="357"/>
+        <location filename="../sources/pageitem.cpp" line="359"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Pergi ke halaman %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="361"/>
+        <location filename="../sources/pageitem.cpp" line="363"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Pergi ke halaman %1 dari fail &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="369"/>
+        <location filename="../sources/pageitem.cpp" line="371"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Buka &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="404"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Sunting medan borang &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="620"/>
+        <location filename="../sources/pageitem.cpp" line="622"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Salin &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="621"/>
+        <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Salin &amp;imej</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="622"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Simpan imej ke &amp;fail...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="648"/>
+        <location filename="../sources/pageitem.cpp" line="650"/>
         <source>Save image to file</source>
         <translation type="unfinished">Simpan imej ke fail</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan imej ke fail &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="665"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Tambah &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="666"/>
+        <location filename="../sources/pageitem.cpp" line="668"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Tambah s&amp;orot</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="703"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Buang anotasi</translation>
     </message>
@@ -1152,7 +1152,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Warna latar belakang persembahan:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="473"/>

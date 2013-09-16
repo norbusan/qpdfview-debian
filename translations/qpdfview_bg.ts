@@ -628,67 +628,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="357"/>
+        <location filename="../sources/pageitem.cpp" line="359"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Към страница %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="361"/>
+        <location filename="../sources/pageitem.cpp" line="363"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Към страница %1 от файл &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="369"/>
+        <location filename="../sources/pageitem.cpp" line="371"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Отваряне на &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="404"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Промяна от поле &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="620"/>
+        <location filename="../sources/pageitem.cpp" line="622"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Копиране на &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="621"/>
+        <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Копиране на &amp;снимка</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="622"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Запазвнане на снимка в &amp;file...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="648"/>
+        <location filename="../sources/pageitem.cpp" line="650"/>
         <source>Save image to file</source>
         <translation type="unfinished">Запазване на снимка във файл</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="654"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Не може да се запази снимка във файл &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="665"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Добавяне на &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="666"/>
+        <location filename="../sources/pageitem.cpp" line="668"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Добавяне на п&amp;одчертаване</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="703"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">П&amp;ремахване на анотация</translation>
     </message>
