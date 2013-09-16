@@ -2106,7 +2106,7 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
     viewport()->update();
 }
 
-QMultiMap< int, QRectF >::iterator DocumentView::previousResult(QMultiMap< int, QRectF >::iterator result)
+DocumentView::Results::iterator DocumentView::previousResult(const Results::iterator& result)
 {
     return result != m_results.begin() ? result - 1 : m_results.end();
 }

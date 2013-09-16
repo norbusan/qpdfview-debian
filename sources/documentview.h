@@ -278,10 +278,12 @@ private:
 
     // search
 
-    QMultiMap< int, QRectF > m_results;
-    QMultiMap< int, QRectF >::iterator m_currentResult;
+    typedef QMultiMap< int, QRectF > Results;
 
-    QMultiMap< int, QRectF >::iterator previousResult(QMultiMap< int, QRectF >::iterator result);
+    Results m_results;
+    Results::iterator m_currentResult;
+
+    Results::iterator previousResult(const Results::iterator& result);
 
     SearchTask* m_searchTask;
 
