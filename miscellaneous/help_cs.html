@@ -1,0 +1,402 @@
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Nápověda</title>
+</head>
+
+<body>
+
+<h2><a name="top">Nápověda</a></h2>
+
+<h4>Obsah</h4>
+<ol>
+    <li><a href="#mainmenu">Hlavní nabídku</a></li>
+    <ol>
+        <li><a href="#file">Soubor</a></li>
+        <li><a href="#edit">Úpravy</a></li>
+        <li><a href="#view">Pohled</a></li>
+        <li><a href="#tabs">Karty</a></li>
+        <li><a href="#bookmarks">Záložky</a></li>
+        <li><a href="#help">Nápověda</a></li>
+    </ol>
+    <li><a href="#mainview">Hlavní pohled</a></li>
+    <li><a href="#auxiliaryviews">Pomocné pohledy</a></li>
+    <li><a href="#settings">Nastavení</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Nastavení chování</a></li>
+    	<li><a href="#graphicssettings">Nastavení grafiky</a></li>
+    	<li><a href="#interfacesettings">Nastavení rozhraní</a></li>
+    	<li><a href="#shortcutsettings">Nastavení klávesových zkratek</a></li>
+    	<li><a href="#modifiersettings">Nastavení modifikátorů</a></li>
+    </ol>
+</ol>
+
+<h4>Úvod</h4>
+
+<p><em>qpdfview</em>je prohlížeč dokumentů s kartami. Používá Poppler pro
+podporu PDF, libspectre pro podporu PS, DjVuLibre pro podporu DjVu, CUPS pro
+podporu tisku a sadu Qt pro své rozhraní.</p>
+
+<p>Podívejte se, prosím, do manuálových stránek, hledáte-li informace k volbám
+příkazového řádku a k souborům s nastavením.</p>
+
+<h3><a name="mainmenu">Hlavní nabídka</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Soubor</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Otevřít...</b> Otevře dialog pro výběr souboru k otevření v nynější
+kartě. Pokud není žádná karta, soubor je otevřen v nové kartě.</li>
+	<li><b>Otevřít v nové kartě...</b> Otevře dialog pro výběr souborů k otevření v
+nových kartách.</li>
+	<li><b>Nedávno použité</b> Obsahuje seznam naposledy použitých souborů (pokud je
+to povoleno v nastavení).</li>
+	<li><b>Obnovit</b> Obnoví soubor zobrazený v nynější kartě.</li>
+	<li><b>Uložit kopii</b> Otevře dialog pro uložení kopie souboru zobrazeného v
+nynější kartě.</li>
+	<li><b>Uložit jako...</b> Otevře dialog pro uložení souboru zobrazeného v
+nynější kartě včetně změn v poznámkách a formulářových polích.</li>
+    <li><b>Tisk...</b> Otevře dialog pro vytištění souboru zobrazeného v nynější
+kartě.</li>
+	<li><b>Ukončit</b> Zavře všechny karty a program ukončí.</li>
+</ul>
+
+<h4><a name="edit">Úpravy</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Další/Předchozí/První/Poslední strana</b> Skočí na
+další/předchozí/první/poslední stranu dokumentu.</li>
+    <li><b>Přejít na stranu...</b> Otevře dialog pro vstoupení na stranu zobrazenou
+v nynější kartě.</li>
+    <li><b>Skočit zpět/vpřed</b> Skočí zpět/vpřed v historii zobrazené strany.</li>
+	<li><b>Hledat...</b> Otevře pod hlavním pohledem vyhledávací řádek. Hledání
+začne automaticky dvě sekundy po poslední změně hledaného pojmu nebo je
+spuštěno ručně stisknutím klávesy Enter. Pokud je podržen modifikátor Shift,
+když je stisknuta klávesa Enter, hledání začne ve všech kartách a ne jen v
+nynější kartě.</li>
+	<li><b>Najít předchozí/další</b> Skočí v dokumentu na předchozí/další výskyt
+hledaného pojmu.</li>
+	<li><b>Zrušit hledání</b> Zruší nyní probíhající hledání a zavře vyhledávací
+řádek.</li>
+	<li><b>Kopírovat do schránky</b> Je-li zaškrtnuto, program počká na vytvoření
+rámečku pro zkopírování textu nebo obrázků tažením.</li>
+	<li><b>Přidat poznámku</b> Je-li zaškrtnuto, program počká na vytvoření rámečku
+pro přidání poznámek tažením.</li>
+	<li><b>Nastavení...</b> Otevře dialog pro nastavení. Tlačítko označené Výchozí
+vrátí všechna nastavení všech karet zpět na jejich výchozí hodnoty. Tlačítko
+označené Výchozí na nynější kartě vrátí zpět na výchozí hodnotu pouze
+nastavení nynější karty.</li>
+</ul>
+
+<p><em>Nynější stranu</em> je možné změnit zadáním čísla požadované strany v
+textovém poli v nástrojovém pruhu pro úpravy a stisknutím klávesy Enter.</p>
+
+<h4><a name="view">Pohled</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Průběžně</b> Určuje, zda jsou všechny řádky rozvržení strany viditelné
+zároveň.</li>
+	<li><b>Dvě strany</b> Určuje, zda rozvržení strany používá dva sloupce</li>
+	<li><b>Dvě strany s titulní stranou</b> Určuje, zda rozvržení strany používá dva
+sloupce se zalomením po titulní straně.</li>
+	<li><b>Více stran</b> Určuje, zda rozvržení strany používá více sloupců. Počet
+sloupců lze změnit v dialogu pro nastavení.</li>
+	<li><b>Přiblížit</b> Zvyšuje násobek zvětšení o 10 procent.</li>
+	<li><b>Oddálit</b> Snižuje násobek zvětšení o 10 procent.</li>
+	<li><b>Původní velikost</b> Nastaví násobek zvětšení znovu na 100 procent.</li>
+    <li><b>Přizpůsobit šířce strany</b> Určuje násobek zvětšení tak, že se všechny
+strany vodorovně zcela vejdou do hlavního pohledu</li>
+	<li><b>Přizpůsobit velikosti strany</b> Určuje násobek zvětšení tak, že se
+všechny strany vodorovně i svisle zcela vejdou do hlavního pohledu.</li>
+	<li><b>Otočit vlevo</b> Otočí strany doleva/proti směru hodinových ručiček o 90
+stupňů.</li>
+	<li><b>Otočit vpravo</b> Otočí strany doprava/po směru hodinových ručiček o 90
+stupňů.</li>
+	<li><b>Tool bars</b> This menu contains a list of available tool bars for
+accessing frequently used actions.</li>
+	<li><b>Docks</b> This menu contains a list of available docks for displaying
+supplementary information.</li>
+	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
+	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
+maximized and without decoration.</li>
+	<li><b>Presentation...</b> Enters presentation mode which can be left by
+pressing F12 or escape. The home/end key is used to display the first/last
+page. Arrow keys right and down, space and the page down key jump to the
+next page. Arrow keys left and up, backspace and the page up key jump to the
+previous page. Pressing control and return jumps back to the page before the
+last jump.</li>
+</ul>
+
+<p>The <em>scale factor</em> can be changed by entering the desired percentage
+into the text field in the view tool bar and pressing the return key.</p>
+
+<h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
+to the last/first tab if the first/last tab is the current tab.</li>
+    <li><b>Close tab</b> Closes the current tab.</li>
+    <li><b>Close all tabs</b> Closes all tabs.</li>
+    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
+tab.</li>
+</ul>
+
+<p>This menu contains a list of all tabs which can be made the current tab by
+clicking on the corresponding menu item. Tabs can also be closed by
+middle-clicking. The first nine tabs can also be activated by holding the
+Alt modifier and pressing keys one to nine.</p>
+
+<h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
+page.</li>
+    <li><b>Next bookmark</b> Jumps to the closest bookmark after the current page.</li>
+    <li><b>Add bookmark</b> Adds a bookmark for the current file and page.</li>
+    <li><b>Remove bookmark</b> Removes the bookmark for the current file and page.</li>
+    <li><b>Remove all bookmarks</b> Removes all bookmarks.</li>
+    <li><b>Open</b> Opens the corresponding file in the current tab. If there is no
+tab, the file is opened in a new tab.</li>
+    <li><b>Open in new tab</b> Opens the corresponding file in a new tab.</li>
+    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding
+file is already open. Otherwise the corresponding file is opened in a new
+tab.</li>
+</ul>
+
+<h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Contents</b> Displays this document.</li>
+	<li><b>About</b> Displays the program version.</li>
+</ul>
+
+<h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
+
+<p>The backspace/space key skips to the previous/next page. The home/end key
+skips to the first/last page. The arrow, page up and page down keys scroll
+the viewport. Pressing control and return jumps to the page before the last
+jump.</p>
+
+<p>Using the mouse wheel scrolls up and down. Holding <b>ALT</b> while using
+the mouse wheel scrolls left and right. Holding <b>CTRL</b> while using the
+mouse wheel scales the document. Holding <b>SHIFT</b> while using the mouse
+wheel rotates the document. (Keyboard modifiers can be changed in the
+settings dialog.)</p>
+
+<p>Links are highlighted by red frames (if enabled in the settings). Left-click
+on a link to show the linked page or open the linked URL in the default
+browser (if enabled in the settings). Hovering over a link displays its
+destination as a tool tip.</p>
+
+<p>Form fields are highlighted by blue frames (if enabled in the
+settings). Left-click on a form field to edit its contents. Hovering over a
+form field displays its name as a tool tip.</p>
+
+<p>The source of a position in the document is requested by double-clicking
+which opens the first matching <em>SyncTeX</em> node using the source
+editor.</p>
+
+<p>To <em>copy texts or images</em>, hold <b>SHIFT</b>, click and hold the left
+mouse button to drag a frame around the area to copy. Once the mouse button
+is released, a pop-up menu is displayed to select whether to copy texts or
+images into the clipboard.</p>
+
+<p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
+button to drag a frame around the region of interest. Once the mouse button
+is released, a pop-up menu is displayed to select whether to add text or
+highlight annotations. Left-click to <em>edit annotations</em>. Right-click
+to <em>remove annotations</em>. (Adding and removing annotations requires
+version 0.20.1 or higher of the Poppler library.) Hovering over an
+annotation displays its contents as a tool tip.</p>
+
+<h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
+
+<p>The <em>outline</em> view displays an overview of the contents of the
+document. A left click on an entry jumps to the respective page in the main
+view. The context menu can be used to expand/collapse all items below the
+selected item.</p>
+
+<p>The <em>properties</em> view displays additional information contained in
+the document.</p>
+
+<p>The <em>thumbnails</em> view displays smaller versions of the pages of the
+document. A left click on an entry jumps to the respective page in the main
+view.</p>
+
+<h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Behavior settings</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Open URL</b> Determines whether links to URL are opened in the default
+browser.</li>
+    <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if
+changed on disk.</li>
+    <li><b>Track recently used</b> If enabled, a recently used menu is available and
+lists as many recently used files as set in the "Recently used count"
+option. (Effective after restart.)</li>
+    <li><b>Restore tabs</b> If enabled, tabs and their properties are saved on
+ending the program and restored on restart.</li>
+    <li><b>Restore bookmarks</b> If enabled, bookmarks are saved on ending the
+program and restored on restart.</li>
+    <li><b>Restore per-file settings</b> If enabled, per-file settings are
+saved/restored on opening/closing tabs.</li>
+    <li><b>Synchronize presentation</b> If enabled, the main view can be used to
+control the presentation view.</li>
+    <li><b>Presentation screen</b> The index of the screen to display the
+presentation view on.</li>
+    <li><b>Highlight color</b> Determines the color of highlights.</li>
+    <li><b>Highlight duration</b> Determines the duration of temporary highlights.</li>
+    <li><b>Annotation color</b> The color of annotations added by the program using
+SVG color keywords or hexadecimal notation '#rrggbb'.</li>
+    <li><b>Source editor</b> The program which is started to edit sources. '%1' is
+replaced by the absolute file path. '%2' resp. '%3' is replaced by line
+resp. column number.</li>
+</ul>
+
+<h4><a name="graphicssettings">Graphics settings</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
+factor, cached pixmaps will be used to draw approximations of final pixmaps
+until these are available at the cost of increased memory usage.</li>
+    <li><b>Use device pixel ratio</b> If enabled, the highest available device pixel
+ratio is used to render at physical and display at logical resolution.</li>
+    <li><b>Decorate pages</b> Determines whether pages are set apart from the
+background.</li>
+    <li><b>Decorate links</b> Determines whether links are highlighted by red
+frames.</li>
+    <li><b>Decorate form fields</b> Determines whether form fields are highlighted
+by blue frames.</li>
+    <li><b>Background color</b> Determines the color of the background using SVG
+color keywords or hexadecimal notation '#rrggbb'.</li>
+    <li><b>Paper color</b> Determines the color of pages using SVG color keywords or
+hexadecimal notation '#rrggbb'.</li>
+    <li><b>Presentation background color</b> Overrides the paper color in the
+computation of the background color of the presentation view and is defined
+using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
+    <li><b>Invert colors</b> Determines whether pages are rendered with inverted
+colors.</li>
+    <li><b>Pages per row</b> Number of pages per row in the 'multiple pages' layout
+mode.</li>
+    <li><b>Page spacing</b> Determines both vertical and horizontal space displayed
+between pages.</li>
+    <li><b>Thumbnail spacing</b> Determines both vertical and horizontal space
+displayed between thumbnails.</li>
+    <li><b>Thumbnail size</b> Determines the size of the thumbnails.</li>
+    <li><b>Cache size</b> The program will try to cache rendered pages within this
+limit increasing rendering speed at the cost of increased memory usage.</li>
+    <li><b>Prefetch</b> The program will try to render pages that are not yet
+visible increasing rendering speed at the cost of increased cache usage.</li>
+    <li><b>Prefetch distance</b> The number of rows beyond the current row and twice
+the number of rows before the current row that are prefetched.</li>
+    <li><b>PDF settings</b>
+    <ul>
+        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
+on top of another is displayed.</li>
+        <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
+        <li><b>Text antialiasing</b> Improves text display quality at the cost of
+performance</li>
+        <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
+    </ul>
+    </li>
+    <li><b>PS settings</b>
+    <ul>
+        <li><b>Graphics antialias bits</b> Determines the amount of antialiasing for
+graphics.</li>
+        <li><b>Text antialias bits</b> Determines the amount of antialiasing for text.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Interface settings</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Tab position</b> Defines at which edge of the main view tabs will be
+displayed.</li>
+    <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than
+two documents are opened.</li>
+    <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
+right of the active tab.</li>
+    <li><b>Recently used count</b> Sets the number of files that are listed in the
+recently used menu, if "Track recently used" is enabled.</li>
+    <li><b>File tool bar</b> Defines which actions are visible in the file tool
+bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
+print and separator. (Effective after restart.)</li>
+    <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool
+bar. Available actions are currentPage, previousPage, nextPage, firstPage,
+lastPage, jumpToPage, jumpBackward, jumpForward, search,
+copyToClipboardMode, addAnnotationMode and separator. (Effective after
+restart.)</li>
+    <li><b>View tool bar</b> Defines which actions are visible in the view tool
+bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
+twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
+fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
+presentation and separator. (Effective after restart.)</li>
+    <li><b>Current page in window title</b> If enabled, the current page and number
+of pages of the document in the active tab are displayed in the window
+title.</li>
+    <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
+the first entry pointing to the current page whenever the current page
+changes.</li>
+    <li><b>Highlight current thumbnail</b> If enabled, the current page is
+highlighted in the thumbnails view.</li>
+    <li><b>Limit thumbnails to results</b> If this option is enabled and a search is
+conducted, only the pages where the search term is found are displayed in
+the thumbnails view.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Shortcut settings</a> <a href="#top">&uarr;</a></h4>
+
+<p>The shortcut settings allows the adjustment of keyboard shortcuts to
+personal preference. Shortcuts are changed by double-clicking on the
+shortcut to edit it and entering the new shortcut. Each action can have
+several shortcuts by entering a semicolon-separated list of them. Names of
+keys that are not single letters are written out explicitly (e.g. "Alt",
+"Ctrl", "PgDown"), where the matching is not case sensitive. If the shortcut
+contains modifier keys, the names of the keys are joined by a plus sign and
+modifier keys must be listed first, e.g. "Crtl+A" or "Ctrl++".</p>
+
+<h4><a name="modifiersettings">Modifier settings</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Zoom</b> The keyboard modifiers to zoom using the mouse wheel in the main
+view.</li>
+    <li><b>Rotate</b> The keyboard modifiers to rotate using the mouse wheel in the
+main view.</li>
+    <li><b>Scroll</b> The keyboard modifiers to scroll horizontally using the mouse
+wheel in the main view.</li>
+    <li><b>Copy to clipboard</b> The keyboard modifiers to copy texts or images from
+a page to the clipboard.</li>
+    <li><b>Add annotation</b> The keyboard modifiers to add annotations to a page.</li>
+</ul>
+
+</body>
+
+</html>
