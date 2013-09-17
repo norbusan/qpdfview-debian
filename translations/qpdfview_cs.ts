@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
 </context>
 <context>
@@ -1122,7 +1122,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="426"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použít poměr pixelu zařízení:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
@@ -1152,7 +1152,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barva pozadí promítání:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="473"/>

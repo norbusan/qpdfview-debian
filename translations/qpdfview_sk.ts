@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="sk_SK">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vybrať inštanciu</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inštancia:</translation>
     </message>
 </context>
 <context>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="37"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_sk.html</translation>
     </message>
 </context>
 <context>
@@ -120,7 +120,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otvoriť nadradený priečinok</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="899"/>
@@ -213,7 +213,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1782"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokument &apos;%1&apos; bol zmenený. Chcete uložiť vaše zmeny?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1852"/>
@@ -1117,12 +1117,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="413"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zachovať zastaralé pixmapy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="426"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použiť pomer obrazovky zariadenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="433"/>
@@ -1152,7 +1152,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farba pozadia prezentácie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="473"/>
@@ -1279,7 +1279,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="654"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Názov inštancie v názve okna:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="uk_UA">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -338,7 +338,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1947"/>
         <source>Settings...</source>
-        <translation type="unfinished">Налаштування...</translation>
+        <translation type="unfinished">Параметри…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1951"/>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1970"/>
         <source>&amp;Fullscreen</source>
-        <translation type="unfinished">Повний &amp;екран</translation>
+        <translation type="unfinished">&amp;На весь екран</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1971"/>
@@ -1023,12 +1023,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="127"/>
         <source>Defaults</source>
-        <translation type="unfinished">Типово</translation>
+        <translation type="unfinished">Типові</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished">Типовий на поточній вкладці</translation>
+        <translation type="unfinished">Типові на поточній вкладці</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="290"/>
@@ -1077,7 +1077,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="347"/>
         <source>Default</source>
-        <translation type="unfinished">Типовий</translation>
+        <translation type="unfinished">Типові</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="350"/>
