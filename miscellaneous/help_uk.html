@@ -114,25 +114,29 @@ PDF, бібліотеку libspectre для реалізації підтрим�
 позначите область у документі, з якої слід скопіювати текст або зображення.</li>
 	<li><b>Додати коментар</b> — якщо позначено цей пункт, програма зачекає, доки ви
 позначите у документі область, що якої слід додати анотацію або коментар.</li>
-	<li><b>Settings...</b> Opens the settings dialog. The button labeled 'Defaults'
-will revert all settings on all tabs to their default values. The button
-labeled 'Defaults on current tab' will revert only the settings on the
-current tab to their default values.</li>
+	<li><b>Параметри...</b> — відкрити діалогове вікно параметрів програми. За
+допомогою натискання кнопки з написом «Типові» можна повернутися до типових
+значень усіх параметрів на усіх вкладках. За допомогою натискання кнопки з
+написом «Типові на поточній вкладці» можна повернутися до типових значень
+параметрів лише для поточної вкладки.</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar and pressing the return key.</p>
+<p><em>Поточну сторінку</em> можна змінити введенням номера сторінки у поле для
+введення тексту на панелі інструментів редагування з наступним натисканням
+клавіші Enter.</p>
 
 <h4><a name="view">Перегляд</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
-at once.</li>
-	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
+	<li><b>Неперервний перегляд</b> — визначити, чи слід під час показу документа
+гортати сторінки неперервно без перестрибування між окремими сторінками.</li>
+	<li><b>Дві сторінки</b> — визначити, чи слід використовувати у компонуванні
+сторінок два стовпчики.</li>
 	<li><b>Дві сторінки та обкладинка</b> — визначити, чи слід використовувати у
 компонуванні сторінок два стовпчики з проміжком після сторінки обкладинки.</li>
-	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
-columns. The number of columns can be changed in the settings dialog.</li>
+	<li><b>Декілька сторінок</b> — визначити, чи слід показувати сторінки документа
+у декілька стовпців. Кількість показаних стовпців можна змінити за допомогою
+діалогового вікна параметрів роботи програми.</li>
 	<li><b>Збільшити</b> — збільшує масштаб на 10 відсотків.</li>
 	<li><b>Зменшити</b> — зменшує масштаб на 10 відсотків.</li>
 	<li><b>Початковий розмір</b> — відновити масштабування у 100 відсотків.</li>
@@ -140,15 +144,20 @@ columns. The number of columns can be changed in the settings dialog.</li>
 заповнюватимуть усю ширину головної панелі перегляду програми.</li>
 	<li><b>Сторінка цілком</b> — використати масштабування, за якого усі сторінки
 заповнюватимуть усю ширину або висоту головної панелі перегляду програми.</li>
-	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
-	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
-	<li><b>Docks</b> This menu contains a list of available docks for displaying
-supplementary information.</li>
-	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
-	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
-maximized and without decoration.</li>
+	<li><b>Повернути ліворуч</b> — повернути сторінки ліворуч або проти годинникової
+стрілки на 90 градусів.</li>
+	<li><b>Повернути праворуч</b> — повернути сторінки праворуч або за годинниковою
+стрілкою на 90 градусів.</li>
+	<li><b>Панелі інструментів</b> — у цьому меню наведено список усіх доступних
+панелей інструментів, за допомогою яких можна отримувати доступ до кнопок
+дій, якими користуються найчастіше.</li>
+	<li><b>Бічні панелі</b> — у цьому меню міститься список усіх доступних бічних
+панелей, за допомогою яких програма показує допоміжну інформацію.</li>
+	<li><b>Шрифти...</b> — відкрити діалогове вікно зі списком шрифтів, використаних
+у поточному документі.</li>
+	<li><b>На весь екран</b> — вмикає або вимикає повноекранний режим роботи
+програми, тобто режим, у якому вікно програми максимізується, а декорації
+вікна приховуються.</li>
 	<li><b>Presentation...</b> Enters presentation mode which can be left by
 pressing F12 or escape. The home/end key is used to display the first/last
 page. Arrow keys right and down, space and the page down key jump to the
@@ -157,18 +166,19 @@ previous page. Pressing control and return jumps back to the page before the
 last jump.</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar and pressing the return key.</p>
+<p>Значення <em>коефіцієнта масштабування</em> можна змінити введенням числа у
+поле для введення тексту на панелі інструментів перегляду з наступним
+натисканням клавіші Enter.</p>
 
 <h4><a name="tabs">Вкладки</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
-to the last/first tab if the first/last tab is the current tab.</li>
+    <li><b>Попередня/Наступна вкладка</b> — робить поточною попередню або наступну
+вкладку. Перехід вкладками виконується циклічно.</li>
     <li><b>Закрити вкладку</b> — закриває поточну вкладку.</li>
     <li><b>Закрити всі вкладки</b> — закриває усі вкладки.</li>
-    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
-tab.</li>
+    <li><b>Закрити усі вкладки, крім поточної</b> — закрити усі вкладки, окрім
+поточної вкладки.</li>
 </ul>
 
 <p>This menu contains a list of all tabs which can be made the current tab by
@@ -179,14 +189,16 @@ Alt modifier and pressing keys one to nine.</p>
 <h4><a name="bookmarks">Закладки</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
-page.</li>
-    <li><b>Next bookmark</b> Jumps to the closest bookmark after the current page.</li>
+    <li><b>Попередня закладка</b> — перейти до найближчої закладки, розташування
+якої передує поточній сторінці.</li>
+    <li><b>Наступна закладка</b> — перейти до найближчої закладки, розташованої
+після поточної сторінки.</li>
     <li><b>Додати закладку</b> — додає закладку до поточного файла і сторінки.</li>
     <li><b>Вилучити закладку</b> — вилучає закладку для поточного файла і сторінки.</li>
     <li><b>Вилучити усі закладки</b> — вилучити з документа усі закладки.</li>
-    <li><b>Open</b> Opens the corresponding file in the current tab. If there is no
-tab, the file is opened in a new tab.</li>
+    <li><b>Відкрити</b> — відкриває відповідний файл у поточній вкладці. Якщо у
+вікні програми не відкрито жодної вкладки, файл буде відкрито у новій
+вкладці.</li>
     <li><b>Відкрити у новій вкладці</b> — відкрити відповідний файл у новій вкладці.</li>
     <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding
 file is already open. Otherwise the corresponding file is opened in a new
@@ -246,20 +258,21 @@ document. A left click on an entry jumps to the respective page in the main
 view. The context menu can be used to expand/collapse all items below the
 selected item.</p>
 
-<p>The <em>properties</em> view displays additional information contained in
-the document.</p>
+<p>На панелі перегляду <em>властивостей</em> буде показано додаткові дані, що
+містяться у документі.</p>
 
-<p>The <em>thumbnails</em> view displays smaller versions of the pages of the
-document. A left click on an entry jumps to the respective page in the main
-view.</p>
+<p>На панелі перегляду <em>мініатюр</em> буде показано зменшені версії сторінок
+документа. Наведенням вказівника миші на таку мініатюру з наступним
+клацанням лівою кнопкою миші ви можете одразу перейти до відповідної
+сторінки на основній панелі перегляду.</p>
 
 <h3><a name="settings">Параметри</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Параметри поведінки</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Open URL</b> Determines whether links to URL are opened in the default
-browser.</li>
+    <li><b>Відкривати URL</b> — визначає, чи слід програмі відкривати посилання з
+адресами URL у типовій програмі для перегляду відповідних даних.</li>
     <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if
 changed on disk.</li>
     <li><b>Track recently used</b> If enabled, a recently used menu is available and
@@ -314,8 +327,9 @@ between pages.</li>
     <li><b>Thumbnail spacing</b> Determines both vertical and horizontal space
 displayed between thumbnails.</li>
     <li><b>Thumbnail size</b> Determines the size of the thumbnails.</li>
-    <li><b>Cache size</b> The program will try to cache rendered pages within this
-limit increasing rendering speed at the cost of increased memory usage.</li>
+    <li><b>Розмір кешу</b> — програма намагатиметься кешувати зображення сторінок у
+цих межах, збільшуючи швидкість показу за рахунок збільшення об’єму
+використаної пам’яті.</li>
     <li><b>Prefetch</b> The program will try to render pages that are not yet
 visible increasing rendering speed at the cost of increased cache usage.</li>
     <li><b>Prefetch distance</b> The number of rows beyond the current row and twice
@@ -324,9 +338,10 @@ the number of rows before the current row that are prefetched.</li>
     <ul>
         <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
 on top of another is displayed.</li>
-        <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
-        <li><b>Text antialiasing</b> Improves text display quality at the cost of
-performance</li>
+        <li><b>Згладжування</b> — покращує якість показу за рахунок певної втрати
+швидкодії програми.</li>
+        <li><b>Згладжування тексту</b> — покращує якість показу тексту за рахунок певної
+втрати швидкодії.</li>
         <li><b>Гінтінґ тексту</b> — може покращити якість показу графіки для певних
 шрифтів.</li>
     </ul>
@@ -344,12 +359,12 @@ graphics.</li>
 href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Tab position</b> Defines at which edge of the main view tabs will be
-displayed.</li>
-    <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than
-two documents are opened.</li>
-    <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
-right of the active tab.</li>
+    <li><b>Розташування вкладок</b> — визначає, на якому боці головної панелі
+перегляду буде показано вкладки.</li>
+    <li><b>Показувати вкладки</b> — визначає, чи буде показано вкладки, якщо
+відкрито менше за два документи.</li>
+    <li><b>Нова вкладка поруч з поточною</b> — якщо позначено цей пункт, нові
+вкладки відкриватимуться праворуч від активної вкладки.</li>
     <li><b>Recently used count</b> Sets the number of files that are listed in the
 recently used menu, if "Track recently used" is enabled.</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool
@@ -360,22 +375,23 @@ bar. Available actions are currentPage, previousPage, nextPage, firstPage,
 lastPage, jumpToPage, jumpBackward, jumpForward, search,
 copyToClipboardMode, addAnnotationMode and separator. (Effective after
 restart.)</li>
-    <li><b>View tool bar</b> Defines which actions are visible in the view tool
-bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
-twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
-fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
-presentation and separator. (Effective after restart.)</li>
-    <li><b>Current page in window title</b> If enabled, the current page and number
-of pages of the document in the active tab are displayed in the window
-title.</li>
-    <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
-the first entry pointing to the current page whenever the current page
-changes.</li>
-    <li><b>Highlight current thumbnail</b> If enabled, the current page is
-highlighted in the thumbnails view.</li>
-    <li><b>Limit thumbnails to results</b> If this option is enabled and a search is
-conducted, only the pages where the search term is found are displayed in
-the thumbnails view.</li>
+    <li><b>Панель «Перегляд»</b> — визначає, які пункти дій буде показано на панелі
+перегляду. Можна використовувати такі пункти: scaleFactor, zoomIn, zoomOut,
+continuousMode, twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode,
+originalSize, fitToPageWidthMode, fitToPageSizeMode, rotateLeft,
+rotateRight, fullscreen, presentation і separator. (Зміни буде задіяно після
+перезапуску програми.)</li>
+    <li><b>Поточна сторінка у заголовку вікна</b> — якщо позначено цей пункт, у
+заголовку вікна програми буде показано дані щодо поточної сторінки і
+кількості сторінок документа у активній вкладці програми.</li>
+    <li><b>Синхронізувати перегляд ескізу</b> — якщо позначено цей пункт, на панелі
+ескізів під час кожної зміни сторінок буде підсвічено перший запис, що
+вказуватиме на поточну сторінку.</li>
+    <li><b>Підсвічування поточної мініатюри</b> — якщо позначено цей пункт, програма
+підсвічуватиме поточну сторінку на панелі мініатюр.</li>
+    <li><b>Обмежити мініатюри результатами</b> — якщо позначено цей пункт і
+виконується пошук, програма показуватиме на панелі мініатюр лише сторінки,
+де було знайдено рядок пошуку.</li>
 </ul>
 
 <h4><a name="shortcutsettings">Параметри скорочень</a> <a href="#top">&uarr;</a></h4>
