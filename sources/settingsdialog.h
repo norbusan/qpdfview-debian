@@ -108,7 +108,12 @@ private:
     // graphics
 
     QCheckBox* m_keepObsoletePixmapsCheckBox;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
     QCheckBox* m_useDevicePixelRatioCheckBox;
+
+#endif // QT_VERSION
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
