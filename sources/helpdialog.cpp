@@ -43,7 +43,7 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
     connect(m_helpSearchLineEdit, SIGNAL(searchInitiated(QString)), SLOT(on_searchInitiated(QString)));
 
     m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, this);
-    connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
+    //connect(m_dialogButtonBox, SIGNAL(accepted()), SLOT(accept()));
     connect(m_dialogButtonBox, SIGNAL(rejected()), SLOT(reject()));
 
     m_findPreviousButton = m_dialogButtonBox->addButton(tr("Find previous"), QDialogButtonBox::ActionRole);
@@ -84,23 +84,60 @@ void HelpDialog::on_findNext_triggered()
 
 void HelpDialog::startSearch(const QString& searchTerm)
 {
-    // Implement search.
-    //m_helpSearchLineEdit->setText(searchTerm);
-    //m_helpSearchLineEdit->startSearch();
-    QMessageBox msg(QMessageBox::Information, "Search", "Search started with search term: " + searchTerm, QMessageBox::Ok, this);
-    msg.exec();
+    /*
+     * Add m_currentCursorPosition and keep it updated. (Is this possible? How?)
+     *
+     * Implement search:
+     * Store initial cursor position in a local variable.
+     * if(m_lastSearchTerm != m_helpSearchLineEdit->text())
+     * {
+     *     Set cursor to the beginning of the Textbrowser. (How?)
+     *     Save m_helpSearchLineEdit->text() to m_lastSearchTerm.
+     *     Cycle through all results using find().
+     *     Get cursor position of each and store them in m_searchResults. (How?)
+     * }
+     * Set cursor to first position in m_searchResults after or equal initial cursor position. (How?)
+     */
+
+    if(!m_textBrowser->find(searchTerm))
+    {
+        QMessageBox msg(QMessageBox::Information, "Search", "Search term " + searchTerm + " not found.", QMessageBox::Ok, this);
+        msg.exec();
+    }
 }
 
 void HelpDialog::findPrevious()
 {
-    // Implement find previous.
+    /*
+     * Implement find previous:
+     * Store initial cursor position in a local variable.
+     * if(m_lastSearchTerm != m_helpSearchLineEdit->text())
+     * {
+     *     Set cursor to the beginning of the Textbrowser. (How?)
+     *     Save m_helpSearchLineEdit->text() to m_lastSearchTerm.
+     *     Cycle through all results using find().
+     *     Get cursor position of each and store them in m_searchResults. (How?)
+     * }
+     * Set cursor to first position in m_searchResults before initial cursor position. (How?)
+     */
     QMessageBox msg(QMessageBox::Information, "Find Previous", "Find Previous clicked", QMessageBox::Ok, this);
     msg.exec();
 }
 
 void HelpDialog::findNext()
 {
-    // Implement find next.
+    /*
+     * Implement find previous:
+     * Store initial cursor position in a local variable.
+     * if(m_lastSearchTerm != m_helpSearchLineEdit->text())
+     * {
+     *     Set cursor to the beginning of the Textbrowser. (How?)
+     *     Save m_helpSearchLineEdit->text() to m_lastSearchTerm.
+     *     Cycle through all results using find().
+     *     Get cursor position of each and store them in m_searchResults. (How?)
+     * }
+     * Set cursor to first position in m_searchResults after initial cursor position. (How?)
+     */
     QMessageBox msg(QMessageBox::Information, "Find Next", "Find Next clicked", QMessageBox::Ok, this);
     msg.exec();
 }
