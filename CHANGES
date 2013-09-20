@@ -7,6 +7,7 @@ Release 0.4.6:
   * Added desktop action for non-unique instances and choosing instances to the desktop entry.
   * Fixed loading of translation for Qt dialogs, e.g. the print dialog.
   * Added support for translations of online help. Thanks to Yuri Chornoivan.
+  * Added support for searching of online help. Thanks to Benjamin Eltzner.
   * Updated Ukrainian translation and added translation of the online help. Thanks to Yuri Chornoivan.
   * Updated Czech translation. Thanks to Pavel Fric.
   * Updated Galician translation and added partial translation of the online help. Thanks to Marcos Lans.

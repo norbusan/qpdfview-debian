@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QDialogButtonBox;
 class QTextBrowser;
+class QLineEdit;
 
 class HelpDialog : public QDialog
 {
@@ -35,12 +36,20 @@ class HelpDialog : public QDialog
 public:
     explicit HelpDialog(QWidget* parent = 0);
 
+protected slots:
+    void on_findPrevious_triggered();
+    void on_findNext_triggered();
+
 private:
     Q_DISABLE_COPY(HelpDialog)
 
     QTextBrowser* m_textBrowser;
 
     QDialogButtonBox* m_dialogButtonBox;
+
+    QLineEdit* m_searchLineEdit;
+    QPushButton* m_findPreviousButton;
+    QPushButton* m_findNextButton;
 
 };
 
