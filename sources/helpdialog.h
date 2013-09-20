@@ -24,11 +24,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define HELPDIALOG_H
 
 #include <QDialog>
-#include <QToolBar>
 
 class QDialogButtonBox;
 class QTextBrowser;
-class SearchLineEdit;
+class QLineEdit;
 
 class HelpDialog : public QDialog
 {
@@ -38,7 +37,6 @@ public:
     explicit HelpDialog(QWidget* parent = 0);
 
 protected slots:
-    void on_searchInitiated(const QString& searchInput);
     void on_findPrevious_triggered();
     void on_findNext_triggered();
 
@@ -49,13 +47,9 @@ private:
 
     QDialogButtonBox* m_dialogButtonBox;
 
-    SearchLineEdit* m_helpSearchLineEdit;
+    QLineEdit* m_searchLineEdit;
     QPushButton* m_findPreviousButton;
     QPushButton* m_findNextButton;
-
-    void startSearch(const QString& searchTerm);
-    void findPrevious();
-    void findNext();
 
 };
 
