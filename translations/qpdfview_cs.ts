@@ -1284,7 +1284,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished">Zvýraznit osnovu:</translation>
+        <translation type="unfinished">Zvýraznit položku osnovy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>
