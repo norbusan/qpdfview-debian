@@ -90,10 +90,20 @@
 <context>
     <name>HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="37"/>
+        <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
         <translation type="unfinished">help_ca.html</translation>
+    </message>
+    <message>
+        <location filename="../sources/helpdialog.cpp" line="54"/>
+        <source>Find previous</source>
+        <translation type="unfinished">Cerca l&apos;anterior</translation>
+    </message>
+    <message>
+        <location filename="../sources/helpdialog.cpp" line="58"/>
+        <source>Find next</source>
+        <translation type="unfinished">Cerca el següent</translation>
     </message>
 </context>
 <context>
