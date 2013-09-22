@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.0" language="uk_UA">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -1142,12 +1142,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Виділяти посилання:</translation>
+        <translation type="unfinished">Виокремлювати посилання:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="450"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished">Виділяти поля форм:</translation>
+        <translation type="unfinished">Виокремлювати поля форм:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="456"/>
@@ -1264,22 +1264,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
         <source>Recently used count:</source>
-        <translation type="unfinished">Нещодавно використане число:</translation>
+        <translation type="unfinished">Кількість останніх відкритих:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Панель &quot;Файл&quot;:</translation>
+        <translation type="unfinished">Панель «Файл»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="640"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Панель &quot;Редагувати&quot;:</translation>
+        <translation type="unfinished">Панель «Редагування»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Панель &quot;Перегляд&quot;:</translation>
+        <translation type="unfinished">Панель «Перегляд»:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="655"/>

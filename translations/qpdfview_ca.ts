@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color de fons de la presentació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
@@ -1264,7 +1264,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre d&apos;usats recentment:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
