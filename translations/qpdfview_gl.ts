@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cor do fondo da presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
