@@ -73,7 +73,6 @@ public slots:
 protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
-    void on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index);
 
     void on_currentTab_documentChanged();
 
@@ -109,6 +108,7 @@ protected slots:
 
     void on_open_triggered();
     void on_openInNewTab_triggered();
+    void on_openContainingFolder_triggered();
     void on_refresh_triggered();
     void on_saveCopy_triggered();
     void on_saveAs_triggered();
@@ -233,6 +233,7 @@ private:
 
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
+    QAction* m_openContainingFolderAction;
     QAction* m_refreshAction;
     QAction* m_saveCopyAction;
     QAction* m_saveAsAction;

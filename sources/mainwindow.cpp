@@ -317,6 +317,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if(index != -1)
     {
+        m_openContainingFolderAction->setEnabled(true);
         m_refreshAction->setEnabled(true);
         m_saveCopyAction->setEnabled(currentTab()->canSave());
         m_saveAsAction->setEnabled(currentTab()->canSave());
@@ -401,6 +402,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
     else
     {
+        m_openContainingFolderAction->setEnabled(false);
         m_refreshAction->setEnabled(false);
         m_saveCopyAction->setEnabled(false);
         m_saveAsAction->setEnabled(false);
@@ -496,25 +498,6 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     if(saveModifications(tab(index)))
     {
         delete tab(index);
-    }
-}
-
-void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
-{
-    if(index != -1)
-    {
-        QMenu menu;
-
-        const QAction* openContainingFolderAction = menu.addAction(tr("Open containing folder"));
-
-        const QAction* action = menu.exec(globalPos);
-
-        if(action == openContainingFolderAction)
-        {
-            const QString absolutePath = QFileInfo(tab(index)->filePath()).absolutePath();
-
-            QDesktopServices::openUrl(QString("file://%1").arg(absolutePath));
-        }
     }
 }
 
@@ -811,9 +794,9 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
+        menu.addAction(m_openContainingFolderAction);
         menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction);
-
         menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
 
@@ -927,6 +910,13 @@ void MainWindow::on_openInNewTab_triggered()
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
+}
+
+void MainWindow::on_openContainingFolder_triggered()
+{
+    const QString absolutePath = QFileInfo(currentTab()->filePath()).absolutePath();
+
+    QDesktopServices::openUrl(QLatin1String("file://") + absolutePath);
 }
 
 void MainWindow::on_refresh_triggered()
@@ -1824,7 +1814,6 @@ void MainWindow::createWidgets()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
-    connect(m_tabWidget, SIGNAL(tabContextMenuRequested(QPoint,int)), SLOT(on_tabWidget_tabContextMenuRequested(QPoint,int)));
 
     // current page
 
@@ -1918,6 +1907,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
+    m_openContainingFolderAction = createAction(tr("Open containing folder"), QString(), QIcon(), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
