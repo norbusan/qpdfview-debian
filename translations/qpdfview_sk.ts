@@ -128,11 +128,6 @@
         <translation type="unfinished">Nedalo sa otvoríť &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Otvoriť nadradený priečinok</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
         <source>Open</source>
         <translation type="unfinished">Otvoriť</translation>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Otvoriť na novej &amp;karte...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Otvoriť nadradený priečinok</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>

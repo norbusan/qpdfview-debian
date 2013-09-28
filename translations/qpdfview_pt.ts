@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pt_BR">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Escolha a instância</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instância:</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Página %1</translation>
     </message>
 </context>
 <context>
@@ -93,12 +93,12 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_pt.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
         <source>Find previous</source>
-        <translation type="unfinished">Procurar anterior</translation>
+        <translation type="unfinished">Localizar anterior</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Não foi possível abrir %1.</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -223,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">O documento %1 foi modificado. Pretende gravar as alterações?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1841"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir em novo &amp;separador...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Abrir pasta respetiva</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Procurar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Conteúdo</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Minia&amp;turas</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Procurar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>
@@ -1127,12 +1127,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manter pixmaps obsoletos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utilizar rácio de pixeis:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cor de fundo da apresentação:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
@@ -1289,12 +1289,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nome da instância no título da janela:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizar vista de tópicos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>
