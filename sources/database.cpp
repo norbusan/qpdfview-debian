@@ -244,22 +244,22 @@ void Database::restoreBookmarks()
             const QString filePath = query.value(0).toString();
             QList< QPair< int, QString > > jumps;
 
-            QSqlQuery query1(m_database);
-            query1.prepare("SELECT page,label FROM bookmarks_v2 WHERE filePath==?");
+            QSqlQuery innerQuery(m_database);
+            innerQuery.prepare("SELECT page,label FROM bookmarks_v2 WHERE filePath==?");
 
-            query1.bindValue(0, filePath);
+            innerQuery.bindValue(0, filePath);
 
-            query1.exec();
+            innerQuery.exec();
 
-            while(query1.next())
+            while(innerQuery.next())
             {
-                if(!query1.isActive())
+                if(!innerQuery.isActive())
                 {
-                    qDebug() << query1.lastError();
+                    qDebug() << innerQuery.lastError();
                 }
 
-                const int page = query1.value(0).toInt();
-                const QString label = query1.value(1).toString();
+                const int page = innerQuery.value(0).toInt();
+                const QString label = innerQuery.value(1).toString();
 
                 jumps.append(qMakePair(page, label));
             }
@@ -454,6 +454,11 @@ Database::Database(QObject* parent) : QObject(parent)
             {
                 qDebug() << query.lastError();
             }
+
+            if(tables.contains("tabs_v1"))
+            {
+                migrateTabs_v1_v2();
+            }
         }
 
         // bookmarks
@@ -472,8 +477,7 @@ Database::Database(QObject* parent) : QObject(parent)
 
             if(tables.contains("bookmarks_v1"))
             {
-                // TODO: migrate from v1 to v2
-                // TODO: drop v1
+                migrateBookmarks_v1_v2();
             }
         }
 
@@ -520,3 +524,73 @@ Database::Database(QObject* parent) : QObject(parent)
 
 #endif // WITH_SQL
 }
+
+#ifdef WITH_SQL
+
+void Database::migrateTabs_v1_v2()
+{
+    QSqlQuery query(m_database);
+    query.prepare("INSERT INTO tabs_v2 "
+                  "SELECT filePath,?,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation "
+                  "FROM tabs_v1");
+
+    query.bindValue(0, qApp->objectName());
+
+    query.exec();
+
+    if(!query.isActive())
+    {
+        qDebug() << query.lastError();
+        return;
+    }
+
+    qWarning() << "Migrated tabs from v1 to v2, dropping v1.";
+    query.exec("DROP TABLE tabs_v1");
+}
+
+void Database::migrateBookmarks_v1_v2()
+{
+    QSqlQuery query(m_database);
+    query.exec("SELECT filePath,pages FROM bookmarks_v1");
+
+    while(query.next())
+    {
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+            return;
+        }
+
+        QSqlQuery innerQuery(m_database);
+        innerQuery.prepare("INSERT INTO bookmarks_v2 "
+                           "(filePath,page,label)"
+                           " VALUES (?,?,?)");
+
+        innerQuery.bindValue(0, query.value(0));
+
+        foreach(QString page, query.value(1).toString().split(",", QString::SkipEmptyParts))
+        {
+            innerQuery.bindValue(1, page);
+            innerQuery.bindValue(2, tr("Jump to page %1").arg(page));
+
+            innerQuery.exec();
+
+            if(!innerQuery.isActive())
+            {
+                qDebug() << innerQuery.lastError();
+                return;
+            }
+        }
+    }
+
+    if(!query.isActive())
+    {
+        qDebug() << query.lastError();
+        return;
+    }
+
+    qWarning() << "Migrated bookmarks from v1 to v2, dropping v1.";
+    query.exec("DROP TABLE bookmarks_v1");
+}
+
+#endif // WITH_SQL

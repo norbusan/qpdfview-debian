@@ -66,6 +66,9 @@ private:
 
 #ifdef WITH_SQL
 
+    void migrateTabs_v1_v2();
+    void migrateBookmarks_v1_v2();
+
     QSqlDatabase m_database;
 
 #endif // WITH_SQL
