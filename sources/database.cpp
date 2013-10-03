@@ -198,7 +198,6 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
                 if(!query.isActive())
                 {
                     qDebug() << query.lastError();
-                    break;
                 }
             }
         }
@@ -232,7 +231,7 @@ void Database::restoreBookmarks()
         m_database.transaction();
 
         QSqlQuery query(m_database);
-        query.exec("SELECT filePath,pages FROM bookmarks_v1");
+        query.exec("SELECT DISTINCT(filePath) FROM bookmarks_v2");
 
         while(query.next())
         {
@@ -242,14 +241,30 @@ void Database::restoreBookmarks()
                 break;
             }
 
-            QList< int > pages;
+            const QString filePath = query.value(0).toString();
+            QList< QPair< int, QString > > jumps;
 
-            foreach(QString page, query.value(1).toString().split(",", QString::SkipEmptyParts))
+            QSqlQuery query1(m_database);
+            query1.prepare("SELECT page,label FROM bookmarks_v2 WHERE filePath==?");
+
+            query1.bindValue(0, filePath);
+
+            query1.exec();
+
+            while(query1.next())
             {
-                pages.append(page.toInt());
+                if(!query1.isActive())
+                {
+                    qDebug() << query1.lastError();
+                }
+
+                const int page = query1.value(0).toInt();
+                const QString label = query1.value(1).toString();
+
+                jumps.append(qMakePair(page, label));
             }
 
-            emit bookmarkRestored(query.value(0).toString(), pages);
+            emit bookmarkRestored(filePath, jumps);
         }
 
         m_database.commit();
@@ -267,7 +282,7 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
         m_database.transaction();
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM bookmarks_v1");
+        query.exec("DELETE FROM bookmarks_v2");
 
         if(!query.isActive())
         {
@@ -276,28 +291,24 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
 
         if(Settings::instance()->mainWindow().restoreBookmarks())
         {
-            query.prepare("INSERT INTO bookmarks_v1 "
-                          "(filePath,pages)"
-                          " VALUES (?,?)");
+            query.prepare("INSERT INTO bookmarks_v2 "
+                          "(filePath,page,label)"
+                          " VALUES (?,?,?)");
 
             foreach(const BookmarkMenu* bookmark, bookmarks)
             {
-                QStringList pages;
-
-                foreach(const int page, bookmark->pages())
+                foreach(const Jump jump, bookmark->jumps())
                 {
-                    pages.append(QString::number(page));
-                }
+                    query.bindValue(0, QFileInfo(bookmark->filePath()).absoluteFilePath());
+                    query.bindValue(1, jump.first);
+                    query.bindValue(2, jump.second);
 
-                query.bindValue(0, QFileInfo(bookmark->filePath()).absoluteFilePath());
-                query.bindValue(1, pages.join(","));
+                    query.exec();
 
-                query.exec();
-
-                if(!query.isActive())
-                {
-                    qDebug() << query.lastError();
-                    break;
+                    if(!query.isActive())
+                    {
+                        qDebug() << query.lastError();
+                    }
                 }
             }
         }
@@ -447,15 +458,22 @@ Database::Database(QObject* parent) : QObject(parent)
 
         // bookmarks
 
-        if(!tables.contains("bookmarks_v1"))
+        if(!tables.contains("bookmarks_v2"))
         {
-            query.exec("CREATE TABLE bookmarks_v1 "
+            query.exec("CREATE TABLE bookmarks_v2 "
                        "(filePath TEXT"
-                       ",pages TEXT)");
+                       ",page INTEGER"
+                       ",label TEXT)");
 
             if(!query.isActive())
             {
                 qDebug() << query.lastError();
+            }
+
+            if(tables.contains("bookmarks_v1"))
+            {
+                // TODO: migrate from v1 to v2
+                // TODO: drop v1
             }
         }
 

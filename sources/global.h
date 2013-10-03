@@ -57,4 +57,7 @@ enum ScaleMode
     NumberOfScaleModes = 3
 };
 
+typedef QPair< int, QString > Jump;
+typedef QList< QPair< int, QString > > JumpList;
+
 #endif // GLOBAL_H

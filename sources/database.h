@@ -56,7 +56,7 @@ public:
 
 signals:
     void tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void bookmarkRestored(const QString& filePath, const QList< int >& pages);
+    void bookmarkRestored(const QString& filePath, const JumpList& pages);
 
 private:
     Q_DISABLE_COPY(Database)

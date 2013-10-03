@@ -24,6 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 
+#include "global.h"
+
 class BookmarkMenu : public QMenu
 {
     Q_OBJECT
@@ -31,11 +33,11 @@ class BookmarkMenu : public QMenu
 public:
     BookmarkMenu(const QString& filePath, QWidget* parent = 0);
 
-    void addJumpToPageAction(int page);
+    void addJumpToPageAction(int page, const QString& label);
     void removeJumpToPageAction(int page);
 
     QString filePath() const;
-    QList< int > pages() const;
+    JumpList jumps() const;
 
 signals:
     void openTriggered(const QString& filePath);
