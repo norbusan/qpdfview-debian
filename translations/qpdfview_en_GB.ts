@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Choose instance</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instance:</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Page %1</translation>
     </message>
 </context>
 <context>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Could not open &apos;%1&apos;.</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -223,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">The document &apos;%1&apos; has been modified. Do you want to save your changes?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1841"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Open in new &amp;tab...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Open containing folder</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">&amp;View</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Search</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Outline</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Thumbnails</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Search</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>
@@ -1127,12 +1127,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keep obsolete pixmaps:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Use device pixel ratio:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Presentation background colour:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
@@ -1289,12 +1289,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instance name in window title:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synchronise outline view:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>

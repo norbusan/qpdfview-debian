@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">第 %1 页</translation>
     </message>
 </context>
 <context>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">无法打开“%1”。</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -223,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文件 %1 已被修改，你想要保存你的修改吗？</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1841"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">在新标签中打开(&amp;T)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">打开所在目录</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">搜索(&amp;S)</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">大纲(&amp;O)</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">缩略图(&amp;T)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">搜索(&amp;S)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>
@@ -1036,6 +1036,11 @@
         <translation type="unfinished">默认</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="130"/>
+        <source>Defaults on current tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Open URL:</source>
         <translation type="unfinished">打开 URL：</translation>
@@ -1090,6 +1095,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="369"/>
+        <source>None</source>
+        <translation type="unfinished">无</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="372"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">高亮时长：</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="378"/>
         <source>Annotation color:</source>
         <translation type="unfinished">注释颜色：</translation>
@@ -1105,6 +1125,16 @@
         <translation type="unfinished">源编辑器：</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="418"/>
+        <source>Keep obsolete pixmaps:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="427"/>
+        <source>Use device pixel ratio:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">装饰页面：</translation>
@@ -1118,36 +1148,6 @@
         <location filename="../sources/settingsdialog.cpp" line="450"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">装饰表格字段：</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="369"/>
-        <source>None</source>
-        <translation type="unfinished">无</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="130"/>
-        <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="372"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">高亮时长：</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="418"/>
-        <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="427"/>
-        <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="456"/>
@@ -1267,11 +1267,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
         <source>File tool bar:</source>
         <translation type="unfinished">文件工具栏：</translation>
@@ -1285,6 +1280,11 @@
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>View tool bar:</source>
         <translation type="unfinished">查看工具栏：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
@@ -1335,6 +1335,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished">向后跳转</translation>
@@ -1362,16 +1372,6 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

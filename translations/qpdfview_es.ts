@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elija la instancia</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instancia:</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Página %1</translation>
     </message>
 </context>
 <context>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo abrir «%1».</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -223,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Se ha modificado el documento «%1». ¿Quiere guardar los cambios?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1841"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir en una &amp;pestaña nueva…</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Abrir la carpeta contenedora</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Buscar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Objetos</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Miniaturas</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Buscar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>
@@ -719,7 +719,7 @@
         <location filename="../sources/pdfmodel.cpp" line="818"/>
         <location filename="../sources/pdfmodel.cpp" line="848"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="819"/>
@@ -1102,7 +1102,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>None</source>
-        <translation type="unfinished">Nada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="372"/>
@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color de fondo de presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
@@ -1299,7 +1299,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Resaltar la miniatura actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="683"/>

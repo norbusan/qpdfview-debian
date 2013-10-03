@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -128,11 +128,6 @@
         <translation type="unfinished">No s&apos;ha pogut obrir &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Obre la carpeta contenidora</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Obre en nova pes&amp;tanya...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Obre la carpeta contenidora</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -1038,7 +1038,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Per defecte a la pestanya actual</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
@@ -1127,12 +1127,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manté els pixmaps obsolets:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usa la ràtio  de píxel del dispositiu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
@@ -1289,12 +1289,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El nom de la instància al títol de la finestra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronitza la vista exterior:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="az_AZ">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nüsxəni seçin</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nüsxə</translation>
     </message>
 </context>
 <context>
@@ -59,7 +59,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
         <source>Information</source>
-        <translation type="unfinished">Məlumat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Səhifə %1</translation>
     </message>
 </context>
 <context>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; açmaq mümkün deyil.</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -223,7 +218,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1772"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; sənədi dəyişdirilmişdir. Dəyişiklikləri yadda saxlamaq istəyirsiniz mi?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1841"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Yeni İçlikdə aç...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Yerləşdiyi qovluğu aç</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">&amp;Görünüş</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">A&amp;xtar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Altdan xətli</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Mİnatur görüntü</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">A&amp;xtar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>
@@ -594,7 +594,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Information</source>
-        <translation type="unfinished">Mə&apos;lumat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="371"/>
@@ -1038,7 +1038,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bu sekmeni susmaya görə istifadə et</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
@@ -1127,12 +1127,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Köhnə pixmasp-ı saxla</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cihazın piksel nisbətindən istifadə et:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
@@ -1162,7 +1162,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Təqdimatın fon rəngi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
@@ -1264,7 +1264,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">İstifadə sayı:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
@@ -1289,12 +1289,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pəncərənin başlığında nüsxənin adı:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Xətlər görüntüsünü sinxrolaşdır:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>

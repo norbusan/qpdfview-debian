@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="he_IL">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בחירת מופע</translation>
     </message>
     <message>
         <location filename="../sources/database.cpp" line="103"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מופע:</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עמוד %1</translation>
     </message>
 </context>
 <context>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לפתוח את &apos;%1&apos;.</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">פתיחה ב&amp;לשונית חדשה...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">פתיחת התיקייה המכילה</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished">ת&amp;צוגה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;חיפוש</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">מ&amp;תאר</translation>
@@ -522,6 +517,11 @@
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">תמונות ממו&amp;זערות</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;חיפוש</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2197"/>

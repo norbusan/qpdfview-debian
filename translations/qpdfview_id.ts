@@ -42,34 +42,24 @@
     <message>
         <location filename="../sources/documentview.cpp" line="225"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format yang didukung (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="489"/>
         <location filename="../sources/documentview.cpp" line="533"/>
         <source>Unlock %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Buka kunci %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="489"/>
         <location filename="../sources/documentview.cpp" line="533"/>
         <source>Password:</source>
-        <translation type="unfinished">Kata sandi:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1515"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1661"/>
-        <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sandi:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Informasi</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
@@ -86,6 +76,16 @@
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1515"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1661"/>
+        <source>Page %1</source>
+        <translation type="unfinished">Halaman %1</translation>
+    </message>
 </context>
 <context>
     <name>HelpDialog</name>
@@ -93,17 +93,17 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
         <source>Find previous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cari sebelumnya</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
         <source>Find next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cari berikutnya</translation>
     </message>
 </context>
 <context>
@@ -128,11 +128,6 @@
         <translation type="unfinished">Tidak dapat membuka &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
         <source>Open</source>
         <translation type="unfinished">Buka</translation>
@@ -146,7 +141,7 @@
         <location filename="../sources/mainwindow.cpp" line="926"/>
         <location filename="../sources/mainwindow.cpp" line="1120"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Takdapat menyegarkan &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="934"/>
@@ -256,6 +251,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Buka folder yang memuat</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished"></translation>
@@ -288,7 +288,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1920"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">Halaman sela&amp;njutnya</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1921"/>
@@ -323,12 +323,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1930"/>
         <source>Find previous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cari sebelumnya</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1931"/>
         <source>Find next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cari berikutnya</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1932"/>
@@ -504,11 +504,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2092"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Outline</source>
         <translation type="unfinished"></translation>
@@ -521,6 +516,11 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2092"/>
+        <source>&amp;Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -554,12 +554,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Name</source>
-        <translation type="unfinished">Nama</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>Type</source>
-        <translation type="unfinished">Jenis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
@@ -574,19 +574,19 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="780"/>
         <source>File</source>
-        <translation type="unfinished">Berkas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="788"/>
         <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>Yes</source>
-        <translation type="unfinished">Ya</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="788"/>
         <location filename="../sources/pdfmodel.cpp" line="789"/>
         <source>No</source>
-        <translation type="unfinished">Tidak</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -594,7 +594,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="371"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Informasi</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="371"/>
@@ -1001,6 +1001,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="66"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="117"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished"></translation>
@@ -1090,6 +1095,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="369"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="372"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="378"/>
         <source>Annotation color:</source>
         <translation type="unfinished"></translation>
@@ -1130,16 +1150,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="369"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="372"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="456"/>
         <source>Background color:</source>
         <translation type="unfinished"></translation>
@@ -1147,6 +1157,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>Paper color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="468"/>
+        <source>Presentation background color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1167,41 +1182,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="506"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="662"/>
-        <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="669"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="676"/>
-        <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="683"/>
-        <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="66"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="468"/>
-        <source>Presentation background color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1287,11 +1267,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
         <source>File tool bar:</source>
         <translation type="unfinished"></translation>
@@ -1304,6 +1279,31 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>View tool bar:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="662"/>
+        <source>Instance name in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="669"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="676"/>
+        <source>Highlight current thumbnail:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="683"/>
+        <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1335,6 +1335,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
@@ -1362,16 +1372,6 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
