@@ -203,7 +203,7 @@ qreal PageItem::devicePixelRatio() const
 
 void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 {
-    if(m_devicePixelRatio != devicePixelRatio && devicePixelRatio > 0.0)
+    if(!qFuzzyCompare(m_devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
     {
         refresh();
 
@@ -221,7 +221,7 @@ qreal PageItem::scaleFactor() const
 
 void PageItem::setScaleFactor(qreal scaleFactor)
 {
-    if(m_scaleFactor != scaleFactor && scaleFactor > 0.0)
+    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor > 0.0)
     {
         refresh();
 
