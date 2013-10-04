@@ -429,7 +429,7 @@ void PresentationView::prepareScene()
 
 #endif // QT_VERSION
 
-        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+        page->setResolution(logicalDpiX(), logicalDpiY());
 
         const qreal visibleWidth = viewport()->width();
         const qreal visibleHeight = viewport()->height();
@@ -442,13 +442,13 @@ void PresentationView::prepareScene()
         default:
         case RotateBy0:
         case RotateBy180:
-            pageWidth = physicalDpiX() / 72.0 * page->size().width();
-            pageHeight = physicalDpiY() / 72.0 * page->size().height();
+            pageWidth = logicalDpiX() / 72.0 * page->size().width();
+            pageHeight = logicalDpiY() / 72.0 * page->size().height();
             break;
         case RotateBy90:
         case RotateBy270:
-            pageWidth = physicalDpiX() / 72.0 * page->size().height();
-            pageHeight = physicalDpiY() / 72.0 * page->size().width();
+            pageWidth = logicalDpiX() / 72.0 * page->size().height();
+            pageHeight = logicalDpiY() / 72.0 * page->size().width();
             break;
         }
 

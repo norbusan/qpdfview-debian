@@ -51,10 +51,10 @@ public:
 signals:
     void finished();
 
-    void imageReady(int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 public slots:
-    void start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+    void start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
     void cancel();
 
 private:
@@ -70,8 +70,8 @@ private:
 
     Model::Page* m_page;
 
-    int m_physicalDpiX;
-    int m_physicalDpiY;
+    int m_resolutionX;
+    int m_resolutionY;
     qreal m_devicePixelRatio;
 
     qreal m_scaleFactor;

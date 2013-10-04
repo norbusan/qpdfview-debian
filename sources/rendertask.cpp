@@ -29,8 +29,8 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(false),
     m_page(0),
-    m_physicalDpiX(72),
-    m_physicalDpiY(72),
+    m_resolutionX(72),
+    m_resolutionY(72),
     m_devicePixelRatio(1.0),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
@@ -77,13 +77,13 @@ void RenderTask::run()
     default:
     case RotateBy0:
     case RotateBy180:
-        resolutionX = m_physicalDpiX * m_scaleFactor;
-        resolutionY = m_physicalDpiY * m_scaleFactor;
+        resolutionX = m_resolutionX * m_scaleFactor;
+        resolutionY = m_resolutionY * m_scaleFactor;
         break;
     case RotateBy90:
     case RotateBy270:
-        resolutionX = m_physicalDpiY * m_scaleFactor;
-        resolutionY = m_physicalDpiX * m_scaleFactor;
+        resolutionX = m_resolutionY * m_scaleFactor;
+        resolutionY = m_resolutionX * m_scaleFactor;
         break;
     }
 
@@ -111,17 +111,17 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit imageReady(m_physicalDpiX, m_physicalDpiY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
+    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
 
     finish();
 }
 
-void RenderTask::start(Model::Page* page, int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+void RenderTask::start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
 {
     m_page = page;
 
-    m_physicalDpiX = physicalDpiX;
-    m_physicalDpiY = physicalDpiY;
+    m_resolutionX = resolutionX;
+    m_resolutionY = resolutionY;
     m_devicePixelRatio = devicePixelRatio;
 
     m_scaleFactor = scaleFactor;

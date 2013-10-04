@@ -51,8 +51,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
-    m_physicalDpiX(72),
-    m_physicalDpiY(72),
+    m_resolutionX(72),
+    m_resolutionY(72),
     m_devicePixelRatio(1.0),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
@@ -172,24 +172,24 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-int PageItem::physicalDpiX() const
+int PageItem::resolutionX() const
 {
-    return m_physicalDpiX;
+    return m_resolutionX;
 }
 
-int PageItem::physicalDpiY() const
+int PageItem::resolutionY() const
 {
-    return m_physicalDpiY;
+    return m_resolutionY;
 }
 
-void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
+void PageItem::setResolution(int resolutionX, int resolutionY)
 {
-    if((m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY) && physicalDpiX > 0 && physicalDpiY > 0)
+    if((m_resolutionX != resolutionX || m_resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
     {
         refresh();
 
-        m_physicalDpiX = physicalDpiX;
-        m_physicalDpiY = physicalDpiY;
+        m_resolutionX = resolutionX;
+        m_resolutionY = resolutionY;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -286,7 +286,7 @@ void PageItem::startRender(bool prefetch)
 
     if(!m_renderTask->isRunning())
     {
-        m_renderTask->start(m_page, m_physicalDpiX, m_physicalDpiY, effectiveDevicePixelRatio(), m_scaleFactor, m_rotation, m_invertColors, prefetch);
+        m_renderTask->start(m_page, m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(), m_scaleFactor, m_rotation, m_invertColors, prefetch);
     }
 }
 
@@ -303,9 +303,9 @@ void PageItem::on_renderTask_finished()
     update();
 }
 
-void PageItem::on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
+void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
 {
-    if(m_physicalDpiX != physicalDpiX || m_physicalDpiY != physicalDpiY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio) || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
+    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio) || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
         return;
     }
@@ -643,7 +643,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
         const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        const QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_physicalDpiX * m_scaleFactor, m_scaleFactor * m_physicalDpiY, m_rotation, rect);
+        const QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_resolutionX * m_scaleFactor, m_scaleFactor * m_resolutionY, m_rotation, rect);
 
         if(!image.isNull())
         {
@@ -789,13 +789,13 @@ void PageItem::prepareGeometry()
     default:
     case RotateBy0:
     case RotateBy180:
-        m_transform.scale(m_scaleFactor * m_physicalDpiX / 72.0, m_scaleFactor * m_physicalDpiY / 72.0);
-        m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiX / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiY / 72.0 * m_size.height());
+        m_transform.scale(m_scaleFactor * m_resolutionX / 72.0, m_scaleFactor * m_resolutionY / 72.0);
+        m_normalizedTransform.scale(m_scaleFactor * m_resolutionX / 72.0 * m_size.width(), m_scaleFactor * m_resolutionY / 72.0 * m_size.height());
         break;
     case RotateBy90:
     case RotateBy270:
-        m_transform.scale(m_scaleFactor * m_physicalDpiY / 72.0, m_scaleFactor * m_physicalDpiX / 72.0);
-        m_normalizedTransform.scale(m_scaleFactor * m_physicalDpiY / 72.0 * m_size.width(), m_scaleFactor * m_physicalDpiX / 72.0 * m_size.height());
+        m_transform.scale(m_scaleFactor * m_resolutionY / 72.0, m_scaleFactor * m_resolutionX / 72.0);
+        m_normalizedTransform.scale(m_scaleFactor * m_resolutionY / 72.0 * m_size.width(), m_scaleFactor * m_resolutionX / 72.0 * m_size.height());
         break;
     }
 

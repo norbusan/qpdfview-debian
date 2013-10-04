@@ -68,9 +68,9 @@ public:
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
-    int physicalDpiX() const;
-    int physicalDpiY() const;
-    void setPhysicalDpi(int physicalDpiX, int physicalDpiY);
+    int resolutionX() const;
+    int resolutionY() const;
+    void setResolution(int resolutionX, int resolutionY);
 
     qreal devicePixelRatio() const;
     void setDevicePixelRatio(qreal devicePixelRatio);
@@ -104,7 +104,7 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(int physicalDpiX, int physicalDpiY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -155,8 +155,8 @@ private:
 
     // geometry
 
-    int m_physicalDpiX;
-    int m_physicalDpiY;
+    int m_resolutionX;
+    int m_resolutionY;
     qreal m_devicePixelRatio;
 
     qreal effectiveDevicePixelRatio();
