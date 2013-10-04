@@ -72,7 +72,8 @@ public:
     int physicalDpiY() const;
     void setPhysicalDpi(int physicalDpiX, int physicalDpiY);
 
-    static qreal effectiveDevicePixelRatio();
+    qreal devicePixelRatio() const;
+    void setDevicePixelRatio(qreal devicePixelRatio);
 
     qreal scaleFactor() const;
     void setScaleFactor(qreal scaleFactor);
@@ -156,6 +157,9 @@ private:
 
     int m_physicalDpiX;
     int m_physicalDpiY;
+    qreal m_devicePixelRatio;
+
+    qreal effectiveDevicePixelRatio();
 
     qreal m_scaleFactor;
     Rotation m_rotation;

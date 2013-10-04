@@ -53,6 +53,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_rubberBand(),
     m_physicalDpiX(72),
     m_physicalDpiY(72),
+    m_devicePixelRatio(1.0),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_transform(),
@@ -195,17 +196,22 @@ void PageItem::setPhysicalDpi(int physicalDpiX, int physicalDpiY)
     }
 }
 
-qreal PageItem::effectiveDevicePixelRatio()
+qreal PageItem::devicePixelRatio() const
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    return m_devicePixelRatio;
+}
 
-    return s_settings->pageItem().useDevicePixelRatio() ? qApp->devicePixelRatio() : 1.0;
+void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
+{
+    if(m_devicePixelRatio != devicePixelRatio && devicePixelRatio > 0.0)
+    {
+        refresh();
 
-#else
+        m_devicePixelRatio = devicePixelRatio;
 
-    return 1.0;
-
-#endif // QT_VERSION
+        prepareGeometryChange();
+        prepareGeometry();
+    }
 }
 
 qreal PageItem::scaleFactor() const
@@ -739,6 +745,19 @@ void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPo
     }
 
     emit wasModified();
+}
+
+qreal PageItem::effectiveDevicePixelRatio()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return s_settings->pageItem().useDevicePixelRatio() ? m_devicePixelRatio : 1.0;
+
+#else
+
+    return 1.0;
+
+#endif // QT_VERSION
 }
 
 void PageItem::prepareGeometry()

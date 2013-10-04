@@ -1802,6 +1802,12 @@ void DocumentView::prepareScene()
     {
         PageItem* page = m_pageItems.at(index);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        page->setDevicePixelRatio(devicePixelRatio());
+
+#endif // QT_VERSION
+
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         if(m_scaleMode != ScaleFactorMode)
@@ -2054,6 +2060,12 @@ void DocumentView::prepareThumbnailsScene()
         page->setVisible(true);
 
         // prepare scale factor
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        page->setDevicePixelRatio(devicePixelRatio());
+
+#endif // QT_VERSION
 
         page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
