@@ -391,7 +391,7 @@ void PresentationView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index, true);
 
-        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
+        page->setInvertColors(m_invertColors);
 
         scene()->addItem(page);
         m_pageItems.append(page);
@@ -422,6 +422,8 @@ void PresentationView::prepareScene()
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
+
+        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         const qreal visibleWidth = viewport()->width();
         const qreal visibleHeight = viewport()->height();

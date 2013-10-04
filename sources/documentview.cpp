@@ -1734,7 +1734,6 @@ void DocumentView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index);
 
-        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
@@ -1762,7 +1761,6 @@ void DocumentView::prepareThumbnails()
     {
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
 
-        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
         page->setInvertColors(m_invertColors);
 
         m_thumbnailsScene->addItem(page);
@@ -1803,6 +1801,8 @@ void DocumentView::prepareScene()
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
+
+        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         if(m_scaleMode != ScaleFactorMode)
         {
@@ -2054,6 +2054,8 @@ void DocumentView::prepareThumbnailsScene()
         page->setVisible(true);
 
         // prepare scale factor
+
+        page->setPhysicalDpi(physicalDpiX(), physicalDpiY());
 
         const qreal pageWidth = physicalDpiX() / 72.0 * page->size().width();
         const qreal pageHeight = physicalDpiY() / 72.0 * page->size().height();
