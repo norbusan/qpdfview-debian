@@ -117,7 +117,7 @@ int main(int argc, char** argv)
 
         QRegExp fileAndPageRegExp("(.+)#(\\d+)");
         QRegExp fileAndSourceRegExp("(.+)#src:(.+):(\\d+):(\\d+)");
-        QRegExp instanceNameRegExp("[A-Za-z_][A-Za-z0-9_]*");
+        QRegExp instanceNameRegExp("[A-Za-z_]?[A-Za-z0-9_]*");
 
         QStringList arguments = QApplication::arguments();
 
@@ -295,7 +295,8 @@ int main(int argc, char** argv)
 
         if(!instanceName.isEmpty())
         {
-            serviceName.append("." + instanceName);
+            serviceName.append('.');
+            serviceName.append(instanceName);
         }
 
         if(unique)
