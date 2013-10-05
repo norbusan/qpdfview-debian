@@ -136,12 +136,6 @@ int main(int argc, char** argv)
                     return 1;
                 }
 
-                if(!instanceNameRegExp.exactMatch(argument))
-                {
-                    qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
-                    return 1;
-                }
-
                 instanceNameIsNext = false;
                 instanceName = argument;
             }
@@ -226,6 +220,12 @@ int main(int argc, char** argv)
         if(!unique && !instanceName.isEmpty())
         {
             qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
+            return 1;
+        }
+
+        if(!instanceNameRegExp.exactMatch(instanceName))
+        {
+            qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
             return 1;
         }
 
