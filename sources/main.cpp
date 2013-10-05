@@ -175,7 +175,7 @@ int main(int argc, char** argv)
                           << "  --search text               Search for text in the current tab" << std::endl
                           << "  --unique                    Open files as tabs in unique window" << std::endl
                           << "  --unique --instance name    Open files as tabs in named instance" << std::endl
-                          << "  --unique --choose-instance  TODO" << std::endl
+                          << "  --unique --choose-instance  Open files as tabs after choosing an instance name" << std::endl
                           << std::endl
                           << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
 
