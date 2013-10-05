@@ -115,8 +115,9 @@ int main(int argc, char** argv)
     {
         // command-line arguments
 
-        QRegExp regExp1("(.+)#(\\d+)");
-        QRegExp regExp2("(.+)#src:(.+):(\\d+):(\\d+)");
+        QRegExp fileAndPageRegExp("(.+)#(\\d+)");
+        QRegExp fileAndSourceRegExp("(.+)#src:(.+):(\\d+):(\\d+)");
+        QRegExp instanceNameRegExp("[A-Za-z_][A-Za-z0-9_]*");
 
         QStringList arguments = QApplication::arguments();
 
@@ -132,6 +133,12 @@ int main(int argc, char** argv)
                 if(argument.isEmpty())
                 {
                     qCritical() << QObject::tr("An empty instance name is not allowed.");
+                    return 1;
+                }
+
+                if(!instanceNameRegExp.exactMatch(argument))
+                {
+                    qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
                     return 1;
                 }
 
@@ -189,17 +196,17 @@ int main(int argc, char** argv)
             {
                 File file;
 
-                if(regExp1.exactMatch(argument))
+                if(fileAndPageRegExp.exactMatch(argument))
                 {
-                    file.filePath = QFileInfo(regExp1.cap(1)).absoluteFilePath();
-                    file.page = regExp1.cap(2).toInt();
+                    file.filePath = QFileInfo(fileAndPageRegExp.cap(1)).absoluteFilePath();
+                    file.page = fileAndPageRegExp.cap(2).toInt();
                 }
-                else if(regExp2.exactMatch(argument))
+                else if(fileAndSourceRegExp.exactMatch(argument))
                 {
-                    file.filePath = QFileInfo(regExp2.cap(1)).absoluteFilePath();
-                    file.sourceName = regExp2.cap(2);
-                    file.sourceLine = regExp2.cap(3).toInt();
-                    file.sourceColumn = regExp2.cap(4).toInt();
+                    file.filePath = QFileInfo(fileAndSourceRegExp.cap(1)).absoluteFilePath();
+                    file.sourceName = fileAndSourceRegExp.cap(2);
+                    file.sourceLine = fileAndSourceRegExp.cap(3).toInt();
+                    file.sourceColumn = fileAndSourceRegExp.cap(4).toInt();
                 }
                 else
                 {
