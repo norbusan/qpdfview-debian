@@ -1523,27 +1523,30 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         QApplication::processEvents();
 
+        painter.save();
+
         const Model::Page* page = m_pages.at(index);
-
-        const qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
-        const qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
-
-        qreal scaleFactorX = 1.0, scaleFactorY = 1.0;
 
         if(printOptions.fitToPage)
         {
-            scaleFactorX = scaleFactorY = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+            const qreal pageWidth = printer->physicalDpiX() / 72.0 * page->size().width();
+            const qreal pageHeight = printer->physicalDpiY() / 72.0 * page->size().width();
+
+            const qreal scaleFactor = qMin(printer->width() / pageWidth, printer->height() / pageHeight);
+
+            painter.setTransform(QTransform::fromScale(scaleFactor, scaleFactor));
         }
         else
         {
-            scaleFactorX = static_cast< qreal >(printer->logicalDpiX()) / static_cast< qreal >(printer->physicalDpiX());
-            scaleFactorY = static_cast< qreal >(printer->logicalDpiY()) / static_cast< qreal >(printer->physicalDpiY());
+            const qreal scaleFactorX = static_cast< qreal >(printer->logicalDpiX()) / static_cast< qreal >(printer->physicalDpiX());
+            const qreal scaleFactorY = static_cast< qreal >(printer->logicalDpiY()) / static_cast< qreal >(printer->physicalDpiY());
+
+            painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
         }
 
-        QImage image = page->render(printer->physicalDpiX(), printer->physicalDpiY());
+        painter.drawImage(QPointF(), page->render(printer->physicalDpiX(), printer->physicalDpiY()));
 
-        painter.setTransform(QTransform::fromScale(scaleFactorX, scaleFactorY));
-        painter.drawImage(QPointF(), image);
+        painter.restore();
 
         if(index < toPage - 1)
         {
@@ -1554,6 +1557,8 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         if(progressDialog->wasCanceled())
         {
+            printer->abort();
+
             return false;
         }
     }
