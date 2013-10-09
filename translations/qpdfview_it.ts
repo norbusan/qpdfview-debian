@@ -82,7 +82,7 @@
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1661"/>
+        <location filename="../sources/documentview.cpp" line="1666"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>
@@ -638,67 +638,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="359"/>
+        <location filename="../sources/pageitem.cpp" line="365"/>
         <source>Go to page %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="363"/>
+        <location filename="../sources/pageitem.cpp" line="369"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Va alla pagina %1 del file «%2»</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="371"/>
+        <location filename="../sources/pageitem.cpp" line="377"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Apre «%1»</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="406"/>
+        <location filename="../sources/pageitem.cpp" line="412"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Modifica campo del form «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="622"/>
+        <location filename="../sources/pageitem.cpp" line="628"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Copia &amp;testo</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="623"/>
+        <location filename="../sources/pageitem.cpp" line="629"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copia &amp;immagine</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="624"/>
+        <location filename="../sources/pageitem.cpp" line="630"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Salva immagine in un &amp;file...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="650"/>
+        <location filename="../sources/pageitem.cpp" line="656"/>
         <source>Save image to file</source>
         <translation type="unfinished">Salva immagine in un file</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="654"/>
+        <location filename="../sources/pageitem.cpp" line="660"/>
         <source>Warning</source>
         <translation type="unfinished">Avviso</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="654"/>
+        <location filename="../sources/pageitem.cpp" line="660"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Impossibile salvare l&apos;immagine nel file «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="667"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Aggiungi &amp;testo</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="668"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Aggiungi e&amp;videnziazione</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="705"/>
+        <location filename="../sources/pageitem.cpp" line="711"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Rimuovi nota</translation>
     </message>
@@ -917,37 +917,42 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="134"/>
+        <location filename="../sources/main.cpp" line="135"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Non è consentito un nome vuoto dell&apos;istanza</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="145"/>
+        <location filename="../sources/main.cpp" line="146"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Non è consentita una stringa di ricerca vuota.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="215"/>
+        <location filename="../sources/main.cpp" line="216"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">L&apos;uso di &quot;--instance&quot; richiede il nome di un&apos;istanza</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="221"/>
+        <location filename="../sources/main.cpp" line="222"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">L&apos;uso di &quot;--instance&quot; non è consentito senza usare &quot;--unique&quot;</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="227"/>
+        <location filename="../sources/main.cpp" line="228"/>
+        <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="234"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">L&apos;uso dell&apos;opzione &quot;--search&quot; richiede una ricerca testuale-</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="270"/>
+        <location filename="../sources/main.cpp" line="277"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="367"/>
+        <location filename="../sources/main.cpp" line="375"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Impossibile preparare il gestore di segnale</translation>
     </message>

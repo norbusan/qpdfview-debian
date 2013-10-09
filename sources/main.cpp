@@ -117,7 +117,7 @@ int main(int argc, char** argv)
 
         QRegExp fileAndPageRegExp("(.+)#(\\d+)");
         QRegExp fileAndSourceRegExp("(.+)#src:(.+):(\\d+):(\\d+)");
-        QRegExp instanceNameRegExp("[A-Za-z_]?[A-Za-z0-9_]*");
+        QRegExp instanceNameRegExp("[A-Za-z_]+[A-Za-z0-9_]*");
 
         QStringList arguments = QApplication::arguments();
 
@@ -223,7 +223,7 @@ int main(int argc, char** argv)
             return 1;
         }
 
-        if(!instanceNameRegExp.exactMatch(instanceName))
+        if(!instanceName.isEmpty() && !instanceNameRegExp.exactMatch(instanceName))
         {
             qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
             return 1;
