@@ -252,7 +252,7 @@ int main(int argc, char** argv)
             // started from Workbench
 
             const int pathLength = 1024;
-            QScopedArrayPointer< char > filePath(new char[pathLength]);
+            const QScopedArrayPointer< char > filePath(new char[pathLength]);
 
             const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
 
