@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_en_GB.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>

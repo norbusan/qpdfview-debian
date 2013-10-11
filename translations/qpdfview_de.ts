@@ -93,7 +93,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_de.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
