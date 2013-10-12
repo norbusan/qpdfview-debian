@@ -179,6 +179,9 @@ protected slots:
     void on_contents_triggered();
     void on_about_triggered();
 
+    void on_focusCurrentPage_activated();
+    void on_focusScaleFactor_activated();
+
     void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
 
@@ -309,6 +312,9 @@ private:
     QToolBar* m_fileToolBar;
     QToolBar* m_editToolBar;
     QToolBar* m_viewToolBar;
+
+    QShortcut* m_focusCurrentPageShortcut;
+    QShortcut* m_focusScaleFactorShortcut;
 
     QToolBar* createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions);
 

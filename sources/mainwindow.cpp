@@ -1501,7 +1501,19 @@ void MainWindow::on_about_triggered()
                                                       + tr("<li>Printing support using CUPS</li>")
 #endif // WITH_CUPS
                                                       + tr("</ul>"
-                                                      "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 The qpdfview developers</p>")).arg(QApplication::applicationVersion()));
+                                                           "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2013 The qpdfview developers</p>")).arg(QApplication::applicationVersion()));
+}
+
+void MainWindow::on_focusCurrentPage_activated()
+{
+    m_currentPageSpinBox->setFocus();
+    m_currentPageSpinBox->selectAll();
+}
+
+void MainWindow::on_focusScaleFactor_activated()
+{
+    m_scaleFactorComboBox->setFocus();
+    m_scaleFactorComboBox->lineEdit()->selectAll();
 }
 
 void MainWindow::on_searchInitiated(const QString& text, bool allTabs)
@@ -2030,6 +2042,9 @@ void MainWindow::createToolBars()
 
     m_viewToolBar = createToolBar(tr("&View"), QLatin1String("viewToolBar"), s_settings->mainWindow().viewToolBar(),
                                   QList< QAction* >() << m_scaleFactorAction << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction << m_rotateLeftAction << m_rotateRightAction << m_fullscreenAction << m_presentationAction);
+
+    m_focusCurrentPageShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_K), this, SLOT(on_focusCurrentPage_activated()));
+    m_focusScaleFactorShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_L), this, SLOT(on_focusScaleFactor_activated()));
 }
 
 QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
