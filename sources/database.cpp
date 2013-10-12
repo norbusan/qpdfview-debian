@@ -145,10 +145,6 @@ void Database::restoreTabs()
         m_database.commit();
     }
 
-#else
-
-    Q_UNUSED(instanceName);
-
 #endif // WITH_SQL
 }
 
@@ -217,7 +213,6 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 
 #else
 
-    Q_UNUSED(instanceName);
     Q_UNUSED(tabs);
 
 #endif // WITH_SQL
