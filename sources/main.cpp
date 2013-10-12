@@ -122,6 +122,35 @@ int main(int argc, char** argv)
 
     QList< File > files;
 
+#ifdef __amigaos4__
+
+    if(argc == 0)
+    {
+        // started from Workbench
+
+        const int pathLength = 1024;
+        const QScopedArrayPointer< char > filePath(new char[pathLength]);
+
+        const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
+
+        for(int i = 1; i < wbStartup->sm_NumArgs; ++i)
+        {
+            const struct WBArg* wbArg = wbStartup->sm_ArgList + i;
+
+            if((wbArg->wa_Lock) && (*wbArg->wa_Name))
+            {
+                IDOS->DevNameFromLock(wbArg->wa_Lock, filePath.data(), pathLength, DN_FULLPATH);
+                IDOS->AddPart(filePath.data(), wbArg->wa_Name, pathLength);
+
+                File file;
+                file.filePath = filePath.data();
+                files.append(file);
+            }
+        }
+    }
+
+#endif // __amigaos4__
+
     {
         // command-line arguments
 
@@ -244,35 +273,6 @@ int main(int argc, char** argv)
             qCritical() << QObject::tr("Using '--search' requires a search text.");
             return 1;
         }
-
-        #ifdef __amigaos4__
-
-        if(argc == 0)
-        {
-            // started from Workbench
-
-            const int pathLength = 1024;
-            const QScopedArrayPointer< char > filePath(new char[pathLength]);
-
-            const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
-
-            for(int i = 1; i < wbStartup->sm_NumArgs; ++i)
-            {
-                const struct WBArg* wbArg = wbStartup->sm_ArgList + i;
-
-                if((wbArg->wa_Lock) && (*wbArg->wa_Name))
-                {
-                    IDOS->DevNameFromLock(wbArg->wa_Lock, filePath.data(), pathLength, DN_FULLPATH);
-                    IDOS->AddPart(filePath.data(), wbArg->wa_Name, pathLength);
-
-                    File file;
-                    file.filePath = filePath.data();
-                    files.append(file);
-                }
-            }
-        }
-
-        #endif // __amigaos4__
     }
 
 #ifdef WITH_SYNCTEX
