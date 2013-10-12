@@ -82,6 +82,38 @@ int main(int argc, char** argv)
     qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
     qRegisterMetaType< Rotation >("Rotation");
 
+#ifdef __amigaos4__
+
+    QList< File > wbSelection;
+
+    if(argc == 0)
+    {
+        // started from Workbench
+
+        const int pathLength = 1024;
+        const QScopedArrayPointer< char > filePath(new char[pathLength]);
+
+        const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
+
+        for(int i = 1; i < wbStartup->sm_NumArgs; ++i)
+        {
+            const struct WBArg* wbArg = wbStartup->sm_ArgList + i;
+
+            if((wbArg->wa_Lock) && (*wbArg->wa_Name))
+            {
+                IDOS->DevNameFromLock(wbArg->wa_Lock, filePath.data(), pathLength, DN_FULLPATH);
+                IDOS->AddPart(filePath.data(), wbArg->wa_Name, pathLength);
+
+                File file;
+                file.filePath = filePath.data();
+
+                wbSelection.append(file);
+            }
+        }
+    }
+
+#endif // __amigaos4__
+
     QApplication application(argc, argv);
 
     QApplication::setOrganizationDomain("local.qpdfview");
@@ -121,35 +153,6 @@ int main(int argc, char** argv)
     QString searchText = "";
 
     QList< File > files;
-
-#ifdef __amigaos4__
-
-    if(argc == 0)
-    {
-        // started from Workbench
-
-        const int pathLength = 1024;
-        const QScopedArrayPointer< char > filePath(new char[pathLength]);
-
-        const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
-
-        for(int i = 1; i < wbStartup->sm_NumArgs; ++i)
-        {
-            const struct WBArg* wbArg = wbStartup->sm_ArgList + i;
-
-            if((wbArg->wa_Lock) && (*wbArg->wa_Name))
-            {
-                IDOS->DevNameFromLock(wbArg->wa_Lock, filePath.data(), pathLength, DN_FULLPATH);
-                IDOS->AddPart(filePath.data(), wbArg->wa_Name, pathLength);
-
-                File file;
-                file.filePath = filePath.data();
-                files.append(file);
-            }
-        }
-    }
-
-#endif // __amigaos4__
 
     {
         // command-line arguments
@@ -249,6 +252,14 @@ int main(int argc, char** argv)
                 files.append(file);
             }
         }
+
+#ifdef __amigaos4__
+
+        // Workbench extended selection
+
+        files.append(wbSelection);
+
+#endif // __amigaos4__
 
         if(instanceNameIsNext)
         {
