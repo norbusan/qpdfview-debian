@@ -43,119 +43,131 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
         <li><a href="#file">Datei</a></li>
         <li><a href="#edit">Bearbeiten</a></li>
         <li><a href="#view">Ansicht</a></li>
-        <li><a href="#tabs">Tabs</a></li>
+        <li><a href="#tabs">Reiter</a></li>
         <li><a href="#bookmarks">Lesezeichen</a></li>
         <li><a href="#help">Hilfe</a></li>
     </ol>
-    <li><a href="#mainview">Main view</a></li>
-    <li><a href="#auxiliaryviews">Auxiliary views</a></li>
-    <li><a href="#settings">Settings</a></li>
+    <li><a href="#mainview">Hauptansicht</a></li>
+    <li><a href="#auxiliaryviews">Hilfsansichten</a></li>
+    <li><a href="#settings">Einstellungen</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
-    	<li><a href="#graphicssettings">Graphics settings</a></li>
-    	<li><a href="#interfacesettings">Interface settings</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
-    	<li><a href="#modifiersettings">Modifier settings</a></li>
+    	<li><a href="#behaviorsettings">Verhalten</a></li>
+    	<li><a href="#graphicssettings">Grafik</a></li>
+    	<li><a href="#interfacesettings">Oberfläche</a></li>
+    	<li><a href="#shortcutsettings">Tastenkürzel</a></li>
+    	<li><a href="#modifiersettings">Modifikatoren</a></li>
     </ol>
 </ol>
 
-<h4>Introduction</h4>
+<h4>Einleitung</h4>
 
-<p><em>qpdfview</em> is a tabbed document viewer. It uses Poppler for PDF
-support, libspectre for PS support, DjVuLibre for DjVu support, CUPS for
-printing support and the Qt toolkit for its interface.</p>
+<p><em>qpdfview</em> ist ein Programm zum Anzeigen von Dokumenten mit
+Reitern. Es verwendet Poppler für PDF-Unterstützung, libspectre für
+PS-Unterstützung, DjVuLibre für DjVu-Unterstützung, CUPS zum Drucken und den
+Qt-Werkzeugsatz für die Benutzeroberfläche.</p>
 
-<p>Please refer to the manual page for information on command-line options and
-configuration files.</p>
+<p>Informationen über Kommandozeilenoptionen und Konfigurationsdateien sind in
+der Kommandozeilenanleitung zu finden.</p>
 
-<h3><a name="mainmenu">Main menu</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainmenu">Hauptmenü</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
-
-<ul>
-	<li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-	<li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
-	<li><b>Recently used</b> Contains a list of the ten most recently used files (if
-enabled in the settings).</li>
-	<li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
-	<li><b>Save copy...</b> Opens a dialog to save a copy of the file displayed in
-the current tab.</li>
-	<li><b>Save as...</b> Opens a dialog to save the file displayed in the current
-tab including changes to annotations and form fields.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
-	<li><b>Exit</b> Closes all tabs and ends the program.</li>
-</ul>
-
-<h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="file">Datei</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last
-page of the document.</li>
-    <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
-    <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
-displayed page.</li>
-	<li><b>Search...</b> Opens the search tool bar below the main view. The search
-automatically starts two seconds after the last change of the search term or
-is manually started by pressing the return key. If the Shift modifier is
-held when the return key is pressed, the search starts in all tabs instead
-of just the current tab.</li>
-	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the
-search term in the document.</li>
-	<li><b>Cancel search</b> Cancels the currently running search and closes the
-search tool bar.</li>
-	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be
-dragged to copy texts or images.</li>
-	<li><b>Add annotation</b> If checked, the program will wait for a frame to be
-dragged to add annotations.</li>
-	<li><b>Settings...</b> Opens the settings dialog. The button labeled 'Defaults'
-will revert all settings on all tabs to their default values. The button
-labeled 'Defaults on current tab' will revert only the settings on the
-current tab to their default values.</li>
+	<li><b>Öffnen...</b> Öffnet einen Auswahldialog zum Öffnen einer Datei im
+aktuellen Reiter. Falls kein Reiter vorhanden ist, wird die Datei in einem
+neuen Reiter geöffnet.</li>
+	<li><b>In neuem Reiter öffnen...</b> Öffnet einen Auswahldialog zum Öffnen von
+Dateien in neuen Reitern.</li>
+	<li><b>Zuletzt verwendet</b> Enthält eine Liste der zehn zuletzt verwendeten
+Dateien (falls es in den Einstellungen eingeschaltet ist).</li>
+	<li><b>Aktualisieren</b> Lädt die Datei neu, die im aktuellen Reiter angezeigt
+wird.</li>
+	<li><b>Kopie speichern...</b> Öffnet einen Auswahldialog zum Speichern einer
+Kopie der im aktuellen Reiter angezeigten Datei.</li>
+	<li><b>Speichern unter...</b> Öffnet einen Auswahldialog zum Speichern einer
+Kopie der im aktuellen Reiter angezeigten Datei mit allen Änderungen an
+Anmerkungen und Formularfeldern.</li>
+    <li><b>Drucken...</b> Öffnet einen Druckdialog für die im aktuellen Reiter
+angezeigte Datei.</li>
+	<li><b>Beenden</b> Schließt alle Reiter und beendet das Programm.</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar and pressing the return key.</p>
-
-<h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="edit">Bearbeiten</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
-at once.</li>
-	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
-	<li><b>Two pages with cover page</b> Determines whether the page layout uses two
-columns with a break after the cover page.</li>
-	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
-columns. The number of columns can be changed in the settings dialog.</li>
-	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
-	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
-	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
-    <li><b>Fit to page width</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally.</li>
-	<li><b>Fit to page size</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally and vertically.</li>
-	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
-	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
-	<li><b>Docks</b> This menu contains a list of available docks for displaying
-supplementary information.</li>
-	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
-	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
-maximized and without decoration.</li>
-	<li><b>Presentation...</b> Enters presentation mode which can be left by
-pressing F12 or escape. The home/end key is used to display the first/last
-page. Arrow keys right and down, space and the page down key jump to the
-next page. Arrow keys left and up, backspace and the page up key jump to the
-previous page. Pressing control and return jumps back to the page before the
-last jump.</li>
+	<li><b>Vorige/Nächste/Erste/Letzte Seite</b> Springt zur
+vorigen/nächsten/ersten/letzten Seite des Dokuments.</li>
+    <li><b>Zu Seite springen...</b> Öffnet einen Dialog zur Eingabe einer Seite zur
+Anzeige im aktuellen Reiter.</li>
+    <li><b>Springe rückwärts/vorwärts</b> Springt rückwärts/vorwärts in der Chronik
+der angezeigten Seiten.</li>
+	<li><b>Suchen...</b> Öffnet die Suchwerkzeugleiste unter der Hauptansicht. Die
+Suche beginnt automatisch zwei Sekunden nach der letzten Änderung des
+Suchbegriffs oder wird manuell mit der Eingabetaste gestartet. Falls die
+Umschalttaste gehalten wird, während die Eingabetaste gedrückt wird, startet
+die Suche in allen Reitern anstatt nur dem aktuellen Reiter.</li>
+	<li><b>Rückwärts/Vorwärts suchen</b> Springt zur vorigen/nächsten Fundstelle des
+Suchbegriffs im Dokument.</li>
+	<li><b>Suche abbrechen</b> Bricht die aktuelle laufende Suche ab und schließt
+die Suchwerkzeugleiste.</li>
+	<li><b>In Zwischenablage kopieren</b> Wenn aktiviert, wird das Programm darauf
+warten, dass zum Kopieren ein Rahmen um Text oder Bilder gezogen wird.</li>
+	<li><b>Anmerkung hinzufügen</b> Wenn aktiviert, wird das Programm darauf warten,
+dass ein Rahmen gezogen wird um Anmerkungen hinzuzufügen.</li>
+	<li><b>Einstellungen...</b> Öffnet den Einstellungsdialog. Die Schaltflächen mit
+der Aufschrift 'Vorgaben' setzt alle Einstellungen in allen Reitern des
+Einstellungsdialogs auf ihre Vorgabewerte. Die Schaltfläche 'Vorgaben auf
+aktuellem Reiter' setzt nur die Einstellungen im aktuellen Reiter des
+Einstellungsdialogs auf ihre Vorgabewerte.</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar and pressing the return key.</p>
+<p>Die <em>aktuelle Seite</em> kann geändert werden, indem die gewünschte
+Seitenzahl in das Textfeld in der Bearbeiten-Werkzeugleiste eingegeben und
+die Eingabetaste gedrückt wird.</p>
+
+<h4><a name="view">Ansicht</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Fortlaufend</b> Legt fest, ob die Seiten fortlaufend in Reihen
+übereinander angezeigt werden.</li>
+	<li><b>Zweiseitig</b> Legt fest, ob die Seitenanzeige zweispaltig ist.</li>
+	<li><b>Zweiseitig mit Titelseite</b> Legt fest, ob die Seitenanzeige zweispaltig
+ist und die Titelseite einzeln anzeigt.</li>
+	<li><b>Mehrere Seiten</b> Legt fest, ob die Seitenanzeige mehrspaltig ist. Die
+Anzahl der Spalten für diese Anzeigeart kann im Einstellungsdialog geändert
+werden.</li>
+	<li><b>Vergrößern</b> Vergrößert den Skalenfaktor um 10 Prozent.</li>
+	<li><b>Verkleinern</b> Verkleinert den Skalenfaktor um 10 Prozent.</li>
+	<li><b>Ursprüngliche Größe</b> Setzt den Skalenfaktor auf 100 Prozent zurück.</li>
+    <li><b>An Seitenbreite anpassen</b> Bestimmt den Skalenfaktor so dass eine Zeile
+von Seiten die Hauptansicht horizontal ausfüllt.</li>
+	<li><b>An Seitengröße anpassen</b> Bestimmt den Skalenfaktor so dass eine Zeile
+von Seiten vollständig in der Hauptansicht angezeigt wird.</li>
+	<li><b>Nach links drehen</b> Dreht alle Seiten nach links gegen den
+Uhrzeigersinn um 90 Grad.</li>
+	<li><b>Nach rechts drehen</b> Dreht alle Seiten nach rechts im Uhrzeigersinn um
+90 Grad.</li>
+	<li><b>Werkzeugleisten</b> Dieses Menü enthält eine Liste verfügbarer
+Werkzeugleisten zum Zugriff auf häufig genutzte Aktionen.</li>
+	<li><b>Paletten</b> Dieses Menü enthält eine Liste verfügbarer Paletten zur
+Anzeige von Zusatzinformationen.</li>
+	<li><b>Schriften...</b> Öffnet einen Dialog, der die im Dokument verwendeten
+Schriftarten auflistet.</li>
+	<li><b>Vollbild</b> Schaltet die Vollbildanzeige ein, in der das Fenster
+maximiert und ohne Fensterdekorationen angezeigt wird.</li>
+	<li><b>Präsentation...</b> Schaltet in den Präsentationsmodus, der durch Drücken
+von F12 oder Escape verlassen werden kann. Die Pos1/Ende-Tasten werden
+verwendet um die erste/letzte Seite zu zeigen. Die Pfeiltasten rechts und
+unten, die Leertaste und die Bild-ab-Taste springen zur nächsten Seite. Die
+Pfeiltasten links und oben, die Rücktaste und die Bild-auf-Taste springen
+zur vorigen Seite. Drücken von Strg und Eingabetaste springt zur Seite vor
+dem letzten Sprung.</li>
+</ul>
+
+<p>Der <em>Skalenfaktor</em> kann verändert werden, indem die gewünschte
+Prozentzahl in das Textfeld in der Ansichtswerkzeugleiste eingegeben und die
+Eingabetaste gedrückt wird.</p>
 
 <h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
 
