@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 
 #ifdef __amigaos4__
 
-    QList< File > wbSelection;
+    QList< File > wbExtendedSelection;
 
     if(argc == 0)
     {
@@ -95,9 +95,9 @@ int main(int argc, char** argv)
 
         const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
 
-        for(int i = 1; i < wbStartup->sm_NumArgs; ++i)
+        for(int index = 1; index < wbStartup->sm_NumArgs; ++index)
         {
-            const struct WBArg* wbArg = wbStartup->sm_ArgList + i;
+            const struct WBArg* wbArg = wbStartup->sm_ArgList + index;
 
             if((wbArg->wa_Lock) && (*wbArg->wa_Name))
             {
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
                 File file;
                 file.filePath = filePath.data();
 
-                wbSelection.append(file);
+                wbExtendedSelection.append(file);
             }
         }
     }
@@ -255,9 +255,9 @@ int main(int argc, char** argv)
 
 #ifdef __amigaos4__
 
-        // Workbench extended selection
+        // merge Workbench extended selection
 
-        files.append(wbSelection);
+        files.append(wbExtendedSelection);
 
 #endif // __amigaos4__
 
