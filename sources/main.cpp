@@ -77,6 +77,15 @@ struct File
 
 };
 
+enum ExitStatus
+{
+    ExitOk = 0,
+    ExitUnknownArgument = 1,
+    ExitIllegalArgument = 2,
+    ExitInconsistentArguments = 3,
+    ExitDBusError = 4
+};
+
 static bool unique = false;
 static bool quiet = false;
 
@@ -111,7 +120,7 @@ static void parseCommandLineArguments()
             if(argument.isEmpty())
             {
                 qCritical() << QObject::tr("An empty instance name is not allowed.");
-                exit(1);
+                exit(ExitIllegalArgument);
             }
 
             instanceNameIsNext = false;
@@ -122,7 +131,7 @@ static void parseCommandLineArguments()
             if(argument.isEmpty())
             {
                 qCritical() << QObject::tr("An empty search text is not allowed.");
-                exit(1);
+                exit(ExitIllegalArgument);
             }
 
             searchTextIsNext = false;
@@ -164,7 +173,7 @@ static void parseCommandLineArguments()
                           << std::endl
                           << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
 
-                exit(0);
+                exit(ExitOk);
             }
             else if(argument == QLatin1String("--"))
             {
@@ -173,7 +182,7 @@ static void parseCommandLineArguments()
             else
             {
                 qCritical() << QObject::tr("Unknown command-line option '%1'.").arg(argument);
-                exit(1);
+                exit(ExitUnknownArgument);
             }
         }
         else
@@ -204,19 +213,19 @@ static void parseCommandLineArguments()
     if(instanceNameIsNext)
     {
         qCritical() << QObject::tr("Using '--instance' requires an instance name.");
-        exit(1);
+        exit(ExitInconsistentArguments);
     }
 
     if(!unique && !instanceName.isEmpty())
     {
         qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
-        exit(1);
+        exit(ExitInconsistentArguments);
     }
 
     if(!instanceName.isEmpty() && !instanceNameRegExp.exactMatch(instanceName))
     {
         qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
-        exit(1);
+        exit(ExitIllegalArgument);
     }
 
     qApp->setObjectName(instanceName);
@@ -224,7 +233,7 @@ static void parseCommandLineArguments()
     if(searchTextIsNext)
     {
         qCritical() << QObject::tr("Using '--search' requires a search text.");
-        exit(1);
+        exit(ExitInconsistentArguments);
     }
 }
 
@@ -332,7 +341,7 @@ static void activateUniqueInstance()
                 {
                     qCritical() << QDBusConnection::sessionBus().lastError().message();
 
-                    exit(1);
+                    exit(ExitDBusError);
                 }
             }
 
@@ -341,7 +350,7 @@ static void activateUniqueInstance()
                 interface->call("startSearch", searchText);
             }
 
-            exit(0);
+            exit(ExitOk);
         }
         else
         {
@@ -354,7 +363,7 @@ static void activateUniqueInstance()
                 qCritical() << QDBusConnection::sessionBus().lastError().message();
 
                 delete mainWindow;
-                exit(1);
+                exit(ExitDBusError);
             }
 
             if(!QDBusConnection::sessionBus().registerObject("/MainWindow", mainWindow))
@@ -362,7 +371,7 @@ static void activateUniqueInstance()
                 qCritical() << QDBusConnection::sessionBus().lastError().message();
 
                 delete mainWindow;
-                exit(1);
+                exit(ExitDBusError);
             }
         }
     }
