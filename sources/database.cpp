@@ -67,7 +67,7 @@ Database::~Database()
     s_instance = 0;
 }
 
-QString Database::chooseInstance()
+void Database::chooseInstance()
 {
     QStringList instanceNames;
 
@@ -100,14 +100,12 @@ QString Database::chooseInstance()
 #endif // WITH_SQL
 
     bool ok = false;
-    QString instanceName = QInputDialog::getItem(0, tr("Choose instance"), tr("Instance:"), instanceNames, 0, true, &ok);
+    QString chosenInstanceName = QInputDialog::getItem(0, tr("Choose instance"), tr("Instance:"), instanceNames, 0, true, &ok);
 
-    if(!ok)
+    if(ok)
     {
-        instanceName = "";
+        qApp->setObjectName(chosenInstanceName);
     }
-
-    return instanceName;
 }
 
 void Database::restoreTabs()

@@ -89,8 +89,7 @@ enum ExitStatus
 static bool unique = false;
 static bool quiet = false;
 
-static QString instanceName = "";
-static QString searchText = "";
+static QString searchText;
 
 static QList< File > files;
 
@@ -149,7 +148,7 @@ static void parseCommandLineArguments()
             }
 
             instanceNameIsNext = false;
-            instanceName = argument;
+            qApp->setObjectName(argument);
         }
         else if(searchTextIsNext)
         {
@@ -182,7 +181,7 @@ static void parseCommandLineArguments()
             }
             else if(argument == QLatin1String("--choose-instance"))
             {
-                instanceName = Database::instance()->chooseInstance();
+                Database::instance()->chooseInstance();
             }
             else if(argument == QLatin1String("--help"))
             {
@@ -241,19 +240,17 @@ static void parseCommandLineArguments()
         exit(ExitInconsistentArguments);
     }
 
-    if(!unique && !instanceName.isEmpty())
+    if(!unique && !qApp->objectName().isEmpty())
     {
         qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
         exit(ExitInconsistentArguments);
     }
 
-    if(!instanceName.isEmpty() && !instanceNameRegExp.exactMatch(instanceName))
+    if(!qApp->objectName().isEmpty() && !instanceNameRegExp.exactMatch(qApp->objectName()))
     {
         qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
         exit(ExitIllegalArgument);
     }
-
-    qApp->setObjectName(instanceName);
 
     if(searchTextIsNext)
     {
@@ -351,10 +348,10 @@ static void activateUniqueInstance()
     {
         QString serviceName = QApplication::organizationDomain();
 
-        if(!instanceName.isEmpty())
+        if(!qApp->objectName().isEmpty())
         {
             serviceName.append('.');
-            serviceName.append(instanceName);
+            serviceName.append(qApp->objectName());
         }
 
         QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));
