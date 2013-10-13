@@ -1,3 +1,6 @@
+Release 0.4.7:
+  * Added keyboard shortcuts to focus current page and scale factor in tool bar.
+
 Release 0.4.6:
   * Added function that keeps obsolete pixmaps and displays them until final rendering is available.
   * Added command-line option that displays a dialog to choose the name of the started instance.
