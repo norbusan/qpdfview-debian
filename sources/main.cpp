@@ -347,16 +347,16 @@ static void activateUniqueInstance()
 {
 #ifdef WITH_DBUS
 
-    QString serviceName = QApplication::organizationDomain();
-
-    if(!instanceName.isEmpty())
-    {
-        serviceName.append('.');
-        serviceName.append(instanceName);
-    }
-
     if(unique)
     {
+        QString serviceName = QApplication::organizationDomain();
+
+        if(!instanceName.isEmpty())
+        {
+            serviceName.append('.');
+            serviceName.append(instanceName);
+        }
+
         QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));
 
         if(interface->isValid())
