@@ -1,4 +1,5 @@
 Release 0.4.7:
+  * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
 
 Release 0.4.6:

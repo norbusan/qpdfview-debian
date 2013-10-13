@@ -152,6 +152,8 @@ int main(int argc, char** argv)
     bool searchTextIsNext = false;
     QString searchText = "";
 
+    bool noMoreOptions = false;
+
     QList< File > files;
 
     {
@@ -192,41 +194,53 @@ int main(int argc, char** argv)
                 searchTextIsNext = false;
                 searchText = argument;
             }
-            else if(argument == "--unique")
+            else if(!noMoreOptions && argument.startsWith("--"))
             {
-                unique = true;
-            }
-            else if(argument == "--quiet")
-            {
-                quiet = true;
-            }
-            else if(argument == "--instance")
-            {
-                instanceNameIsNext = true;
-            }
-            else if(argument == "--search")
-            {
-                searchTextIsNext = true;
-            }
-            else if(argument == "--help")
-            {
-                std::cout << "Usage: qpdfview [options] [file[#page]] [file[#src:name:line:column]] ..." << std::endl
-                          << std::endl
-                          << "Available options:" << std::endl
-                          << "  --help                      Show this information" << std::endl
-                          << "  --quiet                     Suppress warning messages when opening files" << std::endl
-                          << "  --search text               Search for text in the current tab" << std::endl
-                          << "  --unique                    Open files as tabs in unique window" << std::endl
-                          << "  --unique --instance name    Open files as tabs in named instance" << std::endl
-                          << "  --unique --choose-instance  Open files as tabs after choosing an instance name" << std::endl
-                          << std::endl
-                          << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
+                if(argument == QLatin1String("--unique"))
+                {
+                    unique = true;
+                }
+                else if(argument == QLatin1String("--quiet"))
+                {
+                    quiet = true;
+                }
+                else if(argument == QLatin1String("--instance"))
+                {
+                    instanceNameIsNext = true;
+                }
+                else if(argument == QLatin1String("--search"))
+                {
+                    searchTextIsNext = true;
+                }
+                else if(argument == QLatin1String("--choose-instance"))
+                {
+                    instanceName = Database::instance()->chooseInstance();
+                }
+                else if(argument == QLatin1String("--help"))
+                {
+                    std::cout << "Usage: qpdfview [options] [--] [file[#page]] [file[#src:name:line:column]] ..." << std::endl
+                              << std::endl
+                              << "Available options:" << std::endl
+                              << "  --help                      Show this information" << std::endl
+                              << "  --quiet                     Suppress warning messages when opening files" << std::endl
+                              << "  --search text               Search for text in the current tab" << std::endl
+                              << "  --unique                    Open files as tabs in unique window" << std::endl
+                              << "  --unique --instance name    Open files as tabs in named instance" << std::endl
+                              << "  --unique --choose-instance  Open files as tabs after choosing an instance name" << std::endl
+                              << std::endl
+                              << "Please report bugs at \"https://launchpad.net/qpdfview\"." << std::endl;
 
-                return 0;
-            }
-            else if(argument == "--choose-instance")
-            {
-                instanceName = Database::instance()->chooseInstance();
+                    return 0;
+                }
+                else if(argument == QLatin1String("--"))
+                {
+                    noMoreOptions = true;
+                }
+                else
+                {
+                    qCritical() << QObject::tr("Unknown command-line option '%1'.").arg(argument);
+                    return 1;
+                }
             }
             else
             {
