@@ -262,10 +262,10 @@ static void parseCommandLineArguments()
     }
 }
 
-#ifdef __amigaos4__
-
 static void parseWorkbenchExtendedSelection(int argc, char** argv)
 {
+#ifdef __amigaos4__
+
     if(argc == 0)
     {
         const int pathLength = 1024;
@@ -289,9 +289,14 @@ static void parseWorkbenchExtendedSelection(int argc, char** argv)
             }
         }
     }
-}
+
+#else
+
+    Q_UNUSED(argc);
+    Q_UNUSED(argv);
 
 #endif // __amigaos4__
+}
 
 static void resolveSourceReferences()
 {
@@ -436,11 +441,7 @@ int main(int argc, char** argv)
     qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
     qRegisterMetaType< Rotation >("Rotation");
 
-#ifdef __amigaos4__
-
-    parseWorkbenchExtendedSelection(argc, argv)
-
-#endif // __amigaos4__
+    parseWorkbenchExtendedSelection(argc, argv);
 
     QApplication application(argc, argv);
 
