@@ -51,53 +51,56 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><a href="#auxiliaryviews">Vues auxiliaires</a></li>
     <li><a href="#settings">Paramètres</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
+    	<li><a href="#behaviorsettings">Comportement</a></li>
     	<li><a href="#graphicssettings">Paramètres graphiques</a></li>
     	<li><a href="#interfacesettings">Paramètres de l'interface</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
-    	<li><a href="#modifiersettings">Modifier settings</a></li>
+    	<li><a href="#shortcutsettings">Raccourcis</a></li>
+    	<li><a href="#modifiersettings">Modificateurs</a></li>
     </ol>
 </ol>
 
 <h4>Introduction</h4>
 
-<p><em>qpdfview</em> is a tabbed document viewer. It uses Poppler for PDF
-support, libspectre for PS support, DjVuLibre for DjVu support, CUPS for
-printing support and the Qt toolkit for its interface.</p>
+<p><em>qpdfview</em> est une visionneuse de documents par onglets. Elle utilise
+Poppler pour la prise en charge du format PDF, libspectre pour le format PS,
+DjVuLibre pour le format DjVu, CUPS pour le support d'impression et la
+bibliothèque Qt pour son interface.</p>
 
-<p>Please refer to the manual page for information on command-line options and
-configuration files.</p>
+<p>Veuillez consulter la page du manuel pour obtenir des informations sur les
+options en ligne de commande et sur les fichiers de configuration.</p>
 
-<h3><a name="mainmenu">Main menu</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainmenu">Menu principal</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="file">Fichier</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-	<li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
-	<li><b>Recently used</b> Contains a list of the ten most recently used files (if
-enabled in the settings).</li>
-	<li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
-	<li><b>Save copy...</b> Opens a dialog to save a copy of the file displayed in
-the current tab.</li>
-	<li><b>Save as...</b> Opens a dialog to save the file displayed in the current
-tab including changes to annotations and form fields.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
-	<li><b>Exit</b> Closes all tabs and ends the program.</li>
+	<li><b>Ouvrir...</b> Ouvre une boîte de dialogue pour choisir un fichier à
+ouvrir dans l'onglet courant. S'il n'y a pas d'onglet, le fichier est ouvert
+dans un nouvel onglet.</li>
+	<li><b>Ouvrir dans un nouvel onglet...</b> Ouvre une boîte de dialogue pour
+choisir les fichiers à ouvrir dans de nouveaux onglets.</li>
+	<li><b>Récemment utilisés</b> Contient une liste des dix fichiers les plus
+récemment utilisés (si activé dans les paramètres).</li>
+	<li><b>Actualiser</b> Recharge le fichier affiché dans l'onglet courant.</li>
+	<li><b>Enregistrer une copie...</b> Ouvre une boîte de dialogue pour enregistrer
+une copie du fichier affiché dans l'onglet courant.</li>
+	<li><b>Enregistrer sous...</b> Ouvre une boîte de dialogue pour enregistrer le
+fichier affiché dans l'onglet courant y compris les modifications des
+annotations et des champs de formulaire.</li>
+    <li><b>Imprimer...</b> Ouvre une boîte de dialogue pour imprimer le fichier
+affiché dans l'onglet courant.</li>
+	<li><b>Quitter</b> Ferme tous les onglets, puis le programme.</li>
 </ul>
 
-<h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="edit">Édition</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last
-page of the document.</li>
-    <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
-    <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
-displayed page.</li>
+	<li><b>Page suivante/Page précédente/Première page/Dernière page</b> Va à la
+page suivante/page précédente/première page/dernière page du document.</li>
+    <li><b>Aller à la page...</b> Ouvre une boîte de dialogue demandant le numéro de
+la page à afficher dans l'onglet courant.</li>
+    <li><b>Aller vers l'arrière/l'avant</b> Aller vers l'arrière/l'avant dans
+l'historique des pages affichées.</li>
 	<li><b>Search...</b> Opens the search tool bar below the main view. The search
 automatically starts two seconds after the last change of the search term or
 is manually started by pressing the return key. If the Shift modifier is
@@ -117,10 +120,11 @@ labeled 'Defaults on current tab' will revert only the settings on the
 current tab to their default values.</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar and pressing the return key.</p>
+<p><em>page courante</em> peut être modifiée en saisissant le numéro de la page
+souhaitée dans le champ de texte de la barre d'outils Édition et en validant
+par la touche entrée.</p>
 
-<h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="view">Affichage</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
 	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
@@ -130,13 +134,13 @@ at once.</li>
 columns with a break after the cover page.</li>
 	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
 columns. The number of columns can be changed in the settings dialog.</li>
-	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
-	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
+	<li><b>Zoomer</b> Augmente le facteur d'échelle de 10 pourcents.</li>
+	<li><b>Dé-zoomer</b> Diminue le facteur d'échelle de 10 pourcents.</li>
 	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
-    <li><b>Fit to page width</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally.</li>
-	<li><b>Fit to page size</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally and vertically.</li>
+    <li><b>Ajuster à la largeur de la page</b> Ajuste le facteur d'échelle de façon
+à ce que la page occupe toute la largeur de la fenêtre principale.</li>
+	<li><b>Ajuster à la taille de la page</b> Ajuste le facteur d'échelle de façon à
+ce que la page occupe toute la hauteur de la fenêtre principale.</li>
 	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
 	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
 	<li><b>Tool bars</b> This menu contains a list of available tool bars for
@@ -154,18 +158,19 @@ previous page. Pressing control and return jumps back to the page before the
 last jump.</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar and pressing the return key.</p>
+<p>Le <em>facteur d'échelle</em> peut être modifié en saisissant le pourcentage
+souhaité dans le champ de texte de la barre d'outils Affichage et en
+appuyant sur la touche entrée.</p>
 
-<h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="tabs">Onglets</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
 to the last/first tab if the first/last tab is the current tab.</li>
-    <li><b>Close tab</b> Closes the current tab.</li>
-    <li><b>Close all tabs</b> Closes all tabs.</li>
-    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
-tab.</li>
+    <li><b>Fermer l'onglet</b> Ferme l'onglet courant.</li>
+    <li><b>Fermer tous les onglets</b> Ferme tous les onglets.</li>
+    <li><b>Fermer tous les onglets sauf l'onglet courant</b> Ferme tous les onglets
+sauf l'onglet courant.</li>
 </ul>
 
 <p>This menu contains a list of all tabs which can be made the current tab by
@@ -173,7 +178,7 @@ clicking on the corresponding menu item. Tabs can also be closed by
 middle-clicking. The first nine tabs can also be activated by holding the
 Alt modifier and pressing keys one to nine.</p>
 
-<h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="bookmarks">Signets</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
@@ -190,14 +195,14 @@ file is already open. Otherwise the corresponding file is opened in a new
 tab.</li>
 </ul>
 
-<h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="help">Aide</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Contents</b> Displays this document.</li>
-	<li><b>About</b> Displays the program version.</li>
+	<li><b>Contenu</b> Affiche ce document.</li>
+	<li><b>À propos</b> Affiche le numéro de version du programme.</li>
 </ul>
 
-<h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
+<h3>a name="mainview">Vue principale</a> <a href="#top">&uarr;</a></h3>
 
 <p>The backspace/space key skips to the previous/next page. The home/end key
 skips to the first/last page. The arrow, page up and page down keys scroll
@@ -250,9 +255,9 @@ the document.</p>
 document. A left click on an entry jumps to the respective page in the main
 view.</p>
 
-<h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="settings">Paramètres</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="behaviorsettings">Behavior settings</a> <a href="#top">&uarr;</a></h4>
+<h4>a name="behaviorsettings">Comportement</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Open URL</b> Determines whether links to URL are opened in the default
@@ -276,12 +281,12 @@ presentation view on.</li>
     <li><b>Highlight duration</b> Determines the duration of temporary highlights.</li>
     <li><b>Annotation color</b> The color of annotations added by the program using
 SVG color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Source editor</b> The program which is started to edit sources. '%1' is
-replaced by the absolute file path. '%2' resp. '%3' is replaced by line
-resp. column number.</li>
+    <li><b>Éditeur de source</b> Le programme qui est lancé pour éditer un fichier
+source. « %1 » est remplacé par le chemin absolu du fichier. « %2 » (resp. «
+%3 ») est remplacé par le numéro de ligne (resp. colonne).</li>
 </ul>
 
-<h4><a name="graphicssettings">Graphics settings</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="graphicssettings">Graphiques</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
@@ -291,43 +296,47 @@ until these are available at the cost of increased memory usage.</li>
 ratio is used to render at physical and display at logical resolution.</li>
     <li><b>Decorate pages</b> Determines whether pages are set apart from the
 background.</li>
-    <li><b>Decorate links</b> Determines whether links are highlighted by red
-frames.</li>
-    <li><b>Decorate form fields</b> Determines whether form fields are highlighted
-by blue frames.</li>
-    <li><b>Background color</b> Determines the color of the background using SVG
-color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Paper color</b> Determines the color of pages using SVG color keywords or
-hexadecimal notation '#rrggbb'.</li>
+    <li><b>Décorer les liens</b> Précise si les liens sont mis en valeur par un
+cadre rouge.</li>
+    <li><b>Décorer les champs de formulaire</b> Précise si les champs de formulaire
+sont mis en valeur par un cadre bleu.</li>
+    <li><b>Couleur de l'arrière-plan</b> Précise la couleur de l'arrière-plan à
+l'aide des couleurs SVG ou en notation hexadécimale « #rrggbb ».</li>
+    <li><b>Couleur du papier</b> Précise la couleur du papier à l'aide des couleurs
+SVG ou en notation hexadécimal « #rrggbb ».</li>
     <li><b>Presentation background color</b> Overrides the paper color in the
 computation of the background color of the presentation view and is defined
 using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Invert colors</b> Determines whether pages are rendered with inverted
-colors.</li>
-    <li><b>Pages per row</b> Number of pages per row in the 'multiple pages' layout
-mode.</li>
-    <li><b>Page spacing</b> Determines both vertical and horizontal space displayed
-between pages.</li>
-    <li><b>Thumbnail spacing</b> Determines both vertical and horizontal space
-displayed between thumbnails.</li>
-    <li><b>Thumbnail size</b> Determines the size of the thumbnails.</li>
+    <li><b>Inverser les couleurs</b> Précise que les pages doivent être affichées en
+couleurs inversées.</li>
+    <li><b>Pages par ligne</b> Nombre de pages affichées par ligne dans le mode «
+Pages multiples ».</li>
+    <li><b>Espacement des pages</b> Précise les espacements verticaux et horizontaux
+entre les pages.</li>
+    <li><b>Espacement des miniatures</b> Précise les espacements verticaux et
+horizontaux entre les miniatures.</li>
+    <li><b>Taille des miniatures</b> Précise la dimension des miniatures.</li>
     <li><b>Cache size</b> The program will try to cache rendered pages within this
 limit increasing rendering speed at the cost of increased memory usage.</li>
-    <li><b>Prefetch</b> The program will try to render pages that are not yet
-visible increasing rendering speed at the cost of increased cache usage.</li>
-    <li><b>Prefetch distance</b> The number of rows beyond the current row and twice
-the number of rows before the current row that are prefetched.</li>
-    <li><b>PDF settings</b>
+    <li><b>Préchargement</b> Le programme essaye de préparer l'affichage des pages
+qui ne sont pas encore visibles afin d'accélérer leur rendu, au prix d'une
+augmentation de l'usage du cache.</li>
+    <li><b>Distance de préchargement</b> Le nombre de lignes au-delà de la ligne
+actuelle et le double du nombre de lignes avant la ligne actuelle qui sont
+préchargées.</li>
+    <li><b>Paramètres PDF</b>
     <ul>
         <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
 on top of another is displayed.</li>
-        <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
-        <li><b>Text antialiasing</b> Improves text display quality at the cost of
-performance</li>
-        <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
+        <li><b>Anti-crénelage</b> Améliore la qualité de l'affichage au prix d'une
+baisse de performances.</li>
+        <li><b>Anti-crénelage du texte</b> Améliore l'affichage du texte au prix d'une
+baisse de performances.</li>
+        <li><b>Indications</b> Peut améliorer l'affichage de certaines polices de
+caractères.</li>
     </ul>
     </li>
-    <li><b>PS settings</b>
+    <li><b>Paramètres PS</b>
     <ul>
         <li><b>Graphics antialias bits</b> Determines the amount of antialiasing for
 graphics.</li>
@@ -336,44 +345,46 @@ graphics.</li>
     </li>
 </ul>
 
-<h4><a name="interfacesettings">Interface settings</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="interfacesettings">Interface</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Tab position</b> Defines at which edge of the main view tabs will be
-displayed.</li>
-    <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than
-two documents are opened.</li>
-    <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
-right of the active tab.</li>
-    <li><b>Recently used count</b> Sets the number of files that are listed in the
-recently used menu, if "Track recently used" is enabled.</li>
-    <li><b>File tool bar</b> Defines which actions are visible in the file tool
-bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
-print and separator. (Effective after restart.)</li>
-    <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool
-bar. Available actions are currentPage, previousPage, nextPage, firstPage,
-lastPage, jumpToPage, jumpBackward, jumpForward, search,
-copyToClipboardMode, addAnnotationMode and separator. (Effective after
-restart.)</li>
-    <li><b>View tool bar</b> Defines which actions are visible in the view tool
-bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
-twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
-fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
-presentation and separator. (Effective after restart.)</li>
-    <li><b>Current page in window title</b> If enabled, the current page and number
-of pages of the document in the active tab are displayed in the window
-title.</li>
+    <li><b>Position des onglets</b> Défini le côté de la vue principale sur lequel
+seront placés les onglets.</li>
+    <li><b>Visibilité des onglets</b> Précise si l'onglet est affiché lorsqu'il y a
+moins de deux documents ouverts.</li>
+    <li><b>Nouvel onglet à côté de l'onglet courant</b> Si l'item est validé, les
+nouveaux onglets sont ouverts à droite de l'onglet courant.</li>
+    <li><b>Nombre de fichiers récemment ouverts</b> Précise le nombre de fichiers
+listés dans le menu « Récemment ouverts », si l'item « Suivre les fichiers
+récemment ouverts » est validé.</li>
+    <li><b>Barre d'outils Fichier</b> Défini quelles actions sont affichées dans la
+barre d'outils Fichier. Les actions disponibles sont openInNewTab, open,
+refresh, saveCopy, saveAs, print et separator. (Nécessite un redémarrage.)</li>
+    <li><b>Barre d'outils Édition</b> Défini quelles actions sont visibles dans la
+barre d'outils Édition. Les actions disponibles sont currentPage,
+previousPage, nextPage, firstPage, lastPage, jumpToPage, jumpBackward,
+jumpForward, search, copyToClipboardMode, addAnnotationMode et
+separator. (Nécessite un redémarrage.)</li>
+    <li><b>Barre d'outils Affichage</b> Défini quelles actions sont visibles dans la
+barre d'outils Affichage. Les actions disponibles sont scaleFactor, zoomIn,
+zoomOut, continuousMode, twoPagesMode, twoPagesWithCoverPageMode,
+multiplePagesMode, originalSize, fitToPageWidthMode, fitToPageSizeMode,
+rotateLeft, rotateRight, fullscreen, presentation et separator. (Nécessite
+un redémarrage.)</li>
+    <li><b>Page courante dans le titre de la fenêtre</b> Si cet item est validé, le
+numéro de la page et le nombre total de pages du document actif sont
+affichés dans la barre de titre de la fenêtre.</li>
     <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
 the first entry pointing to the current page whenever the current page
 changes.</li>
-    <li><b>Highlight current thumbnail</b> If enabled, the current page is
-highlighted in the thumbnails view.</li>
-    <li><b>Limit thumbnails to results</b> If this option is enabled and a search is
-conducted, only the pages where the search term is found are displayed in
-the thumbnails view.</li>
+    <li><b>Surligner la miniature courante</b> Si l'item est validé, la page
+courante est mise en valeur dans la vue des miniatures.</li>
+    <li><b>Limiter les miniatures aux résultats</b> Si cet item est validé, seules
+les miniatures contenant le terme recherché sont affichées lors d'une
+recherche.</li>
 </ul>
 
-<h4><a name="shortcutsettings">Shortcut settings</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="modifiersettings">Modificateurs</a> <a href="#top">&uarr;</a></h4>
 
 <p>The shortcut settings allows the adjustment of keyboard shortcuts to
 personal preference. Shortcuts are changed by double-clicking on the

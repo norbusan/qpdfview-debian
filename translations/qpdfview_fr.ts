@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -54,7 +54,7 @@
         <location filename="../sources/documentview.cpp" line="489"/>
         <location filename="../sources/documentview.cpp" line="533"/>
         <source>Password:</source>
-        <translation type="unfinished">Mot de passe :</translation>
+        <translation type="unfinished">Mot de passe</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1088"/>
@@ -93,12 +93,12 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_fr.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
         <source>Find previous</source>
-        <translation type="unfinished">Chercher précédent</translation>
+        <translation type="unfinished">Rechercher le précédent</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
@@ -126,11 +126,6 @@
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Impossible d&apos;ouvrir « %1 ».</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1910"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Ouvrir le répertoire contenant le fichier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
@@ -183,7 +178,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1036"/>
         <source>Page:</source>
-        <translation type="unfinished">Page :</translation>
+        <translation type="unfinished">Page</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1488"/>
@@ -254,6 +249,11 @@
         <location filename="../sources/mainwindow.cpp" line="1909"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Ouvrir dans un nouvel ongle&amp;t...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1910"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Ouvrir le répertoire contenant le fichier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -708,12 +708,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="804"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Anti-crénelage :</translation>
+        <translation type="unfinished">Anti-crénelage</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="811"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Anti-crénelage du texte :</translation>
+        <translation type="unfinished">Anti-crénelage du texte</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="818"/>
@@ -735,12 +735,12 @@
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <location filename="../sources/pdfmodel.cpp" line="830"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Indication:</translation>
+        <translation type="unfinished">Indication</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="841"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Sur-imprimer l’aperçu :</translation>
+        <translation type="unfinished">Sur-imprimer l’aperçu</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="849"/>
@@ -755,7 +755,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="853"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Mode ligne mince :</translation>
+        <translation type="unfinished">Mode ligne mince</translation>
     </message>
 </context>
 <context>
@@ -788,12 +788,12 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajuster à la page :</translation>
+        <translation type="unfinished">Ajuster à la page</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Plages de pages :</translation>
+        <translation type="unfinished">Plages de pages</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
@@ -1048,12 +1048,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Open URL:</source>
-        <translation type="unfinished">Ouvrir une URL :</translation>
+        <translation type="unfinished">Ouvrir une URL</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="302"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished">Actualisation automatique :</translation>
+        <translation type="unfinished">Actualisation automatique</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="308"/>
@@ -1067,22 +1067,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Suivre les fichiers récemment ouverts :</translation>
+        <translation type="unfinished">Suivre les fichiers récemment ouverts</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="317"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished">Restaurer des onglets :</translation>
+        <translation type="unfinished">Restaurer les onglets</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished">Restaurer des marque-pages :</translation>
+        <translation type="unfinished">Restaurer les marque-pages</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished">Restaurer les paramêtres par fichier :</translation>
+        <translation type="unfinished">Restaurer les paramètres par fichier</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="346"/>
@@ -1142,52 +1142,52 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished">Décorer les pages :</translation>
+        <translation type="unfinished">Décorer les pages</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="443"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Décorer les liens :</translation>
+        <translation type="unfinished">Décorer les liens</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="450"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished">Décorer les champs de formulaire :</translation>
+        <translation type="unfinished">Décorer les champs de formulaire</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="456"/>
         <source>Background color:</source>
-        <translation type="unfinished">Couleur de l&apos;arrière-plan :</translation>
+        <translation type="unfinished">Couleur de l&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>Paper color:</source>
-        <translation type="unfinished">Couleur du papier :</translation>
+        <translation type="unfinished">Couleur du papier</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="468"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Couleur de l&apos;arrière plan en mode présentation</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="476"/>
         <source>Pages per row:</source>
-        <translation type="unfinished">Pages par ligne :</translation>
+        <translation type="unfinished">Pages par ligne</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="486"/>
         <source>Page spacing:</source>
-        <translation type="unfinished">Espacement des pages :</translation>
+        <translation type="unfinished">Espacement des pages</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="496"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Espacement des miniatures :</translation>
+        <translation type="unfinished">Espacement des miniatures</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="506"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished">Taille des miniatures :</translation>
+        <translation type="unfinished">Taille des miniatures</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="511"/>
@@ -1204,17 +1204,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="521"/>
         <source>Cache size:</source>
-        <translation type="unfinished">Taille du cache :</translation>
+        <translation type="unfinished">Taille du cache</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
         <source>Prefetch:</source>
-        <translation type="unfinished">Préchargement :</translation>
+        <translation type="unfinished">Préchargement</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="536"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished">Distance de préchargement :</translation>
+        <translation type="unfinished">Distance de préchargement</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
@@ -1239,7 +1239,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="598"/>
         <source>Tab position:</source>
-        <translation type="unfinished">Position de l&apos;onglet :</translation>
+        <translation type="unfinished">Position de l&apos;onglet</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="603"/>
@@ -1259,12 +1259,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="608"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished">Visibilité onglet :</translation>
+        <translation type="unfinished">Visibilité onglet</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="615"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished">Nouvel onglet à côté de l&apos;onglet courant :</translation>
+        <translation type="unfinished">Nouvel onglet à côté de l&apos;onglet courant</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="624"/>
@@ -1274,22 +1274,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="632"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Barre d&apos;outils Fichier :</translation>
+        <translation type="unfinished">Barre d&apos;outils Fichier</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="640"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Barre d&apos;outils Édition :</translation>
+        <translation type="unfinished">Barre d&apos;outils Édition</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Barre d&apos;outils Affichage :</translation>
+        <translation type="unfinished">Barre d&apos;outils Affichage</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="655"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished">Page courante dans le titre de la fenêtre :</translation>
+        <translation type="unfinished">Page courante dans le titre de la fenêtre</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
@@ -1304,37 +1304,37 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished">Surligner la miniature courante :</translation>
+        <translation type="unfinished">Surligner la miniature courante</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="683"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished">Limiter les miniatures aux résultats :</translation>
+        <translation type="unfinished">Limiter les miniatures aux résultats</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="714"/>
         <source>Zoom:</source>
-        <translation type="unfinished">Zoom :</translation>
+        <translation type="unfinished">Zoom</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="720"/>
         <source>Rotate:</source>
-        <translation type="unfinished">Rotation :</translation>
+        <translation type="unfinished">Rotation</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="726"/>
         <source>Scroll:</source>
-        <translation type="unfinished">Défiler :</translation>
+        <translation type="unfinished">Défiler</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished">Copier dans le presse-papiers :</translation>
+        <translation type="unfinished">Copier dans le presse-papiers</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="738"/>
         <source>Add annotation:</source>
-        <translation type="unfinished">Ajouter une annotation :</translation>
+        <translation type="unfinished">Ajouter une annotation</translation>
     </message>
 </context>
 <context>
