@@ -191,7 +191,7 @@ protected slots:
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
     void on_database_tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void on_database_bookmarkRestored(const QString& filePath, const QList< int >& pages);
+    void on_database_bookmarkRestored(const QString& filePath, const JumpList& pages);
 
 protected:
     void closeEvent(QCloseEvent* event);

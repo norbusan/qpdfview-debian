@@ -23,6 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+#include <QPair>
+
 enum Rotation
 {
     RotateBy0 = 0,
@@ -56,5 +58,8 @@ enum ScaleMode
     FitToPageSizeMode = 2,
     NumberOfScaleModes = 3
 };
+
+typedef QPair< int, QString > Jump;
+typedef QList< QPair< int, QString > > JumpList;
 
 #endif // GLOBAL_H

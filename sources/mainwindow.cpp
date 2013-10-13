@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     }
 
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
-    connect(s_database, SIGNAL(bookmarkRestored(QString,QList<int>)), SLOT(on_database_bookmarkRestored(QString,QList<int>)));
+    connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
 
     s_database->restoreTabs();
     s_database->restoreBookmarks();
@@ -1361,7 +1361,12 @@ void MainWindow::on_previousBookmark_triggered()
 
     if(bookmark != 0)
     {
-        QList< int > pages = bookmark->pages();
+        QList< int > pages;
+
+        foreach(const Jump jump, bookmark->jumps())
+        {
+            pages.append(jump.first);
+        }
 
         if(!pages.isEmpty())
         {
@@ -1387,7 +1392,12 @@ void MainWindow::on_nextBookmark_triggered()
 
     if(bookmark != 0)
     {
-        QList< int > pages = bookmark->pages();
+        QList< int > pages;
+
+        foreach(const Jump jump, bookmark->jumps())
+        {
+            pages.append(jump.first);
+        }
 
         if(!pages.isEmpty())
         {
@@ -1409,17 +1419,28 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
+    const QString filePath = currentTab()->filePath();
+    const int page = currentTab()->currentPage();
+
+    bool ok = false;
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(page), &ok);
+
+    if(!ok)
+    {
+        return;
+    }
+
     BookmarkMenu* bookmark = bookmarkForCurrentTab();
 
     if(bookmark != 0)
     {
-        bookmark->addJumpToPageAction(currentTab()->currentPage());
+        bookmark->addJumpToPageAction(page, label);
     }
     else
     {
-        bookmark = new BookmarkMenu(currentTab()->filePath(), this);
+        bookmark = new BookmarkMenu(filePath, this);
 
-        bookmark->addJumpToPageAction(currentTab()->currentPage());
+        bookmark->addJumpToPageAction(page, label);
 
         connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
         connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
@@ -1594,13 +1615,13 @@ void MainWindow::on_database_tabRestored(const QString& filePath, bool continous
     }
 }
 
-void MainWindow::on_database_bookmarkRestored(const QString& filePath, const QList<int>& pages)
+void MainWindow::on_database_bookmarkRestored(const QString& filePath, const JumpList& jumps)
 {
     BookmarkMenu* bookmark = new BookmarkMenu(filePath, this);
 
-    foreach(const int page, pages)
+    foreach(const Jump jump, jumps)
     {
-        bookmark->addJumpToPageAction(page);
+        bookmark->addJumpToPageAction(jump.first, jump.second);
     }
 
     connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));

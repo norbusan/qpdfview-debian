@@ -51,7 +51,7 @@ BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(par
     connect(m_removeBookmarkAction, SIGNAL(triggered()), SLOT(on_removeBookmark_triggered()));
 }
 
-void BookmarkMenu::addJumpToPageAction(int page)
+void BookmarkMenu::addJumpToPageAction(int page, const QString& label)
 {
     QAction* before = m_separatorAction;
 
@@ -59,6 +59,8 @@ void BookmarkMenu::addJumpToPageAction(int page)
     {
         if(action->data().toInt() == page)
         {
+            action->setText(label);
+
             return;
         }
         else if(action->data().toInt() > page)
@@ -69,7 +71,7 @@ void BookmarkMenu::addJumpToPageAction(int page)
         }
     }
 
-    QAction* action = new QAction(tr("Jump to page %1").arg(page), this);
+    QAction* action = new QAction(label, this);
     action->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
     action->setIconVisibleInMenu(true);
     action->setData(page);
@@ -96,16 +98,16 @@ QString BookmarkMenu::filePath() const
     return menuAction()->data().toString();
 }
 
-QList< int > BookmarkMenu::pages() const
+JumpList BookmarkMenu::jumps() const
 {
-    QList< int > pages;
+    JumpList jumps;
 
     foreach(const QAction* action, m_jumpToPageActionGroup->actions())
     {
-        pages.append(action->data().toInt());
+        jumps.append(qMakePair(action->data().toInt(), action->text()));
     }
 
-    return pages;
+    return jumps;
 }
 
 void BookmarkMenu::on_removeBookmark_triggered()
