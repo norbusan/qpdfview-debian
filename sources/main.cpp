@@ -2,6 +2,7 @@
 
 Copyright 2012-2013 Adam Reichold
 Copyright 2012 Michał Trybus
+Copyright 2013 Chris Young
 
 This file is part of qpdfview.
 
@@ -53,6 +54,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SIGNALS
 
+#ifdef __amigaos4__
+
+#include <proto/dos.h>
+#include <workbench/startup.h>
+
+const char* __attribute__((used)) stack_cookie = "\0$STACK:500000\0";
+
+#endif // __amigaos4__
+
 struct File
 {
     QString filePath;
@@ -71,6 +81,38 @@ int main(int argc, char** argv)
 {
     qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
     qRegisterMetaType< Rotation >("Rotation");
+
+#ifdef __amigaos4__
+
+    QList< File > wbExtendedSelection;
+
+    if(argc == 0)
+    {
+        // started from Workbench
+
+        const int pathLength = 1024;
+        const QScopedArrayPointer< char > filePath(new char[pathLength]);
+
+        const struct WBStartup* wbStartup = reinterpret_cast< struct WBStartup* >(argv);
+
+        for(int index = 1; index < wbStartup->sm_NumArgs; ++index)
+        {
+            const struct WBArg* wbArg = wbStartup->sm_ArgList + index;
+
+            if((wbArg->wa_Lock) && (*wbArg->wa_Name))
+            {
+                IDOS->DevNameFromLock(wbArg->wa_Lock, filePath.data(), pathLength, DN_FULLPATH);
+                IDOS->AddPart(filePath.data(), wbArg->wa_Name, pathLength);
+
+                File file;
+                file.filePath = filePath.data();
+
+                wbExtendedSelection.append(file);
+            }
+        }
+    }
+
+#endif // __amigaos4__
 
     QApplication application(argc, argv);
 
@@ -192,24 +234,32 @@ int main(int argc, char** argv)
 
                 if(fileAndPageRegExp.exactMatch(argument))
                 {
-                    file.filePath = QFileInfo(fileAndPageRegExp.cap(1)).absoluteFilePath();
+                    file.filePath = fileAndPageRegExp.cap(1);
                     file.page = fileAndPageRegExp.cap(2).toInt();
                 }
                 else if(fileAndSourceRegExp.exactMatch(argument))
                 {
-                    file.filePath = QFileInfo(fileAndSourceRegExp.cap(1)).absoluteFilePath();
+                    file.filePath = fileAndSourceRegExp.cap(1);
                     file.sourceName = fileAndSourceRegExp.cap(2);
                     file.sourceLine = fileAndSourceRegExp.cap(3).toInt();
                     file.sourceColumn = fileAndSourceRegExp.cap(4).toInt();
                 }
                 else
                 {
-                    file.filePath = QFileInfo(argument).absoluteFilePath();
+                    file.filePath = argument;
                 }
 
                 files.append(file);
             }
         }
+
+#ifdef __amigaos4__
+
+        // merge Workbench extended selection
+
+        files.append(wbExtendedSelection);
+
+#endif // __amigaos4__
 
         if(instanceNameIsNext)
         {
@@ -309,7 +359,7 @@ int main(int argc, char** argv)
 
                 foreach(const File& file, files)
                 {
-                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", file.filePath, file.page, true, file.enclosingBox, quiet);
+                    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", QFileInfo(file.filePath).absoluteFilePath(), file.page, true, file.enclosingBox, quiet);
 
                     if(!reply.isValid())
                     {
