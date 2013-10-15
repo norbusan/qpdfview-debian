@@ -2,6 +2,10 @@ Release 0.4.7:
   * Extended bookmarks storage format to add labelled bookmarks.
   * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated French translations. Thanks to Arnaud Schmittbuhl.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated British English translations. Thanks to Andi Chandler.
 
 Release 0.4.6:
   * Added function that keeps obsolete pixmaps and displays them until final rendering is available.

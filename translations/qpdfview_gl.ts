@@ -32,7 +32,7 @@
         <translation type="unfinished">Instancia:</translation>
     </message>
     <message>
-        <location filename="../sources/database.cpp" line="569"/>
+        <location filename="../sources/database.cpp" line="567"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Ir á páxina %1</translation>
     </message>
@@ -932,47 +932,47 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="179"/>
+        <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Non se permite un nome de instancia baleiro.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="190"/>
+        <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Non se permite un texto de busca baleiro.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="241"/>
+        <location filename="../sources/main.cpp" line="210"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="280"/>
+        <location filename="../sources/main.cpp" line="241"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">O uso de «--instance» require un nome de instancia.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="286"/>
+        <location filename="../sources/main.cpp" line="247"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Non se permite o uso de «--instance» sen usar «--unique».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="292"/>
+        <location filename="../sources/main.cpp" line="253"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="298"/>
+        <location filename="../sources/main.cpp" line="259"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">O uso de «--search» require un texto de busca.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="341"/>
+        <location filename="../sources/main.cpp" line="337"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Non foi posíbel atopar os datos de SyncTeX para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="439"/>
+        <location filename="../sources/main.cpp" line="432"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Non foi posíbel preparar o xestor de sinais.</translation>
     </message>

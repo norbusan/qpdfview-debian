@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="uk_UA">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -32,9 +32,9 @@
         <translation type="unfinished">Екземпляр:</translation>
     </message>
     <message>
-        <location filename="../sources/database.cpp" line="569"/>
+        <location filename="../sources/database.cpp" line="567"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Перехід до сторінки %1</translation>
+        <translation type="unfinished">Перейти до сторінки %1</translation>
     </message>
 </context>
 <context>
@@ -128,11 +128,6 @@
         <translation type="unfinished">Не вдалося відкрити &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1943"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Відкрити теку, яка містить дані</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="882"/>
         <source>Open</source>
         <translation type="unfinished">Відкрити</translation>
@@ -188,17 +183,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Додати закладку</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Мітка</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Перехід до сторінки %1</translation>
+        <translation type="unfinished">Перейти до сторінки %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
@@ -269,6 +264,11 @@
         <location filename="../sources/mainwindow.cpp" line="1942"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Ві&amp;дкрити у новій вкладці...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1943"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Відкрити теку, яка містить дані</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1944"/>
@@ -932,47 +932,47 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="179"/>
+        <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Порожнє ім&apos;я екземпляру не дозволяється.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="190"/>
+        <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Не можна шукати порожній рядок.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="241"/>
+        <location filename="../sources/main.cpp" line="210"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Невідомий параметр командного рядка, «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="280"/>
+        <location filename="../sources/main.cpp" line="241"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Використання &apos;--instance&apos; потребує вказання імені екземпляру.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="286"/>
+        <location filename="../sources/main.cpp" line="247"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Використання &apos;--instance&apos; не дозволяється без &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="292"/>
+        <location filename="../sources/main.cpp" line="253"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назва екземпляра програми може складатися лише з символів «[A-Z][a-z][0-9]_» і не повинна починатися з цифри.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="298"/>
+        <location filename="../sources/main.cpp" line="259"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Використання параметра «--search» вимагає зазначення тексту для пошуку.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="341"/>
+        <location filename="../sources/main.cpp" line="337"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="439"/>
+        <location filename="../sources/main.cpp" line="432"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Не вдалося підготувати обробник сигналу.</translation>
     </message>
