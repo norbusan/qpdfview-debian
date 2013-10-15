@@ -137,6 +137,8 @@ static void parseCommandLineArguments()
         arguments.removeFirst();
     }
 
+    qApp->setObjectName(QString());
+
     foreach(const QString& argument, arguments)
     {
         if(instanceNameIsNext)
