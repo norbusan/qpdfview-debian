@@ -89,6 +89,7 @@ enum ExitStatus
 static bool unique = false;
 static bool quiet = false;
 
+static QString instanceName;
 static QString searchText;
 
 static QList< File > files;
@@ -137,8 +138,6 @@ static void parseCommandLineArguments()
         arguments.removeFirst();
     }
 
-    qApp->setObjectName(QString());
-
     foreach(const QString& argument, arguments)
     {
         if(instanceNameIsNext)
@@ -150,7 +149,7 @@ static void parseCommandLineArguments()
             }
 
             instanceNameIsNext = false;
-            qApp->setObjectName(argument);
+            instanceName = argument;
         }
         else if(searchTextIsNext)
         {
@@ -242,13 +241,13 @@ static void parseCommandLineArguments()
         exit(ExitInconsistentArguments);
     }
 
-    if(!unique && !qApp->objectName().isEmpty())
+    if(!unique && !instanceName.isEmpty())
     {
         qCritical() << QObject::tr("Using '--instance' is not allowed without using '--unique'.");
         exit(ExitInconsistentArguments);
     }
 
-    if(!qApp->objectName().isEmpty() && !instanceNameRegExp.exactMatch(qApp->objectName()))
+    if(!instanceName.isEmpty() && !instanceNameRegExp.exactMatch(instanceName))
     {
         qCritical() << QObject::tr("An instance name must only contain the characters \"[A-Z][a-z][0-9]_\" and must not begin with a digit.");
         exit(ExitIllegalArgument);
@@ -344,16 +343,18 @@ static void resolveSourceReferences()
 
 static void activateUniqueInstance()
 {
+    qApp->setObjectName(instanceName);
+
 #ifdef WITH_DBUS
 
     if(unique)
     {
         QString serviceName = QApplication::organizationDomain();
 
-        if(!qApp->objectName().isEmpty())
+        if(!instanceName.isEmpty())
         {
             serviceName.append('.');
-            serviceName.append(qApp->objectName());
+            serviceName.append(instanceName);
         }
 
         QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));

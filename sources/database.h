@@ -43,7 +43,7 @@ public:
     static Database* instance();
     ~Database();
 
-    void chooseInstance();
+    QString chooseInstance();
 
     void restoreTabs();
     void saveTabs(const QList< const DocumentView* >& tabs);
