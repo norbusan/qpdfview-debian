@@ -32,7 +32,7 @@
         <translation type="unfinished">Kejadian:</translation>
     </message>
     <message>
-        <location filename="../sources/database.cpp" line="567"/>
+        <location filename="../sources/database.cpp" line="564"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Lompat ke halaman %1</translation>
     </message>
@@ -932,47 +932,47 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="148"/>
+        <location filename="../sources/main.cpp" line="147"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Nama kejadian kosong tidak dibenarkan.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="159"/>
+        <location filename="../sources/main.cpp" line="158"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Teks gelintar kosong tidak dibenarkan.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/main.cpp" line="209"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="241"/>
+        <location filename="../sources/main.cpp" line="240"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Penggunaan &apos;--instance&apos; memerlukan nama kejadian.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="247"/>
+        <location filename="../sources/main.cpp" line="246"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Penggunaan &apos;--instance&apos; tidak dibenarkan tanpa menggunakan &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="253"/>
+        <location filename="../sources/main.cpp" line="252"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="259"/>
+        <location filename="../sources/main.cpp" line="258"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Menggunakan &apos;--search&apos; memerlukan teks gelintar.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="337"/>
+        <location filename="../sources/main.cpp" line="336"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="432"/>
+        <location filename="../sources/main.cpp" line="433"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Tidak dapat sediakan pengendali isyarat.</translation>
     </message>

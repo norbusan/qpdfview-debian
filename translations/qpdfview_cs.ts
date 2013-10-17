@@ -32,7 +32,7 @@
         <translation type="unfinished">Instance:</translation>
     </message>
     <message>
-        <location filename="../sources/database.cpp" line="567"/>
+        <location filename="../sources/database.cpp" line="564"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Skočit na stranu %1</translation>
     </message>
@@ -932,47 +932,47 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="148"/>
+        <location filename="../sources/main.cpp" line="147"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Prázdný název instance není povolen.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="159"/>
+        <location filename="../sources/main.cpp" line="158"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Prázdný text k vyhledání není při vyhledávání povolen.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/main.cpp" line="209"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished">Neznámá volba příkazového řádku &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="241"/>
+        <location filename="../sources/main.cpp" line="240"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Použití&apos;--instance&apos; vyžaduje název instance.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="247"/>
+        <location filename="../sources/main.cpp" line="246"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Použití&apos;--instance&apos; není povoleno bez použití &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="253"/>
+        <location filename="../sources/main.cpp" line="252"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished">Název instance musí obsahovat pouze znaky &quot;[A-Z][a-z][0-9]_&quot; a nesmí začínat číslem.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="259"/>
+        <location filename="../sources/main.cpp" line="258"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Použití&apos;--search&apos; vyžaduje text k vyhledání.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="337"/>
+        <location filename="../sources/main.cpp" line="336"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="432"/>
+        <location filename="../sources/main.cpp" line="433"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Nepodařilo se připravit zacházení se signálem.</translation>
     </message>

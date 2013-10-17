@@ -32,7 +32,7 @@
         <translation type="unfinished">Lot de fichiers</translation>
     </message>
     <message>
-        <location filename="../sources/database.cpp" line="567"/>
+        <location filename="../sources/database.cpp" line="564"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Aller à la page %1</translation>
     </message>
@@ -103,7 +103,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
         <source>Find next</source>
-        <translation type="unfinished">Chercher suivant</translation>
+        <translation type="unfinished">Rechercher le suivant</translation>
     </message>
 </context>
 <context>
@@ -183,7 +183,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
-        <translation type="unfinished">&amp;Ajouter un marque-page</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
@@ -932,47 +932,47 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="148"/>
+        <location filename="../sources/main.cpp" line="147"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Un nom d&apos;instance vide n&apos;est pas autorisé.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="159"/>
+        <location filename="../sources/main.cpp" line="158"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Une recherche vide n’est pas autorisée.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/main.cpp" line="209"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished">Option de ligne de commande &apos;%1&apos; inconnue.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="241"/>
+        <location filename="../sources/main.cpp" line="240"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Utiliser « --instance » nécessite un nom d&apos;instance.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="247"/>
+        <location filename="../sources/main.cpp" line="246"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Utiliser « --instance » n&apos;est pas autorisé sans utiliser « --unique ».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="253"/>
+        <location filename="../sources/main.cpp" line="252"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères &quot;[A-Z][a-z][0-9]_&quot; et ne doit pas commencer par un nombre.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="259"/>
+        <location filename="../sources/main.cpp" line="258"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">L&apos;utilisation de « --search » nécessite un texte de recherche.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="337"/>
+        <location filename="../sources/main.cpp" line="336"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="432"/>
+        <location filename="../sources/main.cpp" line="433"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Ne peut préparer le gestionnaire de signaux.</translation>
     </message>
@@ -1020,7 +1020,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Effacer la liste</translation>
     </message>
 </context>
 <context>
@@ -1038,7 +1038,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished">&amp;Graphiques</translation>
+        <translation type="unfinished">&amp;Affichage</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="119"/>
