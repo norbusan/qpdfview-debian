@@ -1083,7 +1083,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
     {
         QUrl resolvedUrl(url);
 
-        if(resolvedUrl.isRelative())
+        if(resolvedUrl.isRelative() && !QFileInfo(url).isAbsolute())
         {
             resolvedUrl.setPath(QFileInfo(m_filePath).dir().filePath(url));
         }
