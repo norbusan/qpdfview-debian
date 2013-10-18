@@ -1081,7 +1081,14 @@ void DocumentView::on_pages_linkClicked(const QString& url)
 {
     if(s_settings->documentView().openUrl())
     {
-        QDesktopServices::openUrl(QUrl(url));
+        QUrl resolvedUrl(url);
+
+        if(resolvedUrl.isRelative())
+        {
+            resolvedUrl.setPath(QFileInfo(m_filePath).dir().filePath(url));
+        }
+
+        QDesktopServices::openUrl(resolvedUrl);
     }
     else
     {

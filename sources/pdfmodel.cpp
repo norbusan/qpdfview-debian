@@ -275,6 +275,15 @@ QList< Model::Link* > Model::PdfPage::links() const
 
             links.append(new Link(boundary, url));
         }
+        else if(link->linkType() == Poppler::Link::Execute)
+        {
+            const Poppler::LinkExecute* linkExecute = static_cast< const Poppler::LinkExecute* >(link);
+
+            const QRectF boundary = linkExecute->linkArea().normalized();
+            const QString url = linkExecute->fileName();
+
+            links.append(new Link(boundary, url));
+        }
 
         delete link;
     }
