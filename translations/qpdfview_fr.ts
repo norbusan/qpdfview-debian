@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Supprime&amp;r le marque-page</translation>
+        <translation type="unfinished">Supprime&amp;r le signet</translation>
     </message>
 </context>
 <context>
@@ -183,7 +183,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajouter un signet</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
@@ -468,27 +468,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished">Marque-page &amp;précédent</translation>
+        <translation type="unfinished">Signet &amp;précédent</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2015"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished">Marque-page suiva&amp;nt</translation>
+        <translation type="unfinished">Signet suiva&amp;nt</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2017"/>
         <source>&amp;Add bookmark</source>
-        <translation type="unfinished">&amp;Ajouter un marque-page</translation>
+        <translation type="unfinished">&amp;Ajouter un signet</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Supprime&amp;r le marque-page</translation>
+        <translation type="unfinished">Supprime&amp;r le signet</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2019"/>
         <source>Remove all bookmarks</source>
-        <translation type="unfinished">Supprimer tous les marque-pages</translation>
+        <translation type="unfinished">Supprimer tous les signets</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2023"/>
@@ -921,12 +921,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="236"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage graphique</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage du texte</translation>
     </message>
 </context>
 <context>
@@ -1097,7 +1097,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished">Restaurer les marque-pages</translation>
+        <translation type="unfinished">Restaurer les signets</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="331"/>
