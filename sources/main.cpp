@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QInputDialog>
 #include <QLibraryInfo>
 #include <QMessageBox>
 #include <QScopedPointer>
@@ -182,7 +183,13 @@ static void parseCommandLineArguments()
             }
             else if(argument == QLatin1String("--choose-instance"))
             {
-                Database::instance()->chooseInstance();
+                bool ok = false;
+                const QString chosenInstanceName = QInputDialog::getItem(0, QObject::tr("Choose instance"), QObject::tr("Instance:"), Database::instance()->loadInstanceNames(), 0, true, &ok);
+
+                if(ok)
+                {
+                    instanceName = chosenInstanceName;
+                }
             }
             else if(argument == QLatin1String("--help"))
             {

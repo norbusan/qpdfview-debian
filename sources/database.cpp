@@ -27,7 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
-#include <QInputDialog>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -67,7 +66,7 @@ Database::~Database()
     s_instance = 0;
 }
 
-QString Database::chooseInstance()
+QStringList Database::loadInstanceNames()
 {
     QStringList instanceNames;
 
@@ -99,10 +98,7 @@ QString Database::chooseInstance()
 
 #endif // WITH_SQL
 
-    bool ok = false;
-    QString chosenInstanceName = QInputDialog::getItem(0, tr("Choose instance"), tr("Instance:"), instanceNames, 0, true, &ok);
-
-    return ok ? chosenInstanceName : QString();
+    return instanceNames;
 }
 
 void Database::restoreTabs()
