@@ -3,7 +3,7 @@ Release 0.4.7:
   * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
   * Updated Czech translations. Thanks to Pavel Fric.
-  * Updated French translations. Thanks to Arnaud Schmittbuhl.
+  * Updated French translations. Thanks to Arnaud Schmittbuhl and Tubuntu.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
   * Updated British English translations. Thanks to Andi Chandler.
 

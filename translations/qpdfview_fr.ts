@@ -1073,7 +1073,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="302"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished">Actualiser automatiquement</translation>
+        <translation type="unfinished">Actualisation automatique</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="308"/>
@@ -1107,7 +1107,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="346"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished">Synchroniser la présentation :</translation>
+        <translation type="unfinished">Synchroniser la présentation</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="352"/>
@@ -1117,7 +1117,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="355"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished">Écran de présentation :</translation>
+        <translation type="unfinished">Écran de présentation</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="361"/>
@@ -1132,7 +1132,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="372"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished">Durée de mise en surbrillance :</translation>
+        <translation type="unfinished">Durée de mise en surbrillance</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="378"/>
@@ -1147,7 +1147,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>Source editor:</source>
-        <translation type="unfinished">Éditeur de source :</translation>
+        <translation type="unfinished">Éditeur de source</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
@@ -1157,7 +1157,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utiliser le taux de pixel de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="436"/>
