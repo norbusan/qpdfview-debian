@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QCheckBox>
 #include <QComboBox>
+#include <QFileDialog>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
@@ -93,7 +94,23 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        // TODO
+        Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation.data())->embeddedFile();
+
+        QString fileName = QFileDialog::getSaveFileName(0, "Save file attachment", embeddedFile->name()); // TODO: Declare tr functions...
+
+        if(!fileName.isEmpty())
+        {
+            QFile file(fileName);
+
+            if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+            {
+                file.write(embeddedFile->data());
+
+                file.close();
+
+                // TODO: openUrl on it if settings say so...
+            }
+        }
     }
 
     return 0;
