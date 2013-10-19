@@ -79,14 +79,24 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 
 #endif // HAS_POPPLER_24
 
-    AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation.data());
 
-    annotationDialog->move(screenPos);
+    if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
+    {
+        AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation.data());
 
-    annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
-    annotationDialog->show();
+        annotationDialog->move(screenPos);
 
-    return annotationDialog;
+        annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
+        annotationDialog->show();
+
+        return annotationDialog;
+    }
+    else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
+    {
+        // TODO
+    }
+
+    return 0;
 }
 
 Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) :
@@ -357,7 +367,7 @@ QList< Model::Annotation* > Model::PdfPage::annotations() const
 
     foreach(Poppler::Annotation* annotation, m_page->annotations())
     {
-        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight)
+        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
         {
             annotations.append(new PdfAnnotation(m_mutex, annotation));
             continue;
