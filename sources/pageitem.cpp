@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QGraphicsSceneHoverEvent>
 #include <qmath.h>
@@ -31,6 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QTimer>
 #include <QToolTip>
+#include <QUrl>
 
 #include "settings.h"
 #include "model.h"
@@ -342,6 +344,14 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
+void PageItem::on_annotations_fileAttachmentSaved(const QString& filePath)
+{
+    if(s_settings->pageItem().openFileAttachments())
+    {
+        QDesktopServices::openUrl(QUrl(filePath));
+    }
+}
+
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
 }
@@ -619,13 +629,14 @@ void PageItem::loadInteractiveElements()
         foreach(const Model::Annotation* annotation, m_annotations)
         {
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SLOT(on_annotations_fileAttachmentSaved(QString)));
         }
 
         m_formFields = m_page->formFields();
 
         foreach(const Model::FormField* formField, m_formFields)
         {
-            connect(formField, SIGNAL(refresh()), SLOT(refresh()));
+            connect(formField, SIGNAL(needsRefresh()), SLOT(refresh()));
             connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
         }
     }

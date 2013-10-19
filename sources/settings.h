@@ -82,6 +82,9 @@ public:
         QColor annotationColor() const;
         void setAnnotationColor(const QColor& color);
 
+        bool openFileAttachments() const;
+        void setOpenFileAttachments(bool openFileAttachments);
+
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
         void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
 
@@ -408,6 +411,8 @@ public:
 
         static inline QColor highlightColor() { return Qt::yellow; }
         static inline QColor annotationColor() { return Qt::yellow; }
+
+        static inline bool openFileAttachments() { return false; }
 
         static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
         static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }

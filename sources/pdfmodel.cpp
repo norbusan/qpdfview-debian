@@ -101,17 +101,19 @@ void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
     {
         Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
 
-        QString fileName = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
+        QString filePath = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
 
-        if(!fileName.isEmpty())
+        if(!filePath.isEmpty())
         {
-            QFile file(fileName);
+            QFile file(filePath);
 
             if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
             {
                 file.write(embeddedFile->data());
 
                 file.close();
+
+                emit fileAttachmentSaved(filePath);
             }
         }
     }
@@ -167,7 +169,7 @@ void Model::PdfFormField::showDialog(const QPoint& screenPos)
         formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
         formFieldDialog->show();
 
-        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(refresh()));
+        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(needsRefresh()));
         connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
     }
     else if(m_formField->type() == Poppler::FormField::FormButton)
@@ -176,7 +178,7 @@ void Model::PdfFormField::showDialog(const QPoint& screenPos)
 
         formFieldButton->setState(!formFieldButton->state());
 
-        emit refresh();
+        emit needsRefresh();
         emit wasModified();
     }
 }

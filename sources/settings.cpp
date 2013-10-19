@@ -142,6 +142,16 @@ void Settings::PageItem::setAnnotationColor(const QColor &color)
     m_settings->setValue("pageItem/annotationColor", color);
 }
 
+bool Settings::PageItem::openFileAttachments() const
+{
+    return m_settings->value("pageItem/openFileAttachments", Defaults::PageItem::openFileAttachments()).toBool();
+}
+
+void Settings::PageItem::setOpenFileAttachments(bool openFileAttachments)
+{
+    m_settings->setValue("pageItem/openFileAttachments", openFileAttachments);
+}
+
 Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyToClipboardModifiers", static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())).toInt());

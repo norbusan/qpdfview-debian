@@ -76,7 +76,8 @@ namespace Model
         virtual void showDialog(const QPoint& screenPos) = 0;
 
     signals:
-        bool wasModified();
+        void wasModified();
+        void fileAttachmentSaved(const QString& filePath);
 
     };
 
@@ -93,8 +94,8 @@ namespace Model
         virtual void showDialog(const QPoint& screenPos) = 0;
 
     signals:
-        bool refresh();
-        bool wasModified();
+        void needsRefresh();
+        void wasModified();
 
     };
 
