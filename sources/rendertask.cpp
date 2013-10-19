@@ -52,6 +52,8 @@ void RenderTask::wait()
 
 bool RenderTask::isRunning() const
 {
+    QMutexLocker mutexLocker(&m_mutex);
+
     return m_isRunning;
 }
 
@@ -131,9 +133,10 @@ void RenderTask::start(Model::Page* page, int resolutionX, int resolutionY, qrea
 
     m_prefetch = prefetch;
 
-    QMutexLocker mutexLocker(&m_mutex);
-
+    m_mutex.lock();
     m_isRunning = true;
+    m_mutex.unlock();
+
     m_wasCanceled = false;
 
     QThreadPool::globalInstance()->start(this);
@@ -146,11 +149,11 @@ void RenderTask::cancel()
 
 void RenderTask::finish()
 {
-    emit finished();
-
-    QMutexLocker mutexLocker(&m_mutex);
-
+    m_mutex.lock();
     m_isRunning = false;
+    m_mutex.unlock();
 
     m_waitCondition.wakeAll();
+
+    emit finished();
 }

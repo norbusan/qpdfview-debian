@@ -60,7 +60,7 @@ public slots:
 private:
     Q_DISABLE_COPY(RenderTask)
 
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;
 
     void finish();

@@ -2,6 +2,7 @@ Release 0.4.7:
   * Extended bookmarks storage format to add labelled bookmarks.
   * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
+  * Fix a race condition that could lead to dropping rendered pages.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated French translations. Thanks to Arnaud Schmittbuhl and Tubuntu.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
