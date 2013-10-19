@@ -115,6 +115,10 @@ void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 
                 emit fileAttachmentSaved(filePath);
             }
+            else
+            {
+                QMessageBox::warning(0, tr("Warning"), tr("Could not save file attachment to '%1'.").arg(filePath));
+            }
         }
     }
 }
