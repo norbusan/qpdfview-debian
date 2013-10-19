@@ -47,6 +47,8 @@ namespace Model
 {
     class PdfAnnotation : public Annotation
     {
+        Q_DECLARE_TR_FUNCTIONS(Model::PdfAnnotation)
+
         friend class PdfPage;
 
     public:

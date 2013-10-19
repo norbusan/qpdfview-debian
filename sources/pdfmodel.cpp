@@ -96,7 +96,7 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
     {
         Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation.data())->embeddedFile();
 
-        QString fileName = QFileDialog::getSaveFileName(0, "Save file attachment", embeddedFile->name()); // TODO: Declare tr functions...
+        QString fileName = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
 
         if(!fileName.isEmpty())
         {
@@ -107,8 +107,6 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
                 file.write(embeddedFile->data());
 
                 file.close();
-
-                // TODO: openUrl on it if settings say so...
             }
         }
     }
