@@ -44,10 +44,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "annotationdialog.h"
 #include "formfielddialog.h"
 
-Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) :
+Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) : Annotation(),
     m_mutex(mutex),
     m_annotation(annotation)
 {
+}
+
+Model::PdfAnnotation::~PdfAnnotation()
+{
+    delete m_annotation;
 }
 
 QRectF Model::PdfAnnotation::boundary() const
@@ -72,7 +77,7 @@ QString Model::PdfAnnotation::contents() const
     return m_annotation->contents();
 }
 
-QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
+void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 {
 #ifndef HAS_POPPLER_24
 
@@ -83,18 +88,18 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
 
     if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
     {
-        AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation.data());
+        AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
 
         annotationDialog->move(screenPos);
 
         annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
         annotationDialog->show();
 
-        return annotationDialog;
+        emit wasModified();
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation.data())->embeddedFile();
+        Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
 
         QString fileName = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
 
@@ -110,14 +115,17 @@ QDialog* Model::PdfAnnotation::showDialog(const QPoint& screenPos)
             }
         }
     }
-
-    return 0;
 }
 
-Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) :
+Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) : FormField(),
     m_mutex(mutex),
     m_formField(formField)
 {
+}
+
+Model::PdfFormField::~PdfFormField()
+{
+    delete m_formField;
 }
 
 QRectF Model::PdfFormField::boundary() const
@@ -142,7 +150,7 @@ QString Model::PdfFormField::name() const
     return m_formField->name();
 }
 
-QDialog* Model::PdfFormField::showDialog(const QPoint& screenPos)
+void Model::PdfFormField::showDialog(const QPoint& screenPos)
 {
 #ifndef HAS_POPPLER_24
 
@@ -152,23 +160,25 @@ QDialog* Model::PdfFormField::showDialog(const QPoint& screenPos)
 
     if(m_formField->type() == Poppler::FormField::FormText || m_formField->type() == Poppler::FormField::FormChoice)
     {
-        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField.data());
+        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField);
 
         formFieldDialog->move(screenPos);
 
         formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
         formFieldDialog->show();
 
-        return formFieldDialog;
+        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(refresh()));
+        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
     }
     else if(m_formField->type() == Poppler::FormField::FormButton)
     {
-        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField.data());
+        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
 
         formFieldButton->setState(!formFieldButton->state());
-    }
 
-    return 0;
+        emit refresh();
+        emit wasModified();
+    }
 }
 
 Model::PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
@@ -500,7 +510,7 @@ void Model::PdfPage::removeAnnotation(Annotation* annotation)
 
 #ifdef HAS_POPPLER_20
 
-    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation.data());
+    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation);
 
 #else
 

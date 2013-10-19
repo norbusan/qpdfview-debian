@@ -47,15 +47,17 @@ namespace Model
 {
     class PdfAnnotation : public Annotation
     {
-        Q_DECLARE_TR_FUNCTIONS(Model::PdfAnnotation)
+        Q_OBJECT
 
         friend class PdfPage;
 
     public:
+        ~PdfAnnotation();
+
         QRectF boundary() const;
         QString contents() const;
 
-        QDialog* showDialog(const QPoint& screenPos);
+        void showDialog(const QPoint& screenPos);
 
     private:
         Q_DISABLE_COPY(PdfAnnotation)
@@ -63,19 +65,23 @@ namespace Model
         PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation);
 
         mutable QMutex* m_mutex;
-        QScopedPointer< Poppler::Annotation > m_annotation;
+        Poppler::Annotation* m_annotation;
 
     };
 
     class PdfFormField : public FormField
     {
+        Q_OBJECT
+
         friend class PdfPage;
 
     public:
+        ~PdfFormField();
+
         QRectF boundary() const;
         QString name() const;
 
-        QDialog* showDialog(const QPoint& screenPos);
+        void showDialog(const QPoint& screenPos);
 
     private:
         Q_DISABLE_COPY(PdfFormField)
@@ -83,7 +89,7 @@ namespace Model
         PdfFormField(QMutex* mutex, Poppler::FormField* formField);
 
         mutable QMutex* m_mutex;
-        QScopedPointer< Poppler::FormField > m_formField;
+        Poppler::FormField* m_formField;
 
     };
 

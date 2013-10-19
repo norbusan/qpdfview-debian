@@ -149,9 +149,6 @@ private:
 
     void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
-    void editAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
-
-    void editFormField(Model::FormField* formField, const QPoint& screenPos);
 
     // geometry
 
