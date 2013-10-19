@@ -30,7 +30,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QWidget>
 
 class QColor;
-class QDialog;
 class QImage;
 class QPrinter;
 class QSizeF;
