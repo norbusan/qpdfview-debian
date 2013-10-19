@@ -95,7 +95,7 @@ void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
         annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
         annotationDialog->show();
 
-        emit wasModified();
+        connect(annotationDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
