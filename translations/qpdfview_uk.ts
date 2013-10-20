@@ -22,17 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Choose instance</source>
-        <translation type="unfinished">Виберіть екземпляр</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Instance:</source>
-        <translation type="unfinished">Екземпляр:</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="564"/>
+        <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Перейти до сторінки %1</translation>
     </message>
@@ -932,47 +922,57 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="147"/>
+        <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Порожнє ім&apos;я екземпляру не дозволяється.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="158"/>
+        <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Не можна шукати порожній рядок.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="209"/>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Choose instance</source>
+        <translation type="unfinished">Виберіть екземпляр</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Instance:</source>
+        <translation type="unfinished">Екземпляр:</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished">Невідомий параметр командного рядка, «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="240"/>
+        <location filename="../sources/main.cpp" line="247"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Використання &apos;--instance&apos; потребує вказання імені екземпляру.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="246"/>
+        <location filename="../sources/main.cpp" line="253"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Використання &apos;--instance&apos; не дозволяється без &apos;--unique&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="252"/>
+        <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished">Назва екземпляра програми може складатися лише з символів «[A-Z][a-z][0-9]_» і не повинна починатися з цифри.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="258"/>
+        <location filename="../sources/main.cpp" line="265"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Використання параметра «--search» вимагає зазначення тексту для пошуку.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="336"/>
+        <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="433"/>
+        <location filename="../sources/main.cpp" line="440"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Не вдалося підготувати обробник сигналу.</translation>
     </message>

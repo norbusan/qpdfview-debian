@@ -22,17 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Choose instance</source>
-        <translation type="unfinished">Elija la instancia</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Instance:</source>
-        <translation type="unfinished">Instancia:</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="564"/>
+        <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Saltar a la página %1</translation>
     </message>
@@ -932,47 +922,57 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="147"/>
+        <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">No se permite un nombre de instancia vacío.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="158"/>
+        <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Una búsqueda de texto vacío no está permitido.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="209"/>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Choose instance</source>
+        <translation type="unfinished">Elija la instancia</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Instance:</source>
+        <translation type="unfinished">Instancia:</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="240"/>
+        <location filename="../sources/main.cpp" line="247"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Para usar «--instance» necesita un nombre de instancia.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="246"/>
+        <location filename="../sources/main.cpp" line="253"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">No se permite usar «--instance» sin usar «--unique».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="252"/>
+        <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="258"/>
+        <location filename="../sources/main.cpp" line="265"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">Para usar «--search» se necesita un término de búsqueda.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="336"/>
+        <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No se encontraron los datos SyncText para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="433"/>
+        <location filename="../sources/main.cpp" line="440"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">No se pudo preparar el manejador de señales.</translation>
     </message>

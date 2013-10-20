@@ -129,13 +129,13 @@ accéder par Ctrl+K, et en validant par la touche entrée.</p>
 <h4><a name="view">Affichage</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
-at once.</li>
-	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
-	<li><b>Two pages with cover page</b> Determines whether the page layout uses two
-columns with a break after the cover page.</li>
-	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
-columns. The number of columns can be changed in the settings dialog.</li>
+	<li><b>Continu</b> Permet de rendre simultanément visibles les différentes
+lignes de la mise en page.</li>
+	<li><b>Deux pages</b> Mise en page en mode deux colonnes.</li>
+	<li><b>Deux pages avec page de couverture</b> Mise en page en deux colonnes avec
+un saut de page pour la page de couverture.</li>
+	<li><b>Multiples pages</b> Mode de mise en page à plusieurs colonnes. Le nombre
+de colonnes se règle dans le menu paramètres.</li>
 	<li><b>Zoomer</b> Augmente le facteur d'échelle de 10 pourcents.</li>
 	<li><b>Dé-zoomer</b> Diminue le facteur d'échelle de 10 pourcents.</li>
 	<li><b>Taille originale</b> Rétablit le facteur d'échelle à 100 pourcent.</li>
@@ -238,9 +238,9 @@ comportement a été choisi dans les paramètres). Un clic gauche sur un champ
 de formulaire permet d'en éditer le contenu. Passer sur un champ de
 formulaire affiche son nom dans une bulle d'aide.</p>
 
-<p>The source of a position in the document is requested by double-clicking
-which opens the first matching <em>SyncTeX</em> node using the source
-editor.</p>
+<p>Double cliquer à un endroit précis du document permet d'afficher, dans
+l'éditeur de sources, le code source extrait du nœud correspondant du
+fichier <em>SyncTeX</em>.</p>
 
 <p>Pour <em>copier du texte ou des images</em>, maintenir la touche <b>Maj</b>
 enfoncée, cliquer et maintenir le bouton gauche de la souris enfoncé pour
@@ -260,17 +260,16 @@ sous forme d'une bulle d'aide.</p>
 
 <h3><a name="auxiliaryviews">Vues auxiliaires</a> <a href="#top">&uarr;</a></h3>
 
-<p>The <em>outline</em> view displays an overview of the contents of the
-document. A left click on an entry jumps to the respective page in the main
-view. The context menu can be used to expand/collapse all items below the
-selected item.</p>
+<p>Le <em>sommaire</em> affiche la structure du document. Un clic gauche permet
+d'afficher la page correspondante dans la vue principale. Le menu contextuel
+permet de développer ou de réduire tous les items sous l'item sélectionnés.</p>
 
 <p>La vue <em>propriétés</em> affiche des informations complémentaires
 contenues dans le document.</p>
 
-<p>The <em>thumbnails</em> view displays smaller versions of the pages of the
-document. A left click on an entry jumps to the respective page in the main
-view.</p>
+<p>La vue en <em>miniatures</em> affiche une version réduite des pages du
+document. Un clic gauche sur une vignette permet d'afficher la page
+correspondante dans la vue principale.</p>
 
 <h3><a name="settings">Paramètres</a> <a href="#top">&uarr;</a></h3>
 
@@ -315,10 +314,10 @@ source. « %1 » est remplacé par le chemin absolu du fichier. « %2 » (resp. 
 graphique est utilisé lors des zoom pour permettre un affichage approximatif
 temporaire avant le rendu de l'image finale. Cette option augment
 l'utilisation de la mémoire.</li>
-    <li><b>Use device pixel ratio</b> If enabled, the highest available device pixel
-ratio is used to render at physical and display at logical resolution.</li>
-    <li><b>Decorate pages</b> Determines whether pages are set apart from the
-background.</li>
+    <li><b>Utiliser le taux de pixel de l'appareil</b> Si l'item est validé,
+l'affichage se fait en utilisant la valeur maximale du taux de pixel.</li>
+    <li><b>Décorer les pages</b> Permet de tracer le cadre séparant la page de son
+arrière-plan.</li>
     <li><b>Décorer les liens</b> Précise si les liens sont mis en valeur par un
 cadre rouge.</li>
     <li><b>Décorer les champs de formulaire</b> Précise si les champs de formulaire
@@ -348,8 +347,8 @@ actuelle et le double du nombre de lignes avant la ligne actuelle qui sont
 préchargées.</li>
     <li><b>Paramètres PDF</b>
     <ul>
-        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
-on top of another is displayed.</li>
+        <li><b>Sur-imprimer l'aperçu</b> Si l'item est validé, l'aperçu d'impression est
+affiché en tenant compte de la superposition des couches d'encre.</li>
         <li><b>Anti-crénelage</b> Améliore la qualité de l'affichage au prix d'une
 baisse de performances.</li>
         <li><b>Anti-crénelage du texte</b> Améliore l'affichage du texte au prix d'une
@@ -397,9 +396,9 @@ un redémarrage.)</li>
     <li><b>Page courante dans le titre de la fenêtre</b> Si cet item est validé, le
 numéro de la page et le nombre total de pages du document actif sont
 affichés dans la barre de titre de la fenêtre.</li>
-    <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
-the first entry pointing to the current page whenever the current page
-changes.</li>
+    <li><b>Synchroniser le sommaire</b> Si l'item est validé, la page du sommaire
+correspondant à la page courante est mis en valeur et s'actualise à tous
+changements de page.</li>
     <li><b>Surligner la miniature courante</b> Si l'item est validé, la page
 courante est mise en valeur dans la vue des miniatures.</li>
     <li><b>Limiter les miniatures aux résultats</b> Si cet item est validé, seules

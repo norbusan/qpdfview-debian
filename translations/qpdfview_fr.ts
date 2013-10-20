@@ -22,17 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Choose instance</source>
-        <translation type="unfinished">Choisir un lot de fichiers</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="103"/>
-        <source>Instance:</source>
-        <translation type="unfinished">Lot de fichiers</translation>
-    </message>
-    <message>
-        <location filename="../sources/database.cpp" line="564"/>
+        <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Aller à la page %1</translation>
     </message>
@@ -521,7 +511,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2093"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Esquisser</translation>
+        <translation type="unfinished">&amp;Sommaire</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2106"/>
@@ -932,47 +922,57 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="147"/>
+        <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished">Un nom d&apos;instance vide n&apos;est pas autorisé.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="158"/>
+        <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Une recherche vide n’est pas autorisée.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="209"/>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Choose instance</source>
+        <translation type="unfinished">Choisir un lot de fichiers</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="187"/>
+        <source>Instance:</source>
+        <translation type="unfinished">Lot de fichiers</translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished">Option de ligne de commande &apos;%1&apos; inconnue.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="240"/>
+        <location filename="../sources/main.cpp" line="247"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished">Utiliser « --instance » nécessite un nom d&apos;instance.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="246"/>
+        <location filename="../sources/main.cpp" line="253"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished">Utiliser « --instance » n&apos;est pas autorisé sans utiliser « --unique ».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="252"/>
+        <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères &quot;[A-Z][a-z][0-9]_&quot; et ne doit pas commencer par un nombre.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="258"/>
+        <location filename="../sources/main.cpp" line="265"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished">L&apos;utilisation de « --search » nécessite un texte de recherche.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="336"/>
+        <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="433"/>
+        <location filename="../sources/main.cpp" line="440"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished">Ne peut préparer le gestionnaire de signaux.</translation>
     </message>
