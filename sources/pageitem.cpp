@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QGraphicsSceneHoverEvent>
 #include <qmath.h>
@@ -31,6 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QTimer>
 #include <QToolTip>
+#include <QUrl>
 
 #include "settings.h"
 #include "model.h"
@@ -342,6 +344,14 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
+void PageItem::on_annotations_fileAttachmentSaved(const QString& filePath)
+{
+    if(s_settings->pageItem().openFileAttachments())
+    {
+        QDesktopServices::openUrl(QUrl(filePath));
+    }
+}
+
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
 }
@@ -504,7 +514,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                editAnnotation(annotation, event->screenPos());
+                annotation->showDialog(event->screenPos());
 
                 event->accept();
                 return;
@@ -519,7 +529,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                editFormField(formField, event->screenPos());
+                formField->showDialog(event->screenPos());
 
                 event->accept();
                 return;
@@ -615,7 +625,20 @@ void PageItem::loadInteractiveElements()
     if(!m_presentationMode)
     {
         m_annotations = m_page->annotations();
+
+        foreach(const Model::Annotation* annotation, m_annotations)
+        {
+            connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SLOT(on_annotations_fileAttachmentSaved(QString)));
+        }
+
         m_formFields = m_page->formFields();
+
+        foreach(const Model::FormField* formField, m_formFields)
+        {
+            connect(formField, SIGNAL(needsRefresh()), SLOT(refresh()));
+            connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
+        }
     }
 
     update();
@@ -697,7 +720,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
             refresh();
 
-            editAnnotation(annotation, screenPos);
+            annotation->showDialog(screenPos);
         }
     }
 }
@@ -722,29 +745,6 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             emit wasModified();
         }
     }
-}
-
-void PageItem::editAnnotation(Model::Annotation* annotation, const QPoint& screenPos)
-{
-    annotation->showDialog(screenPos);
-
-    emit wasModified();
-}
-
-void PageItem::editFormField(Model::FormField* formField, const QPoint& screenPos)
-{
-    const QDialog* formFieldDialog = formField->showDialog(screenPos);
-
-    if(formFieldDialog != 0)
-    {
-        connect(formFieldDialog, SIGNAL(destroyed()), SLOT(refresh()));
-    }
-    else
-    {
-        refresh();
-    }
-
-    emit wasModified();
 }
 
 qreal PageItem::effectiveDevicePixelRatio()

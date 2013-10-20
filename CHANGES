@@ -1,5 +1,6 @@
 Release 0.4.7:
   * Extended bookmarks storage format to add labelled bookmarks.
+  * Added support for opening execute links and for saving file attachments from annotations.
   * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
   * Fix a race condition that could lead to dropping rendered pages.

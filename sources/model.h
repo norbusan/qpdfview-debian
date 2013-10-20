@@ -30,7 +30,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QWidget>
 
 class QColor;
-class QDialog;
 class QImage;
 class QPrinter;
 class QSizeF;
@@ -62,27 +61,41 @@ namespace Model
 
     };
 
-    class Annotation
+    class Annotation : public QObject
     {
+        Q_OBJECT
+
     public:
+        Annotation() : QObject() {}
+
         virtual ~Annotation() {}
 
         virtual QRectF boundary() const = 0;
         virtual QString contents() const = 0;
 
-        virtual QDialog* showDialog(const QPoint& screenPos) = 0;
+        virtual void showDialog(const QPoint& screenPos) = 0;
+
+    signals:
+        void wasModified();
+        void fileAttachmentSaved(const QString& filePath);
 
     };
 
-    class FormField
+    class FormField : public QObject
     {
+        Q_OBJECT
+
     public:
         virtual ~FormField() {}
 
         virtual QRectF boundary() const = 0;
         virtual QString name() const = 0;
 
-        virtual QDialog* showDialog(const QPoint& screenPos) = 0;
+        virtual void showDialog(const QPoint& screenPos) = 0;
+
+    signals:
+        void needsRefresh();
+        void wasModified();
 
     };
 
