@@ -559,7 +559,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="104"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберегти долучення до файла</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
@@ -569,7 +569,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не вдалося зберегти долучення до файла до «%1».</translation>
     </message>
 </context>
 <context>
@@ -1091,7 +1091,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Open file attachments:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Видкривати долучення до файла:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>

@@ -173,12 +173,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tambah tanda buku</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Label</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
@@ -952,17 +952,17 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Pilih kejadian</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished">Kejadian:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pilihan baris-perintah &apos;%1&apos; tidak diketahui.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Satu nama kejadian mesti mengandungi aksara &quot;[A-Z][a-z][0-9]_&quot; dan mesti tidak bermula dengan digit.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>

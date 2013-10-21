@@ -328,12 +328,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1963"/>
         <source>Find previous</source>
-        <translation type="unfinished">Chercher précédent</translation>
+        <translation type="unfinished">Rechercher le précédent</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1964"/>
         <source>Find next</source>
-        <translation type="unfinished">Chercher suivant</translation>
+        <translation type="unfinished">Rechercher le suivant</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1965"/>
@@ -617,7 +617,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="421"/>
         <source>Information</source>
-        <translation type="unfinished">Informations</translation>
+        <translation type="unfinished">Information</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="421"/>
@@ -952,12 +952,12 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Choisir un lot de fichiers</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished">Lot de fichiers</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
