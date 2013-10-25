@@ -501,6 +501,60 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     }
 }
 
+void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
+{
+    QMenu menu;
+
+    const QAction* closeAllTabsButThisOneAction = menu.addAction(tr("Close all tabs but this one"));
+    const QAction* closeAllTabsToTheLeftAction = menu.addAction(tr("Close all tabs to the left"));
+    const QAction* closeAllTabsToTheRightAction = menu.addAction(tr("Close all tabs to the right"));
+
+    const QAction* action = menu.exec(globalPos);
+
+    const int count = m_tabWidget->count();
+
+    QList< DocumentView* > tabsToClose;
+
+    if(action == closeAllTabsButThisOneAction)
+    {
+        for(int indexToClose = 0; indexToClose < count; ++indexToClose)
+        {
+            if(indexToClose != index)
+            {
+                tabsToClose.append(tab(indexToClose));
+            }
+        }
+    }
+    else if(action == closeAllTabsToTheLeftAction)
+    {
+        for(int indexToClose = 0; indexToClose < index; ++indexToClose)
+        {
+            tabsToClose.append(tab(indexToClose));
+        }
+    }
+    else if(action == closeAllTabsToTheRightAction)
+    {
+        for(int indexToClose = count - 1; indexToClose > index; --indexToClose)
+        {
+            tabsToClose.append(tab(indexToClose));
+        }
+    }
+
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    foreach(DocumentView* tab, tabsToClose)
+    {
+        if(saveModifications(tab))
+        {
+            delete tab;
+        }
+    }
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+}
+
 void MainWindow::on_currentTab_documentChanged()
 {
     if(m_outlineView->header()->count() > 0)
@@ -1847,6 +1901,7 @@ void MainWindow::createWidgets()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
+    connect(m_tabWidget, SIGNAL(tabContextMenuRequested(QPoint,int)), SLOT(on_tabWidget_tabContextMenuRequested(QPoint,int)));
 
     // current page
 
