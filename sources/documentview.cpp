@@ -1177,11 +1177,45 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
-    QKeySequence keySequence(event->modifiers() + event->key());
+    const QKeySequence keySequence(event->modifiers() + event->key());
+
+    int maskedKey = -1;
+
+    if(s_shortcutHandler->matchesSkipBackward(keySequence))
+    {
+        maskedKey = Qt::Key_PageUp;
+    }
+    else if(s_shortcutHandler->matchesSkipForward(keySequence))
+    {
+        maskedKey = Qt::Key_PageDown;
+    }
+    else if(s_shortcutHandler->matchesMoveUp(keySequence))
+    {
+        maskedKey = Qt::Key_Up;
+    }
+    else if(s_shortcutHandler->matchesMoveDown(keySequence))
+    {
+        maskedKey = Qt::Key_Down;
+    }
+    else if(s_shortcutHandler->matchesMoveLeft(keySequence))
+    {
+        maskedKey = Qt::Key_Left;
+    }
+    else if(s_shortcutHandler->matchesMoveRight(keySequence))
+    {
+        maskedKey = Qt::Key_Right;
+    }
+    else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
+            event->key() == Qt::Key_Up || event->key() == Qt::Key_Down ||
+            event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
+    {
+        event->ignore();
+        return;
+    }
 
     if(!m_continuousMode)
     {
-        if(s_shortcutHandler->matchesSkipBackward(keySequence) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
             previousPage();
 
@@ -1190,7 +1224,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(s_shortcutHandler->matchesSkipForward(keySequence) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
+        else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
         {
             nextPage();
 
@@ -1201,71 +1235,38 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         }
     }
 
-    int key = -1;
+    if(maskedKey == Qt::Key_Up && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
+    {
+        previousPage();
 
-    if(s_shortcutHandler->matchesSkipBackward(keySequence))
-    {
-        key = Qt::Key_PageUp;
+        event->accept();
+        return;
     }
-    else if(s_shortcutHandler->matchesSkipForward(keySequence))
+    else if(maskedKey == Qt::Key_Down && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
     {
-        key = Qt::Key_PageDown;
-    }
-    else if(s_shortcutHandler->matchesMoveUp(keySequence))
-    {
-        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-        {
-            previousPage();
+        nextPage();
 
-            event->accept();
-            return;
-        }
-        key = Qt::Key_Up;
+        event->accept();
+        return;
     }
-    else if(s_shortcutHandler->matchesMoveDown(keySequence))
+    else if(maskedKey == Qt::Key_Left && !horizontalScrollBar()->isVisible())
     {
-        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-        {
-            nextPage();
+        previousPage();
 
-            event->accept();
-            return;
-        }
-        key = Qt::Key_Down;
+        event->accept();
+        return;
     }
-    else if(s_shortcutHandler->matchesMoveLeft(keySequence))
+    else if(maskedKey == Qt::Key_Right && !horizontalScrollBar()->isVisible())
     {
-        if (!horizontalScrollBar()->isVisible())
-        {
-            previousPage();
+        nextPage();
 
-            event->accept();
-            return;
-        }
-        key = Qt::Key_Left;
-    }
-    else if(s_shortcutHandler->matchesMoveRight(keySequence))
-    {
-        if (!horizontalScrollBar()->isVisible())
-        {
-            nextPage();
-
-            event->accept();
-            return;
-        }
-        key = Qt::Key_Right;
-    }
-    else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
-            event->key() == Qt::Key_Up || event->key() == Qt::Key_Down ||
-            event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
-    {
-        event->ignore();
+        event->accept();
         return;
     }
 
-    if(key != -1)
+    if(maskedKey != -1)
     {
-        QKeyEvent keyEvent(event->type(), key, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
+        QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
         QGraphicsView::keyPressEvent(&keyEvent);
 
         event->accept();
