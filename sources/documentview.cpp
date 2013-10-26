@@ -1212,10 +1212,24 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
     else if(s_shortcutHandler->matchesMoveUp(keySequence))
     {
+        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
+        {
+            previousPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Up;
     }
     else if(s_shortcutHandler->matchesMoveDown(keySequence))
     {
+        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
+        {
+            nextPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Down;
     }
     else if(s_shortcutHandler->matchesMoveLeft(keySequence))
