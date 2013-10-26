@@ -1220,10 +1220,24 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
     else if(s_shortcutHandler->matchesMoveLeft(keySequence))
     {
+        if (!horizontalScrollBar()->isVisible())
+        {
+            previousPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Left;
     }
     else if(s_shortcutHandler->matchesMoveRight(keySequence))
     {
+        if (!horizontalScrollBar()->isVisible())
+        {
+            nextPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Right;
     }
     else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
