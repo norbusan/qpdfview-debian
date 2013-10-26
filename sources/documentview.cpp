@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012-2013 Adam Reichold
+Copyright 2013 Thomas Etter
 
 This file is part of qpdfview.
 
@@ -1212,18 +1213,46 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
     else if(s_shortcutHandler->matchesMoveUp(keySequence))
     {
+        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
+        {
+            previousPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Up;
     }
     else if(s_shortcutHandler->matchesMoveDown(keySequence))
     {
+        if (!verticalScrollBar()->isVisible() || verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
+        {
+            nextPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Down;
     }
     else if(s_shortcutHandler->matchesMoveLeft(keySequence))
     {
+        if (!horizontalScrollBar()->isVisible())
+        {
+            previousPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Left;
     }
     else if(s_shortcutHandler->matchesMoveRight(keySequence))
     {
+        if (!horizontalScrollBar()->isVisible())
+        {
+            nextPage();
+
+            event->accept();
+            return;
+        }
         key = Qt::Key_Right;
     }
     else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
