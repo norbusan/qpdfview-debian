@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="225"/>
+        <location filename="../sources/documentview.cpp" line="226"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Supported formats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Opening URL is disabled in the settings.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>Warning</source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1522"/>
+        <location filename="../sources/documentview.cpp" line="1552"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1673"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>
@@ -120,17 +120,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Close all tabs but this one</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Close all tabs to the left</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Close all tabs to the right</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="936"/>
@@ -574,7 +574,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="104"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Save file attachment</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
@@ -584,7 +584,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Could not save file attachment to &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -1106,7 +1106,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Open file attachments:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Open file attachments:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>

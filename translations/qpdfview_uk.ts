@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="225"/>
+        <location filename="../sources/documentview.cpp" line="226"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Підтримувані формати (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Розблокувати %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Information</source>
         <translation type="unfinished">Інформація</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Перехід за посиланням заборонено у налаштуваннях.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1522"/>
+        <location filename="../sources/documentview.cpp" line="1552"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1673"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Page %1</source>
         <translation type="unfinished">Сторінка %1</translation>
     </message>
@@ -120,17 +120,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрити усі вкладки, окрім цієї</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрити усі вкладки ліворуч</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрити усі вкладки праворуч</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="936"/>

@@ -24,55 +24,55 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Skocz do strony %1</translation>
+        <translation>Przejdź do strony %1</translation>
     </message>
 </context>
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="225"/>
+        <location filename="../sources/documentview.cpp" line="226"/>
         <source>Supported formats (%1)</source>
         <translation>Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Unlock %1</source>
         <translation>Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="489"/>
-        <location filename="../sources/documentview.cpp" line="533"/>
+        <location filename="../sources/documentview.cpp" line="490"/>
+        <location filename="../sources/documentview.cpp" line="534"/>
         <source>Password:</source>
         <translation>Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Information</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1095"/>
+        <location filename="../sources/documentview.cpp" line="1096"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation>Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1147"/>
+        <location filename="../sources/documentview.cpp" line="1148"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1522"/>
+        <location filename="../sources/documentview.cpp" line="1552"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1673"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Page %1</source>
         <translation>Strona %1</translation>
     </message>
@@ -88,12 +88,12 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
         <source>Find previous</source>
-        <translation type="unfinished">Znajdź poprzedni</translation>
+        <translation>Znajdź poprzedni</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
         <source>Find next</source>
-        <translation type="unfinished">Znajdź następny</translation>
+        <translation>Znajdź następny</translation>
     </message>
 </context>
 <context>
@@ -130,17 +130,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij wszystkie karty, ale nie tą</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij wszystkie karty w lewo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij wszystkie karty w prawo</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="952"/>
@@ -193,17 +193,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj zakładkę</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etykieta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Skocz do strony %1</translation>
+        <translation>Przejdź do strony %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1563"/>
@@ -579,7 +579,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
         <source>Warning</source>
-        <translation type="unfinished">Ostrzeżenie</translation>
+        <translation>Ostrzeżenie</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="120"/>
@@ -967,12 +967,12 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Wybierz instancję</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished">Instancja:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
@@ -1106,7 +1106,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Open file attachments:</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz pliki załączników:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
