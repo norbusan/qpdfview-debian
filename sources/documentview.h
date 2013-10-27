@@ -45,6 +45,7 @@ class ThumbnailItem;
 class SearchTask;
 class PresentationView;
 class ShortcutHandler;
+class DocumentLayout;
 
 class DocumentView : public QGraphicsView
 {

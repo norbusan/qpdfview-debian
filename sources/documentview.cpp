@@ -61,6 +61,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "presentationview.h"
 #include "searchtask.h"
 #include "miscellaneous.h"
+#include "documentlayout.h"
 
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
