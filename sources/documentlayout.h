@@ -26,10 +26,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+class Settings;
 class PageItem;
 
 struct DocumentLayout
 {
+    DocumentLayout();
     virtual ~DocumentLayout() {}
 
     virtual LayoutMode layoutMode() const = 0;
@@ -49,6 +51,9 @@ struct DocumentLayout
     virtual void prepareLayout(PageItem* page, int index, int count,
                                QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                qreal& left, qreal& right, qreal& height) = 0;
+
+protected:
+    static Settings* s_settings;
 
 };
 

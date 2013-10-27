@@ -24,9 +24,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "pageitem.h"
 
+Settings* DocumentLayout::s_settings = 0;
+
+DocumentLayout::DocumentLayout()
+{
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+}
+
 qreal DocumentLayout::visibleHeight(int viewportHeight) const
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
     return viewportHeight - 2.0 * pageSpacing;
 }
@@ -49,7 +59,7 @@ int SinglePageLayout::nextPage(int page, int count) const
 
 QPair< int, int > SinglePageLayout::prefetchRange(int page, int count) const
 {
-    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
+    const int prefetchDistance = s_settings->documentView().prefetchDistance();
 
     return qMakePair(qMax(page - prefetchDistance / 2, 1),
                      qMin(page + prefetchDistance, count));
@@ -69,7 +79,7 @@ int SinglePageLayout::rightIndex(int index, int count) const
 
 qreal SinglePageLayout::visibleWidth(int viewportWidth) const
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
     return viewportWidth - 6.0 - 2.0 * pageSpacing;
 }
@@ -80,7 +90,7 @@ void SinglePageLayout::prepareLayout(PageItem* page, int index, int count,
 {
     Q_UNUSED(count);
 
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
     const QRectF boundingRect = page->boundingRect();
 
     page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
@@ -112,7 +122,7 @@ int TwoPagesLayout::nextPage(int page, int count) const
 
 QPair< int, int > TwoPagesLayout::prefetchRange(int page, int count) const
 {
-    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
+    const int prefetchDistance = s_settings->documentView().prefetchDistance();
 
     return qMakePair(qMax(page - prefetchDistance, 1),
                      qMin(page + 2 * prefetchDistance + 1, count));
@@ -130,7 +140,7 @@ int TwoPagesLayout::rightIndex(int index, int count) const
 
 qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
     return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
 }
@@ -139,7 +149,7 @@ void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
                                    QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                    qreal& left, qreal& right, qreal& height)
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
     const QRectF boundingRect = page->boundingRect();
 
     if(index == leftIndex(index))
@@ -188,29 +198,29 @@ int TwoPagesWithCoverPageLayout::rightIndex(int index, int count) const
 
 int MultiplePagesLayout::currentPage(int page) const
 {
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return page - ((page - 1) % pagesPerRow);
 }
 
 int MultiplePagesLayout::previousPage(int page) const
 {
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return qMax(page - pagesPerRow, 1);
 }
 
 int MultiplePagesLayout::nextPage(int page, int count) const
 {
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return qMin(page + pagesPerRow, count);
 }
 
 QPair<int, int> MultiplePagesLayout::prefetchRange(int page, int count) const
 {
-    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int prefetchDistance = s_settings->documentView().prefetchDistance();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return qMakePair(qMax(page - pagesPerRow * (prefetchDistance / 2), 1),
                      qMin(page + pagesPerRow * (prefetchDistance + 1) - 1, count));
@@ -218,22 +228,22 @@ QPair<int, int> MultiplePagesLayout::prefetchRange(int page, int count) const
 
 int MultiplePagesLayout::leftIndex(int index) const
 {
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return index - (index % pagesPerRow);
 }
 
 int MultiplePagesLayout::rightIndex(int index, int count) const
 {
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return qMin(index - (index % pagesPerRow) + pagesPerRow - 1, count - 1);
 }
 
 qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
-    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
+    const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
     return (viewportWidth - 6.0 - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
 }
@@ -242,7 +252,7 @@ void MultiplePagesLayout::prepareLayout(PageItem* page, int index, int count,
                                         QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                         qreal& left, qreal& right, qreal& height)
 {
-    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const qreal pageSpacing = s_settings->documentView().pageSpacing();
     const QRectF boundingRect = page->boundingRect();
 
     page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
