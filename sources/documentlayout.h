@@ -34,9 +34,9 @@ struct DocumentLayout
 
     virtual LayoutMode layoutMode() const = 0;
 
-    virtual int currentPageForPage(int page, int count) const = 0;
+    virtual int currentPageForPage(int page) const = 0;
 
-    virtual int leftIndexForIndex(int index, int count) const = 0;
+    virtual int leftIndexForIndex(int index) const = 0;
     virtual int rightIndexForIndex(int index, int count) const = 0;
 
     virtual qreal visibleWidth(int viewportWidth) const = 0;
@@ -44,15 +44,16 @@ struct DocumentLayout
     virtual void prepareLayout(PageItem* page, int index, int count,
                                QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                qreal& left, qreal& right, qreal& height) = 0;
+
 };
 
-struct SinglePageLayout
+struct SinglePageLayout : public DocumentLayout
 {
     LayoutMode layoutMode() const { return SinglePageMode; }
 
-    int currentPageForPage(int page, int count) const;
+    int currentPageForPage(int page) const;
 
-    int leftIndexForIndex(int index, int count) const;
+    int leftIndexForIndex(int index) const;
     int rightIndexForIndex(int index, int count) const;
 
     qreal visibleWidth(int viewportWidth) const;
@@ -60,15 +61,44 @@ struct SinglePageLayout
     void prepareLayout(PageItem* page, int index, int count,
                        QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                        qreal& left, qreal& right, qreal& height);
+
 };
 
-struct MultiplePagesLayout
+struct TwoPagesLayout : public DocumentLayout
+{
+    LayoutMode layoutMode() const { return TwoPagesMode; }
+
+    int currentPageForPage(int page) const;
+
+    int leftIndexForIndex(int index) const;
+    int rightIndexForIndex(int index, int count) const;
+
+    qreal visibleWidth(int viewportWidth) const;
+
+    void prepareLayout(PageItem* page, int index, int count,
+                       QMap< qreal, int >& heightToIndex, qreal& pageHeight,
+                       qreal& left, qreal& right, qreal& height);
+
+};
+
+struct TwoPagesWithCoverPageLayout : public TwoPagesLayout
+{
+    LayoutMode layoutMode() const { return TwoPagesWithCoverPageMode; }
+
+    int currentPageForPage(int page) const;
+
+    int leftIndexForIndex(int index) const;
+    int rightIndexForIndex(int index, int count) const;
+
+};
+
+struct MultiplePagesLayout : public DocumentLayout
 {
     LayoutMode layoutMode() const { return MultiplePagesMode; }
 
-    int currentPageForPage(int page, int count) const;
+    int currentPageForPage(int page) const;
 
-    int leftIndexForIndex(int index, int count) const;
+    int leftIndexForIndex(int index) const;
     int rightIndexForIndex(int index, int count) const;
 
     qreal visibleWidth(int viewportWidth) const;
@@ -76,6 +106,7 @@ struct MultiplePagesLayout
     void prepareLayout(PageItem* page, int index, int count,
                        QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                        qreal& left, qreal& right, qreal& height);
+
 };
 
 #endif // DOCUMENTLAYOUT_H

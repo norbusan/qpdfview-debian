@@ -24,17 +24,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "pageitem.h"
 
-int SinglePageLayout::currentPageForPage(int page, int count) const
+int SinglePageLayout::currentPageForPage(int page) const
 {
-    Q_UNUSED(count);
-
     return page;
 }
 
-int SinglePageLayout::leftIndexForIndex(int index, int count) const
+int SinglePageLayout::leftIndexForIndex(int index) const
 {
-    Q_UNUSED(count);
-
     return index;
 }
 
@@ -73,19 +69,88 @@ void SinglePageLayout::prepareLayout(PageItem* page, int index, int count,
 }
 
 
-int MultiplePagesLayout::currentPageForPage(int page, int count) const
+int TwoPagesLayout::currentPageForPage(int page) const
 {
-    Q_UNUSED(count);
+    return page % 2 != 0 ? page : page - 1;
+}
 
+int TwoPagesLayout::leftIndexForIndex(int index) const
+{
+    return index % 2 == 0 ? index : index - 1;
+}
+
+int TwoPagesLayout::rightIndexForIndex(int index, int count) const
+{
+    return qMin(index % 2 == 0 ? index + 1 : index, count - 1);
+}
+
+qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
+{
+    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+
+    return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
+}
+
+void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
+                                   QMap< qreal, int >& heightToIndex, qreal& pageHeight,
+                                   qreal& left, qreal& right, qreal& height)
+{
+    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+    const QRectF boundingRect = page->boundingRect();
+
+    if(index == leftIndexForIndex(index))
+    {
+        page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
+
+        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
+
+        pageHeight = boundingRect.height();
+
+        left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
+
+        if(index == rightIndexForIndex(index, count))
+        {
+            right = qMax(right, 0.5f * pageSpacing);
+            height += pageHeight + pageSpacing;
+        }
+    }
+    else
+    {
+        page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
+
+        pageHeight = qMax(pageHeight, boundingRect.height());
+
+        right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
+        height += pageHeight + pageSpacing;
+    }
+}
+
+
+int TwoPagesWithCoverPageLayout::currentPageForPage(int page) const
+{
+    return page == 1 ? page : (page % 2 == 0 ? page : page - 1);
+}
+
+int TwoPagesWithCoverPageLayout::leftIndexForIndex(int index) const
+{
+    return index == 0 ? index : (index % 2 != 0 ? index : index - 1);
+}
+
+int TwoPagesWithCoverPageLayout::rightIndexForIndex(int index, int count) const
+{
+    return qMin(index % 2 != 0 ? index + 1 : index, count - 1);
+}
+
+
+int MultiplePagesLayout::currentPageForPage(int page) const
+{
     const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
 
     return page - ((page - 1) % pagesPerRow);
 }
 
-int MultiplePagesLayout::leftIndexForIndex(int index, int count) const
+int MultiplePagesLayout::leftIndexForIndex(int index) const
 {
-    Q_UNUSED(count);
-
     const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
 
     return index - (index % pagesPerRow);
@@ -118,7 +183,7 @@ void MultiplePagesLayout::prepareLayout(PageItem* page, int index, int count,
     pageHeight = qMax(pageHeight, boundingRect.height());
     left += boundingRect.width() + pageSpacing;
 
-    if(index == leftIndexForIndex(index, count))
+    if(index == leftIndexForIndex(index))
     {
         heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
     }
