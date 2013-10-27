@@ -34,12 +34,17 @@ struct DocumentLayout
 
     virtual LayoutMode layoutMode() const = 0;
 
-    virtual int currentPageForPage(int page) const = 0;
+    virtual int currentPage(int page) const = 0;
+    virtual int previousPage(int page) const = 0;
+    virtual int nextPage(int page, int count) const = 0;
 
-    virtual int leftIndexForIndex(int index) const = 0;
-    virtual int rightIndexForIndex(int index, int count) const = 0;
+    virtual QPair< int, int > prefetchRange(int page, int count) const = 0;
+
+    virtual int leftIndex(int index) const = 0;
+    virtual int rightIndex(int index, int count) const = 0;
 
     virtual qreal visibleWidth(int viewportWidth) const = 0;
+    qreal visibleHeight(int viewportHeight) const;
 
     virtual void prepareLayout(PageItem* page, int index, int count,
                                QMap< qreal, int >& heightToIndex, qreal& pageHeight,
@@ -51,10 +56,14 @@ struct SinglePageLayout : public DocumentLayout
 {
     LayoutMode layoutMode() const { return SinglePageMode; }
 
-    int currentPageForPage(int page) const;
+    int currentPage(int page) const;
+    int previousPage(int page) const;
+    int nextPage(int page, int count) const;
 
-    int leftIndexForIndex(int index) const;
-    int rightIndexForIndex(int index, int count) const;
+    QPair< int, int > prefetchRange(int page, int count) const;
+
+    int leftIndex(int index) const;
+    int rightIndex(int index, int count) const;
 
     qreal visibleWidth(int viewportWidth) const;
 
@@ -68,10 +77,14 @@ struct TwoPagesLayout : public DocumentLayout
 {
     LayoutMode layoutMode() const { return TwoPagesMode; }
 
-    int currentPageForPage(int page) const;
+    int currentPage(int page) const;
+    int previousPage(int page) const;
+    int nextPage(int page, int count) const;
 
-    int leftIndexForIndex(int index) const;
-    int rightIndexForIndex(int index, int count) const;
+    QPair< int, int > prefetchRange(int page, int count) const;
+
+    int leftIndex(int index) const;
+    int rightIndex(int index, int count) const;
 
     qreal visibleWidth(int viewportWidth) const;
 
@@ -85,10 +98,10 @@ struct TwoPagesWithCoverPageLayout : public TwoPagesLayout
 {
     LayoutMode layoutMode() const { return TwoPagesWithCoverPageMode; }
 
-    int currentPageForPage(int page) const;
+    int currentPage(int page) const;
 
-    int leftIndexForIndex(int index) const;
-    int rightIndexForIndex(int index, int count) const;
+    int leftIndex(int index) const;
+    int rightIndex(int index, int count) const;
 
 };
 
@@ -96,10 +109,14 @@ struct MultiplePagesLayout : public DocumentLayout
 {
     LayoutMode layoutMode() const { return MultiplePagesMode; }
 
-    int currentPageForPage(int page) const;
+    int currentPage(int page) const;
+    int previousPage(int page) const;
+    int nextPage(int page, int count) const;
 
-    int leftIndexForIndex(int index) const;
-    int rightIndexForIndex(int index, int count) const;
+    QPair< int, int > prefetchRange(int page, int count) const;
+
+    int leftIndex(int index) const;
+    int rightIndex(int index, int count) const;
 
     qreal visibleWidth(int viewportWidth) const;
 

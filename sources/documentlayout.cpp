@@ -24,17 +24,43 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "pageitem.h"
 
-int SinglePageLayout::currentPageForPage(int page) const
+qreal DocumentLayout::visibleHeight(int viewportHeight) const
+{
+    const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
+
+    return viewportHeight - 2.0 * pageSpacing;
+}
+
+
+int SinglePageLayout::currentPage(int page) const
 {
     return page;
 }
 
-int SinglePageLayout::leftIndexForIndex(int index) const
+int SinglePageLayout::previousPage(int page) const
+{
+    return qMax(page - 1, 1);
+}
+
+int SinglePageLayout::nextPage(int page, int count) const
+{
+    return qMin(page + 1, count);
+}
+
+QPair< int, int > SinglePageLayout::prefetchRange(int page, int count) const
+{
+    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
+
+    return qMakePair(qMax(page - prefetchDistance / 2, 1),
+                     qMin(page + prefetchDistance, count));
+}
+
+int SinglePageLayout::leftIndex(int index) const
 {
     return index;
 }
 
-int SinglePageLayout::rightIndexForIndex(int index, int count) const
+int SinglePageLayout::rightIndex(int index, int count) const
 {
     Q_UNUSED(count);
 
@@ -69,17 +95,35 @@ void SinglePageLayout::prepareLayout(PageItem* page, int index, int count,
 }
 
 
-int TwoPagesLayout::currentPageForPage(int page) const
+int TwoPagesLayout::currentPage(int page) const
 {
     return page % 2 != 0 ? page : page - 1;
 }
 
-int TwoPagesLayout::leftIndexForIndex(int index) const
+int TwoPagesLayout::previousPage(int page) const
+{
+    return qMax(page - 2, 1);
+}
+
+int TwoPagesLayout::nextPage(int page, int count) const
+{
+    return qMin(page + 2, count);
+}
+
+QPair< int, int > TwoPagesLayout::prefetchRange(int page, int count) const
+{
+    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
+
+    return qMakePair(qMax(page - prefetchDistance, 1),
+                     qMin(page + 2 * prefetchDistance + 1, count));
+}
+
+int TwoPagesLayout::leftIndex(int index) const
 {
     return index % 2 == 0 ? index : index - 1;
 }
 
-int TwoPagesLayout::rightIndexForIndex(int index, int count) const
+int TwoPagesLayout::rightIndex(int index, int count) const
 {
     return qMin(index % 2 == 0 ? index + 1 : index, count - 1);
 }
@@ -98,7 +142,7 @@ void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
     const qreal pageSpacing = Settings::instance()->documentView().pageSpacing();
     const QRectF boundingRect = page->boundingRect();
 
-    if(index == leftIndexForIndex(index))
+    if(index == leftIndex(index))
     {
         page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
 
@@ -108,7 +152,7 @@ void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
 
         left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
 
-        if(index == rightIndexForIndex(index, count))
+        if(index == rightIndex(index, count))
         {
             right = qMax(right, 0.5f * pageSpacing);
             height += pageHeight + pageSpacing;
@@ -126,37 +170,60 @@ void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
 }
 
 
-int TwoPagesWithCoverPageLayout::currentPageForPage(int page) const
+int TwoPagesWithCoverPageLayout::currentPage(int page) const
 {
     return page == 1 ? page : (page % 2 == 0 ? page : page - 1);
 }
 
-int TwoPagesWithCoverPageLayout::leftIndexForIndex(int index) const
+int TwoPagesWithCoverPageLayout::leftIndex(int index) const
 {
     return index == 0 ? index : (index % 2 != 0 ? index : index - 1);
 }
 
-int TwoPagesWithCoverPageLayout::rightIndexForIndex(int index, int count) const
+int TwoPagesWithCoverPageLayout::rightIndex(int index, int count) const
 {
     return qMin(index % 2 != 0 ? index + 1 : index, count - 1);
 }
 
 
-int MultiplePagesLayout::currentPageForPage(int page) const
+int MultiplePagesLayout::currentPage(int page) const
 {
     const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
 
     return page - ((page - 1) % pagesPerRow);
 }
 
-int MultiplePagesLayout::leftIndexForIndex(int index) const
+int MultiplePagesLayout::previousPage(int page) const
+{
+    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+
+    return qMax(page - pagesPerRow, 1);
+}
+
+int MultiplePagesLayout::nextPage(int page, int count) const
+{
+    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+
+    return qMin(page + pagesPerRow, count);
+}
+
+QPair<int, int> MultiplePagesLayout::prefetchRange(int page, int count) const
+{
+    const int prefetchDistance = Settings::instance()->documentView().prefetchDistance();
+    const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
+
+    return qMakePair(qMax(page - pagesPerRow * (prefetchDistance / 2), 1),
+                     qMin(page + pagesPerRow * (prefetchDistance + 1) - 1, count));
+}
+
+int MultiplePagesLayout::leftIndex(int index) const
 {
     const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
 
     return index - (index % pagesPerRow);
 }
 
-int MultiplePagesLayout::rightIndexForIndex(int index, int count) const
+int MultiplePagesLayout::rightIndex(int index, int count) const
 {
     const int pagesPerRow = Settings::instance()->documentView().pagesPerRow();
 
@@ -183,12 +250,12 @@ void MultiplePagesLayout::prepareLayout(PageItem* page, int index, int count,
     pageHeight = qMax(pageHeight, boundingRect.height());
     left += boundingRect.width() + pageSpacing;
 
-    if(index == leftIndexForIndex(index))
+    if(index == leftIndex(index))
     {
         heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
     }
 
-    if(index == rightIndexForIndex(index, count))
+    if(index == rightIndex(index, count))
     {
         height += pageHeight + pageSpacing;
         pageHeight = 0.0;

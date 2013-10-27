@@ -77,8 +77,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_wasModified(false),
     m_past(),
     m_future(),
+    m_layout(new SinglePageLayout),
     m_continuousMode(false),
-    m_layoutMode(SinglePageMode),
     m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
@@ -261,18 +261,25 @@ void DocumentView::setContinousMode(bool continousMode)
 
 LayoutMode DocumentView::layoutMode() const
 {
-    return m_layoutMode;
+    return m_layout->layoutMode();
 }
 
 void DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
-    if(m_layoutMode != layoutMode && layoutMode >= 0 && layoutMode < NumberOfLayoutModes)
+    if(m_layout->layoutMode() != layoutMode && layoutMode >= 0 && layoutMode < NumberOfLayoutModes)
     {
-        m_layoutMode = layoutMode;
-
-        if(m_currentPage != currentPageForPage(m_currentPage))
+        switch(layoutMode)
         {
-            m_currentPage = currentPageForPage(m_currentPage);
+        default:
+        case SinglePageMode: m_layout.reset(new SinglePageLayout); break;
+        case TwoPagesMode: m_layout.reset(new TwoPagesLayout); break;
+        case TwoPagesWithCoverPageMode: m_layout.reset(new TwoPagesWithCoverPageLayout); break;
+        case MultiplePagesMode: m_layout.reset(new MultiplePagesLayout); break;
+        }
+
+        if(m_currentPage != m_layout->currentPage(m_currentPage))
+        {
+            m_currentPage = m_layout->currentPage(m_currentPage);
 
             emit currentPageChanged(m_currentPage);
         }
@@ -280,7 +287,7 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
         prepareScene();
         prepareView();
 
-        emit layoutModeChanged(m_layoutMode);
+        emit layoutModeChanged(layoutMode);
     }
 }
 
@@ -629,50 +636,12 @@ bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
 
 void DocumentView::previousPage()
 {
-    int previousPage = m_currentPage;
-
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        previousPage -= 1;
-        break;
-    case TwoPagesMode:
-    case TwoPagesWithCoverPageMode:
-        previousPage -= 2;
-        break;
-    case MultiplePagesMode:
-        previousPage -= s_settings->documentView().pagesPerRow();
-        break;
-    }
-
-    previousPage = previousPage >= 1 ? previousPage : 1;
-
-    jumpToPage(previousPage);
+    jumpToPage(m_layout->previousPage(m_currentPage));
 }
 
 void DocumentView::nextPage()
 {
-    int nextPage = m_currentPage;
-
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        nextPage += 1;
-        break;
-    case TwoPagesMode:
-    case TwoPagesWithCoverPageMode:
-        nextPage += 2;
-        break;
-    case MultiplePagesMode:
-        nextPage += s_settings->documentView().pagesPerRow();
-        break;
-    }
-
-    nextPage = qMin(nextPage, m_pages.count());
-
-    jumpToPage(nextPage);
+    jumpToPage(m_layout->nextPage(m_currentPage, m_pages.count()));
 }
 
 void DocumentView::firstPage()
@@ -692,7 +661,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_currentPage != currentPageForPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
+        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
         {
             if(trackChange)
             {
@@ -702,7 +671,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
                 emit canJumpChanged(true, false);
             }
 
-            m_currentPage = currentPageForPage(page);
+            m_currentPage = m_layout->currentPage(page);
 
             prepareView(changeLeft, changeTop);
 
@@ -797,7 +766,7 @@ void DocumentView::findPrevious()
 {
     if(m_currentResult != m_results.end())
     {
-        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
+        if(m_layout->leftIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             m_currentResult = previousResult(m_currentResult);
         }
@@ -832,7 +801,7 @@ void DocumentView::findNext()
 {
     if(m_currentResult != m_results.end())
     {
-        if(leftIndexForIndex(m_currentResult.key()) == m_currentPage - 1)
+        if(m_layout->leftIndex(m_currentResult.key()) == m_currentPage - 1)
         {
             ++m_currentResult;
         }
@@ -1002,30 +971,9 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
 void DocumentView::on_prefetch_timeout()
 {
-    int fromPage = m_currentPage, toPage = m_currentPage;
+    const QPair< int, int > prefetchRange = m_layout->prefetchRange(m_currentPage, m_pages.count());
 
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        fromPage -= s_settings->documentView().prefetchDistance() / 2;
-        toPage += s_settings->documentView().prefetchDistance();
-        break;
-    case TwoPagesMode:
-    case TwoPagesWithCoverPageMode:
-        fromPage -= s_settings->documentView().prefetchDistance();
-        toPage += 2 * s_settings->documentView().prefetchDistance() + 1;
-        break;
-    case MultiplePagesMode:
-        fromPage -= s_settings->documentView().pagesPerRow() * (s_settings->documentView().prefetchDistance() / 2);
-        toPage += s_settings->documentView().pagesPerRow() * (s_settings->documentView().prefetchDistance() + 1) - 1;
-        break;
-    }
-
-    fromPage = qMax(fromPage, 1);
-    toPage = qMin(toPage, m_pages.count());
-
-    for(int index = fromPage - 1; index <= toPage - 1; ++index)
+    for(int index = prefetchRange.first - 1; index <= prefetchRange.second - 1; ++index)
     {
         m_pageItems.at(index)->startRender(true);
     }
@@ -1225,7 +1173,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
-        else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
+        else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
         {
             nextPage();
 
@@ -1328,7 +1276,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
                 event->accept();
                 return;
             }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != currentPageForPage(m_pages.count()))
+            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
             {
                 nextPage();
 
@@ -1604,80 +1552,6 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
     return true;
 }
 
-int DocumentView::currentPageForPage(int page) const
-{
-    int currentPage = -1;
-
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        currentPage = page;
-        break;
-    case TwoPagesMode:
-        currentPage = page % 2 != 0 ? page : page - 1;
-        break;
-    case TwoPagesWithCoverPageMode:
-        currentPage = page == 1 ? page : (page % 2 == 0 ? page : page - 1);
-        break;
-    case MultiplePagesMode:
-        currentPage = page - ((page - 1) % s_settings->documentView().pagesPerRow());
-        break;
-    }
-
-    return currentPage;
-}
-
-int DocumentView::leftIndexForIndex(int index) const
-{
-    int leftIndex = -1;
-
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        leftIndex = index;
-        break;
-    case TwoPagesMode:
-        leftIndex = index % 2 == 0 ? index : index - 1;
-        break;
-    case TwoPagesWithCoverPageMode:
-        leftIndex = index == 0 ? index : (index % 2 != 0 ? index : index - 1);
-        break;
-    case MultiplePagesMode:
-        leftIndex = index - (index % s_settings->documentView().pagesPerRow());
-        break;
-    }
-
-    return leftIndex;
-}
-
-int DocumentView::rightIndexForIndex(int index) const
-{
-    int rightIndex = -1;
-
-    switch(m_layoutMode)
-    {
-    default:
-    case SinglePageMode:
-        rightIndex = index;
-        break;
-    case TwoPagesMode:
-        rightIndex = index % 2 == 0 ? index + 1 : index;
-        break;
-    case TwoPagesWithCoverPageMode:
-        rightIndex = index % 2 != 0 ? index + 1 : index;
-        break;
-    case MultiplePagesMode:
-        rightIndex = index - (index % s_settings->documentView().pagesPerRow()) + s_settings->documentView().pagesPerRow() - 1;
-        break;
-    }
-
-    rightIndex = qMin(rightIndex, m_pages.count() - 1);
-
-    return rightIndex;
-}
-
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
@@ -1837,8 +1711,6 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    const qreal pageSpacing = s_settings->documentView().pageSpacing();
-
     // prepare scale factor and rotation
 
     for(int index = 0; index < m_pageItems.count(); ++index)
@@ -1855,30 +1727,13 @@ void DocumentView::prepareScene()
 
         if(m_scaleMode != ScaleFactorMode)
         {
-            qreal visibleWidth = 0.0;
-            qreal visibleHeight = 0.0;
+            qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
+            qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
             qreal pageWidth = 0.0;
             qreal pageHeight = 0.0;
 
             qreal scaleFactor = 1.0;
-
-            switch(m_layoutMode)
-            {
-            default:
-            case SinglePageMode:
-                visibleWidth = viewport()->width() - 6.0 - 2.0 * pageSpacing;
-                break;
-            case TwoPagesMode:
-            case TwoPagesWithCoverPageMode:
-                visibleWidth = (viewport()->width() - 6.0 - 3 * pageSpacing) / 2;
-                break;
-            case MultiplePagesMode:
-                visibleWidth = (viewport()->width() - 6.0 - (s_settings->documentView().pagesPerRow() + 1) * pageSpacing) / s_settings->documentView().pagesPerRow();
-                break;
-            }
-
-            visibleHeight = viewport()->height() - 2.0 * pageSpacing;
 
             switch(m_rotation)
             {
@@ -1926,79 +1781,15 @@ void DocumentView::prepareScene()
 
     qreal left = 0.0;
     qreal right = 0.0;
-    qreal height = pageSpacing;
+    qreal height = s_settings->documentView().pageSpacing();
 
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        const QRectF boundingRect = page->boundingRect();
 
-        switch(m_layoutMode)
-        {
-        default:
-        case SinglePageMode:
-            page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
-
-            m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
-
-            pageHeight = boundingRect.height();
-
-            left = qMin(left, -0.5f * boundingRect.width() - pageSpacing);
-            right = qMax(right, 0.5f * boundingRect.width() + pageSpacing);
-            height += pageHeight + pageSpacing;
-
-            break;
-        case TwoPagesMode:
-        case TwoPagesWithCoverPageMode:
-            if(index == leftIndexForIndex(index))
-            {
-                page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
-
-                m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
-
-                pageHeight = boundingRect.height();
-
-                left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
-
-                if(index == rightIndexForIndex(index))
-                {
-                    right = qMax(right, 0.5f * pageSpacing);
-                    height += pageHeight + pageSpacing;
-                }
-            }
-            else
-            {
-                page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
-
-                pageHeight = qMax(pageHeight, boundingRect.height());
-
-                right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
-                height += pageHeight + pageSpacing;
-            }
-
-            break;
-        case MultiplePagesMode:
-            page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
-
-            pageHeight = qMax(pageHeight, boundingRect.height());
-            left += boundingRect.width() + pageSpacing;
-
-            if(index == leftIndexForIndex(index))
-            {
-                m_heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
-            }
-
-            if(index == rightIndexForIndex(index))
-            {
-                height += pageHeight + pageSpacing;
-                pageHeight = 0.0;
-
-                right = qMax(right, left + pageSpacing);
-                left = 0.0;
-            }
-
-            break;
-        }
+        m_layout->prepareLayout(page, index, m_pageItems.count(),
+                                m_heightToIndex, pageHeight,
+                                left, right, height);
     }
 
     scene()->setSceneRect(left, 0.0, right - left, height);
@@ -2033,7 +1824,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         }
         else
         {
-            if(leftIndexForIndex(index) == m_currentPage - 1)
+            if(m_layout->leftIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
 

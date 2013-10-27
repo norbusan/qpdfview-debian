@@ -233,15 +233,11 @@ private:
     QList< Position > m_past;
     QList< Position > m_future;
 
-    int currentPageForPage(int page) const;
-
-    int leftIndexForIndex(int index) const;
-    int rightIndexForIndex(int index) const;
-
     void saveLeftAndTop(qreal& left, qreal& top) const;
 
+    QScopedPointer< DocumentLayout > m_layout;
+
     bool m_continuousMode;
-    LayoutMode m_layoutMode;
     ScaleMode m_scaleMode;
     qreal m_scaleFactor;
     Rotation m_rotation;
