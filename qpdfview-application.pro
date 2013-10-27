@@ -18,6 +18,7 @@ HEADERS += \
     sources/presentationview.h \
     sources/searchtask.h \
     sources/miscellaneous.h \
+    sources/documentlayout.h \
     sources/documentview.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
@@ -36,6 +37,7 @@ SOURCES += \
     sources/presentationview.cpp \
     sources/searchtask.cpp \
     sources/miscellaneous.cpp \
+    sources/documentlayout.cpp \
     sources/documentview.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \
