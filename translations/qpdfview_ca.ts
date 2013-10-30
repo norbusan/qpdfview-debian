@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="226"/>
+        <location filename="../sources/documentview.cpp" line="227"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formats suportats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="490"/>
-        <location filename="../sources/documentview.cpp" line="534"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloqueja %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="490"/>
-        <location filename="../sources/documentview.cpp" line="534"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1148"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1148"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1552"/>
+        <location filename="../sources/documentview.cpp" line="1501"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1703"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Pàgina %1</translation>
     </message>
