@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Zu Seite %1 springen</translation>
+        <translation type="unfinished">Gehe zu Seite %1</translation>
     </message>
 </context>
 <context>
@@ -118,16 +118,6 @@
         <translation type="unfinished">Konnte &quot;%1&quot; nicht öffnen.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1998"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Öffne beinhaltendes Verzeichnis</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="936"/>
-        <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
@@ -141,6 +131,11 @@
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="936"/>
+        <source>Open</source>
+        <translation type="unfinished">Öffnen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="952"/>
@@ -203,7 +198,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Zu Seite %1 springen</translation>
+        <translation type="unfinished">Gehe zu Seite %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1563"/>
@@ -274,6 +269,11 @@
         <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">In neuem Rei&amp;ter öffnen...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1998"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Öffne beinhaltendes Verzeichnis</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1999"/>
@@ -967,12 +967,12 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Instanz auswählen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished">Instanz:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
@@ -1053,7 +1053,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">Liste &amp;leeren</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
