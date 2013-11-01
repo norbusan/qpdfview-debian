@@ -349,22 +349,18 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
-void PageItem::showFormFieldOverlay(Model::FormField* focusFormField)
+void PageItem::showFormFieldOverlay(Model::FormField* clickedFormField)
 {
-    if(m_formFieldOverlay.isEmpty())
+    foreach(Model::FormField* formField, m_formFields)
     {
-        foreach(Model::FormField* formField, m_formFields)
+        if(!m_formFieldOverlay.contains(formField))
         {
-            QGraphicsProxyWidget* proxy = scene()->addWidget(formField->createWidget());
-            m_formFieldOverlay.insert(formField, proxy);
+            addProxy(formField);
+        }
 
-            setProxyGeometry(formField, proxy);
-            connect(proxy, SIGNAL(visibleChanged()), SLOT(hideFormFieldOverlay()));
-
-            if(formField == focusFormField)
-            {
-                proxy->widget()->setFocus();
-            }
+        if(formField == clickedFormField)
+        {
+            m_formFieldOverlay.value(formField)->widget()->setFocus();
         }
     }
 }
@@ -804,6 +800,16 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             emit wasModified();
         }
     }
+}
+
+void PageItem::addProxy(Model::FormField* formField)
+{
+    QGraphicsProxyWidget* proxy = scene()->addWidget(formField->createWidget());
+    m_formFieldOverlay.insert(formField, proxy);
+
+    setProxyGeometry(formField, proxy);
+
+    connect(proxy, SIGNAL(visibleChanged()), SLOT(hideFormFieldOverlay()));
 }
 
 void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy)
