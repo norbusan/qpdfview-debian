@@ -67,7 +67,6 @@ namespace Model
 
     public:
         Annotation() : QObject(), nextOnPage(0) {}
-
         virtual ~Annotation() {}
 
         virtual QRectF boundary() const = 0;
@@ -90,8 +89,7 @@ namespace Model
         Q_OBJECT
 
     public:
-        FormField() : QObject(), nextOnPage(0) {}
-
+        FormField() : QObject() {}
         virtual ~FormField() {}
 
         virtual QRectF boundary() const = 0;
@@ -99,14 +97,8 @@ namespace Model
 
         virtual QWidget* createWidget() = 0;
 
-        virtual void showDialog(const QPoint& screenPos) = 0;
-
-        FormField* nextOnPage;
-
     signals:
-        void needsRefresh();
         void wasModified();
-        void tabPressed();
 
     };
 

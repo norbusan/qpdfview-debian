@@ -83,8 +83,6 @@ namespace Model
 
         QWidget* createWidget();
 
-        void showDialog(const QPoint& screenPos);
-
     private:
         Q_DISABLE_COPY(PdfFormField)
 

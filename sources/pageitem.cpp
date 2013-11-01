@@ -407,20 +407,6 @@ void PageItem::on_annotations_tabPressed()
     }
 }
 
-void PageItem::on_formFields_tabPressed()
-{
-    Model::FormField* formField = qobject_cast< Model::FormField* >(sender());
-
-    if(formField != 0 && formField->nextOnPage != 0)
-    {
-        formField = formField->nextOnPage;
-
-        const QPointF scenePos = mapToScene(m_normalizedTransform.map(formField->boundary().topLeft()));
-
-        emit dialogRequested(formField, scenePos);
-    }
-}
-
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
 }
@@ -710,9 +696,7 @@ void PageItem::loadInteractiveElements()
 
         foreach(const Model::FormField* formField, m_formFields)
         {
-            connect(formField, SIGNAL(needsRefresh()), SLOT(refresh()));
             connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
-            connect(formField, SIGNAL(tabPressed()), SLOT(on_formFields_tabPressed()));
         }
     }
 

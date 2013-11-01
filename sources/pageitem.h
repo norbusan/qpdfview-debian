@@ -99,7 +99,6 @@ signals:
     void sourceRequested(int page, const QPointF& pos);
 
     void dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
-    void dialogRequested(Model::FormField* formField, const QPointF& scenePos);
 
     void wasModified();
 
@@ -118,7 +117,6 @@ protected slots:
     void hideFormFieldOverlay();
 
     void on_annotations_tabPressed();
-    void on_formFields_tabPressed();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);

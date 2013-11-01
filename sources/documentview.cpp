@@ -1118,11 +1118,6 @@ void DocumentView::on_pages_dialogRequested(Model::Annotation* annotation, const
     annotation->showDialog(viewport()->mapToGlobal(mapFromScene(scenePos)));
 }
 
-void DocumentView::on_pages_dialogRequested(Model::FormField* formField, const QPointF& scenePos)
-{
-    formField->showDialog(viewport()->mapToGlobal(mapFromScene(scenePos)));
-}
-
 void DocumentView::on_pages_wasModified()
 {
     m_wasModified = true;
@@ -1686,7 +1681,6 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
 
         connect(page, SIGNAL(dialogRequested(Model::Annotation*,QPointF)), SLOT(on_pages_dialogRequested(Model::Annotation*,QPointF)));
-        connect(page, SIGNAL(dialogRequested(Model::FormField*,QPointF)), SLOT(on_pages_dialogRequested(Model::FormField*,QPointF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }
