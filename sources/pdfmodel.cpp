@@ -191,7 +191,14 @@ QWidget* Model::PdfFormField::createWidget()
     {
         Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
 
-        // TODO
+        if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox)
+        {
+            widget = new CheckBoxChoiceFieldWidget(m_mutex, formFieldButton);
+        }
+        else if(formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
+        {
+            widget = new RadioChoiceFieldWidget(m_mutex, formFieldButton);
+        }
     }
 
     connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));

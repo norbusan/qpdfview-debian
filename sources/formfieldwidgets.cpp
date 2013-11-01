@@ -259,3 +259,83 @@ void ListBoxChoiceFieldWidget::on_itemSelectionChanged()
 
     m_formField->setCurrentChoices(currentChoices);
 }
+
+CheckBoxChoiceFieldWidget::CheckBoxChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent) : QCheckBox(parent),
+    m_mutex(mutex),
+    m_formField(formField)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    setChecked(m_formField->state());
+
+    connect(this, SIGNAL(toggled(bool)), SLOT(on_toggled(bool)));
+    connect(this, SIGNAL(toggled(bool)), SIGNAL(wasModified()));
+}
+
+void CheckBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        hide();
+
+        event->accept();
+        return;
+    }
+
+    QCheckBox::keyPressEvent(event);
+}
+
+void CheckBoxChoiceFieldWidget::on_toggled(bool checked)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    m_formField->setState(checked);
+}
+
+RadioChoiceFieldWidget::RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent) : QRadioButton(parent),
+    m_mutex(mutex),
+    m_formField(formField)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    setChecked(formField->state());
+
+    connect(this, SIGNAL(toggled(bool)), SLOT(on_toggled(bool)));
+    connect(this, SIGNAL(toggled(bool)), SIGNAL(wasModified()));
+}
+
+void RadioChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        hide();
+
+        event->accept();
+        return;
+    }
+
+    QRadioButton::keyPressEvent(event);
+}
+
+void RadioChoiceFieldWidget::on_toggled(bool checked)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    m_formField->setState(checked);
+}

@@ -22,10 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef FORMFIELDWIDGETS_H
 #define FORMFIELDWIDGETS_H
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QPlainTextEdit>
+#include <QRadioButton>
 
 class QMutex;
 
@@ -131,6 +133,56 @@ private:
 
     QMutex* m_mutex;
     Poppler::FormFieldChoice* m_formField;
+
+};
+
+class CheckBoxChoiceFieldWidget : public QCheckBox
+{
+    Q_OBJECT
+
+public:
+    CheckBoxChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent = 0);
+
+signals:
+    void wasModified();
+
+protected:
+    void keyPressEvent(QKeyEvent* event);
+
+protected slots:
+    void on_toggled(bool checked);
+
+protected slots:
+
+private:
+    Q_DISABLE_COPY(CheckBoxChoiceFieldWidget)
+
+    QMutex* m_mutex;
+    Poppler::FormFieldButton* m_formField;
+
+};
+
+class RadioChoiceFieldWidget : public QRadioButton
+{
+    Q_OBJECT
+
+public:
+    RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent = 0);
+
+signals:
+    void wasModified();
+
+protected:
+    void keyPressEvent(QKeyEvent* event);
+
+protected slots:
+    void on_toggled(bool checked);
+
+private:
+    Q_DISABLE_COPY(RadioChoiceFieldWidget)
+
+    QMutex* m_mutex;
+    Poppler::FormFieldButton* m_formField;
 
 };
 
