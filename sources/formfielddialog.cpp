@@ -302,3 +302,13 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
 
     m_handler->hideWidget();
 }
+
+void FormFieldDialog::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Tab)
+    {
+        close();
+
+        emit tabPressed();
+    }
+}

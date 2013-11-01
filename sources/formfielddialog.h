@@ -39,9 +39,14 @@ public:
     FormFieldDialog(QMutex* mutex, Poppler::FormField* formField, QWidget* parent = 0);
     ~FormFieldDialog();
 
+signals:
+    void tabPressed();
+
 protected:
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
+
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     QMutex* m_mutex;

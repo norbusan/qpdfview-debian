@@ -39,9 +39,14 @@ class AnnotationDialog : public QDialog
 public:
     AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent = 0);
 
+signals:
+    void tabPressed();
+
 protected:
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
+
+    void keyPressEvent(QKeyEvent* event);
     
 private:
     QMutex* m_mutex;

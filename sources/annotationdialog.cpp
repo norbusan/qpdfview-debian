@@ -65,3 +65,13 @@ void AnnotationDialog::hideEvent(QHideEvent* event)
 
     m_annotation->setContents(m_plainTextEdit->toPlainText());
 }
+
+void AnnotationDialog::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Tab)
+    {
+        close();
+
+        emit tabPressed();
+    }
+}
