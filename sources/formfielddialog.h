@@ -23,12 +23,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define FORMFIELDDIALOG_H
 
 #include <QDialog>
+#include <QLineEdit>
 
 class QMutex;
 
 namespace Poppler
 {
 class FormField;
+class FormFieldText;
 }
 
 class FormFieldDialog : public QDialog
@@ -52,6 +54,26 @@ private:
     QMutex* m_mutex;
 
     class FormFieldHandler* m_handler;
+
+};
+
+
+class NormalTextFieldWidget : public QLineEdit
+{
+    Q_OBJECT
+
+public:
+    NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldText* formField, QWidget* parent = 0);
+
+protected:
+    void keyPressEvent(QKeyEvent* event);
+
+protected slots:
+    void on_textChanged(const QString& text);
+
+private:
+    QMutex* m_mutex;
+    Poppler::FormFieldText* m_formField;
 
 };
 

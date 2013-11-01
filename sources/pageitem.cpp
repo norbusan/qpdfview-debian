@@ -382,7 +382,15 @@ void PageItem::hideFormFieldOverlay()
     FormFieldOverlay formFieldOverlay;
     formFieldOverlay.swap(m_formFieldOverlay);
 
-    qDeleteAll(formFieldOverlay);
+    if(!formFieldOverlay.isEmpty())
+    {
+        for(FormFieldOverlay::const_iterator i = formFieldOverlay.constBegin(); i != formFieldOverlay.constEnd(); ++i)
+        {
+            i.value()->deleteLater();
+        }
+
+        QTimer::singleShot(0, this, SLOT(refresh()));
+    }
 }
 
 void PageItem::on_annotations_tabPressed()

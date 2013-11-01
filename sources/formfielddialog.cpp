@@ -316,3 +316,42 @@ void FormFieldDialog::keyPressEvent(QKeyEvent* event)
         emit tabPressed();
     }
 }
+
+
+NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldText* formField, QWidget* parent) : QLineEdit(parent),
+    m_mutex(mutex),
+    m_formField(formField)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    setText(m_formField->text());
+    setMaxLength(m_formField->maximumLength());
+    setAlignment(m_formField->textAlignment());
+    setEchoMode(m_formField->isPassword() ? QLineEdit::Password : QLineEdit::Normal);
+
+    connect(this, SIGNAL(textChanged(QString)), SLOT(on_textChanged(QString)));
+    connect(this, SIGNAL(returnPressed()), SLOT(close()));
+}
+
+void NormalTextFieldWidget::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        hide();
+    }
+}
+
+void NormalTextFieldWidget::on_textChanged(const QString& text)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    m_formField->setText(text);
+}

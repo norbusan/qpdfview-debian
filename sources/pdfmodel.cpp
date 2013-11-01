@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QComboBox>
 #include <QFileDialog>
 #include <QFormLayout>
-#include <QLineEdit>
 #include <QMessageBox>
 #include <QSettings>
 #include <QStandardItemModel>
@@ -158,19 +157,21 @@ QString Model::PdfFormField::name() const
     return m_formField->name();
 }
 
-QWidget *Model::PdfFormField::createWidget()
+QWidget* Model::PdfFormField::createWidget()
 {
     if(m_formField->type() == Poppler::FormField::FormText)
     {
-        return new QLineEdit;
-    }
-    else if(m_formField->type() == Poppler::FormField::FormChoice)
-    {
-        return new QComboBox;
-    }
-    else if(m_formField->type() == Poppler::FormField::FormButton)
-    {
-        return new QCheckBox;
+        Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(m_formField);
+
+        if(formFieldText->textType() == Poppler::FormFieldText::Normal)
+        {
+            NormalTextFieldWidget* widget = new NormalTextFieldWidget(m_mutex, formFieldText);
+
+            connect(widget, SIGNAL(textChanged(QString)), SIGNAL(wasModified()));
+
+            return widget;
+        }
+
     }
 
     return 0;
