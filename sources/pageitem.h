@@ -96,6 +96,9 @@ signals:
 
     void sourceRequested(int page, const QPointF& pos);
 
+    void dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
+    void dialogRequested(Model::FormField* formField, const QPointF& scenePos);
+
     void wasModified();
 
 public slots:
@@ -107,6 +110,9 @@ public slots:
 protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+
+    void on_annotations_tabPressed();
+    void on_formFields_tabPressed();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);

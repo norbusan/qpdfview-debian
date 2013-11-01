@@ -35,6 +35,8 @@ class QStandardItemModel;
 
 namespace Model
 {
+class Annotation;
+class FormField;
 class Page;
 class Document;
 }
@@ -184,6 +186,9 @@ protected slots:
     void on_pages_rubberBandFinished();
 
     void on_pages_sourceRequested(int page, const QPointF& pos);
+
+    void on_pages_dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
+    void on_pages_dialogRequested(Model::FormField* formField, const QPointF& scenePos);
 
     void on_pages_wasModified();
 

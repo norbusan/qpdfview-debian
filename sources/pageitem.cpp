@@ -343,6 +343,34 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
+void PageItem::on_annotations_tabPressed()
+{
+    Model::Annotation* annotation = qobject_cast< Model::Annotation* >(sender());
+
+    if(annotation != 0 && annotation->nextOnPage != 0)
+    {
+        annotation = annotation->nextOnPage;
+
+        const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
+
+        emit dialogRequested(annotation, scenePos);
+    }
+}
+
+void PageItem::on_formFields_tabPressed()
+{
+    Model::FormField* formField = qobject_cast< Model::FormField* >(sender());
+
+    if(formField != 0 && formField->nextOnPage != 0)
+    {
+        formField = formField->nextOnPage;
+
+        const QPointF scenePos = mapToScene(m_normalizedTransform.map(formField->boundary().topLeft()));
+
+        emit dialogRequested(formField, scenePos);
+    }
+}
+
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
 {
 }
@@ -620,6 +648,7 @@ void PageItem::loadInteractiveElements()
         foreach(const Model::Annotation* annotation, m_annotations)
         {
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+            connect(annotation, SIGNAL(tabPressed()), SLOT(on_annotations_tabPressed()));
 
             connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SIGNAL(fileAttachmentSaved(QString)));
         }
@@ -630,6 +659,7 @@ void PageItem::loadInteractiveElements()
         {
             connect(formField, SIGNAL(needsRefresh()), SLOT(refresh()));
             connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
+            connect(formField, SIGNAL(tabPressed()), SLOT(on_formFields_tabPressed()));
         }
     }
 
