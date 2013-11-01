@@ -349,19 +349,29 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
-void PageItem::showFormFieldOverlay(Model::FormField* clickedFormField)
+void PageItem::showFormFieldOverlay(Model::FormField* selectedFormField)
 {
-    foreach(Model::FormField* formField, m_formFields)
+    if(s_settings->pageItem().formFieldOverlay())
     {
-        if(!m_formFieldOverlay.contains(formField))
+        foreach(Model::FormField* formField, m_formFields)
         {
-            addProxy(formField);
-        }
+            if(!m_formFieldOverlay.contains(formField))
+            {
+                addProxy(formField);
+            }
 
-        if(formField == clickedFormField)
-        {
-            m_formFieldOverlay.value(formField)->widget()->setFocus();
+            if(formField == selectedFormField)
+            {
+                m_formFieldOverlay.value(formField)->widget()->setFocus();
+            }
         }
+    }
+    else
+    {
+        hideFormFieldOverlay(false);
+
+        addProxy(selectedFormField);
+        m_formFieldOverlay.value(selectedFormField)->widget()->setFocus();
     }
 }
 
@@ -373,7 +383,7 @@ void PageItem::updateFormFieldOverlay()
     }
 }
 
-void PageItem::hideFormFieldOverlay()
+void PageItem::hideFormFieldOverlay(bool deleteLater)
 {
     FormFieldOverlay formFieldOverlay;
     formFieldOverlay.swap(m_formFieldOverlay);
@@ -382,7 +392,14 @@ void PageItem::hideFormFieldOverlay()
     {
         for(FormFieldOverlay::const_iterator i = formFieldOverlay.constBegin(); i != formFieldOverlay.constEnd(); ++i)
         {
-            i.value()->deleteLater();
+            if(deleteLater)
+            {
+                i.value()->deleteLater();
+            }
+            else
+            {
+                delete i.value();
+            }
         }
 
         refresh();
@@ -580,7 +597,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                //formField->showDialog(event->screenPos());
                 showFormFieldOverlay(formField);
 
                 event->accept();

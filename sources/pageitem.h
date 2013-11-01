@@ -112,9 +112,9 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
-    void showFormFieldOverlay(Model::FormField* clickedFormField = 0);
+    void showFormFieldOverlay(Model::FormField* selectedFormField = 0);
     void updateFormFieldOverlay();
-    void hideFormFieldOverlay();
+    void hideFormFieldOverlay(bool deleteLater = true);
 
     void on_annotations_tabPressed();
 

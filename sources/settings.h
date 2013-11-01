@@ -88,6 +88,12 @@ public:
         Qt::KeyboardModifiers addAnnotationModifiers() const;
         void setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers);
 
+        bool annotationOverlay() const;
+        void setAnnotationOverlay(bool overlay);
+
+        bool formFieldOverlay() const;
+        void setFormFieldOverlay(bool overlay);
+
     private:
         PageItem(QSettings* settings);
         friend class Settings;
@@ -414,6 +420,9 @@ public:
 
         static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
         static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
+
+        static inline bool annotationOverlay() { return false; }
+        static inline bool formFieldOverlay() { return true; }
 
     private:
         PageItem() {}
