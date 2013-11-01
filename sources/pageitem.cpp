@@ -389,7 +389,7 @@ void PageItem::hideFormFieldOverlay()
             i.value()->deleteLater();
         }
 
-        QTimer::singleShot(0, this, SLOT(refresh()));
+        refresh();
     }
 }
 

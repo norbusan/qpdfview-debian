@@ -25,6 +25,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-form.h>
 
+static bool hideOnEscape(QWidget* widget, QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        widget->hide();
+
+        event->accept();
+        return true;
+    }
+
+    return false;
+}
+
 NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldText* formField, QWidget* parent) : QLineEdit(parent),
     m_mutex(mutex),
     m_formField(formField)
@@ -50,15 +63,10 @@ NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldTe
 
 void NormalTextFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QLineEdit::keyPressEvent(event);
     }
-
-    QLineEdit::keyPressEvent(event);
 }
 
 void NormalTextFieldWidget::on_textChanged(const QString& text)
@@ -92,15 +100,10 @@ MultilineTextFieldWidget::MultilineTextFieldWidget(QMutex* mutex, Poppler::FormF
 
 void MultilineTextFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QPlainTextEdit::keyPressEvent(event);
     }
-
-    QPlainTextEdit::keyPressEvent(event);
 }
 
 void MultilineTextFieldWidget::on_textChanged()
@@ -164,15 +167,10 @@ ComboBoxChoiceFieldWidget::ComboBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
 
 void ComboBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QComboBox::keyPressEvent(event);
     }
-
-    QComboBox::keyPressEvent(event);
 }
 
 void ComboBoxChoiceFieldWidget::on_currentIndexChanged(int index)
@@ -228,15 +226,10 @@ ListBoxChoiceFieldWidget::ListBoxChoiceFieldWidget(QMutex* mutex, Poppler::FormF
 
 void ListBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QListWidget::keyPressEvent(event);
     }
-
-    QListWidget::keyPressEvent(event);
 }
 
 void ListBoxChoiceFieldWidget::on_itemSelectionChanged()
@@ -278,15 +271,10 @@ CheckBoxChoiceFieldWidget::CheckBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
 
 void CheckBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QCheckBox::keyPressEvent(event);
     }
-
-    QCheckBox::keyPressEvent(event);
 }
 
 void CheckBoxChoiceFieldWidget::on_toggled(bool checked)
@@ -334,15 +322,10 @@ RadioChoiceFieldWidget::~RadioChoiceFieldWidget()
 
 void RadioChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape)
+    if(!hideOnEscape(this, event))
     {
-        hide();
-
-        event->accept();
-        return;
+        QRadioButton::keyPressEvent(event);
     }
-
-    QRadioButton::keyPressEvent(event);
 }
 
 void RadioChoiceFieldWidget::on_toggled(bool checked)
