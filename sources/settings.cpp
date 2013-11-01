@@ -142,16 +142,6 @@ void Settings::PageItem::setAnnotationColor(const QColor &color)
     m_settings->setValue("pageItem/annotationColor", color);
 }
 
-bool Settings::PageItem::openFileAttachments() const
-{
-    return m_settings->value("pageItem/openFileAttachments", Defaults::PageItem::openFileAttachments()).toBool();
-}
-
-void Settings::PageItem::setOpenFileAttachments(bool openFileAttachments)
-{
-    m_settings->setValue("pageItem/openFileAttachments", openFileAttachments);
-}
-
 Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
 {
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyToClipboardModifiers", static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())).toInt());
@@ -258,6 +248,17 @@ void Settings::DocumentView::setOpenUrl(bool openUrl)
 {
     m_settings->setValue("documentView/openUrl", openUrl);
 }
+
+bool Settings::DocumentView::openFileAttachments() const
+{
+    return m_settings->value("documentView/openFileAttachments", Defaults::DocumentView::openFileAttachments()).toBool();
+}
+
+void Settings::DocumentView::setOpenFileAttachments(bool openFileAttachments)
+{
+    m_settings->setValue("documentView/openFileAttachments", openFileAttachments);
+}
+
 
 bool Settings::DocumentView::autoRefresh() const
 {

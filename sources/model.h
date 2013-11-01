@@ -77,6 +77,7 @@ namespace Model
 
     signals:
         void wasModified();
+
         void fileAttachmentSaved(const QString& filePath);
 
     };

@@ -179,6 +179,8 @@ protected slots:
     void on_pages_linkClicked(const QString& url);
     void on_pages_linkClicked(const QString& fileName, int page);
 
+    void on_pages_fileAttachmentSaved(const QString& filePath);
+
     void on_pages_rubberBandFinished();
 
     void on_pages_sourceRequested(int page, const QPointF& pos);
