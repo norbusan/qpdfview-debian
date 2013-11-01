@@ -57,8 +57,6 @@ NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldTe
     connect(this, SIGNAL(textChanged(QString)), SIGNAL(wasModified()));
 
     connect(this, SIGNAL(returnPressed()), SLOT(hide()));
-
-    selectAll();
 }
 
 void NormalTextFieldWidget::keyPressEvent(QKeyEvent* event)
@@ -150,8 +148,6 @@ ComboBoxChoiceFieldWidget::ComboBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
         connect(this, SIGNAL(currentTextChanged(QString)), SIGNAL(wasModified()));
 
         connect(lineEdit(), SIGNAL(returnPressed()), SLOT(hide()));
-
-        lineEdit()->selectAll();
     }
     else
     {
