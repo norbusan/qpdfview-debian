@@ -33,6 +33,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     m_plainTextEdit(0)
 {
     m_plainTextEdit = new QPlainTextEdit(this);
+    m_plainTextEdit->setTabChangesFocus(true);
     m_plainTextEdit->setPlainText(m_annotation->contents());
 
     setLayout(new QVBoxLayout(this));
@@ -68,7 +69,11 @@ void AnnotationDialog::hideEvent(QHideEvent* event)
 
 void AnnotationDialog::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Tab)
+    if(event->key() == Qt::Key_Escape)
+    {
+        close();
+    }
+    else if(event->key() == Qt::Key_Tab)
     {
         close();
 

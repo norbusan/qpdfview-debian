@@ -305,7 +305,11 @@ void FormFieldDialog::hideEvent(QHideEvent* event)
 
 void FormFieldDialog::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Tab)
+    if(event->key() == Qt::Key_Escape)
+    {
+        close();
+    }
+    else if(event->key() == Qt::Key_Tab)
     {
         close();
 
