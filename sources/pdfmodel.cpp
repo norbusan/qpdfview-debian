@@ -96,6 +96,7 @@ void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
         annotationDialog->show();
 
         connect(annotationDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
+        connect(annotationDialog, SIGNAL(tabPressed()), SIGNAL(tabPressed()));
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
@@ -175,6 +176,7 @@ void Model::PdfFormField::showDialog(const QPoint& screenPos)
 
         connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(needsRefresh()));
         connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
+        connect(formFieldDialog, SIGNAL(tabPressed()), SIGNAL(tabPressed()));
     }
     else if(m_formField->type() == Poppler::FormField::FormButton)
     {
@@ -395,16 +397,41 @@ QList< Model::Annotation* > Model::PdfPage::annotations() const
 #endif // HAS_POPPLER_24
 
     QList< Annotation* > annotations;
+    Annotation* first = 0;
+    Annotation* previous = 0;
 
     foreach(Poppler::Annotation* annotation, m_page->annotations())
     {
         if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
         {
-            annotations.append(new PdfAnnotation(m_mutex, annotation));
+            Annotation* current = new PdfAnnotation(m_mutex, annotation);
+            annotations.append(current);
+
+            // file attachments are not part of the focus chain
+            if(annotation->subType() != Poppler::Annotation::AFileAttachment)
+            {
+                if(first == 0)
+                {
+                    first = current;
+                }
+
+                if(previous != 0)
+                {
+                    previous->nextOnPage = current;
+                }
+
+                previous = current;
+            }
+
             continue;
         }
 
         delete annotation;
+    }
+
+    if(previous != 0)
+    {
+        previous->nextOnPage = first;
     }
 
     return annotations;
@@ -534,6 +561,8 @@ QList< Model::FormField* > Model::PdfPage::formFields() const
 #endif // HAS_POPPLER_24
 
     QList< FormField* > formFields;
+    FormField* first = 0;
+    FormField* previous = 0;
 
     foreach(Poppler::FormField* formField, m_page->formFields())
     {
@@ -543,44 +572,71 @@ QList< Model::FormField* > Model::PdfPage::formFields() const
             continue;
         }
 
+        bool append = false;
+
         switch(formField->type())
         {
         default:
         case Poppler::FormField::FormSignature:
-            delete formField;
             break;
         case Poppler::FormField::FormText:
             switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
             {
             default:
             case Poppler::FormFieldText::FileSelect:
-                delete formField;
                 break;
             case Poppler::FormFieldText::Normal:
             case Poppler::FormFieldText::Multiline:
-                formFields.append(new PdfFormField(m_mutex, formField));
+                append = true;
                 break;
             }
-
             break;
         case Poppler::FormField::FormChoice:
-            formFields.append(new PdfFormField(m_mutex, formField));
             break;
         case Poppler::FormField::FormButton:
             switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
             {
             default:
             case Poppler::FormFieldButton::Push:
-                delete formField;
                 break;
             case Poppler::FormFieldButton::CheckBox:
             case Poppler::FormFieldButton::Radio:
-                formFields.append(new PdfFormField(m_mutex, formField));
+                append = true;
                 break;
             }
-
             break;
         }
+
+        if(append)
+        {
+            FormField* current = new PdfFormField(m_mutex, formField);
+            formFields.append(current);
+
+            // check box and radio buttons are not part of the focus chain
+            if(formField->type() != Poppler::FormField::FormButton)
+            {
+                if(first == 0)
+                {
+                    first = current;
+                }
+
+                if(previous != 0)
+                {
+                    previous->nextOnPage = current;
+                }
+
+                previous = current;
+            }
+        }
+        else
+        {
+            delete formField;
+        }
+    }
+
+    if(previous != 0)
+    {
+        previous->nextOnPage = first;
     }
 
     return formFields;
