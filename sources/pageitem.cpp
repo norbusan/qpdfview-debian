@@ -24,6 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QClipboard>
 #include <QFileDialog>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
 #include <QGraphicsSceneHoverEvent>
 #include <qmath.h>
 #include <QMenu>
@@ -47,6 +49,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_size(),
     m_links(),
     m_annotations(),
+    m_formFields(),
+    m_formFieldOverlay(),
     m_presentationMode(presentationMode),
     m_invertColors(false),
     m_highlights(),
@@ -78,6 +82,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)));
+
+    connect(this, SIGNAL(destroyed()), SLOT(hideFormFieldOverlay()));
 
     m_page = page;
 
@@ -343,6 +349,42 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
+void PageItem::showFormFieldOverlay(Model::FormField* focusFormField)
+{
+    if(m_formFieldOverlay.isEmpty())
+    {
+        foreach(Model::FormField* formField, m_formFields)
+        {
+            QGraphicsProxyWidget* proxy = scene()->addWidget(formField->createWidget());
+            m_formFieldOverlay.insert(formField, proxy);
+
+            setProxyGeometry(formField, proxy);
+            connect(proxy, SIGNAL(visibleChanged()), SLOT(hideFormFieldOverlay()));
+
+            if(formField == focusFormField)
+            {
+                proxy->widget()->setFocus();
+            }
+        }
+    }
+}
+
+void PageItem::updateFormFieldOverlay()
+{
+    for(FormFieldOverlay::const_iterator i = m_formFieldOverlay.constBegin(); i != m_formFieldOverlay.constEnd(); ++i)
+    {
+        setProxyGeometry(i.key(), i.value());
+    }
+}
+
+void PageItem::hideFormFieldOverlay()
+{
+    FormFieldOverlay formFieldOverlay;
+    formFieldOverlay.swap(m_formFieldOverlay);
+
+    qDeleteAll(formFieldOverlay);
+}
+
 void PageItem::on_annotations_tabPressed()
 {
     Model::Annotation* annotation = qobject_cast< Model::Annotation* >(sender());
@@ -548,12 +590,15 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                formField->showDialog(event->screenPos());
+                //formField->showDialog(event->screenPos());
+                showFormFieldOverlay(formField);
 
                 event->accept();
                 return;
             }
         }
+
+        hideFormFieldOverlay();
     }
 
     event->ignore();
@@ -769,6 +814,11 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
     }
 }
 
+void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy)
+{
+    proxy->setGeometry(mapToScene(m_normalizedTransform.mapRect(formField->boundary())).boundingRect());
+}
+
 qreal PageItem::effectiveDevicePixelRatio()
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -825,6 +875,8 @@ void PageItem::prepareGeometry()
 
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
+
+    QTimer::singleShot(0, this, SLOT(updateFormFieldOverlay()));
 }
 
 QPixmap PageItem::cachedPixmap()

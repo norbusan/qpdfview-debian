@@ -32,6 +32,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+class QGraphicsProxyWidget;
+
 #include "global.h"
 
 namespace Model
@@ -111,6 +113,10 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
+    void showFormFieldOverlay(Model::FormField* focusFormField = 0);
+    void updateFormFieldOverlay();
+    void hideFormFieldOverlay();
+
     void on_annotations_tabPressed();
     void on_formFields_tabPressed();
 
@@ -145,6 +151,9 @@ private:
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
 
+    typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
+    FormFieldOverlay m_formFieldOverlay;
+
     bool m_presentationMode;
     bool m_invertColors;
 
@@ -157,6 +166,8 @@ private:
 
     void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+
+    void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy);
 
     // geometry
 

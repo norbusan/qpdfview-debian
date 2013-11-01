@@ -97,6 +97,8 @@ namespace Model
         virtual QRectF boundary() const = 0;
         virtual QString name() const = 0;
 
+        virtual QWidget* createWidget() = 0;
+
         virtual void showDialog(const QPoint& screenPos) = 0;
 
         FormField* nextOnPage;

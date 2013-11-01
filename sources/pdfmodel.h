@@ -81,6 +81,8 @@ namespace Model
         QRectF boundary() const;
         QString name() const;
 
+        QWidget* createWidget();
+
         void showDialog(const QPoint& screenPos);
 
     private:
