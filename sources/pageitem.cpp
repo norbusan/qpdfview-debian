@@ -345,7 +345,7 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
 
 void PageItem::on_annotations_tabPressed()
 {
-    Model::Annotation* annotation = qobject_cast< Model::Annotation* >(sender());
+    Model::Annotation* annotation = dynamic_cast< Model::Annotation* >(sender());
 
     if(annotation != 0 && annotation->nextOnPage != 0)
     {
@@ -359,7 +359,7 @@ void PageItem::on_annotations_tabPressed()
 
 void PageItem::on_formFields_tabPressed()
 {
-    Model::FormField* formField = qobject_cast< Model::FormField* >(sender());
+    Model::FormField* formField = dynamic_cast< Model::FormField* >(sender());
 
     if(formField != 0 && formField->nextOnPage != 0)
     {
