@@ -83,8 +83,6 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)));
 
-    connect(this, SIGNAL(destroyed()), SLOT(hideFormFieldOverlay()));
-
     m_page = page;
 
     m_index = index;
@@ -97,6 +95,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
 PageItem::~PageItem()
 {
+    hideFormFieldOverlay(false);
+
     m_renderTask->cancel();
     m_renderTask->wait();
 
@@ -830,7 +830,50 @@ void PageItem::addProxy(Model::FormField* formField)
 
 void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy)
 {
-    proxy->setGeometry(mapToScene(m_normalizedTransform.mapRect(formField->boundary())).boundingRect());
+    QRectF sceneRect = mapToScene(m_normalizedTransform.mapRect(formField->boundary())).boundingRect();
+
+    qreal x = sceneRect.x();
+    qreal y = sceneRect.y();
+    qreal width = sceneRect.width();
+    qreal height = sceneRect.height();
+
+    switch(m_rotation)
+    {
+    default:
+    case RotateBy0:
+        proxy->setRotation(0.0);
+        break;
+    case RotateBy90:
+        x += width;
+        qSwap(width, height);
+
+        proxy->setRotation(90.0);
+        break;
+    case RotateBy180:
+        x += width;
+        y += height;
+
+        proxy->setRotation(180.0);
+        break;
+    case RotateBy270:
+        y += height;
+        qSwap(width, height);
+
+        proxy->setRotation(270.0);
+        break;
+    }
+
+    width /= m_scaleFactor;
+    height /= m_scaleFactor;
+
+    proxy->setScale(m_scaleFactor);
+
+    sceneRect.setX(x);
+    sceneRect.setY(y);
+    sceneRect.setWidth(width);
+    sceneRect.setHeight(height);
+
+    proxy->setGeometry(sceneRect);
 }
 
 qreal PageItem::effectiveDevicePixelRatio()
