@@ -168,6 +168,7 @@ class RadioChoiceFieldWidget : public QRadioButton
 
 public:
     RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent = 0);
+    ~RadioChoiceFieldWidget();
 
 signals:
     void wasModified();
@@ -180,6 +181,9 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(RadioChoiceFieldWidget)
+
+    typedef QMap< QPair< QMutex*, int >, RadioChoiceFieldWidget* > Siblings;
+    static Siblings s_siblings;
 
     QMutex* m_mutex;
     Poppler::FormFieldButton* m_formField;

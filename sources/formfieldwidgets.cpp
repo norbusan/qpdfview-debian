@@ -300,6 +300,8 @@ void CheckBoxChoiceFieldWidget::on_toggled(bool checked)
     m_formField->setState(checked);
 }
 
+RadioChoiceFieldWidget::Siblings RadioChoiceFieldWidget::s_siblings;
+
 RadioChoiceFieldWidget::RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormFieldButton* formField, QWidget* parent) : QRadioButton(parent),
     m_mutex(mutex),
     m_formField(formField)
@@ -310,10 +312,24 @@ RadioChoiceFieldWidget::RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormField
 
 #endif // HAS_POPPLER_24
 
-    setChecked(formField->state());
+    s_siblings.insert(qMakePair(m_mutex, m_formField->id()), this);
+
+    setAutoExclusive(false);
+    setChecked(m_formField->state());
 
     connect(this, SIGNAL(toggled(bool)), SLOT(on_toggled(bool)));
     connect(this, SIGNAL(toggled(bool)), SIGNAL(wasModified()));
+}
+
+RadioChoiceFieldWidget::~RadioChoiceFieldWidget()
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    s_siblings.remove(qMakePair(m_mutex, m_formField->id()));
 }
 
 void RadioChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
@@ -333,9 +349,30 @@ void RadioChoiceFieldWidget::on_toggled(bool checked)
 {
 #ifndef HAS_POPPLER_24
 
-    QMutexLocker mutexLocker(m_mutex);
+    m_mutex->lock();
 
 #endif // HAS_POPPLER_24
 
+    const QList< int > siblings = m_formField->siblings();
+
     m_formField->setState(checked);
+
+#ifndef HAS_POPPLER_24
+
+    m_mutex->unlock();
+
+#endif // HAS_POPPLER_24
+
+    if(checked)
+    {
+        foreach(int id, siblings)
+        {
+            QPair< QMutex*, int > key = qMakePair(m_mutex, id);
+
+            if(s_siblings.contains(key))
+            {
+                s_siblings.value(key)->setChecked(false);
+            }
+        }
+    }
 }
