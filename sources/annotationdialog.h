@@ -43,6 +43,8 @@ signals:
     void tabPressed();
 
 protected:
+    bool eventFilter(QObject* object, QEvent* event);
+
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
 

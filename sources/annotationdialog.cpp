@@ -33,7 +33,7 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     m_plainTextEdit(0)
 {
     m_plainTextEdit = new QPlainTextEdit(this);
-    m_plainTextEdit->setTabChangesFocus(true);
+    m_plainTextEdit->installEventFilter(this);
     m_plainTextEdit->setPlainText(m_annotation->contents());
 
     setLayout(new QVBoxLayout(this));
@@ -41,6 +41,25 @@ AnnotationDialog::AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotatio
     layout()->addWidget(m_plainTextEdit);
 
     setSizeGripEnabled(true);
+}
+
+bool AnnotationDialog::eventFilter(QObject* object, QEvent* event)
+{
+    if(event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent* keyEvent = static_cast< QKeyEvent* >(event);
+
+        if(keyEvent->key() == Qt::Key_Tab)
+        {
+            keyPressEvent(keyEvent);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    return QDialog::eventFilter(object, event);
 }
 
 void AnnotationDialog::showEvent(QShowEvent* event)
