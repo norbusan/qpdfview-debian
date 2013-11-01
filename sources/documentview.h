@@ -186,8 +186,6 @@ protected slots:
 
     void on_pages_sourceRequested(int page, const QPointF& pos);
 
-    void on_pages_dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
-
     void on_pages_wasModified();
 
 protected:

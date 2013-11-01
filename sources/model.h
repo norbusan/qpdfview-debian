@@ -66,19 +66,16 @@ namespace Model
         Q_OBJECT
 
     public:
-        Annotation() : QObject(), nextOnPage(0) {}
+        Annotation() : QObject() {}
         virtual ~Annotation() {}
 
         virtual QRectF boundary() const = 0;
         virtual QString contents() const = 0;
 
-        virtual void showDialog(const QPoint& screenPos) = 0;
-
-        Annotation* nextOnPage;
+        virtual QWidget* createWidget() = 0;
 
     signals:
         void wasModified();
-        void tabPressed();
 
         void fileAttachmentSaved(const QString& filePath);
 

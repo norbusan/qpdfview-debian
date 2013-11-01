@@ -112,11 +112,13 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
-    void showFormFieldOverlay(Model::FormField* selectedFormField = 0);
-    void updateFormFieldOverlay();
-    void hideFormFieldOverlay(bool deleteLater = true);
+    void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
+    void hideAnnotationOverlay(bool deleteLater = true);
+    void updateAnnotationOverlay();
 
-    void on_annotations_tabPressed();
+    void showFormFieldOverlay(Model::FormField* selectedFormField);
+    void hideFormFieldOverlay(bool deleteLater = true);
+    void updateFormFieldOverlay();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -149,6 +151,9 @@ private:
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
 
+    typedef QMap< Model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
+    AnnotationOverlay m_annotationOverlay;
+
     typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
     FormFieldOverlay m_formFieldOverlay;
 
@@ -164,6 +169,9 @@ private:
 
     void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+
+    void addProxy(Model::Annotation* annotation);
+    void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy);
 
     void addProxy(Model::FormField* formField);
     void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy);

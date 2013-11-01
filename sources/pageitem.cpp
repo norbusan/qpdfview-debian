@@ -50,6 +50,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_links(),
     m_annotations(),
     m_formFields(),
+    m_annotationOverlay(),
     m_formFieldOverlay(),
     m_presentationMode(presentationMode),
     m_invertColors(false),
@@ -95,6 +96,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
 PageItem::~PageItem()
 {
+    hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
     m_renderTask->cancel();
@@ -349,6 +351,21 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
+void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
+{
+    // TODO
+}
+
+void PageItem::hideAnnotationOverlay(bool deleteLater)
+{
+    // TODO
+}
+
+void PageItem::updateAnnotationOverlay()
+{
+    // TODO
+}
+
 void PageItem::showFormFieldOverlay(Model::FormField* selectedFormField)
 {
     if(s_settings->pageItem().formFieldOverlay())
@@ -403,20 +420,6 @@ void PageItem::hideFormFieldOverlay(bool deleteLater)
         }
 
         refresh();
-    }
-}
-
-void PageItem::on_annotations_tabPressed()
-{
-    Model::Annotation* annotation = qobject_cast< Model::Annotation* >(sender());
-
-    if(annotation != 0 && annotation->nextOnPage != 0)
-    {
-        annotation = annotation->nextOnPage;
-
-        const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
-
-        emit dialogRequested(annotation, scenePos);
     }
 }
 
@@ -582,7 +585,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                annotation->showDialog(event->screenPos());
+                showAnnotationOverlay(annotation);
 
                 event->accept();
                 return;
@@ -791,7 +794,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
             refresh();
 
-            annotation->showDialog(screenPos);
+            showAnnotationOverlay(annotation);
         }
     }
 }
@@ -816,6 +819,16 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             emit wasModified();
         }
     }
+}
+
+void PageItem::addProxy(Model::Annotation *annotation)
+{
+    // TODO
+}
+
+void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy)
+{
+    // TODO
 }
 
 void PageItem::addProxy(Model::FormField* formField)

@@ -19,43 +19,40 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef ANNOTATIONDIALOG_H
-#define ANNOTATIONDIALOG_H
+#ifndef ANNOTATIONWIDGETS_H
+#define ANNOTATIONWIDGETS_H
 
-#include <QDialog>
+#include <QPlainTextEdit>
 
 class QMutex;
-class QPlainTextEdit;
 
 namespace Poppler
 {
 class Annotation;
 }
 
-class AnnotationDialog : public QDialog
+class AnnotationWidget : public QPlainTextEdit
 {
     Q_OBJECT
 
 public:
-    AnnotationDialog(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent = 0);
+    AnnotationWidget(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent = 0);
 
 signals:
-    void tabPressed();
+    void wasModified();
 
 protected:
-    bool eventFilter(QObject* object, QEvent* event);
-
-    void showEvent(QShowEvent* event);
-    void hideEvent(QHideEvent* event);
-
     void keyPressEvent(QKeyEvent* event);
-    
+
+protected slots:
+    void on_textChanged();
+
 private:
+    Q_DISABLE_COPY(AnnotationWidget)
+
     QMutex* m_mutex;
     Poppler::Annotation* m_annotation;
 
-    QPlainTextEdit* m_plainTextEdit;
-    
 };
 
-#endif // ANNOTATIONDIALOG_H
+#endif // ANNOTATIONWIDGETS_H

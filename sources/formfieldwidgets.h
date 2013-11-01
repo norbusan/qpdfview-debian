@@ -190,4 +190,4 @@ private:
 
 };
 
-#endif // FORMFIELDDIALOG_H
+#endif // FORMFIELDWIDGETS_H

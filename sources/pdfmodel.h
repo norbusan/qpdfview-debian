@@ -57,7 +57,7 @@ namespace Model
         QRectF boundary() const;
         QString contents() const;
 
-        void showDialog(const QPoint& screenPos);
+        QWidget* createWidget();
 
     private:
         Q_DISABLE_COPY(PdfAnnotation)

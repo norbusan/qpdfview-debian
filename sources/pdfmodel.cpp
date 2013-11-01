@@ -41,7 +41,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-form.h>
 
-#include "annotationdialog.h"
+#include "annotationwidgets.h"
 #include "formfieldwidgets.h"
 
 Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) : Annotation(),
@@ -77,30 +77,19 @@ QString Model::PdfAnnotation::contents() const
     return m_annotation->contents();
 }
 
-void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
+QWidget* Model::PdfAnnotation::createWidget()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
+    QWidget* widget = 0;
 
     if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
     {
-        AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
-
-        annotationDialog->move(screenPos);
-
-        annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
-        annotationDialog->show();
-
-        connect(annotationDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
-        connect(annotationDialog, SIGNAL(tabPressed()), SIGNAL(tabPressed()));
+        widget = new AnnotationWidget(m_mutex, m_annotation);
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
+        // TODO
+
+        /*Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
 
         QString filePath = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
 
@@ -120,8 +109,12 @@ void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
             {
                 QMessageBox::warning(0, tr("Warning"), tr("Could not save file attachment to '%1'.").arg(filePath));
             }
-        }
+        }*/
     }
+
+    connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
+
+    return widget;
 }
 
 Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) : FormField(),
@@ -414,41 +407,16 @@ QList< Model::Annotation* > Model::PdfPage::annotations() const
 #endif // HAS_POPPLER_24
 
     QList< Annotation* > annotations;
-    Annotation* first = 0;
-    Annotation* previous = 0;
 
     foreach(Poppler::Annotation* annotation, m_page->annotations())
     {
         if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
         {
-            Annotation* current = new PdfAnnotation(m_mutex, annotation);
-            annotations.append(current);
-
-            // file attachments are not part of the focus chain
-            if(annotation->subType() != Poppler::Annotation::AFileAttachment)
-            {
-                if(first == 0)
-                {
-                    first = current;
-                }
-
-                if(previous != 0)
-                {
-                    previous->nextOnPage = current;
-                }
-
-                previous = current;
-            }
-
+            annotations.append(new PdfAnnotation(m_mutex, annotation));
             continue;
         }
 
         delete annotation;
-    }
-
-    if(previous != 0)
-    {
-        previous->nextOnPage = first;
     }
 
     return annotations;
