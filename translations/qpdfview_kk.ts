@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="kk_KZ">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">%1 бетке өту</translation>
+        <translation type="unfinished">%1 бетіне өту</translation>
     </message>
 </context>
 <context>
@@ -57,22 +57,22 @@
         <translation type="unfinished">Сілтемелерді ашу мүмкіндігі баптауларда сөндірілген.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1501"/>
+        <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1596"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>
@@ -118,29 +118,24 @@
         <translation type="unfinished">&apos;%1&apos; ашу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1998"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/mainwindow.cpp" line="508"/>
+        <source>Close all tabs but this one</source>
+        <translation type="unfinished">Осыдан басқа барлық бетті жабу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="509"/>
+        <source>Close all tabs to the left</source>
+        <translation type="unfinished">Сол жақта барлық бетті жабу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="510"/>
+        <source>Close all tabs to the right</source>
+        <translation type="unfinished">Оң жақта барлық бетті жабу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="936"/>
         <source>Open</source>
         <translation type="unfinished">Ашу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="508"/>
-        <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="509"/>
-        <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="510"/>
-        <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="952"/>
@@ -193,17 +188,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бетбелгіні қосу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Белгі</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">%1 бетке өту</translation>
+        <translation type="unfinished">%1 бетіне өту</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1563"/>
@@ -243,7 +238,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1859"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; құжаты өзгертілген. Өзгерістерді сақтау керек пе?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1929"/>
@@ -274,6 +269,11 @@
         <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Жаңа бе&amp;тте ашу...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1998"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Орналасқан бумасын ашу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1999"/>
@@ -572,57 +572,57 @@
 <context>
     <name>Model::PdfAnnotation</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="104"/>
+        <location filename="../sources/pdfmodel.cpp" line="105"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Файл салынымын сақтау</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Файл салынымын &apos;%1&apos; ішіне сақтау мүмкін емес.</translation>
     </message>
 </context>
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Name</source>
         <translation type="unfinished">Аты</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Type</source>
         <translation type="unfinished">Түрі</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Embedded</source>
         <translation type="unfinished">Енгізілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Subset</source>
         <translation type="unfinished">Ішкі жиын</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>Yes</source>
         <translation type="unfinished">Иә</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>No</source>
         <translation type="unfinished">Жоқ</translation>
     </message>
@@ -630,12 +630,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Information</source>
         <translation type="unfinished">Ақпараты</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Аңдатпаларды қосу не өшіру үшін Poppler библиотекасының 0.20.1 не одан жоғары нұсқасы керек.</translation>
     </message>
@@ -676,67 +676,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="394"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1 бетке өту.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="379"/>
+        <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">%1 бетке өту, &apos;%2&apos; файлы ішінде.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="387"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">%1&apos; ашу.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="422"/>
+        <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; форма өрісін түзету.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="651"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Мә&amp;тінін көшіріп алу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Сурет&amp;ті көшіру</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Суретті &amp;файлға сақтау...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="701"/>
         <source>Save image to file</source>
         <translation type="unfinished">Суретті файлға сақтау</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Суретті &apos;%1&apos; файлын сақтау мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="696"/>
+        <location filename="../sources/pageitem.cpp" line="718"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Мә&amp;тінді қосу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="697"/>
+        <location filename="../sources/pageitem.cpp" line="719"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Түспен ер&amp;екшелеуді қосу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="734"/>
+        <location filename="../sources/pageitem.cpp" line="756"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Аңдатпаны ө&amp;шіру</translation>
     </message>
@@ -744,54 +744,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Мәтінді тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="868"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="924"/>
+        <location filename="../sources/pdfmodel.cpp" line="954"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="869"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
         <source>Full</source>
         <translation type="unfinished">Толық</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="870"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Reduced</source>
         <translation type="unfinished">Кішірейтілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Solid</source>
         <translation type="unfinished">Бүтін</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="900"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Shaped</source>
         <translation type="unfinished">Пішінделген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="903"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Жұқа сызық режимі:</translation>
     </message>

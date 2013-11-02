@@ -57,22 +57,22 @@
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1501"/>
+        <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1596"/>
         <source>Page %1</source>
         <translation type="unfinished">Strana %1</translation>
     </message>
@@ -572,17 +572,17 @@
 <context>
     <name>Model::PdfAnnotation</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="104"/>
+        <location filename="../sources/pdfmodel.cpp" line="105"/>
         <source>Save file attachment</source>
         <translation type="unfinished">Uložit přiložený soubor</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit přiložený soubor do &apos;%1&apos;.</translation>
     </message>
@@ -590,39 +590,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Name</source>
         <translation type="unfinished">Název</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Embedded</source>
         <translation type="unfinished">Vloženo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>File</source>
         <translation type="unfinished">Soubor</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>Yes</source>
         <translation type="unfinished">Ano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>No</source>
         <translation type="unfinished">Ne</translation>
     </message>
@@ -630,12 +630,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Pro přidávání nebo odstraňování poznámek je požadována verze 0.20.1 nebo vyšší knihovny Poppler.</translation>
     </message>
@@ -676,67 +676,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="394"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Jít na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="379"/>
+        <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Jít na stranu %1 souboru &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="387"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Otevřít &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="422"/>
+        <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Upravit formulářové pole &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="651"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovat &amp;obrázek</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Uložit obrázek do &amp;souboru...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="701"/>
         <source>Save image to file</source>
         <translation type="unfinished">Uložit obrázek do souboru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit obrázek do souboru &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="696"/>
+        <location filename="../sources/pageitem.cpp" line="718"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Přidat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="697"/>
+        <location filename="../sources/pageitem.cpp" line="719"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="734"/>
+        <location filename="../sources/pageitem.cpp" line="756"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstranit poznámku</translation>
     </message>
@@ -744,54 +744,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Vyhlazování:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Vyhlazování textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="868"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="924"/>
+        <location filename="../sources/pdfmodel.cpp" line="954"/>
         <source>None</source>
         <translation type="unfinished">Žádné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="869"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
         <source>Full</source>
         <translation type="unfinished">Úplné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="870"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Reduced</source>
         <translation type="unfinished">Omezené</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Instruování textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Náhled přetisku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Solid</source>
         <translation type="unfinished">Vyplněný</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="900"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Shaped</source>
         <translation type="unfinished">Ohraničený</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="903"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Režim tenké čáry:</translation>
     </message>

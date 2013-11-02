@@ -57,22 +57,22 @@
         <translation>Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1501"/>
+        <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1596"/>
         <source>Page %1</source>
         <translation>Strona %1</translation>
     </message>
@@ -572,17 +572,17 @@
 <context>
     <name>Model::PdfAnnotation</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="104"/>
+        <location filename="../sources/pdfmodel.cpp" line="105"/>
         <source>Save file attachment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,39 +590,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Type</source>
         <translation>Rodzaj</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Embedded</source>
         <translation>Osadzony</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Subset</source>
         <translation>Podzbiór</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>Yes</source>
         <translation>Tak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
@@ -630,12 +630,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Information</source>
         <translation>Informacja</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub  usuwać adnotacje.</translation>
     </message>
@@ -676,67 +676,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="394"/>
         <source>Go to page %1.</source>
         <translation>Skocz do strony %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="379"/>
+        <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation>Przejdź do strony %1 pliku &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="387"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Open &apos;%1&apos;.</source>
         <translation>Otwórz &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="422"/>
+        <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation>Edytuj pole formularza &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="651"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Copy &amp;text</source>
         <translation>Kopiuj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Copy &amp;image</source>
         <translation>Kopiuj &amp;obraz</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
         <translation>Zapisz obraz do &amp;pliku...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="701"/>
         <source>Save image to file</source>
         <translation>Zapisz obraz do pliku</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation>Nie można zapisać obrazu do pliku &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="696"/>
+        <location filename="../sources/pageitem.cpp" line="718"/>
         <source>Add &amp;text</source>
         <translation>Dodaj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="697"/>
+        <location filename="../sources/pageitem.cpp" line="719"/>
         <source>Add &amp;highlight</source>
         <translation>Dodaj po&amp;dświetlenie</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="734"/>
+        <location filename="../sources/pageitem.cpp" line="756"/>
         <source>&amp;Remove annotation</source>
         <translation>&amp;Usuń adnotację</translation>
     </message>
@@ -744,54 +744,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>Antialiasing:</source>
         <translation>Antyaliasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Text antialiasing:</source>
         <translation>Antyaliasing tekstu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="868"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="924"/>
+        <location filename="../sources/pdfmodel.cpp" line="954"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="869"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
         <source>Full</source>
         <translation>Pełny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="870"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Reduced</source>
         <translation>Zredukowano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Text hinting:</source>
         <translation>Tekst podpowiedzi:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Overprint preview:</source>
         <translation>Podgląd wydruku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Solid</source>
         <translation>Jednolity</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="900"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Shaped</source>
         <translation>Uformowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="903"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Thin line mode:</source>
         <translation>Tryb cienkiej linii:</translation>
     </message>

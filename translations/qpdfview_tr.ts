@@ -47,12 +47,12 @@
         <translation type="unfinished">Açarsöz:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1501"/>
+        <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılıyor...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1596"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -67,12 +67,12 @@
         <translation type="unfinished">Bağlantıları açmak ayarlardan kapatılmış durumda.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
@@ -572,17 +572,17 @@
 <context>
     <name>Model::PdfAnnotation</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="104"/>
+        <location filename="../sources/pdfmodel.cpp" line="105"/>
         <source>Save file attachment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,39 +590,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Name</source>
         <translation type="unfinished">Ad</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Type</source>
         <translation type="unfinished">Tür</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Embedded</source>
         <translation type="unfinished">Gömülü</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Subset</source>
         <translation type="unfinished">Alt Küme</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>File</source>
         <translation type="unfinished">Dosya</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>Yes</source>
         <translation type="unfinished">Evet</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>No</source>
         <translation type="unfinished">Hayır</translation>
     </message>
@@ -630,12 +630,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Information</source>
         <translation type="unfinished">Bilgiler</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,67 +676,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="394"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1. sayfaya git.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="379"/>
+        <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="387"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="422"/>
+        <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="651"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Metni &amp;kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">&amp;Görüntüyü kopyala</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Görüntüyü &amp;dosyaya kaydet...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="701"/>
         <source>Save image to file</source>
         <translation type="unfinished">Görüntüyü dosyaya kaydet</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Warning</source>
         <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Görüntü &apos;%1&apos; dosyasına kaydedilemedi.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="696"/>
+        <location filename="../sources/pageitem.cpp" line="718"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">&amp;Metin ekle</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="697"/>
+        <location filename="../sources/pageitem.cpp" line="719"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Vurgu ekle</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="734"/>
+        <location filename="../sources/pageitem.cpp" line="756"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Notu &amp;kaldır</translation>
     </message>
@@ -744,54 +744,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Keskinlik yumuşatma:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Yazıtipi yumuşatma:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="868"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="924"/>
+        <location filename="../sources/pdfmodel.cpp" line="954"/>
         <source>None</source>
         <translation type="unfinished">Hiçbiri</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="869"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
         <source>Full</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="870"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Reduced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Metin ipuçları:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Solid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="900"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Shaped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="903"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>

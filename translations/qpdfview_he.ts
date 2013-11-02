@@ -57,22 +57,22 @@
         <translation type="unfinished">פתיחת כתובות מנוטרלת בהגדרות.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1097"/>
+        <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1501"/>
+        <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1596"/>
         <source>Page %1</source>
         <translation type="unfinished">עמוד %1</translation>
     </message>
@@ -572,17 +572,17 @@
 <context>
     <name>Model::PdfAnnotation</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="104"/>
+        <location filename="../sources/pdfmodel.cpp" line="105"/>
         <source>Save file attachment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="120"/>
+        <location filename="../sources/pdfmodel.cpp" line="121"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,39 +590,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Name</source>
         <translation type="unfinished">שם</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Type</source>
         <translation type="unfinished">סוג</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Embedded</source>
         <translation type="unfinished">מוטמע</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>Subset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="830"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>File</source>
         <translation type="unfinished">קובץ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>Yes</source>
         <translation type="unfinished">כן</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="838"/>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="895"/>
         <source>No</source>
         <translation type="unfinished">לא</translation>
     </message>
@@ -630,12 +630,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="421"/>
+        <location filename="../sources/pdfmodel.cpp" line="448"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,67 +676,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="375"/>
+        <location filename="../sources/pageitem.cpp" line="394"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">מעבר לעמוד %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="379"/>
+        <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">מעבר לעמוד %1 בקובץ &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="387"/>
+        <location filename="../sources/pageitem.cpp" line="406"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">פתיחת &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="422"/>
+        <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">עריכת שדה הטופס &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="651"/>
+        <location filename="../sources/pageitem.cpp" line="673"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">ה&amp;עתקת טקסט</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="652"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">העתקת ת&amp;מונה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">שמירת תמונה ל&amp;קובץ...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="679"/>
+        <location filename="../sources/pageitem.cpp" line="701"/>
         <source>Save image to file</source>
         <translation type="unfinished">שמירת תמונה לקובץ</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="683"/>
+        <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לשמור את התמונה לקובץ &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="696"/>
+        <location filename="../sources/pageitem.cpp" line="718"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">הוספת &amp;טקסט</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="697"/>
+        <location filename="../sources/pageitem.cpp" line="719"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">הוספת ה&amp;דגשה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="734"/>
+        <location filename="../sources/pageitem.cpp" line="756"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">הסרת ה&amp;ערה</translation>
     </message>
@@ -744,54 +744,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">החלקת קצוות:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">החלקת קצוות גופנים:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="868"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="924"/>
+        <location filename="../sources/pdfmodel.cpp" line="954"/>
         <source>None</source>
         <translation type="unfinished">אין</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="869"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
         <source>Full</source>
         <translation type="unfinished">מלא</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="870"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Reduced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">טווחי</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Solid</source>
         <translation type="unfinished">אחיד</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="900"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Shaped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="903"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>
