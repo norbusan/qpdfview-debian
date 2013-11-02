@@ -151,9 +151,6 @@ public:
         bool openUrl() const;
         void setOpenUrl(bool openUrl);
 
-        bool openFileAttachments() const;
-        void setOpenFileAttachments(bool openFileAttachments);
-
         bool autoRefresh() const;
         void setAutoRefresh(bool autoRefresh);
 
@@ -446,7 +443,6 @@ public:
     {
     public:
         static inline bool openUrl() { return false; }
-        static inline bool openFileAttachments() { return false; }
 
         static inline bool autoRefresh() { return false; }
 

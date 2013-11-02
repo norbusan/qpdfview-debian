@@ -269,17 +269,6 @@ void Settings::DocumentView::setOpenUrl(bool openUrl)
     m_settings->setValue("documentView/openUrl", openUrl);
 }
 
-bool Settings::DocumentView::openFileAttachments() const
-{
-    return m_settings->value("documentView/openFileAttachments", Defaults::DocumentView::openFileAttachments()).toBool();
-}
-
-void Settings::DocumentView::setOpenFileAttachments(bool openFileAttachments)
-{
-    m_settings->setValue("documentView/openFileAttachments", openFileAttachments);
-}
-
-
 bool Settings::DocumentView::autoRefresh() const
 {
     return m_settings->value("documentView/autoRefresh", Defaults::DocumentView::autoRefresh()).toBool();

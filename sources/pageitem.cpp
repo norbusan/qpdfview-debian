@@ -682,9 +682,6 @@ void PageItem::loadInteractiveElements()
         foreach(const Model::Annotation* annotation, m_annotations)
         {
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
-            connect(annotation, SIGNAL(tabPressed()), SLOT(on_annotations_tabPressed()));
-
-            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SIGNAL(fileAttachmentSaved(QString)));
         }
 
         m_formFields = m_page->formFields();
@@ -771,8 +768,10 @@ void PageItem::addAnnotation(const QPoint& screenPos)
             }
 
             m_annotations.append(annotation);
+            connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
 
             refresh();
+            emit wasModified();
 
             showAnnotationOverlay(annotation);
         }
@@ -794,8 +793,9 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             m_annotations.removeAll(annotation);
             m_page->removeAnnotation(annotation);
 
-            refresh();
+            annotation->deleteLater();
 
+            refresh();
             emit wasModified();
         }
     }

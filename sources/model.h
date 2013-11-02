@@ -77,8 +77,6 @@ namespace Model
     signals:
         void wasModified();
 
-        void fileAttachmentSaved(const QString& filePath);
-
     };
 
     class FormField : public QObject

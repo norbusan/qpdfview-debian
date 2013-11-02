@@ -84,7 +84,6 @@ private:
     // behavior
 
     QCheckBox* m_openUrlCheckBox;
-    QCheckBox* m_openFileAttachmentsCheckBox;
 
     QCheckBox* m_autoRefreshCheckBox;
 

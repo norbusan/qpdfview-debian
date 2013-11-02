@@ -91,14 +91,10 @@ signals:
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
 
-    void fileAttachmentSaved(const QString& filePath);
-
     void rubberBandStarted();
     void rubberBandFinished();
 
     void sourceRequested(int page, const QPointF& pos);
-
-    void dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
 
     void wasModified();
 

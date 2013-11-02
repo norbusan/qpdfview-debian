@@ -169,7 +169,6 @@ void SettingsDialog::accept()
     // behavior
 
     s_settings->documentView().setOpenUrl(m_openUrlCheckBox->isChecked());
-    s_settings->documentView().setOpenFileAttachments(m_openFileAttachmentsCheckBox->isChecked());
 
     s_settings->documentView().setAutoRefresh(m_autoRefreshCheckBox->isChecked());
 
@@ -295,13 +294,6 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
 
-    // open file attachments
-
-    m_openFileAttachmentsCheckBox = new QCheckBox(this);
-    m_openFileAttachmentsCheckBox->setChecked(s_settings->documentView().openFileAttachments());
-
-    m_behaviorLayout->addRow(tr("Open file attachments:"), m_openFileAttachmentsCheckBox);
-
     // auto-refresh
 
     m_autoRefreshCheckBox = new QCheckBox(this);
@@ -397,7 +389,6 @@ void SettingsDialog::createBehaviorTab()
 void SettingsDialog::resetBehaviorTab()
 {
     m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());
-    m_openFileAttachmentsCheckBox->setChecked(Defaults::DocumentView::openFileAttachments());
 
     m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
 

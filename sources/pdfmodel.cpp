@@ -87,7 +87,7 @@ QWidget* Model::PdfAnnotation::createWidget()
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        // TODO
+        // TODO: Widgets with options to save and to open and to save and open?
 
         /*Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
 
@@ -112,6 +112,7 @@ QWidget* Model::PdfAnnotation::createWidget()
         }*/
     }
 
+    connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));
     connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
 
     return widget;
@@ -528,7 +529,10 @@ void Model::PdfPage::removeAnnotation(Annotation* annotation)
 
 #ifdef HAS_POPPLER_20
 
-    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation);
+    PdfAnnotation* pdfAnnotation = static_cast< PdfAnnotation* >(annotation);
+
+    m_page->removeAnnotation(pdfAnnotation->m_annotation);
+    pdfAnnotation->m_annotation = 0;
 
 #else
 

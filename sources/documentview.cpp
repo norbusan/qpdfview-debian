@@ -1053,14 +1053,6 @@ void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
     emit linkClicked(filePath, page);
 }
 
-void DocumentView::on_pages_fileAttachmentSaved(const QString& filePath)
-{
-    if(s_settings->documentView().openFileAttachments())
-    {
-        QDesktopServices::openUrl(QUrl(filePath));
-    }
-}
-
 void DocumentView::on_pages_rubberBandFinished()
 {
     setRubberBandMode(ModifiersMode);
@@ -1668,8 +1660,6 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
         connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
-
-        connect(page, SIGNAL(fileAttachmentSaved(QString)), SLOT(on_pages_fileAttachmentSaved(QString)));
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
