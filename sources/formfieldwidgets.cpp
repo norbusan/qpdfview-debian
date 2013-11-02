@@ -144,8 +144,8 @@ ComboBoxChoiceFieldWidget::ComboBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
 
         lineEdit()->setText(m_formField->editChoice());
 
-        connect(this, SIGNAL(currentTextChanged(QString)), SLOT(on_currentTextChanged(QString)));
-        connect(this, SIGNAL(currentTextChanged(QString)), SIGNAL(wasModified()));
+        connect(lineEdit(), SIGNAL(textChanged(QString)), SLOT(on_currentTextChanged(QString)));
+        connect(lineEdit(), SIGNAL(textChanged(QString)), SIGNAL(wasModified()));
 
         connect(lineEdit(), SIGNAL(returnPressed()), SLOT(hide()));
     }
