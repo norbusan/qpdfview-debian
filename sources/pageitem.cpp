@@ -355,114 +355,50 @@ void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
 {
     if(s_settings->pageItem().annotationOverlay())
     {
-        foreach(Model::Annotation* annotation, m_annotations)
-        {
-            if(!m_annotationOverlay.contains(annotation))
-            {
-                addProxy(annotation);
-            }
-
-            if(annotation == selectedAnnotation)
-            {
-                m_annotationOverlay.value(annotation)->widget()->setFocus();
-            }
-        }
+        showOverlay(m_annotationOverlay, SLOT(hideAnnotationOverlay()), m_annotations, selectedAnnotation);
     }
     else
     {
         hideAnnotationOverlay(false);
 
-        addProxy(selectedAnnotation);
+        addProxy(m_annotationOverlay, SLOT(hideAnnotationOverlay()), selectedAnnotation);
         m_annotationOverlay.value(selectedAnnotation)->widget()->setFocus();
     }
 }
 
 void PageItem::hideAnnotationOverlay(bool deleteLater)
 {
-    AnnotationOverlay annotationOverlay;
-    annotationOverlay.swap(m_annotationOverlay);
-
-    if(!annotationOverlay.isEmpty())
-    {
-        for(AnnotationOverlay::const_iterator i = annotationOverlay.constBegin(); i != annotationOverlay.constEnd(); ++i)
-        {
-            if(deleteLater)
-            {
-                i.value()->deleteLater();
-            }
-            else
-            {
-                delete i.value();
-            }
-        }
-
-        refresh();
-    }
+    hideOverlay(m_annotationOverlay, deleteLater);
 }
 
 void PageItem::updateAnnotationOverlay()
 {
-    for(AnnotationOverlay::const_iterator i = m_annotationOverlay.constBegin(); i != m_annotationOverlay.constEnd(); ++i)
-    {
-        setProxyGeometry(i.key(), i.value());
-    }
+    updateOverlay(m_annotationOverlay);
 }
 
 void PageItem::showFormFieldOverlay(Model::FormField* selectedFormField)
 {
     if(s_settings->pageItem().formFieldOverlay())
     {
-        foreach(Model::FormField* formField, m_formFields)
-        {
-            if(!m_formFieldOverlay.contains(formField))
-            {
-                addProxy(formField);
-            }
-
-            if(formField == selectedFormField)
-            {
-                m_formFieldOverlay.value(formField)->widget()->setFocus();
-            }
-        }
+        showOverlay(m_formFieldOverlay, SLOT(hideFormFieldOverlay()), m_formFields, selectedFormField);
     }
     else
     {
         hideFormFieldOverlay(false);
 
-        addProxy(selectedFormField);
+        addProxy(m_formFieldOverlay, SLOT(hideFormFieldOverlay()), selectedFormField);
         m_formFieldOverlay.value(selectedFormField)->widget()->setFocus();
     }
 }
 
 void PageItem::updateFormFieldOverlay()
 {
-    for(FormFieldOverlay::const_iterator i = m_formFieldOverlay.constBegin(); i != m_formFieldOverlay.constEnd(); ++i)
-    {
-        setProxyGeometry(i.key(), i.value());
-    }
+    updateOverlay(m_formFieldOverlay);
 }
 
 void PageItem::hideFormFieldOverlay(bool deleteLater)
 {
-    FormFieldOverlay formFieldOverlay;
-    formFieldOverlay.swap(m_formFieldOverlay);
-
-    if(!formFieldOverlay.isEmpty())
-    {
-        for(FormFieldOverlay::const_iterator i = formFieldOverlay.constBegin(); i != formFieldOverlay.constEnd(); ++i)
-        {
-            if(deleteLater)
-            {
-                i.value()->deleteLater();
-            }
-            else
-            {
-                delete i.value();
-            }
-        }
-
-        refresh();
-    }
+    hideOverlay(m_formFieldOverlay, deleteLater);
 }
 
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
@@ -865,34 +801,75 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
     }
 }
 
-void PageItem::addProxy(Model::Annotation* annotation)
+template< typename Overlay, typename Element >
+void PageItem::showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement)
 {
-    QGraphicsProxyWidget* proxy = scene()->addWidget(annotation->createWidget());
-    m_annotationOverlay.insert(annotation, proxy);
+    foreach(Element* element, elements)
+    {
+        if(!overlay.contains(element))
+        {
+            addProxy(overlay, hideOverlay, element);
+        }
 
-    setProxyGeometry(annotation, proxy);
-
-    connect(proxy, SIGNAL(visibleChanged()), SLOT(hideAnnotationOverlay()));
+        if(element == selectedElement)
+        {
+            overlay.value(element)->widget()->setFocus();
+        }
+    }
 }
 
-void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy)
+template< typename Overlay >
+void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
+{
+    Overlay discardedOverlay;
+    discardedOverlay.swap(overlay);
+
+    if(!discardedOverlay.isEmpty())
+    {
+        for(typename Overlay::const_iterator i = discardedOverlay.constBegin(); i != discardedOverlay.constEnd(); ++i)
+        {
+            if(deleteLater)
+            {
+                i.value()->deleteLater();
+            }
+            else
+            {
+                delete i.value();
+            }
+        }
+
+        refresh();
+    }
+}
+
+template< typename Overlay >
+void PageItem::updateOverlay(const Overlay& overlay) const
+{
+    for(typename Overlay::const_iterator i = overlay.constBegin(); i != overlay.constEnd(); ++i)
+    {
+        setProxyGeometry(i.key(), i.value());
+    }
+}
+
+template< typename Overlay, typename Element >
+void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* element)
+{
+    QGraphicsProxyWidget* proxy = scene()->addWidget(element->createWidget());
+    overlay.insert(element, proxy);
+
+    setProxyGeometry(element, proxy);
+
+    connect(proxy, SIGNAL(visibleChanged()), hideOverlay);
+}
+
+void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const
 {
     QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
 
     proxy->setPos(scenePos);
 }
 
-void PageItem::addProxy(Model::FormField* formField)
-{
-    QGraphicsProxyWidget* proxy = scene()->addWidget(formField->createWidget());
-    m_formFieldOverlay.insert(formField, proxy);
-
-    setProxyGeometry(formField, proxy);
-
-    connect(proxy, SIGNAL(visibleChanged()), SLOT(hideFormFieldOverlay()));
-}
-
-void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy)
+void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const
 {
     QRectF sceneRect = mapToScene(m_normalizedTransform.mapRect(formField->boundary())).boundingRect();
 
