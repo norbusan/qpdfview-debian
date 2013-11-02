@@ -353,17 +353,59 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
 
 void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
 {
-    // TODO
+    if(s_settings->pageItem().annotationOverlay())
+    {
+        foreach(Model::Annotation* annotation, m_annotations)
+        {
+            if(!m_annotationOverlay.contains(annotation))
+            {
+                addProxy(annotation);
+            }
+
+            if(annotation == selectedAnnotation)
+            {
+                m_annotationOverlay.value(annotation)->widget()->setFocus();
+            }
+        }
+    }
+    else
+    {
+        hideAnnotationOverlay(false);
+
+        addProxy(selectedAnnotation);
+        m_annotationOverlay.value(selectedAnnotation)->widget()->setFocus();
+    }
 }
 
 void PageItem::hideAnnotationOverlay(bool deleteLater)
 {
-    // TODO
+    AnnotationOverlay annotationOverlay;
+    annotationOverlay.swap(m_annotationOverlay);
+
+    if(!annotationOverlay.isEmpty())
+    {
+        for(AnnotationOverlay::const_iterator i = annotationOverlay.constBegin(); i != annotationOverlay.constEnd(); ++i)
+        {
+            if(deleteLater)
+            {
+                i.value()->deleteLater();
+            }
+            else
+            {
+                delete i.value();
+            }
+        }
+
+        refresh();
+    }
 }
 
 void PageItem::updateAnnotationOverlay()
 {
-    // TODO
+    for(AnnotationOverlay::const_iterator i = m_annotationOverlay.constBegin(); i != m_annotationOverlay.constEnd(); ++i)
+    {
+        setProxyGeometry(i.key(), i.value());
+    }
 }
 
 void PageItem::showFormFieldOverlay(Model::FormField* selectedFormField)
@@ -591,6 +633,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 return;
             }
         }
+
+        hideAnnotationOverlay();
 
         // form fields
 
@@ -821,14 +865,21 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
     }
 }
 
-void PageItem::addProxy(Model::Annotation *annotation)
+void PageItem::addProxy(Model::Annotation* annotation)
 {
-    // TODO
+    QGraphicsProxyWidget* proxy = scene()->addWidget(annotation->createWidget());
+    m_annotationOverlay.insert(annotation, proxy);
+
+    setProxyGeometry(annotation, proxy);
+
+    connect(proxy, SIGNAL(visibleChanged()), SLOT(hideAnnotationOverlay()));
 }
 
 void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy)
 {
-    // TODO
+    QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
+
+    proxy->setPos(scenePos);
 }
 
 void PageItem::addProxy(Model::FormField* formField)
@@ -946,6 +997,7 @@ void PageItem::prepareGeometry()
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 
+    QTimer::singleShot(0, this, SLOT(updateAnnotationOverlay()));
     QTimer::singleShot(0, this, SLOT(updateFormFieldOverlay()));
 }
 
