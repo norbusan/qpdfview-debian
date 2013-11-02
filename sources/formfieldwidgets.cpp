@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "formfieldwidgets.h"
 
+#include <QGraphicsProxyWidget>
 #include <QMutex>
 
 #include <poppler-form.h>
@@ -167,6 +168,20 @@ void ComboBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
     {
         QComboBox::keyPressEvent(event);
     }
+}
+
+void ComboBoxChoiceFieldWidget::showPopup()
+{
+    QComboBox::showPopup();
+
+    graphicsProxyWidget()->setZValue(1.0);
+}
+
+void ComboBoxChoiceFieldWidget::hidePopup()
+{
+    QComboBox::hidePopup();
+
+    graphicsProxyWidget()->setZValue(0.0);
 }
 
 void ComboBoxChoiceFieldWidget::on_currentIndexChanged(int index)

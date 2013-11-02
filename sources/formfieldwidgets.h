@@ -100,6 +100,9 @@ signals:
 protected:
     void keyPressEvent(QKeyEvent* event);
 
+    void showPopup();
+    void hidePopup();
+
 protected slots:
     void on_currentIndexChanged(int index);
     void on_currentTextChanged(const QString& text);
