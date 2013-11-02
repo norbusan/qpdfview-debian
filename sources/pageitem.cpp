@@ -740,7 +740,14 @@ void PageItem::addAnnotation(const QPoint& screenPos)
 
             m_annotations.append(annotation);
 
+            connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+            connect(annotation, SIGNAL(tabPressed()), SLOT(on_annotations_tabPressed()));
+
+            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SIGNAL(fileAttachmentSaved(QString)));
+
             refresh();
+
+            emit wasModified();
 
             annotation->showDialog(screenPos);
         }
@@ -761,6 +768,8 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
         {
             m_annotations.removeAll(annotation);
             m_page->removeAnnotation(annotation);
+
+            annotation->deleteLater();
 
             refresh();
 

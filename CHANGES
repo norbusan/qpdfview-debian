@@ -4,7 +4,8 @@ Release 0.4.7:
   * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
   * Improved behaviour of movement keys in certain corner cases. Thanks to Thomas Etter.
   * Added keyboard shortcuts to focus current page and scale factor in tool bar.
-  * Fix a race condition that could lead to dropping rendered pages.
+  * Fixed a race condition that could lead to dropping rendered pages.
+  * Fixed a small issue with adding and removing annotations.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated French translations. Thanks to Arnaud Schmittbuhl and Tubuntu.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.

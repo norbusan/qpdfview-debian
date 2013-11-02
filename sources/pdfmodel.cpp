@@ -543,7 +543,10 @@ void Model::PdfPage::removeAnnotation(Annotation* annotation)
 
 #ifdef HAS_POPPLER_20
 
-    m_page->removeAnnotation(static_cast< PdfAnnotation* >(annotation)->m_annotation);
+    PdfAnnotation* pdfAnnotation = static_cast< PdfAnnotation* >(annotation);
+
+    m_page->removeAnnotation(pdfAnnotation->m_annotation);
+    pdfAnnotation->m_annotation = 0;
 
 #else
 
