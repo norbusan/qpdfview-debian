@@ -83,6 +83,8 @@ QWidget* Model::PdfAnnotation::createWidget()
     if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
     {
         widget = new AnnotationWidget(m_mutex, m_annotation);
+
+        connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
@@ -90,7 +92,6 @@ QWidget* Model::PdfAnnotation::createWidget()
     }
 
     connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));
-    connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
 
     return widget;
 }

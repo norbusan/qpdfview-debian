@@ -65,6 +65,7 @@ AnnotationWidget::AnnotationWidget(QMutex* mutex, Poppler::Annotation* annotatio
 
 #endif // HAS_POPPLER_24
 
+    setTabChangesFocus(true);
     setPlainText(m_annotation->contents());
 
     connect(this, SIGNAL(textChanged()), SLOT(on_textChanged()));
@@ -98,8 +99,8 @@ FileAttachmentAnnotationWidget::FileAttachmentAnnotationWidget(QMutex* mutex, Po
     m_annotation(annotation)
 {
     m_menu = new QMenu(this);
-    m_saveAction = new QAction(tr("Save..."), this);
-    m_saveAndOpenAction = new QAction(tr("Save and open..."), this);
+    m_saveAction = m_menu->addAction(tr("Save..."));
+    m_saveAndOpenAction = m_menu->addAction(tr("Save and open..."));
 
     setMenu(m_menu);
     setPopupMode(QToolButton::InstantPopup);

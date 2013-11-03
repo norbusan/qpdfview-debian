@@ -864,9 +864,9 @@ void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* elem
 
 void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const
 {
-    QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
+    const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().center()));
 
-    proxy->setPos(scenePos);
+    proxy->setPos(scenePos.x() - proxy->size().width() / 2, scenePos.y() - proxy->size().height() / 2);
 }
 
 void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const
