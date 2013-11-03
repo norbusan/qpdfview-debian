@@ -876,7 +876,18 @@ void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWid
 {
     const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().center()));
 
-    proxy->setPos(scenePos.x() - proxy->size().width() / 2, scenePos.y() - proxy->size().height() / 2);
+    qreal x = scenePos.x() - proxy->preferredWidth() / 2;
+    qreal y = scenePos.y() - proxy->preferredHeight() / 2;
+    qreal width = proxy->preferredWidth();
+    qreal height = proxy->preferredHeight();
+
+    x = qMax(x, pos().x() + m_boundingRect.left());
+    y = qMax(y, pos().y() + m_boundingRect.top());
+
+    width = qMin(width, pos().x() + m_boundingRect.right() - x);
+    height = qMin(height, pos().y() + m_boundingRect.bottom() - y);
+
+    proxy->setGeometry(QRectF(x, y, width, height));
 }
 
 void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const
