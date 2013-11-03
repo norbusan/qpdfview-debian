@@ -70,6 +70,9 @@ public:
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
+    bool showsAnnotationOverlay() const;
+    bool showsFormFieldOverlay() const;
+
     int resolutionX() const;
     int resolutionY() const;
     void setResolution(int resolutionX, int resolutionY);

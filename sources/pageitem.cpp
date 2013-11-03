@@ -181,6 +181,16 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
+bool PageItem::showsAnnotationOverlay() const
+{
+    return !m_annotationOverlay.isEmpty();
+}
+
+bool PageItem::showsFormFieldOverlay() const
+{
+    return !m_formFieldOverlay.isEmpty();
+}
+
 int PageItem::resolutionX() const
 {
     return m_resolutionX;

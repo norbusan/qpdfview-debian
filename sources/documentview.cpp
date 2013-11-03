@@ -1162,6 +1162,24 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         return;
     }
 
+    if(maskedKey != -1)
+    {
+        QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
+        QGraphicsView::keyPressEvent(&keyEvent);
+    }
+    else
+    {
+        QGraphicsView::keyPressEvent(event);
+    }
+
+    foreach(const PageItem* page, m_pageItems)
+    {
+        if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
+        {
+            return;
+        }
+    }
+
     if(!m_continuousMode)
     {
         if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
@@ -1212,17 +1230,6 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         event->accept();
         return;
     }
-
-    if(maskedKey != -1)
-    {
-        QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
-        QGraphicsView::keyPressEvent(&keyEvent);
-
-        event->accept();
-        return;
-    }
-
-    QGraphicsView::keyPressEvent(event);
 }
 
 void DocumentView::wheelEvent(QWheelEvent* event)
