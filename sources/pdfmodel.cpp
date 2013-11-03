@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QFileDialog>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
@@ -87,29 +86,7 @@ QWidget* Model::PdfAnnotation::createWidget()
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        // TODO: Widgets with options to save and to open and to save and open?
-
-        /*Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
-
-        QString filePath = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
-
-        if(!filePath.isEmpty())
-        {
-            QFile file(filePath);
-
-            if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-            {
-                file.write(embeddedFile->data());
-
-                file.close();
-
-                emit fileAttachmentSaved(filePath);
-            }
-            else
-            {
-                QMessageBox::warning(0, tr("Warning"), tr("Could not save file attachment to '%1'.").arg(filePath));
-            }
-        }*/
+        widget = new FileAttachmentAnnotationWidget(m_mutex, static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation));
     }
 
     connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));

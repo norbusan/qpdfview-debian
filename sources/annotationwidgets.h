@@ -23,12 +23,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define ANNOTATIONWIDGETS_H
 
 #include <QPlainTextEdit>
+#include <QToolButton>
 
 class QMutex;
 
 namespace Poppler
 {
 class Annotation;
+class FileAttachmentAnnotation;
 }
 
 class AnnotationWidget : public QPlainTextEdit
@@ -52,6 +54,38 @@ private:
 
     QMutex* m_mutex;
     Poppler::Annotation* m_annotation;
+
+};
+
+
+class FileAttachmentAnnotationWidget : public QToolButton
+{
+    Q_OBJECT
+
+public:
+    FileAttachmentAnnotationWidget(QMutex* mutex, Poppler::FileAttachmentAnnotation* annotation, QWidget* parent = 0);
+
+protected:
+    void keyPressEvent(QKeyEvent* event);
+
+protected slots:
+    void on_aboutToShow();
+    void on_aboutToHide();
+
+    void on_save_triggered();
+    void on_saveAndOpen_triggered();
+
+private:
+    Q_DISABLE_COPY(FileAttachmentAnnotationWidget)
+
+    QMutex* m_mutex;
+    Poppler::FileAttachmentAnnotation* m_annotation;
+
+    void save(bool open);
+
+    QMenu* m_menu;
+    QAction* m_saveAction;
+    QAction* m_saveAndOpenAction;
 
 };
 
