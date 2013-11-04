@@ -1172,63 +1172,56 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         QGraphicsView::keyPressEvent(event);
     }
 
-    foreach(const PageItem* page, m_pageItems)
+    if(maskedKey == Qt::Key_PageUp || maskedKey == Qt::Key_PageDown ||
+       maskedKey == Qt::Key_Up || maskedKey == Qt::Key_Down ||
+       maskedKey == Qt::Key_Left || maskedKey == Qt::Key_Right)
     {
-        if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
+        foreach(const PageItem* page, m_pageItems)
         {
-            return;
+            if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
+            {
+                return;
+            }
         }
-    }
 
-    if(!m_continuousMode)
-    {
-        if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+        if(!m_continuousMode)
+        {
+            if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                previousPage();
+
+                verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+
+                event->accept();
+                return;
+            }
+            else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+            {
+                nextPage();
+
+                verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+
+                event->accept();
+                return;
+            }
+        }
+
+        if((maskedKey == Qt::Key_Up && verticalScrollBar()->minimum() == verticalScrollBar()->maximum()) ||
+           (maskedKey == Qt::Key_Left && !horizontalScrollBar()->isVisible()))
         {
             previousPage();
 
-            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
-
             event->accept();
             return;
         }
-        else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+        else if((maskedKey == Qt::Key_Down && verticalScrollBar()->minimum() == verticalScrollBar()->maximum()) ||
+                (maskedKey == Qt::Key_Right && !horizontalScrollBar()->isVisible()))
         {
             nextPage();
 
-            verticalScrollBar()->setValue(verticalScrollBar()->minimum());
-
             event->accept();
             return;
         }
-    }
-
-    if(maskedKey == Qt::Key_Up && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-    {
-        previousPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Down && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-    {
-        nextPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Left && !horizontalScrollBar()->isVisible())
-    {
-        previousPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Right && !horizontalScrollBar()->isVisible())
-    {
-        nextPage();
-
-        event->accept();
-        return;
     }
 }
 
