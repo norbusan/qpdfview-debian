@@ -828,6 +828,19 @@ void PageItem::showOverlay(Overlay& overlay, const char* hideOverlay, const QLis
     }
 }
 
+template< typename Overlay, typename Element >
+void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* element)
+{
+    QGraphicsProxyWidget* proxy = new QGraphicsProxyWidget(this);
+    proxy->setAutoFillBackground(true);
+    proxy->setWidget(element->createWidget());
+
+    overlay.insert(element, proxy);
+    setProxyGeometry(element, proxy);
+
+    connect(proxy, SIGNAL(visibleChanged()), hideOverlay);
+}
+
 template< typename Overlay >
 void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
 {
@@ -861,43 +874,32 @@ void PageItem::updateOverlay(const Overlay& overlay) const
     }
 }
 
-template< typename Overlay, typename Element >
-void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* element)
-{
-    QGraphicsProxyWidget* proxy = scene()->addWidget(element->createWidget());
-    overlay.insert(element, proxy);
-
-    setProxyGeometry(element, proxy);
-
-    connect(proxy, SIGNAL(visibleChanged()), hideOverlay);
-}
-
 void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const
 {
-    const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().center()));
+    const QPointF center = m_normalizedTransform.map(annotation->boundary().center());
 
-    qreal x = scenePos.x() - proxy->preferredWidth() / 2;
-    qreal y = scenePos.y() - proxy->preferredHeight() / 2;
+    qreal x = center.x() - 0.5 * proxy->preferredWidth();
+    qreal y = center.y() - 0.5 * proxy->preferredHeight();
     qreal width = proxy->preferredWidth();
     qreal height = proxy->preferredHeight();
 
-    x = qMax(x, pos().x() + m_boundingRect.left());
-    y = qMax(y, pos().y() + m_boundingRect.top());
+    x = qMax(x, m_boundingRect.left() + proxyPadding);
+    y = qMax(y, m_boundingRect.top() + proxyPadding);
 
-    width = qMin(width, pos().x() + m_boundingRect.right() - x);
-    height = qMin(height, pos().y() + m_boundingRect.bottom() - y);
+    width = qMin(width, m_boundingRect.right() - proxyPadding - x);
+    height = qMin(height, m_boundingRect.bottom() - proxyPadding - y);
 
     proxy->setGeometry(QRectF(x, y, width, height));
 }
 
 void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const
 {
-    QRectF sceneRect = mapToScene(m_normalizedTransform.mapRect(formField->boundary())).boundingRect();
+    QRectF rect = m_normalizedTransform.mapRect(formField->boundary());
 
-    qreal x = sceneRect.x();
-    qreal y = sceneRect.y();
-    qreal width = sceneRect.width();
-    qreal height = sceneRect.height();
+    qreal x = rect.x();
+    qreal y = rect.y();
+    qreal width = rect.width();
+    qreal height = rect.height();
 
     switch(m_rotation)
     {
@@ -930,12 +932,7 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
 
     proxy->setScale(m_scaleFactor);
 
-    sceneRect.setX(x);
-    sceneRect.setY(y);
-    sceneRect.setWidth(width);
-    sceneRect.setHeight(height);
-
-    proxy->setGeometry(sceneRect);
+    proxy->setGeometry(QRectF(x - proxyPadding, y - proxyPadding, width + proxyPadding, height + proxyPadding));
 }
 
 qreal PageItem::effectiveDevicePixelRatio()
@@ -995,8 +992,8 @@ void PageItem::prepareGeometry()
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 
-    QTimer::singleShot(0, this, SLOT(updateAnnotationOverlay()));
-    QTimer::singleShot(0, this, SLOT(updateFormFieldOverlay()));
+    updateAnnotationOverlay();
+    updateFormFieldOverlay();
 }
 
 QPixmap PageItem::cachedPixmap()

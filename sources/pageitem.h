@@ -170,10 +170,11 @@ private:
     void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
 
     template< typename Overlay, typename Element > void showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement);
+    template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
     template< typename Overlay > void hideOverlay(Overlay& overlay, bool deleteLater);
     template< typename Overlay > void updateOverlay(const Overlay& overlay) const;
 
-    template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
+    static const qreal proxyPadding = 2.0;
     void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
     void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const;
 
