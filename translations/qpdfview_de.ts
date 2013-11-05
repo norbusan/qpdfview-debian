@@ -64,12 +64,12 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1105"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
+        <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1519"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Drucke &quot;%1&quot;...</translation>
+        <translation type="unfinished">Drucke »%1« …</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1596"/>
@@ -115,7 +115,7 @@
         <location filename="../sources/mainwindow.cpp" line="170"/>
         <location filename="../sources/mainwindow.cpp" line="263"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <translation type="unfinished">Konnte &quot;%1&quot; nicht öffnen.</translation>
+        <translation type="unfinished">Konnte »%1« nicht öffnen.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="508"/>
@@ -146,7 +146,7 @@
         <location filename="../sources/mainwindow.cpp" line="980"/>
         <location filename="../sources/mainwindow.cpp" line="1174"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished">Konnte &quot;%1&quot; nicht aktualisieren.</translation>
+        <translation type="unfinished">Konnte »%1« nicht aktualisieren.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="988"/>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="998"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished">Konnte keine Kopie unter &quot;%1&quot; speichern.</translation>
+        <translation type="unfinished">Konnte keine Kopie unter »%1« speichern.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1005"/>
@@ -173,7 +173,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1051"/>
         <source>Could not print &apos;%1&apos;.</source>
-        <translation type="unfinished">Konnte &quot;%1&quot; nicht drucken.</translation>
+        <translation type="unfinished">Konnte »%1« nicht drucken.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1090"/>
@@ -238,7 +238,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1859"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">Das Dokument &quot;%1&quot; wurde verändert. Möchten sie ihre Änderungen speichern?</translation>
+        <translation type="unfinished">Das Dokument »%1« wurde verändert. Möchten sie ihre Änderungen speichern?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1929"/>
@@ -263,12 +263,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1996"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished">Öff&amp;nen...</translation>
+        <translation type="unfinished">Öff&amp;nen …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">In neuem Rei&amp;ter öffnen...</translation>
+        <translation type="unfinished">In neuem Rei&amp;ter öffnen …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1998"/>
@@ -283,7 +283,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>&amp;Save copy...</source>
-        <translation type="unfinished">Kopie &amp;speichern…</translation>
+        <translation type="unfinished">Kopie &amp;speichern …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2001"/>
@@ -293,7 +293,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Drucken...</translation>
+        <translation type="unfinished">&amp;Drucken …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2003"/>
@@ -323,7 +323,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2012"/>
         <source>&amp;Jump to page...</source>
-        <translation type="unfinished">&amp;Zu Seite springen...</translation>
+        <translation type="unfinished">&amp;Zu Seite springen …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2014"/>
@@ -338,7 +338,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2017"/>
         <source>&amp;Search...</source>
-        <translation type="unfinished">&amp;Suchen...</translation>
+        <translation type="unfinished">&amp;Suchen …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -368,7 +368,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2025"/>
         <source>Settings...</source>
-        <translation type="unfinished">Einstellungen...</translation>
+        <translation type="unfinished">Einstellungen …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2029"/>
@@ -433,7 +433,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2046"/>
         <source>Fonts...</source>
-        <translation type="unfinished">Schriften...</translation>
+        <translation type="unfinished">Schriften …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2048"/>
@@ -443,7 +443,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2049"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished">&amp;Presentation...</translation>
+        <translation type="unfinished">&amp;Präsentation …</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2053"/>
@@ -683,7 +683,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="398"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished">Gehe zu Seite %1 in Datei &quot;%2&quot;.</translation>
+        <translation type="unfinished">Gehe zu Seite %1 in Datei »%2«.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="406"/>
@@ -693,7 +693,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="441"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished">Formularfeld &quot;%1&quot; bearbeiten.</translation>
+        <translation type="unfinished">Formularfeld »%1« bearbeiten.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="673"/>
@@ -708,7 +708,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="675"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished">Bild in &amp;Datei speichern...</translation>
+        <translation type="unfinished">Bild in &amp;Datei speichern …</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="701"/>
@@ -723,7 +723,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="705"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished">Konnte Bild nicht in Datei &quot;%1&quot; speichern.</translation>
+        <translation type="unfinished">Konnte Bild nicht in Datei »%1« speichern.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="718"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Keine SyncTeX-Daten für &quot;%1&quot; gefunden.</translation>
+        <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="440"/>
@@ -1053,7 +1053,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
@@ -1180,7 +1180,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">&quot;%1&quot; wird durch den Pfad der Datei ersetzt. &quot;%2&quot; bzw. &quot;%3&quot; wird durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
+        <translation type="unfinished">»%1« wird durch den Pfad der Datei ersetzt. »%2« bzw. »%3« wird durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="394"/>
