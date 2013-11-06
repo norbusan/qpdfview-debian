@@ -84,7 +84,6 @@ private:
     // behavior
 
     QCheckBox* m_openUrlCheckBox;
-    QCheckBox* m_openFileAttachmentsCheckBox;
 
     QCheckBox* m_autoRefreshCheckBox;
 
@@ -97,8 +96,8 @@ private:
     QCheckBox* m_presentationSyncCheckBox;
     QSpinBox* m_presentationScreenSpinBox;
 
-    QComboBox* m_highlightColorComboBox;
     QSpinBox* m_highlightDurationSpinBox;
+    QComboBox* m_highlightColorComboBox;
     QComboBox* m_annotationColorComboBox;
 
     QLineEdit* m_sourceEditorLineEdit;
@@ -158,6 +157,9 @@ private:
 
     QCheckBox* m_highlightCurrentThumbnailCheckBox;
     QCheckBox* m_limitThumbnailsToResultsCheckBox;
+
+    QCheckBox* m_annotationOverlayCheckBox;
+    QCheckBox* m_formFieldOverlayCheckBox;
 
     void createInterfaceTab();
     void resetInterfaceTab();

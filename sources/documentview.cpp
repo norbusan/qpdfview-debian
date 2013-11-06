@@ -1053,14 +1053,6 @@ void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
     emit linkClicked(filePath, page);
 }
 
-void DocumentView::on_pages_fileAttachmentSaved(const QString& filePath)
-{
-    if(s_settings->documentView().openFileAttachments())
-    {
-        QDesktopServices::openUrl(QUrl(filePath));
-    }
-}
-
 void DocumentView::on_pages_rubberBandFinished()
 {
     setRubberBandMode(ModifiersMode);
@@ -1111,16 +1103,6 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     Q_UNUSED(pos);
 
 #endif // WITH_SYNCTEX
-}
-
-void DocumentView::on_pages_dialogRequested(Model::Annotation* annotation, const QPointF& scenePos)
-{
-    annotation->showDialog(viewport()->mapToGlobal(mapFromScene(scenePos)));
-}
-
-void DocumentView::on_pages_dialogRequested(Model::FormField* formField, const QPointF& scenePos)
-{
-    formField->showDialog(viewport()->mapToGlobal(mapFromScene(scenePos)));
 }
 
 void DocumentView::on_pages_wasModified()
@@ -1180,67 +1162,67 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         return;
     }
 
-    if(!m_continuousMode)
-    {
-        if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
-        {
-            previousPage();
-
-            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
-
-            event->accept();
-            return;
-        }
-        else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
-        {
-            nextPage();
-
-            verticalScrollBar()->setValue(verticalScrollBar()->minimum());
-
-            event->accept();
-            return;
-        }
-    }
-
-    if(maskedKey == Qt::Key_Up && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-    {
-        previousPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Down && verticalScrollBar()->minimum() == verticalScrollBar()->maximum())
-    {
-        nextPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Left && !horizontalScrollBar()->isVisible())
-    {
-        previousPage();
-
-        event->accept();
-        return;
-    }
-    else if(maskedKey == Qt::Key_Right && !horizontalScrollBar()->isVisible())
-    {
-        nextPage();
-
-        event->accept();
-        return;
-    }
-
     if(maskedKey != -1)
     {
         QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
         QGraphicsView::keyPressEvent(&keyEvent);
-
-        event->accept();
-        return;
+    }
+    else
+    {
+        QGraphicsView::keyPressEvent(event);
     }
 
-    QGraphicsView::keyPressEvent(event);
+    if(maskedKey == Qt::Key_PageUp || maskedKey == Qt::Key_PageDown ||
+       maskedKey == Qt::Key_Up || maskedKey == Qt::Key_Down ||
+       maskedKey == Qt::Key_Left || maskedKey == Qt::Key_Right)
+    {
+        foreach(const PageItem* page, m_pageItems)
+        {
+            if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
+            {
+                return;
+            }
+        }
+
+        if(!m_continuousMode)
+        {
+            if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+            {
+                previousPage();
+
+                verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+
+                event->accept();
+                return;
+            }
+            else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+            {
+                nextPage();
+
+                verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+
+                event->accept();
+                return;
+            }
+        }
+
+        if((maskedKey == Qt::Key_Up && verticalScrollBar()->minimum() == verticalScrollBar()->maximum()) ||
+           (maskedKey == Qt::Key_Left && !horizontalScrollBar()->isVisible()))
+        {
+            previousPage();
+
+            event->accept();
+            return;
+        }
+        else if((maskedKey == Qt::Key_Down && verticalScrollBar()->minimum() == verticalScrollBar()->maximum()) ||
+                (maskedKey == Qt::Key_Right && !horizontalScrollBar()->isVisible()))
+        {
+            nextPage();
+
+            event->accept();
+            return;
+        }
+    }
 }
 
 void DocumentView::wheelEvent(QWheelEvent* event)
@@ -1679,14 +1661,9 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
         connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
 
-        connect(page, SIGNAL(fileAttachmentSaved(QString)), SLOT(on_pages_fileAttachmentSaved(QString)));
-
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
-
-        connect(page, SIGNAL(dialogRequested(Model::Annotation*,QPointF)), SLOT(on_pages_dialogRequested(Model::Annotation*,QPointF)));
-        connect(page, SIGNAL(dialogRequested(Model::FormField*,QPointF)), SLOT(on_pages_dialogRequested(Model::FormField*,QPointF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }

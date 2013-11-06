@@ -57,24 +57,52 @@
         <translation type="unfinished">Сілтемелерді ашу мүмкіндігі баптауларда сөндірілген.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1105"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1105"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1519"/>
+        <location filename="../sources/documentview.cpp" line="1501"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1596"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
+    </message>
+</context>
+<context>
+    <name>FileAttachmentAnnotationWidget</name>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="102"/>
+        <source>Save...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="103"/>
+        <source>Save and open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="154"/>
+        <source>Save file attachment</source>
+        <translation type="unfinished">Файл салынымын сақтау</translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <source>Warning</source>
+        <translation type="unfinished">Ескерту</translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <translation type="unfinished">Файл салынымын &apos;%1&apos; ішіне сақтау мүмкін емес.</translation>
     </message>
 </context>
 <context>
@@ -570,59 +598,41 @@
     </message>
 </context>
 <context>
-    <name>Model::PdfAnnotation</name>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="105"/>
-        <source>Save file attachment</source>
-        <translation type="unfinished">Файл салынымын сақтау</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="121"/>
-        <source>Warning</source>
-        <translation type="unfinished">Ескерту</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="121"/>
-        <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Файл салынымын &apos;%1&apos; ішіне сақтау мүмкін емес.</translation>
-    </message>
-</context>
-<context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Name</source>
         <translation type="unfinished">Аты</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Type</source>
         <translation type="unfinished">Түрі</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Embedded</source>
         <translation type="unfinished">Енгізілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Subset</source>
         <translation type="unfinished">Ішкі жиын</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="897"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="826"/>
+        <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Yes</source>
         <translation type="unfinished">Иә</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="897"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="826"/>
+        <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>No</source>
         <translation type="unfinished">Жоқ</translation>
     </message>
@@ -630,12 +640,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="448"/>
+        <location filename="../sources/pdfmodel.cpp" line="412"/>
         <source>Information</source>
         <translation type="unfinished">Ақпараты</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="448"/>
+        <location filename="../sources/pdfmodel.cpp" line="412"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Аңдатпаларды қосу не өшіру үшін Poppler библиотекасының 0.20.1 не одан жоғары нұсқасы керек.</translation>
     </message>
@@ -676,67 +686,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="394"/>
+        <location filename="../sources/pageitem.cpp" line="434"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">%1 бетке өту.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="398"/>
+        <location filename="../sources/pageitem.cpp" line="438"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">%1 бетке өту, &apos;%2&apos; файлы ішінде.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="406"/>
+        <location filename="../sources/pageitem.cpp" line="446"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">%1&apos; ашу.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="441"/>
+        <location filename="../sources/pageitem.cpp" line="481"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; форма өрісін түзету.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="673"/>
+        <location filename="../sources/pageitem.cpp" line="712"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Мә&amp;тінін көшіріп алу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="713"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Сурет&amp;ті көшіру</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="675"/>
+        <location filename="../sources/pageitem.cpp" line="714"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Суретті &amp;файлға сақтау...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="701"/>
+        <location filename="../sources/pageitem.cpp" line="740"/>
         <source>Save image to file</source>
         <translation type="unfinished">Суретті файлға сақтау</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="705"/>
+        <location filename="../sources/pageitem.cpp" line="744"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="705"/>
+        <location filename="../sources/pageitem.cpp" line="744"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Суретті &apos;%1&apos; файлын сақтау мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="718"/>
+        <location filename="../sources/pageitem.cpp" line="757"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Мә&amp;тінді қосу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="719"/>
+        <location filename="../sources/pageitem.cpp" line="758"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Түспен ер&amp;екшелеуді қосу</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="763"/>
+        <location filename="../sources/pageitem.cpp" line="797"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Аңдатпаны ө&amp;шіру</translation>
     </message>
@@ -744,54 +754,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="842"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="849"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Мәтінді тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
-        <location filename="../sources/pdfmodel.cpp" line="957"/>
+        <location filename="../sources/pdfmodel.cpp" line="856"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="928"/>
+        <location filename="../sources/pdfmodel.cpp" line="857"/>
         <source>Full</source>
         <translation type="unfinished">Толық</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="858"/>
         <source>Reduced</source>
         <translation type="unfinished">Кішірейтілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="932"/>
-        <location filename="../sources/pdfmodel.cpp" line="939"/>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="868"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="950"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="958"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
         <source>Solid</source>
         <translation type="unfinished">Бүтін</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="959"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>Shaped</source>
         <translation type="unfinished">Пішінделген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="962"/>
+        <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Жұқа сызық режимі:</translation>
     </message>
@@ -1013,32 +1023,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="773"/>
+        <location filename="../sources/settingsdialog.cpp" line="784"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="774"/>
+        <location filename="../sources/settingsdialog.cpp" line="785"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="775"/>
+        <location filename="../sources/settingsdialog.cpp" line="786"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="776"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift және Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="777"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift және Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="778"/>
+        <location filename="../sources/settingsdialog.cpp" line="789"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl және Alt</translation>
     </message>
@@ -1099,298 +1109,303 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="296"/>
+        <location filename="../sources/settingsdialog.cpp" line="298"/>
         <source>Open URL:</source>
         <translation type="unfinished">Сілтемені ашу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="303"/>
-        <source>Open file attachments:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Автожаңарту:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="316"/>
-        <location filename="../sources/settingsdialog.cpp" line="631"/>
-        <location filename="../sources/settingsdialog.cpp" line="639"/>
-        <location filename="../sources/settingsdialog.cpp" line="647"/>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="311"/>
+        <location filename="../sources/settingsdialog.cpp" line="625"/>
+        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="641"/>
+        <location filename="../sources/settingsdialog.cpp" line="649"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Қайта қосудан кейін іске асады.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="318"/>
+        <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Жақында қолданылғанды бақылау:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="325"/>
+        <location filename="../sources/settingsdialog.cpp" line="320"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Беттерді қалпына келтіру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="332"/>
+        <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Бетбелгілерді қалпына келтіру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="339"/>
+        <location filename="../sources/settingsdialog.cpp" line="334"/>
         <source>Restore per-file settings:</source>
         <translation type="unfinished">Жеке файлдарға қатысты баптауларды қалпына келтіру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="354"/>
+        <location filename="../sources/settingsdialog.cpp" line="349"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Презентацияны синхрондау:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="360"/>
+        <location filename="../sources/settingsdialog.cpp" line="355"/>
         <source>Default</source>
         <translation type="unfinished">Бастапқы</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="363"/>
+        <location filename="../sources/settingsdialog.cpp" line="358"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Презентация экраны</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="369"/>
+        <location filename="../sources/settingsdialog.cpp" line="375"/>
         <source>Highlight color:</source>
         <translation type="unfinished">Түспен ерекшелеу түсі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="377"/>
+        <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="380"/>
+        <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Түспен ерекшелеу ұзақтығы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Аңдатпа түсі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="392"/>
+        <location filename="../sources/settingsdialog.cpp" line="387"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; файлға дейінгі абсолютті орналасу жолымен алмастырылады. &apos;%2&apos; және &apos;%3&apos; сәйкесінше жол және баған нөмерімен алмастырылады.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <location filename="../sources/settingsdialog.cpp" line="389"/>
         <source>Source editor:</source>
         <translation type="unfinished">Бастапқы код түзеткіші:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="427"/>
+        <location filename="../sources/settingsdialog.cpp" line="421"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="436"/>
+        <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Бет қоршауы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="452"/>
+        <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Сілтемелерді ерекшелеу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <location filename="../sources/settingsdialog.cpp" line="453"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Формалар өрістерін ерекшелеу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="465"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Background color:</source>
         <translation type="unfinished">Фон түсі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="471"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Paper color:</source>
         <translation type="unfinished">Қағаз түсі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="477"/>
+        <location filename="../sources/settingsdialog.cpp" line="471"/>
         <source>Presentation background color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="485"/>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Бір жолдағы беттер саны</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="495"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Беттер аралығы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="505"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Үлгілер аралығы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Үлгі өлшемі:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="516"/>
+        <location filename="../sources/settingsdialog.cpp" line="517"/>
+        <location filename="../sources/settingsdialog.cpp" line="518"/>
+        <location filename="../sources/settingsdialog.cpp" line="519"/>
         <location filename="../sources/settingsdialog.cpp" line="520"/>
         <location filename="../sources/settingsdialog.cpp" line="521"/>
-        <location filename="../sources/settingsdialog.cpp" line="522"/>
-        <location filename="../sources/settingsdialog.cpp" line="523"/>
-        <location filename="../sources/settingsdialog.cpp" line="524"/>
-        <location filename="../sources/settingsdialog.cpp" line="525"/>
-        <location filename="../sources/settingsdialog.cpp" line="526"/>
-        <location filename="../sources/settingsdialog.cpp" line="527"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 МБ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="530"/>
+        <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Cache size:</source>
         <translation type="unfinished">Кэш өлшемі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="537"/>
+        <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Алдын-ала жүктеу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="545"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Алдын-ала жүктеу қашықтығы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="601"/>
+        <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Top</source>
         <translation type="unfinished">Жоғары</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="602"/>
+        <location filename="../sources/settingsdialog.cpp" line="596"/>
         <source>Bottom</source>
         <translation type="unfinished">Төмен</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="603"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Left</source>
         <translation type="unfinished">Сол жақ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="604"/>
+        <location filename="../sources/settingsdialog.cpp" line="598"/>
         <source>Right</source>
         <translation type="unfinished">Оң жақ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="607"/>
+        <location filename="../sources/settingsdialog.cpp" line="601"/>
         <source>Tab position:</source>
         <translation type="unfinished">Беттердің орналасуы:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="612"/>
+        <location filename="../sources/settingsdialog.cpp" line="606"/>
         <source>As needed</source>
         <translation type="unfinished">Керек болған кезде</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="613"/>
+        <location filename="../sources/settingsdialog.cpp" line="607"/>
         <source>Always</source>
         <translation type="unfinished">Әрқашан</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="614"/>
+        <location filename="../sources/settingsdialog.cpp" line="608"/>
         <source>Never</source>
         <translation type="unfinished">Ешқашан</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="617"/>
+        <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Бет көрінуі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="624"/>
+        <location filename="../sources/settingsdialog.cpp" line="618"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Жаңа бетті ағымдағы беттен кейін ашу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="627"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Жақында қолданылған құжаттар саны:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="641"/>
+        <location filename="../sources/settingsdialog.cpp" line="635"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Файл саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="649"/>
+        <location filename="../sources/settingsdialog.cpp" line="643"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Түзету саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="651"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Түрі саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="664"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Терезе атауында ағымдағы бет:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="665"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="672"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="679"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Ағымдағы үлгіні түспен ерекшелеу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="692"/>
+        <location filename="../sources/settingsdialog.cpp" line="686"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="723"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="700"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="734"/>
         <source>Zoom:</source>
         <translation type="unfinished">Масштаб:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="729"/>
+        <location filename="../sources/settingsdialog.cpp" line="740"/>
         <source>Rotate:</source>
         <translation type="unfinished">Бұру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="735"/>
+        <location filename="../sources/settingsdialog.cpp" line="746"/>
         <source>Scroll:</source>
         <translation type="unfinished">Айналдыру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="741"/>
+        <location filename="../sources/settingsdialog.cpp" line="752"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Алмасу буферіне көшіру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="747"/>
+        <location filename="../sources/settingsdialog.cpp" line="758"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Аңдатпаны қосу:</translation>
     </message>

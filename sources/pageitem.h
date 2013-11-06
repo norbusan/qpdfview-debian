@@ -32,6 +32,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+class QGraphicsProxyWidget;
+
 #include "global.h"
 
 namespace Model
@@ -68,6 +70,9 @@ public:
     RubberBandMode rubberBandMode() const;
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
+    bool showsAnnotationOverlay() const;
+    bool showsFormFieldOverlay() const;
+
     int resolutionX() const;
     int resolutionY() const;
     void setResolution(int resolutionX, int resolutionY);
@@ -89,15 +94,10 @@ signals:
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
 
-    void fileAttachmentSaved(const QString& filePath);
-
     void rubberBandStarted();
     void rubberBandFinished();
 
     void sourceRequested(int page, const QPointF& pos);
-
-    void dialogRequested(Model::Annotation* annotation, const QPointF& scenePos);
-    void dialogRequested(Model::FormField* formField, const QPointF& scenePos);
 
     void wasModified();
 
@@ -111,8 +111,13 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
-    void on_annotations_tabPressed();
-    void on_formFields_tabPressed();
+    void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
+    void hideAnnotationOverlay(bool deleteLater = true);
+    void updateAnnotationOverlay();
+
+    void showFormFieldOverlay(Model::FormField* selectedFormField);
+    void hideFormFieldOverlay(bool deleteLater = true);
+    void updateFormFieldOverlay();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*);
@@ -145,6 +150,12 @@ private:
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
 
+    typedef QMap< Model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
+    AnnotationOverlay m_annotationOverlay;
+
+    typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
+    FormFieldOverlay m_formFieldOverlay;
+
     bool m_presentationMode;
     bool m_invertColors;
 
@@ -157,6 +168,15 @@ private:
 
     void addAnnotation(const QPoint& screenPos);
     void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+
+    template< typename Overlay, typename Element > void showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement);
+    template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
+    template< typename Overlay > void hideOverlay(Overlay& overlay, bool deleteLater);
+    template< typename Overlay > void updateOverlay(const Overlay& overlay) const;
+
+    static const qreal proxyPadding = 2.0;
+    void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
+    void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const;
 
     // geometry
 

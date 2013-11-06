@@ -162,6 +162,26 @@ void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& 
     m_settings->setValue("pageItem/addAnnotationModifiers", static_cast< int >(modifiers));
 }
 
+bool Settings::PageItem::annotationOverlay() const
+{
+    return m_settings->value("pageItem/annotationOverlay", Defaults::PageItem::annotationOverlay()).toBool();
+}
+
+void Settings::PageItem::setAnnotationOverlay(bool overlay)
+{
+    m_settings->setValue("pageItem/annotationOverlay", overlay);
+}
+
+bool Settings::PageItem::formFieldOverlay() const
+{
+    return m_settings->value("pageItem/formFieldOverlay", Defaults::PageItem::formFieldOverlay()).toBool();
+}
+
+void Settings::PageItem::setFormFieldOverlay(bool overlay)
+{
+    m_settings->setValue("pageItem/formFieldOverlay", overlay);
+}
+
 Settings::PageItem::PageItem(QSettings* settings) :
     m_settings(settings),
     m_cacheSize(Defaults::PageItem::cacheSize()),
@@ -248,17 +268,6 @@ void Settings::DocumentView::setOpenUrl(bool openUrl)
 {
     m_settings->setValue("documentView/openUrl", openUrl);
 }
-
-bool Settings::DocumentView::openFileAttachments() const
-{
-    return m_settings->value("documentView/openFileAttachments", Defaults::DocumentView::openFileAttachments()).toBool();
-}
-
-void Settings::DocumentView::setOpenFileAttachments(bool openFileAttachments)
-{
-    m_settings->setValue("documentView/openFileAttachments", openFileAttachments);
-}
-
 
 bool Settings::DocumentView::autoRefresh() const
 {

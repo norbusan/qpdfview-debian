@@ -169,7 +169,6 @@ void SettingsDialog::accept()
     // behavior
 
     s_settings->documentView().setOpenUrl(m_openUrlCheckBox->isChecked());
-    s_settings->documentView().setOpenFileAttachments(m_openFileAttachmentsCheckBox->isChecked());
 
     s_settings->documentView().setAutoRefresh(m_autoRefreshCheckBox->isChecked());
 
@@ -182,8 +181,8 @@ void SettingsDialog::accept()
     s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
-    s_settings->pageItem().setHighlightColor(getValidColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
+    s_settings->pageItem().setHighlightColor(getValidColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
     s_settings->pageItem().setAnnotationColor(getValidColorFromCurrentText(m_annotationColorComboBox, Defaults::PageItem::annotationColor()));
 
     s_settings->documentView().setSourceEditor(m_sourceEditorLineEdit->text());
@@ -237,6 +236,9 @@ void SettingsDialog::accept()
 
     s_settings->documentView().setHighlightCurrentThumbnail(m_highlightCurrentThumbnailCheckBox->isChecked());
     s_settings->documentView().setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
+
+    s_settings->pageItem().setAnnotationOverlay(m_annotationOverlayCheckBox->isChecked());
+    s_settings->pageItem().setFormFieldOverlay(m_formFieldOverlayCheckBox);
 
     // modifiers
 
@@ -294,13 +296,6 @@ void SettingsDialog::createBehaviorTab()
     m_openUrlCheckBox->setChecked(s_settings->documentView().openUrl());
 
     m_behaviorLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
-
-    // open file attachments
-
-    m_openFileAttachmentsCheckBox = new QCheckBox(this);
-    m_openFileAttachmentsCheckBox->setChecked(s_settings->documentView().openFileAttachments());
-
-    m_behaviorLayout->addRow(tr("Open file attachments:"), m_openFileAttachmentsCheckBox);
 
     // auto-refresh
 
@@ -362,12 +357,6 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
-    // highlight color
-
-    createColorComboBox(m_highlightColorComboBox, s_settings->pageItem().highlightColor());
-
-    m_behaviorLayout->addRow(tr("Highlight color:"), m_highlightColorComboBox);
-
     // highlight duration
 
     m_highlightDurationSpinBox = new QSpinBox(this);
@@ -378,6 +367,12 @@ void SettingsDialog::createBehaviorTab()
     m_highlightDurationSpinBox->setValue(s_settings->documentView().highlightDuration());
 
     m_behaviorLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
+
+    // highlight color
+
+    createColorComboBox(m_highlightColorComboBox, s_settings->pageItem().highlightColor());
+
+    m_behaviorLayout->addRow(tr("Highlight color:"), m_highlightColorComboBox);
 
     // annotation color
 
@@ -397,7 +392,6 @@ void SettingsDialog::createBehaviorTab()
 void SettingsDialog::resetBehaviorTab()
 {
     m_openUrlCheckBox->setChecked(Defaults::DocumentView::openUrl());
-    m_openFileAttachmentsCheckBox->setChecked(Defaults::DocumentView::openFileAttachments());
 
     m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
 
@@ -410,8 +404,8 @@ void SettingsDialog::resetBehaviorTab()
     m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
-    setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
+    setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
     setCurrentTextToColorName(m_annotationColorComboBox, Defaults::PageItem::annotationColor());
 
     m_sourceEditorLineEdit->clear();
@@ -690,6 +684,20 @@ void SettingsDialog::createInterfaceTab()
     m_limitThumbnailsToResultsCheckBox->setChecked(s_settings->documentView().limitThumbnailsToResults());
 
     m_interfaceLayout->addRow(tr("Limit thumbnails to results:"), m_limitThumbnailsToResultsCheckBox);
+
+    // annotation overlay
+
+    m_annotationOverlayCheckBox = new QCheckBox(this);
+    m_annotationOverlayCheckBox->setChecked(s_settings->pageItem().annotationOverlay());
+
+    m_interfaceLayout->addRow(tr("Annotation overlay:"), m_annotationOverlayCheckBox);
+
+    // form field overlay
+
+    m_formFieldOverlayCheckBox = new QCheckBox(this);
+    m_formFieldOverlayCheckBox->setChecked(s_settings->pageItem().formFieldOverlay());
+
+    m_interfaceLayout->addRow(tr("Form field overlay:"), m_formFieldOverlayCheckBox);
 }
 
 void SettingsDialog::resetInterfaceTab()
@@ -712,6 +720,9 @@ void SettingsDialog::resetInterfaceTab()
 
     m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
     m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
+
+    m_annotationOverlayCheckBox->setChecked(Defaults::PageItem::annotationOverlay());
+    m_formFieldOverlayCheckBox->setChecked(Defaults::PageItem::formFieldOverlay());
 }
 
 void SettingsDialog::createModifiersTab()

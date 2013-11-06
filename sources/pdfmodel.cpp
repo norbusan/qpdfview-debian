@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QFileDialog>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
@@ -41,8 +40,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-form.h>
 
-#include "annotationdialog.h"
-#include "formfielddialog.h"
+#include "annotationwidgets.h"
+#include "formfieldwidgets.h"
 
 Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) : Annotation(),
     m_mutex(mutex),
@@ -77,51 +76,24 @@ QString Model::PdfAnnotation::contents() const
     return m_annotation->contents();
 }
 
-void Model::PdfAnnotation::showDialog(const QPoint& screenPos)
+QWidget* Model::PdfAnnotation::createWidget()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
+    QWidget* widget = 0;
 
     if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
     {
-        AnnotationDialog* annotationDialog = new AnnotationDialog(m_mutex, m_annotation);
+        widget = new AnnotationWidget(m_mutex, m_annotation);
 
-        annotationDialog->move(screenPos);
-
-        annotationDialog->setAttribute(Qt::WA_DeleteOnClose);
-        annotationDialog->show();
-
-        connect(annotationDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
-        connect(annotationDialog, SIGNAL(tabPressed()), SIGNAL(tabPressed()));
+        connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
     }
     else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
     {
-        Poppler::EmbeddedFile* embeddedFile = static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation)->embeddedFile();
-
-        QString filePath = QFileDialog::getSaveFileName(0, tr("Save file attachment"), embeddedFile->name());
-
-        if(!filePath.isEmpty())
-        {
-            QFile file(filePath);
-
-            if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-            {
-                file.write(embeddedFile->data());
-
-                file.close();
-
-                emit fileAttachmentSaved(filePath);
-            }
-            else
-            {
-                QMessageBox::warning(0, tr("Warning"), tr("Could not save file attachment to '%1'.").arg(filePath));
-            }
-        }
+        widget = new FileAttachmentAnnotationWidget(m_mutex, static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation));
     }
+
+    connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));
+
+    return widget;
 }
 
 Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) : FormField(),
@@ -157,36 +129,53 @@ QString Model::PdfFormField::name() const
     return m_formField->name();
 }
 
-void Model::PdfFormField::showDialog(const QPoint& screenPos)
+QWidget* Model::PdfFormField::createWidget()
 {
-#ifndef HAS_POPPLER_24
+    QWidget* widget = 0;
 
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    if(m_formField->type() == Poppler::FormField::FormText || m_formField->type() == Poppler::FormField::FormChoice)
+    if(m_formField->type() == Poppler::FormField::FormText)
     {
-        FormFieldDialog* formFieldDialog = new FormFieldDialog(m_mutex, m_formField);
+        Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(m_formField);
 
-        formFieldDialog->move(screenPos);
+        if(formFieldText->textType() == Poppler::FormFieldText::Normal)
+        {
+            widget = new NormalTextFieldWidget(m_mutex, formFieldText);
+        }
+        else if(formFieldText->textType() == Poppler::FormFieldText::Multiline)
+        {
+            widget = new MultilineTextFieldWidget(m_mutex, formFieldText);
+        }
+    }
+    else if(m_formField->type() == Poppler::FormField::FormChoice)
+    {
+        Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(m_formField);
 
-        formFieldDialog->setAttribute(Qt::WA_DeleteOnClose);
-        formFieldDialog->show();
-
-        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(needsRefresh()));
-        connect(formFieldDialog, SIGNAL(destroyed()), SIGNAL(wasModified()));
-        connect(formFieldDialog, SIGNAL(tabPressed()), SIGNAL(tabPressed()));
+        if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
+        {
+            widget = new ComboBoxChoiceFieldWidget(m_mutex, formFieldChoice);
+        }
+        else if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox)
+        {
+            widget = new ListBoxChoiceFieldWidget(m_mutex, formFieldChoice);
+        }
     }
     else if(m_formField->type() == Poppler::FormField::FormButton)
     {
         Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
 
-        formFieldButton->setState(!formFieldButton->state());
-
-        emit needsRefresh();
-        emit wasModified();
+        if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox)
+        {
+            widget = new CheckBoxChoiceFieldWidget(m_mutex, formFieldButton);
+        }
+        else if(formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
+        {
+            widget = new RadioChoiceFieldWidget(m_mutex, formFieldButton);
+        }
     }
+
+    connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
+
+    return widget;
 }
 
 Model::PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
@@ -397,41 +386,16 @@ QList< Model::Annotation* > Model::PdfPage::annotations() const
 #endif // HAS_POPPLER_24
 
     QList< Annotation* > annotations;
-    Annotation* first = 0;
-    Annotation* previous = 0;
 
     foreach(Poppler::Annotation* annotation, m_page->annotations())
     {
         if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
         {
-            Annotation* current = new PdfAnnotation(m_mutex, annotation);
-            annotations.append(current);
-
-            // file attachments are not part of the focus chain
-            if(annotation->subType() != Poppler::Annotation::AFileAttachment)
-            {
-                if(first == 0)
-                {
-                    first = current;
-                }
-
-                if(previous != 0)
-                {
-                    previous->nextOnPage = current;
-                }
-
-                previous = current;
-            }
-
+            annotations.append(new PdfAnnotation(m_mutex, annotation));
             continue;
         }
 
         delete annotation;
-    }
-
-    if(previous != 0)
-    {
-        previous->nextOnPage = first;
     }
 
     return annotations;
@@ -564,8 +528,6 @@ QList< Model::FormField* > Model::PdfPage::formFields() const
 #endif // HAS_POPPLER_24
 
     QList< FormField* > formFields;
-    FormField* first = 0;
-    FormField* previous = 0;
 
     foreach(Poppler::FormField* formField, m_page->formFields())
     {
@@ -575,71 +537,38 @@ QList< Model::FormField* > Model::PdfPage::formFields() const
             continue;
         }
 
-        bool append = false;
-
-        switch(formField->type())
+        if(formField->type() == Poppler::FormField::FormText)
         {
-        default:
-        case Poppler::FormField::FormSignature:
-            break;
-        case Poppler::FormField::FormText:
-            switch(static_cast< Poppler::FormFieldText* >(formField)->textType())
+            Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(formField);
+
+            if(formFieldText->textType() == Poppler::FormFieldText::Normal || formFieldText->textType() == Poppler::FormFieldText::Multiline)
             {
-            default:
-            case Poppler::FormFieldText::FileSelect:
-                break;
-            case Poppler::FormFieldText::Normal:
-            case Poppler::FormFieldText::Multiline:
-                append = true;
-                break;
-            }
-            break;
-        case Poppler::FormField::FormChoice:
-            break;
-        case Poppler::FormField::FormButton:
-            switch(static_cast< Poppler::FormFieldButton* >(formField)->buttonType())
-            {
-            default:
-            case Poppler::FormFieldButton::Push:
-                break;
-            case Poppler::FormFieldButton::CheckBox:
-            case Poppler::FormFieldButton::Radio:
-                append = true;
-                break;
-            }
-            break;
-        }
-
-        if(append)
-        {
-            FormField* current = new PdfFormField(m_mutex, formField);
-            formFields.append(current);
-
-            // check box and radio buttons are not part of the focus chain
-            if(formField->type() != Poppler::FormField::FormButton)
-            {
-                if(first == 0)
-                {
-                    first = current;
-                }
-
-                if(previous != 0)
-                {
-                    previous->nextOnPage = current;
-                }
-
-                previous = current;
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
             }
         }
-        else
+        else if(formField->type() == Poppler::FormField::FormChoice)
         {
-            delete formField;
-        }
-    }
+            Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
 
-    if(previous != 0)
-    {
-        previous->nextOnPage = first;
+            if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox || formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
+            {
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
+            }
+        }
+        else if(formField->type() == Poppler::FormField::FormButton)
+        {
+            Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(formField);
+
+            if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox || formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
+            {
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
+            }
+        }
+
+        delete formField;
     }
 
     return formFields;

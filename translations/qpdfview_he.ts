@@ -57,24 +57,52 @@
         <translation type="unfinished">פתיחת כתובות מנוטרלת בהגדרות.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1105"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1105"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1519"/>
+        <location filename="../sources/documentview.cpp" line="1501"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1596"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">עמוד %1</translation>
+    </message>
+</context>
+<context>
+    <name>FileAttachmentAnnotationWidget</name>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="102"/>
+        <source>Save...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="103"/>
+        <source>Save and open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="154"/>
+        <source>Save file attachment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <source>Warning</source>
+        <translation type="unfinished">אזהרה</translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -570,59 +598,41 @@
     </message>
 </context>
 <context>
-    <name>Model::PdfAnnotation</name>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="105"/>
-        <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="121"/>
-        <source>Warning</source>
-        <translation type="unfinished">אזהרה</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="121"/>
-        <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Name</source>
         <translation type="unfinished">שם</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Type</source>
         <translation type="unfinished">סוג</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Embedded</source>
         <translation type="unfinished">מוטמע</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>Subset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="889"/>
+        <location filename="../sources/pdfmodel.cpp" line="818"/>
         <source>File</source>
         <translation type="unfinished">קובץ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="897"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="826"/>
+        <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>Yes</source>
         <translation type="unfinished">כן</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="897"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
+        <location filename="../sources/pdfmodel.cpp" line="826"/>
+        <location filename="../sources/pdfmodel.cpp" line="827"/>
         <source>No</source>
         <translation type="unfinished">לא</translation>
     </message>
@@ -630,12 +640,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="448"/>
+        <location filename="../sources/pdfmodel.cpp" line="412"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="448"/>
+        <location filename="../sources/pdfmodel.cpp" line="412"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,67 +686,67 @@
 <context>
     <name>PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="394"/>
+        <location filename="../sources/pageitem.cpp" line="434"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">מעבר לעמוד %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="398"/>
+        <location filename="../sources/pageitem.cpp" line="438"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">מעבר לעמוד %1 בקובץ &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="406"/>
+        <location filename="../sources/pageitem.cpp" line="446"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">פתיחת &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="441"/>
+        <location filename="../sources/pageitem.cpp" line="481"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">עריכת שדה הטופס &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="673"/>
+        <location filename="../sources/pageitem.cpp" line="712"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">ה&amp;עתקת טקסט</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="713"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">העתקת ת&amp;מונה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="675"/>
+        <location filename="../sources/pageitem.cpp" line="714"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">שמירת תמונה ל&amp;קובץ...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="701"/>
+        <location filename="../sources/pageitem.cpp" line="740"/>
         <source>Save image to file</source>
         <translation type="unfinished">שמירת תמונה לקובץ</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="705"/>
+        <location filename="../sources/pageitem.cpp" line="744"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="705"/>
+        <location filename="../sources/pageitem.cpp" line="744"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לשמור את התמונה לקובץ &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="718"/>
+        <location filename="../sources/pageitem.cpp" line="757"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">הוספת &amp;טקסט</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="719"/>
+        <location filename="../sources/pageitem.cpp" line="758"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">הוספת ה&amp;דגשה</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="763"/>
+        <location filename="../sources/pageitem.cpp" line="797"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">הסרת ה&amp;ערה</translation>
     </message>
@@ -744,54 +754,54 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="842"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">החלקת קצוות:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="849"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">החלקת קצוות גופנים:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
-        <location filename="../sources/pdfmodel.cpp" line="957"/>
+        <location filename="../sources/pdfmodel.cpp" line="856"/>
+        <location filename="../sources/pdfmodel.cpp" line="886"/>
         <source>None</source>
         <translation type="unfinished">אין</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="928"/>
+        <location filename="../sources/pdfmodel.cpp" line="857"/>
         <source>Full</source>
         <translation type="unfinished">מלא</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="858"/>
         <source>Reduced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="932"/>
-        <location filename="../sources/pdfmodel.cpp" line="939"/>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="868"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="950"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">טווחי</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="958"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
         <source>Solid</source>
         <translation type="unfinished">אחיד</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="959"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>Shaped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="962"/>
+        <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1013,32 +1023,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="773"/>
+        <location filename="../sources/settingsdialog.cpp" line="784"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="774"/>
+        <location filename="../sources/settingsdialog.cpp" line="785"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="775"/>
+        <location filename="../sources/settingsdialog.cpp" line="786"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="776"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift ו־Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="777"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift ו־Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="778"/>
+        <location filename="../sources/settingsdialog.cpp" line="789"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl ו־Alt</translation>
     </message>
@@ -1099,298 +1109,303 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="296"/>
+        <location filename="../sources/settingsdialog.cpp" line="298"/>
         <source>Open URL:</source>
         <translation type="unfinished">פתיחת כתובת:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="303"/>
-        <source>Open file attachments:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">&amp;רענון אוטומטי:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="316"/>
-        <location filename="../sources/settingsdialog.cpp" line="631"/>
-        <location filename="../sources/settingsdialog.cpp" line="639"/>
-        <location filename="../sources/settingsdialog.cpp" line="647"/>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="311"/>
+        <location filename="../sources/settingsdialog.cpp" line="625"/>
+        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="641"/>
+        <location filename="../sources/settingsdialog.cpp" line="649"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">ייכנס לתוקף אחרי הפעלה מחדש.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="318"/>
+        <location filename="../sources/settingsdialog.cpp" line="313"/>
         <source>Track recently used:</source>
         <translation type="unfinished">מעקב אחר האחרונים בשימוש:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="325"/>
+        <location filename="../sources/settingsdialog.cpp" line="320"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">שחזור לשוניות:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="332"/>
+        <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">שחזור סימניות:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="339"/>
+        <location filename="../sources/settingsdialog.cpp" line="334"/>
         <source>Restore per-file settings:</source>
         <translation type="unfinished">שחזור ההגדרות לפי קובץ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="354"/>
+        <location filename="../sources/settingsdialog.cpp" line="349"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">סנכרון מצגת:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="360"/>
+        <location filename="../sources/settingsdialog.cpp" line="355"/>
         <source>Default</source>
         <translation type="unfinished">בררת מחדל</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="363"/>
+        <location filename="../sources/settingsdialog.cpp" line="358"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">מסך המצגת:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="369"/>
+        <location filename="../sources/settingsdialog.cpp" line="375"/>
         <source>Highlight color:</source>
         <translation type="unfinished">צבע ההדגשה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="377"/>
+        <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>None</source>
         <translation type="unfinished">ללא</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="380"/>
+        <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">משך ההדגשה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Annotation color:</source>
         <translation type="unfinished">צבע ההערות:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="392"/>
+        <location filename="../sources/settingsdialog.cpp" line="387"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; יוחלף בנתיב המלא והמוחלט. &apos;%2&apos; ו־&apos;%3&apos; יוחלפו בשורה ובמספר העמודה בהתאמה.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <location filename="../sources/settingsdialog.cpp" line="389"/>
         <source>Source editor:</source>
         <translation type="unfinished">עורך המקור:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="427"/>
+        <location filename="../sources/settingsdialog.cpp" line="421"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="436"/>
+        <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">קישוט עמודים:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="452"/>
+        <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Decorate links:</source>
         <translation type="unfinished">קישוט קישורים:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <location filename="../sources/settingsdialog.cpp" line="453"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">עיצוב שדות הטופס:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="465"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Background color:</source>
         <translation type="unfinished">צבע הרקע:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="471"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Paper color:</source>
         <translation type="unfinished">צבע הנייר:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="477"/>
+        <location filename="../sources/settingsdialog.cpp" line="471"/>
         <source>Presentation background color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="485"/>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
         <source>Pages per row:</source>
         <translation type="unfinished">עמודים בשורה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="495"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Page spacing:</source>
         <translation type="unfinished">ריווח עמודים:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="505"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">ריווח בין התמונות הממוזערות:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">גודל תמונה ממוזערת:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="516"/>
+        <location filename="../sources/settingsdialog.cpp" line="517"/>
+        <location filename="../sources/settingsdialog.cpp" line="518"/>
+        <location filename="../sources/settingsdialog.cpp" line="519"/>
         <location filename="../sources/settingsdialog.cpp" line="520"/>
         <location filename="../sources/settingsdialog.cpp" line="521"/>
-        <location filename="../sources/settingsdialog.cpp" line="522"/>
-        <location filename="../sources/settingsdialog.cpp" line="523"/>
-        <location filename="../sources/settingsdialog.cpp" line="524"/>
-        <location filename="../sources/settingsdialog.cpp" line="525"/>
-        <location filename="../sources/settingsdialog.cpp" line="526"/>
-        <location filename="../sources/settingsdialog.cpp" line="527"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 מ״ב</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="530"/>
+        <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Cache size:</source>
         <translation type="unfinished">גודל מטמון:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="537"/>
+        <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Prefetch:</source>
         <translation type="unfinished">אחזור קדם:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="545"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">מרחק בין אחזורי הקדם:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="601"/>
+        <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Top</source>
         <translation type="unfinished">למעלה</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="602"/>
+        <location filename="../sources/settingsdialog.cpp" line="596"/>
         <source>Bottom</source>
         <translation type="unfinished">למטה</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="603"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Left</source>
         <translation type="unfinished">משמאל</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="604"/>
+        <location filename="../sources/settingsdialog.cpp" line="598"/>
         <source>Right</source>
         <translation type="unfinished">מימין</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="607"/>
+        <location filename="../sources/settingsdialog.cpp" line="601"/>
         <source>Tab position:</source>
         <translation type="unfinished">מיקום הלשונית:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="612"/>
+        <location filename="../sources/settingsdialog.cpp" line="606"/>
         <source>As needed</source>
         <translation type="unfinished">לפי הצורך</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="613"/>
+        <location filename="../sources/settingsdialog.cpp" line="607"/>
         <source>Always</source>
         <translation type="unfinished">תמיד</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="614"/>
+        <location filename="../sources/settingsdialog.cpp" line="608"/>
         <source>Never</source>
         <translation type="unfinished">לעולם לא</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="617"/>
+        <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">הופעת הלשונית:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="624"/>
+        <location filename="../sources/settingsdialog.cpp" line="618"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">לשונית חדשה ליד הלשונית הנוכחית:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="627"/>
         <source>Recently used count:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="641"/>
+        <location filename="../sources/settingsdialog.cpp" line="635"/>
         <source>File tool bar:</source>
         <translation type="unfinished">סרגל הכלים קובץ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="649"/>
+        <location filename="../sources/settingsdialog.cpp" line="643"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">סרגל הכלים עריכה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="651"/>
         <source>View tool bar:</source>
         <translation type="unfinished">סרגל כלים הצגה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="664"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">העמוד הנוכחי בכותרת החלון:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="665"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="672"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="679"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">הדגשת התמונה הממוזערת הנוכחית:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="692"/>
+        <location filename="../sources/settingsdialog.cpp" line="686"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="723"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="700"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="734"/>
         <source>Zoom:</source>
         <translation type="unfinished">מרחק מתצוגה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="729"/>
+        <location filename="../sources/settingsdialog.cpp" line="740"/>
         <source>Rotate:</source>
         <translation type="unfinished">סיבוב:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="735"/>
+        <location filename="../sources/settingsdialog.cpp" line="746"/>
         <source>Scroll:</source>
         <translation type="unfinished">גלילה:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="741"/>
+        <location filename="../sources/settingsdialog.cpp" line="752"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">העתקה ללוח הגזירים:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="747"/>
+        <location filename="../sources/settingsdialog.cpp" line="758"/>
         <source>Add annotation:</source>
         <translation type="unfinished">הוספת הערה:</translation>
     </message>

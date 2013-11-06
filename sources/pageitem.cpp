@@ -24,6 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QClipboard>
 #include <QFileDialog>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
 #include <QGraphicsSceneHoverEvent>
 #include <qmath.h>
 #include <QMenu>
@@ -47,6 +49,9 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_size(),
     m_links(),
     m_annotations(),
+    m_formFields(),
+    m_annotationOverlay(),
+    m_formFieldOverlay(),
     m_presentationMode(presentationMode),
     m_invertColors(false),
     m_highlights(),
@@ -91,6 +96,9 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
 PageItem::~PageItem()
 {
+    hideAnnotationOverlay(false);
+    hideFormFieldOverlay(false);
+
     m_renderTask->cancel();
     m_renderTask->wait();
 
@@ -171,6 +179,16 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
             setCursor(Qt::CrossCursor);
         }
     }
+}
+
+bool PageItem::showsAnnotationOverlay() const
+{
+    return !m_annotationOverlay.isEmpty();
+}
+
+bool PageItem::showsFormFieldOverlay() const
+{
+    return !m_formFieldOverlay.isEmpty();
 }
 
 int PageItem::resolutionX() const
@@ -343,32 +361,54 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     m_obsoletePixmap = QPixmap();
 }
 
-void PageItem::on_annotations_tabPressed()
+void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
 {
-    Model::Annotation* annotation = dynamic_cast< Model::Annotation* >(sender());
-
-    if(annotation != 0 && annotation->nextOnPage != 0)
+    if(s_settings->pageItem().annotationOverlay())
     {
-        annotation = annotation->nextOnPage;
+        showOverlay(m_annotationOverlay, SLOT(hideAnnotationOverlay()), m_annotations, selectedAnnotation);
+    }
+    else
+    {
+        hideAnnotationOverlay(false);
 
-        const QPointF scenePos = mapToScene(m_normalizedTransform.map(annotation->boundary().topLeft()));
-
-        emit dialogRequested(annotation, scenePos);
+        addProxy(m_annotationOverlay, SLOT(hideAnnotationOverlay()), selectedAnnotation);
+        m_annotationOverlay.value(selectedAnnotation)->widget()->setFocus();
     }
 }
 
-void PageItem::on_formFields_tabPressed()
+void PageItem::hideAnnotationOverlay(bool deleteLater)
 {
-    Model::FormField* formField = dynamic_cast< Model::FormField* >(sender());
+    hideOverlay(m_annotationOverlay, deleteLater);
+}
 
-    if(formField != 0 && formField->nextOnPage != 0)
+void PageItem::updateAnnotationOverlay()
+{
+    updateOverlay(m_annotationOverlay);
+}
+
+void PageItem::showFormFieldOverlay(Model::FormField* selectedFormField)
+{
+    if(s_settings->pageItem().formFieldOverlay())
     {
-        formField = formField->nextOnPage;
-
-        const QPointF scenePos = mapToScene(m_normalizedTransform.map(formField->boundary().topLeft()));
-
-        emit dialogRequested(formField, scenePos);
+        showOverlay(m_formFieldOverlay, SLOT(hideFormFieldOverlay()), m_formFields, selectedFormField);
     }
+    else
+    {
+        hideFormFieldOverlay(false);
+
+        addProxy(m_formFieldOverlay, SLOT(hideFormFieldOverlay()), selectedFormField);
+        m_formFieldOverlay.value(selectedFormField)->widget()->setFocus();
+    }
+}
+
+void PageItem::updateFormFieldOverlay()
+{
+    updateOverlay(m_formFieldOverlay);
+}
+
+void PageItem::hideFormFieldOverlay(bool deleteLater)
+{
+    hideOverlay(m_formFieldOverlay, deleteLater);
 }
 
 void PageItem::hoverEnterEvent(QGraphicsSceneHoverEvent*)
@@ -533,12 +573,14 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                annotation->showDialog(event->screenPos());
+                showAnnotationOverlay(annotation);
 
                 event->accept();
                 return;
             }
         }
+
+        hideAnnotationOverlay();
 
         // form fields
 
@@ -548,12 +590,14 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                formField->showDialog(event->screenPos());
+                showFormFieldOverlay(formField);
 
                 event->accept();
                 return;
             }
         }
+
+        hideFormFieldOverlay();
     }
 
     event->ignore();
@@ -648,18 +692,13 @@ void PageItem::loadInteractiveElements()
         foreach(const Model::Annotation* annotation, m_annotations)
         {
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
-            connect(annotation, SIGNAL(tabPressed()), SLOT(on_annotations_tabPressed()));
-
-            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SIGNAL(fileAttachmentSaved(QString)));
         }
 
         m_formFields = m_page->formFields();
 
         foreach(const Model::FormField* formField, m_formFields)
         {
-            connect(formField, SIGNAL(needsRefresh()), SLOT(refresh()));
             connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
-            connect(formField, SIGNAL(tabPressed()), SLOT(on_formFields_tabPressed()));
         }
     }
 
@@ -739,17 +778,12 @@ void PageItem::addAnnotation(const QPoint& screenPos)
             }
 
             m_annotations.append(annotation);
-
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
-            connect(annotation, SIGNAL(tabPressed()), SLOT(on_annotations_tabPressed()));
-
-            connect(annotation, SIGNAL(fileAttachmentSaved(QString)), SIGNAL(fileAttachmentSaved(QString)));
 
             refresh();
-
             emit wasModified();
 
-            annotation->showDialog(screenPos);
+            showAnnotationOverlay(annotation);
         }
     }
 }
@@ -772,10 +806,133 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
             annotation->deleteLater();
 
             refresh();
-
             emit wasModified();
         }
     }
+}
+
+template< typename Overlay, typename Element >
+void PageItem::showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement)
+{
+    foreach(Element* element, elements)
+    {
+        if(!overlay.contains(element))
+        {
+            addProxy(overlay, hideOverlay, element);
+        }
+
+        if(element == selectedElement)
+        {
+            overlay.value(element)->widget()->setFocus();
+        }
+    }
+}
+
+template< typename Overlay, typename Element >
+void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* element)
+{
+    QGraphicsProxyWidget* proxy = new QGraphicsProxyWidget(this);
+    proxy->setAutoFillBackground(true);
+    proxy->setWidget(element->createWidget());
+
+    overlay.insert(element, proxy);
+    setProxyGeometry(element, proxy);
+
+    connect(proxy, SIGNAL(visibleChanged()), hideOverlay);
+}
+
+template< typename Overlay >
+void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
+{
+    Overlay discardedOverlay;
+    discardedOverlay.swap(overlay);
+
+    if(!discardedOverlay.isEmpty())
+    {
+        for(typename Overlay::const_iterator i = discardedOverlay.constBegin(); i != discardedOverlay.constEnd(); ++i)
+        {
+            if(deleteLater)
+            {
+                i.value()->deleteLater();
+            }
+            else
+            {
+                delete i.value();
+            }
+        }
+
+        refresh();
+    }
+}
+
+template< typename Overlay >
+void PageItem::updateOverlay(const Overlay& overlay) const
+{
+    for(typename Overlay::const_iterator i = overlay.constBegin(); i != overlay.constEnd(); ++i)
+    {
+        setProxyGeometry(i.key(), i.value());
+    }
+}
+
+void PageItem::setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const
+{
+    const QPointF center = m_normalizedTransform.map(annotation->boundary().center());
+
+    qreal x = center.x() - 0.5 * proxy->preferredWidth();
+    qreal y = center.y() - 0.5 * proxy->preferredHeight();
+    qreal width = proxy->preferredWidth();
+    qreal height = proxy->preferredHeight();
+
+    x = qMax(x, m_boundingRect.left() + proxyPadding);
+    y = qMax(y, m_boundingRect.top() + proxyPadding);
+
+    width = qMin(width, m_boundingRect.right() - proxyPadding - x);
+    height = qMin(height, m_boundingRect.bottom() - proxyPadding - y);
+
+    proxy->setGeometry(QRectF(x, y, width, height));
+}
+
+void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const
+{
+    QRectF rect = m_normalizedTransform.mapRect(formField->boundary());
+
+    qreal x = rect.x();
+    qreal y = rect.y();
+    qreal width = rect.width();
+    qreal height = rect.height();
+
+    switch(m_rotation)
+    {
+    default:
+    case RotateBy0:
+        proxy->setRotation(0.0);
+        break;
+    case RotateBy90:
+        x += width;
+        qSwap(width, height);
+
+        proxy->setRotation(90.0);
+        break;
+    case RotateBy180:
+        x += width;
+        y += height;
+
+        proxy->setRotation(180.0);
+        break;
+    case RotateBy270:
+        y += height;
+        qSwap(width, height);
+
+        proxy->setRotation(270.0);
+        break;
+    }
+
+    width /= m_scaleFactor;
+    height /= m_scaleFactor;
+
+    proxy->setScale(m_scaleFactor);
+
+    proxy->setGeometry(QRectF(x - proxyPadding, y - proxyPadding, width + proxyPadding, height + proxyPadding));
 }
 
 qreal PageItem::effectiveDevicePixelRatio()
@@ -834,6 +991,9 @@ void PageItem::prepareGeometry()
 
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
+
+    updateAnnotationOverlay();
+    updateFormFieldOverlay();
 }
 
 QPixmap PageItem::cachedPixmap()

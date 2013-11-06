@@ -66,22 +66,16 @@ namespace Model
         Q_OBJECT
 
     public:
-        Annotation() : QObject(), nextOnPage(0) {}
-
+        Annotation() : QObject() {}
         virtual ~Annotation() {}
 
         virtual QRectF boundary() const = 0;
         virtual QString contents() const = 0;
 
-        virtual void showDialog(const QPoint& screenPos) = 0;
-
-        Annotation* nextOnPage;
+        virtual QWidget* createWidget() = 0;
 
     signals:
         void wasModified();
-        void tabPressed();
-
-        void fileAttachmentSaved(const QString& filePath);
 
     };
 
@@ -90,21 +84,16 @@ namespace Model
         Q_OBJECT
 
     public:
-        FormField() : QObject(), nextOnPage(0) {}
-
+        FormField() : QObject() {}
         virtual ~FormField() {}
 
         virtual QRectF boundary() const = 0;
         virtual QString name() const = 0;
 
-        virtual void showDialog(const QPoint& screenPos) = 0;
-
-        FormField* nextOnPage;
+        virtual QWidget* createWidget() = 0;
 
     signals:
-        void needsRefresh();
         void wasModified();
-        void tabPressed();
 
     };
 
