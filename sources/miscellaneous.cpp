@@ -112,8 +112,11 @@ void TabWidget::tabRemoved(int index)
     }
 }
 
-TreeView::TreeView(QWidget* parent) : QTreeView(parent)
+TreeView::TreeView(int expansionRole, QWidget* parent) : QTreeView(parent),
+    m_expansionRole(expansionRole)
 {
+    connect(this, SIGNAL(expanded(QModelIndex)), SLOT(on_expanded(QModelIndex)));
+    connect(this, SIGNAL(collapsed(QModelIndex)), SLOT(on_collapsed(QModelIndex)));
 }
 
 void TreeView::expandAbove(const QModelIndex& child)
@@ -158,6 +161,26 @@ void TreeView::collapseAll(const QModelIndex& index)
     }
 }
 
+void TreeView::restoreExpansion(const QModelIndex& index)
+{
+    if(index.isValid())
+    {
+        if(model()->data(index, m_expansionRole).toBool())
+        {
+            expand(index);
+        }
+        else
+        {
+            collapse(index);
+        }
+    }
+
+    for(int row = 0; row < model()->rowCount(index); ++row)
+    {
+        restoreExpansion(model()->index(row, 0, index));
+    }
+}
+
 void TreeView::contextMenuEvent(QContextMenuEvent* event)
 {
     QTreeView::contextMenuEvent(event);
@@ -180,6 +203,16 @@ void TreeView::contextMenuEvent(QContextMenuEvent* event)
             collapseAll(indexAt(event->pos()));
         }
     }
+}
+
+void TreeView::on_expanded(const QModelIndex& index)
+{
+    model()->setData(index, true, m_expansionRole);
+}
+
+void TreeView::on_collapsed(const QModelIndex& index)
+{
+    model()->setData(index, false, m_expansionRole);
 }
 
 LineEdit::LineEdit(QWidget* parent) : QLineEdit(parent)

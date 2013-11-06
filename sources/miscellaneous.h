@@ -106,7 +106,7 @@ class TreeView : public QTreeView
     Q_OBJECT
 
 public:
-    explicit TreeView(QWidget* parent = 0);
+    explicit TreeView(int expansionRole, QWidget* parent = 0);
 
 public slots:
     void expandAbove(const QModelIndex& child);
@@ -114,11 +114,19 @@ public slots:
     void expandAll(const QModelIndex& index = QModelIndex());
     void collapseAll(const QModelIndex& index = QModelIndex());
 
+    void restoreExpansion(const QModelIndex& index = QModelIndex());
+
 protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
+protected slots:
+    void on_expanded(const QModelIndex& index);
+    void on_collapsed(const QModelIndex& index);
+
 private:
     Q_DISABLE_COPY(TreeView)
+
+    int m_expansionRole;
 
 };
 

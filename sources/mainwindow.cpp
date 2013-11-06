@@ -382,6 +382,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(currentTab()->propertiesModel());
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
 
+        m_outlineView->restoreExpansion();
+
         on_currentTab_documentChanged();
 
         on_currentTab_filePathChanged(currentTab()->filePath());
@@ -2147,7 +2149,7 @@ void MainWindow::createDocks()
 
     m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
-    m_outlineView = new TreeView(this);
+    m_outlineView = new TreeView(Qt::UserRole, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
