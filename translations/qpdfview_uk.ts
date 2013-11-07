@@ -2,6 +2,1456 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">&amp;Відкрити</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Ві&amp;дкрити у новій вкладці</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="obsolete">Ви&amp;далити закладку</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>Database|</comment>
+        <translation type="obsolete">Перейти до сторінки %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Підтримувані формати (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Розблокувати %1</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Пароль:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Інформація</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Перехід за посиланням заборонено у налаштуваннях.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Попередження</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Друк &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="obsolete">Сторінка %1</translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="obsolete">Зберегти...</translation>
+    </message>
+    <message>
+        <source>Save and open...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="obsolete">Зберегти і відкрити…</translation>
+    </message>
+    <message>
+        <source>Save file attachment</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="obsolete">Зберегти долучення до файла</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="obsolete">Попередження</translation>
+    </message>
+    <message>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="obsolete">Не вдалося зберегти файл-долучення до «%1».</translation>
+    </message>
+    <message>
+        <source>help.html</source>
+        <comment>HelpDialog|</comment>
+        <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.
+</extracomment>
+        <translation type="obsolete">help_uk.html</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>HelpDialog|</comment>
+        <translation type="obsolete">Знайти попереднє</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>HelpDialog|</comment>
+        <translation type="obsolete">Знайти наступне</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Попередження</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося відкрити &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Close all tabs but this one</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити усі вкладки, окрім цієї</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the left</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити усі вкладки ліворуч</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the right</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити усі вкладки праворуч</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Відкрити</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Відкрити у новій вкладці</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося оновити &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Зберегти копію</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося зберегти копію &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Зберегти як</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося зберегти як &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося роздрукувати &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Перехід до сторінки</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Сторінка:</translation>
+    </message>
+    <message>
+        <source>Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Додати закладку</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Мітка</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Перейти до сторінки %1</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Про qpdfview</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview — програма для перегляду документів на основі Qt.&lt;/p&gt;&lt;p&gt;Можливості цієї версії:&lt;ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Підтримка PDF на основі Poppler&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Підтримка PS на основі libspectre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Підтримка DjVu на основі DjVuLibre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;li&gt;Підтримка друку за допомогою CUPS&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;/ul&gt;&lt;p&gt;Докладніші відомості можна знайти на сторінці &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; Розробники qpdfview, 2012–2013&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">До документа «%1» внесено зміни. Хочете зберегти ці зміни?</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ширина сторінки</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Розмір сторінки</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Враховувати &amp;регістр</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Виділити &amp;усе</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Відкрити...</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ві&amp;дкрити у новій вкладці...</translation>
+    </message>
+    <message>
+        <source>Open containing folder</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Відкрити теку, яка містить дані</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Оновити</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Зберегти копію...</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Зберегти &amp;як...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Д&amp;рукувати...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ви&amp;йти</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Попередня сторінка</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Наступна сторінка</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">П&amp;ерша сторінка</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">О&amp;стання сторінка</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Пе&amp;рейти до сторінки...</translation>
+    </message>
+    <message>
+        <source>Jump &amp;backward</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Перейти &amp;назад</translation>
+    </message>
+    <message>
+        <source>Jump for&amp;ward</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Перейти в&amp;перед</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Пошук...</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Знайти попереднє</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Знайти наступне</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Скасувати пошук</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">С&amp;копіювати до буфера</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Додати коментар</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Параметри…</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Неперервний перегляд</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Дві сторінки</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Дві сторінки та &amp;обкладинка</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Кілька сторінок</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">З&amp;більшити</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">З&amp;меншити</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">По&amp;чатковий розмір</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">За шириною</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Сторінка цілком</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Повернути &amp;праворуч</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Повернути &amp;ліворуч</translation>
+    </message>
+    <message>
+        <source>Invert colors</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Інвертувати кольори</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Шрифти...</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;На весь екран</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Пре&amp;зентація...</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Попередня вкладка</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Наступна вкладка</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Закрити вкладку</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити &amp;усі вкладки</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити усі вкладки, &amp;крім поточної</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Попередня закладка</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Наступна закладка</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Додати закладку</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Вилучити закладку</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Вилучити усі закладки</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Зміст</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Про програму</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Файл</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">З&amp;міни</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">П&amp;ерегляд</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Зміст</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Властивості</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Мініатюри</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Пошук</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Па&amp;нелі інструментів</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Бічні панелі</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">В&amp;кладки</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Закладки</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&amp;Довідка</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Назва</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Тип</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Вбудований</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Підмножина</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Файл</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Так</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="obsolete">Ні</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="obsolete">Відомості</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="obsolete">Для додавання або вилучення анотацій слід встановити версію 0.20.1 або новішу бібліотеки Poppler.</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Заголовок</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Створено для</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Створено у</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Дата створення</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Формат</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="obsolete">Рівень мови</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Перейти до сторінки %1.</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Перейти на сторінку %1 файла «%2».</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Відкрити «%1».</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Редагувати поле &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Скопіювати &amp;текст</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Скопіювати &amp;зображення</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Зберегти зображення у &amp;файл...</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Зберегти зображення у файл</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Попередження</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Неможливо зберегти зображення у файл &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Додати &amp;текст</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">Додати &amp;підсвічування</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="obsolete">&amp;Вилучити анотацію</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Згладжування:</translation>
+    </message>
+    <message>
+        <source>Text antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Згладжування тексту:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Немає</translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Повне</translation>
+    </message>
+    <message>
+        <source>Reduced</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Спрощене</translation>
+    </message>
+    <message>
+        <source>Text hinting:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Гінтінґ тексту:</translation>
+    </message>
+    <message>
+        <source>Overprint preview:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Перегляд наддруку:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Суцільні</translation>
+    </message>
+    <message>
+        <source>Shaped</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Надати форму</translation>
+    </message>
+    <message>
+        <source>Thin line mode:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="obsolete">Режим тонких ліній:</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>PluginHandler|</comment>
+        <translation type="obsolete">Критична помилка</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="obsolete">Не вдалося завантажити додаток роботи з PDF!</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="obsolete">Не вдалося завантажити додаток роботи з PS!</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="obsolete">Не вдалося завантажити додаток роботи з DjVuPS!</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Підлаштовування під аркуш:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Діапазон сторінок:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Всі сторінки</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Парні сторінки</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Непарні сторінки</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Набір сторінок:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Одна сторінка</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Дві сторінки</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Чотири сторінки</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Шість сторінок</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Дев’ять сторінок</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Шістнадцять сторінок</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Розташовування:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Знизу вгору і зліва праворуч</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Знизу вгору і справа ліворуч</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Зліва праворуч і знизу вгору</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Зліва праворуч і згори взниз</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Справа ліворуч і знизу вгору</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Справа ліворуч і згори вниз</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Згори вниз і зліва праворуч</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Згори вниз і справа ліворуч</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Компонування сторінок:</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintDialog|</comment>
+        <translation type="obsolete">Додаткові параметри</translation>
+    </message>
+    <message>
+        <source>Graphics antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="obsolete">Бітова маска згладжування графіки:</translation>
+    </message>
+    <message>
+        <source>Text antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="obsolete">Бітова маска згладжування тексту:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Порожнє ім&apos;я екземпляру не дозволяється.</translation>
+    </message>
+    <message>
+        <source>An empty search text is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Не можна шукати порожній рядок.</translation>
+    </message>
+    <message>
+        <source>Choose instance</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Виберіть екземпляр</translation>
+    </message>
+    <message>
+        <source>Instance:</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Екземпляр:</translation>
+    </message>
+    <message>
+        <source>Unknown command-line option &apos;%1&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Невідомий параметр командного рядка, «%1».</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Використання &apos;--instance&apos; потребує вказання імені екземпляру.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Використання &apos;--instance&apos; не дозволяється без &apos;--unique&apos;.</translation>
+    </message>
+    <message>
+        <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Назва екземпляра програми може складатися лише з символів «[A-Z][a-z][0-9]_» і не повинна починатися з цифри.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--search&apos; requires a search text.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Використання параметра «--search» вимагає зазначення тексту для пошуку.</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="obsolete">Не вдалося підготувати обробник сигналу.</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Shift</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Ctrl</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Alt</translation>
+    </message>
+    <message>
+        <source>Shift and Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Shift і Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Shift і Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="obsolete">Ctrl і Alt</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">Останні відкр&amp;иті</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="obsolete">О&amp;чистити список</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Загальне</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Поведінка</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Графіка</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Інтерфейс</translation>
+    </message>
+    <message>
+        <source>&amp;Shortcuts</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Клавіатурні скорочення</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">&amp;Модифікатори</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Типові</translation>
+    </message>
+    <message>
+        <source>Defaults on current tab</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Типові на поточній вкладці</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Відкривати URL:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Автооновлення:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Діятиме після перезапуску.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Пам&apos;ятати останні відкриті:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Відновлювати вкладки:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Відновлювати закладки:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Відновлювати налаштування окремих документів:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Синхронна презентація:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Типові</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Екран презентації:</translation>
+    </message>
+    <message>
+        <source>Highlight color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Колір підсвічування:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Немає</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Тривалість підсвічування:</translation>
+    </message>
+    <message>
+        <source>Annotation color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Колір анотацій:</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">«%1» замінюється абсолютним шляхом до файлу. «%2» та «%3» замінюються номером рядка та стовпчика відповідно.</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Редактор вихідного файла:</translation>
+    </message>
+    <message>
+        <source>Keep obsolete pixmaps:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Зберігати застарілі растрові зображення:</translation>
+    </message>
+    <message>
+        <source>Use device pixel ratio:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Використовувати співвідношення у пікселях пристрою:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Рамка навколо сторінки:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Виокремлювати посилання:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Виокремлювати поля форм:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Колір тла:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Колір паперу:</translation>
+    </message>
+    <message>
+        <source>Presentation background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Колір тла у режимі презентації:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Сторінок у ряд:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Між сторінками:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Між мініатюрами:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Розмір мініатюр:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">%1 МБ</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Кеш:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Передзавантаження:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Довжина передзавантаження:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Вгорі</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Внизу</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ліворуч</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Праворуч</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Розташування вкладок:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">За потребою</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Завжди</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Ніколи</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Показувати вкладки:</translation>
+    </message>
+    <message>
+        <source>New tab next to current tab:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Нова вкладка поряд з поточною:</translation>
+    </message>
+    <message>
+        <source>Recently used count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Кількість останніх відкритих:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Панель «Файл»:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Панель «Редагування»:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Панель «Перегляд»:</translation>
+    </message>
+    <message>
+        <source>Current page in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Поточна сторінка у заголовку вікна:</translation>
+    </message>
+    <message>
+        <source>Instance name in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Назва екземпляра у заголовку вікна:</translation>
+    </message>
+    <message>
+        <source>Synchronize outline view:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Синхронізувати перегляд ескізу:</translation>
+    </message>
+    <message>
+        <source>Highlight current thumbnail:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Підсвічування поточної мініатюри:</translation>
+    </message>
+    <message>
+        <source>Limit thumbnails to results:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Обмежити мініатюри результатами:</translation>
+    </message>
+    <message>
+        <source>Annotation overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Накладка анотації:</translation>
+    </message>
+    <message>
+        <source>Form field overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Накладка поля форми:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Масштабування:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Обертання:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Гортання:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Копіювання до буфера:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="obsolete">Додавання анотацій:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Дія</translation>
+    </message>
+    <message>
+        <source>Key sequence</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Комбінація клавіш</translation>
+    </message>
+    <message>
+        <source>Skip backward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Гортати назад</translation>
+    </message>
+    <message>
+        <source>Skip forward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Гортати вперед</translation>
+    </message>
+    <message>
+        <source>Move up</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Вгору</translation>
+    </message>
+    <message>
+        <source>Move down</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Вниз</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Ліворуч</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="obsolete">Праворуч</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Розгорнути все</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="obsolete">&amp;Згорнути все</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Ви&amp;хід</translation>
+    </message>
+    <message>
+        <source>One page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Одна сторінка</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Дві сторінки</translation>
+    </message>
+    <message>
+        <source>One column</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Безперервно</translation>
+    </message>
+    <message>
+        <source>Two columns</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Кілька сторінок</translation>
+    </message>
+    <message>
+        <source>Fit to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Вмістити у вікні</translation>
+    </message>
+    <message>
+        <source>Close all &amp;tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Закрити &amp;всі вкладки</translation>
+    </message>
+    <message>
+        <source>&amp;Toolbars</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Панель &amp;інструментів</translation>
+    </message>
+    <message>
+        <source>&amp;Tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">В&amp;кладка</translation>
+    </message>
+    <message>
+        <source>Open document</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Відкрити документ</translation>
+    </message>
+    <message>
+        <source>Could not open document &quot;%1&quot;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Не вдалося відкрити документ &quot;%1&quot;.</translation>
+    </message>
+    <message>
+        <source>Open documents</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">Відкрити документи</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete">&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview це програма перегляду PDF документів з вкладками і використанням бібліотеки poppler.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="obsolete"> з %1</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PresentationView|</comment>
+        <translation type="obsolete">Перейти до сторінки %1.</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="35"/>
@@ -82,12 +1532,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберегти...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зберегти і відкрити…</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
@@ -102,7 +1552,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Не вдалося зберегти долучення до файла до «%1».</translation>
+        <translation type="unfinished">Не вдалося зберегти файл-долучення до «%1».</translation>
     </message>
 </context>
 <context>
@@ -129,13 +1579,13 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="170"/>
         <location filename="../sources/mainwindow.cpp" line="263"/>
-        <location filename="../sources/mainwindow.cpp" line="980"/>
-        <location filename="../sources/mainwindow.cpp" line="998"/>
-        <location filename="../sources/mainwindow.cpp" line="1015"/>
-        <location filename="../sources/mainwindow.cpp" line="1051"/>
-        <location filename="../sources/mainwindow.cpp" line="1174"/>
-        <location filename="../sources/mainwindow.cpp" line="1859"/>
-        <location filename="../sources/mainwindow.cpp" line="1873"/>
+        <location filename="../sources/mainwindow.cpp" line="982"/>
+        <location filename="../sources/mainwindow.cpp" line="1000"/>
+        <location filename="../sources/mainwindow.cpp" line="1017"/>
+        <location filename="../sources/mainwindow.cpp" line="1053"/>
+        <location filename="../sources/mainwindow.cpp" line="1176"/>
+        <location filename="../sources/mainwindow.cpp" line="1861"/>
+        <location filename="../sources/mainwindow.cpp" line="1875"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
@@ -146,453 +1596,453 @@
         <translation type="unfinished">Не вдалося відкрити &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="508"/>
+        <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Закрити усі вкладки, окрім цієї</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="509"/>
+        <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Закрити усі вкладки ліворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="510"/>
+        <location filename="../sources/mainwindow.cpp" line="512"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Закрити усі вкладки праворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="936"/>
+        <location filename="../sources/mainwindow.cpp" line="938"/>
         <source>Open</source>
         <translation type="unfinished">Відкрити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="952"/>
+        <location filename="../sources/mainwindow.cpp" line="954"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Відкрити у новій вкладці</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="980"/>
-        <location filename="../sources/mainwindow.cpp" line="1174"/>
+        <location filename="../sources/mainwindow.cpp" line="982"/>
+        <location filename="../sources/mainwindow.cpp" line="1176"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося оновити &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="988"/>
+        <location filename="../sources/mainwindow.cpp" line="990"/>
         <source>Save copy</source>
         <translation type="unfinished">Зберегти копію</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="998"/>
+        <location filename="../sources/mainwindow.cpp" line="1000"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося зберегти копію &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1005"/>
-        <location filename="../sources/mainwindow.cpp" line="1863"/>
+        <location filename="../sources/mainwindow.cpp" line="1007"/>
+        <location filename="../sources/mainwindow.cpp" line="1865"/>
         <source>Save as</source>
         <translation type="unfinished">Зберегти як</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1015"/>
-        <location filename="../sources/mainwindow.cpp" line="1873"/>
+        <location filename="../sources/mainwindow.cpp" line="1017"/>
+        <location filename="../sources/mainwindow.cpp" line="1875"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося зберегти як &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1051"/>
+        <location filename="../sources/mainwindow.cpp" line="1053"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Не вдалося роздрукувати &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1090"/>
+        <location filename="../sources/mainwindow.cpp" line="1092"/>
         <source>Jump to page</source>
         <translation type="unfinished">Перехід до сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1090"/>
+        <location filename="../sources/mainwindow.cpp" line="1092"/>
         <source>Page:</source>
         <translation type="unfinished">Сторінка:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1482"/>
         <source>Add bookmark</source>
         <translation type="unfinished">Додати закладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1482"/>
         <source>Label</source>
         <translation type="unfinished">Мітка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1482"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Перейти до сторінки %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1563"/>
+        <location filename="../sources/mainwindow.cpp" line="1565"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Про qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1563"/>
+        <location filename="../sources/mainwindow.cpp" line="1565"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview — програма для перегляду документів на основі Qt.&lt;/p&gt;&lt;p&gt;Можливості цієї версії:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1567"/>
+        <location filename="../sources/mainwindow.cpp" line="1569"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Підтримка PDF на основі Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1570"/>
+        <location filename="../sources/mainwindow.cpp" line="1572"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Підтримка PS на основі libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1573"/>
+        <location filename="../sources/mainwindow.cpp" line="1575"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Підтримка DjVu на основі DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1576"/>
+        <location filename="../sources/mainwindow.cpp" line="1578"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Підтримка друку за допомогою CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1578"/>
+        <location filename="../sources/mainwindow.cpp" line="1580"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Докладніші відомості можна знайти на сторінці &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; Розробники qpdfview, 2012–2013&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1859"/>
+        <location filename="../sources/mainwindow.cpp" line="1861"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">До документа «%1» внесено зміни. Хочете зберегти ці зміни?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1929"/>
+        <location filename="../sources/mainwindow.cpp" line="1931"/>
         <source>Page width</source>
         <translation type="unfinished">Ширина сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1930"/>
+        <location filename="../sources/mainwindow.cpp" line="1932"/>
         <source>Page size</source>
         <translation type="unfinished">Розмір сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1951"/>
+        <location filename="../sources/mainwindow.cpp" line="1953"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Враховувати &amp;регістр</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1952"/>
+        <location filename="../sources/mainwindow.cpp" line="1954"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Виділити &amp;усе</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1996"/>
+        <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Відкрити...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1997"/>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Ві&amp;дкрити у новій вкладці...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1998"/>
+        <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>Open containing folder</source>
         <translation type="unfinished">Відкрити теку, яка містить дані</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <location filename="../sources/mainwindow.cpp" line="2001"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Оновити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2000"/>
+        <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Зберегти копію...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2001"/>
+        <location filename="../sources/mainwindow.cpp" line="2003"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Зберегти &amp;як...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2002"/>
+        <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">Д&amp;рукувати...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2003"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">Ви&amp;йти</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2007"/>
+        <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Попередня сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2008"/>
+        <location filename="../sources/mainwindow.cpp" line="2010"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Наступна сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2009"/>
+        <location filename="../sources/mainwindow.cpp" line="2011"/>
         <source>&amp;First page</source>
         <translation type="unfinished">П&amp;ерша сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2010"/>
+        <location filename="../sources/mainwindow.cpp" line="2012"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">О&amp;стання сторінка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2012"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Пе&amp;рейти до сторінки...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2014"/>
+        <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Перейти &amp;назад</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2015"/>
+        <location filename="../sources/mainwindow.cpp" line="2017"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Перейти в&amp;перед</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2017"/>
+        <location filename="../sources/mainwindow.cpp" line="2019"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Пошук...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2018"/>
+        <location filename="../sources/mainwindow.cpp" line="2020"/>
         <source>Find previous</source>
         <translation type="unfinished">Знайти попереднє</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2019"/>
+        <location filename="../sources/mainwindow.cpp" line="2021"/>
         <source>Find next</source>
         <translation type="unfinished">Знайти наступне</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2020"/>
+        <location filename="../sources/mainwindow.cpp" line="2022"/>
         <source>Cancel search</source>
         <translation type="unfinished">Скасувати пошук</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2022"/>
+        <location filename="../sources/mainwindow.cpp" line="2024"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">С&amp;копіювати до буфера</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2023"/>
+        <location filename="../sources/mainwindow.cpp" line="2025"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Додати коментар</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2025"/>
+        <location filename="../sources/mainwindow.cpp" line="2027"/>
         <source>Settings...</source>
         <translation type="unfinished">Параметри…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2029"/>
+        <location filename="../sources/mainwindow.cpp" line="2031"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Неперервний перегляд</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2030"/>
+        <location filename="../sources/mainwindow.cpp" line="2032"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Дві сторінки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2031"/>
+        <location filename="../sources/mainwindow.cpp" line="2033"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Дві сторінки та &amp;обкладинка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2032"/>
+        <location filename="../sources/mainwindow.cpp" line="2034"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Кілька сторінок</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2034"/>
+        <location filename="../sources/mainwindow.cpp" line="2036"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">З&amp;більшити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2035"/>
+        <location filename="../sources/mainwindow.cpp" line="2037"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">З&amp;меншити</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2036"/>
+        <location filename="../sources/mainwindow.cpp" line="2038"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">По&amp;чатковий розмір</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2038"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>Fit to page width</source>
         <translation type="unfinished">За шириною</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2041"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Сторінка цілком</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2041"/>
+        <location filename="../sources/mainwindow.cpp" line="2043"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Повернути &amp;праворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2042"/>
+        <location filename="../sources/mainwindow.cpp" line="2044"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Повернути &amp;ліворуч</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2044"/>
+        <location filename="../sources/mainwindow.cpp" line="2046"/>
         <source>Invert colors</source>
         <translation type="unfinished">Інвертувати кольори</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2046"/>
+        <location filename="../sources/mainwindow.cpp" line="2048"/>
         <source>Fonts...</source>
         <translation type="unfinished">Шрифти...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2048"/>
+        <location filename="../sources/mainwindow.cpp" line="2050"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;На весь екран</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2049"/>
+        <location filename="../sources/mainwindow.cpp" line="2051"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">Пре&amp;зентація...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2053"/>
+        <location filename="../sources/mainwindow.cpp" line="2055"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Попередня вкладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2054"/>
+        <location filename="../sources/mainwindow.cpp" line="2056"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Наступна вкладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2056"/>
+        <location filename="../sources/mainwindow.cpp" line="2058"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Закрити вкладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2057"/>
+        <location filename="../sources/mainwindow.cpp" line="2059"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Закрити &amp;усі вкладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2058"/>
+        <location filename="../sources/mainwindow.cpp" line="2060"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Закрити усі вкладки, &amp;крім поточної</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2069"/>
+        <location filename="../sources/mainwindow.cpp" line="2071"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Попередня закладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2070"/>
+        <location filename="../sources/mainwindow.cpp" line="2072"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Наступна закладка</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2072"/>
+        <location filename="../sources/mainwindow.cpp" line="2074"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Додати закладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2073"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Вилучити закладку</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2074"/>
+        <location filename="../sources/mainwindow.cpp" line="2076"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Вилучити усі закладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2078"/>
+        <location filename="../sources/mainwindow.cpp" line="2080"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Зміст</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2079"/>
+        <location filename="../sources/mainwindow.cpp" line="2081"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Про програму</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2113"/>
-        <location filename="../sources/mainwindow.cpp" line="2230"/>
+        <location filename="../sources/mainwindow.cpp" line="2115"/>
+        <location filename="../sources/mainwindow.cpp" line="2232"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2116"/>
-        <location filename="../sources/mainwindow.cpp" line="2265"/>
+        <location filename="../sources/mainwindow.cpp" line="2118"/>
+        <location filename="../sources/mainwindow.cpp" line="2267"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">З&amp;міни</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2119"/>
-        <location filename="../sources/mainwindow.cpp" line="2278"/>
+        <location filename="../sources/mainwindow.cpp" line="2121"/>
+        <location filename="../sources/mainwindow.cpp" line="2280"/>
         <source>&amp;View</source>
         <translation type="unfinished">П&amp;ерегляд</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2148"/>
+        <location filename="../sources/mainwindow.cpp" line="2150"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Зміст</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2161"/>
+        <location filename="../sources/mainwindow.cpp" line="2163"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Властивості</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2171"/>
+        <location filename="../sources/mainwindow.cpp" line="2173"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Мініатюри</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2183"/>
+        <location filename="../sources/mainwindow.cpp" line="2185"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2288"/>
+        <location filename="../sources/mainwindow.cpp" line="2290"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Па&amp;нелі інструментів</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2291"/>
+        <location filename="../sources/mainwindow.cpp" line="2293"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Бічні панелі</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2300"/>
+        <location filename="../sources/mainwindow.cpp" line="2302"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">В&amp;кладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2308"/>
+        <location filename="../sources/mainwindow.cpp" line="2310"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2316"/>
+        <location filename="../sources/mainwindow.cpp" line="2318"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Довідка</translation>
     </message>
@@ -1163,11 +2613,6 @@
         <translation type="unfinished">Екран презентації:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="375"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Колір підсвічування:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>None</source>
         <translation type="unfinished">Немає</translation>
@@ -1176,6 +2621,11 @@
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Тривалість підсвічування:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="375"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Колір підсвічування:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="381"/>
@@ -1377,12 +2827,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Накладка анотації:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Накладка поля форми:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="734"/>
@@ -1456,12 +2906,12 @@
 <context>
     <name>TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="169"/>
+        <location filename="../sources/miscellaneous.cpp" line="192"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Розгорнути все</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="170"/>
+        <location filename="../sources/miscellaneous.cpp" line="193"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Згорнути все</translation>
     </message>
