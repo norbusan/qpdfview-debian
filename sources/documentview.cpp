@@ -1713,6 +1713,9 @@ void DocumentView::prepareScene()
 {
     // prepare scale factor and rotation
 
+    const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
+    const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
+
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
@@ -1727,9 +1730,6 @@ void DocumentView::prepareScene()
 
         if(m_scaleMode != ScaleFactorMode)
         {
-            qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
-            qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
-
             qreal pageWidth = 0.0;
             qreal pageHeight = 0.0;
 
