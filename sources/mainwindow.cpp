@@ -382,8 +382,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_propertiesView->setModel(currentTab()->propertiesModel());
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
 
-        m_outlineView->restoreExpansion();
-
         on_currentTab_documentChanged();
 
         on_currentTab_filePathChanged(currentTab()->filePath());
@@ -401,6 +399,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
+
+        m_outlineView->restoreExpansion();
     }
     else
     {
