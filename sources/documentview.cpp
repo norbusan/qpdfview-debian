@@ -1783,14 +1783,9 @@ void DocumentView::prepareScene()
     qreal right = 0.0;
     qreal height = s_settings->documentView().pageSpacing();
 
-    for(int index = 0; index < m_pageItems.count(); ++index)
-    {
-        PageItem* page = m_pageItems.at(index);
-
-        m_layout->prepareLayout(page, index, m_pageItems.count(),
-                                m_heightToIndex, pageHeight,
-                                left, right, height);
-    }
+    m_layout->prepareLayout(m_pageItems,
+                            m_heightToIndex, pageHeight,
+                            left, right, height);
 
     scene()->setSceneRect(left, 0.0, right - left, height);
 }

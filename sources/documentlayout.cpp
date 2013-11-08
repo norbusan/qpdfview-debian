@@ -84,24 +84,27 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
     return viewportWidth - 6.0 - 2.0 * pageSpacing;
 }
 
-void SinglePageLayout::prepareLayout(PageItem* page, int index, int count,
+void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems,
                                      QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                      qreal& left, qreal& right, qreal& height)
 {
-    Q_UNUSED(count);
-
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
-    const QRectF boundingRect = page->boundingRect();
 
-    page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
+    for(int index = 0; index < pageItems.count(); ++index)
+    {
+        PageItem* page = pageItems.at(index);
+        const QRectF boundingRect = page->boundingRect();
 
-    heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
+        page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
 
-    pageHeight = boundingRect.height();
+        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
-    left = qMin(left, -0.5f * boundingRect.width() - pageSpacing);
-    right = qMax(right, 0.5f * boundingRect.width() + pageSpacing);
-    height += pageHeight + pageSpacing;
+        pageHeight = boundingRect.height();
+
+        left = qMin(left, -0.5f * boundingRect.width() - pageSpacing);
+        right = qMax(right, 0.5f * boundingRect.width() + pageSpacing);
+        height += pageHeight + pageSpacing;
+    }
 }
 
 
@@ -145,37 +148,42 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
 }
 
-void TwoPagesLayout::prepareLayout(PageItem* page, int index, int count,
+void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems,
                                    QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                    qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
-    const QRectF boundingRect = page->boundingRect();
 
-    if(index == leftIndex(index))
+    for(int index = 0; index < pageItems.count(); ++index)
     {
-        page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
+        PageItem* page = pageItems.at(index);
+        const QRectF boundingRect = page->boundingRect();
 
-        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
-
-        pageHeight = boundingRect.height();
-
-        left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
-
-        if(index == rightIndex(index, count))
+        if(index == leftIndex(index))
         {
-            right = qMax(right, 0.5f * pageSpacing);
+            page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
+
+            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
+
+            pageHeight = boundingRect.height();
+
+            left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
+
+            if(index == rightIndex(index, pageItems.count()))
+            {
+                right = qMax(right, 0.5f * pageSpacing);
+                height += pageHeight + pageSpacing;
+            }
+        }
+        else
+        {
+            page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
+
+            pageHeight = qMax(pageHeight, boundingRect.height());
+
+            right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
             height += pageHeight + pageSpacing;
         }
-    }
-    else
-    {
-        page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
-
-        pageHeight = qMax(pageHeight, boundingRect.height());
-
-        right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
-        height += pageHeight + pageSpacing;
     }
 }
 
@@ -248,29 +256,34 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
 }
 
-void MultiplePagesLayout::prepareLayout(PageItem* page, int index, int count,
+void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems,
                                         QMap< qreal, int >& heightToIndex, qreal& pageHeight,
                                         qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
-    const QRectF boundingRect = page->boundingRect();
 
-    page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
-
-    pageHeight = qMax(pageHeight, boundingRect.height());
-    left += boundingRect.width() + pageSpacing;
-
-    if(index == leftIndex(index))
+    for(int index = 0; index < pageItems.count(); ++index)
     {
-        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
-    }
+        PageItem* page = pageItems.at(index);
+        const QRectF boundingRect = page->boundingRect();
 
-    if(index == rightIndex(index, count))
-    {
-        height += pageHeight + pageSpacing;
-        pageHeight = 0.0;
+        page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
 
-        right = qMax(right, left + pageSpacing);
-        left = 0.0;
+        pageHeight = qMax(pageHeight, boundingRect.height());
+        left += boundingRect.width() + pageSpacing;
+
+        if(index == leftIndex(index))
+        {
+            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
+        }
+
+        if(index == rightIndex(index, pageItems.count()))
+        {
+            height += pageHeight + pageSpacing;
+            pageHeight = 0.0;
+
+            right = qMax(right, left + pageSpacing);
+            left = 0.0;
+        }
     }
 }
