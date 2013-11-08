@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit a otevřít...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished">Uložit přiložený soubor</translation>
+        <translation type="unfinished">Uložit přílohu souboru</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Nepodařilo se uložit přiložený soubor do &apos;%1&apos;.</translation>
+        <translation type="unfinished">Nepodařilo se uložit přílohu souboru so &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Promítací obrazovka:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="375"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Barva zvýraznění:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="366"/>
         <source>None</source>
         <translation type="unfinished">Žádný</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Doba trvání zvýraznění:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="375"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Barva zvýraznění:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="381"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Překrytí poznámky:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Překrytí formulářového pole:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="734"/>
