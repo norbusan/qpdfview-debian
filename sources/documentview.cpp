@@ -1716,10 +1716,8 @@ void DocumentView::prepareScene()
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    for(int index = 0; index < m_pageItems.count(); ++index)
+    foreach(PageItem* page, m_pageItems)
     {
-        PageItem* page = m_pageItems.at(index);
-
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
@@ -1728,46 +1726,36 @@ void DocumentView::prepareScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        if(m_scaleMode != ScaleFactorMode)
+        qreal pageWidth = 0.0;
+        qreal pageHeight = 0.0;
+
+        switch(m_rotation)
         {
-            qreal pageWidth = 0.0;
-            qreal pageHeight = 0.0;
-
-            qreal scaleFactor = 1.0;
-
-            switch(m_rotation)
-            {
-            default:
-            case RotateBy0:
-            case RotateBy180:
-                pageWidth = logicalDpiX() / 72.0 * page->size().width();
-                pageHeight = logicalDpiY() / 72.0 * page->size().height();
-                break;
-            case RotateBy90:
-            case RotateBy270:
-                pageWidth = logicalDpiX() / 72.0 * page->size().height();
-                pageHeight = logicalDpiY() / 72.0 * page->size().width();
-                break;
-            }
-
-            switch(m_scaleMode)
-            {
-            default:
-            case ScaleFactorMode:
-                break;
-            case FitToPageWidthMode:
-                scaleFactor = visibleWidth / pageWidth;
-                break;
-            case FitToPageSizeMode:
-                scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
-                break;
-            }
-
-            page->setScaleFactor(scaleFactor);
+        default:
+        case RotateBy0:
+        case RotateBy180:
+            pageWidth = logicalDpiX() / 72.0 * page->size().width();
+            pageHeight = logicalDpiY() / 72.0 * page->size().height();
+            break;
+        case RotateBy90:
+        case RotateBy270:
+            pageWidth = logicalDpiX() / 72.0 * page->size().height();
+            pageHeight = logicalDpiY() / 72.0 * page->size().width();
+            break;
         }
-        else
+
+        switch(m_scaleMode)
         {
+        default:
+        case ScaleFactorMode:
             page->setScaleFactor(m_scaleFactor);
+            break;
+        case FitToPageWidthMode:
+            page->setScaleFactor(visibleWidth / pageWidth);
+            break;
+        case FitToPageSizeMode:
+            page->setScaleFactor(qMin(visibleWidth / pageWidth, visibleHeight / pageHeight));
+            break;
         }
 
         page->setRotation(m_rotation);
@@ -1792,6 +1780,8 @@ void DocumentView::prepareScene()
 
 void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 {
+    const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
+
     qreal left = scene()->sceneRect().left();
     qreal top = scene()->sceneRect().top();
     qreal width = scene()->sceneRect().width();
@@ -1799,8 +1789,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
     int horizontalValue = 0;
     int verticalValue = 0;
-
-    const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
 
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
