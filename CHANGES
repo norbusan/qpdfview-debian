@@ -8,7 +8,7 @@ Release 0.4.7:
   * Fixed a race condition that could lead to dropping rendered pages.
   * Fixed a small issue with adding and removing annotations.
   * Updated Czech translations. Thanks to Pavel Fric.
-  * Updated French translations. Thanks to Arnaud Schmittbuhl and Tubuntu.
+  * Updated French translations. Thanks to Arnaud Schmittbuhl, Tubuntu and Pierre Soulat.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
   * Updated British English translations. Thanks to Andi Chandler.
   * Updated Malay translations. Thanks to abuyop.
