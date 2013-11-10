@@ -36,7 +36,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QPrinter>
 #include <QScrollBar>
 #include <QShortcut>
 #include <QStandardItemModel>

@@ -27,7 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QSettings>
 #include <QSpinBox>
-#include <QStandardItemModel>
 
 #include <libspectre/spectre-document.h>
 

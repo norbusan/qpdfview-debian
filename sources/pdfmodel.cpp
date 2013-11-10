@@ -21,12 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pdfmodel.h"
 
-#include <QCheckBox>
-#include <QComboBox>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
-#include <QStandardItemModel>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 

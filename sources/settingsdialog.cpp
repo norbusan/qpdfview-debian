@@ -28,10 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QHeaderView>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QShortcut>
-#include <QSpinBox>
 #include <QTableView>
 
 #include "settings.h"

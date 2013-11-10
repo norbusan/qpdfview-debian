@@ -33,7 +33,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPrinter>
 #include <QProcess>
 #include <QProgressDialog>
 #include <QScrollBar>
