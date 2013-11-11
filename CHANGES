@@ -16,7 +16,8 @@ Release 0.4.7:
   * Updated Polish translations. Thanks to Mateusz Łukasik.
   * Updated Brazilian Portuguese translations. Thanks to Rodrigo Zimmermann.
   * Updated German translations. Thanks to Thomas Worofsky and Tobias B..
-  * Updated Kazakh translations. Thansk to Baurzhan Muftakhidinov.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Slovak translations. Thanks to DAG Software.
 
 Release 0.4.6:
   * Added function that keeps obsolete pixmaps and displays them until final rendering is available.
