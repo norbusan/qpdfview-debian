@@ -832,8 +832,13 @@ template< typename Overlay, typename Element >
 void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* element)
 {
     QGraphicsProxyWidget* proxy = new QGraphicsProxyWidget(this);
-    proxy->setAutoFillBackground(true);
     proxy->setWidget(element->createWidget());
+
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
+    proxy->setAutoFillBackground(true);
+
+#endif // QT_VERSION
 
     overlay.insert(element, proxy);
     setProxyGeometry(element, proxy);
