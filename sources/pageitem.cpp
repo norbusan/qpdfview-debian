@@ -850,7 +850,17 @@ template< typename Overlay >
 void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
 {
     Overlay discardedOverlay;
+
+#if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
+
     discardedOverlay.swap(overlay);
+
+#else
+
+    discardedOverlay = overlay;
+    overlay = Overlay();
+
+#endif // QT_VERSION
 
     if(!discardedOverlay.isEmpty())
     {
