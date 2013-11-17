@@ -11,14 +11,20 @@ Release 0.4.7:
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated French translations. Thanks to Arnaud Schmittbuhl, Tubuntu, Pierre Soulat and Teromene.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
-  * Updated British English translations. Thanks to Andi Chandler.
+  * Updated British English translations. Thanks to Andi Chandler and Anthony Harrington.
   * Updated Malay translations. Thanks to abuyop.
   * Updated Italian translations. Thanks to Claudio Arseni.
   * Updated Polish translations. Thanks to Mateusz Łukasik.
   * Updated Brazilian Portuguese translations. Thanks to Rodrigo Zimmermann.
-  * Updated German translations. Thanks to Thomas Worofsky and Tobias B..
+  * Updated German translations. Thanks to Thomas Worofsky, Tobias B. and Benjamin Eltzner.
   * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
   * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Bulgarian translations. Thanks to Atanas Kovachki.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Greek translations. Thanks to George Christofis.
+  * Updated Italian translations. Thanks to Giovanni Grieco.
+  * Updated Spanish translations. Thanks to Adolfo Jayme Barrientos.
 
 Release 0.4.6:
   * Added function that keeps obsolete pixmaps and displays them until final rendering is available.

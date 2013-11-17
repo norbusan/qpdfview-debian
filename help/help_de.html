@@ -122,9 +122,10 @@ aktuellem Reiter' setzt nur die Einstellungen im aktuellen Reiter des
 Einstellungsdialogs auf ihre Vorgabewerte.</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar, which can be focused using Ctrl+K, and
-pressing the return key.</p>
+<p>Die <em>aktuelle Seite</em> kann geändert werden, indem die Zielseite in das
+Textfeld in der Bearbeiten-Werkzeugleiste eingegeben wird. Das Textfeld kann
+durch Druck von Strg+K und Bestätigung mit der Eingabetaste fokussiert
+werden.</p>
 
 <h4><a name="view">Ansicht</a> <a href="#top">&uarr;</a></h4>
 
@@ -148,8 +149,8 @@ von Seiten vollständig in der Hauptansicht angezeigt wird.</li>
 Uhrzeigersinn um 90 Grad.</li>
 	<li><b>Nach rechts drehen</b> Dreht alle Seiten nach rechts im Uhrzeigersinn um
 90 Grad.</li>
-        <li><b>Invert colors</b> Determines whether pages are rendered with inverted
-colors.</li>
+        <li><b>Farben umkehren</b> Legt fest, ob Seiten mit umgekehrten Farben
+dargestellt werden.</li>
 	<li><b>Werkzeugleisten</b> Dieses Menü enthält eine Liste verfügbarer
 Werkzeugleisten zum Zugriff auf häufig genutzte Aktionen.</li>
 	<li><b>Paletten</b> Dieses Menü enthält eine Liste verfügbarer Paletten zur
@@ -167,47 +168,55 @@ zur vorigen Seite. Drücken von Strg und Eingabetaste springt zur Seite vor
 dem letzten Sprung.</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar, which can be focused using Ctrl+L,
-and pressing the return key.</p>
+<p>Der <em>Skalenfaktor</em> kann geändert werden, indem die gewünschte
+Prozentzahl in das Textfeld in der Ansicht-Werkzeugleiste eingetragen
+wird. Das Textfeld kann durch Druck von Strg+L und Bestätigung mit der
+Eingabetaste fokussiert werden.</p>
 
-<h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="tabs">Reiter</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
-to the last/first tab if the first/last tab is the current tab.</li>
-    <li><b>Close tab</b> Closes the current tab.</li>
-    <li><b>Close all tabs</b> Closes all tabs.</li>
-    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
-tab.</li>
+    <li><b>Voriger/Nächster Reiter</b> Hebt den vorigen/nächsten Reiter in der
+Leiste hervor. Springt zum letzten/ersten Reiter, wenn der erste/letzte
+Reiter aktuell hervorgehoben ist.</li>
+    <li><b>Reiter schließen</b> Schließt den hervorgehobenen Reiter.</li>
+    <li><b>Alle Reiter schließen</b> Schließt alle Reiter.</li>
+    <li><b>Alle Reiter bis auf den Aktuellen schließen</b> Schließt alle bis auf den
+aktuell hervorgehobenen Reiter.</li>
 </ul>
 
-<p>This menu contains a list of all tabs which can be made the current tab by
-clicking on the corresponding menu item. Tabs can also be closed by
-middle-clicking. The first nine tabs can also be activated by holding the
-Alt modifier and pressing keys one to nine.</p>
+<p>Dieses Menü enthält eine Liste aller Reiter, die durch ein Klick auf den
+entsprechenden Menüeintrag hervorgehoben werden können. Reiter können auch
+durch einen Mittelklick geschlossen werden. Die ersten neun Reiter können
+auch durch Halten der Alt-Taste und Druck auf die entsprechende Zahltaste
+hervorgehoben werden.</p>
 
-<h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="bookmarks">Lesezeichen</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
-page.</li>
-    <li><b>Next bookmark</b> Jumps to the closest bookmark after the current page.</li>
-    <li><b>Add bookmark</b> Adds a bookmark for the current file and page.</li>
-    <li><b>Remove bookmark</b> Removes the bookmark for the current file and page.</li>
-    <li><b>Remove all bookmarks</b> Removes all bookmarks.</li>
-    <li><b>Open</b> Opens the corresponding file in the current tab. If there is no
-tab, the file is opened in a new tab.</li>
-    <li><b>Open in new tab</b> Opens the corresponding file in a new tab.</li>
-    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding
-file is already open. Otherwise the corresponding file is opened in a new
-tab.</li>
+    <li><b>Voriges Lesezeichen</b> Springt zum nächsten Lesezeichen vor der
+aktuellen Seite.</li>
+    <li><b>Nächstes Lesezeichen</b> Springt zum nächsten Lesezeichen nach der
+aktuellen Seite.</li>
+    <li><b>Lesezeichen hinzufügen</b> Fügt ein Lesezeichen für die aktuelle Datei
+und Seite hinzu.</li>
+    <li><b>Lesezeichen entfernen</b> Entfernt das Lesezeichen für die aktuelle Datei
+und Seite.</li>
+    <li><b>Alle Lesezeichen entfernen</b> Entfernt alle Lesezeichen für alle
+Dateien.</li>
+    <li><b>Öffnen</b> Öffnet die entsprechende Datei im aktuellen Reiter. Falls es
+keinen Reiter gibt, wird die Datei in einem neuen Reiter geöffnet.</li>
+    <li><b>In neuem Reiter öffnen</b> Öffnet die entsprechende Datei in einem neuen
+Reiter.</li>
+    <li><b>Gehe zu Seite</b> Springt zur entsprechenden Seite, falls die
+entsprechende Datei bereits geöffnet ist. Andernfalls wird die entsprechende
+Datei in einem neuen Reiter geöffnet.</li>
 </ul>
 
-<h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="help">Hilfe</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Contents</b> Displays this document.</li>
+	<li><b>Inhalt</b> Zeigt dieses Dokument an.</li>
 	<li><b>About</b> Displays the program version.</li>
 </ul>
 
@@ -389,14 +398,16 @@ the thumbnails view.</li>
 
 <h4><a name="shortcutsettings">Shortcut settings</a> <a href="#top">&uarr;</a></h4>
 
-<p>The shortcut settings allows the adjustment of keyboard shortcuts to
-personal preference. Shortcuts are changed by double-clicking on the
-shortcut to edit it and entering the new shortcut. Each action can have
-several shortcuts by entering a semicolon-separated list of them. Names of
-keys that are not single letters are written out explicitly (e.g. "Alt",
-"Ctrl", "PgDown"), where the matching is not case sensitive. If the shortcut
-contains modifier keys, the names of the keys are joined by a plus sign and
-modifier keys must be listed first, e.g. "Crtl+A" or "Ctrl++".</p>
+<p>Die Tastenkürzel-Einstellungen ermöglichen die Anpassung der Tastenkürzel an
+persönliche Vorlieben. Zum Ändern eines Tastenkürzel wird ein Doppelklick
+auf das Tastenkürzel ausgeführt und anschließend das neue Tastenkürzel
+eingegeben. Jeder Aktion können mehrere Tastenkürzel zugeordnet werden, die
+durch Semikolons getrennt aufgelistet werden. Tastennamen, die nicht aus
+einem Zeichen bestehen, (z.B. "Alt", "Strg", "Bild aufwärts") werden
+explizit ausgeschrieben, wobei die Erkennung Groß- und Kleinschreibung nicht
+unterscheidet. Falls das Tastenkürzel Modifikator-Tasten enthält, werden die
+Namen der Tasten mit einem Pluszeichen zusammengefügt wobei die
+Modifikator-Taste zuerst genannt werden muss, z.B. "Strg+A" oder "Strg++".</p>
 
 <h4><a name="modifiersettings">Modifier settings</a> <a href="#top">&uarr;</a></h4>
 

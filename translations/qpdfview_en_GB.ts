@@ -82,12 +82,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Save...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Save and open...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
@@ -574,7 +574,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2289"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Tool bars</translation>
+        <translation type="unfinished">&amp;Toolbars</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2292"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Presentation screen:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Highlight colour:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">None</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Highlight duration:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Highlight colour:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
@@ -1337,17 +1337,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="633"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">File tool bar:</translation>
+        <translation type="unfinished">File toolbar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="641"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Edit tool bar:</translation>
+        <translation type="unfinished">Edit toolbar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="649"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">View tool bar:</translation>
+        <translation type="unfinished">View toolbar:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="656"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Annotation overlay:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Form field overlay:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>

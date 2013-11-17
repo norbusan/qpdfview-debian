@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Botar a pàgina %1</translation>
+        <translation type="unfinished">Ves a pàgina %1</translation>
     </message>
 </context>
 <context>
@@ -82,27 +82,27 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desa...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desa i obri...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desa l&apos;adjunt</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Warning</source>
-        <translation type="unfinished">Avís</translation>
+        <translation type="unfinished">Atenció</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut desar l&apos;adjunt a &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -148,17 +148,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanca totes les pestanyes excepte esta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanca totes les pestanyes a l&apos;esquerra</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanca totes les pestanyes a la dreta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -216,17 +216,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afegeix un nou marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Botar a pàgina %1</translation>
+        <translation type="unfinished">Ves a pàgina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Trieu la instància</translation>
+        <translation type="unfinished">Tria instància</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opció de línia de comandaments &apos;%1&apos; desconeguda.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El nom d&apos;una instància només pot contindre els caràcters &quot;[A-Z][a-z][0-9]_&quot; i no pot començar per un número.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Pantalla de presentació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Color de ressaltat:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Cap</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Remarca la durada:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Color de ressaltat:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Superposició d&apos;anotacions:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Superposició del camp de formulari:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>

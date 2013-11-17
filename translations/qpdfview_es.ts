@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Eliminar marcador</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Saltar a la página %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar…</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar y abrir…</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar el archivo adjunto</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo guardar el archivo adjunto en «%1».</translation>
     </message>
 </context>
 <context>
@@ -148,17 +148,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar todas las pestañas excepto esta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar las pestañas a la izquierda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar las pestañas a la derecha</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -216,17 +216,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Añadir marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Saltar a la página %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
@@ -516,7 +516,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2074"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Eliminar marcador</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2075"/>
@@ -767,7 +767,7 @@
         <location filename="../sources/pdfmodel.cpp" line="853"/>
         <location filename="../sources/pdfmodel.cpp" line="883"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ninguno</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="854"/>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Elija la instancia</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">La opción de la línea de órdenes «%1» es desconocida.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1163,19 +1163,19 @@
         <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Color de resaltado:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nada</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Marca de duración</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Color de resaltado:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>

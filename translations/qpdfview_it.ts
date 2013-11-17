@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vai alla pagina %1</translation>
     </message>
 </context>
 <context>
@@ -87,12 +87,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salva e apri...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salva allegato</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile salvare l&apos;allegato in &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -111,7 +111,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_it.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
@@ -148,17 +148,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiudi tutte le schede tranne questa</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiudi tutte le schede alla sinistra</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiudi tutte le schede alla destra</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -226,7 +226,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vai alla pagina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Schermo per presentazione:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Colore dell&apos;evidenziatore:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Nessuna</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Durata dell&apos;evidenziatore:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Colore dell&apos;evidenziatore:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>

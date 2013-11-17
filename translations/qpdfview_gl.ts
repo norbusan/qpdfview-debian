@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="gl_ES">
+<TS version="2.0">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gardar...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gardar e abrir...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gardar anexo</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Non foi posíbel gardar o anexo en «%1».</translation>
     </message>
 </context>
 <context>
@@ -146,29 +146,24 @@
         <translation type="unfinished">Non foi posíbel abrir «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished">Abrir o cartafol contedor</translation>
+        <location filename="../sources/mainwindow.cpp" line="509"/>
+        <source>Close all tabs but this one</source>
+        <translation type="unfinished">Pechar todas as lapelas excepto este</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="510"/>
+        <source>Close all tabs to the left</source>
+        <translation type="unfinished">Pechar todas as lapelas á esquerda</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="511"/>
+        <source>Close all tabs to the right</source>
+        <translation type="unfinished">Pechar todas as lapelas á dereita</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
         <source>Open</source>
         <translation type="unfinished">Abrir</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="509"/>
-        <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="510"/>
-        <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="511"/>
-        <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="953"/>
@@ -221,12 +216,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Engadir marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
@@ -302,6 +297,11 @@
         <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir nunha nova &amp;lapela...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Abrir o cartafol contedor</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opción de liña de ordes descoñecida «%1».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">O nome dunha instancia debe conter só os caracteres «[A-Z][a-z][0-9]_» e non debe comezar cun díxito.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Cor de resalte:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Ningún</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Duración do resalte:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Cor de resalte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anotación superposta:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Superposición dos campos do formulario:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>

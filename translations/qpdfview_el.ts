@@ -32,7 +32,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="226"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Υποστηριζόμενες μρφές (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="497"/>
@@ -47,24 +47,14 @@
         <translation type="unfinished">Κωδικός:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1500"/>
-        <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Εκτύπωση &apos;%1&apos;...</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
-        <source>Page %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="1044"/>
         <source>Information</source>
-        <translation type="unfinished">Πληροφορία</translation>
+        <translation type="unfinished">Πληροφορίες</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1044"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation type="unfinished">Το άνοιγμα υπερσυνδέσμων απενεργοποιείται στις ρυθμίσεις</translation>
+        <translation type="unfinished">Το άνοιγμα υπερσυνδέσμων είναι απενεργοποιημένο στις ρυθμίσεις.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1096"/>
@@ -76,23 +66,33 @@
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Τα δεδομένα SyncTeX για το &apos;%1&apos; δεν μπορούν να βρεθούν.</translation>
     </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1500"/>
+        <source>Printing &apos;%1&apos;...</source>
+        <translation type="unfinished">Εκτύπωση &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1577"/>
+        <source>Page %1</source>
+        <translation type="unfinished">Σελίδα %1</translation>
+    </message>
 </context>
 <context>
     <name>FileAttachmentAnnotationWidget</name>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αποθήκευση...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αποθήκευση και άνοιγμα...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αποθήκευση επισυναπτόμενου αρχείου</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αδύνατη η αποθήκευση του επισυναπτόμενου αρχείου στο  &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -111,7 +111,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
@@ -146,16 +146,6 @@
         <translation type="unfinished">Αδυναμία ανοίγματος του &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="937"/>
-        <source>Open</source>
-        <translation type="unfinished">Άνοιγμα</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
@@ -163,12 +153,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Κλείσιμο όλων των καρτελών προς τα αριστερά</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Κλείσιμο όλων των καρτελών προς τα δεξιά</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="937"/>
+        <source>Open</source>
+        <translation type="unfinished">Άνοιγμα</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="953"/>
@@ -195,13 +190,13 @@
         <location filename="../sources/mainwindow.cpp" line="1006"/>
         <location filename="../sources/mainwindow.cpp" line="1864"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αποθήκευση ως</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1016"/>
         <location filename="../sources/mainwindow.cpp" line="1874"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αδύνατη η αποθήκευση ως &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1052"/>
@@ -221,12 +216,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Προσθήκη σελιδοδείκτη</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ετικέτα</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
@@ -241,7 +236,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Το qpdfview είναι μια εφαρμογή ανάγνωσης εγγράφων σε καρτέλες και χρησιμοποιεί Qt.&lt;/p&gt;&lt;p&gt;Αυτή η έκδοση περιλαμβάνει:&lt;ul&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1568"/>
@@ -271,7 +266,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1860"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Το έγγραφο &apos;%1&apos; έχει τροποποιηθεί. Επιθυμείτε να αποθηκευθούν οι αλλαγές;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1930"/>
@@ -304,6 +299,11 @@
         <translation type="unfinished">Άνοιγμα σε νέα &amp;καρτέλα...</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Άνοιγμα φακέλου που το περιέχει</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Ανανέωση</translation>
@@ -316,7 +316,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Αποθήκευση &amp;ως...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2003"/>
@@ -326,7 +326,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Έ&amp;ξοδος</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2008"/>
@@ -356,7 +356,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2015"/>
         <source>Jump &amp;backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Μετάβαση &amp;πίσω</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
@@ -552,11 +552,6 @@
         <translation type="unfinished">&amp;Προβολή</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2184"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Αναζήτηση</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2149"/>
         <source>&amp;Outline</source>
         <translation type="unfinished"></translation>
@@ -570,6 +565,11 @@
         <location filename="../sources/mainwindow.cpp" line="2172"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2184"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Αναζήτηση</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2289"/>
@@ -602,39 +602,39 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>Name</source>
-        <translation type="unfinished">Όνομα</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>Type</source>
-        <translation type="unfinished">Τύπος</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>Embedded</source>
-        <translation type="unfinished">Ενσωματωμένο</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>Subset</source>
-        <translation type="unfinished">Υποσύνολο</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>File</source>
-        <translation type="unfinished">Αρχείο</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <location filename="../sources/pdfmodel.cpp" line="824"/>
         <source>Yes</source>
-        <translation type="unfinished">Ναι</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <location filename="../sources/pdfmodel.cpp" line="824"/>
         <source>No</source>
-        <translation type="unfinished">Όχι</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -642,12 +642,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="409"/>
         <source>Information</source>
-        <translation type="unfinished">Πληροφορία</translation>
+        <translation type="unfinished">Πληροφορίες</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="409"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Απαιτείται η έκδοση της βιβλιοθήκης Poppler 0.20.1 ή νεότερη για να προσθέσετε και να αφαιρέσετε σχολιασμούς.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -836,7 +836,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Προσαρμογή στη σελίδα:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
@@ -846,7 +846,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>All pages</source>
-        <translation type="unfinished">Όλες οι σελίδες</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
@@ -876,22 +876,22 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Four pages</source>
-        <translation type="unfinished">Τέσσερις σελίδες</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Six pages</source>
-        <translation type="unfinished">Έξι σελίδες</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Εννιά σελίδες</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished">Δεκαέξι σελίδες</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
@@ -946,7 +946,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Extended options</source>
-        <translation type="unfinished">Εκτεταμένες επιλογές</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1069,6 +1069,11 @@
 <context>
     <name>SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="64"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="115"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished"></translation>
@@ -1158,6 +1163,21 @@
         <translation type="unfinished">Οθόνη παρουσίασης:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="364"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="367"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
         <source>Annotation color:</source>
         <translation type="unfinished"></translation>
@@ -1198,16 +1218,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="364"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="367"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="457"/>
         <source>Background color:</source>
         <translation type="unfinished"></translation>
@@ -1215,6 +1225,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="463"/>
         <source>Paper color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="469"/>
+        <source>Presentation background color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1236,41 +1251,6 @@
         <location filename="../sources/settingsdialog.cpp" line="507"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Μέγεθος εικόνας επισκόπησης:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="663"/>
-        <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="670"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="677"/>
-        <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="684"/>
-        <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="64"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="469"/>
-        <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="512"/>
@@ -1355,11 +1335,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="656"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="633"/>
         <source>File tool bar:</source>
         <translation type="unfinished"></translation>
@@ -1372,6 +1347,31 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="649"/>
         <source>View tool bar:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="656"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="663"/>
+        <source>Instance name in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="670"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="677"/>
+        <source>Highlight current thumbnail:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="684"/>
+        <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1413,6 +1413,16 @@
 <context>
     <name>ShortcutHandler</name>
     <message>
+        <location filename="../sources/shortcuthandler.cpp" line="140"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/shortcuthandler.cpp" line="143"/>
+        <source>Key sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
         <translation type="unfinished"></translation>
@@ -1440,16 +1450,6 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="296"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="140"/>
-        <source>Action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/shortcuthandler.cpp" line="143"/>
-        <source>Key sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

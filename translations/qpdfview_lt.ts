@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -153,12 +153,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uždaryti visus skirtukus kairėje</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uždaryti visus skirtukus dešinėje</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -168,7 +168,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="953"/>
         <source>Open in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ativerti naujame skirtuke</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="981"/>
@@ -336,7 +336,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2009"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kitas puslapis</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2010"/>

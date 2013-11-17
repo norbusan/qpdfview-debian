@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="bg_BG">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="560"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Прескачане към страница %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -82,7 +82,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Съхраняване...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
@@ -111,17 +111,17 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="54"/>
         <source>Find previous</source>
-        <translation type="unfinished">Търсене на предишен</translation>
+        <translation type="unfinished">Намери предишния</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="58"/>
         <source>Find next</source>
-        <translation type="unfinished">Търсене на следващ</translation>
+        <translation type="unfinished">Намери следващия</translation>
     </message>
 </context>
 <context>
@@ -146,16 +146,6 @@
         <translation type="unfinished">Не може да се отвори &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="937"/>
-        <source>Open</source>
-        <translation type="unfinished">Отваряне</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
@@ -169,6 +159,11 @@
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="937"/>
+        <source>Open</source>
+        <translation type="unfinished">Отваряне</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="953"/>
@@ -231,7 +226,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Прескачане към страница %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
@@ -302,6 +297,11 @@
         <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Отваряне в нов &amp;раздел...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
@@ -876,7 +876,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Four pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Четири страници</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
@@ -1012,7 +1012,7 @@
     <message>
         <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Не са открити SyncTeX данни за &apos;%1&apos;.</translation>
+        <translation type="unfinished">Не са открити данните SyncTeX за &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="440"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Презентационен екран:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Без</translation>
@@ -1175,6 +1170,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
