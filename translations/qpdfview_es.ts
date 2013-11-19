@@ -16,7 +16,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="50"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eliminar marcador</translation>
     </message>
 </context>
 <context>
@@ -516,7 +516,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2074"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Eliminar marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2075"/>
@@ -767,7 +767,7 @@
         <location filename="../sources/pdfmodel.cpp" line="853"/>
         <location filename="../sources/pdfmodel.cpp" line="883"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="854"/>
@@ -1165,7 +1165,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
-        <translation type="unfinished">Nada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="367"/>

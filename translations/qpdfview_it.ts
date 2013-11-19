@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -82,7 +82,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salva...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Warning</source>
-        <translation type="unfinished">Avviso</translation>
+        <translation type="unfinished">Attenzione</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -216,17 +216,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiungi segnalibro</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etichetta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Vai alla pagina %1</translation>
+        <translation type="unfinished">Va alla pagina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1999"/>
         <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apri cartella</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
@@ -688,7 +688,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="434"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vai alla pagina %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="438"/>
@@ -977,17 +977,17 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scelta dell&apos;istanza</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Istanza:</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opzione per la riga di comando «%1» sconosciuta.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Il nome dell&apos;istanza deve contenere solo i caratteri &quot;[A-Z][a-z][0-9]_&quot; e non deve iniziare con una cifra.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1185,7 +1185,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="385"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">«%1» viene sostituito dal percorso assoluto del file. «%2» relativamente a «%3» viene sostituito dalla riga relativamente al numero della colonna.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="387"/>
@@ -1195,12 +1195,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mantenere pixmap obsoleti:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="428"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usare il rapporto pixel del dispositivo:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
@@ -1230,7 +1230,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="469"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Colore sfondo presentazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="477"/>
@@ -1357,7 +1357,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="663"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nome dell&apos;istanza nel titolo della finestra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="670"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Motivo annotazione:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Motivo campo del form:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>

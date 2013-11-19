@@ -49,7 +49,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1044"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Məlumat</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1044"/>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yaddaşa al</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yaddaşa al və aç…</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Əlavədəki faylı saxla</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Əlavədəki faylı  &apos;%1&apos; yaddaça almaq mümkün deyil</translation>
     </message>
 </context>
 <context>
@@ -148,17 +148,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bu siğmədən başqa hamısını bağla</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Solda olan bütün siğmələri bağla</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sağda olan bütün siğmələri bağla</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -216,12 +216,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Əfləcin əlavə et</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nişan</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1481"/>
@@ -642,7 +642,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="409"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mə&apos;lumat</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="409"/>
@@ -977,7 +977,7 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Nüsxəni seçin</translation>
+        <translation type="unfinished">Nüsxəni bağla</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
@@ -987,7 +987,7 @@
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naməlum əmr-sətri opsiyası &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1002,7 +1002,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nüsxənin adında yalnız &quot;[A-Z][a-z][0-9]_&quot; işarələri olmalı və rəqəmlə başlamamalıdır.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Nümayiş ekranı:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Seçilmə rəngi:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Heç Biri</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Sayrışma müddəri:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Seçilmə rəngi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>

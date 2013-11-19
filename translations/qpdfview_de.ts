@@ -153,12 +153,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle Reiter zur Linken schließen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle Reiter zur Rechten schließen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eingebettet dargestellte Anmerkungen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eingebettet dargestellte Formularfelder:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>
