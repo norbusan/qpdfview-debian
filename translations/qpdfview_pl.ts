@@ -82,27 +82,27 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz i otwórz...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz plik załącznika</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Warning</source>
-        <translation type="unfinished">Ostrzeżenie</translation>
+        <translation>Ostrzeżenie</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się zapisać pliku załącznika do &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -146,16 +146,6 @@
         <translation>Nie można otworzyć &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
-        <source>Open containing folder</source>
-        <translation>Otwórz folder zawierający</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="937"/>
-        <source>Open</source>
-        <translation>Otwórz</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
         <translation>Zamknij wszystkie karty, ale nie tą</translation>
@@ -169,6 +159,11 @@
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
         <translation>Zamknij wszystkie karty w prawo</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="937"/>
+        <source>Open</source>
+        <translation>Otwórz</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="953"/>
@@ -302,6 +297,11 @@
         <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>Open in new &amp;tab...</source>
         <translation>Otwórz w nowej &amp;karcie...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <source>Open containing folder</source>
+        <translation>Otwórz folder zawierający</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
@@ -596,6 +596,10 @@
         <source>&amp;Help</source>
         <translation>P&amp;omoc</translation>
     </message>
+    <message>
+        <source>&amp;Exit</source>
+        <translation type="obsolete">Za&amp;kończ</translation>
+    </message>
 </context>
 <context>
     <name>Model::PdfDocument</name>
@@ -832,6 +836,13 @@
     </message>
 </context>
 <context>
+    <name>PresentationView</name>
+    <message>
+        <source>Go to page %1.</source>
+        <translation type="obsolete">Idź do strony %1.</translation>
+    </message>
+</context>
+<context>
     <name>PrintDialog</name>
     <message>
         <location filename="../sources/printdialog.cpp" line="61"/>
@@ -987,7 +998,7 @@
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieznana opcja wiersza poleceń &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
