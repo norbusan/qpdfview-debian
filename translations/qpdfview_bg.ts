@@ -896,7 +896,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Номер нагоре:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>

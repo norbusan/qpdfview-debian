@@ -596,10 +596,6 @@
         <source>&amp;Help</source>
         <translation>P&amp;omoc</translation>
     </message>
-    <message>
-        <source>&amp;Exit</source>
-        <translation type="obsolete">Za&amp;kończ</translation>
-    </message>
 </context>
 <context>
     <name>Model::PdfDocument</name>
@@ -833,13 +829,6 @@
         <location filename="../sources/pluginhandler.cpp" line="346"/>
         <source>Could not load DjVu plug-in!</source>
         <translation>Nie można wczytać wtyczki DjVu!</translation>
-    </message>
-</context>
-<context>
-    <name>PresentationView</name>
-    <message>
-        <source>Go to page %1.</source>
-        <translation type="obsolete">Idź do strony %1.</translation>
     </message>
 </context>
 <context>
