@@ -112,7 +112,7 @@ void Database::restoreTabs()
         QSqlQuery query(m_database);
         query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v2 WHERE instanceName==?");
 
-        query.bindValue(0, qApp->objectName());
+        query.bindValue(0, instanceName());
 
         query.exec();
 
@@ -153,7 +153,7 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
         {
             query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
 
-            query.bindValue(0, qApp->objectName());
+            query.bindValue(0, instanceName());
 
             query.exec();
 
@@ -169,7 +169,7 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
             foreach(const DocumentView* tab, tabs)
             {
                 query.bindValue(0, QFileInfo(tab->filePath()).absoluteFilePath());
-                query.bindValue(1, qApp->objectName());
+                query.bindValue(1, instanceName());
                 query.bindValue(2, tab->currentPage());
 
                 query.bindValue(3, static_cast< uint >(tab->continousMode()));
@@ -511,6 +511,11 @@ Database::Database(QObject* parent) : QObject(parent)
 #endif // WITH_SQL
 }
 
+QString Database::instanceName()
+{
+    return !qApp->objectName().isNull() ? qApp->objectName() : QString("");
+}
+
 #ifdef WITH_SQL
 
 void Database::migrateTabs_v1_v2()
@@ -520,7 +525,7 @@ void Database::migrateTabs_v1_v2()
                   "SELECT filePath,?,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation "
                   "FROM tabs_v1");
 
-    query.bindValue(0, qApp->objectName());
+    query.bindValue(0, instanceName());
 
     query.exec();
 

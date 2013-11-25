@@ -66,6 +66,8 @@ private:
 
 #ifdef WITH_SQL
 
+    static QString instanceName();
+
     void migrateTabs_v1_v2();
     void migrateBookmarks_v1_v2();
 
