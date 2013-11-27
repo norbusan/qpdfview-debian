@@ -22,7 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="560"/>
+        <location filename="../sources/database.cpp" line="565"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">跳到 %1 页</translation>
     </message>

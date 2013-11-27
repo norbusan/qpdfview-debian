@@ -22,7 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="560"/>
+        <location filename="../sources/database.cpp" line="565"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Lompat ke halaman %1</translation>
     </message>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simpan...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simpan dan buka...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simpan lampiran fail</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tidak dapat simpan lampiran ke &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -148,17 +148,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="509"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tutup semua tab tetapi kecualikan ini</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="510"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tutup semua ke disebelah kiri</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="511"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tutup semua tab disebelah kanan</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="937"/>
@@ -977,12 +977,12 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pilih kejadian</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kejadian:</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
@@ -1163,11 +1163,6 @@
         <translation type="unfinished">Skrin persembahan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="373"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Warna sorot:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="364"/>
         <source>None</source>
         <translation type="unfinished">Tiada</translation>
@@ -1176,6 +1171,11 @@
         <location filename="../sources/settingsdialog.cpp" line="367"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Sorot jangkamasa:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="373"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Warna sorot:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="379"/>
@@ -1377,12 +1377,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="691"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tindihan catatan:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tindihan medan borang:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="732"/>
