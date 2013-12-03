@@ -55,4 +55,5 @@ TRANSLATIONS += \
     translations/qpdfview_tr.ts \
     translations/qpdfview_ug.ts \
     translations/qpdfview_uk.ts \
+    translations/qpdfview_vi.ts \
     translations/qpdfview_zh_CN.ts
