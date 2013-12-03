@@ -33,6 +33,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <qmath.h>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPrintEngine>
 #include <QProcess>
 #include <QProgressDialog>
 #include <QScrollBar>
@@ -1326,6 +1327,13 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         for(int index = 0; index < dest->num_options; ++index)
         {
             num_options = cupsAddOption(dest->options[index].name, dest->options[index].value, num_options, &options);
+        }
+
+        QStringList cupsOptions = printer->printEngine()->property(QPrintEngine::PrintEnginePropertyKey(0xfe00)).toStringList();
+
+        for(int index = 0; index < cupsOptions.count() - 1; index += 2)
+        {
+            num_options = cupsAddOption(cupsOptions.at(index).toLocal8Bit(), cupsOptions.at(index + 1).toLocal8Bit(), num_options, &options);
         }
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
