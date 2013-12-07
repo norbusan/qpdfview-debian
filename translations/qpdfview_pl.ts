@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="226"/>
+        <location filename="../sources/documentview.cpp" line="227"/>
         <source>Supported formats (%1)</source>
         <translation>Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="497"/>
-        <location filename="../sources/documentview.cpp" line="541"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Unlock %1</source>
         <translation>Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="497"/>
-        <location filename="../sources/documentview.cpp" line="541"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Password:</source>
         <translation>Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1044"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Information</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1044"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation>Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1500"/>
+        <location filename="../sources/documentview.cpp" line="1508"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
         <source>Page %1</source>
         <translation>Strona %1</translation>
     </message>

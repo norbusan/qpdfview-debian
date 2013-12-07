@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="226"/>
+        <location filename="../sources/documentview.cpp" line="227"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Υποστηριζόμενες μρφές (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="497"/>
-        <location filename="../sources/documentview.cpp" line="541"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Ξεκλείδωμα %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="497"/>
-        <location filename="../sources/documentview.cpp" line="541"/>
+        <location filename="../sources/documentview.cpp" line="498"/>
+        <location filename="../sources/documentview.cpp" line="542"/>
         <source>Password:</source>
         <translation type="unfinished">Κωδικός:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1044"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Information</source>
         <translation type="unfinished">Πληροφορίες</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1044"/>
+        <location filename="../sources/documentview.cpp" line="1045"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Το άνοιγμα υπερσυνδέσμων είναι απενεργοποιημένο στις ρυθμίσεις.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>Warning</source>
         <translation type="unfinished">Προειδοποίηση</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1096"/>
+        <location filename="../sources/documentview.cpp" line="1097"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Τα δεδομένα SyncTeX για το &apos;%1&apos; δεν μπορούν να βρεθούν.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1500"/>
+        <location filename="../sources/documentview.cpp" line="1508"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Εκτύπωση &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
+        <location filename="../sources/documentview.cpp" line="1585"/>
         <source>Page %1</source>
         <translation type="unfinished">Σελίδα %1</translation>
     </message>
