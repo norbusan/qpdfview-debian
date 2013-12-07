@@ -64,9 +64,9 @@ private:
     static Database* s_instance;
     Database(QObject* parent = 0);
 
-#ifdef WITH_SQL
-
     static QString instanceName();
+
+#ifdef WITH_SQL
 
     void migrateTabs_v1_v2();
     void migrateBookmarks_v1_v2();
