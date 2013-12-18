@@ -1,7 +1,8 @@
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.
-  * Add Vietnamese translations. Thanks to Khang Mạnh Tử.
-  * Update Bulgarian translations. Thanks to Atanas Kovachki.
+  * Added Vietnamese translations. Thanks to Khang Mạnh Tử.
+  * Updated Bulgarian translations. Thanks to Atanas Kovachki.
+  * Updated Malay translations. Thanks to abuyop.
 
 Release 0.4.7:
   * Extended bookmarks storage format to add labelled bookmarks.
