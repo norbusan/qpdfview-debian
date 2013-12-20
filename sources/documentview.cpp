@@ -1575,11 +1575,6 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 
 void DocumentView::loadFallbackOutline()
 {
-    if(m_outlineModel->rowCount() > 0)
-    {
-        return;
-    }
-
     for(int page = 1; page <= m_pages.count(); ++page)
     {
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(page));
@@ -1640,7 +1635,10 @@ void DocumentView::prepareDocument(Model::Document* document)
     m_document->loadOutline(m_outlineModel);
     m_document->loadProperties(m_propertiesModel);
 
-    loadFallbackOutline();
+    if(m_outlineModel->rowCount() == 0)
+    {
+        loadFallbackOutline();
+    }
 
     if(s_settings->documentView().prefetch())
     {
