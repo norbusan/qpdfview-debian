@@ -2231,17 +2231,12 @@ void MainWindow::createMenus()
     m_fileMenu = menuBar()->addMenu(tr("&File"));
     m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
-    m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsedCount(), this);
+    m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsed(), s_settings->mainWindow().recentlyUsedCount(), this);
+
+    connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(on_recentlyUsed_openTriggered(QString)));
 
     if(s_settings->mainWindow().trackRecentlyUsed())
     {
-        foreach(const QString& filePath, s_settings->mainWindow().recentlyUsed())
-        {
-            m_recentlyUsedMenu->addOpenAction(filePath);
-        }
-
-        connect(m_recentlyUsedMenu, SIGNAL(openTriggered(QString)), SLOT(on_recentlyUsed_openTriggered(QString)));
-
         m_fileMenu->addMenu(m_recentlyUsedMenu);
 
         QToolButton* openToolButton = qobject_cast< QToolButton* >(m_fileToolBar->widgetForAction(m_openAction));

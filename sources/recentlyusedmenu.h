@@ -29,7 +29,7 @@ class RecentlyUsedMenu : public QMenu
     Q_OBJECT
 
 public:
-    explicit RecentlyUsedMenu(int count, QWidget* parent = 0);
+    explicit RecentlyUsedMenu(const QStringList& filePaths, int count, QWidget* parent = 0);
 
     void addOpenAction(const QString& filePath);
     void removeOpenAction(const QString& filePath);
