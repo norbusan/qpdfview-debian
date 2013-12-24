@@ -24,8 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 
-class DocumentView;
-
 class RecentlyClosedMenu : public QMenu
 {
     Q_OBJECT
@@ -33,10 +31,10 @@ class RecentlyClosedMenu : public QMenu
 public:
     explicit RecentlyClosedMenu(int count, QWidget *parent = 0);
 
-    void addRestoreAction(DocumentView* tab);
+    void addRestoreAction(QAction* tabAction);
 
 signals:
-    void restoreTriggered(DocumentView* tab);
+    void restoreTriggered(QAction* tabAction);
 
 protected slots:
     void on_restore_triggered(QAction* action);

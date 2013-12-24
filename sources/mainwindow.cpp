@@ -194,19 +194,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
         m_recentlyUsedMenu->addOpenAction(filePath);
 
-        int index;
-
-        if(s_settings->mainWindow().newTabNextToCurrentTab())
-        {
-            index = m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, newTab, fileInfo.completeBaseName());
-        }
-        else
-        {
-            index = m_tabWidget->addTab(newTab, fileInfo.completeBaseName());
-        }
-
-        m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
-        m_tabWidget->setCurrentIndex(index);
+        const int index = addTab(newTab, fileInfo);
 
         QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
         connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
@@ -499,7 +487,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
     if(saveModifications(tab(index)))
     {
-        close(tab(index));
+        closeTab(tab(index));
     }
 }
 
@@ -548,7 +536,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     {
         if(saveModifications(tab))
         {
-            close(tab);
+            closeTab(tab);
         }
     }
 
@@ -1335,7 +1323,7 @@ void MainWindow::on_closeTab_triggered()
 {
     if(saveModifications(currentTab()))
     {
-        close(currentTab());
+        closeTab(currentTab());
     }
 }
 
@@ -1347,7 +1335,7 @@ void MainWindow::on_closeAllTabs_triggered()
     {
         if(saveModifications(tab))
         {
-            close(tab);
+            closeTab(tab);
         }
     }
 
@@ -1372,7 +1360,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     {
         if(saveModifications(tab))
         {
-            close(tab);
+            closeTab(tab);
         }
     }
 
@@ -1383,6 +1371,18 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+}
+
+void MainWindow::on_recentlyClosed_restoreTriggered(QAction* tabAction)
+{
+    DocumentView* tab = static_cast< DocumentView* >(tabAction->parent());
+
+    tab->setParent(m_tabWidget);
+    tab->setVisible(true);
+
+    addTab(tab, QFileInfo(tab->filePath()));
+
+    m_tabsMenu->addAction(tabAction);
 }
 
 void MainWindow::on_tabAction_triggered()
@@ -1771,6 +1771,44 @@ QList< DocumentView* > MainWindow::tabs() const
     return tabs;
 }
 
+int MainWindow::addTab(DocumentView* tab, const QFileInfo& fileInfo)
+{
+    const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
+                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, fileInfo.completeBaseName()) :
+                m_tabWidget->addTab(tab, fileInfo.completeBaseName());
+
+    m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
+    m_tabWidget->setCurrentIndex(index);
+
+    return index;
+}
+
+void MainWindow::closeTab(DocumentView* tab)
+{
+    if(s_settings->mainWindow().trackRecentlyClosed())
+    {
+        foreach(QAction* tabAction, m_tabsMenu->actions())
+        {
+            if(tabAction->parent() == tab)
+            {
+                m_tabWidget->removeTab(m_tabWidget->indexOf(tab));
+
+                tab->setParent(this);
+                tab->setVisible(false);
+
+                m_tabsMenu->removeAction(tabAction);
+                m_recentlyClosedMenu->addRestoreAction(tabAction);
+
+                break;
+            }
+        }
+    }
+    else
+    {
+        delete tab;
+    }
+}
+
 bool MainWindow::senderIsCurrentTab() const
 {
      return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
@@ -1885,18 +1923,6 @@ bool MainWindow::saveModifications(DocumentView* tab)
     }
 
     return true;
-}
-
-void MainWindow::close(DocumentView* tab)
-{
-    if(s_settings->mainWindow().trackRecentlyClosed())
-    {
-        m_recentlyClosedMenu->addRestoreAction(tab);
-    }
-    else
-    {
-        delete tab;
-    }
 }
 
 void MainWindow::createWidgets()
@@ -2314,7 +2340,7 @@ void MainWindow::createMenus()
 
     m_recentlyClosedMenu = new RecentlyClosedMenu(s_settings->mainWindow().recentlyClosedCount(), this);
 
-    // TODO
+    connect(m_recentlyClosedMenu, SIGNAL(restoreTriggered(QAction*)), SLOT(on_recentlyClosed_restoreTriggered(QAction*)));
 
     if(s_settings->mainWindow().trackRecentlyClosed())
     {

@@ -34,6 +34,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QCheckBox;
 class QGraphicsView;
+class QFileInfo;
 class QModelIndex;
 class QShortcut;
 class QTableView;
@@ -165,6 +166,8 @@ protected slots:
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
 
+    void on_recentlyClosed_restoreTriggered(QAction* tabAction);
+
     void on_tabAction_triggered();
     void on_tabShortcut_activated();
 
@@ -213,6 +216,9 @@ private:
     DocumentView* tab(int index) const;
     QList< DocumentView* > tabs() const;
 
+    int addTab(DocumentView* tab, const QFileInfo& fileInfo);
+    void closeTab(DocumentView* tab);
+
     bool senderIsCurrentTab() const;
 
     void setWindowTitleForCurrentTab();
@@ -223,7 +229,6 @@ private:
     void saveBookmarks() const;
 
     bool saveModifications(DocumentView* tab);
-    void close(DocumentView* tab);
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;

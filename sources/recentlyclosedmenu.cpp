@@ -23,11 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
-static inline DocumentView* storedTab(QAction* action)
-{
-    return reinterpret_cast< DocumentView* >(action->data().toULongLong());
-}
-
 RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(parent),
     m_count(count)
 {
@@ -42,24 +37,36 @@ RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(paren
     connect(m_clearListAction, SIGNAL(triggered()), SLOT(on_clearList_triggered()));
 }
 
-void RecentlyClosedMenu::addRestoreAction(DocumentView* tab)
+void RecentlyClosedMenu::addRestoreAction(QAction* tabAction)
 {
-    // TODO
+    if(m_restoreActionGroup->actions().count() >= m_count)
+    {
+        QAction* first = m_restoreActionGroup->actions().first();
+
+        removeAction(first);
+        m_restoreActionGroup->removeAction(first);
+
+        delete static_cast< DocumentView* >(first->parent());
+        delete first;
+    }
+
+    insertAction(actions().first(), tabAction);
+    m_restoreActionGroup->addAction(tabAction);
 }
 
 void RecentlyClosedMenu::on_restore_triggered(QAction* action)
 {
-    emit restoreTriggered(storedTab(action));
+    removeAction(action);
+    m_restoreActionGroup->removeAction(action);
 
-    action->deleteLater();
+    emit restoreTriggered(action);
 }
 
 void RecentlyClosedMenu::on_clearList_triggered()
 {
     foreach(QAction* action, m_restoreActionGroup->actions())
     {
-        delete storedTab(action);
-
+        delete static_cast< DocumentView* >(action->parent());
         delete action;
     }
 }
