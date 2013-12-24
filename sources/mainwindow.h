@@ -223,6 +223,7 @@ private:
     void saveBookmarks() const;
 
     bool saveModifications(DocumentView* tab);
+    void close(DocumentView* tab);
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;

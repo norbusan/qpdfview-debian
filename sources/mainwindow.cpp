@@ -499,7 +499,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
     if(saveModifications(tab(index)))
     {
-        delete tab(index);
+        close(tab(index));
     }
 }
 
@@ -548,7 +548,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     {
         if(saveModifications(tab))
         {
-            delete tab;
+            close(tab);
         }
     }
 
@@ -1335,7 +1335,7 @@ void MainWindow::on_closeTab_triggered()
 {
     if(saveModifications(currentTab()))
     {
-            delete currentTab();
+        close(currentTab());
     }
 }
 
@@ -1347,7 +1347,7 @@ void MainWindow::on_closeAllTabs_triggered()
     {
         if(saveModifications(tab))
         {
-            delete tab;
+            close(tab);
         }
     }
 
@@ -1372,7 +1372,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     {
         if(saveModifications(tab))
         {
-            delete tab;
+            close(tab);
         }
     }
 
@@ -1885,6 +1885,18 @@ bool MainWindow::saveModifications(DocumentView* tab)
     }
 
     return true;
+}
+
+void MainWindow::close(DocumentView* tab)
+{
+    if(s_settings->mainWindow().trackRecentlyClosed())
+    {
+        m_recentlyClosedMenu->addRestoreAction(tab);
+    }
+    else
+    {
+        delete tab;
+    }
 }
 
 void MainWindow::createWidgets()
