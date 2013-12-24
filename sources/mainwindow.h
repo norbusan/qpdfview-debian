@@ -49,6 +49,7 @@ class ComboBox;
 class SpinBox;
 class SearchLineEdit;
 class RecentlyUsedMenu;
+class RecentlyClosedMenu;
 class BookmarkMenu;
 class Database;
 
@@ -342,6 +343,7 @@ private:
     QMenu* m_editMenu;
     QMenu* m_viewMenu;
     QMenu* m_tabsMenu;
+    RecentlyClosedMenu* m_recentlyClosedMenu;
     QMenu* m_bookmarksMenu;
     QMenu* m_helpMenu;
 

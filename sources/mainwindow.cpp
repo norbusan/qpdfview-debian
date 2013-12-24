@@ -62,6 +62,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settingsdialog.h"
 #include "helpdialog.h"
 #include "recentlyusedmenu.h"
+#include "recentlyclosedmenu.h"
 #include "bookmarkmenu.h"
 #include "database.h"
 
@@ -2224,6 +2225,16 @@ void MainWindow::createDocks()
     m_cancelSearchAction->setEnabled(false);
 }
 
+static void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
+{
+    QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action));
+
+    if(toolButton != 0)
+    {
+        toolButton->setMenu(menu);
+    }
+}
+
 void MainWindow::createMenus()
 {
     // file
@@ -2239,17 +2250,8 @@ void MainWindow::createMenus()
     {
         m_fileMenu->addMenu(m_recentlyUsedMenu);
 
-        QToolButton* openToolButton = qobject_cast< QToolButton* >(m_fileToolBar->widgetForAction(m_openAction));
-        if(openToolButton != 0)
-        {
-            openToolButton->setMenu(m_recentlyUsedMenu);
-        }
-
-        QToolButton* openInNewTabToolButton = qobject_cast< QToolButton* >(m_fileToolBar->widgetForAction(m_openInNewTabAction));
-        if(openInNewTabToolButton != 0)
-        {
-            openInNewTabToolButton->setMenu(m_recentlyUsedMenu);
-        }
+        setToolButtonMenu(m_fileToolBar, m_openAction, m_recentlyUsedMenu);
+        setToolButtonMenu(m_fileToolBar, m_openInNewTabAction, m_recentlyUsedMenu);
     }
 
     m_fileMenu->addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
@@ -2297,6 +2299,16 @@ void MainWindow::createMenus()
     m_tabsMenu->addActions(QList< QAction* >() << m_previousTabAction << m_nextTabAction);
     m_tabsMenu->addSeparator();
     m_tabsMenu->addActions(QList< QAction* >() << m_closeTabAction << m_closeAllTabsAction << m_closeAllTabsButCurrentTabAction);
+
+    m_recentlyClosedMenu = new RecentlyClosedMenu(s_settings->mainWindow().recentlyClosedCount(), this);
+
+    // TODO
+
+    if(s_settings->mainWindow().trackRecentlyClosed())
+    {
+        m_tabsMenu->addMenu(m_recentlyClosedMenu);
+    }
+
     m_tabsMenu->addSeparator();
 
     // bookmarks

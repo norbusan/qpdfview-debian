@@ -532,6 +532,26 @@ void Settings::MainWindow::setRecentlyUsed(const QStringList& recentlyUsed)
     m_settings->setValue("mainWindow/recentlyUsed", recentlyUsed);
 }
 
+bool Settings::MainWindow::trackRecentlyClosed() const
+{
+    return m_settings->value("mainWindow/trackRecentlyClosed", Defaults::MainWindow::trackRecentlyClosed()).toBool();
+}
+
+void Settings::MainWindow::setTrackRecentlyClosed(bool on)
+{
+    m_settings->setValue("mainWindow/trackRecentlyClosed", on);
+}
+
+int Settings::MainWindow::recentlyClosedCount() const
+{
+    return m_settings->value("mainWindow/recentlyClosedCount", Defaults::MainWindow::recentlyClosedCount()).toInt();
+}
+
+void Settings::MainWindow::setRecentlyClosedCount(int recentlyClosedCount)
+{
+    m_settings->setValue("mainWindow/recentlyClosedCount", recentlyClosedCount);
+}
+
 bool Settings::MainWindow::restoreTabs() const
 {
     return m_settings->value("mainWindow/restoreTabs", Defaults::MainWindow::restoreTabs()).toBool();

@@ -257,6 +257,12 @@ public:
         QStringList recentlyUsed() const;
         void setRecentlyUsed(const QStringList& recentlyUsed);
 
+        bool trackRecentlyClosed() const;
+        void setTrackRecentlyClosed(bool on);
+
+        int recentlyClosedCount() const;
+        void setRecentlyClosedCount(int recentlyClosedCount);
+
         bool restoreTabs() const;
         void setRestoreTabs(bool on);
 
@@ -501,8 +507,10 @@ public:
     {
     public:
         static inline bool trackRecentlyUsed() { return false; }
-
         static inline int recentlyUsedCount() { return 10; }
+
+        static inline bool trackRecentlyClosed() { return false; }
+        static inline int recentlyClosedCount() { return 5; }
 
         static inline bool restoreTabs() { return false; }
         static inline bool restoreBookmarks() { return false; }

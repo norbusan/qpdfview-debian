@@ -88,6 +88,7 @@ private:
     QCheckBox* m_autoRefreshCheckBox;
 
     QCheckBox* m_trackRecentlyUsedCheckBox;
+    QCheckBox* m_trackRecentlyClosedCheckBox;
 
     QCheckBox* m_restoreTabsCheckBox;
     QCheckBox* m_restoreBookmarksCheckBox;
@@ -145,6 +146,7 @@ private:
     QCheckBox* m_newTabNextToCurrentTabCheckBox;
 
     QSpinBox* m_recentlyUsedCountSpinBox;
+    QSpinBox* m_recentlyClosedCountSpinBox;
 
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;

@@ -171,6 +171,7 @@ void SettingsDialog::accept()
     s_settings->documentView().setAutoRefresh(m_autoRefreshCheckBox->isChecked());
 
     s_settings->mainWindow().setTrackRecentlyUsed(m_trackRecentlyUsedCheckBox->isChecked());
+    s_settings->mainWindow().setTrackRecentlyClosed(m_trackRecentlyClosedCheckBox->isChecked());
 
     s_settings->mainWindow().setRestoreTabs(m_restoreTabsCheckBox->isChecked());
     s_settings->mainWindow().setRestoreBookmarks(m_restoreBookmarksCheckBox->isChecked());
@@ -222,6 +223,7 @@ void SettingsDialog::accept()
     s_settings->mainWindow().setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
 
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
+    s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
 
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -310,6 +312,14 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
 
+    // track recently closed
+
+    m_trackRecentlyClosedCheckBox = new QCheckBox(this);
+    m_trackRecentlyClosedCheckBox->setChecked(s_settings->mainWindow().trackRecentlyClosed());
+    m_trackRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
+
+    m_behaviorLayout->addRow(tr("Track recently closed."), m_trackRecentlyClosedCheckBox);
+
     // restore tabs
 
     m_restoreTabsCheckBox = new QCheckBox(this);
@@ -394,6 +404,7 @@ void SettingsDialog::resetBehaviorTab()
     m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
 
     m_trackRecentlyUsedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyUsed());
+    m_trackRecentlyClosedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyClosed());
 
     m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
     m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
@@ -623,6 +634,15 @@ void SettingsDialog::createInterfaceTab()
     m_recentlyUsedCountSpinBox->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("Recently used count:"), m_recentlyUsedCountSpinBox);
+
+    // recently closed count
+
+    m_recentlyClosedCountSpinBox = new QSpinBox(this);
+    m_recentlyClosedCountSpinBox->setRange(1, 25);
+    m_recentlyClosedCountSpinBox->setValue(s_settings->mainWindow().recentlyClosedCount());
+    m_recentlyClosedCountSpinBox->setToolTip(tr("Effective after restart."));
+
+    m_interfaceLayout->addRow(tr("Recently closed count:"), m_recentlyClosedCountSpinBox);
 
     // file tool bar
 
