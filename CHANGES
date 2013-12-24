@@ -1,5 +1,6 @@
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.
+  * Added optional functionality to restore closed tabs.
   * Added Vietnamese translations. Thanks to Khang Mạnh Tử.
   * Updated Bulgarian translations. Thanks to Atanas Kovachki.
   * Updated Malay translations. Thanks to abuyop.
