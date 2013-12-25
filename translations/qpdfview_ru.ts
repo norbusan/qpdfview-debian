@@ -1148,6 +1148,11 @@
         <translation type="unfinished">Помнить недавно открытые:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <source>Keep recently closed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Восстановить вкладки:</translation>
@@ -1186,11 +1191,6 @@
         <location filename="../sources/settingsdialog.cpp" line="374"/>
         <source>None</source>
         <translation type="unfinished">Нет</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Track recently closed.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="377"/>
