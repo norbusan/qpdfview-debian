@@ -1148,11 +1148,6 @@
         <translation>Śledź ostatnio użyte:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Keep recently closed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
         <source>Restore tabs:</source>
         <translation>Przywróć karty:</translation>
@@ -1191,6 +1186,11 @@
         <location filename="../sources/settingsdialog.cpp" line="374"/>
         <source>None</source>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="377"/>

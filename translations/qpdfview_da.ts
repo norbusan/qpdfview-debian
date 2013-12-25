@@ -1143,11 +1143,6 @@
         <translation type="unfinished">Husk senest anvendte:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Keep recently closed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Genskab faneblade:</translation>
@@ -1226,6 +1221,11 @@
         <location filename="../sources/settingsdialog.cpp" line="377"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Fremhæv varighed:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>

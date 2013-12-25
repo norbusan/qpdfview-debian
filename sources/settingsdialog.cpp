@@ -318,7 +318,7 @@ void SettingsDialog::createBehaviorTab()
     m_keepRecentlyClosedCheckBox->setChecked(s_settings->mainWindow().keepRecentlyClosed());
     m_keepRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
 
-    m_behaviorLayout->addRow(tr("Keep recently closed."), m_keepRecentlyClosedCheckBox);
+    m_behaviorLayout->addRow(tr("Keep recently closed:"), m_keepRecentlyClosedCheckBox);
 
     // restore tabs
 

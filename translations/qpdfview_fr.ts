@@ -1149,7 +1149,7 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Keep recently closed.</source>
+        <source>Keep recently closed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

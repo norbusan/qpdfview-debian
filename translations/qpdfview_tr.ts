@@ -1143,6 +1143,11 @@
         <translation type="unfinished">Son kullanılanları listele:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Sekmeleri geri yükle:</translation>
@@ -1275,11 +1280,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="64"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="321"/>
-        <source>Keep recently closed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
