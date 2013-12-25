@@ -1057,7 +1057,7 @@
     <name>RecentlyClosedMenu</name>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
-        <source>Recently closed</source>
+        <source>&amp;Recently closed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

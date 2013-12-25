@@ -1373,7 +1373,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
-void MainWindow::on_recentlyClosed_restoreTriggered(QAction* tabAction)
+void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
 {
     DocumentView* tab = static_cast< DocumentView* >(tabAction->parent());
 
@@ -1797,7 +1797,7 @@ void MainWindow::closeTab(DocumentView* tab)
                 tab->setVisible(false);
 
                 m_tabsMenu->removeAction(tabAction);
-                m_recentlyClosedMenu->addRestoreAction(tabAction);
+                m_recentlyClosedMenu->addTabAction(tabAction);
 
                 break;
             }
@@ -2340,7 +2340,7 @@ void MainWindow::createMenus()
 
     m_recentlyClosedMenu = new RecentlyClosedMenu(s_settings->mainWindow().recentlyClosedCount(), this);
 
-    connect(m_recentlyClosedMenu, SIGNAL(restoreTriggered(QAction*)), SLOT(on_recentlyClosed_restoreTriggered(QAction*)));
+    connect(m_recentlyClosedMenu, SIGNAL(tabActionTriggered(QAction*)), SLOT(on_recentlyClosed_tabActionTriggered(QAction*)));
 
     if(s_settings->mainWindow().keepRecentlyClosed())
     {

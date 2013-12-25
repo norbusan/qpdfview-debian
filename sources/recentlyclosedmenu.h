@@ -31,13 +31,13 @@ class RecentlyClosedMenu : public QMenu
 public:
     explicit RecentlyClosedMenu(int count, QWidget *parent = 0);
 
-    void addRestoreAction(QAction* tabAction);
+    void addTabAction(QAction* tabAction);
 
 signals:
-    void restoreTriggered(QAction* tabAction);
+    void tabActionTriggered(QAction* tabAction);
 
 protected slots:
-    void on_restore_triggered(QAction* action);
+    void on_tabAction_triggered(QAction* tabAction);
     void on_clearList_triggered();
 
 private:
@@ -45,7 +45,7 @@ private:
 
     int m_count;
 
-    QActionGroup* m_restoreActionGroup;
+    QActionGroup* m_tabActionGroup;
     QAction* m_separatorAction;
     QAction* m_clearListAction;
 

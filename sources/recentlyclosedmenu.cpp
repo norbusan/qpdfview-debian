@@ -26,10 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(parent),
     m_count(count)
 {
-    menuAction()->setText(tr("Recently closed"));
+    menuAction()->setText(tr("&Recently closed"));
 
-    m_restoreActionGroup = new QActionGroup(this);
-    connect(m_restoreActionGroup, SIGNAL(triggered(QAction*)), SLOT(on_restore_triggered(QAction*)));
+    m_tabActionGroup = new QActionGroup(this);
+    connect(m_tabActionGroup, SIGNAL(triggered(QAction*)), SLOT(on_tabAction_triggered(QAction*)));
 
     m_separatorAction = addSeparator();
 
@@ -37,34 +37,34 @@ RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(paren
     connect(m_clearListAction, SIGNAL(triggered()), SLOT(on_clearList_triggered()));
 }
 
-void RecentlyClosedMenu::addRestoreAction(QAction* tabAction)
+void RecentlyClosedMenu::addTabAction(QAction* tabAction)
 {
-    if(m_restoreActionGroup->actions().count() >= m_count)
+    if(m_tabActionGroup->actions().count() >= m_count)
     {
-        QAction* first = m_restoreActionGroup->actions().first();
+        QAction* first = m_tabActionGroup->actions().first();
 
         removeAction(first);
-        m_restoreActionGroup->removeAction(first);
+        m_tabActionGroup->removeAction(first);
 
         delete static_cast< DocumentView* >(first->parent());
         delete first;
     }
 
     insertAction(actions().first(), tabAction);
-    m_restoreActionGroup->addAction(tabAction);
+    m_tabActionGroup->addAction(tabAction);
 }
 
-void RecentlyClosedMenu::on_restore_triggered(QAction* action)
+void RecentlyClosedMenu::on_tabAction_triggered(QAction* tabAction)
 {
-    removeAction(action);
-    m_restoreActionGroup->removeAction(action);
+    removeAction(tabAction);
+    m_tabActionGroup->removeAction(tabAction);
 
-    emit restoreTriggered(action);
+    emit tabActionTriggered(tabAction);
 }
 
 void RecentlyClosedMenu::on_clearList_triggered()
 {
-    foreach(QAction* action, m_restoreActionGroup->actions())
+    foreach(QAction* action, m_tabActionGroup->actions())
     {
         delete static_cast< DocumentView* >(action->parent());
         delete action;

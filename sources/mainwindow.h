@@ -166,7 +166,7 @@ protected slots:
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
 
-    void on_recentlyClosed_restoreTriggered(QAction* tabAction);
+    void on_recentlyClosed_tabActionTriggered(QAction* tabAction);
 
     void on_tabAction_triggered();
     void on_tabShortcut_activated();
