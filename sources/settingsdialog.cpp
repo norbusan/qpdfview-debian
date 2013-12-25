@@ -171,7 +171,7 @@ void SettingsDialog::accept()
     s_settings->documentView().setAutoRefresh(m_autoRefreshCheckBox->isChecked());
 
     s_settings->mainWindow().setTrackRecentlyUsed(m_trackRecentlyUsedCheckBox->isChecked());
-    s_settings->mainWindow().setTrackRecentlyClosed(m_trackRecentlyClosedCheckBox->isChecked());
+    s_settings->mainWindow().setKeepRecentlyClosed(m_keepRecentlyClosedCheckBox->isChecked());
 
     s_settings->mainWindow().setRestoreTabs(m_restoreTabsCheckBox->isChecked());
     s_settings->mainWindow().setRestoreBookmarks(m_restoreBookmarksCheckBox->isChecked());
@@ -312,13 +312,13 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
 
-    // track recently closed
+    // keep recently closed
 
-    m_trackRecentlyClosedCheckBox = new QCheckBox(this);
-    m_trackRecentlyClosedCheckBox->setChecked(s_settings->mainWindow().trackRecentlyClosed());
-    m_trackRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
+    m_keepRecentlyClosedCheckBox = new QCheckBox(this);
+    m_keepRecentlyClosedCheckBox->setChecked(s_settings->mainWindow().keepRecentlyClosed());
+    m_keepRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
 
-    m_behaviorLayout->addRow(tr("Track recently closed."), m_trackRecentlyClosedCheckBox);
+    m_behaviorLayout->addRow(tr("Keep recently closed."), m_keepRecentlyClosedCheckBox);
 
     // restore tabs
 
@@ -404,7 +404,7 @@ void SettingsDialog::resetBehaviorTab()
     m_autoRefreshCheckBox->setChecked(Defaults::DocumentView::autoRefresh());
 
     m_trackRecentlyUsedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyUsed());
-    m_trackRecentlyClosedCheckBox->setChecked(Defaults::MainWindow::trackRecentlyClosed());
+    m_keepRecentlyClosedCheckBox->setChecked(Defaults::MainWindow::keepRecentlyClosed());
 
     m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
     m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());

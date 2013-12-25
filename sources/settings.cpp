@@ -532,14 +532,14 @@ void Settings::MainWindow::setRecentlyUsed(const QStringList& recentlyUsed)
     m_settings->setValue("mainWindow/recentlyUsed", recentlyUsed);
 }
 
-bool Settings::MainWindow::trackRecentlyClosed() const
+bool Settings::MainWindow::keepRecentlyClosed() const
 {
-    return m_settings->value("mainWindow/trackRecentlyClosed", Defaults::MainWindow::trackRecentlyClosed()).toBool();
+    return m_settings->value("mainWindow/keepRecentlyClosed", Defaults::MainWindow::keepRecentlyClosed()).toBool();
 }
 
-void Settings::MainWindow::setTrackRecentlyClosed(bool on)
+void Settings::MainWindow::setKeepRecentlyClosed(bool on)
 {
-    m_settings->setValue("mainWindow/trackRecentlyClosed", on);
+    m_settings->setValue("mainWindow/keepRecentlyClosed", on);
 }
 
 int Settings::MainWindow::recentlyClosedCount() const

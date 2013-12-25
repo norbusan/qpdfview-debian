@@ -1785,7 +1785,7 @@ int MainWindow::addTab(DocumentView* tab, const QFileInfo& fileInfo)
 
 void MainWindow::closeTab(DocumentView* tab)
 {
-    if(s_settings->mainWindow().trackRecentlyClosed())
+    if(s_settings->mainWindow().keepRecentlyClosed())
     {
         foreach(QAction* tabAction, m_tabsMenu->actions())
         {
@@ -2342,7 +2342,7 @@ void MainWindow::createMenus()
 
     connect(m_recentlyClosedMenu, SIGNAL(restoreTriggered(QAction*)), SLOT(on_recentlyClosed_restoreTriggered(QAction*)));
 
-    if(s_settings->mainWindow().trackRecentlyClosed())
+    if(s_settings->mainWindow().keepRecentlyClosed())
     {
         m_tabsMenu->addMenu(m_recentlyClosedMenu);
     }
