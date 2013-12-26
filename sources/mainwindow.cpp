@@ -146,7 +146,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             const QFileInfo fileInfo(filePath);
 
             s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
-            m_recentlyUsedMenu->addOpenAction(filePath);
+            m_recentlyUsedMenu->addOpenAction(fileInfo);
 
             m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
@@ -192,7 +192,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         const QFileInfo fileInfo(filePath);
 
         s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
-        m_recentlyUsedMenu->addOpenAction(filePath);
+        m_recentlyUsedMenu->addOpenAction(fileInfo);
 
         const int index = addTab(newTab, fileInfo);
 
@@ -958,9 +958,9 @@ void MainWindow::on_openInNewTab_triggered()
 
 void MainWindow::on_openContainingFolder_triggered()
 {
-    const QString absolutePath = QFileInfo(currentTab()->filePath()).absolutePath();
+    const QFileInfo fileInfo(currentTab()->filePath());
 
-    QDesktopServices::openUrl(QLatin1String("file://") + absolutePath);
+    QDesktopServices::openUrl(fileInfo.absolutePath());
 }
 
 void MainWindow::on_refresh_triggered()
@@ -1009,8 +1009,8 @@ void MainWindow::on_saveAs_triggered()
 
 void MainWindow::on_print_triggered()
 {
-    QPrinter* printer = PrintDialog::createPrinter();
-    PrintDialog* printDialog = new PrintDialog(printer, this);
+    QScopedPointer< QPrinter > printer(PrintDialog::createPrinter());
+    QScopedPointer< PrintDialog > printDialog(new PrintDialog(printer.data(), this));
 
     printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
     printer->setFullPage(true);
@@ -1036,14 +1036,11 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-        if(!currentTab()->print(printer, printDialog->printOptions()))
+        if(!currentTab()->print(printer.data(), printDialog->printOptions()))
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
         }
     }
-
-    delete printDialog;
-    delete printer;
 }
 
 void MainWindow::on_recentlyUsed_openTriggered(const QString& filePath)
@@ -1231,11 +1228,11 @@ void MainWindow::on_invertColors_triggered(bool checked)
 
 void MainWindow::on_fonts_triggered()
 {
-    QStandardItemModel* fontsModel = currentTab()->fontsModel();
-    QDialog* dialog = new QDialog(this);
+    QScopedPointer< QStandardItemModel > fontsModel(currentTab()->fontsModel());
+    QScopedPointer< QDialog > dialog(new QDialog(this));
 
-    QTableView* tableView = new QTableView(dialog);
-    tableView->setModel(fontsModel);
+    QTableView* tableView = new QTableView(dialog.data());
+    tableView->setModel(fontsModel.data());
 
     tableView->setAlternatingRowColors(true);
     tableView->setSortingEnabled(true);
@@ -1256,20 +1253,17 @@ void MainWindow::on_fonts_triggered()
 
     tableView->verticalHeader()->setVisible(false);
 
-    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog);
-    connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
-    connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog.data());
+    connect(dialogButtonBox, SIGNAL(accepted()), dialog.data(), SLOT(accept()));
+    connect(dialogButtonBox, SIGNAL(rejected()), dialog.data(), SLOT(reject()));
 
-    dialog->setLayout(new QVBoxLayout(dialog));
+    dialog->setLayout(new QVBoxLayout(dialog.data()));
     dialog->layout()->addWidget(tableView);
     dialog->layout()->addWidget(dialogButtonBox);
 
     dialog->resize(s_settings->mainWindow().fontsDialogSize(dialog->sizeHint()));
     dialog->exec();
     s_settings->mainWindow().setFontsDialogSize(dialog->size());
-
-    delete dialog;
-    delete fontsModel;
 }
 
 void MainWindow::on_fullscreen_triggered(bool checked)
@@ -1348,7 +1342,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
     disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
 
-    DocumentView* oldTab = currentTab();
+    DocumentView* tab = currentTab();
 
     const int oldIndex = m_tabWidget->currentIndex();
     const QString tabText = m_tabWidget->tabText(oldIndex);
@@ -1364,7 +1358,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
         }
     }
 
-    const int newIndex = m_tabWidget->addTab(oldTab, tabText);
+    const int newIndex = m_tabWidget->addTab(tab, tabText);
     m_tabWidget->setTabToolTip(newIndex, tabToolTip);
     m_tabWidget->setCurrentIndex(newIndex);
 
@@ -1381,7 +1375,6 @@ void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
     tab->setVisible(true);
 
     addTab(tab, QFileInfo(tab->filePath()));
-
     m_tabsMenu->addAction(tabAction);
 }
 
@@ -1791,12 +1784,12 @@ void MainWindow::closeTab(DocumentView* tab)
         {
             if(tabAction->parent() == tab)
             {
+                m_tabsMenu->removeAction(tabAction);
                 m_tabWidget->removeTab(m_tabWidget->indexOf(tab));
 
                 tab->setParent(this);
                 tab->setVisible(false);
 
-                m_tabsMenu->removeAction(tabAction);
                 m_recentlyClosedMenu->addTabAction(tabAction);
 
                 break;

@@ -24,6 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 
+class QFileInfo;
+
 class RecentlyUsedMenu : public QMenu
 {
     Q_OBJECT
@@ -31,7 +33,7 @@ class RecentlyUsedMenu : public QMenu
 public:
     explicit RecentlyUsedMenu(const QStringList& filePaths, int count, QWidget* parent = 0);
 
-    void addOpenAction(const QString& filePath);
+    void addOpenAction(const QFileInfo& fileInfo);
     void removeOpenAction(const QString& filePath);
 
     QStringList filePaths() const;

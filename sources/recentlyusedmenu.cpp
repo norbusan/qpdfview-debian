@@ -44,11 +44,11 @@ RecentlyUsedMenu::RecentlyUsedMenu(const QStringList& filePaths, int count, QWid
     }
 }
 
-void RecentlyUsedMenu::addOpenAction(const QString& filePath)
+void RecentlyUsedMenu::addOpenAction(const QFileInfo& fileInfo)
 {
     foreach(QAction* action, m_openActionGroup->actions())
     {
-        if(action->data().toString() == QFileInfo(filePath).absoluteFilePath())
+        if(action->data().toString() == fileInfo.absoluteFilePath())
         {
             removeAction(action);
             m_openActionGroup->removeAction(action);
@@ -70,8 +70,6 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
         delete first;
     }
 
-    const QFileInfo fileInfo(filePath);
-
     QAction* action = new QAction(fileInfo.completeBaseName(), this);
     action->setToolTip(fileInfo.absoluteFilePath());
     action->setData(fileInfo.absoluteFilePath());
@@ -82,9 +80,11 @@ void RecentlyUsedMenu::addOpenAction(const QString& filePath)
 
 void RecentlyUsedMenu::removeOpenAction(const QString& filePath)
 {
+    const QFileInfo fileInfo(filePath);
+
     foreach(QAction* action, m_openActionGroup->actions())
     {
-        if(action->data().toString() == QFileInfo(filePath).absoluteFilePath())
+        if(action->data().toString() == fileInfo.absoluteFilePath())
         {
             delete action;
 
