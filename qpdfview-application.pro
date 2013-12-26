@@ -22,6 +22,7 @@ HEADERS += \
     sources/documentview.h \
     sources/printdialog.h \
     sources/settingsdialog.h \
+    sources/fontsdialog.h \
     sources/helpdialog.h \
     sources/recentlyusedmenu.h \
     sources/recentlyclosedmenu.h \
@@ -42,6 +43,7 @@ SOURCES += \
     sources/documentview.cpp \
     sources/printdialog.cpp \
     sources/settingsdialog.cpp \
+    sources/fontsdialog.cpp \
     sources/helpdialog.cpp \
     sources/recentlyusedmenu.cpp \
     sources/recentlyclosedmenu.cpp \

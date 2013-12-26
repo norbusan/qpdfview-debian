@@ -27,7 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCheckBox>
 #include <QDebug>
 #include <QDesktopServices>
-#include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QDragEnterEvent>
 #include <QFileDialog>
@@ -40,10 +39,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include <QStandardItemModel>
 #include <QTableView>
-#include <QTextBrowser>
 #include <QTimer>
 #include <QToolBar>
 #include <QToolButton>
+#include <QUrl>
 #include <QVBoxLayout>
 #include <QWidgetAction>
 
@@ -60,6 +59,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "miscellaneous.h"
 #include "printdialog.h"
 #include "settingsdialog.h"
+#include "fontsdialog.h"
 #include "helpdialog.h"
 #include "recentlyusedmenu.h"
 #include "recentlyclosedmenu.h"
@@ -1229,37 +1229,7 @@ void MainWindow::on_invertColors_triggered(bool checked)
 void MainWindow::on_fonts_triggered()
 {
     QScopedPointer< QStandardItemModel > fontsModel(currentTab()->fontsModel());
-    QScopedPointer< QDialog > dialog(new QDialog(this));
-
-    QTableView* tableView = new QTableView(dialog.data());
-    tableView->setModel(fontsModel.data());
-
-    tableView->setAlternatingRowColors(true);
-    tableView->setSortingEnabled(true);
-    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-    tableView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    tableView->verticalHeader()->setVisible(false);
-
-    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, dialog.data());
-    connect(dialogButtonBox, SIGNAL(accepted()), dialog.data(), SLOT(accept()));
-    connect(dialogButtonBox, SIGNAL(rejected()), dialog.data(), SLOT(reject()));
-
-    dialog->setLayout(new QVBoxLayout(dialog.data()));
-    dialog->layout()->addWidget(tableView);
-    dialog->layout()->addWidget(dialogButtonBox);
+    QScopedPointer< FontsDialog > dialog(new FontsDialog(fontsModel.data(), this));
 
     dialog->resize(s_settings->mainWindow().fontsDialogSize(dialog->sizeHint()));
     dialog->exec();
