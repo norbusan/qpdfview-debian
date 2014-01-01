@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -1058,7 +1058,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nedávno zatvo&amp;rené</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1150,7 +1150,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="321"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ponechať nedávno zatvorené:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="328"/>
