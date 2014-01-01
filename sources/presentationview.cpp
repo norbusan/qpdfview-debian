@@ -38,6 +38,8 @@ PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* 
     m_currentPage(1),
     m_past(),
     m_future(),
+    m_scaleMode(FitToPageSizeMode),
+    m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
     m_pageItems()
@@ -53,6 +55,7 @@ PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* 
     setFrameShape(QFrame::NoFrame);
 
     setAcceptDrops(false);
+    setDragMode(QGraphicsView::ScrollHandDrag);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -101,6 +104,45 @@ int PresentationView::numberOfPages() const
 int PresentationView::currentPage() const
 {
     return m_currentPage;
+}
+
+ScaleMode PresentationView::scaleMode() const
+{
+    return m_scaleMode;
+}
+
+void PresentationView::setScaleMode(ScaleMode scaleMode)
+{
+    if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
+    {
+        m_scaleMode = scaleMode;
+
+        prepareScene();
+        prepareView();
+
+        emit scaleModeChanged(m_scaleMode);
+    }
+}
+
+qreal PresentationView::scaleFactor() const
+{
+    return m_scaleFactor;
+}
+
+void PresentationView::setScaleFactor(qreal scaleFactor)
+{
+    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor >= Defaults::DocumentView::minimumScaleFactor() && scaleFactor <= Defaults::DocumentView::maximumScaleFactor())
+    {
+        m_scaleFactor = scaleFactor;
+
+        if(m_scaleMode == ScaleFactorMode)
+        {
+            prepareScene();
+            prepareView();
+        }
+
+        emit scaleFactorChanged(m_scaleFactor);
+    }
 }
 
 Rotation PresentationView::rotation() const
@@ -205,6 +247,38 @@ void PresentationView::jumpForward()
 
         jumpToPage(m_future.takeFirst(), false);
     }
+}
+
+void PresentationView::zoomIn()
+{
+    if(scaleMode() != ScaleFactorMode)
+    {
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleMode(ScaleFactorMode);
+    }
+    else
+    {
+        setScaleFactor(qMin(m_scaleFactor + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+    }
+}
+
+void PresentationView::zoomOut()
+{
+    if(scaleMode() != ScaleFactorMode)
+    {
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleMode(ScaleFactorMode);
+    }
+    else
+    {
+        setScaleFactor(qMax(m_scaleFactor - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+    }
+}
+
+void PresentationView::originalSize()
+{
+    setScaleFactor(1.0);
+    setScaleMode(ScaleFactorMode);
 }
 
 void PresentationView::rotateLeft()
@@ -322,6 +396,31 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
         event->accept();
         return;
+    case Qt::CTRL + Qt::Key_0:
+        originalSize();
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_9:
+        setScaleMode(FitToPageWidthMode);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_8:
+        setScaleMode(FitToPageSizeMode);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_Up:
+        zoomIn();
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_Down:
+        zoomOut();
+
+        event->accept();
+        return;
     case Qt::CTRL + Qt::Key_Left:
         rotateLeft();
 
@@ -350,7 +449,21 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
 void PresentationView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == s_settings->documentView().rotateModifiers())
+    if(event->modifiers() == s_settings->documentView().zoomModifiers())
+    {
+        if(event->delta() > 0)
+        {
+            zoomIn();
+        }
+        else
+        {
+            zoomOut();
+        }
+
+        event->accept();
+        return;
+    }
+    else if(event->modifiers() == s_settings->documentView().rotateModifiers())
     {
         if(event->delta() > 0)
         {
@@ -452,9 +565,20 @@ void PresentationView::prepareScene()
             break;
         }
 
-        const qreal scaleFactor = qMin(visibleWidth / pageWidth, visibleHeight / pageHeight);
+        switch(m_scaleMode)
+        {
+        default:
+        case ScaleFactorMode:
+            page->setScaleFactor(m_scaleFactor);
+            break;
+        case FitToPageWidthMode:
+            page->setScaleFactor(visibleWidth / pageWidth);
+            break;
+        case FitToPageSizeMode:
+            page->setScaleFactor(qMin(visibleWidth / pageWidth, visibleHeight / pageHeight));
+            break;
+        }
 
-        page->setScaleFactor(scaleFactor);
         page->setRotation(m_rotation);
     }
 }

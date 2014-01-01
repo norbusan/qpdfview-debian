@@ -45,6 +45,12 @@ public:
     int numberOfPages() const;
     int currentPage() const;
 
+    ScaleMode scaleMode() const;
+    void setScaleMode(ScaleMode scaleMode);
+
+    qreal scaleFactor() const;
+    void setScaleFactor(qreal scaleFactor);
+
     Rotation rotation() const;
     void setRotation(Rotation rotation);
 
@@ -54,6 +60,8 @@ public:
 signals:
     void currentPageChanged(int currentPage, bool trackChange = false);
 
+    void scaleModeChanged(ScaleMode scaleMode);
+    void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
 
     void invertColorsChanged(bool invertColors);
@@ -70,6 +78,10 @@ public slots:
 
     void jumpBackward();
     void jumpForward();
+
+    void zoomIn();
+    void zoomOut();
+    void originalSize();
 
     void rotateLeft();
     void rotateRight();
@@ -99,6 +111,8 @@ private:
     QList< int > m_past;
     QList< int > m_future;
 
+    ScaleMode m_scaleMode;
+    qreal m_scaleFactor;
     Rotation m_rotation;
 
     bool m_invertColors;
