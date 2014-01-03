@@ -57,52 +57,52 @@ public:
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
-    const QFileInfo& fileInfo() const;
-    bool wasModified() const;
+    inline const QFileInfo& fileInfo() const { return m_fileInfo; }
+    inline bool wasModified() const { return m_wasModified; }
 
-    int numberOfPages() const;
-    int currentPage() const;
+    inline int numberOfPages() const { return m_pages.count(); }
+    inline int currentPage() const { return m_currentPage; }
 
     static QStringList openFilter();
     QStringList saveFilter() const;
 
     bool canSave() const;
 
-    bool continuousMode() const;
+    inline bool continuousMode() const { return m_continuousMode; }
     void setContinuousMode(bool continuousMode);
 
     LayoutMode layoutMode() const;
     void setLayoutMode(LayoutMode layoutMode);
 
-    ScaleMode scaleMode() const;
+    inline ScaleMode scaleMode() const { return m_scaleMode; }
     void setScaleMode(ScaleMode scaleMode);
 
-    qreal scaleFactor() const;
+    inline qreal scaleFactor() const { return m_scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    Rotation rotation() const;
+    inline Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    bool invertColors() const;
+    inline bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);
 
-    bool highlightAll() const;
+    inline bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
 
-    RubberBandMode rubberBandMode() const;
+    inline RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
     bool searchWasCanceled() const;
     int searchProgress() const;
 
-    Qt::Orientation thumbnailsOrientation() const;
+    inline Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
 
-    const QVector< ThumbnailItem* >& thumbnailItems() const;
-    QGraphicsScene* thumbnailsScene() const;
+    inline const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
+    inline QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
 
-    QStandardItemModel* outlineModel() const;
-    QStandardItemModel* propertiesModel() const;
+    inline QStandardItemModel* outlineModel() const { return m_outlineModel; }
+    inline QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
 
     QStandardItemModel* fontsModel() const;
 

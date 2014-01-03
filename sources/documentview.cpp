@@ -188,26 +188,6 @@ DocumentView::~DocumentView()
     delete m_document;
 }
 
-const QFileInfo& DocumentView::fileInfo() const
-{
-    return m_fileInfo;
-}
-
-bool DocumentView::wasModified() const
-{
-    return m_wasModified;
-}
-
-int DocumentView::numberOfPages() const
-{
-    return m_pages.count();
-}
-
-int DocumentView::currentPage() const
-{
-    return m_currentPage;
-}
-
 QStringList DocumentView::openFilter()
 {
     QStringList openFilter;
@@ -249,11 +229,6 @@ QStringList DocumentView::saveFilter() const
 bool DocumentView::canSave() const
 {
     return m_document->canSave();
-}
-
-bool DocumentView::continuousMode() const
-{
-    return m_continuousMode;
 }
 
 void DocumentView::setContinuousMode(bool continuousMode)
@@ -300,11 +275,6 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
     }
 }
 
-ScaleMode DocumentView::scaleMode() const
-{
-    return m_scaleMode;
-}
-
 void DocumentView::setScaleMode(ScaleMode scaleMode)
 {
     if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
@@ -321,11 +291,6 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
 
         s_settings->documentView().setScaleMode(m_scaleMode);
     }
-}
-
-qreal DocumentView::scaleFactor() const
-{
-    return m_scaleFactor;
 }
 
 void DocumentView::setScaleFactor(qreal scaleFactor)
@@ -349,11 +314,6 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Rotation DocumentView::rotation() const
-{
-    return m_rotation;
-}
-
 void DocumentView::setRotation(Rotation rotation)
 {
     if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
@@ -367,11 +327,6 @@ void DocumentView::setRotation(Rotation rotation)
 
         s_settings->documentView().setRotation(rotation);
     }
-}
-
-bool DocumentView::invertColors() const
-{
-    return m_invertColors;
 }
 
 void DocumentView::setInvertColors(bool invertColors)
@@ -398,11 +353,6 @@ void DocumentView::setInvertColors(bool invertColors)
     }
 }
 
-bool DocumentView::highlightAll() const
-{
-    return m_highlightAll;
-}
-
 void DocumentView::setHighlightAll(bool highlightAll)
 {
     if(m_highlightAll != highlightAll)
@@ -423,11 +373,6 @@ void DocumentView::setHighlightAll(bool highlightAll)
 
         s_settings->documentView().setHighlightAll(highlightAll);
     }
-}
-
-RubberBandMode DocumentView::rubberBandMode() const
-{
-    return m_rubberBandMode;
 }
 
 void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
@@ -455,11 +400,6 @@ int DocumentView::searchProgress() const
     return m_searchTask->progress();
 }
 
-Qt::Orientation DocumentView::thumbnailsOrientation() const
-{
-    return m_thumbnailsOrientation;
-}
-
 void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation)
 {
     if(m_thumbnailsOrientation != thumbnailsOrientation)
@@ -470,16 +410,6 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
-QStandardItemModel* DocumentView::outlineModel() const
-{
-    return m_outlineModel;
-}
-
-QStandardItemModel* DocumentView::propertiesModel() const
-{
-    return m_propertiesModel;
-}
-
 QStandardItemModel* DocumentView::fontsModel() const
 {
     QStandardItemModel* fontsModel = new QStandardItemModel();
@@ -487,16 +417,6 @@ QStandardItemModel* DocumentView::fontsModel() const
     m_document->loadFonts(fontsModel);
 
     return fontsModel;
-}
-
-const QVector< ThumbnailItem* >& DocumentView::thumbnailItems() const
-{
-    return m_thumbnailItems;
-}
-
-QGraphicsScene* DocumentView::thumbnailsScene() const
-{
-    return m_thumbnailsScene;
 }
 
 void DocumentView::show()
