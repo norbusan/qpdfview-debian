@@ -492,10 +492,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     if(action == closeAllTabsAction)
     {
-        for(int indexToClose = 0; indexToClose < count; ++indexToClose)
-        {
-            tabsToClose.append(tab(indexToClose));
-        }
+        tabsToClose = tabs();
     }
     else if(action == closeAllTabsButThisOneAction)
     {
@@ -1701,6 +1698,11 @@ QList< DocumentView* > MainWindow::tabs() const
     return tabs;
 }
 
+bool MainWindow::senderIsCurrentTab() const
+{
+     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+}
+
 int MainWindow::addTab(DocumentView* tab)
 {
     const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
@@ -1739,38 +1741,63 @@ void MainWindow::closeTab(DocumentView* tab)
     }
 }
 
-bool MainWindow::senderIsCurrentTab() const
+bool MainWindow::saveModifications(DocumentView* tab)
 {
-     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+    s_database->savePerFileSettings(tab);
+
+    if(tab->wasModified())
+    {
+        const int button = QMessageBox::warning(this, tr("Warning"), tr("The document '%1' has been modified. Do you want to save your changes?").arg(tab->fileInfo().filePath()), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+
+        if(button == QMessageBox::Save)
+        {
+            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
+
+            if(!filePath.isEmpty())
+            {
+                if(tab->save(filePath, true))
+                {
+                    return true;
+                }
+                else
+                {
+                    QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
+                }
+            }
+        }
+        else if(button == QMessageBox::Discard)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    return true;
 }
 
 void MainWindow::setWindowTitleForCurrentTab()
 {
-    QString windowTitle;
+    QString currentPage;
+    QString tabText;
+    QString instanceName;
 
     if(m_tabWidget->currentIndex() != -1)
     {
-        windowTitle += m_tabWidget->tabText(m_tabWidget->currentIndex());
-
         if(s_settings->mainWindow().currentPageInWindowTitle())
         {
-            windowTitle += QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+            currentPage = QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
         }
 
-        windowTitle += QLatin1String(" - qpdfview");
-
-    }
-    else
-    {
-        windowTitle += QLatin1String("qpdfview");
+        tabText = m_tabWidget->tabText(m_tabWidget->currentIndex()) + currentPage + QLatin1String(" - ");
     }
 
     if(s_settings->mainWindow().instanceNameInWindowTitle() && !qApp->objectName().isEmpty())
     {
-        windowTitle += QString(" (%1)").arg(qApp->objectName());
+        instanceName = QLatin1String(" (") + qApp->objectName() + QLatin1String(")");
     }
 
-    setWindowTitle(windowTitle);
+    setWindowTitle(tabText + QLatin1String("qpdfview") + instanceName);
 }
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
@@ -1818,41 +1845,6 @@ void MainWindow::saveBookmarks() const
     }
 
     s_database->saveBookmarks(bookmarks);
-}
-
-bool MainWindow::saveModifications(DocumentView* tab)
-{
-    s_database->savePerFileSettings(tab);
-
-    if(tab->wasModified())
-    {
-        const int button = QMessageBox::warning(this, tr("Warning"), tr("The document '%1' has been modified. Do you want to save your changes?").arg(tab->fileInfo().filePath()), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
-
-        if(button == QMessageBox::Save)
-        {
-            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
-
-            if(!filePath.isEmpty())
-            {
-                if(tab->save(filePath, true))
-                {
-                    return true;
-                }
-                else
-                {
-                    QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
-                }
-            }
-        }
-        else if(button == QMessageBox::Discard)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    return true;
 }
 
 void MainWindow::createWidgets()

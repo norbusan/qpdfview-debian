@@ -214,19 +214,18 @@ private:
     DocumentView* tab(int index) const;
     QList< DocumentView* > tabs() const;
 
+    bool senderIsCurrentTab() const;
+
     int addTab(DocumentView* tab);
     void closeTab(DocumentView* tab);
 
-    bool senderIsCurrentTab() const;
+    bool saveModifications(DocumentView* tab);
 
     void setWindowTitleForCurrentTab();
-
     BookmarkMenu* bookmarkForCurrentTab() const;
 
     void saveTabs() const;
     void saveBookmarks() const;
-
-    bool saveModifications(DocumentView* tab);
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;
