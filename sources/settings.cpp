@@ -199,14 +199,14 @@ Settings::PageItem::PageItem(QSettings* settings) :
 
 // presentation view
 
-bool Settings::PresentationView::sync() const
+bool Settings::PresentationView::synchronize() const
 {
-    return m_settings->value("presentationView/sync", Defaults::PresentationView::sync()).toBool();
+    return m_settings->value("presentationView/synchronize", Defaults::PresentationView::synchronize()).toBool();
 }
 
-void Settings::PresentationView::setSync(bool sync)
+void Settings::PresentationView::setSynchronize(bool synchronize)
 {
-    m_settings->setValue("presentationView/sync", sync);
+    m_settings->setValue("presentationView/synchronize", synchronize);
 }
 
 int Settings::PresentationView::screen() const

@@ -935,15 +935,14 @@ void DocumentView::startPresentation()
     presentationView->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(this, SIGNAL(destroyed()), presentationView, SLOT(close()));
-    connect(this, SIGNAL(filePathChanged(QString)), presentationView, SLOT(close()));
-    connect(this, SIGNAL(numberOfPagesChanged(int)), presentationView, SLOT(close()));
+    connect(this, SIGNAL(documentChanged()), presentationView, SLOT(close()));
 
     presentationView->setRotation(rotation());
     presentationView->setInvertColors(invertColors());
 
     presentationView->jumpToPage(currentPage(), false);
 
-    if(s_settings->presentationView().sync())
+    if(s_settings->presentationView().synchronize())
     {
         connect(this, SIGNAL(currentPageChanged(int,bool)), presentationView, SLOT(jumpToPage(int,bool)));
         connect(presentationView, SIGNAL(currentPageChanged(int,bool)), this, SLOT(jumpToPage(int,bool)));

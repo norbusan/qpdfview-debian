@@ -124,8 +124,8 @@ public:
     class PresentationView
     {
     public:
-        bool sync() const;
-        void setSync(bool sync);
+        bool synchronize() const;
+        void setSynchronize(bool synchronize);
 
         int screen() const;
         void setScreen(int screen);
@@ -435,7 +435,7 @@ public:
     class PresentationView
     {
     public:
-        static inline bool sync() { return false; }
+        static inline bool synchronize() { return false; }
         static inline int screen() { return -1; }
 
         static inline QColor backgroundColor() { return QColor(); }

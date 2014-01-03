@@ -177,7 +177,7 @@ void SettingsDialog::accept()
     s_settings->mainWindow().setRestoreBookmarks(m_restoreBookmarksCheckBox->isChecked());
     s_settings->mainWindow().setRestorePerFileSettings(m_restorePerFileSettingsCheckBox->isChecked());
 
-    s_settings->presentationView().setSync(m_presentationSyncCheckBox->isChecked());
+    s_settings->presentationView().setSynchronize(m_synchronizePresentationCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
@@ -349,12 +349,12 @@ void SettingsDialog::createBehaviorTab()
 
 #endif // WITH_SQL
 
-    // presentation sync
+    // synchronize presentation
 
-    m_presentationSyncCheckBox = new QCheckBox(this);
-    m_presentationSyncCheckBox->setChecked(s_settings->presentationView().sync());
+    m_synchronizePresentationCheckBox = new QCheckBox(this);
+    m_synchronizePresentationCheckBox->setChecked(s_settings->presentationView().synchronize());
 
-    m_behaviorLayout->addRow(tr("Synchronize presentation:"), m_presentationSyncCheckBox);
+    m_behaviorLayout->addRow(tr("Synchronize presentation:"), m_synchronizePresentationCheckBox);
 
     // presentation screen
 
@@ -410,7 +410,7 @@ void SettingsDialog::resetBehaviorTab()
     m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
     m_restorePerFileSettingsCheckBox->setChecked(Defaults::MainWindow::restorePerFileSettings());
 
-    m_presentationSyncCheckBox->setChecked(Defaults::PresentationView::sync());
+    m_synchronizePresentationCheckBox->setChecked(Defaults::PresentationView::synchronize());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());

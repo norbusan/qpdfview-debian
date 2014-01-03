@@ -94,7 +94,7 @@ private:
     QCheckBox* m_restoreBookmarksCheckBox;
     QCheckBox* m_restorePerFileSettingsCheckBox;
 
-    QCheckBox* m_presentationSyncCheckBox;
+    QCheckBox* m_synchronizePresentationCheckBox;
     QSpinBox* m_presentationScreenSpinBox;
 
     QSpinBox* m_highlightDurationSpinBox;
