@@ -168,7 +168,7 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 
             foreach(const DocumentView* tab, tabs)
             {
-                query.bindValue(0, QFileInfo(tab->filePath()).absoluteFilePath());
+                query.bindValue(0, tab->fileInfo().absoluteFilePath());
                 query.bindValue(1, instanceName());
                 query.bindValue(2, tab->currentPage());
 
@@ -320,7 +320,7 @@ void Database::restorePerFileSettings(DocumentView* tab)
         QSqlQuery query(m_database);
         query.prepare("SELECT currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM perfilesettings_v1 WHERE filePath==?");
 
-        query.bindValue(0, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
+        query.bindValue(0, QCryptographicHash::hash(tab->fileInfo().absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
 
         query.exec();
 
@@ -367,7 +367,7 @@ void Database::savePerFileSettings(const DocumentView* tab)
 
         query.bindValue(0, QDateTime::currentDateTime().toTime_t());
 
-        query.bindValue(1, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
+        query.bindValue(1, QCryptographicHash::hash(tab->fileInfo().absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
         query.bindValue(2, tab->currentPage());
 
         query.bindValue(3, static_cast< uint >(tab->continuousMode()));

@@ -79,7 +79,6 @@ protected slots:
 
     void on_currentTab_documentChanged();
 
-    void on_currentTab_filePathChanged(const QString& filePath);
     void on_currentTab_numberOfPagesChaned(int numberOfPages);
     void on_currentTab_currentPageChanged(int currentPage);
 
@@ -215,7 +214,7 @@ private:
     DocumentView* tab(int index) const;
     QList< DocumentView* > tabs() const;
 
-    int addTab(DocumentView* tab, const QFileInfo& fileInfo);
+    int addTab(DocumentView* tab);
     void closeTab(DocumentView* tab);
 
     bool senderIsCurrentTab() const;

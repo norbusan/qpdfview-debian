@@ -57,7 +57,7 @@ public:
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
-    QString filePath() const;
+    const QFileInfo& fileInfo() const;
     bool wasModified() const;
 
     int numberOfPages() const;
@@ -108,8 +108,8 @@ public:
 
 signals:
     void documentChanged();
+    void documentModified();
 
-    void filePathChanged(const QString& filePath);
     void numberOfPagesChanged(int numberOfPages);
     void currentPageChanged(int currentPage, bool trackChange = false);
 

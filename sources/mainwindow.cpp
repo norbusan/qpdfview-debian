@@ -143,13 +143,11 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
         if(currentTab()->open(filePath))
         {
-            const QFileInfo fileInfo(filePath);
+            s_settings->mainWindow().setOpenPath(currentTab()->fileInfo().absolutePath());
+            m_recentlyUsedMenu->addOpenAction(currentTab()->fileInfo());
 
-            s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
-            m_recentlyUsedMenu->addOpenAction(fileInfo);
-
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), fileInfo.completeBaseName());
-            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), fileInfo.absoluteFilePath());
+            m_tabWidget->setTabText(m_tabWidget->currentIndex(), currentTab()->fileInfo().completeBaseName());
+            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(currentTab());
 
@@ -181,12 +179,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
     if(newTab->open(filePath))
     {
-        const QFileInfo fileInfo(filePath);
+        s_settings->mainWindow().setOpenPath(newTab->fileInfo().absolutePath());
+        m_recentlyUsedMenu->addOpenAction(newTab->fileInfo());
 
-        s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
-        m_recentlyUsedMenu->addOpenAction(fileInfo);
-
-        const int index = addTab(newTab, fileInfo);
+        const int index = addTab(newTab);
 
         QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
         connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
@@ -197,7 +193,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
 
-        connect(newTab, SIGNAL(filePathChanged(QString)), SLOT(on_currentTab_filePathChanged(QString)));
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
 
@@ -252,7 +247,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
-        if(QFileInfo(tab(index)->filePath()).absoluteFilePath() == fileInfo.absoluteFilePath())
+        if(tab(index)->fileInfo() == fileInfo)
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -363,7 +358,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         on_currentTab_documentChanged();
 
-        on_currentTab_filePathChanged(currentTab()->filePath());
         on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
         on_currentTab_currentPageChanged(currentTab()->currentPage());
 
@@ -537,62 +531,14 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
 void MainWindow::on_currentTab_documentChanged()
 {
-    if(m_outlineView->header()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    // tab text and tool tip
 
-        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_outlineView->header()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
-
-    m_outlineView->header()->setMinimumSectionSize(0);
-    m_outlineView->header()->setStretchLastSection(false);
-    m_outlineView->header()->setVisible(false);
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    m_propertiesView->horizontalHeader()->setVisible(false);
-    m_propertiesView->verticalHeader()->setVisible(false);
-}
-
-void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
-{
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         if(sender() == m_tabWidget->widget(index))
         {
-            const QFileInfo fileInfo(filePath);
-
-            m_tabWidget->setTabText(index, fileInfo.completeBaseName());
-            m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
+            m_tabWidget->setTabText(index, tab(index)->fileInfo().completeBaseName());
+            m_tabWidget->setTabToolTip(index, tab(index)->fileInfo().absoluteFilePath());
 
             foreach(QAction* tabAction, m_tabsMenu->actions())
             {
@@ -611,6 +557,55 @@ void MainWindow::on_currentTab_filePathChanged(const QString& filePath)
     if(senderIsCurrentTab())
     {
         setWindowTitleForCurrentTab();
+
+        // outline view
+
+        if(m_outlineView->header()->count() > 0)
+        {
+    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+            m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+    #else
+
+            m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+
+    #endif // QT_VERSION
+        }
+
+        if(m_outlineView->header()->count() > 1)
+        {
+    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+            m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+    #else
+
+            m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+    #endif // QT_VERSION
+        }
+
+        m_outlineView->header()->setMinimumSectionSize(0);
+        m_outlineView->header()->setStretchLastSection(false);
+        m_outlineView->header()->setVisible(false);
+
+        // properties view
+
+    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    #else
+
+        m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+        m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+    #endif // QT_VERSION
+
+        m_propertiesView->horizontalHeader()->setVisible(false);
+        m_propertiesView->verticalHeader()->setVisible(false);
     }
 }
 
@@ -928,22 +923,21 @@ void MainWindow::on_openInNewTab_triggered()
 
 void MainWindow::on_openContainingFolder_triggered()
 {
-    QDesktopServices::openUrl(QFileInfo(currentTab()->filePath()).absolutePath());
+    QDesktopServices::openUrl(currentTab()->fileInfo().absolutePath());
 }
 
 void MainWindow::on_refresh_triggered()
 {
     if(!currentTab()->refresh())
     {
-        QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->filePath()));
+        QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
     }
 }
 
 void MainWindow::on_saveCopy_triggered()
 {
     const QDir dir = QDir(s_settings->mainWindow().savePath());
-    const QString fileName = QFileInfo(currentTab()->filePath()).fileName();
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), QFileInfo(dir, fileName).filePath(), currentTab()->saveFilter().join(";;"));
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save copy"), dir.filePath(currentTab()->fileInfo().fileName()), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
@@ -960,7 +954,7 @@ void MainWindow::on_saveCopy_triggered()
 
 void MainWindow::on_saveAs_triggered()
 {
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->filePath(), currentTab()->saveFilter().join(";;"));
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->fileInfo().filePath(), currentTab()->saveFilter().join(";;"));
 
     if(!filePath.isEmpty())
     {
@@ -980,7 +974,7 @@ void MainWindow::on_print_triggered()
     QScopedPointer< QPrinter > printer(PrintDialog::createPrinter());
     QScopedPointer< PrintDialog > printDialog(new PrintDialog(printer.data(), this));
 
-    printer->setDocName(QFileInfo(currentTab()->filePath()).completeBaseName());
+    printer->setDocName(currentTab()->fileInfo().completeBaseName());
     printer->setFullPage(true);
 
     printDialog->setMinMax(1, currentTab()->numberOfPages());
@@ -1006,7 +1000,7 @@ void MainWindow::on_print_triggered()
 
         if(!currentTab()->print(printer.data(), printDialog->printOptions()))
         {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->filePath()));
+            QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->fileInfo().filePath()));
         }
     }
 }
@@ -1126,7 +1120,7 @@ void MainWindow::on_settings_triggered()
         {
             if(!tab(index)->refresh())
             {
-                QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->filePath()));
+                QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
             }
         }
     }
@@ -1312,7 +1306,7 @@ void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
     tab->setParent(m_tabWidget);
     tab->setVisible(true);
 
-    addTab(tab, QFileInfo(tab->filePath()));
+    addTab(tab);
     m_tabsMenu->addAction(tabAction);
 }
 
@@ -1406,7 +1400,7 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
-    const QString filePath = currentTab()->filePath();
+    const QString filePath = currentTab()->fileInfo().filePath();
     const int page = currentTab()->currentPage();
 
     bool ok = false;
@@ -1702,13 +1696,13 @@ QList< DocumentView* > MainWindow::tabs() const
     return tabs;
 }
 
-int MainWindow::addTab(DocumentView* tab, const QFileInfo& fileInfo)
+int MainWindow::addTab(DocumentView* tab)
 {
     const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
-                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, fileInfo.completeBaseName()) :
-                m_tabWidget->addTab(tab, fileInfo.completeBaseName());
+                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tab->fileInfo().completeBaseName()) :
+                m_tabWidget->addTab(tab, tab->fileInfo().completeBaseName());
 
-    m_tabWidget->setTabToolTip(index, fileInfo.absoluteFilePath());
+    m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
     m_tabWidget->setCurrentIndex(index);
 
     return index;
@@ -1776,15 +1770,13 @@ void MainWindow::setWindowTitleForCurrentTab()
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
 {
-    const QFileInfo fileInfo(currentTab()->filePath());
-
     foreach(QAction* action, m_bookmarksMenu->actions())
     {
         BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
         if(bookmark != 0)
         {
-            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == fileInfo.absoluteFilePath())
+            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == currentTab()->fileInfo().absoluteFilePath())
             {
                 return bookmark;
             }
@@ -1829,11 +1821,11 @@ bool MainWindow::saveModifications(DocumentView* tab)
 
     if(tab->wasModified())
     {
-        const int button = QMessageBox::warning(this, tr("Warning"), tr("The document '%1' has been modified. Do you want to save your changes?").arg(tab->filePath()), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+        const int button = QMessageBox::warning(this, tr("Warning"), tr("The document '%1' has been modified. Do you want to save your changes?").arg(tab->fileInfo().filePath()), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
 
         if(button == QMessageBox::Save)
         {
-            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->filePath(), tab->saveFilter().join(";;"));
+            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
 
             if(!filePath.isEmpty())
             {

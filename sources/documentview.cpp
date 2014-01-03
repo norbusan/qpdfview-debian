@@ -188,9 +188,9 @@ DocumentView::~DocumentView()
     delete m_document;
 }
 
-QString DocumentView::filePath() const
+const QFileInfo& DocumentView::fileInfo() const
 {
-    return m_fileInfo.filePath();
+    return m_fileInfo;
 }
 
 bool DocumentView::wasModified() const
@@ -540,7 +540,6 @@ bool DocumentView::open(const QString& filePath)
 
         emit documentChanged();
 
-        emit filePathChanged(m_fileInfo.filePath());
         emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
 
@@ -1124,6 +1123,8 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
 void DocumentView::on_pages_wasModified()
 {
     m_wasModified = true;
+
+    emit documentModified();
 }
 
 void DocumentView::resizeEvent(QResizeEvent* event)
