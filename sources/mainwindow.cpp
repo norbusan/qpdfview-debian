@@ -181,14 +181,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
     if(newTab->open(filePath))
     {
-        newTab->setContinousMode(s_settings->documentView().continuousMode());
-        newTab->setLayoutMode(s_settings->documentView().layoutMode());
-        newTab->setScaleMode(s_settings->documentView().scaleMode());
-        newTab->setScaleFactor(s_settings->documentView().scaleFactor());
-        newTab->setRotation(s_settings->documentView().rotation());
-        newTab->setInvertColors(s_settings->documentView().invertColors());
-        newTab->setHighlightAll(s_settings->documentView().highlightAll());
-
         const QFileInfo fileInfo(filePath);
 
         s_settings->mainWindow().setOpenPath(fileInfo.absolutePath());
@@ -211,11 +203,10 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         connect(newTab, SIGNAL(canJumpChanged(bool,bool)), SLOT(on_currentTab_canJumpChanged(bool,bool)));
 
-        connect(newTab, SIGNAL(continousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
+        connect(newTab, SIGNAL(continuousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
         connect(newTab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
-        connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
         connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
 
@@ -378,11 +369,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         on_currentTab_canJumpChanged(currentTab()->canJumpBackward(), currentTab()->canJumpForward());
 
-        on_currentTab_continuousModeChanged(currentTab()->continousMode());
+        on_currentTab_continuousModeChanged(currentTab()->continuousMode());
         on_currentTab_layoutModeChanged(currentTab()->layoutMode());
         on_currentTab_scaleModeChanged(currentTab()->scaleMode());
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
-        on_currentTab_rotationChanged(currentTab()->rotation());
 
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
@@ -703,8 +693,6 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     if(senderIsCurrentTab())
     {
         m_continuousModeAction->setChecked(continuousMode);
-
-        s_settings->documentView().setContinuousMode(continuousMode);
     }
 }
 
@@ -715,8 +703,6 @@ void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
         m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
         m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
         m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
-
-        s_settings->documentView().setLayoutMode(layoutMode);
     }
 }
 
@@ -752,8 +738,6 @@ void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
             m_zoomOutAction->setEnabled(true);
             break;
         }
-
-        s_settings->documentView().setScaleMode(scaleMode);
     }
 }
 
@@ -769,16 +753,6 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::maximumScaleFactor()));
             m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::minimumScaleFactor()));
         }
-
-        s_settings->documentView().setScaleFactor(scaleFactor);
-    }
-}
-
-void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
-{
-    if(senderIsCurrentTab())
-    {
-        s_settings->documentView().setRotation(rotation);
     }
 }
 
@@ -792,8 +766,6 @@ void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
     if(senderIsCurrentTab())
     {
         m_invertColorsAction->setChecked(invertColors);
-
-        s_settings->documentView().setInvertColors(invertColors);
     }
 }
 
@@ -802,8 +774,6 @@ void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
     if(senderIsCurrentTab())
     {
         m_highlightAllCheckBox->setChecked(highlightAll);
-
-        s_settings->documentView().setHighlightAll(highlightAll);
     }
 }
 
@@ -1166,7 +1136,7 @@ void MainWindow::on_settings_triggered()
 
 void MainWindow::on_continuousMode_triggered(bool checked)
 {
-    currentTab()->setContinousMode(checked);
+    currentTab()->setContinuousMode(checked);
 }
 
 void MainWindow::on_twoPagesMode_triggered(bool checked)
@@ -1616,11 +1586,11 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void MainWindow::on_database_tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
+void MainWindow::on_database_tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
     if(openInNewTab(filePath))
     {
-        currentTab()->setContinousMode(continousMode);
+        currentTab()->setContinuousMode(continuousMode);
         currentTab()->setLayoutMode(layoutMode);
 
         currentTab()->setScaleMode(scaleMode);

@@ -55,7 +55,7 @@ public:
     void savePerFileSettings(const DocumentView* tab);
 
 signals:
-    void tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void bookmarkRestored(const QString& filePath, const JumpList& pages);
 
 private:

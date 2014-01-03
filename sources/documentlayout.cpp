@@ -34,6 +34,18 @@ DocumentLayout::DocumentLayout()
     }
 }
 
+DocumentLayout* DocumentLayout::fromLayoutMode(LayoutMode layoutMode)
+{
+    switch(layoutMode)
+    {
+    default:
+    case SinglePageMode: return new SinglePageLayout;
+    case TwoPagesMode: return new TwoPagesLayout;
+    case TwoPagesWithCoverPageMode: return new TwoPagesWithCoverPageLayout;
+    case MultiplePagesMode: return new MultiplePagesLayout;
+    }
+}
+
 qreal DocumentLayout::visibleHeight(int viewportHeight) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();

@@ -67,8 +67,8 @@ public:
 
     bool canSave() const;
 
-    bool continousMode() const;
-    void setContinousMode(bool continousMode);
+    bool continuousMode() const;
+    void setContinuousMode(bool continuousMode);
 
     LayoutMode layoutMode() const;
     void setLayoutMode(LayoutMode layoutMode);
@@ -114,7 +114,7 @@ signals:
 
     void canJumpChanged(bool backward, bool forward);
 
-    void continousModeChanged(bool continousMode);
+    void continuousModeChanged(bool continuousMode);
     void layoutModeChanged(LayoutMode layoutMode);
     void scaleModeChanged(ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);

@@ -89,7 +89,6 @@ protected slots:
     void on_currentTab_layoutModeChanged(LayoutMode layoutMode);
     void on_currentTab_scaleModeChanged(ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
-    void on_currentTab_rotationChanged(Rotation rotation);
 
     void on_currentTab_linkClicked(const QString& filePath, int page);
 
@@ -195,7 +194,7 @@ protected slots:
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
-    void on_database_tabRestored(const QString& filePath, bool continousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void on_database_tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void on_database_bookmarkRestored(const QString& filePath, const JumpList& pages);
 
 protected:

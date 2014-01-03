@@ -172,7 +172,7 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
                 query.bindValue(1, instanceName());
                 query.bindValue(2, tab->currentPage());
 
-                query.bindValue(3, static_cast< uint >(tab->continousMode()));
+                query.bindValue(3, static_cast< uint >(tab->continuousMode()));
                 query.bindValue(4, static_cast< uint >(tab->layoutMode()));
 
                 query.bindValue(5, static_cast< uint >(tab->scaleMode()));
@@ -326,7 +326,7 @@ void Database::restorePerFileSettings(DocumentView* tab)
 
         if(query.next())
         {
-            tab->setContinousMode(query.value(1).toBool());
+            tab->setContinuousMode(query.value(1).toBool());
             tab->setLayoutMode(static_cast< LayoutMode >(query.value(2).toUInt()));
 
             tab->setScaleMode(static_cast< ScaleMode >(query.value(3).toUInt()));
@@ -370,7 +370,7 @@ void Database::savePerFileSettings(const DocumentView* tab)
         query.bindValue(1, QCryptographicHash::hash(QFileInfo(tab->filePath()).absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
         query.bindValue(2, tab->currentPage());
 
-        query.bindValue(3, static_cast< uint >(tab->continousMode()));
+        query.bindValue(3, static_cast< uint >(tab->continuousMode()));
         query.bindValue(4, static_cast< uint >(tab->layoutMode()));
 
         query.bindValue(5, static_cast< uint >(tab->scaleMode()));

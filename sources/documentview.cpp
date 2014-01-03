@@ -162,6 +162,18 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
+
+    // settings
+
+    m_continuousMode = s_settings->documentView().continuousMode();
+    m_layout.reset(DocumentLayout::fromLayoutMode(s_settings->documentView().layoutMode()));
+
+    m_scaleMode = s_settings->documentView().scaleMode();
+    m_scaleFactor = s_settings->documentView().scaleFactor();
+    m_rotation = s_settings->documentView().rotation();
+
+    m_invertColors = s_settings->documentView().invertColors();
+    m_highlightAll = s_settings->documentView().highlightAll();
 }
 
 DocumentView::~DocumentView()
@@ -239,23 +251,25 @@ bool DocumentView::canSave() const
     return m_document->canSave();
 }
 
-bool DocumentView::continousMode() const
+bool DocumentView::continuousMode() const
 {
     return m_continuousMode;
 }
 
-void DocumentView::setContinousMode(bool continousMode)
+void DocumentView::setContinuousMode(bool continuousMode)
 {
-    if(m_continuousMode != continousMode)
+    if(m_continuousMode != continuousMode)
     {
-        m_continuousMode = continousMode;
+        m_continuousMode = continuousMode;
 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
         prepareView(left, top);
 
-        emit continousModeChanged(m_continuousMode);
+        emit continuousModeChanged(m_continuousMode);
+
+        s_settings->documentView().setContinuousMode(m_continuousMode);
     }
 }
 
@@ -268,14 +282,7 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
     if(m_layout->layoutMode() != layoutMode && layoutMode >= 0 && layoutMode < NumberOfLayoutModes)
     {
-        switch(layoutMode)
-        {
-        default:
-        case SinglePageMode: m_layout.reset(new SinglePageLayout); break;
-        case TwoPagesMode: m_layout.reset(new TwoPagesLayout); break;
-        case TwoPagesWithCoverPageMode: m_layout.reset(new TwoPagesWithCoverPageLayout); break;
-        case MultiplePagesMode: m_layout.reset(new MultiplePagesLayout); break;
-        }
+        m_layout.reset(DocumentLayout::fromLayoutMode(layoutMode));
 
         if(m_currentPage != m_layout->currentPage(m_currentPage))
         {
@@ -288,6 +295,8 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
         prepareView();
 
         emit layoutModeChanged(layoutMode);
+
+        s_settings->documentView().setLayoutMode(layoutMode);
     }
 }
 
@@ -309,6 +318,8 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
         prepareView(left, top);
 
         emit scaleModeChanged(m_scaleMode);
+
+        s_settings->documentView().setScaleMode(m_scaleMode);
     }
 }
 
@@ -333,6 +344,8 @@ void DocumentView::setScaleFactor(qreal scaleFactor)
         }
 
         emit scaleFactorChanged(m_scaleFactor);
+
+        s_settings->documentView().setScaleFactor(m_scaleFactor);
     }
 }
 
@@ -351,6 +364,8 @@ void DocumentView::setRotation(Rotation rotation)
         prepareView();
 
         emit rotationChanged(m_rotation);
+
+        s_settings->documentView().setRotation(rotation);
     }
 }
 
@@ -378,6 +393,8 @@ void DocumentView::setInvertColors(bool invertColors)
         prepareBackground();
 
         emit invertColorsChanged(m_invertColors);
+
+        s_settings->documentView().setInvertColors(m_invertColors);
     }
 }
 
@@ -403,6 +420,8 @@ void DocumentView::setHighlightAll(bool highlightAll)
         }
 
         emit highlightAllChanged(m_highlightAll);
+
+        s_settings->documentView().setHighlightAll(highlightAll);
     }
 }
 

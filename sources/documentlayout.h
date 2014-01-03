@@ -34,6 +34,8 @@ struct DocumentLayout
     DocumentLayout();
     virtual ~DocumentLayout() {}
 
+    static DocumentLayout* fromLayoutMode(LayoutMode layoutMode);
+
     virtual LayoutMode layoutMode() const = 0;
 
     virtual int currentPage(int page) const = 0;
