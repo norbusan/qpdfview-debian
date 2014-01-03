@@ -479,6 +479,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
+    const QAction* closeAllTabsAction = menu.addAction(tr("Close all tabs"));
     const QAction* closeAllTabsButThisOneAction = menu.addAction(tr("Close all tabs but this one"));
     const QAction* closeAllTabsToTheLeftAction = menu.addAction(tr("Close all tabs to the left"));
     const QAction* closeAllTabsToTheRightAction = menu.addAction(tr("Close all tabs to the right"));
@@ -489,7 +490,14 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     QList< DocumentView* > tabsToClose;
 
-    if(action == closeAllTabsButThisOneAction)
+    if(action == closeAllTabsAction)
+    {
+        for(int indexToClose = 0; indexToClose < count; ++indexToClose)
+        {
+            tabsToClose.append(tab(indexToClose));
+        }
+    }
+    else if(action == closeAllTabsButThisOneAction)
     {
         for(int indexToClose = 0; indexToClose < count; ++indexToClose)
         {
