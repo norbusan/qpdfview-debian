@@ -165,13 +165,11 @@ void TreeView::restoreExpansion(const QModelIndex& index)
 {
     if(index.isValid())
     {
-        if(model()->data(index, m_expansionRole).toBool())
+        const bool expanded = model()->data(index, m_expansionRole).toBool();
+
+        if(isExpanded(index) != expanded)
         {
-            expand(index);
-        }
-        else
-        {
-            collapse(index);
+            setExpanded(index, expanded);
         }
     }
 

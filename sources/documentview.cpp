@@ -1515,7 +1515,7 @@ void DocumentView::loadFallbackOutline()
     for(int page = 1; page <= m_pages.count(); ++page)
     {
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(page));
-        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemNeverHasChildren);
 
         item->setData(page, Qt::UserRole + 1);
 
