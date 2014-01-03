@@ -55,8 +55,8 @@ public:
     void savePerFileSettings(const DocumentView* tab);
 
 signals:
-    void tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void bookmarkRestored(const QString& filePath, const JumpList& pages);
+    void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
 
 private:
     Q_DISABLE_COPY(Database)

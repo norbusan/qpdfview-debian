@@ -23,7 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
-RecentlyUsedMenu::RecentlyUsedMenu(const QStringList& filePaths, int count, QWidget* parent) : QMenu(parent),
+RecentlyUsedMenu::RecentlyUsedMenu(const QStringList& absoluteFilePaths, int count, QWidget* parent) : QMenu(parent),
     m_count(count)
 {
     menuAction()->setText(tr("Recently &used"));
@@ -38,9 +38,9 @@ RecentlyUsedMenu::RecentlyUsedMenu(const QStringList& filePaths, int count, QWid
     m_clearListAction = addAction(tr("&Clear list"));
     connect(m_clearListAction, SIGNAL(triggered()), SLOT(on_clearList_triggered()));
 
-    foreach(const QString& filePath, filePaths)
+    foreach(const QString& absoluteFilePath, absoluteFilePaths)
     {
-        addOpenAction(filePath);
+        addOpenAction(QFileInfo(absoluteFilePath));
     }
 }
 

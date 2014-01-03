@@ -193,8 +193,8 @@ protected slots:
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
-    void on_database_tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void on_database_bookmarkRestored(const QString& filePath, const JumpList& pages);
+    void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
 
 protected:
     void closeEvent(QCloseEvent* event);
@@ -366,10 +366,10 @@ public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
 
 public slots:
-    bool open(const QString& filePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
-    bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
+    bool open(const QString& absoluteFilePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
+    bool openInNewTab(const QString& absoluteFilePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
 
-    bool jumpToPageOrOpenInNewTab(const QString& filePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF(), bool quiet = false);
+    bool jumpToPageOrOpenInNewTab(const QString& absoluteFilePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF(), bool quiet = false);
 
     Q_NOREPLY void startSearch(const QString& text);
 

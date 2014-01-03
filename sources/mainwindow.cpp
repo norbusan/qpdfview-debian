@@ -1400,11 +1400,8 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
-    const QString filePath = currentTab()->fileInfo().filePath();
-    const int page = currentTab()->currentPage();
-
     bool ok = false;
-    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(page), &ok);
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentTab()->currentPage()), &ok);
 
     if(!ok)
     {
@@ -1415,13 +1412,13 @@ void MainWindow::on_addBookmark_triggered()
 
     if(bookmark != 0)
     {
-        bookmark->addJumpToPageAction(page, label);
+        bookmark->addJumpToPageAction(currentTab()->currentPage(), label);
     }
     else
     {
-        bookmark = new BookmarkMenu(filePath, this);
+        bookmark = new BookmarkMenu(currentTab()->fileInfo(), this);
 
-        bookmark->addJumpToPageAction(page, label);
+        bookmark->addJumpToPageAction(currentTab()->currentPage(), label);
 
         connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
         connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
@@ -1580,9 +1577,9 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void MainWindow::on_database_tabRestored(const QString& filePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
+void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
-    if(openInNewTab(filePath))
+    if(openInNewTab(absoluteFilePath))
     {
         currentTab()->setContinuousMode(continuousMode);
         currentTab()->setLayoutMode(layoutMode);
@@ -1596,9 +1593,9 @@ void MainWindow::on_database_tabRestored(const QString& filePath, bool continuou
     }
 }
 
-void MainWindow::on_database_bookmarkRestored(const QString& filePath, const JumpList& jumps)
+void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& jumps)
 {
-    BookmarkMenu* bookmark = new BookmarkMenu(filePath, this);
+    BookmarkMenu* bookmark = new BookmarkMenu(QFileInfo(absoluteFilePath), this);
 
     foreach(const Jump jump, jumps)
     {
@@ -1776,7 +1773,7 @@ BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
 
         if(bookmark != 0)
         {
-            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == currentTab()->fileInfo().absoluteFilePath())
+            if(bookmark->absoluteFilePath() == currentTab()->fileInfo().absoluteFilePath())
             {
                 return bookmark;
             }
@@ -2294,19 +2291,19 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
-bool MainWindowAdaptor::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)
+bool MainWindowAdaptor::open(const QString& absoluteFilePath, int page, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->open(filePath, page, highlight, quiet);
+    return mainWindow()->open(absoluteFilePath, page, highlight, quiet);
 }
 
-bool MainWindowAdaptor::openInNewTab(const QString& filePath, int page, const QRectF& highlight, bool quiet)
+bool MainWindowAdaptor::openInNewTab(const QString& absoluteFilePath, int page, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->openInNewTab(filePath, page, highlight, quiet);
+    return mainWindow()->openInNewTab(absoluteFilePath, page, highlight, quiet);
 }
 
-bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& filePath, int page, bool refreshBeforeJump, const QRectF& highlight, bool quiet)
+bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& absoluteFilePath, int page, bool refreshBeforeJump, const QRectF& highlight, bool quiet)
 {
-    return mainWindow()->jumpToPageOrOpenInNewTab(filePath, page, refreshBeforeJump, highlight, quiet);
+    return mainWindow()->jumpToPageOrOpenInNewTab(absoluteFilePath, page, refreshBeforeJump, highlight, quiet);
 }
 
 void MainWindowAdaptor::startSearch(const QString& text)

@@ -285,7 +285,7 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
             {
                 foreach(const Jump jump, bookmark->jumps())
                 {
-                    query.bindValue(0, QFileInfo(bookmark->filePath()).absoluteFilePath());
+                    query.bindValue(0, bookmark->absoluteFilePath());
                     query.bindValue(1, jump.first);
                     query.bindValue(2, jump.second);
 

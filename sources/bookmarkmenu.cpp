@@ -23,14 +23,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
-BookmarkMenu::BookmarkMenu(const QString& filePath, QWidget* parent) : QMenu(parent)
+BookmarkMenu::BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent) : QMenu(parent)
 {
-    const QFileInfo fileInfo(filePath);
-
     menuAction()->setText(fileInfo.completeBaseName());
     menuAction()->setToolTip(fileInfo.absoluteFilePath());
 
-    menuAction()->setData(filePath);
+    menuAction()->setData(fileInfo.absoluteFilePath());
 
     m_openAction = addAction(tr("&Open"));
     m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
@@ -93,7 +91,7 @@ void BookmarkMenu::removeJumpToPageAction(int page)
     }
 }
 
-QString BookmarkMenu::filePath() const
+QString BookmarkMenu::absoluteFilePath() const
 {
     return menuAction()->data().toString();
 }
@@ -117,15 +115,15 @@ void BookmarkMenu::on_removeBookmark_triggered()
 
 void BookmarkMenu::on_open_triggered()
 {
-    emit openTriggered(filePath());
+    emit openTriggered(absoluteFilePath());
 }
 
 void BookmarkMenu::on_openInNewTab_triggered()
 {
-    emit openInNewTabTriggered(filePath());
+    emit openInNewTabTriggered(absoluteFilePath());
 }
 
 void BookmarkMenu::on_jumpToPage_triggered(QAction* action)
 {
-    emit jumpToPageTriggered(filePath(), action->data().toInt());
+    emit jumpToPageTriggered(absoluteFilePath(), action->data().toInt());
 }
