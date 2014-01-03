@@ -958,9 +958,7 @@ void MainWindow::on_openInNewTab_triggered()
 
 void MainWindow::on_openContainingFolder_triggered()
 {
-    const QFileInfo fileInfo(currentTab()->filePath());
-
-    QDesktopServices::openUrl(fileInfo.absolutePath());
+    QDesktopServices::openUrl(QFileInfo(currentTab()->filePath()).absolutePath());
 }
 
 void MainWindow::on_refresh_triggered()
@@ -1808,13 +1806,15 @@ void MainWindow::setWindowTitleForCurrentTab()
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
 {
+    const QFileInfo fileInfo(currentTab()->filePath());
+
     foreach(QAction* action, m_bookmarksMenu->actions())
     {
         BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
 
         if(bookmark != 0)
         {
-            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == QFileInfo(currentTab()->filePath()).absoluteFilePath())
+            if(QFileInfo(bookmark->filePath()).absoluteFilePath() == fileInfo.absoluteFilePath())
             {
                 return bookmark;
             }
