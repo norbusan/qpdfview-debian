@@ -104,6 +104,7 @@ private:
     QLineEdit* m_sourceEditorLineEdit;
 
     void createBehaviorTab();
+    void acceptBehaivorTab();
     void resetBehaviorTab();
 
     // graphics
@@ -136,6 +137,7 @@ private:
     QSpinBox* m_prefetchDistanceSpinBox;
 
     void createGraphicsTab();
+    void acceptGraphicsTab();
     void resetGraphicsTab();
 
     // interface
@@ -164,6 +166,7 @@ private:
     QCheckBox* m_formFieldOverlayCheckBox;
 
     void createInterfaceTab();
+    void acceptInterfaceTab();
     void resetInterfaceTab();
 
     // modifiers
@@ -176,6 +179,7 @@ private:
     QComboBox* m_addAnnotationModifiersComboBox;
 
     void createModifiersTab();
+    void acceptModifiersTab();
     void resetModifiersTab();
 
     // helper methods
