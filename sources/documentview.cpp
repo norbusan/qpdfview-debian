@@ -72,9 +72,9 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
     m_document(0),
     m_pages(),
-    m_filePath(),
-    m_currentPage(-1),
+    m_fileInfo(),
     m_wasModified(false),
+    m_currentPage(-1),
     m_past(),
     m_future(),
     m_layout(new SinglePageLayout),
@@ -188,9 +188,14 @@ DocumentView::~DocumentView()
     delete m_document;
 }
 
-const QString& DocumentView::filePath() const
+QString DocumentView::filePath() const
 {
-    return m_filePath;
+    return m_fileInfo.filePath();
+}
+
+bool DocumentView::wasModified() const
+{
+    return m_wasModified;
 }
 
 int DocumentView::numberOfPages() const
@@ -201,11 +206,6 @@ int DocumentView::numberOfPages() const
 int DocumentView::currentPage() const
 {
     return m_currentPage;
-}
-
-bool DocumentView::wasModified() const
-{
-    return m_wasModified;
 }
 
 QStringList DocumentView::openFilter()
@@ -523,10 +523,10 @@ bool DocumentView::open(const QString& filePath)
             }
         }
 
-        m_filePath = filePath;
-        m_currentPage = 1;
-
+        m_fileInfo.setFile(filePath);
         m_wasModified = false;
+
+        m_currentPage = 1;
 
         m_past.clear();
         m_future.clear();
@@ -540,7 +540,7 @@ bool DocumentView::open(const QString& filePath)
 
         emit documentChanged();
 
-        emit filePathChanged(m_filePath);
+        emit filePathChanged(m_fileInfo.filePath());
         emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
 
@@ -552,13 +552,13 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Model::Document* document = PluginHandler::loadDocument(m_filePath);
+    Model::Document* document = PluginHandler::loadDocument(m_fileInfo.filePath());
 
     if(document != 0)
     {
         if(document->isLocked())
         {
-            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(m_filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
+            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(m_fileInfo.completeBaseName()), tr("Password:"), QLineEdit::Password);
 
             if(document->unlock(password))
             {
@@ -570,9 +570,9 @@ bool DocumentView::refresh()
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        m_currentPage = qMin(m_currentPage, document->numberOfPages());
-
         m_wasModified = false;
+
+        m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
         prepareDocument(document);
 
@@ -1053,7 +1053,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
 
         if(resolvedUrl.isRelative() && QFileInfo(url).isRelative())
         {
-            resolvedUrl.setPath(QFileInfo(m_filePath).dir().filePath(url));
+            resolvedUrl.setPath(m_fileInfo.dir().filePath(url));
         }
 
         QDesktopServices::openUrl(resolvedUrl);
@@ -1066,7 +1066,7 @@ void DocumentView::on_pages_linkClicked(const QString& url)
 
 void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
 {
-    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : QFileInfo(m_filePath).dir().filePath(fileName);
+    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : m_fileInfo.dir().filePath(fileName);
 
     emit linkClicked(filePath, page);
 }
@@ -1085,9 +1085,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
         return;
     }
 
-    const QFileInfo fileInfo(m_filePath);
-
-    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1);
+    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1);
 
     if(scanner != 0)
     {
@@ -1102,7 +1100,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
                 sourceLine = sourceLine >= 0 ? sourceLine : 0;
                 sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
 
-                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(fileInfo.dir().absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
+                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(m_fileInfo.dir().absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
 
                 break;
             }
@@ -1112,7 +1110,7 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     }
     else
     {
-        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(fileInfo.absoluteFilePath()));
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(m_fileInfo.absoluteFilePath()));
     }
 
 #else
@@ -1498,7 +1496,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
             if(m_document->save(temporaryFile.fileName(), true))
             {
-                jobId = cupsPrintFile(dest->name, QFileInfo(temporaryFile).absoluteFilePath().toLocal8Bit(), QFileInfo(m_filePath).completeBaseName().toLocal8Bit(), num_options, options);
+                jobId = cupsPrintFile(dest->name, temporaryFile.fileName().toLocal8Bit(), m_fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
 
                 if(jobId < 1)
                 {
@@ -1523,7 +1521,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
 {
     QScopedPointer< QProgressDialog > progressDialog(new QProgressDialog(this));
-    progressDialog->setLabelText(tr("Printing '%1'...").arg(m_filePath));
+    progressDialog->setLabelText(tr("Printing '%1'...").arg(m_fileInfo.completeBaseName()));
     progressDialog->setRange(fromPage - 1, toPage);
 
     QPainter painter(printer);
@@ -1634,7 +1632,7 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     if(s_settings->documentView().autoRefresh())
     {
-        m_autoRefreshWatcher->addPath(m_filePath);
+        m_autoRefreshWatcher->addPath(m_fileInfo.filePath());
     }
 
     m_document->setPaperColor(s_settings->pageItem().paperColor());

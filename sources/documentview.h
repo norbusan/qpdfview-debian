@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DOCUMENTVIEW_H
 #define DOCUMENTVIEW_H
 
+#include <QFileInfo>
 #include <QGraphicsView>
 #include <QMap>
 
@@ -56,11 +57,11 @@ public:
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
-    const QString& filePath() const;
+    QString filePath() const;
+    bool wasModified() const;
+
     int numberOfPages() const;
     int currentPage() const;
-
-    bool wasModified() const;
 
     static QStringList openFilter();
     QStringList saveFilter() const;
@@ -208,10 +209,10 @@ private:
     Model::Document* m_document;
     QList< Model::Page* > m_pages;
 
-    QString m_filePath;
-    int m_currentPage;
-
+    QFileInfo m_fileInfo;
     bool m_wasModified;
+
+    int m_currentPage;
 
 #ifdef WITH_CUPS
 
