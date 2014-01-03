@@ -125,21 +125,6 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     paintRubberBand(painter);
 }
 
-int PageItem::index() const
-{
-    return m_index;
-}
-
-const QSizeF& PageItem::size() const
-{
-    return m_size;
-}
-
-bool PageItem::invertColors()
-{
-    return m_invertColors;
-}
-
 void PageItem::setInvertColors(bool invertColors)
 {
     m_invertColors = invertColors;
@@ -147,21 +132,11 @@ void PageItem::setInvertColors(bool invertColors)
     refresh();
 }
 
-const QList< QRectF >& PageItem::highlights() const
-{
-    return m_highlights;
-}
-
 void PageItem::setHighlights(const QList< QRectF >& highlights)
 {
     m_highlights = highlights;
 
     update();
-}
-
-RubberBandMode PageItem::rubberBandMode() const
-{
-    return m_rubberBandMode;
 }
 
 void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
@@ -181,26 +156,6 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-bool PageItem::showsAnnotationOverlay() const
-{
-    return !m_annotationOverlay.isEmpty();
-}
-
-bool PageItem::showsFormFieldOverlay() const
-{
-    return !m_formFieldOverlay.isEmpty();
-}
-
-int PageItem::resolutionX() const
-{
-    return m_resolutionX;
-}
-
-int PageItem::resolutionY() const
-{
-    return m_resolutionY;
-}
-
 void PageItem::setResolution(int resolutionX, int resolutionY)
 {
     if((m_resolutionX != resolutionX || m_resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
@@ -213,11 +168,6 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
         prepareGeometryChange();
         prepareGeometry();
     }
-}
-
-qreal PageItem::devicePixelRatio() const
-{
-    return m_devicePixelRatio;
 }
 
 void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
@@ -233,11 +183,6 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
     }
 }
 
-qreal PageItem::scaleFactor() const
-{
-    return m_scaleFactor;
-}
-
 void PageItem::setScaleFactor(qreal scaleFactor)
 {
     if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor > 0.0)
@@ -251,11 +196,6 @@ void PageItem::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Rotation PageItem::rotation() const
-{
-    return m_rotation;
-}
-
 void PageItem::setRotation(Rotation rotation)
 {
     if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
@@ -267,16 +207,6 @@ void PageItem::setRotation(Rotation rotation)
         prepareGeometryChange();
         prepareGeometry();
     }
-}
-
-const QTransform& PageItem::transform() const
-{
-    return m_transform;
-}
-
-const QTransform& PageItem::normalizedTransform() const
-{
-    return m_normalizedTransform;
 }
 
 void PageItem::refresh()
@@ -1214,11 +1144,6 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 
         painter->restore();
     }
-}
-
-bool ThumbnailItem::isCurrent() const
-{
-    return m_current;
 }
 
 void ThumbnailItem::setCurrent(bool current)

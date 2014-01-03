@@ -58,36 +58,36 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
-    int index() const;
-    const QSizeF& size() const;
+    inline int index() const { return m_index; }
+    inline const QSizeF& size() const { return m_size; }
 
-    bool invertColors();
+    inline bool invertColors() { return m_invertColors; }
     void setInvertColors(bool invertColors);
 
-    const QList< QRectF >& highlights() const;
+    inline const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
 
-    RubberBandMode rubberBandMode() const;
+    inline RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
-    bool showsAnnotationOverlay() const;
-    bool showsFormFieldOverlay() const;
+    inline bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
+    inline bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
-    int resolutionX() const;
-    int resolutionY() const;
+    inline int resolutionX() const { return m_resolutionX; }
+    inline int resolutionY() const { return m_resolutionY; }
     void setResolution(int resolutionX, int resolutionY);
 
-    qreal devicePixelRatio() const;
+    inline qreal devicePixelRatio() const { return m_devicePixelRatio; }
     void setDevicePixelRatio(qreal devicePixelRatio);
 
-    qreal scaleFactor() const;
+    inline qreal scaleFactor() const { return m_scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    Rotation rotation() const;
+    inline Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    const QTransform& transform() const;
-    const QTransform& normalizedTransform() const;
+    inline const QTransform& transform() const { return m_transform; }
+    inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
 signals:
     void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
@@ -228,7 +228,7 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
-    bool isCurrent() const;
+    inline bool isCurrent() const { return m_current; }
     void setCurrent(bool current);
 
 protected:
