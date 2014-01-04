@@ -129,13 +129,13 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="168"/>
         <location filename="../sources/mainwindow.cpp" line="237"/>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
-        <location filename="../sources/mainwindow.cpp" line="958"/>
-        <location filename="../sources/mainwindow.cpp" line="975"/>
-        <location filename="../sources/mainwindow.cpp" line="1011"/>
-        <location filename="../sources/mainwindow.cpp" line="1131"/>
-        <location filename="../sources/mainwindow.cpp" line="1829"/>
-        <location filename="../sources/mainwindow.cpp" line="1843"/>
+        <location filename="../sources/mainwindow.cpp" line="938"/>
+        <location filename="../sources/mainwindow.cpp" line="955"/>
+        <location filename="../sources/mainwindow.cpp" line="972"/>
+        <location filename="../sources/mainwindow.cpp" line="1008"/>
+        <location filename="../sources/mainwindow.cpp" line="1128"/>
+        <location filename="../sources/mainwindow.cpp" line="1750"/>
+        <location filename="../sources/mainwindow.cpp" line="1764"/>
         <source>Warning</source>
         <translation type="unfinished">Cảnh báo</translation>
     </message>
@@ -166,438 +166,438 @@
         <translation type="unfinished">Đóng tất cả thẻ bên phải</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="899"/>
+        <location filename="../sources/mainwindow.cpp" line="896"/>
         <source>Open</source>
         <translation type="unfinished">Mở</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="915"/>
+        <location filename="../sources/mainwindow.cpp" line="912"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Mở trong thẻ mới</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
-        <location filename="../sources/mainwindow.cpp" line="1131"/>
+        <location filename="../sources/mainwindow.cpp" line="938"/>
+        <location filename="../sources/mainwindow.cpp" line="1128"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Không thể làm tươi &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="948"/>
+        <location filename="../sources/mainwindow.cpp" line="945"/>
         <source>Save copy</source>
         <translation type="unfinished">Lưu bản sao</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="958"/>
+        <location filename="../sources/mainwindow.cpp" line="955"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Không thể lưu bản sao tại &apos;%1.&apos;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="965"/>
-        <location filename="../sources/mainwindow.cpp" line="1833"/>
+        <location filename="../sources/mainwindow.cpp" line="962"/>
+        <location filename="../sources/mainwindow.cpp" line="1754"/>
         <source>Save as</source>
         <translation type="unfinished">Lưu với tên khác</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="975"/>
-        <location filename="../sources/mainwindow.cpp" line="1843"/>
+        <location filename="../sources/mainwindow.cpp" line="972"/>
+        <location filename="../sources/mainwindow.cpp" line="1764"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Không thể lưu với tên &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1011"/>
+        <location filename="../sources/mainwindow.cpp" line="1008"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Không thể in &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1047"/>
+        <location filename="../sources/mainwindow.cpp" line="1044"/>
         <source>Jump to page</source>
         <translation type="unfinished">Đến trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1047"/>
+        <location filename="../sources/mainwindow.cpp" line="1044"/>
         <source>Page:</source>
         <translation type="unfinished">Trang:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1412"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Add bookmark</source>
         <translation type="unfinished">Thêm đánh dấu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1412"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Label</source>
         <translation type="unfinished">Nhãn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1412"/>
+        <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Đến trang %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1495"/>
+        <location filename="../sources/mainwindow.cpp" line="1492"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Về qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1495"/>
+        <location filename="../sources/mainwindow.cpp" line="1492"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview là trình xem tài liệu theo thẻ viết bằng Qt.&lt;/p&gt;&lt;p&gt;Phiên bản này bao gồm:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1499"/>
+        <location filename="../sources/mainwindow.cpp" line="1496"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Hỗ trợ PDF sử dụng Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="1499"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Hỗ trợ PS sử dụng libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1505"/>
+        <location filename="../sources/mainwindow.cpp" line="1502"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Hỗ trợ DjVu sử dụng DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1508"/>
+        <location filename="../sources/mainwindow.cpp" line="1505"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Hỗ trợ In sử dụng CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1510"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Xem tại &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; để biết thêm.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt;</translation>
+        <location filename="../sources/mainwindow.cpp" line="1507"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Xem tại &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; để biết thêm.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt; {2012-2014 ?}</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1829"/>
+        <location filename="../sources/mainwindow.cpp" line="1750"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Tài liệu &apos;%1&apos; đã bị sửa đổi. Có muốn lưu các thay đổi của bạn?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1899"/>
+        <location filename="../sources/mainwindow.cpp" line="1891"/>
         <source>Page width</source>
         <translation type="unfinished">Độ rộng trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1900"/>
+        <location filename="../sources/mainwindow.cpp" line="1892"/>
         <source>Page size</source>
         <translation type="unfinished">Kích thươc trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1921"/>
+        <location filename="../sources/mainwindow.cpp" line="1913"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">&amp;Khớp từ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1922"/>
+        <location filename="../sources/mainwindow.cpp" line="1914"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Tô &amp;sáng tất cả</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1966"/>
+        <location filename="../sources/mainwindow.cpp" line="1958"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Mở</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1967"/>
+        <location filename="../sources/mainwindow.cpp" line="1959"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Mở &amp;trong thẻ mới</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1968"/>
+        <location filename="../sources/mainwindow.cpp" line="1960"/>
         <source>Open containing folder</source>
         <translation type="unfinished">Mở thư mục chứa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1969"/>
+        <location filename="../sources/mainwindow.cpp" line="1961"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Là&amp;m tươi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1970"/>
+        <location filename="../sources/mainwindow.cpp" line="1962"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Lưu bản sao</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1971"/>
+        <location filename="../sources/mainwindow.cpp" line="1963"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Lưu &amp;với tên...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1972"/>
+        <location filename="../sources/mainwindow.cpp" line="1964"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;In</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1973"/>
+        <location filename="../sources/mainwindow.cpp" line="1965"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">T&amp;hoát</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1977"/>
+        <location filename="../sources/mainwindow.cpp" line="1969"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">T&amp;rang trước</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1978"/>
+        <location filename="../sources/mainwindow.cpp" line="1970"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Trang &amp;kế</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1979"/>
+        <location filename="../sources/mainwindow.cpp" line="1971"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Tr&amp;ang đầu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1980"/>
+        <location filename="../sources/mainwindow.cpp" line="1972"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Trang &amp;cuối</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1982"/>
+        <location filename="../sources/mainwindow.cpp" line="1974"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Đế&amp;n trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1984"/>
+        <location filename="../sources/mainwindow.cpp" line="1976"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">&amp;Lùi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1985"/>
+        <location filename="../sources/mainwindow.cpp" line="1977"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">&amp;Tiến</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1987"/>
+        <location filename="../sources/mainwindow.cpp" line="1979"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">Tìm...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1988"/>
+        <location filename="../sources/mainwindow.cpp" line="1980"/>
         <source>Find previous</source>
         <translation type="unfinished">Tìm ngược</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1989"/>
+        <location filename="../sources/mainwindow.cpp" line="1981"/>
         <source>Find next</source>
         <translation type="unfinished">Tìm tiếp</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1990"/>
+        <location filename="../sources/mainwindow.cpp" line="1982"/>
         <source>Cancel search</source>
         <translation type="unfinished">Hủy tìm kiếm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1992"/>
+        <location filename="../sources/mainwindow.cpp" line="1984"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">Chếp &amp;vào bộ nhớ đệm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1993"/>
+        <location filename="../sources/mainwindow.cpp" line="1985"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Thêm &amp;ghi chú</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1995"/>
+        <location filename="../sources/mainwindow.cpp" line="1987"/>
         <source>Settings...</source>
         <translation type="unfinished">Thiết lập...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <location filename="../sources/mainwindow.cpp" line="1991"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">Tiếp nối</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2000"/>
+        <location filename="../sources/mainwindow.cpp" line="1992"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">Hai trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2001"/>
+        <location filename="../sources/mainwindow.cpp" line="1993"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Hai trang với khung</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2002"/>
+        <location filename="../sources/mainwindow.cpp" line="1994"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">Nhiều trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="1996"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">&amp;Phóng to</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2005"/>
+        <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Thu nhỏ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2006"/>
+        <location filename="../sources/mainwindow.cpp" line="1998"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">&amp;Kích thước gốc</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2008"/>
+        <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Khít theo độ &amp;rộng trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2009"/>
+        <location filename="../sources/mainwindow.cpp" line="2001"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Khít theo kích &amp;thước trang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2011"/>
+        <location filename="../sources/mainwindow.cpp" line="2003"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">X&amp;oay qua trái</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2012"/>
+        <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Xoa&amp;y qua phải</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2014"/>
+        <location filename="../sources/mainwindow.cpp" line="2006"/>
         <source>Invert colors</source>
         <translation type="unfinished">Đảo màu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2016"/>
+        <location filename="../sources/mainwindow.cpp" line="2008"/>
         <source>Fonts...</source>
         <translation type="unfinished">Font chữ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2018"/>
+        <location filename="../sources/mainwindow.cpp" line="2010"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">Toàn màn &amp;hình</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2019"/>
+        <location filename="../sources/mainwindow.cpp" line="2011"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">Trình chiế&amp;u</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2023"/>
+        <location filename="../sources/mainwindow.cpp" line="2015"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">Thẻ trước</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2024"/>
+        <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">Thẻ kế</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2026"/>
+        <location filename="../sources/mainwindow.cpp" line="2018"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">Đóng thẻ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2027"/>
+        <location filename="../sources/mainwindow.cpp" line="2019"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Đóng tất cả thẻ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2028"/>
+        <location filename="../sources/mainwindow.cpp" line="2020"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Đóng tất cả trù thẻ này</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2031"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">Đánh dấu trướ&amp;c</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2040"/>
+        <location filename="../sources/mainwindow.cpp" line="2032"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">Đánh dấ&amp;u tiếp</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2042"/>
+        <location filename="../sources/mainwindow.cpp" line="2034"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Thêm đánh dấu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2043"/>
+        <location filename="../sources/mainwindow.cpp" line="2035"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Bỏ đánh dấu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2044"/>
+        <location filename="../sources/mainwindow.cpp" line="2036"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Bỏ tất cả đánh dấu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2048"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Mục</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2049"/>
+        <location filename="../sources/mainwindow.cpp" line="2041"/>
         <source>&amp;About</source>
         <translation type="unfinished">Thông t&amp;in</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2083"/>
-        <location filename="../sources/mainwindow.cpp" line="2210"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
+        <location filename="../sources/mainwindow.cpp" line="2202"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Tệp</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2086"/>
-        <location filename="../sources/mainwindow.cpp" line="2231"/>
+        <location filename="../sources/mainwindow.cpp" line="2078"/>
+        <location filename="../sources/mainwindow.cpp" line="2223"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Sửa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2089"/>
-        <location filename="../sources/mainwindow.cpp" line="2244"/>
+        <location filename="../sources/mainwindow.cpp" line="2081"/>
+        <location filename="../sources/mainwindow.cpp" line="2236"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Xem</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2118"/>
+        <location filename="../sources/mainwindow.cpp" line="2110"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Dàn bài</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2131"/>
+        <location filename="../sources/mainwindow.cpp" line="2123"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">T&amp;huộc tính</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2141"/>
+        <location filename="../sources/mainwindow.cpp" line="2133"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Hình thu &amp;nhỏ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2153"/>
+        <location filename="../sources/mainwindow.cpp" line="2145"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Tìm kiếm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2254"/>
+        <location filename="../sources/mainwindow.cpp" line="2246"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Thanh &amp;công cụ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2257"/>
+        <location filename="../sources/mainwindow.cpp" line="2249"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Thanh &amp;neo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2266"/>
+        <location filename="../sources/mainwindow.cpp" line="2258"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Thẻ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2284"/>
+        <location filename="../sources/mainwindow.cpp" line="2276"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Đánh &amp;dấu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2292"/>
+        <location filename="../sources/mainwindow.cpp" line="2284"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Giúp đỡ</translation>
     </message>

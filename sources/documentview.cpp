@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2012-2014 Adam Reichold
 Copyright 2013 Thomas Etter
 
 This file is part of qpdfview.
