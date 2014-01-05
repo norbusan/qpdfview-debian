@@ -1456,26 +1456,26 @@ void MainWindow::on_removeAllBookmarks_triggered()
     }
 }
 
-void MainWindow::on_bookmark_openTriggered(const QString& filePath)
+void MainWindow::on_bookmark_openTriggered(const QString& absoluteFilePath)
 {
     if(m_tabWidget->currentIndex() != -1)
     {
-        open(filePath);
+        open(absoluteFilePath);
     }
     else
     {
-        openInNewTab(filePath);
+        openInNewTab(absoluteFilePath);
     }
 }
 
-void MainWindow::on_bookmark_openInNewTabTriggered(const QString& filePath)
+void MainWindow::on_bookmark_openInNewTabTriggered(const QString& absoluteFilePath)
 {
-    openInNewTab(filePath);
+    openInNewTab(absoluteFilePath);
 }
 
-void MainWindow::on_bookmark_jumpToPageTriggered(const QString& filePath, int page)
+void MainWindow::on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath, int page)
 {
-    jumpToPageOrOpenInNewTab(filePath, page);
+    jumpToPageOrOpenInNewTab(absoluteFilePath, page);
 }
 
 void MainWindow::on_contents_triggered()

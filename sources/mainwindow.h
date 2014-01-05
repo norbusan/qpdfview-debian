@@ -175,9 +175,9 @@ protected slots:
     void on_removeBookmark_triggered();
     void on_removeAllBookmarks_triggered();
 
-    void on_bookmark_openTriggered(const QString& filePath);
-    void on_bookmark_openInNewTabTriggered(const QString& filePath);
-    void on_bookmark_jumpToPageTriggered(const QString& filePath, int page);
+    void on_bookmark_openTriggered(const QString& absoluteFilePath);
+    void on_bookmark_openInNewTabTriggered(const QString& absoluteFilePath);
+    void on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath, int page);
 
     void on_contents_triggered();
     void on_about_triggered();
