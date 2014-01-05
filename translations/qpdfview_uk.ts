@@ -148,7 +148,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрити усі вкладки</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Докладніші відомості можна знайти на сторінці &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; Розробники qpdfview, 2012–2013&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Див. &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;, щоб дізнатися більше.&lt;/p&gt;&lt;p&gt;&amp;copy; Розробники qpdfview, 2012–2014&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>

@@ -148,7 +148,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fermer tous les onglets</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Voir &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Voir &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
@@ -1063,7 +1063,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Récemment fermé</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1155,7 +1155,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suivre les fichiers récemment fermés</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
@@ -1362,7 +1362,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de fichiers récemment fermés</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="639"/>
