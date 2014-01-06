@@ -2,6 +2,1416 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">&amp;Obre</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">Obre en una nova pes&amp;tanya</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">Elimina ma&amp;rcador</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>Database|</comment>
+        <translation type="vanished">Vés a la pàgina %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Formats acceptats (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Desbloqueja %1</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Contrasenya:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Informació</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">S&apos;ha desactivat l&apos;apertura d&apos;URL a la configuració.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Avís</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">No s&apos;han trobat les dades SyncText per «%1».</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Imprimint &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Pàgina %1</translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Desa...</translation>
+    </message>
+    <message>
+        <source>Save and open...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Desa i obre...</translation>
+    </message>
+    <message>
+        <source>Save file attachment</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Desa l&apos;adjunt</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Avís</translation>
+    </message>
+    <message>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">No s&apos;ha pogut desar l&apos;adjunt a &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>help.html</source>
+        <comment>HelpDialog|</comment>
+        <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.
+</extracomment>
+        <translation type="vanished">help_ca.html</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Cerca l&apos;anterior</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Cerca el següent</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Avís</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">No s&apos;ha pogut obrir &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Close all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanca totes les pestanyes</translation>
+    </message>
+    <message>
+        <source>Close all tabs but this one</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanca totes les pestanyes menys aquesta</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanca totes les pestanyes a l&apos;esquerra</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanca totes les pestanyes a la dreta</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Obre</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Obre en una pestanya nova</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">No s&apos;ha pogut actualitzar &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Desa una còpia</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">No s&apos;ha pogut desar una còpia a &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Anomena i desa</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">No es pot desar com a &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">No s&apos;ha pogut imprimir &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Vés a la pàgina</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Pàgina:</translation>
+    </message>
+    <message>
+        <source>Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Afegeix un marcador</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Etiqueta</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Vés a la pàgina %1</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Sobre qpdfview</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview és un visor de documents amb pestanyes fent ús de Qt.&lt;/p&gt;&lt;p&gt;Esta versió inclou:&lt;ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Suport de PDF fent ús de Poppler&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Suport de PS fent ús de libspectre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Suport de DjVu fent ús de DjVuLibre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Suport d&apos;impressió fent ús de CUPS&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;/ul&gt;&lt;p&gt;Veieu &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">El document &apos;%1&apos; ha estat modificat. Voleu desar els vostres canvis?</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Amplada de la pàgina</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Mida de la pàgina</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Coincidència de majús&amp;cules</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Res&amp;alta tot</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Obre...</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Obre en una nova pes&amp;tanya...</translation>
+    </message>
+    <message>
+        <source>Open containing folder</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Obre la carpeta contenidora</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Refresca</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">De&amp;sa una còpia...</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Anomena i desa...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Im&amp;primeix…</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Surt</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Pàgina anterior</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Pàgi&amp;na següent</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Primera pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ú&amp;ltima pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Vés a la pàgina ...</translation>
+    </message>
+    <message>
+        <source>Jump &amp;backward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Torna enrere</translation>
+    </message>
+    <message>
+        <source>Jump for&amp;ward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Vés endavant</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Cerca...</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Cerca l&apos;anterior</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Cerca el següent</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Cancel·la la cerca</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Copia al porta-retalls</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Afegeix anotació</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Configuració…</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Continu</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Doble pàgina</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Doble pàgina &amp;amb portada</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Múltiples pàgines</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">A&amp;costa</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">A&amp;llunya</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Mida &amp;original</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ajusta a l&apos;amplada de la pàgina</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ajusta a la mida de la pàgina</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Rota a &amp;l&apos;esquerra</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Rota a la &amp;dreta</translation>
+    </message>
+    <message>
+        <source>Invert colors</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Inverteix els colors</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Fonts...</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Pantalla &amp;completa</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Presentació</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Pestanya anterior</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Pestanya següent</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tan&amp;ca pestanya</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanc&amp;a totes les pestanyes</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanca totes les pestanyes &amp;excepte l&apos;actual</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Marcador &amp;anterior</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Marcador &amp;següent</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Afegix marcador</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Elimina ma&amp;rcador</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Elimina tots els marcadors</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Continguts</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Qu&amp;ant a</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Fitxer</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Edita</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Visualitza</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">C&amp;ontorn</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Propietats</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Miniatures</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Cerca</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Barres d&apos;eines</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Plafons</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Pes&amp;tanyes</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Marcadors</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">A&amp;juda</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Nom</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Tipus</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Incrustat</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Subconjunt</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Fitxer</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Sí</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">No</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Informació</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Es necessita una versió 2.20 o superior de la biblioteca Poppler per afegir o eliminar anotacions.</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Títol</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Creat per a</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Creador</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Data de creació</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Format</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Nivell de llenguatge</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Vés a la pàgina %1.</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Vés a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Obre &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Edita el camp &apos;%1&apos; del formulari.</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Copia el &amp;text</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Copia la &amp;imatge</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Desa la imatge a un &amp;fitxer...</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Desa la imatge a un fitxer...</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Avís</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">No s&apos;ha pogut desar la imatge al fitxer &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Afegix &amp;text</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Destaca</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Elimina l&apos;anotació</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Antialiàsing:</translation>
+    </message>
+    <message>
+        <source>Text antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Antialiàsing del text:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Cap</translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Complet</translation>
+    </message>
+    <message>
+        <source>Reduced</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Reduït</translation>
+    </message>
+    <message>
+        <source>Text hinting:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Suavitzat del text:</translation>
+    </message>
+    <message>
+        <source>Overprint preview:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Previsualització de la impressió:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Sòlid</translation>
+    </message>
+    <message>
+        <source>Shaped</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Amb forma</translation>
+    </message>
+    <message>
+        <source>Thin line mode:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Mode de línia fina:</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Crític</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">No s&apos;ha pogut carregar el complement de PDF!</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">No s&apos;ha pogut carregar el complement de PS!</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">No s&apos;ha pogut carregar el complement de DjVu!</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Encaixa a la pàgina:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Interval de pàgines:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Totes les pàgines</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Pàgines parells</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Pàgines senars</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Conjunt de pàgines:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Només una pàgina</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Dues pàgines</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Quatre págines</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Sis pàgines</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Nou pàgines</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Setze pàgines</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Pàgines per full:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De baix a dalt i d&apos;esquerra a dreta</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De baix a dalt i de dreta a esquerra</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">D&apos;esquerra a dreta i de baix a dalt</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">D&apos;esquerra a dreta i de dalt a baix</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De dreta a esquerra i de baix a dalt</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De dreta a esquerra i de dalt a baix</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De dalt a baix i d&apos;esquerra a dreta</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">De dalt a baix i de dreta a esquerra</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Distribució de les pàgines per full:</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Opcions esteses</translation>
+    </message>
+    <message>
+        <source>Graphics antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bits de l&apos;antialiàsing gràfic:</translation>
+    </message>
+    <message>
+        <source>Text antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bits de l&apos;antialiàsing del text:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">No es permet un nom d&apos;instància buit.</translation>
+    </message>
+    <message>
+        <source>An empty search text is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">No es permet una cadena de cerca buida.</translation>
+    </message>
+    <message>
+        <source>Choose instance</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Trieu la instància</translation>
+    </message>
+    <message>
+        <source>Instance:</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Instància:</translation>
+    </message>
+    <message>
+        <source>Unknown command-line option &apos;%1&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Opció de línia de comandaments &apos;%1&apos; desconeguda.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Usar &apos;--instance&apos; necessita d&apos;un nom d&apos;instància.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Usar &apos;--instance&apos; no està permés sense l&apos;ús de &apos;--unique&apos;.</translation>
+    </message>
+    <message>
+        <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">El nom d&apos;una instància només pot contindre els caràcters &quot;[A-Z][a-z][0-9]_&quot; i no pot començar per un número.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--search&apos; requires a search text.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">L&apos;ús de &apos;--search&apos; necessita un text de cerca.</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">No s&apos;han trobat les dades SyncText per a &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">No s&apos;ha pogut preparar el gestor de senyals.</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Majús</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Alt</translation>
+    </message>
+    <message>
+        <source>Shift and Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Majús i Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Majús i Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Ctrl i Alt</translation>
+    </message>
+    <message>
+        <source>&amp;Recently closed</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">&amp;Tancats recentment</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">&amp;Neteja la llista</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">&amp;Usats recentment</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">&amp;Neteja la llista</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Generals</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Comportament</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Gràfics</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Interfície</translation>
+    </message>
+    <message>
+        <source>&amp;Shortcuts</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Drecere&amp;s</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Modificadors</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Valors per defecte</translation>
+    </message>
+    <message>
+        <source>Defaults on current tab</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Per defecte a la pestanya actual</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Obre URL:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Auto-actualització:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Efectiu desprès de reiniciar.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Rastreja recents:</translation>
+    </message>
+    <message>
+        <source>Keep recently closed:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Mantingues els tancats recentment:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Restaura les pestanyes:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Restaura els marcadors:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Restaura les opcions per a cada fitxer:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sincronitza la presentació:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Per defecte</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Pantalla de presentació:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Cap</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Ressalta la durada:</translation>
+    </message>
+    <message>
+        <source>Highlight color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Color de ressaltat:</translation>
+    </message>
+    <message>
+        <source>Annotation color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Color de l&apos;anotació:</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&apos;%1&apos; es canviarà pel camí absolut. &apos;%2&apos; resp. &apos;%3&apos; es canviarà per la línia resp. del número de la columna.</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Editor de codi:</translation>
+    </message>
+    <message>
+        <source>Keep obsolete pixmaps:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Mantingues els mapes de píxels obsolets:</translation>
+    </message>
+    <message>
+        <source>Use device pixel ratio:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Usa la ràtio  de píxel del dispositiu:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Decora les pàgines:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Decora els enllaços:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Decora els camps dels formularis:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Color de fons:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Color del paper:</translation>
+    </message>
+    <message>
+        <source>Presentation background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Color de fons de la presentació:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Pàgines per fila:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Espaiat de pàgina:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Espaiat de miniatures:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Mida de les miniatures:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">%1 MB</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Mida de la memòria cau:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Precarrega:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Distància de precàrrega:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Superior</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Inferior</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Esquerra</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Dreta</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Posició de la pestanya:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Quan calgui</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sempre</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Mai</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Visibilitat de la pestanya:</translation>
+    </message>
+    <message>
+        <source>New tab next to current tab:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nova pestanya al costat de la actual:</translation>
+    </message>
+    <message>
+        <source>Recently used count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nombre d&apos;usats recentment:</translation>
+    </message>
+    <message>
+        <source>Recently closed count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nombre de tancats recentment:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Barra d&apos;eines de fitxer:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Barra d&apos;eines d&apos;edició:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Barra d&apos;eines de visualització:</translation>
+    </message>
+    <message>
+        <source>Current page in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Pàgina actual al títol de la finestra:</translation>
+    </message>
+    <message>
+        <source>Instance name in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nom de la instància al títol de la finestra:</translation>
+    </message>
+    <message>
+        <source>Synchronize outline view:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sincronitza la vista del contorn:</translation>
+    </message>
+    <message>
+        <source>Highlight current thumbnail:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Ressalta la miniatura actual:</translation>
+    </message>
+    <message>
+        <source>Limit thumbnails to results:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Limita les miniatures als resultats:</translation>
+    </message>
+    <message>
+        <source>Annotation overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Superposició de les anotacions:</translation>
+    </message>
+    <message>
+        <source>Form field overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Superposició dels camps dels formularis:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Ampliació:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Rota:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Desplaçament:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Copia al porta-retalls:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Afegix anotació:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Acció</translation>
+    </message>
+    <message>
+        <source>Key sequence</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Seqüència de tecles</translation>
+    </message>
+    <message>
+        <source>Skip backward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Omet enrere</translation>
+    </message>
+    <message>
+        <source>Skip forward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Omet endavant</translation>
+    </message>
+    <message>
+        <source>Move up</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Mou cap amunt</translation>
+    </message>
+    <message>
+        <source>Move down</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Mou cap avall</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Mou a l&apos;esquerra</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Mou a la dreta</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">&amp;Expandeix-ho tot</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">&amp;Col·lapsa-ho tot:</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Surt (&amp;E)</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PresentationView|</comment>
+        <translation type="vanished">Ves a la pàgina %1.</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
@@ -11,7 +1421,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="38"/>
         <source>Open in new &amp;tab</source>
-        <translation type="unfinished">Obrir en nova pes&amp;tanya</translation>
+        <translation type="unfinished">Obre en una nova pes&amp;tanya</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="48"/>
@@ -24,7 +1434,7 @@
     <message>
         <location filename="../sources/database.cpp" line="565"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Ves a pàgina %1</translation>
+        <translation type="unfinished">Vés a la pàgina %1</translation>
     </message>
 </context>
 <context>
@@ -32,7 +1442,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="219"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished">Formats suportats (%1)</translation>
+        <translation type="unfinished">Formats acceptats (%1)</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="437"/>
@@ -87,7 +1497,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished">Desa i obri...</translation>
+        <translation type="unfinished">Desa i obre...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
@@ -97,7 +1507,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Warning</source>
-        <translation type="unfinished">Atenció</translation>
+        <translation type="unfinished">Avís</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -148,12 +1558,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanca totes les pestanyes</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished">Tanca totes les pestanyes excepte esta</translation>
+        <translation type="unfinished">Tanca totes les pestanyes menys aquesta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="484"/>
@@ -184,12 +1594,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="945"/>
         <source>Save copy</source>
-        <translation type="unfinished">Desa còpia</translation>
+        <translation type="unfinished">Desa una còpia</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="955"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished">No s&apos;ha pogut guardar una còpia a &apos;%1&apos;.</translation>
+        <translation type="unfinished">No s&apos;ha pogut desar una còpia a &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="962"/>
@@ -221,7 +1631,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Add bookmark</source>
-        <translation type="unfinished">Afegeix un nou marcador</translation>
+        <translation type="unfinished">Afegeix un marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
@@ -231,7 +1641,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Ves a pàgina %1</translation>
+        <translation type="unfinished">Vés a la pàgina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1492"/>
@@ -266,7 +1676,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Veja &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 The qpdfview developers&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Veieu &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
@@ -276,7 +1686,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1891"/>
         <source>Page width</source>
-        <translation type="unfinished">Amplada de pàgina</translation>
+        <translation type="unfinished">Amplada de la pàgina</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1892"/>
@@ -301,7 +1711,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1959"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">Obre en nova pes&amp;tanya...</translation>
+        <translation type="unfinished">Obre en una nova pes&amp;tanya...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1960"/>
@@ -326,12 +1736,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1964"/>
         <source>&amp;Print...</source>
-        <translation type="unfinished">Im&amp;primir...</translation>
+        <translation type="unfinished">Im&amp;primeix…</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1965"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished">Ei&amp;xir</translation>
+        <translation type="unfinished">&amp;Surt</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1969"/>
@@ -356,7 +1766,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1974"/>
         <source>&amp;Jump to page...</source>
-        <translation type="unfinished">&amp;Bota a la pàgina ...</translation>
+        <translation type="unfinished">&amp;Vés a la pàgina ...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1976"/>
@@ -366,7 +1776,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1977"/>
         <source>Jump for&amp;ward</source>
-        <translation type="unfinished">Ves endavant</translation>
+        <translation type="unfinished">Vés endavant</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1979"/>
@@ -391,12 +1801,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1984"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">&amp;Còpia al portapapers</translation>
+        <translation type="unfinished">&amp;Copia al porta-retalls</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1985"/>
         <source>&amp;Add annotation</source>
-        <translation type="unfinished">&amp;Afegir anotació</translation>
+        <translation type="unfinished">&amp;Afegeix anotació</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1987"/>
@@ -441,7 +1851,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>Fit to page width</source>
-        <translation type="unfinished">Ajusta a l&apos;amplària de la pàgina</translation>
+        <translation type="unfinished">Ajusta a l&apos;amplada de la pàgina</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2001"/>
@@ -506,12 +1916,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2031"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished">&amp;Anterior marcador</translation>
+        <translation type="unfinished">Marcador &amp;anterior</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2032"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished">&amp;Següent marcador</translation>
+        <translation type="unfinished">Marcador &amp;següent</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2034"/>
@@ -579,12 +1989,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2246"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Barra d&apos;eines</translation>
+        <translation type="unfinished">&amp;Barres d&apos;eines</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2249"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Ports</translation>
+        <translation type="unfinished">&amp;Plafons</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2258"/>
@@ -594,7 +2004,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2276"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Adreces d&apos;interès</translation>
+        <translation type="unfinished">&amp;Marcadors</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2284"/>
@@ -670,7 +2080,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="218"/>
         <source>Creator</source>
-        <translation type="unfinished">Autor</translation>
+        <translation type="unfinished">Creador</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="219"/>
@@ -680,12 +2090,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="220"/>
         <source>Format</source>
-        <translation type="unfinished">Formatar</translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="221"/>
         <source>Language level</source>
-        <translation type="unfinished">Nivell d&apos;idioma</translation>
+        <translation type="unfinished">Nivell de llenguatge</translation>
     </message>
 </context>
 <context>
@@ -693,12 +2103,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="364"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished">Ves a la pàgina %1.</translation>
+        <translation type="unfinished">Vés a la pàgina %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="368"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished">Ves a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
+        <translation type="unfinished">Vés a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="376"/>
@@ -708,27 +2118,27 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="411"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished">Edita formulari &apos;%1&apos;.</translation>
+        <translation type="unfinished">Edita el camp &apos;%1&apos; del formulari.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="642"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished">Còpia &amp;text</translation>
+        <translation type="unfinished">Copia el &amp;text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished">Còpia &amp;imatge</translation>
+        <translation type="unfinished">Copia la &amp;imatge</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished">Desa imatge a un &amp;fitxer...</translation>
+        <translation type="unfinished">Desa la imatge a un &amp;fitxer...</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="670"/>
         <source>Save image to file</source>
-        <translation type="unfinished">Desa imatge a un fitxer...</translation>
+        <translation type="unfinished">Desa la imatge a un fitxer...</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="674"/>
@@ -738,7 +2148,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished">No s&apos;ha pogut guardar la imatge a l&apos;arxiu &apos;%1&apos;.</translation>
+        <translation type="unfinished">No s&apos;ha pogut desar la imatge al fitxer &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="687"/>
@@ -753,7 +2163,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="727"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished">&amp;Elimina anotació</translation>
+        <translation type="unfinished">&amp;Elimina l&apos;anotació</translation>
     </message>
 </context>
 <context>
@@ -761,23 +2171,23 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Antidentat:</translation>
+        <translation type="unfinished">Antialiàsing:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Antidentat de text:</translation>
+        <translation type="unfinished">Antialiàsing del text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="853"/>
         <location filename="../sources/pdfmodel.cpp" line="883"/>
         <source>None</source>
-        <translation type="unfinished">Res</translation>
+        <translation type="unfinished">Cap</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="854"/>
         <source>Full</source>
-        <translation type="unfinished">Ple</translation>
+        <translation type="unfinished">Complet</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="855"/>
@@ -788,7 +2198,7 @@
         <location filename="../sources/pdfmodel.cpp" line="858"/>
         <location filename="../sources/pdfmodel.cpp" line="865"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Suggerències de text:</translation>
+        <translation type="unfinished">Suavitzat del text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="876"/>
@@ -856,7 +2266,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Even pages</source>
-        <translation type="unfinished">Pàgines pars</translation>
+        <translation type="unfinished">Pàgines parells</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="70"/>
@@ -876,7 +2286,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="77"/>
         <source>Two pages</source>
-        <translation type="unfinished">Dos pàgines</translation>
+        <translation type="unfinished">Dues pàgines</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
@@ -901,7 +2311,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Augmenta número:</translation>
+        <translation type="unfinished">Pàgines per full:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
@@ -946,7 +2356,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Disseny del número de seguiment:</translation>
+        <translation type="unfinished">Distribució de les pàgines per full:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
@@ -959,12 +2369,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="235"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Bits del gràfics antidentat:</translation>
+        <translation type="unfinished">Bits de l&apos;antialiàsing gràfic:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Bits del text antidentat:</translation>
+        <translation type="unfinished">Bits de l&apos;antialiàsing del text:</translation>
     </message>
 </context>
 <context>
@@ -972,7 +2382,7 @@
     <message>
         <location filename="../sources/main.cpp" line="148"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished">No es permet una instància buida.</translation>
+        <translation type="unfinished">No es permet un nom d&apos;instància buit.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="159"/>
@@ -982,7 +2392,7 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Tria instància</translation>
+        <translation type="unfinished">Trieu la instància</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
@@ -1017,7 +2427,7 @@
     <message>
         <location filename="../sources/main.cpp" line="343"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
+        <translation type="unfinished">No s&apos;han trobat les dades SyncText per a &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="440"/>
@@ -1030,7 +2440,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="824"/>
         <source>Shift</source>
-        <translation type="unfinished">Maj</translation>
+        <translation type="unfinished">Majús</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="825"/>
@@ -1045,12 +2455,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="827"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished">Maj i Ctrl</translation>
+        <translation type="unfinished">Majús i Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="828"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Maj i Alt</translation>
+        <translation type="unfinished">Majús i Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="829"/>
@@ -1063,7 +2473,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Tancats recentment</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1089,7 +2499,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="74"/>
         <source>General</source>
-        <translation type="unfinished">Genèriques</translation>
+        <translation type="unfinished">Generals</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="125"/>
@@ -1155,27 +2565,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mantingues els tancats recentment:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished">Restaura pestanyes:</translation>
+        <translation type="unfinished">Restaura les pestanyes:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished">Restaura marcadors:</translation>
+        <translation type="unfinished">Restaura els marcadors:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="275"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished">Restaura opcions per cada fitxer:</translation>
+        <translation type="unfinished">Restaura les opcions per a cada fitxer:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="290"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished">Sincronitza presentació:</translation>
+        <translation type="unfinished">Sincronitza la presentació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="296"/>
@@ -1195,7 +2605,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished">Remarca la durada:</translation>
+        <translation type="unfinished">Ressalta la durada:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="316"/>
@@ -1220,7 +2630,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished">Manté els pixmaps obsolets:</translation>
+        <translation type="unfinished">Mantingues els mapes de píxels obsolets:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="395"/>
@@ -1230,17 +2640,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="404"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished">Decora pàgines:</translation>
+        <translation type="unfinished">Decora les pàgines:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="411"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Decora enllaços:</translation>
+        <translation type="unfinished">Decora els enllaços:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished">Decora camps del formulari:</translation>
+        <translation type="unfinished">Decora els camps dels formularis:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="424"/>
@@ -1327,7 +2737,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="596"/>
         <source>Tab position:</source>
-        <translation type="unfinished">Posició de pestanya:</translation>
+        <translation type="unfinished">Posició de la pestanya:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="601"/>
@@ -1352,7 +2762,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="613"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished">Nova pestanya seguida de la actual:</translation>
+        <translation type="unfinished">Nova pestanya al costat de la actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="622"/>
@@ -1362,22 +2772,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre de tancats recentment:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="639"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Arxiu barra d&apos;eines:</translation>
+        <translation type="unfinished">Barra d&apos;eines de fitxer:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="647"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Edita la barra d&apos;eines:</translation>
+        <translation type="unfinished">Barra d&apos;eines d&apos;edició:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="655"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Vore barra d&apos;eines:</translation>
+        <translation type="unfinished">Barra d&apos;eines de visualització:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="662"/>
@@ -1387,12 +2797,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished">El nom de la instància al títol de la finestra:</translation>
+        <translation type="unfinished">Nom de la instància al títol de la finestra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="676"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished">Sincronitza la vista exterior:</translation>
+        <translation type="unfinished">Sincronitza la vista del contorn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="683"/>
@@ -1402,17 +2812,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="690"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished">Limita miniatures als resultats:</translation>
+        <translation type="unfinished">Limita les miniatures als resultats:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="697"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished">Superposició d&apos;anotacions:</translation>
+        <translation type="unfinished">Superposició de les anotacions:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="704"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished">Superposició del camp de formulari:</translation>
+        <translation type="unfinished">Superposició dels camps dels formularis:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="764"/>
@@ -1422,7 +2832,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="770"/>
         <source>Rotate:</source>
-        <translation type="unfinished">Gira:</translation>
+        <translation type="unfinished">Rota:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="776"/>
@@ -1432,7 +2842,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="782"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished">Còpia al porta-papers:</translation>
+        <translation type="unfinished">Copia al porta-retalls:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1455,22 +2865,22 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>
         <source>Skip backward</source>
-        <translation type="unfinished">Vés enrere</translation>
+        <translation type="unfinished">Omet enrere</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="268"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Salta endavant</translation>
+        <translation type="unfinished">Omet endavant</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
         <source>Move up</source>
-        <translation type="unfinished">Puja</translation>
+        <translation type="unfinished">Mou cap amunt</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="282"/>
         <source>Move down</source>
-        <translation type="unfinished">Baixa</translation>
+        <translation type="unfinished">Mou cap avall</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="289"/>
@@ -1493,7 +2903,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="191"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished">&amp;Col·lapsa tot:</translation>
+        <translation type="unfinished">&amp;Col·lapsa-ho tot:</translation>
     </message>
 </context>
 </TS>

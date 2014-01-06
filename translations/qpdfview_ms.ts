@@ -2,6 +2,1411 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">&amp;Buka</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">Buka dalam &amp;tab baru</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">&amp;Buang tanda buku</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>Database|</comment>
+        <translation type="vanished">Lompat ke halaman %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Format disokong (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Buka %1</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Kata Laluan:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Maklumat</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Membuka URL dilumpuhkan dalam tetapan.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Amaran</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Mencetak &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Halaman %1</translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Simpan...</translation>
+    </message>
+    <message>
+        <source>Save and open...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Simpan dan buka...</translation>
+    </message>
+    <message>
+        <source>Save file attachment</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Simpan lampiran fail</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Amaran</translation>
+    </message>
+    <message>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Tidak dapat simpan lampiran ke &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>help.html</source>
+        <comment>HelpDialog|</comment>
+        <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.
+</extracomment>
+        <translation type="vanished">help.html</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Cari terdahulu</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Cari berikutnya</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Amaran</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tidak dapat buka &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Close all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semua tab</translation>
+    </message>
+    <message>
+        <source>Close all tabs but this one</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semua tab tetapi kecualikan ini</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semua ke disebelah kiri</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semua tab disebelah kanan</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Buka</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Buka dalam tab baru</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tidak dapat segar semula &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Simpan salinan</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tidak dapat simpan salinan pada &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Simpan sebagai</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tidak dapat simpan sebagai &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tidak dapat cetak &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lompat ke halaman</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman:</translation>
+    </message>
+    <message>
+        <source>Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tambah tanda buku</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Label</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lompat ke halaman %1</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Perihal qpdfview</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview merupakan pelihat dokumen bertab yang menggunakan Qt.&lt;/p&gt;&lt;p&gt;Versi ini menyertakan:&lt;ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Sokongan PDF menggunakan Poppler&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Sokongan PS menggunakan libspectre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Sokongan DjVu menggunakan DjVuLibre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Sokongan cetakan menggunakan CUPS&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;/ul&gt;&lt;p&gt;Lihat &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; untuk maklumat lanjut.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Pembangun qpdfview&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Dokumen &apos;%1&apos; telah diubahsuai. Anda hendak simpan perubahan yang anda buat?</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lebar halaman</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Saiz halaman</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Padan &amp;kata</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Sorot semu&amp;a</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">B&amp;uka...</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Buka dalam &amp;tab baru...</translation>
+    </message>
+    <message>
+        <source>Open containing folder</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Buka folder yang mengandungi</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Sega&amp;r semula</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Simpan salinan...</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Simp&amp;an sebagai...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Cetak...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Keluar</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman te&amp;rdahulu</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman &amp;berikut</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman per&amp;tama</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman t&amp;erakhir</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">L&amp;ompat ke halaman...</translation>
+    </message>
+    <message>
+        <source>Jump &amp;backward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lompat men&amp;gundur</translation>
+    </message>
+    <message>
+        <source>Jump for&amp;ward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lompat ma&amp;ju</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Gelintar...</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Cari terdahulu</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Cari berikutnya</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Batal gelintar</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Sa&amp;lin ke papan keratan</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">T&amp;ambah anotasi</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tetapan...</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Bersambung</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Dua halaman</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Dua halaman de&amp;ngan muka hadapan</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Halaman be&amp;rbilang</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Zum mas&amp;uk</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Zum ke&amp;luar</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Saiz asal</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Suai muat mengikut lebar halaman</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Muat mengikut saiz halaman</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Putar k&amp;iri</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Putar ka&amp;nan</translation>
+    </message>
+    <message>
+        <source>Invert colors</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Songsangkan warna</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Fon...</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Skrin &amp;Penuh</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Persembahan...</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tab ter&amp;dahulu</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tab b&amp;erikutnya</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">T&amp;utup tab</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semu&amp;a tab</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tutup semua tab ke&amp;cuali tab semasa</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanda buku te&amp;rdahulu</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanda buku ber&amp;ikutnya</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">T&amp;ambah tanda buku</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Buang tanda buku</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Buang semua tanda buku</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Kandungan</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Perih&amp;al</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Fail</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Sunting</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Lihat</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Garis&amp;luar</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Si&amp;fat</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Thumbnail</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Gelintar</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Palang ala&amp;t</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">La&amp;buh</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Tab</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Tanda &amp;Buku</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ban&amp;tuan</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Nama</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Jenis</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Terbenam</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Subset</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Fail</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Ya</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Tidak</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Maklumat</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Versi pustaka Poppler 0.201 atau lebih tinggi diperlukan untuk tambah atau buang catatan.</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Tajuk</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Dicipta untuk</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Pencipta</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Tarikh Ciptaan</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Format</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Aras bahasa</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Pergi ke halaman %1.</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Pergi ke halaman %1 dari fail &apos;%2&apos;.</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Buka &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Sunting medan borang &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Salin &amp;teks</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Salin &amp;imej</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Simpan imej ke &amp;fail...</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Simpan imej ke fail</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Amaran</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Tidak dapat simpan imej ke fail &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Tambah &amp;teks</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Tambah s&amp;orot</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Buang anotasi</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Anti alias:</translation>
+    </message>
+    <message>
+        <source>Text antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Anti alias teks:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Tiada</translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Penuh</translation>
+    </message>
+    <message>
+        <source>Reduced</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Terkurang</translation>
+    </message>
+    <message>
+        <source>Text hinting:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Pembayang teks:</translation>
+    </message>
+    <message>
+        <source>Overprint preview:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Pratonton lampau cetak:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Tegar</translation>
+    </message>
+    <message>
+        <source>Shaped</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Terbentuk</translation>
+    </message>
+    <message>
+        <source>Thin line mode:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Mod garis nipis:</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Kritikal</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Tidak dapat muat pemalam PDF!</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Tidak dapat muat pemalam PS!</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Tidak dapat muat pemalam DjVu!</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Suai muat ke halaman:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Julat halaman:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Semua halaman</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Halaman genap</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Halaman ganjil</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Set halaman:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Halaman tunggal</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Dua halaman</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Empat halaman</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Enam halaman</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Sembilan halaman</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Enam belas halaman</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Nombor-menaik:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Bawah ke atas dan kiri ke kanan</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Bawah ke atas dan kanan ke kiri</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Kiri ke kanan dan bawah ke atas</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Kiri ke kanan dan atas ke bawah</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Kanan ke kiri dan bawah ke atas</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Kanan ke kiri dan atas ke bawah</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Atas ke bawah dan kiri ke kanan</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Atas ke bawah dan kanan ke kiri</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Bentangan nombor-keatas:</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Pilihan sambungan</translation>
+    </message>
+    <message>
+        <source>Graphics antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bit antialias grafik</translation>
+    </message>
+    <message>
+        <source>Text antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bit antialias teks:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Nama kejadian kosong tidak dibenarkan.</translation>
+    </message>
+    <message>
+        <source>An empty search text is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Teks gelintar kosong tidak dibenarkan.</translation>
+    </message>
+    <message>
+        <source>Choose instance</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Pilih kejadian</translation>
+    </message>
+    <message>
+        <source>Instance:</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Kejadian:</translation>
+    </message>
+    <message>
+        <source>Unknown command-line option &apos;%1&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Pilihan baris-perintah &apos;%1&apos; tidak diketahui.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Penggunaan &apos;--instance&apos; memerlukan nama kejadian.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Penggunaan &apos;--instance&apos; tidak dibenarkan tanpa menggunakan &apos;--unique&apos;.</translation>
+    </message>
+    <message>
+        <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Satu nama kejadian mesti mengandungi aksara &quot;[A-Z][a-z][0-9]_&quot; dan mesti tidak bermula dengan digit.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--search&apos; requires a search text.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Menggunakan &apos;--search&apos; memerlukan teks gelintar.</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Tidak dapat sediakan pengendali isyarat.</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Shift</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Alt</translation>
+    </message>
+    <message>
+        <source>Shift and Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Shift dan Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Shift dan Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Ctrl dan Alt</translation>
+    </message>
+    <message>
+        <source>&amp;Recently closed</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">&amp;Ditutup baru-baru ini</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">K&amp;osongkan senarai</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">Digunakan baru-baru &amp;ini</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">K&amp;osongkan senarai</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Am</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Kelakuan</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Grafik</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Anta&amp;ramuka</translation>
+    </message>
+    <message>
+        <source>&amp;Shortcuts</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Pintasan</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Peng&amp;ubahsuai</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Lalai</translation>
+    </message>
+    <message>
+        <source>Defaults on current tab</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Lalai pada tab semasa</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">URL buka:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Segar-semula-automatik:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Berkesan selepas mula semula.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Jejak yang digunakan baru-baru ini:</translation>
+    </message>
+    <message>
+        <source>Keep recently closed:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kekalkan ditutup baru-baru ini:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Pulih tab:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Piulih tanda buku:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Pulih tetapan per-fail:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Segerakkan persembahan:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Lalai</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Skrin persembahan:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tiada</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sorot jangkamasa:</translation>
+    </message>
+    <message>
+        <source>Highlight color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Warna sorot:</translation>
+    </message>
+    <message>
+        <source>Annotation color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Warna catatan:</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&apos;%1&apos; diganti dengan laluan fail mutlak. &apos;%2&apos; resp. &apos;%3&apos; diganti dengan nombot lajur resp. baris.</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Penyunting sumber:</translation>
+    </message>
+    <message>
+        <source>Keep obsolete pixmaps:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kekalkan peta pix lapuk:</translation>
+    </message>
+    <message>
+        <source>Use device pixel ratio:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Guna nisbah piksel peranti:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Hias halaman:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Hias pautan:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Hias medan borang:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Warna latar belakang:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Warna kertas:</translation>
+    </message>
+    <message>
+        <source>Presentation background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Warna latar belakang persembahan:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Halaman per baris:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Jarak halaman:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Jarak thumbnail:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Saiz thumbnail:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">%1 MB</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Saiz cache:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Prefetch:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Jarak prefetch:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Atas</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Bawah</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kiri</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kanan</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kedudukan tab:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Seperti diperlukan</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sentiasa</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Jangan sesekali</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Ketampakan tab:</translation>
+    </message>
+    <message>
+        <source>New tab next to current tab:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tab baru bersebelahan tab semasa:</translation>
+    </message>
+    <message>
+        <source>Recently used count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kiraan yang terkini digunakan:</translation>
+    </message>
+    <message>
+        <source>Recently closed count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Kiraan ditutup baru-baru ini:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Palang alat fail:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Palang alat sunting:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Palang alat lihat:</translation>
+    </message>
+    <message>
+        <source>Current page in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Halaman semasa dalam tajuk tetingkap:</translation>
+    </message>
+    <message>
+        <source>Instance name in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nama kejadian dalam tajuk tetingkap:</translation>
+    </message>
+    <message>
+        <source>Synchronize outline view:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Segerak paparan garis luar:</translation>
+    </message>
+    <message>
+        <source>Highlight current thumbnail:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Sorot lakaran kenit semasa:</translation>
+    </message>
+    <message>
+        <source>Limit thumbnails to results:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Had thumbnail terhadap keputusan:</translation>
+    </message>
+    <message>
+        <source>Annotation overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tindihan catatan:</translation>
+    </message>
+    <message>
+        <source>Form field overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tindihan medan borang:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Zum:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Putar:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tatal:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Salin ke papan keratan:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Tambah anotasi:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Tindakan</translation>
+    </message>
+    <message>
+        <source>Key sequence</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Jujukan kekunci</translation>
+    </message>
+    <message>
+        <source>Skip backward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Langkau mengundur</translation>
+    </message>
+    <message>
+        <source>Skip forward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Langkau maju</translation>
+    </message>
+    <message>
+        <source>Move up</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Alih ke atas</translation>
+    </message>
+    <message>
+        <source>Move down</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Alih ke bawah</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Alih ke kiri</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Alih ke kanan</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">K&amp;embang semua</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">K&amp;uncup semua</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">K&amp;eluar</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
@@ -148,7 +1553,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tutup semua tab</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -266,7 +1671,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Rujuk &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; untuk maklumat lanjut.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Pembangun qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Lihat &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; untuk maklumat lanjut.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Pembangun qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
@@ -1063,7 +2468,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ditutup baru-baru ini</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1155,7 +2560,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kekalkan ditutup baru-baru ini:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
@@ -1362,7 +2767,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kiraan ditutup baru-baru ini:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="639"/>
