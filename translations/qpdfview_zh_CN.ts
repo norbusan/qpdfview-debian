@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="565"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">跳到 %1 页</translation>
+        <translation type="unfinished">跳到第%1页</translation>
     </message>
 </context>
 <context>
@@ -82,17 +82,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存并打开...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存附件...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">无法保存附件到&quot;%1&quot;。</translation>
     </message>
 </context>
 <context>
@@ -148,12 +148,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭全部标签页</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭当前标签外的所有标签</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="484"/>
@@ -231,7 +231,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1409"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">跳到 %1 页</translation>
+        <translation type="unfinished">跳到第%1页</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1492"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;查看 &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; 获取更多信息。&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 qpdfview 开发者&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
@@ -1153,6 +1153,11 @@
         <translation type="unfinished">记录最近使用的：</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">恢复标签：</translation>
@@ -1183,24 +1188,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="316"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>None</source>
         <translation type="unfinished">无</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
-        <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">高亮时长：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="316"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="322"/>

@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="173"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не може да се съхрани прикаченият файл за &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -148,12 +148,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="482"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Затваряне на всички раздели</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Затваряне на всички раздели, освен този</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="484"/>
@@ -266,7 +266,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1507"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;За повече информация погледнете &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Разработчиците на qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Вижте &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; за повече информация.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1750"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подгрупа</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="815"/>
@@ -1063,12 +1063,12 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Наскоро затворени</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Изчисти списъка</translation>
+        <translation type="unfinished">&amp;Изчистване на списък</translation>
     </message>
 </context>
 <context>
@@ -1260,7 +1260,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="444"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страници в един ред:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="454"/>
@@ -1450,7 +1450,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="143"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Последователност на клавишите</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="261"/>

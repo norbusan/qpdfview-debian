@@ -1063,7 +1063,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished">Zuletzt &amp;verwendet</translation>
+        <translation type="unfinished">Zuletzt &amp;geschlossen</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1150,12 +1150,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="246"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Verwendete Dateien aufzeichnen:</translation>
+        <translation type="unfinished">Verwendete Dateien merken:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geschlossene Dateien merken:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
@@ -1362,7 +1362,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anzahl geschlossener Dateien:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="639"/>
