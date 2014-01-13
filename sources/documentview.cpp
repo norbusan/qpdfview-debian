@@ -1099,19 +1099,11 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         return;
     }
 
-    if(maskedKey != -1)
-    {
-        QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
-        QGraphicsView::keyPressEvent(&keyEvent);
-    }
-    else
+    if(maskedKey == -1)
     {
         QGraphicsView::keyPressEvent(event);
     }
-
-    if(maskedKey == Qt::Key_PageUp || maskedKey == Qt::Key_PageDown ||
-       maskedKey == Qt::Key_Up || maskedKey == Qt::Key_Down ||
-       maskedKey == Qt::Key_Left || maskedKey == Qt::Key_Right)
+    else
     {
         foreach(const PageItem* page, m_pageItems)
         {
@@ -1159,6 +1151,9 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
             event->accept();
             return;
         }
+
+        QKeyEvent keyEvent(event->type(), maskedKey, Qt::NoModifier, event->text(), event->isAutoRepeat(), event->count());
+        QGraphicsView::keyPressEvent(&keyEvent);
     }
 }
 
