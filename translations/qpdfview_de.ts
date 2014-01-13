@@ -2,6 +2,1571 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name></name>
+    <message>
+        <source>&amp;Open</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">Öff&amp;nen</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">In neuem Rei&amp;ter öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>BookmarkMenu|</comment>
+        <translation type="vanished">Lesezeichen &amp;entfernen</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>Database|</comment>
+        <translation type="vanished">Gehe zu Seite %1</translation>
+    </message>
+    <message>
+        <source>Supported formats (%1)</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Unterstützte Formate (%1)</translation>
+    </message>
+    <message>
+        <source>Unlock %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">%1 entsperren</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Kennwort:</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Hinweis</translation>
+    </message>
+    <message>
+        <source>Opening URL is disabled in the settings.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Warnung</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
+    </message>
+    <message>
+        <source>Printing &apos;%1&apos;...</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Drucke »%1« …</translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <comment>DocumentView|</comment>
+        <translation type="vanished">Seite %1</translation>
+    </message>
+    <message>
+        <source>Save...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Speichern...</translation>
+    </message>
+    <message>
+        <source>Save and open...</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Speichern und Öffnen...</translation>
+    </message>
+    <message>
+        <source>Save file attachment</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Dateianhang speichern</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Warnung</translation>
+    </message>
+    <message>
+        <source>Could not save file attachment to &apos;%1&apos;.</source>
+        <comment>FileAttachmentAnnotationWidget|</comment>
+        <translation type="vanished">Dateianhang konnte nicht in &apos;%1&apos; gespeichert werden.</translation>
+    </message>
+    <message>
+        <source>help.html</source>
+        <comment>HelpDialog|</comment>
+        <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.
+</extracomment>
+        <translation type="vanished">help_de.html</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Rückwarts suchen</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>HelpDialog|</comment>
+        <translation type="vanished">Vorwärts suchen</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Warnung</translation>
+    </message>
+    <message>
+        <source>Could not open &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte »%1« nicht öffnen.</translation>
+    </message>
+    <message>
+        <source>Close all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Reiter schließen</translation>
+    </message>
+    <message>
+        <source>Close all tabs but this one</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Reiter bis auf diesen schließen</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Reiter zur Linken schließen</translation>
+    </message>
+    <message>
+        <source>Close all tabs to the right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Reiter zur Rechten schließen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Öffnen</translation>
+    </message>
+    <message>
+        <source>Open in new tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">In neuem Reiter öffnen</translation>
+    </message>
+    <message>
+        <source>Could not refresh &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte »%1« nicht aktualisieren.</translation>
+    </message>
+    <message>
+        <source>Save copy</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Kopie speichern</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte keine Kopie unter »%1« speichern.</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Speichern unter</translation>
+    </message>
+    <message>
+        <source>Could not save as &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte nicht unter &apos;%1&apos; speichern.</translation>
+    </message>
+    <message>
+        <source>Could not print &apos;%1&apos;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte »%1« nicht drucken.</translation>
+    </message>
+    <message>
+        <source>Jump to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Springe zu Seite</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Seite:</translation>
+    </message>
+    <message>
+        <source>Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lesezeichen hinzufügen</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Bezeichnung</translation>
+    </message>
+    <message>
+        <source>Jump to page %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Gehe zu Seite %1</translation>
+    </message>
+    <message>
+        <source>About qpdfview</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Über qpdfview</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview ist ein Dokumentenbetrachter der Qt verwendet.&lt;/p&gt;&lt;p&gt;Diese Version enthält:&lt;ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;PDF-Unterstützung mittels Poppler&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;PS-Unterstützung mittels libspectre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;DjVu-Unterstützung mittels DjVuLibre&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;li&gt;Druckunterstützung mittels CUPS&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;/ul&gt;&lt;p&gt;Siehe &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; für weitere Informationen.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Die qpdfview-Entwickler&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Das Dokument »%1« wurde verändert. Möchten sie ihre Änderungen speichern?</translation>
+    </message>
+    <message>
+        <source>Page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Seitenbreite</translation>
+    </message>
+    <message>
+        <source>Page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Seitengröße</translation>
+    </message>
+    <message>
+        <source>Match &amp;case</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Groß-/&amp;Kleinschreibung beachten</translation>
+    </message>
+    <message>
+        <source>Highlight &amp;all</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Alle hervorheben</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Öff&amp;nen …</translation>
+    </message>
+    <message>
+        <source>Open in new &amp;tab...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">In neuem Rei&amp;ter öffnen …</translation>
+    </message>
+    <message>
+        <source>Open containing folder</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Öffne beinhaltendes Verzeichnis</translation>
+    </message>
+    <message>
+        <source>&amp;Refresh</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Aktualisieren</translation>
+    </message>
+    <message>
+        <source>&amp;Save copy...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Kopie &amp;speichern …</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Speichern &amp;unter …</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Drucken …</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Beenden</translation>
+    </message>
+    <message>
+        <source>&amp;Previous page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Vorige Seite</translation>
+    </message>
+    <message>
+        <source>&amp;Next page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Nächste Seite</translation>
+    </message>
+    <message>
+        <source>&amp;First page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Erste Seite</translation>
+    </message>
+    <message>
+        <source>&amp;Last page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Letzte Seite</translation>
+    </message>
+    <message>
+        <source>&amp;Jump to page...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Zu Seite springen …</translation>
+    </message>
+    <message>
+        <source>Jump &amp;backward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Springe &amp;rückwärts</translation>
+    </message>
+    <message>
+        <source>Jump for&amp;ward</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Springe vor&amp;wärts</translation>
+    </message>
+    <message>
+        <source>&amp;Search...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Suchen …</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Rückwarts suchen</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Vorwärts suchen</translation>
+    </message>
+    <message>
+        <source>Cancel search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Suche abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Copy to clipboard</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">In &amp;Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <source>&amp;Add annotation</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Anmerkung hinzufügen</translation>
+    </message>
+    <message>
+        <source>Settings...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Einstellungen …</translation>
+    </message>
+    <message>
+        <source>&amp;Continuous</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Fortlaufend</translation>
+    </message>
+    <message>
+        <source>&amp;Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Zweiseitig</translation>
+    </message>
+    <message>
+        <source>Two pages &amp;with cover page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Zweiseitig &amp;mit Titelseite</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Mehrere &amp;Seiten</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;in</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ver&amp;größern</translation>
+    </message>
+    <message>
+        <source>Zoom &amp;out</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ver&amp;kleinern</translation>
+    </message>
+    <message>
+        <source>Original &amp;size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Ursprüngliche Größe</translation>
+    </message>
+    <message>
+        <source>Fit to page width</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">An Seitenbreite anpassen</translation>
+    </message>
+    <message>
+        <source>Fit to page size</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">An Seitengröße anpassen</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;left</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Nach &amp;links drehen</translation>
+    </message>
+    <message>
+        <source>Rotate &amp;right</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Nach &amp;rechts drehen</translation>
+    </message>
+    <message>
+        <source>Invert colors</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Farben umkehren</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Schriften …</translation>
+    </message>
+    <message>
+        <source>&amp;Fullscreen</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Vollbild</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Präsentation …</translation>
+    </message>
+    <message>
+        <source>&amp;Previous tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Vorheriger Reiter</translation>
+    </message>
+    <message>
+        <source>&amp;Next tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Nächster Reiter</translation>
+    </message>
+    <message>
+        <source>&amp;Close tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Reiter &amp;schließen</translation>
+    </message>
+    <message>
+        <source>Close &amp;all tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Alle Reiter schließen</translation>
+    </message>
+    <message>
+        <source>Close all tabs &amp;but current tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Reiter &amp;bis auf den aktuellen schließen</translation>
+    </message>
+    <message>
+        <source>&amp;Previous bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Voriges Lesezeichen</translation>
+    </message>
+    <message>
+        <source>&amp;Next bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Nächstes Lesezeichen</translation>
+    </message>
+    <message>
+        <source>&amp;Add bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lesezeichen &amp;hinzufügen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove bookmark</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Lesezeichen &amp;entfernen</translation>
+    </message>
+    <message>
+        <source>Remove all bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Alle Lesezeichen entfernen</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Inhalt</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Ü&amp;ber</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Ansicht</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Gliederung</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Eigenschaften</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Vorschaubilder</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">S&amp;uchen</translation>
+    </message>
+    <message>
+        <source>&amp;Tool bars</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Werkzeugleisten</translation>
+    </message>
+    <message>
+        <source>&amp;Docks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Paletten</translation>
+    </message>
+    <message>
+        <source>&amp;Tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Reiter</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Lesezeichen</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Name</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Typ</translation>
+    </message>
+    <message>
+        <source>Embedded</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Eingebettet</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Teilmenge</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Datei</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>Model::PdfDocument|</comment>
+        <translation type="vanished">Nein</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Hinweis</translation>
+    </message>
+    <message>
+        <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
+        <comment>Model::PdfPage|</comment>
+        <translation type="vanished">Das Hinzufügen oder Entfernen von Anmerkungen benötigt die Poppler-Bibliothek in Version 0.20.1 oder höher.</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Titel</translation>
+    </message>
+    <message>
+        <source>Created for</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Erstellt für</translation>
+    </message>
+    <message>
+        <source>Creator</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Ersteller</translation>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Erstellungsdatum</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Format</translation>
+    </message>
+    <message>
+        <source>Language level</source>
+        <comment>Model::PsDocument|</comment>
+        <translation type="vanished">Sprachniveau</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Zu Seite %1 gehen.</translation>
+    </message>
+    <message>
+        <source>Go to page %1 of file &apos;%2&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Gehe zu Seite %1 in Datei »%2«.</translation>
+    </message>
+    <message>
+        <source>Open &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&quot;%1&quot; öffnen.</translation>
+    </message>
+    <message>
+        <source>Edit form field &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Formularfeld »%1« bearbeiten.</translation>
+    </message>
+    <message>
+        <source>Copy &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Text kopieren</translation>
+    </message>
+    <message>
+        <source>Copy &amp;image</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Bild kopieren</translation>
+    </message>
+    <message>
+        <source>Save image to &amp;file...</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Bild in &amp;Datei speichern …</translation>
+    </message>
+    <message>
+        <source>Save image to file</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Bild in Datei speichern</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Warnung</translation>
+    </message>
+    <message>
+        <source>Could not save image to file &apos;%1&apos;.</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">Konnte Bild nicht in Datei »%1« speichern.</translation>
+    </message>
+    <message>
+        <source>Add &amp;text</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Text hinzufügen</translation>
+    </message>
+    <message>
+        <source>Add &amp;highlight</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Hervorhebung hinzufügen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove annotation</source>
+        <comment>PageItem|</comment>
+        <translation type="vanished">&amp;Anmerkung entfernen</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Kantenglättung:</translation>
+    </message>
+    <message>
+        <source>Text antialiasing:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Text-Kantenglättung:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Kein</translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Voll</translation>
+    </message>
+    <message>
+        <source>Reduced</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Reduziert</translation>
+    </message>
+    <message>
+        <source>Text hinting:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Text-Hinting:</translation>
+    </message>
+    <message>
+        <source>Overprint preview:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Überdruckvorschau:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Gefüllt</translation>
+    </message>
+    <message>
+        <source>Shaped</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Geformt</translation>
+    </message>
+    <message>
+        <source>Thin line mode:</source>
+        <comment>PdfSettingsWidget|</comment>
+        <translation type="vanished">Modus für dünne Linien:</translation>
+    </message>
+    <message>
+        <source>Critical</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">Kritischer Fehler</translation>
+    </message>
+    <message>
+        <source>Could not load PDF plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">PDF-Plug-in konnte nicht geladen werden!</translation>
+    </message>
+    <message>
+        <source>Could not load PS plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">PS-Plug-in konnte nicht geladen werden!</translation>
+    </message>
+    <message>
+        <source>Could not load DjVu plug-in!</source>
+        <comment>PluginHandler|</comment>
+        <translation type="vanished">DjVu-Plug-in konnte nicht geladen werden!</translation>
+    </message>
+    <message>
+        <source>Fit to page:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">An Seitengröße anpassen:</translation>
+    </message>
+    <message>
+        <source>Page ranges:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Seitenbereiche:</translation>
+    </message>
+    <message>
+        <source>All pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Alle Seiten</translation>
+    </message>
+    <message>
+        <source>Even pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Gerade Seiten</translation>
+    </message>
+    <message>
+        <source>Odd pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Ungerade Seiten</translation>
+    </message>
+    <message>
+        <source>Page set:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Seitenmenge:</translation>
+    </message>
+    <message>
+        <source>Single page</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Einzelne Seite</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Zwei Seiten</translation>
+    </message>
+    <message>
+        <source>Four pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Vier Seiten</translation>
+    </message>
+    <message>
+        <source>Six pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Sechs Seiten</translation>
+    </message>
+    <message>
+        <source>Nine pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Neun Seiten</translation>
+    </message>
+    <message>
+        <source>Sixteen pages</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Sechzehn Seiten</translation>
+    </message>
+    <message>
+        <source>Number-up:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Seiten pro Blatt:</translation>
+    </message>
+    <message>
+        <source>Bottom to top and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von unten nach oben und links nach rechts</translation>
+    </message>
+    <message>
+        <source>Bottom to top and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von unten nach oben und rechts nach links</translation>
+    </message>
+    <message>
+        <source>Left to right and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von links nach rechts und unten nach oben</translation>
+    </message>
+    <message>
+        <source>Left to right and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von links nach rechts und oben nach unten</translation>
+    </message>
+    <message>
+        <source>Right to left and bottom to top</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von rechts nach links und unten nach oben</translation>
+    </message>
+    <message>
+        <source>Right to left and top to bottom</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von rechts nach links und oben nach unten</translation>
+    </message>
+    <message>
+        <source>Top to bottom and left to right</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von oben nach unten und links nach rechts</translation>
+    </message>
+    <message>
+        <source>Top to bottom and right to left</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Von oben nach unten und rechts nach links</translation>
+    </message>
+    <message>
+        <source>Number-up layout:</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Anordnung der Seiten:</translation>
+    </message>
+    <message>
+        <source>Extended options</source>
+        <comment>PrintDialog|</comment>
+        <translation type="vanished">Erweiterte Einstellungen</translation>
+    </message>
+    <message>
+        <source>Graphics antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bits für Grafik-Antialiasing:</translation>
+    </message>
+    <message>
+        <source>Text antialias bits:</source>
+        <comment>PsSettingsWidget|</comment>
+        <translation type="vanished">Bits für Text-Antialiasing:</translation>
+    </message>
+    <message>
+        <source>An empty instance name is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Ein leerer Instanzname ist nicht zugelassen.</translation>
+    </message>
+    <message>
+        <source>An empty search text is not allowed.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Ein leerer Suchtext ist nicht zugelassen.</translation>
+    </message>
+    <message>
+        <source>Choose instance</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Instanz auswählen</translation>
+    </message>
+    <message>
+        <source>Instance:</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Instanz:</translation>
+    </message>
+    <message>
+        <source>Unknown command-line option &apos;%1&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Unbekannte Kommandozeilen-Option &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; requires an instance name.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">&apos;--instance&apos; benötigt einen Instanznamen.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">&apos;--instance&apos; ist nur im Zusammenhang mit &apos;--unique&apos; zugelassen.</translation>
+    </message>
+    <message>
+        <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Eine Instanz darf lediglich die Zeichen &quot;[A-Z][a-z][0-9]_&quot; enthalten und darf nicht mit einer Ziffer beginnen.</translation>
+    </message>
+    <message>
+        <source>Using &apos;--search&apos; requires a search text.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">&apos;--search&apos; benötigt einen Suchtext.</translation>
+    </message>
+    <message>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
+    </message>
+    <message>
+        <source>Could not prepare signal handler.</source>
+        <comment>QObject|</comment>
+        <translation type="vanished">Konnte Signalbehandlung nicht vorbereiten.</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Umschalt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Strg</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Alt</translation>
+    </message>
+    <message>
+        <source>Shift and Ctrl</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Umschalt und Strg</translation>
+    </message>
+    <message>
+        <source>Shift and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Umschalt und Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl and Alt</source>
+        <comment>QShortcut|</comment>
+        <translation type="vanished">Strg und Alt</translation>
+    </message>
+    <message>
+        <source>&amp;Recently closed</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">Zuletzt &amp;geschlossen</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyClosedMenu|</comment>
+        <translation type="vanished">Liste &amp;leeren</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">Zuletzt &amp;verwendet</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedMenu|</comment>
+        <translation type="vanished">Liste &amp;leeren</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Allgemein</translation>
+    </message>
+    <message>
+        <source>&amp;Behavior</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Verhalten</translation>
+    </message>
+    <message>
+        <source>&amp;Graphics</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Grafik</translation>
+    </message>
+    <message>
+        <source>&amp;Interface</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Oberfläche</translation>
+    </message>
+    <message>
+        <source>&amp;Shortcuts</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Tastenkürzel</translation>
+    </message>
+    <message>
+        <source>&amp;Modifiers</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Modifikatoren</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Vorgaben</translation>
+    </message>
+    <message>
+        <source>Defaults on current tab</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Vorgaben auf aktuellem Reiter</translation>
+    </message>
+    <message>
+        <source>Open URL:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">URL öffnen:</translation>
+    </message>
+    <message>
+        <source>Auto-refresh:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Automatische Aktualisierung:</translation>
+    </message>
+    <message>
+        <source>Effective after restart.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Nach Neustart wirksam.</translation>
+    </message>
+    <message>
+        <source>Track recently used:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Verwendete Dateien merken:</translation>
+    </message>
+    <message>
+        <source>Keep recently closed:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Geschlossene Dateien merken:</translation>
+    </message>
+    <message>
+        <source>Restore tabs:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Reiter wiederherstellen:</translation>
+    </message>
+    <message>
+        <source>Restore bookmarks:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Lesezeichen wiederherstellen:</translation>
+    </message>
+    <message>
+        <source>Restore per-file settings:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Dateieinstellungen wiederherstellen:</translation>
+    </message>
+    <message>
+        <source>Synchronize presentation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Präsentation synchronisieren:</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Standard</translation>
+    </message>
+    <message>
+        <source>Presentation screen:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Präsentationsbildschirm:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Keine</translation>
+    </message>
+    <message>
+        <source>Highlight duration:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Dauer der Hervorhebungen:</translation>
+    </message>
+    <message>
+        <source>Highlight color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Farbe der Hervorhebungen:</translation>
+    </message>
+    <message>
+        <source>Annotation color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Farbe für Anmerkungen:</translation>
+    </message>
+    <message>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">»%1« wird durch den Pfad der Datei ersetzt. »%2« bzw. »%3« wird durch die Zeilen- bzw. Spaltennummer ersetzt.</translation>
+    </message>
+    <message>
+        <source>Source editor:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Quelltexteditor:</translation>
+    </message>
+    <message>
+        <source>Keep obsolete pixmaps:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Veraltete Grafiken aufheben:</translation>
+    </message>
+    <message>
+        <source>Use device pixel ratio:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Gerätepixelverhältnis nutzen:</translation>
+    </message>
+    <message>
+        <source>Decorate pages:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Seiten verzieren:</translation>
+    </message>
+    <message>
+        <source>Decorate links:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Verweise verzieren:</translation>
+    </message>
+    <message>
+        <source>Decorate form fields:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Formularfelder verzieren:</translation>
+    </message>
+    <message>
+        <source>Background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Hintergrundfarbe:</translation>
+    </message>
+    <message>
+        <source>Paper color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Papierfarbe:</translation>
+    </message>
+    <message>
+        <source>Presentation background color:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Präsentationshintergrundfarbe:</translation>
+    </message>
+    <message>
+        <source>Pages per row:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Seiten pro Zeile:</translation>
+    </message>
+    <message>
+        <source>Page spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Abstand der Seiten:</translation>
+    </message>
+    <message>
+        <source>Thumbnail spacing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Abstand der Vorschaubilder:</translation>
+    </message>
+    <message>
+        <source>Thumbnail size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Größe der Vorschaubilder:</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">%1 MB</translation>
+    </message>
+    <message>
+        <source>Cache size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Größe des Zwischenspeichers:</translation>
+    </message>
+    <message>
+        <source>Prefetch:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Vorausladen:</translation>
+    </message>
+    <message>
+        <source>Prefetch distance:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Reichweite des Vorausladens:</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Oben</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Unten</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Links</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Rechts</translation>
+    </message>
+    <message>
+        <source>Tab position:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Reiterposition:</translation>
+    </message>
+    <message>
+        <source>As needed</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Bei Bedarf</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Immer</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Niemals</translation>
+    </message>
+    <message>
+        <source>Tab visibility:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Reitersichtbarkeit:</translation>
+    </message>
+    <message>
+        <source>New tab next to current tab:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Neuer Reiter neben aktuellem Reiter:</translation>
+    </message>
+    <message>
+        <source>Recently used count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Anzahl verwendeter Dateien:</translation>
+    </message>
+    <message>
+        <source>Recently closed count:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Anzahl geschlossener Dateien:</translation>
+    </message>
+    <message>
+        <source>File tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Datei-Werkzeugleiste:</translation>
+    </message>
+    <message>
+        <source>Edit tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Bearbeiten-Werkzeugleiste:</translation>
+    </message>
+    <message>
+        <source>View tool bar:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Ansicht-Werkzeugleiste:</translation>
+    </message>
+    <message>
+        <source>Current page in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Aktuelle Seite im Fenstertitel:</translation>
+    </message>
+    <message>
+        <source>Instance name in window title:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Instanzname im Fenstertitel:</translation>
+    </message>
+    <message>
+        <source>Synchronize outline view:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Gliederung synchronisieren:</translation>
+    </message>
+    <message>
+        <source>Highlight current thumbnail:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Aktuelles Vorschaubild hervorheben:</translation>
+    </message>
+    <message>
+        <source>Limit thumbnails to results:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Vorschaubilder auf Ergebnisse beschränken:</translation>
+    </message>
+    <message>
+        <source>Annotation overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Eingebettet dargestellte Anmerkungen:</translation>
+    </message>
+    <message>
+        <source>Form field overlay:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Eingebettet dargestellte Formularfelder:</translation>
+    </message>
+    <message>
+        <source>Zoom:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Skalieren:</translation>
+    </message>
+    <message>
+        <source>Rotate:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Rotieren:</translation>
+    </message>
+    <message>
+        <source>Scroll:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Bildlauf:</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">In Zwischenablage kopieren:</translation>
+    </message>
+    <message>
+        <source>Add annotation:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Anmerkung hinzufügen:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Aktion</translation>
+    </message>
+    <message>
+        <source>Key sequence</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Tastenkürzel</translation>
+    </message>
+    <message>
+        <source>Skip backward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Rückwärts springen</translation>
+    </message>
+    <message>
+        <source>Skip forward</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Vorwärts springen</translation>
+    </message>
+    <message>
+        <source>Move up</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Nach oben bewegen</translation>
+    </message>
+    <message>
+        <source>Move down</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Nach unten bewegen</translation>
+    </message>
+    <message>
+        <source>Move left</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Nach links bewegen</translation>
+    </message>
+    <message>
+        <source>Move right</source>
+        <comment>ShortcutHandler|</comment>
+        <translation type="vanished">Nach rechts bewegen</translation>
+    </message>
+    <message>
+        <source>&amp;Expand all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">Alle &amp;aufklappen</translation>
+    </message>
+    <message>
+        <source>&amp;Collapse all</source>
+        <comment>TreeView|</comment>
+        <translation type="vanished">Alle &amp;zuklappen</translation>
+    </message>
+    <message>
+        <source>Bookmarks</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">Lesezeichen</translation>
+    </message>
+    <message>
+        <source>&amp;Add entry</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">Eintrag &amp;hinzufügen</translation>
+    </message>
+    <message>
+        <source>Go to &amp;previous entry</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">Gehe zu &amp;vorigem Eintrag</translation>
+    </message>
+    <message>
+        <source>Go to &amp;next entry</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">Gehe zu &amp;nächstem Eintrag</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Beenden</translation>
+    </message>
+    <message>
+        <source>One page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Eine Seite</translation>
+    </message>
+    <message>
+        <source>Two pages</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Zwei Seiten</translation>
+    </message>
+    <message>
+        <source>One column</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Eine Spalte</translation>
+    </message>
+    <message>
+        <source>Two columns</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Zwei Spalten</translation>
+    </message>
+    <message>
+        <source>Fit to page</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">An Seitengröße anpassen</translation>
+    </message>
+    <message>
+        <source>Scale to %1%</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Auf %1% skalieren</translation>
+    </message>
+    <message>
+        <source>Rotate by %1°</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Um %1° rotieren</translation>
+    </message>
+    <message>
+        <source>&amp;Toolbars</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Werkzeugleisten</translation>
+    </message>
+    <message>
+        <source>Open document</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Dokument öffnen</translation>
+    </message>
+    <message>
+        <source>Could not open document &quot;%1&quot;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte die Datei &quot;%1&quot; nicht öffnen.</translation>
+    </message>
+    <message>
+        <source>Could not save copy at &quot;%1&quot;.</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Konnte keine Kopie unter &quot;%1&quot; speichern.</translation>
+    </message>
+    <message>
+        <source>Open documents</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Dokumente öffnen</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed PDF viewer using the poppler library.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&lt;p&gt;&lt;b&gt;qpdfview&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview stellt PDF-Dateien mit Hilfe der poppler-Bibliothek dar.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012 Adam Reichold&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished"> von %1</translation>
+    </message>
+    <message>
+        <source>Recently &amp;used</source>
+        <comment>RecentlyUsedAction|</comment>
+        <translation type="vanished">Zuletzt &amp;verwendet</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>RecentlyUsedAction|</comment>
+        <translation type="vanished">&amp;Liste leeren</translation>
+    </message>
+    <message>
+        <source>&amp;Antialiasing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Kantenglättung:</translation>
+    </message>
+    <message>
+        <source>&amp;Text antialiasing:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">&amp;Text-Kantenglättung:</translation>
+    </message>
+    <message>
+        <source>Maximum page cache &amp;size:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Maximale &amp;Zwischenspeichergröße:</translation>
+    </message>
+    <message>
+        <source>Presentation...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Präsentation …</translation>
+    </message>
+    <message>
+        <source>&amp;Tab</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Rei&amp;ter</translation>
+    </message>
+    <message>
+        <source>Close all &amp;tabs</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">&amp;Alle Reiter schließen</translation>
+    </message>
+    <message>
+        <source>Text &amp;hinting:</source>
+        <comment>SettingsDialog|</comment>
+        <translation type="vanished">Text-&amp;Hinting:</translation>
+    </message>
+    <message>
+        <source>&amp;Clear list</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">&amp;Liste leeren</translation>
+    </message>
+    <message>
+        <source>&amp;Remove entries on current page</source>
+        <comment>BookmarksMenu|</comment>
+        <translation type="vanished">Einträge auf der &amp;aktuellen Seite entfernen</translation>
+    </message>
+    <message>
+        <source>Searched %1% of the the current document...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">%1% des aktuellen Dokuments durchsucht…</translation>
+    </message>
+    <message>
+        <source>Printing pages %1 to %2...</source>
+        <comment>MainWindow|</comment>
+        <translation type="vanished">Seiten %1 bis %2 werden gedruckt…</translation>
+    </message>
+    <message>
+        <source>Go to page %1.</source>
+        <comment>PresentationView|</comment>
+        <translation type="vanished">Zu Seite %1 gehen.</translation>
+    </message>
+</context>
+<context>
     <name>BookmarkMenu</name>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="33"/>
@@ -67,12 +1632,12 @@
         <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1445"/>
+        <location filename="../sources/documentview.cpp" line="1440"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke »%1« …</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1517"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>Page %1</source>
         <translation type="unfinished">Seite %1</translation>
     </message>
@@ -1190,7 +2755,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="307"/>
         <source>None</source>
-        <translation type="unfinished">Keine</translation>
+        <translation type="unfinished">Kein</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>

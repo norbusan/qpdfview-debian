@@ -67,12 +67,12 @@
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1445"/>
+        <location filename="../sources/documentview.cpp" line="1440"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1517"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>

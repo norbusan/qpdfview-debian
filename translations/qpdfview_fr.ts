@@ -67,12 +67,12 @@
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1445"/>
+        <location filename="../sources/documentview.cpp" line="1440"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de « %1 »...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1517"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>

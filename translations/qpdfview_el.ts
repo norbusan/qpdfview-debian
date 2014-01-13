@@ -67,12 +67,12 @@
         <translation type="unfinished">Τα δεδομένα SyncTeX για το &apos;%1&apos; δεν μπορούν να βρεθούν.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1445"/>
+        <location filename="../sources/documentview.cpp" line="1440"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Εκτύπωση &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1517"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>Page %1</source>
         <translation type="unfinished">Σελίδα %1</translation>
     </message>

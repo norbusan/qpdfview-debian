@@ -67,12 +67,12 @@
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1445"/>
+        <location filename="../sources/documentview.cpp" line="1440"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1517"/>
+        <location filename="../sources/documentview.cpp" line="1512"/>
         <source>Page %1</source>
         <translation type="unfinished">עמוד %1</translation>
     </message>
