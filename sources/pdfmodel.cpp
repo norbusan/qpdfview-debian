@@ -888,6 +888,13 @@ PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : Set
     m_layout->addRow(tr("Thin line mode:"), m_thinLineModeComboBox);
 
 #endif // HAS_POPPLER_24
+
+    m_backendComboBox = new QComboBox(this);
+    m_backendComboBox->addItem(tr("Splash"));
+    m_backendComboBox->addItem(tr("Arthur"));
+    m_backendComboBox->setCurrentIndex(m_settings->value("backend", 0).toInt());
+
+    m_layout->addRow(tr("Backend:"), m_backendComboBox);
 }
 
 void PdfSettingsWidget::accept()
@@ -917,6 +924,8 @@ void PdfSettingsWidget::accept()
     m_settings->setValue("thinLineMode", m_thinLineModeComboBox->currentIndex());
 
 #endif // HAS_POPPLER_24
+
+    m_settings->setValue("backend", m_backendComboBox->currentIndex());
 }
 
 void PdfSettingsWidget::reset()
@@ -945,6 +954,8 @@ void PdfSettingsWidget::reset()
     m_thinLineModeComboBox->setCurrentIndex(0);
 
 #endif // HAS_POPPLER_24
+
+    m_backendComboBox->setCurrentIndex(0);
 }
 
 PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
@@ -1013,6 +1024,18 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
         }
 
 #endif // HAS_POPPLER_24
+
+
+        switch(m_settings->value("backend").toInt())
+        {
+        default:
+        case 0:
+            document->setRenderBackend(Poppler::Document::SplashBackend);
+            break;
+        case 1:
+            document->setRenderBackend(Poppler::Document::ArthurBackend);
+            break;
+        }
     }
 
     return document != 0 ? new Model::PdfDocument(document) : 0;

@@ -212,6 +212,8 @@ private:
 
 #endif // HAS_POPPLER_24
 
+    QComboBox* m_backendComboBox;
+
 };
 
 class PdfPlugin : public QObject, Plugin
