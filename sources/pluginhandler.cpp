@@ -60,9 +60,15 @@ Plugin* PluginHandler::s_djvuPlugin = 0;
 
 #endif // WITH_DJVU
 
+#ifdef WITH_FITZ
+
+Plugin* PluginHandler::s_fitzPlugin = 0;
+
+#endif // WITH_FITZ
+
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
-    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = UnknownType;
+    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3, XPS = 4, CBZ = 5 } fileType = UnknownType;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -79,6 +85,14 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     else if(mimeType.name() == "image/vnd.djvu")
     {
         fileType = DjVu;
+    }
+    else if(mimeType.name() == "application/vnd.ms-xpsdocument")
+    {
+        fileType = XPS;
+    }
+    else if(mimeType.name() == "application/x-cbr")
+    {
+        fileType = CBZ;
     }
     else
     {
@@ -107,6 +121,14 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
         {
             fileType = DjVu;
         }
+        else if(qstrncmp(mime_type, "application/vnd.ms-xpsdocument", 30) == 0)
+        {
+            fileType = XPS;
+        }
+        else if(qstrncmp(mime_type, "application/x-cbr", 17) == 0)
+        {
+            fileType = CBZ;
+        }
         else
         {
             qDebug() << "Unknown file type:" << mime_type;
@@ -130,6 +152,14 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
     {
         fileType = DjVu;
+    }
+    else if(fileInfo.suffix().toLower() == "xps")
+    {
+        fileType = XPS;
+    }
+    else if(fileInfo.suffix().toLower() == "cbz")
+    {
+        fileType = CBZ;
     }
     else
     {
@@ -172,6 +202,17 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     }
 
 #endif // WITH_DJVU
+
+#ifdef WITH_FITZ
+
+    if(fileType == PDF || fileType == XPS || fileType == CBZ)
+    {
+        loadFitzPlugin();
+
+        return s_fitzPlugin != 0 ? s_fitzPlugin->loadDocument(filePath) : 0;
+    }
+
+#endif // WITH_FITZ
 
     return 0;
 }
@@ -253,12 +294,19 @@ Plugin* PluginHandler::loadStaticPlugin(const QString& objectName)
     return 0;
 }
 
-
 #ifdef WITH_PDF
 
 #ifdef STATIC_PDF_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_pdf)
+
+#else
+
+Q_IMPORT_PLUGIN(PdfPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_PDF_PLUGIN
 
@@ -290,7 +338,15 @@ void PluginHandler::loadPdfPlugin()
 
 #ifdef STATIC_PS_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_ps)
+
+#else
+
+Q_IMPORT_PLUGIN(PsPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_PS_PLUGIN
 
@@ -323,7 +379,15 @@ void PluginHandler::loadPsPlugin()
 
 #ifdef STATIC_DJVU_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_djvu)
+
+#else
+
+Q_IMPORT_PLUGIN(DjvuPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_DJVU_PLUGIN
 
@@ -350,3 +414,44 @@ void PluginHandler::loadDjVuPlugin()
 }
 
 #endif // WITH_DJVU
+
+
+#ifdef WITH_FITZ
+
+#ifdef STATIC_FITZ_PLUGIN
+
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
+Q_IMPORT_PLUGIN(qpdfview_fitz)
+
+#else
+
+Q_IMPORT_PLUGIN(FitzPlugin)
+
+#endif // QT_VERSION
+
+#endif // STATIC_FITZ_PLUGIN
+
+void PluginHandler::loadFitzPlugin()
+{
+    if(s_fitzPlugin == 0)
+    {
+#ifndef STATIC_FITZ_PLUGIN
+        Plugin* fitzPlugin = loadPlugin(FITZ_PLUGIN_NAME);
+#else
+        Plugin* fitzPlugin = loadStaticPlugin("FitzPlugin");
+#endif // STATIC_FITZ_PLUGIN
+
+        if(fitzPlugin != 0)
+        {
+            s_fitzPlugin = fitzPlugin;
+        }
+        else
+        {
+            QMessageBox::critical(0, tr("Critical"), tr("Could not load Fitz plug-in!"));
+        }
+
+    }
+}
+
+#endif // WITH_FITZ

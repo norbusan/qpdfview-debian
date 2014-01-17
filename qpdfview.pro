@@ -18,6 +18,11 @@ CONFIG += ordered
     qpdfview-application.pro.depends = qpdfview-djvu-plugin.pro
 }
 
+with_fitz {
+    SUBDIRS += qpdfview-fitz-plugin.pro
+    qpdfview-application.pro.depends = qpdfview-fitz-plugin.pro
+}
+
 SUBDIRS += qpdfview-application.pro
 
 TRANSLATIONS += \

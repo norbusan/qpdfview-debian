@@ -216,6 +216,17 @@ QStringList DocumentView::openFilter()
 
 #endif // WITH_DJVU
 
+#ifdef WITH_FITZ
+
+    openFilter.append("Portable document format (*.pdf)");
+    openFilter.append("XML paper specification (*.xps)");
+    openFilter.append("Comic book archive (*.cbz)");
+    supportedFormats.append("*.pdf");
+    supportedFormats.append("*.xps");
+    supportedFormats.append("*.cbz");
+
+#endif // WITH_FITZ
+
     openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
 
     return openFilter;

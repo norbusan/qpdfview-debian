@@ -85,6 +85,14 @@ private:
 
 #endif // WITH_DJVU
 
+#ifdef WITH_FITZ
+
+    static Plugin* s_fitzPlugin;
+
+    static void loadFitzPlugin();
+
+#endif // WITH_FITZ
+
 };
 
 #endif // PLUGINHANDLER_H
