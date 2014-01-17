@@ -258,7 +258,15 @@ Plugin* PluginHandler::loadStaticPlugin(const QString& objectName)
 
 #ifdef STATIC_PDF_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_pdf)
+
+#else
+
+Q_IMPORT_PLUGIN(PdfPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_PDF_PLUGIN
 
@@ -290,7 +298,15 @@ void PluginHandler::loadPdfPlugin()
 
 #ifdef STATIC_PS_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_ps)
+
+#else
+
+Q_IMPORT_PLUGIN(PsPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_PS_PLUGIN
 
@@ -323,7 +339,15 @@ void PluginHandler::loadPsPlugin()
 
 #ifdef STATIC_DJVU_PLUGIN
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+
 Q_IMPORT_PLUGIN(qpdfview_djvu)
+
+#else
+
+Q_IMPORT_PLUGIN(DjvuPlugin)
+
+#endif // QT_VERSION
 
 #endif // STATIC_DJVU_PLUGIN
 
