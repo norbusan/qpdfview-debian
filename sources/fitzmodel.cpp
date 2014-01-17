@@ -49,7 +49,7 @@ QSizeF Model::FitzPage::size() const
 
 QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
-    QMutexLocker mutexLocker(m_mutex); // TODO: use a display list to release lock earlier
+    QMutexLocker mutexLocker(m_mutex);
 
     fz_matrix matrix;
 
@@ -79,11 +79,23 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     fz_irect irect;
     fz_round_rect(&irect, &rect);
 
-    fz_pixmap* pixmap = fz_new_pixmap_with_bbox(m_context, fz_device_rgb(m_context), &irect);
-    fz_clear_pixmap_with_value(m_context, pixmap, 0xff); // TODO: consider configured paper color
+    fz_context* context = fz_clone_context(m_context);
+    fz_display_list* display_list = fz_new_display_list(context);
 
-    fz_device* device = fz_new_draw_device(m_context, pixmap);
-    fz_run_page(m_document, m_page, device, &matrix, 0);
+    fz_device* device = fz_new_list_device(context, display_list);
+    fz_run_page(m_document, m_page, device, &fz_identity, 0);
+    fz_free_device(device);
+
+
+    mutexLocker.unlock();
+
+
+    fz_pixmap* pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb(context), &irect);
+    fz_clear_pixmap_with_value(context, pixmap, 0xff); // TODO: consider configured paper color
+
+    device = fz_new_draw_device(context, pixmap);
+    fz_run_display_list(display_list, device, &matrix, &rect, 0);
+    fz_free_device(device);
 
     const int width = fz_pixmap_width(m_context, pixmap);
     const int height = fz_pixmap_height(m_context, pixmap);
@@ -92,8 +104,9 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     QImage auxiliaryImage(samples, width, height, QImage::Format_RGB32);
     QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, width, height) : auxiliaryImage.copy(boundingRect));
 
-    fz_free_device(device);
-    fz_drop_pixmap(m_context, pixmap);
+    fz_drop_pixmap(context, pixmap);
+    fz_drop_display_list(context, display_list);
+    fz_free_context(context);
 
     return image;
 }
