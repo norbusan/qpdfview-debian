@@ -24,6 +24,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFile>
 #include <qmath.h>
 
+extern "C"
+{
+
+#include <mupdf/fitz/display-list.h>
+#include <mupdf/fitz/document.h>
+
+}
+
 Model::FitzPage::FitzPage(QMutex* mutex, fz_context* context, fz_document* document, fz_page* page) :
     m_mutex(mutex),
     m_context(context),

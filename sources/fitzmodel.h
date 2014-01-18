@@ -24,7 +24,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 extern "C"
 {
 
-#include <mupdf/fitz.h>
+#include <mupdf/fitz/context.h>
+
+typedef struct fz_page_s fz_page;
+typedef struct fz_document_s fz_document;
 
 }
 
