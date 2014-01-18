@@ -93,6 +93,7 @@ class FitzPlugin : public QObject, Plugin
 
 public:
     FitzPlugin(QObject* parent = 0);
+    ~FitzPlugin();
 
     Model::Document* loadDocument(const QString& filePath) const;
 

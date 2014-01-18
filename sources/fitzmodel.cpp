@@ -90,19 +90,19 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     mutexLocker.unlock();
 
 
-    fz_pixmap* pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb(context), &irect);
+    QImage image(qAbs(irect.x1 - irect.x0), qAbs(irect.y1 - irect.y0), QImage::Format_RGB32);
+
+    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_rgb(context), image.width(), image.height(), image.bits());
     fz_clear_pixmap_with_value(context, pixmap, 0xff); // TODO: consider configured paper color
 
     device = fz_new_draw_device(context, pixmap);
     fz_run_display_list(display_list, device, &matrix, &rect, 0);
     fz_free_device(device);
 
-    const int width = fz_pixmap_width(m_context, pixmap);
-    const int height = fz_pixmap_height(m_context, pixmap);
-    unsigned char* samples = fz_pixmap_samples(m_context, pixmap);
-
-    QImage auxiliaryImage(samples, width, height, QImage::Format_RGB32);
-    QImage image(boundingRect.isNull() ? auxiliaryImage.copy(0, 0, width, height) : auxiliaryImage.copy(boundingRect));
+    if(!boundingRect.isNull())
+    {
+        image = image.copy(boundingRect); // TODO: consider bounding rectangle in fz_run_display_list
+    }
 
     fz_drop_pixmap(context, pixmap);
     fz_drop_display_list(context, display_list);
@@ -149,6 +149,11 @@ FitzPlugin::FitzPlugin(QObject* parent) : QObject(parent)
     m_locks_context.unlock = FitzPlugin::unlock;
 
     m_context = fz_new_context(0, &m_locks_context, FZ_STORE_DEFAULT);
+}
+
+FitzPlugin::~FitzPlugin()
+{
+    fz_free_context(m_context);
 }
 
 Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
