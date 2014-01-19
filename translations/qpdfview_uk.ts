@@ -814,24 +814,24 @@
 <context>
     <name>PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="281"/>
-        <location filename="../sources/pluginhandler.cpp" line="313"/>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
+        <location filename="../sources/pluginhandler.cpp" line="289"/>
+        <location filename="../sources/pluginhandler.cpp" line="329"/>
+        <location filename="../sources/pluginhandler.cpp" line="370"/>
         <source>Critical</source>
         <translation type="unfinished">Критична помилка</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="281"/>
+        <location filename="../sources/pluginhandler.cpp" line="289"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток роботи з PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="313"/>
+        <location filename="../sources/pluginhandler.cpp" line="329"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток роботи з PS!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
+        <location filename="../sources/pluginhandler.cpp" line="370"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Не вдалося завантажити додаток роботи з DjVuPS!</translation>
     </message>
@@ -1063,7 +1063,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished">&amp;Нещодавно закриті</translation>
+        <translation type="unfinished">&amp;Останні закриті</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1155,7 +1155,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished">Кількість нещодавно закритих:</translation>
+        <translation type="unfinished">Пам’ятати останні закриті:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
@@ -1362,7 +1362,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="631"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished">Кількість записів нещодавно закритих документів:</translation>
+        <translation type="unfinished">Кількість записів останніх закритих документів:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="639"/>

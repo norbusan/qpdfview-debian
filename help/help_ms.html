@@ -77,8 +77,8 @@ konfigurasinya.</p>
 semasa. Jika tiada tab, Fail akan dibuka pada tab baru.</li>
 	<li><b>Buka dalam tab baru...</b> Buka dialog untuk memilih fail yang hendak
 dibuka dalam tab baru.</li>
-	<li><b>Baru-baru ini digunakan</b> Mengandungi senarai kesepuluh fail yang
-terkini digunakan (jika dibenarkan dalam tetapan).</li>
+	<li><b>Recently used</b> Contains a list of the most recently used files (if
+enabled in the settings).</li>
 	<li><b>Segar semula</b> Muat semula fail yang dipaparkan dalam tab semasa.</li>
 	<li><b>Simpan salinan...</b> Buka dialog untuk menyimpan salinan fail yang
 dipapar dalam tab semasa.</li>
@@ -172,6 +172,8 @@ semasa.</li>
     <li><b>Tutup semua tab</b> Tutup semua tab.</li>
     <li><b>Tutup semua tab kecuali tab semasa</b> Tutup semua tab kecuali tab
 semasa.</li>
+    <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
+enabled in the settings).</li>
 </ul>
 
 <p>Menu ini mengandungi senarai semua tab yang jadikan tab semasa dengan
@@ -271,6 +273,10 @@ automatik jika berubah pada cakera.</li>
     <li><b>Track recently used</b> If enabled, a recently used menu is available and
 lists as many recently used files as set in the "Recently used count"
 option. (Effective after restart.)</li>
+    <li><b>Kepp recently closed</b> If enabled, a recently closed men is available
+and lists as many recently closed tabs as set in the "Recently closed count"
+option. Keeping the tabs available could increase memory usage
+considerably. (Effective after restart.)</li>
     <li><b>Pulih tab</b> Jika dibenarkan, tab dan sifatnya disimpan pada penghujung
 program dan dipulih semasa mula semula.</li>
     <li><b>Pulih tanda buku</b> Jika dibenarkan, tanda buku disimpan pada penghujung
@@ -351,7 +357,11 @@ two documents are opened.</li>
     <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
 right of the active tab.</li>
     <li><b>Recently used count</b> Sets the number of files that are listed in the
-recently used menu, if "Track recently used" is enabled.</li>
+recently used menu, if "Track recently used" is enabled. (Effective after
+restart.)</li>
+    <li><b>Recently closed count</b> Sets the number of tabs that are listed in the
+recently closed menu, if "Keep recently closed" is enabled. (Effective after
+restart.)</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool
 bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
 print and separator. (Effective after restart.)</li>

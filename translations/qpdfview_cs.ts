@@ -814,24 +814,24 @@
 <context>
     <name>PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="281"/>
-        <location filename="../sources/pluginhandler.cpp" line="313"/>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
+        <location filename="../sources/pluginhandler.cpp" line="289"/>
+        <location filename="../sources/pluginhandler.cpp" line="329"/>
+        <location filename="../sources/pluginhandler.cpp" line="370"/>
         <source>Critical</source>
         <translation type="unfinished">Vážné</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="281"/>
+        <location filename="../sources/pluginhandler.cpp" line="289"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Nepodařilo se nahrát přídavný modul PDF!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="313"/>
+        <location filename="../sources/pluginhandler.cpp" line="329"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Nepodařilo se nahrát přídavný modul PS!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
+        <location filename="../sources/pluginhandler.cpp" line="370"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Nepodařilo se nahrát přídavný modul DjVu!</translation>
     </message>
