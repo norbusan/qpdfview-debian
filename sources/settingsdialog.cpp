@@ -484,6 +484,8 @@ void SettingsDialog::createGraphicsTab()
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(128), 128 * 1024 * 1024);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(256), 256 * 1024 * 1024);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
+    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(1024), 1073741823);
+    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(2048), 2147483647);
     m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(s_settings->pageItem().cacheSize()));
 
     m_graphicsLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
