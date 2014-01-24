@@ -53,17 +53,17 @@ namespace Model
     private:
         Q_DISABLE_COPY(FitzPage)
 
-        FitzPage(QMutex* mutex, fz_context* context, fz_document* document, fz_page* page);
+        FitzPage(const class FitzDocument* parent, fz_page* page);
 
-        mutable QMutex* m_mutex;
-        fz_context* m_context;
-        fz_document* m_document;
+        const class FitzDocument* m_parent;
+
         fz_page* m_page;
 
     };
 
     class FitzDocument : public Document
     {
+        friend class FitzPage;
         friend class ::FitzPlugin;
 
     public:
@@ -75,6 +75,8 @@ namespace Model
 
         bool canBePrintedUsingCUPS() const;
 
+        void setPaperColor(const QColor &paperColor);
+
         void loadOutline(QStandardItemModel* outlineModel) const;
 
     private:
@@ -85,6 +87,8 @@ namespace Model
         mutable QMutex m_mutex;
         fz_context* m_context;
         fz_document* m_document;
+
+        QColor m_paperColor;
 
     };
 }

@@ -35,32 +35,30 @@ pdf_document* pdf_specifics(fz_document*);
 
 }
 
-Model::FitzPage::FitzPage(QMutex* mutex, fz_context* context, fz_document* document, fz_page* page) :
-    m_mutex(mutex),
-    m_context(context),
-    m_document(document),
+Model::FitzPage::FitzPage(const FitzDocument* parent, fz_page* page) :
+    m_parent(parent),
     m_page(page)
 {
 }
 
 Model::FitzPage::~FitzPage()
 {
-    fz_free_page(m_document, m_page);
+    fz_free_page(m_parent->m_document, m_page);
 }
 
 QSizeF Model::FitzPage::size() const
 {
-    QMutexLocker mutexLocker(m_mutex);
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
 
     fz_rect rect;
-    fz_bound_page(m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_document, m_page, &rect);
 
     return QSize(qCeil(qAbs(rect.x1 - rect.x0)), qCeil(qAbs(rect.y1 - rect.y0)));
 }
 
 QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
-    QMutexLocker mutexLocker(m_mutex);
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
 
     fz_matrix matrix;
 
@@ -84,17 +82,17 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     fz_pre_scale(&matrix, horizontalResolution / 72.0f, verticalResolution / 72.0f);
 
     fz_rect rect;
-    fz_bound_page(m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_document, m_page, &rect);
     fz_transform_rect(&rect, &matrix);
 
     fz_irect irect;
     fz_round_rect(&irect, &rect);
 
-    fz_context* context = fz_clone_context(m_context);
+    fz_context* context = fz_clone_context(m_parent->m_context);
     fz_display_list* display_list = fz_new_display_list(context);
 
     fz_device* device = fz_new_list_device(context, display_list);
-    fz_run_page(m_document, m_page, device, &fz_identity, 0);
+    fz_run_page(m_parent->m_document, m_page, device, &fz_identity, 0);
     fz_free_device(device);
 
 
@@ -102,9 +100,9 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
 
 
     QImage image(qAbs(irect.x1 - irect.x0), qAbs(irect.y1 - irect.y0), QImage::Format_RGB32);
+    image.fill(m_parent->m_paperColor);
 
     fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_rgb(context), image.width(), image.height(), image.bits());
-    fz_clear_pixmap_with_value(context, pixmap, 0xff); // TODO: consider configured paper color
 
     device = fz_new_draw_device(context, pixmap);
     fz_run_display_list(display_list, device, &matrix, &rect, 0);
@@ -112,7 +110,7 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
 
     if(!boundingRect.isNull())
     {
-        image = image.copy(boundingRect); // TODO: consider bounding rectangle in fz_run_display_list
+        image = image.copy(boundingRect);
     }
 
     fz_drop_pixmap(context, pixmap);
@@ -124,17 +122,17 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
 
 QList< Model::Link* > Model::FitzPage::links() const
 {
-    QMutexLocker mutexLocker(m_mutex);
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
 
     QList< Link* > links;
 
     fz_rect rect;
-    fz_bound_page(m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_document, m_page, &rect);
 
     const qreal width = qAbs(rect.x1 - rect.x0);
     const qreal height = qAbs(rect.y1 - rect.y0);
 
-    fz_link* first_link = fz_load_links(m_document, m_page);
+    fz_link* first_link = fz_load_links(m_parent->m_document, m_page);
 
     for(fz_link* link = first_link; link != 0; link = link->next)
     {
@@ -167,7 +165,7 @@ QList< Model::Link* > Model::FitzPage::links() const
         }
     }
 
-    fz_drop_link(m_context, first_link);
+    fz_drop_link(m_parent->m_context, first_link);
 
     return links;
 }
@@ -175,7 +173,8 @@ QList< Model::Link* > Model::FitzPage::links() const
 Model::FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
     m_mutex(),
     m_context(context),
-    m_document(document)
+    m_document(document),
+    m_paperColor(Qt::white)
 {
 }
 
@@ -198,7 +197,7 @@ Model::Page* Model::FitzDocument::page(int index) const
 
     fz_page* page = fz_load_page(m_document, index);
 
-    return page != 0 ? new FitzPage(&m_mutex, m_context, m_document, page) : 0;
+    return page != 0 ? new FitzPage(this, page) : 0;
 }
 
 bool Model::FitzDocument::canBePrintedUsingCUPS() const
@@ -206,6 +205,11 @@ bool Model::FitzDocument::canBePrintedUsingCUPS() const
     QMutexLocker mutexLocker(&m_mutex);
 
     return pdf_specifics(m_document) != 0;
+}
+
+void Model::FitzDocument::setPaperColor(const QColor& paperColor)
+{
+    m_paperColor = paperColor;
 }
 
 static void loadOutline(fz_outline* outline, QStandardItem* parent)
