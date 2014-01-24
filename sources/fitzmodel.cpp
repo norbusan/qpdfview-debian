@@ -119,6 +119,56 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     return image;
 }
 
+QList< Model::Link* > Model::FitzPage::links() const
+{
+    QMutexLocker mutexLocker(m_mutex);
+
+    QList< Link* > links;
+
+    fz_rect rect;
+    fz_bound_page(m_document, m_page, &rect);
+
+    const qreal width = qAbs(rect.x1 - rect.x0);
+    const qreal height = qAbs(rect.y1 - rect.y0);
+
+    fz_link* first_link = fz_load_links(m_document, m_page);
+
+    for(fz_link* link = first_link; link != 0; link = link->next)
+    {
+        const QRectF boundary = QRectF(link->rect.x0 / width, link->rect.y0 / height, (link->rect.x1 - link->rect.x0) / width, (link->rect.y1 - link->rect.y0) / height).normalized();
+
+        if(link->dest.kind == FZ_LINK_GOTO || link->dest.kind == FZ_LINK_GOTOR)
+        {
+            const int page = link->dest.ld.gotor.page + 1;
+
+            if(link->dest.ld.gotor.file_spec != 0)
+            {
+                links.append(new Link(boundary, QString::fromUtf8(link->dest.ld.gotor.file_spec), page));
+            }
+            else
+            {
+                links.append(new Link(boundary, page));
+            }
+        }
+        else if(link->dest.kind == FZ_LINK_URI)
+        {
+            const QString url = QString::fromUtf8(link->dest.ld.uri.uri);
+
+            links.append(new Link(boundary, url));
+        }
+        else if(link->dest.kind == FZ_LINK_LAUNCH)
+        {
+            const QString url = QString::fromUtf8(link->dest.ld.launch.file_spec);
+
+            links.append(new Link(boundary, url));
+        }
+    }
+
+    fz_drop_link(m_context, first_link);
+
+    return links;
+}
+
 Model::FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
     m_mutex(),
     m_context(context),

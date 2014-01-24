@@ -48,6 +48,8 @@ namespace Model
 
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
+        QList< Link* > links() const;
+
     private:
         Q_DISABLE_COPY(FitzPage)
 

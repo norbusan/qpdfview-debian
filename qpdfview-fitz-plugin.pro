@@ -18,12 +18,14 @@ QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-LIBS += -lmupdf -lmupdf-js-none
-LIBS += -lfreetype -ljbig2dec -ljpeg -lopenjp2 -lz -lm
+DEFINES += $$FITZ_PLUGIN_DEFINES
+INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
 
-# $$FITZ_PLUGIN_DEFINES
-# $$FITZ_PLUGIN_INCLUDEPATH
-# $$FITZ_PLUGIN_LIBS
+isEmpty(FITZ_PLUGIN_LIBS) {
+    LIBS += -lmupdf -lmupdf-js-none -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm
+} else {
+    LIBS += $$FITZ_PLUGIN_LIBS
+}
 
 !static_fitz_plugin {
     target.path = $${PLUGIN_INSTALL_PATH}
