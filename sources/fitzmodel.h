@@ -73,6 +73,10 @@ namespace Model
 
         Page* page(int index) const;
 
+        bool canBePrintedUsingCUPS() const;
+
+        void loadOutline(QStandardItemModel* outlineModel) const;
+
     private:
         Q_DISABLE_COPY(FitzDocument)
 

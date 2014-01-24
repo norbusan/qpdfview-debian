@@ -30,6 +30,9 @@ extern "C"
 #include <mupdf/fitz/display-list.h>
 #include <mupdf/fitz/document.h>
 
+typedef struct pdf_document_s pdf_document;
+pdf_document* pdf_specifics(fz_document*);
+
 }
 
 Model::FitzPage::FitzPage(QMutex* mutex, fz_context* context, fz_document* document, fz_page* page) :
@@ -196,6 +199,62 @@ Model::Page* Model::FitzDocument::page(int index) const
     fz_page* page = fz_load_page(m_document, index);
 
     return page != 0 ? new FitzPage(&m_mutex, m_context, m_document, page) : 0;
+}
+
+bool Model::FitzDocument::canBePrintedUsingCUPS() const
+{
+    QMutexLocker mutexLocker(&m_mutex);
+
+    return pdf_specifics(m_document) != 0;
+}
+
+static void loadOutline(fz_outline* outline, QStandardItem* parent)
+{
+    QStandardItem* item = new QStandardItem(QString::fromUtf8(outline->title));
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+    if(outline->dest.kind != FZ_LINK_NONE)
+    {
+        const int page = outline->dest.ld.gotor.page + 1;
+
+        item->setData(page, Qt::UserRole + 1);
+
+        QStandardItem* pageItem = item->clone();
+        pageItem->setText(QString::number(page));
+        pageItem->setTextAlignment(Qt::AlignRight);
+
+        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
+    }
+    else
+    {
+        parent->appendRow(item);
+    }
+
+    if(outline->next != 0)
+    {
+        loadOutline(outline->next, parent);
+    }
+
+    if(outline->down != 0)
+    {
+        loadOutline(outline->down, item);
+    }
+}
+
+void Model::FitzDocument::loadOutline(QStandardItemModel* outlineModel) const
+{
+    Document::loadOutline(outlineModel);
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+    fz_outline* outline = fz_load_outline(m_document);
+
+    if(outline != 0)
+    {
+        ::loadOutline(outline, outlineModel->invisibleRootItem());
+
+        fz_free_outline(m_context, outline);
+    }
 }
 
 FitzPlugin::FitzPlugin(QObject* parent) : QObject(parent)
