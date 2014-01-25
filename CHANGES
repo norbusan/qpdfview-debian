@@ -1,3 +1,6 @@
+Release 0.4.9:
+  * Added setting to choose Poppler backend.
+
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.
   * Fixed a performance problem when switching to a tab with a fallback outline takes seconds.
