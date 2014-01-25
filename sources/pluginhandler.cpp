@@ -90,7 +90,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         fileType = XPS;
     }
-    else if(mimeType.name() == "application/x-cbr")
+    else if(mimeType.name() == "application/x-cbz")
     {
         fileType = CBZ;
     }
@@ -125,7 +125,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
         {
             fileType = XPS;
         }
-        else if(qstrncmp(mime_type, "application/x-cbr", 17) == 0)
+        else if(qstrncmp(mime_type, "application/x-cbz", 17) == 0)
         {
             fileType = CBZ;
         }
