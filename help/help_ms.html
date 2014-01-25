@@ -77,8 +77,8 @@ konfigurasinya.</p>
 semasa. Jika tiada tab, Fail akan dibuka pada tab baru.</li>
 	<li><b>Buka dalam tab baru...</b> Buka dialog untuk memilih fail yang hendak
 dibuka dalam tab baru.</li>
-	<li><b>Recently used</b> Contains a list of the most recently used files (if
-enabled in the settings).</li>
+	<li><b>Diguna baru-baru ini</b> Mengandungi senarai fail yang baru diguna (jika
+dibenarkan dalam tetapan).</li>
 	<li><b>Segar semula</b> Muat semula fail yang dipaparkan dalam tab semasa.</li>
 	<li><b>Simpan salinan...</b> Buka dialog untuk menyimpan salinan fail yang
 dipapar dalam tab semasa.</li>
@@ -172,8 +172,8 @@ semasa.</li>
     <li><b>Tutup semua tab</b> Tutup semua tab.</li>
     <li><b>Tutup semua tab kecuali tab semasa</b> Tutup semua tab kecuali tab
 semasa.</li>
-    <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
-enabled in the settings).</li>
+    <li><b>Ditutup baru-baru ini</b> Mengandungi senarai tab yang baru ditutup (jika
+dibenarkan dalam tetapan).</li>
 </ul>
 
 <p>Menu ini mengandungi senarai semua tab yang jadikan tab semasa dengan
@@ -256,9 +256,9 @@ selected item.</p>
 <p>Paparan <em>sifat</em> paparkan maklumat tambahan yang terkandung di dalam
 dokumen.</p>
 
-<p>The <em>thumbnails</em> view displays smaller versions of the pages of the
-document. A left click on an entry jumps to the respective page in the main
-view.</p>
+<p>Paparan <em>Lakaran kenit</em> paparkan versi kecil halaman sesebuah
+dokumen. Klik kiri pada masukan akan lompat ke halaman yang dikehendaki di
+paparan utama.</p>
 
 <h3><a name="settings">Tetapan</a> <a href="#top">&uarr;</a></h3>
 
@@ -270,13 +270,15 @@ view.</p>
 serta-merta selepas menyimpan.</li>
     <li><b>Segar semula automatik</b> Tentukan sama ada fail dimuat semula secara
 automatik jika berubah pada cakera.</li>
-    <li><b>Track recently used</b> If enabled, a recently used menu is available and
-lists as many recently used files as set in the "Recently used count"
-option. (Effective after restart.)</li>
-    <li><b>Kepp recently closed</b> If enabled, a recently closed men is available
-and lists as many recently closed tabs as set in the "Recently closed count"
-option. Keeping the tabs available could increase memory usage
-considerably. (Effective after restart.)</li>
+    <li><b>Jejak diguna baru-baru ini</b> Jika dibenarkan, satu menu diguna
+baru-baru ini akan tersedia dan senaraikan sebanyak mungkin fail diguna
+baru-baru ini di dalam pilihan "Kiraan diguna baru-baru ini". (Berkesan
+selepas dimula semula.)</li>
+    <li><b>Kekal ditutup baru-baru ini</b> Jika dibenarkan, satu menu ditutup
+baru-baru ini akan tersedia dan senaraikan sebanyak mungkin fail diguna
+baru-baru ini di dalam pilihan "Kiraan ditutup baru-baru ini". Mengekalkan
+tab yang tersedia akan meningkatkan penggunaan ingatan secara
+mendadak. (Berkesan selepas dimula semula.)</li>
     <li><b>Pulih tab</b> Jika dibenarkan, tab dan sifatnya disimpan pada penghujung
 program dan dipulih semasa mula semula.</li>
     <li><b>Pulih tanda buku</b> Jika dibenarkan, tanda buku disimpan pada penghujung
@@ -310,35 +312,35 @@ belakang.</li>
 bingkai biru.</li>
     <li><b>Background color</b> Determines the color of the background using SVG
 color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Paper color</b> Determines the color of pages using SVG color keywords or
-hexadecimal notation '#rrggbb'.</li>
+    <li><b>Warna kertas</b> Tentukan warna halaman menggunakan kata kunci warna SVG
+atau notasi heksadesimal '#rrggbb'.</li>
     <li><b>Presentation background color</b> Overrides the paper color in the
 computation of the background color of the presentation view and is defined
 using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Pages per row</b> Number of pages per row in the 'multiple pages' layout
-mode.</li>
-    <li><b>Page spacing</b> Determines both vertical and horizontal space displayed
-between pages.</li>
-    <li><b>Thumbnail spacing</b> Determines both vertical and horizontal space
-displayed between thumbnails.</li>
-    <li><b>Thumbnail size</b> Determines the size of the thumbnails.</li>
-    <li><b>Cache size</b> The program will try to cache rendered pages within this
-limit increasing rendering speed at the cost of increased memory usage.</li>
+    <li><b>Halaman per baris</b> Bilangan halaman per baris di dalam mod bentangan
+'halaman berbilang'.</li>
+    <li><b>Penjarakkan halaman</b> Tentukan kedua-dua jarak menegak & mengufuk yang
+dipapar diantara halaman.</li>
+    <li><b>Penjarakkan lakaran kenit</b> Tentukan kedua-dua jarak menegak & mengufuk
+yang dipapar diantara lakaran kenit.</li>
+    <li>b>Saiz lakaran kenit</b> Tentukan saiz lakaran kenit.</li>
+    <li><b>Saiz cache</b> Program akan cuba cache halaman terterap didalam had ini
+akan tingkatkan kelajuan penerapan dengan kos penggunaan ingatan meingkat.</li>
     <li><b>Prefetch</b> The program will try to render pages that are not yet
 visible increasing rendering speed at the cost of increased cache usage.</li>
     <li><b>Prefetch distance</b> The number of rows beyond the current row and twice
 the number of rows before the current row that are prefetched.</li>
-    <li><b>PDF settings</b>
+    <li><b>Tetapan PDF</b>
     <ul>
         <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
 on top of another is displayed.</li>
-        <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
+        <li><b>Antialias</b> Pertingkatkan kualiti paparan dengan kos terhadap prestasi</li>
         <li><b>Text antialiasing</b> Improves text display quality at the cost of
 performance</li>
         <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
     </ul>
     </li>
-    <li><b>PS settings</b>
+    <li><b>Tetapan PS</b>
     <ul>
         <li><b>Graphics antialias bits</b> Determines the amount of antialiasing for
 graphics.</li>
