@@ -270,11 +270,12 @@ QList< Model::Link* > Model::PdfPage::links() const
 
     foreach(const Poppler::Link* link, m_page->links())
     {
+        const QRectF boundary = link->linkArea().normalized();
+
         if(link->linkType() == Poppler::Link::Goto)
         {
             const Poppler::LinkGoto* linkGoto = static_cast< const Poppler::LinkGoto* >(link);
 
-            const QRectF boundary = linkGoto->linkArea().normalized();
             const int page = linkGoto->destination().pageNumber();
 
             qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
@@ -298,8 +299,6 @@ QList< Model::Link* > Model::PdfPage::links() const
         else if(link->linkType() == Poppler::Link::Browse)
         {
             const Poppler::LinkBrowse* linkBrowse = static_cast< const Poppler::LinkBrowse* >(link);
-
-            const QRectF boundary = linkBrowse->linkArea().normalized();
             const QString url = linkBrowse->url();
 
             links.append(new Link(boundary, url));
@@ -307,8 +306,6 @@ QList< Model::Link* > Model::PdfPage::links() const
         else if(link->linkType() == Poppler::Link::Execute)
         {
             const Poppler::LinkExecute* linkExecute = static_cast< const Poppler::LinkExecute* >(link);
-
-            const QRectF boundary = linkExecute->linkArea().normalized();
             const QString url = linkExecute->fileName();
 
             links.append(new Link(boundary, url));

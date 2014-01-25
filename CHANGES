@@ -1,4 +1,5 @@
 Release 0.4.9:
+  * Added experimental Fitz plug-in.
   * Added setting to choose Poppler backend.
 
 Release 0.4.8:

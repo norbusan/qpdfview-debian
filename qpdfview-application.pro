@@ -142,6 +142,31 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
     DEFINES += DJVU_PLUGIN_NAME=\\\"$${DJVU_PLUGIN_NAME}\\\"
 }
 
+with_fitz {
+    DEFINES += WITH_FITZ
+
+    static_fitz_plugin {
+        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.a
+
+        DEFINES += STATIC_FITZ_PLUGIN
+        LIBS += $$FITZ_PLUGIN_NAME
+        PRE_TARGETDEPS += $$FITZ_PLUGIN_NAME
+
+        DEFINES += $$FITZ_PLUGIN_DEFINES
+        INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
+
+        isEmpty(FITZ_PLUGIN_LIBS) {
+            LIBS += -lmupdf -lmupdf-js-none -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm
+        } else {
+            LIBS += $$FITZ_PLUGIN_LIBS
+        }
+    } else {
+        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.so
+    }
+
+    DEFINES += FITZ_PLUGIN_NAME=\\\"$${FITZ_PLUGIN_NAME}\\\"
+}
+
 !without_cups {
     DEFINES += WITH_CUPS
 
