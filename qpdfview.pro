@@ -4,26 +4,26 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 !without_pdf {
-    SUBDIRS += qpdfview-pdf-plugin.pro
-    qpdfview-application.pro.depends = qpdfview-pdf-plugin.pro
+    SUBDIRS += pdf-plugin.pro
+    application.pro.depends = pdf-plugin.pro
 }
 
 !without_ps {
-    SUBDIRS += qpdfview-ps-plugin.pro
-    qpdfview-application.pro.depends = qpdfview-ps-plugin.pro
+    SUBDIRS += ps-plugin.pro
+    application.pro.depends = ps-plugin.pro
 }
 
 !without_djvu {
-    SUBDIRS += qpdfview-djvu-plugin.pro
-    qpdfview-application.pro.depends = qpdfview-djvu-plugin.pro
+    SUBDIRS += djvu-plugin.pro
+    application.pro.depends = djvu-plugin.pro
 }
 
 with_fitz {
-    SUBDIRS += qpdfview-fitz-plugin.pro
-    qpdfview-application.pro.depends = qpdfview-fitz-plugin.pro
+    SUBDIRS += fitz-plugin.pro
+    application.pro.depends = fitz-plugin.pro
 }
 
-SUBDIRS += qpdfview-application.pro
+SUBDIRS += application.pro
 
 TRANSLATIONS += \
     translations/qpdfview_ast.ts \
