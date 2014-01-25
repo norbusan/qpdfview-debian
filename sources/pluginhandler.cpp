@@ -68,7 +68,7 @@ Plugin* PluginHandler::s_fitzPlugin = 0;
 
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
-    enum { UnknownType = 0, PDF = 1, PS = 2, DjVu = 3, XPS = 4, CBZ = 5 } fileType = UnknownType;
+    enum { Unknown = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = Unknown;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -85,14 +85,6 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     else if(mimeType.name() == "image/vnd.djvu")
     {
         fileType = DjVu;
-    }
-    else if(mimeType.name() == "application/vnd.ms-xpsdocument")
-    {
-        fileType = XPS;
-    }
-    else if(mimeType.name() == "application/x-cbz")
-    {
-        fileType = CBZ;
     }
     else
     {
@@ -121,14 +113,6 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
         {
             fileType = DjVu;
         }
-        else if(qstrncmp(mime_type, "application/vnd.ms-xpsdocument", 30) == 0)
-        {
-            fileType = XPS;
-        }
-        else if(qstrncmp(mime_type, "application/x-cbz", 17) == 0)
-        {
-            fileType = CBZ;
-        }
         else
         {
             qDebug() << "Unknown file type:" << mime_type;
@@ -152,14 +136,6 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
     {
         fileType = DjVu;
-    }
-    else if(fileInfo.suffix().toLower() == "xps")
-    {
-        fileType = XPS;
-    }
-    else if(fileInfo.suffix().toLower() == "cbz")
-    {
-        fileType = CBZ;
     }
     else
     {
@@ -205,7 +181,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
 
 #ifdef WITH_FITZ
 
-    if(fileType == PDF || fileType == XPS || fileType == CBZ)
+    if(fileType == PDF)
     {
         loadFitzPlugin();
 
