@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="219"/>
+        <location filename="../sources/documentview.cpp" line="230"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Podporované formáty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="437"/>
-        <location filename="../sources/documentview.cpp" line="480"/>
+        <location filename="../sources/documentview.cpp" line="448"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odomknúť %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="437"/>
-        <location filename="../sources/documentview.cpp" line="480"/>
+        <location filename="../sources/documentview.cpp" line="448"/>
+        <location filename="../sources/documentview.cpp" line="491"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="982"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="982"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvorenie URL adresy je v nastaveniach zakázané.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1032"/>
+        <location filename="../sources/documentview.cpp" line="1043"/>
         <source>Warning</source>
         <translation type="unfinished">Varovanie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1032"/>
+        <location filename="../sources/documentview.cpp" line="1043"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX dáta pre &apos;%1&apos; sa nedali nájsť.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1440"/>
+        <location filename="../sources/documentview.cpp" line="1451"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tlačí sa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1512"/>
+        <location filename="../sources/documentview.cpp" line="1523"/>
         <source>Page %1</source>
         <translation type="unfinished">Strana %1</translation>
     </message>
@@ -605,39 +605,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="812"/>
         <source>Name</source>
         <translation type="unfinished">Názov</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="812"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="812"/>
         <source>Embedded</source>
         <translation type="unfinished">Zabudované</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="812"/>
         <source>Subset</source>
         <translation type="unfinished">Podmnožina</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="815"/>
+        <location filename="../sources/pdfmodel.cpp" line="812"/>
         <source>File</source>
         <translation type="unfinished">Súbor</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
-        <location filename="../sources/pdfmodel.cpp" line="824"/>
+        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
         <source>Yes</source>
         <translation type="unfinished">Áno</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
-        <location filename="../sources/pdfmodel.cpp" line="824"/>
+        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="821"/>
         <source>No</source>
         <translation type="unfinished">Nie</translation>
     </message>
@@ -645,12 +645,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="409"/>
+        <location filename="../sources/pdfmodel.cpp" line="406"/>
         <source>Information</source>
         <translation type="unfinished">Informácie</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="409"/>
+        <location filename="../sources/pdfmodel.cpp" line="406"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Na vkladanie a odstraňovanie komentárov je vyžadovaná knižnica Poppler vo verzie 0.20.1 alebo vyššej.</translation>
     </message>
@@ -759,81 +759,102 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="839"/>
+        <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Vyhladzovanie:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="846"/>
+        <location filename="../sources/pdfmodel.cpp" line="843"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Vyhlazovanie textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="853"/>
-        <location filename="../sources/pdfmodel.cpp" line="883"/>
+        <location filename="../sources/pdfmodel.cpp" line="850"/>
+        <location filename="../sources/pdfmodel.cpp" line="880"/>
         <source>None</source>
         <translation type="unfinished">Žiadne</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="854"/>
+        <location filename="../sources/pdfmodel.cpp" line="851"/>
         <source>Full</source>
         <translation type="unfinished">Úplné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="855"/>
+        <location filename="../sources/pdfmodel.cpp" line="852"/>
         <source>Reduced</source>
         <translation type="unfinished">Čiastočné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="858"/>
-        <location filename="../sources/pdfmodel.cpp" line="865"/>
+        <location filename="../sources/pdfmodel.cpp" line="855"/>
+        <location filename="../sources/pdfmodel.cpp" line="862"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Hinting textu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="876"/>
+        <location filename="../sources/pdfmodel.cpp" line="873"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Náhľad pretlače:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="884"/>
+        <location filename="../sources/pdfmodel.cpp" line="881"/>
         <source>Solid</source>
         <translation type="unfinished">Pevné</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="885"/>
+        <location filename="../sources/pdfmodel.cpp" line="882"/>
         <source>Shaped</source>
         <translation type="unfinished">Ohraničený</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="888"/>
+        <location filename="../sources/pdfmodel.cpp" line="885"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Režim tenkej čiary:</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <source>Splash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <source>Arthur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <source>Backend:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="289"/>
-        <location filename="../sources/pluginhandler.cpp" line="329"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <location filename="../sources/pluginhandler.cpp" line="370"/>
+        <location filename="../sources/pluginhandler.cpp" line="411"/>
+        <location filename="../sources/pluginhandler.cpp" line="452"/>
         <source>Critical</source>
         <translation type="unfinished">Kritické</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="289"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Could not load PDF plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načítať PDF plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="329"/>
+        <location filename="../sources/pluginhandler.cpp" line="370"/>
         <source>Could not load PS plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načítať PostScript plugin!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="370"/>
+        <location filename="../sources/pluginhandler.cpp" line="411"/>
         <source>Could not load DjVu plug-in!</source>
         <translation type="unfinished">Nepodarilo sa načítať DjVu plugin!</translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="452"/>
+        <source>Could not load Fitz plug-in!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
