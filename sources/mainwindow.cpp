@@ -1501,6 +1501,9 @@ void MainWindow::on_about_triggered()
 #ifdef WITH_DJVU
                                                       + tr("<li>DjVu support using DjVuLibre</li>")
 #endif // WITH_DJVU
+#ifdef WITH_FITZ
+                                                      + tr("<li>PDF support using Fitz</li>")
+#endif // WITH_FITZ
 #ifdef WITH_CUPS
                                                       + tr("<li>Printing support using CUPS</li>")
 #endif // WITH_CUPS
