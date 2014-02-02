@@ -1,6 +1,9 @@
 Release 0.4.9:
   * Added experimental Fitz plug-in.
   * Added setting to choose Poppler backend.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated British English translations. Thanks Anthony Harrington.
 
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.

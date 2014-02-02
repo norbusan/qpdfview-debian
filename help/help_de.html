@@ -79,8 +79,8 @@ aktuellen Reiter. Falls kein Reiter vorhanden ist, wird die Datei in einem
 neuen Reiter geöffnet.</li>
 	<li><b>In neuem Reiter öffnen...</b> Öffnet einen Auswahldialog zum Öffnen von
 Dateien in neuen Reitern.</li>
-	<li><b>Recently used</b> Contains a list of the most recently used files (if
-enabled in the settings).</li>
+	<li><b>Zuletzt verwendet</b> Enthält eine Liste der zuletzt verwendeten Dateien
+(falls dies in den Einstellungen eingeschaltet ist).</li>
 	<li><b>Aktualisieren</b> Lädt die Datei neu, die im aktuellen Reiter angezeigt
 wird.</li>
 	<li><b>Kopie speichern...</b> Öffnet einen Auswahldialog zum Speichern einer
@@ -183,8 +183,8 @@ Reiter aktuell hervorgehoben ist.</li>
     <li><b>Alle Reiter schließen</b> Schließt alle Reiter.</li>
     <li><b>Alle Reiter bis auf den Aktuellen schließen</b> Schließt alle bis auf den
 aktuell hervorgehobenen Reiter.</li>
-    <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
-enabled in the settings).</li>
+    <li><b>Zuletzt geschlossen</b> Enthält eine Liste der zuletzt geschlossenen
+Reiter (falls dies in den Einstellungen eingeschaltet ist).</li>
 </ul>
 
 <p>Dieses Menü enthält eine Liste aller Reiter, die durch ein Klick auf den
@@ -219,39 +219,43 @@ Datei in einem neuen Reiter geöffnet.</li>
 
 <ul>
 	<li><b>Inhalt</b> Zeigt dieses Dokument an.</li>
-	<li><b>About</b> Displays the program version.</li>
+	<li><b>Über</b> Zeigt die Programmversion an.</li>
 </ul>
 
-<h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainview">Hauptansicht</a> <a href="#top">&uarr;</a></h3>
 
-<p>The backspace/space key skips to the previous/next page. The home/end key
-skips to the first/last page. The arrow, page up and page down keys scroll
-the viewport. Pressing control and return jumps to the page before the last
-jump.</p>
+<p>Die Rücktaste/Leertaste springt zur vorigen/nächsten Seite. Die
+Pos1/Ende-Taste springt zur ersten/letzten Seite. Die Pfeil-, Bild-auf- und
+Bild-ab-Tasten bewegen den Sichtbereich. Steuerung und Eingabetaste springt
+zur Seite vor dem letzten Sprung.</p>
 
-<p>Using the mouse wheel scrolls up and down. Holding <b>ALT</b> while using
-the mouse wheel scrolls left and right. Holding <b>CTRL</b> while using the
-mouse wheel scales the document. Holding <b>SHIFT</b> while using the mouse
-wheel rotates the document. (Keyboard modifiers can be changed in the
-settings dialog.)</p>
+<p>Das Mausrad rollt den Sichtbereich auf und ab. Halten von <b>ALT</b> während
+der Verwendung des Mausrads rollt den Sichtbereich nach links und
+rechts. Halten von <b>STRG</b> während der Verwendung des Mausrads skaliert
+das Dokument. Halten von <b>SHIFT</b> während der Verwendung des Mausrads
+rotiert das Dokument. (Modifikator-Tasten können in den Einstellungen
+geändert werden.</p>
 
-<p>Links are highlighted by red frames (if enabled in the settings). Left-click
-on a link to show the linked page or open the linked URL in the default
-browser (if enabled in the settings). Hovering over a link displays its
-destination as a tool tip.</p>
+<p>Links werden rot umrandet (falls dies in den Einstellungen eingeschaltet
+ist). Ein Linksklick auf einen Link zeigt die verlinkte Seite oder öffnet
+die verlinkte URL im Standard-Browser (falls dies in den Einstellungen
+eingeschaltet ist). Wird der Mauszeiger ohne Tastendruck auf einem Link
+platziert, wird das Linkziel als Tooltip angezeigt.</p>
 
-<p>Form fields are highlighted by blue frames (if enabled in the
-settings). Left-click on a form field to edit its contents. Hovering over a
-form field displays its name as a tool tip.</p>
+<p>Formularfelder werden blau umrandet (falls dies in den Einstellungen
+eingeschaltet ist). Ein Linksklick auf ein Formularfeld ermöglicht die
+Bearbeitung. Wird der Mauszeiger ohne Tastendruck auf einem Formularfeld
+platziert, wird dessen Name als Tooltip angezeigt.</p>
 
-<p>The source of a position in the document is requested by double-clicking
-which opens the first matching <em>SyncTeX</em> node using the source
-editor.</p>
+<p>Der Quelltext einer Position im Dokument wird durch einen Doppelklick
+angezeigt. Dabei wird der erste passende SyncTeX-Knoten im Quelltext-Editor
+geöffnet.</p>
 
-<p>To <em>copy texts or images</em>, hold <b>SHIFT</b>, click and hold the left
-mouse button to drag a frame around the area to copy. Once the mouse button
-is released, a pop-up menu is displayed to select whether to copy texts or
-images into the clipboard.</p>
+<p><em>In Zwischenablage kopieren:</em> Bei gedrückter <b>SHIFT</b>-Taste mit
+der linken Maustaste klicken, halten und einen Rahmen um die zu kopierende
+Fläche ziehen. Sobald die Maustaste losgelassen wird, wird ein pop-up-Menü
+angezeigt, um auszuwählen, ob Text oder Bilder in die Zwischenablage kopiert
+werden.</p>
 
 <p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
 button to drag a frame around the region of interest. Once the mouse button
@@ -354,6 +358,8 @@ on top of another is displayed.</li>
         <li><b>Text antialiasing</b> Improves text display quality at the cost of
 performance</li>
         <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
+        <li><b>Thin line mode</b> Chooses the optimization used to draw thin lines.</li>
+        <li><b>Backend</b> Chooses the backend used to render pages.</li>
     </ul>
     </li>
     <li><b>PS settings</b>
