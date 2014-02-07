@@ -3,7 +3,9 @@ Release 0.4.9:
   * Added setting to choose Poppler backend.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Slovak translations. Thanks to DAG Software.
-  * Updated British English translations. Thanks Anthony Harrington.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated French translations. Thanks to Pierre Soulat.
 
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.

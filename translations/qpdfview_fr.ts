@@ -818,17 +818,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Écran d&apos;accueil</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="894"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Backend :</translation>
     </message>
 </context>
 <context>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="428"/>
         <source>Could not load Fitz plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossible de charger le greffon Fitz !</translation>
     </message>
 </context>
 <context>

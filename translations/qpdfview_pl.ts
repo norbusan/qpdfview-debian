@@ -271,7 +271,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1510"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/ul&gt;&lt;p&gt;Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; celem uzyskania więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Programiści qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1753"/>
@@ -818,17 +818,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekran powitalny</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation>Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="894"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mechanizm:</translation>
     </message>
 </context>
 <context>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="428"/>
         <source>Could not load Fitz plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można wczytać wtyczki Fitz!</translation>
     </message>
 </context>
 <context>
@@ -1008,12 +1008,12 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz instancję</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Instancja:</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
@@ -1033,7 +1033,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa instancji musi składać się tylko ze znaków &quot;[A-Z][a-z][0-9]_&quot; i nie może zaczynać się od cyfry.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1089,7 +1089,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;statnio zamknięte</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1181,7 +1181,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowaj ostatnio zamknięte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="261"/>
@@ -1390,7 +1390,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="633"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilość ostatnio zamkniętych:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="641"/>
@@ -1435,12 +1435,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="699"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokrycie adnotacji:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="706"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokrycie pola formularza:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="766"/>
