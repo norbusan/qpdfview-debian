@@ -818,17 +818,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanıtım</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Artur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="894"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistemin arxa tərəfi</translation>
     </message>
 </context>
 <context>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="428"/>
         <source>Could not load Fitz plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fitz qoşmasını yükləmək mümkün olmadı</translation>
     </message>
 </context>
 <context>

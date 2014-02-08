@@ -261,7 +261,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1505"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF support using Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1508"/>

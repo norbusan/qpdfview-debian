@@ -261,7 +261,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1505"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PDF на основі Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1508"/>
@@ -818,17 +818,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Splash</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="891"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="894"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Модуль обробки:</translation>
     </message>
 </context>
 <context>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="428"/>
         <source>Could not load Fitz plug-in!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не вдалося завантажити додаток Fitz!</translation>
     </message>
 </context>
 <context>
