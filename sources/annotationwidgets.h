@@ -81,7 +81,7 @@ private:
     QMutex* m_mutex;
     Poppler::FileAttachmentAnnotation* m_annotation;
 
-    void save(bool open);
+    void save(bool open = false);
 
     QMenu* m_menu;
     QAction* m_saveAction;

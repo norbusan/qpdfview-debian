@@ -165,7 +165,10 @@ void FileAttachmentAnnotationWidget::save(bool open)
 
             if(open)
             {
-                QDesktopServices::openUrl(QUrl(filePath));
+                if(!QDesktopServices::openUrl(QUrl(filePath)))
+                {
+                    QMessageBox::warning(0, tr("Warning"), tr("Could not open file attachment saved to '%1'.").arg(filePath));
+                }
             }
         }
         else
