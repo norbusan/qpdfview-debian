@@ -8,6 +8,7 @@ Release 0.4.9:
   * Updated French translations. Thanks to Pierre Soulat.
   * Updated Azerbaijani translations. Thanks to Rashid Aliyev.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Malay translations. Thanks to abuyop.
 
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.

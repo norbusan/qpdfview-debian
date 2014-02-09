@@ -261,7 +261,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1505"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora PDF pomocí Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1508"/>
@@ -818,7 +818,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Úvodní obrazovka</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="891"/>
