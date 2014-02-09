@@ -58,17 +58,9 @@ private:
     QTabWidget* m_graphicsTabWidget;
     QFormLayout* m_graphicsLayout;
 
-#ifdef WITH_PDF
-
     SettingsWidget* m_pdfSettingsWidget;
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
     SettingsWidget* m_psSettingsWidget;
-
-#endif // WITH_PS
+    SettingsWidget* m_djvuSettingsWidget;
 
     QTableView* m_shortcutsTableView;
 

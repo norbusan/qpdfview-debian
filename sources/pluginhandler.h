@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGINHANDLER_H
 
 #include <QObject>
+#include <QMap>
 
 class QString;
 class QWidget;
@@ -43,19 +44,33 @@ public:
     static PluginHandler* instance();
     ~PluginHandler();
 
+    enum FileType
+    {
+        Unknown = 0,
+        PDF = 1,
+        PS = 2,
+        DjVu = 3
+    };
+
+    static QString fileTypeName(FileType fileType)
+    {
+        switch(fileType)
+        {
+        default:
+        case PluginHandler::Unknown:
+            return QLatin1String("Unknown");
+        case PluginHandler::PDF:
+            return QLatin1String("PDF");
+        case PluginHandler::PS:
+            return QLatin1String("PS");
+        case PluginHandler::DjVu:
+            return QLatin1String("DjVu");
+        }
+    }
+
     Model::Document* loadDocument(const QString& filePath);
 
-#ifdef WITH_PDF
-
-    SettingsWidget* createPdfSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    SettingsWidget* createPsSettingsWidget(QWidget* parent = 0);
-
-#endif // WITH_PS
+    SettingsWidget* createSettingsWidget(FileType fileType, QWidget* parent = 0);
 
 private:
     Q_DISABLE_COPY(PluginHandler)
@@ -63,40 +78,12 @@ private:
     static PluginHandler* s_instance;
     PluginHandler(QObject* parent = 0);
 
-    Plugin* loadPlugin(const QString& fileName);
-    Plugin* loadStaticPlugin(const QString& objectName);
+    QMap< FileType, Plugin* > m_plugins;
 
-#ifdef WITH_PDF
+    QMultiMap< FileType, QString > m_objectNames;
+    QMultiMap< FileType, QString > m_fileNames;
 
-    Plugin* m_pdfPlugin;
-
-    void loadPdfPlugin();
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    Plugin* m_psPlugin;
-
-    void loadPsPlugin();
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    Plugin* m_djvuPlugin;
-
-    void loadDjVuPlugin();
-
-#endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-
-    Plugin* m_fitzPlugin;
-
-    void loadFitzPlugin();
-
-#endif // WITH_FITZ
+    bool loadPlugin(FileType fileType);
 
 };
 

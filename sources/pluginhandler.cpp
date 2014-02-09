@@ -42,200 +42,27 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-PluginHandler* PluginHandler::s_instance = 0;
-
-PluginHandler* PluginHandler::instance()
+static Plugin* loadStaticPlugin(const QString& objectName)
 {
-    if(s_instance == 0)
+    foreach(QObject* object, QPluginLoader::staticInstances())
     {
-        s_instance = new PluginHandler(qApp);
-    }
-
-    return s_instance;
-}
-
-PluginHandler::~PluginHandler()
-{
-    s_instance = 0;
-}
-
-Model::Document* PluginHandler::loadDocument(const QString& filePath)
-{
-    enum { Unknown = 0, PDF = 1, PS = 2, DjVu = 3 } fileType = Unknown;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
-
-    if(mimeType.name() == "application/pdf")
-    {
-        fileType = PDF;
-    }
-    else if(mimeType.name() == "application/postscript")
-    {
-        fileType = PS;
-    }
-    else if(mimeType.name() == "image/vnd.djvu")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unknown file type:" << mimeType.name();
-    }
-
-#else
-
-#ifdef WITH_MAGIC
-
-    magic_t cookie = magic_open(MAGIC_MIME_TYPE | MAGIC_SYMLINK);
-
-    if(magic_load(cookie, 0) == 0)
-    {
-        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
-
-        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
+        if(object->objectName() == objectName)
         {
-            fileType = PDF;
-        }
-        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
-        {
-            fileType = PS;
-        }
-        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
-        {
-            fileType = DjVu;
-        }
-        else
-        {
-            qDebug() << "Unknown file type:" << mime_type;
+            Plugin* plugin = qobject_cast< Plugin* >(object);
+
+            if(plugin != 0)
+            {
+                return plugin;
+            }
         }
     }
 
-    magic_close(cookie);
-
-#else
-
-    const QFileInfo fileInfo(filePath);
-
-    if(fileInfo.suffix().toLower() == "pdf")
-    {
-        fileType = PDF;
-    }
-    else if(fileInfo.suffix().toLower() == "ps" || fileInfo.suffix().toLower() == "eps")
-    {
-        fileType = PS;
-    }
-    else if(fileInfo.suffix().toLower() == "djvu" || fileInfo.suffix().toLower() == "djv")
-    {
-        fileType = DjVu;
-    }
-    else
-    {
-        qDebug() << "Unkown file type:" << fileInfo.suffix().toLower();
-    }
-
-#endif // WITH_MAGIC
-
-#endif // QT_VERSION
-
-#ifdef WITH_PDF
-
-    if(fileType == PDF)
-    {
-        loadPdfPlugin();
-
-        return m_pdfPlugin != 0 ? m_pdfPlugin->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(fileType == PS)
-    {
-        loadPsPlugin();
-
-        return m_psPlugin != 0 ? m_psPlugin->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    if(fileType == DjVu)
-    {
-        loadDjVuPlugin();
-
-        return m_djvuPlugin != 0 ? m_djvuPlugin->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-
-    if(fileType == PDF)
-    {
-        loadFitzPlugin();
-
-        return m_fitzPlugin != 0 ? m_fitzPlugin->loadDocument(filePath) : 0;
-    }
-
-#endif // WITH_FITZ
+    qCritical() << "Could not load static plug-in:" << objectName;
 
     return 0;
 }
 
-#ifdef WITH_PDF
-
-SettingsWidget* PluginHandler::createPdfSettingsWidget(QWidget* parent)
-{
-    loadPdfPlugin();
-
-    return m_pdfPlugin != 0 ? m_pdfPlugin->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-SettingsWidget* PluginHandler::createPsSettingsWidget(QWidget* parent)
-{
-    loadPsPlugin();
-
-    return m_psPlugin != 0 ? m_psPlugin->createSettingsWidget(parent) : 0;
-}
-
-#endif // WITH_PS
-
-PluginHandler::PluginHandler(QObject* parent) : QObject(parent)
-{
-#ifdef WITH_PDF
-
-    m_pdfPlugin = 0;
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    m_psPlugin = 0;
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    m_djvuPlugin = 0;
-
-#endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-
-    m_fitzPlugin = 0;
-
-#endif // WITH_FITZ
-}
-
-Plugin* PluginHandler::loadPlugin(const QString& fileName)
+static Plugin* loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
@@ -269,185 +96,231 @@ Plugin* PluginHandler::loadPlugin(const QString& fileName)
     return plugin;
 }
 
-Plugin* PluginHandler::loadStaticPlugin(const QString& objectName)
+static PluginHandler::FileType matchFileType(const QString& filePath)
 {
-    foreach(QObject* object, QPluginLoader::staticInstances())
-    {
-        if(object->objectName() == objectName)
-        {
-            Plugin* plugin = qobject_cast< Plugin* >(object);
+    PluginHandler::FileType fileType = PluginHandler::Unknown;
 
-            if(plugin != 0)
-            {
-                return plugin;
-            }
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
+
+    if(mimeType.name() == QLatin1String("application/pdf"))
+    {
+        fileType = PluginHandler::PDF;
+    }
+    else if(mimeType.name() == QLatin1String("application/postscript"))
+    {
+        fileType = PluginHandler::PS;
+    }
+    else if(mimeType.name() == QLatin1String("image/vnd.djvu"))
+    {
+        fileType = PluginHandler::DjVu;
+    }
+    else
+    {
+        qDebug() << "Unknown MIME type:" << mimeType.name();
+    }
+
+#else
+
+#ifdef WITH_MAGIC
+
+    magic_t cookie = magic_open(MAGIC_MIME_TYPE | MAGIC_SYMLINK);
+
+    if(magic_load(cookie, 0) == 0)
+    {
+        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
+
+        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
+        {
+            fileType = PluginHandler::PDF;
+        }
+        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
+        {
+            fileType = PluginHandler::PS;
+        }
+        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
+        {
+            fileType = PluginHandler::DjVu;
+        }
+        else
+        {
+            qDebug() << "Unknown MIME type:" << mime_type;
         }
     }
 
-    qCritical() << "Could not load static plug-in:" << objectName;
+    magic_close(cookie);
+
+#else
+
+    const QFileInfo fileInfo(filePath);
+
+    if(fileInfo.suffix().toLower() == QLatin1String("pdf"))
+    {
+        fileType = PluginHandler::PDF;
+    }
+    else if(fileInfo.suffix().toLower() == QLatin1String("ps") || fileInfo.suffix().toLower() == QLatin1String("eps"))
+    {
+        fileType = PluginHandler::PS;
+    }
+    else if(fileInfo.suffix().toLower() == QLatin1String("djvu") || fileInfo.suffix().toLower() == QLatin1String("djv"))
+    {
+        fileType = PluginHandler::DjVu;
+    }
+    else
+    {
+        qDebug() << "Unkown file suffix:" << fileInfo.suffix().toLower();
+    }
+
+#endif // WITH_MAGIC
+
+#endif // QT_VERSION
+
+    return fileType;
+}
+
+PluginHandler* PluginHandler::s_instance = 0;
+
+PluginHandler* PluginHandler::instance()
+{
+    if(s_instance == 0)
+    {
+        s_instance = new PluginHandler(qApp);
+    }
+
+    return s_instance;
+}
+
+PluginHandler::~PluginHandler()
+{
+    s_instance = 0;
+}
+
+Model::Document* PluginHandler::loadDocument(const QString& filePath)
+{
+    FileType fileType = matchFileType(filePath);
+
+    if(fileType == Unknown)
+    {
+        QMessageBox::warning(0, tr("Warning"), tr("Could not match file type of '%1'!").arg(filePath));
+
+        return 0;
+    }
+
+    if(loadPlugin(fileType))
+    {
+        return m_plugins.value(fileType)->loadDocument(filePath);
+    }
+
+    QMessageBox::critical(0, tr("Critical"), tr("Could not load plug-in for file type '%1'!").arg(fileTypeName(fileType)));
 
     return 0;
 }
 
-
-#ifdef WITH_PDF
-
-#ifdef STATIC_PDF_PLUGIN
-
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-
-Q_IMPORT_PLUGIN(qpdfview_pdf)
-
-#else
-
-Q_IMPORT_PLUGIN(PdfPlugin)
-
-#endif // QT_VERSION
-
-#endif // STATIC_PDF_PLUGIN
-
-void PluginHandler::loadPdfPlugin()
+SettingsWidget* PluginHandler::createSettingsWidget(FileType fileType, QWidget* parent)
 {
-    if(m_pdfPlugin == 0)
-    {
-#ifndef STATIC_PDF_PLUGIN
-        Plugin* pdfPlugin = loadPlugin(PDF_PLUGIN_NAME);
-#else
-        Plugin* pdfPlugin = loadStaticPlugin("PdfPlugin");
-#endif // STATIC_PDF_PLUGIN
-
-        if(pdfPlugin != 0)
-        {
-            m_pdfPlugin = pdfPlugin;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PDF plug-in!"));
-        }
-    }
+    return loadPlugin(fileType) ? m_plugins.value(fileType)->createSettingsWidget(parent) : 0;
 }
 
+PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
+    m_plugins()
+{
+#ifdef WITH_PDF
+    #ifdef STATIC_PDF_PLUGIN
+        m_objectNames.insertMulti(PDF, QLatin1String("PdfPlugin"));
+    #else
+        m_fileNames.insertMulti(PDF, PDF_PLUGIN_NAME);
+    #endif // STATIC_PDF_PLUGIN
 #endif // WITH_PDF
 
-
 #ifdef WITH_PS
-
 #ifdef STATIC_PS_PLUGIN
-
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-
-Q_IMPORT_PLUGIN(qpdfview_ps)
-
+    m_objectNames.insertMulti(PS, QLatin1String("PsPlugin"));
 #else
-
-Q_IMPORT_PLUGIN(PsPlugin)
-
-#endif // QT_VERSION
-
+    m_fileNames.insertMulti(PS, PS_PLUGIN_NAME);
 #endif // STATIC_PS_PLUGIN
-
-void PluginHandler::loadPsPlugin()
-{
-    if(m_psPlugin == 0)
-    {
-#ifndef STATIC_PS_PLUGIN
-        Plugin* psPlugin = loadPlugin(PS_PLUGIN_NAME);
-#else
-        Plugin* psPlugin = loadStaticPlugin("PsPlugin");
-#endif // STATIC_PS_PLUGIN
-
-        if(psPlugin != 0)
-        {
-            m_psPlugin = psPlugin;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load PS plug-in!"));
-        }
-
-    }
-}
-
 #endif // WITH_PS
 
-
 #ifdef WITH_DJVU
-
 #ifdef STATIC_DJVU_PLUGIN
-
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-
-Q_IMPORT_PLUGIN(qpdfview_djvu)
-
+    m_objectNames.insertMulti(DjVu, QLatin1String("DjVuPlugin"));
 #else
-
-Q_IMPORT_PLUGIN(DjvuPlugin)
-
-#endif // QT_VERSION
-
+    m_fileNames.insertMulti(DjVu, DJVU_PLUGIN_NAME);
 #endif // STATIC_DJVU_PLUGIN
-
-void PluginHandler::loadDjVuPlugin()
-{
-    if(m_djvuPlugin == 0)
-    {
-#ifndef STATIC_DJVU_PLUGIN
-        Plugin* djvuPlugin = loadPlugin(DJVU_PLUGIN_NAME);
-#else
-        Plugin* djvuPlugin = loadStaticPlugin("DjVuPlugin");
-#endif // STATIC_DJVU_PLUGIN
-
-        if(djvuPlugin != 0)
-        {
-            m_djvuPlugin = djvuPlugin;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load DjVu plug-in!"));
-        }
-
-    }
-}
-
 #endif // WITH_DJVU
 
-
 #ifdef WITH_FITZ
-
 #ifdef STATIC_FITZ_PLUGIN
-
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-
-Q_IMPORT_PLUGIN(qpdfview_fitz)
-
+    m_objectNames.insertMulti(PDF, QLatin1String("FitzPlugin"));
 #else
-
-Q_IMPORT_PLUGIN(FitzPlugin)
-
-#endif // QT_VERSION
-
+    m_fileNames.insertMulti(PDF, FITZ_PLUGIN_NAME);
 #endif // STATIC_FITZ_PLUGIN
-
-void PluginHandler::loadFitzPlugin()
-{
-    if(m_fitzPlugin == 0)
-    {
-#ifndef STATIC_FITZ_PLUGIN
-        Plugin* fitzPlugin = loadPlugin(FITZ_PLUGIN_NAME);
-#else
-        Plugin* fitzPlugin = loadStaticPlugin("FitzPlugin");
-#endif // STATIC_FITZ_PLUGIN
-
-        if(fitzPlugin != 0)
-        {
-            m_fitzPlugin = fitzPlugin;
-        }
-        else
-        {
-            QMessageBox::critical(0, tr("Critical"), tr("Could not load Fitz plug-in!"));
-        }
-
-    }
+#endif // WITH_FITZ
 }
 
-#endif // WITH_FITZ
+#ifdef STATIC_PDF_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_pdf)
+    #else
+        Q_IMPORT_PLUGIN(PdfPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_PDF_PLUGIN
+
+#ifdef STATIC_PS_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_ps)
+    #else
+        Q_IMPORT_PLUGIN(PsPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_PS_PLUGIN
+
+#ifdef STATIC_DJVU_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_djvu)
+    #else
+        Q_IMPORT_PLUGIN(DjvuPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_DJVU_PLUGIN
+
+#ifdef STATIC_FITZ_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_fitz)
+    #else
+        Q_IMPORT_PLUGIN(FitzPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_FITZ_PLUGIN
+
+bool PluginHandler::loadPlugin(FileType fileType)
+{
+    if(m_plugins.contains(fileType))
+    {
+        return true;
+    }
+
+    foreach(const QString& objectName, m_objectNames.values(fileType))
+    {
+        Plugin* plugin = ::loadStaticPlugin(objectName);
+
+        if(plugin != 0)
+        {
+            m_plugins.insert(fileType, plugin);
+
+            return true;
+        }
+    }
+
+    foreach(const QString& fileName, m_fileNames.values(fileType))
+    {
+        Plugin* plugin = ::loadPlugin(fileName);
+
+        if(plugin != 0)
+        {
+            m_plugins.insert(fileType, plugin);
+
+            return true;
+        }
+    }
+
+    return false;
+}
+

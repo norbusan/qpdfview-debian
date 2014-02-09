@@ -39,6 +39,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "miscellaneous.h"
 
+static void addSettingsWidget(QTabWidget* tabWidget, SettingsWidget*& settingsWidget, PluginHandler::FileType fileType)
+{
+    settingsWidget = PluginHandler::instance()->createSettingsWidget(fileType, tabWidget);
+
+    if(settingsWidget != 0)
+    {
+        tabWidget->addTab(settingsWidget, PluginHandler::fileTypeName(fileType));
+    }
+}
+
 static void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
 {
     comboBox->lineEdit()->setText(color.isValid() ? color.name() : QString());
@@ -73,27 +83,9 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     m_graphicsTabWidget = new QTabWidget(this);
     m_graphicsTabWidget->addTab(new QWidget(this), tr("General"));
 
-#ifdef WITH_PDF
-
-    m_pdfSettingsWidget = PluginHandler::instance()->createPdfSettingsWidget(this);
-
-    if(m_pdfSettingsWidget != 0)
-    {
-        m_graphicsTabWidget->addTab(m_pdfSettingsWidget, "PDF");
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    m_psSettingsWidget = PluginHandler::instance()->createPsSettingsWidget(this);
-
-    if(m_psSettingsWidget != 0)
-    {
-        m_graphicsTabWidget->addTab(m_psSettingsWidget, "PS");
-    }
-
-#endif // WITH_PS
+    addSettingsWidget(m_graphicsTabWidget, m_pdfSettingsWidget, PluginHandler::PDF);
+    addSettingsWidget(m_graphicsTabWidget, m_psSettingsWidget, PluginHandler::PS);
+    addSettingsWidget(m_graphicsTabWidget, m_djvuSettingsWidget, PluginHandler::DjVu);
 
     m_graphicsLayout = new QFormLayout(m_graphicsTabWidget->widget(0));
 
@@ -159,24 +151,6 @@ void SettingsDialog::accept()
     acceptBehaivorTab();
 
     acceptGraphicsTab();
-
-#ifdef WITH_PDF
-
-    if(m_pdfSettingsWidget != 0)
-    {
-        m_pdfSettingsWidget->accept();
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(m_psSettingsWidget != 0)
-    {
-        m_psSettingsWidget->accept();
-    }
-
-#endif // WITH_PS
 
     acceptInterfaceTab();
 
@@ -534,28 +508,25 @@ void SettingsDialog::acceptGraphicsTab()
     s_settings->pageItem().setCacheSize(m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()).toInt());
     s_settings->documentView().setPrefetch(m_prefetchCheckBox->isChecked());
     s_settings->documentView().setPrefetchDistance(m_prefetchDistanceSpinBox->value());
+
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_pdfSettingsWidget->accept();
+    }
+
+    if(m_psSettingsWidget != 0)
+    {
+        m_psSettingsWidget->accept();
+    }
+
+    if(m_djvuSettingsWidget != 0)
+    {
+        m_djvuSettingsWidget->accept();
+    }
 }
 
 void SettingsDialog::resetGraphicsTab()
 {
-#ifdef WITH_PDF
-
-    if(m_pdfSettingsWidget != 0)
-    {
-        m_pdfSettingsWidget->reset();
-    }
-
-#endif // WITH_PDF
-
-#ifdef WITH_PS
-
-    if(m_psSettingsWidget != 0)
-    {
-        m_psSettingsWidget->reset();
-    }
-
-#endif // WITH_PS
-
     m_keepObsoletePixmapsCheckBox->setChecked(Defaults::PageItem::keepObsoletePixmaps());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -582,6 +553,21 @@ void SettingsDialog::resetGraphicsTab()
     m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
     m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
     m_prefetchDistanceSpinBox->setValue(Defaults::DocumentView::prefetchDistance());
+
+    if(m_pdfSettingsWidget != 0)
+    {
+        m_pdfSettingsWidget->reset();
+    }
+
+    if(m_psSettingsWidget != 0)
+    {
+        m_psSettingsWidget->reset();
+    }
+
+    if(m_djvuSettingsWidget != 0)
+    {
+        m_djvuSettingsWidget->reset();
+    }
 }
 
 void SettingsDialog::createInterfaceTab()
