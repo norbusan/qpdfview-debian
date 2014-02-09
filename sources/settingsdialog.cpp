@@ -75,7 +75,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
 #ifdef WITH_PDF
 
-    m_pdfSettingsWidget = PluginHandler::createPdfSettingsWidget(this);
+    m_pdfSettingsWidget = PluginHandler::instance()->createPdfSettingsWidget(this);
 
     if(m_pdfSettingsWidget != 0)
     {
@@ -86,7 +86,7 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
 #ifdef WITH_PS
 
-    m_psSettingsWidget = PluginHandler::createPsSettingsWidget(this);
+    m_psSettingsWidget = PluginHandler::instance()->createPsSettingsWidget(this);
 
     if(m_psSettingsWidget != 0)
     {

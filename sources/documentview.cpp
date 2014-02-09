@@ -439,7 +439,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Model::Document* document = PluginHandler::loadDocument(filePath);
+    Model::Document* document = PluginHandler::instance()->loadDocument(filePath);
 
     if(document != 0)
     {
@@ -482,7 +482,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Model::Document* document = PluginHandler::loadDocument(m_fileInfo.filePath());
+    Model::Document* document = PluginHandler::instance()->loadDocument(m_fileInfo.filePath());
 
     if(document != 0)
     {

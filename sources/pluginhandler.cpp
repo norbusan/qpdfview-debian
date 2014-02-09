@@ -42,29 +42,22 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-#ifdef WITH_PDF
+PluginHandler* PluginHandler::s_instance = 0;
 
-Plugin* PluginHandler::s_pdfPlugin = 0;
+PluginHandler* PluginHandler::instance()
+{
+    if(s_instance == 0)
+    {
+        s_instance = new PluginHandler(qApp);
+    }
 
-#endif // WITH_PDF
+    return s_instance;
+}
 
-#ifdef WITH_PS
-
-Plugin* PluginHandler::s_psPlugin = 0;
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-Plugin* PluginHandler::s_djvuPlugin = 0;
-
-#endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-
-Plugin* PluginHandler::s_fitzPlugin = 0;
-
-#endif // WITH_FITZ
+PluginHandler::~PluginHandler()
+{
+    s_instance = 0;
+}
 
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
@@ -152,7 +145,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         loadPdfPlugin();
 
-        return s_pdfPlugin != 0 ? s_pdfPlugin->loadDocument(filePath) : 0;
+        return m_pdfPlugin != 0 ? m_pdfPlugin->loadDocument(filePath) : 0;
     }
 
 #endif // WITH_PDF
@@ -163,7 +156,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         loadPsPlugin();
 
-        return s_psPlugin != 0 ? s_psPlugin->loadDocument(filePath) : 0;
+        return m_psPlugin != 0 ? m_psPlugin->loadDocument(filePath) : 0;
     }
 
 #endif // WITH_PS
@@ -174,7 +167,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         loadDjVuPlugin();
 
-        return s_djvuPlugin != 0 ? s_djvuPlugin->loadDocument(filePath) : 0;
+        return m_djvuPlugin != 0 ? m_djvuPlugin->loadDocument(filePath) : 0;
     }
 
 #endif // WITH_DJVU
@@ -185,7 +178,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
     {
         loadFitzPlugin();
 
-        return s_fitzPlugin != 0 ? s_fitzPlugin->loadDocument(filePath) : 0;
+        return m_fitzPlugin != 0 ? m_fitzPlugin->loadDocument(filePath) : 0;
     }
 
 #endif // WITH_FITZ
@@ -199,7 +192,7 @@ SettingsWidget* PluginHandler::createPdfSettingsWidget(QWidget* parent)
 {
     loadPdfPlugin();
 
-    return s_pdfPlugin != 0 ? s_pdfPlugin->createSettingsWidget(parent) : 0;
+    return m_pdfPlugin != 0 ? m_pdfPlugin->createSettingsWidget(parent) : 0;
 }
 
 #endif // WITH_PDF
@@ -210,11 +203,37 @@ SettingsWidget* PluginHandler::createPsSettingsWidget(QWidget* parent)
 {
     loadPsPlugin();
 
-    return s_psPlugin != 0 ? s_psPlugin->createSettingsWidget(parent) : 0;
+    return m_psPlugin != 0 ? m_psPlugin->createSettingsWidget(parent) : 0;
 }
 
 #endif // WITH_PS
 
+PluginHandler::PluginHandler(QObject* parent) : QObject(parent)
+{
+#ifdef WITH_PDF
+
+    m_pdfPlugin = 0;
+
+#endif // WITH_PDF
+
+#ifdef WITH_PS
+
+    m_psPlugin = 0;
+
+#endif // WITH_PS
+
+#ifdef WITH_DJVU
+
+    m_djvuPlugin = 0;
+
+#endif // WITH_DJVU
+
+#ifdef WITH_FITZ
+
+    m_fitzPlugin = 0;
+
+#endif // WITH_FITZ
+}
 
 Plugin* PluginHandler::loadPlugin(const QString& fileName)
 {
@@ -289,7 +308,7 @@ Q_IMPORT_PLUGIN(PdfPlugin)
 
 void PluginHandler::loadPdfPlugin()
 {
-    if(s_pdfPlugin == 0)
+    if(m_pdfPlugin == 0)
     {
 #ifndef STATIC_PDF_PLUGIN
         Plugin* pdfPlugin = loadPlugin(PDF_PLUGIN_NAME);
@@ -299,7 +318,7 @@ void PluginHandler::loadPdfPlugin()
 
         if(pdfPlugin != 0)
         {
-            s_pdfPlugin = pdfPlugin;
+            m_pdfPlugin = pdfPlugin;
         }
         else
         {
@@ -329,7 +348,7 @@ Q_IMPORT_PLUGIN(PsPlugin)
 
 void PluginHandler::loadPsPlugin()
 {
-    if(s_psPlugin == 0)
+    if(m_psPlugin == 0)
     {
 #ifndef STATIC_PS_PLUGIN
         Plugin* psPlugin = loadPlugin(PS_PLUGIN_NAME);
@@ -339,7 +358,7 @@ void PluginHandler::loadPsPlugin()
 
         if(psPlugin != 0)
         {
-            s_psPlugin = psPlugin;
+            m_psPlugin = psPlugin;
         }
         else
         {
@@ -370,7 +389,7 @@ Q_IMPORT_PLUGIN(DjvuPlugin)
 
 void PluginHandler::loadDjVuPlugin()
 {
-    if(s_djvuPlugin == 0)
+    if(m_djvuPlugin == 0)
     {
 #ifndef STATIC_DJVU_PLUGIN
         Plugin* djvuPlugin = loadPlugin(DJVU_PLUGIN_NAME);
@@ -380,7 +399,7 @@ void PluginHandler::loadDjVuPlugin()
 
         if(djvuPlugin != 0)
         {
-            s_djvuPlugin = djvuPlugin;
+            m_djvuPlugin = djvuPlugin;
         }
         else
         {
@@ -411,7 +430,7 @@ Q_IMPORT_PLUGIN(FitzPlugin)
 
 void PluginHandler::loadFitzPlugin()
 {
-    if(s_fitzPlugin == 0)
+    if(m_fitzPlugin == 0)
     {
 #ifndef STATIC_FITZ_PLUGIN
         Plugin* fitzPlugin = loadPlugin(FITZ_PLUGIN_NAME);
@@ -421,7 +440,7 @@ void PluginHandler::loadFitzPlugin()
 
         if(fitzPlugin != 0)
         {
-            s_fitzPlugin = fitzPlugin;
+            m_fitzPlugin = fitzPlugin;
         }
         else
         {

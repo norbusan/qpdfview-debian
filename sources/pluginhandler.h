@@ -22,7 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PLUGINHANDLER_H
 #define PLUGINHANDLER_H
 
-#include <QCoreApplication>
+#include <QObject>
 
 class QString;
 class QWidget;
@@ -35,61 +35,66 @@ class Document;
 class SettingsWidget;
 class Plugin;
 
-class PluginHandler
+class PluginHandler : public QObject
 {
-    Q_DECLARE_TR_FUNCTIONS(PluginHandler)
+    Q_OBJECT
 
 public:
+    static PluginHandler* instance();
+    ~PluginHandler();
 
-    static Model::Document* loadDocument(const QString& filePath);
+    Model::Document* loadDocument(const QString& filePath);
 
 #ifdef WITH_PDF
 
-    static SettingsWidget* createPdfSettingsWidget(QWidget* parent = 0);
+    SettingsWidget* createPdfSettingsWidget(QWidget* parent = 0);
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    static SettingsWidget* createPsSettingsWidget(QWidget* parent = 0);
+    SettingsWidget* createPsSettingsWidget(QWidget* parent = 0);
 
 #endif // WITH_PS
 
 private:
-    PluginHandler() {}
+    Q_DISABLE_COPY(PluginHandler)
 
-    static Plugin* loadPlugin(const QString& fileName);
-    static Plugin* loadStaticPlugin(const QString& objectName);
+    static PluginHandler* s_instance;
+    PluginHandler(QObject* parent = 0);
+
+    Plugin* loadPlugin(const QString& fileName);
+    Plugin* loadStaticPlugin(const QString& objectName);
 
 #ifdef WITH_PDF
 
-    static Plugin* s_pdfPlugin;
+    Plugin* m_pdfPlugin;
 
-    static void loadPdfPlugin();
+    void loadPdfPlugin();
 
 #endif // WITH_PDF
 
 #ifdef WITH_PS
 
-    static Plugin* s_psPlugin;
+    Plugin* m_psPlugin;
 
-    static void loadPsPlugin();
+    void loadPsPlugin();
 
 #endif // WITH_PS
 
 #ifdef WITH_DJVU
 
-    static Plugin* s_djvuPlugin;
+    Plugin* m_djvuPlugin;
 
-    static void loadDjVuPlugin();
+    void loadDjVuPlugin();
 
 #endif // WITH_DJVU
 
 #ifdef WITH_FITZ
 
-    static Plugin* s_fitzPlugin;
+    Plugin* m_fitzPlugin;
 
-    static void loadFitzPlugin();
+    void loadFitzPlugin();
 
 #endif // WITH_FITZ
 
