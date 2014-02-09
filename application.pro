@@ -152,9 +152,6 @@ with_fitz {
         LIBS += $$FITZ_PLUGIN_NAME
         PRE_TARGETDEPS += $$FITZ_PLUGIN_NAME
 
-        DEFINES += $$FITZ_PLUGIN_DEFINES
-        INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
-
         isEmpty(FITZ_PLUGIN_LIBS) {
             LIBS += -lmupdf -lmupdf-js-none -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm
         } else {
