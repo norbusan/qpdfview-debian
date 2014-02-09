@@ -95,12 +95,18 @@
         <translation type="unfinished">Lưu tệp đính kèm</translation>
     </message>
     <message>
-        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <location filename="../sources/annotationwidgets.cpp" line="170"/>
+        <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Warning</source>
         <translation type="unfinished">Cảnh báo</translation>
     </message>
     <message>
-        <location filename="../sources/annotationwidgets.cpp" line="173"/>
+        <location filename="../sources/annotationwidgets.cpp" line="170"/>
+        <source>Could not open file attachment saved to &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
         <translation type="unfinished">Không thể lưu tệp đính kèm cho &apos;%1&apos;.</translation>
     </message>
@@ -834,31 +840,23 @@
 <context>
     <name>PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="306"/>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
-        <location filename="../sources/pluginhandler.cpp" line="387"/>
-        <location filename="../sources/pluginhandler.cpp" line="428"/>
+        <location filename="../sources/pluginhandler.cpp" line="205"/>
+        <source>Warning</source>
+        <translation type="unfinished">Cảnh báo</translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="205"/>
+        <source>Could not match file type of &apos;%1&apos;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Critical</source>
         <translation type="unfinished">Xung đột</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="306"/>
-        <source>Could not load PDF plug-in!</source>
-        <translation type="unfinished">Không thể tải phần bổ trợ PDF!</translation>
-    </message>
-    <message>
-        <location filename="../sources/pluginhandler.cpp" line="346"/>
-        <source>Could not load PS plug-in!</source>
-        <translation type="unfinished">Không thể tải phần bổ trợ PS!</translation>
-    </message>
-    <message>
-        <location filename="../sources/pluginhandler.cpp" line="387"/>
-        <source>Could not load DjVu plug-in!</source>
-        <translation type="unfinished">Không thể tải phần bổ trợ DjVu!</translation>
-    </message>
-    <message>
-        <location filename="../sources/pluginhandler.cpp" line="428"/>
-        <source>Could not load Fitz plug-in!</source>
+        <location filename="../sources/pluginhandler.cpp" line="215"/>
+        <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1054,32 +1052,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="826"/>
+        <location filename="../sources/settingsdialog.cpp" line="812"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="827"/>
+        <location filename="../sources/settingsdialog.cpp" line="813"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="828"/>
+        <location filename="../sources/settingsdialog.cpp" line="814"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="829"/>
+        <location filename="../sources/settingsdialog.cpp" line="815"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift và Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="830"/>
+        <location filename="../sources/settingsdialog.cpp" line="816"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift và Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="831"/>
+        <location filename="../sources/settingsdialog.cpp" line="817"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl và Alt</translation>
     </message>
@@ -1113,357 +1111,357 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="74"/>
+        <location filename="../sources/settingsdialog.cpp" line="84"/>
         <source>General</source>
         <translation type="unfinished">Chung</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="125"/>
+        <location filename="../sources/settingsdialog.cpp" line="117"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Hành vi</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="126"/>
+        <location filename="../sources/settingsdialog.cpp" line="118"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">Đồ &amp;họa</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="127"/>
+        <location filename="../sources/settingsdialog.cpp" line="119"/>
         <source>&amp;Interface</source>
         <translation type="unfinished">&amp;Giao diện</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="128"/>
+        <location filename="../sources/settingsdialog.cpp" line="120"/>
         <source>&amp;Shortcuts</source>
         <translation type="unfinished">&amp;Phím tắt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="129"/>
+        <location filename="../sources/settingsdialog.cpp" line="121"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Bổ trợ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="135"/>
+        <location filename="../sources/settingsdialog.cpp" line="127"/>
         <source>Defaults</source>
         <translation type="unfinished">Mặc định</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="138"/>
+        <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Defaults on current tab</source>
         <translation type="unfinished">Mặc định từ thẻ này</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="231"/>
+        <location filename="../sources/settingsdialog.cpp" line="205"/>
         <source>Open URL:</source>
         <translation type="unfinished">Mở URL:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="238"/>
+        <location filename="../sources/settingsdialog.cpp" line="212"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Tự làm tươi:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="244"/>
-        <location filename="../sources/settingsdialog.cpp" line="252"/>
-        <location filename="../sources/settingsdialog.cpp" line="622"/>
-        <location filename="../sources/settingsdialog.cpp" line="631"/>
-        <location filename="../sources/settingsdialog.cpp" line="639"/>
-        <location filename="../sources/settingsdialog.cpp" line="647"/>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="218"/>
+        <location filename="../sources/settingsdialog.cpp" line="226"/>
+        <location filename="../sources/settingsdialog.cpp" line="608"/>
+        <location filename="../sources/settingsdialog.cpp" line="617"/>
+        <location filename="../sources/settingsdialog.cpp" line="625"/>
+        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="641"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Có hiệu lực sau khi khởi động lại</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="246"/>
+        <location filename="../sources/settingsdialog.cpp" line="220"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Khe hiện tại được sử dụng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <location filename="../sources/settingsdialog.cpp" line="228"/>
         <source>Keep recently closed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="261"/>
+        <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Khôi phục thẻ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="242"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Khôi phục đánh dấu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="275"/>
+        <location filename="../sources/settingsdialog.cpp" line="249"/>
         <source>Restore per-file settings:</source>
         <translation type="unfinished">Khôi phục thiết đặt mỗi tệp:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Đồng bộ hóa trình chiếu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="296"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Default</source>
         <translation type="unfinished">Mặc định</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="299"/>
+        <location filename="../sources/settingsdialog.cpp" line="273"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Màn hình trình chiếu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="307"/>
+        <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>None</source>
         <translation type="unfinished">Trống</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Thời gian tô sáng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="316"/>
+        <location filename="../sources/settingsdialog.cpp" line="290"/>
         <source>Highlight color:</source>
         <translation type="unfinished">Màu tô sáng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="322"/>
+        <location filename="../sources/settingsdialog.cpp" line="296"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Màu ghi chú:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="328"/>
+        <location filename="../sources/settingsdialog.cpp" line="302"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; được thay bằng đường dẫn tập tin tuyệt đối. &apos;%2&apos; resp. &apos;%3&apos; được thay thế bằng dòng resp. số cột.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="330"/>
+        <location filename="../sources/settingsdialog.cpp" line="304"/>
         <source>Source editor:</source>
         <translation type="unfinished">Soạn thảo mã nguồn:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
+        <location filename="../sources/settingsdialog.cpp" line="360"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished">Giữ pixmap lỗi thời:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="395"/>
+        <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Sử dụng tỉ lệ pixel của thiết bị</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="404"/>
+        <location filename="../sources/settingsdialog.cpp" line="378"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Decorate pages:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="411"/>
+        <location filename="../sources/settingsdialog.cpp" line="385"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Decorate links:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="418"/>
+        <location filename="../sources/settingsdialog.cpp" line="392"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Decorate form fields:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="424"/>
+        <location filename="../sources/settingsdialog.cpp" line="398"/>
         <source>Background color:</source>
         <translation type="unfinished">Màu nền:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="430"/>
+        <location filename="../sources/settingsdialog.cpp" line="404"/>
         <source>Paper color:</source>
         <translation type="unfinished">Màu giấy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="436"/>
+        <location filename="../sources/settingsdialog.cpp" line="410"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Màu nền trình chiếu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="444"/>
+        <location filename="../sources/settingsdialog.cpp" line="418"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Số trang mỗi dòng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="454"/>
+        <location filename="../sources/settingsdialog.cpp" line="428"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Khoảng cách trang:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="464"/>
+        <location filename="../sources/settingsdialog.cpp" line="438"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Khoảng cách hình thu nhỏ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="474"/>
+        <location filename="../sources/settingsdialog.cpp" line="448"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Kích cỡ hình thu nhỏ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="479"/>
-        <location filename="../sources/settingsdialog.cpp" line="480"/>
-        <location filename="../sources/settingsdialog.cpp" line="481"/>
-        <location filename="../sources/settingsdialog.cpp" line="482"/>
-        <location filename="../sources/settingsdialog.cpp" line="483"/>
-        <location filename="../sources/settingsdialog.cpp" line="484"/>
-        <location filename="../sources/settingsdialog.cpp" line="485"/>
-        <location filename="../sources/settingsdialog.cpp" line="486"/>
-        <location filename="../sources/settingsdialog.cpp" line="487"/>
-        <location filename="../sources/settingsdialog.cpp" line="488"/>
+        <location filename="../sources/settingsdialog.cpp" line="453"/>
+        <location filename="../sources/settingsdialog.cpp" line="454"/>
+        <location filename="../sources/settingsdialog.cpp" line="455"/>
+        <location filename="../sources/settingsdialog.cpp" line="456"/>
+        <location filename="../sources/settingsdialog.cpp" line="457"/>
+        <location filename="../sources/settingsdialog.cpp" line="458"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <location filename="../sources/settingsdialog.cpp" line="460"/>
+        <location filename="../sources/settingsdialog.cpp" line="461"/>
+        <location filename="../sources/settingsdialog.cpp" line="462"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 Mb</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="491"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Cache size:</source>
         <translation type="unfinished">Kích thước đệm</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="498"/>
+        <location filename="../sources/settingsdialog.cpp" line="472"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Prefetch:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="506"/>
+        <location filename="../sources/settingsdialog.cpp" line="480"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Prefetch distance:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="592"/>
+        <location filename="../sources/settingsdialog.cpp" line="578"/>
         <source>Top</source>
         <translation type="unfinished">Trên</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="593"/>
+        <location filename="../sources/settingsdialog.cpp" line="579"/>
         <source>Bottom</source>
         <translation type="unfinished">Dưới</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="594"/>
+        <location filename="../sources/settingsdialog.cpp" line="580"/>
         <source>Left</source>
         <translation type="unfinished">Trái</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="595"/>
+        <location filename="../sources/settingsdialog.cpp" line="581"/>
         <source>Right</source>
         <translation type="unfinished">Phải</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="598"/>
+        <location filename="../sources/settingsdialog.cpp" line="584"/>
         <source>Tab position:</source>
         <translation type="unfinished">Vị trí thẻ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="603"/>
+        <location filename="../sources/settingsdialog.cpp" line="589"/>
         <source>As needed</source>
         <translation type="unfinished">Nếu cần thiết</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="604"/>
+        <location filename="../sources/settingsdialog.cpp" line="590"/>
         <source>Always</source>
         <translation type="unfinished">Luôn luôn</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="605"/>
+        <location filename="../sources/settingsdialog.cpp" line="591"/>
         <source>Never</source>
         <translation type="unfinished">Không bao giờ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="608"/>
+        <location filename="../sources/settingsdialog.cpp" line="594"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Ẩn thẻ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="615"/>
+        <location filename="../sources/settingsdialog.cpp" line="601"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Thẻ mới đến thẻ này:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="624"/>
+        <location filename="../sources/settingsdialog.cpp" line="610"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Đếm số hiện tại đang sử dụng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="619"/>
         <source>Recently closed count:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="641"/>
+        <location filename="../sources/settingsdialog.cpp" line="627"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Thanh công cụ tệp:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="649"/>
+        <location filename="../sources/settingsdialog.cpp" line="635"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Thanh công cụ chỉnh sửa:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="643"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Thanh công cụ xem:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="664"/>
+        <location filename="../sources/settingsdialog.cpp" line="650"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Trang hiện tại trong tiêu đề cửa sổ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Tên yêu cầu trong tiêu đề cửa sổ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="664"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished">Đồng bộ hóa xem phác thảo:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="671"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Làm nổi bật hình ảnh thu nhỏ hiện tại:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="692"/>
+        <location filename="../sources/settingsdialog.cpp" line="678"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Giới hạn hình thu nhỏ đến:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="699"/>
+        <location filename="../sources/settingsdialog.cpp" line="685"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Annotation overlay:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="706"/>
+        <location filename="../sources/settingsdialog.cpp" line="692"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Form field overlay:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="766"/>
+        <location filename="../sources/settingsdialog.cpp" line="752"/>
         <source>Zoom:</source>
         <translation type="unfinished">Thu phóng:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="772"/>
+        <location filename="../sources/settingsdialog.cpp" line="758"/>
         <source>Rotate:</source>
         <translation type="unfinished">Xoay:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="778"/>
+        <location filename="../sources/settingsdialog.cpp" line="764"/>
         <source>Scroll:</source>
         <translation type="unfinished">Cuộn:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="784"/>
+        <location filename="../sources/settingsdialog.cpp" line="770"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Chép vào bộ nhớ đệm:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="790"/>
+        <location filename="../sources/settingsdialog.cpp" line="776"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Thêm chú thích:</translation>
     </message>
