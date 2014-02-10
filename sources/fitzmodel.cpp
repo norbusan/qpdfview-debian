@@ -102,7 +102,7 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     QImage image(qAbs(irect.x1 - irect.x0), qAbs(irect.y1 - irect.y0), QImage::Format_RGB32);
     image.fill(m_parent->m_paperColor);
 
-    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_rgb(context), image.width(), image.height(), image.bits());
+    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), image.bits());
 
     device = fz_new_draw_device(context, pixmap);
     fz_run_display_list(display_list, device, &matrix, &rect, 0);

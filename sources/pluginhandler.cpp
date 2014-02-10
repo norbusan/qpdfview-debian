@@ -225,6 +225,14 @@ SettingsWidget* PluginHandler::createSettingsWidget(FileType fileType, QWidget* 
 PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
     m_plugins()
 {
+#ifdef WITH_FITZ
+#ifdef STATIC_FITZ_PLUGIN
+    m_objectNames.insertMulti(PDF, QLatin1String("FitzPlugin"));
+#else
+    m_fileNames.insertMulti(PDF, FITZ_PLUGIN_NAME);
+#endif // STATIC_FITZ_PLUGIN
+#endif // WITH_FITZ
+
 #ifdef WITH_PDF
     #ifdef STATIC_PDF_PLUGIN
         m_objectNames.insertMulti(PDF, QLatin1String("PdfPlugin"));
@@ -248,15 +256,15 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
     m_fileNames.insertMulti(DjVu, DJVU_PLUGIN_NAME);
 #endif // STATIC_DJVU_PLUGIN
 #endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-#ifdef STATIC_FITZ_PLUGIN
-    m_objectNames.insertMulti(PDF, QLatin1String("FitzPlugin"));
-#else
-    m_fileNames.insertMulti(PDF, FITZ_PLUGIN_NAME);
-#endif // STATIC_FITZ_PLUGIN
-#endif // WITH_FITZ
 }
+
+#ifdef STATIC_FITZ_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_fitz)
+    #else
+        Q_IMPORT_PLUGIN(FitzPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_FITZ_PLUGIN
 
 #ifdef STATIC_PDF_PLUGIN
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
@@ -281,14 +289,6 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
         Q_IMPORT_PLUGIN(DjvuPlugin)
     #endif // QT_VERSION
 #endif // STATIC_DJVU_PLUGIN
-
-#ifdef STATIC_FITZ_PLUGIN
-    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-        Q_IMPORT_PLUGIN(qpdfview_fitz)
-    #else
-        Q_IMPORT_PLUGIN(FitzPlugin)
-    #endif // QT_VERSION
-#endif // STATIC_FITZ_PLUGIN
 
 bool PluginHandler::loadPlugin(FileType fileType)
 {
