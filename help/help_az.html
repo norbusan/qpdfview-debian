@@ -61,22 +61,22 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h4>Giriş</h4>
 
-<p><em>qpdfview</em> is a tabbed document viewer. It uses Poppler for PDF
-support, libspectre for PS support, DjVuLibre for DjVu support, CUPS for
-printing support and the Qt toolkit for its interface.</p>
+<p><em>qpdfview</em> siğməli sənəd baxıcısıdır. O PDF dəstəyi üçün Poppler, PS
+dəstəyi üçün libspectre, DjVu dəstəyi üçün DjVuLibre, çap dəstəyi üçün CUPS
+və öz interfeyi üçün Qt toolkit-dən istifadə edir.</p>
 
-<p>Please refer to the manual page for information on command-line options and
-configuration files.</p>
+<p>Seçənəklər faylı və əmr-sətri ilə əlaqədar məlumatlar üçün istifadəçi
+dəstəyi səhifəsindən istifadə edin.</p>
 
 <h3><a name="mainmenu">Ana menyu</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="file">Fayl</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-	<li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
+	<li><b>Aç...</b> hazırki siğmə üçün faylı açmaq üçündür. Əgər heç bir açığ siğmə
+yoxdursa, fayl yeni siğmədə açılır.</li>
+	<li><b>Yeni siğmədə aç...</b> Faylı yeni siğmədə açmaq üçün faylı açma dialoq
+pəncərəsini çağırır.</li>
 	<li><b>Recently used</b> Contains a list of the most recently used files (if
 enabled in the settings).</li>
 	<li><b>Yenilə</b> Hazırkı siğmədə yerləşən faylı yenidən yükləyir.</li>
@@ -84,8 +84,7 @@ enabled in the settings).</li>
 the current tab.</li>
 	<li><b>Save as...</b> Opens a dialog to save the file displayed in the current
 tab including changes to annotations and form fields.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
+    <li><b>Çap...</b> Hazılı çap etmək üçün çap dialoq pəncərəsini açır.</li>
 	<li><b>Çıxış</b> Bütün tabları bağla və proqramdan çıx.</li>
 </ul>
 
@@ -94,8 +93,8 @@ tab.</li>
 <ul>
 	<li>Sənədirn <b>Növbəti/Öncəki/İlk/Sonuncu səhifə</b> Növbətiyə
 keç/öncəkinə/ilkə/son səhifəyə.</li>
-        <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
+        <li><b>Səhifəyə keç...</b> Hazırki siğədə keçmək istəiyiniz səhifəyə keçid
+dialoq pəncərəsini çağırır.</li>
         <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
 displayed page.</li>
 	<li><b>Search...</b> Opens the search tool bar below the main view. The search
@@ -134,16 +133,18 @@ columns. The number of columns can be changed in the settings dialog.</li>
 	<li><b>Miqyası bpyüt</b> Miqyası 10% bpyüdür.</li>
 	<li><b>Miqyası kiçild</b> 10% miqyası kiçildir.</li>
 	<li><b>Orijinal ölçü</b> Miqyası orijinal 100%-ə qaytarır.</li>
-    <li><b>Fit to page width</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally.</li>
+    <li><b>Səhifənin eninə görə yerləşdir</b> Səhifənin bütövlüklə pəncərədə
+yerləşməsi miqyasına gətirir.</li>
 	<li><b>Fit to page size</b> Determines the scale factor such that all pages
 fully fit into the main view horizontally and vertically.</li>
-	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
-	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
+	<li><b>Sola döndər</b> Shifəni sola (saat əqrəbi istiqamətinin əksinə) 90 dərəcə
+döndərir.</li>
+	<li><b>Sola döndər</b> Shifəni sağa (saat əqrəbi istiqamətinə) 90 dərəcə
+döndərir.</li>
         <li><b>Invert colors</b> Determines whether pages are rendered with inverted
 colors.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
+	<li><b>Alətlər sətri</b> Bu menyu var olan bütün alətlər sətrlərinə tez ulaşmaq
+üçün istifadə olunur.</li>
 	<li><b>Docks</b> This menu contains a list of available docks for displaying
 supplementary information.</li>
 	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
@@ -161,13 +162,13 @@ last jump.</li>
 into the text field in the view tool bar, which can be focused using Ctrl+L,
 and pressing the return key.</p>
 
-<h4><a name="tabs">Tabs</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="tabs">Siğmələr</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
 to the last/first tab if the first/last tab is the current tab.</li>
-    <li><b>Close tab</b> Closes the current tab.</li>
-    <li><b>Close all tabs</b> Closes all tabs.</li>
+    <li><b>Siğməni bağla</b> Aktiv siğməni bağlayır.</li>
+    <li><b>Bütün siğmələri bağla</b> Bütün siğmələri bağlayır.</li>
     <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
 tab.</li>
     <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
@@ -179,7 +180,7 @@ clicking on the corresponding menu item. Tabs can also be closed by
 middle-clicking. The first nine tabs can also be activated by holding the
 Alt modifier and pressing keys one to nine.</p>
 
-<h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="bookmarks">Əfləcinlər</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
@@ -263,8 +264,6 @@ view.</p>
 <ul>
     <li><b>Open URL</b> Determines whether links to URL are opened in the default
 browser.</li>
-    <li><b>Open file attachments</b> Determines whether file attachments will be
-opened immediately after saving.</li>
     <li><b>Auto-refresh</b> Determines whether files are automatically reloaded if
 changed on disk.</li>
     <li><b>Track recently used</b> If enabled, a recently used menu is available and
@@ -389,7 +388,7 @@ conducted, only the pages where the search term is found are displayed in
 the thumbnails view.</li>
 </ul>
 
-<h4><a name="shortcutsettings">Shortcut settings</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="shortcutsettings">Qısayol seçənəkləri</a> <a href="#top">&uarr;</a></h4>
 
 <p>The shortcut settings allows the adjustment of keyboard shortcuts to
 personal preference. Shortcuts are changed by double-clicking on the
@@ -400,7 +399,8 @@ keys that are not single letters are written out explicitly (e.g. "Alt",
 contains modifier keys, the names of the keys are joined by a plus sign and
 modifier keys must be listed first, e.g. "Crtl+A" or "Ctrl++".</p>
 
-<h4><a name="modifiersettings">Modifier settings</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="modifiersettings">Dəyişdirici seçənəkləri</a> <a
+href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Zoom</b> The keyboard modifiers to zoom using the mouse wheel in the main
