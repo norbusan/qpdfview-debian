@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -103,7 +103,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se otevřít přílohu souboru uloženou do &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -783,7 +783,7 @@
         <location filename="../sources/pdfmodel.cpp" line="850"/>
         <location filename="../sources/pdfmodel.cpp" line="880"/>
         <source>None</source>
-        <translation type="unfinished">Žádné</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="851"/>
@@ -847,7 +847,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se porovnat typ souboru &apos;%1&apos;!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
@@ -857,7 +857,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepodařilo se nahrát přídavný modul pro typ souboru &apos;%1&apos;!</translation>
     </message>
 </context>
 <context>
@@ -1214,7 +1214,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>None</source>
-        <translation type="unfinished">Žádný</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
