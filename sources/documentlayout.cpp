@@ -97,10 +97,10 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
 }
 
 void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems,
-                                     QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                                     qreal& left, qreal& right, qreal& height)
+                                     QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
+    qreal pageHeight = 0.0;
 
     for(int index = 0; index < pageItems.count(); ++index)
     {
@@ -161,10 +161,10 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
 }
 
 void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems,
-                                   QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                                   qreal& left, qreal& right, qreal& height)
+                                   QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
+    qreal pageHeight = 0.0;
 
     for(int index = 0; index < pageItems.count(); ++index)
     {
@@ -269,10 +269,10 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
 }
 
 void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems,
-                                        QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                                        qreal& left, qreal& right, qreal& height)
+                                        QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
+    qreal pageHeight = 0.0;
 
     for(int index = 0; index < pageItems.count(); ++index)
     {
