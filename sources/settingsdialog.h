@@ -117,7 +117,6 @@ private:
     QComboBox* m_paperColorComboBox;
     QComboBox* m_presentationBackgroundColorComboBox;
 
-    QComboBox* m_layoutDirectionComboBox;
     QSpinBox* m_pagesPerRowSpinBox;
 
     QDoubleSpinBox* m_pageSpacingSpinBox;

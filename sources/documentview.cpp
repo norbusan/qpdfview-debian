@@ -286,6 +286,21 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
     }
 }
 
+void DocumentView::setRightToLeftMode(bool rightToLeftMode)
+{
+    if(m_rightToLeftMode != rightToLeftMode)
+    {
+        m_rightToLeftMode = rightToLeftMode;
+
+        prepareScene();
+        prepareView();
+
+        emit rightToLeftModeChanged(m_rightToLeftMode);
+
+        // TODO: s_settings
+    }
+}
+
 void DocumentView::setScaleMode(ScaleMode scaleMode)
 {
     if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
@@ -1711,15 +1726,13 @@ void DocumentView::prepareScene()
 
     // prepare layout
 
-    const bool rightToLeft = s_settings->documentView().layoutDirection() == RightToLeft; // TODO: How to determine default direction?
-
     m_heightToIndex.clear();
 
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = s_settings->documentView().pageSpacing();
 
-    m_layout->prepareLayout(m_pageItems, rightToLeft,
+    m_layout->prepareLayout(m_pageItems, m_rightToLeftMode,
                             m_heightToIndex, left, right, height);
 
     scene()->setSceneRect(left, 0.0, right - left, height);

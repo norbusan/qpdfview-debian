@@ -304,16 +304,6 @@ int Settings::DocumentView::prefetchTimeout() const
     return m_settings->value("documentView/prefetchTimeout", Defaults::DocumentView::prefetchTimeout()).toInt();
 }
 
-LayoutDirection Settings::DocumentView::layoutDirection() const
-{
-    return static_cast< LayoutDirection >(m_settings->value("documentView/layoutDirection", Defaults::DocumentView::layoutDirection()).toUInt());
-}
-
-void Settings::DocumentView::setLayoutDirection(LayoutDirection layoutDirection)
-{
-    m_settings->setValue("documentView/layoutDirection", static_cast< uint >(layoutDirection));
-}
-
 void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
 {
     if(pagesPerRow > 0)

@@ -163,9 +163,6 @@ public:
         int autoRefreshTimeout() const;
         int prefetchTimeout() const;
 
-        LayoutDirection layoutDirection() const;
-        void setLayoutDirection(LayoutDirection layoutDirection);
-
         inline int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
@@ -460,8 +457,6 @@ public:
 
         static inline int autoRefreshTimeout() { return 750; }
         static inline int prefetchTimeout() { return 250; }
-
-        static inline LayoutDirection layoutDirection() { return DefaultDirection; }
 
         static inline int pagesPerRow() { return 3; }
 
