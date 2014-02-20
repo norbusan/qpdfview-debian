@@ -640,18 +640,28 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     QMenu menu;
 
     const QAction* copyTextAction = menu.addAction(tr("Copy &text"));
+    QAction* useTextAsSelectionAction = menu.addAction(tr("Use text as &selection"));
     const QAction* copyImageAction = menu.addAction(tr("Copy &image"));
     const QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
 
+    useTextAsSelectionAction->setVisible(QApplication::clipboard()->supportsSelection());
+
     const QAction* action = menu.exec(screenPos);
 
-    if(action == copyTextAction)
+    if(action == copyTextAction || action == useTextAsSelectionAction)
     {
         const QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
 
         if(!text.isEmpty())
         {
-            QApplication::clipboard()->setText(text);
+            if(action == copyTextAction)
+            {
+                QApplication::clipboard()->setText(text);
+            }
+            else
+            {
+                QApplication::clipboard()->setText(text, QClipboard::Selection);
+            }
         }
     }
     else if(action == copyImageAction || action == saveImageToFileAction)
