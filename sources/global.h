@@ -51,6 +51,13 @@ enum LayoutMode
     NumberOfLayoutModes = 4
 };
 
+enum LayoutDirection
+{
+    DefaultDirection = 0,
+    LeftToRight = 1,
+    RightToLeft = 2
+};
+
 enum ScaleMode
 {
     ScaleFactorMode = 0,

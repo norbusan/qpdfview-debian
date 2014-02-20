@@ -96,7 +96,7 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
     return viewportWidth - 6.0 - 2.0 * pageSpacing;
 }
 
-void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems,
+void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool /* rightToLeft */,
                                      QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
@@ -160,7 +160,7 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
 }
 
-void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems,
+void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool rightToLeft,
                                    QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
@@ -171,9 +171,12 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems,
         PageItem* page = pageItems.at(index);
         const QRectF boundingRect = page->boundingRect();
 
+        const qreal leftPos = -boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing;
+        const qreal rightPos = -boundingRect.left() + 0.5 * pageSpacing;
+
         if(index == leftIndex(index))
         {
-            page->setPos(-boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing, height - boundingRect.top());
+            page->setPos(rightToLeft ? rightPos : leftPos, height - boundingRect.top());
 
             heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
@@ -189,7 +192,7 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems,
         }
         else
         {
-            page->setPos(-boundingRect.left() + 0.5 * pageSpacing, height - boundingRect.top());
+            page->setPos(rightToLeft ? leftPos : rightPos, height - boundingRect.top());
 
             pageHeight = qMax(pageHeight, boundingRect.height());
 
@@ -268,7 +271,7 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
 }
 
-void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems,
+void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
                                         QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
@@ -279,10 +282,21 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems,
         PageItem* page = pageItems.at(index);
         const QRectF boundingRect = page->boundingRect();
 
-        page->setPos(left - boundingRect.left() + pageSpacing, height - boundingRect.top());
+        const qreal leftPos = left - boundingRect.left() + pageSpacing;
+        const qreal rightPos = right - boundingRect.left() - boundingRect.width() - pageSpacing;
+
+        page->setPos(rightToLeft ? rightPos : leftPos, height - boundingRect.top());
 
         pageHeight = qMax(pageHeight, boundingRect.height());
-        left += boundingRect.width() + pageSpacing;
+
+        if(rightToLeft)
+        {
+            right -= boundingRect.width() + pageSpacing;
+        }
+        else
+        {
+            left += boundingRect.width() + pageSpacing;
+        }
 
         if(index == leftIndex(index))
         {
@@ -294,8 +308,16 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems,
             height += pageHeight + pageSpacing;
             pageHeight = 0.0;
 
-            right = qMax(right, left + pageSpacing);
-            left = 0.0;
+            if(rightToLeft)
+            {
+                left = qMin(left, right - pageSpacing);
+                right = 0.0;
+            }
+            else
+            {
+                right = qMax(right, left + pageSpacing);
+                left = 0.0;
+            }
         }
     }
 }
