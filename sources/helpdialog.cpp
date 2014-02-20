@@ -86,11 +86,11 @@ void HelpDialog::on_findPrevious_triggered()
     {
         m_textBrowser->setFocus();
 
-        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: green"));
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: #80ff80"));
     }
     else
     {
-        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: red"));
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: #ff8080"));
     }
 }
 
@@ -100,11 +100,11 @@ void HelpDialog::on_findNext_triggered()
     {
         m_textBrowser->setFocus();
 
-        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: green"));
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: #80ff80"));
     }
     else
     {
-        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: red"));
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: #ff8080"));
 
     }
 }
