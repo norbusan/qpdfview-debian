@@ -409,6 +409,16 @@ void SettingsDialog::createGraphicsTab()
 
     m_graphicsLayout->addRow(tr("Presentation background color:"), m_presentationBackgroundColorComboBox);
 
+    // layout direction
+
+    m_layoutDirectionComboBox = new QComboBox(this);
+    m_layoutDirectionComboBox->addItem(tr("Default"), static_cast< uint >(DefaultDirection));
+    m_layoutDirectionComboBox->addItem(tr("Left to right"), static_cast< uint >(LeftToRight));
+    m_layoutDirectionComboBox->addItem(tr("Right to left"), static_cast< uint >(RightToLeft));
+    m_layoutDirectionComboBox->setCurrentIndex(m_layoutDirectionComboBox->findData(static_cast< uint >(s_settings->documentView().layoutDirection())));
+
+    m_graphicsLayout->addRow(tr("Layout direction:"), m_layoutDirectionComboBox);
+
     // pages per row
 
     m_pagesPerRowSpinBox = new QSpinBox(this);
@@ -498,6 +508,7 @@ void SettingsDialog::acceptGraphicsTab()
     s_settings->pageItem().setPaperColor(getValidColorFromCurrentText(m_paperColorComboBox, Defaults::PageItem::paperColor()));
     s_settings->presentationView().setBackgroundColor(getValidColorFromCurrentText(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor()));
 
+    s_settings->documentView().setLayoutDirection(static_cast< LayoutDirection >(m_layoutDirectionComboBox->itemData(m_layoutDirectionComboBox->currentIndex()).toUInt()));
     s_settings->documentView().setPagesPerRow(m_pagesPerRowSpinBox->value());
 
     s_settings->documentView().setPageSpacing(m_pageSpacingSpinBox->value());
@@ -543,6 +554,7 @@ void SettingsDialog::resetGraphicsTab()
     setCurrentTextToColorName(m_paperColorComboBox, Defaults::PageItem::paperColor());
     setCurrentTextToColorName(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor());
 
+    m_layoutDirectionComboBox->setCurrentIndex(m_layoutDirectionComboBox->findData(static_cast< uint>(Defaults::DocumentView::layoutDirection())));
     m_pagesPerRowSpinBox->setValue(Defaults::DocumentView::pagesPerRow());
 
     m_pageSpacingSpinBox->setValue(Defaults::DocumentView::pageSpacing());
