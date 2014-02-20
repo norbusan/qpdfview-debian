@@ -50,6 +50,7 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 
     m_searchLineEdit = new QLineEdit(this);
     connect(m_searchLineEdit, SIGNAL(returnPressed()), SLOT(on_findNext_triggered()));
+    connect(m_searchLineEdit, SIGNAL(textEdited(QString)), SLOT(on_search_textEdited()));
 
     m_findPreviousButton = m_dialogButtonBox->addButton(tr("Find previous"), QDialogButtonBox::ActionRole);
     m_findPreviousButton->setShortcut(QKeySequence::FindPrevious);
@@ -58,6 +59,18 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
     m_findNextButton = m_dialogButtonBox->addButton(tr("Find next"), QDialogButtonBox::ActionRole);
     m_findNextButton->setShortcut(QKeySequence::FindNext);
     connect(m_findNextButton, SIGNAL(clicked()), SLOT(on_findNext_triggered()));
+
+    // Default buttons would interfere with search funtionality...
+    foreach(QAbstractButton* abstractButton, m_dialogButtonBox->buttons())
+    {
+        QPushButton* pushButton = qobject_cast< QPushButton* >(abstractButton);
+
+        if(pushButton != 0)
+        {
+            pushButton->setAutoDefault(false);
+            pushButton->setDefault(false);
+        }
+    }
 
     setLayout(new QVBoxLayout(this));
     layout()->addWidget(m_textBrowser);
@@ -72,6 +85,12 @@ void HelpDialog::on_findPrevious_triggered()
     if(!m_searchLineEdit->text().isEmpty() && m_textBrowser->find(m_searchLineEdit->text(), QTextDocument::FindBackward))
     {
         m_textBrowser->setFocus();
+
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: green"));
+    }
+    else
+    {
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: red"));
     }
 }
 
@@ -80,5 +99,17 @@ void HelpDialog::on_findNext_triggered()
     if(!m_searchLineEdit->text().isEmpty() && m_textBrowser->find(m_searchLineEdit->text()))
     {
         m_textBrowser->setFocus();
+
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: green"));
     }
+    else
+    {
+        m_searchLineEdit->setStyleSheet(QLatin1String("background-color: red"));
+
+    }
+}
+
+void HelpDialog::on_search_textEdited()
+{
+    m_searchLineEdit->setStyleSheet(QString());
 }

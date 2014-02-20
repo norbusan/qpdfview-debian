@@ -1,6 +1,7 @@
 Release 0.4.9:
   * Added experimental Fitz plug-in.
   * Added setting to choose Poppler backend.
+  * Added color feedback whether search term was found to help dialog. Thanks to Benjamin Eltzner.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Slovak translations. Thanks to DAG Software.
   * Updated British English translations. Thanks to Anthony Harrington.

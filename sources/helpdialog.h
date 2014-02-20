@@ -39,6 +39,7 @@ public:
 protected slots:
     void on_findPrevious_triggered();
     void on_findNext_triggered();
+    void on_search_textEdited();
 
 private:
     Q_DISABLE_COPY(HelpDialog)
