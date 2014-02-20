@@ -120,12 +120,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="54"/>
+        <location filename="../sources/helpdialog.cpp" line="55"/>
         <source>Find previous</source>
         <translation type="unfinished">Alcontrar anterior</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="58"/>
+        <location filename="../sources/helpdialog.cpp" line="59"/>
         <source>Find next</source>
         <translation type="unfinished">Alcontrar siguiente</translation>
     </message>
@@ -728,41 +728,46 @@
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
+        <source>Use text as &amp;selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="644"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copiar &amp;imaxe</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="644"/>
+        <location filename="../sources/pageitem.cpp" line="645"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Guardar imaxe en &amp;ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="670"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Save image to file</source>
         <translation type="unfinished">Guardar imaxe en ficheru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="684"/>
         <source>Warning</source>
         <translation type="unfinished">Avisu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="684"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nun se pudo guardar la imaxe nel ficheru «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="687"/>
+        <location filename="../sources/pageitem.cpp" line="697"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Amestar &amp;testu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="688"/>
+        <location filename="../sources/pageitem.cpp" line="698"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Amestar &amp;rescampláu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="727"/>
+        <location filename="../sources/pageitem.cpp" line="737"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">Desanicia&amp;r anotación</translation>
     </message>
