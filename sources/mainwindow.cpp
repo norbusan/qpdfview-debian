@@ -200,6 +200,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         connect(newTab, SIGNAL(continuousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
         connect(newTab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
+        connect(newTab, SIGNAL(rightToLeftModeChanged(bool)), SLOT(on_currentTab_rightToLeftModeChanged(bool)));
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
 
@@ -313,6 +314,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_twoPagesModeAction->setEnabled(true);
         m_twoPagesWithCoverPageModeAction->setEnabled(true);
         m_multiplePagesModeAction->setEnabled(true);
+        m_rightToLeftModeAction->setEnabled(true);
 
         m_zoomInAction->setEnabled(true);
         m_zoomOutAction->setEnabled(true);
@@ -365,6 +367,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         on_currentTab_continuousModeChanged(currentTab()->continuousMode());
         on_currentTab_layoutModeChanged(currentTab()->layoutMode());
+        on_currentTab_rightToLeftModeChanged(currentTab()->rightToLeftMode());
         on_currentTab_scaleModeChanged(currentTab()->scaleMode());
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
 
@@ -401,6 +404,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_twoPagesModeAction->setEnabled(false);
         m_twoPagesWithCoverPageModeAction->setEnabled(false);
         m_multiplePagesModeAction->setEnabled(false);
+        m_rightToLeftModeAction->setEnabled(false);
 
         m_zoomInAction->setEnabled(false);
         m_zoomOutAction->setEnabled(false);
@@ -703,6 +707,14 @@ void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
         m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
         m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
         m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
+    }
+}
+
+void MainWindow::on_currentTab_rightToLeftModeChanged(bool rightToLeftMode)
+{
+    if(senderIsCurrentTab())
+    {
+        m_rightToLeftModeAction->setChecked(rightToLeftMode);
     }
 }
 
@@ -1151,6 +1163,11 @@ void MainWindow::on_twoPagesWithCoverPageMode_triggered(bool checked)
 void MainWindow::on_multiplePagesMode_triggered(bool checked)
 {
     currentTab()->setLayoutMode(checked ? MultiplePagesMode : SinglePageMode);
+}
+
+void MainWindow::on_rightToLeftMode_triggered(bool checked)
+{
+    currentTab()->setRightToLeftMode(checked);
 }
 
 void MainWindow::on_zoomIn_triggered()
@@ -1995,6 +2012,7 @@ void MainWindow::createActions()
     m_twoPagesModeAction = createAction(tr("&Two pages"), QLatin1String("twoPagesMode"), QIcon(":icons/two-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_6), SLOT(on_twoPagesMode_triggered(bool)), true);
     m_twoPagesWithCoverPageModeAction = createAction(tr("Two pages &with cover page"), QLatin1String("twoPagesWithCoverPageMode"), QIcon(":icons/two-pages-with-cover-page.svg"), QKeySequence(Qt::CTRL + Qt::Key_5), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)), true);
     m_multiplePagesModeAction = createAction(tr("&Multiple pages"), QLatin1String("multiplePagesMode"), QIcon(":icons/multiple-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_4), SLOT(on_multiplePagesMode_triggered(bool)), true);
+    m_rightToLeftModeAction = createAction(tr("Right to left"), QLatin1String("rightToLeftMode"), QIcon(), QKeySequence(), SLOT(on_rightToLeftMode_triggered(bool)), true);
 
     m_zoomInAction = createAction(tr("Zoom &in"), QLatin1String("zoomIn"), QLatin1String("zoom-in"), QKeySequence(Qt::CTRL + Qt::Key_Up), SLOT(on_zoomIn_triggered()));
     m_zoomOutAction = createAction(tr("Zoom &out"), QLatin1String("zoomOut"), QLatin1String("zoom-out"), QKeySequence(Qt::CTRL + Qt::Key_Down), SLOT(on_zoomOut_triggered()));
@@ -2237,7 +2255,7 @@ void MainWindow::createMenus()
     // view
 
     m_viewMenu = menuBar()->addMenu(tr("&View"));
-    m_viewMenu->addActions(QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_rightToLeftModeAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction);
     m_viewMenu->addSeparator();

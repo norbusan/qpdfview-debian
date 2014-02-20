@@ -167,6 +167,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_continuousMode = s_settings->documentView().continuousMode();
     m_layout.reset(DocumentLayout::fromLayoutMode(s_settings->documentView().layoutMode()));
+    m_rightToLeftMode = s_settings->documentView().rightToLeftMode();
 
     m_scaleMode = s_settings->documentView().scaleMode();
     m_scaleFactor = s_settings->documentView().scaleFactor();
@@ -297,7 +298,7 @@ void DocumentView::setRightToLeftMode(bool rightToLeftMode)
 
         emit rightToLeftModeChanged(m_rightToLeftMode);
 
-        // TODO: s_settings
+        s_settings->documentView().setRightToLeftMode(m_rightToLeftMode);
     }
 }
 

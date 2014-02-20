@@ -86,6 +86,7 @@ protected slots:
 
     void on_currentTab_continuousModeChanged(bool continuousMode);
     void on_currentTab_layoutModeChanged(LayoutMode layoutMode);
+    void on_currentTab_rightToLeftModeChanged(bool rightToLeftMode);
     void on_currentTab_scaleModeChanged(ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
 
@@ -141,10 +142,12 @@ protected slots:
     void on_twoPagesMode_triggered(bool checked);
     void on_twoPagesWithCoverPageMode_triggered(bool checked);
     void on_multiplePagesMode_triggered(bool checked);
+    void on_rightToLeftMode_triggered(bool checked);
 
     void on_zoomIn_triggered();
     void on_zoomOut_triggered();
     void on_originalSize_triggered();
+
     void on_fitToPageWidthMode_triggered(bool checked);
     void on_fitToPageSizeMode_triggered(bool checked);
 
@@ -272,6 +275,7 @@ private:
     QAction* m_twoPagesModeAction;
     QAction* m_twoPagesWithCoverPageModeAction;
     QAction* m_multiplePagesModeAction;
+    QAction* m_rightToLeftModeAction;
 
     QAction* m_zoomInAction;
     QAction* m_zoomOutAction;
