@@ -2255,7 +2255,9 @@ void MainWindow::createMenus()
     // view
 
     m_viewMenu = menuBar()->addMenu(tr("&View"));
-    m_viewMenu->addActions(QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction << m_rightToLeftModeAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_continuousModeAction << m_twoPagesModeAction << m_twoPagesWithCoverPageModeAction << m_multiplePagesModeAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_rightToLeftModeAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_zoomInAction << m_zoomOutAction << m_originalSizeAction << m_fitToPageWidthModeAction << m_fitToPageSizeModeAction);
     m_viewMenu->addSeparator();
