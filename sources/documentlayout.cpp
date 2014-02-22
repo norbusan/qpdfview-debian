@@ -182,7 +182,14 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool ri
 
             pageHeight = boundingRect.height();
 
-            left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
+            if(rightToLeft)
+            {
+                right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
+            }
+            else
+            {
+                left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
+            }
 
             if(index == rightIndex(index, pageItems.count()))
             {
@@ -196,7 +203,15 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool ri
 
             pageHeight = qMax(pageHeight, boundingRect.height());
 
-            right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
+            if(rightToLeft)
+            {
+                left = qMin(left, -boundingRect.width() - 1.5f * pageSpacing);
+            }
+            else
+            {
+                right = qMax(right, boundingRect.width() + 1.5f * pageSpacing);
+            }
+
             height += pageHeight + pageSpacing;
         }
     }
