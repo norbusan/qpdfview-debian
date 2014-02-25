@@ -103,7 +103,7 @@ private:
 
     QCheckBox* m_keepObsoletePixmapsCheckBox;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     QCheckBox* m_useDevicePixelRatioCheckBox;
 

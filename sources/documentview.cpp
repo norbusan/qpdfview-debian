@@ -1655,7 +1655,7 @@ void DocumentView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
 
@@ -1815,7 +1815,7 @@ void DocumentView::prepareThumbnailsScene()
 
         // prepare scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
 
