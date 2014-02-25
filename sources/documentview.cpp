@@ -194,12 +194,12 @@ QStringList DocumentView::openFilter()
     QStringList openFilter;
     QStringList supportedFormats;
 
-#ifdef WITH_PDF
+#if defined(WITH_PDF) || defined(WITH_FITZ)
 
     openFilter.append("Portable document format (*.pdf)");
     supportedFormats.append("*.pdf");
 
-#endif // WITH_PDF
+#endif // WITH_PDF // WITH_FITZ
 
 #ifdef WITH_PS
 
@@ -216,17 +216,6 @@ QStringList DocumentView::openFilter()
     supportedFormats.append("*.djv");
 
 #endif // WITH_DJVU
-
-#ifdef WITH_FITZ
-
-    openFilter.append("Portable document format (*.pdf)");
-    openFilter.append("XML paper specification (*.xps)");
-    openFilter.append("Comic book archive (*.cbz)");
-    supportedFormats.append("*.pdf");
-    supportedFormats.append("*.xps");
-    supportedFormats.append("*.cbz");
-
-#endif // WITH_FITZ
 
     openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
 
@@ -1682,7 +1671,7 @@ void DocumentView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
 
@@ -1839,7 +1828,7 @@ void DocumentView::prepareThumbnailsScene()
 
         // prepare scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
 

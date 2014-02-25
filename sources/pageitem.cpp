@@ -892,7 +892,7 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
 
 qreal PageItem::effectiveDevicePixelRatio()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     return s_settings->pageItem().useDevicePixelRatio() ? m_devicePixelRatio : 1.0;
 
