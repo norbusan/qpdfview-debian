@@ -448,15 +448,10 @@ bool DocumentView::open(const QString& filePath)
 
     if(document != 0)
     {
-        if(document->isLocked())
+        if(!unlockDocument(filePath, document))
         {
-            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
-
-            if(document->unlock(password))
-            {
-                delete document;
-                return false;
-            }
+            delete document;
+            return false;
         }
 
         m_fileInfo.setFile(filePath);
@@ -491,15 +486,10 @@ bool DocumentView::refresh()
 
     if(document != 0)
     {
-        if(document->isLocked())
+        if(!unlockDocument(m_fileInfo.filePath(), document))
         {
-            QString password = QInputDialog::getText(this, tr("Unlock %1").arg(m_fileInfo.completeBaseName()), tr("Password:"), QLineEdit::Password);
-
-            if(document->unlock(password))
-            {
-                delete document;
-                return false;
-            }
+            delete document;
+            return false;
         }
 
         qreal left = 0.0, top = 0.0;
@@ -1519,6 +1509,28 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 
     left = left >= 0.0 ? left : 0.0;
     top = top >= 0.0 ? top : 0.0;
+}
+
+bool DocumentView::unlockDocument(const QString& filePath, Model::Document* document)
+{
+    if(document->isLocked())
+    {
+        QString password = QInputDialog::getText(this, tr("Unlock %1").arg(QFileInfo(filePath).completeBaseName()), tr("Password:"), QLineEdit::Password);
+
+        if(document->unlock(password))
+        {
+            return false;
+        }
+    }
+
+    if(document->numberOfPages() == 0)
+    {
+        qWarning() << "No pages were found in document at" << filePath;
+
+        return false;
+    }
+
+    return true;
 }
 
 void DocumentView::loadFallbackOutline()

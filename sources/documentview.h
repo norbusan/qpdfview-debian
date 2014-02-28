@@ -266,6 +266,7 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
+    bool unlockDocument(const QString& filePath, Model::Document* document);
     void loadFallbackOutline();
 
     void prepareDocument(Model::Document* document);
