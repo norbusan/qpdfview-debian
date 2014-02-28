@@ -167,6 +167,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_continuousMode = s_settings->documentView().continuousMode();
     m_layout.reset(DocumentLayout::fromLayoutMode(s_settings->documentView().layoutMode()));
+    m_rightToLeftMode = s_settings->documentView().rightToLeftMode();
 
     m_scaleMode = s_settings->documentView().scaleMode();
     m_scaleFactor = s_settings->documentView().scaleFactor();
@@ -272,6 +273,21 @@ void DocumentView::setLayoutMode(LayoutMode layoutMode)
         emit layoutModeChanged(layoutMode);
 
         s_settings->documentView().setLayoutMode(layoutMode);
+    }
+}
+
+void DocumentView::setRightToLeftMode(bool rightToLeftMode)
+{
+    if(m_rightToLeftMode != rightToLeftMode)
+    {
+        m_rightToLeftMode = rightToLeftMode;
+
+        prepareScene();
+        prepareView();
+
+        emit rightToLeftModeChanged(m_rightToLeftMode);
+
+        s_settings->documentView().setRightToLeftMode(m_rightToLeftMode);
     }
 }
 
@@ -1702,15 +1718,12 @@ void DocumentView::prepareScene()
 
     m_heightToIndex.clear();
 
-    qreal pageHeight = 0.0;
-
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = s_settings->documentView().pageSpacing();
 
-    m_layout->prepareLayout(m_pageItems,
-                            m_heightToIndex, pageHeight,
-                            left, right, height);
+    m_layout->prepareLayout(m_pageItems, m_rightToLeftMode,
+                            m_heightToIndex, left, right, height);
 
     scene()->setSceneRect(left, 0.0, right - left, height);
 }

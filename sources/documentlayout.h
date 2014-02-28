@@ -50,9 +50,8 @@ struct DocumentLayout
     virtual qreal visibleWidth(int viewportWidth) const = 0;
     qreal visibleHeight(int viewportHeight) const;
 
-    virtual void prepareLayout(const QVector< PageItem* >& pageItems,
-                               QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                               qreal& left, qreal& right, qreal& height) = 0;
+    virtual void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
+                               QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height) = 0;
 
 protected:
     static Settings* s_settings;
@@ -74,9 +73,8 @@ struct SinglePageLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems,
-                       QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                       qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
+                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
 
 };
 
@@ -95,9 +93,8 @@ struct TwoPagesLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems,
-                       QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                       qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
+                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
 
 };
 
@@ -127,9 +124,8 @@ struct MultiplePagesLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems,
-                       QMap< qreal, int >& heightToIndex, qreal& pageHeight,
-                       qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
+                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
 
 };
 

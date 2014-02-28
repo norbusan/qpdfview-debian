@@ -74,6 +74,9 @@ public:
     LayoutMode layoutMode() const;
     void setLayoutMode(LayoutMode layoutMode);
 
+    inline bool rightToLeftMode() const { return m_rightToLeftMode; }
+    void setRightToLeftMode(bool rightToLeftMode);
+
     inline ScaleMode scaleMode() const { return m_scaleMode; }
     void setScaleMode(ScaleMode scaleMode);
 
@@ -117,6 +120,7 @@ signals:
 
     void continuousModeChanged(bool continuousMode);
     void layoutModeChanged(LayoutMode layoutMode);
+    void rightToLeftModeChanged(bool rightToLeftMode);
     void scaleModeChanged(ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
@@ -240,6 +244,7 @@ private:
     QScopedPointer< DocumentLayout > m_layout;
 
     bool m_continuousMode;
+    bool m_rightToLeftMode;
     ScaleMode m_scaleMode;
     qreal m_scaleFactor;
     Rotation m_rotation;

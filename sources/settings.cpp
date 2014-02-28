@@ -437,6 +437,16 @@ void Settings::DocumentView::setLayoutMode(LayoutMode layoutMode)
     m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
 }
 
+bool Settings::DocumentView::rightToLeftMode() const
+{
+    return m_settings->value("documentView/rightToLeftMode", Defaults::DocumentView::rightToLeftMode()).toBool();
+}
+
+void Settings::DocumentView::setRightToLeftMode(bool rightToLeftMode)
+{
+    m_settings->setValue("documentView/rightToLeftMode", rightToLeftMode);
+}
+
 ScaleMode Settings::DocumentView::scaleMode() const
 {
     return static_cast< ScaleMode >(m_settings->value("documentView/scaleMode", static_cast< uint >(Defaults::DocumentView::scaleMode())).toUInt());
