@@ -359,7 +359,7 @@ void SettingsDialog::createGraphicsTab()
 
     m_graphicsLayout->addRow(tr("Keep obsolete pixmaps:"), m_keepObsoletePixmapsCheckBox);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     // use device pixel ratio
 
@@ -484,7 +484,7 @@ void SettingsDialog::acceptGraphicsTab()
 {
     s_settings->pageItem().setKeepObsoletePixmaps(m_keepObsoletePixmapsCheckBox->isChecked());
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     s_settings->pageItem().setUseDevicePixelRatio(m_useDevicePixelRatioCheckBox->isChecked());
 
@@ -529,7 +529,7 @@ void SettingsDialog::resetGraphicsTab()
 {
     m_keepObsoletePixmapsCheckBox->setChecked(Defaults::PageItem::keepObsoletePixmaps());
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     m_useDevicePixelRatioCheckBox->setChecked(Defaults::PageItem::useDevicePixelRatio());
 
