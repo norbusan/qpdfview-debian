@@ -22,7 +22,7 @@
 <context>
     <name>Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="565"/>
+        <location filename="../sources/database.cpp" line="573"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">מעבר לעמוד %1</translation>
     </message>
@@ -30,49 +30,49 @@
 <context>
     <name>DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="230"/>
+        <location filename="../sources/documentview.cpp" line="220"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">תבניות נתמכות (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="448"/>
-        <location filename="../sources/documentview.cpp" line="491"/>
+        <location filename="../sources/documentview.cpp" line="453"/>
+        <location filename="../sources/documentview.cpp" line="496"/>
         <source>Unlock %1</source>
         <translation type="unfinished">שחרור %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="448"/>
-        <location filename="../sources/documentview.cpp" line="491"/>
+        <location filename="../sources/documentview.cpp" line="453"/>
+        <location filename="../sources/documentview.cpp" line="496"/>
         <source>Password:</source>
         <translation type="unfinished">ססמה:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="993"/>
+        <location filename="../sources/documentview.cpp" line="998"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="993"/>
+        <location filename="../sources/documentview.cpp" line="998"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">פתיחת כתובות מנוטרלת בהגדרות.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1043"/>
+        <location filename="../sources/documentview.cpp" line="1048"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1043"/>
+        <location filename="../sources/documentview.cpp" line="1048"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">לא ניתן למצוא את נתוני ה־SyncTeX עבור &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1451"/>
+        <location filename="../sources/documentview.cpp" line="1456"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1523"/>
+        <location filename="../sources/documentview.cpp" line="1528"/>
         <source>Page %1</source>
         <translation type="unfinished">עמוד %1</translation>
     </message>
@@ -134,481 +134,486 @@
     <name>MainWindow</name>
     <message>
         <location filename="../sources/mainwindow.cpp" line="168"/>
-        <location filename="../sources/mainwindow.cpp" line="237"/>
-        <location filename="../sources/mainwindow.cpp" line="938"/>
-        <location filename="../sources/mainwindow.cpp" line="955"/>
-        <location filename="../sources/mainwindow.cpp" line="972"/>
-        <location filename="../sources/mainwindow.cpp" line="1008"/>
-        <location filename="../sources/mainwindow.cpp" line="1128"/>
-        <location filename="../sources/mainwindow.cpp" line="1753"/>
-        <location filename="../sources/mainwindow.cpp" line="1767"/>
+        <location filename="../sources/mainwindow.cpp" line="238"/>
+        <location filename="../sources/mainwindow.cpp" line="950"/>
+        <location filename="../sources/mainwindow.cpp" line="967"/>
+        <location filename="../sources/mainwindow.cpp" line="984"/>
+        <location filename="../sources/mainwindow.cpp" line="1020"/>
+        <location filename="../sources/mainwindow.cpp" line="1140"/>
+        <location filename="../sources/mainwindow.cpp" line="1770"/>
+        <location filename="../sources/mainwindow.cpp" line="1784"/>
         <source>Warning</source>
         <translation type="unfinished">אזהרה</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="168"/>
-        <location filename="../sources/mainwindow.cpp" line="237"/>
+        <location filename="../sources/mainwindow.cpp" line="238"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לפתוח את &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="482"/>
+        <location filename="../sources/mainwindow.cpp" line="486"/>
         <source>Close all tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="483"/>
+        <location filename="../sources/mainwindow.cpp" line="487"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="484"/>
+        <location filename="../sources/mainwindow.cpp" line="488"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="485"/>
+        <location filename="../sources/mainwindow.cpp" line="489"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="896"/>
+        <location filename="../sources/mainwindow.cpp" line="908"/>
         <source>Open</source>
         <translation type="unfinished">פתיחה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="912"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Open in new tab</source>
         <translation type="unfinished">פתיחה בלשונית חדשה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="938"/>
-        <location filename="../sources/mainwindow.cpp" line="1128"/>
+        <location filename="../sources/mainwindow.cpp" line="950"/>
+        <location filename="../sources/mainwindow.cpp" line="1140"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לרענן את &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="945"/>
+        <location filename="../sources/mainwindow.cpp" line="957"/>
         <source>Save copy</source>
         <translation type="unfinished">שמירת עותק</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="955"/>
+        <location filename="../sources/mainwindow.cpp" line="967"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לשמור עותק למיקום &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="962"/>
-        <location filename="../sources/mainwindow.cpp" line="1757"/>
+        <location filename="../sources/mainwindow.cpp" line="974"/>
+        <location filename="../sources/mainwindow.cpp" line="1774"/>
         <source>Save as</source>
         <translation type="unfinished">שמירה בשם</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="972"/>
-        <location filename="../sources/mainwindow.cpp" line="1767"/>
+        <location filename="../sources/mainwindow.cpp" line="984"/>
+        <location filename="../sources/mainwindow.cpp" line="1784"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן לשמור בשם ‚%1‘.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1008"/>
+        <location filename="../sources/mainwindow.cpp" line="1020"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">לא ניתן להדפיס את &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1044"/>
+        <location filename="../sources/mainwindow.cpp" line="1056"/>
         <source>Jump to page</source>
         <translation type="unfinished">מעבר לעמוד</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1044"/>
+        <location filename="../sources/mainwindow.cpp" line="1056"/>
         <source>Page:</source>
         <translation type="unfinished">עמוד:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1409"/>
+        <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1409"/>
+        <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1409"/>
+        <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">מעבר לעמוד %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1492"/>
+        <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>About qpdfview</source>
         <translation type="unfinished">על אודות qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1492"/>
+        <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview הנו מציג מסמכים בלשוניות לסביבת Qt.&lt;/p&gt;&lt;p&gt;גרסה זו כוללת:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1496"/>
+        <location filename="../sources/mainwindow.cpp" line="1513"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;תמיכה ב־PDF באמצעות Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1499"/>
+        <location filename="../sources/mainwindow.cpp" line="1516"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;תמיכה ב־PS באמצעות libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="1519"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;תמיכה ב־DjVu באמצעות DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1505"/>
+        <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1508"/>
+        <location filename="../sources/mainwindow.cpp" line="1525"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;תמיכה בהדפסה באמצעות CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1510"/>
+        <location filename="../sources/mainwindow.cpp" line="1527"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;ניתן לעיין באתר &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; למידע נוסף.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 המתכנתים של qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1753"/>
+        <location filename="../sources/mainwindow.cpp" line="1770"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1894"/>
+        <location filename="../sources/mainwindow.cpp" line="1911"/>
         <source>Page width</source>
         <translation type="unfinished">רוחב העמוד</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1895"/>
+        <location filename="../sources/mainwindow.cpp" line="1912"/>
         <source>Page size</source>
         <translation type="unfinished">גודל עמוד</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1916"/>
+        <location filename="../sources/mainwindow.cpp" line="1933"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">התאמת &amp;רישיות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1917"/>
+        <location filename="../sources/mainwindow.cpp" line="1934"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">ה&amp;דגשה של הכול</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1961"/>
+        <location filename="../sources/mainwindow.cpp" line="1978"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;פתיחה...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1962"/>
+        <location filename="../sources/mainwindow.cpp" line="1979"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">פתיחה ב&amp;לשונית חדשה...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1963"/>
+        <location filename="../sources/mainwindow.cpp" line="1980"/>
         <source>Open containing folder</source>
         <translation type="unfinished">פתיחת התיקייה המכילה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1964"/>
+        <location filename="../sources/mainwindow.cpp" line="1981"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;רענון</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1965"/>
+        <location filename="../sources/mainwindow.cpp" line="1982"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">שמירת &amp;עותק...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1966"/>
+        <location filename="../sources/mainwindow.cpp" line="1983"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">שמירה &amp;בשם...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1967"/>
+        <location filename="../sources/mainwindow.cpp" line="1984"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">הד&amp;פסה...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1968"/>
+        <location filename="../sources/mainwindow.cpp" line="1985"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">י&amp;ציאה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1972"/>
+        <location filename="../sources/mainwindow.cpp" line="1989"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">העמוד ה&amp;קודם</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1973"/>
+        <location filename="../sources/mainwindow.cpp" line="1990"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">העמוד ה&amp;בא</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1974"/>
+        <location filename="../sources/mainwindow.cpp" line="1991"/>
         <source>&amp;First page</source>
         <translation type="unfinished">העמוד ה&amp;ראשון</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1975"/>
+        <location filename="../sources/mainwindow.cpp" line="1992"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">העמוד ה&amp;אחרון</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1977"/>
+        <location filename="../sources/mainwindow.cpp" line="1994"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">מ&amp;עבר לעמוד...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1979"/>
+        <location filename="../sources/mainwindow.cpp" line="1996"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1980"/>
+        <location filename="../sources/mainwindow.cpp" line="1997"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1982"/>
+        <location filename="../sources/mainwindow.cpp" line="1999"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;חיפוש...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1983"/>
+        <location filename="../sources/mainwindow.cpp" line="2000"/>
         <source>Find previous</source>
         <translation type="unfinished">חיפוש הקודם</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1984"/>
+        <location filename="../sources/mainwindow.cpp" line="2001"/>
         <source>Find next</source>
         <translation type="unfinished">חיפוש הבא</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1985"/>
+        <location filename="../sources/mainwindow.cpp" line="2002"/>
         <source>Cancel search</source>
         <translation type="unfinished">ביטול החיפוש</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1987"/>
+        <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">ה&amp;עתקה ללוח הגזירים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1988"/>
+        <location filename="../sources/mainwindow.cpp" line="2005"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">הוספת ה&amp;ערה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1990"/>
+        <location filename="../sources/mainwindow.cpp" line="2007"/>
         <source>Settings...</source>
         <translation type="unfinished">הגדרות...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1994"/>
+        <location filename="../sources/mainwindow.cpp" line="2011"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">מ&amp;תמשך</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1995"/>
+        <location filename="../sources/mainwindow.cpp" line="2012"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;שני עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1996"/>
+        <location filename="../sources/mainwindow.cpp" line="2013"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">&amp;שני עמודים עם עמוד שער</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1997"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">מ&amp;ספר עמודים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1999"/>
+        <location filename="../sources/mainwindow.cpp" line="2016"/>
+        <source>Right to left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2018"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">הת&amp;קרבות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2000"/>
+        <location filename="../sources/mainwindow.cpp" line="2019"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">הת&amp;רחקות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2001"/>
+        <location filename="../sources/mainwindow.cpp" line="2020"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">גודל מ&amp;קורי</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2003"/>
+        <location filename="../sources/mainwindow.cpp" line="2022"/>
         <source>Fit to page width</source>
         <translation type="unfinished">התאמת העמוד לרוחב</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2004"/>
+        <location filename="../sources/mainwindow.cpp" line="2023"/>
         <source>Fit to page size</source>
         <translation type="unfinished">התאמה לגודל העמוד</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2006"/>
+        <location filename="../sources/mainwindow.cpp" line="2025"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">הטייה &amp;שמאלה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2007"/>
+        <location filename="../sources/mainwindow.cpp" line="2026"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">הטייה ימי&amp;נה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2009"/>
+        <location filename="../sources/mainwindow.cpp" line="2028"/>
         <source>Invert colors</source>
         <translation type="unfinished">היפוך צבעים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2011"/>
+        <location filename="../sources/mainwindow.cpp" line="2030"/>
         <source>Fonts...</source>
         <translation type="unfinished">גופנים...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2013"/>
+        <location filename="../sources/mainwindow.cpp" line="2032"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">מ&amp;סך מלא</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2014"/>
+        <location filename="../sources/mainwindow.cpp" line="2033"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">מ&amp;צגת...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2018"/>
+        <location filename="../sources/mainwindow.cpp" line="2037"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">הלשונית ה&amp;קודמת</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2019"/>
+        <location filename="../sources/mainwindow.cpp" line="2038"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">הלשונית ה&amp;באה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2021"/>
+        <location filename="../sources/mainwindow.cpp" line="2040"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;סגירת הלשונית</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2022"/>
+        <location filename="../sources/mainwindow.cpp" line="2041"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">סגירת &amp;כל הלשוניות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2023"/>
+        <location filename="../sources/mainwindow.cpp" line="2042"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">סגירת כל הלשוניות &amp;פרטי לנוכחית</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2034"/>
+        <location filename="../sources/mainwindow.cpp" line="2053"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">הסימנייה ה&amp;קודמת</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2035"/>
+        <location filename="../sources/mainwindow.cpp" line="2054"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">הסימנייה ה&amp;באה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2037"/>
+        <location filename="../sources/mainwindow.cpp" line="2056"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">הוס&amp;פת סימנייה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2038"/>
+        <location filename="../sources/mainwindow.cpp" line="2057"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">הס&amp;רת הסימנייה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2039"/>
+        <location filename="../sources/mainwindow.cpp" line="2058"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">הסרת כל הסימניות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2043"/>
+        <location filename="../sources/mainwindow.cpp" line="2062"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">ת&amp;כנים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2044"/>
+        <location filename="../sources/mainwindow.cpp" line="2063"/>
         <source>&amp;About</source>
         <translation type="unfinished">על &amp;אודות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2078"/>
-        <location filename="../sources/mainwindow.cpp" line="2205"/>
+        <location filename="../sources/mainwindow.cpp" line="2097"/>
+        <location filename="../sources/mainwindow.cpp" line="2224"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;קובץ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2081"/>
-        <location filename="../sources/mainwindow.cpp" line="2226"/>
+        <location filename="../sources/mainwindow.cpp" line="2100"/>
+        <location filename="../sources/mainwindow.cpp" line="2245"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">ע&amp;ריכה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2084"/>
-        <location filename="../sources/mainwindow.cpp" line="2239"/>
+        <location filename="../sources/mainwindow.cpp" line="2103"/>
+        <location filename="../sources/mainwindow.cpp" line="2258"/>
         <source>&amp;View</source>
         <translation type="unfinished">ת&amp;צוגה</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2113"/>
+        <location filename="../sources/mainwindow.cpp" line="2132"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">מ&amp;תאר</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2126"/>
+        <location filename="../sources/mainwindow.cpp" line="2145"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">מ&amp;אפיינים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2136"/>
+        <location filename="../sources/mainwindow.cpp" line="2155"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">תמונות ממו&amp;זערות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2148"/>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;חיפוש</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2249"/>
+        <location filename="../sources/mainwindow.cpp" line="2270"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">סרגלי &amp;כלים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2252"/>
+        <location filename="../sources/mainwindow.cpp" line="2273"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">מ&amp;עגנים</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2261"/>
+        <location filename="../sources/mainwindow.cpp" line="2282"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;לשוניות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2279"/>
+        <location filename="../sources/mainwindow.cpp" line="2300"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;סימניות</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2287"/>
+        <location filename="../sources/mainwindow.cpp" line="2308"/>
         <source>&amp;Help</source>
         <translation type="unfinished">ע&amp;זרה</translation>
     </message>
