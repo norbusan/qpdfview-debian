@@ -823,6 +823,63 @@ void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
     }
 }
 
+bool Model::PdfDocument::wantsContinuousMode() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
+
+    return pageLayout == Poppler::Document::OneColumn
+        || pageLayout == Poppler::Document::TwoColumnLeft
+        || pageLayout == Poppler::Document::TwoColumnRight;
+}
+
+bool Model::PdfDocument::wantsSinglePageMode() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
+
+    return pageLayout == Poppler::Document::SinglePage
+        || pageLayout == Poppler::Document::OneColumn;
+}
+
+bool Model::PdfDocument::wantsTwoPagesMode() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
+
+    return pageLayout == Poppler::Document::TwoPageLeft
+        || pageLayout == Poppler::Document::TwoColumnLeft;
+}
+
+bool Model::PdfDocument::wantsTwoPagesWithCoverPageMode() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
+
+    return pageLayout == Poppler::Document::TwoPageRight
+        || pageLayout == Poppler::Document::TwoColumnRight;
+}
+
 PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
     m_settings(settings)
 {

@@ -159,6 +159,11 @@ namespace Model
         void loadProperties(QStandardItemModel* propertiesModel) const;
         void loadFonts(QStandardItemModel* fontsModel) const;
 
+        bool wantsContinuousMode() const;
+        bool wantsSinglePageMode() const;
+        bool wantsTwoPagesMode() const;
+        bool wantsTwoPagesWithCoverPageMode() const;
+
     private:
         Q_DISABLE_COPY(PdfDocument)
 
