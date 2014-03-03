@@ -469,6 +469,8 @@ bool DocumentView::open(const QString& filePath)
 
         prepareThumbnailsScene();
 
+        loadDocumentDefaults();
+
         emit documentChanged();
 
         emit numberOfPagesChanged(m_pages.count());
@@ -1547,6 +1549,32 @@ void DocumentView::loadFallbackOutline()
         pageItem->setTextAlignment(Qt::AlignRight);
 
         m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
+    }
+}
+
+void DocumentView::loadDocumentDefaults()
+{
+    if(m_document->wantsContinuousMode())
+    {
+        setContinuousMode(true);
+    }
+
+    if(m_document->wantsSinglePageMode())
+    {
+        setLayoutMode(SinglePageMode);
+    }
+    else if(m_document->wantsTwoPagesMode())
+    {
+        setLayoutMode(TwoPagesMode);
+    }
+    else if(m_document->wantsTwoPagesWithCoverPageMode())
+    {
+        setLayoutMode(TwoPagesWithCoverPageMode);
+    }
+
+    if(m_document->wantsRightToLeftMode())
+    {
+        setRightToLeftMode(true);
     }
 }
 

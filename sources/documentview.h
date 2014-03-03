@@ -267,7 +267,9 @@ private:
     QStandardItemModel* m_propertiesModel;
 
     bool unlockDocument(const QString& filePath, Model::Document* document);
+
     void loadFallbackOutline();
+    void loadDocumentDefaults();
 
     void prepareDocument(Model::Document* document);
     void preparePages();

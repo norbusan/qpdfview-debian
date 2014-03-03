@@ -148,6 +148,12 @@ namespace Model
 
         virtual void loadFonts(QStandardItemModel* fontsModel) const { fontsModel->clear(); }
 
+        virtual bool wantsContinuousMode() const { return false; }
+        virtual bool wantsSinglePageMode() const { return false; }
+        virtual bool wantsTwoPagesMode() const { return false; }
+        virtual bool wantsTwoPagesWithCoverPageMode() const { return false; }
+        virtual bool wantsRightToLeftMode() const { return false; }
+
     };
 }
 
