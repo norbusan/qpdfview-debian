@@ -940,7 +940,15 @@ Settings::Settings(QObject* parent) : QObject(parent),
 
 bool Defaults::DocumentView::rightToLeftMode()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
     return QLocale::system().textDirection() == Qt::RightToLeft;
+
+#else
+
+    return false;
+
+#endif // QT_VERSION
 }
 
 QString Defaults::MainWindow::path()
