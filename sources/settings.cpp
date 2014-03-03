@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QLocale>
 #include <QSettings>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
@@ -435,6 +436,16 @@ LayoutMode Settings::DocumentView::layoutMode() const
 void Settings::DocumentView::setLayoutMode(LayoutMode layoutMode)
 {
     m_settings->setValue("documentView/layoutMode", static_cast< uint >(layoutMode));
+}
+
+bool Settings::DocumentView::rightToLeftMode() const
+{
+    return m_settings->value("documentView/rightToLeftMode", Defaults::DocumentView::rightToLeftMode()).toBool();
+}
+
+void Settings::DocumentView::setRightToLeftMode(bool rightToLeftMode)
+{
+    m_settings->setValue("documentView/rightToLeftMode", rightToLeftMode);
 }
 
 ScaleMode Settings::DocumentView::scaleMode() const
@@ -926,6 +937,11 @@ Settings::Settings(QObject* parent) : QObject(parent),
 }
 
 // defaults
+
+bool Defaults::DocumentView::rightToLeftMode()
+{
+    return QLocale::system().textDirection() == Qt::RightToLeft;
+}
 
 QString Defaults::MainWindow::path()
 {

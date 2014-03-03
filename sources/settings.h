@@ -207,6 +207,9 @@ public:
         LayoutMode layoutMode() const;
         void setLayoutMode(LayoutMode layoutMode);
 
+        bool rightToLeftMode() const;
+        void setRightToLeftMode(bool rightToLeftMode);
+
         ScaleMode scaleMode() const;
         void setScaleMode(ScaleMode scaleMode);
 
@@ -485,9 +488,13 @@ public:
         // per-tab defaults
 
         static inline bool continuousMode() { return false; }
+
         static inline LayoutMode layoutMode() { return SinglePageMode; }
 
+        static bool rightToLeftMode();
+
         static inline ScaleMode scaleMode() { return ScaleFactorMode; }
+
         static inline qreal scaleFactor() { return 1.0; }
 
         static inline Rotation rotation() { return RotateBy0; }
