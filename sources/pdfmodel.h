@@ -163,6 +163,7 @@ namespace Model
         bool wantsSinglePageMode() const;
         bool wantsTwoPagesMode() const;
         bool wantsTwoPagesWithCoverPageMode() const;
+        bool wantsRightToLeftMode() const;
 
     private:
         Q_DISABLE_COPY(PdfDocument)

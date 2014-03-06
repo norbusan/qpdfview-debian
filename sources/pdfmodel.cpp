@@ -880,6 +880,19 @@ bool Model::PdfDocument::wantsTwoPagesWithCoverPageMode() const
         || pageLayout == Poppler::Document::TwoColumnRight;
 }
 
+bool Model::PdfDocument::wantsRightToLeftMode() const
+{
+#ifdef HAS_POPPLER_26
+
+    return m_document->textDirection() == Qt::RightToLeft;
+
+#else
+
+    return false;
+
+#endif // HAS_POPPLER_26
+}
+
 PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
     m_settings(settings)
 {
