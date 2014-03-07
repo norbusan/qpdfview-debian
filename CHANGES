@@ -3,6 +3,7 @@ Release 0.4.9:
   * Added action to use text as selection instead of copying to clipboard.
   * Added color feedback whether search term was found to help dialog. Thanks to Benjamin Eltzner.
   * Added option to switch multiple page layouts into right-to-left mode. Thanks to Abdellah Chelli.
+  * Added loading of document-supplied defaults.
   * Added setting to choose Poppler backend.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Slovak translations. Thanks to DAG Software.
@@ -14,6 +15,7 @@ Release 0.4.9:
   * Updated Malay translations. Thanks to abuyop.
   * Updated German translations. Thanks to Benjamin Eltzner.
   * Updated Vietnamese translations. Thanks to Khang Mạnh Tử.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
 
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.

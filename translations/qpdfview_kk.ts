@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="kk_KZ">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -35,44 +35,42 @@
         <translation type="unfinished">Қолдауы бар пішімдер (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">%1 босату</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
-        <source>Password:</source>
-        <translation type="unfinished">Пароль:</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Ақпараты</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Сілтемелерді ашу мүмкіндігі баптауларда сөндірілген.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1528"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">%1 босату</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Пароль:</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>
@@ -82,12 +80,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сақтау...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сақтау және ашу...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
@@ -103,12 +101,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;%1&apos; жерінде сақталған файл салынымын ашу мүмкін емес.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Файл салынымын &apos;%1&apos; ішіне сақтау мүмкін емес.</translation>
+        <translation type="unfinished">Файл салынымын &apos;%1&apos; жеріне сақтау мүмкін емес.</translation>
     </message>
 </context>
 <context>
@@ -154,7 +152,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="486"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Барлық беттерді жабу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="487"/>
@@ -267,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF қолдауы, Fitz негізінде&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -277,7 +275,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1527"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Көбірек білу үшін &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; қараңыз.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 qpdfview өндірушілері&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Көбірек білу үшін &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; қараңыз.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 qpdfview өндірушілері&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1770"/>
@@ -780,69 +778,69 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="836"/>
+        <location filename="../sources/pdfmodel.cpp" line="906"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="843"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Мәтінді тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="850"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="851"/>
+        <location filename="../sources/pdfmodel.cpp" line="921"/>
         <source>Full</source>
         <translation type="unfinished">Толық</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="852"/>
+        <location filename="../sources/pdfmodel.cpp" line="922"/>
         <source>Reduced</source>
         <translation type="unfinished">Кішірейтілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="855"/>
-        <location filename="../sources/pdfmodel.cpp" line="862"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
+        <location filename="../sources/pdfmodel.cpp" line="932"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
+        <location filename="../sources/pdfmodel.cpp" line="943"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="881"/>
+        <location filename="../sources/pdfmodel.cpp" line="951"/>
         <source>Solid</source>
         <translation type="unfinished">Бүтін</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="882"/>
+        <location filename="../sources/pdfmodel.cpp" line="952"/>
         <source>Shaped</source>
         <translation type="unfinished">Пішінделген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="885"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Жұқа сызық режимі:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="961"/>
         <source>Arthur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1187,6 +1185,11 @@
         <translation type="unfinished">Жақында қолданылғанды бақылау:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="228"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Беттерді қалпына келтіру:</translation>
@@ -1217,24 +1220,19 @@
         <translation type="unfinished">Презентация экраны</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Түспен ерекшелеу түсі:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="228"/>
-        <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Түспен ерекшелеу ұзақтығы:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Түспен ерекшелеу түсі:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="296"/>

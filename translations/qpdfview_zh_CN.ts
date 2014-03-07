@@ -35,44 +35,42 @@
         <translation type="unfinished">支持的格式(%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Unlock %1</source>
         <translation type="unfinished">解锁 %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Password:</source>
         <translation type="unfinished">密码：</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">在设置中已经禁用打开 URL。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">无法找到“%1”的 SyncTex 数据。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">正在打印“%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1528"/>
+        <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
         <translation type="unfinished">第 %1 页</translation>
     </message>
@@ -780,69 +778,69 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="836"/>
+        <location filename="../sources/pdfmodel.cpp" line="906"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">抗锯齿：</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="843"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">文本抗锯齿：</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="850"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>None</source>
         <translation type="unfinished">无</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="851"/>
+        <location filename="../sources/pdfmodel.cpp" line="921"/>
         <source>Full</source>
         <translation type="unfinished">完全</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="852"/>
+        <location filename="../sources/pdfmodel.cpp" line="922"/>
         <source>Reduced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="855"/>
-        <location filename="../sources/pdfmodel.cpp" line="862"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
+        <location filename="../sources/pdfmodel.cpp" line="932"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
+        <location filename="../sources/pdfmodel.cpp" line="943"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">打印预览：</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="881"/>
+        <location filename="../sources/pdfmodel.cpp" line="951"/>
         <source>Solid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="882"/>
+        <location filename="../sources/pdfmodel.cpp" line="952"/>
         <source>Shaped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="885"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="961"/>
         <source>Arthur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
         <translation type="unfinished"></translation>
     </message>

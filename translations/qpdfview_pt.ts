@@ -35,44 +35,42 @@
         <translation type="unfinished">Formatos suportados (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquear %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Password:</source>
         <translation type="unfinished">Senha:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Informações</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">A abertura de URLs está inativa nas definições.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Os dados SyncTeX de %1 não foram encontrados.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">A imprimir %1...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1528"/>
+        <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
         <translation type="unfinished">Página %1</translation>
     </message>
@@ -780,69 +778,69 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="836"/>
+        <location filename="../sources/pdfmodel.cpp" line="906"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Melhoramento:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="843"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Melhoramento de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="850"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>None</source>
         <translation type="unfinished">Nenhum</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="851"/>
+        <location filename="../sources/pdfmodel.cpp" line="921"/>
         <source>Full</source>
         <translation type="unfinished">Completo</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="852"/>
+        <location filename="../sources/pdfmodel.cpp" line="922"/>
         <source>Reduced</source>
         <translation type="unfinished">Reduzido</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="855"/>
-        <location filename="../sources/pdfmodel.cpp" line="862"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
+        <location filename="../sources/pdfmodel.cpp" line="932"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Hinting de texto:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
+        <location filename="../sources/pdfmodel.cpp" line="943"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Pré-visualização:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="881"/>
+        <location filename="../sources/pdfmodel.cpp" line="951"/>
         <source>Solid</source>
         <translation type="unfinished">Sólida</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="882"/>
+        <location filename="../sources/pdfmodel.cpp" line="952"/>
         <source>Shaped</source>
         <translation type="unfinished">Com formas</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="885"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Modo de linha:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="961"/>
         <source>Arthur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
         <translation type="unfinished"></translation>
     </message>

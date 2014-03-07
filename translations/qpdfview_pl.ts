@@ -35,44 +35,42 @@
         <translation>Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Unlock %1</source>
         <translation>Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="453"/>
-        <location filename="../sources/documentview.cpp" line="496"/>
+        <location filename="../sources/documentview.cpp" line="1520"/>
         <source>Password:</source>
         <translation>Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="998"/>
+        <location filename="../sources/documentview.cpp" line="990"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation>Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>Warning</source>
         <translation>Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1048"/>
+        <location filename="../sources/documentview.cpp" line="1040"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1456"/>
+        <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1528"/>
+        <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
         <translation>Strona %1</translation>
     </message>
@@ -103,7 +101,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć załącznika pliku zapisanego do &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -267,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Wsparcie PDF używa Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -780,69 +778,69 @@
 <context>
     <name>PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="836"/>
+        <location filename="../sources/pdfmodel.cpp" line="906"/>
         <source>Antialiasing:</source>
         <translation>Antyaliasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="843"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Text antialiasing:</source>
         <translation>Antyaliasing tekstu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="850"/>
-        <location filename="../sources/pdfmodel.cpp" line="880"/>
+        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>None</source>
         <translation>Brak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="851"/>
+        <location filename="../sources/pdfmodel.cpp" line="921"/>
         <source>Full</source>
         <translation>Pełny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="852"/>
+        <location filename="../sources/pdfmodel.cpp" line="922"/>
         <source>Reduced</source>
         <translation>Zredukowano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="855"/>
-        <location filename="../sources/pdfmodel.cpp" line="862"/>
+        <location filename="../sources/pdfmodel.cpp" line="925"/>
+        <location filename="../sources/pdfmodel.cpp" line="932"/>
         <source>Text hinting:</source>
         <translation>Tekst podpowiedzi:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="873"/>
+        <location filename="../sources/pdfmodel.cpp" line="943"/>
         <source>Overprint preview:</source>
         <translation>Podgląd wydruku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="881"/>
+        <location filename="../sources/pdfmodel.cpp" line="951"/>
         <source>Solid</source>
         <translation>Jednolity</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="882"/>
+        <location filename="../sources/pdfmodel.cpp" line="952"/>
         <source>Shaped</source>
         <translation>Uformowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="885"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Thin line mode:</source>
         <translation>Tryb cienkiej linii:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
         <translation>Ekran powitalny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="891"/>
+        <location filename="../sources/pdfmodel.cpp" line="961"/>
         <source>Arthur</source>
         <translation>Arthur</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="894"/>
+        <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
         <translation>Mechanizm:</translation>
     </message>
@@ -852,12 +850,12 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Warning</source>
-        <translation type="unfinished">Ostrzeżenie</translation>
+        <translation>Ostrzeżenie</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można dopasować typu pliku &apos;%1&apos;!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
@@ -867,7 +865,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można wczytać wtyczki dla typu pliku &apos;%1&apos;!</translation>
     </message>
 </context>
 <context>
