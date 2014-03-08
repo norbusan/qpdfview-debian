@@ -153,7 +153,7 @@ with_fitz {
         PRE_TARGETDEPS += $$FITZ_PLUGIN_NAME
 
         isEmpty(FITZ_PLUGIN_LIBS) {
-            LIBS += -lmupdf -lmupdf-js-none -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm
+            LIBS += -lmupdf -lmupdf-js-none -lfreetype -ljbig2dec -ljpeg -lz -lm
         } else {
             LIBS += $$FITZ_PLUGIN_LIBS
         }
