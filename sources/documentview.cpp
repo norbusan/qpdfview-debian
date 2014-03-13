@@ -448,7 +448,7 @@ bool DocumentView::open(const QString& filePath)
 
     if(document != 0)
     {
-        if(!unlockDocument(filePath, document))
+        if(!checkDocument(filePath, document))
         {
             delete document;
             return false;
@@ -488,7 +488,7 @@ bool DocumentView::refresh()
 
     if(document != 0)
     {
-        if(!unlockDocument(m_fileInfo.filePath(), document))
+        if(!checkDocument(m_fileInfo.filePath(), document))
         {
             delete document;
             return false;
@@ -1513,7 +1513,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = top >= 0.0 ? top : 0.0;
 }
 
-bool DocumentView::unlockDocument(const QString& filePath, Model::Document* document)
+bool DocumentView::checkDocument(const QString& filePath, Model::Document* document)
 {
     if(document->isLocked())
     {
