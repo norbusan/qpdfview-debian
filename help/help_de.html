@@ -138,6 +138,8 @@ ist und die Titelseite einzeln anzeigt.</li>
 	<li><b>Mehrere Seiten</b> Legt fest, ob die Seitenanzeige mehrspaltig ist. Die
 Anzahl der Spalten für diese Anzeigeart kann im Einstellungsdialog geändert
 werden.</li>
+    <li><b>Rechts nach links</b> Bestimmt wie die Seiten in Darstellungen mit
+mehreren Seiten pro Reihe angeordnet werden.</li>
 	<li><b>Vergrößern</b> Vergrößert den Skalenfaktor um 10 Prozent.</li>
 	<li><b>Verkleinern</b> Verkleinert den Skalenfaktor um 10 Prozent.</li>
 	<li><b>Ursprüngliche Größe</b> Setzt den Skalenfaktor auf 100 Prozent zurück.</li>
@@ -294,10 +296,10 @@ geladen werden, nachdem sie auf der Festplatte verändert wurden.</li>
     <li><b>Verwendete Dateien merken</b> Aktiviert ein Menü welches eine Liste der
 zuletzt verwendeten Dateien enthält, deren Anzahl durch die Option "Anzahl
 verwendeter Dateien" bestimmt wird. (Erst nach Neustart wirksam.)</li>
-    <li><b>Geschlossene Reiter merken</b> Aktiviert ein Menü welches eine Liste der
-zuletzt geschlossenen Reiter enthält, deren Anzahl durch die Option "Anzahl
-geschlossener Reiter" bestimmt wird. Das Aufbewahren der Reiter kann jedoch
-den Speicherbedarf signifikant erhöhen. (Erst nach Neustart wirksam.)</li>
+    <li><b>Keep recently closed</b> If enabled, a recently closed menu is available
+and lists as many recently closed tabs as set in the "Recently closed count"
+option. Keeping the tabs available could increase memory usage
+considerably. (Effective after restart.)</li>
     <li><b>Reiter wiederherstellen</b> Falls eingeschaltet werden Reiter und ihre
 Eigenschaften beim Beenden des Programms gespeichert und beim nächsten
 Starten wiederhergestellt.</li>
@@ -314,19 +316,23 @@ Präsentationsansicht zeigen soll.</li>
     <li><b>Farbe der Hervorhebungen</b> Legt die Farbe von Hervorhebungen fest.</li>
     <li><b>Dauer der Hervorhebungen</b> Legt die Dauer von vorübergehenden
 Hervorhebungen fest.</li>
-    <li><b>Annotation color</b> The color of annotations added by the program using
-SVG color keywords or hexadecimal notation '#rrggbb'.</li>
-    <li><b>Source editor</b> The program which is started to edit sources. '%1' is
-replaced by the absolute file path. '%2' resp. '%3' is replaced by line
-resp. column number.</li>
+    <li><b>Farbe für Anmerkungen</b> Die Farbe von Anmerkungen die mit diesem
+Programm hinzugefügt werden, beschrieben durch SVG-Farbnamen oder in
+hexadezimaler Notation '#rrggbb'.</li>
+    <li><b>Quelltexteditor</b> Das Programm, das gestartet wird um Quelltexte zu
+bearbeiten. '%1' wird durch den absoluten Dateipfad und '%2' bzw. '%3' durch
+Zeilen- bzw. Spaltennummer ersetzt.</li>
 </ul>
 
-<h4>Einstellungen zur Grafik</h4>
+<h4><a name="graphicssettings">Einstellungen zur Grafik</a> <a
+href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
-factor, cached pixmaps will be used to draw approximations of final pixmaps
-until these are available at the cost of increased memory usage.</li>
+    <li><b>Veraltete Grafiken aufheben</b> Falls eingeschaltet, werden bei
+Veränderung der Vergrößerung (auf Kosten zusätzlichen
+Arbeitsspeicherverbrauchs) bereits erstellte Grafiken der alten Auflösung
+verwendet, um Näherungen der endgültigen Grafiken darzustellen, bis diese
+verfügbar sind.</li>
     <li>.</li>
     <li><b>Seiten verzieren</b> Legt fest, ob Seiten vom Hintergrund abgesetzt
 dargestellt werden.</li>
@@ -354,12 +360,13 @@ von Seiten auf Kosten höheren Speicherverbrauchs beschleunigt.</li>
     <li><b>Vorausladen</b> Das Programm wird versuchen, Seiten zu zeichnen, die noch
 nicht angezeigt werden, was die Anzeige von Seiten auf Kosten höheren
 Zwischenspeicherverbrauchs beschleunigt.</li>
-    <li><b>Prefetch distance</b> The number of rows beyond the current row and twice
-the number of rows before the current row that are prefetched.</li>
-    <li>PDF-Einstellungen
+    <li><b>Reichweite des Vorausladens</b> Das Vorausladen lädt diese Anzahl an
+Zeilen über die aktuelle Zeile hinaus und halb so viele Zeilen vor der
+aktuellen Zeile voraus.</li>
+    <li><b>PDF-Einstellungen</b>
     <ul>
-        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
-on top of another is displayed.</li>
+        <li><b>Überdruckvorschau</b> Falls eingeschaltet, wird eine Vorschau des
+Überdruckens einer Tintenlage über eine andere angezeigt.</li>
         <li><b>Kantenglättung</b> Verbessert die Anzeigequalität auf Kosten der
 Geschwindigkeit.</li>
         <li><b>Text-Kantenglättung</b> Verbessert die Anzeigequalität von Text auf
@@ -371,7 +378,7 @@ Zeichnen dünner Linien aus.</li>
         <li><b>Unterbau</b> Wählt den Unterbau zum Zeichnen von Seiten aus.</li>
     </ul>
     </li>
-    <li>PS-Einstellungen
+    <li><b>PS-Einstellungen</b>
     <ul>
         <li><b>Graphics antialias bits</b> Determines the amount of antialiasing for
 graphics.</li>
@@ -380,21 +387,22 @@ graphics.</li>
     </li>
 </ul>
 
-<h4>Einstellung zur Oberfläche</h4>
+<h4><a name="interfacesettings">Einstellung zur Oberfläche</a> <a
+href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Tab position</b> Defines at which edge of the main view tabs will be
-displayed.</li>
-    <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than
-two documents are opened.</li>
-    <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
-right of the active tab.</li>
-    <li><b>Recently used count</b> Sets the number of files that are listed in the
-recently used menu, if "Track recently used" is enabled. (Effective after
-restart.)</li>
-    <li><b>Recently closed count</b> Sets the number of tabs that are listed in the
-recently closed menu, if "Keep recently closed" is enabled. (Effective after
-restart.)</li>
+    <li><b>Reiterposition</b> Legt fest an welcher Kante der Hauptansicht die Reiter
+angezeigt werden.</li>
+    <li><b>Reitersichtbarkeit</b> Legt fest ob Reiter angezeigt werden falls weniger
+als zwei Dokumente geöffnet sind.</li>
+    <li><b>Neuer Reiter neben aktuellem Reiter</b> Falls aktiviert werden neue
+Reiter rechts neben dem aktuellen Reiter eingefügt.</li>
+    <li><b>Anzahl verwendeter Dateien</b> Legt die Azahl der Dateien fest, die im
+Menü für zuletzt verwendete Dateien aufgeführt werden, falls "Verwendete
+Dateien merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Anzahl geschlossener Reiter</b> Legt die Azahl der Reiter fest, die im
+Menü für zuletzt geschlossene Reiter aufgeführt werden, falls "Geschlossene
+Reiter merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool
 bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
 print and separator. (Effective after restart.)</li>
@@ -408,20 +416,23 @@ bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
 twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
-    <li><b>Current page in window title</b> If enabled, the current page and number
-of pages of the document in the active tab are displayed in the window
-title.</li>
-    <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
-the first entry pointing to the current page whenever the current page
-changes.</li>
-    <li><b>Highlight current thumbnail</b> If enabled, the current page is
-highlighted in the thumbnails view.</li>
-    <li><b>Limit thumbnails to results</b> If this option is enabled and a search is
-conducted, only the pages where the search term is found are displayed in
-the thumbnails view.</li>
+    <li><b>Aktuelle Seite im Fenstertitel</b> Falls aktiviert wird die aktuelle
+Seite und die Anzahl der Seiten des aktuellen Dokuments im Fenstertitel
+angezeigt.</li>
+    <li><b>Instance name in window title</b> If enabled and the current instance is
+named, its name is displayed in the window title.</li>
+    <li><b>Gliederung synchronisieren</b> Falls eingeschaltet, wird in der
+Gliederungsansicht der erste Eintrag zur aktuellen Seite hervorgehoben, wenn
+die aktuelle Seite wechselt.</li>
+    <li><b>Aktuelles Vorschaubild hervorheben</b> Falls eingeschaltet, wird die
+aktuelle Seite in der Vorschauansicht hervorgehoben.</li>
+    <li><b>Vorschaubilder auf Ergebnisse beschränken</b> Falls diese Einstellung
+eingeschaltet ist und eine Suche durchgeführt wird, werden nur Seiten, die
+den Suchbegriff enthalten, in der Vorschauansicht angezeigt.</li>
 </ul>
 
-<h4>Einstellungen zu Tastenkürzeln</h4>
+<h4><a name="shortcutsettings">Einstellungen zu Tastenkürzeln</a> <a
+href="#top">&uarr;</a></h4>
 
 <p>Die Tastenkürzel-Einstellungen ermöglichen die Anpassung der Tastenkürzel an
 persönliche Vorlieben. Zum Ändern eines Tastenkürzel wird ein Doppelklick
@@ -434,7 +445,8 @@ unterscheidet. Falls das Tastenkürzel Modifikator-Tasten enthält, werden die
 Namen der Tasten mit einem Pluszeichen zusammengefügt wobei die
 Modifikator-Taste zuerst genannt werden muss, z.B. "Strg+A" oder "Strg++".</p>
 
-<h4>Einstellungen zu Modifikatoren</h4>
+<h4><a name="modifiersettings">Einstellungen zu Modifikatoren</a> <a
+href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Skalieren</b> Die Tastaturmodifikatoren, um die Darstellung der

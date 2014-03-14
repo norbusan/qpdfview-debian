@@ -136,6 +136,8 @@ lignes de la mise en page.</li>
 un saut de page pour la page de couverture.</li>
 	<li><b>Multiples pages</b> Mode de mise en page à plusieurs colonnes. Le nombre
 de colonnes se règle dans le menu paramètres.</li>
+    <li><b>Droite vers la gauche</b> Indique comment les pages sont présentées
+lorsque la mise en page multiple comporte plusieurs pages par ligne.</li>
 	<li><b>Zoomer</b> Augmente le facteur d'échelle de 10 pourcent.</li>
 	<li><b>Dé-zoomer</b> Diminue le facteur d'échelle de 10 pourcent.</li>
 	<li><b>Taille originale</b> Rétablit le facteur d'échelle à 100 pourcent.</li>
@@ -286,7 +288,7 @@ automatiquement lors de leur modification sur le disque dur.</li>
 disponible et propose autant de fichiers récemment ouverts qu'il est précisé
 dans le champ « Nombre de fichiers récemment ouverts » (nécessite un
 redémarrage).</li>
-    <li><b>Kepp recently closed</b> If enabled, a recently closed men is available
+    <li><b>Keep recently closed</b> If enabled, a recently closed menu is available
 and lists as many recently closed tabs as set in the "Recently closed count"
 option. Keeping the tabs available could increase memory usage
 considerably. (Effective after restart.)</li>
@@ -361,7 +363,7 @@ baisse de performances.</li>
 baisse de performances.</li>
         <li><b>Indications</b> Peut améliorer l'affichage de certaines polices de
 caractères.</li>
-        <li><b>Thin line mode</b> Chooses the optimization used to draw thin lines.</li>
+        <li><b>Mode ligne fine</b> Optimisation de rendu des lignes fines.</li>
         <li><b>Backend</b> Chooses the backend used to render pages.</li>
     </ul>
     </li>
@@ -384,12 +386,14 @@ seront placés les onglets.</li>
 moins de deux documents ouverts.</li>
     <li><b>Nouvel onglet à côté de l'onglet courant</b> Si l'item est validé, les
 nouveaux onglets sont ouverts à droite de l'onglet courant.</li>
-    <li><b>Recently used count</b> Sets the number of files that are listed in the
-recently used menu, if "Track recently used" is enabled. (Effective after
-restart.)</li>
-    <li><b>Recently closed count</b> Sets the number of tabs that are listed in the
-recently closed menu, if "Keep recently closed" is enabled. (Effective after
-restart.)</li>
+    <li><b>Compteur des fichiers récemments ouverts</b> Précise le nombre de
+fichiers qui sont listés dans le menu des fichiers récemments ouverts, si
+l'item « Suivre les fichiers récemment ouverts » est validé (option
+effective après un redémarrage).</li>
+    <li><b>Compteur des fichiers récemment fermés</b> Précise le nombre de fichiers
+qui sont listés dans le menu des fichiers récemment fermés, si l'item «
+Suivre les fichiers récemment fermés » est validé (option effective après un
+redémarrage).</li>
     <li><b>Barre d'outils Fichier</b> Défini quelles actions sont affichées dans la
 barre d'outils Fichier. Les actions disponibles sont openInNewTab, open,
 refresh, saveCopy, saveAs, print et separator. (Nécessite un redémarrage.)</li>
@@ -407,6 +411,8 @@ un redémarrage.)</li>
     <li><b>Page courante dans le titre de la fenêtre</b> Si cet item est validé, le
 numéro de la page et le nombre total de pages du document actif sont
 affichés dans la barre de titre de la fenêtre.</li>
+    <li><b>Instance name in window title</b> If enabled and the current instance is
+named, its name is displayed in the window title.</li>
     <li><b>Synchroniser le sommaire</b> Si l'item est validé, la page du sommaire
 correspondant à la page courante est mise en valeur et s'actualise à tous
 changements de page.</li>
@@ -419,14 +425,15 @@ recherche.</li>
 
 <h4><a name="modifiersettings">Modificateurs</a> <a href="#top">&uarr;</a></h4>
 
-<p>Le menu raccourcis permet d'ajuster les raccourcis clavier à son
-goût. Double-cliquer sur un raccourci permet de l'éditer pour le
-modifier. Une même action peut se voir attribuer plusieurs raccourcis
-clavier, qui doivent alors être séparés par des points-virgules. Les touches
-qui ne sont pas des caractères uniques (« Alt », « Ctrl », « PgDown », ...)
-doivent être écrites explicitement ; la casse n'est pas importante. Si le
-raccourci contient une touche spéciale, les touches doivent être jointes par
-le signe « + », par exemple « Ctrl+A », « Ctrl++», ...</p>
+<p>Le menu des raccourcis permet d'ajuster les raccourcis clavier à ses goûts
+personnels. Les raccourcis sont modifiables en double-cliquant sur le
+raccourci à éditer puis en saisissant ler nouveau raccourci. Chaque action
+peut avoir plusieurs raccourcis, séparés par un point virgule. Les touches
+dont le nom n'est pas une lettre unique doivent être écrites explicitement
+(par exemple « Alt », « Ctrl », « PgDown »), et ne sont pas sensibles à la
+casse. Si le raccourci contient des touches de modifications, les touches
+doivent être jointes par le signe plus et la touche de modification doit
+être écrite en premier, par exemple « Ctrl+A » or « Ctrl++ ».</p>
 
 <h4><a name="modifiersettings">Modificateurs</a> <a href="#top">&uarr;</a></h4>
 
