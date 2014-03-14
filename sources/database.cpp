@@ -65,8 +65,6 @@ public:
         if(!m_committed)
         {
             m_database.rollback();
-
-            qWarning() << "Rolling back database transaction:" << m_database.lastError();
         }
     }
 
