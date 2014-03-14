@@ -200,6 +200,8 @@ protected slots:
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
 
+    void on_saveDatabase_timeout();
+
 protected:
     void closeEvent(QCloseEvent* event);
 
@@ -228,8 +230,12 @@ private:
     void setWindowTitleForCurrentTab();
     BookmarkMenu* bookmarkForCurrentTab() const;
 
+    void prepareDatabase();
+
     void saveTabs() const;
     void saveBookmarks() const;
+
+    QTimer* m_saveDatabaseTimer;
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;
