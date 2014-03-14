@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.1">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -35,16 +35,6 @@
         <translation type="unfinished">Formats supportés (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">Déverrouiller %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">Mot de passe</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
@@ -57,7 +47,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1040"/>
         <source>Warning</source>
-        <translation type="unfinished">Avertissement</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1040"/>
@@ -68,6 +58,16 @@
         <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de « %1 »...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">Déverrouiller %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Mot de passe</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
@@ -96,12 +96,12 @@
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Warning</source>
-        <translation type="unfinished">Attention</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossible d&apos;ouvrir la pièce jointe enregistrée vers « %1 » !</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -141,7 +141,7 @@
         <location filename="../sources/mainwindow.cpp" line="1770"/>
         <location filename="../sources/mainwindow.cpp" line="1784"/>
         <source>Warning</source>
-        <translation type="unfinished">Avertissement</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="168"/>
@@ -265,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Support des PDF à l&apos;aide de Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De droite à gauche</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utiliser le texte en tant que &amp;sélection</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -752,7 +752,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="684"/>
         <source>Warning</source>
-        <translation type="unfinished">Avertissement</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="684"/>
@@ -1100,7 +1100,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Effacer la liste</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="38"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Effacer la liste</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

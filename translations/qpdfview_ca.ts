@@ -35,16 +35,6 @@
         <translation type="unfinished">Formats acceptats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">Desbloqueja %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">Contrasenya:</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
@@ -68,6 +58,16 @@
         <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimint &apos;%1&apos;...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">Desbloqueja %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Contrasenya:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut obrir el fitxer afegit desat a &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -265,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport PDF usant Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De dreta a esquerra</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usa text com a &amp;selecció</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Infraestructura:</translation>
     </message>
 </context>
 <context>
@@ -855,7 +855,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut trobar el tipus de fitxer de &apos;%1&apos;!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
@@ -865,7 +865,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No s&apos;ha pogut carregar el plugin per al tipus de fitxer &apos;%1&apos;!</translation>
     </message>
 </context>
 <context>

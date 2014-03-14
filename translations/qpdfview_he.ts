@@ -35,16 +35,6 @@
         <translation type="unfinished">תבניות נתמכות (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">שחרור %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">ססמה:</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">פרטים</translation>
@@ -70,6 +60,16 @@
         <translation type="unfinished">&apos;%1&apos; בהדפסה...</translation>
     </message>
     <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">שחרור %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">ססמה:</translation>
+    </message>
+    <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
         <translation type="unfinished">עמוד %1</translation>
@@ -80,12 +80,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שמירה...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שמירה ופתיחה...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
@@ -152,17 +152,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="486"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סגירת כל הלשוניות</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="487"/>
         <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סגירת כל הלשוניות למעט זו</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="488"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סגירת כל הלשוניות לשמאל</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="489"/>
@@ -230,7 +230,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">תווית</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1527"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;ניתן לעיין באתר &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; למידע נוסף.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 המתכנתים של qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1770"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ימין לשמאל</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">שימוש בטקסט כ&amp;בחירה</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -832,7 +832,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מסך פתיחה</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="961"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מנגנון:</translation>
     </message>
 </context>
 <context>
@@ -1009,17 +1009,17 @@
     <message>
         <location filename="../sources/main.cpp" line="159"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">אסור לחפש טקסט ריק.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished">בחירת מופע</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished">מופע:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
@@ -1185,6 +1185,11 @@
         <translation type="unfinished">מעקב אחר האחרונים בשימוש:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="228"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">שחזור לשוניות:</translation>
@@ -1215,24 +1220,19 @@
         <translation type="unfinished">מסך המצגת:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">צבע ההדגשה:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>None</source>
         <translation type="unfinished">ללא</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="228"/>
-        <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">משך ההדגשה:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">צבע ההדגשה:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="296"/>
@@ -1499,7 +1499,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="275"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">הזזה מעלה</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="282"/>

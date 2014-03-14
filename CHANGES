@@ -16,6 +16,12 @@ Release 0.4.9:
   * Updated German translations. Thanks to Benjamin Eltzner.
   * Updated Vietnamese translations. Thanks to Khang Mạnh Tử.
   * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Asturian translations. Thanks to Xuacu Saturio.
+  * Updated Catalan translations. Thanks to Marc Coll Carrillo and VPablo.
+  * Updated Spanish translations. Thanks to Aaron Farias.
+  * Updated Galician translatios. Thanks to Miguel Anxo Bouzada.
+  * Updated Hebrew translations. Thanks to Yaron Shahrabani.
+  * Updated Italian translations. Thanks to Claudio Arseni.
 
 Release 0.4.8:
   * Fixed building without SQLite support. Thanks to Franz Fellner.

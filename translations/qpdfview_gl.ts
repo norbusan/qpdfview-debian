@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -35,16 +35,6 @@
         <translation type="unfinished">Formatos admitidos (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">Desbloquear %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">Contrasinal:</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
@@ -68,6 +58,16 @@
         <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimindo «%1»...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">Desbloquear %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Contrasinal:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Non foi posíbel abrir o ficheiro do anexo gardado en «%1».</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -152,7 +152,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="486"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pechar todas as lapelas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="487"/>
@@ -265,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade para PDF usando Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1527"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Ver &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para obter máis información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Os desenvolvedores de qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para máis información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Os desenvolvedores de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1770"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De dereita a esquerda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar texto como &amp;selección</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -832,7 +832,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pantalla inicial</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="961"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Infraestrutura:</translation>
     </message>
 </context>
 <context>
@@ -855,7 +855,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Non foi posíbel atopar un tipo de ficheiro «%1».</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
@@ -865,7 +865,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Non foi posíbel cargar o engadido para o tipo de ficheiro «%1».</translation>
     </message>
 </context>
 <context>
@@ -1095,12 +1095,12 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pechados &amp;recentemente</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">&amp;Limpar lista</translation>
+        <translation type="unfinished">&amp;Borrar lista</translation>
     </message>
 </context>
 <context>
@@ -1187,7 +1187,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manter os pechados recentemente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
@@ -1396,7 +1396,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="619"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Conta de pechados recentemente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="627"/>

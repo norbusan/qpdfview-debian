@@ -35,16 +35,6 @@
         <translation type="unfinished">Formati supportati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">Sblocca %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">Password:</translation>
-    </message>
-    <message>
         <location filename="../sources/documentview.cpp" line="990"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
@@ -68,6 +58,16 @@
         <location filename="../sources/documentview.cpp" line="1448"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">Sblocca %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Password:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
@@ -235,7 +235,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Va alla pagina %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1527"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consultare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per maggiori informazioni.&lt;/p&gt;&lt;p&gt;© 2012-2013 The qpdfview developers&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1770"/>
@@ -435,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Da destra a sinistra</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -707,7 +707,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="364"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished">Vai alla pagina %1.</translation>
+        <translation type="unfinished">Va alla pagina %1</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="368"/>
@@ -842,7 +842,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Backend:</translation>
     </message>
 </context>
 <context>
@@ -850,7 +850,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avviso</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>

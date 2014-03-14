@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ast_ES">
+<TS version="2.1" language="de_DE">
 <context>
     <name>BookmarkMenu</name>
     <message>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../sources/database.cpp" line="573"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Saltar a páxina %1</translation>
+        <translation type="unfinished">Saltar a la páxina %1</translation>
     </message>
 </context>
 <context>
@@ -33,16 +33,6 @@
         <location filename="../sources/documentview.cpp" line="220"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formatos sofitaos (%1)</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Unlock %1</source>
-        <translation type="unfinished">Desbloquiar %1</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1520"/>
-        <source>Password:</source>
-        <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="990"/>
@@ -70,9 +60,19 @@
         <translation type="unfinished">Imprentando «%1»...</translation>
     </message>
     <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Unlock %1</source>
+        <translation type="unfinished">Desbloquiar %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1520"/>
+        <source>Password:</source>
+        <translation type="unfinished">Contraseña:</translation>
+    </message>
+    <message>
         <location filename="../sources/documentview.cpp" line="1542"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Páxina %1</translation>
     </message>
 </context>
 <context>
@@ -80,17 +80,17 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="102"/>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="103"/>
         <source>Save and open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar y abrir...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="154"/>
         <source>Save file attachment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guardar axuntu al ficheru</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
@@ -101,12 +101,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="170"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nun pudo abrise l&apos;axuntu al ficheru guardáu en &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nun pudo guardase l&apos;axuntu al ficheru en &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -115,7 +115,7 @@
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="55"/>
@@ -150,34 +150,29 @@
         <translation type="unfinished">Nun se pudo abrir «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1980"/>
-        <source>Open containing folder</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/mainwindow.cpp" line="486"/>
+        <source>Close all tabs</source>
+        <translation type="unfinished">Zarrar toles llingüetes</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="487"/>
+        <source>Close all tabs but this one</source>
+        <translation type="unfinished">Zarrar toles llingüetes menos esta</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="488"/>
+        <source>Close all tabs to the left</source>
+        <translation type="unfinished">Zarrar toles llingüetes de la izquierda</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="489"/>
+        <source>Close all tabs to the right</source>
+        <translation type="unfinished">Zarrar toles llingüetes de la drecha</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="908"/>
         <source>Open</source>
         <translation type="unfinished">Abrir</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="486"/>
-        <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="487"/>
-        <source>Close all tabs but this one</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="488"/>
-        <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="489"/>
-        <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="924"/>
@@ -230,17 +225,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Add bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Amestar marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Saltar a páxina %1</translation>
+        <translation type="unfinished">Saltar a la páxina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
@@ -270,7 +265,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Encontu PDF usando Fitz&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1525"/>
@@ -278,9 +273,14 @@
         <translation type="unfinished">&lt;li&gt;Sofitu pa impresión usando CUPS&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1527"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Vea &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pa más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Los desendolcadores de qpdfview&lt;/p&gt;</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1770"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Camudóse&apos;l documentu «%1». ¿Quier guardar los cambios?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1911"/>
@@ -311,6 +311,11 @@
         <location filename="../sources/mainwindow.cpp" line="1979"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir en llingüe&amp;ta nueva...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1980"/>
+        <source>Open containing folder</source>
+        <translation type="unfinished">Abrir la carpeta contenedora</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1981"/>
@@ -430,7 +435,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De drecha a izquierda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2018"/>
@@ -566,19 +571,9 @@
         <translation type="unfinished">&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2167"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Guetar</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2132"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">C&amp;ontornu</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1527"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Vea &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pa más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Los desendolcadores de qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2145"/>
@@ -589,6 +584,11 @@
         <location filename="../sources/mainwindow.cpp" line="2155"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Minia&amp;tures</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Guetar</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2270"/>
@@ -661,7 +661,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="406"/>
         <source>Information</source>
-        <translation type="unfinished">Información</translation>
+        <translation type="unfinished">Información</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="406"/>
@@ -732,7 +732,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="643"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar testu como &amp;seleición</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="644"/>
@@ -832,17 +832,17 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="960"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pantalla d&apos;aniciu</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="961"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Infraestructura:</translation>
     </message>
 </context>
 <context>
@@ -855,7 +855,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="205"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡Nun casa&apos;l tipu de ficheru de &apos;%1&apos;!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
@@ -865,7 +865,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡Nun pudo cargase&apos;l complementu pal tipu de ficheru &apos;%1&apos;!</translation>
     </message>
 </context>
 <context>
@@ -1014,17 +1014,17 @@
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Escoyer instancia</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="187"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instancia:</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="216"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opción de llinia de comandu desconocida «%1».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="247"/>
@@ -1039,7 +1039,7 @@
     <message>
         <location filename="../sources/main.cpp" line="259"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">El nome d&apos;una instancia sólo pue contener los caráuteres «[A-Z][a-z][0-9]_» y nun pue comenzar con un díxitu.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="265"/>
@@ -1095,7 +1095,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="29"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Recién zarraos</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="36"/>
@@ -1156,7 +1156,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="130"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Predeterminaos de la llingüeta actual</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="205"/>
@@ -1183,6 +1183,11 @@
         <location filename="../sources/settingsdialog.cpp" line="220"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Rastrar usaos de recién:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="228"/>
+        <source>Keep recently closed:</source>
+        <translation type="unfinished">Caltener recién zarraos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="235"/>
@@ -1215,24 +1220,19 @@
         <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Color de rescampláu:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>None</source>
         <translation type="unfinished">Dengún</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="228"/>
-        <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Rescamplar la duración:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Color de rescampláu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="296"/>
@@ -1252,12 +1252,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="360"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Caltener los mapes de píxeles anticuaos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="369"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar la tasa de píxeles del preséu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="378"/>
@@ -1287,7 +1287,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="410"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Color del fondu de la presentación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="418"/>
@@ -1391,12 +1391,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="610"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuenta de recién usaos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="619"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cuenta de recién zarraos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="627"/>
@@ -1421,12 +1421,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nome de la instancia nel títulu de la ventana:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="664"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sincronizar la vista d&apos;esquema:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="671"/>
@@ -1441,12 +1441,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="685"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capa d&apos;anotación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="692"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capa de campos de formulariu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>
