@@ -1,5 +1,13 @@
 * improve DjVu support
 * add DVI support
+* add ePUB support
+* add CHM support
+
+* extend search dock
+* add bookmarks dock
+* add annotations dock
+
+* rewrite tool support
 
 * improve text-selection support
 * improve link support
