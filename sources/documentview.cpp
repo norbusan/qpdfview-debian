@@ -464,12 +464,12 @@ bool DocumentView::open(const QString& filePath)
 
         prepareDocument(document);
 
+        loadDocumentDefaults();
+
         prepareScene();
         prepareView();
 
         prepareThumbnailsScene();
-
-        loadDocumentDefaults();
 
         emit documentChanged();
 
@@ -1556,25 +1556,25 @@ void DocumentView::loadDocumentDefaults()
 {
     if(m_document->wantsContinuousMode())
     {
-        setContinuousMode(true);
+        m_continuousMode = true;
     }
 
     if(m_document->wantsSinglePageMode())
     {
-        setLayoutMode(SinglePageMode);
+        m_layout.reset(new SinglePageLayout);
     }
     else if(m_document->wantsTwoPagesMode())
     {
-        setLayoutMode(TwoPagesMode);
+        m_layout.reset(new TwoPagesLayout);
     }
     else if(m_document->wantsTwoPagesWithCoverPageMode())
     {
-        setLayoutMode(TwoPagesWithCoverPageMode);
+        m_layout.reset(new TwoPagesWithCoverPageLayout);
     }
 
     if(m_document->wantsRightToLeftMode())
     {
-        setRightToLeftMode(true);
+        m_rightToLeftMode = true;
     }
 }
 
