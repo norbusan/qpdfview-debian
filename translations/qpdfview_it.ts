@@ -235,7 +235,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1426"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vai alla pagina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1509"/>
