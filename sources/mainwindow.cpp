@@ -101,16 +101,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
     m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
 
-    if(s_database == 0)
-    {
-        s_database = Database::instance();
-    }
-
-    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
-    connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
-
-    s_database->restoreTabs();
-    s_database->restoreBookmarks();
+    prepareDatabase();
 
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
@@ -1634,6 +1625,27 @@ void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, c
     m_bookmarksMenu->addMenu(bookmark);
 }
 
+void MainWindow::on_saveDatabase_timeout()
+{
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        saveTabs();
+    }
+
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        saveBookmarks();
+    }
+
+    if(s_settings->mainWindow().restorePerFileSettings())
+    {
+        foreach(DocumentView* tab, tabs())
+        {
+            s_database->savePerFileSettings(tab);
+        }
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     saveTabs();
@@ -1836,6 +1848,35 @@ BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
     }
 
     return 0;
+}
+
+void MainWindow::prepareDatabase()
+{
+    if(s_database == 0)
+    {
+        s_database = Database::instance();
+    }
+
+    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
+    connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
+
+
+    s_database->restoreTabs();
+    s_database->restoreBookmarks();
+
+
+    m_saveDatabaseTimer = new QTimer(this);
+
+    connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
+
+
+    const int saveDatabaseInterval = s_settings->mainWindow().saveDatabaseInterval();
+
+    if(saveDatabaseInterval > 0)
+    {
+        m_saveDatabaseTimer->setInterval(saveDatabaseInterval);
+        m_saveDatabaseTimer->start();
+    }
 }
 
 void MainWindow::saveTabs() const

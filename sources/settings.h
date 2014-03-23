@@ -154,13 +154,14 @@ public:
         bool autoRefresh() const;
         void setAutoRefresh(bool autoRefresh);
 
+        int autoRefreshTimeout() const;
+
         inline bool prefetch() const { return m_prefetch; }
         void setPrefetch(bool prefetch);
 
         inline int prefetchDistance() const { return m_prefetchDistance; }
         void setPrefetchDistance(int prefetchDistance);
 
-        int autoRefreshTimeout() const;
         int prefetchTimeout() const;
 
         inline int pagesPerRow() const { return m_pagesPerRow; }
@@ -274,6 +275,8 @@ public:
 
         bool restorePerFileSettings() const;
         void setRestorePerFileSettings(bool on);
+
+        int saveDatabaseInterval() const;
 
         int tabPosition() const;
         void setTabPosition(int tabPosition);
@@ -455,10 +458,11 @@ public:
 
         static inline bool autoRefresh() { return false; }
 
+        static inline int autoRefreshTimeout() { return 750; }
+
         static inline bool prefetch() { return false; }
         static inline int prefetchDistance() { return 1; }
 
-        static inline int autoRefreshTimeout() { return 750; }
         static inline int prefetchTimeout() { return 250; }
 
         static inline int pagesPerRow() { return 3; }
@@ -520,6 +524,8 @@ public:
         static inline bool restoreTabs() { return false; }
         static inline bool restoreBookmarks() { return false; }
         static inline bool restorePerFileSettings() { return false; }
+
+        static inline int saveDatabaseInterval() { return 30000; }
 
         static inline int tabPosition() { return 0; }
         static inline int tabVisibility() { return 0; }

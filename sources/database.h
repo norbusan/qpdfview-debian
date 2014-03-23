@@ -68,6 +68,10 @@ private:
 
 #ifdef WITH_SQL
 
+    bool prepareTabs_v2();
+    bool prepareBookmarks_v2();
+    bool preparePerFileSettings_v2();
+
     void migrateTabs_v1_v2();
     void migrateBookmarks_v1_v2();
     void migratePerFileSettings_v1_v2();

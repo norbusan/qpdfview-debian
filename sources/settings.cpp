@@ -280,6 +280,11 @@ void Settings::DocumentView::setAutoRefresh(bool autoRefresh)
     m_settings->setValue("documentView/autoRefresh", autoRefresh);
 }
 
+int Settings::DocumentView::autoRefreshTimeout() const
+{
+    return m_settings->value("documentView/autoRefreshTimeout", Defaults::DocumentView::autoRefreshTimeout()).toInt();
+}
+
 void Settings::DocumentView::setPrefetch(bool prefetch)
 {
     m_prefetch = prefetch;
@@ -293,11 +298,6 @@ void Settings::DocumentView::setPrefetchDistance(int prefetchDistance)
         m_prefetchDistance = prefetchDistance;
         m_settings->setValue("documentView/prefetchDistance", prefetchDistance);
     }
-}
-
-int Settings::DocumentView::autoRefreshTimeout() const
-{
-    return m_settings->value("documentView/autoRefreshTimeout", Defaults::DocumentView::autoRefreshTimeout()).toInt();
 }
 
 int Settings::DocumentView::prefetchTimeout() const
@@ -591,6 +591,11 @@ bool Settings::MainWindow::restorePerFileSettings() const
 void Settings::MainWindow::setRestorePerFileSettings(bool on)
 {
     m_settings->setValue("mainWindow/restorePerFileSettings", on);
+}
+
+int Settings::MainWindow::saveDatabaseInterval() const
+{
+    return m_settings->value("mainWindow/saveDatabaseInterval", Defaults::MainWindow::saveDatabaseInterval()).toInt();
 }
 
 int Settings::MainWindow::tabPosition() const

@@ -1,7 +1,7 @@
 .\" 
 .\" 
 .\" Copyright 2012-2013 Benjamin Eltzner
-.\" Copyright 2012-2013 Adam Reichold
+.\" Copyright 2012-2014 Adam Reichold
 .\" Copyright 2012 Michał Trybus
 .\" 
 .\" This file is part of qpdfview.
@@ -69,7 +69,9 @@ qpdfview uses a configuration file usually located at
 
 The icon theme used by Qt can be changed by setting the key "iconTheme" in the section "mainWindow". The application-wide Qt style sheet can be changed by setting the key "styleSheet" in the section "mainWindow".
 
-The timeout for auto-refresh resp. prefetch can be changed by setting the key "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView".
+The timeout for auto-refresh resp. prefetch can be changed by setting the key "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView". The defaults are 750 resp. 250 milliseconds.
+
+The interval for saving relevant state (as determined by the settings) to the database can be changed by setting the key "saveDatabaseInterval" in the section "mainWindow". The default is 30000 milliseconds with a non-positive value disabling the function.
 .SH EXAMPLES
 .RS
 The command
@@ -147,6 +149,22 @@ The command
 .B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
 .RS
 opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
+
+The lines
+.RE
+.B [documentView]
+.RS
+.RE
+.B autoRefreshTimeout=1250
+.RS
+.RE
+.B [mainWindow]
+.RS
+.RE
+.B styleSheet="QTabBar::tab { max-width: 150px; }"
+.RS
+will configure the auto-refresh timeout to 1250 milliseconds and the change the maximum tab width to 150 pixel.
+
 .SH BUGS
 If you find a bug, please report it at
 .RS
