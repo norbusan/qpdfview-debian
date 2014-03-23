@@ -39,7 +39,8 @@ enum RubberBandMode
     ModifiersMode = 0,
     CopyToClipboardMode = 1,
     AddAnnotationMode = 2,
-    NumberOfRubberBandModes = 3
+    ZoomToSelectionMode = 3,
+    NumberOfRubberBandModes = 4
 };
 
 enum LayoutMode

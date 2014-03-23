@@ -61,6 +61,34 @@ public:
     inline int index() const { return m_index; }
     inline const QSizeF& size() const { return m_size; }
 
+    inline qreal unscaledWidth() const
+    {
+        switch(m_rotation)
+        {
+        default:
+        case RotateBy0:
+        case RotateBy180:
+            return m_resolutionX / 72.0 * m_size.width();
+        case RotateBy90:
+        case RotateBy270:
+            return m_resolutionX / 72.0 * m_size.height();
+        }
+    }
+
+    inline qreal unscaledHeight() const
+    {
+        switch(m_rotation)
+        {
+        default:
+        case RotateBy0:
+        case RotateBy180:
+            return m_resolutionY / 72.0 * m_size.height();
+        case RotateBy90:
+        case RotateBy270:
+            return m_resolutionY / 72.0 * m_size.width();
+        }
+    }
+
     inline bool invertColors() { return m_invertColors; }
     void setInvertColors(bool invertColors);
 
@@ -98,6 +126,7 @@ signals:
     void rubberBandFinished();
 
     void sourceRequested(int page, const QPointF& pos);
+    void zoomToSelectionRequested(int page, const QRectF& rect);
 
     void wasModified();
 

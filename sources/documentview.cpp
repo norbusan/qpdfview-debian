@@ -619,6 +619,8 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
+            // TODO: Adjust changeLeft and changeTop using the DocumentLayout, e.g. w.r.t. the second column of a two-column layout.
+
             prepareView(changeLeft, changeTop);
 
             emit currentPageChanged(m_currentPage, trackChange);
@@ -1053,6 +1055,21 @@ void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
     Q_UNUSED(pos);
 
 #endif // WITH_SYNCTEX
+}
+
+void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rect)
+{
+    const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
+    const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
+
+    const qreal unscaledWidth = m_pageItems.at(page - 1)->unscaledWidth();
+    const qreal unscaledHeight = m_pageItems.at(page - 1)->unscaledHeight();
+
+    setScaleFactor(qMin(qMin(visibleWidth / unscaledWidth / rect.width(),
+                             visibleHeight / unscaledHeight / rect.height()),
+                        Defaults::DocumentView::maximumScaleFactor()));
+
+    jumpToPage(page, false, rect.left(), rect.top());
 }
 
 void DocumentView::on_pages_wasModified()
@@ -1664,6 +1681,7 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
         connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
+        connect(page, SIGNAL(zoomToSelectionRequested(int,QRectF)), SLOT(on_pages_zoomToSelectionRequested(int,QRectF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }
@@ -1726,23 +1744,10 @@ void DocumentView::prepareScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        qreal pageWidth = 0.0;
-        qreal pageHeight = 0.0;
+        page->setRotation(m_rotation);
 
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            pageWidth = logicalDpiX() / 72.0 * page->size().width();
-            pageHeight = logicalDpiY() / 72.0 * page->size().height();
-            break;
-        case RotateBy90:
-        case RotateBy270:
-            pageWidth = logicalDpiX() / 72.0 * page->size().height();
-            pageHeight = logicalDpiY() / 72.0 * page->size().width();
-            break;
-        }
+        const qreal unscaledWidth = page->unscaledWidth();
+        const qreal unscaledHeight = page->unscaledHeight();
 
         switch(m_scaleMode)
         {
@@ -1751,14 +1756,12 @@ void DocumentView::prepareScene()
             page->setScaleFactor(m_scaleFactor);
             break;
         case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / pageWidth);
+            page->setScaleFactor(visibleWidth / unscaledWidth);
             break;
         case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / pageWidth, visibleHeight / pageHeight));
+            page->setScaleFactor(qMin(visibleWidth / unscaledWidth, visibleHeight / unscaledHeight));
             break;
         }
-
-        page->setRotation(m_rotation);
     }
 
     // prepare layout
@@ -1883,10 +1886,7 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        const qreal pageWidth = logicalDpiX() / 72.0 * page->size().width();
-        const qreal pageHeight = logicalDpiY() / 72.0 * page->size().height();
-
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / pageWidth, s_settings->documentView().thumbnailSize() / pageHeight));
+        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->unscaledWidth(), s_settings->documentView().thumbnailSize() / page->unscaledHeight()));
 
         // prepare layout
 

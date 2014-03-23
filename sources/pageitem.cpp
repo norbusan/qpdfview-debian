@@ -431,19 +431,24 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     // rubber band
 
     if(m_rubberBandMode == ModifiersMode && !m_presentationMode
-            && (event->modifiers() == s_settings->pageItem().copyToClipboardModifiers()
+            && (event->modifiers() == Qt::NoModifier
+                || event->modifiers() == s_settings->pageItem().copyToClipboardModifiers()
                 || event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
-            && event->button() == Qt::LeftButton)
+            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
     {
         setCursor(Qt::CrossCursor);
 
-        if(event->modifiers() == s_settings->pageItem().copyToClipboardModifiers())
+        if(event->modifiers() == s_settings->pageItem().copyToClipboardModifiers() && event->button() == Qt::LeftButton)
         {
             m_rubberBandMode = CopyToClipboardMode;
         }
-        else if(event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
+        else if(event->modifiers() == s_settings->pageItem().addAnnotationModifiers() && event->button() == Qt::LeftButton)
         {
             m_rubberBandMode = AddAnnotationMode;
+        }
+        else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::MidButton)
+        {
+            m_rubberBandMode = ZoomToSelectionMode;
         }
     }
 
@@ -578,6 +583,10 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         else if(m_rubberBandMode == AddAnnotationMode)
         {
             addAnnotation(event->screenPos());
+        }
+        else if(m_rubberBandMode == ZoomToSelectionMode)
+        {
+            emit zoomToSelectionRequested(m_index + 1, m_normalizedTransform.inverted().mapRect(m_rubberBand));
         }
 
         m_rubberBandMode = ModifiersMode;
