@@ -1,5 +1,6 @@
 Release 0.4.10:
   * Added periodically storing persistent state.
+  * Added opening internal links in a new tab by middle-clicking.
 
 Release 0.4.9:
   * Added experimental Fitz plug-in.
