@@ -90,6 +90,7 @@ protected slots:
     void on_currentTab_scaleModeChanged(ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
 
+    void on_currentTab_linkClicked(int page);
     void on_currentTab_linkClicked(const QString& filePath, int page);
 
     void on_currentTab_invertColorsChanged(bool invertColors);

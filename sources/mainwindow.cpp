@@ -195,6 +195,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
 
+        connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
         connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
 
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
@@ -757,6 +758,11 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::minimumScaleFactor()));
         }
     }
+}
+
+void MainWindow::on_currentTab_linkClicked(int page)
+{
+    openInNewTab(currentTab()->fileInfo().filePath(), page);
 }
 
 void MainWindow::on_currentTab_linkClicked(const QString& filePath, int page)
