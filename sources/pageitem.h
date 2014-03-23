@@ -90,7 +90,7 @@ public:
     inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
 signals:
-    void linkClicked(int page, qreal left = 0.0, qreal top = 0.0);
+    void linkClicked(bool newTab, int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
 
@@ -232,7 +232,7 @@ public:
     void setCurrent(bool current);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent*);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
     void mouseMoveEvent(QGraphicsSceneMouseEvent*);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent*);

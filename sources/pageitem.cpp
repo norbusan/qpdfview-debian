@@ -254,7 +254,10 @@ void PageItem::on_renderTask_finished()
 
 void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
 {
-    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio) || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
+    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY
+            || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
+            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation
+            || m_invertColors != invertColors)
     {
         return;
     }
@@ -428,7 +431,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     // rubber band
 
     if(m_rubberBandMode == ModifiersMode && !m_presentationMode
-            && (event->modifiers() == s_settings->pageItem().copyToClipboardModifiers() || event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
+            && (event->modifiers() == s_settings->pageItem().copyToClipboardModifiers()
+                || event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
             && event->button() == Qt::LeftButton)
     {
         setCursor(Qt::CrossCursor);
@@ -455,7 +459,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         return;
     }
 
-    if(event->modifiers() == Qt::NoModifier && event->button() == Qt::LeftButton)
+    if(event->modifiers() == Qt::NoModifier
+            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
     {
         // links
 
@@ -469,7 +474,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 {
                     if(link->urlOrFileName.isNull())
                     {
-                        emit linkClicked(link->page, link->left, link->top);
+                        emit linkClicked(event->button() == Qt::MidButton, link->page, link->left, link->top);
                     }
                     else
                     {
@@ -489,7 +494,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
-        if(m_presentationMode)
+        if(event->button() == Qt::MidButton || m_presentationMode)
         {
             event->ignore();
             return;
@@ -536,6 +541,8 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void PageItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     emit sourceRequested(m_index + 1, m_transform.inverted().map(event->pos()));
+
+    event->accept();
 }
 
 void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -1166,9 +1173,18 @@ void ThumbnailItem::setCurrent(bool current)
     }
 }
 
-void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent*)
+void ThumbnailItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    emit linkClicked(index() + 1);
+    if(event->modifiers() == Qt::NoModifier
+            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
+    {
+        emit linkClicked(event->button() == Qt::MidButton, index() + 1);
+
+        event->accept();
+        return;
+    }
+
+    event->ignore();
 }
 
 void ThumbnailItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)

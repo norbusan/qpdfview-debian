@@ -125,6 +125,7 @@ signals:
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
 
+    void linkClicked(int page);
     void linkClicked(const QString& filePath, int page);
 
     void invertColorsChanged(bool invertColors);
@@ -181,7 +182,7 @@ protected slots:
 
     void on_searchTask_resultsReady(int index, QList< QRectF > results);
 
-    void on_pages_linkClicked(int page, qreal left, qreal top);
+    void on_pages_linkClicked(bool newTab, int page, qreal left, qreal top);
     void on_pages_linkClicked(const QString& url);
     void on_pages_linkClicked(const QString& fileName, int page);
 

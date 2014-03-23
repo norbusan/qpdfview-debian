@@ -958,7 +958,7 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
     }
 }
 
-void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
+void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
     page = qMax(page, 1);
     page = qMin(page, m_pages.count());
@@ -969,7 +969,14 @@ void DocumentView::on_pages_linkClicked(int page, qreal left, qreal top)
     top = top >= 0.0 ? top : 0.0;
     top = top <= 1.0 ? top : 1.0;
 
-    jumpToPage(page, true, left, top);
+    if(newTab)
+    {
+        emit linkClicked(page);
+    }
+    else
+    {
+        jumpToPage(page, true, left, top);
+    }
 }
 
 void DocumentView::on_pages_linkClicked(const QString& url)
@@ -1650,7 +1657,7 @@ void DocumentView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
-        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
+        connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
         connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
 
@@ -1676,7 +1683,7 @@ void DocumentView::prepareThumbnails()
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
 
-        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
+        connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }
 }
 
