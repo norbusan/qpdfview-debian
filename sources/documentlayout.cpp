@@ -46,6 +46,13 @@ DocumentLayout* DocumentLayout::fromLayoutMode(LayoutMode layoutMode)
     }
 }
 
+void DocumentLayout::adjustLeftAndTop(int index, qreal& changeLeft, qreal& changeTop)
+{
+    Q_UNUSED(changeTop);
+
+    changeLeft += index - leftIndex(index);
+}
+
 qreal DocumentLayout::visibleHeight(int viewportHeight) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();

@@ -47,6 +47,8 @@ struct DocumentLayout
     virtual int leftIndex(int index) const = 0;
     virtual int rightIndex(int index, int count) const = 0;
 
+    void adjustLeftAndTop(int index, qreal& changeLeft, qreal& changeTop);
+
     virtual qreal visibleWidth(int viewportWidth) const = 0;
     qreal visibleHeight(int viewportHeight) const;
 

@@ -619,7 +619,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
-            // TODO: Adjust changeLeft and changeTop using the DocumentLayout, e.g. w.r.t. the second column of a two-column layout.
+            m_layout->adjustLeftAndTop(page - 1, changeLeft, changeTop);
 
             prepareView(changeLeft, changeTop);
 
