@@ -619,9 +619,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
-            m_layout->adjustLeftAndTop(page - 1, changeLeft, changeTop);
-
-            prepareView(changeLeft, changeTop);
+            prepareView(changeLeft, changeTop, page);
 
             emit currentPageChanged(m_currentPage, trackChange);
         }
@@ -1778,7 +1776,7 @@ void DocumentView::prepareScene()
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
+void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePage)
 {
     const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
 
@@ -1790,6 +1788,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
     int horizontalValue = 0;
     int verticalValue = 0;
 
+    visiblePage = visiblePage == 0 ? m_currentPage : visiblePage;
+
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
@@ -1798,12 +1798,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
         if(m_continuousMode)
         {
             page->setVisible(true);
-
-            if(index == m_currentPage - 1)
-            {
-                horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-                verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
-            }
         }
         else
         {
@@ -1813,12 +1807,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
                 top = boundingRect.top() - s_settings->documentView().pageSpacing();
                 height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
-
-                if(index == m_currentPage - 1)
-                {
-                    horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-                    verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
-                }
             }
             else
             {
@@ -1826,6 +1814,12 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop)
 
                 page->cancelRender();
             }
+        }
+
+        if(index == visiblePage - 1)
+        {
+            horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
+            verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
         }
 
         if(m_currentResult != m_results.end())

@@ -279,7 +279,7 @@ private:
     void prepareBackground();
 
     void prepareScene();
-    void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0);
+    void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0, int visiblePage = 0);
 
     void prepareThumbnailsScene();
 
