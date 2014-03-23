@@ -1010,7 +1010,7 @@ void DocumentView::on_pages_rubberBandFinished()
     setRubberBandMode(ModifiersMode);
 }
 
-void DocumentView::on_pages_sourceRequested(int page, const QPointF& pos)
+void DocumentView::on_pages_editSourceRequested(int page, const QPointF& pos)
 {
 #ifdef WITH_SYNCTEX
 
@@ -1678,7 +1678,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
-        connect(page, SIGNAL(sourceRequested(int,QPointF)), SLOT(on_pages_sourceRequested(int,QPointF)));
+        connect(page, SIGNAL(editSourceRequested(int,QPointF)), SLOT(on_pages_editSourceRequested(int,QPointF)));
         connect(page, SIGNAL(zoomToSelectionRequested(int,QRectF)), SLOT(on_pages_zoomToSelectionRequested(int,QRectF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));

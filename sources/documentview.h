@@ -188,7 +188,7 @@ protected slots:
 
     void on_pages_rubberBandFinished();
 
-    void on_pages_sourceRequested(int page, const QPointF& pos);
+    void on_pages_editSourceRequested(int page, const QPointF& pos);
     void on_pages_zoomToSelectionRequested(int page, const QRectF& rect);
 
     void on_pages_wasModified();

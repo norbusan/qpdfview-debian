@@ -545,7 +545,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
-    emit sourceRequested(m_index + 1, m_transform.inverted().map(event->pos()));
+    emit editSourceRequested(m_index + 1, m_transform.inverted().map(event->pos()));
 
     event->accept();
 }

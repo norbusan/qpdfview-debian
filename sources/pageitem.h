@@ -125,7 +125,7 @@ signals:
     void rubberBandStarted();
     void rubberBandFinished();
 
-    void sourceRequested(int page, const QPointF& pos);
+    void editSourceRequested(int page, const QPointF& pos);
     void zoomToSelectionRequested(int page, const QRectF& rect);
 
     void wasModified();
