@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 Settings* PresentationView::s_settings = 0;
 
-PresentationView::PresentationView(const QList< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
+PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
     m_pages(pages),
     m_currentPage(1),

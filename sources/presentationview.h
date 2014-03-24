@@ -39,7 +39,7 @@ class PresentationView : public QGraphicsView
     Q_OBJECT
 
 public:
-    PresentationView(const QList< Model::Page* >& pages, QWidget* parent = 0);
+    PresentationView(const QVector< Model::Page* >& pages, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -104,7 +104,7 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    QList< Model::Page* > m_pages;
+    QVector< Model::Page* > m_pages;
 
     int m_currentPage;
 

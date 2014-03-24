@@ -216,7 +216,7 @@ private:
     QTimer* m_prefetchTimer;
 
     Model::Document* m_document;
-    QList< Model::Page* > m_pages;
+    QVector< Model::Page* > m_pages;
 
     QFileInfo m_fileInfo;
     bool m_wasModified;

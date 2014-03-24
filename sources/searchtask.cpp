@@ -66,7 +66,7 @@ void SearchTask::run()
     m_progress = 0;
 }
 
-void SearchTask::start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
+void SearchTask::start(const QVector< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
 {
     m_pages = pages;
 

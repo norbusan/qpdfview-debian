@@ -1635,9 +1635,12 @@ void DocumentView::prepareDocument(Model::Document* document)
     delete m_document;
     m_document = document;
 
-    m_pages.clear();
+    const int numberOfPages = m_document->numberOfPages();
 
-    for(int index = 0; index < m_document->numberOfPages(); ++index)
+    m_pages.clear();
+    m_pages.reserve(numberOfPages);
+
+    for(int index = 0; index < numberOfPages; ++index)
     {
         m_pages.append(m_document->page(index));
     }

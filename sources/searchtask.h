@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QRectF>
 #include <QThread>
+#include <QVector>
 
 namespace Model
 {
@@ -49,7 +50,7 @@ signals:
     void resultsReady(int index, QList< QRectF > results);
 
 public slots:
-    void start(const QList< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
+    void start(const QVector< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
     void cancel();
 
 private:
@@ -59,7 +60,7 @@ private:
 
     int m_progress;
 
-    QList< Model::Page* > m_pages;
+    QVector< Model::Page* > m_pages;
 
     QString m_text;
     bool m_matchCase;
