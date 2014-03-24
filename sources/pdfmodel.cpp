@@ -579,17 +579,6 @@ Model::PdfDocument::~PdfDocument()
     delete m_document;
 }
 
-QString Model::PdfDocument::title() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_document->info(QLatin1String("Title"));
-}
-
 int Model::PdfDocument::numberOfPages() const
 {
 #ifndef HAS_POPPLER_24

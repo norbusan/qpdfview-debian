@@ -155,8 +155,6 @@ namespace Model
 
         void setPaperColor(const QColor& paperColor);
 
-        QString title() const;
-
         void loadOutline(QStandardItemModel* outlineModel) const;
         void loadProperties(QStandardItemModel* propertiesModel) const;
 

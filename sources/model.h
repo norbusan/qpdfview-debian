@@ -143,8 +143,6 @@ namespace Model
 
         virtual void setPaperColor(const QColor& paperColor) { Q_UNUSED(paperColor); }
 
-        virtual QString title() const { return QString(); }
-
         virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
         virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); }
 
