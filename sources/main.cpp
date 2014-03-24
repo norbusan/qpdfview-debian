@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012-2013 Adam Reichold
+Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
 Copyright 2013 Chris Young
 
@@ -475,13 +476,13 @@ int main(int argc, char** argv)
 
     foreach(const File& file, files)
     {
-        mainWindow->openInNewTab(file.filePath, file.page, file.enclosingBox, quiet);
+        mainWindow->jumpToPageOrOpenInNewTab(file.filePath, file.page, true, file.enclosingBox, quiet);
     }
 
     if(!searchText.isEmpty())
     {
         mainWindow->startSearch(searchText);
     }
-    
+
     return application.exec();
 }
