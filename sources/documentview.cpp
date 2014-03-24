@@ -1619,24 +1619,8 @@ void DocumentView::prepareDocument(Model::Document* document)
 
     qDeleteAll(m_pages);
 
-    if(m_document != 0)
-    {
-        delete m_document;
-
-        if(!m_autoRefreshWatcher->files().isEmpty())
-        {
-            m_autoRefreshWatcher->removePaths(m_autoRefreshWatcher->files());
-        }
-    }
-
+    delete m_document;
     m_document = document;
-
-    if(s_settings->documentView().autoRefresh())
-    {
-        m_autoRefreshWatcher->addPath(m_fileInfo.filePath());
-    }
-
-    m_document->setPaperColor(s_settings->pageItem().paperColor());
 
     m_pages.clear();
 
@@ -1644,6 +1628,18 @@ void DocumentView::prepareDocument(Model::Document* document)
     {
         m_pages.append(m_document->page(index));
     }
+
+    if(!m_autoRefreshWatcher->files().isEmpty())
+    {
+        m_autoRefreshWatcher->removePaths(m_autoRefreshWatcher->files());
+    }
+
+    if(s_settings->documentView().autoRefresh())
+    {
+        m_autoRefreshWatcher->addPath(m_fileInfo.filePath());
+    }
+
+    m_document->setPaperColor(s_settings->pageItem().paperColor());
 
     preparePages();
     prepareThumbnails();
