@@ -426,6 +426,13 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
+QString DocumentView::title() const
+{
+    const QString title = m_document->title();
+
+    return title.isEmpty() ? m_fileInfo.completeBaseName() : title;
+}
+
 QStandardItemModel* DocumentView::fontsModel() const
 {
     QStandardItemModel* fontsModel = new QStandardItemModel();

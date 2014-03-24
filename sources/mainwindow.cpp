@@ -137,7 +137,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             s_settings->mainWindow().setOpenPath(currentTab()->fileInfo().absolutePath());
             m_recentlyUsedMenu->addOpenAction(currentTab()->fileInfo());
 
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), currentTab()->fileInfo().completeBaseName());
+            m_tabWidget->setTabText(m_tabWidget->currentIndex(), currentTab()->title());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(currentTab());
@@ -538,7 +538,7 @@ void MainWindow::on_currentTab_documentChanged()
     {
         if(sender() == m_tabWidget->widget(index))
         {
-            m_tabWidget->setTabText(index, tab(index)->fileInfo().completeBaseName());
+            m_tabWidget->setTabText(index, tab(index)->title());
             m_tabWidget->setTabToolTip(index, tab(index)->fileInfo().absoluteFilePath());
 
             foreach(QAction* tabAction, m_tabsMenu->actions())
@@ -1744,8 +1744,8 @@ bool MainWindow::senderIsCurrentTab() const
 int MainWindow::addTab(DocumentView* tab)
 {
     const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
-                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tab->fileInfo().completeBaseName()) :
-                m_tabWidget->addTab(tab, tab->fileInfo().completeBaseName());
+                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tab->title()) :
+                m_tabWidget->addTab(tab, tab->title());
 
     m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
     m_tabWidget->setCurrentIndex(index);

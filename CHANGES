@@ -1,4 +1,6 @@
 Release 0.4.10:
+  * Fixed inconsistency when invoking a unique instance. Thanks to Dorian Scholz.
+  * Added using the document title from the meta-data as the tab title. Thanks to Dorian Scholz.
   * Added periodically storing persistent state.
   * Added opening internal links in a new tab by middle-clicking.
   * Added zooming to selection by middle-dragging.
