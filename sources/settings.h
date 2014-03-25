@@ -290,6 +290,9 @@ public:
         bool newTabNextToCurrentTab() const;
         void setNewTabNextToCurrentTab(bool newTabNextToCurrentTab);
 
+        bool documentTitleAsTabTitle() const;
+        void setDocumentTitleAsTabTitle(bool documentTitleAsTabTitle);
+
         bool currentPageInWindowTitle() const;
         void setCurrentPageInWindowTitle(bool currentPageInWindowTitle);
 
@@ -536,6 +539,8 @@ public:
         static inline bool spreadTabs() { return false; }
 
         static inline bool newTabNextToCurrentTab() { return true; }
+
+        static inline bool documentTitleAsTabTitle() { return true; }
 
         static inline bool currentPageInWindowTitle() { return false; }
         static inline bool instancfeNameInWindowTitle() { return false; }

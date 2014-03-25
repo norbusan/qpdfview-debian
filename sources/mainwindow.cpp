@@ -1784,11 +1784,14 @@ QString MainWindow::tabTitle(const DocumentView *tab) const
 {
     QString title;
 
-    const QList< QStandardItem* > matches = tab->propertiesModel()->findItems(QLatin1String("Title"), Qt::MatchFixedString);
-
-    if(!matches.isEmpty())
+    if(s_settings->mainWindow().documentTitleAsTabTitle())
     {
-        title = tab->propertiesModel()->item(matches.first()->row(), 1)->text();
+        const QList< QStandardItem* > matches = tab->propertiesModel()->findItems(QLatin1String("Title"), Qt::MatchFixedString);
+
+        if(!matches.isEmpty())
+        {
+            title = tab->propertiesModel()->item(matches.first()->row(), 1)->text();
+        }
     }
 
     if(title.isEmpty())

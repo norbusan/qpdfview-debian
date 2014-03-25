@@ -644,6 +644,16 @@ void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab
     m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
 }
 
+bool Settings::MainWindow::documentTitleAsTabTitle() const
+{
+    return m_settings->value("mainWindow/documentAsTabTitle", Defaults::MainWindow::documentTitleAsTabTitle()).toBool();
+}
+
+void Settings::MainWindow::setDocumentTitleAsTabTitle(bool documentTitleAsTabTitle)
+{
+    m_settings->setValue("mainWindow/documentAsTabTitle", documentTitleAsTabTitle);
+}
+
 bool Settings::MainWindow::currentPageInWindowTitle() const
 {
     return m_settings->value("mainWindow/currentPageInWindowTitle", Defaults::MainWindow::currentPageInWindowTitle()).toBool();
