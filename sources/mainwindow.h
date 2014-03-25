@@ -226,6 +226,8 @@ private:
     int addTab(DocumentView* tab);
     void closeTab(DocumentView* tab);
 
+    QString tabTitle(const DocumentView* tab) const;
+
     bool saveModifications(DocumentView* tab);
 
     void setWindowTitleForCurrentTab();

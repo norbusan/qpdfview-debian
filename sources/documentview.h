@@ -105,8 +105,6 @@ public:
     inline const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
     inline QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
 
-    QString title() const;
-
     inline QStandardItemModel* outlineModel() const { return m_outlineModel; }
     inline QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
 
