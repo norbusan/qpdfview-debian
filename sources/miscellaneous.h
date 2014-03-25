@@ -57,6 +57,7 @@ public:
 
 protected:
     void mousePressEvent(QMouseEvent* event);
+    QSize tabSizeHint(int index) const;
 
 private:
     Q_DISABLE_COPY(TabBar)

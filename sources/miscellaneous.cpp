@@ -56,6 +56,18 @@ void TabBar::mousePressEvent(QMouseEvent* event)
     }
 }
 
+QSize TabBar::tabSizeHint(int index) const
+{
+    QSize size = QTabBar::tabSizeHint(index);
+    QTabWidget::TabPosition tabPosition = dynamic_cast<QTabWidget *>(parentWidget())->tabPosition();
+    if (tabPosition == QTabWidget::North || tabPosition == QTabWidget::South) {
+        size.setWidth(qMax(width() / count(), size.width()));
+    } else {
+        size.setHeight(qMax(height() / count(), size.height()));
+    }
+    return size;
+}
+
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
     m_tabBarPolicy(TabBarAsNeeded)
 {
