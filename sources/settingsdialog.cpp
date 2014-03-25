@@ -593,6 +593,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Tab visibility:"), m_tabVisibilityComboBox);
 
+    // spread tabs
+
+    m_spreadTabsCheckBox = new QCheckBox(this);
+    m_spreadTabsCheckBox->setChecked(s_settings->mainWindow().spreadTabs());
+
+    m_interfaceLayout->addRow(tr("Spread tabs:"), m_spreadTabsCheckBox);
+
     // new tab next to current tab
 
     m_newTabNextToCurrentTabCheckBox = new QCheckBox(this);
@@ -641,6 +648,13 @@ void SettingsDialog::createInterfaceTab()
     m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+
+    // document title as tab title
+
+    m_documentTitleAsTabTitleCheckBox = new QCheckBox(this);
+    m_documentTitleAsTabTitleCheckBox->setChecked(s_settings->mainWindow().documentTitleAsTabTitle());
+
+    m_interfaceLayout->addRow(tr("Document title as tab title:"), m_documentTitleAsTabTitleCheckBox);
 
     // current page in window title
 
@@ -696,6 +710,7 @@ void SettingsDialog::acceptInterfaceTab()
 {
     s_settings->mainWindow().setTabPosition(m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()).toInt());
     s_settings->mainWindow().setTabVisibility(m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()).toInt());
+    s_settings->mainWindow().setSpreadTabs(m_spreadTabsCheckBox->isChecked());
 
     s_settings->mainWindow().setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
 
@@ -705,6 +720,8 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+
+    s_settings->mainWindow().setDocumentTitleAsTabTitle(m_documentTitleAsTabTitleCheckBox->isChecked());
 
     s_settings->mainWindow().setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
     s_settings->mainWindow().setInstanceNameInWindowTitle(m_instanceNameInWindowTitleCheckBox->isChecked());
@@ -722,6 +739,7 @@ void SettingsDialog::resetInterfaceTab()
 {
     m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
+    m_spreadTabsCheckBox->setChecked(Defaults::MainWindow::spreadTabs());
 
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
 
@@ -730,6 +748,8 @@ void SettingsDialog::resetInterfaceTab()
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+
+    m_documentTitleAsTabTitleCheckBox->setChecked(Defaults::MainWindow::documentTitleAsTabTitle());
 
     m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
     m_instanceNameInWindowTitleCheckBox->setChecked(Defaults::MainWindow::instancfeNameInWindowTitle());

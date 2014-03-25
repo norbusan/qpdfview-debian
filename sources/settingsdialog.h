@@ -136,6 +136,7 @@ private:
 
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
+    QCheckBox* m_spreadTabsCheckBox;
 
     QCheckBox* m_newTabNextToCurrentTabCheckBox;
 
@@ -145,6 +146,8 @@ private:
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
+
+    QCheckBox* m_documentTitleAsTabTitleCheckBox;
 
     QCheckBox* m_currentPageInWindowTitleCheckBox;
     QCheckBox* m_instanceNameInWindowTitleCheckBox;
