@@ -131,7 +131,10 @@ void TreeView::expandAll(const QModelIndex& index)
 {
     if(index.isValid())
     {
-        expand(index);
+        if(!isExpanded(index))
+        {
+            expand(index);
+        }
 
         for(int row = 0; row < model()->rowCount(index); ++row)
         {
@@ -148,7 +151,10 @@ void TreeView::collapseAll(const QModelIndex& index)
 {
     if(index.isValid())
     {
-        collapse(index);
+        if(isExpanded(index))
+        {
+            collapse(index);
+        }
 
         for(int row = 0; row < model()->rowCount(index); ++row)
         {
