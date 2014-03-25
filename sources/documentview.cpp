@@ -431,11 +431,11 @@ QString DocumentView::title() const
 {
     QString title;
 
-    const QList< QStandardItem* > results = m_propertiesModel->findItems(QLatin1String("Title"), Qt::MatchFixedString);
+    const QList< QStandardItem* > matches = m_propertiesModel->findItems(QLatin1String("Title"), Qt::MatchFixedString);
 
-    if(!results.isEmpty())
+    if(!matches.isEmpty())
     {
-        title = m_propertiesModel->item(results.first()->row(), 1)->text();
+        title = m_propertiesModel->item(matches.first()->row(), 1)->text();
     }
 
     if(title.isEmpty())
