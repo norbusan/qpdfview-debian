@@ -2181,6 +2181,7 @@ void MainWindow::createDocks()
     m_outlineView = new TreeView(Qt::UserRole, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
@@ -2194,6 +2195,7 @@ void MainWindow::createDocks()
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_propertiesView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
     m_propertiesDock->setWidget(m_propertiesView);
 
