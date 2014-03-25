@@ -284,6 +284,9 @@ public:
         int tabVisibility() const;
         void setTabVisibility(int tabVisibility);
 
+        bool spreadTabs() const;
+        void setSpreadTabs(bool spreadTabs);
+
         bool newTabNextToCurrentTab() const;
         void setNewTabNextToCurrentTab(bool newTabNextToCurrentTab);
 
@@ -529,6 +532,8 @@ public:
 
         static inline int tabPosition() { return 0; }
         static inline int tabVisibility() { return 0; }
+
+        static inline bool spreadTabs() { return false; }
 
         static inline bool newTabNextToCurrentTab() { return true; }
 

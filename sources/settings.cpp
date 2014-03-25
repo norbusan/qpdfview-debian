@@ -624,6 +624,16 @@ void Settings::MainWindow::setTabVisibility(int tabVisibility)
     }
 }
 
+bool Settings::MainWindow::spreadTabs() const
+{
+    return m_settings->value("mainWindow/spreadTabs", Defaults::MainWindow::spreadTabs()).toBool();
+}
+
+void Settings::MainWindow::setSpreadTabs(bool spreadTabs)
+{
+    m_settings->setValue("mainWindow/spreadTabs", spreadTabs);
+}
+
 bool Settings::MainWindow::newTabNextToCurrentTab() const
 {
     return m_settings->value("mainWindow/newTabNextToCurrentTab", Defaults::MainWindow::newTabNextToCurrentTab()).toBool();

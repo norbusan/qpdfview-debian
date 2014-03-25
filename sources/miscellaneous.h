@@ -56,6 +56,8 @@ public:
     explicit TabBar(QWidget* parent = 0);
 
 protected:
+    QSize tabSizeHint(int index) const;
+
     void mousePressEvent(QMouseEvent* event);
 
 private:
@@ -82,6 +84,9 @@ public:
     TabBarPolicy tabBarPolicy() const;
     void setTabBarPolicy(TabBarPolicy tabBarPolicy);
 
+    bool spreadTabs() const;
+    void setSpreadTabs(bool spreadTabs);
+
 signals:
     void tabContextMenuRequested(const QPoint& globalPos, int index);
 
@@ -96,6 +101,7 @@ private:
     Q_DISABLE_COPY(TabWidget)
 
     TabBarPolicy m_tabBarPolicy;
+    bool m_spreadTabs;
 
 };
 

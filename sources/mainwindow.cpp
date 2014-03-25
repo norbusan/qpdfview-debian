@@ -1129,6 +1129,7 @@ void MainWindow::on_settings_triggered()
 
         m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
+        m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
         {
@@ -1925,6 +1926,7 @@ void MainWindow::createWidgets()
 
     m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
     m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
+    m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
     setCentralWidget(m_tabWidget);
 

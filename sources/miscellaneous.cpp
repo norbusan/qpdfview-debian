@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "miscellaneous.h"
 
+#include <QApplication>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QTimer>
@@ -46,6 +47,31 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent)
     setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
+QSize TabBar::tabSizeHint(int index) const
+{
+    QSize size = QTabBar::tabSizeHint(index);
+
+    const TabWidget* tabWidget = qobject_cast< TabWidget* >(parentWidget());
+
+    if(tabWidget->spreadTabs())
+    {
+        switch(tabWidget->tabPosition())
+        {
+        default:
+        case QTabWidget::North:
+        case QTabWidget::South:
+            size.setWidth(qMax(width() / count(), size.width()));
+            break;
+        case QTabWidget::East:
+        case QTabWidget::West:
+            size.setHeight(qMax(height() / count(), size.height()));
+            break;
+        }
+    }
+
+    return size;
+}
+
 void TabBar::mousePressEvent(QMouseEvent* event)
 {
     QTabBar::mousePressEvent(event);
@@ -57,7 +83,8 @@ void TabBar::mousePressEvent(QMouseEvent* event)
 }
 
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
-    m_tabBarPolicy(TabBarAsNeeded)
+    m_tabBarPolicy(TabBarAsNeeded),
+    m_spreadTabs(false)
 {
     setTabBar(new TabBar(this));
 
@@ -85,6 +112,19 @@ void TabWidget::setTabBarPolicy(TabWidget::TabBarPolicy tabBarPolicy)
         tabBar()->setVisible(false);
         break;
     }
+}
+
+bool TabWidget::spreadTabs() const
+{
+    return m_spreadTabs;
+}
+
+void TabWidget::setSpreadTabs(bool spreadTabs)
+{
+    m_spreadTabs = spreadTabs;
+
+    QResizeEvent resizeEvent(tabBar()->size(), tabBar()->size());
+    QApplication::sendEvent(tabBar(), &resizeEvent);
 }
 
 void TabWidget::on_tabBar_customContextMenuRequested(const QPoint &pos)
