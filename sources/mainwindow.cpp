@@ -2194,6 +2194,7 @@ void MainWindow::createDocks()
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_propertiesView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
     m_propertiesDock->setWidget(m_propertiesView);
 
