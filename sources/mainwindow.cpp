@@ -1,6 +1,7 @@
 /*
 
 Copyright 2012-2014 Adam Reichold
+Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
