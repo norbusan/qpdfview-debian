@@ -236,12 +236,14 @@ der Verwendung des Mausrads rollt den Sichtbereich nach links und
 rechts. Halten von <b>STRG</b> während der Verwendung des Mausrads skaliert
 das Dokument. Halten von <b>SHIFT</b> während der Verwendung des Mausrads
 rotiert das Dokument. (Modifikator-Tasten können in den Einstellungen
-geändert werden.</p>
+geändert werden. Kilcken und halten der mittleren Maustaste wählt ein zu
+vergrößerndes Rechteck aus.</p>
 
 <p>Links werden rot umrandet (falls dies in den Einstellungen eingeschaltet
 ist). Ein Linksklick auf einen Link zeigt die verlinkte Seite oder öffnet
 die verlinkte URL im Standard-Browser (falls dies in den Einstellungen
-eingeschaltet ist). Wird der Mauszeiger ohne Tastendruck auf einem Link
+eingeschaltet ist). Ein Mittelklick auf einen Link zeigt die verlinkte Seite
+in einem neuen Reiter. Wird der Mauszeiger ohne Tastendruck auf einem Link
 platziert, wird das Linkziel als Tooltip angezeigt.</p>
 
 <p>Formularfelder werden blau umrandet (falls dies in den Einstellungen
@@ -296,10 +298,10 @@ geladen werden, nachdem sie auf der Festplatte verändert wurden.</li>
     <li><b>Verwendete Dateien merken</b> Aktiviert ein Menü welches eine Liste der
 zuletzt verwendeten Dateien enthält, deren Anzahl durch die Option "Anzahl
 verwendeter Dateien" bestimmt wird. (Erst nach Neustart wirksam.)</li>
-    <li><b>Keep recently closed</b> If enabled, a recently closed menu is available
-and lists as many recently closed tabs as set in the "Recently closed count"
-option. Keeping the tabs available could increase memory usage
-considerably. (Effective after restart.)</li>
+    <li><b>Geschlossene Reiter merken</b> Aktiviert ein Menü welches eine Liste der
+zuletzt geschlossenen Reiter enthält, deren Anzahl durch die Option "Anzahl
+geschlossener Reiter" bestimmt wird. Die Reiter verfügbar zu halten kann den
+Speicherverbrauch signifikant erhöhen. (Erst nach Neustart wirksam.)</li>
     <li><b>Reiter wiederherstellen</b> Falls eingeschaltet werden Reiter und ihre
 Eigenschaften beim Beenden des Programms gespeichert und beim nächsten
 Starten wiederhergestellt.</li>
@@ -396,6 +398,8 @@ href="#top">&uarr;</a></h4>
 angezeigt werden.</li>
     <li><b>Reitersichtbarkeit</b> Legt fest ob Reiter angezeigt werden falls weniger
 als zwei Dokumente geöffnet sind.</li>
+    <li><b>Spread tabs</b> Determines if tabs will be spread out evenly over the
+whole tab bar.</li>
     <li><b>Neuer Reiter neben aktuellem Reiter</b> Falls aktiviert werden neue
 Reiter rechts neben dem aktuellen Reiter eingefügt.</li>
     <li><b>Anzahl verwendeter Dateien</b> Legt die Azahl der Dateien fest, die im
@@ -428,11 +432,13 @@ Aktionen sind "scaleFactor" (Skalenfaktor), "zoomIn" (Vergrößern), "zoomOut"
 "rotateLeft" (Nach links drehen), "rotateRight" (Nach rechts drehen),
 "fullscreen" (Vollbild), "presentation" (Präsentation) und "separator"
 (Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Document title as tab title</b> Determines if the tab title as derived
+from the meta-data instead of the file name.</li>
     <li><b>Aktuelle Seite im Fenstertitel</b> Falls aktiviert wird die aktuelle
 Seite und die Anzahl der Seiten des aktuellen Dokuments im Fenstertitel
 angezeigt.</li>
-    <li><b>Instance name in window title</b> If enabled and the current instance is
-named, its name is displayed in the window title.</li>
+    <li>Falls aktiviert und die aktuelle Instanz benannt ist wird deren Name im
+Fenstertitel angezeigt.</li>
     <li><b>Gliederung synchronisieren</b> Falls eingeschaltet, wird in der
 Gliederungsansicht der erste Eintrag zur aktuellen Seite hervorgehoben, wenn
 die aktuelle Seite wechselt.</li>
