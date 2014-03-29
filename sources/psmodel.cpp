@@ -30,20 +30,23 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libspectre/spectre-document.h>
 
-Model::PsPage::PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
+namespace qpdfview
+{
+
+model::PsPage::PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
     m_mutex(mutex),
     m_page(page),
     m_renderContext(renderContext)
 {
 }
 
-Model::PsPage::~PsPage()
+model::PsPage::~PsPage()
 {
     spectre_page_free(m_page);
     m_page = 0;
 }
 
-QSizeF Model::PsPage::size() const
+QSizeF model::PsPage::size() const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -55,7 +58,7 @@ QSizeF Model::PsPage::size() const
     return QSizeF(w, h);
 }
 
-QImage Model::PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage model::PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -131,14 +134,14 @@ QImage Model::PsPage::render(qreal horizontalResolution, qreal verticalResolutio
     return image;
 }
 
-Model::PsDocument::PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext) :
+model::PsDocument::PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext) :
     m_mutex(),
     m_document(document),
     m_renderContext(renderContext)
 {
 }
 
-Model::PsDocument::~PsDocument()
+model::PsDocument::~PsDocument()
 {
     spectre_render_context_free(m_renderContext);
     m_renderContext = 0;
@@ -147,14 +150,14 @@ Model::PsDocument::~PsDocument()
     m_document = 0;
 }
 
-int Model::PsDocument::numberOfPages() const
+int model::PsDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return spectre_document_get_n_pages(m_document);
 }
 
-Model::Page* Model::PsDocument::page(int index) const
+model::Page* model::PsDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -163,7 +166,7 @@ Model::Page* Model::PsDocument::page(int index) const
     return page != 0 ? new PsPage(&m_mutex, page, m_renderContext) : 0;
 }
 
-QStringList Model::PsDocument::saveFilter() const
+QStringList model::PsDocument::saveFilter() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -177,12 +180,12 @@ QStringList Model::PsDocument::saveFilter() const
     }
 }
 
-bool Model::PsDocument::canSave() const
+bool model::PsDocument::canSave() const
 {
     return true;
 }
 
-bool Model::PsDocument::save(const QString& filePath, bool withChanges) const
+bool model::PsDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges)
 
@@ -193,12 +196,12 @@ bool Model::PsDocument::save(const QString& filePath, bool withChanges) const
     return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
 }
 
-bool Model::PsDocument::canBePrintedUsingCUPS() const
+bool model::PsDocument::canBePrintedUsingCUPS() const
 {
     return true;
 }
 
-void Model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
@@ -262,7 +265,7 @@ PsPlugin::PsPlugin(QObject* parent) : QObject(parent)
     m_settings = new QSettings("qpdfview", "ps-plugin", this);
 }
 
-Model::Document* PsPlugin::loadDocument(const QString& filePath) const
+model::Document* PsPlugin::loadDocument(const QString& filePath) const
 {
     SpectreDocument* document = spectre_document_new();
 
@@ -281,7 +284,7 @@ Model::Document* PsPlugin::loadDocument(const QString& filePath) const
                                               m_settings->value("graphicsAntialiasBits", 4).toInt(),
                                               m_settings->value("textAntialiasBits", 2).toInt());
 
-    return new Model::PsDocument(document, renderContext);
+    return new model::PsDocument(document, renderContext);
 }
 
 SettingsWidget* PsPlugin::createSettingsWidget(QWidget* parent) const
@@ -289,8 +292,10 @@ SettingsWidget* PsPlugin::createSettingsWidget(QWidget* parent) const
     return new PsSettingsWidget(m_settings, parent);
 }
 
+} // qpdfview
+
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_ps, PsPlugin)
+Q_EXPORT_PLUGIN2(qpdfview_ps, qpdfview::PsPlugin)
 
 #endif // QT_VERSION

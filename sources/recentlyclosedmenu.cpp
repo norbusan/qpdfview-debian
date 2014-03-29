@@ -23,6 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
+namespace qpdfview
+{
+
 RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(parent),
     m_count(count)
 {
@@ -70,3 +73,5 @@ void RecentlyClosedMenu::on_clearList_triggered()
         delete action;
     }
 }
+
+} // qpdfview

@@ -27,6 +27,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMouseEvent>
 #include <QTimer>
 
+namespace qpdfview
+{
+
 GraphicsCompositionModeEffect::GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent) : QGraphicsEffect(parent),
     m_compositionMode(compositionMode)
 {
@@ -366,3 +369,5 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
+
+} // qpdfview

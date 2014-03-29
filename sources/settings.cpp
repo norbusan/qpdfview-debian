@@ -37,6 +37,26 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+namespace
+{
+
+inline QStringList trimmed(const QStringList& list)
+{
+    QStringList trimmedList;
+
+    foreach(const QString& item, list)
+    {
+        trimmedList.append(item.trimmed());
+    }
+
+    return trimmedList;
+}
+
+} // anonymous
+
+namespace qpdfview
+{
+
 Settings* Settings::s_instance = 0;
 
 Settings* Settings::instance()
@@ -684,18 +704,6 @@ void Settings::MainWindow::setSynchronizeOutlineView(bool synchronizeOutlineView
     m_settings->setValue("mainWindow/synchronizeOutlineView", synchronizeOutlineView);
 }
 
-static QStringList trimmed(const QStringList& list)
-{
-    QStringList trimmedList;
-
-    foreach(const QString& item, list)
-    {
-        trimmedList.append(item.trimmed());
-    }
-
-    return trimmedList;
-}
-
 QStringList Settings::MainWindow::fileToolBar() const
 {
     return m_settings->value("mainWindow/fileToolBar", Defaults::MainWindow::fileToolBar()).toStringList();
@@ -988,3 +996,5 @@ QString Defaults::MainWindow::path()
 
 #endif // QT_VERSION
 }
+
+} // qpdfview

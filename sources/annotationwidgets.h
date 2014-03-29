@@ -33,6 +33,9 @@ class Annotation;
 class FileAttachmentAnnotation;
 }
 
+namespace qpdfview
+{
+
 class AnnotationWidget : public QPlainTextEdit
 {
     Q_OBJECT
@@ -88,5 +91,7 @@ private:
     QAction* m_saveAndOpenAction;
 
 };
+
+} // qpdfview
 
 #endif // ANNOTATIONWIDGETS_H

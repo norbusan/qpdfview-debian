@@ -39,6 +39,9 @@ class FormFieldChoice;
 class FormFieldButton;
 }
 
+namespace qpdfview
+{
+
 class NormalTextFieldWidget : public QLineEdit
 {
     Q_OBJECT
@@ -192,5 +195,7 @@ private:
     Poppler::FormFieldButton* m_formField;
 
 };
+
+} // qpdfview
 
 #endif // FORMFIELDWIDGETS_H

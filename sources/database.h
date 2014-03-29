@@ -32,6 +32,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+namespace qpdfview
+{
+
 class DocumentView;
 class BookmarkMenu;
 
@@ -81,5 +84,7 @@ private:
 #endif // WITH_SQL
 
 };
+
+} // qpdfview
 
 #endif // DATABASE_H

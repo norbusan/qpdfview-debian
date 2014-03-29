@@ -24,6 +24,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "pageitem.h"
 
+namespace qpdfview
+{
+
 Settings* DocumentLayout::s_settings = 0;
 
 DocumentLayout::DocumentLayout()
@@ -336,3 +339,5 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, b
         }
     }
 }
+
+} // qpdfview

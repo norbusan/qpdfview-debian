@@ -23,6 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PRINTOPTIONS_H
 #define PRINTOPTIONS_H
 
+namespace qpdfview
+{
+
 struct PrintOptions
 {
     bool fitToPage;
@@ -67,5 +70,7 @@ struct PrintOptions
     PrintOptions() : fitToPage(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
 
 };
+
+} // qpdfview
 
 #endif // PRINTOPTIONS_H

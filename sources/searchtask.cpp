@@ -23,6 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 SearchTask::SearchTask(QObject* parent) : QThread(parent),
     m_wasCanceled(false),
     m_progress(0),
@@ -66,7 +69,7 @@ void SearchTask::run()
     m_progress = 0;
 }
 
-void SearchTask::start(const QVector< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
+void SearchTask::start(const QVector< model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage)
 {
     m_pages = pages;
 
@@ -84,3 +87,5 @@ void SearchTask::cancel()
 {
     m_wasCanceled = true;
 }
+
+} // qpdfview

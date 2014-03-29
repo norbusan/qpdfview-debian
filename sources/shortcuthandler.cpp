@@ -26,7 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
-static QList< QKeySequence > toShortcuts(const QStringList& stringList)
+namespace
+{
+
+QList< QKeySequence > toShortcuts(const QStringList& stringList)
 {
     QList< QKeySequence > shortcuts;
 
@@ -43,7 +46,7 @@ static QList< QKeySequence > toShortcuts(const QStringList& stringList)
     return shortcuts;
 }
 
-static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::SequenceFormat format = QKeySequence::PortableText)
+QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::SequenceFormat format = QKeySequence::PortableText)
 {
     QStringList stringList;
 
@@ -55,7 +58,7 @@ static QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequ
     return stringList;
 }
 
-static bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
+bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
 {
     foreach(const QKeySequence& shortcut, shortcuts)
     {
@@ -67,6 +70,11 @@ static bool matches(const QKeySequence& keySequence, const QList< QKeySequence >
 
     return false;
 }
+
+} // anonymous
+
+namespace qpdfview
+{
 
 ShortcutHandler* ShortcutHandler::s_instance = 0;
 
@@ -298,3 +306,5 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
     m_moveRightAction->setShortcut(QKeySequence(Qt::Key_Right));
     registerAction(m_moveRightAction);
 }
+
+} // qpdfview

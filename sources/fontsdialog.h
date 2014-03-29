@@ -28,6 +28,9 @@ class QDialogButtonBox;
 class QStandardItemModel;
 class QTableView;
 
+namespace qpdfview
+{
+
 class FontsDialog : public QDialog
 {
     Q_OBJECT
@@ -43,5 +46,7 @@ private:
     QDialogButtonBox* m_dialogButtonBox;
 
 };
+
+} // qpdfview
 
 #endif // FONTSDIALOG_H

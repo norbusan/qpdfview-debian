@@ -64,6 +64,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "miscellaneous.h"
 #include "documentlayout.h"
 
+namespace qpdfview
+{
+
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
 
@@ -445,7 +448,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    Model::Document* document = PluginHandler::instance()->loadDocument(filePath);
+    model::Document* document = PluginHandler::instance()->loadDocument(filePath);
 
     if(document != 0)
     {
@@ -485,7 +488,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    Model::Document* document = PluginHandler::instance()->loadDocument(m_fileInfo.filePath());
+    model::Document* document = PluginHandler::instance()->loadDocument(m_fileInfo.filePath());
 
     if(document != 0)
     {
@@ -1481,7 +1484,7 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         painter.save();
 
-        const Model::Page* page = m_pages.at(index);
+        const model::Page* page = m_pages.at(index);
 
         if(printOptions.fitToPage)
         {
@@ -1536,7 +1539,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = top >= 0.0 ? top : 0.0;
 }
 
-bool DocumentView::checkDocument(const QString& filePath, Model::Document* document)
+bool DocumentView::checkDocument(const QString& filePath, model::Document* document)
 {
     if(document->isLocked())
     {
@@ -1601,7 +1604,7 @@ void DocumentView::loadDocumentDefaults()
     }
 }
 
-void DocumentView::prepareDocument(Model::Document* document)
+void DocumentView::prepareDocument(model::Document* document)
 {
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
@@ -1932,3 +1935,5 @@ DocumentView::Results::iterator DocumentView::previousResult(const Results::iter
 {
     return result != m_results.begin() ? result - 1 : m_results.end();
 }
+
+} // qpdfview

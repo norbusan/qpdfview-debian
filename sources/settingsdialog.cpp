@@ -39,7 +39,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "miscellaneous.h"
 
-static void addSettingsWidget(QTabWidget* tabWidget, SettingsWidget*& settingsWidget, PluginHandler::FileType fileType)
+namespace
+{
+
+using namespace qpdfview;
+
+void addSettingsWidget(QTabWidget* tabWidget, SettingsWidget*& settingsWidget, PluginHandler::FileType fileType)
 {
     settingsWidget = PluginHandler::instance()->createSettingsWidget(fileType, tabWidget);
 
@@ -49,27 +54,32 @@ static void addSettingsWidget(QTabWidget* tabWidget, SettingsWidget*& settingsWi
     }
 }
 
-static void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
+void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
 {
     comboBox->lineEdit()->setText(color.isValid() ? color.name() : QString());
 }
 
-static QColor getValidColorFromCurrentText(const QComboBox* comboBox, const QColor& defaultColor)
+QColor getValidColorFromCurrentText(const QComboBox* comboBox, const QColor& defaultColor)
 {
     const QColor color(comboBox->currentText());
 
     return color.isValid() ? color : defaultColor;
 }
 
-static void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::KeyboardModifiers& modifiers)
+void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::KeyboardModifiers& modifiers)
 {
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
 
-static Qt::KeyboardModifier getKeyboardModifierFromItemData(const QComboBox* comboBox)
+Qt::KeyboardModifier getKeyboardModifierFromItemData(const QComboBox* comboBox)
 {
     return static_cast< Qt::KeyboardModifier >(comboBox->itemData(comboBox->currentIndex()).toInt());
 }
+
+} // anonymous
+
+namespace qpdfview
+{
 
 Settings* SettingsDialog::s_settings = 0;
 
@@ -838,3 +848,5 @@ void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::Key
 
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
 }
+
+} // qpdfview

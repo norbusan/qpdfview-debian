@@ -36,7 +36,10 @@ class QGraphicsProxyWidget;
 
 #include "global.h"
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 struct Link;
 class Annotation;
@@ -52,7 +55,7 @@ class PageItem : public QGraphicsObject
     Q_OBJECT
 
 public:
-    PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
+    PageItem(model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -140,11 +143,11 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
-    void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
+    void showAnnotationOverlay(model::Annotation* selectedAnnotation);
     void hideAnnotationOverlay(bool deleteLater = true);
     void updateAnnotationOverlay();
 
-    void showFormFieldOverlay(Model::FormField* selectedFormField);
+    void showFormFieldOverlay(model::FormField* selectedFormField);
     void hideFormFieldOverlay(bool deleteLater = true);
     void updateFormFieldOverlay();
 
@@ -170,19 +173,19 @@ private:
 
     static QCache< PageItem*, QPixmap > s_cache;
 
-    Model::Page* m_page;
+    model::Page* m_page;
 
     int m_index;
     QSizeF m_size;
 
-    QList< Model::Link* > m_links;
-    QList< Model::Annotation* > m_annotations;
-    QList< Model::FormField* > m_formFields;
+    QList< model::Link* > m_links;
+    QList< model::Annotation* > m_annotations;
+    QList< model::FormField* > m_formFields;
 
-    typedef QMap< Model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
+    typedef QMap< model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
     AnnotationOverlay m_annotationOverlay;
 
-    typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
+    typedef QMap< model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
     FormFieldOverlay m_formFieldOverlay;
 
     bool m_presentationMode;
@@ -196,7 +199,7 @@ private:
     void copyToClipboard(const QPoint& screenPos);
 
     void addAnnotation(const QPoint& screenPos);
-    void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+    void removeAnnotation(model::Annotation* annotation, const QPoint& screenPos);
 
     template< typename Overlay, typename Element > void showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement);
     template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
@@ -204,8 +207,8 @@ private:
     template< typename Overlay > void updateOverlay(const Overlay& overlay) const;
 
     static const qreal proxyPadding = 2.0;
-    void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
-    void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const;
+    void setProxyGeometry(model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
+    void setProxyGeometry(model::FormField* formField, QGraphicsProxyWidget* proxy) const;
 
     // geometry
 
@@ -252,7 +255,7 @@ class ThumbnailItem : public PageItem
     Q_OBJECT
 
 public:
-    ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
+    ThumbnailItem(model::Page* page, int index, QGraphicsItem* parent = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
@@ -283,5 +286,7 @@ private:
     bool m_current;
 
 };
+
+} // qpdfview
 
 #endif // PAGEITEM_H

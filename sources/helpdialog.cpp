@@ -30,6 +30,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
+namespace qpdfview
+{
+
 HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 {
     m_textBrowser = new QTextBrowser(this);
@@ -113,3 +116,5 @@ void HelpDialog::on_search_textEdited()
 {
     m_searchLineEdit->setStyleSheet(QString());
 }
+
+} // qpdfview

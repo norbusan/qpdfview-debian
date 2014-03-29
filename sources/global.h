@@ -25,6 +25,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPair>
 
+namespace qpdfview
+{
+
 enum Rotation
 {
     RotateBy0 = 0,
@@ -62,5 +65,7 @@ enum ScaleMode
 
 typedef QPair< int, QString > Jump;
 typedef QList< QPair< int, QString > > JumpList;
+
+} // qpdfview
 
 #endif // GLOBAL_H

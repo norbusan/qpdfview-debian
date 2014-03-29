@@ -26,6 +26,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QFileInfo;
 
+namespace qpdfview
+{
+
 class RecentlyUsedMenu : public QMenu
 {
     Q_OBJECT
@@ -55,5 +58,7 @@ private:
     QAction* m_clearListAction;
 
 };
+
+} // qpdfview
 
 #endif // RECENTLYUSEDMENU_H

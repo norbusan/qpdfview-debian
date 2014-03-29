@@ -65,6 +65,8 @@ const char* __attribute__((used)) stack_cookie = "\0$STACK:500000\0";
 
 #endif // __amigaos4__
 
+using namespace qpdfview;
+
 struct File
 {
     QString filePath;

@@ -28,6 +28,9 @@ class QFileInfo;
 
 #include "global.h"
 
+namespace qpdfview
+{
+
 class BookmarkMenu : public QMenu
 {
     Q_OBJECT
@@ -62,5 +65,7 @@ private:
     QAction* m_removeBookmarkAction;
 
 };
+
+} // qpdfview
 
 #endif // BOOKMARKMENU_H

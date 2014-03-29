@@ -36,7 +36,10 @@ class QSizeF;
 
 #include "global.h"
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
     struct Link
     {
@@ -174,12 +177,14 @@ class Plugin
 public:
     virtual ~Plugin() {}
 
-    virtual Model::Document* loadDocument(const QString& filePath) const = 0;
+    virtual model::Document* loadDocument(const QString& filePath) const = 0;
 
     virtual SettingsWidget* createSettingsWidget(QWidget* parent = 0) const { Q_UNUSED(parent); return 0; }
 
 };
 
-Q_DECLARE_INTERFACE(Plugin, "local.qpdfview.Plugin")
+} // qpdfview
+
+Q_DECLARE_INTERFACE(qpdfview::Plugin, "local.qpdfview.Plugin")
 
 #endif // DOCUMENTMODEL_H

@@ -29,6 +29,9 @@ class QDialogButtonBox;
 class QTextBrowser;
 class QLineEdit;
 
+namespace qpdfview
+{
+
 class HelpDialog : public QDialog
 {
     Q_OBJECT
@@ -53,5 +56,7 @@ private:
     QPushButton* m_findNextButton;
 
 };
+
+} // qpdfview
 
 #endif // HELPDIALOG_H

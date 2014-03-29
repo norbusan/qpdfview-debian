@@ -28,6 +28,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 
+namespace qpdfview
+{
+
 Settings* PrintDialog::s_settings = 0;
 
 QPrinter* PrintDialog::createPrinter()
@@ -130,3 +133,5 @@ void PrintDialog::accept()
     s_settings->printDialog().setNumberUp(static_cast< PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt()));
     s_settings->printDialog().setNumberUpLayout(static_cast< PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt()));
 }
+
+} // qpdfview

@@ -28,7 +28,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 class QString;
 class QWidget;
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 class Document;
 }
@@ -68,7 +71,7 @@ public:
         }
     }
 
-    Model::Document* loadDocument(const QString& filePath);
+    model::Document* loadDocument(const QString& filePath);
 
     SettingsWidget* createSettingsWidget(FileType fileType, QWidget* parent = 0);
 
@@ -86,5 +89,7 @@ private:
     bool loadPlugin(FileType fileType);
 
 };
+
+} // qpdfview
 
 #endif // PLUGINHANDLER_H

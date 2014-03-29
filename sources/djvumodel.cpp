@@ -32,7 +32,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
 
-static void clearMessageQueue(ddjvu_context_t* context, bool wait)
+namespace
+{
+
+void clearMessageQueue(ddjvu_context_t* context, bool wait)
 {
     if(wait)
     {
@@ -52,7 +55,7 @@ static void clearMessageQueue(ddjvu_context_t* context, bool wait)
     }
 }
 
-static void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
+void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
 {
     ddjvu_message_wait(context);
 
@@ -76,7 +79,111 @@ static void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
     }
 }
 
-Model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo) :
+QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
+{
+    const int textLength = miniexp_length(textExp);
+
+    if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+    {
+        const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
+        const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
+        const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+        const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+
+        if(rect.intersects(QRect(xmin, pageHeight - ymax, xmax - xmin, ymax - ymin)))
+        {
+            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
+            {
+                return QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+            }
+            else
+            {
+                QStringList text;
+
+                for(int textN = 5; textN < textLength; ++textN)
+                {
+                    text.append(loadText(miniexp_nth(textN, textExp), rect, pageHeight));
+                }
+
+                if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "line", 4) == 0)
+                {
+                    return text.join(" ");
+                }
+                else
+                {
+                    return text.join("\n");
+                }
+            }
+        }
+    }
+
+    return QString();
+}
+
+void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
+{
+    const int outlineLength = miniexp_length(outlineExp);
+
+    for(int outlineN = qMax(0, offset); outlineN < outlineLength; ++outlineN)
+    {
+        miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
+        const int bookmarkLength = miniexp_length(bookmarkExp);
+
+        if(bookmarkLength <= 1 || !miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
+        {
+            continue;
+        }
+
+        const QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
+        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
+
+        if(!title.isEmpty() && !destination.isEmpty())
+        {
+            if(destination.at(0) == QLatin1Char('#'))
+            {
+                destination.remove(0,1);
+
+                bool ok = false;
+                int destinationPage = destination.toInt(&ok);
+
+                if(!ok)
+                {
+                    if(indexByName.contains(destination))
+                    {
+                        destinationPage = indexByName[destination] + 1;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                QStandardItem* item = new QStandardItem(title);
+                item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+                item->setData(destinationPage, Qt::UserRole + 1);
+
+                QStandardItem* pageItem = item->clone();
+                pageItem->setText(QString::number(destinationPage));
+                pageItem->setTextAlignment(Qt::AlignRight);
+
+                parent->appendRow(QList< QStandardItem* >() << item << pageItem);
+
+                if(bookmarkLength >= 3)
+                {
+                    loadOutline(bookmarkExp, 2, item, indexByName);
+                }
+            }
+        }
+    }
+}
+
+} // anonymous
+
+namespace qpdfview
+{
+
+model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo) :
     m_parent(parent),
     m_index(index),
     m_size(pageinfo.width, pageinfo.height),
@@ -84,16 +191,16 @@ Model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pag
 {
 }
 
-Model::DjVuPage::~DjVuPage()
+model::DjVuPage::~DjVuPage()
 {
 }
 
-QSizeF Model::DjVuPage::size() const
+QSizeF model::DjVuPage::size() const
 {
     return 72.0 / m_resolution * m_size;
 }
 
-QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -194,7 +301,7 @@ QImage Model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     return image;
 }
 
-QList< Model::Link* > Model::DjVuPage::links() const
+QList< model::Link* > model::DjVuPage::links() const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -336,48 +443,7 @@ QList< Model::Link* > Model::DjVuPage::links() const
     return links;
 }
 
-static QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
-{
-    const int textLength = miniexp_length(textExp);
-
-    if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
-    {
-        const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
-        const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
-        const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-        const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
-
-        if(rect.intersects(QRect(xmin, pageHeight - ymax, xmax - xmin, ymax - ymin)))
-        {
-            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
-            {
-                return QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
-            }
-            else
-            {
-                QStringList text;
-
-                for(int textN = 5; textN < textLength; ++textN)
-                {
-                    text.append(loadText(miniexp_nth(textN, textExp), rect, pageHeight));
-                }
-
-                if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "line", 4) == 0)
-                {
-                    return text.join(" ");
-                }
-                else
-                {
-                    return text.join("\n");
-                }
-            }
-        }
-    }
-
-    return QString();
-}
-
-QString Model::DjVuPage::text(const QRectF& rect) const
+QString model::DjVuPage::text(const QRectF& rect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -404,7 +470,7 @@ QString Model::DjVuPage::text(const QRectF& rect) const
     return text.trimmed();
 }
 
-QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) const
+QList< QRectF > model::DjVuPage::search(const QString& text, bool matchCase) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -496,7 +562,7 @@ QList< QRectF > Model::DjVuPage::search(const QString& text, bool matchCase) con
     return results;
 }
 
-Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
+model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
     m_mutex(),
     m_context(context),
     m_document(document),
@@ -524,21 +590,21 @@ Model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     }
 }
 
-Model::DjVuDocument::~DjVuDocument()
+model::DjVuDocument::~DjVuDocument()
 {
     ddjvu_document_release(m_document);
     ddjvu_context_release(m_context);
     ddjvu_format_release(m_format);
 }
 
-int Model::DjVuDocument::numberOfPages() const
+int model::DjVuDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return ddjvu_document_get_pagenum(m_document);
 }
 
-Model::Page* Model::DjVuDocument::page(int index) const
+model::Page* model::DjVuDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -567,17 +633,17 @@ Model::Page* Model::DjVuDocument::page(int index) const
     return new DjVuPage(this, index, pageinfo);
 }
 
-QStringList Model::DjVuDocument::saveFilter() const
+QStringList model::DjVuDocument::saveFilter() const
 {
     return QStringList() << "DjVu (*.djvu *.djv)";
 }
 
-bool Model::DjVuDocument::canSave() const
+bool model::DjVuDocument::canSave() const
 {
     return true;
 }
 
-bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
+bool model::DjVuDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges);
 
@@ -602,65 +668,7 @@ bool Model::DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
-static void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
-{
-    const int outlineLength = miniexp_length(outlineExp);
-
-    for(int outlineN = qMax(0, offset); outlineN < outlineLength; ++outlineN)
-    {
-        miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
-        const int bookmarkLength = miniexp_length(bookmarkExp);
-
-        if(bookmarkLength <= 1 || !miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
-        {
-            continue;
-        }
-
-        const QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
-        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
-
-        if(!title.isEmpty() && !destination.isEmpty())
-        {
-            if(destination.at(0) == QLatin1Char('#'))
-            {
-                destination.remove(0,1);
-
-                bool ok = false;
-                int destinationPage = destination.toInt(&ok);
-
-                if(!ok)
-                {
-                    if(indexByName.contains(destination))
-                    {
-                        destinationPage = indexByName[destination] + 1;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-                QStandardItem* item = new QStandardItem(title);
-                item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-                item->setData(destinationPage, Qt::UserRole + 1);
-
-                QStandardItem* pageItem = item->clone();
-                pageItem->setText(QString::number(destinationPage));
-                pageItem->setTextAlignment(Qt::AlignRight);
-
-                parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-
-                if(bookmarkLength >= 3)
-                {
-                    loadOutline(bookmarkExp, 2, item, indexByName);
-                }
-            }
-        }
-    }
-}
-
-void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+void model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
@@ -697,7 +705,7 @@ void Model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     ddjvu_miniexp_release(m_document, outlineExp);
 }
 
-void Model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
@@ -760,7 +768,7 @@ DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent)
     setObjectName("DjVuPlugin");
 }
 
-Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
+model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
     ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
@@ -782,11 +790,13 @@ Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
         return 0;
     }
 
-    return new Model::DjVuDocument(context, document);
+    return new model::DjVuDocument(context, document);
 }
+
+} // qpdfview
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_djvu, DjVuPlugin)
+Q_EXPORT_PLUGIN2(qpdfview_djvu, qpdfview::DjVuPlugin)
 
 #endif // QT_VERSION

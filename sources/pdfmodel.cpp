@@ -40,638 +40,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "annotationwidgets.h"
 #include "formfieldwidgets.h"
 
-Model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) : Annotation(),
-    m_mutex(mutex),
-    m_annotation(annotation)
+namespace
 {
-}
 
-Model::PdfAnnotation::~PdfAnnotation()
-{
-    delete m_annotation;
-}
-
-QRectF Model::PdfAnnotation::boundary() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_annotation->boundary().normalized();
-}
-
-QString Model::PdfAnnotation::contents() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_annotation->contents();
-}
-
-QWidget* Model::PdfAnnotation::createWidget()
-{
-    QWidget* widget = 0;
-
-    if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
-    {
-        widget = new AnnotationWidget(m_mutex, m_annotation);
-
-        connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
-    }
-    else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
-    {
-        widget = new FileAttachmentAnnotationWidget(m_mutex, static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation));
-    }
-
-    connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));
-
-    return widget;
-}
-
-Model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) : FormField(),
-    m_mutex(mutex),
-    m_formField(formField)
-{
-}
-
-Model::PdfFormField::~PdfFormField()
-{
-    delete m_formField;
-}
-
-QRectF Model::PdfFormField::boundary() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_formField->rect().normalized();
-}
-
-QString Model::PdfFormField::name() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_formField->name();
-}
-
-QWidget* Model::PdfFormField::createWidget()
-{
-    QWidget* widget = 0;
-
-    if(m_formField->type() == Poppler::FormField::FormText)
-    {
-        Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(m_formField);
-
-        if(formFieldText->textType() == Poppler::FormFieldText::Normal)
-        {
-            widget = new NormalTextFieldWidget(m_mutex, formFieldText);
-        }
-        else if(formFieldText->textType() == Poppler::FormFieldText::Multiline)
-        {
-            widget = new MultilineTextFieldWidget(m_mutex, formFieldText);
-        }
-    }
-    else if(m_formField->type() == Poppler::FormField::FormChoice)
-    {
-        Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(m_formField);
-
-        if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
-        {
-            widget = new ComboBoxChoiceFieldWidget(m_mutex, formFieldChoice);
-        }
-        else if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox)
-        {
-            widget = new ListBoxChoiceFieldWidget(m_mutex, formFieldChoice);
-        }
-    }
-    else if(m_formField->type() == Poppler::FormField::FormButton)
-    {
-        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
-
-        if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox)
-        {
-            widget = new CheckBoxChoiceFieldWidget(m_mutex, formFieldButton);
-        }
-        else if(formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
-        {
-            widget = new RadioChoiceFieldWidget(m_mutex, formFieldButton);
-        }
-    }
-
-    connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
-
-    return widget;
-}
-
-Model::PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
-    m_mutex(mutex),
-    m_page(page)
-{
-}
-
-Model::PdfPage::~PdfPage()
-{
-    delete m_page;
-}
-
-QSizeF Model::PdfPage::size() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_page->pageSizeF();
-}
-
-QImage Model::PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    double xres;
-    double yres;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        xres = horizontalResolution;
-        yres = verticalResolution;
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        xres = verticalResolution;
-        yres = horizontalResolution;
-        break;
-    }
-
-    Poppler::Page::Rotation rotate;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-        rotate = Poppler::Page::Rotate0;
-        break;
-    case RotateBy90:
-        rotate = Poppler::Page::Rotate90;
-        break;
-    case RotateBy180:
-        rotate = Poppler::Page::Rotate180;
-        break;
-    case RotateBy270:
-        rotate = Poppler::Page::Rotate270;
-        break;
-    }
-
-    int x = -1;
-    int y = -1;
-    int w = -1;
-    int h = -1;
-
-    if(!boundingRect.isNull())
-    {
-        x = boundingRect.x();
-        y = boundingRect.y();
-        w = boundingRect.width();
-        h = boundingRect.height();
-    }
-
-    return m_page->renderToImage(xres, yres, x, y, w, h, rotate);
-}
-
-QList< Model::Link* > Model::PdfPage::links() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    QList< Link* > links;
-
-    foreach(const Poppler::Link* link, m_page->links())
-    {
-        const QRectF boundary = link->linkArea().normalized();
-
-        if(link->linkType() == Poppler::Link::Goto)
-        {
-            const Poppler::LinkGoto* linkGoto = static_cast< const Poppler::LinkGoto* >(link);
-
-            const int page = linkGoto->destination().pageNumber();
-
-            qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
-            qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
-
-            left = left >= 0.0 ? left : 0.0;
-            left = left <= 1.0 ? left : 1.0;
-
-            top = top >= 0.0 ? top : 0.0;
-            top = top <= 1.0 ? top : 1.0;
-
-            if(linkGoto->isExternal())
-            {
-                links.append(new Link(boundary, linkGoto->fileName(), page));
-            }
-            else
-            {
-                links.append(new Link(boundary, page, left, top));
-            }
-        }
-        else if(link->linkType() == Poppler::Link::Browse)
-        {
-            const Poppler::LinkBrowse* linkBrowse = static_cast< const Poppler::LinkBrowse* >(link);
-            const QString url = linkBrowse->url();
-
-            links.append(new Link(boundary, url));
-        }
-        else if(link->linkType() == Poppler::Link::Execute)
-        {
-            const Poppler::LinkExecute* linkExecute = static_cast< const Poppler::LinkExecute* >(link);
-            const QString url = linkExecute->fileName();
-
-            links.append(new Link(boundary, url));
-        }
-
-        delete link;
-    }
-
-    return links;
-}
-
-QString Model::PdfPage::text(const QRectF& rect) const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_page->text(rect);
-}
-
-QList< QRectF > Model::PdfPage::search(const QString& text, bool matchCase) const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    QList< QRectF > results;
-
-#if defined(HAS_POPPLER_22)
-
-    results = m_page->search(text, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
-
-#elif defined(HAS_POPPLER_14)
-
-    double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
-
-    while(m_page->search(text, left, top, right, bottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-    {
-        QRectF rect;
-        rect.setLeft(left);
-        rect.setTop(top);
-        rect.setRight(right);
-        rect.setBottom(bottom);
-
-        results.append(rect);
-    }
-
-#else
-
-    QRectF rect;
-
-    while(m_page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
-    {
-        results.append(rect);
-    }
-
-#endif
-
-    return results;
-}
-
-QList< Model::Annotation* > Model::PdfPage::annotations() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    QList< Annotation* > annotations;
-
-    foreach(Poppler::Annotation* annotation, m_page->annotations())
-    {
-        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
-        {
-            annotations.append(new PdfAnnotation(m_mutex, annotation));
-            continue;
-        }
-
-        delete annotation;
-    }
-
-    return annotations;
-}
-
-bool Model::PdfPage::canAddAndRemoveAnnotations() const
-{
-#ifdef HAS_POPPLER_20
-
-    return true;
-
-#else
-
-    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
-
-    return false;
-
-#endif // HAS_POPPLER_20
-}
-
-Model::Annotation* Model::PdfPage::addTextAnnotation(const QRectF& boundary, const QColor& color)
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-#ifdef HAS_POPPLER_20
-
-    Poppler::Annotation::Style style;
-    style.setColor(color);
-
-    Poppler::Annotation::Popup popup;
-    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
-
-    Poppler::Annotation* annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
-
-    annotation->setBoundary(boundary);
-    annotation->setStyle(style);
-    annotation->setPopup(popup);
-
-    m_page->addAnnotation(annotation);
-
-    return new PdfAnnotation(m_mutex, annotation);
-
-#else
-
-    Q_UNUSED(boundary);
-    Q_UNUSED(color);
-
-    return 0;
-
-#endif // HAS_POPPLER_20
-}
-
-Model::Annotation* Model::PdfPage::addHighlightAnnotation(const QRectF& boundary, const QColor& color)
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-#ifdef HAS_POPPLER_20
-
-    Poppler::Annotation::Style style;
-    style.setColor(color);
-
-    Poppler::Annotation::Popup popup;
-    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
-
-    Poppler::HighlightAnnotation* annotation = new Poppler::HighlightAnnotation();
-
-    Poppler::HighlightAnnotation::Quad quad;
-    quad.points[0] = boundary.topLeft();
-    quad.points[1] = boundary.topRight();
-    quad.points[2] = boundary.bottomRight();
-    quad.points[3] = boundary.bottomLeft();
-
-    annotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
-
-    annotation->setBoundary(boundary);
-    annotation->setStyle(style);
-    annotation->setPopup(popup);
-
-    m_page->addAnnotation(annotation);
-
-    return new PdfAnnotation(m_mutex, annotation);
-
-#else
-
-    Q_UNUSED(boundary);
-    Q_UNUSED(color);
-
-    return 0;
-
-#endif // HAS_POPPLER_20
-
-}
-
-void Model::PdfPage::removeAnnotation(Annotation* annotation)
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-#ifdef HAS_POPPLER_20
-
-    PdfAnnotation* pdfAnnotation = static_cast< PdfAnnotation* >(annotation);
-
-    m_page->removeAnnotation(pdfAnnotation->m_annotation);
-    pdfAnnotation->m_annotation = 0;
-
-#else
-
-    Q_UNUSED(annotation);
-
-#endif // HAS_POPPLER_20
-}
-
-QList< Model::FormField* > Model::PdfPage::formFields() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    QList< FormField* > formFields;
-
-    foreach(Poppler::FormField* formField, m_page->formFields())
-    {
-        if(!formField->isVisible() || formField->isReadOnly())
-        {
-            delete formField;
-            continue;
-        }
-
-        if(formField->type() == Poppler::FormField::FormText)
-        {
-            Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(formField);
-
-            if(formFieldText->textType() == Poppler::FormFieldText::Normal || formFieldText->textType() == Poppler::FormFieldText::Multiline)
-            {
-                formFields.append(new PdfFormField(m_mutex, formField));
-                continue;
-            }
-        }
-        else if(formField->type() == Poppler::FormField::FormChoice)
-        {
-            Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
-
-            if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox || formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
-            {
-                formFields.append(new PdfFormField(m_mutex, formField));
-                continue;
-            }
-        }
-        else if(formField->type() == Poppler::FormField::FormButton)
-        {
-            Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(formField);
-
-            if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox || formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
-            {
-                formFields.append(new PdfFormField(m_mutex, formField));
-                continue;
-            }
-        }
-
-        delete formField;
-    }
-
-    return formFields;
-}
-
-Model::PdfDocument::PdfDocument(Poppler::Document* document) :
-    m_mutex(),
-    m_document(document)
-{
-}
-
-Model::PdfDocument::~PdfDocument()
-{
-    delete m_document;
-}
-
-int Model::PdfDocument::numberOfPages() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_document->numPages();
-}
-
-Model::Page* Model::PdfDocument::page(int index) const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    Poppler::Page* page = m_document->page(index);
-
-    return page != 0 ? new PdfPage(&m_mutex, page) : 0;
-}
-
-bool Model::PdfDocument::isLocked() const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_document->isLocked();
-}
-
-bool Model::PdfDocument::unlock(const QString& password)
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    return m_document->unlock(password.toLatin1(), password.toLatin1());
-}
-
-QStringList Model::PdfDocument::saveFilter() const
-{
-    return QStringList() << "Portable document format (*.pdf)";
-}
-
-bool Model::PdfDocument::canSave() const
-{
-    return true;
-}
-
-bool Model::PdfDocument::save(const QString& filePath, bool withChanges) const
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    QScopedPointer< Poppler::PDFConverter > pdfConverter(m_document->pdfConverter());
-
-    pdfConverter->setOutputFileName(filePath);
-
-    if(withChanges)
-    {
-        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
-    }
-
-    return pdfConverter->convert();
-}
-
-bool Model::PdfDocument::canBePrintedUsingCUPS() const
-{
-    return true;
-}
-
-void Model::PdfDocument::setPaperColor(const QColor& paperColor)
-{
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
-
-    m_document->setPaperColor(paperColor);
-}
-
-static void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
+void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
 {
     const QDomElement element = node.toElement();
 
@@ -744,7 +116,643 @@ static void loadOutline(Poppler::Document* document, const QDomNode& node, QStan
     }
 }
 
-void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
+} // anonymous
+
+namespace qpdfview
+{
+
+model::PdfAnnotation::PdfAnnotation(QMutex* mutex, Poppler::Annotation* annotation) : Annotation(),
+    m_mutex(mutex),
+    m_annotation(annotation)
+{
+}
+
+model::PdfAnnotation::~PdfAnnotation()
+{
+    delete m_annotation;
+}
+
+QRectF model::PdfAnnotation::boundary() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_annotation->boundary().normalized();
+}
+
+QString model::PdfAnnotation::contents() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_annotation->contents();
+}
+
+QWidget* model::PdfAnnotation::createWidget()
+{
+    QWidget* widget = 0;
+
+    if(m_annotation->subType() == Poppler::Annotation::AText || m_annotation->subType() == Poppler::Annotation::AHighlight)
+    {
+        widget = new AnnotationWidget(m_mutex, m_annotation);
+
+        connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
+    }
+    else if(m_annotation->subType() == Poppler::Annotation::AFileAttachment)
+    {
+        widget = new FileAttachmentAnnotationWidget(m_mutex, static_cast< Poppler::FileAttachmentAnnotation* >(m_annotation));
+    }
+
+    connect(this, SIGNAL(destroyed()), widget, SLOT(deleteLater()));
+
+    return widget;
+}
+
+model::PdfFormField::PdfFormField(QMutex* mutex, Poppler::FormField* formField) : FormField(),
+    m_mutex(mutex),
+    m_formField(formField)
+{
+}
+
+model::PdfFormField::~PdfFormField()
+{
+    delete m_formField;
+}
+
+QRectF model::PdfFormField::boundary() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_formField->rect().normalized();
+}
+
+QString model::PdfFormField::name() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_formField->name();
+}
+
+QWidget* model::PdfFormField::createWidget()
+{
+    QWidget* widget = 0;
+
+    if(m_formField->type() == Poppler::FormField::FormText)
+    {
+        Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(m_formField);
+
+        if(formFieldText->textType() == Poppler::FormFieldText::Normal)
+        {
+            widget = new NormalTextFieldWidget(m_mutex, formFieldText);
+        }
+        else if(formFieldText->textType() == Poppler::FormFieldText::Multiline)
+        {
+            widget = new MultilineTextFieldWidget(m_mutex, formFieldText);
+        }
+    }
+    else if(m_formField->type() == Poppler::FormField::FormChoice)
+    {
+        Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(m_formField);
+
+        if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
+        {
+            widget = new ComboBoxChoiceFieldWidget(m_mutex, formFieldChoice);
+        }
+        else if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox)
+        {
+            widget = new ListBoxChoiceFieldWidget(m_mutex, formFieldChoice);
+        }
+    }
+    else if(m_formField->type() == Poppler::FormField::FormButton)
+    {
+        Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(m_formField);
+
+        if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox)
+        {
+            widget = new CheckBoxChoiceFieldWidget(m_mutex, formFieldButton);
+        }
+        else if(formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
+        {
+            widget = new RadioChoiceFieldWidget(m_mutex, formFieldButton);
+        }
+    }
+
+    connect(widget, SIGNAL(wasModified()), SIGNAL(wasModified()));
+
+    return widget;
+}
+
+model::PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
+    m_mutex(mutex),
+    m_page(page)
+{
+}
+
+model::PdfPage::~PdfPage()
+{
+    delete m_page;
+}
+
+QSizeF model::PdfPage::size() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_page->pageSizeF();
+}
+
+QImage model::PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    double xres;
+    double yres;
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        xres = horizontalResolution;
+        yres = verticalResolution;
+        break;
+    case RotateBy90:
+    case RotateBy270:
+        xres = verticalResolution;
+        yres = horizontalResolution;
+        break;
+    }
+
+    Poppler::Page::Rotation rotate;
+
+    switch(rotation)
+    {
+    default:
+    case RotateBy0:
+        rotate = Poppler::Page::Rotate0;
+        break;
+    case RotateBy90:
+        rotate = Poppler::Page::Rotate90;
+        break;
+    case RotateBy180:
+        rotate = Poppler::Page::Rotate180;
+        break;
+    case RotateBy270:
+        rotate = Poppler::Page::Rotate270;
+        break;
+    }
+
+    int x = -1;
+    int y = -1;
+    int w = -1;
+    int h = -1;
+
+    if(!boundingRect.isNull())
+    {
+        x = boundingRect.x();
+        y = boundingRect.y();
+        w = boundingRect.width();
+        h = boundingRect.height();
+    }
+
+    return m_page->renderToImage(xres, yres, x, y, w, h, rotate);
+}
+
+QList< model::Link* > model::PdfPage::links() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    QList< Link* > links;
+
+    foreach(const Poppler::Link* link, m_page->links())
+    {
+        const QRectF boundary = link->linkArea().normalized();
+
+        if(link->linkType() == Poppler::Link::Goto)
+        {
+            const Poppler::LinkGoto* linkGoto = static_cast< const Poppler::LinkGoto* >(link);
+
+            const int page = linkGoto->destination().pageNumber();
+
+            qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
+            qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
+
+            left = left >= 0.0 ? left : 0.0;
+            left = left <= 1.0 ? left : 1.0;
+
+            top = top >= 0.0 ? top : 0.0;
+            top = top <= 1.0 ? top : 1.0;
+
+            if(linkGoto->isExternal())
+            {
+                links.append(new Link(boundary, linkGoto->fileName(), page));
+            }
+            else
+            {
+                links.append(new Link(boundary, page, left, top));
+            }
+        }
+        else if(link->linkType() == Poppler::Link::Browse)
+        {
+            const Poppler::LinkBrowse* linkBrowse = static_cast< const Poppler::LinkBrowse* >(link);
+            const QString url = linkBrowse->url();
+
+            links.append(new Link(boundary, url));
+        }
+        else if(link->linkType() == Poppler::Link::Execute)
+        {
+            const Poppler::LinkExecute* linkExecute = static_cast< const Poppler::LinkExecute* >(link);
+            const QString url = linkExecute->fileName();
+
+            links.append(new Link(boundary, url));
+        }
+
+        delete link;
+    }
+
+    return links;
+}
+
+QString model::PdfPage::text(const QRectF& rect) const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_page->text(rect);
+}
+
+QList< QRectF > model::PdfPage::search(const QString& text, bool matchCase) const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    QList< QRectF > results;
+
+#if defined(HAS_POPPLER_22)
+
+    results = m_page->search(text, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
+
+#elif defined(HAS_POPPLER_14)
+
+    double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
+
+    while(m_page->search(text, left, top, right, bottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    {
+        QRectF rect;
+        rect.setLeft(left);
+        rect.setTop(top);
+        rect.setRight(right);
+        rect.setBottom(bottom);
+
+        results.append(rect);
+    }
+
+#else
+
+    QRectF rect;
+
+    while(m_page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    {
+        results.append(rect);
+    }
+
+#endif
+
+    return results;
+}
+
+QList< model::Annotation* > model::PdfPage::annotations() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    QList< Annotation* > annotations;
+
+    foreach(Poppler::Annotation* annotation, m_page->annotations())
+    {
+        if(annotation->subType() == Poppler::Annotation::AText || annotation->subType() == Poppler::Annotation::AHighlight || annotation->subType() == Poppler::Annotation::AFileAttachment)
+        {
+            annotations.append(new PdfAnnotation(m_mutex, annotation));
+            continue;
+        }
+
+        delete annotation;
+    }
+
+    return annotations;
+}
+
+bool model::PdfPage::canAddAndRemoveAnnotations() const
+{
+#ifdef HAS_POPPLER_20
+
+    return true;
+
+#else
+
+    QMessageBox::information(0, tr("Information"), tr("Version 0.20.1 or higher of the Poppler library is required to add or remove annotations."));
+
+    return false;
+
+#endif // HAS_POPPLER_20
+}
+
+model::Annotation* model::PdfPage::addTextAnnotation(const QRectF& boundary, const QColor& color)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+#ifdef HAS_POPPLER_20
+
+    Poppler::Annotation::Style style;
+    style.setColor(color);
+
+    Poppler::Annotation::Popup popup;
+    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
+    Poppler::Annotation* annotation = new Poppler::TextAnnotation(Poppler::TextAnnotation::Linked);
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+    annotation->setPopup(popup);
+
+    m_page->addAnnotation(annotation);
+
+    return new PdfAnnotation(m_mutex, annotation);
+
+#else
+
+    Q_UNUSED(boundary);
+    Q_UNUSED(color);
+
+    return 0;
+
+#endif // HAS_POPPLER_20
+}
+
+model::Annotation* model::PdfPage::addHighlightAnnotation(const QRectF& boundary, const QColor& color)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+#ifdef HAS_POPPLER_20
+
+    Poppler::Annotation::Style style;
+    style.setColor(color);
+
+    Poppler::Annotation::Popup popup;
+    popup.setFlags(Poppler::Annotation::Hidden | Poppler::Annotation::ToggleHidingOnMouse);
+
+    Poppler::HighlightAnnotation* annotation = new Poppler::HighlightAnnotation();
+
+    Poppler::HighlightAnnotation::Quad quad;
+    quad.points[0] = boundary.topLeft();
+    quad.points[1] = boundary.topRight();
+    quad.points[2] = boundary.bottomRight();
+    quad.points[3] = boundary.bottomLeft();
+
+    annotation->setHighlightQuads(QList< Poppler::HighlightAnnotation::Quad >() << quad);
+
+    annotation->setBoundary(boundary);
+    annotation->setStyle(style);
+    annotation->setPopup(popup);
+
+    m_page->addAnnotation(annotation);
+
+    return new PdfAnnotation(m_mutex, annotation);
+
+#else
+
+    Q_UNUSED(boundary);
+    Q_UNUSED(color);
+
+    return 0;
+
+#endif // HAS_POPPLER_20
+
+}
+
+void model::PdfPage::removeAnnotation(Annotation* annotation)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+#ifdef HAS_POPPLER_20
+
+    PdfAnnotation* pdfAnnotation = static_cast< PdfAnnotation* >(annotation);
+
+    m_page->removeAnnotation(pdfAnnotation->m_annotation);
+    pdfAnnotation->m_annotation = 0;
+
+#else
+
+    Q_UNUSED(annotation);
+
+#endif // HAS_POPPLER_20
+}
+
+QList< model::FormField* > model::PdfPage::formFields() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    QList< FormField* > formFields;
+
+    foreach(Poppler::FormField* formField, m_page->formFields())
+    {
+        if(!formField->isVisible() || formField->isReadOnly())
+        {
+            delete formField;
+            continue;
+        }
+
+        if(formField->type() == Poppler::FormField::FormText)
+        {
+            Poppler::FormFieldText* formFieldText = static_cast< Poppler::FormFieldText* >(formField);
+
+            if(formFieldText->textType() == Poppler::FormFieldText::Normal || formFieldText->textType() == Poppler::FormFieldText::Multiline)
+            {
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
+            }
+        }
+        else if(formField->type() == Poppler::FormField::FormChoice)
+        {
+            Poppler::FormFieldChoice* formFieldChoice = static_cast< Poppler::FormFieldChoice* >(formField);
+
+            if(formFieldChoice->choiceType() == Poppler::FormFieldChoice::ListBox || formFieldChoice->choiceType() == Poppler::FormFieldChoice::ComboBox)
+            {
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
+            }
+        }
+        else if(formField->type() == Poppler::FormField::FormButton)
+        {
+            Poppler::FormFieldButton* formFieldButton = static_cast< Poppler::FormFieldButton* >(formField);
+
+            if(formFieldButton->buttonType() == Poppler::FormFieldButton::CheckBox || formFieldButton->buttonType() == Poppler::FormFieldButton::Radio)
+            {
+                formFields.append(new PdfFormField(m_mutex, formField));
+                continue;
+            }
+        }
+
+        delete formField;
+    }
+
+    return formFields;
+}
+
+model::PdfDocument::PdfDocument(Poppler::Document* document) :
+    m_mutex(),
+    m_document(document)
+{
+}
+
+model::PdfDocument::~PdfDocument()
+{
+    delete m_document;
+}
+
+int model::PdfDocument::numberOfPages() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_document->numPages();
+}
+
+model::Page* model::PdfDocument::page(int index) const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    Poppler::Page* page = m_document->page(index);
+
+    return page != 0 ? new PdfPage(&m_mutex, page) : 0;
+}
+
+bool model::PdfDocument::isLocked() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_document->isLocked();
+}
+
+bool model::PdfDocument::unlock(const QString& password)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_document->unlock(password.toLatin1(), password.toLatin1());
+}
+
+QStringList model::PdfDocument::saveFilter() const
+{
+    return QStringList() << "Portable document format (*.pdf)";
+}
+
+bool model::PdfDocument::canSave() const
+{
+    return true;
+}
+
+bool model::PdfDocument::save(const QString& filePath, bool withChanges) const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    QScopedPointer< Poppler::PDFConverter > pdfConverter(m_document->pdfConverter());
+
+    pdfConverter->setOutputFileName(filePath);
+
+    if(withChanges)
+    {
+        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
+    }
+
+    return pdfConverter->convert();
+}
+
+bool model::PdfDocument::canBePrintedUsingCUPS() const
+{
+    return true;
+}
+
+void model::PdfDocument::setPaperColor(const QColor& paperColor)
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(&m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    m_document->setPaperColor(paperColor);
+}
+
+void model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
@@ -764,7 +772,7 @@ void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
     }
 }
 
-void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
@@ -794,7 +802,7 @@ void Model::PdfDocument::loadProperties(QStandardItemModel* propertiesModel) con
     }
 }
 
-void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
+void model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
     Document::Document::loadFonts(fontsModel);
 
@@ -823,7 +831,7 @@ void Model::PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
     }
 }
 
-bool Model::PdfDocument::wantsContinuousMode() const
+bool model::PdfDocument::wantsContinuousMode() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -838,7 +846,7 @@ bool Model::PdfDocument::wantsContinuousMode() const
         || pageLayout == Poppler::Document::TwoColumnRight;
 }
 
-bool Model::PdfDocument::wantsSinglePageMode() const
+bool model::PdfDocument::wantsSinglePageMode() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -852,7 +860,7 @@ bool Model::PdfDocument::wantsSinglePageMode() const
         || pageLayout == Poppler::Document::OneColumn;
 }
 
-bool Model::PdfDocument::wantsTwoPagesMode() const
+bool model::PdfDocument::wantsTwoPagesMode() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -866,7 +874,7 @@ bool Model::PdfDocument::wantsTwoPagesMode() const
         || pageLayout == Poppler::Document::TwoColumnLeft;
 }
 
-bool Model::PdfDocument::wantsTwoPagesWithCoverPageMode() const
+bool model::PdfDocument::wantsTwoPagesWithCoverPageMode() const
 {
 #ifndef HAS_POPPLER_24
 
@@ -880,7 +888,7 @@ bool Model::PdfDocument::wantsTwoPagesWithCoverPageMode() const
         || pageLayout == Poppler::Document::TwoColumnRight;
 }
 
-bool Model::PdfDocument::wantsRightToLeftMode() const
+bool model::PdfDocument::wantsRightToLeftMode() const
 {
 #ifdef HAS_POPPLER_26
 
@@ -1032,7 +1040,7 @@ PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
     m_settings = new QSettings("qpdfview", "pdf-plugin", this);
 }
 
-Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
+model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 {
     Poppler::Document* document = Poppler::Document::load(filePath);
 
@@ -1104,7 +1112,7 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
         }
     }
 
-    return document != 0 ? new Model::PdfDocument(document) : 0;
+    return document != 0 ? new model::PdfDocument(document) : 0;
 }
 
 SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const
@@ -1112,8 +1120,10 @@ SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const
     return new PdfSettingsWidget(m_settings, parent);
 }
 
+} // qpdfview
+
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_pdf, PdfPlugin)
+Q_EXPORT_PLUGIN2(qpdfview_pdf, qpdfview::PdfPlugin)
 
 #endif // QT_VERSION

@@ -26,7 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 class Page;
 }
@@ -39,7 +42,7 @@ class PresentationView : public QGraphicsView
     Q_OBJECT
 
 public:
-    PresentationView(const QVector< Model::Page* >& pages, QWidget* parent = 0);
+    PresentationView(const QVector< model::Page* >& pages, QWidget* parent = 0);
     ~PresentationView();
 
     int numberOfPages() const;
@@ -104,7 +107,7 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    QVector< Model::Page* > m_pages;
+    QVector< model::Page* > m_pages;
 
     int m_currentPage;
 
@@ -126,5 +129,7 @@ private:
     void prepareView();
     
 };
+
+} // qpdfview
 
 #endif // PRESENTATIONVIEW_H

@@ -26,6 +26,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QSocketNotifier;
 
+namespace qpdfview
+{
+
 class SignalHandler : public QObject
 {
     Q_OBJECT
@@ -52,5 +55,7 @@ private:
     QSocketNotifier* m_socketNotifier;
 
 };
+
+} // qpdfview
 
 #endif // SIGNALHANDLER_H

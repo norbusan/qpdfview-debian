@@ -23,6 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
+namespace qpdfview
+{
+
 BookmarkMenu::BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent) : QMenu(parent)
 {
     menuAction()->setText(fileInfo.completeBaseName());
@@ -127,3 +130,5 @@ void BookmarkMenu::on_jumpToPage_triggered(QAction* action)
 {
     emit jumpToPageTriggered(absoluteFilePath(), action->data().toInt());
 }
+
+} // qpdfview

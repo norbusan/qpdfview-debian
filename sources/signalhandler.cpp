@@ -27,6 +27,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QSocketNotifier>
 
+namespace qpdfview
+{
+
 int SignalHandler::s_sockets[2];
 
 bool SignalHandler::prepareSignals()
@@ -92,3 +95,5 @@ void SignalHandler::handleSignals(int sigNumber)
 {
     Q_UNUSED(write(s_sockets[0], &sigNumber, sizeof(int)));
 }
+
+} // qpdfview

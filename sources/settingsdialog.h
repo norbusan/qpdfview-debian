@@ -35,6 +35,9 @@ class QSpinBox;
 class QTableView;
 class QTabWidget;
 
+namespace qpdfview
+{
+
 class Settings;
 class SettingsWidget;
 
@@ -183,5 +186,7 @@ private:
     void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
 
 };
+
+} // qpdfview
 
 #endif // SETTINGSDIALOG_H

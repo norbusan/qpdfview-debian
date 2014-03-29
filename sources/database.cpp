@@ -81,6 +81,9 @@ private:
 
 } // anonymous
 
+namespace qpdfview
+{
+
 Database* Database::s_instance = 0;
 
 Database* Database::instance()
@@ -691,3 +694,5 @@ void Database::migratePerFileSettings_v1_v2()
 }
 
 #endif // WITH_SQL
+
+} // qpdfview

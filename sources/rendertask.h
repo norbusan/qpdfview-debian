@@ -29,7 +29,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 class Page;
 }
@@ -54,7 +57,7 @@ signals:
     void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 public slots:
-    void start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+    void start(model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
     void cancel();
 
 private:
@@ -68,7 +71,7 @@ private:
     bool m_isRunning;
     bool m_wasCanceled;
 
-    Model::Page* m_page;
+    model::Page* m_page;
 
     int m_resolutionX;
     int m_resolutionY;
@@ -82,5 +85,7 @@ private:
     bool m_prefetch;
 
 };
+
+} // qpdfview
 
 #endif // RENDERTASK_H

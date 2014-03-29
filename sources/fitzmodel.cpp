@@ -35,18 +35,59 @@ pdf_document* pdf_specifics(fz_document*);
 
 }
 
-Model::FitzPage::FitzPage(const FitzDocument* parent, fz_page* page) :
+namespace
+{
+
+void loadOutline(fz_outline* outline, QStandardItem* parent)
+{
+    QStandardItem* item = new QStandardItem(QString::fromUtf8(outline->title));
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+    if(outline->dest.kind != FZ_LINK_NONE)
+    {
+        const int page = outline->dest.ld.gotor.page + 1;
+
+        item->setData(page, Qt::UserRole + 1);
+
+        QStandardItem* pageItem = item->clone();
+        pageItem->setText(QString::number(page));
+        pageItem->setTextAlignment(Qt::AlignRight);
+
+        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
+    }
+    else
+    {
+        parent->appendRow(item);
+    }
+
+    if(outline->next != 0)
+    {
+        loadOutline(outline->next, parent);
+    }
+
+    if(outline->down != 0)
+    {
+        loadOutline(outline->down, item);
+    }
+}
+
+} // anonymous
+
+namespace qpdfview
+{
+
+model::FitzPage::FitzPage(const FitzDocument* parent, fz_page* page) :
     m_parent(parent),
     m_page(page)
 {
 }
 
-Model::FitzPage::~FitzPage()
+model::FitzPage::~FitzPage()
 {
     fz_free_page(m_parent->m_document, m_page);
 }
 
-QSizeF Model::FitzPage::size() const
+QSizeF model::FitzPage::size() const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -56,7 +97,7 @@ QSizeF Model::FitzPage::size() const
     return QSize(qCeil(qAbs(rect.x1 - rect.x0)), qCeil(qAbs(rect.y1 - rect.y0)));
 }
 
-QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage model::FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -120,7 +161,7 @@ QImage Model::FitzPage::render(qreal horizontalResolution, qreal verticalResolut
     return image;
 }
 
-QList< Model::Link* > Model::FitzPage::links() const
+QList< model::Link* > model::FitzPage::links() const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -170,7 +211,7 @@ QList< Model::Link* > Model::FitzPage::links() const
     return links;
 }
 
-Model::FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
+model::FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
     m_mutex(),
     m_context(context),
     m_document(document),
@@ -178,20 +219,20 @@ Model::FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
 {
 }
 
-Model::FitzDocument::~FitzDocument()
+model::FitzDocument::~FitzDocument()
 {
     fz_close_document(m_document);
     fz_free_context(m_context);
 }
 
-int Model::FitzDocument::numberOfPages() const
+int model::FitzDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return fz_count_pages(m_document);
 }
 
-Model::Page* Model::FitzDocument::page(int index) const
+model::Page* model::FitzDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -200,52 +241,19 @@ Model::Page* Model::FitzDocument::page(int index) const
     return page != 0 ? new FitzPage(this, page) : 0;
 }
 
-bool Model::FitzDocument::canBePrintedUsingCUPS() const
+bool model::FitzDocument::canBePrintedUsingCUPS() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return pdf_specifics(m_document) != 0;
 }
 
-void Model::FitzDocument::setPaperColor(const QColor& paperColor)
+void model::FitzDocument::setPaperColor(const QColor& paperColor)
 {
     m_paperColor = paperColor;
 }
 
-static void loadOutline(fz_outline* outline, QStandardItem* parent)
-{
-    QStandardItem* item = new QStandardItem(QString::fromUtf8(outline->title));
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-    if(outline->dest.kind != FZ_LINK_NONE)
-    {
-        const int page = outline->dest.ld.gotor.page + 1;
-
-        item->setData(page, Qt::UserRole + 1);
-
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
-
-        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-    else
-    {
-        parent->appendRow(item);
-    }
-
-    if(outline->next != 0)
-    {
-        loadOutline(outline->next, parent);
-    }
-
-    if(outline->down != 0)
-    {
-        loadOutline(outline->down, item);
-    }
-}
-
-void Model::FitzDocument::loadOutline(QStandardItemModel* outlineModel) const
+void model::FitzDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
@@ -277,7 +285,7 @@ FitzPlugin::~FitzPlugin()
     fz_free_context(m_context);
 }
 
-Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
+model::Document* FitzPlugin::loadDocument(const QString& filePath) const
 {
     fz_context* context = fz_clone_context(m_context);
     fz_document* document = fz_open_document(context, QFile::encodeName(filePath));
@@ -289,7 +297,7 @@ Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
         return 0;
     }
 
-    return new Model::FitzDocument(context, document);
+    return new model::FitzDocument(context, document);
 }
 
 void FitzPlugin::lock(void* user, int lock)
@@ -302,8 +310,10 @@ void FitzPlugin::unlock(void* user, int lock)
     reinterpret_cast< FitzPlugin* >(user)->m_mutex[lock].unlock();
 }
 
+} // qpdfview
+
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 
-Q_EXPORT_PLUGIN2(qpdfview_fitz, FitzPlugin)
+Q_EXPORT_PLUGIN2(qpdfview_fitz, qpdfview::FitzPlugin)
 
 #endif // QT_VERSION

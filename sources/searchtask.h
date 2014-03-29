@@ -26,7 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QThread>
 #include <QVector>
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 class Page;
 }
@@ -50,7 +53,7 @@ signals:
     void resultsReady(int index, QList< QRectF > results);
 
 public slots:
-    void start(const QVector< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
+    void start(const QVector< model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
     void cancel();
 
 private:
@@ -60,12 +63,14 @@ private:
 
     int m_progress;
 
-    QVector< Model::Page* > m_pages;
+    QVector< model::Page* > m_pages;
 
     QString m_text;
     bool m_matchCase;
     int m_beginAtPage;
 
 };
+
+} // qpdfview
 
 #endif // SEARCHTHREAD_H

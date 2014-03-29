@@ -26,7 +26,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-form.h>
 
-static bool hideOnEscape(QWidget* widget, QKeyEvent* event)
+namespace
+{
+
+bool hideOnEscape(QWidget* widget, QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Escape)
     {
@@ -38,6 +41,11 @@ static bool hideOnEscape(QWidget* widget, QKeyEvent* event)
 
     return false;
 }
+
+} // anonymous
+
+namespace qpdfview
+{
 
 NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldText* formField, QWidget* parent) : QLineEdit(parent),
     m_mutex(mutex),
@@ -370,3 +378,5 @@ void RadioChoiceFieldWidget::on_toggled(bool checked)
         }
     }
 }
+
+} // qpdfview

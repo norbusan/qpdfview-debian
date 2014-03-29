@@ -42,7 +42,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-annotation.h>
 
-static bool hideOnEscape(QWidget* widget, QKeyEvent* event)
+namespace
+{
+
+bool hideOnEscape(QWidget* widget, QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Escape)
     {
@@ -54,6 +57,11 @@ static bool hideOnEscape(QWidget* widget, QKeyEvent* event)
 
     return false;
 }
+
+} // anonymous
+
+namespace qpdfview
+{
 
 AnnotationWidget::AnnotationWidget(QMutex* mutex, Poppler::Annotation* annotation, QWidget* parent) : QPlainTextEdit(parent),
     m_mutex(mutex),
@@ -177,3 +185,5 @@ void FileAttachmentAnnotationWidget::save(bool open)
         }
     }
 }
+
+} // qpdfview

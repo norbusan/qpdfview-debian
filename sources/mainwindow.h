@@ -42,6 +42,9 @@ class QWidgetAction;
 
 #include "global.h"
 
+namespace qpdfview
+{
+
 class Settings;
 class DocumentView;
 class TabWidget;
@@ -395,5 +398,7 @@ private:
 };
 
 #endif // WITH_DBUS
+
+} // qpdfview
 
 #endif // MAINWINDOW_H

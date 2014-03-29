@@ -35,7 +35,10 @@ class QStandardItemModel;
 #include "global.h"
 #include "printoptions.h"
 
-namespace Model
+namespace qpdfview
+{
+
+namespace model
 {
 class Annotation;
 class Page;
@@ -213,8 +216,8 @@ private:
 
     QTimer* m_prefetchTimer;
 
-    Model::Document* m_document;
-    QVector< Model::Page* > m_pages;
+    model::Document* m_document;
+    QVector< model::Page* > m_pages;
 
     QFileInfo m_fileInfo;
     bool m_wasModified;
@@ -269,12 +272,12 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
-    bool checkDocument(const QString& filePath, Model::Document* document);
+    bool checkDocument(const QString& filePath, model::Document* document);
 
     void loadFallbackOutline();
     void loadDocumentDefaults();
 
-    void prepareDocument(Model::Document* document);
+    void prepareDocument(model::Document* document);
     void preparePages();
     void prepareThumbnails();
     void prepareBackground();
@@ -298,5 +301,7 @@ private:
     SearchTask* m_searchTask;
 
 };
+
+} // qpdfview
 
 #endif // DOCUMENTVIEW_H

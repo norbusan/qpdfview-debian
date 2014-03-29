@@ -36,9 +36,12 @@ struct SpectreRenderContext;
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 class PsPlugin;
 
-namespace Model
+namespace model
 {
     class PsPage : public Page
     {
@@ -66,7 +69,7 @@ namespace Model
     {
         Q_DECLARE_TR_FUNCTIONS(Model::PsDocument)
 
-        friend class ::PsPlugin;
+        friend class qpdfview::PsPlugin;
 
     public:
         ~PsDocument();
@@ -121,7 +124,7 @@ private:
 class PsPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Plugin)
+    Q_INTERFACES(qpdfview::Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -132,7 +135,7 @@ class PsPlugin : public QObject, Plugin
 public:
     PsPlugin(QObject* parent = 0);
 
-    Model::Document* loadDocument(const QString& filePath) const;
+    model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
@@ -142,5 +145,7 @@ private:
     QSettings* m_settings;
 
 };
+
+} // qpdfview
 
 #endif // PSMODEL_H

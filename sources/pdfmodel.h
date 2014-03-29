@@ -41,9 +41,12 @@ class Page;
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 class PdfPlugin;
 
-namespace Model
+namespace model
 {
     class PdfAnnotation : public Annotation
     {
@@ -134,7 +137,7 @@ namespace Model
     {
         Q_DECLARE_TR_FUNCTIONS(Model::PdfDocument)
 
-        friend class ::PdfPlugin;
+        friend class qpdfview::PdfPlugin;
 
     public:
         ~PdfDocument();
@@ -226,7 +229,7 @@ private:
 class PdfPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Plugin)
+    Q_INTERFACES(qpdfview::Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -237,7 +240,7 @@ class PdfPlugin : public QObject, Plugin
 public:
     PdfPlugin(QObject* parent = 0);
 
-    Model::Document* loadDocument(const QString& filePath) const;
+    model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 
@@ -247,5 +250,7 @@ private:
     QSettings* m_settings;
 
 };
+
+} // qpdfview
 
 #endif // PDFMODEL_H

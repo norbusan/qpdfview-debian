@@ -67,6 +67,55 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "bookmarkmenu.h"
 #include "database.h"
 
+namespace
+{
+
+using namespace qpdfview;
+
+QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
+{
+    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
+    {
+        const QModelIndex index = outlineView->model()->index(row, 0, parent);
+
+        bool ok = false;
+        const int page = outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+
+        if(ok && page == currentPage)
+        {
+            return index;
+        }
+    }
+
+    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
+    {
+        const QModelIndex index = outlineView->model()->index(row, 0, parent);
+        const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
+
+        if(match.isValid())
+        {
+            return match;
+        }
+    }
+
+    return QModelIndex();
+}
+
+void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
+{
+    QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action));
+
+    if(toolButton != 0)
+    {
+        toolButton->setMenu(menu);
+    }
+}
+
+} // anonymous
+
+namespace qpdfview
+{
+
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 
@@ -620,35 +669,6 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
 
         setWindowTitleForCurrentTab();
     }
-}
-
-static QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
-{
-    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
-    {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
-
-        bool ok = false;
-        const int page = outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
-
-        if(ok && page == currentPage)
-        {
-            return index;
-        }
-    }
-
-    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
-    {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
-        const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
-
-        if(match.isValid())
-        {
-            return match;
-        }
-    }
-
-    return QModelIndex();
 }
 
 void MainWindow::on_currentTab_currentPageChanged(int currentPage)
@@ -2281,16 +2301,6 @@ void MainWindow::createDocks()
     m_cancelSearchAction->setEnabled(false);
 }
 
-static void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
-{
-    QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action));
-
-    if(toolButton != 0)
-    {
-        toolButton->setMenu(menu);
-    }
-}
-
 void MainWindow::createMenus()
 {
     // file
@@ -2421,3 +2431,5 @@ MainWindow* MainWindowAdaptor::mainWindow() const
 }
 
 # endif // WITH_DBUS
+
+} // qpdfview

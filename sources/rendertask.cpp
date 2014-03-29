@@ -25,6 +25,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(false),
@@ -118,7 +121,7 @@ void RenderTask::run()
     finish();
 }
 
-void RenderTask::start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+void RenderTask::start(model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
 {
     m_page = page;
 
@@ -157,3 +160,5 @@ void RenderTask::finish()
 
     emit finished();
 }
+
+} // qpdfview

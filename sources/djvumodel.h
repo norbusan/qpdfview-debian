@@ -22,8 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef PDFMODEL_H
-#define PDFMODEL_H
+#ifndef DJVUMODEL_H
+#define DJVUMODEL_H
 
 #include <QHash>
 #include <QMutex>
@@ -35,9 +35,12 @@ typedef struct ddjvu_pageinfo_s ddjvu_pageinfo_t;
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 class DjVuPlugin;
 
-namespace Model
+namespace model
 {
     class DjVuPage : public Page
     {
@@ -71,7 +74,7 @@ namespace Model
     class DjVuDocument : public Document
     {
         friend class DjVuPage;
-        friend class ::DjVuPlugin;
+        friend class qpdfview::DjVuPlugin;
 
     public:
         ~DjVuDocument();
@@ -106,7 +109,7 @@ namespace Model
 class DjVuPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Plugin)
+    Q_INTERFACES(qpdfview::Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -117,8 +120,10 @@ class DjVuPlugin : public QObject, Plugin
 public:
     DjVuPlugin(QObject* parent = 0);
 
-    Model::Document* loadDocument(const QString& filePath) const;
+    model::Document* loadDocument(const QString& filePath) const;
 
 };
 
-#endif // PDFMODEL_H
+} // qpdfview
+
+#endif // DJVUMODEL_H

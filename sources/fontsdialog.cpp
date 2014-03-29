@@ -27,6 +27,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTableView>
 #include <QVBoxLayout>
 
+namespace qpdfview
+{
+
 FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(parent)
 {
     m_tableView = new QTableView(this);
@@ -59,3 +62,5 @@ FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(p
     layout()->addWidget(m_tableView);
     layout()->addWidget(m_dialogButtonBox);
 }
+
+} // qpdfview

@@ -26,6 +26,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+namespace qpdfview
+{
+
 class Settings;
 class PageItem;
 
@@ -128,5 +131,7 @@ struct MultiplePagesLayout : public DocumentLayout
                        QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
 
 };
+
+} // qpdfview
 
 #endif // DOCUMENTLAYOUT_H

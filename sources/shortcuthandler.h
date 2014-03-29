@@ -28,6 +28,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QSettings;
 
+namespace qpdfview
+{
+
 class ShortcutHandler : public QAbstractTableModel
 {
     Q_OBJECT
@@ -84,5 +87,7 @@ private:
     QAction* m_moveRightAction;
 
 };
+
+} // qpdfview
 
 #endif // SHORTCUTHANDLER_H

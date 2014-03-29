@@ -30,6 +30,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSpinBox>
 #include <QTreeView>
 
+namespace qpdfview
+{
+
 // graphics composition mode effect
 
 class GraphicsCompositionModeEffect : public QGraphicsEffect
@@ -239,5 +242,7 @@ private:
     QTimer* m_timer;
 
 };
+
+} // qpdfview
 
 #endif // MISCELLANEOUS_H

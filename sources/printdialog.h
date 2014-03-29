@@ -30,6 +30,9 @@ class QFormLayout;
 class QLineEdit;
 class QPrinter;
 
+namespace qpdfview
+{
+
 struct PrintOptions;
 class Settings;
 
@@ -64,5 +67,7 @@ private:
     QComboBox* m_numberUpLayoutComboBox;
 
 };
+
+} // qpdfview
 
 #endif // PRINTDIALOG_H

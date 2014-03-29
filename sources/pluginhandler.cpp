@@ -42,7 +42,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-static Plugin* loadStaticPlugin(const QString& objectName)
+namespace
+{
+
+using namespace qpdfview;
+
+Plugin* loadStaticPlugin(const QString& objectName)
 {
     foreach(QObject* object, QPluginLoader::staticInstances())
     {
@@ -62,7 +67,7 @@ static Plugin* loadStaticPlugin(const QString& objectName)
     return 0;
 }
 
-static Plugin* loadPlugin(const QString& fileName)
+Plugin* loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
 
@@ -96,7 +101,7 @@ static Plugin* loadPlugin(const QString& fileName)
     return plugin;
 }
 
-static PluginHandler::FileType matchFileType(const QString& filePath)
+PluginHandler::FileType matchFileType(const QString& filePath)
 {
     PluginHandler::FileType fileType = PluginHandler::Unknown;
 
@@ -179,6 +184,11 @@ static PluginHandler::FileType matchFileType(const QString& filePath)
     return fileType;
 }
 
+} // anonymous
+
+namespace qpdfview
+{
+
 PluginHandler* PluginHandler::s_instance = 0;
 
 PluginHandler* PluginHandler::instance()
@@ -196,7 +206,7 @@ PluginHandler::~PluginHandler()
     s_instance = 0;
 }
 
-Model::Document* PluginHandler::loadDocument(const QString& filePath)
+model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
     FileType fileType = matchFileType(filePath);
 
@@ -258,38 +268,6 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #endif // WITH_DJVU
 }
 
-#ifdef STATIC_FITZ_PLUGIN
-    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-        Q_IMPORT_PLUGIN(qpdfview_fitz)
-    #else
-        Q_IMPORT_PLUGIN(FitzPlugin)
-    #endif // QT_VERSION
-#endif // STATIC_FITZ_PLUGIN
-
-#ifdef STATIC_PDF_PLUGIN
-    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-        Q_IMPORT_PLUGIN(qpdfview_pdf)
-    #else
-        Q_IMPORT_PLUGIN(PdfPlugin)
-    #endif // QT_VERSION
-#endif // STATIC_PDF_PLUGIN
-
-#ifdef STATIC_PS_PLUGIN
-    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-        Q_IMPORT_PLUGIN(qpdfview_ps)
-    #else
-        Q_IMPORT_PLUGIN(PsPlugin)
-    #endif // QT_VERSION
-#endif // STATIC_PS_PLUGIN
-
-#ifdef STATIC_DJVU_PLUGIN
-    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-        Q_IMPORT_PLUGIN(qpdfview_djvu)
-    #else
-        Q_IMPORT_PLUGIN(DjvuPlugin)
-    #endif // QT_VERSION
-#endif // STATIC_DJVU_PLUGIN
-
 bool PluginHandler::loadPlugin(FileType fileType)
 {
     if(m_plugins.contains(fileType))
@@ -324,3 +302,36 @@ bool PluginHandler::loadPlugin(FileType fileType)
     return false;
 }
 
+} // qpdfview
+
+#ifdef STATIC_FITZ_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_fitz)
+    #else
+        Q_IMPORT_PLUGIN(qpdfview::FitzPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_FITZ_PLUGIN
+
+#ifdef STATIC_PDF_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_pdf)
+    #else
+        Q_IMPORT_PLUGIN(qpdfview::PdfPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_PDF_PLUGIN
+
+#ifdef STATIC_PS_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_ps)
+    #else
+        Q_IMPORT_PLUGIN(qpdfview::PsPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_PS_PLUGIN
+
+#ifdef STATIC_DJVU_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_djvu)
+    #else
+        Q_IMPORT_PLUGIN(qpdfview::DjvuPlugin)
+    #endif // QT_VERSION
+#endif // STATIC_DJVU_PLUGIN

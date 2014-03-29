@@ -23,6 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
 
+namespace qpdfview
+{
+
 RecentlyUsedMenu::RecentlyUsedMenu(const QStringList& absoluteFilePaths, int count, QWidget* parent) : QMenu(parent),
     m_count(count)
 {
@@ -114,3 +117,5 @@ void RecentlyUsedMenu::on_clearList_triggered()
 {
     qDeleteAll(m_openActionGroup->actions());
 }
+
+} // qpdfview

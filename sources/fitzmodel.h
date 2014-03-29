@@ -19,6 +19,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#ifndef FITZMODEL_H
+#define FITZMODEL_H
+
 #include <QMutex>
 
 extern "C"
@@ -33,9 +36,12 @@ typedef struct fz_document_s fz_document;
 
 #include "model.h"
 
+namespace qpdfview
+{
+
 class FitzPlugin;
 
-namespace Model
+namespace model
 {
     class FitzPage : public Page
     {
@@ -64,7 +70,7 @@ namespace Model
     class FitzDocument : public Document
     {
         friend class FitzPage;
-        friend class ::FitzPlugin;
+        friend class qpdfview::FitzPlugin;
 
     public:
         ~FitzDocument();
@@ -96,7 +102,7 @@ namespace Model
 class FitzPlugin : public QObject, Plugin
 {
     Q_OBJECT
-    Q_INTERFACES(Plugin)
+    Q_INTERFACES(qpdfview::Plugin)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -108,7 +114,7 @@ public:
     FitzPlugin(QObject* parent = 0);
     ~FitzPlugin();
 
-    Model::Document* loadDocument(const QString& filePath) const;
+    model::Document* loadDocument(const QString& filePath) const;
 
 private:
     QMutex m_mutex[FZ_LOCK_MAX];
@@ -119,3 +125,7 @@ private:
     static void unlock(void* user, int lock);
 
 };
+
+} // qpdfview
+
+#endif // FITZMODEL_H

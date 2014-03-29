@@ -34,6 +34,9 @@ class QSettings;
 #include "global.h"
 #include "printoptions.h"
 
+namespace qpdfview
+{
+
 class Settings : public QObject
 {
     Q_OBJECT
@@ -587,5 +590,7 @@ private:
     Defaults() {}
 
 };
+
+} // qpdfview
 
 #endif // SETTINGS_H
