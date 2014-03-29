@@ -65,6 +65,9 @@ const char* __attribute__((used)) stack_cookie = "\0$STACK:500000\0";
 
 #endif // __amigaos4__
 
+namespace
+{
+
 using namespace qpdfview;
 
 struct File
@@ -90,23 +93,20 @@ enum ExitStatus
     ExitDBusError = 4
 };
 
-static bool unique = false;
-static bool quiet = false;
+bool unique = false;
+bool quiet = false;
 
-static QString instanceName;
-static QString searchText;
+QString instanceName;
+QString searchText;
 
-static QList< File > files;
+QList< File > files;
 
-static QTranslator* toolkitTranslator = 0;
-static QTranslator* applicationTranslator = 0;
+MainWindow* mainWindow = 0;
 
-static MainWindow* mainWindow = 0;
-
-static void loadTranslators()
+void loadTranslators()
 {
-    toolkitTranslator = new QTranslator(qApp);
-    applicationTranslator = new QTranslator(qApp);
+    QTranslator* toolkitTranslator = new QTranslator(qApp);
+    QTranslator* applicationTranslator = new QTranslator(qApp);
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
 
@@ -125,7 +125,7 @@ static void loadTranslators()
 #endif // QT_VERSION
 }
 
-static void parseCommandLineArguments()
+void parseCommandLineArguments()
 {
     bool instanceNameIsNext = false;
     bool searchTextIsNext = false;
@@ -270,7 +270,7 @@ static void parseCommandLineArguments()
     }
 }
 
-static void parseWorkbenchExtendedSelection(int argc, char** argv)
+void parseWorkbenchExtendedSelection(int argc, char** argv)
 {
 #ifdef __amigaos4__
 
@@ -306,7 +306,7 @@ static void parseWorkbenchExtendedSelection(int argc, char** argv)
 #endif // __amigaos4__
 }
 
-static void resolveSourceReferences()
+void resolveSourceReferences()
 {
 #ifdef WITH_SYNCTEX
 
@@ -351,7 +351,7 @@ static void resolveSourceReferences()
 #endif // WITH_SYNCTEX
 }
 
-static void activateUniqueInstance()
+void activateUniqueInstance()
 {
     qApp->setObjectName(instanceName);
 
@@ -414,6 +414,8 @@ static void activateUniqueInstance()
                 exit(ExitDBusError);
             }
         }
+
+        return;
     }
     else
     {
@@ -427,7 +429,7 @@ static void activateUniqueInstance()
 #endif // WITH_DBUS
 }
 
-static void prepareSignalHandler()
+void prepareSignalHandler()
 {
 #ifdef WITH_SIGNALS
 
@@ -445,6 +447,8 @@ static void prepareSignalHandler()
 
 #endif // WITH_SIGNALS
 }
+
+} // anonymous
 
 int main(int argc, char** argv)
 {
