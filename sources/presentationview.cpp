@@ -35,7 +35,7 @@ namespace qpdfview
 
 Settings* PresentationView::s_settings = 0;
 
-PresentationView::PresentationView(const QVector< model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
+PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget* parent) : QGraphicsView(parent),
     m_prefetchTimer(0),
     m_pages(pages),
     m_currentPage(1),

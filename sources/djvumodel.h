@@ -40,7 +40,7 @@ namespace qpdfview
 
 class DjVuPlugin;
 
-namespace model
+namespace Model
 {
     class DjVuPage : public Page
     {
@@ -120,7 +120,7 @@ class DjVuPlugin : public QObject, Plugin
 public:
     DjVuPlugin(QObject* parent = 0);
 
-    model::Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
 };
 

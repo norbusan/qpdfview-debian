@@ -41,7 +41,7 @@ namespace qpdfview
 
 class FitzPlugin;
 
-namespace model
+namespace Model
 {
     class FitzPage : public Page
     {
@@ -114,7 +114,7 @@ public:
     FitzPlugin(QObject* parent = 0);
     ~FitzPlugin();
 
-    model::Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
 private:
     QMutex m_mutex[FZ_LOCK_MAX];

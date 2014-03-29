@@ -46,7 +46,7 @@ namespace qpdfview
 
 class PdfPlugin;
 
-namespace model
+namespace Model
 {
     class PdfAnnotation : public Annotation
     {
@@ -240,7 +240,7 @@ class PdfPlugin : public QObject, Plugin
 public:
     PdfPlugin(QObject* parent = 0);
 
-    model::Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 

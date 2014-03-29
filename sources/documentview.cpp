@@ -448,7 +448,7 @@ void DocumentView::show()
 
 bool DocumentView::open(const QString& filePath)
 {
-    model::Document* document = PluginHandler::instance()->loadDocument(filePath);
+    Model::Document* document = PluginHandler::instance()->loadDocument(filePath);
 
     if(document != 0)
     {
@@ -488,7 +488,7 @@ bool DocumentView::open(const QString& filePath)
 
 bool DocumentView::refresh()
 {
-    model::Document* document = PluginHandler::instance()->loadDocument(m_fileInfo.filePath());
+    Model::Document* document = PluginHandler::instance()->loadDocument(m_fileInfo.filePath());
 
     if(document != 0)
     {
@@ -1484,7 +1484,7 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 
         painter.save();
 
-        const model::Page* page = m_pages.at(index);
+        const Model::Page* page = m_pages.at(index);
 
         if(printOptions.fitToPage)
         {
@@ -1539,7 +1539,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = top >= 0.0 ? top : 0.0;
 }
 
-bool DocumentView::checkDocument(const QString& filePath, model::Document* document)
+bool DocumentView::checkDocument(const QString& filePath, Model::Document* document)
 {
     if(document->isLocked())
     {
@@ -1604,7 +1604,7 @@ void DocumentView::loadDocumentDefaults()
     }
 }
 
-void DocumentView::prepareDocument(model::Document* document)
+void DocumentView::prepareDocument(Model::Document* document)
 {
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();

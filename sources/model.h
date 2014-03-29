@@ -39,7 +39,7 @@ class QSizeF;
 namespace qpdfview
 {
 
-namespace model
+namespace Model
 {
     struct Link
     {
@@ -177,7 +177,7 @@ class Plugin
 public:
     virtual ~Plugin() {}
 
-    virtual model::Document* loadDocument(const QString& filePath) const = 0;
+    virtual Model::Document* loadDocument(const QString& filePath) const = 0;
 
     virtual SettingsWidget* createSettingsWidget(QWidget* parent = 0) const { Q_UNUSED(parent); return 0; }
 

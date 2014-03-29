@@ -31,7 +31,7 @@ class QWidget;
 namespace qpdfview
 {
 
-namespace model
+namespace Model
 {
 class Document;
 }
@@ -71,7 +71,7 @@ public:
         }
     }
 
-    model::Document* loadDocument(const QString& filePath);
+    Model::Document* loadDocument(const QString& filePath);
 
     SettingsWidget* createSettingsWidget(FileType fileType, QWidget* parent = 0);
 

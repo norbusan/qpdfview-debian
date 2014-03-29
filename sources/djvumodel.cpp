@@ -35,6 +35,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview::Model;
+
 void clearMessageQueue(ddjvu_context_t* context, bool wait)
 {
     if(wait)
@@ -77,6 +79,139 @@ void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
             break;
         }
     }
+}
+
+QPainterPath loadLinkBoundary(const QString& type, miniexp_t linkExp, const QSizeF& size)
+{
+    QPainterPath boundary;
+
+    miniexp_t areaExp = miniexp_nth(3, linkExp);
+    const int areaLength = miniexp_length(areaExp);
+
+    if(areaLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
+    {
+        QPoint p(miniexp_to_int(miniexp_nth(1, areaExp)), miniexp_to_int(miniexp_nth(2, areaExp)));
+        QSize s(miniexp_to_int(miniexp_nth(3, areaExp)), miniexp_to_int(miniexp_nth(4, areaExp)));
+
+        p.setY(size.height() - s.height() - p.y());
+
+        const QRectF r(p, s);
+
+        if(type == QLatin1String("rect"))
+        {
+            boundary.addRect(r);
+        }
+        else
+        {
+            boundary.addEllipse(r);
+        }
+    }
+    else if(areaLength > 0 && areaLength % 2 == 1 && type == QLatin1String("poly"))
+    {
+        QPolygon polygon;
+
+        for(int areaExpN = 1; areaExpN < areaLength; areaExpN += 2)
+        {
+            QPoint p(miniexp_to_int(miniexp_nth(areaExpN, areaExp)), miniexp_to_int(miniexp_nth(areaExpN + 1, areaExp)));
+
+            p.setY(size.height() - p.y());
+
+            polygon << p;
+        }
+
+        boundary.addPolygon(polygon);
+    }
+
+    return QTransform::fromScale(1.0 / size.width(), 1.0 / size.height()).map(boundary);
+}
+
+Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t linkExp, int index, const QHash< QString, int >& indexByName)
+{
+    QString target;
+
+    miniexp_t targetExp = miniexp_nth(1, linkExp);
+
+    if(miniexp_stringp(targetExp))
+    {
+        target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, linkExp)));
+    }
+    else if(miniexp_length(targetExp) == 3 && qstrncmp(miniexp_to_name(miniexp_nth(0, targetExp)), "url", 3) == 0)
+    {
+        target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, targetExp)));
+    }
+
+    if(target.isEmpty())
+    {
+        return 0;
+    }
+
+    if(target.at(0) == QLatin1Char('#'))
+    {
+        target.remove(0, 1);
+
+        bool ok = false;
+        int targetPage = target.toInt(&ok);
+
+        if(!ok)
+        {
+            if(indexByName.contains(target))
+            {
+                targetPage = indexByName[target] + 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? index + targetPage : targetPage;
+        }
+
+        return new Link(boundary, targetPage);
+    }
+    else
+    {
+        return new Link(boundary, target);
+    }
+}
+
+QList< Link* > loadLinks(miniexp_t pageAnnoExp, const QSizeF& size, int index, const QHash< QString, int >& indexByName)
+{
+    QList< Link* > links;
+
+    const int pageAnnoLength = miniexp_length(pageAnnoExp);
+
+    for(int pageAnnoN = 0; pageAnnoN < pageAnnoLength; ++pageAnnoN)
+    {
+        miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
+
+        if(miniexp_length(linkExp) <= 3 || qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0 || !miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
+        {
+            continue;
+        }
+
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
+
+        if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
+        {
+            QPainterPath boundary = loadLinkBoundary(type, linkExp, size);
+
+            if(boundary.isEmpty())
+            {
+                continue;
+            }
+
+            Link* link = loadLinkTarget(boundary, linkExp, index, indexByName);
+
+            if(link != 0)
+            {
+                links.append(link);
+            }
+        }
+    }
+
+    return links;
 }
 
 QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
@@ -183,7 +318,10 @@ void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const 
 namespace qpdfview
 {
 
-model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo) :
+namespace Model
+{
+
+DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pageinfo_t& pageinfo) :
     m_parent(parent),
     m_index(index),
     m_size(pageinfo.width, pageinfo.height),
@@ -191,16 +329,16 @@ model::DjVuPage::DjVuPage(const DjVuDocument* parent, int index, const ddjvu_pag
 {
 }
 
-model::DjVuPage::~DjVuPage()
+DjVuPage::~DjVuPage()
 {
 }
 
-QSizeF model::DjVuPage::size() const
+QSizeF DjVuPage::size() const
 {
     return 72.0 / m_resolution * m_size;
 }
 
-QImage model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -301,11 +439,9 @@ QImage model::DjVuPage::render(qreal horizontalResolution, qreal verticalResolut
     return image;
 }
 
-QList< model::Link* > model::DjVuPage::links() const
+QList< Link* > DjVuPage::links() const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
-
-    QList< Link* > links;
 
     miniexp_t pageAnnoExp;
 
@@ -323,127 +459,14 @@ QList< model::Link* > model::DjVuPage::links() const
         }
     }
 
-    const int pageAnnoLength = miniexp_length(pageAnnoExp);
-
-    for(int pageAnnoN = 0; pageAnnoN < pageAnnoLength; ++pageAnnoN)
-    {
-        miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
-
-        if(miniexp_length(linkExp) <= 3 || qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0 || !miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
-        {
-            continue;
-        }
-
-        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
-
-        if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
-        {
-            // boundary
-
-            QPainterPath boundary;
-
-            miniexp_t areaExp = miniexp_nth(3, linkExp);
-            const int areaLength = miniexp_length( areaExp );
-
-            if(areaLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
-            {
-                QPoint p(miniexp_to_int(miniexp_nth(1, areaExp)), miniexp_to_int(miniexp_nth(2, areaExp)));
-                QSize s(miniexp_to_int(miniexp_nth(3, areaExp)), miniexp_to_int(miniexp_nth(4, areaExp)));
-
-                p.setY(m_size.height() - s.height() - p.y());
-
-                const QRectF r(p, s);
-
-                if(type == QLatin1String("rect"))
-                {
-                    boundary.addRect(r);
-                }
-                else
-                {
-                    boundary.addEllipse(r);
-                }
-            }
-            else if(areaLength > 0 && areaLength % 2 == 1 && type == QLatin1String("poly"))
-            {
-                QPolygon polygon;
-
-                for(int areaExpN = 1; areaExpN < areaLength; areaExpN += 2)
-                {
-                    QPoint p(miniexp_to_int(miniexp_nth(areaExpN, areaExp)), miniexp_to_int(miniexp_nth(areaExpN + 1, areaExp)));
-
-                    p.setY(m_size.height() - p.y());
-
-                    polygon << p;
-                }
-
-                boundary.addPolygon(polygon);
-            }
-
-            if(boundary.isEmpty())
-            {
-                continue;
-            }
-
-            boundary = QTransform::fromScale(1.0 / m_size.width(), 1.0 / m_size.height()).map(boundary);
-
-            // target
-
-            QString target;
-
-            miniexp_t targetExp = miniexp_nth(1, linkExp);
-
-            if(miniexp_stringp(targetExp))
-            {
-                target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, linkExp)));
-            }
-            else if(miniexp_length(targetExp) == 3 && qstrncmp(miniexp_to_name(miniexp_nth(0, targetExp)), "url", 3) == 0)
-            {
-                target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, targetExp)));
-            }
-
-            if(target.isEmpty())
-            {
-                continue;
-            }
-
-            if(target.at(0) == QLatin1Char('#'))
-            {
-                target.remove(0, 1);
-
-                bool ok = false;
-                int targetPage = target.toInt(&ok);
-
-                if(!ok)
-                {
-                    if(m_parent->m_indexByName.contains(target))
-                    {
-                        targetPage = m_parent->m_indexByName[target] + 1;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
-                    targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? m_index + targetPage : targetPage;
-                }
-
-                links.append(new Link(boundary, targetPage));
-            }
-            else
-            {
-                links.append(new Link(boundary, target));
-            }
-        }
-    }
+    QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
 
     ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
 
     return links;
 }
 
-QString model::DjVuPage::text(const QRectF& rect) const
+QString DjVuPage::text(const QRectF& rect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -470,7 +493,7 @@ QString model::DjVuPage::text(const QRectF& rect) const
     return text.trimmed();
 }
 
-QList< QRectF > model::DjVuPage::search(const QString& text, bool matchCase) const
+QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
@@ -562,7 +585,7 @@ QList< QRectF > model::DjVuPage::search(const QString& text, bool matchCase) con
     return results;
 }
 
-model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
+DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
     m_mutex(),
     m_context(context),
     m_document(document),
@@ -590,21 +613,21 @@ model::DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* do
     }
 }
 
-model::DjVuDocument::~DjVuDocument()
+DjVuDocument::~DjVuDocument()
 {
     ddjvu_document_release(m_document);
     ddjvu_context_release(m_context);
     ddjvu_format_release(m_format);
 }
 
-int model::DjVuDocument::numberOfPages() const
+int DjVuDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return ddjvu_document_get_pagenum(m_document);
 }
 
-model::Page* model::DjVuDocument::page(int index) const
+Page* DjVuDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -633,17 +656,17 @@ model::Page* model::DjVuDocument::page(int index) const
     return new DjVuPage(this, index, pageinfo);
 }
 
-QStringList model::DjVuDocument::saveFilter() const
+QStringList DjVuDocument::saveFilter() const
 {
     return QStringList() << "DjVu (*.djvu *.djv)";
 }
 
-bool model::DjVuDocument::canSave() const
+bool DjVuDocument::canSave() const
 {
     return true;
 }
 
-bool model::DjVuDocument::save(const QString& filePath, bool withChanges) const
+bool DjVuDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges);
 
@@ -668,7 +691,7 @@ bool model::DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
-void model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
@@ -705,7 +728,7 @@ void model::DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     ddjvu_miniexp_release(m_document, outlineExp);
 }
 
-void model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
@@ -763,12 +786,14 @@ void model::DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) co
     ddjvu_miniexp_release(m_document, annoExp);
 }
 
+} // Model
+
 DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent)
 {
     setObjectName("DjVuPlugin");
 }
 
-model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
+Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
     ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
@@ -790,7 +815,7 @@ model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
         return 0;
     }
 
-    return new model::DjVuDocument(context, document);
+    return new Model::DjVuDocument(context, document);
 }
 
 } // qpdfview

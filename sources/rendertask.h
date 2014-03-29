@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-namespace model
+namespace Model
 {
 class Page;
 }
@@ -57,7 +57,7 @@ signals:
     void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
 
 public slots:
-    void start(model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+    void start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
     void cancel();
 
 private:
@@ -71,7 +71,7 @@ private:
     bool m_isRunning;
     bool m_wasCanceled;
 
-    model::Page* m_page;
+    Model::Page* m_page;
 
     int m_resolutionX;
     int m_resolutionY;

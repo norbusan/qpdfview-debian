@@ -121,7 +121,7 @@ void RenderTask::run()
     finish();
 }
 
-void RenderTask::start(model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+void RenderTask::start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
 {
     m_page = page;
 

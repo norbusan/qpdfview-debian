@@ -41,7 +41,7 @@ namespace qpdfview
 
 class PsPlugin;
 
-namespace model
+namespace Model
 {
     class PsPage : public Page
     {
@@ -135,7 +135,7 @@ class PsPlugin : public QObject, Plugin
 public:
     PsPlugin(QObject* parent = 0);
 
-    model::Document* loadDocument(const QString& filePath) const;
+    Model::Document* loadDocument(const QString& filePath) const;
 
     SettingsWidget* createSettingsWidget(QWidget* parent) const;
 

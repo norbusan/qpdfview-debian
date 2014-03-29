@@ -33,20 +33,23 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-model::PsPage::PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
+namespace Model
+{
+
+PsPage::PsPage(QMutex* mutex, SpectrePage* page, SpectreRenderContext* renderContext) :
     m_mutex(mutex),
     m_page(page),
     m_renderContext(renderContext)
 {
 }
 
-model::PsPage::~PsPage()
+PsPage::~PsPage()
 {
     spectre_page_free(m_page);
     m_page = 0;
 }
 
-QSizeF model::PsPage::size() const
+QSizeF PsPage::size() const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -58,7 +61,7 @@ QSizeF model::PsPage::size() const
     return QSizeF(w, h);
 }
 
-QImage model::PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QMutexLocker mutexLocker(m_mutex);
 
@@ -134,14 +137,14 @@ QImage model::PsPage::render(qreal horizontalResolution, qreal verticalResolutio
     return image;
 }
 
-model::PsDocument::PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext) :
+PsDocument::PsDocument(SpectreDocument* document, SpectreRenderContext* renderContext) :
     m_mutex(),
     m_document(document),
     m_renderContext(renderContext)
 {
 }
 
-model::PsDocument::~PsDocument()
+PsDocument::~PsDocument()
 {
     spectre_render_context_free(m_renderContext);
     m_renderContext = 0;
@@ -150,14 +153,14 @@ model::PsDocument::~PsDocument()
     m_document = 0;
 }
 
-int model::PsDocument::numberOfPages() const
+int PsDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
     return spectre_document_get_n_pages(m_document);
 }
 
-model::Page* model::PsDocument::page(int index) const
+Page* PsDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -166,7 +169,7 @@ model::Page* model::PsDocument::page(int index) const
     return page != 0 ? new PsPage(&m_mutex, page, m_renderContext) : 0;
 }
 
-QStringList model::PsDocument::saveFilter() const
+QStringList PsDocument::saveFilter() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -180,12 +183,12 @@ QStringList model::PsDocument::saveFilter() const
     }
 }
 
-bool model::PsDocument::canSave() const
+bool PsDocument::canSave() const
 {
     return true;
 }
 
-bool model::PsDocument::save(const QString& filePath, bool withChanges) const
+bool PsDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges)
 
@@ -196,12 +199,12 @@ bool model::PsDocument::save(const QString& filePath, bool withChanges) const
     return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
 }
 
-bool model::PsDocument::canBePrintedUsingCUPS() const
+bool PsDocument::canBePrintedUsingCUPS() const
 {
     return true;
 }
 
-void model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
+void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
@@ -223,6 +226,8 @@ void model::PsDocument::loadProperties(QStandardItemModel* propertiesModel) cons
     propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Format")) << new QStandardItem(format));
     propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
 }
+
+} // Model
 
 PsSettingsWidget::PsSettingsWidget(QSettings* settings, QWidget* parent) : SettingsWidget(parent),
     m_settings(settings)
@@ -265,7 +270,7 @@ PsPlugin::PsPlugin(QObject* parent) : QObject(parent)
     m_settings = new QSettings("qpdfview", "ps-plugin", this);
 }
 
-model::Document* PsPlugin::loadDocument(const QString& filePath) const
+Model::Document* PsPlugin::loadDocument(const QString& filePath) const
 {
     SpectreDocument* document = spectre_document_new();
 
@@ -284,7 +289,7 @@ model::Document* PsPlugin::loadDocument(const QString& filePath) const
                                               m_settings->value("graphicsAntialiasBits", 4).toInt(),
                                               m_settings->value("textAntialiasBits", 2).toInt());
 
-    return new model::PsDocument(document, renderContext);
+    return new Model::PsDocument(document, renderContext);
 }
 
 SettingsWidget* PsPlugin::createSettingsWidget(QWidget* parent) const

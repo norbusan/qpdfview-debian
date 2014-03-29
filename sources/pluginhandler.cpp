@@ -206,7 +206,7 @@ PluginHandler::~PluginHandler()
     s_instance = 0;
 }
 
-model::Document* PluginHandler::loadDocument(const QString& filePath)
+Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
     FileType fileType = matchFileType(filePath);
 
