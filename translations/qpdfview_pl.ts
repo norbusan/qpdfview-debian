@@ -4,39 +4,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Type</source>
         <translation>Rodzaj</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Embedded</source>
         <translation>Osadzony</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Subset</source>
         <translation>Podzbiór</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="820"/>
+        <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="828"/>
-        <location filename="../sources/pdfmodel.cpp" line="829"/>
+        <location filename="../sources/pdfmodel.cpp" line="831"/>
+        <location filename="../sources/pdfmodel.cpp" line="832"/>
         <source>Yes</source>
         <translation>Tak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="828"/>
-        <location filename="../sources/pdfmodel.cpp" line="829"/>
+        <location filename="../sources/pdfmodel.cpp" line="831"/>
+        <location filename="../sources/pdfmodel.cpp" line="832"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
@@ -44,12 +44,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="487"/>
+        <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Information</source>
         <translation>Informacja</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="487"/>
+        <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub  usuwać adnotacje.</translation>
     </message>
@@ -57,32 +57,32 @@
 <context>
     <name>Model::PsDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="219"/>
+        <location filename="../sources/psmodel.cpp" line="222"/>
         <source>Title</source>
         <translation>Tytuł</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="220"/>
+        <location filename="../sources/psmodel.cpp" line="223"/>
         <source>Created for</source>
         <translation>Utworzono dla</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="221"/>
+        <location filename="../sources/psmodel.cpp" line="224"/>
         <source>Creator</source>
         <translation>Utworzył</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="222"/>
+        <location filename="../sources/psmodel.cpp" line="225"/>
         <source>Creation date</source>
         <translation>Data utworzenia</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="223"/>
+        <location filename="../sources/psmodel.cpp" line="226"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="224"/>
+        <location filename="../sources/psmodel.cpp" line="227"/>
         <source>Language level</source>
         <translation>Poziom języka</translation>
     </message>
@@ -140,7 +140,7 @@
         <translation>Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="443"/>
+        <location filename="../sources/main.cpp" line="445"/>
         <source>Could not prepare signal handler.</source>
         <translation>Nie można przygotować obsługi sygnału.</translation>
     </message>
@@ -214,7 +214,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1001"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Informacje</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1001"/>
@@ -612,7 +612,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2108"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Od prawej do lewej</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2110"/>
@@ -823,7 +823,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="662"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użyj tek&amp;stu jako zaznaczenia</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="663"/>
@@ -869,69 +869,69 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="914"/>
+        <location filename="../sources/pdfmodel.cpp" line="919"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antyaliasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="921"/>
+        <location filename="../sources/pdfmodel.cpp" line="926"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Antyaliasing tekstu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="928"/>
-        <location filename="../sources/pdfmodel.cpp" line="958"/>
+        <location filename="../sources/pdfmodel.cpp" line="933"/>
+        <location filename="../sources/pdfmodel.cpp" line="963"/>
         <source>None</source>
         <translation type="unfinished">Brak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="929"/>
+        <location filename="../sources/pdfmodel.cpp" line="934"/>
         <source>Full</source>
         <translation type="unfinished">Pełny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="930"/>
+        <location filename="../sources/pdfmodel.cpp" line="935"/>
         <source>Reduced</source>
         <translation type="unfinished">Zredukowano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="933"/>
-        <location filename="../sources/pdfmodel.cpp" line="940"/>
+        <location filename="../sources/pdfmodel.cpp" line="938"/>
+        <location filename="../sources/pdfmodel.cpp" line="945"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Tekst podpowiedzi:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="951"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Podgląd wydruku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="959"/>
+        <location filename="../sources/pdfmodel.cpp" line="964"/>
         <source>Solid</source>
         <translation type="unfinished">Jednolity</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="960"/>
+        <location filename="../sources/pdfmodel.cpp" line="965"/>
         <source>Shaped</source>
         <translation type="unfinished">Uformowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="963"/>
+        <location filename="../sources/pdfmodel.cpp" line="968"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Tryb cienkiej linii:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="968"/>
+        <location filename="../sources/pdfmodel.cpp" line="973"/>
         <source>Splash</source>
         <translation type="unfinished">Ekran powitalny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="969"/>
+        <location filename="../sources/pdfmodel.cpp" line="974"/>
         <source>Arthur</source>
         <translation type="unfinished">Arthur</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="972"/>
+        <location filename="../sources/pdfmodel.cpp" line="977"/>
         <source>Backend:</source>
         <translation type="unfinished">Mechanizm:</translation>
     </message>
@@ -1080,12 +1080,12 @@
 <context>
     <name>qpdfview::PsSettingsWidget</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="238"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Graphics antialias bits:</source>
         <translation type="unfinished">Antyaliasing grafiki:</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="246"/>
+        <location filename="../sources/psmodel.cpp" line="251"/>
         <source>Text antialias bits:</source>
         <translation type="unfinished">Antyaliasing tekstu:</translation>
     </message>
@@ -1386,7 +1386,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozciągnięcie zakładek:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1421,7 +1421,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tytuł dokumentu jako tytuł zakładki:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="674"/>
