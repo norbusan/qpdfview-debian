@@ -197,16 +197,14 @@ QList< Link* > loadLinks(miniexp_t pageAnnoExp, const QSizeF& size, int index, c
         {
             QPainterPath boundary = loadLinkBoundary(type, linkExp, size);
 
-            if(boundary.isEmpty())
+            if(!boundary.isEmpty())
             {
-                continue;
-            }
+                Link* link = loadLinkTarget(boundary, linkExp, index, indexByName);
 
-            Link* link = loadLinkTarget(boundary, linkExp, index, indexByName);
-
-            if(link != 0)
-            {
-                links.append(link);
+                if(link != 0)
+                {
+                    links.append(link);
+                }
             }
         }
     }
@@ -575,7 +573,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
 
-    QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
     for(int index = 0; index < results.size(); ++index)
     {
