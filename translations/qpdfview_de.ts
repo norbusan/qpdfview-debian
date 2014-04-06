@@ -882,7 +882,7 @@
         <location filename="../sources/pdfmodel.cpp" line="933"/>
         <location filename="../sources/pdfmodel.cpp" line="963"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kein</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="934"/>
@@ -1100,7 +1100,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
@@ -1222,7 +1222,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keine</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
@@ -1386,7 +1386,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reiter ausbreiten:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1421,7 +1421,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokumententitel als Reitertitel:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="674"/>

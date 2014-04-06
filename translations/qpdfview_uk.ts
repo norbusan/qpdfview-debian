@@ -46,7 +46,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Відомості</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="51"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ви&amp;далити закладку</translation>
     </message>
 </context>
 <context>
@@ -214,7 +214,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1001"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Інформація</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1001"/>
@@ -712,7 +712,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2149"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Вилучити закладку</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2150"/>
@@ -1100,7 +1100,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Спорожнити список</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">О&amp;чистити список</translation>
     </message>
 </context>
 <context>
