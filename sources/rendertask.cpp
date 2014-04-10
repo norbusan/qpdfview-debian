@@ -152,13 +152,13 @@ void RenderTask::cancel()
 
 void RenderTask::finish()
 {
+    emit finished();
+
     m_mutex.lock();
     m_isRunning = false;
     m_mutex.unlock();
 
     m_waitCondition.wakeAll();
-
-    emit finished();
 }
 
 } // qpdfview
