@@ -1825,15 +1825,12 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
         }
 
-        if(m_currentResult != m_results.end())
+        if(m_currentResult != m_results.end() && m_currentResult.key() == index)
         {
-            if(m_currentResult.key() == index)
-            {
-                m_highlight->setPos(page->pos());
-                m_highlight->setTransform(page->transform());
+            m_highlight->setPos(page->pos());
+            m_highlight->setTransform(page->transform());
 
-                page->stackBefore(m_highlight);
-            }
+            page->stackBefore(m_highlight);
         }
 
         m_thumbnailItems.at(index)->setCurrent(highlightCurrentThumbnail && (index == m_currentPage - 1));
