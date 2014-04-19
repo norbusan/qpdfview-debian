@@ -50,7 +50,6 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
         m_tabActionGroup->removeAction(first);
 
         delete static_cast< DocumentView* >(first->parent());
-        delete first;
     }
 
     insertAction(actions().first(), tabAction);
@@ -70,7 +69,6 @@ void RecentlyClosedMenu::on_clearList_triggered()
     foreach(QAction* action, m_tabActionGroup->actions())
     {
         delete static_cast< DocumentView* >(action->parent());
-        delete action;
     }
 }
 
