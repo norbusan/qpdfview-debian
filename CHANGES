@@ -1,5 +1,6 @@
 Release 0.4.10:
   * Fixed race condition when a deleted render task mit tries to emit a signal. Thanks to Benjamin Eltzner.
+  * Fixed double deletion in recently closed menu. Thanks to Arnaud Schmittbuhl.
   * Fixed inconsistency when invoking a unique instance. Thanks to Dorian Scholz.
   * Added using the document title from the meta-data as the tab title. Thanks to Dorian Scholz.
   * Added spreading out tabs to fill the whole tab bar. Thanks to Dorian Scholz.
