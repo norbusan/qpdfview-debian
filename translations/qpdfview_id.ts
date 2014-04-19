@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>Model::PdfDocument</name>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nama</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tipe</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Embedded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tertanam</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>Subset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Subset</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="823"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Berkas</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="831"/>
         <location filename="../sources/pdfmodel.cpp" line="832"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ya</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="831"/>
         <location filename="../sources/pdfmodel.cpp" line="832"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tidak</translation>
     </message>
 </context>
 <context>
@@ -51,7 +51,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versi 0.20.1 atau lebih baru dari pustaka Poppler diperlukan untuk menambah atau menghapus anotasi.</translation>
     </message>
 </context>
 <context>
@@ -59,32 +59,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="222"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Judul</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="223"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dibuat untuk</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="224"/>
         <source>Creator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pembuat</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="225"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tanggal pembuatan</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="226"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="227"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Level bahasa</translation>
     </message>
 </context>
 <context>
@@ -92,27 +92,27 @@
     <message>
         <location filename="../sources/main.cpp" line="151"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nama instansi tidak diperkenankan kosong.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="162"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teks pencarian kosong tidak diperkenankan.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ilih instansi</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Instansi:</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="219"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pilihan baris perintah tak diketahui &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="250"/>
@@ -132,17 +132,17 @@
     <message>
         <location filename="../sources/main.cpp" line="268"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Penggunaan &apos;--search&apos; membutuhkan sebuah teks pencarian.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="346"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemukan.</translation>
+        <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tak ditemukan.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="445"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tak dapat mempersiapkan pengendali sinyal.</translation>
     </message>
 </context>
 <context>
@@ -150,32 +150,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="842"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="843"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="844"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="845"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift dan Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="846"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Shift dan Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="847"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ctrl dan Alt</translation>
     </message>
 </context>
 <context>
@@ -229,7 +229,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1051"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemukan.</translation>
+        <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tak ditemukan.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1474"/>
