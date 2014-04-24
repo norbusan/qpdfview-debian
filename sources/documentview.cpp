@@ -151,7 +151,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     connect(m_autoRefreshWatcher, SIGNAL(fileChanged(QString)), m_autoRefreshTimer, SLOT(start()));
 
-    connect(m_autoRefreshTimer, SIGNAL(timeout()), this, SLOT(refresh()));
+    connect(m_autoRefreshTimer, SIGNAL(timeout()), this, SLOT(on_autoRefresh_timeout()));
 
     // prefetch
 
@@ -915,6 +915,14 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
                 }
             }
         }
+    }
+}
+
+void DocumentView::on_autoRefresh_timeout()
+{
+    if(m_fileInfo.exists())
+    {
+        refresh();
     }
 }
 

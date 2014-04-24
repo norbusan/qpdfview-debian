@@ -180,6 +180,7 @@ public slots:
 protected slots:
     void on_verticalScrollBar_valueChanged(int value);
 
+    void on_autoRefresh_timeout();
     void on_prefetch_timeout();
 
     void on_temporaryHighlight_timeout();
