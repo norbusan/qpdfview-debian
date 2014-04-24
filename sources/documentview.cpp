@@ -882,36 +882,38 @@ void DocumentView::startPresentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged(int value)
 {
-    if(m_continuousMode)
+    if(!m_continuousMode)
     {
-        const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
+        return;
+    }
 
-        foreach(PageItem* page, m_pageItems)
+    const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
+
+    foreach(PageItem* page, m_pageItems)
+    {
+        if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
         {
-            if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
-            {
-                page->cancelRender();
-            }
+            page->cancelRender();
         }
+    }
 
-        const QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
+    const QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
 
-        if(lowerBound != m_heightToIndex.end())
+    if(lowerBound != m_heightToIndex.end())
+    {
+        const int page = lowerBound.value() + 1;
+
+        if(m_currentPage != page)
         {
-            const int page = lowerBound.value() + 1;
+            m_currentPage = page;
 
-            if(m_currentPage != page)
+            emit currentPageChanged(m_currentPage);
+
+            if(s_settings->documentView().highlightCurrentThumbnail())
             {
-                m_currentPage = page;
-
-                emit currentPageChanged(m_currentPage);
-
-                if(s_settings->documentView().highlightCurrentThumbnail())
+                for(int index = 0; index < m_thumbnailItems.count(); ++index)
                 {
-                    for(int index = 0; index < m_thumbnailItems.count(); ++index)
-                    {
-                        m_thumbnailItems.at(index)->setCurrent(index == m_currentPage - 1);
-                    }
+                    m_thumbnailItems.at(index)->setCurrent(index == m_currentPage - 1);
                 }
             }
         }
