@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Format disokong (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Membuka URL dilumpuhkan dalam tetapan.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1484"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Buka %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Password:</source>
         <translation type="unfinished">Kata Laluan:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1568"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Halaman %1</translation>
     </message>
@@ -1386,7 +1386,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hampar tab:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1421,7 +1421,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tajuk dokumen sebagai tajuk tab:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="674"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Formate suportate (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Information</source>
         <translation type="unfinished">Informații</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Accesarea URL-urilor este dezactivată din configurări.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Atenție</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1484"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Deblocare %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1568"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>

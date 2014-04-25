@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Subtenataj formatoj (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Information</source>
         <translation type="unfinished">Informo</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Malfermi je URL estas malŝaltita en la agordaĵoj.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Averto</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX datumoj por &apos;%1&apos; estas netroveblaj.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1484"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Presado de &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Malŝlosi je %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Password:</source>
         <translation type="unfinished">Pasvorto:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1568"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>

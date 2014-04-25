@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Formatos admitidos (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">A apertura de URL está desactivada nos axustes.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Non foi posíbel atopar os datos de SyncTeX para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1484"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimindo «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquear %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasinal:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1568"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Páxina %1</translation>
     </message>
@@ -928,7 +928,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="974"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="977"/>
@@ -1100,7 +1100,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Borrar lista</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Limpar lista</translation>
     </message>
 </context>
 <context>
@@ -1386,7 +1386,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espallar lapelas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1421,7 +1421,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Título do documento como título da lapela:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="674"/>

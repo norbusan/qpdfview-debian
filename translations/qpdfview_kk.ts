@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="kk_KZ">
+<TS version="2.1" language="kk_KZ">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Қолдауы бар пішімдер (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Information</source>
         <translation type="unfinished">Ақпараты</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1001"/>
+        <location filename="../sources/documentview.cpp" line="1011"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Сілтемелерді ашу мүмкіндігі баптауларда сөндірілген.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1051"/>
+        <location filename="../sources/documentview.cpp" line="1061"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1474"/>
+        <location filename="../sources/documentview.cpp" line="1484"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 босату</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1546"/>
+        <location filename="../sources/documentview.cpp" line="1556"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1568"/>
+        <location filename="../sources/documentview.cpp" line="1578"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>
