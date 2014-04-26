@@ -926,6 +926,12 @@ void DocumentView::on_autoRefresh_timeout()
     {
         refresh();
     }
+    else
+    {
+        m_wasModified = true;
+
+        emit documentModified();
+    }
 }
 
 void DocumentView::on_prefetch_timeout()
