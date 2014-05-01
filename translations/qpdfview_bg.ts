@@ -212,42 +212,42 @@
         <translation type="unfinished">Поддържани формати (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1011"/>
+        <location filename="../sources/documentview.cpp" line="1017"/>
         <source>Information</source>
         <translation type="unfinished">Информация</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1011"/>
+        <location filename="../sources/documentview.cpp" line="1017"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Отварянето на URL е изключено от настройките.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1061"/>
+        <location filename="../sources/documentview.cpp" line="1067"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1061"/>
+        <location filename="../sources/documentview.cpp" line="1067"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не са открити SyncTeX данни за &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1490"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Принтиране на &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1562"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Отключи %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1562"/>
         <source>Password:</source>
         <translation type="unfinished">Парола:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1584"/>
         <source>Page %1</source>
         <translation type="unfinished">Страница %1</translation>
     </message>

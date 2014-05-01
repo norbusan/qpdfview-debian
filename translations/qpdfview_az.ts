@@ -212,42 +212,42 @@
         <translation type="unfinished">Dəstəklənən formatlar (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1011"/>
+        <location filename="../sources/documentview.cpp" line="1017"/>
         <source>Information</source>
         <translation type="unfinished">Mə&apos;lumat</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1011"/>
+        <location filename="../sources/documentview.cpp" line="1017"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">URL-lərin açılması seçənklərdən bağlıdır</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1061"/>
+        <location filename="../sources/documentview.cpp" line="1067"/>
         <source>Warning</source>
         <translation type="unfinished">Xəbərdarlıq</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1061"/>
+        <location filename="../sources/documentview.cpp" line="1067"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">&apos;%1&apos;  üçün SyncTeX verilənləri yüklənmədi.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1484"/>
+        <location filename="../sources/documentview.cpp" line="1490"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; çap olunur...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1562"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 aç</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1556"/>
+        <location filename="../sources/documentview.cpp" line="1562"/>
         <source>Password:</source>
         <translation type="unfinished">Şifrə:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1578"/>
+        <location filename="../sources/documentview.cpp" line="1584"/>
         <source>Page %1</source>
         <translation type="unfinished">Səhifə %1</translation>
     </message>
