@@ -284,6 +284,8 @@ FitzPlugin::FitzPlugin(QObject* parent) : QObject(parent)
     m_locks_context.unlock = FitzPlugin::unlock;
 
     m_context = fz_new_context(0, &m_locks_context, FZ_STORE_DEFAULT);
+
+    fz_register_document_handlers(m_context);
 }
 
 FitzPlugin::~FitzPlugin()
