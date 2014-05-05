@@ -49,6 +49,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "documentview.h"
 #include "bookmarkmenu.h"
 
+#ifdef WITH_SQL
+
 namespace
 {
 
@@ -80,6 +82,8 @@ private:
 };
 
 } // anonymous
+
+#endif // WITH_SQL
 
 namespace qpdfview
 {
