@@ -67,6 +67,8 @@ PrintDialog::PrintDialog(QPrinter* printer, QWidget* parent) : QPrintDialog(prin
 
     m_printOptionsLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
     m_pageSetComboBox = new QComboBox(this);
     m_pageSetComboBox->addItem(tr("All pages"), static_cast< uint >(PrintOptions::AllPages));
     m_pageSetComboBox->addItem(tr("Even pages"), static_cast< uint >(PrintOptions::EvenPages));
@@ -99,6 +101,8 @@ PrintDialog::PrintDialog(QPrinter* printer, QWidget* parent) : QPrintDialog(prin
 
     m_printOptionsLayout->addRow(tr("Number-up layout:"), m_numberUpLayoutComboBox);
 
+#endif // QT_VERSION
+
     m_printOptionsWidget->setWindowTitle(tr("Extended options"));
     setOptionTabs(QList< QWidget* >() << m_printOptionsWidget);
 }
@@ -110,10 +114,15 @@ PrintOptions PrintDialog::printOptions() const
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
 
     printOptions.pageRanges = m_pageRangesLineEdit->text();
+
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
     printOptions.pageSet = static_cast< PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt());
 
     printOptions.numberUp = static_cast< PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt());
     printOptions.numberUpLayout = static_cast< PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt());
+
+#endif // QT_VERSION
 
     return printOptions;
 }
@@ -129,9 +138,15 @@ void PrintDialog::accept()
     s_settings->printDialog().setDuplex(printer()->duplex());
 
     s_settings->printDialog().setFitToPage(m_fitToPageCheckBox->isChecked());
+
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
     s_settings->printDialog().setPageSet(static_cast< PrintOptions::PageSet >(m_pageSetComboBox->itemData(m_pageSetComboBox->currentIndex()).toUInt()));
+
     s_settings->printDialog().setNumberUp(static_cast< PrintOptions::NumberUp >(m_numberUpComboBox->itemData(m_numberUpComboBox->currentIndex()).toUInt()));
     s_settings->printDialog().setNumberUpLayout(static_cast< PrintOptions::NumberUpLayout >(m_numberUpLayoutComboBox->itemData(m_numberUpLayoutComboBox->currentIndex()).toUInt()));
+
+#endif // QT_VERSION
 }
 
 } // qpdfview

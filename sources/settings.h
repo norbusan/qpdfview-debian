@@ -372,6 +372,8 @@ public:
         bool fitToPage() const;
         void setFitToPage(bool fitToPage);
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
         PrintOptions::PageSet pageSet() const;
         void setPageSet(PrintOptions::PageSet pageSet);
 
@@ -380,6 +382,8 @@ public:
 
         PrintOptions::NumberUpLayout numberUpLayout() const;
         void setNumberUpLayout(PrintOptions::NumberUpLayout numberUpLayout);
+
+#endif // QT_VERSION
 
     private:
         PrintDialog(QSettings* settings);
@@ -576,10 +580,14 @@ public:
 
         static inline bool fitToPage() { return false; }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
         static inline PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
 
         static inline PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
         static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
+
+#endif // QT_VERSION
 
     private:
         PrintDialog() {}

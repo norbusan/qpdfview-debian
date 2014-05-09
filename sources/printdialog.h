@@ -61,10 +61,15 @@ private:
     QCheckBox* m_fitToPageCheckBox;
 
     QLineEdit* m_pageRangesLineEdit;
+
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
     QComboBox* m_pageSetComboBox;
 
     QComboBox* m_numberUpComboBox;
     QComboBox* m_numberUpLayoutComboBox;
+
+#endif // QT_VERSION
 
 };
 

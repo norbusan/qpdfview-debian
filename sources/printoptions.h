@@ -32,6 +32,8 @@ struct PrintOptions
 
     QString pageRanges;
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
     enum PageSet
     {
         AllPages = 0,
@@ -68,6 +70,12 @@ struct PrintOptions
     NumberUpLayout numberUpLayout;
 
     PrintOptions() : fitToPage(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
+
+#else // QT_VERSION
+
+    PrintOptions() : fitToPage(false), pageRanges() {}
+
+#endif // QT_VERSION
 
 };
 

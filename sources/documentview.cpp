@@ -1374,6 +1374,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
         int numberUp = 1;
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
         switch(printOptions.numberUp)
         {
         case PrintOptions::SinglePage:
@@ -1401,9 +1403,6 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
             numberUp = 16;
             break;
         }
-
-        fromPage = (fromPage - 1) / numberUp + 1;
-        toPage = (toPage - 1) / numberUp + 1;
 
         switch(printOptions.numberUpLayout)
         {
@@ -1433,15 +1432,6 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
             break;
         }
 
-        if(printOptions.pageRanges.isEmpty())
-        {
-            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
-        }
-        else
-        {
-            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
-        }
-
         switch(printOptions.pageSet)
         {
         case PrintOptions::AllPages:
@@ -1452,6 +1442,29 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         case PrintOptions::OddPages:
             num_options = cupsAddOption("page-set", "odd", num_options, &options);
             break;
+        }
+
+#else // QT_VERSION
+
+        {
+            bool ok = false;
+            int value = QString::fromLocal8Bit(cupsGetOption("number-up", num_options, options)).toInt(&ok);
+
+            numberUp = ok ? value : 1;
+        }
+
+#endif // QT_VERSION
+
+        fromPage = (fromPage - 1) / numberUp + 1;
+        toPage = (toPage - 1) / numberUp + 1;
+
+        if(printOptions.pageRanges.isEmpty())
+        {
+            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+        }
+        else
+        {
+            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
         }
 
         QTemporaryFile temporaryFile;

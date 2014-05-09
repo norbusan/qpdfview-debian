@@ -1,5 +1,6 @@
 Release 0.4.11:
   * Fixed building without SQLite support again. Thanks to Sébastien Szymanski.
+  * Removed extended print options page set and number-up as Qt version 5.2 supports them internally.
 
 Release 0.4.10:
   * Fixed race condition when a deleted render task mit tries to emit a signal. Thanks to Benjamin Eltzner.

@@ -896,6 +896,8 @@ void Settings::PrintDialog::setFitToPage(bool fitToPage)
     m_settings->setValue("printDialog/fitToPage", fitToPage);
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,2,0)
+
 PrintOptions::PageSet Settings::PrintDialog::pageSet() const
 {
     return static_cast< PrintOptions::PageSet >(m_settings->value("printDialog/pageSet", static_cast< uint >(Defaults::PrintDialog::pageSet())).toUInt());
@@ -925,6 +927,8 @@ void Settings::PrintDialog::setNumberUpLayout(PrintOptions::NumberUpLayout numbe
 {
     m_settings->setValue("printDialog/numberUpLayout", static_cast< uint >(numberUpLayout));
 }
+
+#endif // QT_VERSION
 
 void Settings::sync()
 {
