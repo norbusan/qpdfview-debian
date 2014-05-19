@@ -199,7 +199,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="649"/>
+        <location filename="../sources/database.cpp" line="653"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Gehe zu Seite %1</translation>
     </message>
@@ -232,22 +232,22 @@
         <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1490"/>
+        <location filename="../sources/documentview.cpp" line="1503"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke »%1« …</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1597"/>
         <source>Page %1</source>
         <translation type="unfinished">Seite %1</translation>
     </message>
@@ -972,107 +972,107 @@
         <translation type="unfinished">Seitenbereiche:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="71"/>
+        <location filename="../sources/printdialog.cpp" line="73"/>
         <source>All pages</source>
         <translation type="unfinished">Alle Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="72"/>
+        <location filename="../sources/printdialog.cpp" line="74"/>
         <source>Even pages</source>
         <translation type="unfinished">Gerade Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="73"/>
+        <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Odd pages</source>
         <translation type="unfinished">Ungerade Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="76"/>
+        <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Page set:</source>
         <translation type="unfinished">Seitenzahlen:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="79"/>
+        <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Single page</source>
         <translation type="unfinished">Einzelne Seite</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="80"/>
+        <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Two pages</source>
         <translation type="unfinished">Zwei Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="81"/>
+        <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Four pages</source>
         <translation type="unfinished">Vier Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="82"/>
+        <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Six pages</source>
         <translation type="unfinished">Sechs Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="83"/>
+        <location filename="../sources/printdialog.cpp" line="85"/>
         <source>Nine pages</source>
         <translation type="unfinished">Neun Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="84"/>
+        <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Sechzehn Seiten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="87"/>
+        <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
         <translation type="unfinished">Seiten pro Blatt:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="90"/>
+        <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">Von unten nach oben und links nach rechts</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="91"/>
+        <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">Von unten nach oben und rechts nach links</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="92"/>
+        <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">Von links nach rechts und unten nach oben</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="93"/>
+        <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">Von links nach rechts und oben nach unten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="94"/>
+        <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">Von rechts nach links und unten nach oben</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
+        <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">Von rechts nach links und oben nach unten</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
+        <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">Von oben nach unten und links nach rechts</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
+        <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">Von oben nach unten und rechts nach links</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="100"/>
+        <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
         <translation type="unfinished">Anordnung der Seiten:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="102"/>
+        <location filename="../sources/printdialog.cpp" line="106"/>
         <source>Extended options</source>
         <translation type="unfinished">Erweiterte Einstellungen</translation>
     </message>

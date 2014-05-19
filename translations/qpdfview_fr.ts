@@ -199,7 +199,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="649"/>
+        <location filename="../sources/database.cpp" line="653"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Aller à la page %1</translation>
     </message>
@@ -232,22 +232,22 @@
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1490"/>
+        <location filename="../sources/documentview.cpp" line="1503"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de « %1 »...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Déverrouiller %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Password:</source>
         <translation type="unfinished">Mot de passe</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1597"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>
@@ -972,107 +972,107 @@
         <translation type="unfinished">Plages de pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="71"/>
+        <location filename="../sources/printdialog.cpp" line="73"/>
         <source>All pages</source>
         <translation type="unfinished">Toutes les pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="72"/>
+        <location filename="../sources/printdialog.cpp" line="74"/>
         <source>Even pages</source>
         <translation type="unfinished">Pages paires</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="73"/>
+        <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Odd pages</source>
         <translation type="unfinished">Pages impaires</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="76"/>
+        <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Page set:</source>
         <translation type="unfinished">Sélectionner</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="79"/>
+        <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Single page</source>
         <translation type="unfinished">Page unique</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="80"/>
+        <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Two pages</source>
         <translation type="unfinished">Deux pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="81"/>
+        <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Four pages</source>
         <translation type="unfinished">Quatre pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="82"/>
+        <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Six pages</source>
         <translation type="unfinished">Six pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="83"/>
+        <location filename="../sources/printdialog.cpp" line="85"/>
         <source>Nine pages</source>
         <translation type="unfinished">Neuf pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="84"/>
+        <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">Seize pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="87"/>
+        <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
         <translation type="unfinished">Pages par feuille</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="90"/>
+        <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">De bas en haut et de gauche à droite</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="91"/>
+        <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">De bas en haut et de droite à gauche</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="92"/>
+        <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">De gauche à droite et de bas en haut</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="93"/>
+        <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">De gauche à droite et de haut en bas</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="94"/>
+        <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">De droite à gauche et de bas en haut</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
+        <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">De droite à gauche et de haut en bas</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
+        <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">De haut en bas et de gauche à droite</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
+        <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">De haut en bas et de droite à gauche</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="100"/>
+        <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
         <translation type="unfinished">Ordre des pages</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="102"/>
+        <location filename="../sources/printdialog.cpp" line="106"/>
         <source>Extended options</source>
         <translation type="unfinished">Options avancées</translation>
     </message>
@@ -1386,7 +1386,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="611"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Répartir les onglets :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="618"/>
@@ -1421,7 +1421,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titre du document comme titre d&apos;onglet :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="674"/>

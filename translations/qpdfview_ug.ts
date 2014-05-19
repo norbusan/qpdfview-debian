@@ -199,7 +199,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="649"/>
+        <location filename="../sources/database.cpp" line="653"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">بەت %1 غا يۆتكەل</translation>
     </message>
@@ -232,22 +232,22 @@
         <translation type="unfinished">&apos;%1&apos; نىڭ SyncTeX سانلىق مەلۇماتىنى تاپالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1490"/>
+        <location filename="../sources/documentview.cpp" line="1503"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">بېسىۋاتقىنى ‹%1›…</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 نى قۇلۇپسىزلا</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Password:</source>
         <translation type="unfinished">ئىم:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1597"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -972,107 +972,107 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="71"/>
+        <location filename="../sources/printdialog.cpp" line="73"/>
         <source>All pages</source>
         <translation type="unfinished">ھەممە بەتلەر</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="72"/>
+        <location filename="../sources/printdialog.cpp" line="74"/>
         <source>Even pages</source>
         <translation type="unfinished">جۈپ بەتلەر</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="73"/>
+        <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Odd pages</source>
         <translation type="unfinished">تاق بەتلەر</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="76"/>
+        <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Page set:</source>
         <translation type="unfinished">بەت تەڭشە:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="79"/>
+        <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Single page</source>
         <translation type="unfinished">يەككە بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="80"/>
+        <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Two pages</source>
         <translation type="unfinished">ئىككى بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="81"/>
+        <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Four pages</source>
         <translation type="unfinished">تۆت بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="82"/>
+        <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Six pages</source>
         <translation type="unfinished">ئالتە بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="83"/>
+        <location filename="../sources/printdialog.cpp" line="85"/>
         <source>Nine pages</source>
         <translation type="unfinished">يەتتە بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="84"/>
+        <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">ئون ئالتە بەت</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="87"/>
+        <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="90"/>
+        <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">ئاستىدىن ئۈستىگە، سولدىن ئوڭغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="91"/>
+        <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">ئاستىدىن ئۈستىگە، ئوڭدىن سولغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="92"/>
+        <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">سولدىن ئوڭغا، ئاستىدىن ئۈستىگە</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="93"/>
+        <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">سولدىن ئوڭغا، ئۈستىدىن ئاستىغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="94"/>
+        <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">ئوڭدىن سولغا، ئاستىدىن ئۈستىگە</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
+        <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">ئوڭدىن سولغا، ئۈستىدىن ئاستىغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
+        <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">ئۈستىدىن ئاستىغا، سولدىن ئوڭغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
+        <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">ئۈستىدىن ئاستىغا، ئوڭدىن سولغا</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="100"/>
+        <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="102"/>
+        <location filename="../sources/printdialog.cpp" line="106"/>
         <source>Extended options</source>
         <translation type="unfinished">كېڭەيتىلمە تاللانمىلار</translation>
     </message>

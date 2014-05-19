@@ -199,7 +199,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="649"/>
+        <location filename="../sources/database.cpp" line="653"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">%1 səhifəsinə keç</translation>
     </message>
@@ -232,22 +232,22 @@
         <translation type="unfinished">&apos;%1&apos;  üçün SyncTeX verilənləri yüklənmədi.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1490"/>
+        <location filename="../sources/documentview.cpp" line="1503"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; çap olunur...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 aç</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1562"/>
+        <location filename="../sources/documentview.cpp" line="1575"/>
         <source>Password:</source>
         <translation type="unfinished">Şifrə:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1584"/>
+        <location filename="../sources/documentview.cpp" line="1597"/>
         <source>Page %1</source>
         <translation type="unfinished">Səhifə %1</translation>
     </message>
@@ -972,107 +972,107 @@
         <translation type="unfinished">Səhifə aralığı:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="71"/>
+        <location filename="../sources/printdialog.cpp" line="73"/>
         <source>All pages</source>
         <translation type="unfinished">Bütün səhifələr</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="72"/>
+        <location filename="../sources/printdialog.cpp" line="74"/>
         <source>Even pages</source>
         <translation type="unfinished">Cüt səhifələr</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="73"/>
+        <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Odd pages</source>
         <translation type="unfinished">Tək səhifələr</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="76"/>
+        <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Page set:</source>
         <translation type="unfinished">Səhifələr:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="79"/>
+        <location filename="../sources/printdialog.cpp" line="81"/>
         <source>Single page</source>
         <translation type="unfinished">Bir səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="80"/>
+        <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Two pages</source>
         <translation type="unfinished">İki səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="81"/>
+        <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Four pages</source>
         <translation type="unfinished">Dörd səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="82"/>
+        <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Six pages</source>
         <translation type="unfinished">Altı səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="83"/>
+        <location filename="../sources/printdialog.cpp" line="85"/>
         <source>Nine pages</source>
         <translation type="unfinished">Doqquz səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="84"/>
+        <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Sixteen pages</source>
         <translation type="unfinished">16 səhifə</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="87"/>
+        <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
         <translation type="unfinished">Bir rəqəm yuxarı:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="90"/>
+        <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Bottom to top and left to right</source>
         <translation type="unfinished">Aşağıdan yixarı və soldan sağa</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="91"/>
+        <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and right to left</source>
         <translation type="unfinished">Aşağıdan yuxarı və sağdan sola</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="92"/>
+        <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Left to right and bottom to top</source>
         <translation type="unfinished">Soldan sağa və aşağıdan yuxarı</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="93"/>
+        <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and top to bottom</source>
         <translation type="unfinished">Soldan sağa və yuxarıdan aşağı</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="94"/>
+        <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Right to left and bottom to top</source>
         <translation type="unfinished">Sağdan sola və aşağıdan yuxarı</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
+        <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and top to bottom</source>
         <translation type="unfinished">Sağdan sola və yuxarıdan aşağı</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
+        <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Top to bottom and left to right</source>
         <translation type="unfinished">Yuxarıdan aşağı və soldan sağa</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
+        <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and right to left</source>
         <translation type="unfinished">Yuxarıdan aşağı və sağdan sola</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="100"/>
+        <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
         <translation type="unfinished">Nömrələr-üstə düzümü:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="102"/>
+        <location filename="../sources/printdialog.cpp" line="106"/>
         <source>Extended options</source>
         <translation type="unfinished">Geniş seçənəklər</translation>
     </message>
