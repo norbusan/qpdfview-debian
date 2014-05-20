@@ -188,50 +188,37 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 
         QSqlQuery query(m_database);
 
-        if(Settings::instance()->mainWindow().restoreTabs())
-        {
-            query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
+        query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
 
-            query.bindValue(0, instanceName());
+        query.bindValue(0, instanceName());
+
+        query.exec();
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+            return;
+        }
+
+        query.prepare("INSERT INTO tabs_v2 "
+                      "(filePath,instanceName,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
+                      " VALUES (?,?,?,?,?,?,?,?)");
+
+        foreach(const DocumentView* tab, tabs)
+        {
+            query.bindValue(0, tab->fileInfo().absoluteFilePath());
+            query.bindValue(1, instanceName());
+            query.bindValue(2, tab->currentPage());
+
+            query.bindValue(3, static_cast< uint >(tab->continuousMode()));
+            query.bindValue(4, static_cast< uint >(tab->layoutMode()));
+
+            query.bindValue(5, static_cast< uint >(tab->scaleMode()));
+            query.bindValue(6, tab->scaleFactor());
+
+            query.bindValue(7, static_cast< uint >(tab->rotation()));
 
             query.exec();
-
-            if(!query.isActive())
-            {
-                qDebug() << query.lastError();
-                return;
-            }
-
-            query.prepare("INSERT INTO tabs_v2 "
-                          "(filePath,instanceName,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
-                          " VALUES (?,?,?,?,?,?,?,?)");
-
-            foreach(const DocumentView* tab, tabs)
-            {
-                query.bindValue(0, tab->fileInfo().absoluteFilePath());
-                query.bindValue(1, instanceName());
-                query.bindValue(2, tab->currentPage());
-
-                query.bindValue(3, static_cast< uint >(tab->continuousMode()));
-                query.bindValue(4, static_cast< uint >(tab->layoutMode()));
-
-                query.bindValue(5, static_cast< uint >(tab->scaleMode()));
-                query.bindValue(6, tab->scaleFactor());
-
-                query.bindValue(7, static_cast< uint >(tab->rotation()));
-
-                query.exec();
-
-                if(!query.isActive())
-                {
-                    qDebug() << query.lastError();
-                    return;
-                }
-            }
-        }
-        else
-        {
-            query.exec("DELETE FROM tabs_v2");
 
             if(!query.isActive())
             {
@@ -246,6 +233,29 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 #else
 
     Q_UNUSED(tabs);
+
+#endif // WITH_SQL
+}
+
+void Database::clearTabs()
+{
+#ifdef WITH_SQL
+
+    if(m_database.isOpen())
+    {
+        Transaction transaction(m_database);
+
+        QSqlQuery query(m_database);
+        query.exec("DELETE FROM tabs_v2");
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+            return;
+        }
+
+        transaction.commit();
+    }
 
 #endif // WITH_SQL
 }
@@ -350,6 +360,29 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
 #else
 
     Q_UNUSED(bookmarks);
+
+#endif // WITH_SQL
+}
+
+void Database::clearBookmarks()
+{
+#ifdef WITH_SQL
+
+    if(m_database.isOpen())
+    {
+        Transaction transaction(m_database);
+
+        QSqlQuery query(m_database);
+        query.exec("DELETE FROM bookmarks_v2");
+
+        if(!query.isActive())
+        {
+            qDebug() << query.lastError();
+            return;
+        }
+
+        transaction.commit();
+    }
 
 #endif // WITH_SQL
 }

@@ -1676,8 +1676,23 @@ void MainWindow::on_saveDatabase_timeout()
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
-    saveTabs();
-    saveBookmarks();
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        saveTabs();
+    }
+    else
+    {
+        s_database->clearTabs();
+    }
+
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        saveBookmarks();
+    }
+    else
+    {
+        s_database->clearBookmarks();
+    }
 
     s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
@@ -1910,15 +1925,20 @@ void MainWindow::prepareDatabase()
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
     connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
 
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        s_database->restoreTabs();
+    }
 
-    s_database->restoreTabs();
-    s_database->restoreBookmarks();
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        s_database->restoreBookmarks();
+    }
 
 
     m_saveDatabaseTimer = new QTimer(this);
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
-
 
     const int saveDatabaseInterval = s_settings->mainWindow().saveDatabaseInterval();
 

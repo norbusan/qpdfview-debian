@@ -50,9 +50,11 @@ public:
 
     void restoreTabs();
     void saveTabs(const QList< const DocumentView* >& tabs);
+    void clearTabs();
 
     void restoreBookmarks();
     void saveBookmarks(const QList< const BookmarkMenu* >& bookmarks);
+    void clearBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);
     void savePerFileSettings(const DocumentView* tab);
