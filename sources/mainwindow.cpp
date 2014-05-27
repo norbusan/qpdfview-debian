@@ -146,6 +146,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     createDocks();
     createMenus();
 
+    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
+
     restoreGeometry(s_settings->mainWindow().geometry());
     restoreState(s_settings->mainWindow().state());
 
@@ -1559,6 +1562,26 @@ void MainWindow::on_focusScaleFactor_activated()
     m_scaleFactorComboBox->lineEdit()->selectAll();
 }
 
+void MainWindow::on_toggleToolBars_triggered(bool checked)
+{
+    if(checked)
+    {
+        m_fileToolBar->setVisible(m_fileToolBarVisible);
+        m_editToolBar->setVisible(m_editToolBarVisible);
+        m_viewToolBar->setVisible(m_viewToolBarVisible);
+    }
+    else
+    {
+        m_fileToolBarVisible = m_fileToolBar->isVisible();
+        m_editToolBarVisible = m_editToolBar->isVisible();
+        m_viewToolBarVisible = m_viewToolBar->isVisible();
+
+        m_fileToolBar->setVisible(false);
+        m_editToolBar->setVisible(false);
+        m_viewToolBar->setVisible(false);
+    }
+}
+
 void MainWindow::on_toggleMenuBar_triggered(bool checked)
 {
     menuBar()->setVisible(checked);
@@ -2418,8 +2441,6 @@ void MainWindow::createMenus()
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addActions(QList< QAction* >() << m_contentsAction << m_aboutAction);
-
-    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
 }
 
 #ifdef WITH_DBUS

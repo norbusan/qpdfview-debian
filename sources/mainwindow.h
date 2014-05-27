@@ -193,6 +193,7 @@ protected slots:
     void on_focusCurrentPage_activated();
     void on_focusScaleFactor_activated();
 
+    void on_toggleToolBars_triggered(bool checked);
     void on_toggleMenuBar_triggered(bool checked);
 
     void on_searchInitiated(const QString& text, bool allTabs);
@@ -370,9 +371,14 @@ private:
     QMenu* m_bookmarksMenu;
     QMenu* m_helpMenu;
 
-    QAction* m_toggleMenuBarAction;
-
     void createMenus();
+
+    bool m_fileToolBarVisible;
+    bool m_editToolBarVisible;
+    bool m_viewToolBarVisible;
+
+    QAction* m_toggleToolBarsAction;
+    QAction* m_toggleMenuBarAction;
 
 };
 
