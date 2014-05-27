@@ -193,6 +193,8 @@ protected slots:
     void on_focusCurrentPage_activated();
     void on_focusScaleFactor_activated();
 
+    void on_toggleMenuBar_triggered(bool checked);
+
     void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
 
@@ -327,8 +329,8 @@ private:
     QAction* m_contentsAction;
     QAction* m_aboutAction;
 
-    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false);
-    QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false);
+    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
+    QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
 
     void createActions();
 
@@ -367,6 +369,8 @@ private:
     RecentlyClosedMenu* m_recentlyClosedMenu;
     QMenu* m_bookmarksMenu;
     QMenu* m_helpMenu;
+
+    QAction* m_toggleMenuBarAction;
 
     void createMenus();
 

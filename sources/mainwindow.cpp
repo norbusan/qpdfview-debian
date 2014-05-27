@@ -1559,6 +1559,11 @@ void MainWindow::on_focusScaleFactor_activated()
     m_scaleFactorComboBox->lineEdit()->selectAll();
 }
 
+void MainWindow::on_toggleMenuBar_triggered(bool checked)
+{
+    menuBar()->setVisible(checked);
+}
+
 void MainWindow::on_searchInitiated(const QString& text, bool allTabs)
 {
     if(!text.isEmpty())
@@ -2049,7 +2054,7 @@ void MainWindow::createWidgets()
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable)
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
 {
     QAction* action = new QAction(text, this);
 
@@ -2065,6 +2070,7 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
     if(checkable)
     {
         action->setCheckable(true);
+        action->setChecked(checked);
 
         connect(action, SIGNAL(triggered(bool)), member);
     }
@@ -2075,12 +2081,14 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
         connect(action, SIGNAL(triggered()), member);
     }
 
+    addAction(action);
+
     return action;
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable)
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
 {
-    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcut, member, checkable);
+    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcut, member, checkable, checked);
 }
 
 void MainWindow::createActions()
@@ -2178,7 +2186,6 @@ void MainWindow::createActions()
 QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions)
 {
     QToolBar* toolBar = addToolBar(text);
-
     toolBar->setObjectName(objectName);
 
     foreach(const QString& actionName, actionNames)
@@ -2411,6 +2418,8 @@ void MainWindow::createMenus()
 
     m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addActions(QList< QAction* >() << m_contentsAction << m_aboutAction);
+
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
 }
 
 #ifdef WITH_DBUS
