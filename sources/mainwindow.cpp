@@ -146,8 +146,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     createDocks();
     createMenus();
 
-    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
-    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
+    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
 
     restoreGeometry(s_settings->mainWindow().geometry());
     restoreState(s_settings->mainWindow().state());
@@ -2230,6 +2230,9 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
             }
         }
     }
+
+    toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
+    ShortcutHandler::instance()->registerAction(toolBar->toggleViewAction());
 
     return toolBar;
 }
