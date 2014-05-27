@@ -1,6 +1,7 @@
 Release 0.4.11:
   * Fixed building without SQLite support again. Thanks to Sébastien Szymanski.
   * Fixed disabling restoring of tabs and bookmarks. Thanks to Benjamin Eltzner.
+  * Added actions to toggle visibility of tool bars and menu bar.
   * Removed extended print options page set and number-up as Qt version 5.2 supports them internally.
   * Updated French translations. Thanks to Tubuntu.
 
