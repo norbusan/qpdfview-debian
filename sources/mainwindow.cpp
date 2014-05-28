@@ -146,8 +146,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     createDocks();
     createMenus();
 
-    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
-    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
+    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
 
     restoreGeometry(s_settings->mainWindow().geometry());
     restoreState(s_settings->mainWindow().state());
@@ -1257,6 +1257,12 @@ void MainWindow::on_fullscreen_triggered(bool checked)
         showNormal();
 
         restoreGeometry(m_fullscreenAction->data().toByteArray());
+    }
+
+    if(s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen())
+    {
+        m_toggleToolBarsAction->trigger();
+        m_toggleMenuBarAction->trigger();
     }
 }
 

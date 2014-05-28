@@ -734,6 +734,16 @@ void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
 }
 
+bool Settings::MainWindow::toggleToolAndMenuBarsWithFullscreen() const
+{
+    return m_settings->value("mainWindow/toggleToolAndMenuBarsWithFullscreen", Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen()).toBool();
+}
+
+void Settings::MainWindow::setToggleToolAndMenuBarsWithFullscreen(bool toggleToolAndMenuBarsWithFullscreen) const
+{
+    m_settings->setValue("mainWindow/toggleToolAndMenuBarsWithFullscreen", toggleToolAndMenuBarsWithFullscreen);
+}
+
 bool Settings::MainWindow::hasIconTheme() const
 {
     return m_settings->contains("mainWindow/iconTheme");

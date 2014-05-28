@@ -314,6 +314,9 @@ public:
         QStringList viewToolBar() const;
         void setViewToolBar(const QStringList& viewToolBar);
 
+        bool toggleToolAndMenuBarsWithFullscreen() const;
+        void setToggleToolAndMenuBarsWithFullscreen(bool toggleToolAndMenuBarsWithFullscreen) const;
+
         bool hasIconTheme() const;
         QString iconTheme() const;
 
@@ -557,6 +560,8 @@ public:
         static inline QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
+
+        static inline bool toggleToolAndMenuBarsWithFullscreen() { return false; }
 
         static QString path();
 
