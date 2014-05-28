@@ -635,6 +635,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Recently closed count:"), m_recentlyClosedCountSpinBox);
 
+    // toggle tool and menu bars with fullscreen
+
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen());
+
+    m_interfaceLayout->addRow(tr("Toggle tool and menu bars with fullscreen:"), m_toggleToolAndMenuBarsWithFullscreenCheckBox);
+
     // file tool bar
 
     m_fileToolBarLineEdit = new QLineEdit(this);
@@ -727,6 +734,8 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
     s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
 
+    s_settings->mainWindow().setToggleToolAndMenuBarsWithFullscreen(m_toggleToolAndMenuBarsWithFullscreenCheckBox->isChecked());
+
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -754,6 +763,8 @@ void SettingsDialog::resetInterfaceTab()
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
 
     m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
+
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen());
 
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
