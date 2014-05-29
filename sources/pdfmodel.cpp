@@ -479,7 +479,7 @@ QList< Annotation* > PdfPage::annotations() const
     return annotations;
 }
 
-bool Model::PdfPage::canAddAndRemoveAnnotations() const
+bool PdfPage::canAddAndRemoveAnnotations() const
 {
 #ifdef HAS_POPPLER_20
 
