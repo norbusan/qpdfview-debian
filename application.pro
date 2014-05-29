@@ -198,6 +198,8 @@ DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
 
 
 DESKTOP_FILE = miscellaneous/qpdfview.desktop
+APPDATA_FILE = miscellaneous/qpdfview.appdata.xml
+
 !without_pdf|with_fitz:MIME_TYPES += application/pdf application/x-pdf text/pdf text/x-pdf image/pdf image/x-pdf
 !without_ps:MIME_TYPES += application/postscript
 !without_djvu:MIME_TYPES += image/vnd.djvu image/x-djvu
@@ -210,7 +212,7 @@ target.path = $${TARGET_INSTALL_PATH}
 data.files = icons/qpdfview.svg translations/*.qm help/help*.html
 data.path = $${DATA_INSTALL_PATH}
 
-launcher.files = $${DESKTOP_FILE}
+launcher.files = $${DESKTOP_FILE} $${APPDATA_FILE}
 launcher.path = $${LAUNCHER_INSTALL_PATH}
 
 manual.files = miscellaneous/qpdfview.1
