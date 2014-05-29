@@ -221,7 +221,7 @@ appdata.path = $${APPDATA_INSTALL_PATH}
 manual.files = miscellaneous/qpdfview.1
 manual.path = $${MANUAL_INSTALL_PATH}
 
-INSTALLS += target data launcher manual
+INSTALLS += target data launcher appdata manual
 
 INCLUDEPATH += icons
 win32:RC_FILE = icons/qpdfview_win32.rc
