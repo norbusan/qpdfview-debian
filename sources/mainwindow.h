@@ -373,9 +373,11 @@ private:
 
     void createMenus();
 
-    bool m_fileToolBarVisible;
-    bool m_editToolBarVisible;
-    bool m_viewToolBarVisible;
+    int m_tabBarHadPolicy;
+
+    bool m_fileToolBarWasVisible;
+    bool m_editToolBarWasVisible;
+    bool m_viewToolBarWasVisible;
 
     QAction* m_toggleToolBarsAction;
     QAction* m_toggleMenuBarAction;

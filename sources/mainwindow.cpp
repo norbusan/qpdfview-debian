@@ -1572,15 +1572,21 @@ void MainWindow::on_toggleToolBars_triggered(bool checked)
 {
     if(checked)
     {
-        m_fileToolBar->setVisible(m_fileToolBarVisible);
-        m_editToolBar->setVisible(m_editToolBarVisible);
-        m_viewToolBar->setVisible(m_viewToolBarVisible);
+        m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(m_tabBarHadPolicy));
+
+        m_fileToolBar->setVisible(m_fileToolBarWasVisible);
+        m_editToolBar->setVisible(m_editToolBarWasVisible);
+        m_viewToolBar->setVisible(m_viewToolBarWasVisible);
     }
     else
     {
-        m_fileToolBarVisible = m_fileToolBar->isVisible();
-        m_editToolBarVisible = m_editToolBar->isVisible();
-        m_viewToolBarVisible = m_viewToolBar->isVisible();
+        m_tabBarHadPolicy = static_cast< int >(m_tabWidget->tabBarPolicy());
+
+        m_fileToolBarWasVisible = m_fileToolBar->isVisible();
+        m_editToolBarWasVisible = m_editToolBar->isVisible();
+        m_viewToolBarWasVisible = m_viewToolBar->isVisible();
+
+        m_tabWidget->setTabBarPolicy(TabWidget::TabBarAlwaysOff);
 
         m_fileToolBar->setVisible(false);
         m_editToolBar->setVisible(false);
