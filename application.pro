@@ -212,8 +212,11 @@ target.path = $${TARGET_INSTALL_PATH}
 data.files = icons/qpdfview.svg translations/*.qm help/help*.html
 data.path = $${DATA_INSTALL_PATH}
 
-launcher.files = $${DESKTOP_FILE} $${APPDATA_FILE}
+launcher.files = $${DESKTOP_FILE}
 launcher.path = $${LAUNCHER_INSTALL_PATH}
+
+appdata.files = $${APPDATA_FILE}
+appdata.path = $${APPDATA_INSTALL_PATH}
 
 manual.files = miscellaneous/qpdfview.1
 manual.path = $${MANUAL_INSTALL_PATH}
