@@ -1087,6 +1087,8 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
                              visibleHeight / unscaledHeight / rect.height()),
                         Defaults::DocumentView::maximumScaleFactor()));
 
+    setScaleMode(ScaleFactorMode);
+
     jumpToPage(page, false, rect.left(), rect.top());
 }
 
