@@ -207,6 +207,7 @@ private:
     template< typename Overlay > void updateOverlay(const Overlay& overlay) const;
 
     static const qreal proxyPadding = 2.0;
+
     void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
     void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const;
 
@@ -280,6 +281,10 @@ private:
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
     QStaticText m_text;
+
+#else
+
+    QString m_text;
 
 #endif // QT_VERSION
 

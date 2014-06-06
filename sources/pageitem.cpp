@@ -1114,9 +1114,7 @@ void PageItem::paintRubberBand(QPainter* painter) const
 }
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
     m_text(QString::number(index + 1)),
-#endif // QT_VERSION
     m_current(false)
 {
     setAcceptHoverEvents(false);
@@ -1153,14 +1151,13 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 
 #else
 
-    const QString text = QString::number(index() + 1);
     const QFontMetrics fontMetrics = QFontMetrics(QFont());
 
     QPointF pos = boundingRect.bottomLeft();
-    pos.rx() += 0.5 * (boundingRect.width() - fontMetrics.width(text));
+    pos.rx() += 0.5 * (boundingRect.width() - fontMetrics.width(m_text));
     pos.ry() += fontMetrics.height();
 
-    painter->drawText(pos, text);
+    painter->drawText(pos, m_text);
 
 #endif // QT_VERSION
 
