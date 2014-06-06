@@ -232,22 +232,22 @@
         <translation type="unfinished">无法找到“%1”的 SyncTex 数据。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1503"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">正在打印“%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">解锁 %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Password:</source>
         <translation type="unfinished">密码：</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1597"/>
+        <location filename="../sources/documentview.cpp" line="1599"/>
         <source>Page %1</source>
         <translation type="unfinished">第 %1 页</translation>
     </message>

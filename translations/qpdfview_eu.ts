@@ -232,22 +232,22 @@
         <translation type="unfinished">Ezin izan dira &apos;%1&apos;(e)n SyncTex datuak aurkitu.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1503"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; inprimatzen...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desblokeatu %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Password:</source>
         <translation type="unfinished">Pasahitza:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1597"/>
+        <location filename="../sources/documentview.cpp" line="1599"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>

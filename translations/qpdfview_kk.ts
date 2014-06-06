@@ -232,22 +232,22 @@
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1503"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 босату</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1597"/>
+        <location filename="../sources/documentview.cpp" line="1599"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>

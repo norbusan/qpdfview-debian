@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.1">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -232,22 +232,22 @@
         <translation type="unfinished">No se encontraron los datos SyncText para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1503"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimiendo «%1»…</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquear %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Password:</source>
         <translation type="unfinished">Contraseña:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1597"/>
+        <location filename="../sources/documentview.cpp" line="1599"/>
         <source>Page %1</source>
         <translation type="unfinished">Página %1</translation>
     </message>
@@ -278,7 +278,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="178"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo abrir el archivo adjunto guardado en «%1».</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="184"/>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="531"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrar todas las pestañas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="532"/>
@@ -462,7 +462,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1555"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Vea &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012–2013 Los desarrolladores de qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 de los desarrolladores de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1887"/>
@@ -966,7 +966,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="225"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No se pudo cargar el complemento para el tipo de archivo «%1».</translation>
     </message>
 </context>
 <context>
@@ -1237,7 +1237,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished">Marca de duración</translation>
+        <translation type="unfinished">Duración del resalte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="300"/>

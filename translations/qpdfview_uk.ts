@@ -46,7 +46,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Information</source>
-        <translation type="unfinished">Відомості</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="51"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Ви&amp;далити закладку</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -214,7 +214,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1017"/>
         <source>Information</source>
-        <translation type="unfinished">Інформація</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1017"/>
@@ -232,22 +232,22 @@
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1503"/>
+        <location filename="../sources/documentview.cpp" line="1505"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Розблокувати %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1575"/>
+        <location filename="../sources/documentview.cpp" line="1577"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1597"/>
+        <location filename="../sources/documentview.cpp" line="1599"/>
         <source>Page %1</source>
         <translation type="unfinished">Сторінка %1</translation>
     </message>
@@ -310,12 +310,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="149"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Увімкнути або вимкнути показ панелей інструментів</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Увімкнути або вимкнути показ смужки меню</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="212"/>
@@ -722,7 +722,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2212"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Вилучити закладку</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2213"/>
@@ -1416,7 +1416,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="643"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вимкнути панелі у повноекранному режимі:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="651"/>
