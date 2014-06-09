@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de_DE">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elegir instancia</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="190"/>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="51"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eliminar marcador</translation>
     </message>
 </context>
 <context>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2171"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">De derecha a izquierda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2173"/>
@@ -722,7 +722,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2212"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Eliminar marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2213"/>

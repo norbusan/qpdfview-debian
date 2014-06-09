@@ -8,6 +8,7 @@ Release 0.4.11:
   * Updated Galician translations. Thanks to Marcos Lans.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
   * Updated Spanish translations. Thanks to Adolfo Jayme.
+  * Updated Czech translations. Thanks to Pavel Fric.
 
 Release 0.4.10:
   * Fixed race condition when a deleted render task mit tries to emit a signal. Thanks to Benjamin Eltzner.

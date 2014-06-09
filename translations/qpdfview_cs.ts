@@ -310,12 +310,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="149"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přepnout nástrojové pruhy</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přepnout pruh s nabídkou</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="212"/>
@@ -1416,7 +1416,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="643"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přepnout nástrojové pruhy a pruh s nabídkou při zobrazení na celou obrazovkou</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="651"/>
