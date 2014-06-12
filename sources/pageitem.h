@@ -141,7 +141,7 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QPixmap pixmap);
 
     void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
     void hideAnnotationOverlay(bool deleteLater = true);

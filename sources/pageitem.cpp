@@ -85,7 +85,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)));
+    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
 
     m_page = page;
 
@@ -255,7 +255,7 @@ void PageItem::on_renderTask_finished()
     update();
 }
 
-void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image)
+void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QPixmap pixmap)
 {
     if(m_resolutionX != resolutionX || m_resolutionY != resolutionY
             || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
@@ -265,32 +265,32 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
         return;
     }
 
-    if(image.isNull())
+    if(pixmap.isNull())
     {
         // error icon
 
         const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
         const QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
 
-        image = QImage(qFloor(0.01 * m_boundingRect.width() + extent), qFloor(0.01 * m_boundingRect.height() + extent), QImage::Format_ARGB32);
+        QImage image = QImage(qFloor(0.01 * m_boundingRect.width() + extent), qFloor(0.01 * m_boundingRect.height() + extent), QImage::Format_ARGB32);
         image.fill(Qt::transparent);
 
         QPainter painter(&image);
         s_settings->pageItem().errorIcon().paint(&painter, rect.toRect());
+
+        pixmap = QPixmap::fromImage(image);
     }
 
     if(prefetch)
     {
-        QPixmap* pixmap = new QPixmap(QPixmap::fromImage(image));
-
-        int cost = pixmap->width() * pixmap->height() * pixmap->depth() / 8;
-        s_cache.insert(this, pixmap, cost);
+        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+        s_cache.insert(this, new QPixmap(pixmap), cost);
     }
     else
     {
         if(!m_renderTask->wasCanceled())
         {
-            m_pixmap = QPixmap::fromImage(image);
+            m_pixmap = pixmap;
         }
     }
 

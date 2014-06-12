@@ -116,7 +116,7 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
+    emit pixmapReady(m_resolutionX, m_resolutionY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, QPixmap::fromImage(image));
 
     finish();
 }
