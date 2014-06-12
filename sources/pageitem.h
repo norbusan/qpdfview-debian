@@ -62,6 +62,8 @@ public:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     inline int index() const { return m_index; }
+    inline bool presentationMode() const { return m_presentationMode; }
+
     inline const QSizeF& size() const { return m_size; }
 
     inline qreal unscaledWidth() const
@@ -92,9 +94,6 @@ public:
         }
     }
 
-    inline bool invertColors() { return m_invertColors; }
-    void setInvertColors(bool invertColors);
-
     inline const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
 
@@ -116,6 +115,9 @@ public:
 
     inline Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
+
+    inline bool invertColors() { return m_invertColors; }
+    void setInvertColors(bool invertColors);
 
     inline const QTransform& transform() const { return m_transform; }
     inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
@@ -176,9 +178,10 @@ private:
     static QCache< PageItem*, QPixmap > s_cache;
 
     Model::Page* m_page;
+    QSizeF m_size;
 
     int m_index;
-    QSizeF m_size;
+    bool m_presentationMode;
 
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;
@@ -189,9 +192,6 @@ private:
 
     typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
     FormFieldOverlay m_formFieldOverlay;
-
-    bool m_presentationMode;
-    bool m_invertColors;
 
     QList< QRectF > m_highlights;
 
@@ -219,14 +219,15 @@ private:
     int m_resolutionY;
     qreal m_devicePixelRatio;
 
-    qreal effectiveDevicePixelRatio();
-
     qreal m_scaleFactor;
     Rotation m_rotation;
+    bool m_invertColors;
 
     QTransform m_transform;
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
+
+    qreal effectiveDevicePixelRatio();
 
     bool m_pixmapError;
     QPixmap m_pixmap;

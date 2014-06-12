@@ -48,15 +48,14 @@ QCache< PageItem*, QPixmap > PageItem::s_cache;
 
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(0),
-    m_index(-1),
     m_size(),
+    m_index(index),
+    m_presentationMode(presentationMode),
     m_links(),
     m_annotations(),
     m_formFields(),
     m_annotationOverlay(),
     m_formFieldOverlay(),
-    m_presentationMode(presentationMode),
-    m_invertColors(false),
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
@@ -65,6 +64,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_devicePixelRatio(1.0),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
+    m_invertColors(false),
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
@@ -89,8 +89,6 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
 
     m_page = page;
-
-    m_index = index;
     m_size = m_page->size();
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
@@ -127,13 +125,6 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 
     paintHighlights(painter);
     paintRubberBand(painter);
-}
-
-void PageItem::setInvertColors(bool invertColors)
-{
-    m_invertColors = invertColors;
-
-    refresh();
 }
 
 void PageItem::setHighlights(const QList< QRectF >& highlights)
@@ -212,6 +203,17 @@ void PageItem::setRotation(Rotation rotation)
         prepareGeometry();
     }
 }
+
+void PageItem::setInvertColors(bool invertColors)
+{
+    if(m_invertColors != invertColors)
+    {
+        refresh();
+
+        m_invertColors = invertColors;
+    }
+}
+
 
 void PageItem::refresh()
 {
