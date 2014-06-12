@@ -141,7 +141,9 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QPixmap pixmap);
+    void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                                   qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                                   QPixmap pixmap);
 
     void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
     void hideAnnotationOverlay(bool deleteLater = true);
@@ -226,6 +228,7 @@ private:
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
+    bool m_pixmapError;
     QPixmap m_pixmap;
 
     void prepareGeometry();

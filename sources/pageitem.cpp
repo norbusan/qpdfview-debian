@@ -68,6 +68,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
+    m_pixmapError(false),
     m_pixmap(),
     m_renderTask(0),
     m_obsoletePixmap(),
@@ -223,6 +224,7 @@ void PageItem::refresh()
         m_obsoleteTransform = m_transform.inverted();
     }
 
+    m_pixmapError = false;
     m_pixmap = QPixmap();
     s_cache.remove(this);
 
@@ -238,7 +240,9 @@ void PageItem::startRender(bool prefetch)
 
     if(!m_renderTask->isRunning())
     {
-        m_renderTask->start(m_page, m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(), m_scaleFactor, m_rotation, m_invertColors, prefetch);
+        m_renderTask->start(m_page,
+                            m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
+                            m_scaleFactor, m_rotation, m_invertColors, prefetch);
     }
 }
 
@@ -255,30 +259,21 @@ void PageItem::on_renderTask_finished()
     update();
 }
 
-void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QPixmap pixmap)
+void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                                         qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                                         QPixmap pixmap)
 {
-    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY
-            || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
-            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation
-            || m_invertColors != invertColors)
+    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
+            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
     {
         return;
     }
 
     if(pixmap.isNull())
     {
-        // error icon
+        m_pixmapError = true;
 
-        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-        const QRectF rect(0.01 * m_boundingRect.width(), 0.01 * m_boundingRect.height(), extent, extent);
-
-        QImage image = QImage(qFloor(0.01 * m_boundingRect.width() + extent), qFloor(0.01 * m_boundingRect.height() + extent), QImage::Format_ARGB32);
-        image.fill(Qt::transparent);
-
-        QPainter painter(&image);
-        s_settings->pageItem().errorIcon().paint(&painter, rect.toRect());
-
-        pixmap = QPixmap::fromImage(image);
+        return;
     }
 
     if(prefetch)
@@ -808,15 +803,14 @@ void PageItem::addProxy(Overlay& overlay, const char* hideOverlay, Element* elem
 template< typename Overlay >
 void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
 {
-    Overlay discardedOverlay;
-
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
 
+    Overlay discardedOverlay;
     discardedOverlay.swap(overlay);
 
 #else
 
-    discardedOverlay = overlay;
+    Overlay discardedOverlay(overlay);
     overlay = Overlay();
 
 #endif // QT_VERSION
@@ -988,7 +982,7 @@ QPixmap PageItem::cachedPixmap()
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
             s_cache.insert(this, new QPixmap(pixmap), cost);
         }
-        else
+        else if(!m_pixmapError)
         {
             startRender();
         }
@@ -1028,12 +1022,24 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
     }
     else
     {
-        // progess icon
+        if(!m_pixmapError)
+        {
+            // progess icon
 
-        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
+            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
-        s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
+            s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
+        }
+        else
+        {
+            // error icon
+
+            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
+
+            s_settings->pageItem().errorIcon().paint(painter, rect.toRect());
+        }
     }
 
     if(s_settings->pageItem().decoratePages() && !m_presentationMode)

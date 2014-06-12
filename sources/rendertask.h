@@ -54,10 +54,15 @@ public:
 signals:
     void finished();
 
-    void pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QPixmap pixmap);
+    void pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                     qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                     QPixmap pixmap);
 
 public slots:
-    void start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+    void start(Model::Page* page,
+               int resolutionX, int resolutionY, qreal devicePixelRatio,
+               qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+
     void cancel();
 
 private:
@@ -79,7 +84,6 @@ private:
 
     qreal m_scaleFactor;
     Rotation m_rotation;
-
     bool m_invertColors;
 
     bool m_prefetch;
