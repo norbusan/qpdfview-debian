@@ -1007,10 +1007,14 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
 
     if(!pixmap.isNull())
     {
+        // pixmap
+
         painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
     }
     else if(!m_obsoletePixmap.isNull())
     {
+        // obsolete pixmap
+
         painter->save();
 
         painter->setTransform(m_obsoleteTransform, true);
@@ -1024,7 +1028,7 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
     {
         if(!m_pixmapError)
         {
-            // progess icon
+            // progress icon
 
             const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
             const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
