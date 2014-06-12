@@ -14,6 +14,7 @@ HEADERS += \
     sources/pluginhandler.h \
     sources/shortcuthandler.h \
     sources/rendertask.h \
+    sources/tileitem.h \
     sources/pageitem.h \
     sources/presentationview.h \
     sources/searchtask.h \
@@ -35,6 +36,7 @@ SOURCES += \
     sources/pluginhandler.cpp \
     sources/shortcuthandler.cpp \
     sources/rendertask.cpp \
+    sources/tileitem.cpp \
     sources/pageitem.cpp \
     sources/presentationview.cpp \
     sources/searchtask.cpp \
