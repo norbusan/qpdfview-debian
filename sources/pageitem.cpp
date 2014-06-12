@@ -238,7 +238,7 @@ void PageItem::startRender(bool prefetch)
         return;
     }
 
-    if(!m_renderTask->isRunning())
+    if(!m_pixmapError && !m_renderTask->isRunning())
     {
         m_renderTask->start(m_page,
                             m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
@@ -982,7 +982,7 @@ QPixmap PageItem::cachedPixmap()
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
             s_cache.insert(this, new QPixmap(pixmap), cost);
         }
-        else if(!m_pixmapError)
+        else
         {
             startRender();
         }
