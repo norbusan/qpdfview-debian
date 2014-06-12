@@ -38,6 +38,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "model.h"
 #include "rendertask.h"
+#include "tileitem.h"
 
 namespace qpdfview
 {
@@ -47,8 +48,8 @@ Settings* PageItem::s_settings = 0;
 QCache< PageItem*, QPixmap > PageItem::s_cache;
 
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
-    m_page(0),
-    m_size(),
+    m_page(page),
+    m_size(page->size()),
     m_index(index),
     m_presentationMode(presentationMode),
     m_links(),
@@ -88,8 +89,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
 
-    m_page = page;
-    m_size = m_page->size();
+    m_tileItem = new TileItem(page, QRectF(), this);
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
@@ -118,7 +118,7 @@ QRectF PageItem::boundingRect() const
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    paintPage(painter, cachedPixmap());
+    // paintPage(painter, cachedPixmap());
 
     paintLinks(painter);
     paintFormFields(painter);
@@ -160,6 +160,8 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
         m_resolutionX = resolutionX;
         m_resolutionY = resolutionY;
 
+        m_tileItem->setResolution(m_resolutionX, m_resolutionY);
+
         prepareGeometryChange();
         prepareGeometry();
     }
@@ -172,6 +174,8 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
         refresh();
 
         m_devicePixelRatio = devicePixelRatio;
+
+        m_tileItem->setDevicePixelRatio(m_devicePixelRatio);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -186,6 +190,8 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 
         m_scaleFactor = scaleFactor;
 
+        m_tileItem->setScaleFactor(m_scaleFactor);
+
         prepareGeometryChange();
         prepareGeometry();
     }
@@ -199,6 +205,8 @@ void PageItem::setRotation(Rotation rotation)
 
         m_rotation = rotation;
 
+        m_tileItem->setRotation(m_rotation);
+
         prepareGeometryChange();
         prepareGeometry();
     }
@@ -211,13 +219,17 @@ void PageItem::setInvertColors(bool invertColors)
         refresh();
 
         m_invertColors = invertColors;
+
+        m_tileItem->setInvertColors(m_invertColors);
     }
 }
 
 
 void PageItem::refresh()
 {
-    m_renderTask->cancel();
+    m_tileItem->refresh();
+
+    /*m_renderTask->cancel();
 
     if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
@@ -230,12 +242,14 @@ void PageItem::refresh()
     m_pixmap = QPixmap();
     s_cache.remove(this);
 
-    update();
+    update();*/
 }
 
 void PageItem::startRender(bool prefetch)
 {
-    if(prefetch && s_cache.contains(this))
+    m_tileItem->startRender(prefetch);
+
+    /*if(prefetch && s_cache.contains(this))
     {
         return;
     }
@@ -245,15 +259,17 @@ void PageItem::startRender(bool prefetch)
         m_renderTask->start(m_page,
                             m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
                             m_scaleFactor, m_rotation, m_invertColors, prefetch);
-    }
+    }*/
 }
 
 void PageItem::cancelRender()
 {
-    m_renderTask->cancel();
+    m_tileItem->cancelRender();
+
+    /*m_renderTask->cancel();
 
     m_pixmap = QPixmap();
-    m_obsoletePixmap = QPixmap();
+    m_obsoletePixmap = QPixmap();*/
 }
 
 void PageItem::on_renderTask_finished()
@@ -961,6 +977,8 @@ void PageItem::prepareGeometry()
 
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
+
+    m_tileItem->setTile(m_boundingRect);
 
     updateAnnotationOverlay();
     updateFormFieldOverlay();

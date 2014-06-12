@@ -49,6 +49,7 @@ class Page;
 
 class Settings;
 class RenderTask;
+class TileItem;
 
 class PageItem : public QGraphicsObject
 {
@@ -235,6 +236,8 @@ private:
     void prepareGeometry();
 
     RenderTask* m_renderTask;
+
+    TileItem* m_tileItem;
 
     // obsolete pixmap
 
