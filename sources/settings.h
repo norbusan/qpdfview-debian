@@ -55,6 +55,8 @@ public:
         inline int cacheSize() const { return m_cacheSize; }
         void setCacheSize(int cacheSize);
 
+        inline int tileSize() const { return m_tileSize; }
+
         inline const QIcon& progressIcon() const { return m_progressIcon; }
         inline const QIcon& errorIcon() const { return m_errorIcon; }
 
@@ -104,6 +106,7 @@ public:
         QSettings* m_settings;
 
         int m_cacheSize;
+        int m_tileSize;
 
         QIcon m_progressIcon;
         QIcon m_errorIcon;
@@ -429,6 +432,7 @@ public:
     {
     public:
         static inline int cacheSize() { return 32 * 1024 * 1024; }
+        static inline int tileSize() { return 1024; }
 
         static inline bool keepObsoletePixmaps() { return false; }
         static inline bool useDevicePixelRatio() { return false; }

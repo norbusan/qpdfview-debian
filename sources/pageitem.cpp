@@ -922,7 +922,7 @@ void PageItem::prepareBackground()
 
 void PageItem::prepareTiling()
 {
-    const int tileSize = 1024;
+    const int tileSize = s_settings->pageItem().tileSize();
 
     const int columnCount = qCeil(m_boundingRect.width() / tileSize);
     const int rowCount = qCeil(m_boundingRect.height() / tileSize);
