@@ -44,7 +44,7 @@ class TileItem : public QGraphicsObject
     Q_OBJECT
 
 public:
-    TileItem(Model::Page* page, QGraphicsItem* parent = 0);
+    TileItem(QGraphicsItem* parent = 0);
     ~TileItem();
 
     QRectF boundingRect() const;
@@ -52,22 +52,6 @@ public:
 
     inline QRectF tile() const { return m_tile; }
     void setTile(const QRectF& tile);
-
-    inline int resolutionX() const { return m_resolutionX; }
-    inline int resolutionY() const { return m_resolutionY; }
-    void setResolution(int resolutionX, int resolutionY);
-
-    inline qreal devicePixelRatio() const { return m_devicePixelRatio; }
-    void setDevicePixelRatio(qreal devicePixelRatio);
-
-    inline qreal scaleFactor() const { return m_scaleFactor; }
-    void setScaleFactor(qreal scaleFactor);
-
-    inline Rotation rotation() const { return m_rotation; }
-    void setRotation(Rotation rotation);
-
-    inline bool invertColors() { return m_invertColors; }
-    void setInvertColors(bool invertColors);
 
 public slots:
     void refresh();
@@ -89,23 +73,13 @@ private:
 
     static QCache< TileItem*, QPixmap > s_cache;
 
-    Model::Page* m_page;
     QRectF m_tile;
-
-    int m_resolutionX;
-    int m_resolutionY;
-    qreal m_devicePixelRatio;
-
-    qreal m_scaleFactor;
-    Rotation m_rotation;
-    bool m_invertColors;
 
     bool m_pixmapError;
     QPixmap m_pixmap;
 
     RenderTask* m_renderTask;
 
-    qreal effectiveDevicePixelRatio();
     QPixmap cachedPixmap();
 
 };

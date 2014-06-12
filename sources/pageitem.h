@@ -55,6 +55,8 @@ class PageItem : public QGraphicsObject
 {
     Q_OBJECT
 
+    friend class TileItem;
+
 public:
     PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
     ~PageItem();
@@ -143,11 +145,6 @@ public slots:
     void cancelRender();
 
 protected slots:
-    void on_renderTask_finished();
-    void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                   qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
-                                   QPixmap pixmap);
-
     void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
     void hideAnnotationOverlay(bool deleteLater = true);
     void updateAnnotationOverlay();
@@ -175,8 +172,6 @@ private:
     Q_DISABLE_COPY(PageItem)
 
     static Settings* s_settings;
-
-    static QCache< PageItem*, QPixmap > s_cache;
 
     Model::Page* m_page;
     QSizeF m_size;
@@ -228,31 +223,24 @@ private:
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
-    qreal effectiveDevicePixelRatio();
-
-    bool m_pixmapError;
-    QPixmap m_pixmap;
-
     void prepareGeometry();
-    void prepareTiling();
-
-    RenderTask* m_renderTask;
 
     QGraphicsRectItem* m_background;
     QGraphicsRectItem* m_border;
 
+    void prepareBackground();
+
     QVector< TileItem* > m_tileItems;
+
+    void prepareTiling();
 
     // obsolete pixmap
 
-    QPixmap m_obsoletePixmap;
+    /*QPixmap m_obsoletePixmap;
     QPointF m_obsoleteTopLeft;
-    QTransform m_obsoleteTransform;
+    QTransform m_obsoleteTransform;*/
 
     // paint
-
-    QPixmap cachedPixmap();
-    void paintPage(QPainter* painter, const QPixmap& pixmap) const;
 
     void paintLinks(QPainter* painter) const;
     void paintFormFields(QPainter* painter) const;

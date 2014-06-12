@@ -45,8 +45,6 @@ namespace qpdfview
 
 Settings* PageItem::s_settings = 0;
 
-QCache< PageItem*, QPixmap > PageItem::s_cache;
-
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
@@ -69,30 +67,19 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
-    m_pixmapError(false),
-    m_pixmap(),
-    m_renderTask(0),
     m_background(0),
     m_border(0),
-    m_tileItems(),
+    m_tileItems()/*,
     m_obsoletePixmap(),
-    m_obsoleteTransform()
+    m_obsoleteTopLeft(),
+    m_obsoleteTransform()*/
 {
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
     }
 
-    s_cache.setMaxCost(s_settings->pageItem().cacheSize());
-
     setAcceptHoverEvents(true);
-
-
-    m_renderTask = new RenderTask(this);
-
-    connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
-
 
     m_background = new QGraphicsRectItem(this);
     m_background->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
@@ -104,11 +91,9 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_border->setZValue(0.0);
     m_border->setVisible(s_settings->pageItem().decoratePages());
 
-    m_background->setBrush(s_settings->pageItem().paperColor());
-
-
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
+    prepareBackground();
     prepareGeometry();
 }
 
@@ -116,11 +101,6 @@ PageItem::~PageItem()
 {
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
-
-    m_renderTask->cancel(true);
-    m_renderTask->wait();
-
-    s_cache.remove(this);
 
     qDeleteAll(m_links);
     qDeleteAll(m_annotations);
@@ -134,8 +114,6 @@ QRectF PageItem::boundingRect() const
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    // paintPage(painter, cachedPixmap());
-
     paintLinks(painter);
     paintFormFields(painter);
 
@@ -228,20 +206,7 @@ void PageItem::setInvertColors(bool invertColors)
 
         m_invertColors = invertColors;
 
-        foreach(TileItem* tile, m_tileItems)
-        {
-            tile->setInvertColors(invertColors);
-        }
-
-
-        QColor paperColor = s_settings->pageItem().paperColor();
-
-        if(m_invertColors)
-        {
-            paperColor.setRgb(~paperColor.rgb());
-        }
-
-        m_background->setBrush(paperColor);
+        prepareBackground();
     }
 }
 
@@ -253,20 +218,14 @@ void PageItem::refresh()
         tile->refresh();
     }
 
-    /*m_renderTask->cancel();
-
-    if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
+    /*if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
         m_obsoletePixmap = *s_cache.object(this);
         m_obsoleteTopLeft = m_boundingRect.topLeft();
         m_obsoleteTransform = m_transform.inverted();
-    }
+    }*/
 
-    m_pixmapError = false;
-    m_pixmap = QPixmap();
-    s_cache.remove(this);
-
-    update();*/
+    update();
 }
 
 void PageItem::startRender(bool prefetch)
@@ -275,18 +234,6 @@ void PageItem::startRender(bool prefetch)
     {
         tile->startRender(prefetch);
     }
-
-    /*if(prefetch && s_cache.contains(this))
-    {
-        return;
-    }
-
-    if(!m_pixmapError && !m_renderTask->isRunning())
-    {
-        m_renderTask->start(m_page,
-                            m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
-                            m_scaleFactor, m_rotation, m_invertColors, prefetch);
-    }*/
 }
 
 void PageItem::cancelRender()
@@ -295,49 +242,6 @@ void PageItem::cancelRender()
     {
         tile->cancelRender();
     }
-
-    /*m_renderTask->cancel();
-
-    m_pixmap = QPixmap();
-    m_obsoletePixmap = QPixmap();*/
-}
-
-void PageItem::on_renderTask_finished()
-{
-    update();
-}
-
-void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                         qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
-                                         QPixmap pixmap)
-{
-    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
-            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
-    {
-        return;
-    }
-
-    if(pixmap.isNull())
-    {
-        m_pixmapError = true;
-
-        return;
-    }
-
-    if(prefetch)
-    {
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(this, new QPixmap(pixmap), cost);
-    }
-    else
-    {
-        if(!m_renderTask->wasCanceled())
-        {
-            m_pixmap = pixmap;
-        }
-    }
-
-    m_obsoletePixmap = QPixmap();
 }
 
 void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
@@ -729,7 +633,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
         const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        const QImage image = s_cache.contains(this) ? s_cache.object(this)->copy(rect).toImage() : m_page->render(m_resolutionX * m_scaleFactor, m_scaleFactor * m_resolutionY, m_rotation, rect);
+        const QImage image = m_page->render(m_resolutionX * m_scaleFactor, m_scaleFactor * m_resolutionY, m_rotation, rect);
 
         if(!image.isNull())
         {
@@ -951,19 +855,6 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
     proxy->setGeometry(QRectF(x - proxyPadding, y - proxyPadding, width + proxyPadding, height + proxyPadding));
 }
 
-qreal PageItem::effectiveDevicePixelRatio()
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    return s_settings->pageItem().useDevicePixelRatio() ? m_devicePixelRatio : 1.0;
-
-#else
-
-    return 1.0;
-
-#endif // QT_VERSION
-}
-
 void PageItem::prepareGeometry()
 {
     m_transform.reset();
@@ -1017,6 +908,18 @@ void PageItem::prepareGeometry()
     updateFormFieldOverlay();
 }
 
+void PageItem::prepareBackground()
+{
+    QColor paperColor = s_settings->pageItem().paperColor();
+
+    if(m_invertColors)
+    {
+        paperColor.setRgb(~paperColor.rgb());
+    }
+
+    m_background->setBrush(paperColor);
+}
+
 void PageItem::prepareTiling()
 {
     const int tileSize = 1024;
@@ -1040,18 +943,12 @@ void PageItem::prepareTiling()
 
     for(int index = oldCount; index < newCount; ++index)
     {
-        m_tileItems[index] = new TileItem(m_page, this);
+        m_tileItems[index] = new TileItem(this);
     }
 
 
     foreach(TileItem* tile, m_tileItems)
     {
-        tile->setResolution(m_resolutionX, m_resolutionY);
-        tile->setDevicePixelRatio(m_devicePixelRatio);
-
-        tile->setScaleFactor(m_scaleFactor);
-        tile->setRotation(m_rotation);
-
         tile->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
         tile->setZValue(-0.5);
 
@@ -1071,94 +968,6 @@ void PageItem::prepareTiling()
 
             m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
         }
-    }
-}
-
-QPixmap PageItem::cachedPixmap()
-{
-    QPixmap pixmap;
-
-    if(s_cache.contains(this))
-    {
-        pixmap = *s_cache.object(this);
-    }
-    else
-    {
-        if(!m_pixmap.isNull())
-        {
-            pixmap = m_pixmap;
-            m_pixmap = QPixmap();
-
-            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(this, new QPixmap(pixmap), cost);
-        }
-        else
-        {
-            startRender();
-        }
-    }
-
-    return pixmap;
-}
-
-void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
-{
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
-    {
-        QColor paperColor = s_settings->pageItem().paperColor();
-
-        if(m_invertColors)
-        {
-            paperColor.setRgb(~paperColor.rgb());
-        }
-
-        painter->fillRect(m_boundingRect, QBrush(paperColor));
-    }
-
-    if(!pixmap.isNull())
-    {
-        // pixmap
-
-        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
-    }
-    else if(!m_obsoletePixmap.isNull())
-    {
-        // obsolete pixmap
-
-        painter->save();
-
-        painter->setTransform(m_obsoleteTransform, true);
-        painter->setTransform(m_transform, true);
-
-        painter->drawPixmap(m_obsoleteTopLeft, m_obsoletePixmap);
-
-        painter->restore();
-    }
-    else
-    {
-        if(!m_pixmapError)
-        {
-            // progress icon
-
-            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
-
-            s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
-        }
-        else
-        {
-            // error icon
-
-            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
-
-            s_settings->pageItem().errorIcon().paint(painter, rect.toRect());
-        }
-    }
-
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
-    {
-        painter->drawRect(m_boundingRect);
     }
 }
 

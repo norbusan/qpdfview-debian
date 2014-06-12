@@ -26,6 +26,25 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "model.h"
 #include "rendertask.h"
+#include "pageitem.h"
+
+namespace
+{
+
+qreal effectiveDevicePixelRatio(qpdfview::Settings* settings, qreal devicePixelRatio)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    return settings->pageItem().useDevicePixelRatio() ? devicePixelRatio : 1.0;
+
+#else
+
+    return 1.0;
+
+#endif // QT_VERSION
+}
+
+} // anonymous
 
 namespace qpdfview
 {
@@ -34,15 +53,8 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem*, QPixmap > TileItem::s_cache;
 
-TileItem::TileItem(Model::Page* page, QGraphicsItem* parent) : QGraphicsObject(parent),
-    m_page(page),
+TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_tile(),
-    m_resolutionX(72),
-    m_resolutionY(72),
-    m_devicePixelRatio(1.0),
-    m_scaleFactor(1.0),
-    m_rotation(RotateBy0),
-    m_invertColors(false),
     m_pixmapError(false),
     m_pixmap(),
     m_renderTask(0)
@@ -119,58 +131,6 @@ void TileItem::setTile(const QRectF& tile)
     }
 }
 
-void TileItem::setResolution(int resolutionX, int resolutionY)
-{
-    if((m_resolutionX != resolutionX || m_resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
-    {
-        refresh();
-
-        m_resolutionX = resolutionX;
-        m_resolutionY = resolutionY;
-    }
-}
-
-void TileItem::setDevicePixelRatio(qreal devicePixelRatio)
-{
-    if(!qFuzzyCompare(m_devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
-    {
-        refresh();
-
-        m_devicePixelRatio = devicePixelRatio;
-    }
-}
-
-void TileItem::setScaleFactor(qreal scaleFactor)
-{
-    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor > 0.0)
-    {
-        refresh();
-
-        m_scaleFactor = scaleFactor;
-    }
-}
-
-void TileItem::setRotation(Rotation rotation)
-{
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
-    {
-        refresh();
-
-        m_rotation = rotation;
-    }
-}
-
-void TileItem::setInvertColors(bool invertColors)
-{
-    if(m_invertColors != invertColors)
-    {
-        refresh();
-
-        m_invertColors = invertColors;
-    }
-}
-
-
 void TileItem::refresh()
 {
     m_renderTask->cancel();
@@ -191,9 +151,11 @@ void TileItem::startRender(bool prefetch)
 
     if(!m_pixmapError && !m_renderTask->isRunning())
     {
-        m_renderTask->start(m_page,
-                            m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
-                            m_scaleFactor, m_rotation, m_invertColors,
+        PageItem* parent = qobject_cast< PageItem* >(parentObject());
+
+        m_renderTask->start(parent->m_page,
+                            parent->m_resolutionX, parent->m_resolutionY, effectiveDevicePixelRatio(s_settings, parent->m_devicePixelRatio),
+                            parent->m_scaleFactor, parent->m_rotation, parent->m_invertColors,
                             m_tile.toRect(), prefetch);
     }
 }
@@ -215,8 +177,10 @@ void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
                                          const QRect& tile, bool prefetch,
                                          QPixmap pixmap)
 {
-    if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
-            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors
+    PageItem* parent = qobject_cast< PageItem* >(parentObject());
+
+    if(parent->m_resolutionX != resolutionX || parent->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parent->m_devicePixelRatio), devicePixelRatio)
+            || !qFuzzyCompare(parent->m_scaleFactor, scaleFactor) || parent->m_rotation != rotation || parent->m_invertColors != invertColors
             || m_tile != tile)
     {
         return;
@@ -241,19 +205,6 @@ void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
             m_pixmap = pixmap;
         }
     }
-}
-
-qreal TileItem::effectiveDevicePixelRatio()
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    return s_settings->pageItem().useDevicePixelRatio() ? m_devicePixelRatio : 1.0;
-
-#else
-
-    return 1.0;
-
-#endif // QT_VERSION
 }
 
 QPixmap TileItem::cachedPixmap()
