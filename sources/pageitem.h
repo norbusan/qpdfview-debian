@@ -238,6 +238,9 @@ private:
 
     RenderTask* m_renderTask;
 
+    QGraphicsRectItem* m_background;
+    QGraphicsRectItem* m_border;
+
     QVector< TileItem* > m_tileItems;
 
     // obsolete pixmap

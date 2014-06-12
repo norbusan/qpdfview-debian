@@ -72,6 +72,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_pixmapError(false),
     m_pixmap(),
     m_renderTask(0),
+    m_background(0),
+    m_border(0),
     m_tileItems(),
     m_obsoletePixmap(),
     m_obsoleteTransform()
@@ -85,10 +87,25 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     setAcceptHoverEvents(true);
 
+
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
+
+
+    m_background = new QGraphicsRectItem(this);
+    m_background->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
+    m_background->setZValue(-1.0);
+    m_background->setVisible(s_settings->pageItem().decoratePages());
+
+    m_border = new QGraphicsRectItem(this);
+    m_border->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
+    m_border->setZValue(0.0);
+    m_border->setVisible(s_settings->pageItem().decoratePages());
+
+    m_background->setBrush(s_settings->pageItem().paperColor());
+
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
@@ -100,7 +117,7 @@ PageItem::~PageItem()
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
-    m_renderTask->cancel();
+    m_renderTask->cancel(true);
     m_renderTask->wait();
 
     s_cache.remove(this);
@@ -215,6 +232,16 @@ void PageItem::setInvertColors(bool invertColors)
         {
             tile->setInvertColors(invertColors);
         }
+
+
+        QColor paperColor = s_settings->pageItem().paperColor();
+
+        if(m_invertColors)
+        {
+            paperColor.setRgb(~paperColor.rgb());
+        }
+
+        m_background->setBrush(paperColor);
     }
 }
 
@@ -981,6 +1008,9 @@ void PageItem::prepareGeometry()
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 
+    m_background->setRect(m_boundingRect);
+    m_border->setRect(m_boundingRect);
+
     prepareTiling();
 
     updateAnnotationOverlay();
@@ -1021,6 +1051,11 @@ void PageItem::prepareTiling()
 
         tile->setScaleFactor(m_scaleFactor);
         tile->setRotation(m_rotation);
+
+        tile->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
+        tile->setZValue(-0.5);
+
+        tile->setPos(m_boundingRect.topLeft());
     }
 
 
@@ -1028,11 +1063,11 @@ void PageItem::prepareTiling()
     {
         for(int row = 0; row < rowCount; ++row)
         {
-            const qreal left = m_boundingRect.left() + column * tileWidth;
-            const qreal top = m_boundingRect.top() + row * tileHeight;
+            const qreal left = column * tileWidth;
+            const qreal top = row * tileHeight;
 
-            const qreal width = column < (columnCount - 1) ? tileWidth : m_boundingRect.right() - left;
-            const qreal height = row < (rowCount - 1) ? tileHeight : m_boundingRect.bottom() - top;
+            const qreal width = column < (columnCount - 1) ? tileWidth : m_boundingRect.width() - left;
+            const qreal height = row < (rowCount - 1) ? tileHeight : m_boundingRect.height() - top;
 
             m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
         }

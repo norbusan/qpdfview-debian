@@ -62,7 +62,7 @@ TileItem::TileItem(Model::Page* page, QGraphicsItem* parent) : QGraphicsObject(p
 
 TileItem::~TileItem()
 {
-    m_renderTask->cancel();
+    m_renderTask->cancel(true);
     m_renderTask->wait();
 
     s_cache.remove(this);

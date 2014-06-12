@@ -48,6 +48,7 @@ public:
 
     bool isRunning() const;
     bool wasCanceled() const;
+    bool forceCancelleation() const;
 
     void run();
 
@@ -65,7 +66,7 @@ public slots:
                qreal scaleFactor, Rotation rotation, bool invertColors,
                const QRect& tile, bool prefetch);
 
-    void cancel();
+    void cancel(bool force = false);
 
 private:
     Q_DISABLE_COPY(RenderTask)
@@ -77,6 +78,7 @@ private:
 
     bool m_isRunning;
     bool m_wasCanceled;
+    bool m_forceCancellation;
 
     Model::Page* m_page;
 

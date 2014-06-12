@@ -31,6 +31,7 @@ namespace qpdfview
 RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(false),
+    m_forceCancellation(false),
     m_page(0),
     m_resolutionX(72),
     m_resolutionY(72),
@@ -66,9 +67,14 @@ bool RenderTask::wasCanceled() const
     return m_wasCanceled;
 }
 
+bool RenderTask::forceCancelleation() const
+{
+    return m_forceCancellation;
+}
+
 void RenderTask::run()
 {
-    if(m_wasCanceled && !m_prefetch)
+    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
     {
         finish();
 
@@ -105,7 +111,7 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_wasCanceled && !m_prefetch)
+    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
     {
         finish();
 
@@ -148,13 +154,15 @@ void RenderTask::start(Model::Page* page,
     m_mutex.unlock();
 
     m_wasCanceled = false;
+    m_forceCancellation = false;
 
     QThreadPool::globalInstance()->start(this);
 }
 
-void RenderTask::cancel()
+void RenderTask::cancel(bool force)
 {
     m_wasCanceled = true;
+    m_forceCancellation = force;
 }
 
 void RenderTask::finish()
