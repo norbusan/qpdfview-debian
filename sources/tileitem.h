@@ -44,7 +44,7 @@ class TileItem : public QGraphicsObject
     Q_OBJECT
 
 public:
-    TileItem(Model::Page* page, QRectF tile, QGraphicsItem* parent = 0);
+    TileItem(Model::Page* page, QGraphicsItem* parent = 0);
     ~TileItem();
 
     QRectF boundingRect() const;
@@ -78,7 +78,8 @@ public slots:
 protected slots:
     void on_renderTask_finished();
     void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                   qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                                   qreal scaleFactor, Rotation rotation, bool invertColors,
+                                   const QRect& tile, bool prefetch,
                                    QPixmap pixmap);
 
 private:

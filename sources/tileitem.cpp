@@ -34,9 +34,9 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem*, QPixmap > TileItem::s_cache;
 
-TileItem::TileItem(Model::Page* page, QRectF tile, QGraphicsItem* parent) : QGraphicsObject(parent),
+TileItem::TileItem(Model::Page* page, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
-    m_tile(tile),
+    m_tile(),
     m_resolutionX(72),
     m_resolutionY(72),
     m_devicePixelRatio(1.0),
@@ -57,7 +57,7 @@ TileItem::TileItem(Model::Page* page, QRectF tile, QGraphicsItem* parent) : QGra
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
+    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QPixmap)));
 }
 
 TileItem::~TileItem()
@@ -193,7 +193,8 @@ void TileItem::startRender(bool prefetch)
     {
         m_renderTask->start(m_page,
                             m_resolutionX, m_resolutionY, effectiveDevicePixelRatio(),
-                            m_scaleFactor, m_rotation, m_invertColors, prefetch);
+                            m_scaleFactor, m_rotation, m_invertColors,
+                            m_tile.toRect(), prefetch);
     }
 }
 
@@ -210,11 +211,13 @@ void TileItem::on_renderTask_finished()
 }
 
 void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                         qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                                         qreal scaleFactor, Rotation rotation, bool invertColors,
+                                         const QRect& tile, bool prefetch,
                                          QPixmap pixmap)
 {
     if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
-            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
+            || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors
+            || m_tile != tile)
     {
         return;
     }

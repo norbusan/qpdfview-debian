@@ -234,10 +234,11 @@ private:
     QPixmap m_pixmap;
 
     void prepareGeometry();
+    void prepareTiling();
 
     RenderTask* m_renderTask;
 
-    TileItem* m_tileItem;
+    QVector< TileItem* > m_tileItems;
 
     // obsolete pixmap
 

@@ -72,6 +72,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_pixmapError(false),
     m_pixmap(),
     m_renderTask(0),
+    m_tileItems(),
     m_obsoletePixmap(),
     m_obsoleteTransform()
 {
@@ -88,8 +89,6 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
-
-    m_tileItem = new TileItem(page, QRectF(), this);
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
@@ -160,8 +159,6 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
         m_resolutionX = resolutionX;
         m_resolutionY = resolutionY;
 
-        m_tileItem->setResolution(m_resolutionX, m_resolutionY);
-
         prepareGeometryChange();
         prepareGeometry();
     }
@@ -174,8 +171,6 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
         refresh();
 
         m_devicePixelRatio = devicePixelRatio;
-
-        m_tileItem->setDevicePixelRatio(m_devicePixelRatio);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -190,8 +185,6 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 
         m_scaleFactor = scaleFactor;
 
-        m_tileItem->setScaleFactor(m_scaleFactor);
-
         prepareGeometryChange();
         prepareGeometry();
     }
@@ -204,8 +197,6 @@ void PageItem::setRotation(Rotation rotation)
         refresh();
 
         m_rotation = rotation;
-
-        m_tileItem->setRotation(m_rotation);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -220,14 +211,20 @@ void PageItem::setInvertColors(bool invertColors)
 
         m_invertColors = invertColors;
 
-        m_tileItem->setInvertColors(m_invertColors);
+        foreach(TileItem* tile, m_tileItems)
+        {
+            tile->setInvertColors(invertColors);
+        }
     }
 }
 
 
 void PageItem::refresh()
 {
-    m_tileItem->refresh();
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->refresh();
+    }
 
     /*m_renderTask->cancel();
 
@@ -247,7 +244,10 @@ void PageItem::refresh()
 
 void PageItem::startRender(bool prefetch)
 {
-    m_tileItem->startRender(prefetch);
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->startRender(prefetch);
+    }
 
     /*if(prefetch && s_cache.contains(this))
     {
@@ -264,7 +264,10 @@ void PageItem::startRender(bool prefetch)
 
 void PageItem::cancelRender()
 {
-    m_tileItem->cancelRender();
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->cancelRender();
+    }
 
     /*m_renderTask->cancel();
 
@@ -978,10 +981,62 @@ void PageItem::prepareGeometry()
     m_boundingRect.setWidth(qRound(m_boundingRect.width()));
     m_boundingRect.setHeight(qRound(m_boundingRect.height()));
 
-    m_tileItem->setTile(m_boundingRect);
+    prepareTiling();
 
     updateAnnotationOverlay();
     updateFormFieldOverlay();
+}
+
+void PageItem::prepareTiling()
+{
+    const int tileSize = 1024;
+
+    const int columnCount = qCeil(m_boundingRect.width() / tileSize);
+    const int rowCount = qCeil(m_boundingRect.height() / tileSize);
+
+    const int tileWidth = qCeil(m_boundingRect.width() / columnCount);
+    const int tileHeight = qCeil(m_boundingRect.height() / rowCount);
+
+
+    const int newCount = columnCount * rowCount;
+    const int oldCount = m_tileItems.count();
+
+    for(int index = newCount; index < oldCount; ++index)
+    {
+        delete m_tileItems[index];
+    }
+
+    m_tileItems.resize(newCount);
+
+    for(int index = oldCount; index < newCount; ++index)
+    {
+        m_tileItems[index] = new TileItem(m_page, this);
+    }
+
+
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->setResolution(m_resolutionX, m_resolutionY);
+        tile->setDevicePixelRatio(m_devicePixelRatio);
+
+        tile->setScaleFactor(m_scaleFactor);
+        tile->setRotation(m_rotation);
+    }
+
+
+    for(int column = 0; column < columnCount; ++column)
+    {
+        for(int row = 0; row < rowCount; ++row)
+        {
+            const qreal left = m_boundingRect.left() + column * tileWidth;
+            const qreal top = m_boundingRect.top() + row * tileHeight;
+
+            const qreal width = column < (columnCount - 1) ? tileWidth : m_boundingRect.right() - left;
+            const qreal height = row < (rowCount - 1) ? tileHeight : m_boundingRect.bottom() - top;
+
+            m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
+        }
+    }
 }
 
 QPixmap PageItem::cachedPixmap()

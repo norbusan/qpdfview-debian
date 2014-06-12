@@ -38,6 +38,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
+    m_tile(),
     m_prefetch(false)
 {
     setAutoDelete(false);
@@ -94,13 +95,13 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation);
+    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation, m_tile);
 
     image.setDevicePixelRatio(m_devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(resolutionX, resolutionY, m_rotation);
+    QImage image = m_page->render(resolutionX, resolutionY, m_rotation, m_tile);
 
 #endif // QT_VERSION
 
@@ -116,14 +117,18 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit pixmapReady(m_resolutionX, m_resolutionY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, QPixmap::fromImage(image));
+    emit pixmapReady(m_resolutionX, m_resolutionY, m_devicePixelRatio,
+                     m_scaleFactor, m_rotation, m_invertColors,
+                     m_tile, m_prefetch,
+                     QPixmap::fromImage(image));
 
     finish();
 }
 
 void RenderTask::start(Model::Page* page,
                        int resolutionX, int resolutionY, qreal devicePixelRatio,
-                       qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+                       qreal scaleFactor, Rotation rotation, bool invertColors,
+                       const QRect& tile, bool prefetch)
 {
     m_page = page;
 
@@ -133,9 +138,9 @@ void RenderTask::start(Model::Page* page,
 
     m_scaleFactor = scaleFactor;
     m_rotation = rotation;
-
     m_invertColors = invertColors;
 
+    m_tile = tile;
     m_prefetch = prefetch;
 
     m_mutex.lock();

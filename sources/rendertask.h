@@ -55,13 +55,15 @@ signals:
     void finished();
 
     void pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                     qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                     qreal scaleFactor, Rotation rotation, bool invertColors,
+                     const QRect& tile, bool prefetch,
                      QPixmap pixmap);
 
 public slots:
     void start(Model::Page* page,
                int resolutionX, int resolutionY, qreal devicePixelRatio,
-               qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+               qreal scaleFactor, Rotation rotation, bool invertColors,
+               const QRect& tile, bool prefetch);
 
     void cancel();
 
@@ -86,6 +88,7 @@ private:
     Rotation m_rotation;
     bool m_invertColors;
 
+    QRect m_tile;
     bool m_prefetch;
 
 };
