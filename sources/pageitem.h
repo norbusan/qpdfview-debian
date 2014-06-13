@@ -26,12 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGraphicsObject>
 #include <QIcon>
 
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
-
-#include <QStaticText>
-
-#endif // QT_VERSION
-
 class QGraphicsProxyWidget;
 
 #include "global.h"
@@ -247,47 +241,6 @@ private:
 
     void paintHighlights(QPainter* painter) const;
     void paintRubberBand(QPainter* painter) const;
-
-};
-
-class ThumbnailItem : public PageItem
-{
-    Q_OBJECT
-
-public:
-    ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
-
-    QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-
-    inline bool isCurrent() const { return m_current; }
-    void setCurrent(bool current);
-
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent*);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
-
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
-
-private slots:
-    void loadInteractiveElements();
-
-private:
-    Q_DISABLE_COPY(ThumbnailItem)
-
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
-
-    QStaticText m_text;
-
-#else
-
-    QString m_text;
-
-#endif // QT_VERSION
-
-    bool m_current;
 
 };
 

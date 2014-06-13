@@ -40,6 +40,9 @@ qreal effectiveDevicePixelRatio(qpdfview::Settings* settings, qreal devicePixelR
 
 #else
 
+    Q_UNUSED(settings);
+    Q_UNUSED(devicePixelRatio);
+
     return 1.0;
 
 #endif // QT_VERSION

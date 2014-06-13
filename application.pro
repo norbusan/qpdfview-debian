@@ -16,6 +16,7 @@ HEADERS += \
     sources/rendertask.h \
     sources/tileitem.h \
     sources/pageitem.h \
+    sources/thumbnailitem.h \
     sources/presentationview.h \
     sources/searchtask.h \
     sources/miscellaneous.h \
@@ -38,6 +39,7 @@ SOURCES += \
     sources/rendertask.cpp \
     sources/tileitem.cpp \
     sources/pageitem.cpp \
+    sources/thumbnailitem.cpp \
     sources/presentationview.cpp \
     sources/searchtask.cpp \
     sources/miscellaneous.cpp \

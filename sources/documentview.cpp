@@ -59,6 +59,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pluginhandler.h"
 #include "shortcuthandler.h"
 #include "pageitem.h"
+#include "thumbnailitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
 #include "miscellaneous.h"
