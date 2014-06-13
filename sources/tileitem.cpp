@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "tileitem.h"
 
 #include <QPainter>
+#include <QTimer>
 
 #include "settings.h"
 #include "model.h"
@@ -162,6 +163,20 @@ void TileItem::cancelRender()
     m_renderTask->cancel();
 
     m_pixmap = QPixmap();
+}
+
+void TileItem::deleteAfterRender()
+{
+    if(!m_renderTask->isRunning())
+    {
+        delete this;
+    }
+    else
+    {
+        setVisible(false);
+
+        QTimer::singleShot(0, this, SLOT(deleteAfterRender()));
+    }
 }
 
 void TileItem::on_renderTask_finished()

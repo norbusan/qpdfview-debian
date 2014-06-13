@@ -53,7 +53,9 @@ signals:
     void resultsReady(int index, QList< QRectF > results);
 
 public slots:
-    void start(const QVector< Model::Page* >& pages, const QString& text, bool matchCase, int beginAtPage = 1);
+    void start(const QVector< Model::Page* >& pages,
+               const QString& text, bool matchCase, int beginAtPage = 1);
+
     void cancel();
 
 private:

@@ -59,6 +59,8 @@ public slots:
     void startRender(bool prefetch = false);
     void cancelRender();
 
+    void deleteAfterRender();
+
 protected slots:
     void on_renderTask_finished();
     void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,

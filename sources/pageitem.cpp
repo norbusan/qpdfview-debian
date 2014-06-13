@@ -936,7 +936,7 @@ void PageItem::prepareTiling()
 
     for(int index = newCount; index < oldCount; ++index)
     {
-        delete m_tileItems[index];
+        m_tileItems[index]->deleteAfterRender();
     }
 
     m_tileItems.resize(newCount);
