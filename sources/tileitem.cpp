@@ -70,7 +70,7 @@ TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QPixmap)));
+    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QImage)));
 }
 
 TileItem::~TileItem()
@@ -184,10 +184,10 @@ void TileItem::on_renderTask_finished()
     update();
 }
 
-void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                         qreal scaleFactor, Rotation rotation, bool invertColors,
-                                         const QRect& tile, bool prefetch,
-                                         QPixmap pixmap)
+void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                                        qreal scaleFactor, Rotation rotation, bool invertColors,
+                                        const QRect& tile, bool prefetch,
+                                        QImage image)
 {
     PageItem* parent = qobject_cast< PageItem* >(parentObject());
 
@@ -198,7 +198,7 @@ void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
         return;
     }
 
-    if(pixmap.isNull())
+    if(image.isNull())
     {
         m_pixmapError = true;
 
@@ -207,12 +207,12 @@ void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
 
     if(prefetch && !m_renderTask->forceCancelleation())
     {
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(this, new QPixmap(pixmap), cost);
+        int cost = image.width() * image.height() * image.depth() / 8;
+        s_cache.insert(this, new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
-        m_pixmap = pixmap;
+        m_pixmap = QPixmap::fromImage(image);
     }
 }
 

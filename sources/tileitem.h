@@ -63,10 +63,10 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                   qreal scaleFactor, Rotation rotation, bool invertColors,
-                                   const QRect& tile, bool prefetch,
-                                   QPixmap pixmap);
+    void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                                  qreal scaleFactor, Rotation rotation, bool invertColors,
+                                  const QRect& tile, bool prefetch,
+                                  QImage image);
 
 private:
     Q_DISABLE_COPY(TileItem)
