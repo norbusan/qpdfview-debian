@@ -22,8 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RENDERTASK_H
 #define RENDERTASK_H
 
-#include <QImage>
 #include <QMutex>
+#include <QPixmap>
 #include <QRunnable>
 #include <QWaitCondition>
 
@@ -54,10 +54,15 @@ public:
 signals:
     void finished();
 
-    void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch, QImage image);
+    void pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+                     qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                     QPixmap pixmap);
 
 public slots:
-    void start(Model::Page* page, int resolutionX, int resolutionY, qreal devicePixelRatio, qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+    void start(Model::Page* page,
+               int resolutionX, int resolutionY, qreal devicePixelRatio,
+               qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+
     void cancel();
 
 private:
@@ -79,7 +84,6 @@ private:
 
     qreal m_scaleFactor;
     Rotation m_rotation;
-
     bool m_invertColors;
 
     bool m_prefetch;
