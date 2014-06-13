@@ -925,11 +925,17 @@ void PageItem::prepareTiling()
     const int tileSize = s_settings->pageItem().tileSize();
     const int tileOverlap = s_settings->pageItem().tileOverlap();
 
-    const int columnCount = qCeil(m_boundingRect.width() / tileSize);
-    const int rowCount = qCeil(m_boundingRect.height() / tileSize);
+    const qreal pageWidth = m_boundingRect.width();
+    const qreal pageHeight = m_boundingRect.height();
 
-    const int tileWidth = qCeil(m_boundingRect.width() / columnCount);
-    const int tileHeight = qCeil(m_boundingRect.height() / rowCount);
+    int tileWidth = pageWidth < pageHeight ? tileSize * pageWidth / pageHeight : tileSize;
+    int tileHeight = pageHeight < pageWidth ? tileSize * pageHeight / pageWidth : tileSize;
+
+    const int columnCount = qCeil(pageWidth / tileWidth);
+    const int rowCount = qCeil(pageHeight / tileHeight);
+
+    tileWidth = qCeil(pageWidth / columnCount);
+    tileHeight = qCeil(pageHeight / rowCount);
 
 
     const int newCount = columnCount * rowCount;
@@ -964,8 +970,8 @@ void PageItem::prepareTiling()
             const qreal left = column > 0 ? column * tileWidth - tileOverlap : 0.0;
             const qreal top = row > 0 ? row * tileHeight - tileOverlap : 0.0;
 
-            const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : m_boundingRect.width() - left;
-            const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : m_boundingRect.height() - top;
+            const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : pageWidth - left;
+            const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : pageHeight - top;
 
             m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
         }

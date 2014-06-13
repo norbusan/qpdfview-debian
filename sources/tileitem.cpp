@@ -117,7 +117,6 @@ void TileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
             s_settings->pageItem().errorIcon().paint(painter, rect.toRect());
         }
     }
-
 }
 
 void TileItem::setTile(const QRectF& tile)
