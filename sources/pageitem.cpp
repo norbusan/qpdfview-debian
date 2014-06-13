@@ -923,6 +923,7 @@ void PageItem::prepareBackground()
 void PageItem::prepareTiling()
 {
     const int tileSize = s_settings->pageItem().tileSize();
+    const int tileOverlap = s_settings->pageItem().tileOverlap();
 
     const int columnCount = qCeil(m_boundingRect.width() / tileSize);
     const int rowCount = qCeil(m_boundingRect.height() / tileSize);
@@ -960,11 +961,11 @@ void PageItem::prepareTiling()
     {
         for(int row = 0; row < rowCount; ++row)
         {
-            const qreal left = column * tileWidth;
-            const qreal top = row * tileHeight;
+            const qreal left = column > 0 ? column * tileWidth - tileOverlap : 0.0;
+            const qreal top = row > 0 ? row * tileHeight - tileOverlap : 0.0;
 
-            const qreal width = column < (columnCount - 1) ? tileWidth : m_boundingRect.width() - left;
-            const qreal height = row < (rowCount - 1) ? tileHeight : m_boundingRect.height() - top;
+            const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : m_boundingRect.width() - left;
+            const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : m_boundingRect.height() - top;
 
             m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
         }

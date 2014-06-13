@@ -56,6 +56,7 @@ public:
         void setCacheSize(int cacheSize);
 
         inline int tileSize() const { return m_tileSize; }
+        inline int tileOverlap() const { return m_tileOverlap; }
 
         inline const QIcon& progressIcon() const { return m_progressIcon; }
         inline const QIcon& errorIcon() const { return m_errorIcon; }
@@ -106,7 +107,9 @@ public:
         QSettings* m_settings;
 
         int m_cacheSize;
+
         int m_tileSize;
+        int m_tileOverlap;
 
         QIcon m_progressIcon;
         QIcon m_errorIcon;
@@ -432,7 +435,9 @@ public:
     {
     public:
         static inline int cacheSize() { return 32 * 1024 * 1024; }
+
         static inline int tileSize() { return 1024; }
+        static inline int tileOverlap() { return 8; }
 
         static inline bool keepObsoletePixmaps() { return false; }
         static inline bool useDevicePixelRatio() { return false; }

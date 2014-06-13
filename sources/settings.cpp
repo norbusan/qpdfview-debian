@@ -79,7 +79,9 @@ Settings::~Settings()
 void Settings::PageItem::sync()
 {
     m_cacheSize = m_settings->value("pageItem/cacheSize", Defaults::PageItem::cacheSize()).toInt();
+
     m_tileSize = m_settings->value("pageItem/tileSize", Defaults::PageItem::tileSize()).toInt();
+    m_tileOverlap = m_settings->value("pageItem/tileOverlap", Defaults::PageItem::tileOverlap()).toInt();
 
     m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
