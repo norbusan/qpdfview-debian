@@ -72,6 +72,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_pixmap(),
     m_renderTask(0),
     m_obsoletePixmap(),
+    m_obsoleteTopLeft(),
     m_obsoleteTransform()
 {
     if(s_settings == 0)
@@ -101,7 +102,7 @@ PageItem::~PageItem()
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
-    m_renderTask->cancel();
+    m_renderTask->cancel(true);
     m_renderTask->wait();
 
     s_cache.remove(this);
@@ -278,17 +279,14 @@ void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
         return;
     }
 
-    if(prefetch)
+    if(prefetch && !m_renderTask->forceCancellation())
     {
         int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
         s_cache.insert(this, new QPixmap(pixmap), cost);
     }
-    else
+    else if(!m_renderTask->wasCanceled())
     {
-        if(!m_renderTask->wasCanceled())
-        {
-            m_pixmap = pixmap;
-        }
+        m_pixmap = pixmap;
     }
 
     m_obsoletePixmap = QPixmap();
@@ -1028,21 +1026,18 @@ void PageItem::paintPage(QPainter* painter, const QPixmap& pixmap) const
     }
     else
     {
+        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
+
         if(!m_pixmapError)
         {
             // progress icon
-
-            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
             s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
         }
         else
         {
             // error icon
-
-            const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
-            const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
             s_settings->pageItem().errorIcon().paint(painter, rect.toRect());
         }
