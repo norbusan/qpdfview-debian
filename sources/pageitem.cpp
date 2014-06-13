@@ -87,7 +87,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)), SLOT(on_renderTask_pixmapReady(int,int,qreal,qreal,Rotation,bool,bool,QPixmap)));
+    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,bool,QImage)));
 
     m_page = page;
     m_size = m_page->size();
@@ -262,9 +262,9 @@ void PageItem::on_renderTask_finished()
     update();
 }
 
-void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
                                          qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
-                                         QPixmap pixmap)
+                                         QImage image)
 {
     if(m_resolutionX != resolutionX || m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(), devicePixelRatio)
             || !qFuzzyCompare(m_scaleFactor, scaleFactor) || m_rotation != rotation || m_invertColors != invertColors)
@@ -272,7 +272,7 @@ void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
         return;
     }
 
-    if(pixmap.isNull())
+    if(image.isNull())
     {
         m_pixmapError = true;
 
@@ -281,12 +281,12 @@ void PageItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
 
     if(prefetch && !m_renderTask->forceCancellation())
     {
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(this, new QPixmap(pixmap), cost);
+        int cost = image.width() * image.height() * image.depth() / 8;
+        s_cache.insert(this, new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
-        m_pixmap = pixmap;
+        m_pixmap = QPixmap::fromImage(image);
     }
 
     m_obsoletePixmap = QPixmap();
