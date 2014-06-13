@@ -97,21 +97,18 @@ void TileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     }
     else
     {
+        const qreal extent = qMin(0.1 * m_tile.width(), 0.1 * m_tile.height());
+        const QRectF rect(m_tile.left() + 0.01 * m_tile.width(), m_tile.top() + 0.01 * m_tile.height(), extent, extent);
+
         if(!m_pixmapError)
         {
             // progress icon
-
-            const qreal extent = qMin(0.1 * m_tile.width(), 0.1 * m_tile.height());
-            const QRectF rect(m_tile.left() + 0.01 * m_tile.width(), m_tile.top() + 0.01 * m_tile.height(), extent, extent);
 
             s_settings->pageItem().progressIcon().paint(painter, rect.toRect());
         }
         else
         {
             // error icon
-
-            const qreal extent = qMin(0.1 * m_tile.width(), 0.1 * m_tile.height());
-            const QRectF rect(m_tile.left() + 0.01 * m_tile.width(), m_tile.top() + 0.01 * m_tile.height(), extent, extent);
 
             s_settings->pageItem().errorIcon().paint(painter, rect.toRect());
         }
@@ -193,17 +190,14 @@ void TileItem::on_renderTask_pixmapReady(int resolutionX, int resolutionY, qreal
         return;
     }
 
-    if(prefetch)
+    if(prefetch && !m_renderTask->forceCancelleation())
     {
         int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
         s_cache.insert(this, new QPixmap(pixmap), cost);
     }
-    else
+    else if(!m_renderTask->wasCanceled())
     {
-        if(!m_renderTask->wasCanceled())
-        {
-            m_pixmap = pixmap;
-        }
+        m_pixmap = pixmap;
     }
 }
 
