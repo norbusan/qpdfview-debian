@@ -155,7 +155,7 @@ void TileItem::refresh(bool canKeepObsoletePixmaps)
         m_obsoletePixmap = QPixmap();
     }
 
-    m_renderTask->cancel();
+    m_renderTask->cancel(true);
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
