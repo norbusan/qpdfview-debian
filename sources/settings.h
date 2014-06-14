@@ -55,6 +55,9 @@ public:
         inline int cacheSize() const { return m_cacheSize; }
         void setCacheSize(int cacheSize);
 
+        inline bool useTiling() const { return m_useTiling; }
+        void setUseTiling(bool useTiling);
+
         inline int tileSize() const { return m_tileSize; }
         inline int tileOverlap() const { return m_tileOverlap; }
 
@@ -107,6 +110,8 @@ public:
         QSettings* m_settings;
 
         int m_cacheSize;
+
+        bool m_useTiling;
 
         int m_tileSize;
         int m_tileOverlap;
@@ -435,6 +440,8 @@ public:
     {
     public:
         static inline int cacheSize() { return 32 * 1024 * 1024; }
+
+        static inline bool useTiling() { return false; }
 
         static inline int tileSize() { return 1024; }
         static inline int tileOverlap() { return 8; }

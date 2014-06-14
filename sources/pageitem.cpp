@@ -91,6 +91,19 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_border->setZValue(0.0);
     m_border->setVisible(s_settings->pageItem().decoratePages());
 
+    if(!s_settings->pageItem().useTiling())
+    {
+        TileItem* tile = new TileItem(this);
+
+        tile->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
+        tile->setZValue(-0.5);
+
+        m_tileItems.resize(1);
+        m_tileItems.squeeze();
+
+        m_tileItems[0]= tile;
+    }
+
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
 
     prepareBackground();
@@ -922,6 +935,16 @@ void PageItem::prepareBackground()
 
 void PageItem::prepareTiling()
 {
+    if(!s_settings->pageItem().useTiling())
+    {
+        TileItem* tile = m_tileItems[0];
+
+        tile->setPos(m_boundingRect.topLeft());
+        tile->setTile(m_boundingRect);
+
+        return;
+    }
+
     const int tileSize = s_settings->pageItem().tileSize();
     const int tileOverlap = s_settings->pageItem().tileOverlap();
 
