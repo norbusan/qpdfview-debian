@@ -272,6 +272,8 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
         return;
     }
 
+    m_obsoletePixmap = QPixmap();
+
     if(image.isNull())
     {
         m_pixmapError = true;
@@ -288,8 +290,6 @@ void PageItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     {
         m_pixmap = QPixmap::fromImage(image);
     }
-
-    m_obsoletePixmap = QPixmap();
 }
 
 void PageItem::showAnnotationOverlay(Model::Annotation* selectedAnnotation)
