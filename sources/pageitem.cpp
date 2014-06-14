@@ -925,21 +925,21 @@ void PageItem::prepareBackground()
 
 void PageItem::prepareTiling()
 {
+    const qreal pageWidth = m_boundingRect.width();
+    const qreal pageHeight = m_boundingRect.height();
+
     if(!s_settings->pageItem().useTiling())
     {
         TileItem* tile = m_tileItems[0];
 
         tile->setPos(m_boundingRect.topLeft());
-        tile->setBoundingRect(m_boundingRect);
+        tile->setBoundingRect(QRectF(0.0, 0.0, pageWidth, pageHeight));
 
         return;
     }
 
     const int tileSize = s_settings->pageItem().tileSize();
     const int tileOverlap = s_settings->pageItem().tileOverlap();
-
-    const qreal pageWidth = m_boundingRect.width();
-    const qreal pageHeight = m_boundingRect.height();
 
     int tileWidth = pageWidth < pageHeight ? tileSize * pageWidth / pageHeight : tileSize;
     int tileHeight = pageHeight < pageWidth ? tileSize * pageHeight / pageWidth : tileSize;
