@@ -32,7 +32,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
-qreal effectiveDevicePixelRatio(qpdfview::Settings* settings, qreal devicePixelRatio)
+using namespace qpdfview;
+
+qreal effectiveDevicePixelRatio(Settings* settings, qreal devicePixelRatio)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
