@@ -925,15 +925,15 @@ void PageItem::prepareBackground()
 
 void PageItem::prepareTiling()
 {
+    const qreal pageLeft = m_boundingRect.left();
+    const qreal pageTop = m_boundingRect.top();
+
     const qreal pageWidth = m_boundingRect.width();
     const qreal pageHeight = m_boundingRect.height();
 
     if(!s_settings->pageItem().useTiling())
     {
-        TileItem* tile = m_tileItems[0];
-
-        tile->setPos(m_boundingRect.topLeft());
-        tile->setBoundingRect(QRectF(0.0, 0.0, pageWidth, pageHeight));
+        m_tileItems[0]->setBoundingRect(m_boundingRect);
 
         return;
     }
@@ -972,8 +972,6 @@ void PageItem::prepareTiling()
         tile->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
         tile->setZValue(-0.5);
 
-        tile->setPos(m_boundingRect.topLeft());
-
         if(oldCount != newCount)
         {
             tile->dropObsoletePixmaps();
@@ -991,7 +989,10 @@ void PageItem::prepareTiling()
             const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : pageWidth - left;
             const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : pageHeight - top;
 
-            m_tileItems[column * rowCount + row]->setBoundingRect(QRectF(left, top, width, height));
+            TileItem* tile = m_tileItems[column * rowCount + row];
+
+            tile->setTile(QRect(left, top, width, height));
+            tile->setBoundingRect(QRectF(pageLeft + left, pageTop + top, width, height));
         }
     }
 }

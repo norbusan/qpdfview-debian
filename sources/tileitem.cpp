@@ -60,6 +60,7 @@ Settings* TileItem::s_settings = 0;
 QCache< TileItem*, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
+    m_tile(),
     m_boundingRect(),
     m_pixmapError(false),
     m_pixmap(),
@@ -177,7 +178,7 @@ void TileItem::startRender(bool prefetch)
         m_renderTask->start(parentPage->m_page,
                             parentPage->m_resolutionX, parentPage->m_resolutionY, effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio),
                             parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors,
-                            m_boundingRect.toRect(), prefetch);
+                            m_tile, prefetch);
     }
 }
 
@@ -217,7 +218,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
 
     if(parentPage->m_resolutionX != resolutionX || parentPage->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio), devicePixelRatio)
             || !qFuzzyCompare(parentPage->m_scaleFactor, scaleFactor) || parentPage->m_rotation != rotation || parentPage->m_invertColors != invertColors
-            || m_boundingRect != tile)
+            || m_tile != tile)
     {
         return;
     }

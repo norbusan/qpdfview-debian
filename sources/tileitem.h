@@ -47,6 +47,9 @@ public:
     TileItem(QGraphicsItem* parent = 0);
     ~TileItem();
 
+    inline QRect tile() const { return m_tile; }
+    inline void setTile(const QRect& tile) { m_tile = tile; }
+
     QRectF boundingRect() const;
     void setBoundingRect(const QRectF& boundingRect);
 
@@ -76,6 +79,7 @@ private:
 
     static QCache< TileItem*, QPixmap > s_cache;
 
+    QRect m_tile;
     QRectF m_boundingRect;
 
     bool m_pixmapError;
