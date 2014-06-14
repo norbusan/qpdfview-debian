@@ -60,9 +60,10 @@ Settings* TileItem::s_settings = 0;
 QCache< TileItem*, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
-    m_tile(),
+    m_boundingRect(),
     m_pixmapError(false),
     m_pixmap(),
+    m_obsoletePixmap(),
     m_renderTask(0)
 {
     if(s_settings == 0)
@@ -88,23 +89,36 @@ TileItem::~TileItem()
 
 QRectF TileItem::boundingRect() const
 {
-    return m_tile;
+    return m_boundingRect;
+}
+
+void TileItem::setBoundingRect(const QRectF& boundingRect)
+{
+    prepareGeometryChange();
+
+    m_boundingRect = boundingRect;
 }
 
 void TileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    const QPixmap& pixmap = cachedPixmap();
+    const QPixmap& pixmap = takePixmap();
 
     if(!pixmap.isNull())
     {
         // pixmap
 
-        painter->drawPixmap(m_tile.topLeft(), pixmap);
+        painter->drawPixmap(m_boundingRect.topLeft(), pixmap);
+    }
+    else if(!m_obsoletePixmap.isNull())
+    {
+        // obsolete pixmap
+
+        painter->drawPixmap(m_boundingRect, m_obsoletePixmap, QRectF());
     }
     else
     {
-        const qreal extent = qMin(0.1 * m_tile.width(), 0.1 * m_tile.height());
-        const QRectF rect(m_tile.left() + 0.01 * m_tile.width(), m_tile.top() + 0.01 * m_tile.height(), extent, extent);
+        const qreal extent = qMin(0.1 * m_boundingRect.width(), 0.1 * m_boundingRect.height());
+        const QRectF rect(m_boundingRect.left() + 0.01 * m_boundingRect.width(), m_boundingRect.top() + 0.01 * m_boundingRect.height(), extent, extent);
 
         if(!m_pixmapError)
         {
@@ -121,20 +135,25 @@ void TileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
     }
 }
 
-void TileItem::setTile(const QRectF& tile)
+void TileItem::dropObsoletePixmaps()
 {
-    if(m_tile != tile)
-    {
-        refresh();
-
-        prepareGeometryChange();
-
-        m_tile = tile;
-    }
+    m_obsoletePixmap = QPixmap();
 }
 
-void TileItem::refresh()
+void TileItem::refresh(bool canKeepObsoletePixmaps)
 {
+    if(canKeepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
+    {
+        if(s_cache.contains(this))
+        {
+            m_obsoletePixmap = *s_cache.object(this);
+        }
+    }
+    else
+    {
+        m_obsoletePixmap = QPixmap();
+    }
+
     m_renderTask->cancel();
 
     m_pixmapError = false;
@@ -153,12 +172,12 @@ void TileItem::startRender(bool prefetch)
 
     if(!m_pixmapError && !m_renderTask->isRunning())
     {
-        PageItem* parent = qobject_cast< PageItem* >(parentObject());
+        PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-        m_renderTask->start(parent->m_page,
-                            parent->m_resolutionX, parent->m_resolutionY, effectiveDevicePixelRatio(s_settings, parent->m_devicePixelRatio),
-                            parent->m_scaleFactor, parent->m_rotation, parent->m_invertColors,
-                            m_tile.toRect(), prefetch);
+        m_renderTask->start(parentPage->m_page,
+                            parentPage->m_resolutionX, parentPage->m_resolutionY, effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio),
+                            parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors,
+                            m_boundingRect.toRect(), prefetch);
     }
 }
 
@@ -167,6 +186,7 @@ void TileItem::cancelRender()
     m_renderTask->cancel();
 
     m_pixmap = QPixmap();
+    m_obsoletePixmap = QPixmap();
 }
 
 void TileItem::deleteAfterRender()
@@ -193,14 +213,16 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
                                         const QRect& tile, bool prefetch,
                                         QImage image)
 {
-    PageItem* parent = qobject_cast< PageItem* >(parentObject());
+    PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-    if(parent->m_resolutionX != resolutionX || parent->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parent->m_devicePixelRatio), devicePixelRatio)
-            || !qFuzzyCompare(parent->m_scaleFactor, scaleFactor) || parent->m_rotation != rotation || parent->m_invertColors != invertColors
-            || m_tile != tile)
+    if(parentPage->m_resolutionX != resolutionX || parentPage->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio), devicePixelRatio)
+            || !qFuzzyCompare(parentPage->m_scaleFactor, scaleFactor) || parentPage->m_rotation != rotation || parentPage->m_invertColors != invertColors
+            || m_boundingRect != tile)
     {
         return;
     }
+
+    m_obsoletePixmap = QPixmap();
 
     if(image.isNull())
     {
@@ -220,7 +242,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     }
 }
 
-QPixmap TileItem::cachedPixmap()
+QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 

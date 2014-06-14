@@ -105,7 +105,7 @@ signals:
     void wasModified();
 
 public slots:
-    void refresh();
+    void refresh(bool canKeepObsoletePixmaps = false);
 
     void startRender(bool prefetch = false);
     void cancelRender();
@@ -199,12 +199,6 @@ private:
     QVector< TileItem* > m_tileItems;
 
     void prepareTiling();
-
-    // obsolete pixmap
-
-    /*QPixmap m_obsoletePixmap;
-    QPointF m_obsoleteTopLeft;
-    QTransform m_obsoleteTransform;*/
 
     // paint
 

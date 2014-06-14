@@ -48,13 +48,14 @@ public:
     ~TileItem();
 
     QRectF boundingRect() const;
+    void setBoundingRect(const QRectF& boundingRect);
+
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 
-    inline QRectF tile() const { return m_tile; }
-    void setTile(const QRectF& tile);
+    void dropObsoletePixmaps();
 
 public slots:
-    void refresh();
+    void refresh(bool canKeepObsoletePixmaps = false);
 
     void startRender(bool prefetch = false);
     void cancelRender();
@@ -75,14 +76,15 @@ private:
 
     static QCache< TileItem*, QPixmap > s_cache;
 
-    QRectF m_tile;
+    QRectF m_boundingRect;
 
     bool m_pixmapError;
     QPixmap m_pixmap;
+    QPixmap m_obsoletePixmap;
 
     RenderTask* m_renderTask;
 
-    QPixmap cachedPixmap();
+    QPixmap takePixmap();
 
 };
 

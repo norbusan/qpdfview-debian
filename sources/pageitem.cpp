@@ -69,10 +69,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_boundingRect(),
     m_background(0),
     m_border(0),
-    m_tileItems()/*,
-    m_obsoletePixmap(),
-    m_obsoleteTopLeft(),
-    m_obsoleteTransform()*/
+    m_tileItems()
 {
     if(s_settings == 0)
     {
@@ -162,7 +159,7 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
 {
     if((m_resolutionX != resolutionX || m_resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
     {
-        refresh();
+        refresh(true);
 
         m_resolutionX = resolutionX;
         m_resolutionY = resolutionY;
@@ -176,7 +173,7 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 {
     if(!qFuzzyCompare(m_devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
     {
-        refresh();
+        refresh(true);
 
         m_devicePixelRatio = devicePixelRatio;
 
@@ -189,7 +186,7 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 {
     if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor > 0.0)
     {
-        refresh();
+        refresh(true);
 
         m_scaleFactor = scaleFactor;
 
@@ -202,7 +199,7 @@ void PageItem::setRotation(Rotation rotation)
 {
     if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
-        refresh();
+        refresh(false);
 
         m_rotation = rotation;
 
@@ -215,7 +212,7 @@ void PageItem::setInvertColors(bool invertColors)
 {
     if(m_invertColors != invertColors)
     {
-        refresh();
+        refresh(false);
 
         m_invertColors = invertColors;
 
@@ -224,19 +221,12 @@ void PageItem::setInvertColors(bool invertColors)
 }
 
 
-void PageItem::refresh()
+void PageItem::refresh(bool canKeepObsoletePixmaps)
 {
     foreach(TileItem* tile, m_tileItems)
     {
-        tile->refresh();
+        tile->refresh(canKeepObsoletePixmaps);
     }
-
-    /*if(s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
-    {
-        m_obsoletePixmap = *s_cache.object(this);
-        m_obsoleteTopLeft = m_boundingRect.topLeft();
-        m_obsoleteTransform = m_transform.inverted();
-    }*/
 
     update();
 }
@@ -940,7 +930,7 @@ void PageItem::prepareTiling()
         TileItem* tile = m_tileItems[0];
 
         tile->setPos(m_boundingRect.topLeft());
-        tile->setTile(m_boundingRect);
+        tile->setBoundingRect(m_boundingRect);
 
         return;
     }
@@ -983,6 +973,11 @@ void PageItem::prepareTiling()
         tile->setZValue(-0.5);
 
         tile->setPos(m_boundingRect.topLeft());
+
+        if(oldCount != newCount)
+        {
+            tile->dropObsoletePixmaps();
+        }
     }
 
 
@@ -996,7 +991,7 @@ void PageItem::prepareTiling()
             const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : pageWidth - left;
             const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : pageHeight - top;
 
-            m_tileItems[column * rowCount + row]->setTile(QRectF(left, top, width, height));
+            m_tileItems[column * rowCount + row]->setBoundingRect(QRectF(left, top, width, height));
         }
     }
 }
