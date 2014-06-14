@@ -251,7 +251,7 @@ void PageItem::startRender(bool prefetch)
 
 void PageItem::cancelRender()
 {
-    m_renderTask->cancel();
+    m_renderTask->cancel(true);
 
     m_pixmap = QPixmap();
     m_obsoletePixmap = QPixmap();
