@@ -104,6 +104,7 @@ private:
 
     // graphics
 
+    QCheckBox* m_useTilingCheckBox;
     QCheckBox* m_keepObsoletePixmapsCheckBox;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)

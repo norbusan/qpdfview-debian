@@ -80,6 +80,11 @@ void Settings::PageItem::sync()
 {
     m_cacheSize = m_settings->value("pageItem/cacheSize", Defaults::PageItem::cacheSize()).toInt();
 
+    m_useTiling = m_settings->value("pageItem/useTiling", Defaults::PageItem::useTiling()).toBool();
+
+    m_tileSize = m_settings->value("pageItem/tileSize", Defaults::PageItem::tileSize()).toInt();
+    m_tileOverlap = m_settings->value("pageItem/tileOverlap", Defaults::PageItem::tileOverlap()).toInt();
+
     m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
     m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
 
@@ -103,6 +108,12 @@ void Settings::PageItem::setCacheSize(int cacheSize)
         m_cacheSize = cacheSize;
         m_settings->setValue("pageItem/cacheSize", cacheSize);
     }
+}
+
+void Settings::PageItem::setUseTiling(bool useTiling)
+{
+    m_useTiling = useTiling;
+    m_settings->setValue("pageItem/useTiling", useTiling);
 }
 
 void Settings::PageItem::setKeepObsoletePixmaps(bool keepObsoletePixmaps)

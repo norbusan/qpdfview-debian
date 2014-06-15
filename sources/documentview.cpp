@@ -59,10 +59,46 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pluginhandler.h"
 #include "shortcuthandler.h"
 #include "pageitem.h"
+#include "thumbnailitem.h"
 #include "presentationview.h"
 #include "searchtask.h"
 #include "miscellaneous.h"
 #include "documentlayout.h"
+
+namespace
+{
+
+using namespace qpdfview;
+
+qreal unscaledPageWidth(PageItem* page)
+{
+    switch(page->rotation())
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return page->resolutionX() / 72.0 * page->size().width();
+    case RotateBy90:
+    case RotateBy270:
+        return page->resolutionX() / 72.0 * page->size().height();
+    }
+}
+
+qreal unscaledPageHeight(PageItem* page)
+{
+    switch(page->rotation())
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return page->resolutionY() / 72.0 * page->size().height();
+    case RotateBy90:
+    case RotateBy270:
+        return page->resolutionY() / 72.0 * page->size().width();
+    }
+}
+
+} // anonymous
 
 namespace qpdfview
 {
@@ -1080,8 +1116,8 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    const qreal unscaledWidth = m_pageItems.at(page - 1)->unscaledWidth();
-    const qreal unscaledHeight = m_pageItems.at(page - 1)->unscaledHeight();
+    const qreal unscaledWidth = unscaledPageWidth(m_pageItems.at(page - 1));
+    const qreal unscaledHeight = unscaledPageHeight(m_pageItems.at(page - 1));
 
     setScaleFactor(qMin(qMin(visibleWidth / unscaledWidth / rect.width(),
                              visibleHeight / unscaledHeight / rect.height()),
@@ -1778,8 +1814,8 @@ void DocumentView::prepareScene()
 
         page->setRotation(m_rotation);
 
-        const qreal unscaledWidth = page->unscaledWidth();
-        const qreal unscaledHeight = page->unscaledHeight();
+        const qreal unscaledWidth = unscaledPageWidth(page);
+        const qreal unscaledHeight = unscaledPageHeight(page);
 
         switch(m_scaleMode)
         {
@@ -1911,7 +1947,7 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->unscaledWidth(), s_settings->documentView().thumbnailSize() / page->unscaledHeight()));
+        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / unscaledPageWidth(page), s_settings->documentView().thumbnailSize() / unscaledPageHeight(page)));
 
         // prepare layout
 

@@ -148,32 +148,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="853"/>
+        <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="854"/>
+        <location filename="../sources/settingsdialog.cpp" line="863"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="855"/>
+        <location filename="../sources/settingsdialog.cpp" line="864"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="856"/>
+        <location filename="../sources/settingsdialog.cpp" line="865"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift och Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="857"/>
+        <location filename="../sources/settingsdialog.cpp" line="866"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift och Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="858"/>
+        <location filename="../sources/settingsdialog.cpp" line="867"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl och Alt</translation>
     </message>
@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="224"/>
+        <location filename="../sources/documentview.cpp" line="260"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Format som stöds (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1017"/>
+        <location filename="../sources/documentview.cpp" line="1053"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1017"/>
+        <location filename="../sources/documentview.cpp" line="1053"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Öppnande av URL är inaktiverat i inställningarna</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1067"/>
+        <location filename="../sources/documentview.cpp" line="1103"/>
         <source>Warning</source>
         <translation type="unfinished">Varning</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1067"/>
+        <location filename="../sources/documentview.cpp" line="1103"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTex-data för &apos;%1&apos; kunde inte hittas</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1505"/>
+        <location filename="../sources/documentview.cpp" line="1541"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Skriver ut &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
+        <location filename="../sources/documentview.cpp" line="1613"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Lås upp %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1577"/>
+        <location filename="../sources/documentview.cpp" line="1613"/>
         <source>Password:</source>
         <translation type="unfinished">Lösenord:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1599"/>
+        <location filename="../sources/documentview.cpp" line="1635"/>
         <source>Page %1</source>
         <translation type="unfinished">Sida %1</translation>
     </message>
@@ -308,497 +308,497 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="149"/>
+        <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="150"/>
+        <location filename="../sources/mainwindow.cpp" line="151"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="212"/>
-        <location filename="../sources/mainwindow.cpp" line="283"/>
-        <location filename="../sources/mainwindow.cpp" line="971"/>
-        <location filename="../sources/mainwindow.cpp" line="988"/>
-        <location filename="../sources/mainwindow.cpp" line="1005"/>
-        <location filename="../sources/mainwindow.cpp" line="1041"/>
-        <location filename="../sources/mainwindow.cpp" line="1162"/>
-        <location filename="../sources/mainwindow.cpp" line="1887"/>
-        <location filename="../sources/mainwindow.cpp" line="1901"/>
+        <location filename="../sources/mainwindow.cpp" line="213"/>
+        <location filename="../sources/mainwindow.cpp" line="284"/>
+        <location filename="../sources/mainwindow.cpp" line="972"/>
+        <location filename="../sources/mainwindow.cpp" line="989"/>
+        <location filename="../sources/mainwindow.cpp" line="1006"/>
+        <location filename="../sources/mainwindow.cpp" line="1042"/>
+        <location filename="../sources/mainwindow.cpp" line="1163"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1902"/>
         <source>Warning</source>
         <translation type="unfinished">Varning</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="212"/>
-        <location filename="../sources/mainwindow.cpp" line="283"/>
+        <location filename="../sources/mainwindow.cpp" line="213"/>
+        <location filename="../sources/mainwindow.cpp" line="284"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Kunde inte öppna &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="531"/>
+        <location filename="../sources/mainwindow.cpp" line="532"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Stäng alla flikar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="532"/>
+        <location filename="../sources/mainwindow.cpp" line="533"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Stäng alla flikar utom denna</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="533"/>
+        <location filename="../sources/mainwindow.cpp" line="534"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Stäng alla flikar till vänster</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="534"/>
+        <location filename="../sources/mainwindow.cpp" line="535"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Stäng alla flikar till höger</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="929"/>
+        <location filename="../sources/mainwindow.cpp" line="930"/>
         <source>Open</source>
         <translation type="unfinished">Öppna</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="945"/>
+        <location filename="../sources/mainwindow.cpp" line="946"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Öppna i ny flik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="971"/>
-        <location filename="../sources/mainwindow.cpp" line="1162"/>
+        <location filename="../sources/mainwindow.cpp" line="972"/>
+        <location filename="../sources/mainwindow.cpp" line="1163"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Kunde inte uppdatera &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="978"/>
+        <location filename="../sources/mainwindow.cpp" line="979"/>
         <source>Save copy</source>
         <translation type="unfinished">Spara kopia</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="988"/>
+        <location filename="../sources/mainwindow.cpp" line="989"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="995"/>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
+        <location filename="../sources/mainwindow.cpp" line="996"/>
+        <location filename="../sources/mainwindow.cpp" line="1892"/>
         <source>Save as</source>
         <translation type="unfinished">Spara som</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1005"/>
-        <location filename="../sources/mainwindow.cpp" line="1901"/>
+        <location filename="../sources/mainwindow.cpp" line="1006"/>
+        <location filename="../sources/mainwindow.cpp" line="1902"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Kunde inte spara som &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1041"/>
+        <location filename="../sources/mainwindow.cpp" line="1042"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Kunde inte skriva ut &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1077"/>
+        <location filename="../sources/mainwindow.cpp" line="1078"/>
         <source>Jump to page</source>
         <translation type="unfinished">Hoppa till sida</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1077"/>
+        <location filename="../sources/mainwindow.cpp" line="1078"/>
         <source>Page:</source>
         <translation type="unfinished">Sida:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1454"/>
+        <location filename="../sources/mainwindow.cpp" line="1455"/>
         <source>Add bookmark</source>
         <translation type="unfinished">Lägg till bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1454"/>
+        <location filename="../sources/mainwindow.cpp" line="1455"/>
         <source>Label</source>
         <translation type="unfinished">Etikett</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1454"/>
+        <location filename="../sources/mainwindow.cpp" line="1455"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Hoppa till sidan %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1537"/>
+        <location filename="../sources/mainwindow.cpp" line="1538"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Om qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1537"/>
+        <location filename="../sources/mainwindow.cpp" line="1538"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview är en dokumentvisare med flikar baserad på Qt.&lt;/p&gt;&lt;p&gt;Den här versionen inkluderar:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1541"/>
+        <location filename="../sources/mainwindow.cpp" line="1542"/>
         <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Stöd för PDF med hjälp av Poppler&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1544"/>
+        <location filename="../sources/mainwindow.cpp" line="1545"/>
         <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Stöd för PS med hjälp av libspectre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1547"/>
+        <location filename="../sources/mainwindow.cpp" line="1548"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Stöd för DjVu med hjälp av DjVuLibre&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1550"/>
+        <location filename="../sources/mainwindow.cpp" line="1551"/>
         <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1553"/>
+        <location filename="../sources/mainwindow.cpp" line="1554"/>
         <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Stöd för utskrift med hjälp av CUPS&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1555"/>
+        <location filename="../sources/mainwindow.cpp" line="1556"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Se &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; för ytterligare information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Utvecklarna av qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1887"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Dokumentet &apos;%1&apos; har ändrats. Vill du spara dina ändringar?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2063"/>
+        <location filename="../sources/mainwindow.cpp" line="2064"/>
         <source>Page width</source>
         <translation type="unfinished">Sidbredd</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2064"/>
+        <location filename="../sources/mainwindow.cpp" line="2065"/>
         <source>Page size</source>
         <translation type="unfinished">Sidstorlek</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2085"/>
+        <location filename="../sources/mainwindow.cpp" line="2086"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">S&amp;kiftlägeskänslig</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2086"/>
+        <location filename="../sources/mainwindow.cpp" line="2087"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Markera &amp;alla</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2133"/>
+        <location filename="../sources/mainwindow.cpp" line="2134"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Öppna...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2134"/>
+        <location filename="../sources/mainwindow.cpp" line="2135"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Öppna i ny &amp;flik...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2135"/>
+        <location filename="../sources/mainwindow.cpp" line="2136"/>
         <source>Open containing folder</source>
         <translation type="unfinished">Öppna mapp</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2136"/>
+        <location filename="../sources/mainwindow.cpp" line="2137"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Uppdatera</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2137"/>
+        <location filename="../sources/mainwindow.cpp" line="2138"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Spara kopia...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2138"/>
+        <location filename="../sources/mainwindow.cpp" line="2139"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Spara so&amp;m...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2139"/>
+        <location filename="../sources/mainwindow.cpp" line="2140"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">S&amp;kriv ut...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2140"/>
+        <location filename="../sources/mainwindow.cpp" line="2141"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Avsluta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2144"/>
+        <location filename="../sources/mainwindow.cpp" line="2145"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Föregående sida</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2145"/>
+        <location filename="../sources/mainwindow.cpp" line="2146"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nästa sida</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2146"/>
+        <location filename="../sources/mainwindow.cpp" line="2147"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Första sidan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2147"/>
+        <location filename="../sources/mainwindow.cpp" line="2148"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Sista sidan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2149"/>
+        <location filename="../sources/mainwindow.cpp" line="2150"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;Hoppa till sida...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2151"/>
+        <location filename="../sources/mainwindow.cpp" line="2152"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Hoppa &amp;bakåt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2152"/>
+        <location filename="../sources/mainwindow.cpp" line="2153"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Hoppa fra&amp;måt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2154"/>
+        <location filename="../sources/mainwindow.cpp" line="2155"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Sök...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2155"/>
+        <location filename="../sources/mainwindow.cpp" line="2156"/>
         <source>Find previous</source>
         <translation type="unfinished">Sök föregående</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2156"/>
+        <location filename="../sources/mainwindow.cpp" line="2157"/>
         <source>Find next</source>
         <translation type="unfinished">Sök nästa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2157"/>
+        <location filename="../sources/mainwindow.cpp" line="2158"/>
         <source>Cancel search</source>
         <translation type="unfinished">Avbryt sökning</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2159"/>
+        <location filename="../sources/mainwindow.cpp" line="2160"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2160"/>
+        <location filename="../sources/mainwindow.cpp" line="2161"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Lägg till anteckning</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2162"/>
+        <location filename="../sources/mainwindow.cpp" line="2163"/>
         <source>Settings...</source>
         <translation type="unfinished">Inställningar...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2166"/>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Kontinuerlig</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2167"/>
+        <location filename="../sources/mainwindow.cpp" line="2168"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Två sidor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2168"/>
+        <location filename="../sources/mainwindow.cpp" line="2169"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Två sidor &amp;med försättsblad</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2169"/>
+        <location filename="../sources/mainwindow.cpp" line="2170"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Flera sidor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2171"/>
+        <location filename="../sources/mainwindow.cpp" line="2172"/>
         <source>Right to left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2173"/>
+        <location filename="../sources/mainwindow.cpp" line="2174"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Zooma &amp;in</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2174"/>
+        <location filename="../sources/mainwindow.cpp" line="2175"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">Zooma &amp;ut</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2175"/>
+        <location filename="../sources/mainwindow.cpp" line="2176"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Ursprungs&amp;storlek</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2177"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Anpassa till sidbredd</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2178"/>
+        <location filename="../sources/mainwindow.cpp" line="2179"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Anpassa till sidstorlek</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2180"/>
+        <location filename="../sources/mainwindow.cpp" line="2181"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Rotera åt &amp;vänster</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2181"/>
+        <location filename="../sources/mainwindow.cpp" line="2182"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Rotera åt &amp;höger</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2183"/>
+        <location filename="../sources/mainwindow.cpp" line="2184"/>
         <source>Invert colors</source>
         <translation type="unfinished">Invertera färger</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2185"/>
+        <location filename="../sources/mainwindow.cpp" line="2186"/>
         <source>Fonts...</source>
         <translation type="unfinished">Fonter...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2187"/>
+        <location filename="../sources/mainwindow.cpp" line="2188"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Helskärm</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2188"/>
+        <location filename="../sources/mainwindow.cpp" line="2189"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Presentation...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2192"/>
+        <location filename="../sources/mainwindow.cpp" line="2193"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Föregående flik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2193"/>
+        <location filename="../sources/mainwindow.cpp" line="2194"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Nästa flik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2195"/>
+        <location filename="../sources/mainwindow.cpp" line="2196"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Stäng flik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2196"/>
+        <location filename="../sources/mainwindow.cpp" line="2197"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Stäng &amp;alla flikar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2197"/>
+        <location filename="../sources/mainwindow.cpp" line="2198"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Stäng alla flikar &amp;utom aktiv flik</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2208"/>
+        <location filename="../sources/mainwindow.cpp" line="2209"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Föregående bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2209"/>
+        <location filename="../sources/mainwindow.cpp" line="2210"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Nästa bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2211"/>
+        <location filename="../sources/mainwindow.cpp" line="2212"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Lägg till bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2212"/>
+        <location filename="../sources/mainwindow.cpp" line="2213"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Ta bort bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2213"/>
+        <location filename="../sources/mainwindow.cpp" line="2214"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Ta bort alla bokmärken</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2217"/>
+        <location filename="../sources/mainwindow.cpp" line="2218"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Innehåll</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2218"/>
+        <location filename="../sources/mainwindow.cpp" line="2219"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Om</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2254"/>
-        <location filename="../sources/mainwindow.cpp" line="2373"/>
+        <location filename="../sources/mainwindow.cpp" line="2255"/>
+        <location filename="../sources/mainwindow.cpp" line="2374"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Arkiv</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2257"/>
-        <location filename="../sources/mainwindow.cpp" line="2394"/>
+        <location filename="../sources/mainwindow.cpp" line="2258"/>
+        <location filename="../sources/mainwindow.cpp" line="2395"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Redigera</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2260"/>
-        <location filename="../sources/mainwindow.cpp" line="2407"/>
+        <location filename="../sources/mainwindow.cpp" line="2261"/>
+        <location filename="../sources/mainwindow.cpp" line="2408"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Visa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2289"/>
+        <location filename="../sources/mainwindow.cpp" line="2290"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Öve&amp;rsikt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2303"/>
+        <location filename="../sources/mainwindow.cpp" line="2304"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Egenskaper</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2314"/>
+        <location filename="../sources/mainwindow.cpp" line="2315"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Minia&amp;tyrer</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2326"/>
+        <location filename="../sources/mainwindow.cpp" line="2327"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Sök</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2419"/>
+        <location filename="../sources/mainwindow.cpp" line="2420"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Verktygsrader</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2422"/>
+        <location filename="../sources/mainwindow.cpp" line="2423"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Paneler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2431"/>
+        <location filename="../sources/mainwindow.cpp" line="2432"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">F&amp;likar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2449"/>
+        <location filename="../sources/mainwindow.cpp" line="2450"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bokmärken</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2457"/>
+        <location filename="../sources/mainwindow.cpp" line="2458"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hjälp</translation>
     </message>
@@ -806,72 +806,72 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="370"/>
+        <location filename="../sources/pageitem.cpp" line="320"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Gå till sidan %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="374"/>
+        <location filename="../sources/pageitem.cpp" line="324"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Gå till sidan %1 i filen &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="382"/>
+        <location filename="../sources/pageitem.cpp" line="332"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Öppna &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="417"/>
+        <location filename="../sources/pageitem.cpp" line="367"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Redigera formulärfält &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="661"/>
+        <location filename="../sources/pageitem.cpp" line="611"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopiera &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="662"/>
+        <location filename="../sources/pageitem.cpp" line="612"/>
         <source>Use text as &amp;selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="663"/>
+        <location filename="../sources/pageitem.cpp" line="613"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopiera &amp;bild</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="664"/>
+        <location filename="../sources/pageitem.cpp" line="614"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Spara bild till &amp;fil...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="699"/>
+        <location filename="../sources/pageitem.cpp" line="649"/>
         <source>Save image to file</source>
         <translation type="unfinished">Spara bild till fil</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="703"/>
+        <location filename="../sources/pageitem.cpp" line="653"/>
         <source>Warning</source>
         <translation type="unfinished">Varning</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="703"/>
+        <location filename="../sources/pageitem.cpp" line="653"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Kunde inte spara bild till fil &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="716"/>
+        <location filename="../sources/pageitem.cpp" line="666"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Lägg till &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="717"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Lägg till en &amp;markering</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="756"/>
+        <location filename="../sources/pageitem.cpp" line="706"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Ta bort anteckning</translation>
     </message>
@@ -1181,11 +1181,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
-        <location filename="../sources/settingsdialog.cpp" line="625"/>
         <location filename="../sources/settingsdialog.cpp" line="634"/>
-        <location filename="../sources/settingsdialog.cpp" line="649"/>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
-        <location filename="../sources/settingsdialog.cpp" line="665"/>
+        <location filename="../sources/settingsdialog.cpp" line="643"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <location filename="../sources/settingsdialog.cpp" line="666"/>
+        <location filename="../sources/settingsdialog.cpp" line="674"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Gäller efter omstart.</translation>
     </message>
@@ -1261,240 +1261,245 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="370"/>
+        <source>Use tiling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="377"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished">Behåll obsoleta pixmaps:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="379"/>
+        <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Använd den fysiska enhetens pixelförhållande:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="388"/>
+        <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Använd siddekorationer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="395"/>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Använd dekorationer för länkar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Använd dekorationer för formulärfält:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="408"/>
+        <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Background color:</source>
         <translation type="unfinished">Bakgrundsfärg:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="414"/>
+        <location filename="../sources/settingsdialog.cpp" line="421"/>
         <source>Paper color:</source>
         <translation type="unfinished">Pappersfärg:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="420"/>
+        <location filename="../sources/settingsdialog.cpp" line="427"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Bakgrundsfärg för presentationer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="428"/>
+        <location filename="../sources/settingsdialog.cpp" line="435"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Sidor per rad:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="438"/>
+        <location filename="../sources/settingsdialog.cpp" line="445"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Avstånd mellan sidor:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="448"/>
+        <location filename="../sources/settingsdialog.cpp" line="455"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Avstånd mellan miniatyrbilder:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="458"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Miniatyrbildsstorlek:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="463"/>
-        <location filename="../sources/settingsdialog.cpp" line="464"/>
-        <location filename="../sources/settingsdialog.cpp" line="465"/>
-        <location filename="../sources/settingsdialog.cpp" line="466"/>
-        <location filename="../sources/settingsdialog.cpp" line="467"/>
-        <location filename="../sources/settingsdialog.cpp" line="468"/>
-        <location filename="../sources/settingsdialog.cpp" line="469"/>
         <location filename="../sources/settingsdialog.cpp" line="470"/>
         <location filename="../sources/settingsdialog.cpp" line="471"/>
         <location filename="../sources/settingsdialog.cpp" line="472"/>
+        <location filename="../sources/settingsdialog.cpp" line="473"/>
+        <location filename="../sources/settingsdialog.cpp" line="474"/>
+        <location filename="../sources/settingsdialog.cpp" line="475"/>
+        <location filename="../sources/settingsdialog.cpp" line="476"/>
+        <location filename="../sources/settingsdialog.cpp" line="477"/>
+        <location filename="../sources/settingsdialog.cpp" line="478"/>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="475"/>
+        <location filename="../sources/settingsdialog.cpp" line="482"/>
         <source>Cache size:</source>
         <translation type="unfinished">Cachestorlek:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="482"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Förhandshämtning:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="490"/>
+        <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Avstånd för förhandshämtningar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="588"/>
+        <location filename="../sources/settingsdialog.cpp" line="597"/>
         <source>Top</source>
         <translation type="unfinished">Överkant</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="589"/>
+        <location filename="../sources/settingsdialog.cpp" line="598"/>
         <source>Bottom</source>
         <translation type="unfinished">Nederkant</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="590"/>
+        <location filename="../sources/settingsdialog.cpp" line="599"/>
         <source>Left</source>
         <translation type="unfinished">Vänster</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="591"/>
+        <location filename="../sources/settingsdialog.cpp" line="600"/>
         <source>Right</source>
         <translation type="unfinished">Höger</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="594"/>
+        <location filename="../sources/settingsdialog.cpp" line="603"/>
         <source>Tab position:</source>
         <translation type="unfinished">Flikplacering:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="599"/>
+        <location filename="../sources/settingsdialog.cpp" line="608"/>
         <source>As needed</source>
         <translation type="unfinished">Efter behov</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="600"/>
+        <location filename="../sources/settingsdialog.cpp" line="609"/>
         <source>Always</source>
         <translation type="unfinished">Alltid</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="601"/>
+        <location filename="../sources/settingsdialog.cpp" line="610"/>
         <source>Never</source>
         <translation type="unfinished">Aldrig</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="604"/>
+        <location filename="../sources/settingsdialog.cpp" line="613"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visning av flikar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="611"/>
+        <location filename="../sources/settingsdialog.cpp" line="620"/>
         <source>Spread tabs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="618"/>
+        <location filename="../sources/settingsdialog.cpp" line="627"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Ny flik bredvid aktiv flik</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="627"/>
+        <location filename="../sources/settingsdialog.cpp" line="636"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Antal senast använda:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="636"/>
+        <location filename="../sources/settingsdialog.cpp" line="645"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Antal senast stängda:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="643"/>
+        <location filename="../sources/settingsdialog.cpp" line="652"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="651"/>
+        <location filename="../sources/settingsdialog.cpp" line="660"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Arkiv&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="659"/>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Redigera&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="667"/>
+        <location filename="../sources/settingsdialog.cpp" line="676"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Visa&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="674"/>
+        <location filename="../sources/settingsdialog.cpp" line="683"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="681"/>
+        <location filename="../sources/settingsdialog.cpp" line="690"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Aktiv sida i fönstertitel:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="688"/>
+        <location filename="../sources/settingsdialog.cpp" line="697"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Namn på instans i fönstertitel:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="695"/>
+        <location filename="../sources/settingsdialog.cpp" line="704"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished">Synkronisera översiktsvyn:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="702"/>
+        <location filename="../sources/settingsdialog.cpp" line="711"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Markera aktiv miniatyrbild:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="709"/>
+        <location filename="../sources/settingsdialog.cpp" line="718"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Begränsa miniatyrbilder efter resultat:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="716"/>
+        <location filename="../sources/settingsdialog.cpp" line="725"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Överlappning av anteckningar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="723"/>
+        <location filename="../sources/settingsdialog.cpp" line="732"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Överlappning av formulärfält:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="793"/>
+        <location filename="../sources/settingsdialog.cpp" line="802"/>
         <source>Zoom:</source>
         <translation type="unfinished">Zoom:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="799"/>
+        <location filename="../sources/settingsdialog.cpp" line="808"/>
         <source>Rotate:</source>
         <translation type="unfinished">Rotera:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="805"/>
+        <location filename="../sources/settingsdialog.cpp" line="814"/>
         <source>Scroll:</source>
         <translation type="unfinished">Scrollning:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="811"/>
+        <location filename="../sources/settingsdialog.cpp" line="820"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Kopiera till urklipp:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="817"/>
+        <location filename="../sources/settingsdialog.cpp" line="826"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Lägg till anteckning:</translation>
     </message>

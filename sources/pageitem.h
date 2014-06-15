@@ -26,12 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QGraphicsObject>
 #include <QIcon>
 
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
-
-#include <QStaticText>
-
-#endif // QT_VERSION
-
 class QGraphicsProxyWidget;
 
 #include "global.h"
@@ -49,10 +43,13 @@ class Page;
 
 class Settings;
 class RenderTask;
+class TileItem;
 
 class PageItem : public QGraphicsObject
 {
     Q_OBJECT
+
+    friend class TileItem;
 
 public:
     PageItem(Model::Page* page, int index, bool presentationMode = false, QGraphicsItem* parent = 0);
@@ -65,34 +62,6 @@ public:
     inline bool presentationMode() const { return m_presentationMode; }
 
     inline const QSizeF& size() const { return m_size; }
-
-    inline qreal unscaledWidth() const
-    {
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            return m_resolutionX / 72.0 * m_size.width();
-        case RotateBy90:
-        case RotateBy270:
-            return m_resolutionX / 72.0 * m_size.height();
-        }
-    }
-
-    inline qreal unscaledHeight() const
-    {
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            return m_resolutionY / 72.0 * m_size.height();
-        case RotateBy90:
-        case RotateBy270:
-            return m_resolutionY / 72.0 * m_size.width();
-        }
-    }
 
     inline const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
@@ -136,17 +105,12 @@ signals:
     void wasModified();
 
 public slots:
-    void refresh();
+    void refresh(bool canKeepObsoletePixmaps = false);
 
     void startRender(bool prefetch = false);
     void cancelRender();
 
 protected slots:
-    void on_renderTask_finished();
-    void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                  qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
-                                  QImage image);
-
     void showAnnotationOverlay(Model::Annotation* selectedAnnotation);
     void hideAnnotationOverlay(bool deleteLater = true);
     void updateAnnotationOverlay();
@@ -174,8 +138,6 @@ private:
     Q_DISABLE_COPY(PageItem)
 
     static Settings* s_settings;
-
-    static QCache< PageItem*, QPixmap > s_cache;
 
     Model::Page* m_page;
     QSizeF m_size;
@@ -227,72 +189,24 @@ private:
     QTransform m_normalizedTransform;
     QRectF m_boundingRect;
 
-    qreal effectiveDevicePixelRatio();
-
-    bool m_pixmapError;
-    QPixmap m_pixmap;
-
     void prepareGeometry();
 
-    RenderTask* m_renderTask;
+    QGraphicsRectItem* m_background;
+    QGraphicsRectItem* m_border;
 
-    // obsolete pixmap
+    void prepareBackground();
 
-    QPixmap m_obsoletePixmap;
-    QPointF m_obsoleteTopLeft;
-    QTransform m_obsoleteTransform;
+    QVector< TileItem* > m_tileItems;
+
+    void prepareTiling();
 
     // paint
-
-    QPixmap cachedPixmap();
-    void paintPage(QPainter* painter, const QPixmap& pixmap) const;
 
     void paintLinks(QPainter* painter) const;
     void paintFormFields(QPainter* painter) const;
 
     void paintHighlights(QPainter* painter) const;
     void paintRubberBand(QPainter* painter) const;
-
-};
-
-class ThumbnailItem : public PageItem
-{
-    Q_OBJECT
-
-public:
-    ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
-
-    QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-
-    inline bool isCurrent() const { return m_current; }
-    void setCurrent(bool current);
-
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent*);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
-
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
-
-private slots:
-    void loadInteractiveElements();
-
-private:
-    Q_DISABLE_COPY(ThumbnailItem)
-
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
-
-    QStaticText m_text;
-
-#else
-
-    QString m_text;
-
-#endif // QT_VERSION
-
-    bool m_current;
 
 };
 

@@ -39,6 +39,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
+    m_tile(),
     m_prefetch(false)
 {
     setAutoDelete(false);
@@ -73,7 +74,7 @@ bool RenderTask::forceCancellation() const
 
 void RenderTask::run()
 {
-    if(m_wasCanceled && !m_prefetch)
+    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
     {
         finish();
 
@@ -100,17 +101,17 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation);
+    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation, m_tile);
 
     image.setDevicePixelRatio(m_devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(resolutionX, resolutionY, m_rotation);
+    QImage image = m_page->render(resolutionX, resolutionY, m_rotation, m_tile);
 
 #endif // QT_VERSION
 
-    if(m_wasCanceled && !m_prefetch)
+    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
     {
         finish();
 
@@ -122,14 +123,18 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio, m_scaleFactor, m_rotation, m_invertColors, m_prefetch, image);
+    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio,
+                    m_scaleFactor, m_rotation, m_invertColors,
+                    m_tile, m_prefetch,
+                    image);
 
     finish();
 }
 
 void RenderTask::start(Model::Page* page,
                        int resolutionX, int resolutionY, qreal devicePixelRatio,
-                       qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch)
+                       qreal scaleFactor, Rotation rotation, bool invertColors,
+                       const QRect& tile, bool prefetch)
 {
     m_page = page;
 
@@ -139,9 +144,9 @@ void RenderTask::start(Model::Page* page,
 
     m_scaleFactor = scaleFactor;
     m_rotation = rotation;
-
     m_invertColors = invertColors;
 
+    m_tile = tile;
     m_prefetch = prefetch;
 
     m_mutex.lock();
@@ -149,6 +154,7 @@ void RenderTask::start(Model::Page* page,
     m_mutex.unlock();
 
     m_wasCanceled = false;
+    m_forceCancellation = false;
 
     QThreadPool::globalInstance()->start(this);
 }

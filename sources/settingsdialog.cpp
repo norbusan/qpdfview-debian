@@ -362,6 +362,13 @@ void SettingsDialog::resetBehaviorTab()
 
 void SettingsDialog::createGraphicsTab()
 {
+    // use tiling
+
+    m_useTilingCheckBox = new QCheckBox(this);
+    m_useTilingCheckBox->setChecked(s_settings->pageItem().useTiling());
+
+    m_graphicsLayout->addRow(tr("Use tiling:"), m_useTilingCheckBox);
+
     // keep obsolete pixmaps
 
     m_keepObsoletePixmapsCheckBox = new QCheckBox(this);
@@ -492,6 +499,7 @@ void SettingsDialog::createGraphicsTab()
 
 void SettingsDialog::acceptGraphicsTab()
 {
+    s_settings->pageItem().setUseTiling(m_useTilingCheckBox->isChecked());
     s_settings->pageItem().setKeepObsoletePixmaps(m_keepObsoletePixmapsCheckBox->isChecked());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
@@ -537,6 +545,7 @@ void SettingsDialog::acceptGraphicsTab()
 
 void SettingsDialog::resetGraphicsTab()
 {
+    m_useTilingCheckBox->setChecked(Defaults::PageItem::useTiling());
     m_keepObsoletePixmapsCheckBox->setChecked(Defaults::PageItem::keepObsoletePixmaps());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)

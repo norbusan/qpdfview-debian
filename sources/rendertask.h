@@ -47,6 +47,7 @@ public:
     void wait();
 
     bool isRunning() const;
+
     bool wasCanceled() const;
     bool forceCancellation() const;
 
@@ -56,13 +57,15 @@ signals:
     void finished();
 
     void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                    qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch,
+                    qreal scaleFactor, Rotation rotation, bool invertColors,
+                    const QRect& tile, bool prefetch,
                     QImage image);
 
 public slots:
     void start(Model::Page* page,
                int resolutionX, int resolutionY, qreal devicePixelRatio,
-               qreal scaleFactor, Rotation rotation, bool invertColors, bool prefetch);
+               qreal scaleFactor, Rotation rotation, bool invertColors,
+               const QRect& tile, bool prefetch);
 
     void cancel(bool force = false);
 
@@ -88,6 +91,7 @@ private:
     Rotation m_rotation;
     bool m_invertColors;
 
+    QRect m_tile;
     bool m_prefetch;
 
 };
