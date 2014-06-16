@@ -336,7 +336,10 @@ void PresentationView::on_prefetch_timeout()
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
-        m_pageItems.at(index)->startRender(true);
+        if(index != m_currentPage - 1)
+        {
+            m_pageItems.at(index)->startRender(true);
+        }
     }
 }
 

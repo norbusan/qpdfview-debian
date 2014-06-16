@@ -81,12 +81,12 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_background = new QGraphicsRectItem(this);
     m_background->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
     m_background->setZValue(-1.0);
-    m_background->setVisible(s_settings->pageItem().decoratePages());
+    m_background->setVisible(s_settings->pageItem().decoratePages() && !m_presentationMode);
 
     m_border = new QGraphicsRectItem(this);
     m_border->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
     m_border->setZValue(0.0);
-    m_border->setVisible(s_settings->pageItem().decoratePages());
+    m_border->setVisible(s_settings->pageItem().decoratePages() && !m_presentationMode);
 
     if(!s_settings->pageItem().useTiling())
     {
