@@ -84,6 +84,9 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 !without_pdf {
     DEFINES += WITH_PDF
 
+    !without_pkgconfig:POPPLER_VERSION = $$system(pkg-config --modversion poppler-qt$${QT_MAJOR_VERSION})
+    DEFINES += POPPLER_VERSION=\\\"$${POPPLER_VERSION}\\\"
+
     static_pdf_plugin {
         isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
 
@@ -95,7 +98,7 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
         !without_pkgconfig {
             CONFIG += link_pkgconfig
-            PKGCONFIG += poppler-qt4
+            PKGCONFIG += poppler-qt$${QT_MAJOR_VERSION}
         }
     } else {
         isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.so
@@ -106,6 +109,9 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 !without_ps {
     DEFINES += WITH_PS
+
+    !without_pkgconfig:SPECTRE_VERSION = $$system(pkg-config --modversion libspectre)
+    DEFINES += SPECTRE_VERSION=\\\"$${SPECTRE_VERSION}\\\"
 
     static_ps_plugin {
         isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
@@ -128,6 +134,9 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 !without_djvu {
     DEFINES += WITH_DJVU
 
+    !without_pkgconfig:DJVULIBRE_VERSION = $$system(pkg-config --modversion ddjvuapi)
+    DEFINES += DJVULIBRE_VERSION=\\\"$${DJVULIBRE_VERSION}\\\"
+
     static_djvu_plugin {
         isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.a
 
@@ -148,6 +157,8 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 with_fitz {
     DEFINES += WITH_FITZ
+
+    DEFINES += FITZ_VERSION=\\\"$${FITZ_VERSION}\\\"
 
     static_fitz_plugin {
         isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.a
@@ -171,11 +182,11 @@ with_fitz {
 !without_cups {
     DEFINES += WITH_CUPS
 
-    !isEmpty(CUPS_LIBS) {
-        LIBS += $$CUPS_LIBS
-    } else {
-        LIBS += $$system(cups-config --libs)
-    }
+    isEmpty(CUPS_VERSION):CUPS_VERSION = $$system(cups-config --version)
+    isEmpty(CUPS_LIBS):CUPS_LIBS = $$system(cups-config --libs)
+
+    DEFINES += CUPS_VERSION=\\\"$${CUPS_VERSION}\\\"
+    LIBS += $$CUPS_LIBS
 }
 
 !without_synctex {

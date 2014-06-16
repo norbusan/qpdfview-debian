@@ -1537,24 +1537,24 @@ void MainWindow::on_about_triggered()
 {
     QMessageBox::about(this, tr("About qpdfview"), (tr("<p><b>qpdfview %1</b></p><p>qpdfview is a tabbed document viewer using Qt.</p>"
                                                       "<p>This version includes:"
-                                                      "<ul>")
+                                                      "<ul>").arg(APPLICATION_VERSION)
 #ifdef WITH_PDF
-                                                      + tr("<li>PDF support using Poppler</li>")
+                                                      + tr("<li>PDF support using Poppler %1</li>").arg(POPPLER_VERSION)
 #endif // WITH_PDF
 #ifdef WITH_PS
-                                                      + tr("<li>PS support using libspectre</li>")
+                                                      + tr("<li>PS support using libspectre %1</li>").arg(SPECTRE_VERSION)
 #endif // WITH_PS
 #ifdef WITH_DJVU
-                                                      + tr("<li>DjVu support using DjVuLibre</li>")
+                                                      + tr("<li>DjVu support using DjVuLibre %1</li>").arg(DJVULIBRE_VERSION)
 #endif // WITH_DJVU
 #ifdef WITH_FITZ
-                                                      + tr("<li>PDF support using Fitz</li>")
+                                                      + tr("<li>PDF support using Fitz %1</li>").arg(FITZ_VERSION)
 #endif // WITH_FITZ
 #ifdef WITH_CUPS
-                                                      + tr("<li>Printing support using CUPS</li>")
+                                                      + tr("<li>Printing support using CUPS %1</li>").arg(CUPS_VERSION)
 #endif // WITH_CUPS
                                                       + tr("</ul>"
-                                                           "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2014 The qpdfview developers</p>")).arg(QApplication::applicationVersion()));
+                                                           "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2014 The qpdfview developers</p>")));
 }
 
 void MainWindow::on_focusCurrentPage_activated()
