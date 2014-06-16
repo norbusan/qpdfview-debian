@@ -30,8 +30,7 @@ namespace qpdfview
 
 RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
-    m_wasCanceled(false),
-    m_forceCancellation(false),
+    m_wasCanceled(NotCanceled),
     m_page(0),
     m_resolutionX(72),
     m_resolutionY(72),
@@ -64,17 +63,22 @@ bool RenderTask::isRunning() const
 
 bool RenderTask::wasCanceled() const
 {
-    return m_wasCanceled;
+    return m_wasCanceled.load() != NotCanceled;
 }
 
-bool RenderTask::forceCancellation() const
+bool RenderTask::wasCanceledNormally() const
 {
-    return m_forceCancellation;
+    return m_wasCanceled.load() == CanceledNormally;
+}
+
+bool RenderTask::wasCanceledForcibly() const
+{
+    return m_wasCanceled.load() == CanceledForcibly;
 }
 
 void RenderTask::run()
 {
-    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
+    if(m_prefetch ? m_wasCanceled.loadAcquire() == CanceledForcibly : m_wasCanceled.loadAcquire() != NotCanceled)
     {
         finish();
 
@@ -111,7 +115,7 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_wasCanceled && (!m_prefetch || m_forceCancellation))
+    if(m_prefetch ? m_wasCanceled.loadAcquire() == CanceledForcibly : m_wasCanceled.loadAcquire() != NotCanceled)
     {
         finish();
 
@@ -153,16 +157,14 @@ void RenderTask::start(Model::Page* page,
     m_isRunning = true;
     m_mutex.unlock();
 
-    m_wasCanceled = false;
-    m_forceCancellation = false;
+    m_wasCanceled.storeRelease(NotCanceled);
 
     QThreadPool::globalInstance()->start(this);
 }
 
 void RenderTask::cancel(bool force)
 {
-    m_wasCanceled = true;
-    m_forceCancellation = force;
+    m_wasCanceled.storeRelease(force ? CanceledForcibly : CanceledNormally);
 }
 
 void RenderTask::finish()

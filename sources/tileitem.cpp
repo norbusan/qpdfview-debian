@@ -231,7 +231,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
         return;
     }
 
-    if(prefetch && !m_renderTask->forceCancellation())
+    if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
         s_cache.insert(this, new QPixmap(QPixmap::fromImage(image)), cost);

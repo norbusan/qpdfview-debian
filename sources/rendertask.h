@@ -49,7 +49,8 @@ public:
     bool isRunning() const;
 
     bool wasCanceled() const;
-    bool forceCancellation() const;
+    bool wasCanceledNormally() const;
+    bool wasCanceledForcibly() const;
 
     void run();
 
@@ -78,8 +79,15 @@ private:
     void finish();
 
     bool m_isRunning;
-    bool m_wasCanceled;
-    bool m_forceCancellation;
+
+    enum
+    {
+        NotCanceled = 0,
+        CanceledNormally = 1,
+        CanceledForcibly = 2
+    };
+
+    QAtomicInt m_wasCanceled;
 
     Model::Page* m_page;
 
