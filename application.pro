@@ -83,6 +83,10 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 !without_pdf {
     DEFINES += WITH_PDF
+    !without_pkgconfig {
+        poppler_qt_pkg = poppler-qt$${QT_MAJOR_VERSION}
+        DEFINES += POPPLER_VERSION=\\\"$${system(pkg-config --modversion $${poppler_qt_pkg})}\\\"
+    }
 
     static_pdf_plugin {
         isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
@@ -106,6 +110,9 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 !without_ps {
     DEFINES += WITH_PS
+    !without_pkgconfig {
+        DEFINES += SPECTRE_VERSION=\\\"$${system(pkg-config --modversion libspectre)}\\\"
+    }
 
     static_ps_plugin {
         isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
@@ -127,6 +134,9 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 !without_djvu {
     DEFINES += WITH_DJVU
+    !without_pkgconfig {
+        DEFINES += DJVULIBRE_VERSION=\\\"$${system(pkg-config --modversion ddjvuapi)}\\\"
+    }
 
     static_djvu_plugin {
         isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.a
