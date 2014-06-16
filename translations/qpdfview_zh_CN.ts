@@ -436,28 +436,28 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1542"/>
-        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;PDF 支持使用 Poppler&lt;/li&gt;</translation>
+        <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1545"/>
-        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;PS 支持使用 libspectre&lt;/li&gt;</translation>
+        <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1548"/>
-        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;DjVu 支持使用 DjVuLibre&lt;/li&gt;</translation>
+        <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1551"/>
-        <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
+        <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1554"/>
-        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;打印支持使用 CUPS&lt;/li&gt;</translation>
+        <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -806,72 +806,72 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="320"/>
+        <location filename="../sources/pageitem.cpp" line="341"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">转到 %1 页。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="324"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">转到文件“%2”第 %1 页。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="332"/>
+        <location filename="../sources/pageitem.cpp" line="353"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">打开“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="367"/>
+        <location filename="../sources/pageitem.cpp" line="388"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">编辑表格字段“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="611"/>
+        <location filename="../sources/pageitem.cpp" line="632"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">复制文本(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="612"/>
+        <location filename="../sources/pageitem.cpp" line="633"/>
         <source>Use text as &amp;selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="613"/>
+        <location filename="../sources/pageitem.cpp" line="634"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">复制图像(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="614"/>
+        <location filename="../sources/pageitem.cpp" line="635"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">保存图像到文件(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="649"/>
+        <location filename="../sources/pageitem.cpp" line="670"/>
         <source>Save image to file</source>
         <translation type="unfinished">保存图像到文件</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">无法保存图像到文件“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="666"/>
+        <location filename="../sources/pageitem.cpp" line="687"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">添加文本(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="667"/>
+        <location filename="../sources/pageitem.cpp" line="688"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">添加高亮(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="706"/>
+        <location filename="../sources/pageitem.cpp" line="727"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">移除注释(&amp;R)</translation>
     </message>

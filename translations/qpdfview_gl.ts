@@ -436,28 +436,28 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1542"/>
-        <source>&lt;li&gt;PDF support using Poppler&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatibilidade con PDF usando Poppler&lt;/li&gt;</translation>
+        <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1545"/>
-        <source>&lt;li&gt;PS support using libspectre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatibilidade con PS usando libspectre&lt;/li&gt;</translation>
+        <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1548"/>
-        <source>&lt;li&gt;DjVu support using DjVuLibre&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatibilidade con DjVu usando DjVuLibre&lt;/li&gt;</translation>
+        <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1551"/>
-        <source>&lt;li&gt;PDF support using Fitz&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatibilidade para PDF usando Fitz&lt;/li&gt;</translation>
+        <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1554"/>
-        <source>&lt;li&gt;Printing support using CUPS&lt;/li&gt;</source>
-        <translation type="unfinished">&lt;li&gt;Compatibilidade de impresión usando CUPS&lt;/li&gt;</translation>
+        <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -806,72 +806,72 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="320"/>
+        <location filename="../sources/pageitem.cpp" line="341"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Ir á páxina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="324"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Ir á páxina %1 do ficheiro «%2».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="332"/>
+        <location filename="../sources/pageitem.cpp" line="353"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Abrir «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="367"/>
+        <location filename="../sources/pageitem.cpp" line="388"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Editar campo do formulario «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="611"/>
+        <location filename="../sources/pageitem.cpp" line="632"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">&amp;Copiar texto</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="612"/>
+        <location filename="../sources/pageitem.cpp" line="633"/>
         <source>Use text as &amp;selection</source>
         <translation type="unfinished">Usar texto como &amp;selección</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="613"/>
+        <location filename="../sources/pageitem.cpp" line="634"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copiar &amp;imaxe</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="614"/>
+        <location filename="../sources/pageitem.cpp" line="635"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Gardar a imaxe nun &amp;ficheiro...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="649"/>
+        <location filename="../sources/pageitem.cpp" line="670"/>
         <source>Save image to file</source>
         <translation type="unfinished">Gardar a imaxe nun ficheiro</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="653"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Non foi posíbel gardar a imaxe no ficheiro «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="666"/>
+        <location filename="../sources/pageitem.cpp" line="687"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Engadir &amp;texto</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="667"/>
+        <location filename="../sources/pageitem.cpp" line="688"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Engadir &amp;resalte</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="706"/>
+        <location filename="../sources/pageitem.cpp" line="727"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Retirar a anotación</translation>
     </message>
