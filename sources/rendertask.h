@@ -76,9 +76,10 @@ private:
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;
 
+    bool m_isRunning;
+
     void finish();
 
-    bool m_isRunning;
 
     enum
     {
@@ -88,6 +89,7 @@ private:
     };
 
     QAtomicInt m_wasCanceled;
+
 
     Model::Page* m_page;
 

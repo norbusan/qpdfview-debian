@@ -85,6 +85,7 @@ void RenderTask::run()
         return;
     }
 
+
     qreal resolutionX;
     qreal resolutionY;
 
@@ -115,12 +116,14 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
+
     if(m_prefetch ? m_wasCanceled.loadAcquire() == CanceledForcibly : m_wasCanceled.loadAcquire() != NotCanceled)
     {
         finish();
 
         return;
     }
+
 
     if(m_invertColors)
     {
