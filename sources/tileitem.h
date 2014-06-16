@@ -58,7 +58,7 @@ public:
     void dropObsoletePixmaps();
 
 public slots:
-    void refresh(bool canKeepObsoletePixmaps = false);
+    void refresh(bool keepObsoletePixmaps = false);
 
     void startRender(bool prefetch = false);
     void cancelRender();

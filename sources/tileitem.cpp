@@ -141,14 +141,11 @@ void TileItem::dropObsoletePixmaps()
     m_obsoletePixmap = QPixmap();
 }
 
-void TileItem::refresh(bool canKeepObsoletePixmaps)
+void TileItem::refresh(bool keepObsoletePixmaps)
 {
-    if(canKeepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
+    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
     {
-        if(s_cache.contains(this))
-        {
-            m_obsoletePixmap = *s_cache.object(this);
-        }
+        m_obsoletePixmap = *s_cache.object(this);
     }
     else
     {
@@ -192,6 +189,8 @@ void TileItem::cancelRender()
 
 void TileItem::deleteAfterRender()
 {
+    cancelRender();
+
     if(!m_renderTask->isRunning())
     {
         delete this;

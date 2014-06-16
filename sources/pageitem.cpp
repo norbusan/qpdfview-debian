@@ -98,7 +98,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
         m_tileItems.resize(1);
         m_tileItems.squeeze();
 
-        m_tileItems[0]= tile;
+        m_tileItems.replace(0, tile);
     }
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
@@ -221,11 +221,18 @@ void PageItem::setInvertColors(bool invertColors)
 }
 
 
-void PageItem::refresh(bool canKeepObsoletePixmaps)
+void PageItem::refresh(bool keepObsoletePixmaps)
 {
-    foreach(TileItem* tile, m_tileItems)
+    if(!s_settings->pageItem().useTiling())
     {
-        tile->refresh(canKeepObsoletePixmaps);
+        m_tileItems.first()->refresh(keepObsoletePixmaps);
+    }
+    else
+    {
+        foreach(TileItem* tile, m_tileItems)
+        {
+            tile->refresh(keepObsoletePixmaps);
+        }
     }
 
     update();
@@ -233,17 +240,31 @@ void PageItem::refresh(bool canKeepObsoletePixmaps)
 
 void PageItem::startRender(bool prefetch)
 {
-    foreach(TileItem* tile, m_tileItems)
+    if(!s_settings->pageItem().useTiling())
     {
-        tile->startRender(prefetch);
+        m_tileItems.first()->startRender(prefetch);
+    }
+    else
+    {
+        foreach(TileItem* tile, m_tileItems)
+        {
+            tile->startRender(prefetch);
+        }
     }
 }
 
 void PageItem::cancelRender()
 {
-    foreach(TileItem* tile, m_tileItems)
+    if(!s_settings->pageItem().useTiling())
     {
-        tile->cancelRender();
+        m_tileItems.first()->cancelRender();
+    }
+    else
+    {
+        foreach(TileItem* tile, m_tileItems)
+        {
+            tile->cancelRender();
+        }
     }
 }
 
@@ -933,7 +954,7 @@ void PageItem::prepareTiling()
 
     if(!s_settings->pageItem().useTiling())
     {
-        m_tileItems[0]->setBoundingRect(m_boundingRect);
+        m_tileItems.first()->setBoundingRect(m_boundingRect);
 
         return;
     }
@@ -956,14 +977,14 @@ void PageItem::prepareTiling()
 
     for(int index = newCount; index < oldCount; ++index)
     {
-        m_tileItems[index]->deleteAfterRender();
+        m_tileItems.at(index)->deleteAfterRender();
     }
 
     m_tileItems.resize(newCount);
 
     for(int index = oldCount; index < newCount; ++index)
     {
-        m_tileItems[index] = new TileItem(this);
+        m_tileItems.replace(index, new TileItem(this));
     }
 
 
@@ -989,7 +1010,7 @@ void PageItem::prepareTiling()
             const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : pageWidth - left;
             const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : pageHeight - top;
 
-            TileItem* tile = m_tileItems[column * rowCount + row];
+            TileItem* tile = m_tileItems.at(column * rowCount + row);
 
             tile->setTile(QRect(left, top, width, height));
             tile->setBoundingRect(QRectF(pageLeft + left, pageTop + top, width, height));
