@@ -25,6 +25,61 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
+namespace
+{
+
+enum
+{
+    NotCanceled = 0,
+    CanceledNormally = 1,
+    CanceledForcibly = 2
+};
+
+void setCancellation(QAtomicInt& wasCanceled, bool force)
+{
+#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
+
+    wasCanceled.storeRelease(force ? CanceledForcibly : CanceledNormally);
+
+#else
+
+    wasCanceled.fetchAndStoreRelease(force ? CanceledForcibly : CanceledNormally);
+
+#endif // QT_VERSION
+}
+
+void resetCancellation(QAtomicInt& wasCanceled)
+{
+#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
+
+    wasCanceled.storeRelease(NotCanceled);
+
+#else
+
+    wasCanceled.fetchAndStoreRelease(NotCanceled);
+
+#endif // QT_VERSION
+}
+
+bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return prefetch ?
+                wasCanceled.loadAcquire() == CanceledForcibly :
+                wasCanceled.loadAcquire() != NotCanceled;
+
+#else
+
+    return prefetch ?
+                wasCanceled.testAndSetAcquire(CanceledForcibly, CanceledForcibly) :
+                !wasCanceled.testAndSetAcquire(NotCanceled, NotCanceled);
+
+#endif // QT_VERSION
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -63,22 +118,22 @@ bool RenderTask::isRunning() const
 
 bool RenderTask::wasCanceled() const
 {
-    return m_wasCanceled.load() != NotCanceled;
+    return m_wasCanceled != NotCanceled;
 }
 
 bool RenderTask::wasCanceledNormally() const
 {
-    return m_wasCanceled.load() == CanceledNormally;
+    return m_wasCanceled == CanceledNormally;
 }
 
 bool RenderTask::wasCanceledForcibly() const
 {
-    return m_wasCanceled.load() == CanceledForcibly;
+    return m_wasCanceled == CanceledForcibly;
 }
 
 void RenderTask::run()
 {
-    if(m_prefetch ? m_wasCanceled.loadAcquire() == CanceledForcibly : m_wasCanceled.loadAcquire() != NotCanceled)
+    if(testCancellation(m_wasCanceled, m_prefetch))
     {
         finish();
 
@@ -117,7 +172,7 @@ void RenderTask::run()
 #endif // QT_VERSION
 
 
-    if(m_prefetch ? m_wasCanceled.loadAcquire() == CanceledForcibly : m_wasCanceled.loadAcquire() != NotCanceled)
+    if(testCancellation(m_wasCanceled, m_prefetch))
     {
         finish();
 
@@ -160,14 +215,14 @@ void RenderTask::start(Model::Page* page,
     m_isRunning = true;
     m_mutex.unlock();
 
-    m_wasCanceled.storeRelease(NotCanceled);
+    resetCancellation(m_wasCanceled);
 
     QThreadPool::globalInstance()->start(this);
 }
 
 void RenderTask::cancel(bool force)
 {
-    m_wasCanceled.storeRelease(force ? CanceledForcibly : CanceledNormally);
+    setCancellation(m_wasCanceled, force);
 }
 
 void RenderTask::finish()

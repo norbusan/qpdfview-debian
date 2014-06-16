@@ -77,18 +77,9 @@ private:
     QWaitCondition m_waitCondition;
 
     bool m_isRunning;
+    QAtomicInt m_wasCanceled;
 
     void finish();
-
-
-    enum
-    {
-        NotCanceled = 0,
-        CanceledNormally = 1,
-        CanceledForcibly = 2
-    };
-
-    QAtomicInt m_wasCanceled;
 
 
     Model::Page* m_page;
