@@ -110,8 +110,8 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 !without_ps {
     DEFINES += WITH_PS
 
-    !without_pkgconfig:SPECTRE_VERSION = $$system(pkg-config --modversion libspectre)
-    DEFINES += SPECTRE_VERSION=\\\"$${SPECTRE_VERSION}\\\"
+    !without_pkgconfig:LIBSPECTRE_VERSION = $$system(pkg-config --modversion libspectre)
+    DEFINES += LIBSPECTRE_VERSION=\\\"$${SPECTRE_VERSION}\\\"
 
     static_ps_plugin {
         isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a

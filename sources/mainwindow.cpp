@@ -1542,7 +1542,7 @@ void MainWindow::on_about_triggered()
                                                       + tr("<li>PDF support using Poppler %1</li>").arg(POPPLER_VERSION)
 #endif // WITH_PDF
 #ifdef WITH_PS
-                                                      + tr("<li>PS support using libspectre %1</li>").arg(SPECTRE_VERSION)
+                                                      + tr("<li>PS support using libspectre %1</li>").arg(LIBSPECTRE_VERSION)
 #endif // WITH_PS
 #ifdef WITH_DJVU
                                                       + tr("<li>DjVu support using DjVuLibre %1</li>").arg(DJVULIBRE_VERSION)
