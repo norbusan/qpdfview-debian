@@ -505,7 +505,7 @@ public:
         static inline qreal minimumScaleFactor() { return 0.1; }
         static inline qreal maximumScaleFactor() { return 10.0; }
 
-        static inline qreal zoomBy() { return 1.1; }
+        static inline qreal zoomBy() { return 1.2; }
 
         static inline qreal pageSpacing() { return 5.0; }
         static inline qreal thumbnailSpacing() { return 3.0; }
