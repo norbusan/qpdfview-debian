@@ -157,9 +157,12 @@ void TileItem::dropObsoletePixmaps()
 
 void TileItem::refresh(bool keepObsoletePixmaps)
 {
-    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(getHash()))
+    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        m_obsoletePixmap = *s_cache.object(getHash());
+        if(s_cache.contains(this))
+        {
+            m_obsoletePixmap = *s_cache.object(getHash());
+        }
     }
     else
     {
@@ -174,22 +177,21 @@ void TileItem::refresh(bool keepObsoletePixmaps)
     update();
 }
 
-void TileItem::startRender(bool prefetch)
+int TileItem::startRender(bool prefetch)
 {
-    if(prefetch && s_cache.contains(getHash()))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(getHash())))
     {
-        return;
+        return 0;
     }
 
-    if(!m_pixmapError && !m_renderTask->isRunning())
-    {
-        PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
+    const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-        m_renderTask->start(parentPage->m_page,
-                            parentPage->m_resolutionX, parentPage->m_resolutionY, effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio),
-                            parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors,
-                            m_tile, prefetch);
-    }
+    m_renderTask->start(parentPage->m_page,
+                        parentPage->m_resolutionX, parentPage->m_resolutionY, effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio),
+                        parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors,
+                        m_tile, prefetch);
+
+    return 1;
 }
 
 void TileItem::cancelRender()
@@ -226,7 +228,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
                                         const QRect& tile, bool prefetch,
                                         QImage image)
 {
-    PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
+    const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
     if(parentPage->m_resolutionX != resolutionX || parentPage->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio), devicePixelRatio)
             || !qFuzzyCompare(parentPage->m_scaleFactor, scaleFactor) || parentPage->m_rotation != rotation || parentPage->m_invertColors != invertColors

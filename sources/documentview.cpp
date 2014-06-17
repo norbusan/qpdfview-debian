@@ -351,7 +351,9 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
 
 void DocumentView::setScaleFactor(qreal scaleFactor)
 {
-    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor >= Defaults::DocumentView::minimumScaleFactor() && scaleFactor <= Defaults::DocumentView::maximumScaleFactor())
+    if(!qFuzzyCompare(m_scaleFactor, scaleFactor)
+            && scaleFactor >= s_settings->documentView().minimumScaleFactor()
+            && scaleFactor <= s_settings->documentView().maximumScaleFactor())
     {
         m_scaleFactor = scaleFactor;
 
@@ -604,7 +606,7 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
-{    
+{
     const int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
     const int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
 
@@ -822,12 +824,15 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
+                            s_settings->documentView().maximumScaleFactor()));
+
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMin(m_scaleFactor + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_scaleFactor * s_settings->documentView().zoomFactor(),
+                            s_settings->documentView().maximumScaleFactor()));
     }
 }
 
@@ -835,12 +840,15 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
+                            s_settings->documentView().minimumScaleFactor()));
+
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMax(m_scaleFactor - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_scaleFactor / s_settings->documentView().zoomFactor(),
+                            s_settings->documentView().minimumScaleFactor()));
     }
 }
 
@@ -973,15 +981,27 @@ void DocumentView::on_autoRefresh_timeout()
 void DocumentView::on_prefetch_timeout()
 {
     const QPair< int, int > prefetchRange = m_layout->prefetchRange(m_currentPage, m_pages.count());
-    const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-    for(int index = prefetchRange.first - 1; index <= prefetchRange.second - 1; ++index)
+    const int maxCost = prefetchRange.second - prefetchRange.first + 1;
+    int cost = 0;
+
+    for(int index = m_currentPage - 1; index <= prefetchRange.second - 1; ++index)
     {
-        PageItem* page = m_pageItems.at(index);
+        cost += m_pageItems.at(index)->startRender(true);
 
-        if(!visibleRect.contains(page->boundingRect().translated(page->pos())))
+        if(cost >= maxCost)
         {
-            page->startRender(true);
+            return;
+        }
+    }
+
+    for(int index = m_currentPage - 1; index >= prefetchRange.first - 1; --index)
+    {
+        cost += m_pageItems.at(index)->startRender(true);
+
+        if(cost >= maxCost)
+        {
+            return;
         }
     }
 }

@@ -1,6 +1,7 @@
 Release 0.4.11:
   * Added tiled rendering currently disabled by default.
-  * Added displaying various library versions in the about box. Thanks Martin Spacek.
+  * Made zooming logarithmic instead of linear. Thanks to Martin Spacek.
+  * Added displaying various library versions in the about box. Thanks to Martin Spacek.
   * Fixed building without SQLite support again. Thanks to Sébastien Szymanski.
   * Fixed disabling restoring of tabs and bookmarks. Thanks to Benjamin Eltzner.
   * Added actions to toggle visibility of tool bars and menu bar.

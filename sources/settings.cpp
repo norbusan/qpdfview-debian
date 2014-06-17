@@ -357,6 +357,26 @@ void Settings::DocumentView::setLimitThumbnailsToResults(bool limitThumbnailsToR
     m_settings->setValue("documentView/limitThumbnailsToResults", limitThumbnailsToResults);
 }
 
+qreal Settings::DocumentView::minimumScaleFactor() const
+{
+    return m_settings->value("documentView/minimumScaleFactor", Defaults::DocumentView::minimumScaleFactor()).toReal();
+}
+
+qreal Settings::DocumentView::maximumScaleFactor() const
+{
+    return m_settings->value("documentView/maximumScaleFactor", Defaults::DocumentView::maximumScaleFactor()).toReal();
+}
+
+qreal Settings::DocumentView::zoomFactor() const
+{
+    return m_settings->value("documentView/zoomFactor", Defaults::DocumentView::zoomFactor()).toReal();
+}
+
+void Settings::DocumentView::setZoomFactor(qreal zoomFactor)
+{
+    m_settings->setValue("documentView/zoomFactor", zoomFactor);
+}
+
 void Settings::DocumentView::setPageSpacing(qreal pageSpacing)
 {
     if(pageSpacing >= 0.0)

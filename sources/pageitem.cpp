@@ -238,19 +238,23 @@ void PageItem::refresh(bool keepObsoletePixmaps)
     update();
 }
 
-void PageItem::startRender(bool prefetch)
+int PageItem::startRender(bool prefetch)
 {
+    int cost = 0;
+
     if(!s_settings->pageItem().useTiling())
     {
-        m_tileItems.first()->startRender(prefetch);
+        cost += m_tileItems.first()->startRender(prefetch);
     }
     else
     {
         foreach(TileItem* tile, m_tileItems)
         {
-            tile->startRender(prefetch);
+            cost += tile->startRender(prefetch);
         }
     }
+
+    return cost;
 }
 
 void PageItem::cancelRender()
