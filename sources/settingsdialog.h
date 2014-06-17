@@ -92,6 +92,10 @@ private:
     QCheckBox* m_synchronizePresentationCheckBox;
     QSpinBox* m_presentationScreenSpinBox;
 
+    QCheckBox* m_synchronizeOutlineViewCheckBox;
+
+    QDoubleSpinBox* m_zoomFactorSpinBox;
+
     QSpinBox* m_highlightDurationSpinBox;
     QComboBox* m_highlightColorComboBox;
     QComboBox* m_annotationColorComboBox;
@@ -157,8 +161,6 @@ private:
 
     QCheckBox* m_currentPageInWindowTitleCheckBox;
     QCheckBox* m_instanceNameInWindowTitleCheckBox;
-
-    QCheckBox* m_synchronizeOutlineViewCheckBox;
 
     QCheckBox* m_highlightCurrentThumbnailCheckBox;
     QCheckBox* m_limitThumbnailsToResultsCheckBox;

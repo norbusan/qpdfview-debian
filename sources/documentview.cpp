@@ -824,14 +824,14 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * Defaults::DocumentView::zoomBy(),
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMin(m_scaleFactor * Defaults::DocumentView::zoomBy(),
+        setScaleFactor(qMin(m_scaleFactor * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
     }
 }
@@ -840,14 +840,14 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / Defaults::DocumentView::zoomBy(),
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMax(m_scaleFactor / Defaults::DocumentView::zoomBy(),
+        setScaleFactor(qMax(m_scaleFactor / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
     }
 }

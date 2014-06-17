@@ -282,6 +282,22 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
 
+    // synchronize outline view
+
+    m_synchronizeOutlineViewCheckBox = new QCheckBox(this);
+    m_synchronizeOutlineViewCheckBox->setChecked(s_settings->mainWindow().synchronizeOutlineView());
+
+    m_behaviorLayout->addRow(tr("Synchronize outline view:"), m_synchronizeOutlineViewCheckBox);
+
+    // zoom factor
+
+    m_zoomFactorSpinBox = new QDoubleSpinBox(this);
+    m_zoomFactorSpinBox->setRange(1.0, 2.0);
+    m_zoomFactorSpinBox->setSingleStep(0.05);
+    m_zoomFactorSpinBox->setValue(s_settings->documentView().zoomFactor());
+
+    m_behaviorLayout->addRow(tr("Zoom factor:"), m_zoomFactorSpinBox);
+
     // highlight duration
 
     m_highlightDurationSpinBox = new QSpinBox(this);
@@ -330,6 +346,10 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->presentationView().setSynchronize(m_synchronizePresentationCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
+    s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
+
+    s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
+
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
     s_settings->pageItem().setHighlightColor(getValidColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
     s_settings->pageItem().setAnnotationColor(getValidColorFromCurrentText(m_annotationColorComboBox, Defaults::PageItem::annotationColor()));
@@ -352,6 +372,10 @@ void SettingsDialog::resetBehaviorTab()
 
     m_synchronizePresentationCheckBox->setChecked(Defaults::PresentationView::synchronize());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
+
+    m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
+
+    m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
     setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
@@ -696,13 +720,6 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Instance name in window title:"), m_instanceNameInWindowTitleCheckBox);
 
-    // synchronize outline view
-
-    m_synchronizeOutlineViewCheckBox = new QCheckBox(this);
-    m_synchronizeOutlineViewCheckBox->setChecked(s_settings->mainWindow().synchronizeOutlineView());
-
-    m_interfaceLayout->addRow(tr("Synchronize outline view:"), m_synchronizeOutlineViewCheckBox);
-
     // highlight current thumbnail
 
     m_highlightCurrentThumbnailCheckBox = new QCheckBox(this);
@@ -754,8 +771,6 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
     s_settings->mainWindow().setInstanceNameInWindowTitle(m_instanceNameInWindowTitleCheckBox->isChecked());
 
-    s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
-
     s_settings->documentView().setHighlightCurrentThumbnail(m_highlightCurrentThumbnailCheckBox->isChecked());
     s_settings->documentView().setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
 
@@ -783,8 +798,6 @@ void SettingsDialog::resetInterfaceTab()
 
     m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());
     m_instanceNameInWindowTitleCheckBox->setChecked(Defaults::MainWindow::instancfeNameInWindowTitle());
-
-    m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
 
     m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
     m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
