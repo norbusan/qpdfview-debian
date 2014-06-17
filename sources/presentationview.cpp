@@ -342,11 +342,26 @@ void PresentationView::on_prefetch_timeout()
     fromPage = qMax(fromPage, 1);
     toPage = qMin(toPage, m_pages.count());
 
-    for(int index = fromPage - 1; index <= toPage - 1; ++index)
+    const int maxCost = fromPage - toPage + 1;
+    int cost = 0;
+
+    for(int index = m_currentPage - 1; index <= toPage - 1; ++index)
     {
-        if(index != m_currentPage - 1)
+        cost += m_pageItems.at(index)->startRender(true);
+
+        if(cost >= maxCost)
         {
-            m_pageItems.at(index)->startRender(true);
+            return;
+        }
+    }
+
+    for(int index = m_currentPage - 1; index >= fromPage - 1; --index)
+    {
+        cost += m_pageItems.at(index)->startRender(true);
+
+        if(cost >= maxCost)
+        {
+            return;
         }
     }
 }

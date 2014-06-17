@@ -981,15 +981,27 @@ void DocumentView::on_autoRefresh_timeout()
 void DocumentView::on_prefetch_timeout()
 {
     const QPair< int, int > prefetchRange = m_layout->prefetchRange(m_currentPage, m_pages.count());
-    const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-    for(int index = prefetchRange.first - 1; index <= prefetchRange.second - 1; ++index)
+    const int maxCost = prefetchRange.second - prefetchRange.first + 1;
+    int cost = 0;
+
+    for(int index = m_currentPage - 1; index <= prefetchRange.second - 1; ++index)
     {
-        PageItem* page = m_pageItems.at(index);
+        cost += m_pageItems.at(index)->startRender(true);
 
-        if(!visibleRect.contains(page->boundingRect().translated(page->pos())))
+        if(cost >= maxCost)
         {
-            page->startRender(true);
+            return;
+        }
+    }
+
+    for(int index = m_currentPage - 1; index >= prefetchRange.first - 1; --index)
+    {
+        cost += m_pageItems.at(index)->startRender(true);
+
+        if(cost >= maxCost)
+        {
+            return;
         }
     }
 }
