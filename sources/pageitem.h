@@ -107,7 +107,7 @@ signals:
 public slots:
     void refresh(bool keepObsoletePixmaps = false);
 
-    void startRender(bool prefetch = false);
+    int startRender(bool prefetch = false);
     void cancelRender();
 
 protected slots:
