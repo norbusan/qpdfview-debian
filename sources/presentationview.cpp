@@ -256,12 +256,12 @@ void PresentationView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMin(m_scaleFactor + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_scaleFactor * Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
     }
 }
 
@@ -269,12 +269,12 @@ void PresentationView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMax(m_scaleFactor - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_scaleFactor / Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
     }
 }
 
