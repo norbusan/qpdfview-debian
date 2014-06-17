@@ -187,6 +187,9 @@ public:
         inline bool limitThumbnailsToResults() const { return m_limitThumbnailsToResults; }
         void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
 
+        qreal minimumScaleFactor() const;
+        qreal maximumScaleFactor() const;
+
         inline qreal pageSpacing() const { return m_pageSpacing; }
         void setPageSpacing(qreal pageSpacing);
 

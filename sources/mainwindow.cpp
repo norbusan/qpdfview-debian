@@ -779,8 +779,8 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
             m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
 
-            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::maximumScaleFactor()));
-            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, Defaults::DocumentView::minimumScaleFactor()));
+            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().maximumScaleFactor()));
+            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().minimumScaleFactor()));
         }
     }
 }
@@ -903,8 +903,8 @@ void MainWindow::on_scaleFactor_editingFinished()
         bool ok = false;
         qreal scaleFactor = m_scaleFactorComboBox->lineEdit()->text().toInt(&ok) / 100.0;
 
-        scaleFactor = scaleFactor >= Defaults::DocumentView::minimumScaleFactor() ? scaleFactor : Defaults::DocumentView::minimumScaleFactor();
-        scaleFactor = scaleFactor <= Defaults::DocumentView::maximumScaleFactor() ? scaleFactor : Defaults::DocumentView::maximumScaleFactor();
+        scaleFactor = qMax(scaleFactor, s_settings->documentView().minimumScaleFactor());
+        scaleFactor = qMin(scaleFactor, s_settings->documentView().maximumScaleFactor());
 
         if(ok)
         {

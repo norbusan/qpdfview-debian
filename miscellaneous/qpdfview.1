@@ -69,9 +69,11 @@ qpdfview uses a configuration file usually located at
 
 The icon theme used by Qt can be changed by setting the key "iconTheme" in the section "mainWindow". The application-wide Qt style sheet can be changed by setting the key "styleSheet" in the section "mainWindow".
 
-The size resp. overlap of the rendering tiles in pixels can be adjusted by setting the key "tileSize" resp. "tileOverlap" in the section "pageItem". Its default value is 1024 resp. 8 pixels.
+The size resp. overlap of the rendering tiles in pixels can be adjusted by setting the keys "tileSize" resp. "tileOverlap" in the section "pageItem". The default values are 1024 resp. 8 pixels.
 
-The timeout for auto-refresh resp. prefetch can be changed by setting the key "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView". The defaults are 750 resp. 250 milliseconds.
+The mimimum resp maximum scale factor can be modified by changing the keys "minimumScaleFactor" resp. "maximumScaleFactor" in the section "documentView". The default values are 0.1 resp. 10.0.
+
+The timeout for auto-refresh resp. prefetch can be changed by setting the keys "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView". The defaults are 750 resp. 250 milliseconds.
 
 The interval for saving relevant state (as determined by the settings) to the database can be changed by setting the key "saveDatabaseInterval" in the section "mainWindow". The default is 30000 milliseconds with a non-positive value disabling the function.
 .SH EXAMPLES
