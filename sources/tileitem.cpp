@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainter>
 #include <QTimer>
+//#include <QtDebug>
 
 #include "settings.h"
 #include "model.h"
@@ -57,7 +58,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< TileItem*, QPixmap > TileItem::s_cache;
+QCache< QString, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_tile(),
@@ -84,8 +85,21 @@ TileItem::~TileItem()
 {
     m_renderTask->cancel(true);
     m_renderTask->wait();
+}
 
-    s_cache.remove(this);
+QString TileItem::getHash()
+{
+    // calculate unique hash for the current pixmap
+    PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
+    QString hash = QString().sprintf("%d,%d,%d,%d,%d,%d,%d",
+                                     parentPage->m_index,
+                                     parentPage->m_rotation,
+                                     parentPage->m_invertColors,
+                                     qRound(m_boundingRect.x()),
+                                     qRound(m_boundingRect.y()),
+                                     qRound(m_boundingRect.width()),
+                                     qRound(m_boundingRect.height()));
+    return hash;
 }
 
 QRectF TileItem::boundingRect() const
@@ -143,9 +157,9 @@ void TileItem::dropObsoletePixmaps()
 
 void TileItem::refresh(bool keepObsoletePixmaps)
 {
-    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
+    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(getHash()))
     {
-        m_obsoletePixmap = *s_cache.object(this);
+        m_obsoletePixmap = *s_cache.object(getHash());
     }
     else
     {
@@ -156,14 +170,13 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
-    s_cache.remove(this);
 
     update();
 }
 
 void TileItem::startRender(bool prefetch)
 {
-    if(prefetch && s_cache.contains(this))
+    if(prefetch && s_cache.contains(getHash()))
     {
         return;
     }
@@ -234,7 +247,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(this, new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(getHash(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
@@ -246,9 +259,9 @@ QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(this))
+    if(s_cache.contains(getHash()))
     {
-        pixmap = *s_cache.object(this);
+        pixmap = *s_cache.object(getHash());
     }
     else
     {
@@ -258,14 +271,14 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(this, new QPixmap(pixmap), cost);
+            s_cache.insert(getHash(), new QPixmap(pixmap), cost);
         }
         else
         {
             startRender();
         }
     }
-
+    //qDebug() << "page,rot,inv,l,t,w,h:" << getHash();
     return pixmap;
 }
 

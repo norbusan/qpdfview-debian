@@ -50,6 +50,8 @@ public:
     inline QRect tile() const { return m_tile; }
     inline void setTile(const QRect& tile) { m_tile = tile; }
 
+    QString getHash();
+
     QRectF boundingRect() const;
     void setBoundingRect(const QRectF& boundingRect);
 
@@ -77,7 +79,7 @@ private:
 
     static Settings* s_settings;
 
-    static QCache< TileItem*, QPixmap > s_cache;
+    static QCache< QString, QPixmap > s_cache;
 
     QRect m_tile;
     QRectF m_boundingRect;
