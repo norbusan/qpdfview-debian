@@ -604,7 +604,7 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
-{    
+{
     const int fromPage = printer->fromPage() != 0 ? printer->fromPage() : 1;
     const int toPage = printer->toPage() != 0 ? printer->toPage() : m_pages.count();
 
@@ -822,12 +822,12 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMin(m_scaleFactor + Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
+        setScaleFactor(qMin(m_scaleFactor * Defaults::DocumentView::zoomBy(), Defaults::DocumentView::maximumScaleFactor()));
     }
 }
 
@@ -835,12 +835,12 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
         setScaleMode(ScaleFactorMode);
     }
     else
     {
-        setScaleFactor(qMax(m_scaleFactor - Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
+        setScaleFactor(qMax(m_scaleFactor / Defaults::DocumentView::zoomBy(), Defaults::DocumentView::minimumScaleFactor()));
     }
 }
 
