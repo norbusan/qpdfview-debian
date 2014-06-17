@@ -159,7 +159,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(this))
+        if(s_cache.contains(getHash()))
         {
             m_obsoletePixmap = *s_cache.object(getHash());
         }
