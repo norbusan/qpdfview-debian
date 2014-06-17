@@ -143,9 +143,12 @@ void TileItem::dropObsoletePixmaps()
 
 void TileItem::refresh(bool keepObsoletePixmaps)
 {
-    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps() && s_cache.contains(this))
+    if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        m_obsoletePixmap = *s_cache.object(this);
+        if(s_cache.contains(this))
+        {
+            m_obsoletePixmap = *s_cache.object(this);
+        }
     }
     else
     {
