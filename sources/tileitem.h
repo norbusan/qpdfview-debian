@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 
 #include "global.h"
+#include "model.h"
 
 namespace qpdfview
 {
@@ -50,7 +51,7 @@ public:
     inline QRect tile() const { return m_tile; }
     inline void setTile(const QRect& tile) { m_tile = tile; }
 
-    QString getHash();
+    QPair< Model::Document*, QString > getHash();
 
     QRectF boundingRect() const;
     void setBoundingRect(const QRectF& boundingRect);
@@ -79,7 +80,7 @@ private:
 
     static Settings* s_settings;
 
-    static QCache< QString, QPixmap > s_cache;
+    static QCache< QPair< Model::Document*, QString >, QPixmap > s_cache;
 
     QRect m_tile;
     QRectF m_boundingRect;

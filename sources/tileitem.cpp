@@ -58,7 +58,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< QString, QPixmap > TileItem::s_cache;
+QCache< QPair< Model::Document*, QString >, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_tile(),
@@ -87,19 +87,20 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QString TileItem::getHash()
+QPair< Model::Document*, QString > TileItem::getHash()
 {
     // calculate unique hash for the current pixmap
     PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
-    QString hash = QString().sprintf("%d,%d,%d,%d,%d,%d,%d",
-                                     parentPage->m_index,
-                                     parentPage->m_rotation,
-                                     parentPage->m_invertColors,
-                                     qRound(m_boundingRect.x()),
-                                     qRound(m_boundingRect.y()),
-                                     qRound(m_boundingRect.width()),
-                                     qRound(m_boundingRect.height()));
-    return hash;
+    Model::Document* parentDocument = qobject_cast< Model::Document* >(parentPage->parentObject());
+    QString hashstr = QString().sprintf("%d,%d,%d,%d,%d,%d,%d",
+                                        parentPage->m_index,
+                                        parentPage->m_rotation,
+                                        parentPage->m_invertColors,
+                                        qRound(m_boundingRect.x()),
+                                        qRound(m_boundingRect.y()),
+                                        qRound(m_boundingRect.width()),
+                                        qRound(m_boundingRect.height()));
+    return qMakePair(parentDocument, hashstr);
 }
 
 QRectF TileItem::boundingRect() const
