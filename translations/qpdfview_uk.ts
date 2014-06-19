@@ -46,7 +46,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Відомості</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="490"/>
@@ -148,32 +148,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="862"/>
+        <location filename="../sources/settingsdialog.cpp" line="886"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="863"/>
+        <location filename="../sources/settingsdialog.cpp" line="887"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="864"/>
+        <location filename="../sources/settingsdialog.cpp" line="888"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="865"/>
+        <location filename="../sources/settingsdialog.cpp" line="889"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift і Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="866"/>
+        <location filename="../sources/settingsdialog.cpp" line="890"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift і Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="867"/>
+        <location filename="../sources/settingsdialog.cpp" line="891"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl і Alt</translation>
     </message>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="51"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ви&amp;далити закладку</translation>
     </message>
 </context>
 <context>
@@ -212,42 +212,42 @@
         <translation type="unfinished">Підтримувані формати (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1053"/>
+        <location filename="../sources/documentview.cpp" line="1079"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Інформація</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1053"/>
+        <location filename="../sources/documentview.cpp" line="1079"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Перехід за посиланням заборонено у налаштуваннях.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1103"/>
+        <location filename="../sources/documentview.cpp" line="1129"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1103"/>
+        <location filename="../sources/documentview.cpp" line="1129"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1541"/>
+        <location filename="../sources/documentview.cpp" line="1567"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1613"/>
+        <location filename="../sources/documentview.cpp" line="1639"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Розблокувати %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1613"/>
+        <location filename="../sources/documentview.cpp" line="1639"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1635"/>
+        <location filename="../sources/documentview.cpp" line="1661"/>
         <source>Page %1</source>
         <translation type="unfinished">Сторінка %1</translation>
     </message>
@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1542"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PDF на основі Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1545"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PS на основі libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1548"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка DjVu на основі DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1551"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Підтримка PDF на основі Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1554"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Друк за допомогою CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1556"/>
@@ -722,7 +722,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2213"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Вилучити закладку</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2214"/>
@@ -806,72 +806,72 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="341"/>
+        <location filename="../sources/pageitem.cpp" line="345"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Перейти до сторінки %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="345"/>
+        <location filename="../sources/pageitem.cpp" line="349"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Перейти на сторінку %1 файла «%2».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="353"/>
+        <location filename="../sources/pageitem.cpp" line="357"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Відкрити «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="388"/>
+        <location filename="../sources/pageitem.cpp" line="392"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Редагувати поле &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="632"/>
+        <location filename="../sources/pageitem.cpp" line="636"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Скопіювати &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="633"/>
+        <location filename="../sources/pageitem.cpp" line="637"/>
         <source>Use text as &amp;selection</source>
         <translation type="unfinished">Використовувати текст як &amp;позначене</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="634"/>
+        <location filename="../sources/pageitem.cpp" line="638"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Скопіювати &amp;зображення</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="635"/>
+        <location filename="../sources/pageitem.cpp" line="639"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Зберегти зображення у &amp;файл...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="670"/>
+        <location filename="../sources/pageitem.cpp" line="674"/>
         <source>Save image to file</source>
         <translation type="unfinished">Зберегти зображення у файл</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="678"/>
         <source>Warning</source>
         <translation type="unfinished">Попередження</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="678"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Неможливо зберегти зображення у файл &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="687"/>
+        <location filename="../sources/pageitem.cpp" line="691"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Додати &amp;текст</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="688"/>
+        <location filename="../sources/pageitem.cpp" line="692"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Додати &amp;підсвічування</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="727"/>
+        <location filename="../sources/pageitem.cpp" line="731"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Вилучити анотацію</translation>
     </message>
@@ -1181,11 +1181,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
-        <location filename="../sources/settingsdialog.cpp" line="634"/>
-        <location filename="../sources/settingsdialog.cpp" line="643"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <location filename="../sources/settingsdialog.cpp" line="666"/>
-        <location filename="../sources/settingsdialog.cpp" line="674"/>
+        <location filename="../sources/settingsdialog.cpp" line="669"/>
+        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
+        <location filename="../sources/settingsdialog.cpp" line="701"/>
+        <location filename="../sources/settingsdialog.cpp" line="709"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Діятиме після перезапуску.</translation>
     </message>
@@ -1230,276 +1230,282 @@
         <translation type="unfinished">Екран презентації:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="291"/>
-        <source>None</source>
-        <translation type="unfinished">Немає</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="294"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Тривалість підсвічування:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="300"/>
-        <source>Highlight color:</source>
-        <translation type="unfinished">Колір підсвічування:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="306"/>
-        <source>Annotation color:</source>
-        <translation type="unfinished">Колір анотацій:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="312"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">«%1» замінюється абсолютним шляхом до файлу. «%2» та «%3» замінюються номером рядка та стовпчика відповідно.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="314"/>
-        <source>Source editor:</source>
-        <translation type="unfinished">Редактор вихідного файла:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="370"/>
-        <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="377"/>
-        <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished">Зберігати застарілі растрові зображення:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="386"/>
-        <source>Use device pixel ratio:</source>
-        <translation type="unfinished">Використовувати співвідношення у пікселях пристрою:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="395"/>
-        <source>Decorate pages:</source>
-        <translation type="unfinished">Рамка навколо сторінки:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>Decorate links:</source>
-        <translation type="unfinished">Виокремлювати посилання:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="409"/>
-        <source>Decorate form fields:</source>
-        <translation type="unfinished">Виокремлювати поля форм:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="415"/>
-        <source>Background color:</source>
-        <translation type="unfinished">Колір тла:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="421"/>
-        <source>Paper color:</source>
-        <translation type="unfinished">Колір паперу:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="427"/>
-        <source>Presentation background color:</source>
-        <translation type="unfinished">Колір тла у режимі презентації:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="435"/>
-        <source>Pages per row:</source>
-        <translation type="unfinished">Сторінок у ряд:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Між сторінками:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="455"/>
-        <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Між мініатюрами:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="465"/>
-        <source>Thumbnail size:</source>
-        <translation type="unfinished">Розмір мініатюр:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="470"/>
-        <location filename="../sources/settingsdialog.cpp" line="471"/>
-        <location filename="../sources/settingsdialog.cpp" line="472"/>
-        <location filename="../sources/settingsdialog.cpp" line="473"/>
-        <location filename="../sources/settingsdialog.cpp" line="474"/>
-        <location filename="../sources/settingsdialog.cpp" line="475"/>
-        <location filename="../sources/settingsdialog.cpp" line="476"/>
-        <location filename="../sources/settingsdialog.cpp" line="477"/>
-        <location filename="../sources/settingsdialog.cpp" line="478"/>
-        <location filename="../sources/settingsdialog.cpp" line="479"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 МБ</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="482"/>
-        <source>Cache size:</source>
-        <translation type="unfinished">Кеш:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="489"/>
-        <source>Prefetch:</source>
-        <translation type="unfinished">Передзавантаження:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="497"/>
-        <source>Prefetch distance:</source>
-        <translation type="unfinished">Довжина передзавантаження:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="597"/>
-        <source>Top</source>
-        <translation type="unfinished">Вгорі</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="598"/>
-        <source>Bottom</source>
-        <translation type="unfinished">Внизу</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="599"/>
-        <source>Left</source>
-        <translation type="unfinished">Ліворуч</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="600"/>
-        <source>Right</source>
-        <translation type="unfinished">Праворуч</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="603"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Розташування вкладок:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="608"/>
-        <source>As needed</source>
-        <translation type="unfinished">За потребою</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="609"/>
-        <source>Always</source>
-        <translation type="unfinished">Завжди</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="610"/>
-        <source>Never</source>
-        <translation type="unfinished">Ніколи</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="613"/>
-        <source>Tab visibility:</source>
-        <translation type="unfinished">Показувати вкладки:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="620"/>
-        <source>Spread tabs:</source>
-        <translation type="unfinished">Розтягнути вкладки:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="627"/>
-        <source>New tab next to current tab:</source>
-        <translation type="unfinished">Нова вкладка поряд з поточною:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="636"/>
-        <source>Recently used count:</source>
-        <translation type="unfinished">Кількість останніх відкритих:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="645"/>
-        <source>Recently closed count:</source>
-        <translation type="unfinished">Кількість записів останніх закритих документів:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="652"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Вимкнути панелі у повноекранному режимі:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="660"/>
-        <source>File tool bar:</source>
-        <translation type="unfinished">Панель «Файл»:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Edit tool bar:</source>
-        <translation type="unfinished">Панель «Редагування»:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="676"/>
-        <source>View tool bar:</source>
-        <translation type="unfinished">Панель «Перегляд»:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="683"/>
-        <source>Document title as tab title:</source>
-        <translation type="unfinished">Назва документа як заголовок вкладки:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="690"/>
-        <source>Current page in window title:</source>
-        <translation type="unfinished">Поточна сторінка у заголовку вікна:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="697"/>
-        <source>Instance name in window title:</source>
-        <translation type="unfinished">Назва екземпляра у заголовку вікна:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="704"/>
+        <location filename="../sources/settingsdialog.cpp" line="290"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished">Синхронізувати перегляд ескізу:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="299"/>
+        <source>Zoom factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="307"/>
+        <source>None</source>
+        <translation type="unfinished">Немає</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Тривалість підсвічування:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="316"/>
+        <source>Highlight color:</source>
+        <translation type="unfinished">Колір підсвічування:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="322"/>
+        <source>Annotation color:</source>
+        <translation type="unfinished">Колір анотацій:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="328"/>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished">«%1» замінюється абсолютним шляхом до файлу. «%2» та «%3» замінюються номером рядка та стовпчика відповідно.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="330"/>
+        <source>Source editor:</source>
+        <translation type="unfinished">Редактор вихідного файла:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <source>Use tiling:</source>
+        <translation type="unfinished">Мозаїчність:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="401"/>
+        <source>Keep obsolete pixmaps:</source>
+        <translation type="unfinished">Зберігати застарілі растрові зображення:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="410"/>
+        <source>Use device pixel ratio:</source>
+        <translation type="unfinished">Використовувати співвідношення у пікселях пристрою:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="419"/>
+        <source>Decorate pages:</source>
+        <translation type="unfinished">Рамка навколо сторінки:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="426"/>
+        <source>Decorate links:</source>
+        <translation type="unfinished">Виокремлювати посилання:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="433"/>
+        <source>Decorate form fields:</source>
+        <translation type="unfinished">Виокремлювати поля форм:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
+        <source>Background color:</source>
+        <translation type="unfinished">Колір тла:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <source>Paper color:</source>
+        <translation type="unfinished">Колір паперу:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="451"/>
+        <source>Presentation background color:</source>
+        <translation type="unfinished">Колір тла у режимі презентації:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <source>Pages per row:</source>
+        <translation type="unfinished">Сторінок у ряд:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="469"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Між сторінками:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
+        <source>Thumbnail spacing:</source>
+        <translation type="unfinished">Між мініатюрами:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
+        <source>Thumbnail size:</source>
+        <translation type="unfinished">Розмір мініатюр:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="494"/>
+        <location filename="../sources/settingsdialog.cpp" line="495"/>
+        <location filename="../sources/settingsdialog.cpp" line="496"/>
+        <location filename="../sources/settingsdialog.cpp" line="497"/>
+        <location filename="../sources/settingsdialog.cpp" line="498"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
+        <location filename="../sources/settingsdialog.cpp" line="500"/>
+        <location filename="../sources/settingsdialog.cpp" line="501"/>
+        <location filename="../sources/settingsdialog.cpp" line="502"/>
+        <location filename="../sources/settingsdialog.cpp" line="503"/>
+        <location filename="../sources/settingsdialog.cpp" line="510"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 МБ</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="517"/>
+        <source>Cache size:</source>
+        <translation type="unfinished">Кеш:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="524"/>
+        <source>Prefetch:</source>
+        <translation type="unfinished">Передзавантаження:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="532"/>
+        <source>Prefetch distance:</source>
+        <translation type="unfinished">Довжина передзавантаження:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="632"/>
+        <source>Top</source>
+        <translation type="unfinished">Вгорі</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <source>Bottom</source>
+        <translation type="unfinished">Внизу</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="634"/>
+        <source>Left</source>
+        <translation type="unfinished">Ліворуч</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="635"/>
+        <source>Right</source>
+        <translation type="unfinished">Праворуч</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="638"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Розташування вкладок:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="643"/>
+        <source>As needed</source>
+        <translation type="unfinished">За потребою</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="644"/>
+        <source>Always</source>
+        <translation type="unfinished">Завжди</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="645"/>
+        <source>Never</source>
+        <translation type="unfinished">Ніколи</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="648"/>
+        <source>Tab visibility:</source>
+        <translation type="unfinished">Показувати вкладки:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <source>Spread tabs:</source>
+        <translation type="unfinished">Розтягнути вкладки:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="662"/>
+        <source>New tab next to current tab:</source>
+        <translation type="unfinished">Нова вкладка поряд з поточною:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <source>Recently used count:</source>
+        <translation type="unfinished">Кількість останніх відкритих:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="680"/>
+        <source>Recently closed count:</source>
+        <translation type="unfinished">Кількість записів останніх закритих документів:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="687"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Вимкнути панелі у повноекранному режимі:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="695"/>
+        <source>File tool bar:</source>
+        <translation type="unfinished">Панель «Файл»:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="703"/>
+        <source>Edit tool bar:</source>
+        <translation type="unfinished">Панель «Редагування»:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="711"/>
+        <source>View tool bar:</source>
+        <translation type="unfinished">Панель «Перегляд»:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <source>Document title as tab title:</source>
+        <translation type="unfinished">Назва документа як заголовок вкладки:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="725"/>
+        <source>Current page in window title:</source>
+        <translation type="unfinished">Поточна сторінка у заголовку вікна:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="732"/>
+        <source>Instance name in window title:</source>
+        <translation type="unfinished">Назва екземпляра у заголовку вікна:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="739"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Підсвічування поточної мініатюри:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <location filename="../sources/settingsdialog.cpp" line="746"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Обмежити мініатюри результатами:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="725"/>
+        <location filename="../sources/settingsdialog.cpp" line="753"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Накладка анотації:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="732"/>
+        <location filename="../sources/settingsdialog.cpp" line="760"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Накладка поля форми:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="802"/>
+        <location filename="../sources/settingsdialog.cpp" line="826"/>
         <source>Zoom:</source>
         <translation type="unfinished">Масштабування:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="808"/>
+        <location filename="../sources/settingsdialog.cpp" line="832"/>
         <source>Rotate:</source>
         <translation type="unfinished">Обертання:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="814"/>
+        <location filename="../sources/settingsdialog.cpp" line="838"/>
         <source>Scroll:</source>
         <translation type="unfinished">Гортання:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="820"/>
+        <location filename="../sources/settingsdialog.cpp" line="844"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Копіювання до буфера:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="826"/>
+        <location filename="../sources/settingsdialog.cpp" line="850"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Додавання анотацій:</translation>
     </message>
