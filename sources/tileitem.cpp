@@ -58,7 +58,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< QPair< Model::Document*, QString >, QPixmap > TileItem::s_cache;
+QCache< QPair< Model::Page*, QString >, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_tile(),
@@ -87,20 +87,21 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QPair< Model::Document*, QString > TileItem::getHash()
+QPair< Model::Page*, QString > TileItem::getPixmapKey()
 {
-    // calculate unique hash for the current pixmap
+    // calculate unique key for the current pixmap
     PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
-    Model::Document* parentDocument = qobject_cast< Model::Document* >(parentPage->parentObject());
-    QString hashstr = QString().sprintf("%d,%d,%d,%d,%d,%d,%d",
-                                        parentPage->m_index,
-                                        parentPage->m_rotation,
-                                        parentPage->m_invertColors,
-                                        qRound(m_boundingRect.x()),
-                                        qRound(m_boundingRect.y()),
-                                        qRound(m_boundingRect.width()),
-                                        qRound(m_boundingRect.height()));
-    return qMakePair(parentDocument, hashstr);
+    Model::Page* page = parentPage->m_page;
+    //Model::Document* parentDocument = qobject_cast< Model::Document* >(parentPage->parentObject());
+    QString keystr = QString().sprintf("%d,%d,%d,%d,%d,%d",
+                                       //parentPage->m_index,
+                                       parentPage->m_rotation,
+                                       parentPage->m_invertColors,
+                                       qRound(m_boundingRect.x()),
+                                       qRound(m_boundingRect.y()),
+                                       qRound(m_boundingRect.width()),
+                                       qRound(m_boundingRect.height()));
+    return qMakePair(page, keystr);
 }
 
 QRectF TileItem::boundingRect() const
@@ -160,9 +161,9 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(getHash()))
+        if(s_cache.contains(getPixmapKey()))
         {
-            m_obsoletePixmap = *s_cache.object(getHash());
+            m_obsoletePixmap = *s_cache.object(getPixmapKey());
         }
     }
     else
@@ -180,7 +181,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(getHash())))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(getPixmapKey())))
     {
         return 0;
     }
@@ -250,7 +251,7 @@ void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal 
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(getHash(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(getPixmapKey(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
@@ -262,9 +263,9 @@ QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(getHash()))
+    if(s_cache.contains(getPixmapKey()))
     {
-        pixmap = *s_cache.object(getHash());
+        pixmap = *s_cache.object(getPixmapKey());
     }
     else
     {
@@ -274,14 +275,14 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(getHash(), new QPixmap(pixmap), cost);
+            s_cache.insert(getPixmapKey(), new QPixmap(pixmap), cost);
         }
         else
         {
             startRender();
         }
     }
-    //qDebug() << "page,rot,inv,l,t,w,h:" << getHash();
+    //qDebug() << "rot,inv,l,t,w,h:" << getPixmapKey();
     return pixmap;
 }
 
