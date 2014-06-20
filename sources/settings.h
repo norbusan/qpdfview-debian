@@ -59,7 +59,6 @@ public:
         void setUseTiling(bool useTiling);
 
         inline int tileSize() const { return m_tileSize; }
-        inline int tileOverlap() const { return m_tileOverlap; }
 
         inline const QIcon& progressIcon() const { return m_progressIcon; }
         inline const QIcon& errorIcon() const { return m_errorIcon; }
@@ -112,9 +111,7 @@ public:
         int m_cacheSize;
 
         bool m_useTiling;
-
         int m_tileSize;
-        int m_tileOverlap;
 
         QIcon m_progressIcon;
         QIcon m_errorIcon;
@@ -448,9 +445,7 @@ public:
         static inline int cacheSize() { return 32 * 1024 * 1024; }
 
         static inline bool useTiling() { return false; }
-
         static inline int tileSize() { return 1024; }
-        static inline int tileOverlap() { return 8; }
 
         static inline bool keepObsoletePixmaps() { return false; }
         static inline bool useDevicePixelRatio() { return false; }

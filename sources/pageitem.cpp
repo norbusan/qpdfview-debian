@@ -966,7 +966,6 @@ void PageItem::prepareTiling()
 
 
     const int tileSize = s_settings->pageItem().tileSize();
-    const int tileOverlap = s_settings->pageItem().tileOverlap();
 
     int tileWidth = pageWidth < pageHeight ? tileSize * pageWidth / pageHeight : tileSize;
     int tileHeight = pageHeight < pageWidth ? tileSize * pageHeight / pageWidth : tileSize;
@@ -1010,11 +1009,11 @@ void PageItem::prepareTiling()
     {
         for(int row = 0; row < rowCount; ++row)
         {
-            const qreal left = column > 0 ? column * tileWidth - tileOverlap : 0.0;
-            const qreal top = row > 0 ? row * tileHeight - tileOverlap : 0.0;
+            const qreal left = column > 0 ? column * tileWidth : 0.0;
+            const qreal top = row > 0 ? row * tileHeight : 0.0;
 
-            const qreal width = column < (columnCount - 1) ? tileWidth + tileOverlap : pageWidth - left;
-            const qreal height = row < (rowCount - 1) ? tileHeight + tileOverlap : pageHeight - top;
+            const qreal width = column < (columnCount - 1) ? tileWidth : pageWidth - left;
+            const qreal height = row < (rowCount - 1) ? tileHeight : pageHeight - top;
 
             TileItem* tile = m_tileItems.at(column * rowCount + row);
 
