@@ -501,7 +501,18 @@ void SettingsDialog::createGraphicsTab()
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(1024), 1073741823);
     m_cacheSizeComboBox->addItem(tr("%1 MB").arg(2048), 2147483647);
-    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(s_settings->pageItem().cacheSize()));
+
+    const int cacheSize = s_settings->pageItem().cacheSize();
+    int cacheSizeIndex = m_cacheSizeComboBox->findData(cacheSize);
+
+    if(cacheSizeIndex == -1)
+    {
+        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(cacheSize / 1024 / 1024), cacheSize);
+
+        cacheSizeIndex = m_cacheSizeComboBox->count() - 1;
+    }
+
+    m_cacheSizeComboBox->setCurrentIndex(cacheSizeIndex);
 
     m_graphicsLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
 
