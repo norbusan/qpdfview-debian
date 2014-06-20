@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainter>
 #include <QTimer>
-//#include <QtDebug>
 
 #include "settings.h"
 #include "model.h"
@@ -90,11 +89,10 @@ TileItem::~TileItem()
 QPair< Model::Page*, QString > TileItem::getPixmapKey()
 {
     // calculate unique key for the current pixmap
+
     PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
     Model::Page* page = parentPage->m_page;
-    //Model::Document* parentDocument = qobject_cast< Model::Document* >(parentPage->parentObject());
     QString keystr = QString().sprintf("%d,%d,%d,%d,%d,%d",
-                                       //parentPage->m_index,
                                        parentPage->m_rotation,
                                        parentPage->m_invertColors,
                                        qRound(m_boundingRect.x()),
@@ -282,7 +280,6 @@ QPixmap TileItem::takePixmap()
             startRender();
         }
     }
-    //qDebug() << "rot,inv,l,t,w,h:" << getPixmapKey();
     return pixmap;
 }
 
