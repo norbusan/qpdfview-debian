@@ -520,7 +520,7 @@ public:
 
         static inline bool matchCase() { return false; }
 
-        static inline int highlightDuration() { return 5000; }
+        static inline int highlightDuration() { return 5 * 1000; }
         static inline QString sourceEditor() { return QString(); }
 
         static inline Qt::KeyboardModifiers zoomModifiers() { return Qt::ControlModifier; }
@@ -563,7 +563,7 @@ public:
         static inline bool restoreBookmarks() { return false; }
         static inline bool restorePerFileSettings() { return false; }
 
-        static inline int saveDatabaseInterval() { return 30000; }
+        static inline int saveDatabaseInterval() { return 5 * 60 * 1000; }
 
         static inline int tabPosition() { return 0; }
         static inline int tabVisibility() { return 0; }
