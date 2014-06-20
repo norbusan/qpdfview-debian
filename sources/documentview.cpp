@@ -101,31 +101,36 @@ qreal unscaledPageHeight(PageItem* page)
 
 #ifdef WITH_CUPS
 
+struct RemovePpdFileDeleter
+{
+    static inline void cleanup(const char* ppdFileName) { if(ppdFileName != 0) { QFile::remove(ppdFileName); } }
+};
+
+struct ClosePpdFileDeleter
+{
+    static inline void cleanup(ppd_file_t* ppdFile) { if(ppdFile != 0) { ppdClose(ppdFile); } }
+};
+
 int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** options)
 {
-    const char* ppdFileName = cupsGetPPD(dest->name);
+    QScopedPointer< const char, RemovePpdFileDeleter > ppdFileName(cupsGetPPD(dest->name));
 
-    if(ppdFileName == 0)
+    if(ppdFileName.isNull())
     {
         return num_options;
     }
 
-    ppd_file_t* ppdFile = ppdOpenFile(ppdFileName);
+    QScopedPointer< ppd_file_t, ClosePpdFileDeleter > ppdFile(ppdOpenFile(ppdFileName.data()));
 
-    if(ppdFile == 0)
+    if(ppdFile.isNull())
     {
-        QFile::remove(ppdFileName);
-
         return num_options;
     }
 
-    ppd_option_t* colorModel = ppdFindOption(ppdFile, "ColorModel");
+    ppd_option_t* colorModel = ppdFindOption(ppdFile.data(), "ColorModel");
 
     if(colorModel == 0)
     {
-        ppdClose(ppdFile);
-        QFile::remove(ppdFileName);
-
         return num_options;
     }
 
@@ -133,20 +138,17 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
     {
         if(qstrncmp(colorModel->choices[index].choice, "CMYK", 4) == 0)
         {
-            num_options = cupsAddOption("ColorModel", "CMYK", num_options, options);
-
-            break;
-        }
-        else if(qstrncmp(colorModel->choices[index].choice, "RGB", 3) == 0)
-        {
-            num_options = cupsAddOption("ColorModel", "RGB", num_options, options);
-
-            break;
+            return cupsAddOption("ColorModel", "CMYK", num_options, options);
         }
     }
 
-    ppdClose(ppdFile);
-    QFile::remove(ppdFileName);
+    for(int index = 0; index < colorModel->num_choices; ++index)
+    {
+        if(qstrncmp(colorModel->choices[index].choice, "RGB", 3) == 0)
+        {
+            return cupsAddOption("ColorModel", "RGB", num_options, options);
+        }
+    }
 
     return num_options;
 }
