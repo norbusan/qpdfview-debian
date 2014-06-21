@@ -29,35 +29,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 #include "pageitem.h"
 
-namespace
-{
-
-using namespace qpdfview;
-
-RenderResolution effectiveResolution(int resolutionX, int resolutionY,
-                                     Settings* settings, qreal devicePixelRatio)
-{
-    RenderResolution resolution(resolutionX, resolutionY);
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    if(settings->pageItem().useDevicePixelRatio())
-    {
-        resolution.devicePixelRatio = devicePixelRatio;
-    }
-
-#else
-
-    Q_UNUSED(settings);
-    Q_UNUSED(devicePixelRatio);
-
-#endif // QT_VERSION
-
-    return resolution;
-}
-
-} // anonymous
-
 namespace qpdfview
 {
 
@@ -180,10 +151,8 @@ int TileItem::startRender(bool prefetch)
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
     m_renderTask->start(parentPage->m_page,
-                        RenderParameter(effectiveResolution(parentPage->m_resolutionX, parentPage->m_resolutionY,
-                                                            s_settings, parentPage->m_devicePixelRatio),
-                                        parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors),
-                                        m_tile, prefetch);
+                        parentPage->m_renderParameter,
+                        m_tile, prefetch);
 
     return 1;
 }
@@ -223,10 +192,7 @@ void TileItem::on_renderTask_imageReady(const RenderParameter& parameter,
 {
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-    if(RenderParameter(effectiveResolution(parentPage->m_resolutionX, parentPage->m_resolutionY,
-                                           s_settings, parentPage->m_devicePixelRatio),
-                       parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors) != parameter
-            || m_tile != tile)
+    if(parentPage->m_renderParameter != parameter|| m_tile != tile)
     {
         return;
     }

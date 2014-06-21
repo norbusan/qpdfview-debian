@@ -158,7 +158,7 @@ void RenderTask::run()
 
     QImage image = m_page->render(m_parameter.resolution.devicePixelRatio * resolutionX, m_parameter.resolution.devicePixelRatio * resolutionY, m_parameter.rotation, m_tile);
 
-    image.setDevicePixelRatio(m_resolution.devicePixelRatio);
+    image.setDevicePixelRatio(m_parameter.resolution.devicePixelRatio);
 
 #else
 

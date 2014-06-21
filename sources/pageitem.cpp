@@ -58,12 +58,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     m_highlights(),
     m_rubberBandMode(ModifiersMode),
     m_rubberBand(),
-    m_resolutionX(72),
-    m_resolutionY(72),
-    m_devicePixelRatio(1.0),
-    m_scaleFactor(1.0),
-    m_rotation(RotateBy0),
-    m_invertColors(false),
+    m_renderParameter(),
     m_transform(),
     m_normalizedTransform(),
     m_boundingRect(),
@@ -157,12 +152,12 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
 
 void PageItem::setResolution(int resolutionX, int resolutionY)
 {
-    if((m_resolutionX != resolutionX || m_resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
+    if((m_renderParameter.resolution.resolutionX != resolutionX || m_renderParameter.resolution.resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
     {
         refresh(true);
 
-        m_resolutionX = resolutionX;
-        m_resolutionY = resolutionY;
+        m_renderParameter.resolution.resolutionX = resolutionX;
+        m_renderParameter.resolution.resolutionY = resolutionY;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -171,11 +166,16 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
 
 void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 {
-    if(!qFuzzyCompare(m_devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
+    if(!s_settings->pageItem().useDevicePixelRatio())
+    {
+        return;
+    }
+
+    if(!qFuzzyCompare(m_renderParameter.resolution.devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
     {
         refresh(true);
 
-        m_devicePixelRatio = devicePixelRatio;
+        m_renderParameter.resolution.devicePixelRatio = devicePixelRatio;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -184,11 +184,11 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 
 void PageItem::setScaleFactor(qreal scaleFactor)
 {
-    if(!qFuzzyCompare(m_scaleFactor, scaleFactor) && scaleFactor > 0.0)
+    if(!qFuzzyCompare(m_renderParameter.scaleFactor, scaleFactor) && scaleFactor > 0.0)
     {
         refresh(true);
 
-        m_scaleFactor = scaleFactor;
+        m_renderParameter.scaleFactor = scaleFactor;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -197,11 +197,11 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 
 void PageItem::setRotation(Rotation rotation)
 {
-    if(m_rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
+    if(m_renderParameter.rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         refresh(false);
 
-        m_rotation = rotation;
+        m_renderParameter.rotation = rotation;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -210,11 +210,11 @@ void PageItem::setRotation(Rotation rotation)
 
 void PageItem::setInvertColors(bool invertColors)
 {
-    if(m_invertColors != invertColors)
+    if(m_renderParameter.invertColors != invertColors)
     {
         refresh(false);
 
-        m_invertColors = invertColors;
+        m_renderParameter.invertColors = invertColors;
 
         prepareBackground();
     }
@@ -661,7 +661,9 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
         const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        const QImage image = m_page->render(m_resolutionX * m_scaleFactor, m_scaleFactor * m_resolutionY, m_rotation, rect);
+        const QImage image = m_page->render(m_renderParameter.resolution.resolutionX * m_renderParameter.scaleFactor,
+                                            m_renderParameter.resolution.resolutionY * m_renderParameter.scaleFactor,
+                                            m_renderParameter.rotation, rect);
 
         if(!image.isNull())
         {
@@ -849,7 +851,7 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
     qreal width = rect.width();
     qreal height = rect.height();
 
-    switch(m_rotation)
+    switch(m_renderParameter.rotation)
     {
     default:
     case RotateBy0:
@@ -875,10 +877,10 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
         break;
     }
 
-    width /= m_scaleFactor;
-    height /= m_scaleFactor;
+    width /= m_renderParameter.scaleFactor;
+    height /= m_renderParameter.scaleFactor;
 
-    proxy->setScale(m_scaleFactor);
+    proxy->setScale(m_renderParameter.scaleFactor);
 
     proxy->setGeometry(QRectF(x - proxyPadding, y - proxyPadding, width + proxyPadding, height + proxyPadding));
 }
@@ -888,7 +890,7 @@ void PageItem::prepareGeometry()
     m_transform.reset();
     m_normalizedTransform.reset();
 
-    switch(m_rotation)
+    switch(m_renderParameter.rotation)
     {
     default:
     case RotateBy0:
@@ -907,18 +909,22 @@ void PageItem::prepareGeometry()
         break;
     }
 
-    switch(m_rotation)
+    switch(m_renderParameter.rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        m_transform.scale(m_scaleFactor * m_resolutionX / 72.0, m_scaleFactor * m_resolutionY / 72.0);
-        m_normalizedTransform.scale(m_scaleFactor * m_resolutionX / 72.0 * m_size.width(), m_scaleFactor * m_resolutionY / 72.0 * m_size.height());
+        m_transform.scale(m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionX / 72.0,
+                          m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionY / 72.0);
+        m_normalizedTransform.scale(m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionX / 72.0 * m_size.width(),
+                                    m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionY / 72.0 * m_size.height());
         break;
     case RotateBy90:
     case RotateBy270:
-        m_transform.scale(m_scaleFactor * m_resolutionY / 72.0, m_scaleFactor * m_resolutionX / 72.0);
-        m_normalizedTransform.scale(m_scaleFactor * m_resolutionY / 72.0 * m_size.width(), m_scaleFactor * m_resolutionX / 72.0 * m_size.height());
+        m_transform.scale(m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionY / 72.0,
+                          m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionX / 72.0);
+        m_normalizedTransform.scale(m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionY / 72.0 * m_size.width(),
+                                    m_renderParameter.scaleFactor * m_renderParameter.resolution.resolutionX / 72.0 * m_size.height());
         break;
     }
 
@@ -940,7 +946,7 @@ void PageItem::prepareBackground()
 {
     QColor paperColor = s_settings->pageItem().paperColor();
 
-    if(m_invertColors)
+    if(m_renderParameter.invertColors)
     {
         paperColor.setRgb(~paperColor.rgb());
     }
