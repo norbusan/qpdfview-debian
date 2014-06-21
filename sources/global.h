@@ -70,6 +70,43 @@ struct RenderResolution
 
 };
 
+struct RenderParameter
+{
+    RenderResolution resolution;
+
+    qreal scaleFactor;
+    Rotation rotation;
+    bool invertColors;
+
+    RenderParameter(const RenderResolution& resolution = RenderResolution(),
+                    qreal scaleFactor = 1.0, Rotation rotation = RotateBy0, bool invertColors = false) :
+        resolution(resolution),
+        scaleFactor(scaleFactor),
+        rotation(rotation),
+        invertColors(invertColors) {}
+
+    bool operator==(const RenderParameter& other) const
+    {
+        return resolution == other.resolution
+                && qFuzzyCompare(scaleFactor, other.scaleFactor)
+                && rotation == other.rotation
+                && invertColors == other.invertColors;
+    }
+
+    bool operator!=(const RenderParameter& other) const
+    {
+        return !operator==(other);
+    }
+
+    bool operator<(const RenderParameter& other) const
+    {
+        return (resolution < other.resolution)
+                || (resolution == other.resolution && scaleFactor < other.scaleFactor)
+                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && invertColors < other.invertColors);
+    }
+
+};
+
 enum RubberBandMode
 {
     ModifiersMode = 0,

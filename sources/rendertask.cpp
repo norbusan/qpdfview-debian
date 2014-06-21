@@ -87,10 +87,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(0),
-    m_resolution(),
-    m_scaleFactor(1.0),
-    m_rotation(RotateBy0),
-    m_invertColors(false),
+    m_parameter(),
     m_tile(),
     m_prefetch(false)
 {
@@ -142,30 +139,30 @@ void RenderTask::run()
     qreal resolutionX;
     qreal resolutionY;
 
-    switch(m_rotation)
+    switch(m_parameter.rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        resolutionX = m_resolution.resolutionX * m_scaleFactor;
-        resolutionY = m_resolution.resolutionY * m_scaleFactor;
+        resolutionX = m_parameter.resolution.resolutionX * m_parameter.scaleFactor;
+        resolutionY = m_parameter.resolution.resolutionY * m_parameter.scaleFactor;
         break;
     case RotateBy90:
     case RotateBy270:
-        resolutionX = m_resolution.resolutionY * m_scaleFactor;
-        resolutionY = m_resolution.resolutionX * m_scaleFactor;
+        resolutionX = m_parameter.resolution.resolutionY * m_parameter.scaleFactor;
+        resolutionY = m_parameter.resolution.resolutionX * m_parameter.scaleFactor;
         break;
     }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_resolution.devicePixelRatio * resolutionX, m_resolution.devicePixelRatio * resolutionY, m_rotation, m_tile);
+    QImage image = m_page->render(m_parameter.resolution.devicePixelRatio * resolutionX, m_parameter.resolution.devicePixelRatio * resolutionY, m_parameter.rotation, m_tile);
 
     image.setDevicePixelRatio(m_resolution.devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(resolutionX, resolutionY, m_rotation, m_tile);
+    QImage image = m_page->render(resolutionX, resolutionY, m_parameter.rotation, m_tile);
 
 #endif // QT_VERSION
 
@@ -178,13 +175,12 @@ void RenderTask::run()
     }
 
 
-    if(m_invertColors)
+    if(m_parameter.invertColors)
     {
         image.invertPixels();
     }
 
-    emit imageReady(m_resolution,
-                    m_scaleFactor, m_rotation, m_invertColors,
+    emit imageReady(m_parameter,
                     m_tile, m_prefetch,
                     image);
 
@@ -192,17 +188,12 @@ void RenderTask::run()
 }
 
 void RenderTask::start(Model::Page* page,
-                       const RenderResolution &resolution,
-                       qreal scaleFactor, Rotation rotation, bool invertColors,
+                       const RenderParameter& parameter,
                        const QRect& tile, bool prefetch)
 {
     m_page = page;
 
-    m_resolution = resolution;
-
-    m_scaleFactor = scaleFactor;
-    m_rotation = rotation;
-    m_invertColors = invertColors;
+    m_parameter = parameter;
 
     m_tile = tile;
     m_prefetch = prefetch;

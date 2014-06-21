@@ -67,8 +67,7 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(const RenderResolution& resolution,
-                                  qreal scaleFactor, Rotation rotation, bool invertColors,
+    void on_renderTask_imageReady(const RenderParameter& parameter,
                                   const QRect& tile, bool prefetch,
                                   QImage image);
 
