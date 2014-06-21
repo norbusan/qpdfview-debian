@@ -87,9 +87,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(0),
-    m_resolutionX(72),
-    m_resolutionY(72),
-    m_devicePixelRatio(1.0),
+    m_resolution(),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
@@ -149,21 +147,21 @@ void RenderTask::run()
     default:
     case RotateBy0:
     case RotateBy180:
-        resolutionX = m_resolutionX * m_scaleFactor;
-        resolutionY = m_resolutionY * m_scaleFactor;
+        resolutionX = m_resolution.resolutionX * m_scaleFactor;
+        resolutionY = m_resolution.resolutionY * m_scaleFactor;
         break;
     case RotateBy90:
     case RotateBy270:
-        resolutionX = m_resolutionY * m_scaleFactor;
-        resolutionY = m_resolutionX * m_scaleFactor;
+        resolutionX = m_resolution.resolutionY * m_scaleFactor;
+        resolutionY = m_resolution.resolutionX * m_scaleFactor;
         break;
     }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation, m_tile);
+    QImage image = m_page->render(m_resolution.devicePixelRatio * resolutionX, m_resolution.devicePixelRatio * resolutionY, m_rotation, m_tile);
 
-    image.setDevicePixelRatio(m_devicePixelRatio);
+    image.setDevicePixelRatio(m_resolution.devicePixelRatio);
 
 #else
 
@@ -185,7 +183,7 @@ void RenderTask::run()
         image.invertPixels();
     }
 
-    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio,
+    emit imageReady(m_resolution,
                     m_scaleFactor, m_rotation, m_invertColors,
                     m_tile, m_prefetch,
                     image);
@@ -194,15 +192,13 @@ void RenderTask::run()
 }
 
 void RenderTask::start(Model::Page* page,
-                       int resolutionX, int resolutionY, qreal devicePixelRatio,
+                       const RenderResolution &resolution,
                        qreal scaleFactor, Rotation rotation, bool invertColors,
                        const QRect& tile, bool prefetch)
 {
     m_page = page;
 
-    m_resolutionX = resolutionX;
-    m_resolutionY = resolutionY;
-    m_devicePixelRatio = devicePixelRatio;
+    m_resolution = resolution;
 
     m_scaleFactor = scaleFactor;
     m_rotation = rotation;

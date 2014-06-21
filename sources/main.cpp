@@ -454,6 +454,7 @@ int main(int argc, char** argv)
 {
     qRegisterMetaType< QList< QRectF > >("QList<QRectF>");
     qRegisterMetaType< Rotation >("Rotation");
+    qRegisterMetaType< RenderResolution >("RenderResolution");
 
     parseWorkbenchExtendedSelection(argc, argv);
 

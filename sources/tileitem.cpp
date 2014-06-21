@@ -34,20 +34,26 @@ namespace
 
 using namespace qpdfview;
 
-qreal effectiveDevicePixelRatio(Settings* settings, qreal devicePixelRatio)
+RenderResolution effectiveResolution(int resolutionX, int resolutionY,
+                                     Settings* settings, qreal devicePixelRatio)
 {
+    RenderResolution resolution(resolutionX, resolutionY);
+
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    return settings->pageItem().useDevicePixelRatio() ? devicePixelRatio : 1.0;
+    if(settings->pageItem().useDevicePixelRatio())
+    {
+        resolution.devicePixelRatio = devicePixelRatio;
+    }
 
 #else
 
     Q_UNUSED(settings);
     Q_UNUSED(devicePixelRatio);
 
-    return 1.0;
-
 #endif // QT_VERSION
+
+    return resolution;
 }
 
 } // anonymous
@@ -77,7 +83,7 @@ TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(int,int,qreal,qreal,Rotation,bool,QRect,bool,QImage)));
+    connect(m_renderTask, SIGNAL(imageReady(RenderResolution,qreal,Rotation,bool,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderResolution,qreal,Rotation,bool,QRect,bool,QImage)));
 }
 
 TileItem::~TileItem()
@@ -173,8 +179,11 @@ int TileItem::startRender(bool prefetch)
 
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
+    const RenderResolution& effectiveResolution = ::effectiveResolution(parentPage->m_resolutionX, parentPage->m_resolutionY,
+                                                                        s_settings, parentPage->m_devicePixelRatio);
+
     m_renderTask->start(parentPage->m_page,
-                        parentPage->m_resolutionX, parentPage->m_resolutionY, effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio),
+                        effectiveResolution,
                         parentPage->m_scaleFactor, parentPage->m_rotation, parentPage->m_invertColors,
                         m_tile, prefetch);
 
@@ -210,14 +219,17 @@ void TileItem::on_renderTask_finished()
     update();
 }
 
-void TileItem::on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+void TileItem::on_renderTask_imageReady(const RenderResolution& resolution,
                                         qreal scaleFactor, Rotation rotation, bool invertColors,
                                         const QRect& tile, bool prefetch,
                                         QImage image)
 {
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-    if(parentPage->m_resolutionX != resolutionX || parentPage->m_resolutionY != resolutionY || !qFuzzyCompare(effectiveDevicePixelRatio(s_settings, parentPage->m_devicePixelRatio), devicePixelRatio)
+    const RenderResolution& effectiveResolution = ::effectiveResolution(parentPage->m_resolutionX, parentPage->m_resolutionY,
+                                                                        s_settings, parentPage->m_devicePixelRatio);
+
+    if(effectiveResolution != resolution
             || !qFuzzyCompare(parentPage->m_scaleFactor, scaleFactor) || parentPage->m_rotation != rotation || parentPage->m_invertColors != invertColors
             || m_tile != tile)
     {

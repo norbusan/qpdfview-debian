@@ -57,14 +57,14 @@ public:
 signals:
     void finished();
 
-    void imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
+    void imageReady(const RenderResolution& resolution,
                     qreal scaleFactor, Rotation rotation, bool invertColors,
                     const QRect& tile, bool prefetch,
                     QImage image);
 
 public slots:
     void start(Model::Page* page,
-               int resolutionX, int resolutionY, qreal devicePixelRatio,
+               const RenderResolution& resolution,
                qreal scaleFactor, Rotation rotation, bool invertColors,
                const QRect& tile, bool prefetch);
 
@@ -84,9 +84,7 @@ private:
 
     Model::Page* m_page;
 
-    int m_resolutionX;
-    int m_resolutionY;
-    qreal m_devicePixelRatio;
+    RenderResolution m_resolution;
 
     qreal m_scaleFactor;
     Rotation m_rotation;

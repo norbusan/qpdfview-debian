@@ -37,6 +37,39 @@ enum Rotation
     NumberOfRotations = 4
 };
 
+struct RenderResolution
+{
+    int resolutionX;
+    int resolutionY;
+    qreal devicePixelRatio;
+
+    RenderResolution(int resolutionX = 72, int resolutionY = 72,
+                     qreal devicePixelRatio = 1.0) :
+        resolutionX(resolutionX),
+        resolutionY(resolutionY),
+        devicePixelRatio(devicePixelRatio) {}
+
+    bool operator==(const RenderResolution& other) const
+    {
+        return resolutionX == other.resolutionX
+                && resolutionY == other.resolutionY
+                && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
+    }
+
+    bool operator!=(const RenderResolution& other) const
+    {
+        return !operator==(other);
+    }
+
+    bool operator<(const RenderResolution& other) const
+    {
+        return (resolutionX < other.resolutionX)
+                || (resolutionX == other.resolutionX && resolutionY < other.resolutionY)
+                || (resolutionX == other.resolutionX && resolutionY == other.resolutionY && devicePixelRatio < other.devicePixelRatio);
+    }
+
+};
+
 enum RubberBandMode
 {
     ModifiersMode = 0,
