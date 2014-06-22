@@ -105,44 +105,6 @@ struct RenderParam
                 || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && invertColors < other.invertColors);
     }
 
-    qreal scaledResolutionX() const
-    {
-        return resolution.resolutionX * scaleFactor;
-    }
-
-    qreal scaledResolutionY() const
-    {
-        return resolution.resolutionY * scaleFactor;
-    }
-
-    qreal adjustedResolutionX() const
-    {
-        switch(rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            return resolution.resolutionX * scaleFactor;
-        case RotateBy90:
-        case RotateBy270:
-            return resolution.resolutionY * scaleFactor;
-        }
-    }
-
-    qreal adjustedResolutionY() const
-    {
-        switch(rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            return resolution.resolutionY * scaleFactor;
-        case RotateBy90:
-        case RotateBy270:
-            return resolution.resolutionX * scaleFactor;
-        }
-    }
-
 };
 
 enum RubberBandMode

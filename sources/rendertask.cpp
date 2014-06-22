@@ -28,6 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 enum
 {
     NotCanceled = 0,
@@ -76,6 +78,16 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
                 !wasCanceled.testAndSetAcquire(NotCanceled, NotCanceled);
 
 #endif // QT_VERSION
+}
+
+qreal scaledResolutionX(const RenderParam& renderParam)
+{
+    return renderParam.resolution.resolutionX * renderParam.scaleFactor;
+}
+
+qreal scaledResolutionY(const RenderParam& renderParam)
+{
+    return renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
 } // anonymous
@@ -138,15 +150,15 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * m_renderParam.scaledResolutionX(),
-                                  m_renderParam.resolution.devicePixelRatio * m_renderParam.scaledResolutionY(),
+    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * scaledResolutionX(m_renderParam),
+                                  m_renderParam.resolution.devicePixelRatio * scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_tile);
 
     image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(m_renderParam.scaledResolutionX(), m_renderParam.scaledResolutionY(),
+    QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_tile);
 
 #endif // QT_VERSION

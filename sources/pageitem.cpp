@@ -40,6 +40,41 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 #include "tileitem.h"
 
+namespace
+{
+
+using namespace qpdfview;
+
+qreal adjustedResolutionX(const RenderParam& renderParam)
+{
+    switch(renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return renderParam.resolution.resolutionX * renderParam.scaleFactor;
+    case RotateBy90:
+    case RotateBy270:
+        return renderParam.resolution.resolutionY * renderParam.scaleFactor;
+    }
+}
+
+qreal adjustedResolutionY(const RenderParam& renderParam)
+{
+    switch(renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return renderParam.resolution.resolutionY * renderParam.scaleFactor;
+    case RotateBy90:
+    case RotateBy270:
+        return renderParam.resolution.resolutionX * renderParam.scaleFactor;
+    }
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -909,10 +944,10 @@ void PageItem::prepareGeometry()
         break;
     }
 
-    m_transform.scale(m_renderParam.adjustedResolutionX() / 72.0,
-                      m_renderParam.adjustedResolutionY() / 72.0);
-    m_normalizedTransform.scale(m_renderParam.adjustedResolutionX() / 72.0 * m_size.width(),
-                                m_renderParam.adjustedResolutionY() / 72.0 * m_size.height());
+    m_transform.scale(adjustedResolutionX(m_renderParam) / 72.0,
+                      adjustedResolutionY(m_renderParam) / 72.0);
+    m_normalizedTransform.scale(adjustedResolutionX(m_renderParam) / 72.0 * m_size.width(),
+                                adjustedResolutionY(m_renderParam) / 72.0 * m_size.height());
 
 
     m_boundingRect = m_transform.mapRect(QRectF(QPointF(), m_size));
