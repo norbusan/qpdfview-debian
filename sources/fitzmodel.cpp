@@ -107,24 +107,24 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
 
     fz_matrix matrix;
 
+    fz_scale(&matrix, horizontalResolution / 72.0f, verticalResolution / 72.0f);
+
     switch(rotation)
     {
     default:
     case RotateBy0:
-        fz_rotate(&matrix, 0.0);
+        fz_pre_rotate(&matrix, 0.0);
         break;
     case RotateBy90:
-        fz_rotate(&matrix, 90.0);
+        fz_pre_rotate(&matrix, 90.0);
         break;
     case RotateBy180:
-        fz_rotate(&matrix, 180.0);
+        fz_pre_rotate(&matrix, 180.0);
         break;
     case RotateBy270:
-        fz_rotate(&matrix, 270.0);
+        fz_pre_rotate(&matrix, 270.0);
         break;
     }
-
-    fz_pre_scale(&matrix, horizontalResolution / 72.0f, verticalResolution / 72.0f);
 
     fz_rect rect;
     fz_bound_page(m_parent->m_document, m_page, &rect);
