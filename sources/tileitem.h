@@ -67,7 +67,7 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(const RenderParameter& parameter,
+    void on_renderTask_imageReady(const RenderParam& renderParam,
                                   const QRect& tile, bool prefetch,
                                   QImage image);
 

@@ -87,7 +87,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(0),
-    m_parameter(),
+    m_renderParam(),
     m_tile(),
     m_prefetch(false)
 {
@@ -136,33 +136,18 @@ void RenderTask::run()
     }
 
 
-    qreal resolutionX;
-    qreal resolutionY;
-
-    switch(m_parameter.rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        resolutionX = m_parameter.resolution.resolutionX * m_parameter.scaleFactor;
-        resolutionY = m_parameter.resolution.resolutionY * m_parameter.scaleFactor;
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        resolutionX = m_parameter.resolution.resolutionY * m_parameter.scaleFactor;
-        resolutionY = m_parameter.resolution.resolutionX * m_parameter.scaleFactor;
-        break;
-    }
-
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_parameter.resolution.devicePixelRatio * resolutionX, m_parameter.resolution.devicePixelRatio * resolutionY, m_parameter.rotation, m_tile);
+    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * m_renderParam.adjustedResolutionX(),
+                                  m_renderParam.resolution.devicePixelRatio * m_renderParam.adjustedResolutionY(),
+                                  m_renderParam.rotation, m_tile);
 
-    image.setDevicePixelRatio(m_parameter.resolution.devicePixelRatio);
+    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(resolutionX, resolutionY, m_parameter.rotation, m_tile);
+    QImage image = m_page->render(m_renderParam.adjustedResolutionX(), m_renderParam.adjustedResolutionY(),
+                                  m_renderParam.rotation, m_tile);
 
 #endif // QT_VERSION
 
@@ -175,12 +160,12 @@ void RenderTask::run()
     }
 
 
-    if(m_parameter.invertColors)
+    if(m_renderParam.invertColors)
     {
         image.invertPixels();
     }
 
-    emit imageReady(m_parameter,
+    emit imageReady(m_renderParam,
                     m_tile, m_prefetch,
                     image);
 
@@ -188,12 +173,12 @@ void RenderTask::run()
 }
 
 void RenderTask::start(Model::Page* page,
-                       const RenderParameter& parameter,
+                       const RenderParam& renderParam,
                        const QRect& tile, bool prefetch)
 {
     m_page = page;
 
-    m_parameter = parameter;
+    m_renderParam = renderParam;
 
     m_tile = tile;
     m_prefetch = prefetch;

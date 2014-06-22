@@ -72,20 +72,20 @@ public:
     inline bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
     inline bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
-    inline int resolutionX() const { return m_renderParameter.resolution.resolutionX; }
-    inline int resolutionY() const { return m_renderParameter.resolution.resolutionY; }
+    inline int resolutionX() const { return m_renderParam.resolution.resolutionX; }
+    inline int resolutionY() const { return m_renderParam.resolution.resolutionY; }
     void setResolution(int resolutionX, int resolutionY);
 
-    inline qreal devicePixelRatio() const { return m_renderParameter.resolution.devicePixelRatio; }
+    inline qreal devicePixelRatio() const { return m_renderParam.resolution.devicePixelRatio; }
     void setDevicePixelRatio(qreal devicePixelRatio);
 
-    inline qreal scaleFactor() const { return m_renderParameter.scaleFactor; }
+    inline qreal scaleFactor() const { return m_renderParam.scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    inline Rotation rotation() const { return m_renderParameter.rotation; }
+    inline Rotation rotation() const { return m_renderParam.rotation; }
     void setRotation(Rotation rotation);
 
-    inline bool invertColors() { return m_renderParameter.invertColors; }
+    inline bool invertColors() { return m_renderParam.invertColors; }
     void setInvertColors(bool invertColors);
 
     inline const QTransform& transform() const { return m_transform; }
@@ -177,7 +177,7 @@ private:
 
     // geometry
 
-    RenderParameter m_renderParameter;
+    RenderParam m_renderParam;
 
     QTransform m_transform;
     QTransform m_normalizedTransform;

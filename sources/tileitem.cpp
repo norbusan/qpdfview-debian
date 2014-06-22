@@ -54,7 +54,7 @@ TileItem::TileItem(QGraphicsItem* parent) : QGraphicsObject(parent),
     m_renderTask = new RenderTask(this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(RenderParameter,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParameter,QRect,bool,QImage)));
+    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage)));
 }
 
 TileItem::~TileItem()
@@ -151,7 +151,7 @@ int TileItem::startRender(bool prefetch)
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
     m_renderTask->start(parentPage->m_page,
-                        parentPage->m_renderParameter,
+                        parentPage->m_renderParam,
                         m_tile, prefetch);
 
     return 1;
@@ -186,13 +186,13 @@ void TileItem::on_renderTask_finished()
     update();
 }
 
-void TileItem::on_renderTask_imageReady(const RenderParameter& parameter,
+void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
                                         const QRect& tile, bool prefetch,
                                         QImage image)
 {
     const PageItem* parentPage = qobject_cast< PageItem* >(parentObject());
 
-    if(parentPage->m_renderParameter != parameter|| m_tile != tile)
+    if(parentPage->m_renderParam != renderParam || m_tile != tile)
     {
         return;
     }
