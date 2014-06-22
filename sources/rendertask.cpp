@@ -138,15 +138,15 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * m_renderParam.adjustedResolutionX(),
-                                  m_renderParam.resolution.devicePixelRatio * m_renderParam.adjustedResolutionY(),
+    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * m_renderParam.scaledResolutionX(),
+                                  m_renderParam.resolution.devicePixelRatio * m_renderParam.scaledResolutionY(),
                                   m_renderParam.rotation, m_tile);
 
     image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(m_renderParam.adjustedResolutionX(), m_renderParam.adjustedResolutionY(),
+    QImage image = m_page->render(m_renderParam.scaledResolutionX(), m_renderParam.scaledResolutionY(),
                                   m_renderParam.rotation, m_tile);
 
 #endif // QT_VERSION

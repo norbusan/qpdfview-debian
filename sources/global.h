@@ -105,6 +105,16 @@ struct RenderParam
                 || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && invertColors < other.invertColors);
     }
 
+    qreal scaledResolutionX() const
+    {
+        return resolution.resolutionX * scaleFactor;
+    }
+
+    qreal scaledResolutionY() const
+    {
+        return resolution.resolutionY * scaleFactor;
+    }
+
     qreal adjustedResolutionX() const
     {
         switch(rotation)
