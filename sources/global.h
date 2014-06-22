@@ -56,10 +56,7 @@ struct RenderResolution
                 && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
     }
 
-    bool operator!=(const RenderResolution& other) const
-    {
-        return !operator==(other);
-    }
+    bool operator!=(const RenderResolution& other) const { return !operator==(other); }
 
     bool operator<(const RenderResolution& other) const
     {
@@ -93,16 +90,14 @@ struct RenderParam
                 && invertColors == other.invertColors;
     }
 
-    bool operator!=(const RenderParam& other) const
-    {
-        return !operator==(other);
-    }
+    bool operator!=(const RenderParam& other) const { return !operator==(other); }
 
     bool operator<(const RenderParam& other) const
     {
         return (resolution < other.resolution)
                 || (resolution == other.resolution && scaleFactor < other.scaleFactor)
-                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && invertColors < other.invertColors);
+                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation < other.rotation)
+                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation == other.rotation && invertColors < other.invertColors);
     }
 
 };
@@ -134,7 +129,7 @@ enum ScaleMode
 };
 
 typedef QPair< int, QString > Jump;
-typedef QList< QPair< int, QString > > JumpList;
+typedef QList< Jump > JumpList;
 
 } // qpdfview
 
