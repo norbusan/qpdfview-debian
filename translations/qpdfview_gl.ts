@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="260"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formatos admitidos (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">A apertura de URL está desactivada nos axustes.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Non foi posíbel atopar os datos de SyncTeX para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1567"/>
+        <location filename="../sources/documentview.cpp" line="1625"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimindo «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquear %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasinal:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1661"/>
+        <location filename="../sources/documentview.cpp" line="1719"/>
         <source>Page %1</source>
         <translation type="unfinished">Páxina %1</translation>
     </message>
@@ -846,32 +846,32 @@
         <translation type="unfinished">Gardar a imaxe nun &amp;ficheiro...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="676"/>
         <source>Save image to file</source>
         <translation type="unfinished">Gardar a imaxe nun ficheiro</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Non foi posíbel gardar a imaxe no ficheiro «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="691"/>
+        <location filename="../sources/pageitem.cpp" line="693"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Engadir &amp;texto</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="692"/>
+        <location filename="../sources/pageitem.cpp" line="694"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Engadir &amp;resalte</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="731"/>
+        <location filename="../sources/pageitem.cpp" line="733"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Retirar a anotación</translation>
     </message>

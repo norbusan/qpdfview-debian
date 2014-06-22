@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="260"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Format disokong (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Membuka URL dilumpuhkan dalam tetapan.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1567"/>
+        <location filename="../sources/documentview.cpp" line="1625"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Buka %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Password:</source>
         <translation type="unfinished">Kata Laluan:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1661"/>
+        <location filename="../sources/documentview.cpp" line="1719"/>
         <source>Page %1</source>
         <translation type="unfinished">Halaman %1</translation>
     </message>
@@ -846,32 +846,32 @@
         <translation type="unfinished">Simpan imej ke &amp;fail...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="676"/>
         <source>Save image to file</source>
         <translation type="unfinished">Simpan imej ke fail</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan imej ke fail &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="691"/>
+        <location filename="../sources/pageitem.cpp" line="693"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Tambah &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="692"/>
+        <location filename="../sources/pageitem.cpp" line="694"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Tambah s&amp;orot</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="731"/>
+        <location filename="../sources/pageitem.cpp" line="733"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Buang anotasi</translation>
     </message>

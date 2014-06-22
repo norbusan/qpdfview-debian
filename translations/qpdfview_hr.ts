@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="260"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Podržani formati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Information</source>
         <translation type="unfinished">Informacija</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1079"/>
+        <location filename="../sources/documentview.cpp" line="1136"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvaranje URL je onemogućeno u postavkama.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1129"/>
+        <location filename="../sources/documentview.cpp" line="1186"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1567"/>
+        <location filename="../sources/documentview.cpp" line="1625"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Otključaj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1639"/>
+        <location filename="../sources/documentview.cpp" line="1697"/>
         <source>Password:</source>
         <translation type="unfinished">Lozinka:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1661"/>
+        <location filename="../sources/documentview.cpp" line="1719"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -846,32 +846,32 @@
         <translation type="unfinished">Sačuvaj sliku u &amp;datoteci...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="674"/>
+        <location filename="../sources/pageitem.cpp" line="676"/>
         <source>Save image to file</source>
         <translation type="unfinished">Sačuvaj sliku u datoteci</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="678"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nemoguće je spremiti sliku u datoteku &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="691"/>
+        <location filename="../sources/pageitem.cpp" line="693"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Dodaj &amp;tekst</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="692"/>
+        <location filename="../sources/pageitem.cpp" line="694"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Dodaj &amp;istakni</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="731"/>
+        <location filename="../sources/pageitem.cpp" line="733"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstrani napomenu</translation>
     </message>
