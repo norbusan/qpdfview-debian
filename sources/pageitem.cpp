@@ -1024,20 +1024,20 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
 void PageItem::paintTile(QPainter* painter, TileItem* tile) const
 {
-    const QRect& rect = tile->rect();
+    const QRectF& rect = tile->rect();
     const QPixmap& pixmap = tile->takePixmap();
 
     if(!pixmap.isNull())
     {
         // pixmap
 
-        painter->drawPixmap(m_boundingRect.topLeft() + rect.topLeft(), pixmap);
+        painter->drawPixmap(rect.topLeft() + m_boundingRect.topLeft(), pixmap);
     }
     else if(!tile->obsoletePixmap().isNull())
     {
         // obsolete pixmap
 
-        painter->drawPixmap(m_boundingRect.translated(rect.topLeft()), tile->obsoletePixmap(), QRectF());
+        painter->drawPixmap(rect.translated(m_boundingRect.topLeft()), tile->obsoletePixmap(), QRectF());
     }
     else
     {
