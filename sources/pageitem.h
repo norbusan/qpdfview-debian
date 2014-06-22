@@ -56,7 +56,7 @@ public:
     ~PageItem();
 
     QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 
     inline int index() const { return m_index; }
     inline bool presentationMode() const { return m_presentationMode; }
@@ -185,16 +185,14 @@ private:
 
     void prepareGeometry();
 
-    QGraphicsRectItem* m_background;
-    QGraphicsRectItem* m_border;
-
-    void prepareBackground();
-
     QVector< TileItem* > m_tileItems;
 
     void prepareTiling();
 
     // paint
+
+    void paintPage(QPainter* painter, const QRectF& exposedRect) const;
+    void paintTile(QPainter* painter, TileItem* tile) const;
 
     void paintLinks(QPainter* painter) const;
     void paintFormFields(QPainter* painter) const;

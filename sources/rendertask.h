@@ -58,13 +58,13 @@ signals:
     void finished();
 
     void imageReady(const RenderParam& renderParam,
-                    const QRect& tile, bool prefetch,
+                    const QRect& rect, bool prefetch,
                     QImage image);
 
 public slots:
     void start(Model::Page* page,
                const RenderParam& renderParam,
-               const QRect& tile, bool prefetch);
+               const QRect& rect, bool prefetch);
 
     void cancel(bool force = false);
 
@@ -84,7 +84,7 @@ private:
 
     RenderParam m_renderParam;
 
-    QRect m_tile;
+    QRect m_rect;
     bool m_prefetch;
 
 };

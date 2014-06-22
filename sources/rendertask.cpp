@@ -100,7 +100,7 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_wasCanceled(NotCanceled),
     m_page(0),
     m_renderParam(),
-    m_tile(),
+    m_rect(),
     m_prefetch(false)
 {
     setAutoDelete(false);
@@ -152,7 +152,7 @@ void RenderTask::run()
 
     QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * scaledResolutionX(m_renderParam),
                                   m_renderParam.resolution.devicePixelRatio * scaledResolutionY(m_renderParam),
-                                  m_renderParam.rotation, m_tile);
+                                  m_renderParam.rotation, m_rect);
 
     image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
@@ -178,7 +178,7 @@ void RenderTask::run()
     }
 
     emit imageReady(m_renderParam,
-                    m_tile, m_prefetch,
+                    m_rect, m_prefetch,
                     image);
 
     finish();
@@ -186,13 +186,13 @@ void RenderTask::run()
 
 void RenderTask::start(Model::Page* page,
                        const RenderParam& renderParam,
-                       const QRect& tile, bool prefetch)
+                       const QRect& rect, bool prefetch)
 {
     m_page = page;
 
     m_renderParam = renderParam;
 
-    m_tile = tile;
+    m_rect = rect;
     m_prefetch = prefetch;
 
     m_mutex.lock();
