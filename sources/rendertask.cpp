@@ -159,7 +159,7 @@ void RenderTask::run()
 #else
 
     QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                                  m_renderParam.rotation, m_tile);
+                                  m_renderParam.rotation, m_rect);
 
 #endif // QT_VERSION
 
