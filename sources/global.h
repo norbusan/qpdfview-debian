@@ -58,13 +58,6 @@ struct RenderResolution
 
     bool operator!=(const RenderResolution& other) const { return !operator==(other); }
 
-    bool operator<(const RenderResolution& other) const
-    {
-        return (resolutionX < other.resolutionX)
-                || (resolutionX == other.resolutionX && resolutionY < other.resolutionY)
-                || (resolutionX == other.resolutionX && resolutionY == other.resolutionY && devicePixelRatio < other.devicePixelRatio);
-    }
-
 };
 
 struct RenderParam
@@ -91,14 +84,6 @@ struct RenderParam
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
-
-    bool operator<(const RenderParam& other) const
-    {
-        return (resolution < other.resolution)
-                || (resolution == other.resolution && scaleFactor < other.scaleFactor)
-                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation < other.rotation)
-                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation == other.rotation && invertColors < other.invertColors);
-    }
 
 };
 

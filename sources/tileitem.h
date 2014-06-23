@@ -47,12 +47,9 @@ public:
     inline const QRect& rect() const { return m_rect; }
     inline void setRect(const QRect& rect) { m_rect = rect; }
 
-    inline bool pixmapError() const { return m_pixmapError; }
-
-    QPixmap takePixmap();
-
-    inline const QPixmap& obsoletePixmap() const { return m_obsoletePixmap; }
     inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
+
+    void paint(QPainter* painter, const QPointF& topLeft);
 
 public slots:
     void refresh(bool keepObsoletePixmaps = false);
@@ -76,15 +73,17 @@ private:
     static QCache< QPair< PageItem*, QString >, QPixmap > s_cache;
     QPair< PageItem*, QString > pixmapKey() const;
 
+    PageItem* parentPage() const;
+
     QRect m_rect;
 
     bool m_pixmapError;
     QPixmap m_pixmap;
     QPixmap m_obsoletePixmap;
 
-    RenderTask* m_renderTask;
+    QPixmap takePixmap();
 
-    PageItem* parentPage() const;
+    RenderTask* m_renderTask;
 
 };
 

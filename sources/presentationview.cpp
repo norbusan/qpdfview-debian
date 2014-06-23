@@ -366,8 +366,9 @@ void PresentationView::on_prefetch_timeout()
     }
 }
 
-void PresentationView::on_pages_linkClicked(int page, qreal left, qreal top)
+void PresentationView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
+    Q_UNUSED(newTab);
     Q_UNUSED(left);
     Q_UNUSED(top);
 
@@ -538,7 +539,7 @@ void PresentationView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
-        connect(page, SIGNAL(linkClicked(int,qreal,qreal)), SLOT(on_pages_linkClicked(int,qreal,qreal)));
+        connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }
 }
 

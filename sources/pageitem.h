@@ -192,7 +192,6 @@ private:
     // paint
 
     void paintPage(QPainter* painter, const QRectF& exposedRect) const;
-    void paintTile(QPainter* painter, TileItem* tile) const;
 
     void paintLinks(QPainter* painter) const;
     void paintFormFields(QPainter* painter) const;

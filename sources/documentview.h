@@ -278,6 +278,8 @@ private:
     void loadFallbackOutline();
     void loadDocumentDefaults();
 
+    void adjustScrollBarPolicy();
+
     void prepareDocument(Model::Document* document);
     void preparePages();
     void prepareThumbnails();
