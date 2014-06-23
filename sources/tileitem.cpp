@@ -63,31 +63,42 @@ TileItem::~TileItem()
     s_cache.remove(this);
 }
 
-QPixmap TileItem::takePixmap()
+void TileItem::paint(QPainter* painter, const QPointF& topLeft)
 {
-    QPixmap pixmap;
+    const QPixmap& pixmap = takePixmap();
 
-    if(s_cache.contains(this))
+    if(!pixmap.isNull())
     {
-        pixmap = *s_cache.object(this);
+        // pixmap
+
+        painter->drawPixmap(m_rect.topLeft() + topLeft, pixmap);
+    }
+    else if(!m_obsoletePixmap.isNull())
+    {
+        // obsolete pixmap
+
+        painter->drawPixmap(QRectF(m_rect).translated(topLeft), m_obsoletePixmap, QRectF());
     }
     else
     {
-        if(!m_pixmap.isNull())
-        {
-            pixmap = m_pixmap;
-            m_pixmap = QPixmap();
+        const qreal iconExtent = qMin(0.1 * m_rect.width(), 0.1 * m_rect.height());
+        const QRectF iconRect(topLeft.x() + m_rect.left() + 0.01 * m_rect.width(),
+                              topLeft.y() + m_rect.top() + 0.01 * m_rect.height(),
+                              iconExtent, iconExtent);
 
-            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(this, new QPixmap(pixmap), cost);
+        if(!m_pixmapError)
+        {
+            // progress icon
+
+            s_settings->pageItem().progressIcon().paint(painter, iconRect.toRect());
         }
         else
         {
-            startRender();
+            // error icon
+
+            s_settings->pageItem().errorIcon().paint(painter, iconRect.toRect());
         }
     }
-
-    return pixmap;
 }
 
 void TileItem::refresh(bool keepObsoletePixmaps)
@@ -184,6 +195,33 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
 PageItem* TileItem::parentPage() const
 {
     return qobject_cast< PageItem* >(parent());
+}
+
+QPixmap TileItem::takePixmap()
+{
+    QPixmap pixmap;
+
+    if(s_cache.contains(this))
+    {
+        pixmap = *s_cache.object(this);
+    }
+    else
+    {
+        if(!m_pixmap.isNull())
+        {
+            pixmap = m_pixmap;
+            m_pixmap = QPixmap();
+
+            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+            s_cache.insert(this, new QPixmap(pixmap), cost);
+        }
+        else
+        {
+            startRender();
+        }
+    }
+
+    return pixmap;
 }
 
 } // qpdfview

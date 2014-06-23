@@ -995,7 +995,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
     if(!s_settings->pageItem().useTiling())
     {
-        paintTile(painter, m_tileItems.first());
+        m_tileItems.first()->paint(painter, m_boundingRect.topLeft());
     }
     else
     {
@@ -1005,7 +1005,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
         {
             if(translatedExposedRect.intersects(tile->rect()))
             {
-                paintTile(painter, tile);
+                tile->paint(painter, m_boundingRect.topLeft());
             }
             else
             {
@@ -1019,45 +1019,6 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
         // border
 
         painter->drawRect(m_boundingRect);
-    }
-}
-
-void PageItem::paintTile(QPainter* painter, TileItem* tile) const
-{
-    const QRectF rect(tile->rect());
-    const QPixmap& pixmap = tile->takePixmap();
-
-    if(!pixmap.isNull())
-    {
-        // pixmap
-
-        painter->drawPixmap(rect.topLeft() + m_boundingRect.topLeft(), pixmap);
-    }
-    else if(!tile->obsoletePixmap().isNull())
-    {
-        // obsolete pixmap
-
-        painter->drawPixmap(rect.translated(m_boundingRect.topLeft()), tile->obsoletePixmap(), QRectF());
-    }
-    else
-    {
-        const qreal iconExtent = qMin(0.1 * rect.width(), 0.1 * rect.height());
-        const QRectF iconRect(m_boundingRect.left() + rect.left() + 0.01 * rect.width(),
-                              m_boundingRect.top() + rect.top() + 0.01 * rect.height(),
-                              iconExtent, iconExtent);
-
-        if(!tile->pixmapError())
-        {
-            // progress icon
-
-            s_settings->pageItem().progressIcon().paint(painter, iconRect.toRect());
-        }
-        else
-        {
-            // error icon
-
-            s_settings->pageItem().errorIcon().paint(painter, iconRect.toRect());
-        }
     }
 }
 
