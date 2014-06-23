@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 
 #include "settings.h"
-#include "model.h"
 #include "rendertask.h"
 #include "pageitem.h"
 
