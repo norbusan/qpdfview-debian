@@ -34,7 +34,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< QPair< Model::Page*, QString >, QPixmap > TileItem::s_cache;
+QCache< QPair< PageItem*, QString >, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
@@ -62,12 +62,11 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QPair< Model::Page*, QString > TileItem::pixmapKey() const
+QPair< PageItem*, QString > TileItem::pixmapKey() const
 {
     // calculate unique key for the current pixmap
 
     PageItem* pageitem = parentPage();
-    Model::Page* page = pageitem->m_page;
     QString keystr = QString().sprintf("%d,%d,%f,%d,%d,%d,%d,%d,%d",
                                        pageitem->m_renderParam.resolution.resolutionX,
                                        pageitem->m_renderParam.resolution.resolutionY,
@@ -81,7 +80,7 @@ QPair< Model::Page*, QString > TileItem::pixmapKey() const
 
     //qDebug() << "rx,ry,sf,rot,inv,l,t,w,h:" << keystr;
 
-    return qMakePair(page, keystr);
+    return qMakePair(pageitem, keystr);
 }
 
 QPixmap TileItem::takePixmap()

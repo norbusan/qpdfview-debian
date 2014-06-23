@@ -32,11 +32,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-namespace Model
-{
-class Page;
-}
-
 class Settings;
 class RenderTask;
 class PageItem;
@@ -78,8 +73,8 @@ private:
 
     static Settings* s_settings;
 
-    static QCache< QPair< Model::Page*, QString >, QPixmap > s_cache;
-    QPair< Model::Page*, QString > pixmapKey() const;
+    static QCache< QPair< PageItem*, QString >, QPixmap > s_cache;
+    QPair< PageItem*, QString > pixmapKey() const;
 
     QRect m_rect;
 
