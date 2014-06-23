@@ -26,7 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 //#include <QtDebug>
 
 #include "settings.h"
-#include "model.h"
 #include "rendertask.h"
 #include "pageitem.h"
 
@@ -67,14 +66,14 @@ QPair< Model::Page*, QString > TileItem::getPixmapKey()
 {
     // calculate unique key for the current pixmap
 
-    PageItem* ppi = parentPage(); // parent PageItem
-    Model::Page* page = ppi->m_page;
+    PageItem* pageitem = parentPage();
+    Model::Page* page = pageitem->m_page;
     QString keystr = QString().sprintf("%d,%d,%f,%d,%d,%d,%d,%d,%d",
-                                       ppi->m_renderParam.resolution.resolutionX,
-                                       ppi->m_renderParam.resolution.resolutionY,
-                                       ppi->m_renderParam.scaleFactor,
-                                       ppi->m_renderParam.rotation,
-                                       ppi->m_renderParam.invertColors,
+                                       pageitem->m_renderParam.resolution.resolutionX,
+                                       pageitem->m_renderParam.resolution.resolutionY,
+                                       pageitem->m_renderParam.scaleFactor,
+                                       pageitem->m_renderParam.rotation,
+                                       pageitem->m_renderParam.invertColors,
                                        qRound(m_rect.x()),
                                        qRound(m_rect.y()),
                                        qRound(m_rect.width()),
