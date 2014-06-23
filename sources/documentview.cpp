@@ -208,7 +208,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
 
@@ -338,6 +337,8 @@ void DocumentView::setContinuousMode(bool continuousMode)
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
+        adjustScrollBarPolicy();
+
         prepareView(left, top);
 
         emit continuousModeChanged(m_continuousMode);
@@ -396,6 +397,8 @@ void DocumentView::setScaleMode(ScaleMode scaleMode)
 
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
+
+        adjustScrollBarPolicy();
 
         prepareScene();
         prepareView(left, top);
@@ -1752,6 +1755,26 @@ void DocumentView::loadDocumentDefaults()
     if(m_document->wantsRightToLeftMode())
     {
         m_rightToLeftMode = true;
+    }
+}
+
+void DocumentView::adjustScrollBarPolicy()
+{
+    switch(m_scaleMode)
+    {
+    default:
+    case ScaleFactorMode:
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        break;
+    case FitToPageWidthMode:
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        break;
+    case FitToPageSizeMode:
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setVerticalScrollBarPolicy(m_continuousMode ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
+        break;
     }
 }
 
