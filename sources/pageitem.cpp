@@ -1024,7 +1024,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
 void PageItem::paintTile(QPainter* painter, TileItem* tile) const
 {
-    const QRectF& rect = tile->rect();
+    const QRectF rect(tile->rect());
     const QPixmap& pixmap = tile->takePixmap();
 
     if(!pixmap.isNull())
