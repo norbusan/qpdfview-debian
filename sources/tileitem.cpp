@@ -62,7 +62,7 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QPair< Model::Page*, QString > TileItem::getPixmapKey()
+QPair< Model::Page*, QString > TileItem::pixmapKey() const
 {
     // calculate unique key for the current pixmap
 
@@ -88,9 +88,9 @@ QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(getPixmapKey()))
+    if(s_cache.contains(pixmapKey()))
     {
-        pixmap = *s_cache.object(getPixmapKey());
+        pixmap = *s_cache.object(pixmapKey());
     }
     else
     {
@@ -100,7 +100,7 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(getPixmapKey(), new QPixmap(pixmap), cost);
+            s_cache.insert(pixmapKey(), new QPixmap(pixmap), cost);
         }
         else
         {
@@ -115,9 +115,9 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(getPixmapKey()))
+        if(s_cache.contains(pixmapKey()))
         {
-            m_obsoletePixmap = *s_cache.object(getPixmapKey());
+            m_obsoletePixmap = *s_cache.object(pixmapKey());
         }
     }
     else
@@ -136,7 +136,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(getPixmapKey())))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(pixmapKey())))
     {
         return 0;
     }
@@ -196,7 +196,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(getPixmapKey(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(pixmapKey(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {

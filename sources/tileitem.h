@@ -52,8 +52,6 @@ public:
     inline const QRect& rect() const { return m_rect; }
     inline void setRect(const QRect& rect) { m_rect = rect; }
 
-    QPair< Model::Page*, QString > getPixmapKey();
-
     inline bool pixmapError() const { return m_pixmapError; }
 
     QPixmap takePixmap();
@@ -81,6 +79,7 @@ private:
     static Settings* s_settings;
 
     static QCache< QPair< Model::Page*, QString >, QPixmap > s_cache;
+    QPair< Model::Page*, QString > pixmapKey() const;
 
     QRect m_rect;
 
