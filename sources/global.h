@@ -37,6 +37,71 @@ enum Rotation
     NumberOfRotations = 4
 };
 
+struct RenderResolution
+{
+    int resolutionX;
+    int resolutionY;
+    qreal devicePixelRatio;
+
+    RenderResolution(int resolutionX = 72, int resolutionY = 72,
+                     qreal devicePixelRatio = 1.0) :
+        resolutionX(resolutionX),
+        resolutionY(resolutionY),
+        devicePixelRatio(devicePixelRatio) {}
+
+    bool operator==(const RenderResolution& other) const
+    {
+        return resolutionX == other.resolutionX
+                && resolutionY == other.resolutionY
+                && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
+    }
+
+    bool operator!=(const RenderResolution& other) const { return !operator==(other); }
+
+    bool operator<(const RenderResolution& other) const
+    {
+        return (resolutionX < other.resolutionX)
+                || (resolutionX == other.resolutionX && resolutionY < other.resolutionY)
+                || (resolutionX == other.resolutionX && resolutionY == other.resolutionY && devicePixelRatio < other.devicePixelRatio);
+    }
+
+};
+
+struct RenderParam
+{
+    RenderResolution resolution;
+
+    qreal scaleFactor;
+    Rotation rotation;
+    bool invertColors;
+
+    RenderParam(const RenderResolution& resolution = RenderResolution(),
+                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0, bool invertColors = false) :
+        resolution(resolution),
+        scaleFactor(scaleFactor),
+        rotation(rotation),
+        invertColors(invertColors) {}
+
+    bool operator==(const RenderParam& other) const
+    {
+        return resolution == other.resolution
+                && qFuzzyCompare(scaleFactor, other.scaleFactor)
+                && rotation == other.rotation
+                && invertColors == other.invertColors;
+    }
+
+    bool operator!=(const RenderParam& other) const { return !operator==(other); }
+
+    bool operator<(const RenderParam& other) const
+    {
+        return (resolution < other.resolution)
+                || (resolution == other.resolution && scaleFactor < other.scaleFactor)
+                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation < other.rotation)
+                || (resolution == other.resolution && qFuzzyCompare(scaleFactor, other.scaleFactor) && rotation == other.rotation && invertColors < other.invertColors);
+    }
+
+};
+
 enum RubberBandMode
 {
     ModifiersMode = 0,
@@ -64,7 +129,7 @@ enum ScaleMode
 };
 
 typedef QPair< int, QString > Jump;
-typedef QList< QPair< int, QString > > JumpList;
+typedef QList< Jump > JumpList;
 
 } // qpdfview
 

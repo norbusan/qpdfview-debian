@@ -98,7 +98,7 @@ QSizeF FitzPage::size() const
     fz_rect rect;
     fz_bound_page(m_parent->m_document, m_page, &rect);
 
-    return QSize(qCeil(qAbs(rect.x1 - rect.x0)), qCeil(qAbs(rect.y1 - rect.y0)));
+    return QSizeF(rect.x1 - rect.x0, rect.y1 - rect.y0);
 }
 
 QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
@@ -107,24 +107,24 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
 
     fz_matrix matrix;
 
+    fz_scale(&matrix, horizontalResolution / 72.0f, verticalResolution / 72.0f);
+
     switch(rotation)
     {
     default:
     case RotateBy0:
-        fz_rotate(&matrix, 0.0);
+        fz_pre_rotate(&matrix, 0.0);
         break;
     case RotateBy90:
-        fz_rotate(&matrix, 90.0);
+        fz_pre_rotate(&matrix, 90.0);
         break;
     case RotateBy180:
-        fz_rotate(&matrix, 180.0);
+        fz_pre_rotate(&matrix, 180.0);
         break;
     case RotateBy270:
-        fz_rotate(&matrix, 270.0);
+        fz_pre_rotate(&matrix, 270.0);
         break;
     }
-
-    fz_pre_scale(&matrix, horizontalResolution / 72.0f, verticalResolution / 72.0f);
 
     fz_rect rect;
     fz_bound_page(m_parent->m_document, m_page, &rect);
@@ -133,30 +133,45 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     fz_irect irect;
     fz_round_rect(&irect, &rect);
 
+
     fz_context* context = fz_clone_context(m_parent->m_context);
     fz_display_list* display_list = fz_new_display_list(context);
 
     fz_device* device = fz_new_list_device(context, display_list);
-    fz_run_page(m_parent->m_document, m_page, device, &fz_identity, 0);
+    fz_run_page(m_parent->m_document, m_page, device, &matrix, 0);
     fz_free_device(device);
 
 
     mutexLocker.unlock();
 
 
-    QImage image(qAbs(irect.x1 - irect.x0), qAbs(irect.y1 - irect.y0), QImage::Format_RGB32);
+    fz_matrix tileMatrix;
+    fz_translate(&tileMatrix, -rect.x0, -rect.y0);
+
+    fz_rect tileRect = fz_infinite_rect;
+
+    int tileWidth = irect.x1 - irect.x0;
+    int tileHeight = irect.y1 - irect.y0;
+
+    if(!boundingRect.isNull())
+    {
+        fz_pre_translate(&tileMatrix, -boundingRect.x(), -boundingRect.y());
+
+        tileRect.x0 = tileRect.y0 = 0.0;
+
+        tileWidth = tileRect.x1 = boundingRect.width();
+        tileHeight = tileRect.y1 = boundingRect.height();
+    }
+
+
+    QImage image(tileWidth, tileHeight, QImage::Format_RGB32);
     image.fill(m_parent->m_paperColor);
 
     fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), image.bits());
 
     device = fz_new_draw_device(context, pixmap);
-    fz_run_display_list(display_list, device, &matrix, &rect, 0);
+    fz_run_display_list(display_list, device, &tileMatrix, &tileRect, 0);
     fz_free_device(device);
-
-    if(!boundingRect.isNull())
-    {
-        image = image.copy(boundingRect);
-    }
 
     fz_drop_pixmap(context, pixmap);
     fz_drop_display_list(context, display_list);

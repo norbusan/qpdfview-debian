@@ -23,8 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define TILEITEM_H
 
 #include <QCache>
-#include <QGraphicsObject>
-#include <QIcon>
+#include <QObject>
+#include <QPixmap>
 
 #include "global.h"
 #include "model.h"
@@ -39,26 +39,27 @@ class Page;
 
 class Settings;
 class RenderTask;
+class PageItem;
 
-class TileItem : public QGraphicsObject
+class TileItem : public QObject
 {
     Q_OBJECT
 
 public:
-    TileItem(QGraphicsItem* parent = 0);
+    TileItem(QObject* parent = 0);
     ~TileItem();
 
-    inline QRect tile() const { return m_tile; }
-    inline void setTile(const QRect& tile) { m_tile = tile; }
+    inline const QRect& rect() const { return m_rect; }
+    inline void setRect(const QRect& rect) { m_rect = rect; }
 
     QPair< Model::Page*, QString > getPixmapKey();
 
-    QRectF boundingRect() const;
-    void setBoundingRect(const QRectF& boundingRect);
+    inline bool pixmapError() const { return m_pixmapError; }
 
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QPixmap takePixmap();
 
-    void dropObsoletePixmaps();
+    inline const QPixmap& obsoletePixmap() const { return m_obsoletePixmap; }
+    inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
 
 public slots:
     void refresh(bool keepObsoletePixmaps = false);
@@ -70,9 +71,8 @@ public slots:
 
 protected slots:
     void on_renderTask_finished();
-    void on_renderTask_imageReady(int resolutionX, int resolutionY, qreal devicePixelRatio,
-                                  qreal scaleFactor, Rotation rotation, bool invertColors,
-                                  const QRect& tile, bool prefetch,
+    void on_renderTask_imageReady(const RenderParam& renderParam,
+                                  const QRect& rect, bool prefetch,
                                   QImage image);
 
 private:
@@ -82,8 +82,7 @@ private:
 
     static QCache< QPair< Model::Page*, QString >, QPixmap > s_cache;
 
-    QRect m_tile;
-    QRectF m_boundingRect;
+    QRect m_rect;
 
     bool m_pixmapError;
     QPixmap m_pixmap;
@@ -91,7 +90,7 @@ private:
 
     RenderTask* m_renderTask;
 
-    QPixmap takePixmap();
+    PageItem* parentPage() const;
 
 };
 

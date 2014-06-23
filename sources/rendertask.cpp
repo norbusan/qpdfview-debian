@@ -28,6 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 enum
 {
     NotCanceled = 0,
@@ -78,6 +80,16 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
 #endif // QT_VERSION
 }
 
+qreal scaledResolutionX(const RenderParam& renderParam)
+{
+    return renderParam.resolution.resolutionX * renderParam.scaleFactor;
+}
+
+qreal scaledResolutionY(const RenderParam& renderParam)
+{
+    return renderParam.resolution.resolutionY * renderParam.scaleFactor;
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -87,13 +99,8 @@ RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(0),
-    m_resolutionX(72),
-    m_resolutionY(72),
-    m_devicePixelRatio(1.0),
-    m_scaleFactor(1.0),
-    m_rotation(RotateBy0),
-    m_invertColors(false),
-    m_tile(),
+    m_renderParam(),
+    m_rect(),
     m_prefetch(false)
 {
     setAutoDelete(false);
@@ -141,33 +148,18 @@ void RenderTask::run()
     }
 
 
-    qreal resolutionX;
-    qreal resolutionY;
-
-    switch(m_rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        resolutionX = m_resolutionX * m_scaleFactor;
-        resolutionY = m_resolutionY * m_scaleFactor;
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        resolutionX = m_resolutionY * m_scaleFactor;
-        resolutionY = m_resolutionX * m_scaleFactor;
-        break;
-    }
-
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_devicePixelRatio * resolutionX, m_devicePixelRatio * resolutionY, m_rotation, m_tile);
+    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * scaledResolutionX(m_renderParam),
+                                  m_renderParam.resolution.devicePixelRatio * scaledResolutionY(m_renderParam),
+                                  m_renderParam.rotation, m_rect);
 
-    image.setDevicePixelRatio(m_devicePixelRatio);
+    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #else
 
-    QImage image = m_page->render(resolutionX, resolutionY, m_rotation, m_tile);
+    QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
+                                  m_renderParam.rotation, m_rect);
 
 #endif // QT_VERSION
 
@@ -180,35 +172,27 @@ void RenderTask::run()
     }
 
 
-    if(m_invertColors)
+    if(m_renderParam.invertColors)
     {
         image.invertPixels();
     }
 
-    emit imageReady(m_resolutionX, m_resolutionY, m_devicePixelRatio,
-                    m_scaleFactor, m_rotation, m_invertColors,
-                    m_tile, m_prefetch,
+    emit imageReady(m_renderParam,
+                    m_rect, m_prefetch,
                     image);
 
     finish();
 }
 
 void RenderTask::start(Model::Page* page,
-                       int resolutionX, int resolutionY, qreal devicePixelRatio,
-                       qreal scaleFactor, Rotation rotation, bool invertColors,
-                       const QRect& tile, bool prefetch)
+                       const RenderParam& renderParam,
+                       const QRect& rect, bool prefetch)
 {
     m_page = page;
 
-    m_resolutionX = resolutionX;
-    m_resolutionY = resolutionY;
-    m_devicePixelRatio = devicePixelRatio;
+    m_renderParam = renderParam;
 
-    m_scaleFactor = scaleFactor;
-    m_rotation = rotation;
-    m_invertColors = invertColors;
-
-    m_tile = tile;
+    m_rect = rect;
     m_prefetch = prefetch;
 
     m_mutex.lock();

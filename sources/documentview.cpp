@@ -45,6 +45,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WITH_CUPS
 
 #include <cups/cups.h>
+#include <cups/ppd.h>
 
 #endif // WITH_CUPS
 
@@ -97,6 +98,62 @@ qreal unscaledPageHeight(PageItem* page)
         return page->resolutionY() / 72.0 * page->size().width();
     }
 }
+
+#ifdef WITH_CUPS
+
+struct RemovePpdFileDeleter
+{
+    static inline void cleanup(const char* ppdFileName) { if(ppdFileName != 0) { QFile::remove(ppdFileName); } }
+};
+
+struct ClosePpdFileDeleter
+{
+    static inline void cleanup(ppd_file_t* ppdFile) { if(ppdFile != 0) { ppdClose(ppdFile); } }
+};
+
+int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** options)
+{
+    QScopedPointer< const char, RemovePpdFileDeleter > ppdFileName(cupsGetPPD(dest->name));
+
+    if(ppdFileName.isNull())
+    {
+        return num_options;
+    }
+
+    QScopedPointer< ppd_file_t, ClosePpdFileDeleter > ppdFile(ppdOpenFile(ppdFileName.data()));
+
+    if(ppdFile.isNull())
+    {
+        return num_options;
+    }
+
+    ppd_option_t* colorModel = ppdFindOption(ppdFile.data(), "ColorModel");
+
+    if(colorModel == 0)
+    {
+        return num_options;
+    }
+
+    for(int index = 0; index < colorModel->num_choices; ++index)
+    {
+        if(qstrncmp(colorModel->choices[index].choice, "CMYK", 4) == 0)
+        {
+            return cupsAddOption("ColorModel", "CMYK", num_options, options);
+        }
+    }
+
+    for(int index = 0; index < colorModel->num_choices; ++index)
+    {
+        if(qstrncmp(colorModel->choices[index].choice, "RGB", 3) == 0)
+        {
+            return cupsAddOption("ColorModel", "RGB", num_options, options);
+        }
+    }
+
+    return num_options;
+}
+
+#endif // WITH_CUPS
 
 } // anonymous
 
@@ -1415,6 +1472,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         switch(printer->colorMode())
         {
         case QPrinter::Color:
+            num_options = addCMYKorRGBColorModel(dest, num_options, &options);
             break;
         case QPrinter::GrayScale:
             num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);

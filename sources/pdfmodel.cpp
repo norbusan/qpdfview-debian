@@ -289,24 +289,6 @@ QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rot
 
 #endif // HAS_POPPLER_24
 
-    double xres;
-    double yres;
-
-    switch(rotation)
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        xres = horizontalResolution;
-        yres = verticalResolution;
-        break;
-    case RotateBy90:
-    case RotateBy270:
-        xres = verticalResolution;
-        yres = horizontalResolution;
-        break;
-    }
-
     Poppler::Page::Rotation rotate;
 
     switch(rotation)
@@ -339,7 +321,7 @@ QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rot
         h = boundingRect.height();
     }
 
-    return m_page->renderToImage(xres, yres, x, y, w, h, rotate);
+    return m_page->renderToImage(horizontalResolution, verticalResolution, x, y, w, h, rotate);
 }
 
 QList< Link* > PdfPage::links() const
