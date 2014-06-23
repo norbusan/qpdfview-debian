@@ -31,11 +31,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-namespace Model
-{
-class Page;
-}
-
 class Settings;
 class RenderTask;
 class PageItem;
