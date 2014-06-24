@@ -67,7 +67,8 @@ QPair< PageItem*, QString > TileItem::pixmapKey() const
     // calculate unique key for the current pixmap
 
     PageItem* pageitem = parentPage();
-    QString keystr = QString().sprintf("%d,%d,%f,%d,%d,%d,%d,%d,%d",
+    QString keystr = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
+                                       pageitem->m_index,
                                        pageitem->m_renderParam.resolution.resolutionX,
                                        pageitem->m_renderParam.resolution.resolutionY,
                                        pageitem->m_renderParam.scaleFactor,
