@@ -68,16 +68,28 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
     return prefetch ?
-                wasCanceled.loadAcquire() == CanceledForcibly :
-                wasCanceled.loadAcquire() != NotCanceled;
+                wasCanceled.load() == CanceledForcibly :
+                wasCanceled.load() != NotCanceled;
 
 #else
 
     return prefetch ?
-                wasCanceled.testAndSetAcquire(CanceledForcibly, CanceledForcibly) :
-                !wasCanceled.testAndSetAcquire(NotCanceled, NotCanceled);
+                wasCanceled.testAndSetRelaxed(CanceledForcibly, CanceledForcibly) :
+                !wasCanceled.testAndSetRelaxed(NotCanceled, NotCanceled);
 
 #endif // QT_VERSION
+}
+
+qreal scaledDeviceResolutionX(const RenderParam& renderParam)
+{
+    return renderParam.resolution.devicePixelRatio *
+            renderParam.resolution.resolutionX * renderParam.scaleFactor;
+}
+
+qreal scaledDeviceResolutionY(const RenderParam& renderParam)
+{
+    return renderParam.resolution.devicePixelRatio *
+            renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
 qreal scaledResolutionX(const RenderParam& renderParam)
@@ -150,8 +162,7 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    QImage image = m_page->render(m_renderParam.resolution.devicePixelRatio * scaledResolutionX(m_renderParam),
-                                  m_renderParam.resolution.devicePixelRatio * scaledResolutionY(m_renderParam),
+    QImage image = m_page->render(scaledDeviceResolutionX(m_renderParam), scaledDeviceResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_rect);
 
     image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
