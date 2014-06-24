@@ -139,7 +139,6 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
-    s_cache.remove(pixmapKey());
 }
 
 int TileItem::startRender(bool prefetch)
