@@ -42,7 +42,6 @@ public:
     explicit SearchTask(QObject* parent = 0);
 
     bool wasCanceled() const;
-
     int progress() const;
 
     void run();
@@ -61,9 +60,8 @@ public slots:
 private:
     Q_DISABLE_COPY(SearchTask)
 
-    bool m_wasCanceled;
-
-    int m_progress;
+    QAtomicInt m_wasCanceled;
+    mutable QAtomicInt m_progress;
 
     QVector< Model::Page* > m_pages;
 
