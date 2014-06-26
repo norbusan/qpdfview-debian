@@ -647,6 +647,11 @@ int Settings::MainWindow::saveDatabaseInterval() const
     return m_settings->value("mainWindow/saveDatabaseInterval", Defaults::MainWindow::saveDatabaseInterval()).toInt();
 }
 
+void Settings::MainWindow::setSaveDatabaseInterval(int saveDatabaseInterval)
+{
+    m_settings->setValue("mainWindow/saveDatabaseInterval", saveDatabaseInterval);
+}
+
 int Settings::MainWindow::tabPosition() const
 {
     return m_settings->value("mainWindow/tabPosition", Defaults::MainWindow::tabPosition()).toInt();

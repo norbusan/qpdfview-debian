@@ -294,6 +294,7 @@ public:
         void setRestorePerFileSettings(bool on);
 
         int saveDatabaseInterval() const;
+        void setSaveDatabaseInterval(int saveDatabaseInterval);
 
         int tabPosition() const;
         void setTabPosition(int tabPosition);

@@ -112,6 +112,20 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
+void setSaveDatabaseInterval(QTimer* saveDatabaseTimer, int saveDatabaseInterval)
+{
+    saveDatabaseTimer->setInterval(saveDatabaseInterval);
+
+    if(saveDatabaseInterval > 0)
+    {
+        saveDatabaseTimer->start();
+    }
+    else
+    {
+        saveDatabaseTimer->stop();
+    }
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -1156,6 +1170,8 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
+        setSaveDatabaseInterval(m_saveDatabaseTimer, s_settings->mainWindow().saveDatabaseInterval());
+
         for(int index = 0; index < m_tabWidget->count(); ++index)
         {
             if(!tab(index)->refresh())
@@ -1981,13 +1997,7 @@ void MainWindow::prepareDatabase()
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
 
-    const int saveDatabaseInterval = s_settings->mainWindow().saveDatabaseInterval();
-
-    if(saveDatabaseInterval > 0)
-    {
-        m_saveDatabaseTimer->setInterval(saveDatabaseInterval);
-        m_saveDatabaseTimer->start();
-    }
+    setSaveDatabaseInterval(m_saveDatabaseTimer, s_settings->mainWindow().saveDatabaseInterval());
 }
 
 void MainWindow::saveTabs() const

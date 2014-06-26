@@ -258,11 +258,22 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Restore per-file settings:"), m_restorePerFileSettingsCheckBox);
 
+    // save database interval
+
+    m_saveDatabaseInterval = new QSpinBox(this);
+    m_saveDatabaseInterval->setSuffix(tr(" min"));
+    m_saveDatabaseInterval->setRange(0, 60);
+    m_saveDatabaseInterval->setSpecialValueText(tr("Never"));
+    m_saveDatabaseInterval->setValue(s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
+
+    m_behaviorLayout->addRow(tr("Save database interval:"), m_saveDatabaseInterval);
+
 #ifndef WITH_SQL
 
     m_restoreTabsCheckBox->setEnabled(false);
     m_restoreBookmarksCheckBox->setEnabled(false);
     m_restorePerFileSettingsCheckBox->setEnabled(false);
+    m_saveDatabaseInterval->setEnabled(false);
 
 #endif // WITH_SQL
 
@@ -301,7 +312,7 @@ void SettingsDialog::createBehaviorTab()
     // highlight duration
 
     m_highlightDurationSpinBox = new QSpinBox(this);
-    m_highlightDurationSpinBox->setSuffix(" ms");
+    m_highlightDurationSpinBox->setSuffix(tr(" ms"));
     m_highlightDurationSpinBox->setRange(0, 60000);
     m_highlightDurationSpinBox->setSingleStep(500);
     m_highlightDurationSpinBox->setSpecialValueText(tr("None"));
@@ -342,6 +353,7 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->mainWindow().setRestoreTabs(m_restoreTabsCheckBox->isChecked());
     s_settings->mainWindow().setRestoreBookmarks(m_restoreBookmarksCheckBox->isChecked());
     s_settings->mainWindow().setRestorePerFileSettings(m_restorePerFileSettingsCheckBox->isChecked());
+    s_settings->mainWindow().setSaveDatabaseInterval(m_saveDatabaseInterval->value() * 60 * 1000);
 
     s_settings->presentationView().setSynchronize(m_synchronizePresentationCheckBox->isChecked());
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
@@ -369,6 +381,7 @@ void SettingsDialog::resetBehaviorTab()
     m_restoreTabsCheckBox->setChecked(Defaults::MainWindow::restoreTabs());
     m_restoreBookmarksCheckBox->setChecked(Defaults::MainWindow::restoreBookmarks());
     m_restorePerFileSettingsCheckBox->setChecked(Defaults::MainWindow::restorePerFileSettings());
+    m_saveDatabaseInterval->setValue(Defaults::MainWindow::saveDatabaseInterval());
 
     m_synchronizePresentationCheckBox->setChecked(Defaults::PresentationView::synchronize());
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
@@ -461,7 +474,7 @@ void SettingsDialog::createGraphicsTab()
     // page spacing
 
     m_pageSpacingSpinBox = new QDoubleSpinBox(this);
-    m_pageSpacingSpinBox->setSuffix(" px");
+    m_pageSpacingSpinBox->setSuffix(tr(" px"));
     m_pageSpacingSpinBox->setRange(0.0, 25.0);
     m_pageSpacingSpinBox->setSingleStep(0.25);
     m_pageSpacingSpinBox->setValue(s_settings->documentView().pageSpacing());
@@ -471,7 +484,7 @@ void SettingsDialog::createGraphicsTab()
     // thumbnail spacing
 
     m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSpacingSpinBox->setSuffix(" px");
+    m_thumbnailSpacingSpinBox->setSuffix(tr(" px"));
     m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
     m_thumbnailSpacingSpinBox->setSingleStep(0.25);
     m_thumbnailSpacingSpinBox->setValue(s_settings->documentView().thumbnailSpacing());
@@ -481,7 +494,7 @@ void SettingsDialog::createGraphicsTab()
     // thumbnail size
 
     m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSizeSpinBox->setSuffix(" px");
+    m_thumbnailSizeSpinBox->setSuffix(tr(" px"));
     m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
     m_thumbnailSizeSpinBox->setSingleStep(10.0);
     m_thumbnailSizeSpinBox->setValue(s_settings->documentView().thumbnailSize());
