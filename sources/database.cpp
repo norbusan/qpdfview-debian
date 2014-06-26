@@ -149,7 +149,7 @@ void Database::restoreTabs()
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation FROM tabs_v2 WHERE instanceName==?");
+        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation FROM tabs_v3 WHERE instanceName==?");
 
         query.bindValue(0, instanceName());
 
@@ -166,9 +166,10 @@ void Database::restoreTabs()
             emit tabRestored(query.value(0).toString(),
                              static_cast< bool >(query.value(2).toUInt()),
                              static_cast< LayoutMode >(query.value(3).toUInt()),
-                             static_cast< ScaleMode >(query.value(4).toUInt()),
-                             query.value(5).toReal(),
-                             static_cast< Rotation >(query.value(6).toUInt()),
+                             query.value(4).toBool(),
+                             static_cast< ScaleMode >(query.value(5).toUInt()),
+                             query.value(6).toReal(),
+                             static_cast< Rotation >(query.value(7).toUInt()),
                              query.value(1).toInt());
         }
 
@@ -188,7 +189,7 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 
         QSqlQuery query(m_database);
 
-        query.prepare("DELETE FROM tabs_v2 WHERE instanceName==?");
+        query.prepare("DELETE FROM tabs_v3 WHERE instanceName==?");
 
         query.bindValue(0, instanceName());
 
@@ -200,9 +201,9 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
             return;
         }
 
-        query.prepare("INSERT INTO tabs_v2 "
-                      "(filePath,instanceName,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation)"
-                      " VALUES (?,?,?,?,?,?,?,?)");
+        query.prepare("INSERT INTO tabs_v3 "
+                      "(filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation)"
+                      " VALUES (?,?,?,?,?,?,?,?,?)");
 
         foreach(const DocumentView* tab, tabs)
         {
@@ -212,11 +213,12 @@ void Database::saveTabs(const QList< const DocumentView* >& tabs)
 
             query.bindValue(3, static_cast< uint >(tab->continuousMode()));
             query.bindValue(4, static_cast< uint >(tab->layoutMode()));
+            query.bindValue(5, static_cast< uint >(tab->rightToLeftMode()));
 
-            query.bindValue(5, static_cast< uint >(tab->scaleMode()));
-            query.bindValue(6, tab->scaleFactor());
+            query.bindValue(6, static_cast< uint >(tab->scaleMode()));
+            query.bindValue(7, tab->scaleFactor());
 
-            query.bindValue(7, static_cast< uint >(tab->rotation()));
+            query.bindValue(8, static_cast< uint >(tab->rotation()));
 
             query.exec();
 
@@ -246,7 +248,7 @@ void Database::clearTabs()
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM tabs_v2");
+        query.exec("DELETE FROM tabs_v3");
 
         if(!query.isActive())
         {
@@ -499,19 +501,28 @@ Database::Database(QObject* parent) : QObject(parent)
 
     if(m_database.isOpen())
     {
-        QSqlQuery query(m_database);
-        query.exec("PRAGMA synchronous = OFF");
-        query.exec("PRAGMA journal_mode = MEMORY");
+        {
+            QSqlQuery query(m_database);
+            query.exec("PRAGMA synchronous = OFF");
+            query.exec("PRAGMA journal_mode = MEMORY");
+        }
 
         const QStringList tables = m_database.tables();
 
         // tabs
 
-        if(!tables.contains("tabs_v2"))
+        if(!tables.contains("tabs_v3"))
         {
-            if(prepareTabs_v2() && tables.contains("tabs_v1"))
+            if(prepareTabs_v3())
             {
-                migrateTabs_v1_v2();
+                if(tables.contains("tabs_v2"))
+                {
+                    migrateTabs_v2_v3();
+                }
+                else if(tables.contains("tabs_v1"))
+                {
+                    migrateTabs_v1_v3();
+                }
             }
         }
 
@@ -550,17 +561,18 @@ QString Database::instanceName()
 
 #ifdef WITH_SQL
 
-bool Database::prepareTabs_v2()
+bool Database::prepareTabs_v3()
 {
     Transaction transaction(m_database);
 
     QSqlQuery query(m_database);
-    query.exec("CREATE TABLE tabs_v2 "
+    query.exec("CREATE TABLE tabs_v3 "
                "(filePath TEXT"
                ",instanceName TEXT"
                ",currentPage INTEGER"
                ",continuousMode INTEGER"
                ",layoutMode INTEGER"
+               ",rightToLeftMode INTEGER"
                ",scaleMode INTEGER"
                ",scaleFactor REAL"
                ",rotation INTEGER)");
@@ -637,13 +649,36 @@ bool Database::preparePerFileSettings_v2()
     return true;
 }
 
-void Database::migrateTabs_v1_v2()
+void Database::migrateTabs_v2_v3()
 {
     Transaction transaction(m_database);
 
     QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v2 "
-                  "SELECT filePath,?,currentPage,continuousMode,layoutMode,scaleMode,scaleFactor,rotation "
+    query.prepare("INSERT INTO tabs_v3 "
+                  "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation "
+                  "FROM tabs_v2");
+
+    query.exec();
+
+    if(!query.isActive())
+    {
+        qDebug() << query.lastError();
+        return;
+    }
+
+    qWarning() << "Migrated tabs from v2 to v3, dropping v2.";
+    query.exec("DROP TABLE tabs_v2");
+
+    transaction.commit();
+}
+
+void Database::migrateTabs_v1_v3()
+{
+    Transaction transaction(m_database);
+
+    QSqlQuery query(m_database);
+    query.prepare("INSERT INTO tabs_v3 "
+                  "SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation "
                   "FROM tabs_v1");
 
     query.bindValue(0, instanceName());
@@ -656,7 +691,7 @@ void Database::migrateTabs_v1_v2()
         return;
     }
 
-    qWarning() << "Migrated tabs from v1 to v2, dropping v1.";
+    qWarning() << "Migrated tabs from v1 to v3, dropping v1.";
     query.exec("DROP TABLE tabs_v1");
 
     transaction.commit();

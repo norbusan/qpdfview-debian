@@ -1712,12 +1712,13 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
+void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
     if(openInNewTab(absoluteFilePath))
     {
         currentTab()->setContinuousMode(continuousMode);
         currentTab()->setLayoutMode(layoutMode);
+        currentTab()->setRightToLeftMode(rightToLeftMode);
 
         currentTab()->setScaleMode(scaleMode);
         currentTab()->setScaleFactor(scaleFactor);
@@ -2014,7 +2015,7 @@ void MainWindow::prepareDatabase()
         s_database = Database::instance();
     }
 
-    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
+    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
     connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
 
     m_saveDatabaseTimer = new QTimer(this);
