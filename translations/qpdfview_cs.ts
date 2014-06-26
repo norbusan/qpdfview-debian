@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1558"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora PDF pomocí Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1561"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora PS pomocí libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1564"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora DjVu pomocí DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1567"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora PDF pomocí Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1570"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Podpora tisku pomocí CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1572"/>
@@ -1220,6 +1220,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Nikdy</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
         <translation type="unfinished"></translation>
@@ -1240,9 +1246,14 @@
         <translation type="unfinished">Promítací obrazovka:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Zvýraznit položku osnovy:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Násobek zvětšení:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
@@ -1282,7 +1293,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Použít dláždění:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="414"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Vždy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Nikdy</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Viditelnost karet:</translation>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Název instance v názvu okna:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Zvýraznit položku osnovy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>

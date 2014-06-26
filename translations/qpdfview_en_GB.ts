@@ -1220,6 +1220,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Never</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
         <translation type="unfinished"></translation>
@@ -1420,12 +1426,6 @@
         <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Always</source>
         <translation type="unfinished">Always</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Never</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
