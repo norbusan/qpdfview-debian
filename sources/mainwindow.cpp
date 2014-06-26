@@ -112,20 +112,6 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
-void setSaveDatabaseInterval(QTimer* saveDatabaseTimer, int saveDatabaseInterval)
-{
-    saveDatabaseTimer->setInterval(saveDatabaseInterval);
-
-    if(saveDatabaseInterval > 0)
-    {
-        saveDatabaseTimer->start();
-    }
-    else
-    {
-        saveDatabaseTimer->stop();
-    }
-}
-
 } // anonymous
 
 namespace qpdfview
@@ -209,6 +195,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(currentTab());
+            scheduleSaveTabs();
 
             currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
@@ -262,6 +249,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(rightToLeftModeChanged(bool)), SLOT(on_currentTab_rightToLeftModeChanged(bool)));
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
+        connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
         connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
         connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
@@ -278,6 +266,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->show();
 
         s_database->restorePerFileSettings(newTab);
+        scheduleSaveTabs();
 
         newTab->jumpToPage(page, false);
         newTab->setFocus();
@@ -711,6 +700,9 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
 
         setWindowTitleForCurrentTab();
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -728,6 +720,9 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     if(senderIsCurrentTab())
     {
         m_continuousModeAction->setChecked(continuousMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -738,6 +733,9 @@ void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
         m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
         m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
         m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -746,6 +744,9 @@ void MainWindow::on_currentTab_rightToLeftModeChanged(bool rightToLeftMode)
     if(senderIsCurrentTab())
     {
         m_rightToLeftModeAction->setChecked(rightToLeftMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -781,6 +782,9 @@ void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
             m_zoomOutAction->setEnabled(true);
             break;
         }
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -796,6 +800,20 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().maximumScaleFactor()));
             m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().minimumScaleFactor()));
         }
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
+    }
+}
+
+void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
+{
+    Q_UNUSED(rotation);
+
+    if(senderIsCurrentTab())
+    {
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -1170,7 +1188,7 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
-        setSaveDatabaseInterval(m_saveDatabaseTimer, s_settings->mainWindow().saveDatabaseInterval());
+        m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
         {
@@ -1493,6 +1511,8 @@ void MainWindow::on_addBookmark_triggered()
 
         m_bookmarksMenu->addMenu(bookmark);
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeBookmark_triggered()
@@ -1503,6 +1523,8 @@ void MainWindow::on_removeBookmark_triggered()
     {
         bookmark->removeJumpToPageAction(currentTab()->currentPage());
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeAllBookmarks_triggered()
@@ -1516,6 +1538,8 @@ void MainWindow::on_removeAllBookmarks_triggered()
             delete bookmark;
         }
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_bookmark_openTriggered(const QString& absoluteFilePath)
@@ -1898,6 +1922,7 @@ QString MainWindow::tabTitle(const DocumentView *tab) const
 bool MainWindow::saveModifications(DocumentView* tab)
 {
     s_database->savePerFileSettings(tab);
+    scheduleSaveTabs();
 
     if(tab->wasModified())
     {
@@ -1994,10 +2019,10 @@ void MainWindow::prepareDatabase()
 
 
     m_saveDatabaseTimer = new QTimer(this);
+    m_saveDatabaseTimer->setSingleShot(true);
+    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
-
-    setSaveDatabaseInterval(m_saveDatabaseTimer, s_settings->mainWindow().saveDatabaseInterval());
 }
 
 void MainWindow::saveTabs() const
@@ -2027,6 +2052,38 @@ void MainWindow::saveBookmarks() const
     }
 
     s_database->saveBookmarks(bookmarks);
+}
+
+void MainWindow::scheduleSaveDatabase()
+{
+    if(m_saveDatabaseTimer->interval() > 0 && !m_saveDatabaseTimer->isActive())
+    {
+        m_saveDatabaseTimer->start();
+    }
+}
+
+void MainWindow::scheduleSaveTabs()
+{
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        scheduleSaveDatabase();
+    }
+}
+
+void MainWindow::scheduleSaveBookmarks()
+{
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        scheduleSaveDatabase();
+    }
+}
+
+void MainWindow::scheduleSavePerFileSettings()
+{
+    if(s_settings->mainWindow().restorePerFileSettings())
+    {
+        scheduleSaveDatabase();
+    }
 }
 
 void MainWindow::createWidgets()
