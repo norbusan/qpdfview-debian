@@ -157,6 +157,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
     prepareDatabase();
 
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        s_database->restoreTabs();
+    }
+
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        s_database->restoreBookmarks();
+    }
+
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
@@ -2006,17 +2016,6 @@ void MainWindow::prepareDatabase()
 
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
     connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
-
-    if(s_settings->mainWindow().restoreTabs())
-    {
-        s_database->restoreTabs();
-    }
-
-    if(s_settings->mainWindow().restoreBookmarks())
-    {
-        s_database->restoreBookmarks();
-    }
-
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
