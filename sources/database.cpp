@@ -499,6 +499,10 @@ Database::Database(QObject* parent) : QObject(parent)
 
     if(m_database.isOpen())
     {
+        QSqlQuery query(m_database);
+        query.exec("PRAGMA synchronous = OFF");
+        query.exec("PRAGMA journal_mode = MEMORY");
+
         const QStringList tables = m_database.tables();
 
         // tabs
