@@ -4,39 +4,39 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="805"/>
         <source>Name</source>
         <translation type="unfinished">Nama</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="805"/>
         <source>Type</source>
         <translation type="unfinished">Jenis</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="805"/>
         <source>Embedded</source>
         <translation type="unfinished">Terbenam</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="805"/>
         <source>Subset</source>
         <translation type="unfinished">Subset</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="823"/>
+        <location filename="../sources/pdfmodel.cpp" line="805"/>
         <source>File</source>
         <translation type="unfinished">Fail</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="831"/>
-        <location filename="../sources/pdfmodel.cpp" line="832"/>
+        <location filename="../sources/pdfmodel.cpp" line="813"/>
+        <location filename="../sources/pdfmodel.cpp" line="814"/>
         <source>Yes</source>
         <translation type="unfinished">Ya</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="831"/>
-        <location filename="../sources/pdfmodel.cpp" line="832"/>
+        <location filename="../sources/pdfmodel.cpp" line="813"/>
+        <location filename="../sources/pdfmodel.cpp" line="814"/>
         <source>No</source>
         <translation type="unfinished">Tidak</translation>
     </message>
@@ -44,12 +44,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="490"/>
+        <location filename="../sources/pdfmodel.cpp" line="472"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="490"/>
+        <location filename="../sources/pdfmodel.cpp" line="472"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Versi pustaka Poppler 0.201 atau lebih tinggi diperlukan untuk tambah atau buang catatan.</translation>
     </message>
@@ -148,32 +148,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="886"/>
+        <location filename="../sources/settingsdialog.cpp" line="899"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="887"/>
+        <location filename="../sources/settingsdialog.cpp" line="900"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="888"/>
+        <location filename="../sources/settingsdialog.cpp" line="901"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="889"/>
+        <location filename="../sources/settingsdialog.cpp" line="902"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift dan Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="890"/>
+        <location filename="../sources/settingsdialog.cpp" line="903"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift dan Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="891"/>
+        <location filename="../sources/settingsdialog.cpp" line="904"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl dan Alt</translation>
     </message>
@@ -199,7 +199,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="686"/>
+        <location filename="../sources/database.cpp" line="690"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Lompat ke halaman %1</translation>
     </message>
@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="317"/>
+        <location filename="../sources/documentview.cpp" line="316"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Format disokong (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1136"/>
+        <location filename="../sources/documentview.cpp" line="1139"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1136"/>
+        <location filename="../sources/documentview.cpp" line="1139"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Membuka URL dilumpuhkan dalam tetapan.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1186"/>
+        <location filename="../sources/documentview.cpp" line="1189"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1186"/>
+        <location filename="../sources/documentview.cpp" line="1189"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1625"/>
+        <location filename="../sources/documentview.cpp" line="1628"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1697"/>
+        <location filename="../sources/documentview.cpp" line="1700"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Buka %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1697"/>
+        <location filename="../sources/documentview.cpp" line="1700"/>
         <source>Password:</source>
         <translation type="unfinished">Kata Laluan:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1719"/>
+        <location filename="../sources/documentview.cpp" line="1722"/>
         <source>Page %1</source>
         <translation type="unfinished">Halaman %1</translation>
     </message>
@@ -308,497 +308,497 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="150"/>
+        <location filename="../sources/mainwindow.cpp" line="164"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="151"/>
+        <location filename="../sources/mainwindow.cpp" line="165"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="213"/>
-        <location filename="../sources/mainwindow.cpp" line="284"/>
-        <location filename="../sources/mainwindow.cpp" line="972"/>
-        <location filename="../sources/mainwindow.cpp" line="989"/>
-        <location filename="../sources/mainwindow.cpp" line="1006"/>
-        <location filename="../sources/mainwindow.cpp" line="1042"/>
-        <location filename="../sources/mainwindow.cpp" line="1163"/>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
-        <location filename="../sources/mainwindow.cpp" line="1902"/>
+        <location filename="../sources/mainwindow.cpp" line="227"/>
+        <location filename="../sources/mainwindow.cpp" line="298"/>
+        <location filename="../sources/mainwindow.cpp" line="986"/>
+        <location filename="../sources/mainwindow.cpp" line="1003"/>
+        <location filename="../sources/mainwindow.cpp" line="1020"/>
+        <location filename="../sources/mainwindow.cpp" line="1056"/>
+        <location filename="../sources/mainwindow.cpp" line="1179"/>
+        <location filename="../sources/mainwindow.cpp" line="1904"/>
+        <location filename="../sources/mainwindow.cpp" line="1918"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="213"/>
-        <location filename="../sources/mainwindow.cpp" line="284"/>
+        <location filename="../sources/mainwindow.cpp" line="227"/>
+        <location filename="../sources/mainwindow.cpp" line="298"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat buka &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="532"/>
+        <location filename="../sources/mainwindow.cpp" line="546"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Tutup semua tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="533"/>
+        <location filename="../sources/mainwindow.cpp" line="547"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Tutup semua tab tetapi kecualikan ini</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="534"/>
+        <location filename="../sources/mainwindow.cpp" line="548"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Tutup semua ke disebelah kiri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="535"/>
+        <location filename="../sources/mainwindow.cpp" line="549"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Tutup semua tab disebelah kanan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="930"/>
+        <location filename="../sources/mainwindow.cpp" line="944"/>
         <source>Open</source>
         <translation type="unfinished">Buka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="946"/>
+        <location filename="../sources/mainwindow.cpp" line="960"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Buka dalam tab baru</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="972"/>
-        <location filename="../sources/mainwindow.cpp" line="1163"/>
+        <location filename="../sources/mainwindow.cpp" line="986"/>
+        <location filename="../sources/mainwindow.cpp" line="1179"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat segar semula &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="979"/>
+        <location filename="../sources/mainwindow.cpp" line="993"/>
         <source>Save copy</source>
         <translation type="unfinished">Simpan salinan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="989"/>
+        <location filename="../sources/mainwindow.cpp" line="1003"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan salinan pada &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="996"/>
-        <location filename="../sources/mainwindow.cpp" line="1892"/>
+        <location filename="../sources/mainwindow.cpp" line="1010"/>
+        <location filename="../sources/mainwindow.cpp" line="1908"/>
         <source>Save as</source>
         <translation type="unfinished">Simpan sebagai</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1006"/>
-        <location filename="../sources/mainwindow.cpp" line="1902"/>
+        <location filename="../sources/mainwindow.cpp" line="1020"/>
+        <location filename="../sources/mainwindow.cpp" line="1918"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan sebagai &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1042"/>
+        <location filename="../sources/mainwindow.cpp" line="1056"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat cetak &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1078"/>
+        <location filename="../sources/mainwindow.cpp" line="1092"/>
         <source>Jump to page</source>
         <translation type="unfinished">Lompat ke halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1078"/>
+        <location filename="../sources/mainwindow.cpp" line="1092"/>
         <source>Page:</source>
         <translation type="unfinished">Halaman:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1455"/>
+        <location filename="../sources/mainwindow.cpp" line="1471"/>
         <source>Add bookmark</source>
         <translation type="unfinished">Tambah tanda buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1455"/>
+        <location filename="../sources/mainwindow.cpp" line="1471"/>
         <source>Label</source>
         <translation type="unfinished">Label</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1455"/>
+        <location filename="../sources/mainwindow.cpp" line="1471"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Lompat ke halaman %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1538"/>
+        <location filename="../sources/mainwindow.cpp" line="1554"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Perihal qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1538"/>
+        <location filename="../sources/mainwindow.cpp" line="1554"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview merupakan pelihat dokumen bertab yang menggunakan Qt.&lt;/p&gt;&lt;p&gt;Versi ini menyertakan:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1542"/>
+        <location filename="../sources/mainwindow.cpp" line="1558"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1545"/>
+        <location filename="../sources/mainwindow.cpp" line="1561"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1548"/>
+        <location filename="../sources/mainwindow.cpp" line="1564"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1551"/>
+        <location filename="../sources/mainwindow.cpp" line="1567"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1554"/>
+        <location filename="../sources/mainwindow.cpp" line="1570"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1556"/>
+        <location filename="../sources/mainwindow.cpp" line="1572"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Lihat &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; untuk maklumat lanjut.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Pembangun qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1904"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Dokumen &apos;%1&apos; telah diubahsuai. Anda hendak simpan perubahan yang anda buat?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2064"/>
+        <location filename="../sources/mainwindow.cpp" line="2074"/>
         <source>Page width</source>
         <translation type="unfinished">Lebar halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2065"/>
+        <location filename="../sources/mainwindow.cpp" line="2075"/>
         <source>Page size</source>
         <translation type="unfinished">Saiz halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2086"/>
+        <location filename="../sources/mainwindow.cpp" line="2096"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Padan &amp;kata</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2087"/>
+        <location filename="../sources/mainwindow.cpp" line="2097"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Sorot semu&amp;a</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2134"/>
+        <location filename="../sources/mainwindow.cpp" line="2144"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">B&amp;uka...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2135"/>
+        <location filename="../sources/mainwindow.cpp" line="2145"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Buka dalam &amp;tab baru...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2136"/>
+        <location filename="../sources/mainwindow.cpp" line="2146"/>
         <source>Open containing folder</source>
         <translation type="unfinished">Buka folder yang mengandungi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2137"/>
+        <location filename="../sources/mainwindow.cpp" line="2147"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Sega&amp;r semula</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2138"/>
+        <location filename="../sources/mainwindow.cpp" line="2148"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Simpan salinan...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2139"/>
+        <location filename="../sources/mainwindow.cpp" line="2149"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Simp&amp;an sebagai...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2140"/>
+        <location filename="../sources/mainwindow.cpp" line="2150"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Cetak...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2141"/>
+        <location filename="../sources/mainwindow.cpp" line="2151"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Keluar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2145"/>
+        <location filename="../sources/mainwindow.cpp" line="2155"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Halaman te&amp;rdahulu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2146"/>
+        <location filename="../sources/mainwindow.cpp" line="2156"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Halaman &amp;berikut</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2147"/>
+        <location filename="../sources/mainwindow.cpp" line="2157"/>
         <source>&amp;First page</source>
         <translation type="unfinished">Halaman per&amp;tama</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2148"/>
+        <location filename="../sources/mainwindow.cpp" line="2158"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Halaman t&amp;erakhir</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2150"/>
+        <location filename="../sources/mainwindow.cpp" line="2160"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">L&amp;ompat ke halaman...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2152"/>
+        <location filename="../sources/mainwindow.cpp" line="2162"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Lompat men&amp;gundur</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2153"/>
+        <location filename="../sources/mainwindow.cpp" line="2163"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Lompat ma&amp;ju</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2155"/>
+        <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Gelintar...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2156"/>
+        <location filename="../sources/mainwindow.cpp" line="2166"/>
         <source>Find previous</source>
         <translation type="unfinished">Cari terdahulu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2157"/>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
         <source>Find next</source>
         <translation type="unfinished">Cari berikutnya</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2158"/>
+        <location filename="../sources/mainwindow.cpp" line="2168"/>
         <source>Cancel search</source>
         <translation type="unfinished">Batal gelintar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2160"/>
+        <location filename="../sources/mainwindow.cpp" line="2170"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">Sa&amp;lin ke papan keratan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2161"/>
+        <location filename="../sources/mainwindow.cpp" line="2171"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">T&amp;ambah anotasi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2163"/>
+        <location filename="../sources/mainwindow.cpp" line="2173"/>
         <source>Settings...</source>
         <translation type="unfinished">Tetapan...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2167"/>
+        <location filename="../sources/mainwindow.cpp" line="2177"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Bersambung</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2168"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Dua halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2169"/>
+        <location filename="../sources/mainwindow.cpp" line="2179"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Dua halaman de&amp;ngan muka hadapan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2170"/>
+        <location filename="../sources/mainwindow.cpp" line="2180"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">Halaman be&amp;rbilang</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2172"/>
+        <location filename="../sources/mainwindow.cpp" line="2182"/>
         <source>Right to left</source>
         <translation type="unfinished">Kanan ke kiri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2174"/>
+        <location filename="../sources/mainwindow.cpp" line="2184"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Zum mas&amp;uk</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2175"/>
+        <location filename="../sources/mainwindow.cpp" line="2185"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">Zum ke&amp;luar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2176"/>
+        <location filename="../sources/mainwindow.cpp" line="2186"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">&amp;Saiz asal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2178"/>
+        <location filename="../sources/mainwindow.cpp" line="2188"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Suai muat mengikut lebar halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2179"/>
+        <location filename="../sources/mainwindow.cpp" line="2189"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Muat mengikut saiz halaman</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2181"/>
+        <location filename="../sources/mainwindow.cpp" line="2191"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Putar k&amp;iri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2182"/>
+        <location filename="../sources/mainwindow.cpp" line="2192"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Putar ka&amp;nan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2184"/>
+        <location filename="../sources/mainwindow.cpp" line="2194"/>
         <source>Invert colors</source>
         <translation type="unfinished">Songsangkan warna</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2186"/>
+        <location filename="../sources/mainwindow.cpp" line="2196"/>
         <source>Fonts...</source>
         <translation type="unfinished">Fon...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2188"/>
+        <location filename="../sources/mainwindow.cpp" line="2198"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">Skrin &amp;Penuh</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2189"/>
+        <location filename="../sources/mainwindow.cpp" line="2199"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Persembahan...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2193"/>
+        <location filename="../sources/mainwindow.cpp" line="2203"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">Tab ter&amp;dahulu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2194"/>
+        <location filename="../sources/mainwindow.cpp" line="2204"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">Tab b&amp;erikutnya</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2196"/>
+        <location filename="../sources/mainwindow.cpp" line="2206"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">T&amp;utup tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2197"/>
+        <location filename="../sources/mainwindow.cpp" line="2207"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Tutup semu&amp;a tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2198"/>
+        <location filename="../sources/mainwindow.cpp" line="2208"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Tutup semua tab ke&amp;cuali tab semasa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2209"/>
+        <location filename="../sources/mainwindow.cpp" line="2219"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">Tanda buku te&amp;rdahulu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2210"/>
+        <location filename="../sources/mainwindow.cpp" line="2220"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">Tanda buku ber&amp;ikutnya</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2212"/>
+        <location filename="../sources/mainwindow.cpp" line="2222"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">T&amp;ambah tanda buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2213"/>
+        <location filename="../sources/mainwindow.cpp" line="2223"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Buang tanda buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2214"/>
+        <location filename="../sources/mainwindow.cpp" line="2224"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Buang semua tanda buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2218"/>
+        <location filename="../sources/mainwindow.cpp" line="2228"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Kandungan</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2219"/>
+        <location filename="../sources/mainwindow.cpp" line="2229"/>
         <source>&amp;About</source>
         <translation type="unfinished">Perih&amp;al</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2255"/>
-        <location filename="../sources/mainwindow.cpp" line="2374"/>
+        <location filename="../sources/mainwindow.cpp" line="2265"/>
+        <location filename="../sources/mainwindow.cpp" line="2384"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fail</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2258"/>
-        <location filename="../sources/mainwindow.cpp" line="2395"/>
+        <location filename="../sources/mainwindow.cpp" line="2268"/>
+        <location filename="../sources/mainwindow.cpp" line="2405"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Sunting</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2261"/>
-        <location filename="../sources/mainwindow.cpp" line="2408"/>
+        <location filename="../sources/mainwindow.cpp" line="2271"/>
+        <location filename="../sources/mainwindow.cpp" line="2418"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Lihat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2290"/>
+        <location filename="../sources/mainwindow.cpp" line="2300"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Garis&amp;luar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2304"/>
+        <location filename="../sources/mainwindow.cpp" line="2314"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">Si&amp;fat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2315"/>
+        <location filename="../sources/mainwindow.cpp" line="2325"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">&amp;Thumbnail</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2327"/>
+        <location filename="../sources/mainwindow.cpp" line="2337"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Gelintar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2420"/>
+        <location filename="../sources/mainwindow.cpp" line="2430"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Palang ala&amp;t</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2423"/>
+        <location filename="../sources/mainwindow.cpp" line="2433"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">La&amp;buh</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2432"/>
+        <location filename="../sources/mainwindow.cpp" line="2442"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2450"/>
+        <location filename="../sources/mainwindow.cpp" line="2460"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Tanda &amp;Buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2458"/>
+        <location filename="../sources/mainwindow.cpp" line="2468"/>
         <source>&amp;Help</source>
         <translation type="unfinished">Ban&amp;tuan</translation>
     </message>
@@ -806,72 +806,72 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="345"/>
+        <location filename="../sources/pageitem.cpp" line="332"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Pergi ke halaman %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="349"/>
+        <location filename="../sources/pageitem.cpp" line="336"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Pergi ke halaman %1 dari fail &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="357"/>
+        <location filename="../sources/pageitem.cpp" line="344"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Buka &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="392"/>
+        <location filename="../sources/pageitem.cpp" line="379"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Sunting medan borang &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="636"/>
+        <location filename="../sources/pageitem.cpp" line="623"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Salin &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="637"/>
+        <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Use text as &amp;selection</source>
         <translation type="unfinished">Guna teks sebagai p&amp;emilihan</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="638"/>
+        <location filename="../sources/pageitem.cpp" line="625"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Salin &amp;imej</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="639"/>
+        <location filename="../sources/pageitem.cpp" line="626"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Simpan imej ke &amp;fail...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="676"/>
+        <location filename="../sources/pageitem.cpp" line="663"/>
         <source>Save image to file</source>
         <translation type="unfinished">Simpan imej ke fail</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="680"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="680"/>
+        <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Tidak dapat simpan imej ke fail &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="693"/>
+        <location filename="../sources/pageitem.cpp" line="680"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Tambah &amp;teks</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="694"/>
+        <location filename="../sources/pageitem.cpp" line="681"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Tambah s&amp;orot</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="733"/>
+        <location filename="../sources/pageitem.cpp" line="720"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Buang anotasi</translation>
     </message>
@@ -879,69 +879,69 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="919"/>
+        <location filename="../sources/pdfmodel.cpp" line="901"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Anti alias:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="926"/>
+        <location filename="../sources/pdfmodel.cpp" line="908"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Anti alias teks:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="933"/>
-        <location filename="../sources/pdfmodel.cpp" line="963"/>
+        <location filename="../sources/pdfmodel.cpp" line="915"/>
+        <location filename="../sources/pdfmodel.cpp" line="945"/>
         <source>None</source>
         <translation type="unfinished">Tiada</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="934"/>
+        <location filename="../sources/pdfmodel.cpp" line="916"/>
         <source>Full</source>
         <translation type="unfinished">Penuh</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="935"/>
+        <location filename="../sources/pdfmodel.cpp" line="917"/>
         <source>Reduced</source>
         <translation type="unfinished">Terkurang</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="938"/>
-        <location filename="../sources/pdfmodel.cpp" line="945"/>
+        <location filename="../sources/pdfmodel.cpp" line="920"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Pembayang teks:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="956"/>
+        <location filename="../sources/pdfmodel.cpp" line="938"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Pratonton lampau cetak:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="964"/>
+        <location filename="../sources/pdfmodel.cpp" line="946"/>
         <source>Solid</source>
         <translation type="unfinished">Tegar</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="965"/>
+        <location filename="../sources/pdfmodel.cpp" line="947"/>
         <source>Shaped</source>
         <translation type="unfinished">Terbentuk</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="968"/>
+        <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Mod garis nipis:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="973"/>
+        <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Splash</source>
         <translation type="unfinished">Percikan</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="974"/>
+        <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Arthur</source>
         <translation type="unfinished">Arthur</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="977"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Backend:</source>
         <translation type="unfinished">Bahagian Belakang:</translation>
     </message>
@@ -1181,11 +1181,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
-        <location filename="../sources/settingsdialog.cpp" line="669"/>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
-        <location filename="../sources/settingsdialog.cpp" line="693"/>
-        <location filename="../sources/settingsdialog.cpp" line="701"/>
-        <location filename="../sources/settingsdialog.cpp" line="709"/>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <location filename="../sources/settingsdialog.cpp" line="691"/>
+        <location filename="../sources/settingsdialog.cpp" line="706"/>
+        <location filename="../sources/settingsdialog.cpp" line="714"/>
+        <location filename="../sources/settingsdialog.cpp" line="722"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Berkesan selepas mula semula.</translation>
     </message>
@@ -1215,297 +1215,320 @@
         <translation type="unfinished">Pulih tetapan per-fail:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="274"/>
+        <location filename="../sources/settingsdialog.cpp" line="264"/>
+        <source> min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <source>Save database interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Segerakkan persembahan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="280"/>
+        <location filename="../sources/settingsdialog.cpp" line="291"/>
         <source>Default</source>
         <translation type="unfinished">Lalai</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="283"/>
+        <location filename="../sources/settingsdialog.cpp" line="294"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Skrin persembahan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="299"/>
+        <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="307"/>
+        <location filename="../sources/settingsdialog.cpp" line="315"/>
+        <source> ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="318"/>
         <source>None</source>
         <translation type="unfinished">Tiada</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <location filename="../sources/settingsdialog.cpp" line="321"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Sorot jangkamasa:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="316"/>
+        <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Highlight color:</source>
         <translation type="unfinished">Warna sorot:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="322"/>
+        <location filename="../sources/settingsdialog.cpp" line="333"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Warna catatan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="328"/>
+        <location filename="../sources/settingsdialog.cpp" line="339"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; diganti dengan laluan fail mutlak. &apos;%2&apos; resp. &apos;%3&apos; diganti dengan nombot lajur resp. baris.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="330"/>
+        <location filename="../sources/settingsdialog.cpp" line="341"/>
         <source>Source editor:</source>
         <translation type="unfinished">Penyunting sumber:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Use tiling:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="401"/>
+        <location filename="../sources/settingsdialog.cpp" line="414"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished">Kekalkan peta pix lapuk:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="410"/>
+        <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Guna nisbah piksel peranti:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="419"/>
+        <location filename="../sources/settingsdialog.cpp" line="432"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Hias halaman:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="426"/>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Hias pautan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="433"/>
+        <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Hias medan borang:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="439"/>
+        <location filename="../sources/settingsdialog.cpp" line="452"/>
         <source>Background color:</source>
         <translation type="unfinished">Warna latar belakang:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="458"/>
         <source>Paper color:</source>
         <translation type="unfinished">Warna kertas:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="451"/>
+        <location filename="../sources/settingsdialog.cpp" line="464"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Warna latar belakang persembahan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="459"/>
+        <location filename="../sources/settingsdialog.cpp" line="472"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Halaman per baris:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="469"/>
+        <location filename="../sources/settingsdialog.cpp" line="477"/>
+        <location filename="../sources/settingsdialog.cpp" line="487"/>
+        <location filename="../sources/settingsdialog.cpp" line="497"/>
+        <source> px</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="482"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Jarak halaman:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="479"/>
+        <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Jarak thumbnail:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="489"/>
+        <location filename="../sources/settingsdialog.cpp" line="502"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Saiz thumbnail:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="494"/>
-        <location filename="../sources/settingsdialog.cpp" line="495"/>
-        <location filename="../sources/settingsdialog.cpp" line="496"/>
-        <location filename="../sources/settingsdialog.cpp" line="497"/>
-        <location filename="../sources/settingsdialog.cpp" line="498"/>
-        <location filename="../sources/settingsdialog.cpp" line="499"/>
-        <location filename="../sources/settingsdialog.cpp" line="500"/>
-        <location filename="../sources/settingsdialog.cpp" line="501"/>
-        <location filename="../sources/settingsdialog.cpp" line="502"/>
-        <location filename="../sources/settingsdialog.cpp" line="503"/>
+        <location filename="../sources/settingsdialog.cpp" line="507"/>
+        <location filename="../sources/settingsdialog.cpp" line="508"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
+        <location filename="../sources/settingsdialog.cpp" line="511"/>
+        <location filename="../sources/settingsdialog.cpp" line="512"/>
+        <location filename="../sources/settingsdialog.cpp" line="513"/>
+        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="516"/>
+        <location filename="../sources/settingsdialog.cpp" line="523"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="517"/>
+        <location filename="../sources/settingsdialog.cpp" line="530"/>
         <source>Cache size:</source>
         <translation type="unfinished">Saiz cache:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="524"/>
+        <location filename="../sources/settingsdialog.cpp" line="537"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Prefetch:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="532"/>
+        <location filename="../sources/settingsdialog.cpp" line="545"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Jarak prefetch:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="632"/>
+        <location filename="../sources/settingsdialog.cpp" line="645"/>
         <source>Top</source>
         <translation type="unfinished">Atas</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="633"/>
+        <location filename="../sources/settingsdialog.cpp" line="646"/>
         <source>Bottom</source>
         <translation type="unfinished">Bawah</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="634"/>
+        <location filename="../sources/settingsdialog.cpp" line="647"/>
         <source>Left</source>
         <translation type="unfinished">Kiri</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="635"/>
+        <location filename="../sources/settingsdialog.cpp" line="648"/>
         <source>Right</source>
         <translation type="unfinished">Kanan</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="638"/>
+        <location filename="../sources/settingsdialog.cpp" line="651"/>
         <source>Tab position:</source>
         <translation type="unfinished">Kedudukan tab:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="643"/>
+        <location filename="../sources/settingsdialog.cpp" line="656"/>
         <source>As needed</source>
         <translation type="unfinished">Seperti diperlukan</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="644"/>
+        <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Always</source>
         <translation type="unfinished">Sentiasa</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="645"/>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
         <source>Never</source>
         <translation type="unfinished">Jangan sesekali</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="648"/>
+        <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Ketampakan tab:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Spread tabs:</source>
         <translation type="unfinished">Hampar tab:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="662"/>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Tab baru bersebelahan tab semasa:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="684"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Kiraan yang terkini digunakan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="680"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Kiraan ditutup baru-baru ini:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="687"/>
+        <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="695"/>
+        <location filename="../sources/settingsdialog.cpp" line="708"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Palang alat fail:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="703"/>
+        <location filename="../sources/settingsdialog.cpp" line="716"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Palang alat sunting:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="711"/>
+        <location filename="../sources/settingsdialog.cpp" line="724"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Palang alat lihat:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <location filename="../sources/settingsdialog.cpp" line="731"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished">Tajuk dokumen sebagai tajuk tab:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="725"/>
+        <location filename="../sources/settingsdialog.cpp" line="738"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Halaman semasa dalam tajuk tetingkap:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="732"/>
+        <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nama kejadian dalam tajuk tetingkap:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished">Segerak paparan garis luar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="739"/>
+        <location filename="../sources/settingsdialog.cpp" line="752"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Sorot lakaran kenit semasa:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="746"/>
+        <location filename="../sources/settingsdialog.cpp" line="759"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Had thumbnail terhadap keputusan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="753"/>
+        <location filename="../sources/settingsdialog.cpp" line="766"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Tindihan catatan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="760"/>
+        <location filename="../sources/settingsdialog.cpp" line="773"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Tindihan medan borang:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="826"/>
+        <location filename="../sources/settingsdialog.cpp" line="839"/>
         <source>Zoom:</source>
         <translation type="unfinished">Zum:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="832"/>
+        <location filename="../sources/settingsdialog.cpp" line="845"/>
         <source>Rotate:</source>
         <translation type="unfinished">Putar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="838"/>
+        <location filename="../sources/settingsdialog.cpp" line="851"/>
         <source>Scroll:</source>
         <translation type="unfinished">Tatal:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="844"/>
+        <location filename="../sources/settingsdialog.cpp" line="857"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Salin ke papan keratan:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="850"/>
+        <location filename="../sources/settingsdialog.cpp" line="863"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Tambah anotasi:</translation>
     </message>
