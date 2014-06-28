@@ -60,7 +60,7 @@ public:
     void savePerFileSettings(const DocumentView* tab);
 
 signals:
-    void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
 
 private:
@@ -73,11 +73,12 @@ private:
 
 #ifdef WITH_SQL
 
-    bool prepareTabs_v2();
+    bool prepareTabs_v3();
     bool prepareBookmarks_v2();
     bool preparePerFileSettings_v2();
 
-    void migrateTabs_v1_v2();
+    void migrateTabs_v2_v3();
+    void migrateTabs_v1_v3();
     void migrateBookmarks_v1_v2();
     void migratePerFileSettings_v1_v2();
 

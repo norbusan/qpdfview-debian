@@ -92,6 +92,7 @@ protected slots:
     void on_currentTab_rightToLeftModeChanged(bool rightToLeftMode);
     void on_currentTab_scaleModeChanged(ScaleMode scaleMode);
     void on_currentTab_scaleFactorChanged(qreal scaleFactor);
+    void on_currentTab_rotationChanged(Rotation rotation);
 
     void on_currentTab_linkClicked(int page);
     void on_currentTab_linkClicked(const QString& filePath, int page);
@@ -204,7 +205,7 @@ protected slots:
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
-    void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
+    void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
 
     void on_saveDatabase_timeout();
@@ -239,12 +240,17 @@ private:
     void setWindowTitleForCurrentTab();
     BookmarkMenu* bookmarkForCurrentTab() const;
 
+    QTimer* m_saveDatabaseTimer;
+
     void prepareDatabase();
 
     void saveTabs() const;
     void saveBookmarks() const;
 
-    QTimer* m_saveDatabaseTimer;
+    void scheduleSaveDatabase();
+    void scheduleSaveTabs();
+    void scheduleSaveBookmarks();
+    void scheduleSavePerFileSettings();
 
     SpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;

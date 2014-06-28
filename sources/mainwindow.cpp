@@ -157,6 +157,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
     prepareDatabase();
 
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        s_database->restoreTabs();
+    }
+
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        s_database->restoreBookmarks();
+    }
+
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
@@ -195,6 +205,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(currentTab());
+            scheduleSaveTabs();
 
             currentTab()->jumpToPage(page, false);
             currentTab()->setFocus();
@@ -248,6 +259,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(rightToLeftModeChanged(bool)), SLOT(on_currentTab_rightToLeftModeChanged(bool)));
         connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
         connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
+        connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
         connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
         connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
@@ -264,6 +276,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->show();
 
         s_database->restorePerFileSettings(newTab);
+        scheduleSaveTabs();
 
         newTab->jumpToPage(page, false);
         newTab->setFocus();
@@ -697,6 +710,9 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
 
         setWindowTitleForCurrentTab();
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -714,6 +730,9 @@ void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
     if(senderIsCurrentTab())
     {
         m_continuousModeAction->setChecked(continuousMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -724,6 +743,9 @@ void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
         m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
         m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
         m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -732,6 +754,9 @@ void MainWindow::on_currentTab_rightToLeftModeChanged(bool rightToLeftMode)
     if(senderIsCurrentTab())
     {
         m_rightToLeftModeAction->setChecked(rightToLeftMode);
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -767,6 +792,9 @@ void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
             m_zoomOutAction->setEnabled(true);
             break;
         }
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -782,6 +810,20 @@ void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
             m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().maximumScaleFactor()));
             m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().minimumScaleFactor()));
         }
+
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
+    }
+}
+
+void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
+{
+    Q_UNUSED(rotation);
+
+    if(senderIsCurrentTab())
+    {
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
     }
 }
 
@@ -1156,6 +1198,8 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
+        m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
+
         for(int index = 0; index < m_tabWidget->count(); ++index)
         {
             if(!tab(index)->refresh())
@@ -1477,6 +1521,8 @@ void MainWindow::on_addBookmark_triggered()
 
         m_bookmarksMenu->addMenu(bookmark);
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeBookmark_triggered()
@@ -1487,6 +1533,8 @@ void MainWindow::on_removeBookmark_triggered()
     {
         bookmark->removeJumpToPageAction(currentTab()->currentPage());
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeAllBookmarks_triggered()
@@ -1500,6 +1548,8 @@ void MainWindow::on_removeAllBookmarks_triggered()
             delete bookmark;
         }
     }
+
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_bookmark_openTriggered(const QString& absoluteFilePath)
@@ -1662,12 +1712,13 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
-void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
+void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
     if(openInNewTab(absoluteFilePath))
     {
         currentTab()->setContinuousMode(continuousMode);
         currentTab()->setLayoutMode(layoutMode);
+        currentTab()->setRightToLeftMode(rightToLeftMode);
 
         currentTab()->setScaleMode(scaleMode);
         currentTab()->setScaleFactor(scaleFactor);
@@ -1882,6 +1933,7 @@ QString MainWindow::tabTitle(const DocumentView *tab) const
 bool MainWindow::saveModifications(DocumentView* tab)
 {
     s_database->savePerFileSettings(tab);
+    scheduleSaveTabs();
 
     if(tab->wasModified())
     {
@@ -1963,31 +2015,14 @@ void MainWindow::prepareDatabase()
         s_database = Database::instance();
     }
 
-    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,ScaleMode,qreal,Rotation,int)));
+    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
     connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
 
-    if(s_settings->mainWindow().restoreTabs())
-    {
-        s_database->restoreTabs();
-    }
-
-    if(s_settings->mainWindow().restoreBookmarks())
-    {
-        s_database->restoreBookmarks();
-    }
-
-
     m_saveDatabaseTimer = new QTimer(this);
+    m_saveDatabaseTimer->setSingleShot(true);
+    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
-
-    const int saveDatabaseInterval = s_settings->mainWindow().saveDatabaseInterval();
-
-    if(saveDatabaseInterval > 0)
-    {
-        m_saveDatabaseTimer->setInterval(saveDatabaseInterval);
-        m_saveDatabaseTimer->start();
-    }
 }
 
 void MainWindow::saveTabs() const
@@ -2017,6 +2052,38 @@ void MainWindow::saveBookmarks() const
     }
 
     s_database->saveBookmarks(bookmarks);
+}
+
+void MainWindow::scheduleSaveDatabase()
+{
+    if(m_saveDatabaseTimer->interval() > 0 && !m_saveDatabaseTimer->isActive())
+    {
+        m_saveDatabaseTimer->start();
+    }
+}
+
+void MainWindow::scheduleSaveTabs()
+{
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        scheduleSaveDatabase();
+    }
+}
+
+void MainWindow::scheduleSaveBookmarks()
+{
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        scheduleSaveDatabase();
+    }
+}
+
+void MainWindow::scheduleSavePerFileSettings()
+{
+    if(s_settings->mainWindow().restorePerFileSettings())
+    {
+        scheduleSaveDatabase();
+    }
 }
 
 void MainWindow::createWidgets()
