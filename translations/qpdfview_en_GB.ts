@@ -1217,7 +1217,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
@@ -1228,7 +1228,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Save database interval:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1258,7 +1258,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> ms</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1345,7 +1345,7 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>

@@ -229,7 +229,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="1189"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">No s&apos;han trobat les dades SyncText per a &apos;%1&apos;.</translation>
+        <translation type="unfinished">No s&apos;han trobat les dades SyncText per «%1».</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1628"/>
@@ -310,12 +310,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Canvia barra d&apos;eines</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="151"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Canvia barra de menú</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="224"/>
@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport PDF mitjançant Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport PS mitjançant libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport DjVu mitjançant DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport PDF mitjançant Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1604"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Suport d&apos;impressió mitjançant CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
@@ -933,12 +933,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="955"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pantalla inicial</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="956"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="959"/>
@@ -1217,12 +1217,18 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Mai</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interval per a guardar la base de dades</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1240,14 +1246,19 @@
         <translation type="unfinished">Pantalla de presentació:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Sincronitza la vista del contorn:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Factor d&apos;ampliació:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> ms</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1334,7 +1345,7 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Mai</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visibilitat de la pestanya:</translation>
@@ -1430,7 +1435,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barres de fitxes:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="675"/>
@@ -1450,7 +1455,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Canvia les barres de menú i eines a pantalla completa:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="708"/>
@@ -1470,7 +1475,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="731"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Títol de document com a títol de barra:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="738"/>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nom de la instància al títol de la finestra:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Sincronitza la vista del contorn:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>
