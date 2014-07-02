@@ -80,6 +80,19 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
 #endif // QT_VERSION
 }
 
+int loadWasCanceled(const QAtomicInt& wasCanceled)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return wasCanceled.load();
+
+#else
+
+    return wasCanceled;
+
+#endif // QT_VERSION
+}
+
 qreal scaledDeviceResolutionX(const RenderParam& renderParam)
 {
     return renderParam.resolution.devicePixelRatio *
@@ -137,17 +150,17 @@ bool RenderTask::isRunning() const
 
 bool RenderTask::wasCanceled() const
 {
-    return m_wasCanceled != NotCanceled;
+    return loadWasCanceled(m_wasCanceled) != NotCanceled;
 }
 
 bool RenderTask::wasCanceledNormally() const
 {
-    return m_wasCanceled == CanceledNormally;
+    return loadWasCanceled(m_wasCanceled) == CanceledNormally;
 }
 
 bool RenderTask::wasCanceledForcibly() const
 {
-    return m_wasCanceled == CanceledForcibly;
+    return loadWasCanceled(m_wasCanceled) == CanceledForcibly;
 }
 
 void RenderTask::run()
