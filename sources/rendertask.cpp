@@ -93,26 +93,16 @@ int loadWasCanceled(const QAtomicInt& wasCanceled)
 #endif // QT_VERSION
 }
 
-qreal scaledDeviceResolutionX(const RenderParam& renderParam)
+qreal scaledResolutionX(const RenderParam& renderParam)
 {
     return renderParam.resolution.devicePixelRatio *
             renderParam.resolution.resolutionX * renderParam.scaleFactor;
 }
 
-qreal scaledDeviceResolutionY(const RenderParam& renderParam)
+qreal scaledResolutionY(const RenderParam& renderParam)
 {
     return renderParam.resolution.devicePixelRatio *
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
-}
-
-qreal scaledResolutionX(const RenderParam& renderParam)
-{
-    return renderParam.resolution.resolutionX * renderParam.scaleFactor;
-}
-
-qreal scaledResolutionY(const RenderParam& renderParam)
-{
-    return renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
 } // anonymous
@@ -173,17 +163,12 @@ void RenderTask::run()
     }
 
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    QImage image = m_page->render(scaledDeviceResolutionX(m_renderParam), scaledDeviceResolutionY(m_renderParam),
-                                  m_renderParam.rotation, m_rect);
-
-    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
-
-#else
-
     QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_rect);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #endif // QT_VERSION
 
