@@ -1097,6 +1097,8 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
 
     if(m_results.contains(index) && m_currentResult == m_results.end())
     {
+        setFocus();
+
         findNext();
     }
 }
