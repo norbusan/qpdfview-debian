@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Поддерживаемые форматы (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Сведения</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Открытие адреса запрещено в настройках.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Не найдены данные SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Печать &apos;%1&apos;…</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Разблокировать %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished">Страница %1</translation>
     </message>
@@ -302,7 +302,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="62"/>
         <source>Find next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Найти далее</translation>
     </message>
 </context>
 <context>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="545"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрыть все вкладки</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="546"/>
@@ -462,7 +462,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Подробнее смотрите &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; здесь.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2013 Разработчики qpdfview&lt;/p&gt; {2012-2014 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1940"/>
@@ -577,7 +577,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2224"/>
         <source>Find next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Найти следующее</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2225"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2239"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Справа налево</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2241"/>
@@ -1009,7 +1009,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Two pages</source>
-        <translation type="unfinished"> траницы</translation>
+        <translation type="unfinished">2 траницы</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="83"/>
@@ -1110,7 +1110,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">О&amp;чистить список</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1123,7 +1123,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">О&amp;чистить список</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1217,7 +1217,13 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> мин</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Никогда</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
@@ -1240,6 +1246,11 @@
         <translation type="unfinished">Экран презентации</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
         <translation type="unfinished"></translation>
@@ -1247,7 +1258,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> мс</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Всегда</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Никогда</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Видимость вкладок:</translation>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Имя экземпляра в заголовке окна:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>
