@@ -1202,6 +1202,11 @@ void DocumentView::on_pages_editSourceRequested(int page, const QPointF& pos)
 
 void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rect)
 {
+    if(rect.isEmpty())
+    {
+        return;
+    }
+
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
