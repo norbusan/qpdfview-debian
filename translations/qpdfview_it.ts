@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formati supportati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Apertura degli URL disabilitata nelle impostazioni.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossibile trovare i dati SyncTeX per «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Sblocca %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>
@@ -273,12 +273,12 @@
         <location filename="../sources/annotationwidgets.cpp" line="178"/>
         <location filename="../sources/annotationwidgets.cpp" line="184"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Attenzione</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="178"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile aprire l&apos;allegato salvato in &quot;%1&quot;.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="184"/>
@@ -310,12 +310,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Attiva/Disattiva barre degli strumenti</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="151"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Attiva/Disattiva barra dei menù</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="224"/>
@@ -328,7 +328,7 @@
         <location filename="../sources/mainwindow.cpp" line="1940"/>
         <location filename="../sources/mainwindow.cpp" line="1954"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avviso</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="224"/>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="545"/>
         <source>Close all tabs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiudi tutte le schede</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="546"/>
@@ -422,7 +422,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1499"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Vai alla pagina %1</translation>
+        <translation type="unfinished">Va alla pagina %1</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1588"/>
@@ -437,32 +437,32 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto PDF usando Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto PS usando libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto DjVu usando DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto PDF usando Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1604"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Supporto per la stampa usando CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Visitare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per ulteriori informazioni.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1940"/>
@@ -833,7 +833,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="624"/>
         <source>Use text as &amp;selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usa testo come &amp;selezione</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="625"/>
@@ -853,7 +853,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="667"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avviso</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="667"/>
@@ -951,12 +951,12 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avviso</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile confrontare il tipo di file per &quot;%1&quot;.</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="225"/>
@@ -966,7 +966,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="225"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Impossibile caricare il plugin per il tipo di file &quot;%1&quot;.</translation>
     </message>
 </context>
 <context>
@@ -1105,7 +1105,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Chiusi di &amp;recente</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
@@ -1197,7 +1197,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mantenere chiusi di recente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
@@ -1217,12 +1217,18 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Mai</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salva intervallo del database:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1240,14 +1246,19 @@
         <translation type="unfinished">Schermo per presentazione:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Sincronizzare vista struttura:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fattore di zoom:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> ms</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1334,7 +1345,7 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Mai</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visibilità scheda:</translation>
@@ -1445,12 +1450,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Conteggio chiusi di recente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Attiva/Disattiva barre dei menù e degli strumenti a schermo intero:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="708"/>
@@ -1470,7 +1475,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="731"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titolo del documento come titolo della scheda:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="738"/>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nome dell&apos;istanza nel titolo della finestra:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Sincronizzare vista struttura:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>

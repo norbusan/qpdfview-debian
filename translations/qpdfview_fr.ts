@@ -107,12 +107,12 @@
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Instance:</source>
-        <translation type="unfinished">Instance</translation>
+        <translation type="unfinished">Instance :</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="219"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished">Option de ligne de commande &apos;%1&apos; inconnue.</translation>
+        <translation type="unfinished">Option de ligne de commande « %1 » inconnue.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="250"/>
@@ -127,7 +127,7 @@
     <message>
         <location filename="../sources/main.cpp" line="262"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères &quot;[A-Z][a-z][0-9]_&quot; et ne doit pas commencer par un nombre.</translation>
+        <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères « [A-Z][a-z][0-9]_ » et ne doit pas commencer par un nombre.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="268"/>
@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formats supportés (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">L&apos;ouverture d&apos;URL est désactivée dans les paramètres.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
         <translation type="unfinished">Avertissement</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de « %1 »...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Déverrouiller %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
-        <translation type="unfinished">Mot de passe</translation>
+        <translation type="unfinished">Mot de passe :</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>
@@ -407,7 +407,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1120"/>
         <source>Page:</source>
-        <translation type="unfinished">Page</translation>
+        <translation type="unfinished">Page :</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1499"/>
@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Prise en charge PDF utilisant Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Prise en charge PS utilisant libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Prise en charge DjVu utilisant DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Prise en charge PDF utilisant Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1604"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Service d’impression utilisant CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
@@ -467,7 +467,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1940"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">Le document « %1 » a été modifié. Voulez-vous enregistrer vos changements ?</translation>
+        <translation type="unfinished">Le document « %1 » a été modifié. Voulez-vous enregistrer vos changements ?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2131"/>
@@ -749,7 +749,7 @@
         <location filename="../sources/mainwindow.cpp" line="2325"/>
         <location filename="../sources/mainwindow.cpp" line="2462"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Édition</translation>
+        <translation type="unfinished">&amp;Modifier</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2328"/>
@@ -881,12 +881,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="901"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Anti-crénelage</translation>
+        <translation type="unfinished">Anti-crénelage :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="908"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Anti-crénelage du texte</translation>
+        <translation type="unfinished">Anti-crénelage du texte :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="915"/>
@@ -908,12 +908,12 @@
         <location filename="../sources/pdfmodel.cpp" line="920"/>
         <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Indication</translation>
+        <translation type="unfinished">Indication :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="938"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Sur-imprimer l’aperçu</translation>
+        <translation type="unfinished">Sur-imprimer l’aperçu :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="946"/>
@@ -928,7 +928,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="950"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Mode ligne mince</translation>
+        <translation type="unfinished">Mode ligne mince :</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="955"/>
@@ -974,12 +974,12 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="64"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Ajuster à la page</translation>
+        <translation type="unfinished">Ajuster à la page :</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="68"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Plages de pages</translation>
+        <translation type="unfinished">Plages de pages :</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="73"/>
@@ -999,7 +999,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="78"/>
         <source>Page set:</source>
-        <translation type="unfinished">Sélectionner</translation>
+        <translation type="unfinished">Sélectionner :</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="81"/>
@@ -1034,7 +1034,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Pages par feuille</translation>
+        <translation type="unfinished">Pages par feuille :</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
@@ -1079,7 +1079,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Ordre des pages</translation>
+        <translation type="unfinished">Ordre des pages :</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="106"/>
@@ -1092,12 +1092,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage graphique</translation>
+        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage graphique :</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="251"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage du texte</translation>
+        <translation type="unfinished">Nombre de bits d&apos;anti-crénelage du texte :</translation>
     </message>
 </context>
 <context>
@@ -1171,12 +1171,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="215"/>
         <source>Open URL:</source>
-        <translation type="unfinished">Ouvrir une URL</translation>
+        <translation type="unfinished">Ouvrir une URL :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="222"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished">Actualisation automatique</translation>
+        <translation type="unfinished">Actualisation automatique :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
@@ -1192,12 +1192,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="230"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Suivre les fichiers récemment ouverts</translation>
+        <translation type="unfinished">Suivre les fichiers récemment ouverts :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished">Suivre les fichiers récemment fermés</translation>
+        <translation type="unfinished">Suivre les fichiers récemment fermés :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
@@ -1217,12 +1217,18 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Jamais</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Intervalle de sauvegarde de la base de donnée :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1240,14 +1246,19 @@
         <translation type="unfinished">Écran de présentation</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Synchroniser le sommaire</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Niveau de zoom :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> ms</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1262,12 +1273,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
         <source>Highlight color:</source>
-        <translation type="unfinished">Couleur de surlignement</translation>
+        <translation type="unfinished">Couleur de surlignement :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="333"/>
         <source>Annotation color:</source>
-        <translation type="unfinished">Couleur d&apos;annotation</translation>
+        <translation type="unfinished">Couleur d&apos;annotation :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="339"/>
@@ -1282,7 +1293,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utiliser le mode tuile :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="414"/>
@@ -1317,7 +1328,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="458"/>
         <source>Paper color:</source>
-        <translation type="unfinished">Couleur du papier</translation>
+        <translation type="unfinished">Couleur du papier :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="464"/>
@@ -1334,22 +1345,22 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
         <source>Page spacing:</source>
-        <translation type="unfinished">Espacement des pages</translation>
+        <translation type="unfinished">Espacement des pages :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="492"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Espacement des miniatures</translation>
+        <translation type="unfinished">Espacement des miniatures :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="502"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished">Taille des miniatures</translation>
+        <translation type="unfinished">Taille des miniatures :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="507"/>
@@ -1369,7 +1380,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="530"/>
         <source>Cache size:</source>
-        <translation type="unfinished">Taille du cache</translation>
+        <translation type="unfinished">Taille du cache :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="537"/>
@@ -1379,7 +1390,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="545"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished">Distance de préchargement</translation>
+        <translation type="unfinished">Distance de préchargement :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="645"/>
@@ -1404,7 +1415,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="651"/>
         <source>Tab position:</source>
-        <translation type="unfinished">Position de l&apos;onglet</translation>
+        <translation type="unfinished">Position de l&apos;onglet :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="656"/>
@@ -1417,15 +1428,9 @@
         <translation type="unfinished">Toujours</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Jamais</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished">Visibilité onglet</translation>
+        <translation type="unfinished">Visibilité onglet :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="668"/>
@@ -1435,22 +1440,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished">Nouvel onglet à côté de l&apos;onglet courant</translation>
+        <translation type="unfinished">Nouvel onglet à côté de l&apos;onglet courant :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="684"/>
         <source>Recently used count:</source>
-        <translation type="unfinished">Nombre de fichiers récemment ouverts</translation>
+        <translation type="unfinished">Nombre de fichiers récemment ouverts :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished">Nombre de fichiers récemment fermés</translation>
+        <translation type="unfinished">Nombre de fichiers récemment fermés :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Affichage des barres d&apos;outils et de menu en mode plein écran</translation>
+        <translation type="unfinished">Affichage des barres d&apos;outils et de menu en mode plein écran :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="708"/>
@@ -1483,11 +1488,6 @@
         <translation type="unfinished">Afficher le nom d&apos;instance dans le titre de la fenêtre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Synchroniser le sommaire</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Surligner la miniature courante</translation>
@@ -1510,12 +1510,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="839"/>
         <source>Zoom:</source>
-        <translation type="unfinished">Zoom</translation>
+        <translation type="unfinished">Zoom :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="845"/>
         <source>Rotate:</source>
-        <translation type="unfinished">Rotation</translation>
+        <translation type="unfinished">Rotation :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="851"/>

@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainter>
 #include <QTimer>
-//#include <QtDebug>
 
 #include "settings.h"
 #include "rendertask.h"
@@ -64,24 +63,21 @@ TileItem::~TileItem()
 
 QPair< PageItem*, QString > TileItem::pixmapKey() const
 {
-    // calculate unique key for the current pixmap
+    PageItem* page = parentPage();
 
-    PageItem* pageitem = parentPage();
-    QString keystr = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
-                                       pageitem->m_index,
-                                       pageitem->m_renderParam.resolution.resolutionX,
-                                       pageitem->m_renderParam.resolution.resolutionY,
-                                       pageitem->m_renderParam.scaleFactor,
-                                       pageitem->m_renderParam.rotation,
-                                       pageitem->m_renderParam.invertColors,
-                                       qRound(m_rect.x()),
-                                       qRound(m_rect.y()),
-                                       qRound(m_rect.width()),
-                                       qRound(m_rect.height()));
+    QString key = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
+                                    page->m_index,
+                                    page->m_renderParam.resolution.resolutionX,
+                                    page->m_renderParam.resolution.resolutionY,
+                                    page->m_renderParam.scaleFactor,
+                                    page->m_renderParam.rotation,
+                                    page->m_renderParam.invertColors,
+                                    m_rect.x(),
+                                    m_rect.y(),
+                                    m_rect.width(),
+                                    m_rect.height());
 
-    //qDebug() << "rx,ry,sf,rot,inv,l,t,w,h:" << keystr;
-
-    return qMakePair(pageitem, keystr);
+    return qMakePair(page, key);
 }
 
 void TileItem::paint(QPainter* painter, const QPointF& topLeft)

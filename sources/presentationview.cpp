@@ -75,7 +75,10 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     m_prefetchTimer->setSingleShot(true);
 
     connect(this, SIGNAL(currentPageChanged(int)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(invertColorsChanged(bool)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
@@ -342,7 +345,7 @@ void PresentationView::on_prefetch_timeout()
     fromPage = qMax(fromPage, 1);
     toPage = qMin(toPage, m_pages.count());
 
-    const int maxCost = fromPage - toPage + 1;
+    const int maxCost = toPage - fromPage + 1;
     int cost = 0;
 
     for(int index = m_currentPage - 1; index <= toPage - 1; ++index)

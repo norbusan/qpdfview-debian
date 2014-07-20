@@ -256,6 +256,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(invertColorsChanged(bool)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
@@ -1096,6 +1097,8 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
 
     if(m_results.contains(index) && m_currentResult == m_results.end())
     {
+        setFocus();
+
         findNext();
     }
 }
@@ -1199,6 +1202,11 @@ void DocumentView::on_pages_editSourceRequested(int page, const QPointF& pos)
 
 void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rect)
 {
+    if(rect.isEmpty())
+    {
+        return;
+    }
+
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 

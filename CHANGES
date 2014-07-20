@@ -8,12 +8,20 @@ Release 0.4.11:
   * Fixed building without SQLite support again. Thanks to Sébastien Szymanski.
   * Fixed disabling restoring of tabs and bookmarks. Thanks to Benjamin Eltzner.
   * Removed extended print options page set and number-up as Qt version 5.2 supports them internally.
-  * Updated French translations. Thanks to Tubuntu.
-  * Updated British English translations. Thanks to A. Kohl and Anthony Harrington.
+  * Updated French translations. Thanks to Tubuntu and Sylvie Gallet.
+  * Updated British English translations. Thanks to A. Kohl, Anthony Harrington and fossfreedom.
   * Updated Galician translations. Thanks to Marcos Lans.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
   * Updated Spanish translations. Thanks to Adolfo Jayme.
   * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated Russian translations. Thanks to Alexander Volkov.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Added Belarussian translations. Thanks to Yury Yatsynovich.
+  * Added Thai translations. Thanks to KL.
 
 Release 0.4.10:
   * Fixed race condition when a deleted render task mit tries to emit a signal. Thanks to Benjamin Eltzner.
