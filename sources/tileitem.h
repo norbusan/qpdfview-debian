@@ -72,7 +72,7 @@ private:
 
     static Settings* s_settings;
 
-    typedef QPair< PageItem*, QString > CacheKey;
+    typedef QPair< PageItem*, QByteArray > CacheKey;
     static QCache< CacheKey, QPixmap > s_cache;
 
     PageItem* parentPage() const;

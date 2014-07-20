@@ -33,7 +33,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< QPair< PageItem*, QString >, QPixmap > TileItem::s_cache;
+QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
@@ -208,18 +208,15 @@ PageItem* TileItem::parentPage() const
 TileItem::CacheKey TileItem::cacheKey() const
 {
     PageItem* page = parentPage();
+    QByteArray key;
 
-    QString key = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
-                                    page->m_index,
-                                    page->m_renderParam.resolution.resolutionX,
-                                    page->m_renderParam.resolution.resolutionY,
-                                    page->m_renderParam.scaleFactor,
-                                    page->m_renderParam.rotation,
-                                    page->m_renderParam.invertColors,
-                                    m_rect.x(),
-                                    m_rect.y(),
-                                    m_rect.width(),
-                                    m_rect.height());
+    QDataStream(&key, QIODevice::WriteOnly)
+            << page->m_renderParam.resolution.resolutionX
+            << page->m_renderParam.resolution.resolutionY
+            << page->m_renderParam.scaleFactor
+            << page->m_renderParam.rotation
+            << page->m_renderParam.invertColors
+            << m_rect;
 
     return qMakePair(page, key);
 }
