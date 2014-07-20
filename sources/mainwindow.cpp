@@ -2532,6 +2532,12 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
+void MainWindowAdaptor::raiseAndActivate()
+{
+    mainWindow()->raise();
+    mainWindow()->activateWindow();
+}
+
 bool MainWindowAdaptor::open(const QString& absoluteFilePath, int page, const QRectF& highlight, bool quiet)
 {
     return mainWindow()->open(absoluteFilePath, page, highlight, quiet);
@@ -2552,10 +2558,107 @@ void MainWindowAdaptor::startSearch(const QString& text)
     mainWindow()->startSearch(text);
 }
 
-void MainWindowAdaptor::raiseAndActivate()
+void MainWindowAdaptor::previousPage()
 {
-    mainWindow()->raise();
-    mainWindow()->activateWindow();
+    mainWindow()->on_previousPage_triggered();
+}
+
+void MainWindowAdaptor::nextPage()
+{
+    mainWindow()->on_nextPage_triggered();
+}
+
+void MainWindowAdaptor::firstPage()
+{
+    mainWindow()->on_firstPage_triggered();
+}
+
+void MainWindowAdaptor::lastPage()
+{
+    mainWindow()->on_lastPage_triggered();
+}
+
+void MainWindowAdaptor::previousBookmark()
+{
+    mainWindow()->on_previousBookmark_triggered();
+}
+
+void MainWindowAdaptor::nextBookmark()
+{
+    mainWindow()->on_nextBookmark_triggered();
+}
+
+void MainWindowAdaptor::jumpToBookmark(const QString& label)
+{
+    if(mainWindow()->m_tabWidget->currentIndex() == -1)
+    {
+        return;
+    }
+
+    const BookmarkMenu* bookmark = mainWindow()->bookmarkForCurrentTab();
+
+    if(bookmark == 0)
+    {
+        return;
+    }
+
+    foreach(const Jump jump, bookmark->jumps())
+    {
+        if(jump.second == label)
+        {
+            mainWindow()->currentTab()->jumpToPage(jump.first);
+
+            return;
+        }
+    }
+}
+
+void MainWindowAdaptor::continuousModeAction(bool checked)
+{
+    mainWindow()->on_continuousMode_triggered(checked);
+}
+
+void MainWindowAdaptor::twoPagesModeAction(bool checked)
+{
+    mainWindow()->on_twoPagesMode_triggered(checked);
+}
+
+void MainWindowAdaptor::twoPagesWithCoverPageModeAction(bool checked)
+{
+    mainWindow()->on_twoPagesWithCoverPageMode_triggered(checked);
+}
+
+void MainWindowAdaptor::multiplePagesModeAction(bool checked)
+{
+    mainWindow()->on_multiplePagesMode_triggered(checked);
+}
+
+void MainWindowAdaptor::fitToPageWidthModeAction(bool checked)
+{
+    mainWindow()->on_fitToPageWidthMode_triggered(checked);
+}
+
+void MainWindowAdaptor::fitToPageSizeModeAction(bool checked)
+{
+    mainWindow()->on_fitToPageSizeMode_triggered(checked);
+}
+
+void MainWindowAdaptor::invertColorsAction(bool checked)
+{
+    mainWindow()->on_invertColors_triggered(checked);
+}
+
+void MainWindowAdaptor::fullscreenAction(bool checked)
+{
+    if(mainWindow()->m_fullscreenAction->isChecked() != checked)
+    {
+        mainWindow()->m_fullscreenAction->trigger();
+    }
+}
+
+void MainWindowAdaptor::presentationAction()
+{
+    mainWindow()->on_presentation_triggered();
 }
 
 MainWindow* MainWindowAdaptor::mainWindow() const
