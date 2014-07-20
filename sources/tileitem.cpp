@@ -61,23 +61,15 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QPair< PageItem*, QString > TileItem::pixmapKey() const
+void TileItem::dropCachedPixmaps(PageItem* page)
 {
-    PageItem* page = parentPage();
-
-    QString key = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
-                                    page->m_index,
-                                    page->m_renderParam.resolution.resolutionX,
-                                    page->m_renderParam.resolution.resolutionY,
-                                    page->m_renderParam.scaleFactor,
-                                    page->m_renderParam.rotation,
-                                    page->m_renderParam.invertColors,
-                                    m_rect.x(),
-                                    m_rect.y(),
-                                    m_rect.width(),
-                                    m_rect.height());
-
-    return qMakePair(page, key);
+    foreach(CacheKey key, s_cache.keys())
+    {
+        if(key.first == page)
+        {
+            s_cache.remove(key);
+        }
+    }
 }
 
 void TileItem::paint(QPainter* painter, const QPointF& topLeft)
@@ -122,9 +114,9 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(pixmapKey()))
+        if(s_cache.contains(cacheKey()))
         {
-            m_obsoletePixmap = *s_cache.object(pixmapKey());
+            m_obsoletePixmap = *s_cache.object(cacheKey());
         }
     }
     else
@@ -140,7 +132,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(pixmapKey())))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;
     }
@@ -200,7 +192,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(pixmapKey(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(cacheKey(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
@@ -213,13 +205,32 @@ PageItem* TileItem::parentPage() const
     return qobject_cast< PageItem* >(parent());
 }
 
+TileItem::CacheKey TileItem::cacheKey() const
+{
+    PageItem* page = parentPage();
+
+    QString key = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
+                                    page->m_index,
+                                    page->m_renderParam.resolution.resolutionX,
+                                    page->m_renderParam.resolution.resolutionY,
+                                    page->m_renderParam.scaleFactor,
+                                    page->m_renderParam.rotation,
+                                    page->m_renderParam.invertColors,
+                                    m_rect.x(),
+                                    m_rect.y(),
+                                    m_rect.width(),
+                                    m_rect.height());
+
+    return qMakePair(page, key);
+}
+
 QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(pixmapKey()))
+    if(s_cache.contains(cacheKey()))
     {
-        pixmap = *s_cache.object(pixmapKey());
+        pixmap = *s_cache.object(cacheKey());
     }
     else
     {
@@ -229,7 +240,7 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(pixmapKey(), new QPixmap(pixmap), cost);
+            s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
         }
         else
         {
