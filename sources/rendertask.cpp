@@ -80,26 +80,29 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
 #endif // QT_VERSION
 }
 
-qreal scaledDeviceResolutionX(const RenderParam& renderParam)
+int loadWasCanceled(const QAtomicInt& wasCanceled)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return wasCanceled.load();
+
+#else
+
+    return wasCanceled;
+
+#endif // QT_VERSION
+}
+
+qreal scaledResolutionX(const RenderParam& renderParam)
 {
     return renderParam.resolution.devicePixelRatio *
             renderParam.resolution.resolutionX * renderParam.scaleFactor;
 }
 
-qreal scaledDeviceResolutionY(const RenderParam& renderParam)
+qreal scaledResolutionY(const RenderParam& renderParam)
 {
     return renderParam.resolution.devicePixelRatio *
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
-}
-
-qreal scaledResolutionX(const RenderParam& renderParam)
-{
-    return renderParam.resolution.resolutionX * renderParam.scaleFactor;
-}
-
-qreal scaledResolutionY(const RenderParam& renderParam)
-{
-    return renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
 } // anonymous
@@ -137,17 +140,17 @@ bool RenderTask::isRunning() const
 
 bool RenderTask::wasCanceled() const
 {
-    return m_wasCanceled != NotCanceled;
+    return loadWasCanceled(m_wasCanceled) != NotCanceled;
 }
 
 bool RenderTask::wasCanceledNormally() const
 {
-    return m_wasCanceled == CanceledNormally;
+    return loadWasCanceled(m_wasCanceled) == CanceledNormally;
 }
 
 bool RenderTask::wasCanceledForcibly() const
 {
-    return m_wasCanceled == CanceledForcibly;
+    return loadWasCanceled(m_wasCanceled) == CanceledForcibly;
 }
 
 void RenderTask::run()
@@ -160,17 +163,12 @@ void RenderTask::run()
     }
 
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    QImage image = m_page->render(scaledDeviceResolutionX(m_renderParam), scaledDeviceResolutionY(m_renderParam),
-                                  m_renderParam.rotation, m_rect);
-
-    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
-
-#else
-
     QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_rect);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
 
 #endif // QT_VERSION
 

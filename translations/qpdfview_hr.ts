@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Podržani formati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Informacija</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvaranje URL je onemogućeno u postavkama.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
         <translation type="unfinished">Upozorenje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX podaci za &apos;%1&apos; nije pronađen.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Otključaj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
         <translation type="unfinished">Lozinka:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>

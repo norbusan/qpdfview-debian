@@ -73,7 +73,20 @@ bool testCancellation(QAtomicInt& wasCanceled)
 #endif // QT_VERSION
 }
 
-void storeProgress(QAtomicInt& progress, int value)
+int loadWasCanceled(const QAtomicInt& wasCanceled)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return wasCanceled.load();
+
+#else
+
+    return wasCanceled;
+
+#endif // QT_VERSION
+}
+
+void releaseProgress(QAtomicInt& progress, int value)
 {
 #if QT_VERSION > QT_VERSION_CHECK(5,0,0)
 
@@ -86,7 +99,7 @@ void storeProgress(QAtomicInt& progress, int value)
 #endif // QT_VERSION
 }
 
-int loadProgress(QAtomicInt& progress)
+int acquireProgress(QAtomicInt& progress)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -95,6 +108,18 @@ int loadProgress(QAtomicInt& progress)
 #else
 
     return progress.fetchAndAddAcquire(0);
+
+#endif // QT_VERSION
+}
+
+int loadProgress(const QAtomicInt& progress)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    return progress.load();
+#else
+
+    return progress;
 
 #endif // QT_VERSION
 }
@@ -116,12 +141,12 @@ SearchTask::SearchTask(QObject* parent) : QThread(parent),
 
 bool SearchTask::wasCanceled() const
 {
-    return m_wasCanceled;
+    return loadWasCanceled(m_wasCanceled) != NotCanceled;
 }
 
 int SearchTask::progress() const
 {
-    return loadProgress(m_progress);
+    return acquireProgress(m_progress);
 }
 
 void SearchTask::run()
@@ -137,12 +162,12 @@ void SearchTask::run()
 
         emit resultsReady(index % m_pages.count(), results);
 
-        storeProgress(m_progress, 100 * (index + 1 - m_beginAtPage + 1) / m_pages.count());
+        releaseProgress(m_progress, 100 * (index + 1 - m_beginAtPage + 1) / m_pages.count());
 
-        emit progressChanged(m_progress);
+        emit progressChanged(loadProgress(m_progress));
     }
 
-    storeProgress(m_progress, 0);
+    releaseProgress(m_progress, 0);
 }
 
 void SearchTask::start(const QVector< Model::Page* >& pages,
@@ -155,7 +180,7 @@ void SearchTask::start(const QVector< Model::Page* >& pages,
     m_beginAtPage = beginAtPage;
 
     resetCancellation(m_wasCanceled);
-    storeProgress(m_progress, 0);
+    releaseProgress(m_progress, 0);
 
     QThread::start();
 }

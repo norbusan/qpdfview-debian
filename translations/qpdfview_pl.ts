@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
         <translation type="unfinished">Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
         <translation type="unfinished">Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished">Strona %1</translation>
     </message>
@@ -310,12 +310,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="150"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przełącz paski narzędzi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="151"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przełącz pasek menu</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="224"/>
@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Obsługa PDF poprzez Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Obsługa PS poprzez libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Obsługa DjVu poprzez DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Obsługa PDF poprzez Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1604"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Obsługa drukowania poprzez CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
@@ -1217,12 +1217,18 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Nigdy</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Odstęp zapisu bazy danych:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1240,14 +1246,19 @@
         <translation type="unfinished">Ekran do prezentacji:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Synchronizuj widok konspektu:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Współczynnik powiększania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> milisekund</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1282,7 +1293,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użycie kafelkowania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="414"/>
@@ -1334,7 +1345,7 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> piks.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Zawsze</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Nigdy</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Widoczność paska kart:</translation>
@@ -1450,7 +1455,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przełącz paski narzędzi i menu wraz z pełnym ekranem:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="708"/>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nazwa instancji w tytule okna:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Synchronizuj widok konspektu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>

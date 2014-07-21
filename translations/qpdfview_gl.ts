@@ -207,47 +207,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="316"/>
+        <location filename="../sources/documentview.cpp" line="317"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formatos admitidos (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Information</source>
         <translation type="unfinished">Información</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1139"/>
+        <location filename="../sources/documentview.cpp" line="1142"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">A apertura de URL está desactivada nos axustes.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1189"/>
+        <location filename="../sources/documentview.cpp" line="1192"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Non foi posíbel atopar os datos de SyncTeX para «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1628"/>
+        <location filename="../sources/documentview.cpp" line="1631"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Imprimindo «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Desbloquear %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1700"/>
+        <location filename="../sources/documentview.cpp" line="1703"/>
         <source>Password:</source>
         <translation type="unfinished">Contrasinal:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1722"/>
+        <location filename="../sources/documentview.cpp" line="1725"/>
         <source>Page %1</source>
         <translation type="unfinished">Páxina %1</translation>
     </message>
@@ -437,27 +437,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade PDF usando Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade PS usando libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade DjVu usando DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1601"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade PDF usando Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1604"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Compatibilidade coa impresión usando CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1606"/>
@@ -1217,12 +1217,18 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="264"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> min.</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <source>Never</source>
+        <translation type="unfinished">Nunca</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gardar o intervalo da base de datos:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
@@ -1240,14 +1246,19 @@
         <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">Sincronizar a vista en esquema:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="310"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Factor de ampliación:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> ms.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="318"/>
@@ -1282,7 +1293,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="407"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar mosaico:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="414"/>
@@ -1334,7 +1345,7 @@
         <location filename="../sources/settingsdialog.cpp" line="487"/>
         <location filename="../sources/settingsdialog.cpp" line="497"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> px</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="482"/>
@@ -1417,12 +1428,6 @@
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
-        <source>Never</source>
-        <translation type="unfinished">Nunca</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="661"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visibilidade da lapela:</translation>
@@ -1481,11 +1486,6 @@
         <location filename="../sources/settingsdialog.cpp" line="745"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nome da instancia no título da xanela:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="301"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished">Sincronizar a vista en esquema:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="752"/>

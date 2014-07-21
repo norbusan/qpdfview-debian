@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QPainter>
 #include <QTimer>
-//#include <QtDebug>
 
 #include "settings.h"
 #include "rendertask.h"
@@ -34,7 +33,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< QPair< PageItem*, QString >, QPixmap > TileItem::s_cache;
+QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
@@ -62,26 +61,15 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
-QPair< PageItem*, QString > TileItem::pixmapKey() const
+void TileItem::dropCachedPixmaps(PageItem* page)
 {
-    // calculate unique key for the current pixmap
-
-    PageItem* pageitem = parentPage();
-    QString keystr = QString().sprintf("%d,%d,%d,%f,%d,%d,%d,%d,%d,%d",
-                                       pageitem->m_index,
-                                       pageitem->m_renderParam.resolution.resolutionX,
-                                       pageitem->m_renderParam.resolution.resolutionY,
-                                       pageitem->m_renderParam.scaleFactor,
-                                       pageitem->m_renderParam.rotation,
-                                       pageitem->m_renderParam.invertColors,
-                                       qRound(m_rect.x()),
-                                       qRound(m_rect.y()),
-                                       qRound(m_rect.width()),
-                                       qRound(m_rect.height()));
-
-    //qDebug() << "rx,ry,sf,rot,inv,l,t,w,h:" << keystr;
-
-    return qMakePair(pageitem, keystr);
+    foreach(CacheKey key, s_cache.keys())
+    {
+        if(key.first == page)
+        {
+            s_cache.remove(key);
+        }
+    }
 }
 
 void TileItem::paint(QPainter* painter, const QPointF& topLeft)
@@ -126,9 +114,9 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(pixmapKey()))
+        if(s_cache.contains(cacheKey()))
         {
-            m_obsoletePixmap = *s_cache.object(pixmapKey());
+            m_obsoletePixmap = *s_cache.object(cacheKey());
         }
     }
     else
@@ -144,7 +132,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(pixmapKey())))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;
     }
@@ -204,7 +192,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(pixmapKey(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(cacheKey(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
@@ -217,13 +205,31 @@ PageItem* TileItem::parentPage() const
     return qobject_cast< PageItem* >(parent());
 }
 
+TileItem::CacheKey TileItem::cacheKey() const
+{
+    PageItem* page = parentPage();
+    QByteArray key;
+
+    QDataStream(&key, QIODevice::WriteOnly)
+            << page->m_renderParam.resolution.resolutionX
+            << page->m_renderParam.resolution.resolutionY
+            << page->m_renderParam.scaleFactor
+            << page->m_renderParam.rotation
+            << page->m_renderParam.invertColors
+            << m_rect;
+
+    return qMakePair(page, key);
+}
+
 QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(pixmapKey()))
+    if(s_cache.contains(cacheKey()))
     {
-        pixmap = *s_cache.object(pixmapKey());
+        pixmap = *s_cache.object(cacheKey());
+
+        m_obsoletePixmap = QPixmap();
     }
     else
     {
@@ -233,7 +239,7 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(pixmapKey(), new QPixmap(pixmap), cost);
+            s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
         }
         else
         {
