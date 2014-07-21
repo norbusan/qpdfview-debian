@@ -228,6 +228,8 @@ QPixmap TileItem::takePixmap()
     if(s_cache.contains(cacheKey()))
     {
         pixmap = *s_cache.object(cacheKey());
+
+        m_obsoletePixmap = QPixmap();
     }
     else
     {
