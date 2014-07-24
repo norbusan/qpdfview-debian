@@ -82,21 +82,21 @@ void TileItem::paint(QPainter* painter, const QPointF& topLeft)
     else
     {
         const qreal iconExtent = qMin(0.1 * m_rect.width(), 0.1 * m_rect.height());
-        const QRectF iconRect(topLeft.x() + m_rect.left() + 0.01 * m_rect.width(),
-                              topLeft.y() + m_rect.top() + 0.01 * m_rect.height(),
-                              iconExtent, iconExtent);
+        const QRect iconRect(topLeft.x() + m_rect.left() + 0.01 * m_rect.width(),
+                             topLeft.y() + m_rect.top() + 0.01 * m_rect.height(),
+                             iconExtent, iconExtent);
 
         if(!m_pixmapError)
         {
             // progress icon
 
-            s_settings->pageItem().progressIcon().paint(painter, iconRect.toRect());
+            s_settings->pageItem().progressIcon().paint(painter, iconRect);
         }
         else
         {
             // error icon
 
-            s_settings->pageItem().errorIcon().paint(painter, iconRect.toRect());
+            s_settings->pageItem().errorIcon().paint(painter, iconRect);
         }
     }
 }

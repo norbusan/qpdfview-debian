@@ -915,6 +915,8 @@ void PageItem::prepareTiling()
 {
     if(!s_settings->pageItem().useTiling())
     {
+        m_tileItems.first()->setRect(QRect(0, 0, m_boundingRect.width(), m_boundingRect.height()));
+
         return;
     }
 
