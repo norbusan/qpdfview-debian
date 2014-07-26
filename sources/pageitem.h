@@ -170,8 +170,6 @@ private:
     template< typename Overlay > void hideOverlay(Overlay& overlay, bool deleteLater);
     template< typename Overlay > void updateOverlay(const Overlay& overlay) const;
 
-    static const qreal proxyPadding = 2.0;
-
     void setProxyGeometry(Model::Annotation* annotation, QGraphicsProxyWidget* proxy) const;
     void setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidget* proxy) const;
 

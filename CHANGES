@@ -1,3 +1,7 @@
+Release 0.4.12:
+  * Fix progress and error icons and obsolete pixmaps not working without tiling.
+  * Fix compilation using Microsoft Visual C++. Thanks to S. Razi Alavizadeh.
+
 Release 0.4.11:
   * Added tiled rendering currently disabled by default.
   * Made zooming logarithmic instead of linear. Thanks to Martin Spacek.

@@ -41,6 +41,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 #include "tileitem.h"
 
+namespace
+{
+
+const qreal proxyPadding = 2.0;
+
+} // anonymous
+
 namespace qpdfview
 {
 

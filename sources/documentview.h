@@ -51,7 +51,7 @@ class ThumbnailItem;
 class SearchTask;
 class PresentationView;
 class ShortcutHandler;
-class DocumentLayout;
+struct DocumentLayout;
 
 class DocumentView : public QGraphicsView
 {
