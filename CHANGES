@@ -1,4 +1,4 @@
-Release 0.4.12:
+Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.
   * Fix compilation using Microsoft Visual C++. Thanks to S. Razi Alavizadeh.
 
