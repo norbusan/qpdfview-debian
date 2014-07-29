@@ -421,7 +421,7 @@ public slots:
     Q_NOREPLY void previousBookmark();
     Q_NOREPLY void nextBookmark();
 
-    Q_NOREPLY void jumpToBookmark(const QString& label);
+    bool jumpToBookmark(const QString& label);
 
 
     Q_NOREPLY void continuousModeAction(bool checked);
@@ -436,6 +436,13 @@ public slots:
 
     Q_NOREPLY void fullscreenAction(bool checked);
     Q_NOREPLY void presentationAction();
+
+
+    Q_NOREPLY void closeTab();
+    Q_NOREPLY void closeAllTabs();
+    Q_NOREPLY void closeAllTabsButCurrentTab();
+
+    bool closeTab(const QString& absoluteFilePath);
 
 private:
     MainWindow* mainWindow() const;

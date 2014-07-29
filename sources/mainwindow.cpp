@@ -2558,93 +2558,118 @@ void MainWindowAdaptor::startSearch(const QString& text)
     mainWindow()->startSearch(text);
 }
 
+#define ONLY_IF_CURRENT_TAB if(mainWindow()->m_tabWidget->currentIndex() == -1) { return; }
+
 void MainWindowAdaptor::previousPage()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_previousPage_triggered();
 }
 
 void MainWindowAdaptor::nextPage()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_nextPage_triggered();
 }
 
 void MainWindowAdaptor::firstPage()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_firstPage_triggered();
 }
 
 void MainWindowAdaptor::lastPage()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_lastPage_triggered();
 }
 
 void MainWindowAdaptor::previousBookmark()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_previousBookmark_triggered();
 }
 
 void MainWindowAdaptor::nextBookmark()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_nextBookmark_triggered();
 }
 
-void MainWindowAdaptor::jumpToBookmark(const QString& label)
+bool MainWindowAdaptor::jumpToBookmark(const QString& label)
 {
-    if(mainWindow()->m_tabWidget->currentIndex() == -1)
-    {
-        return;
-    }
+    if(mainWindow()->m_tabWidget->currentIndex() == -1) { return false; }
 
     const BookmarkMenu* bookmark = mainWindow()->bookmarkForCurrentTab();
 
-    if(bookmark == 0)
+    if(bookmark != 0)
     {
-        return;
-    }
-
-    foreach(const Jump jump, bookmark->jumps())
-    {
-        if(jump.second == label)
+        foreach(const Jump& jump, bookmark->jumps())
         {
-            mainWindow()->currentTab()->jumpToPage(jump.first);
+            if(jump.second == label)
+            {
+                mainWindow()->currentTab()->jumpToPage(jump.first);
 
-            return;
+                return true;
+            }
         }
     }
+
+    return false;
 }
 
 void MainWindowAdaptor::continuousModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_continuousMode_triggered(checked);
 }
 
 void MainWindowAdaptor::twoPagesModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_twoPagesMode_triggered(checked);
 }
 
 void MainWindowAdaptor::twoPagesWithCoverPageModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_twoPagesWithCoverPageMode_triggered(checked);
 }
 
 void MainWindowAdaptor::multiplePagesModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_multiplePagesMode_triggered(checked);
 }
 
 void MainWindowAdaptor::fitToPageWidthModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_fitToPageWidthMode_triggered(checked);
 }
 
 void MainWindowAdaptor::fitToPageSizeModeAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_fitToPageSizeMode_triggered(checked);
 }
 
 void MainWindowAdaptor::invertColorsAction(bool checked)
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_invertColors_triggered(checked);
 }
 
@@ -2658,7 +2683,48 @@ void MainWindowAdaptor::fullscreenAction(bool checked)
 
 void MainWindowAdaptor::presentationAction()
 {
+    ONLY_IF_CURRENT_TAB
+
     mainWindow()->on_presentation_triggered();
+}
+
+void MainWindowAdaptor::closeTab()
+{
+    ONLY_IF_CURRENT_TAB
+
+    mainWindow()->on_closeTab_triggered();
+}
+
+void MainWindowAdaptor::closeAllTabs()
+{
+    mainWindow()->on_closeAllTabs_triggered();
+}
+
+void MainWindowAdaptor::closeAllTabsButCurrentTab()
+{
+    mainWindow()->on_closeAllTabsButCurrentTab_triggered();
+}
+
+bool MainWindowAdaptor::closeTab(const QString& absoluteFilePath)
+{
+    if(mainWindow()->m_tabWidget->currentIndex() == -1) { return false; }
+
+    const QFileInfo fileInfo(absoluteFilePath);
+
+    foreach(DocumentView* tab, mainWindow()->tabs())
+    {
+        if(tab->fileInfo() == fileInfo)
+        {
+            if(mainWindow()->saveModifications(tab))
+            {
+                mainWindow()->closeTab(tab);
+            }
+
+            return true;
+        }
+    }
+
+    return false;
 }
 
 MainWindow* MainWindowAdaptor::mainWindow() const
