@@ -1,4 +1,5 @@
 Release 0.4.12:
+  * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
 
 Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.

@@ -101,6 +101,8 @@ PageItem::~PageItem()
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
+    TileItem::dropCachedPixmaps(this);
+
     qDeleteAll(m_links);
     qDeleteAll(m_annotations);
     qDeleteAll(m_formFields);
@@ -215,7 +217,7 @@ void PageItem::setInvertColors(bool invertColors)
 }
 
 
-void PageItem::refresh(bool keepObsoletePixmaps)
+void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {
     if(!s_settings->pageItem().useTiling())
     {
@@ -227,6 +229,11 @@ void PageItem::refresh(bool keepObsoletePixmaps)
         {
             tile->refresh(keepObsoletePixmaps);
         }
+    }
+
+    if(dropCachedPixmaps)
+    {
+        TileItem::dropCachedPixmaps(this);
     }
 
     update();
@@ -710,7 +717,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
             m_annotations.append(annotation);
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
 
-            refresh();
+            refresh(false, true);
             emit wasModified();
 
             showAnnotationOverlay(annotation);
@@ -735,7 +742,7 @@ void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& scr
 
             annotation->deleteLater();
 
-            refresh();
+            refresh(false, true);
             emit wasModified();
         }
     }
@@ -805,7 +812,7 @@ void PageItem::hideOverlay(Overlay& overlay, bool deleteLater)
             }
         }
 
-        refresh();
+        refresh(false, true);
     }
 }
 

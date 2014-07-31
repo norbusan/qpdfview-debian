@@ -33,7 +33,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< TileItem*, QPixmap > TileItem::s_cache;
+QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
@@ -59,8 +59,17 @@ TileItem::~TileItem()
 {
     m_renderTask->cancel(true);
     m_renderTask->wait();
+}
 
-    s_cache.remove(this);
+void TileItem::dropCachedPixmaps(PageItem* page)
+{
+    foreach(CacheKey key, s_cache.keys())
+    {
+        if(key.first == page)
+        {
+            s_cache.remove(key);
+        }
+    }
 }
 
 void TileItem::paint(QPainter* painter, const QPointF& topLeft)
@@ -105,9 +114,9 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(this))
+        if(s_cache.contains(cacheKey()))
         {
-            m_obsoletePixmap = *s_cache.object(this);
+            m_obsoletePixmap = *s_cache.object(cacheKey());
         }
     }
     else
@@ -119,12 +128,11 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
-    s_cache.remove(this);
 }
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(this)))
+    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;
     }
@@ -184,7 +192,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(this, new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(cacheKey(), new QPixmap(QPixmap::fromImage(image)), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
@@ -197,13 +205,31 @@ PageItem* TileItem::parentPage() const
     return qobject_cast< PageItem* >(parent());
 }
 
+TileItem::CacheKey TileItem::cacheKey() const
+{
+    PageItem* page = parentPage();
+    QByteArray key;
+
+    QDataStream(&key, QIODevice::WriteOnly)
+            << page->m_renderParam.resolution.resolutionX
+            << page->m_renderParam.resolution.resolutionY
+            << page->m_renderParam.scaleFactor
+            << page->m_renderParam.rotation
+            << page->m_renderParam.invertColors
+            << m_rect;
+
+    return qMakePair(page, key);
+}
+
 QPixmap TileItem::takePixmap()
 {
     QPixmap pixmap;
 
-    if(s_cache.contains(this))
+    if(s_cache.contains(cacheKey()))
     {
-        pixmap = *s_cache.object(this);
+        pixmap = *s_cache.object(cacheKey());
+
+        m_obsoletePixmap = QPixmap();
     }
     else
     {
@@ -213,7 +239,7 @@ QPixmap TileItem::takePixmap()
             m_pixmap = QPixmap();
 
             int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(this, new QPixmap(pixmap), cost);
+            s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
         }
         else
         {

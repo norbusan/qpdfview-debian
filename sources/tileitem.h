@@ -49,6 +49,8 @@ public:
     inline void dropPixmap() { m_pixmap = QPixmap(); }
     inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
 
+    static void dropCachedPixmaps(PageItem* page);
+
     void paint(QPainter* painter, const QPointF& topLeft);
 
 public slots:
@@ -70,9 +72,11 @@ private:
 
     static Settings* s_settings;
 
-    static QCache< TileItem*, QPixmap > s_cache;
+    typedef QPair< PageItem*, QByteArray > CacheKey;
+    static QCache< CacheKey, QPixmap > s_cache;
 
     PageItem* parentPage() const;
+    CacheKey cacheKey() const;
 
     QRect m_rect;
 
