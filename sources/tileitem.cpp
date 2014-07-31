@@ -114,9 +114,11 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        if(s_cache.contains(cacheKey()))
+        QPixmap* cachedPixmap = s_cache.object(cacheKey());
+
+        if(cachedPixmap != 0)
         {
-            m_obsoletePixmap = *s_cache.object(cacheKey());
+            m_obsoletePixmap = *cachedPixmap;
         }
     }
     else
@@ -223,28 +225,28 @@ TileItem::CacheKey TileItem::cacheKey() const
 
 QPixmap TileItem::takePixmap()
 {
+    QPixmap* cachedPixmap = s_cache.object(cacheKey());
+
+    if(cachedPixmap != 0)
+    {
+        m_obsoletePixmap = QPixmap();
+
+        return *cachedPixmap;
+    }
+
     QPixmap pixmap;
 
-    if(s_cache.contains(cacheKey()))
+    if(!m_pixmap.isNull())
     {
-        pixmap = *s_cache.object(cacheKey());
+        pixmap = m_pixmap;
+        m_pixmap = QPixmap();
 
-        m_obsoletePixmap = QPixmap();
+        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
+        s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
     }
     else
     {
-        if(!m_pixmap.isNull())
-        {
-            pixmap = m_pixmap;
-            m_pixmap = QPixmap();
-
-            int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-            s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
-        }
-        else
-        {
-            startRender();
-        }
+        startRender();
     }
 
     return pixmap;
