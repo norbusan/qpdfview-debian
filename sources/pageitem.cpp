@@ -590,13 +590,26 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
         return;
     }
 
+    foreach(Model::Link* link, m_links)
+    {
+        if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
+        {
+            unsetCursor();
+
+            showLinkContextMenu(link, event->screenPos());
+
+            event->accept();
+            return;
+        }
+    }
+
     foreach(Model::Annotation* annotation, m_annotations)
     {
         if(m_normalizedTransform.mapRect(annotation->boundary()).contains(event->pos()))
         {
             unsetCursor();
 
-            removeAnnotation(annotation, event->screenPos());
+            showAnnotationContextMenu(annotation, event->screenPos());
 
             event->accept();
             return;
@@ -635,15 +648,15 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     QMenu menu;
 
     const QAction* copyTextAction = menu.addAction(tr("Copy &text"));
-    QAction* useTextAsSelectionAction = menu.addAction(tr("Use text as &selection"));
+    QAction* selectTextAction = menu.addAction(tr("&Select text"));
     const QAction* copyImageAction = menu.addAction(tr("Copy &image"));
     const QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
 
-    useTextAsSelectionAction->setVisible(QApplication::clipboard()->supportsSelection());
+    selectTextAction->setVisible(QApplication::clipboard()->supportsSelection());
 
     const QAction* action = menu.exec(screenPos);
 
-    if(action == copyTextAction || action == useTextAsSelectionAction)
+    if(action == copyTextAction || action == selectTextAction)
     {
         const QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
 
@@ -725,7 +738,31 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     }
 }
 
-void PageItem::removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos)
+void PageItem::showLinkContextMenu(Model::Link* link, const QPoint& screenPos)
+{
+    if(link->page == -1)
+    {
+        QMenu menu;
+
+        const QAction* copyLinkAddressAction = menu.addAction(tr("&Copy link address"));
+        QAction* selectLinkAddressAction = menu.addAction(tr("&Select link address"));
+
+        selectLinkAddressAction->setVisible(QApplication::clipboard()->supportsSelection());
+
+        const QAction* action = menu.exec(screenPos);
+
+        if(action == copyLinkAddressAction)
+        {
+            QApplication::clipboard()->setText(link->urlOrFileName);
+        }
+        else if(action == selectLinkAddressAction)
+        {
+            QApplication::clipboard()->setText(link->urlOrFileName, QClipboard::Selection);
+        }
+    }
+}
+
+void PageItem::showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {

@@ -161,9 +161,10 @@ private:
     QRectF m_rubberBand;
 
     void copyToClipboard(const QPoint& screenPos);
-
     void addAnnotation(const QPoint& screenPos);
-    void removeAnnotation(Model::Annotation* annotation, const QPoint& screenPos);
+
+    void showLinkContextMenu(Model::Link* link, const QPoint& screenPos);
+    void showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos);
 
     template< typename Overlay, typename Element > void showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement);
     template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
