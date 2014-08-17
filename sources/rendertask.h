@@ -42,7 +42,7 @@ class RenderTask : public QObject, QRunnable
     Q_OBJECT
 
 public:
-    explicit RenderTask(QObject* parent = 0);
+    explicit RenderTask(Model::Page* page, QObject* parent = 0);
 
     void wait();
 
@@ -61,9 +61,10 @@ signals:
                     const QRect& rect, bool prefetch,
                     QImage image);
 
+    void cropBoxReady(QRectF cropBox);
+
 public slots:
-    void start(Model::Page* page,
-               const RenderParam& renderParam,
+    void start(const RenderParam& renderParam,
                const QRect& rect, bool prefetch);
 
     void cancel(bool force = false);

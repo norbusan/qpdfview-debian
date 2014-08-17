@@ -105,15 +105,22 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
+QRectF trimMargins(const RenderParam& renderParam, const QRect& rect, const QColor& paperColor, const QImage& image)
+{
+    // TODO
+
+    return QRectF();
+}
+
 } // anonymous
 
 namespace qpdfview
 {
 
-RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
+RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
-    m_page(0),
+    m_page(page),
     m_renderParam(),
     m_rect(),
     m_prefetch(false)
@@ -158,7 +165,6 @@ void RenderTask::run()
     if(testCancellation(m_wasCanceled, m_prefetch))
     {
         finish();
-
         return;
     }
 
@@ -176,7 +182,6 @@ void RenderTask::run()
     if(testCancellation(m_wasCanceled, m_prefetch))
     {
         finish();
-
         return;
     }
 
@@ -190,15 +195,28 @@ void RenderTask::run()
                     m_rect, m_prefetch,
                     image);
 
+
+    if(/* TODO: m_trimMargins */true)
+    {
+        if(testCancellation(m_wasCanceled, m_prefetch))
+        {
+            finish();
+            return;
+        }
+
+
+        const QRectF cropBox = trimMargins(m_renderParam, m_rect, /* TODO: m_paperColor */Qt::white, image);
+
+        emit cropBoxReady(cropBox);
+    }
+
+
     finish();
 }
 
-void RenderTask::start(Model::Page* page,
-                       const RenderParam& renderParam,
+void RenderTask::start(const RenderParam& renderParam,
                        const QRect& rect, bool prefetch)
 {
-    m_page = page;
-
     m_renderParam = renderParam;
 
     m_rect = rect;

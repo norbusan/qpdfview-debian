@@ -49,7 +49,7 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
 
-    m_renderTask = new RenderTask(this);
+    m_renderTask = new RenderTask(parentPage()->m_page, this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage)));
@@ -139,8 +139,7 @@ int TileItem::startRender(bool prefetch)
         return 0;
     }
 
-    m_renderTask->start(parentPage()->m_page,
-                        parentPage()->m_renderParam,
+    m_renderTask->start(parentPage()->m_renderParam,
                         m_rect, prefetch);
 
     return 1;
