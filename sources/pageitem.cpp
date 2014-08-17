@@ -80,8 +80,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     setAcceptHoverEvents(true);
 
-    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption);
-    setFlag(QGraphicsItem::ItemClipsToShape);
+    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling());
+    setFlag(QGraphicsItem::ItemClipsToShape, s_settings->pageItem().trimMargins());
 
     if(!s_settings->pageItem().useTiling())
     {
