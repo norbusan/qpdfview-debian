@@ -142,8 +142,6 @@ void TileItem::refresh(bool keepObsoletePixmaps)
         m_obsoletePixmap = QPixmap();
     }
 
-    m_cropRect = QRectF(0.0, 0.0, 1.0, 1.0);
-
     m_renderTask->cancel(true);
 
     m_pixmapError = false;

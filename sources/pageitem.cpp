@@ -278,8 +278,6 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
         TileItem::dropCachedPixmaps(this);
     }
 
-    m_cropRect = QRectF(0.0, 0.0, 1.0, 1.0);
-
     update();
 }
 
