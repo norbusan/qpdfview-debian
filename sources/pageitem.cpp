@@ -117,14 +117,14 @@ QRectF PageItem::boundingRect() const
         return m_boundingRect;
     }
 
-    QRectF croppedBoundingRect;
+    QRectF boundingRect;
 
-    croppedBoundingRect.setLeft(m_boundingRect.left() + m_cropBox.left() * m_boundingRect.width());
-    croppedBoundingRect.setTop(m_boundingRect.top() + m_cropBox.top() * m_boundingRect.height());
-    croppedBoundingRect.setWidth(m_cropBox.width() * m_boundingRect.width());
-    croppedBoundingRect.setHeight(m_cropBox.height() * m_boundingRect.height());
+    boundingRect.setLeft(m_boundingRect.left() + m_cropBox.left() * m_boundingRect.width());
+    boundingRect.setTop(m_boundingRect.top() + m_cropBox.top() * m_boundingRect.height());
+    boundingRect.setWidth(m_cropBox.width() * m_boundingRect.width());
+    boundingRect.setHeight(m_cropBox.height() * m_boundingRect.height());
 
-    return croppedBoundingRect;
+    return boundingRect;
 }
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*)

@@ -51,9 +51,18 @@ QRectF ThumbnailItem::boundingRect() const
 
 void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+    const QRectF boundingRect = PageItem::boundingRect();
+
+
+    painter->save();
+
+    painter->setClipping(true);
+    painter->setClipRect(boundingRect);
+
     PageItem::paint(painter, option, widget);
 
-    const QRectF boundingRect = PageItem::boundingRect();
+    painter->restore();
+
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
