@@ -424,6 +424,12 @@ void SettingsDialog::createGraphicsTab()
 
 #endif // QT_VERSION
 
+    // trim margins
+
+    m_trimMarginsCheckBox = new QCheckBox(this);
+    m_trimMarginsCheckBox->setChecked(s_settings->pageItem().trimMargins());
+
+    m_graphicsLayout->addRow(tr("Trim margins:"), m_trimMarginsCheckBox);
     // decorate pages
 
     m_decoratePagesCheckBox = new QCheckBox(this);
@@ -556,6 +562,8 @@ void SettingsDialog::acceptGraphicsTab()
 
 #endif // QT_VERSION
 
+    s_settings->pageItem().setTrimMargins(m_trimMarginsCheckBox->isChecked());
+
     s_settings->pageItem().setDecoratePages(m_decoratePagesCheckBox->isChecked());
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
@@ -601,6 +609,8 @@ void SettingsDialog::resetGraphicsTab()
     m_useDevicePixelRatioCheckBox->setChecked(Defaults::PageItem::useDevicePixelRatio());
 
 #endif // QT_VERSION
+
+    m_trimMarginsCheckBox->setChecked(Defaults::PageItem::trimMargins());
 
     m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
     m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());

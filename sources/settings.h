@@ -456,7 +456,7 @@ public:
         static inline bool keepObsoletePixmaps() { return false; }
         static inline bool useDevicePixelRatio() { return false; }
 
-        static inline bool trimMargins() { return /* TODO: false */true; }
+        static inline bool trimMargins() { return false; }
 
         static inline bool decoratePages() { return true; }
         static inline bool decorateLinks() { return true; }
