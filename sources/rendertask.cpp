@@ -146,8 +146,8 @@ bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
     return true;
 }
 
-const qreal cropBoxPrecision = 100.0;
-const qreal cropBoxTolerance = 0.05;
+const qreal cropRectPrecision = 100.0;
+const qreal cropRectTolerance = 0.05;
 
 QRectF trimMargins(const QColor& paperColor, const QImage& image)
 {
@@ -195,10 +195,10 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
         }
     }
 
-    return QRectF(roundDown(static_cast< qreal >(left) / width, cropBoxPrecision, cropBoxTolerance),
-                  roundDown(static_cast< qreal >(top) / height, cropBoxPrecision, cropBoxTolerance),
-                  roundUp(static_cast< qreal >(right - left + 1) / width, cropBoxPrecision, cropBoxTolerance),
-                  roundUp(static_cast< qreal >(bottom - top + 1) / height, cropBoxPrecision, cropBoxTolerance));
+    return QRectF(roundDown(static_cast< qreal >(left) / width, cropRectPrecision, cropRectTolerance),
+                  roundDown(static_cast< qreal >(top) / height, cropRectPrecision, cropRectTolerance),
+                  roundUp(static_cast< qreal >(right - left + 1) / width, cropRectPrecision, cropRectTolerance),
+                  roundUp(static_cast< qreal >(bottom - top + 1) / height, cropRectPrecision, cropRectTolerance));
 }
 
 } // anonymous
@@ -296,10 +296,10 @@ void RenderTask::run()
         }
 
 
-        QRectF cropBox = trimMargins(m_paperColor, image);
+        QRectF cropRect = trimMargins(m_paperColor, image);
 
-        emit cropBoxReady(m_renderParam, m_rect,
-                          cropBox);
+        emit cropRectReady(m_renderParam, m_rect,
+                           cropRect);
     }
 
 

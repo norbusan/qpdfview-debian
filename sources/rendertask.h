@@ -62,8 +62,8 @@ signals:
                     const QRect& rect, bool prefetch,
                     QImage image);
 
-    void cropBoxReady(const RenderParam& renderParam, const QRect& rect,
-                      QRectF cropBox);
+    void cropRectReady(const RenderParam& renderParam, const QRect& rect,
+                       QRectF cropRect);
 
 public slots:
     void start(const RenderParam& renderParam,

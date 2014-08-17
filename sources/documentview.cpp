@@ -1075,7 +1075,7 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
     }
 }
 
-void DocumentView::on_pages_cropBoxChanged()
+void DocumentView::on_pages_cropRectChanged()
 {
     qreal left = 0.0, top = 0.0;
     saveLeftAndTop(left, top);
@@ -1084,7 +1084,7 @@ void DocumentView::on_pages_cropBoxChanged()
     prepareView(left, top);
 }
 
-void DocumentView::on_thumbnails_cropBoxChanged()
+void DocumentView::on_thumbnails_cropRectChanged()
 {
     prepareThumbnailsScene();
 }
@@ -1840,7 +1840,7 @@ void DocumentView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
-        connect(page, SIGNAL(cropBoxChanged(QRectF)), SLOT(on_pages_cropBoxChanged()));
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_pages_cropRectChanged()));
 
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
@@ -1869,7 +1869,7 @@ void DocumentView::prepareThumbnails()
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
 
-        connect(page, SIGNAL(cropBoxChanged(QRectF)), SLOT(on_thumbnails_cropBoxChanged()));
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_thumbnails_cropRectChanged()));
 
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }

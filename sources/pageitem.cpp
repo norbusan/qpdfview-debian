@@ -56,7 +56,7 @@ Settings* PageItem::s_settings = 0;
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
-    m_cropBox(0.0, 0.0, 1.0, 1.0),
+    m_cropRect(0.0, 0.0, 1.0, 1.0),
     m_index(index),
     m_presentationMode(presentationMode),
     m_links(),
@@ -112,17 +112,17 @@ PageItem::~PageItem()
 
 QRectF PageItem::boundingRect() const
 {
-    if(/* TODO: !trimMargins */false)
+    if(!s_settings->pageItem().trimMargins())
     {
         return m_boundingRect;
     }
 
     QRectF boundingRect;
 
-    boundingRect.setLeft(m_boundingRect.left() + m_cropBox.left() * m_boundingRect.width());
-    boundingRect.setTop(m_boundingRect.top() + m_cropBox.top() * m_boundingRect.height());
-    boundingRect.setWidth(m_cropBox.width() * m_boundingRect.width());
-    boundingRect.setHeight(m_cropBox.height() * m_boundingRect.height());
+    boundingRect.setLeft(m_boundingRect.left() + m_cropRect.left() * m_boundingRect.width());
+    boundingRect.setTop(m_boundingRect.top() + m_cropRect.top() * m_boundingRect.height());
+    boundingRect.setWidth(m_cropRect.width() * m_boundingRect.width());
+    boundingRect.setHeight(m_cropRect.height() * m_boundingRect.height());
 
     return boundingRect;
 }
@@ -138,21 +138,6 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     paintRubberBand(painter);
 }
 
-void PageItem::setCropBox(const QRectF& cropBox)
-{
-    // TODO: Add some tolerance to this comparison
-    if(m_cropBox != cropBox)
-    {
-        update();
-
-        m_cropBox = cropBox;
-
-        prepareGeometryChange();
-
-        emit cropBoxChanged(m_cropBox);
-    }
-}
-
 qreal PageItem::displayedWidth() const
 {
     switch(m_renderParam.rotation)
@@ -160,10 +145,10 @@ qreal PageItem::displayedWidth() const
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionX / 72.0 * m_cropBox.width() * m_size.width();
+        return m_renderParam.resolution.resolutionX / 72.0 * m_cropRect.width() * m_size.width();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionX / 72.0 * m_cropBox.height() * m_size.height();
+        return m_renderParam.resolution.resolutionX / 72.0 * m_cropRect.height() * m_size.height();
     }
 }
 
@@ -174,10 +159,10 @@ qreal PageItem::displayedHeight() const
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionY / 72.0 * m_cropBox.height() * m_size.height();
+        return m_renderParam.resolution.resolutionY / 72.0 * m_cropRect.height() * m_size.height();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionY / 72.0 * m_cropBox.width() * m_size.width();
+        return m_renderParam.resolution.resolutionY / 72.0 * m_cropRect.width() * m_size.width();
     }
 }
 
@@ -291,9 +276,9 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
     if(dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
-
-        setCropBox();
     }
+
+    m_cropRect = QRectF(0.0, 0.0, 1.0, 1.0);
 
     update();
 }
@@ -702,12 +687,38 @@ void PageItem::loadInteractiveElements()
     update();
 }
 
-void PageItem::updateCropBox(const QRect& rect, const QRectF& partialCropBox)
+void PageItem::updateCropRect()
 {
-    const QRectF updatedCropBox = m_cropBox.intersected(partialCropBox.translated(rect.left() / m_boundingRect.width(),
-                                                                                  rect.top() / m_boundingRect.height()));
+    QRectF updatedCropRect;
 
-    setCropBox(updatedCropBox);
+    if(!s_settings->pageItem().useTiling())
+    {
+        updatedCropRect = m_tileItems.first()->cropRect();
+    }
+    else
+    {
+        foreach(TileItem* tile, m_tileItems)
+        {
+            const QRect& rect = tile->rect();
+            const QRectF& cropRect = tile->cropRect();
+
+            const qreal left = (rect.left() + cropRect.left() * rect.width()) / m_boundingRect.width();
+            const qreal top = (rect.top() + cropRect.top() * rect.height()) / m_boundingRect.height();
+            const qreal width = cropRect.width() * rect.width() / m_boundingRect.width();
+            const qreal height = cropRect.height() * rect.height() / m_boundingRect.height();
+
+            updatedCropRect = updatedCropRect.united(QRectF(left, top, width, height));
+        }
+    }
+
+    if(m_cropRect != updatedCropRect)
+    {
+        m_cropRect = updatedCropRect;
+
+        prepareGeometryChange();
+
+        emit cropRectChanged();
+    }
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)

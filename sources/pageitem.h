@@ -63,9 +63,6 @@ public:
 
     inline const QSizeF& size() const { return m_size; }
 
-    inline const QRectF& cropBox() const { return m_cropBox; }
-    void setCropBox(const QRectF& cropBox = QRectF(0.0, 0.0, 1.0, 1.0));
-
     qreal displayedWidth() const;
     qreal displayedHeight() const;
 
@@ -98,7 +95,7 @@ public:
     inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
 signals:
-    void cropBoxChanged(const QRectF& cropBox);
+    void cropRectChanged();
 
     void linkClicked(bool newTab, int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
@@ -150,9 +147,9 @@ private:
     Model::Page* m_page;
     QSizeF m_size;
 
-    QRectF m_cropBox;
+    QRectF m_cropRect;
 
-    void updateCropBox(const QRect& rect, const QRectF& partialCropBox);
+    void updateCropRect();
 
     int m_index;
     bool m_presentationMode;

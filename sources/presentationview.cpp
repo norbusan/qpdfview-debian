@@ -369,7 +369,7 @@ void PresentationView::on_prefetch_timeout()
     }
 }
 
-void PresentationView::on_pages_cropBoxChanged()
+void PresentationView::on_pages_cropRectChanged()
 {
     prepareScene();
     prepareView();
@@ -548,7 +548,7 @@ void PresentationView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
-        connect(page, SIGNAL(cropBoxChanged(QRectF)), SLOT(on_pages_cropBoxChanged()));
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_pages_cropRectChanged()));
 
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }
