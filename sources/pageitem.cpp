@@ -81,6 +81,7 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
     setAcceptHoverEvents(true);
 
     setFlag(QGraphicsItem::ItemUsesExtendedStyleOption);
+    setFlag(QGraphicsItem::ItemClipsToShape);
 
     if(!s_settings->pageItem().useTiling())
     {
@@ -111,7 +112,19 @@ PageItem::~PageItem()
 
 QRectF PageItem::boundingRect() const
 {
-    return m_boundingRect;
+    if(/* TODO: !trimMargins */false)
+    {
+        return m_boundingRect;
+    }
+
+    QRectF croppedBoundingRect;
+
+    croppedBoundingRect.setLeft(m_boundingRect.left() + m_cropBox.left() * m_boundingRect.width());
+    croppedBoundingRect.setTop(m_boundingRect.top() + m_cropBox.top() * m_boundingRect.height());
+    croppedBoundingRect.setWidth(m_cropBox.width() * m_boundingRect.width());
+    croppedBoundingRect.setHeight(m_cropBox.height() * m_boundingRect.height());
+
+    return croppedBoundingRect;
 }
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*)
@@ -123,6 +136,34 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
     paintHighlights(painter);
     paintRubberBand(painter);
+}
+
+qreal PageItem::displayedWidth() const
+{
+    switch(m_renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return m_renderParam.resolution.resolutionX / 72.0 * m_cropBox.width() * m_size.width();
+    case RotateBy90:
+    case RotateBy270:
+        return m_renderParam.resolution.resolutionX / 72.0 * m_cropBox.height() * m_size.height();
+    }
+}
+
+qreal PageItem::displayedHeight() const
+{
+    switch(m_renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return m_renderParam.resolution.resolutionY / 72.0 * m_cropBox.height() * m_size.height();
+    case RotateBy90:
+    case RotateBy270:
+        return m_renderParam.resolution.resolutionY / 72.0 * m_cropBox.width() * m_size.width();
+    }
 }
 
 void PageItem::setHighlights(const QList< QRectF >& highlights)
@@ -236,6 +277,7 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
 
+        // TODO: only if trim margins
         resetCropBox();
     }
 
@@ -657,11 +699,15 @@ void PageItem::setCropBox()
     }
 
     // TODO: Add some tolerance to this comparison
+    // TODO: merge redundant comparisons
     if(m_cropBox != cropBox)
     {
         m_cropBox = cropBox;
 
+        prepareGeometryChange();
         update();
+
+        emit cropBoxChanged(m_cropBox);
     }
 }
 
@@ -673,7 +719,19 @@ void PageItem::resetCropBox()
         tile->resetCropBox();
     }
 
-    m_cropBox = QRectF(0.0, 0.0, 1.0, 1.0);
+    QRectF cropBox(0.0, 0.0, 1.0, 1.0);
+
+    // TODO: Add some tolerance to this comparison
+    // TODO: merge redundant comparisons
+    if(m_cropBox != cropBox)
+    {
+        m_cropBox = cropBox;
+
+        prepareGeometryChange();
+        update();
+
+        emit cropBoxChanged(m_cropBox);
+    }
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
@@ -1104,17 +1162,6 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
         painter->drawRect(m_boundingRect);
     }
-
-    // crop box
-
-    painter->save();
-
-    painter->setTransform(m_normalizedTransform, true);
-    painter->setPen(QPen(Qt::green, 0.0));
-
-    painter->drawRect(m_cropBox);
-
-    painter->restore();
 }
 
 void PageItem::paintLinks(QPainter* painter) const
