@@ -142,7 +142,8 @@ int TileItem::startRender(bool prefetch)
     }
 
     m_renderTask->start(parentPage()->m_renderParam,
-                        m_rect, prefetch);
+                        m_rect, prefetch,
+                        s_settings->pageItem().trimMargins(), s_settings->pageItem().paperColor());
 
     return 1;
 }
@@ -203,8 +204,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     }
 }
 
-void TileItem::on_renderTask_cropBoxReady(const RenderParam& renderParam,
-                                          const QRect& rect,
+void TileItem::on_renderTask_cropBoxReady(const RenderParam& renderParam, const QRect& rect,
                                           QRectF cropBox)
 {
     if(parentPage()->m_renderParam != renderParam || m_rect != rect)

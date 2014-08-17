@@ -69,8 +69,7 @@ protected slots:
     void on_renderTask_imageReady(const RenderParam& renderParam,
                                   const QRect& rect, bool prefetch,
                                   QImage image);
-    void on_renderTask_cropBoxReady(const RenderParam& renderParam,
-                                    const QRect& rect,
+    void on_renderTask_cropBoxReady(const RenderParam& renderParam, const QRect& rect,
                                     QRectF cropBox);
 
 private:

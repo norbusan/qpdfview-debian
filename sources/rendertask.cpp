@@ -212,7 +212,9 @@ RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QR
     m_page(page),
     m_renderParam(),
     m_rect(),
-    m_prefetch(false)
+    m_prefetch(false),
+    m_trimMargins(false),
+    m_paperColor()
 {
     setAutoDelete(false);
 }
@@ -285,7 +287,7 @@ void RenderTask::run()
                     image);
 
 
-    if(/* TODO: m_trimMargins */true)
+    if(m_trimMargins)
     {
         if(testCancellation(m_wasCanceled, m_prefetch))
         {
@@ -294,10 +296,9 @@ void RenderTask::run()
         }
 
 
-        const QRectF cropBox = trimMargins(/* TODO: m_paperColor */Qt::white, image);
+        QRectF cropBox = trimMargins(m_paperColor, image);
 
-        emit cropBoxReady(m_renderParam,
-                          m_rect,
+        emit cropBoxReady(m_renderParam, m_rect,
                           cropBox);
     }
 
@@ -306,12 +307,16 @@ void RenderTask::run()
 }
 
 void RenderTask::start(const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch)
+                       const QRect& rect, bool prefetch,
+                       bool trimMargins, const QColor& paperColor)
 {
     m_renderParam = renderParam;
 
     m_rect = rect;
     m_prefetch = prefetch;
+
+    m_trimMargins = trimMargins;
+    m_paperColor = paperColor;
 
     m_mutex.lock();
     m_isRunning = true;
