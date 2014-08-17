@@ -214,10 +214,13 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     {
         int cost = image.width() * image.height() * image.depth() / 8;
         s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
+
+        setCropRect(cropRect);
     }
     else if(!m_renderTask->wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
+
         setCropRect(cropRect);
     }
 }
