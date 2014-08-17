@@ -63,6 +63,9 @@ public:
 
     inline const QSizeF& size() const { return m_size; }
 
+    inline const QRectF& cropBox() const { return m_cropBox; }
+    void setCropBox(const QRectF& cropBox = QRectF(0.0, 0.0, 1.0, 1.0));
+
     qreal displayedWidth() const;
     qreal displayedHeight() const;
 
@@ -149,8 +152,7 @@ private:
 
     QRectF m_cropBox;
 
-    void setCropBox();
-    void resetCropBox();
+    void updateCropBox(const QRect& rect, const QRectF& partialCropBox);
 
     int m_index;
     bool m_presentationMode;

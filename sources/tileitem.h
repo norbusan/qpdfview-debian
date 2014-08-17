@@ -46,9 +46,6 @@ public:
     inline const QRect& rect() const { return m_rect; }
     inline void setRect(const QRect& rect) { m_rect = rect; }
 
-    inline const QRectF& cropBox() const { return m_cropBox; }
-    inline void resetCropBox() {  m_cropBox = QRectF(0.0, 0.0, 1.0, 1.0); }
-
     inline void dropPixmap() { m_pixmap = QPixmap(); }
     inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
 
@@ -84,8 +81,6 @@ private:
     CacheKey cacheKey() const;
 
     QRect m_rect;
-
-    QRectF m_cropBox;
 
     bool m_pixmapError;
     QPixmap m_pixmap;

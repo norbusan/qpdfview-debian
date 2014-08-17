@@ -138,6 +138,21 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     paintRubberBand(painter);
 }
 
+void PageItem::setCropBox(const QRectF& cropBox)
+{
+    // TODO: Add some tolerance to this comparison
+    if(m_cropBox != cropBox)
+    {
+        update();
+
+        m_cropBox = cropBox;
+
+        prepareGeometryChange();
+
+        emit cropBoxChanged(m_cropBox);
+    }
+}
+
 qreal PageItem::displayedWidth() const
 {
     switch(m_renderParam.rotation)
@@ -277,8 +292,7 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
 
-        // TODO: only if trim margins
-        resetCropBox();
+        setCropBox();
     }
 
     update();
@@ -688,50 +702,12 @@ void PageItem::loadInteractiveElements()
     update();
 }
 
-void PageItem::setCropBox()
+void PageItem::updateCropBox(const QRect& rect, const QRectF& partialCropBox)
 {
-    // TODO: Add non-tiling fast path
-    QRectF cropBox = QRectF();
+    const QRectF updatedCropBox = m_cropBox.intersected(partialCropBox.translated(rect.left() / m_boundingRect.width(),
+                                                                                  rect.top() / m_boundingRect.height()));
 
-    foreach(TileItem* tile, m_tileItems)
-    {
-        cropBox = cropBox.united(tile->cropBox());
-    }
-
-    // TODO: Add some tolerance to this comparison
-    // TODO: merge redundant comparisons
-    if(m_cropBox != cropBox)
-    {
-        m_cropBox = cropBox;
-
-        prepareGeometryChange();
-        update();
-
-        emit cropBoxChanged(m_cropBox);
-    }
-}
-
-void PageItem::resetCropBox()
-{
-    // TODO: Add non-tiling fast path
-    foreach(TileItem* tile, m_tileItems)
-    {
-        tile->resetCropBox();
-    }
-
-    QRectF cropBox(0.0, 0.0, 1.0, 1.0);
-
-    // TODO: Add some tolerance to this comparison
-    // TODO: merge redundant comparisons
-    if(m_cropBox != cropBox)
-    {
-        m_cropBox = cropBox;
-
-        prepareGeometryChange();
-        update();
-
-        emit cropBoxChanged(m_cropBox);
-    }
+    setCropBox(updatedCropBox);
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
