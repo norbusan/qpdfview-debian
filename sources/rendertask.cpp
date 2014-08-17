@@ -105,11 +105,86 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
-QRectF trimMargins(const RenderParam& renderParam, const QRect& rect, const QColor& paperColor, const QImage& image)
+bool columnHasPaperColor(int x, const QColor& paperColor, const QImage& image)
 {
-    // TODO
+    const int height = image.height();
 
-    return QRectF();
+    for(int y = 0; y < height; ++y)
+    {
+        if(paperColor != image.pixel(x, y))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
+{
+    const int width = image.width();
+
+    for(int x = 0; x < width; ++x)
+    {
+        if(paperColor != image.pixel(x, y))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+QRectF trimMargins(const QColor& paperColor, const QImage& image)
+{
+    if(image.isNull())
+    {
+        return QRectF(0.0, 0.0, 1.0, 1.0);
+    }
+
+    const int width = image.width();
+    const int height = image.height();
+
+    int left;
+    for(left = 0; left < width; ++left)
+    {
+        if(!columnHasPaperColor(left, paperColor, image))
+        {
+            break;
+        }
+    }
+
+    int right;
+    for(right = width - 1; right >= left; --right)
+    {
+        if(!columnHasPaperColor(right, paperColor, image))
+        {
+            break;
+        }
+    }
+
+    int top;
+    for(top = 0; top < height; ++top)
+    {
+        if(!rowHasPaperColor(top, paperColor, image))
+        {
+            break;
+        }
+    }
+
+    int bottom;
+    for(bottom = height - 1; bottom >= top; --bottom)
+    {
+        if(!rowHasPaperColor(bottom, paperColor, image))
+        {
+            break;
+        }
+    }
+
+    return QRectF(static_cast< qreal >(left) / width,
+                  static_cast< qreal >(top) / height,
+                  static_cast< qreal >(right - left + 1) / width,
+                  static_cast< qreal >(bottom - top + 1) / height);
 }
 
 } // anonymous
@@ -205,9 +280,10 @@ void RenderTask::run()
         }
 
 
-        const QRectF cropBox = trimMargins(m_renderParam, m_rect, /* TODO: m_paperColor */Qt::white, image);
+        const QRectF cropBox = trimMargins(/* TODO: m_paperColor */Qt::white, image);
 
-        emit cropBoxReady(cropBox);
+        emit cropBoxReady(m_rect, /* TODO: m_paperColor */Qt::white,
+                          cropBox);
     }
 
 
