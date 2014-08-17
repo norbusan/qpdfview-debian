@@ -167,6 +167,7 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
             break;
         }
     }
+    left = qMin(left, width / 3);
 
     int right;
     for(right = width - 1; right >= left; --right)
@@ -176,6 +177,7 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
             break;
         }
     }
+    right = qMax(right, 2 * width / 3);
 
     int top;
     for(top = 0; top < height; ++top)
@@ -185,6 +187,7 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
             break;
         }
     }
+    top = qMin(top, height / 3);
 
     int bottom;
     for(bottom = height - 1; bottom >= top; --bottom)
@@ -194,6 +197,7 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
             break;
         }
     }
+    bottom = qMax(bottom, 2 * height / 3);
 
     return QRectF(roundDown(static_cast< qreal >(left) / width, cropRectPrecision, cropRectTolerance),
                   roundDown(static_cast< qreal >(top) / height, cropRectPrecision, cropRectTolerance),
