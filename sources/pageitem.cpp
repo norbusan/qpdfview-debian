@@ -56,6 +56,7 @@ Settings* PageItem::s_settings = 0;
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
+    m_cropBox(0.0, 0.0, 1.0, 1.0),
     m_index(index),
     m_presentationMode(presentationMode),
     m_links(),
@@ -234,6 +235,8 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
     if(dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
+
+        resetCropBox();
     }
 
     update();
@@ -643,6 +646,36 @@ void PageItem::loadInteractiveElements()
     update();
 }
 
+void PageItem::setCropBox()
+{
+    // TODO: Add non-tiling fast path
+    QRectF cropBox = QRectF();
+
+    foreach(TileItem* tile, m_tileItems)
+    {
+        cropBox = cropBox.united(tile->cropBox());
+    }
+
+    // TODO: Add some tolerance to this comparison
+    if(m_cropBox != cropBox)
+    {
+        m_cropBox = cropBox;
+
+        update();
+    }
+}
+
+void PageItem::resetCropBox()
+{
+    // TODO: Add non-tiling fast path
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->resetCropBox();
+    }
+
+    m_cropBox = QRectF(0.0, 0.0, 1.0, 1.0);
+}
+
 void PageItem::copyToClipboard(const QPoint& screenPos)
 {
     QMenu menu;
@@ -1021,9 +1054,7 @@ void PageItem::prepareTiling()
             const int width = column < (columnCount - 1) ? tileWidth : pageWidth - left;
             const int height = row < (rowCount - 1) ? tileHeight : pageHeight - top;
 
-            TileItem* tile = m_tileItems.at(column * rowCount + row);
-
-            tile->setRect(QRect(left, top, width, height));
+            m_tileItems.at(column * rowCount + row)->setRect(QRect(left, top, width, height));
         }
     }
 }
@@ -1073,6 +1104,17 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
         painter->drawRect(m_boundingRect);
     }
+
+    // crop box
+
+    painter->save();
+
+    painter->setTransform(m_normalizedTransform, true);
+    painter->setPen(QPen(Qt::green, 0.0));
+
+    painter->drawRect(m_cropBox);
+
+    painter->restore();
 }
 
 void PageItem::paintLinks(QPainter* painter) const

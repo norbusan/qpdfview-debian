@@ -37,6 +37,7 @@ QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
+    m_cropBox(0.0, 0.0, 1.0, 1.0),
     m_pixmapError(false),
     m_pixmap(),
     m_obsoletePixmap(),
@@ -53,6 +54,7 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage)));
+    connect(m_renderTask, SIGNAL(cropBoxReady(RenderParam,QRect,QRectF)), SLOT(on_renderTask_cropBoxReady(RenderParam,QRect,QRectF)));
 }
 
 TileItem::~TileItem()
@@ -199,6 +201,22 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     {
         m_pixmap = QPixmap::fromImage(image);
     }
+}
+
+void TileItem::on_renderTask_cropBoxReady(const RenderParam& renderParam,
+                                          const QRect& rect,
+                                          QRectF cropBox)
+{
+    if(parentPage()->m_renderParam != renderParam || m_rect != rect)
+    {
+        return;
+    }
+
+    const QRectF& boundingRect = parentPage()->m_boundingRect;
+
+    m_cropBox = cropBox.translated(rect.left() / boundingRect.width(), rect.top() / boundingRect.height());
+
+    parentPage()->setCropBox();
 }
 
 PageItem* TileItem::parentPage() const

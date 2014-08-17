@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rendertask.h"
 
+#include <qmath.h>
 #include <QThreadPool>
 
 #include "model.h"
@@ -105,6 +106,16 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
+qreal roundDown(qreal value, qreal precision, qreal tolerance)
+{
+    return qFloor((1.0 - tolerance) * value * precision) / precision;
+}
+
+qreal roundUp(qreal value, qreal precision, qreal tolerance)
+{
+    return qCeil((1.0 + tolerance) * value * precision) / precision;
+}
+
 bool columnHasPaperColor(int x, const QColor& paperColor, const QImage& image)
 {
     const int height = image.height();
@@ -134,6 +145,9 @@ bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
 
     return true;
 }
+
+const qreal cropBoxPrecision = 100.0;
+const qreal cropBoxTolerance = 0.05;
 
 QRectF trimMargins(const QColor& paperColor, const QImage& image)
 {
@@ -181,10 +195,10 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
         }
     }
 
-    return QRectF(static_cast< qreal >(left) / width,
-                  static_cast< qreal >(top) / height,
-                  static_cast< qreal >(right - left + 1) / width,
-                  static_cast< qreal >(bottom - top + 1) / height);
+    return QRectF(roundDown(static_cast< qreal >(left) / width, cropBoxPrecision, cropBoxTolerance),
+                  roundDown(static_cast< qreal >(top) / height, cropBoxPrecision, cropBoxTolerance),
+                  roundUp(static_cast< qreal >(right - left + 1) / width, cropBoxPrecision, cropBoxTolerance),
+                  roundUp(static_cast< qreal >(bottom - top + 1) / height, cropBoxPrecision, cropBoxTolerance));
 }
 
 } // anonymous
@@ -282,7 +296,8 @@ void RenderTask::run()
 
         const QRectF cropBox = trimMargins(/* TODO: m_paperColor */Qt::white, image);
 
-        emit cropBoxReady(m_rect, /* TODO: m_paperColor */Qt::white,
+        emit cropBoxReady(m_renderParam,
+                          m_rect,
                           cropBox);
     }
 

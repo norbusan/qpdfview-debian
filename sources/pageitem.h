@@ -142,6 +142,11 @@ private:
     Model::Page* m_page;
     QSizeF m_size;
 
+    QRectF m_cropBox;
+
+    void setCropBox();
+    void resetCropBox();
+
     int m_index;
     bool m_presentationMode;
 
