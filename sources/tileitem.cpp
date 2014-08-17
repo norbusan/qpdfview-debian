@@ -62,6 +62,21 @@ TileItem::~TileItem()
     m_renderTask->wait();
 }
 
+void TileItem::setCropRect(const QRectF& cropRect)
+{
+    if(!s_settings->pageItem().trimMargins())
+    {
+        return;
+    }
+
+    if(m_cropRect != cropRect)
+    {
+        m_cropRect = cropRect;
+
+        parentPage()->updateCropRect();
+    }
+}
+
 void TileItem::dropCachedPixmaps(PageItem* page)
 {
     foreach(CacheKey key, s_cache.keys())
@@ -127,12 +142,13 @@ void TileItem::refresh(bool keepObsoletePixmaps)
         m_obsoletePixmap = QPixmap();
     }
 
-    m_renderTask->cancel(true);
-
     m_cropRect = QRectF(0.0, 0.0, 1.0, 1.0);
+
+    m_renderTask->cancel(true);
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
+
 }
 
 int TileItem::startRender(bool prefetch)
@@ -202,13 +218,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     else if(!m_renderTask->wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
-
-        if(s_settings->pageItem().trimMargins() && m_cropRect != cropRect)
-        {
-            m_cropRect = cropRect;
-
-            parentPage()->updateCropRect();
-        }
+        setCropRect(cropRect);
     }
 }
 
@@ -241,6 +251,7 @@ QPixmap TileItem::takePixmap()
     {
         m_obsoletePixmap = QPixmap();
 
+        setCropRect(object->second);
         return object->first;
     }
 
@@ -248,11 +259,11 @@ QPixmap TileItem::takePixmap()
 
     if(!m_pixmap.isNull())
     {
+        int cost = m_pixmap.width() * m_pixmap.height() * m_pixmap.depth() / 8;
+        s_cache.insert(cacheKey(), new CacheObject(m_pixmap, m_cropRect), cost);
+
         pixmap = m_pixmap;
         m_pixmap = QPixmap();
-
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(cacheKey(), new CacheObject(pixmap, m_cropRect), cost);
     }
     else
     {

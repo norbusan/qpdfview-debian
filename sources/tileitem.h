@@ -47,6 +47,7 @@ public:
     inline void setRect(const QRect& rect) { m_rect = rect; }
 
     inline const QRectF& cropRect() const { return m_cropRect; }
+    void setCropRect(const QRectF& cropRect);
 
     inline void dropPixmap() { m_pixmap = QPixmap(); }
     inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
@@ -86,7 +87,6 @@ private:
     QRectF m_cropRect;
 
     bool m_pixmapError;
-
     QPixmap m_pixmap;
     QPixmap m_obsoletePixmap;
 
