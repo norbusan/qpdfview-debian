@@ -67,9 +67,7 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(const RenderParam& renderParam,
                                   const QRect& rect, bool prefetch,
-                                  QImage image);
-    void on_renderTask_cropRectReady(const RenderParam& renderParam, const QRect& rect,
-                                     QRectF cropRect);
+                                  QImage image, QRectF cropRect);
 
 private:
     Q_DISABLE_COPY(TileItem)

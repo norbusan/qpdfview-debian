@@ -53,8 +53,7 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
     m_renderTask = new RenderTask(parentPage()->m_page, this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage)));
-    connect(m_renderTask, SIGNAL(cropRectReady(RenderParam,QRect,QRectF)), SLOT(on_renderTask_cropRectReady(RenderParam,QRect,QRectF)));
+    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage,QRectF)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage,QRectF)));
 }
 
 TileItem::~TileItem()
@@ -179,7 +178,7 @@ void TileItem::on_renderTask_finished()
 
 void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
                                         const QRect& rect, bool prefetch,
-                                        QImage image)
+                                        QImage image, QRectF cropRect)
 {
     if(parentPage()->m_renderParam != renderParam || m_rect != rect)
     {
@@ -203,22 +202,13 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     else if(!m_renderTask->wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
-    }
-}
 
-void TileItem::on_renderTask_cropRectReady(const RenderParam& renderParam, const QRect& rect,
-                                           QRectF cropRect)
-{
-    if(parentPage()->m_renderParam != renderParam || m_rect != rect)
-    {
-        return;
-    }
+        if(m_cropRect != cropRect)
+        {
+            m_cropRect = cropRect;
 
-    if(m_cropRect != cropRect)
-    {
-        m_cropRect = cropRect;
-
-        parentPage()->updateCropRect();
+            parentPage()->updateCropRect();
+        }
     }
 }
 

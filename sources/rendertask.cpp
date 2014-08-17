@@ -253,14 +253,14 @@ bool RenderTask::wasCanceledForcibly() const
 
 void RenderTask::run()
 {
-    if(testCancellation(m_wasCanceled, m_prefetch))
-    {
-        finish();
-        return;
-    }
+#define CANCELLATION_POINT if(testCancellation(m_wasCanceled, m_prefetch)) { finish(); return; }
 
+    CANCELLATION_POINT
 
-    QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
+    QImage image;
+    QRectF cropRect;
+
+    image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
@@ -269,41 +269,29 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-
-    if(testCancellation(m_wasCanceled, m_prefetch))
-    {
-        finish();
-        return;
-    }
-
-
     if(m_renderParam.invertColors)
     {
+        CANCELLATION_POINT
+
         image.invertPixels();
     }
 
-    emit imageReady(m_renderParam,
-                    m_rect, m_prefetch,
-                    image);
-
-
     if(m_trimMargins)
     {
-        if(testCancellation(m_wasCanceled, m_prefetch))
-        {
-            finish();
-            return;
-        }
+        CANCELLATION_POINT
 
-
-        QRectF cropRect = trimMargins(m_paperColor, image);
-
-        emit cropRectReady(m_renderParam, m_rect,
-                           cropRect);
+        cropRect = trimMargins(m_paperColor, image);
     }
 
+    CANCELLATION_POINT
+
+    emit imageReady(m_renderParam,
+                    m_rect, m_prefetch,
+                    image, cropRect);
 
     finish();
+
+#undef FINISH_IF_CANCELLED
 }
 
 void RenderTask::start(const RenderParam& renderParam,
