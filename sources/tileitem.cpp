@@ -33,7 +33,7 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
+QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
@@ -115,11 +115,11 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        QPixmap* cachedPixmap = s_cache.object(cacheKey());
+        CacheObject* object = s_cache.object(cacheKey());
 
-        if(cachedPixmap != 0)
+        if(object != 0)
         {
-            m_obsoletePixmap = *cachedPixmap;
+            m_obsoletePixmap = object->first;
         }
     }
     else
@@ -197,13 +197,13 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(cacheKey(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
     }
     else if(!m_renderTask->wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
 
-        if(m_cropRect != cropRect)
+        if(s_settings->pageItem().trimMargins() && m_cropRect != cropRect)
         {
             m_cropRect = cropRect;
 
@@ -235,13 +235,13 @@ TileItem::CacheKey TileItem::cacheKey() const
 
 QPixmap TileItem::takePixmap()
 {
-    QPixmap* cachedPixmap = s_cache.object(cacheKey());
+    CacheObject* object = s_cache.object(cacheKey());
 
-    if(cachedPixmap != 0)
+    if(object != 0)
     {
         m_obsoletePixmap = QPixmap();
 
-        return *cachedPixmap;
+        return object->first;
     }
 
     QPixmap pixmap;
@@ -252,7 +252,7 @@ QPixmap TileItem::takePixmap()
         m_pixmap = QPixmap();
 
         int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
+        s_cache.insert(cacheKey(), new CacheObject(pixmap, m_cropRect), cost);
     }
     else
     {
