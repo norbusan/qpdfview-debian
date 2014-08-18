@@ -44,7 +44,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 const qreal proxyPadding = 2.0;
+
+void roundCropRect(QRectF& cropRect)
+{
+    cropRect.setLeft(qFloor(cropRect.left() * cropRectPrecision) / cropRectPrecision);
+    cropRect.setTop(qFloor(cropRect.top() * cropRectPrecision) / cropRectPrecision);
+
+    cropRect.setWidth(qCeil(cropRect.width() * cropRectPrecision) / cropRectPrecision);
+    cropRect.setHeight(qCeil(cropRect.height() * cropRectPrecision) / cropRectPrecision);
+}
 
 } // anonymous
 
@@ -707,6 +718,8 @@ void PageItem::updateCropRect()
 
             updatedCropRect = updatedCropRect.united(QRectF(left, top, width, height));
         }
+
+        roundCropRect(updatedCropRect);
     }
 
     if(m_cropRect != updatedCropRect)

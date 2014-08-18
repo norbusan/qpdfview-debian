@@ -87,6 +87,9 @@ struct RenderParam
 
 };
 
+const qreal cropRectTolerance = 0.05;
+const qreal cropRectPrecision = 100.0;
+
 enum RubberBandMode
 {
     ModifiersMode = 0,

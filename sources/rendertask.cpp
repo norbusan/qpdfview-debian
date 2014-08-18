@@ -146,9 +146,6 @@ bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
     return true;
 }
 
-const qreal cropRectPrecision = 100.0;
-const qreal cropRectTolerance = 0.05;
-
 QRectF trimMargins(const QColor& paperColor, const QImage& image)
 {
     if(image.isNull())
