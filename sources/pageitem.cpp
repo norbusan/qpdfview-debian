@@ -69,7 +69,7 @@ Settings* PageItem::s_settings = 0;
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
-    m_cropRect(0.0, 0.0, 1.0, 1.0),
+    m_cropRect(),
     m_index(index),
     m_presentationMode(presentationMode),
     m_links(),
@@ -125,7 +125,7 @@ PageItem::~PageItem()
 
 QRectF PageItem::boundingRect() const
 {
-    if(!s_settings->pageItem().trimMargins())
+    if(m_cropRect.isNull())
     {
         return m_boundingRect;
     }
@@ -153,29 +153,35 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
 qreal PageItem::displayedWidth() const
 {
+    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
+    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
+
     switch(m_renderParam.rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionX / 72.0 * m_cropRect.width() * m_size.width();
+        return m_renderParam.resolution.resolutionX / 72.0 * cropWidth * m_size.width();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionX / 72.0 * m_cropRect.height() * m_size.height();
+        return m_renderParam.resolution.resolutionX / 72.0 * cropHeight * m_size.height();
     }
 }
 
 qreal PageItem::displayedHeight() const
 {
+    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
+    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
+
     switch(m_renderParam.rotation)
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionY / 72.0 * m_cropRect.height() * m_size.height();
+        return m_renderParam.resolution.resolutionY / 72.0 * cropHeight * m_size.height();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionY / 72.0 * m_cropRect.width() * m_size.width();
+        return m_renderParam.resolution.resolutionY / 72.0 * cropWidth * m_size.width();
     }
 }
 
@@ -290,6 +296,8 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
     }
+
+    m_cropRect = QRectF();
 
     update();
 }
@@ -724,7 +732,7 @@ void PageItem::updateCropRect()
 
     roundCropRect(updatedCropRect);
 
-    if(m_cropRect != updatedCropRect)
+    if(m_cropRect.isNull())
     {
         m_cropRect = updatedCropRect;
 
