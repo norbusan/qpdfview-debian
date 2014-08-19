@@ -186,11 +186,11 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
     }
     bottom = qMax(bottom, 2 * height / 3);
 
-    left = qMax(left - width / 20, 0);
-    top = qMax(top - height / 20, 0);
+    left = qMax(left - width / 50, 0);
+    top = qMax(top - height / 50, 0);
 
-    right = qMin(right + width / 20, width);
-    bottom = qMin(bottom + height / 20, height);
+    right = qMin(right + width / 50, width);
+    bottom = qMin(bottom + height / 50, height);
 
     return QRectF(static_cast< qreal >(left) / width,
                   static_cast< qreal >(top) / height,
