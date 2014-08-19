@@ -106,16 +106,6 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
-qreal roundDown(qreal value, qreal precision, qreal tolerance)
-{
-    return qFloor((1.0 - tolerance) * value * precision) / precision;
-}
-
-qreal roundUp(qreal value, qreal precision, qreal tolerance)
-{
-    return qCeil((1.0 + tolerance) * value * precision) / precision;
-}
-
 bool columnHasPaperColor(int x, const QColor& paperColor, const QImage& image)
 {
     const int height = image.height();
@@ -196,10 +186,12 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
     }
     bottom = qMax(bottom, 2 * height / 3);
 
-    return QRectF(roundDown(static_cast< qreal >(left) / width, cropRectPrecision, cropRectTolerance),
-                  roundDown(static_cast< qreal >(top) / height, cropRectPrecision, cropRectTolerance),
-                  roundUp(static_cast< qreal >(right - left + 1) / width, cropRectPrecision, cropRectTolerance),
-                  roundUp(static_cast< qreal >(bottom - top + 1) / height, cropRectPrecision, cropRectTolerance));
+    const qreal tolerance = 0.00;
+
+    return QRectF((1.0 - tolerance) * static_cast< qreal >(left) / width,
+                  (1.0 - tolerance) * static_cast< qreal >(top) / height,
+                  (1.0 + tolerance) * static_cast< qreal >(right - left + 1) / width,
+                  (1.0 + tolerance) * static_cast< qreal >(bottom - top + 1) / height);
 }
 
 } // anonymous

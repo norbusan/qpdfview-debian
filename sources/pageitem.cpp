@@ -50,11 +50,13 @@ const qreal proxyPadding = 2.0;
 
 void roundCropRect(QRectF& cropRect)
 {
-    cropRect.setLeft(qFloor(cropRect.left() * cropRectPrecision) / cropRectPrecision);
-    cropRect.setTop(qFloor(cropRect.top() * cropRectPrecision) / cropRectPrecision);
+    const qreal precision = 100.0;
 
-    cropRect.setWidth(qCeil(cropRect.width() * cropRectPrecision) / cropRectPrecision);
-    cropRect.setHeight(qCeil(cropRect.height() * cropRectPrecision) / cropRectPrecision);
+    cropRect.setLeft(qFloor(cropRect.left() * precision) / precision);
+    cropRect.setTop(qFloor(cropRect.top() * precision) / precision);
+
+    cropRect.setWidth(qCeil(cropRect.width() * precision) / precision);
+    cropRect.setHeight(qCeil(cropRect.height() * precision) / precision);
 }
 
 } // anonymous
@@ -718,9 +720,9 @@ void PageItem::updateCropRect()
 
             updatedCropRect = updatedCropRect.united(QRectF(left, top, width, height));
         }
-
-        roundCropRect(updatedCropRect);
     }
+
+    roundCropRect(updatedCropRect);
 
     if(m_cropRect != updatedCropRect)
     {
