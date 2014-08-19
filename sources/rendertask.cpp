@@ -186,12 +186,16 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
     }
     bottom = qMax(bottom, 2 * height / 3);
 
-    const qreal tolerance = 0.00;
+    left = qMax(left - width / 20, 0);
+    top = qMax(top - height / 20, 0);
 
-    return QRectF((1.0 - tolerance) * static_cast< qreal >(left) / width,
-                  (1.0 - tolerance) * static_cast< qreal >(top) / height,
-                  (1.0 + tolerance) * static_cast< qreal >(right - left + 1) / width,
-                  (1.0 + tolerance) * static_cast< qreal >(bottom - top + 1) / height);
+    right = qMin(right + width / 20, width);
+    bottom = qMin(bottom + height / 20, height);
+
+    return QRectF(static_cast< qreal >(left) / width,
+                  static_cast< qreal >(top) / height,
+                  static_cast< qreal >(right - left) / width,
+                  static_cast< qreal >(bottom - top) / height);
 }
 
 } // anonymous
