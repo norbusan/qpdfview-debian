@@ -292,12 +292,15 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
         }
     }
 
+    if(!keepObsoletePixmaps)
+    {
+        m_cropRect = QRectF();
+    }
+
     if(dropCachedPixmaps)
     {
         TileItem::dropCachedPixmaps(this);
     }
-
-    m_cropRect = QRectF();
 
     update();
 }
@@ -708,36 +711,41 @@ void PageItem::loadInteractiveElements()
 
 void PageItem::updateCropRect()
 {
-    QRectF updatedCropRect;
+    QRectF cropRect;
 
     if(!s_settings->pageItem().useTiling())
     {
-        updatedCropRect = m_tileItems.first()->cropRect();
+        cropRect = m_tileItems.first()->cropRect();
     }
     else
     {
         foreach(TileItem* tile, m_tileItems)
         {
-            const QRect& rect = tile->rect();
-            const QRectF& cropRect = tile->cropRect();
+            const QRect& tileRect = tile->rect();
+            const QRectF& tileCropRect = tile->cropRect();
 
-            const qreal left = (rect.left() + cropRect.left() * rect.width()) / m_boundingRect.width();
-            const qreal top = (rect.top() + cropRect.top() * rect.height()) / m_boundingRect.height();
-            const qreal width = cropRect.width() * rect.width() / m_boundingRect.width();
-            const qreal height = cropRect.height() * rect.height() / m_boundingRect.height();
+            if(tileCropRect.isNull())
+            {
+                cropRect = QRectF();
+                break;
+            }
 
-            updatedCropRect = updatedCropRect.united(QRectF(left, top, width, height));
+            const qreal left = (tileRect.left() + tileCropRect.left() * tileRect.width()) / m_boundingRect.width();
+            const qreal top = (tileRect.top() + tileCropRect.top() * tileRect.height()) / m_boundingRect.height();
+            const qreal width = tileCropRect.width() * tileRect.width() / m_boundingRect.width();
+            const qreal height = tileCropRect.height() * tileRect.height() / m_boundingRect.height();
+
+            cropRect = cropRect.united(QRectF(left, top, width, height));
         }
     }
 
-    roundCropRect(updatedCropRect);
+    roundCropRect(cropRect);
 
-    if(m_cropRect.isNull())
+    if(m_cropRect.isNull() && !cropRect.isNull())
     {
-        m_cropRect = updatedCropRect;
+        m_cropRect = cropRect;
 
         prepareGeometryChange();
-
         emit cropRectChanged();
     }
 }

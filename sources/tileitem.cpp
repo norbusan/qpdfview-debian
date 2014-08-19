@@ -37,7 +37,7 @@ QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
-    m_cropRect(0.0, 0.0, 1.0, 1.0),
+    m_cropRect(),
     m_pixmapError(false),
     m_pixmap(),
     m_obsoletePixmap(),
@@ -69,7 +69,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
         return;
     }
 
-    if(m_cropRect != cropRect)
+    if(m_cropRect.isNull() && !cropRect.isNull())
     {
         m_cropRect = cropRect;
 
@@ -140,6 +140,11 @@ void TileItem::refresh(bool keepObsoletePixmaps)
     else
     {
         m_obsoletePixmap = QPixmap();
+    }
+
+    if(!keepObsoletePixmaps)
+    {
+        m_cropRect = QRectF();
     }
 
     m_renderTask->cancel(true);
