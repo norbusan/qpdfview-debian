@@ -1176,7 +1176,19 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
     {
         // border
 
-        painter->drawRect(m_boundingRect);
+        if(!s_settings->pageItem().trimMargins())
+        {
+            painter->drawRect(m_boundingRect);
+        }
+        else
+        {
+            painter->save();
+            painter->setClipping(false);
+
+            painter->drawRect(boundingRect());
+
+            painter->restore();
+        }
     }
 }
 
