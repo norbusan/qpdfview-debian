@@ -48,17 +48,6 @@ using namespace qpdfview;
 
 const qreal proxyPadding = 2.0;
 
-void roundCropRect(QRectF& cropRect)
-{
-    const qreal precision = 100.0;
-
-    cropRect.setLeft(qFloor(cropRect.left() * precision) / precision);
-    cropRect.setTop(qFloor(cropRect.top() * precision) / precision);
-
-    cropRect.setWidth(qCeil(cropRect.width() * precision) / precision);
-    cropRect.setHeight(qCeil(cropRect.height() * precision) / precision);
-}
-
 } // anonymous
 
 namespace qpdfview
@@ -738,8 +727,6 @@ void PageItem::updateCropRect()
             cropRect = cropRect.united(QRectF(left, top, width, height));
         }
     }
-
-    roundCropRect(cropRect);
 
     if(m_cropRect.isNull() && !cropRect.isNull())
     {

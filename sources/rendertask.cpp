@@ -106,13 +106,13 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
-bool columnHasPaperColor(int x, const QColor& paperColor, const QImage& image)
+bool columnHasPaperColor(int x, const QRgb& paperColor, const QImage& image)
 {
     const int height = image.height();
 
     for(int y = 0; y < height; ++y)
     {
-        if(paperColor != image.pixel(x, y))
+        if(paperColor != (image.pixel(x, y) | 0xff000000u))
         {
             return false;
         }
@@ -121,13 +121,13 @@ bool columnHasPaperColor(int x, const QColor& paperColor, const QImage& image)
     return true;
 }
 
-bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
+bool rowHasPaperColor(int y, const QRgb& paperColor, const QImage& image)
 {
     const int width = image.width();
 
     for(int x = 0; x < width; ++x)
     {
-        if(paperColor != image.pixel(x, y))
+        if(paperColor != (image.pixel(x, y) | 0xff000000u))
         {
             return false;
         }
@@ -136,7 +136,7 @@ bool rowHasPaperColor(int y, const QColor& paperColor, const QImage& image)
     return true;
 }
 
-QRectF trimMargins(const QColor& paperColor, const QImage& image)
+QRectF trimMargins(const QRgb& paperColor, const QImage& image)
 {
     if(image.isNull())
     {
@@ -186,11 +186,11 @@ QRectF trimMargins(const QColor& paperColor, const QImage& image)
     }
     bottom = qMax(bottom, 2 * height / 3);
 
-    left = qMax(left - width / 50, 0);
-    top = qMax(top - height / 50, 0);
+    left = qMax(left - width / 100, 0);
+    top = qMax(top - height / 100, 0);
 
-    right = qMin(right + width / 50, width);
-    bottom = qMin(bottom + height / 50, height);
+    right = qMin(right + width / 100, width);
+    bottom = qMin(bottom + height / 100, height);
 
     return QRectF(static_cast< qreal >(left) / width,
                   static_cast< qreal >(top) / height,
@@ -277,7 +277,7 @@ void RenderTask::run()
     {
         CANCELLATION_POINT
 
-        cropRect = trimMargins(m_paperColor, image);
+        cropRect = trimMargins(m_paperColor.rgb(), image);
     }
 
     CANCELLATION_POINT
