@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rendertask.h"
 
+#include <qmath.h>
 #include <QThreadPool>
 
 #include "model.h"
@@ -105,18 +106,112 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
+bool columnHasPaperColor(int x, const QRgb& paperColor, const QImage& image)
+{
+    const int height = image.height();
+
+    for(int y = 0; y < height; ++y)
+    {
+        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool rowHasPaperColor(int y, const QRgb& paperColor, const QImage& image)
+{
+    const int width = image.width();
+
+    for(int x = 0; x < width; ++x)
+    {
+        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+QRectF trimMargins(const QRgb& paperColor, const QImage& image)
+{
+    if(image.isNull())
+    {
+        return QRectF(0.0, 0.0, 1.0, 1.0);
+    }
+
+    const int width = image.width();
+    const int height = image.height();
+
+    int left;
+    for(left = 0; left < width; ++left)
+    {
+        if(!columnHasPaperColor(left, paperColor, image))
+        {
+            break;
+        }
+    }
+    left = qMin(left, width / 3);
+
+    int right;
+    for(right = width - 1; right >= left; --right)
+    {
+        if(!columnHasPaperColor(right, paperColor, image))
+        {
+            break;
+        }
+    }
+    right = qMax(right, 2 * width / 3);
+
+    int top;
+    for(top = 0; top < height; ++top)
+    {
+        if(!rowHasPaperColor(top, paperColor, image))
+        {
+            break;
+        }
+    }
+    top = qMin(top, height / 3);
+
+    int bottom;
+    for(bottom = height - 1; bottom >= top; --bottom)
+    {
+        if(!rowHasPaperColor(bottom, paperColor, image))
+        {
+            break;
+        }
+    }
+    bottom = qMax(bottom, 2 * height / 3);
+
+    left = qMax(left - width / 100, 0);
+    top = qMax(top - height / 100, 0);
+
+    right = qMin(right + width / 100, width);
+    bottom = qMin(bottom + height / 100, height);
+
+    return QRectF(static_cast< qreal >(left) / width,
+                  static_cast< qreal >(top) / height,
+                  static_cast< qreal >(right - left) / width,
+                  static_cast< qreal >(bottom - top) / height);
+}
+
 } // anonymous
 
 namespace qpdfview
 {
 
-RenderTask::RenderTask(QObject* parent) : QObject(parent), QRunnable(),
+RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
-    m_page(0),
+    m_page(page),
     m_renderParam(),
     m_rect(),
-    m_prefetch(false)
+    m_prefetch(false),
+    m_trimMargins(false),
+    m_paperColor()
 {
     setAutoDelete(false);
 }
@@ -155,15 +250,14 @@ bool RenderTask::wasCanceledForcibly() const
 
 void RenderTask::run()
 {
-    if(testCancellation(m_wasCanceled, m_prefetch))
-    {
-        finish();
+#define CANCELLATION_POINT if(testCancellation(m_wasCanceled, m_prefetch)) { finish(); return; }
 
-        return;
-    }
+    CANCELLATION_POINT
 
+    QImage image;
+    QRectF cropRect;
 
-    QImage image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
+    image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
                                   m_renderParam.rotation, m_rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
@@ -172,37 +266,42 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-
-    if(testCancellation(m_wasCanceled, m_prefetch))
-    {
-        finish();
-
-        return;
-    }
-
-
     if(m_renderParam.invertColors)
     {
+        CANCELLATION_POINT
+
         image.invertPixels();
     }
 
+    if(m_trimMargins)
+    {
+        CANCELLATION_POINT
+
+        cropRect = trimMargins(m_paperColor.rgb(), image);
+    }
+
+    CANCELLATION_POINT
+
     emit imageReady(m_renderParam,
                     m_rect, m_prefetch,
-                    image);
+                    image, cropRect);
 
     finish();
+
+#undef FINISH_IF_CANCELLED
 }
 
-void RenderTask::start(Model::Page* page,
-                       const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch)
+void RenderTask::start(const RenderParam& renderParam,
+                       const QRect& rect, bool prefetch,
+                       bool trimMargins, const QColor& paperColor)
 {
-    m_page = page;
-
     m_renderParam = renderParam;
 
     m_rect = rect;
     m_prefetch = prefetch;
+
+    m_trimMargins = trimMargins;
+    m_paperColor = paperColor;
 
     m_mutex.lock();
     m_isRunning = true;

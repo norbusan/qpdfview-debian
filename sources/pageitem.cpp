@@ -44,6 +44,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 const qreal proxyPadding = 2.0;
 
 } // anonymous
@@ -56,6 +58,7 @@ Settings* PageItem::s_settings = 0;
 PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
+    m_cropRect(),
     m_index(index),
     m_presentationMode(presentationMode),
     m_links(),
@@ -79,7 +82,8 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     setAcceptHoverEvents(true);
 
-    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption);
+    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling());
+    setFlag(QGraphicsItem::ItemClipsToShape, s_settings->pageItem().trimMargins());
 
     if(!s_settings->pageItem().useTiling())
     {
@@ -110,7 +114,19 @@ PageItem::~PageItem()
 
 QRectF PageItem::boundingRect() const
 {
-    return m_boundingRect;
+    if(m_cropRect.isNull())
+    {
+        return m_boundingRect;
+    }
+
+    QRectF boundingRect;
+
+    boundingRect.setLeft(m_boundingRect.left() + m_cropRect.left() * m_boundingRect.width());
+    boundingRect.setTop(m_boundingRect.top() + m_cropRect.top() * m_boundingRect.height());
+    boundingRect.setWidth(m_cropRect.width() * m_boundingRect.width());
+    boundingRect.setHeight(m_cropRect.height() * m_boundingRect.height());
+
+    return boundingRect;
 }
 
 void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*)
@@ -122,6 +138,40 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
     paintHighlights(painter);
     paintRubberBand(painter);
+}
+
+qreal PageItem::displayedWidth() const
+{
+    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
+    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
+
+    switch(m_renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return m_renderParam.resolution.resolutionX / 72.0 * cropWidth * m_size.width();
+    case RotateBy90:
+    case RotateBy270:
+        return m_renderParam.resolution.resolutionX / 72.0 * cropHeight * m_size.height();
+    }
+}
+
+qreal PageItem::displayedHeight() const
+{
+    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
+    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
+
+    switch(m_renderParam.rotation)
+    {
+    default:
+    case RotateBy0:
+    case RotateBy180:
+        return m_renderParam.resolution.resolutionY / 72.0 * cropHeight * m_size.height();
+    case RotateBy90:
+    case RotateBy270:
+        return m_renderParam.resolution.resolutionY / 72.0 * cropWidth * m_size.width();
+    }
 }
 
 void PageItem::setHighlights(const QList< QRectF >& highlights)
@@ -229,6 +279,11 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
         {
             tile->refresh(keepObsoletePixmaps);
         }
+    }
+
+    if(!keepObsoletePixmaps)
+    {
+        m_cropRect = QRectF();
     }
 
     if(dropCachedPixmaps)
@@ -643,6 +698,45 @@ void PageItem::loadInteractiveElements()
     update();
 }
 
+void PageItem::updateCropRect()
+{
+    QRectF cropRect;
+
+    if(!s_settings->pageItem().useTiling())
+    {
+        cropRect = m_tileItems.first()->cropRect();
+    }
+    else
+    {
+        foreach(TileItem* tile, m_tileItems)
+        {
+            const QRect& tileRect = tile->rect();
+            const QRectF& tileCropRect = tile->cropRect();
+
+            if(tileCropRect.isNull())
+            {
+                cropRect = QRectF();
+                break;
+            }
+
+            const qreal left = (tileRect.left() + tileCropRect.left() * tileRect.width()) / m_boundingRect.width();
+            const qreal top = (tileRect.top() + tileCropRect.top() * tileRect.height()) / m_boundingRect.height();
+            const qreal width = tileCropRect.width() * tileRect.width() / m_boundingRect.width();
+            const qreal height = tileCropRect.height() * tileRect.height() / m_boundingRect.height();
+
+            cropRect = cropRect.united(QRectF(left, top, width, height));
+        }
+    }
+
+    if(m_cropRect.isNull() && !cropRect.isNull())
+    {
+        m_cropRect = cropRect;
+
+        prepareGeometryChange();
+        emit cropRectChanged();
+    }
+}
+
 void PageItem::copyToClipboard(const QPoint& screenPos)
 {
     QMenu menu;
@@ -1021,9 +1115,7 @@ void PageItem::prepareTiling()
             const int width = column < (columnCount - 1) ? tileWidth : pageWidth - left;
             const int height = row < (rowCount - 1) ? tileHeight : pageHeight - top;
 
-            TileItem* tile = m_tileItems.at(column * rowCount + row);
-
-            tile->setRect(QRect(left, top, width, height));
+            m_tileItems.at(column * rowCount + row)->setRect(QRect(left, top, width, height));
         }
     }
 }
@@ -1071,7 +1163,19 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
     {
         // border
 
-        painter->drawRect(m_boundingRect);
+        if(!s_settings->pageItem().trimMargins())
+        {
+            painter->drawRect(m_boundingRect);
+        }
+        else
+        {
+            painter->save();
+            painter->setClipping(false);
+
+            painter->drawRect(boundingRect());
+
+            painter->restore();
+        }
     }
 }
 

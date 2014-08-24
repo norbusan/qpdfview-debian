@@ -69,6 +69,9 @@ public:
         inline bool useDevicePixelRatio() const { return m_useDevicePixelRatio; }
         void setUseDevicePixelRatio(bool useDevicePixelRatio);
 
+        inline bool trimMargins() const { return m_trimMargins; }
+        void setTrimMargins(bool trimMargins);
+
         inline bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decorate);
 
@@ -118,6 +121,8 @@ public:
 
         bool m_keepObsoletePixmaps;
         bool m_useDevicePixelRatio;
+
+        bool m_trimMargins;
 
         bool m_decoratePages;
         bool m_decorateLinks;
@@ -450,6 +455,8 @@ public:
 
         static inline bool keepObsoletePixmaps() { return false; }
         static inline bool useDevicePixelRatio() { return false; }
+
+        static inline bool trimMargins() { return false; }
 
         static inline bool decoratePages() { return true; }
         static inline bool decorateLinks() { return true; }

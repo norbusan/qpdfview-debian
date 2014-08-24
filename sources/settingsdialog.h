@@ -118,6 +118,8 @@ private:
 
 #endif // QT_VERSION
 
+    QCheckBox* m_trimMarginsCheckBox;
+
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
     QCheckBox* m_decorateFormFieldsCheckBox;

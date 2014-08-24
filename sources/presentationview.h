@@ -92,6 +92,8 @@ public slots:
 protected slots:
     void on_prefetch_timeout();
 
+    void on_pages_cropRectChanged();
+
     void on_pages_linkClicked(bool newTab, int page, qreal left, qreal top);
 
 protected:

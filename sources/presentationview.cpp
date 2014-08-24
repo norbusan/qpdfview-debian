@@ -369,6 +369,12 @@ void PresentationView::on_prefetch_timeout()
     }
 }
 
+void PresentationView::on_pages_cropRectChanged()
+{
+    prepareScene();
+    prepareView();
+}
+
 void PresentationView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
     Q_UNUSED(newTab);
@@ -542,6 +548,8 @@ void PresentationView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_pages_cropRectChanged()));
+
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }
 }
@@ -565,10 +573,11 @@ void PresentationView::prepareBackground()
 
 void PresentationView::prepareScene()
 {
-    for(int index = 0; index < m_pageItems.count(); ++index)
-    {
-        PageItem* page = m_pageItems.at(index);
+    const qreal visibleWidth = viewport()->width();
+    const qreal visibleHeight = viewport()->height();
 
+    foreach(PageItem* page, m_pageItems)
+    {
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
         page->setDevicePixelRatio(devicePixelRatio());
@@ -577,26 +586,10 @@ void PresentationView::prepareScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        const qreal visibleWidth = viewport()->width();
-        const qreal visibleHeight = viewport()->height();
+        page->setRotation(m_rotation);
 
-        qreal pageWidth = 0.0;
-        qreal pageHeight = 0.0;
-
-        switch(m_rotation)
-        {
-        default:
-        case RotateBy0:
-        case RotateBy180:
-            pageWidth = logicalDpiX() / 72.0 * page->size().width();
-            pageHeight = logicalDpiY() / 72.0 * page->size().height();
-            break;
-        case RotateBy90:
-        case RotateBy270:
-            pageWidth = logicalDpiX() / 72.0 * page->size().height();
-            pageHeight = logicalDpiY() / 72.0 * page->size().width();
-            break;
-        }
+        const qreal displayedWidth = page->displayedWidth();
+        const qreal displayedHeight = page->displayedHeight();
 
         switch(m_scaleMode)
         {
@@ -605,14 +598,12 @@ void PresentationView::prepareScene()
             page->setScaleFactor(m_scaleFactor);
             break;
         case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / pageWidth);
+            page->setScaleFactor(visibleWidth / displayedWidth);
             break;
         case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / pageWidth, visibleHeight / pageHeight));
+            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
             break;
         }
-
-        page->setRotation(m_rotation);
     }
 }
 

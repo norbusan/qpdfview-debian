@@ -63,6 +63,9 @@ public:
 
     inline const QSizeF& size() const { return m_size; }
 
+    qreal displayedWidth() const;
+    qreal displayedHeight() const;
+
     inline const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
 
@@ -92,6 +95,8 @@ public:
     inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
 signals:
+    void cropRectChanged();
+
     void linkClicked(bool newTab, int page, qreal left = 0.0, qreal top = 0.0);
     void linkClicked(const QString& url);
     void linkClicked(const QString& fileName, int page);
@@ -141,6 +146,10 @@ private:
 
     Model::Page* m_page;
     QSizeF m_size;
+
+    QRectF m_cropRect;
+
+    void updateCropRect();
 
     int m_index;
     bool m_presentationMode;

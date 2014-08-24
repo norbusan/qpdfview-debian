@@ -33,10 +33,11 @@ namespace qpdfview
 
 Settings* TileItem::s_settings = 0;
 
-QCache< TileItem::CacheKey, QPixmap > TileItem::s_cache;
+QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
 TileItem::TileItem(QObject* parent) : QObject(parent),
     m_rect(),
+    m_cropRect(),
     m_pixmapError(false),
     m_pixmap(),
     m_obsoletePixmap(),
@@ -49,16 +50,31 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
 
-    m_renderTask = new RenderTask(this);
+    m_renderTask = new RenderTask(parentPage()->m_page, this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage)));
+    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage,QRectF)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage,QRectF)));
 }
 
 TileItem::~TileItem()
 {
     m_renderTask->cancel(true);
     m_renderTask->wait();
+}
+
+void TileItem::setCropRect(const QRectF& cropRect)
+{
+    if(!s_settings->pageItem().trimMargins())
+    {
+        return;
+    }
+
+    if(m_cropRect.isNull() && !cropRect.isNull())
+    {
+        m_cropRect = cropRect;
+
+        parentPage()->updateCropRect();
+    }
 }
 
 void TileItem::dropCachedPixmaps(PageItem* page)
@@ -114,11 +130,11 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        QPixmap* cachedPixmap = s_cache.object(cacheKey());
+        CacheObject* object = s_cache.object(cacheKey());
 
-        if(cachedPixmap != 0)
+        if(object != 0)
         {
-            m_obsoletePixmap = *cachedPixmap;
+            m_obsoletePixmap = object->first;
         }
     }
     else
@@ -126,10 +142,16 @@ void TileItem::refresh(bool keepObsoletePixmaps)
         m_obsoletePixmap = QPixmap();
     }
 
+    if(!keepObsoletePixmaps)
+    {
+        m_cropRect = QRectF();
+    }
+
     m_renderTask->cancel(true);
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
+
 }
 
 int TileItem::startRender(bool prefetch)
@@ -139,9 +161,9 @@ int TileItem::startRender(bool prefetch)
         return 0;
     }
 
-    m_renderTask->start(parentPage()->m_page,
-                        parentPage()->m_renderParam,
-                        m_rect, prefetch);
+    m_renderTask->start(parentPage()->m_renderParam,
+                        m_rect, prefetch,
+                        s_settings->pageItem().trimMargins(), s_settings->pageItem().paperColor());
 
     return 1;
 }
@@ -175,7 +197,7 @@ void TileItem::on_renderTask_finished()
 
 void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
                                         const QRect& rect, bool prefetch,
-                                        QImage image)
+                                        QImage image, QRectF cropRect)
 {
     if(parentPage()->m_renderParam != renderParam || m_rect != rect)
     {
@@ -194,11 +216,15 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
         int cost = image.width() * image.height() * image.depth() / 8;
-        s_cache.insert(cacheKey(), new QPixmap(QPixmap::fromImage(image)), cost);
+        s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
+
+        setCropRect(cropRect);
     }
     else if(!m_renderTask->wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
+
+        setCropRect(cropRect);
     }
 }
 
@@ -225,24 +251,25 @@ TileItem::CacheKey TileItem::cacheKey() const
 
 QPixmap TileItem::takePixmap()
 {
-    QPixmap* cachedPixmap = s_cache.object(cacheKey());
+    CacheObject* object = s_cache.object(cacheKey());
 
-    if(cachedPixmap != 0)
+    if(object != 0)
     {
         m_obsoletePixmap = QPixmap();
 
-        return *cachedPixmap;
+        setCropRect(object->second);
+        return object->first;
     }
 
     QPixmap pixmap;
 
     if(!m_pixmap.isNull())
     {
+        int cost = m_pixmap.width() * m_pixmap.height() * m_pixmap.depth() / 8;
+        s_cache.insert(cacheKey(), new CacheObject(m_pixmap, m_cropRect), cost);
+
         pixmap = m_pixmap;
         m_pixmap = QPixmap();
-
-        int cost = pixmap.width() * pixmap.height() * pixmap.depth() / 8;
-        s_cache.insert(cacheKey(), new QPixmap(pixmap), cost);
     }
     else
     {

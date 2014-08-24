@@ -46,6 +46,9 @@ public:
     inline const QRect& rect() const { return m_rect; }
     inline void setRect(const QRect& rect) { m_rect = rect; }
 
+    inline const QRectF& cropRect() const { return m_cropRect; }
+    void setCropRect(const QRectF& cropRect);
+
     inline void dropPixmap() { m_pixmap = QPixmap(); }
     inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
 
@@ -65,7 +68,7 @@ protected slots:
     void on_renderTask_finished();
     void on_renderTask_imageReady(const RenderParam& renderParam,
                                   const QRect& rect, bool prefetch,
-                                  QImage image);
+                                  QImage image, QRectF cropRect);
 
 private:
     Q_DISABLE_COPY(TileItem)
@@ -73,12 +76,15 @@ private:
     static Settings* s_settings;
 
     typedef QPair< PageItem*, QByteArray > CacheKey;
-    static QCache< CacheKey, QPixmap > s_cache;
+    typedef QPair< QPixmap, QRectF > CacheObject;
+
+    static QCache< CacheKey, CacheObject > s_cache;
 
     PageItem* parentPage() const;
     CacheKey cacheKey() const;
 
     QRect m_rect;
+    QRectF m_cropRect;
 
     bool m_pixmapError;
     QPixmap m_pixmap;

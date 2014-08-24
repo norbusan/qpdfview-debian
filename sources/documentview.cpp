@@ -71,34 +71,6 @@ namespace
 
 using namespace qpdfview;
 
-qreal unscaledPageWidth(PageItem* page)
-{
-    switch(page->rotation())
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        return page->resolutionX() / 72.0 * page->size().width();
-    case RotateBy90:
-    case RotateBy270:
-        return page->resolutionX() / 72.0 * page->size().height();
-    }
-}
-
-qreal unscaledPageHeight(PageItem* page)
-{
-    switch(page->rotation())
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        return page->resolutionY() / 72.0 * page->size().height();
-    case RotateBy90:
-    case RotateBy270:
-        return page->resolutionY() / 72.0 * page->size().width();
-    }
-}
-
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -1103,6 +1075,20 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
     }
 }
 
+void DocumentView::on_pages_cropRectChanged()
+{
+    qreal left = 0.0, top = 0.0;
+    saveLeftAndTop(left, top);
+
+    prepareScene();
+    prepareView(left, top);
+}
+
+void DocumentView::on_thumbnails_cropRectChanged()
+{
+    prepareThumbnailsScene();
+}
+
 void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
     page = qMax(page, 1);
@@ -1210,11 +1196,11 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    const qreal unscaledWidth = unscaledPageWidth(m_pageItems.at(page - 1));
-    const qreal unscaledHeight = unscaledPageHeight(m_pageItems.at(page - 1));
+    const qreal displayedWidth = m_pageItems.at(page - 1)->displayedWidth();
+    const qreal displayedHeight = m_pageItems.at(page - 1)->displayedHeight();
 
-    setScaleFactor(qMin(qMin(visibleWidth / unscaledWidth / rect.width(),
-                             visibleHeight / unscaledHeight / rect.height()),
+    setScaleFactor(qMin(qMin(visibleWidth / displayedWidth / rect.width(),
+                             visibleHeight / displayedHeight / rect.height()),
                         Defaults::DocumentView::maximumScaleFactor()));
 
     setScaleMode(ScaleFactorMode);
@@ -1696,9 +1682,6 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 
     left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
-
-    left = left >= 0.0 ? left : 0.0;
-    top = top >= 0.0 ? top : 0.0;
 }
 
 bool DocumentView::checkDocument(const QString& filePath, Model::Document* document)
@@ -1857,6 +1840,8 @@ void DocumentView::preparePages()
         scene()->addItem(page);
         m_pageItems.append(page);
 
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_pages_cropRectChanged()));
+
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
         connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
@@ -1883,6 +1868,8 @@ void DocumentView::prepareThumbnails()
 
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
+
+        connect(page, SIGNAL(cropRectChanged()), SLOT(on_thumbnails_cropRectChanged()));
 
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
     }
@@ -1929,8 +1916,8 @@ void DocumentView::prepareScene()
 
         page->setRotation(m_rotation);
 
-        const qreal unscaledWidth = unscaledPageWidth(page);
-        const qreal unscaledHeight = unscaledPageHeight(page);
+        const qreal displayedWidth = page->displayedWidth();
+        const qreal displayedHeight = page->displayedHeight();
 
         switch(m_scaleMode)
         {
@@ -1939,10 +1926,10 @@ void DocumentView::prepareScene()
             page->setScaleFactor(m_scaleFactor);
             break;
         case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / unscaledWidth);
+            page->setScaleFactor(visibleWidth / displayedWidth);
             break;
         case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / unscaledWidth, visibleHeight / unscaledHeight));
+            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
             break;
         }
     }
@@ -2062,7 +2049,8 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setResolution(logicalDpiX(), logicalDpiY());
 
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / unscaledPageWidth(page), s_settings->documentView().thumbnailSize() / unscaledPageHeight(page)));
+        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->displayedWidth(),
+                                  s_settings->documentView().thumbnailSize() / page->displayedHeight()));
 
         // prepare layout
 
