@@ -3,6 +3,7 @@ Release 0.4.12:
   * Add context menu to copy link addresses.
   * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
   * Extend the D-Bus interface to support more IPC scenarios.
+  * Updated Italian translations. Thanks to Claudio Arseni.
 
 Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.
