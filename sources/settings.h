@@ -73,25 +73,25 @@ public:
         void setTrimMargins(bool trimMargins);
 
         inline bool decoratePages() const { return m_decoratePages; }
-        void setDecoratePages(bool decorate);
+        void setDecoratePages(bool decoratePages);
 
         inline bool decorateLinks() const { return m_decorateLinks; }
-        void setDecorateLinks(bool decorate);
+        void setDecorateLinks(bool decorateLinks);
 
         inline bool decorateFormFields() const { return m_decorateFormFields; }
-        void setDecorateFormFields(bool decorate);
+        void setDecorateFormFields(bool decorateFormFields);
 
         inline const QColor& backgroundColor() const { return m_backgroundColor; }
-        void setBackgroundColor(const QColor& color);
+        void setBackgroundColor(const QColor& backgroundColor);
 
         inline const QColor& paperColor() const { return m_paperColor; }
-        void setPaperColor(const QColor& color);
+        void setPaperColor(const QColor& paperColor);
 
         inline const QColor& highlightColor() const { return m_highlightColor; }
-        void setHighlightColor(const QColor& color);
+        void setHighlightColor(const QColor& highlightColor);
 
         QColor annotationColor() const;
-        void setAnnotationColor(const QColor& color);
+        void setAnnotationColor(const QColor& annotationColor);
 
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
         void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
@@ -275,7 +275,7 @@ public:
     {
     public:
         bool trackRecentlyUsed() const;
-        void setTrackRecentlyUsed(bool on);
+        void setTrackRecentlyUsed(bool trackRecentlyUsed);
 
         int recentlyUsedCount() const;
         void setRecentlyUsedCount(int recentlyUsedCount);
@@ -284,19 +284,19 @@ public:
         void setRecentlyUsed(const QStringList& recentlyUsed);
 
         bool keepRecentlyClosed() const;
-        void setKeepRecentlyClosed(bool on);
+        void setKeepRecentlyClosed(bool keepRecentlyClosed);
 
         int recentlyClosedCount() const;
         void setRecentlyClosedCount(int recentlyClosedCount);
 
         bool restoreTabs() const;
-        void setRestoreTabs(bool on);
+        void setRestoreTabs(bool restoreTabs);
 
         bool restoreBookmarks() const;
-        void setRestoreBookmarks(bool on);
+        void setRestoreBookmarks(bool restoreBookmarks);
 
         bool restorePerFileSettings() const;
-        void setRestorePerFileSettings(bool on);
+        void setRestorePerFileSettings(bool restorePerFileSettings);
 
         int saveDatabaseInterval() const;
         void setSaveDatabaseInterval(int saveDatabaseInterval);

@@ -106,7 +106,7 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             renderParam.resolution.resolutionY * renderParam.scaleFactor;
 }
 
-bool columnHasPaperColor(int x, const QRgb& paperColor, const QImage& image)
+bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
 {
     const int height = image.height();
 
@@ -121,7 +121,7 @@ bool columnHasPaperColor(int x, const QRgb& paperColor, const QImage& image)
     return true;
 }
 
-bool rowHasPaperColor(int y, const QRgb& paperColor, const QImage& image)
+bool rowHasPaperColor(int y, QRgb paperColor, const QImage& image)
 {
     const int width = image.width();
 
@@ -136,7 +136,7 @@ bool rowHasPaperColor(int y, const QRgb& paperColor, const QImage& image)
     return true;
 }
 
-QRectF trimMargins(const QRgb& paperColor, const QImage& image)
+QRectF trimMargins(QRgb paperColor, const QImage& image)
 {
     if(image.isNull())
     {

@@ -430,6 +430,7 @@ void SettingsDialog::createGraphicsTab()
     m_trimMarginsCheckBox->setChecked(s_settings->pageItem().trimMargins());
 
     m_graphicsLayout->addRow(tr("Trim margins:"), m_trimMarginsCheckBox);
+
     // decorate pages
 
     m_decoratePagesCheckBox = new QCheckBox(this);

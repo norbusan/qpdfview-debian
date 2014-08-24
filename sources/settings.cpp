@@ -134,40 +134,40 @@ void Settings::PageItem::setTrimMargins(bool trimMargins)
     m_settings->setValue("pageItem/trimMargins", trimMargins);
 }
 
-void Settings::PageItem::setDecoratePages(bool decorate)
+void Settings::PageItem::setDecoratePages(bool decoratePages)
 {
-    m_decoratePages = decorate;
-    m_settings->setValue("pageItem/decoratePages", decorate);
+    m_decoratePages = decoratePages;
+    m_settings->setValue("pageItem/decoratePages", decoratePages);
 }
 
-void Settings::PageItem::setDecorateLinks(bool decorate)
+void Settings::PageItem::setDecorateLinks(bool decorateLinks)
 {
-    m_decorateLinks = decorate;
-    m_settings->setValue("pageItem/decorateLinks", decorate);
+    m_decorateLinks = decorateLinks;
+    m_settings->setValue("pageItem/decorateLinks", decorateLinks);
 }
 
-void Settings::PageItem::setDecorateFormFields(bool decorate)
+void Settings::PageItem::setDecorateFormFields(bool decorateFormFields)
 {
-    m_decorateFormFields = decorate;
-    m_settings->setValue("pageItem/decorateFormFields", decorate);
+    m_decorateFormFields = decorateFormFields;
+    m_settings->setValue("pageItem/decorateFormFields", decorateFormFields);
 }
 
-void Settings::PageItem::setBackgroundColor(const QColor &color)
+void Settings::PageItem::setBackgroundColor(const QColor& backgroundColor)
 {
-    m_backgroundColor = color;
-    m_settings->setValue("pageItem/backgroundColor", color);
+    m_backgroundColor = backgroundColor;
+    m_settings->setValue("pageItem/backgroundColor", backgroundColor);
 }
 
-void Settings::PageItem::setPaperColor(const QColor& color)
+void Settings::PageItem::setPaperColor(const QColor& paperColor)
 {
-    m_paperColor = color;
-    m_settings->setValue("pageItem/paperColor", color);
+    m_paperColor = paperColor;
+    m_settings->setValue("pageItem/paperColor", paperColor);
 }
 
-void Settings::PageItem::setHighlightColor(const QColor& color)
+void Settings::PageItem::setHighlightColor(const QColor& highlightColor)
 {
-    m_highlightColor = color;
-    m_settings->setValue("pageItem/highlightColor", color);
+    m_highlightColor = highlightColor;
+    m_settings->setValue("pageItem/highlightColor", highlightColor);
 }
 
 QColor Settings::PageItem::annotationColor() const
@@ -175,9 +175,9 @@ QColor Settings::PageItem::annotationColor() const
     return m_settings->value("pageItem/annotationColor", Defaults::PageItem::annotationColor()).value< QColor >();
 }
 
-void Settings::PageItem::setAnnotationColor(const QColor &color)
+void Settings::PageItem::setAnnotationColor(const QColor& annotationColor)
 {
-    m_settings->setValue("pageItem/annotationColor", color);
+    m_settings->setValue("pageItem/annotationColor", annotationColor);
 }
 
 Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
@@ -577,9 +577,9 @@ bool Settings::MainWindow::trackRecentlyUsed() const
     return m_settings->value("mainWindow/trackRecentlyUsed", Defaults::MainWindow::trackRecentlyUsed()).toBool();
 }
 
-void Settings::MainWindow::setTrackRecentlyUsed(bool on)
+void Settings::MainWindow::setTrackRecentlyUsed(bool trackRecentlyUsed)
 {
-    m_settings->setValue("mainWindow/trackRecentlyUsed", on);
+    m_settings->setValue("mainWindow/trackRecentlyUsed", trackRecentlyUsed);
 }
 
 int Settings::MainWindow::recentlyUsedCount() const
@@ -607,9 +607,9 @@ bool Settings::MainWindow::keepRecentlyClosed() const
     return m_settings->value("mainWindow/keepRecentlyClosed", Defaults::MainWindow::keepRecentlyClosed()).toBool();
 }
 
-void Settings::MainWindow::setKeepRecentlyClosed(bool on)
+void Settings::MainWindow::setKeepRecentlyClosed(bool keepRecentlyClosed)
 {
-    m_settings->setValue("mainWindow/keepRecentlyClosed", on);
+    m_settings->setValue("mainWindow/keepRecentlyClosed", keepRecentlyClosed);
 }
 
 int Settings::MainWindow::recentlyClosedCount() const
@@ -627,9 +627,9 @@ bool Settings::MainWindow::restoreTabs() const
     return m_settings->value("mainWindow/restoreTabs", Defaults::MainWindow::restoreTabs()).toBool();
 }
 
-void Settings::MainWindow::setRestoreTabs(bool on)
+void Settings::MainWindow::setRestoreTabs(bool restoreTabs)
 {
-    m_settings->setValue("mainWindow/restoreTabs", on);
+    m_settings->setValue("mainWindow/restoreTabs", restoreTabs);
 }
 
 bool Settings::MainWindow::restoreBookmarks() const
@@ -637,9 +637,9 @@ bool Settings::MainWindow::restoreBookmarks() const
     return m_settings->value("mainWindow/restoreBookmarks", Defaults::MainWindow::restoreBookmarks()).toBool();
 }
 
-void Settings::MainWindow::setRestoreBookmarks(bool on)
+void Settings::MainWindow::setRestoreBookmarks(bool restoreBookmarks)
 {
-    m_settings->setValue("mainWindow/restoreBookmarks", on);
+    m_settings->setValue("mainWindow/restoreBookmarks", restoreBookmarks);
 }
 
 bool Settings::MainWindow::restorePerFileSettings() const
@@ -647,9 +647,9 @@ bool Settings::MainWindow::restorePerFileSettings() const
     return m_settings->value("mainWindow/restorePerFileSettings", Defaults::MainWindow::restorePerFileSettings()).toBool();
 }
 
-void Settings::MainWindow::setRestorePerFileSettings(bool on)
+void Settings::MainWindow::setRestorePerFileSettings(bool restorePerFileSettings)
 {
-    m_settings->setValue("mainWindow/restorePerFileSettings", on);
+    m_settings->setValue("mainWindow/restorePerFileSettings", restorePerFileSettings);
 }
 
 int Settings::MainWindow::saveDatabaseInterval() const
