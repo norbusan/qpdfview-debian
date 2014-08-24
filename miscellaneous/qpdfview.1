@@ -61,6 +61,8 @@ which is the name of the source file,
 which is the line number in the source file and
 .I column
 which is the column number in the source file where the number 0 matches all lines respectively columns.
+.SH INTER-PROCESS COMMUNICATION
+If the program is invoked using the "\-\-unique" option, it registers an introspectable D-Bus interface at "local.qpdfview/MainWindow" which can be used to communicate with the application. If the "\-\-instance" option is used, the D-Bus interface is registered at "local.qpdfview.name/MainWindow".
 .SH CONFIGURATION FILE
 qpdfview uses a configuration file usually located at
 .RS

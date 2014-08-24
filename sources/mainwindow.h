@@ -60,6 +60,8 @@ class Database;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
+    friend class MainWindowAdaptor;
     
 public:
     explicit MainWindow(QWidget* parent = 0);
@@ -401,6 +403,8 @@ public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
 
 public slots:
+    Q_NOREPLY void raiseAndActivate();
+
     bool open(const QString& absoluteFilePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
     bool openInNewTab(const QString& absoluteFilePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
 
@@ -408,7 +412,37 @@ public slots:
 
     Q_NOREPLY void startSearch(const QString& text);
 
-    Q_NOREPLY void raiseAndActivate();
+
+    Q_NOREPLY void previousPage();
+    Q_NOREPLY void nextPage();
+    Q_NOREPLY void firstPage();
+    Q_NOREPLY void lastPage();
+
+    Q_NOREPLY void previousBookmark();
+    Q_NOREPLY void nextBookmark();
+
+    bool jumpToBookmark(const QString& label);
+
+
+    Q_NOREPLY void continuousModeAction(bool checked);
+    Q_NOREPLY void twoPagesModeAction(bool checked);
+    Q_NOREPLY void twoPagesWithCoverPageModeAction(bool checked);
+    Q_NOREPLY void multiplePagesModeAction(bool checked);
+
+    Q_NOREPLY void fitToPageWidthModeAction(bool checked);
+    Q_NOREPLY void fitToPageSizeModeAction(bool checked);
+
+    Q_NOREPLY void invertColorsAction(bool checked);
+
+    Q_NOREPLY void fullscreenAction(bool checked);
+    Q_NOREPLY void presentationAction();
+
+
+    Q_NOREPLY void closeTab();
+    Q_NOREPLY void closeAllTabs();
+    Q_NOREPLY void closeAllTabsButCurrentTab();
+
+    bool closeTab(const QString& absoluteFilePath);
 
 private:
     MainWindow* mainWindow() const;
