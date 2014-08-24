@@ -1,6 +1,8 @@
 Release 0.4.12:
-  * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
+  * Add function to automatically trim empty page margins.
   * Add context menu to copy link addresses.
+  * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
+  * Extend the D-Bus interface to support more IPC scenarios.
 
 Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.
