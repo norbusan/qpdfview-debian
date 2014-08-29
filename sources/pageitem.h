@@ -154,17 +154,13 @@ private:
     int m_index;
     bool m_presentationMode;
 
+    QList< QRectF > m_highlights;
+
+    // interactive elements
+
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
-
-    typedef QMap< Model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
-    AnnotationOverlay m_annotationOverlay;
-
-    typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
-    FormFieldOverlay m_formFieldOverlay;
-
-    QList< QRectF > m_highlights;
 
     RubberBandMode m_rubberBandMode;
     QRectF m_rubberBand;
@@ -174,6 +170,14 @@ private:
 
     void showLinkContextMenu(Model::Link* link, const QPoint& screenPos);
     void showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos);
+
+    // overlay
+
+    typedef QMap< Model::Annotation*, QGraphicsProxyWidget* > AnnotationOverlay;
+    AnnotationOverlay m_annotationOverlay;
+
+    typedef QMap< Model::FormField*, QGraphicsProxyWidget* > FormFieldOverlay;
+    FormFieldOverlay m_formFieldOverlay;
 
     template< typename Overlay, typename Element > void showOverlay(Overlay& overlay, const char* hideOverlay, const QList< Element* >& elements, Element* selectedElement);
     template< typename Overlay, typename Element > void addProxy(Overlay& overlay, const char* hideOverlay, Element* element);
