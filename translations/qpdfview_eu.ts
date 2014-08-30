@@ -1594,12 +1594,12 @@
 <context>
     <name>qpdfview::TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="240"/>
+        <location filename="../sources/miscellaneous.cpp" line="243"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Zabaldu dena</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="241"/>
+        <location filename="../sources/miscellaneous.cpp" line="244"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Tolestu dena</translation>
     </message>

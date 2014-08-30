@@ -833,7 +833,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="745"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vybrať text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="746"/>
@@ -873,12 +873,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="841"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kopírovať adresu odkazu</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="842"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vybrať adresu odkazu</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="865"/>
@@ -1594,12 +1594,12 @@
 <context>
     <name>qpdfview::TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="240"/>
+        <location filename="../sources/miscellaneous.cpp" line="243"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Rozbaliť všetko</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="241"/>
+        <location filename="../sources/miscellaneous.cpp" line="244"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Zbaliť všetko</translation>
     </message>
