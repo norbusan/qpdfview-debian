@@ -432,7 +432,7 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase) const
         results.append(rect);
     }
 
-#endif
+#endif // HAS_POPPLER_22 HAS_POPPLER_14
 
     return results;
 }
@@ -789,7 +789,7 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
 void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
-    Document::Document::loadFonts(fontsModel);
+    Document::loadFonts(fontsModel);
 
 #ifndef HAS_POPPLER_24
 
@@ -1036,7 +1036,7 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
         document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", true).toBool());
         document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", true).toBool());
 
-#ifdef HAS_POPPLER_18
+#if defined(HAS_POPPLER_18)
 
         switch(m_settings->value("textHinting", 0).toInt())
         {
@@ -1054,11 +1054,11 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
             break;
         }
 
-#else
+#elif defined(HAS_POPPLER_14)
 
         document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("textHinting", false).toBool());
 
-#endif // HAS_POPPLER_18
+#endif // HAS_POPPLER_18 HAS_POPPLER_14
 
 #ifdef HAS_POPPLER_22
 
