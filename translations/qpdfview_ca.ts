@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -148,32 +148,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="909"/>
+        <location filename="../sources/settingsdialog.cpp" line="910"/>
         <source>Shift</source>
         <translation type="unfinished">Majús</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="910"/>
+        <location filename="../sources/settingsdialog.cpp" line="911"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="911"/>
+        <location filename="../sources/settingsdialog.cpp" line="912"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="912"/>
+        <location filename="../sources/settingsdialog.cpp" line="913"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Majús i Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="913"/>
+        <location filename="../sources/settingsdialog.cpp" line="914"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Majús i Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="914"/>
+        <location filename="../sources/settingsdialog.cpp" line="915"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl i Alt</translation>
     </message>
@@ -1191,11 +1191,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
-        <location filename="../sources/settingsdialog.cpp" line="692"/>
-        <location filename="../sources/settingsdialog.cpp" line="701"/>
-        <location filename="../sources/settingsdialog.cpp" line="716"/>
-        <location filename="../sources/settingsdialog.cpp" line="724"/>
-        <location filename="../sources/settingsdialog.cpp" line="732"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
+        <location filename="../sources/settingsdialog.cpp" line="702"/>
+        <location filename="../sources/settingsdialog.cpp" line="717"/>
+        <location filename="../sources/settingsdialog.cpp" line="725"/>
+        <location filename="../sources/settingsdialog.cpp" line="733"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Efectiu desprès de reiniciar.</translation>
     </message>
@@ -1231,7 +1231,7 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Never</source>
         <translation type="unfinished">Mai</translation>
     </message>
@@ -1321,64 +1321,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="438"/>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Decora les pàgines:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Decora els enllaços:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="452"/>
+        <location filename="../sources/settingsdialog.cpp" line="453"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Decora els camps dels formularis:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="458"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Background color:</source>
         <translation type="unfinished">Color de fons:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="464"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Paper color:</source>
         <translation type="unfinished">Color del paper:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="470"/>
+        <location filename="../sources/settingsdialog.cpp" line="471"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Color de fons de la presentació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="478"/>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Pàgines per fila:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="483"/>
-        <location filename="../sources/settingsdialog.cpp" line="493"/>
-        <location filename="../sources/settingsdialog.cpp" line="503"/>
+        <location filename="../sources/settingsdialog.cpp" line="484"/>
+        <location filename="../sources/settingsdialog.cpp" line="494"/>
+        <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source> px</source>
         <translation type="unfinished"> px</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="488"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Espaiat de pàgina:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="498"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Espaiat de miniatures:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="508"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Mida de les miniatures:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="513"/>
         <location filename="../sources/settingsdialog.cpp" line="514"/>
         <location filename="../sources/settingsdialog.cpp" line="515"/>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
@@ -1388,162 +1387,163 @@
         <location filename="../sources/settingsdialog.cpp" line="520"/>
         <location filename="../sources/settingsdialog.cpp" line="521"/>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
-        <location filename="../sources/settingsdialog.cpp" line="529"/>
+        <location filename="../sources/settingsdialog.cpp" line="523"/>
+        <location filename="../sources/settingsdialog.cpp" line="530"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="536"/>
+        <location filename="../sources/settingsdialog.cpp" line="537"/>
         <source>Cache size:</source>
         <translation type="unfinished">Mida de la memòria cau:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="543"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Precarrega:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Distància de precàrrega:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="656"/>
         <source>Top</source>
         <translation type="unfinished">Superior</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="656"/>
+        <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Bottom</source>
         <translation type="unfinished">Inferior</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
         <source>Left</source>
         <translation type="unfinished">Esquerra</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <location filename="../sources/settingsdialog.cpp" line="659"/>
         <source>Right</source>
         <translation type="unfinished">Dreta</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="661"/>
+        <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Tab position:</source>
         <translation type="unfinished">Posició de la pestanya:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="666"/>
+        <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>As needed</source>
         <translation type="unfinished">Quan calgui</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="667"/>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Always</source>
         <translation type="unfinished">Sempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="672"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visibilitat de la pestanya:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="679"/>
         <source>Spread tabs:</source>
         <translation type="unfinished">Barres de fitxes:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="686"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Nova pestanya al costat de la actual:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="694"/>
+        <location filename="../sources/settingsdialog.cpp" line="695"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Nombre d&apos;usats recentment:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="703"/>
+        <location filename="../sources/settingsdialog.cpp" line="704"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Nombre de tancats recentment:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="710"/>
+        <location filename="../sources/settingsdialog.cpp" line="711"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished">Canvia les barres de menú i eines a pantalla completa:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <location filename="../sources/settingsdialog.cpp" line="719"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Barra d&apos;eines de fitxer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="726"/>
+        <location filename="../sources/settingsdialog.cpp" line="727"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Barra d&apos;eines d&apos;edició:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="734"/>
+        <location filename="../sources/settingsdialog.cpp" line="735"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Barra d&apos;eines de visualització:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="741"/>
+        <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished">Títol de document com a títol de barra:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="748"/>
+        <location filename="../sources/settingsdialog.cpp" line="749"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Pàgina actual al títol de la finestra:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="755"/>
+        <location filename="../sources/settingsdialog.cpp" line="756"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Nom de la instància al títol de la finestra:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="762"/>
+        <location filename="../sources/settingsdialog.cpp" line="763"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Ressalta la miniatura actual:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="769"/>
+        <location filename="../sources/settingsdialog.cpp" line="770"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Limita les miniatures als resultats:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="776"/>
+        <location filename="../sources/settingsdialog.cpp" line="777"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Superposició de les anotacions:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="783"/>
+        <location filename="../sources/settingsdialog.cpp" line="784"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Superposició dels camps dels formularis:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="849"/>
+        <location filename="../sources/settingsdialog.cpp" line="850"/>
         <source>Zoom:</source>
         <translation type="unfinished">Ampliació:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="855"/>
+        <location filename="../sources/settingsdialog.cpp" line="856"/>
         <source>Rotate:</source>
         <translation type="unfinished">Rota:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="861"/>
+        <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Scroll:</source>
         <translation type="unfinished">Desplaçament:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="867"/>
+        <location filename="../sources/settingsdialog.cpp" line="868"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Copia al porta-retalls:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="873"/>
+        <location filename="../sources/settingsdialog.cpp" line="874"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Afegix anotació:</translation>
     </message>

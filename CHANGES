@@ -4,6 +4,8 @@ Release 0.4.12:
   * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
   * Extend the D-Bus interface to support more IPC scenarios.
   * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
 
 Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -148,32 +148,32 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="909"/>
+        <location filename="../sources/settingsdialog.cpp" line="910"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="910"/>
+        <location filename="../sources/settingsdialog.cpp" line="911"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="911"/>
+        <location filename="../sources/settingsdialog.cpp" line="912"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="912"/>
+        <location filename="../sources/settingsdialog.cpp" line="913"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift och Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="913"/>
+        <location filename="../sources/settingsdialog.cpp" line="914"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift och Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="914"/>
+        <location filename="../sources/settingsdialog.cpp" line="915"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl och Alt</translation>
     </message>
@@ -1191,11 +1191,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="228"/>
         <location filename="../sources/settingsdialog.cpp" line="236"/>
-        <location filename="../sources/settingsdialog.cpp" line="692"/>
-        <location filename="../sources/settingsdialog.cpp" line="701"/>
-        <location filename="../sources/settingsdialog.cpp" line="716"/>
-        <location filename="../sources/settingsdialog.cpp" line="724"/>
-        <location filename="../sources/settingsdialog.cpp" line="732"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
+        <location filename="../sources/settingsdialog.cpp" line="702"/>
+        <location filename="../sources/settingsdialog.cpp" line="717"/>
+        <location filename="../sources/settingsdialog.cpp" line="725"/>
+        <location filename="../sources/settingsdialog.cpp" line="733"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Gäller efter omstart.</translation>
     </message>
@@ -1310,64 +1310,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="438"/>
+        <location filename="../sources/settingsdialog.cpp" line="439"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Använd siddekorationer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="445"/>
+        <location filename="../sources/settingsdialog.cpp" line="446"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Använd dekorationer för länkar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="452"/>
+        <location filename="../sources/settingsdialog.cpp" line="453"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Använd dekorationer för formulärfält:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="458"/>
+        <location filename="../sources/settingsdialog.cpp" line="459"/>
         <source>Background color:</source>
         <translation type="unfinished">Bakgrundsfärg:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="464"/>
+        <location filename="../sources/settingsdialog.cpp" line="465"/>
         <source>Paper color:</source>
         <translation type="unfinished">Pappersfärg:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="470"/>
+        <location filename="../sources/settingsdialog.cpp" line="471"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Bakgrundsfärg för presentationer:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="478"/>
+        <location filename="../sources/settingsdialog.cpp" line="479"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Sidor per rad:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="483"/>
-        <location filename="../sources/settingsdialog.cpp" line="493"/>
-        <location filename="../sources/settingsdialog.cpp" line="503"/>
+        <location filename="../sources/settingsdialog.cpp" line="484"/>
+        <location filename="../sources/settingsdialog.cpp" line="494"/>
+        <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source> px</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="488"/>
+        <location filename="../sources/settingsdialog.cpp" line="489"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Avstånd mellan sidor:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="498"/>
+        <location filename="../sources/settingsdialog.cpp" line="499"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Avstånd mellan miniatyrbilder:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="508"/>
+        <location filename="../sources/settingsdialog.cpp" line="509"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Miniatyrbildsstorlek:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="513"/>
         <location filename="../sources/settingsdialog.cpp" line="514"/>
         <location filename="../sources/settingsdialog.cpp" line="515"/>
         <location filename="../sources/settingsdialog.cpp" line="516"/>
@@ -1377,123 +1376,124 @@
         <location filename="../sources/settingsdialog.cpp" line="520"/>
         <location filename="../sources/settingsdialog.cpp" line="521"/>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
-        <location filename="../sources/settingsdialog.cpp" line="529"/>
+        <location filename="../sources/settingsdialog.cpp" line="523"/>
+        <location filename="../sources/settingsdialog.cpp" line="530"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="536"/>
+        <location filename="../sources/settingsdialog.cpp" line="537"/>
         <source>Cache size:</source>
         <translation type="unfinished">Cachestorlek:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="543"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Förhandshämtning:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Avstånd för förhandshämtningar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="655"/>
+        <location filename="../sources/settingsdialog.cpp" line="656"/>
         <source>Top</source>
         <translation type="unfinished">Överkant</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="656"/>
+        <location filename="../sources/settingsdialog.cpp" line="657"/>
         <source>Bottom</source>
         <translation type="unfinished">Nederkant</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="658"/>
         <source>Left</source>
         <translation type="unfinished">Vänster</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="658"/>
+        <location filename="../sources/settingsdialog.cpp" line="659"/>
         <source>Right</source>
         <translation type="unfinished">Höger</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="661"/>
+        <location filename="../sources/settingsdialog.cpp" line="662"/>
         <source>Tab position:</source>
         <translation type="unfinished">Flikplacering:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="666"/>
+        <location filename="../sources/settingsdialog.cpp" line="667"/>
         <source>As needed</source>
         <translation type="unfinished">Efter behov</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="667"/>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Always</source>
         <translation type="unfinished">Alltid</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Never</source>
         <translation type="unfinished">Aldrig</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="672"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Visning av flikar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="679"/>
         <source>Spread tabs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="686"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Ny flik bredvid aktiv flik</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="694"/>
+        <location filename="../sources/settingsdialog.cpp" line="695"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Antal senast använda:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="703"/>
+        <location filename="../sources/settingsdialog.cpp" line="704"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Antal senast stängda:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="710"/>
+        <location filename="../sources/settingsdialog.cpp" line="711"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <location filename="../sources/settingsdialog.cpp" line="719"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Arkiv&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="726"/>
+        <location filename="../sources/settingsdialog.cpp" line="727"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Redigera&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="734"/>
+        <location filename="../sources/settingsdialog.cpp" line="735"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Verktygsrad &quot;Visa&quot;:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="741"/>
+        <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="748"/>
+        <location filename="../sources/settingsdialog.cpp" line="749"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Aktiv sida i fönstertitel:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="755"/>
+        <location filename="../sources/settingsdialog.cpp" line="756"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Namn på instans i fönstertitel:</translation>
     </message>
@@ -1503,47 +1503,47 @@
         <translation type="unfinished">Synkronisera översiktsvyn:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="762"/>
+        <location filename="../sources/settingsdialog.cpp" line="763"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Markera aktiv miniatyrbild:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="769"/>
+        <location filename="../sources/settingsdialog.cpp" line="770"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Begränsa miniatyrbilder efter resultat:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="776"/>
+        <location filename="../sources/settingsdialog.cpp" line="777"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Överlappning av anteckningar:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="783"/>
+        <location filename="../sources/settingsdialog.cpp" line="784"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Överlappning av formulärfält:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="849"/>
+        <location filename="../sources/settingsdialog.cpp" line="850"/>
         <source>Zoom:</source>
         <translation type="unfinished">Zoom:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="855"/>
+        <location filename="../sources/settingsdialog.cpp" line="856"/>
         <source>Rotate:</source>
         <translation type="unfinished">Rotera:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="861"/>
+        <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Scroll:</source>
         <translation type="unfinished">Scrollning:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="867"/>
+        <location filename="../sources/settingsdialog.cpp" line="868"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Kopiera till urklipp:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="873"/>
+        <location filename="../sources/settingsdialog.cpp" line="874"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Lägg till anteckning:</translation>
     </message>
