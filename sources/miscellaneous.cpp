@@ -43,12 +43,10 @@ void GraphicsCompositionModeEffect::draw(QPainter* painter)
     drawSource(painter);
 
     painter->restore();
-
 }
 
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
-    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 QSize TabBar::tabSizeHint(int index) const
@@ -57,7 +55,7 @@ QSize TabBar::tabSizeHint(int index) const
 
     const TabWidget* tabWidget = qobject_cast< TabWidget* >(parentWidget());
 
-    if(tabWidget->spreadTabs())
+    if(tabWidget != 0 && tabWidget->spreadTabs())
     {
         switch(tabWidget->tabPosition())
         {
@@ -92,6 +90,8 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
 {
     setTabBar(new TabBar(this));
 
+    tabBar()->setContextMenuPolicy(Qt::CustomContextMenu);
+
     connect(tabBar(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
 }
 
@@ -125,13 +125,16 @@ bool TabWidget::spreadTabs() const
 
 void TabWidget::setSpreadTabs(bool spreadTabs)
 {
-    m_spreadTabs = spreadTabs;
+    if(m_spreadTabs != spreadTabs)
+    {
+        m_spreadTabs = spreadTabs;
 
-    QResizeEvent resizeEvent(tabBar()->size(), tabBar()->size());
-    QApplication::sendEvent(tabBar(), &resizeEvent);
+        QResizeEvent resizeEvent(tabBar()->size(), tabBar()->size());
+        QApplication::sendEvent(tabBar(), &resizeEvent);
+    }
 }
 
-void TabWidget::on_tabBar_customContextMenuRequested(const QPoint &pos)
+void TabWidget::on_tabBar_customContextMenuRequested(const QPoint& pos)
 {
     emit tabContextMenuRequested(tabBar()->mapToGlobal(pos), tabBar()->tabAt(pos));
 }
