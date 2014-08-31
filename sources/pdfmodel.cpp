@@ -1,6 +1,7 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013-2014 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -322,6 +323,17 @@ QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rot
     }
 
     return m_page->renderToImage(horizontalResolution, verticalResolution, x, y, w, h, rotate);
+}
+
+QString PdfPage::label() const
+{
+#ifndef HAS_POPPLER_24
+
+    QMutexLocker mutexLocker(m_mutex);
+
+#endif // HAS_POPPLER_24
+
+    return m_page->label();
 }
 
 QList< Link* > PdfPage::links() const

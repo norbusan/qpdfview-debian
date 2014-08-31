@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2012-2014 Adam Reichold
 Copyright 2014 Dorian Scholz
 
@@ -66,6 +67,9 @@ public:
 
     inline int numberOfPages() const { return m_pages.count(); }
     inline int currentPage() const { return m_currentPage; }
+
+    QString pageLabelFromNumber(int number) const;
+    int pageNumberFromLabel(const QString& label) const;
 
     static QStringList openFilter();
     QStringList saveFilter() const;

@@ -1,6 +1,7 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013-2014 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -108,6 +109,8 @@ namespace Model
         QSizeF size() const;
 
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+
+        QString label() const;
 
         QList< Link* > links() const;
 

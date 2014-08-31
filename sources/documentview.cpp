@@ -1,8 +1,9 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013 Thomas Etter
 Copyright 2012-2014 Adam Reichold
 Copyright 2014 Dorian Scholz
-Copyright 2013 Thomas Etter
 
 This file is part of qpdfview.
 
@@ -70,6 +71,13 @@ namespace
 {
 
 using namespace qpdfview;
+
+QString numberToLabel(QLocale locale, int number)
+{
+    locale.setNumberOptions(locale.numberOptions() | QLocale::OmitGroupSeparator);
+
+    return locale.toString(number);
+}
 
 #ifdef WITH_CUPS
 
@@ -256,6 +264,36 @@ DocumentView::~DocumentView()
 
     qDeleteAll(m_pages);
     delete m_document;
+}
+
+QString DocumentView::pageLabelFromNumber(int number) const
+{
+    QString label;
+
+    if(number >= 1 && number <= m_pages.count())
+    {
+        label = m_pages.at(number - 1)->label();
+    }
+
+    if(label.isEmpty())
+    {
+        label = numberToLabel(locale(), number);
+    }
+
+    return label;
+}
+
+int DocumentView::pageNumberFromLabel(const QString& label) const
+{
+    for(int index = 0; index < m_pages.count(); ++index)
+    {
+        if(m_pages.at(index)->label() == label)
+        {
+            return index + 1;
+        }
+    }
+
+    return label.toInt();
 }
 
 QStringList DocumentView::openFilter()
