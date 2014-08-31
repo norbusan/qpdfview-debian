@@ -40,6 +40,7 @@ void GraphicsCompositionModeEffect::draw(QPainter* painter)
     painter->save();
 
     painter->setCompositionMode(m_compositionMode);
+
     drawSource(painter);
 
     painter->restore();
@@ -336,8 +337,6 @@ void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
         emit returnPressed(event->modifiers());
     }
 }
-
-// search line edit
 
 SearchLineEdit::SearchLineEdit(QWidget* parent) : ProgressLineEdit(parent)
 {

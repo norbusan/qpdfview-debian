@@ -552,6 +552,10 @@ bool DocumentView::open(const QString& filePath)
         emit currentPageChanged(m_currentPage);
 
         emit canJumpChanged(false, false);
+
+        emit continuousModeChanged(m_continuousMode);
+        emit layoutModeChanged(m_layout->layoutMode());
+        emit rightToLeftModeChanged(m_rightToLeftMode);
     }
 
     return document != 0;

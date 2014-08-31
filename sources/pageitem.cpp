@@ -1170,6 +1170,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
         else
         {
             painter->save();
+
             painter->setClipping(false);
 
             painter->drawRect(boundingRect());
