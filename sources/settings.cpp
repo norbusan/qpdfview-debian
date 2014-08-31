@@ -730,12 +730,22 @@ void Settings::MainWindow::setCurrentPageInWindowTitle(bool currentPageInTabText
 
 bool Settings::MainWindow::instanceNameInWindowTitle() const
 {
-    return m_settings->value("mainWindow/instanceNameInWindowTitle", Defaults::MainWindow::instancfeNameInWindowTitle()).toBool();
+    return m_settings->value("mainWindow/instanceNameInWindowTitle", Defaults::MainWindow::instanceNameInWindowTitle()).toBool();
 }
 
 void Settings::MainWindow::setInstanceNameInWindowTitle(bool instanceNameInWindowTitle)
 {
     m_settings->setValue("mainWindow/instanceNameInWindowTitle", instanceNameInWindowTitle);
+}
+
+bool Settings::MainWindow::usePageLabel() const
+{
+    return m_settings->value("mainWindow/usePageLabel", Defaults::MainWindow::usePageLabel()).toBool();
+}
+
+void Settings::MainWindow::setUsePageLabel(bool usePageLabel)
+{
+    m_settings->setValue("mainWindow/usePageLabel", usePageLabel);
 }
 
 bool Settings::MainWindow::synchronizeOutlineView() const

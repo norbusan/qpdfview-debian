@@ -322,6 +322,9 @@ public:
         bool instanceNameInWindowTitle() const;
         void setInstanceNameInWindowTitle(bool instanceNameInWindowTitle);
 
+        bool usePageLabel() const;
+        void setUsePageLabel(bool usePageLabel);
+
         bool synchronizeOutlineView() const;
         void setSynchronizeOutlineView(bool synchronizeOutlineView);
 
@@ -578,7 +581,9 @@ public:
         static inline bool documentTitleAsTabTitle() { return true; }
 
         static inline bool currentPageInWindowTitle() { return false; }
-        static inline bool instancfeNameInWindowTitle() { return false; }
+        static inline bool instanceNameInWindowTitle() { return false; }
+
+        static inline bool usePageLabel() { return true; }
 
         static inline bool synchronizeOutlineView() { return false; }
 

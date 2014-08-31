@@ -1610,18 +1610,45 @@ void MainWindow::on_about_triggered()
 
 QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
 {
-    // TODO
+    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    {
+        *ok = false;
+        return QString();
+    }
 
-    *ok = false;
-    return locale().toString(val);
+    *ok = true;
+    return currentTab()->pageLabelFromNumber(val);
 }
 
-int MainWindow::currentPage_valueFromText(const QString& text, bool* ok) const
+int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
 {
-    // TODO
+    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    {
+        *ok = false;
+        return 0;
+    }
 
-    *ok = false;
-    return locale().toInt(text);
+    const QString& prefix = m_currentPageSpinBox->prefix();
+    const QString& suffix = m_currentPageSpinBox->suffix();
+
+    int from = 0;
+    int size = text.size();
+
+    if(!prefix.isEmpty() && text.startsWith(prefix))
+    {
+        from += prefix.size();
+        size -= from;
+    }
+
+    if(!suffix.isEmpty() && text.endsWith(suffix))
+    {
+        size -= suffix.size();
+    }
+
+    text = text.mid(from, size).trimmed();
+
+    *ok = true;
+    return currentTab()->pageNumberFromLabel(text);
 }
 
 void MainWindow::on_focusCurrentPage_activated()
