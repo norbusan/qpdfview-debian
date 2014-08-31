@@ -72,13 +72,6 @@ namespace
 
 using namespace qpdfview;
 
-QString numberToLabel(QLocale locale, int number)
-{
-    locale.setNumberOptions(locale.numberOptions() | QLocale::OmitGroupSeparator);
-
-    return locale.toString(number);
-}
-
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -266,6 +259,15 @@ DocumentView::~DocumentView()
     delete m_document;
 }
 
+QString DocumentView::defaultPageLabelFromNumber(int number) const
+{
+    QLocale modifiedLocale = locale();
+
+    modifiedLocale.setNumberOptions(modifiedLocale.numberOptions() | QLocale::OmitGroupSeparator);
+
+    return modifiedLocale.toString(number);
+}
+
 QString DocumentView::pageLabelFromNumber(int number) const
 {
     QString label;
@@ -277,7 +279,7 @@ QString DocumentView::pageLabelFromNumber(int number) const
 
     if(label.isEmpty())
     {
-        label = numberToLabel(locale(), number);
+        label = defaultPageLabelFromNumber(number);
     }
 
     return label;

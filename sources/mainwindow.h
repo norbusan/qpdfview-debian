@@ -244,6 +244,8 @@ private:
     bool saveModifications(DocumentView* tab);
 
     void setWindowTitleForCurrentTab();
+    void setCurrentPageSuffixForCurrentTab();
+
     BookmarkMenu* bookmarkForCurrentTab() const;
 
     QTimer* m_saveDatabaseTimer;

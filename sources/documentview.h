@@ -68,6 +68,7 @@ public:
     inline int numberOfPages() const { return m_pages.count(); }
     inline int currentPage() const { return m_currentPage; }
 
+    QString defaultPageLabelFromNumber(int number) const;
     QString pageLabelFromNumber(int number) const;
     int pageNumberFromLabel(const QString& label) const;
 

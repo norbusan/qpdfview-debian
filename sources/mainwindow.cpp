@@ -511,9 +511,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_thumbnailsView->setScene(0);
 
         setWindowTitleForCurrentTab();
+        setCurrentPageSuffixForCurrentTab();
 
         m_currentPageSpinBox->setValue(1);
-        m_currentPageSpinBox->setSuffix(" / 1");
         m_scaleFactorComboBox->setCurrentIndex(4);
 
         m_copyToClipboardModeAction->setChecked(false);
@@ -683,9 +683,9 @@ void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
     if(senderIsCurrentTab())
     {
         m_currentPageSpinBox->setRange(1, numberOfPages);
-        m_currentPageSpinBox->setSuffix(QString(" / %1").arg(numberOfPages));
 
         setWindowTitleForCurrentTab();
+        setCurrentPageSuffixForCurrentTab();
     }
 }
 
@@ -711,6 +711,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
         m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
 
         setWindowTitleForCurrentTab();
+        setCurrentPageSuffixForCurrentTab();
 
         scheduleSaveTabs();
         scheduleSavePerFileSettings();
@@ -2032,6 +2033,31 @@ void MainWindow::setWindowTitleForCurrentTab()
     }
 
     setWindowTitle(tabText + QLatin1String("qpdfview") + instanceName);
+}
+
+void MainWindow::setCurrentPageSuffixForCurrentTab()
+{
+    QString suffix;
+
+    if(m_tabWidget->currentIndex() != -1)
+    {
+        const int currentPage = currentTab()->currentPage();
+        const int numberOfPages = currentTab()->numberOfPages();
+
+        const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
+        const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
+
+        if(s_settings->mainWindow().usePageLabel() && defaultPageLabel != pageLabel)
+        {
+            suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
+        }
+        else
+        {
+            suffix = QString(" / %1").arg(numberOfPages);
+        }
+    }
+
+    m_currentPageSpinBox->setSuffix(suffix);
 }
 
 BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
