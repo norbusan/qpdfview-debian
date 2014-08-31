@@ -293,7 +293,7 @@ int DocumentView::pageNumberFromLabel(const QString& label) const
         }
     }
 
-    return label.toInt();
+    return locale().toInt(label);
 }
 
 QStringList DocumentView::openFilter()

@@ -200,7 +200,7 @@ class MappingSpinBox : public SpinBox
     Q_OBJECT
 
 public:
-    MappingSpinBox(QWidget* parent, const char* textFromValue, const char* valueFromText);
+    MappingSpinBox(QObject* mapper, const char* textFromValue, const char* valueFromText, QWidget* parent = 0);
 
 protected:
     QString textFromValue(int val) const;
@@ -211,6 +211,7 @@ protected:
 private:
     Q_DISABLE_COPY(MappingSpinBox)
 
+    QObject* m_mapper;
     QMetaMethod m_textFromValue;
     QMetaMethod m_valueFromText;
 

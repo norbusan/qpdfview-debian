@@ -1608,6 +1608,22 @@ void MainWindow::on_about_triggered()
                                                            "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2014 The qpdfview developers</p>")));
 }
 
+QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
+{
+    // TODO
+
+    *ok = false;
+    return locale().toString(val);
+}
+
+int MainWindow::currentPage_valueFromText(const QString& text, bool* ok) const
+{
+    // TODO
+
+    *ok = false;
+    return locale().toInt(text);
+}
+
 void MainWindow::on_focusCurrentPage_activated()
 {
     m_currentPageSpinBox->setFocus();
@@ -2108,7 +2124,7 @@ void MainWindow::createWidgets()
 
     // current page
 
-    m_currentPageSpinBox = new MappingSpinBox(this, /* TODO: */"", /* TODO: */"");
+    m_currentPageSpinBox = new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this);
 
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);

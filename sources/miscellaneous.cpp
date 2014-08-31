@@ -24,9 +24,29 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "miscellaneous.h"
 
 #include <QApplication>
+#include <QDebug>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QTimer>
+
+namespace
+{
+
+using namespace qpdfview;
+
+QMetaMethod slotToMethod(const QMetaObject* metaObject, const char* slot)
+{
+    const int index = *slot == '1' ? metaObject->indexOfSlot(slot + 1) : -1;
+
+    if(index < 0)
+    {
+        qWarning() << "Could not connect slot:" << slot;
+    }
+
+    return metaObject->method(index);
+}
+
+} // anonymous
 
 namespace qpdfview
 {
@@ -299,21 +319,24 @@ void SpinBox::keyPressEvent(QKeyEvent* event)
     }
 }
 
-MappingSpinBox::MappingSpinBox(QWidget* parent, const char* textFromValue, const char* valueFromText) : SpinBox(parent)
+MappingSpinBox::MappingSpinBox(QObject* mapper, const char* textFromValue, const char* valueFromText, QWidget* parent) : SpinBox(parent),
+    m_mapper(mapper)
 {
-    const QMetaObject* metaObject = parent->metaObject();
+    const QMetaObject* metaObject = mapper->metaObject();
 
-    m_textFromValue = metaObject->method(metaObject->indexOfMethod(textFromValue));
-    m_valueFromText = metaObject->method(metaObject->indexOfMethod(valueFromText));
+    m_textFromValue = slotToMethod(metaObject, textFromValue);
+    m_valueFromText = slotToMethod(metaObject, valueFromText);
 }
 
 QString MappingSpinBox::textFromValue(int val) const
 {
     QString text;
-    const bool ok = m_textFromValue.invoke(parent(), Qt::DirectConnection,
-                                           Q_RETURN_ARG(QString, text), Q_ARG(int, val));
+    bool ok = false;
 
-    if(!ok)
+    const bool mapped = m_textFromValue.invoke(m_mapper, Qt::DirectConnection,
+                                               Q_RETURN_ARG(QString, text), Q_ARG(int, val), Q_ARG(bool*, &ok));
+
+    if(!mapped || !ok)
     {
         text = SpinBox::textFromValue(val);
     }
@@ -324,10 +347,12 @@ QString MappingSpinBox::textFromValue(int val) const
 int MappingSpinBox::valueFromText(const QString& text) const
 {
     int val;
-    const bool ok = m_valueFromText.invoke(parent(), Qt::DirectConnection,
-                                           Q_RETURN_ARG(int, val), Q_ARG(QString, text));
+    bool ok = false;
 
-    if(!ok)
+    const bool mapped = m_valueFromText.invoke(m_mapper, Qt::DirectConnection,
+                                               Q_RETURN_ARG(int, val), Q_ARG(QString, text), Q_ARG(bool*, &ok));
+
+    if(!mapped || !ok)
     {
         val = SpinBox::valueFromText(text);
     }
