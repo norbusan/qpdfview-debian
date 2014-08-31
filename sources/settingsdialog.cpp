@@ -734,6 +734,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
 
+    // use page label
+
+    m_usePageLabelCheckBox = new QCheckBox(this);
+    m_usePageLabelCheckBox->setChecked(s_settings->mainWindow().usePageLabel());
+
+    m_interfaceLayout->addRow(tr("Use page label:"), m_usePageLabelCheckBox);
+
     // document title as tab title
 
     m_documentTitleAsTabTitleCheckBox = new QCheckBox(this);
@@ -801,6 +808,7 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
+    s_settings->mainWindow().setUsePageLabel(m_usePageLabelCheckBox->isChecked());
     s_settings->mainWindow().setDocumentTitleAsTabTitle(m_documentTitleAsTabTitleCheckBox->isChecked());
 
     s_settings->mainWindow().setCurrentPageInWindowTitle(m_currentPageInWindowTitleCheckBox->isChecked());
@@ -829,6 +837,7 @@ void SettingsDialog::resetInterfaceTab()
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
+    m_usePageLabelCheckBox->setChecked(Defaults::MainWindow::usePageLabel());
     m_documentTitleAsTabTitleCheckBox->setChecked(Defaults::MainWindow::documentTitleAsTabTitle());
 
     m_currentPageInWindowTitleCheckBox->setChecked(Defaults::MainWindow::currentPageInWindowTitle());

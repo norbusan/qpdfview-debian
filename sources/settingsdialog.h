@@ -160,6 +160,7 @@ private:
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
 
+    QCheckBox* m_usePageLabelCheckBox;
     QCheckBox* m_documentTitleAsTabTitleCheckBox;
 
     QCheckBox* m_currentPageInWindowTitleCheckBox;
