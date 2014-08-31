@@ -541,6 +541,8 @@ bool DocumentView::open(const QString& filePath)
 
         loadDocumentDefaults();
 
+        adjustScrollBarPolicy();
+
         prepareScene();
         prepareView();
 
