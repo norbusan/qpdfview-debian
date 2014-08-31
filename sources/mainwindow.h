@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2012-2014 Adam Reichold
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
