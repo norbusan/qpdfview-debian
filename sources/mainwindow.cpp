@@ -2107,7 +2107,7 @@ void MainWindow::createWidgets()
 
     // current page
 
-    m_currentPageSpinBox = new SpinBox(this);
+    m_currentPageSpinBox = new MappingSpinBox(this, /* TODO: */"", /* TODO: */"");
 
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);

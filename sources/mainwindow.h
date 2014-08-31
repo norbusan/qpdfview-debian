@@ -50,7 +50,7 @@ class DocumentView;
 class TabWidget;
 class TreeView;
 class ComboBox;
-class SpinBox;
+class MappingSpinBox;
 class SearchLineEdit;
 class RecentlyUsedMenu;
 class RecentlyClosedMenu;
@@ -254,7 +254,7 @@ private:
     void scheduleSaveBookmarks();
     void scheduleSavePerFileSettings();
 
-    SpinBox* m_currentPageSpinBox;
+    MappingSpinBox* m_currentPageSpinBox;
     QWidgetAction* m_currentPageAction;
 
     ComboBox* m_scaleFactorComboBox;

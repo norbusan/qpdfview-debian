@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QComboBox>
 #include <QGraphicsEffect>
 #include <QLineEdit>
+#include <QMetaMethod>
 #include <QPainter>
 #include <QSpinBox>
 #include <QTreeView>
@@ -188,6 +189,29 @@ protected:
 
 private:
     Q_DISABLE_COPY(SpinBox)
+
+};
+
+// mapping spin box
+
+class MappingSpinBox : public SpinBox
+{
+    Q_OBJECT
+
+public:
+    MappingSpinBox(QWidget* parent, const char* textFromValue, const char* valueFromText);
+
+protected:
+    QString textFromValue(int val) const;
+    int valueFromText(const QString& text) const;
+
+    QValidator::State validate(QString& input, int& pos) const;
+
+private:
+    Q_DISABLE_COPY(MappingSpinBox)
+
+    QMetaMethod m_textFromValue;
+    QMetaMethod m_valueFromText;
 
 };
 

@@ -298,6 +298,50 @@ void SpinBox::keyPressEvent(QKeyEvent* event)
     }
 }
 
+MappingSpinBox::MappingSpinBox(QWidget* parent, const char* textFromValue, const char* valueFromText) : SpinBox(parent)
+{
+    const QMetaObject* metaObject = parent->metaObject();
+
+    m_textFromValue = metaObject->method(metaObject->indexOfMethod(textFromValue));
+    m_valueFromText = metaObject->method(metaObject->indexOfMethod(valueFromText));
+}
+
+QString MappingSpinBox::textFromValue(int val) const
+{
+    QString text;
+    const bool ok = m_textFromValue.invoke(parent(), Qt::DirectConnection,
+                                           Q_RETURN_ARG(QString, text), Q_ARG(int, val));
+
+    if(!ok)
+    {
+        text = SpinBox::textFromValue(val);
+    }
+
+    return text;
+}
+
+int MappingSpinBox::valueFromText(const QString& text) const
+{
+    int val;
+    const bool ok = m_valueFromText.invoke(parent(), Qt::DirectConnection,
+                                           Q_RETURN_ARG(int, val), Q_ARG(QString, text));
+
+    if(!ok)
+    {
+        val = SpinBox::valueFromText(text);
+    }
+
+    return val;
+}
+
+QValidator::State MappingSpinBox::validate(QString& input, int& pos) const
+{
+    Q_UNUSED(input);
+    Q_UNUSED(pos);
+
+    return QValidator::Acceptable;
+}
+
 ProgressLineEdit::ProgressLineEdit(QWidget* parent) : QLineEdit(parent),
     m_progress(0)
 {    
