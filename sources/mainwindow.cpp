@@ -1121,13 +1121,17 @@ void MainWindow::on_lastPage_triggered()
 
 void MainWindow::on_jumpToPage_triggered()
 {
-    bool ok = false;
-    const int page = QInputDialog::getInt(this, tr("Jump to page"), tr("Page:"), currentTab()->currentPage(), 1, currentTab()->numberOfPages(), 1, &ok);
+    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*))),
+                                                          tr("Jump to page"), tr("Page:"), currentTab()->currentPage(),
+                                                          1, currentTab()->numberOfPages(), this);
 
-    if(ok)
+    if (dialog->exec() == QDialog::Accepted)
     {
+        const int page = dialog->value();
         currentTab()->jumpToPage(page);
     }
+
+    delete dialog;
 }
 
 void MainWindow::on_jumpBackward_triggered()
@@ -1824,11 +1828,17 @@ void MainWindow::on_setupVisualFirstPage_triggered()
 
     // TODO: support document with multiple pages per sheet
 
-    int value = QInputDialog::getInteger(this, tr("Setup Visual First Page"),
-                                         tr("Select logical page number used as the first visual page:"),
-                                         currentTab()->currentPage(), 1, currentTab()->numberOfPages());
+    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*))),
+                                                          tr("Setup Visual First Page"), tr("Select logical page number used as the first visual page:"),
+                                                          currentTab()->currentPage(), 1, currentTab()->numberOfPages(), this);
 
-    currentTab()->setVisualFirstPage(value);
+    if (dialog->exec() == QDialog::Accepted)
+    {
+        const int value = dialog->value();
+        currentTab()->setVisualFirstPage(value);
+    }
+
+    delete dialog;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
