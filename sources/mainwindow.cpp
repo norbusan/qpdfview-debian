@@ -1505,7 +1505,17 @@ void MainWindow::on_nextBookmark_triggered()
 void MainWindow::on_addBookmark_triggered()
 {
     bool ok = false;
-    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentTab()->currentPage()), &ok);
+    QString currentPageText = currentPage_textFromValue(currentTab()->currentPage(), &ok);
+    if (!ok)
+    {
+        currentPageText = currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
+    }
+    else
+    {
+        currentPageText.append(QString(" (%1)").arg(currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage())));
+    }
+
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentPageText), &ok);
 
     if(!ok)
     {
