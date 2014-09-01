@@ -898,6 +898,9 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
             menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
         }
 
+        menu.addSeparator();
+        menu.addAction(m_setupVisualFirstPageAction);
+
         menu.exec(currentTab()->mapToGlobal(pos));
     }
 }
@@ -1611,19 +1614,20 @@ void MainWindow::on_about_triggered()
 
 QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
 {
-    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasVisualFirstPageSetted()))
     {
         *ok = false;
         return QString();
     }
 
     *ok = true;
+
     return currentTab()->pageLabelFromNumber(val);
 }
 
 int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
 {
-    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasVisualFirstPageSetted()))
     {
         *ok = false;
         return 0;
@@ -1809,6 +1813,22 @@ void MainWindow::on_saveDatabase_timeout()
             s_database->savePerFileSettings(tab);
         }
     }
+}
+
+void MainWindow::on_setupVisualFirstPage_triggered()
+{
+    if (!currentTab())
+    {
+        return;
+    }
+
+    // TODO: support document with multiple pages per sheet
+
+    int value = QInputDialog::getInteger(this, tr("Setup Visual First Page"),
+                                         tr("Select logical page number used as the first visual page:"),
+                                         currentTab()->currentPage(), 1, currentTab()->numberOfPages());
+
+    currentTab()->setVisualFirstPage(value);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -2047,7 +2067,8 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
         const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
 
-        if(s_settings->mainWindow().usePageLabel() && defaultPageLabel != pageLabel)
+        if((s_settings->mainWindow().usePageLabel() || currentTab()->hasVisualFirstPageSetted()) &&
+                defaultPageLabel != pageLabel)
         {
             suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
         }
@@ -2298,6 +2319,8 @@ void MainWindow::createActions()
     m_addAnnotationModeAction = createAction(tr("&Add annotation"), QLatin1String("addAnnotationMode"), QLatin1String("mail-attachment"), QKeySequence(Qt::CTRL + Qt::Key_A), SLOT(on_addAnnotationMode_triggered(bool)), true);
 
     m_settingsAction = createAction(tr("Settings..."), QString(), QIcon(), QKeySequence(), SLOT(on_settings_triggered()));
+
+    m_setupVisualFirstPageAction = createAction(tr("Setup &visual numbering..."), QString(), QIcon(), QKeySequence(), SLOT(on_setupVisualFirstPage_triggered()));
 
     // view
 

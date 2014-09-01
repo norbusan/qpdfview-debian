@@ -118,6 +118,9 @@ public:
 
     QStandardItemModel* fontsModel() const;
 
+    bool hasVisualFirstPageSetted() const;
+    void setVisualFirstPage(int index);
+
 signals:
     void documentChanged();
     void documentModified();
@@ -310,6 +313,8 @@ private:
     Results::iterator previousResult(const Results::iterator& result);
 
     SearchTask* m_searchTask;
+
+    int m_visualFirstPage;
 
 };
 

@@ -216,6 +216,8 @@ protected slots:
 
     void on_saveDatabase_timeout();
 
+    void on_setupVisualFirstPage_triggered();
+
 protected:
     void closeEvent(QCloseEvent* event);
 
@@ -295,6 +297,8 @@ private:
     QAction* m_findPreviousAction;
     QAction* m_findNextAction;
     QAction* m_cancelSearchAction;
+
+    QAction* m_setupVisualFirstPageAction;
 
     QAction* m_copyToClipboardModeAction;
     QAction* m_addAnnotationModeAction;

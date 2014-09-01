@@ -165,7 +165,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_propertiesModel(0),
     m_results(),
     m_currentResult(m_results.end()),
-    m_searchTask(0)
+    m_searchTask(0),
+    m_visualFirstPage(-1)
 {
     if(s_settings == 0)
     {
@@ -272,14 +273,29 @@ QString DocumentView::pageLabelFromNumber(int number) const
 {
     QString label;
 
-    if(number >= 1 && number <= m_pages.count())
+    if (hasVisualFirstPageSetted())
     {
-        label = m_pages.at(number - 1)->label();
+        if (number < m_visualFirstPage)
+        {
+            // intToRoman supports conversion for value < 4000
+            label = (number < 4000 ? Tools::intToRoman(number) : defaultPageLabelFromNumber(-number));
+        }
+        else
+        {
+            label = defaultPageLabelFromNumber(number - m_visualFirstPage + 1);
+        }
     }
-
-    if(label.isEmpty())
+    else
     {
-        label = defaultPageLabelFromNumber(number);
+        if(number >= 1 && number <= m_pages.count())
+        {
+            label = m_pages.at(number - 1)->label();
+        }
+
+        if(label.isEmpty())
+        {
+            label = defaultPageLabelFromNumber(number);
+        }
     }
 
     return label;
@@ -287,6 +303,31 @@ QString DocumentView::pageLabelFromNumber(int number) const
 
 int DocumentView::pageNumberFromLabel(const QString& label) const
 {
+    if (hasVisualFirstPageSetted())
+    {
+        bool ok;
+        int val = locale().toInt(label, &ok);
+        if (ok)
+        {
+            if (val < 0)
+            {
+                // we use negative numbers (together with Roman ones) for easy access to preamble pages
+                // also intToRoman() supports conversion for value < 4000 for value >= 4000 we had used negative numbers
+                val = -val;
+            }
+            else
+            {
+                val = val + m_visualFirstPage - 1;
+            }
+        }
+        else
+        {
+            val = Tools::romanToInt(label);
+        }
+
+        return val;
+    }
+
     for(int index = 0; index < m_pages.count(); ++index)
     {
         if(m_pages.at(index)->label() == label)
@@ -548,6 +589,17 @@ QStandardItemModel* DocumentView::fontsModel() const
     m_document->loadFonts(fontsModel);
 
     return fontsModel;
+}
+
+void DocumentView::setVisualFirstPage(int index)
+{
+    if (m_visualFirstPage != index)
+    {
+        m_visualFirstPage = index;
+
+        // update currentPageSpinBox
+        emit currentPageChanged(m_currentPage);
+    }
 }
 
 void DocumentView::show()
@@ -2147,6 +2199,11 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 DocumentView::Results::iterator DocumentView::previousResult(const Results::iterator& result)
 {
     return result != m_results.begin() ? result - 1 : m_results.end();
+}
+
+bool DocumentView::hasVisualFirstPageSetted() const
+{
+    return m_visualFirstPage > 1;
 }
 
 } // qpdfview

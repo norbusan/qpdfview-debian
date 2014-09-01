@@ -269,6 +269,16 @@ private:
 
 };
 
+// common tools
+
+class Tools
+{
+public:
+    static int romanToInt(const QString &text);
+    static QString intToRoman(int num);
+
+};
+
 } // qpdfview
 
 #endif // MISCELLANEOUS_H

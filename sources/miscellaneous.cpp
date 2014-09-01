@@ -442,4 +442,73 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
+// taken from http://rosettacode.org/wiki/Roman_numerals/Decode#C.2B.2B
+int Tools::romanToInt(const QString &text)
+{
+    if (text.size() == 1)
+    {
+        switch (text.at(0).toLower().toLatin1())
+        {
+        case 'i': return 1;
+        case 'v': return 5;
+        case 'x': return 10;
+        case 'l': return 50;
+        case 'c': return 100;
+        case 'd': return 500;
+        case 'm': return 1000;
+        }
+        return 0;
+    }
+
+    int result = 0;
+    int pvs = 0;
+    for (int i = text.size() - 1; i >= 0; --i)
+    {
+        const int inc = romanToInt(text.at(i));
+        result += inc < pvs ? -inc : inc;
+        pvs = inc;
+    }
+
+    return result;
+}
+
+// taken from http://rosettacode.org/wiki/Roman_numerals/Encode#C.2B.2B
+QString Tools::intToRoman(int num)
+{
+    if (num >= 4000)
+    {
+        return QLatin1Char('?');
+    }
+
+    struct romandata_t { int value; char const* numeral; };
+    static romandata_t const romandata[] =
+    {
+        1000, "m",
+        900, "cm",
+        500, "d",
+        400, "cd",
+        100, "c",
+        90, "xc",
+        50, "l",
+        40, "xl",
+        10, "x",
+        9, "ix",
+        5, "v",
+        4, "iv",
+        1, "i",
+        0, NULL
+    }; // end marker
+
+    QString result;
+    for (romandata_t const* current = romandata; current->value > 0; ++current)
+    {
+      while (num >= current->value)
+      {
+        result += QLatin1String(current->numeral);
+        num  -= current->value;
+      }
+    }
+    return result;
+}
+
 } // qpdfview
