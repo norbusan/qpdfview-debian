@@ -271,7 +271,7 @@ QString DocumentView::defaultPageLabelFromNumber(int number) const
 
 QString DocumentView::pageLabelFromNumber(int number) const
 {
-    QString label;
+    QString label = defaultPageLabelFromNumber(number);
 
     if (hasVisualFirstPageSetted())
     {
@@ -285,17 +285,9 @@ QString DocumentView::pageLabelFromNumber(int number) const
             label = defaultPageLabelFromNumber(number - m_visualFirstPage + 1);
         }
     }
-    else
+    else if(s_settings->mainWindow().usePageLabel() && number >= 1 && number <= m_pages.count() && !m_pages.at(number - 1)->label().isEmpty())
     {
-        if(number >= 1 && number <= m_pages.count())
-        {
-            label = m_pages.at(number - 1)->label();
-        }
-
-        if(label.isEmpty())
-        {
-            label = defaultPageLabelFromNumber(number);
-        }
+        label = m_pages.at(number - 1)->label();
     }
 
     return label;
@@ -596,6 +588,17 @@ void DocumentView::setVisualFirstPage(int index)
     if (m_visualFirstPage != index)
     {
         m_visualFirstPage = index;
+
+        qDeleteAll(m_thumbnailItems);
+        prepareThumbnails();
+        m_document->loadOutline(m_outlineModel);
+
+        if(m_outlineModel->rowCount() == 0)
+        {
+            loadFallbackOutline();
+        }
+
+        prepareThumbnailsScene();
 
         // update currentPageSpinBox
         emit currentPageChanged(m_currentPage);
@@ -1808,7 +1811,7 @@ void DocumentView::loadFallbackOutline()
 {
     for(int page = 1; page <= m_pages.count(); ++page)
     {
-        QStandardItem* item = new QStandardItem(tr("Page %1").arg(page));
+        QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
         item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
         item->setData(page, Qt::UserRole + 1);
@@ -1960,7 +1963,7 @@ void DocumentView::prepareThumbnails()
 
     for(int index = 0; index < m_pages.count(); ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
+        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
 
         page->setInvertColors(m_invertColors);
 
