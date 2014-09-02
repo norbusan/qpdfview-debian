@@ -72,6 +72,86 @@ namespace
 
 using namespace qpdfview;
 
+// taken from http://rosettacode.org/wiki/Roman_numerals/Decode#C.2B.2B
+int romanToInt(const QString& text)
+{
+    if(text.size() == 1)
+    {
+        switch(text.at(0).toLower().toLatin1())
+        {
+        case 'i': return 1;
+        case 'v': return 5;
+        case 'x': return 10;
+        case 'l': return 50;
+        case 'c': return 100;
+        case 'd': return 500;
+        case 'm': return 1000;
+        }
+
+        return 0;
+    }
+
+    int result = 0;
+    int previous = 0, current = 0;
+
+    for(int i = text.size() - 1; i >= 0; --i)
+    {
+        current = romanToInt(text.at(i));
+
+        result += current < previous ? -current : current;
+
+        previous = current;
+    }
+
+    return result;
+}
+
+// taken from http://rosettacode.org/wiki/Roman_numerals/Encode#C.2B.2B
+QString intToRoman(int number)
+{
+    struct romandata_t
+    {
+        int value;
+        char const* numeral;
+    };
+
+    static const romandata_t romandata[] =
+    {
+        1000, "m",
+        900, "cm",
+        500, "d",
+        400, "cd",
+        100, "c",
+        90, "xc",
+        50, "l",
+        40, "xl",
+        10, "x",
+        9, "ix",
+        5, "v",
+        4, "iv",
+        1, "i",
+        0, NULL
+    };
+
+    if(number >= 4000)
+    {
+        return QLatin1String("?");
+    }
+
+    QString result;
+
+    for(const romandata_t* current = romandata; current->value > 0; ++current)
+    {
+        while(number >= current->value)
+        {
+            number -= current->value;
+            result += QLatin1String(current->numeral);
+        }
+    }
+
+    return result;
+}
+
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -145,6 +225,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_fileInfo(),
     m_wasModified(false),
     m_currentPage(-1),
+    m_firstPage(-1),
     m_past(),
     m_future(),
     m_layout(new SinglePageLayout),
@@ -259,6 +340,28 @@ DocumentView::~DocumentView()
     delete m_document;
 }
 
+void DocumentView::setFirstPage(int firstPage)
+{
+    if(m_firstPage != firstPage)
+    {
+        m_firstPage = firstPage;
+
+        qDeleteAll(m_thumbnailItems);
+
+        prepareThumbnails();
+        prepareThumbnailsScene();
+
+        m_document->loadOutline(m_outlineModel);
+
+        if(m_outlineModel->rowCount() == 0)
+        {
+            loadFallbackOutline();
+        }
+
+        emit currentPageChanged(m_currentPage);
+    }
+}
+
 QString DocumentView::defaultPageLabelFromNumber(int number) const
 {
     QLocale modifiedLocale = locale();
@@ -272,7 +375,18 @@ QString DocumentView::pageLabelFromNumber(int number) const
 {
     QString label;
 
-    if(number >= 1 && number <= m_pages.count())
+    if(hasFrontMatter())
+    {
+        if (number < m_firstPage)
+        {
+            label = number < 4000 ? intToRoman(number) : defaultPageLabelFromNumber(-number);
+        }
+        else
+        {
+            label = defaultPageLabelFromNumber(number - m_firstPage + 1);
+        }
+    }
+    else if(number >= 1 && number <= m_pages.count())
     {
         label = m_pages.at(number - 1)->label();
     }
@@ -287,6 +401,30 @@ QString DocumentView::pageLabelFromNumber(int number) const
 
 int DocumentView::pageNumberFromLabel(const QString& label) const
 {
+    if(hasFrontMatter())
+    {
+        bool ok = false;
+        int value = locale().toInt(label, &ok);
+
+        if(ok)
+        {
+            if(value < 0)
+            {
+                value = -value; // front matter
+            }
+            else
+            {
+                value = value + m_firstPage - 1; // body matter
+            }
+        }
+        else
+        {
+            value = romanToInt(label);
+        }
+
+        return value;
+    }
+
     for(int index = 0; index < m_pages.count(); ++index)
     {
         if(m_pages.at(index)->label() == label)
@@ -1756,7 +1894,7 @@ void DocumentView::loadFallbackOutline()
 {
     for(int page = 1; page <= m_pages.count(); ++page)
     {
-        QStandardItem* item = new QStandardItem(tr("Page %1").arg(page));
+        QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
         item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
         item->setData(page, Qt::UserRole + 1);
@@ -1908,7 +2046,7 @@ void DocumentView::prepareThumbnails()
 
     for(int index = 0; index < m_pages.count(); ++index)
     {
-        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), index);
+        ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
 
         page->setInvertColors(m_invertColors);
 

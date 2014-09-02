@@ -29,8 +29,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-ThumbnailItem::ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
-    m_text(QString::number(index + 1)),
+ThumbnailItem::ThumbnailItem(Model::Page* page, const QString& text, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
+    m_text(text),
     m_current(false)
 {
     setAcceptHoverEvents(false);

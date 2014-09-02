@@ -45,7 +45,7 @@ class ThumbnailItem : public PageItem
     Q_OBJECT
 
 public:
-    ThumbnailItem(Model::Page* page, int index, QGraphicsItem* parent = 0);
+    ThumbnailItem(Model::Page* page, const QString& text, int index, QGraphicsItem* parent = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);

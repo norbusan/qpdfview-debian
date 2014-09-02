@@ -68,6 +68,11 @@ public:
     inline int numberOfPages() const { return m_pages.count(); }
     inline int currentPage() const { return m_currentPage; }
 
+    inline bool hasFrontMatter() const { return m_firstPage > 1; }
+
+    inline int firstPage() const { return m_firstPage; }
+    void setFirstPage(int firstPage);
+
     QString defaultPageLabelFromNumber(int number) const;
     QString pageLabelFromNumber(int number) const;
     int pageNumberFromLabel(const QString& label) const;
@@ -232,6 +237,7 @@ private:
     bool m_wasModified;
 
     int m_currentPage;
+    int m_firstPage;
 
 #ifdef WITH_CUPS
 

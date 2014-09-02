@@ -25,9 +25,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QDebug>
+#include <QDialogButtonBox>
+#include <QLabel>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QVBoxLayout>
 
 namespace
 {
@@ -440,6 +443,44 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
+}
+
+GetPageNumberDialog::GetPageNumberDialog(MappingSpinBox *spinBox, const QString &title, const QString &labelText, int value,
+                                         int min, int max, QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f | Qt::MSWindowsFixedSizeDialogHint),
+    m_spinBox(spinBox)
+{
+    setupUi();
+    setFocusProxy(m_spinBox);
+    setWindowTitle(title);
+
+    m_label->setText(labelText);
+    m_spinBox->setRange(min, max);
+    m_spinBox->setValue(value);
+}
+
+int GetPageNumberDialog::value()
+{
+    return m_spinBox->value();
+}
+
+void GetPageNumberDialog::setupUi()
+{
+    QVBoxLayout *verticalLayout = new QVBoxLayout(this);
+
+    m_label = new QLabel(this);
+
+    verticalLayout->addWidget(m_label);
+    verticalLayout->addWidget(m_spinBox);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+    buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+    buttonBox->setOrientation(Qt::Horizontal);
+    buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+
+    verticalLayout->addWidget(buttonBox);
+
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 } // qpdfview

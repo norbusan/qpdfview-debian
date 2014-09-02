@@ -363,6 +363,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_firstPageAction->setEnabled(true);
         m_lastPageAction->setEnabled(true);
 
+        m_setFirstPageAction->setEnabled(true);
+
         m_jumpToPageAction->setEnabled(true);
 
         m_searchAction->setEnabled(true);
@@ -449,6 +451,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_nextPageAction->setEnabled(false);
         m_firstPageAction->setEnabled(false);
         m_lastPageAction->setEnabled(false);
+
+        m_setFirstPageAction->setEnabled(false);
 
         m_jumpToPageAction->setEnabled(false);
 
@@ -888,9 +892,11 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
 
         menu.addAction(m_openContainingFolderAction);
         menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction);
+        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
         menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_jumpBackwardAction << m_jumpForwardAction);
+        menu.addAction(m_setFirstPageAction);
+        menu.addSeparator();
+        menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
 
         if(m_searchDock->isVisible())
         {
@@ -1116,15 +1122,32 @@ void MainWindow::on_lastPage_triggered()
     currentTab()->lastPage();
 }
 
+void MainWindow::on_setFirstPage_triggered()
+{
+    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this),
+                                                          tr("Set first page"), tr("Select the first page of the body matter:"),
+                                                          currentTab()->currentPage(), 1, currentTab()->numberOfPages(), this);
+
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        currentTab()->setFirstPage(dialog->value());
+    }
+
+    delete dialog;
+}
+
 void MainWindow::on_jumpToPage_triggered()
 {
-    bool ok = false;
-    const int page = QInputDialog::getInt(this, tr("Jump to page"), tr("Page:"), currentTab()->currentPage(), 1, currentTab()->numberOfPages(), 1, &ok);
+    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this),
+                                                          tr("Jump to page"), tr("Page:"),
+                                                          currentTab()->currentPage(), 1, currentTab()->numberOfPages(), this);
 
-    if(ok)
+    if(dialog->exec() == QDialog::Accepted)
     {
-        currentTab()->jumpToPage(page);
+        currentTab()->jumpToPage(dialog->value());
     }
+
+    delete dialog;
 }
 
 void MainWindow::on_jumpBackward_triggered()
@@ -1497,8 +1520,12 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
+    const QString& currentPageLabel = s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()
+            ? currentTab()->pageLabelFromNumber(currentTab()->currentPage())
+            : currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
+
     bool ok = false;
-    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentTab()->currentPage()), &ok);
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentPageLabel), &ok);
 
     if(!ok)
     {
@@ -1611,7 +1638,7 @@ void MainWindow::on_about_triggered()
 
 QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
 {
-    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()))
     {
         *ok = false;
         return QString();
@@ -1623,7 +1650,7 @@ QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
 
 int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
 {
-    if(currentTab() == 0 || !s_settings->mainWindow().usePageLabel())
+    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()))
     {
         *ok = false;
         return 0;
@@ -2047,7 +2074,7 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
         const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
 
-        if(s_settings->mainWindow().usePageLabel() && defaultPageLabel != pageLabel)
+        if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) && defaultPageLabel != pageLabel)
         {
             suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
         }
@@ -2055,6 +2082,10 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         {
             suffix = QString(" / %1").arg(numberOfPages);
         }
+    }
+    else
+    {
+        suffix = QLatin1String(" / 1");
     }
 
     m_currentPageSpinBox->setSuffix(suffix);
@@ -2283,6 +2314,8 @@ void MainWindow::createActions()
     m_nextPageAction = createAction(tr("&Next page"), QLatin1String("nextPage"), QLatin1String("go-next"), QKeySequence(Qt::Key_Space), SLOT(on_nextPage_triggered()));
     m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QKeySequence(Qt::Key_Home), SLOT(on_firstPage_triggered()));
     m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QKeySequence(Qt::Key_End), SLOT(on_lastPage_triggered()));
+
+    m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 

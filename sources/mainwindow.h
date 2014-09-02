@@ -131,6 +131,8 @@ protected slots:
     void on_firstPage_triggered();
     void on_lastPage_triggered();
 
+    void on_setFirstPage_triggered();
+
     void on_jumpToPage_triggered();
 
     void on_jumpBackward_triggered();
@@ -285,6 +287,8 @@ private:
     QAction* m_nextPageAction;
     QAction* m_firstPageAction;
     QAction* m_lastPageAction;
+
+    QAction* m_setFirstPageAction;
 
     QAction* m_jumpToPageAction;
 
