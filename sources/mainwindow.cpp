@@ -1124,30 +1124,28 @@ void MainWindow::on_lastPage_triggered()
 
 void MainWindow::on_setFirstPage_triggered()
 {
-    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this),
-                                                          tr("Set first page"), tr("Select the first page of the body matter:"),
-                                                          currentTab()->currentPage(), 1, currentTab()->numberOfPages(), this);
+    bool ok = false;
+    const int pageNumber = askForPageNumber(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)),
+                                            this, tr("Set first page"), tr("Select the first page of the body matter:"),
+                                            currentTab()->currentPage(), 1, currentTab()->numberOfPages(), &ok);
 
-    if(dialog->exec() == QDialog::Accepted)
+    if(ok)
     {
-        currentTab()->setFirstPage(dialog->value());
+        currentTab()->setFirstPage(pageNumber);
     }
-
-    delete dialog;
 }
 
 void MainWindow::on_jumpToPage_triggered()
 {
-    GetPageNumberDialog* dialog = new GetPageNumberDialog(new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this),
-                                                          tr("Jump to page"), tr("Page:"),
-                                                          currentTab()->currentPage(), 1, currentTab()->numberOfPages(), this);
+    bool ok = false;
+    const int pageNumber = askForPageNumber(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)),
+                                            this, tr("Jump to page"), tr("Page:"),
+                                            currentTab()->currentPage(), 1, currentTab()->numberOfPages(), &ok);
 
-    if(dialog->exec() == QDialog::Accepted)
+    if(ok)
     {
-        currentTab()->jumpToPage(dialog->value());
+        currentTab()->jumpToPage(pageNumber);
     }
-
-    delete dialog;
 }
 
 void MainWindow::on_jumpBackward_triggered()

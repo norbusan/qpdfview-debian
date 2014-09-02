@@ -25,15 +25,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define MISCELLANEOUS_H
 
 #include <QComboBox>
-#include <QDialog>
 #include <QGraphicsEffect>
 #include <QLineEdit>
 #include <QMetaMethod>
 #include <QPainter>
 #include <QSpinBox>
 #include <QTreeView>
-
-class QLabel;
 
 namespace qpdfview
 {
@@ -272,28 +269,10 @@ private:
 
 };
 
-// get page number dialog
-
-class GetPageNumberDialog : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit GetPageNumberDialog(MappingSpinBox* spinBox, const QString &title, const QString &labelText,
-                                  int value = 0, int min = -2147483647, int max = 2147483647,
-                                 QWidget* parent = 0, Qt::WindowFlags f = 0);
-
-    int value();
-
-private:
-    Q_DISABLE_COPY(GetPageNumberDialog)
-
-    void setupUi();
-
-    QLabel *m_label;
-    MappingSpinBox *m_spinBox;
-
-};
+int askForPageNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                     QWidget* parent, const QString& title, const QString& caption,
+                     int value = 0, int min = -2147483647, int max = 2147483647,
+                     bool* ok = 0, Qt::WindowFlags flags = 0);
 
 } // qpdfview
 

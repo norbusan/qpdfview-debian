@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QDebug>
+#include <QDialog>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QMenu>
@@ -445,42 +446,42 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
-GetPageNumberDialog::GetPageNumberDialog(MappingSpinBox *spinBox, const QString &title, const QString &labelText, int value,
-                                         int min, int max, QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f | Qt::MSWindowsFixedSizeDialogHint),
-    m_spinBox(spinBox)
+int askForPageNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                     QWidget* parent, const QString& title, const QString& caption,
+                     int value, int min, int max, bool* ok, Qt::WindowFlags flags)
 {
-    setupUi();
-    setFocusProxy(m_spinBox);
-    setWindowTitle(title);
+    QDialog* dialog = new QDialog(parent, flags | Qt::MSWindowsFixedSizeDialogHint);
+    dialog->setWindowTitle(title);
 
-    m_label->setText(labelText);
-    m_spinBox->setRange(min, max);
-    m_spinBox->setValue(value);
-}
+    QLabel* label = new QLabel(dialog);
+    label->setText(caption);
 
-int GetPageNumberDialog::value()
-{
-    return m_spinBox->value();
-}
+    MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, textFromValue, valueFromText, dialog);
+    mappingSpinBox->setRange(min, max);
+    mappingSpinBox->setValue(value);
 
-void GetPageNumberDialog::setupUi()
-{
-    QVBoxLayout *verticalLayout = new QVBoxLayout(this);
+    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
+    QObject::connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
+    QObject::connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
 
-    m_label = new QLabel(this);
+    dialog->setLayout(new QVBoxLayout(dialog));
+    dialog->layout()->addWidget(label);
+    dialog->layout()->addWidget(mappingSpinBox);
+    dialog->layout()->addWidget(dialogButtonBox);
 
-    verticalLayout->addWidget(m_label);
-    verticalLayout->addWidget(m_spinBox);
+    dialog->setFocusProxy(mappingSpinBox);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
-    buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-    buttonBox->setOrientation(Qt::Horizontal);
-    buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+    const int dialogResult = dialog->exec();
+    const int pageNumber = mappingSpinBox->value();
 
-    verticalLayout->addWidget(buttonBox);
+    delete dialog;
 
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    if(ok)
+    {
+        *ok = dialogResult == QDialog::Accepted;
+    }
+
+    return pageNumber;
 }
 
 } // qpdfview
