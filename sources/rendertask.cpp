@@ -258,7 +258,7 @@ void RenderTask::run()
     QRectF cropRect;
 
     image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                                  m_renderParam.rotation, m_rect);
+                           m_renderParam.rotation, m_rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
@@ -288,7 +288,7 @@ void RenderTask::run()
 
     finish();
 
-#undef FINISH_IF_CANCELLED
+#undef CANCELLATION_POINT
 }
 
 void RenderTask::start(const RenderParam& renderParam,
