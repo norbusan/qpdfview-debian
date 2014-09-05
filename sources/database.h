@@ -27,16 +27,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WITH_SQL
 
 #include <QSqlDatabase>
+#include <QHash>
 
 #endif // WITH_SQL
 
 #include "global.h"
 
+class QStandardItemModel;
+
 namespace qpdfview
 {
 
 class DocumentView;
-class BookmarkMenu;
 
 class Database : public QObject
 {
@@ -53,7 +55,7 @@ public:
     void clearTabs();
 
     void restoreBookmarks();
-    void saveBookmarks(const QList< const BookmarkMenu* >& bookmarks);
+    void saveBookmarks(const QHash< QString, QStandardItemModel* >& bookmarks);
     void clearBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);

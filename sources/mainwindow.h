@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHash>
 
 #ifdef WITH_DBUS
 
@@ -40,6 +41,7 @@ class QModelIndex;
 class QShortcut;
 class QTableView;
 class QWidgetAction;
+class QStandardItemModel;
 
 #include "global.h"
 
@@ -218,6 +220,8 @@ protected slots:
 
     void on_saveDatabase_timeout();
 
+    void on_bookmark_item_clicked(const QModelIndex& index);
+
 protected:
     void closeEvent(QCloseEvent* event);
 
@@ -375,6 +379,13 @@ private:
 
     QDockWidget* m_searchDock;
     QWidget* m_searchWidget;
+
+    void setBookmarkModel();
+    void updateBookmarksDock();
+
+    QDockWidget* m_bookmarksDock;
+    TreeView* m_bookmarksView;
+    QHash< QString, QStandardItemModel* > m_bookmarkModels;
 
     QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
 

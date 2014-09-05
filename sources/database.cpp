@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
+#include <QStandardItemModel>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -314,7 +315,7 @@ void Database::restoreBookmarks()
 #endif // WITH_SQL
 }
 
-void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
+void Database::saveBookmarks(const QHash< QString, QStandardItemModel* > &bookmarks)
 {
 #ifdef WITH_SQL
 
@@ -337,13 +338,27 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
                           "(filePath,page,label)"
                           " VALUES (?,?,?)");
 
-            foreach(const BookmarkMenu* bookmark, bookmarks)
+            QHash< QString, QStandardItemModel* >::const_iterator iterator = bookmarks.constBegin();
+            while (iterator != bookmarks.constEnd())
             {
-                foreach(const Jump jump, bookmark->jumps())
+                QStandardItemModel* bookmarkModel = iterator.value();
+                if (bookmarkModel == 0)
                 {
-                    query.bindValue(0, bookmark->absoluteFilePath());
-                    query.bindValue(1, jump.first);
-                    query.bindValue(2, jump.second);
+                    ++iterator;
+                    continue;
+                }
+
+                for (int i = 0; i < bookmarkModel->rowCount(); ++i)
+                {
+                    QStandardItem* item = bookmarkModel->item(i);
+                    if (item == 0)
+                    {
+                        continue;
+                    }
+
+                    query.bindValue(0, iterator.key());
+                    query.bindValue(1, item->data(Qt::UserRole + 1));
+                    query.bindValue(2, item->text());
 
                     query.exec();
 
@@ -353,6 +368,8 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
                         return;
                     }
                 }
+
+                ++iterator;
             }
         }
 
