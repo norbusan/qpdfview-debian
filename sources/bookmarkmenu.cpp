@@ -113,7 +113,7 @@ JumpList BookmarkMenu::jumps() const
 
 void BookmarkMenu::on_removeBookmark_triggered()
 {
-    deleteLater();
+    emit removeBookmarks(absoluteFilePath());
 }
 
 void BookmarkMenu::on_open_triggered()

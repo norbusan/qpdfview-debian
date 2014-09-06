@@ -191,9 +191,12 @@ protected slots:
     void on_removeBookmark_triggered();
     void on_removeAllBookmarks_triggered();
 
+    void on_bookmarksMenu_aboutToShow();
+
     void on_bookmark_openTriggered(const QString& absoluteFilePath);
     void on_bookmark_openInNewTabTriggered(const QString& absoluteFilePath);
     void on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath, int page);
+    void on_bookmark_removeBookmarks(const QString& absoluteFilePath);
 
     void on_contents_triggered();
     void on_about_triggered();
@@ -252,7 +255,8 @@ private:
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
-    BookmarkMenu* bookmarkForCurrentTab() const;
+    QStandardItemModel* bookmarkModelForCurrentTab() const;
+    QStandardItemModel* createBookmarkModel(const QString& absoluteFilePath);
 
     QTimer* m_saveDatabaseTimer;
 
@@ -407,6 +411,8 @@ private:
     bool m_fileToolBarWasVisible;
     bool m_editToolBarWasVisible;
     bool m_viewToolBarWasVisible;
+
+    bool m_bookmarksMenuIsDirty;
 
     QAction* m_toggleToolBarsAction;
     QAction* m_toggleMenuBarAction;

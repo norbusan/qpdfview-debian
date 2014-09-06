@@ -48,6 +48,7 @@ signals:
     void openTriggered(const QString& filePath);
     void openInNewTabTriggered(const QString& filePath);
     void jumpToPageTriggered(const QString& filePath, int page);
+    void removeBookmarks(const QString& filePath);
 
 protected slots:
     void on_open_triggered();
