@@ -1530,20 +1530,6 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
-    const QString& currentPageLabel = s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()
-            ? currentTab()->pageLabelFromNumber(currentTab()->currentPage())
-            : currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
-
-    bool ok = false;
-    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentPageLabel), &ok);
-
-    if(!ok)
-    {
-        return;
-    }
-
-    m_bookmarksMenuIsDirty = true;
-
     QStandardItemModel* bookmarkModel = bookmarkModelForCurrentTab();
 
     if (bookmarkModel == 0)
@@ -1554,6 +1540,24 @@ void MainWindow::on_addBookmark_triggered()
     }
 
     QList< QStandardItem* > itemList = bookmarkModel->findItems(QString::number(currentTab()->currentPage()), Qt::MatchExactly, 1);
+
+    const QString& currentPageLabel = s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()
+            ? currentTab()->pageLabelFromNumber(currentTab()->currentPage())
+            : currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
+
+    const QString& currentLabel = itemList.isEmpty()
+            ? tr("Jump to page %1").arg(currentPageLabel)
+            : bookmarkModel->item(itemList.at(0)->row())->text();
+
+    bool ok = false;
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, currentLabel, &ok);
+
+    if(!ok)
+    {
+        return;
+    }
+
+    m_bookmarksMenuIsDirty = true;
 
     if (!itemList.isEmpty())
     {
