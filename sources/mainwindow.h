@@ -188,7 +188,7 @@ protected slots:
     void on_previousBookmark_triggered();
     void on_nextBookmark_triggered();
     void on_addBookmark_triggered();
-    void on_removeBookmark_triggered();
+    void on_removeBookmark_triggered(int index = -1);
     void on_removeAllBookmarks_triggered();
 
     void on_bookmarksMenu_aboutToShow();
@@ -224,6 +224,7 @@ protected slots:
     void on_saveDatabase_timeout();
 
     void on_bookmark_item_clicked(const QModelIndex& index);
+    void on_bookmark_contextMenuRequested(const QPoint &pos);
 
 protected:
     void closeEvent(QCloseEvent* event);

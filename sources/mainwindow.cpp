@@ -1583,7 +1583,7 @@ void MainWindow::on_addBookmark_triggered()
     scheduleSaveBookmarks();
 }
 
-void MainWindow::on_removeBookmark_triggered()
+void MainWindow::on_removeBookmark_triggered(int index)
 {
     m_bookmarksMenuIsDirty = true;
 
@@ -1591,7 +1591,8 @@ void MainWindow::on_removeBookmark_triggered()
 
     if (bookmarkModel != 0)
     {
-        QList< QStandardItem* > itemList = bookmarkModel->findItems(QString::number(currentTab()->currentPage()), Qt::MatchExactly, 1);
+        index = index == -1 ? currentTab()->currentPage() : index;
+        QList< QStandardItem* > itemList = bookmarkModel->findItems(QString::number(index), Qt::MatchExactly, 1);
 
         if (!itemList.isEmpty())
         {
@@ -1951,6 +1952,29 @@ void MainWindow::on_bookmark_item_clicked(const QModelIndex &index)
     {
         currentTab()->jumpToPage(page);
     }
+}
+
+void MainWindow::on_bookmark_contextMenuRequested(const QPoint &pos)
+{
+    const QModelIndex index = m_bookmarksView->indexAt(pos);
+
+    QMenu* menu = new QMenu;
+    menu->addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
+    menu->addSeparator();
+    menu->addAction(m_addBookmarkAction);
+
+    QAction* deleteSelected = new QAction(m_removeBookmarkAction->text(), menu);
+    deleteSelected->setShortcut(m_removeBookmarkAction->shortcut());
+    deleteSelected->setEnabled(index.isValid());
+
+    menu->addAction(deleteSelected);
+
+    if (menu->exec(m_bookmarksView->mapToGlobal(pos)) == deleteSelected)
+    {
+        on_removeBookmark_triggered(index.data(Qt::UserRole + 1).toInt());
+    }
+
+    delete menu;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -2679,9 +2703,12 @@ void MainWindow::createDocks()
     m_bookmarksView->header()->setStretchLastSection(false);
     m_bookmarksView->header()->setVisible(false);
 
+    m_bookmarksView->setContextMenuPolicy(Qt::CustomContextMenu);
+
     updateBookmarksDock();
 
     connect(m_bookmarksView, SIGNAL(clicked(QModelIndex)), SLOT(on_bookmark_item_clicked(QModelIndex)));
+    connect(m_bookmarksView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_bookmark_contextMenuRequested(QPoint)));
 
     m_bookmarksDock->setWidget(m_bookmarksView);
 }
