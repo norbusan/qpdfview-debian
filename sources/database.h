@@ -33,6 +33,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SQL
 
+class QDateTime;
 class QStandardItemModel;
 
 #include "global.h"
