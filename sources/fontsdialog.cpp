@@ -32,6 +32,8 @@ namespace qpdfview
 
 FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(parent)
 {
+    setWindowTitle(tr("Fonts"));
+
     m_tableView = new QTableView(this);
     m_tableView->setModel(model);
 

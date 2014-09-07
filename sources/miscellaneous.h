@@ -269,10 +269,10 @@ private:
 
 };
 
-int askForPageNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
-                     QWidget* parent, const QString& title, const QString& caption,
-                     int value = 0, int min = -2147483647, int max = 2147483647,
-                     bool* ok = 0, Qt::WindowFlags flags = 0);
+int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                    QWidget* parent, const QString& title, const QString& caption,
+                    int value = 0, int min = -2147483647, int max = 2147483647,
+                    bool* ok = 0, Qt::WindowFlags flags = 0);
 
 } // qpdfview
 

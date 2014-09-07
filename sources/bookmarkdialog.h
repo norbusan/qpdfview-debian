@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -19,29 +19,38 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef FONTSDIALOG_H
-#define FONTSDIALOG_H
+#ifndef BOOKMARKDIALOG_H
+#define BOOKMARKDIALOG_H
 
 #include <QDialog>
 
 class QDialogButtonBox;
-class QStandardItemModel;
-class QTableView;
+class QLineEdit;
+class QStandardItem;
+class QTextEdit;
 
 namespace qpdfview
 {
 
-class FontsDialog : public QDialog
+class BookmarkDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    FontsDialog(QStandardItemModel* model, QWidget* parent = 0);
+    BookmarkDialog(QStandardItem* item, QWidget* parent = 0);
+
+public slots:
+    void accept();
 
 private:
-    Q_DISABLE_COPY(FontsDialog)
+    Q_DISABLE_COPY(BookmarkDialog)
 
-    QTableView* m_tableView;
+    QStandardItem* m_item;
+
+    QLineEdit* m_pageEdit;
+    QLineEdit* m_labelEdit;
+    QTextEdit* m_commentEdit;
+    QLineEdit* m_modifiedEdit;
 
     QDialogButtonBox* m_dialogButtonBox;
 
@@ -49,4 +58,4 @@ private:
 
 } // qpdfview
 
-#endif // FONTSDIALOG_H
+#endif // BOOKMARKDIALOG_H

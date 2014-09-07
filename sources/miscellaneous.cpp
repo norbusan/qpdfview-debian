@@ -446,9 +446,9 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
-int askForPageNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
-                     QWidget* parent, const QString& title, const QString& caption,
-                     int value, int min, int max, bool* ok, Qt::WindowFlags flags)
+int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                    QWidget* parent, const QString& title, const QString& caption,
+                    int value, int min, int max, bool* ok, Qt::WindowFlags flags)
 {
     QDialog* dialog = new QDialog(parent, flags | Qt::MSWindowsFixedSizeDialogHint);
     dialog->setWindowTitle(title);
@@ -472,7 +472,7 @@ int askForPageNumber(QObject* mapper, const char* textFromValue, const char* val
     dialog->setFocusProxy(mappingSpinBox);
 
     const int dialogResult = dialog->exec();
-    const int pageNumber = mappingSpinBox->value();
+    const int number = mappingSpinBox->value();
 
     delete dialog;
 
@@ -481,7 +481,7 @@ int askForPageNumber(QObject* mapper, const char* textFromValue, const char* val
         *ok = dialogResult == QDialog::Accepted;
     }
 
-    return pageNumber;
+    return number;
 }
 
 } // qpdfview
