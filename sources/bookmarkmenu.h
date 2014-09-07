@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2012-2014 Adam Reichold
 
 This file is part of qpdfview.
@@ -48,6 +49,7 @@ signals:
     void openTriggered(const QString& filePath);
     void openInNewTabTriggered(const QString& filePath);
     void jumpToPageTriggered(const QString& filePath, int page);
+    void removeBookmarkTriggered(const QString& filePath);
 
 protected slots:
     void on_open_triggered();

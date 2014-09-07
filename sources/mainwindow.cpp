@@ -113,6 +113,20 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
+void appendBookmark(QStandardItemModel* model, int page, const QString& label)
+{
+    QStandardItem* item = new QStandardItem(label);
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+    item->setData(page, Qt::UserRole + 1);
+
+    QStandardItem* pageItem = item->clone();
+    pageItem->setText(QString::number(page));
+    pageItem->setTextAlignment(Qt::AlignRight);
+
+    model->appendRow(QList< QStandardItem* >() << item << pageItem);
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -187,6 +201,7 @@ QMenu* MainWindow::createPopupMenu()
     menu->addAction(m_outlineDock->toggleViewAction());
     menu->addAction(m_propertiesDock->toggleViewAction());
     menu->addAction(m_thumbnailsDock->toggleViewAction());
+    menu->addAction(m_bookmarksDock->toggleViewAction());
 
     return menu;
 }
@@ -418,6 +433,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_outlineView->setModel(currentTab()->outlineModel());
         m_propertiesView->setModel(currentTab()->propertiesModel());
+        m_bookmarksView->setModel(bookmarksModelForCurrentTab());
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
 
         on_currentTab_documentChanged();
@@ -512,6 +528,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
+        m_bookmarksView->setModel(0);
         m_thumbnailsView->setScene(0);
 
         setWindowTitleForCurrentTab();
@@ -631,54 +648,9 @@ void MainWindow::on_currentTab_documentChanged()
     {
         setWindowTitleForCurrentTab();
 
-        // outline view
-
-        if(m_outlineView->header()->count() > 0)
-        {
-    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-            m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-    #else
-
-            m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-    #endif // QT_VERSION
-        }
-
-        if(m_outlineView->header()->count() > 1)
-        {
-    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-            m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-    #else
-
-            m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-    #endif // QT_VERSION
-        }
-
-        m_outlineView->header()->setMinimumSectionSize(0);
-        m_outlineView->header()->setStretchLastSection(false);
-        m_outlineView->header()->setVisible(false);
-
-        // properties view
-
-    #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-    #else
-
-        m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-        m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-    #endif // QT_VERSION
-
-        m_propertiesView->horizontalHeader()->setVisible(false);
-        m_propertiesView->verticalHeader()->setVisible(false);
+        resetOutlineView();
+        resetPropertiesView();
+        resetBookmarksView();
     }
 }
 
@@ -1456,15 +1428,15 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    const BookmarkMenu* bookmark = bookmarkForCurrentTab();
+    const QStandardItemModel* model = bookmarksModelForCurrentTab();
 
-    if(bookmark != 0)
+    if(model != 0)
     {
         QList< int > pages;
 
-        foreach(const Jump jump, bookmark->jumps())
+        for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(jump.first);
+            pages.append(model->item(row)->data(Qt::UserRole + 1).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1487,15 +1459,15 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    const BookmarkMenu* bookmark = bookmarkForCurrentTab();
+    const QStandardItemModel* model = bookmarksModelForCurrentTab();
 
-    if(bookmark != 0)
+    if(model != 0)
     {
         QList< int > pages;
 
-        foreach(const Jump jump, bookmark->jumps())
+        for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(jump.first);
+            pages.append(model->item(row)->data(Qt::UserRole + 1).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1518,65 +1490,115 @@ void MainWindow::on_nextBookmark_triggered()
 
 void MainWindow::on_addBookmark_triggered()
 {
+    QStandardItem* item = bookmarksItemForCurrentTab(currentTab()->currentPage());
+
     const QString& currentPageLabel = s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()
             ? currentTab()->pageLabelFromNumber(currentTab()->currentPage())
             : currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
 
+    const QString& currentLabel = item != 0 ? item->text() : tr("Jump to page %1").arg(currentPageLabel);
+
     bool ok = false;
-    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, tr("Jump to page %1").arg(currentPageLabel), &ok);
+    const QString label = QInputDialog::getText(this, tr("Add bookmark"), tr("Label"), QLineEdit::Normal, currentLabel, &ok);
 
     if(!ok)
     {
         return;
     }
 
-    BookmarkMenu* bookmark = bookmarkForCurrentTab();
-
-    if(bookmark != 0)
+    if(item != 0)
     {
-        bookmark->addJumpToPageAction(currentTab()->currentPage(), label);
+        item->setText(label);
     }
     else
     {
-        bookmark = new BookmarkMenu(currentTab()->fileInfo(), this);
+        QStandardItemModel* model = bookmarksModelForCurrentTab();
 
-        bookmark->addJumpToPageAction(currentTab()->currentPage(), label);
+        if(model == 0)
+        {
+            model = new QStandardItemModel(this);
+            model->setSortRole(Qt::UserRole + 1);
 
-        connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-        connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-        connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+            m_bookmarks.insert(currentTab()->fileInfo().absoluteFilePath(), model);
 
-        m_bookmarksMenu->addMenu(bookmark);
+            m_bookmarksView->setModel(model);
+        }
+
+        appendBookmark(model, currentTab()->currentPage(), label);
+
+        resetBookmarksView();
     }
 
+    m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeBookmark_triggered()
 {
-    BookmarkMenu* bookmark = bookmarkForCurrentTab();
+    QStandardItemModel* model = bookmarksModelForCurrentTab();
 
-    if(bookmark != 0)
+    if(model != 0)
     {
-        bookmark->removeJumpToPageAction(currentTab()->currentPage());
+        QStandardItem* item = bookmarksItemForCurrentTab(currentTab()->currentPage());
+
+        if(item != 0)
+        {
+            model->removeRow(item->row());
+        }
     }
 
+    m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
 }
 
 void MainWindow::on_removeAllBookmarks_triggered()
 {
-    foreach(const QAction* action, m_bookmarksMenu->actions())
-    {
-        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+    m_bookmarksView->setModel(0);
 
-        if(bookmark != 0)
-        {
-            delete bookmark;
-        }
+    qDeleteAll(m_bookmarks);
+    m_bookmarks.clear();
+
+    m_bookmarksMenuIsDirty = true;
+    scheduleSaveBookmarks();
+}
+
+void MainWindow::on_bookmarksMenu_aboutToShow()
+{
+    if(!m_bookmarksMenuIsDirty)
+    {
+        return;
     }
 
-    scheduleSaveBookmarks();
+    m_bookmarksMenuIsDirty = false;
+
+
+    m_bookmarksMenu->clear();
+
+    m_bookmarksMenu->addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
+    m_bookmarksMenu->addSeparator();
+    m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
+    m_bookmarksMenu->addSeparator();
+
+    for(Bookmarks::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
+    {
+        const QStandardItemModel* model = iterator.value();
+
+        BookmarkMenu* bookmark = new BookmarkMenu(QFileInfo(iterator.key()), m_bookmarksMenu);
+
+        for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
+        {
+            const QStandardItem* item = model->item(row);
+
+            bookmark->addJumpToPageAction(item->data(Qt::UserRole + 1).toInt(), item->text());
+        }
+
+        connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+        connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+        connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+        connect(bookmark, SIGNAL(removeBookmarkTriggered(QString)), SLOT(on_bookmark_removeBookmarkTriggered(QString)));
+
+        m_bookmarksMenu->addMenu(bookmark);
+    }
 }
 
 void MainWindow::on_bookmark_openTriggered(const QString& absoluteFilePath)
@@ -1599,6 +1621,21 @@ void MainWindow::on_bookmark_openInNewTabTriggered(const QString& absoluteFilePa
 void MainWindow::on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath, int page)
 {
     jumpToPageOrOpenInNewTab(absoluteFilePath, page);
+}
+
+void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFilePath)
+{
+    QStandardItemModel* model = m_bookmarks.take(absoluteFilePath);
+
+    if(m_bookmarksView->model() == model)
+    {
+        m_bookmarksView->setModel(0);
+    }
+
+    delete model;
+
+    m_bookmarksMenuIsDirty = true;
+    scheduleSaveBookmarks();
 }
 
 void MainWindow::on_contents_triggered()
@@ -1782,6 +1819,48 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
     }
 }
 
+void MainWindow::on_bookmarks_clicked(const QModelIndex &index)
+{
+    bool ok = false;
+    const int page = m_bookmarksView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+
+    if(ok)
+    {
+        currentTab()->jumpToPage(page);
+    }
+}
+
+void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
+{
+    const QModelIndex index = m_bookmarksView->indexAt(pos);
+
+    QMenu menu;
+
+    menu.addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
+    menu.addSeparator();
+    menu.addAction(m_addBookmarkAction);
+
+    QAction* removeBookmarkAction = menu.addAction(m_removeBookmarkAction->icon(), m_removeBookmarkAction->text());
+    removeBookmarkAction->setShortcut(m_removeBookmarkAction->shortcut());
+
+    removeBookmarkAction->setVisible(index.isValid());
+
+    const QAction* action = menu.exec(m_bookmarksView->mapToGlobal(pos));
+
+    if(action == removeBookmarkAction)
+    {
+        QStandardItemModel* model = bookmarksModelForCurrentTab();
+
+        if(model != 0)
+        {
+            model->removeRow(index.row());
+        }
+
+        m_bookmarksMenuIsDirty = true;
+        scheduleSaveBookmarks();
+    }
+}
+
 void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
     if(openInNewTab(absoluteFilePath))
@@ -1801,18 +1880,17 @@ void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool c
 
 void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& jumps)
 {
-    BookmarkMenu* bookmark = new BookmarkMenu(QFileInfo(absoluteFilePath), this);
+    QStandardItemModel* model = new QStandardItemModel(this);
+    model->setSortRole(Qt::UserRole + 1);
 
     foreach(const Jump jump, jumps)
     {
-        bookmark->addJumpToPageAction(jump.first, jump.second);
+        appendBookmark(model, jump.first, jump.second);
     }
 
-    connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-    connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-    connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+    m_bookmarks.insert(absoluteFilePath, model);
 
-    m_bookmarksMenu->addMenu(bookmark);
+    m_bookmarksMenuIsDirty = true;
 }
 
 void MainWindow::on_saveDatabase_timeout()
@@ -2089,18 +2167,27 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
     m_currentPageSpinBox->setSuffix(suffix);
 }
 
-BookmarkMenu* MainWindow::bookmarkForCurrentTab() const
+QStandardItemModel* MainWindow::bookmarksModelForCurrentTab()
 {
-    foreach(QAction* action, m_bookmarksMenu->actions())
-    {
-        BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
+    return m_bookmarks.value(currentTab()->fileInfo().absoluteFilePath(), 0);
+}
 
-        if(bookmark != 0)
+QStandardItem* MainWindow::bookmarksItemForCurrentTab(int page)
+{
+    QStandardItemModel* model = bookmarksModelForCurrentTab();
+
+    if(model == 0)
+    {
+        return 0;
+    }
+
+    for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
+    {
+        QStandardItem* item = model->item(row);
+
+        if(item->data(Qt::UserRole + 1).toInt() == page)
         {
-            if(bookmark->absoluteFilePath() == currentTab()->fileInfo().absoluteFilePath())
-            {
-                return bookmark;
-            }
+            return item;
         }
     }
 
@@ -2138,19 +2225,7 @@ void MainWindow::saveTabs() const
 
 void MainWindow::saveBookmarks() const
 {
-    QList< const BookmarkMenu* > bookmarks;
-
-    foreach(const QAction* action, m_bookmarksMenu->actions())
-    {
-        const BookmarkMenu* bookmark = qobject_cast< BookmarkMenu* >(action->menu());
-
-        if(bookmark != 0)
-        {
-            bookmarks.append(bookmark);
-        }
-    }
-
-    s_database->saveBookmarks(bookmarks);
+    s_database->saveBookmarks(m_bookmarks);
 }
 
 void MainWindow::scheduleSaveDatabase()
@@ -2433,6 +2508,104 @@ void MainWindow::createToolBars()
     m_focusScaleFactorShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_L), this, SLOT(on_focusScaleFactor_activated()));
 }
 
+void MainWindow::resetOutlineView()
+{
+    if(m_outlineView->header()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_outlineView->header()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_outlineView->header()->setMinimumSectionSize(0);
+    m_outlineView->header()->setStretchLastSection(false);
+    m_outlineView->header()->setVisible(false);
+}
+
+void MainWindow::resetPropertiesView()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_propertiesView->horizontalHeader()->setVisible(false);
+    m_propertiesView->verticalHeader()->setVisible(false);
+}
+
+void MainWindow::resetBookmarksView()
+{
+    m_bookmarksView->sortByColumn(0, Qt::AscendingOrder);
+
+    if(m_bookmarksView->horizontalHeader()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_bookmarksView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_bookmarksView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_bookmarksView->horizontalHeader()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_bookmarksView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+    m_bookmarksView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    m_bookmarksView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+    m_bookmarksView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+
+    m_bookmarksView->horizontalHeader()->setMinimumSectionSize(0);
+    m_bookmarksView->horizontalHeader()->setStretchLastSection(false);
+    m_bookmarksView->horizontalHeader()->setVisible(false);
+
+    m_bookmarksView->verticalHeader()->setVisible(false);
+}
+
 QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
 {
     QDockWidget* dock = new QDockWidget(text, this);
@@ -2457,7 +2630,7 @@ void MainWindow::createDocks()
 
     m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
-    m_outlineView = new TreeView(Qt::UserRole, this);
+    m_outlineView = new TreeView(Qt::UserRole + 4, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -2489,6 +2662,23 @@ void MainWindow::createDocks()
     connect(m_thumbnailsView->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_thumbnails_verticalScrollBar_valueChanged(int)));
 
     m_thumbnailsDock->setWidget(m_thumbnailsView);
+
+    // bookmarks
+
+    m_bookmarksDock = createDock(tr("&Bookmarks"), QLatin1String("bookmarksDock"), QKeySequence(Qt::Key_F9));
+
+    m_bookmarksView = new QTableView(this);
+    m_bookmarksView->setShowGrid(false);
+    m_bookmarksView->setAlternatingRowColors(true);
+    m_bookmarksView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_bookmarksView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_bookmarksView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_bookmarksView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect(m_bookmarksView, SIGNAL(clicked(QModelIndex)), SLOT(on_bookmarks_clicked(QModelIndex)));
+    connect(m_bookmarksView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_bookmarks_contextMenuRequested(QPoint)));
+
+    m_bookmarksDock->setWidget(m_bookmarksView);
 
     // search
 
@@ -2589,7 +2779,7 @@ void MainWindow::createMenus()
     toolBarsMenu->addActions(QList< QAction* >() << m_fileToolBar->toggleViewAction() << m_editToolBar->toggleViewAction() << m_viewToolBar->toggleViewAction());
 
     QMenu* docksMenu = m_viewMenu->addMenu(tr("&Docks"));
-    docksMenu->addActions(QList< QAction* >() << m_outlineDock->toggleViewAction() << m_propertiesDock->toggleViewAction() << m_thumbnailsDock->toggleViewAction());
+    docksMenu->addActions(QList< QAction* >() << m_outlineDock->toggleViewAction() << m_propertiesDock->toggleViewAction() << m_thumbnailsDock->toggleViewAction() << m_bookmarksDock->toggleViewAction());
 
     m_viewMenu->addAction(m_fontsAction);
     m_viewMenu->addSeparator();
@@ -2616,10 +2806,10 @@ void MainWindow::createMenus()
     // bookmarks
 
     m_bookmarksMenu = menuBar()->addMenu(tr("&Bookmarks"));
-    m_bookmarksMenu->addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
-    m_bookmarksMenu->addSeparator();
-    m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
-    m_bookmarksMenu->addSeparator();
+
+    connect(m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(on_bookmarksMenu_aboutToShow()));
+
+    m_bookmarksMenuIsDirty = true;
 
     // help
 
@@ -2707,18 +2897,17 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
 {
     if(mainWindow()->m_tabWidget->currentIndex() == -1) { return false; }
 
-    const BookmarkMenu* bookmark = mainWindow()->bookmarkForCurrentTab();
+    const QStandardItemModel* model = mainWindow()->bookmarksModelForCurrentTab();
 
-    if(bookmark != 0)
+    if(model != 0)
     {
-        foreach(const Jump& jump, bookmark->jumps())
-        {
-            if(jump.second == label)
-            {
-                mainWindow()->currentTab()->jumpToPage(jump.first);
+        QList< QStandardItem* > itemList = model->findItems(label);
 
-                return true;
-            }
+        if(!itemList.isEmpty())
+        {
+            mainWindow()->currentTab()->jumpToPage(itemList.first()->data(Qt::UserRole + 1).toInt());
+
+            return true;
         }
     }
 

@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2013-2014 Adam Reichold
 
 This file is part of qpdfview.
@@ -36,7 +37,6 @@ namespace qpdfview
 {
 
 class DocumentView;
-class BookmarkMenu;
 
 class Database : public QObject
 {
@@ -53,7 +53,7 @@ public:
     void clearTabs();
 
     void restoreBookmarks();
-    void saveBookmarks(const QList< const BookmarkMenu* >& bookmarks);
+    void saveBookmarks(const Bookmarks& bookmarks);
     void clearBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);

@@ -38,6 +38,7 @@ class QGraphicsView;
 class QFileInfo;
 class QModelIndex;
 class QShortcut;
+class QStandardItem;
 class QTableView;
 class QWidgetAction;
 
@@ -189,9 +190,12 @@ protected slots:
     void on_removeBookmark_triggered();
     void on_removeAllBookmarks_triggered();
 
+    void on_bookmarksMenu_aboutToShow();
+
     void on_bookmark_openTriggered(const QString& absoluteFilePath);
     void on_bookmark_openInNewTabTriggered(const QString& absoluteFilePath);
     void on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath, int page);
+    void on_bookmark_removeBookmarkTriggered(const QString& absoluteFilePath);
 
     void on_contents_triggered();
     void on_about_triggered();
@@ -212,6 +216,9 @@ protected slots:
 
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
+
+    void on_bookmarks_clicked(const QModelIndex& index);
+    void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
     void on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
@@ -248,7 +255,10 @@ private:
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
-    BookmarkMenu* bookmarkForCurrentTab() const;
+    Bookmarks m_bookmarks;
+
+    QStandardItemModel* bookmarksModelForCurrentTab();
+    QStandardItem* bookmarksItemForCurrentTab(int page);
 
     QTimer* m_saveDatabaseTimer;
 
@@ -373,6 +383,13 @@ private:
     QDockWidget* m_thumbnailsDock;
     QGraphicsView* m_thumbnailsView;
 
+    QDockWidget* m_bookmarksDock;
+    QTableView* m_bookmarksView;
+
+    void resetOutlineView();
+    void resetPropertiesView();
+    void resetBookmarksView();
+
     QDockWidget* m_searchDock;
     QWidget* m_searchWidget;
 
@@ -388,6 +405,8 @@ private:
     RecentlyClosedMenu* m_recentlyClosedMenu;
     QMenu* m_bookmarksMenu;
     QMenu* m_helpMenu;
+
+    bool m_bookmarksMenuIsDirty;
 
     void createMenus();
 

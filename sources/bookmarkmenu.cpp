@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2012-2014 Adam Reichold
 
 This file is part of qpdfview.
@@ -111,11 +112,6 @@ JumpList BookmarkMenu::jumps() const
     return jumps;
 }
 
-void BookmarkMenu::on_removeBookmark_triggered()
-{
-    deleteLater();
-}
-
 void BookmarkMenu::on_open_triggered()
 {
     emit openTriggered(absoluteFilePath());
@@ -129,6 +125,11 @@ void BookmarkMenu::on_openInNewTab_triggered()
 void BookmarkMenu::on_jumpToPage_triggered(QAction* action)
 {
     emit jumpToPageTriggered(absoluteFilePath(), action->data().toInt());
+}
+
+void BookmarkMenu::on_removeBookmark_triggered()
+{
+    emit removeBookmarkTriggered(absoluteFilePath());
 }
 
 } // qpdfview

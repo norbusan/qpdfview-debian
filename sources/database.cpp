@@ -1,5 +1,6 @@
 /*
 
+Copyright 2014 S. Razi Alavizadeh
 Copyright 2012-2014 Adam Reichold
 Copyright 2012 Michał Trybus
 
@@ -27,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
+#include <QStandardItemModel>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -314,7 +316,7 @@ void Database::restoreBookmarks()
 #endif // WITH_SQL
 }
 
-void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
+void Database::saveBookmarks(const Bookmarks& bookmarks)
 {
 #ifdef WITH_SQL
 
@@ -337,13 +339,17 @@ void Database::saveBookmarks(const QList< const BookmarkMenu* >& bookmarks)
                           "(filePath,page,label)"
                           " VALUES (?,?,?)");
 
-            foreach(const BookmarkMenu* bookmark, bookmarks)
+            for(Bookmarks::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
             {
-                foreach(const Jump jump, bookmark->jumps())
+                const QStandardItemModel* bookmarkModel = iterator.value();
+
+                for(int index = 0; index < bookmarkModel->rowCount(); ++index)
                 {
-                    query.bindValue(0, bookmark->absoluteFilePath());
-                    query.bindValue(1, jump.first);
-                    query.bindValue(2, jump.second);
+                    const QStandardItem* item = bookmarkModel->item(index);
+
+                    query.bindValue(0, iterator.key());
+                    query.bindValue(1, item->data(Qt::UserRole + 1));
+                    query.bindValue(2, item->text());
 
                     query.exec();
 

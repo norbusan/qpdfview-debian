@@ -1,6 +1,7 @@
 Release 0.4.12:
   * Fixed loading document-supplied view mode defaults.
   * Add function to automatically trim empty page margins.
+  * Add dock to improved access to bookmarks. Thanks to S. Razi Alavizadeh.
   * Add support for document-supplied page label. Thanks to S. Razi Alavizadeh.
   * Add context menu to copy link addresses.
   * Improve caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
