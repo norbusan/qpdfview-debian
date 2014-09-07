@@ -25,11 +25,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 
+#include <QHash>
+
 #ifdef WITH_SQL
 
 #include <QSqlDatabase>
 
 #endif // WITH_SQL
+
+class QStandardItemModel;
 
 #include "global.h"
 
@@ -53,7 +57,7 @@ public:
     void clearTabs();
 
     void restoreBookmarks();
-    void saveBookmarks(const Bookmarks& bookmarks);
+    void saveBookmarks(const QHash< QString, QStandardItemModel* >& bookmarks);
     void clearBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);
@@ -61,7 +65,7 @@ public:
 
 signals:
     void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void bookmarkRestored(const QString& absoluteFilePath, const JumpList& pages);
+    void bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label);
 
 private:
     Q_DISABLE_COPY(Database)

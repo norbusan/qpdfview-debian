@@ -49,7 +49,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "documentview.h"
-#include "bookmarkmenu.h"
 
 #ifdef WITH_SQL
 
@@ -284,7 +283,6 @@ void Database::restoreBookmarks()
             }
 
             const QString filePath = outerQuery.value(0).toString();
-            QList< QPair< int, QString > > jumps;
 
             QSqlQuery innerQuery(m_database);
             innerQuery.prepare("SELECT page,label FROM bookmarks_v2 WHERE filePath==?");
@@ -304,10 +302,8 @@ void Database::restoreBookmarks()
                 const int page = innerQuery.value(0).toInt();
                 const QString label = innerQuery.value(1).toString();
 
-                jumps.append(qMakePair(page, label));
+                emit bookmarkRestored(filePath, page, label);
             }
-
-            emit bookmarkRestored(filePath, jumps);
         }
 
         transaction.commit();
@@ -316,7 +312,7 @@ void Database::restoreBookmarks()
 #endif // WITH_SQL
 }
 
-void Database::saveBookmarks(const Bookmarks& bookmarks)
+void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookmarks)
 {
 #ifdef WITH_SQL
 
@@ -339,17 +335,17 @@ void Database::saveBookmarks(const Bookmarks& bookmarks)
                           "(filePath,page,label)"
                           " VALUES (?,?,?)");
 
-            for(Bookmarks::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
+            for(QHash< QString, QStandardItemModel* >::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
             {
-                const QStandardItemModel* bookmarkModel = iterator.value();
+                const QStandardItemModel* model = iterator.value();
 
-                for(int index = 0; index < bookmarkModel->rowCount(); ++index)
+                for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
                 {
-                    const QStandardItem* item = bookmarkModel->item(index);
+                    const QStandardItem* item = model->item(row);
 
                     query.bindValue(0, iterator.key());
-                    query.bindValue(1, item->data(Qt::UserRole + 1));
-                    query.bindValue(2, item->text());
+                    query.bindValue(1, item->data(BookmarkPageRole));
+                    query.bindValue(2, item->data(BookmarkLabelRole));
 
                     query.exec();
 

@@ -25,12 +25,17 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMenu>
 
+#include <QPair>
+
 class QFileInfo;
 
 #include "global.h"
 
 namespace qpdfview
 {
+
+typedef QPair< int, QString > Jump;
+typedef QList< Jump > JumpList;
 
 class BookmarkMenu : public QMenu
 {

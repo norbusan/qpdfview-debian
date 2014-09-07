@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define DOCUMENTLAYOUT_H
 
 #include <QMap>
+#include <QPair>
 
 #include "global.h"
 

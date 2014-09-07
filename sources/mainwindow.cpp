@@ -118,7 +118,8 @@ void appendBookmark(QStandardItemModel* model, int page, const QString& label)
     QStandardItem* item = new QStandardItem(label);
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-    item->setData(page, Qt::UserRole + 1);
+    item->setData(page, BookmarkPageRole);
+    item->setData(label, BookmarkLabelRole);
 
     QStandardItem* pageItem = item->clone();
     pageItem->setText(QString::number(page));
@@ -1436,7 +1437,7 @@ void MainWindow::on_previousBookmark_triggered()
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(model->item(row)->data(Qt::UserRole + 1).toInt());
+            pages.append(model->item(row)->data(BookmarkPageRole).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1467,7 +1468,7 @@ void MainWindow::on_nextBookmark_triggered()
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(model->item(row)->data(Qt::UserRole + 1).toInt());
+            pages.append(model->item(row)->data(BookmarkPageRole).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1509,6 +1510,8 @@ void MainWindow::on_addBookmark_triggered()
     if(item != 0)
     {
         item->setText(label);
+
+        item->setData(label, BookmarkLabelRole);
     }
     else
     {
@@ -1517,7 +1520,7 @@ void MainWindow::on_addBookmark_triggered()
         if(model == 0)
         {
             model = new QStandardItemModel(this);
-            model->setSortRole(Qt::UserRole + 1);
+            model->setSortRole(BookmarkPageRole);
 
             m_bookmarks.insert(currentTab()->fileInfo().absoluteFilePath(), model);
 
@@ -1579,7 +1582,7 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
     m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 
-    for(Bookmarks::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
+    for(QHash< QString, QStandardItemModel* >::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
     {
         const QStandardItemModel* model = iterator.value();
 
@@ -1589,7 +1592,7 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
         {
             const QStandardItem* item = model->item(row);
 
-            bookmark->addJumpToPageAction(item->data(Qt::UserRole + 1).toInt(), item->text());
+            bookmark->addJumpToPageAction(item->data(BookmarkPageRole).toInt(), item->data(BookmarkLabelRole).toString());
         }
 
         connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
@@ -1822,7 +1825,7 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
 void MainWindow::on_bookmarks_clicked(const QModelIndex &index)
 {
     bool ok = false;
-    const int page = m_bookmarksView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+    const int page = m_bookmarksView->model()->data(index, BookmarkPageRole).toInt(&ok);
 
     if(ok)
     {
@@ -1878,19 +1881,19 @@ void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool c
     }
 }
 
-void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, const JumpList& jumps)
+void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label)
 {
-    QStandardItemModel* model = new QStandardItemModel(this);
-    model->setSortRole(Qt::UserRole + 1);
+    QStandardItemModel* model = m_bookmarks.value(absoluteFilePath, 0);
 
-    foreach(const Jump jump, jumps)
+    if(model == 0)
     {
-        appendBookmark(model, jump.first, jump.second);
+        model = new QStandardItemModel(this);
+        model->setSortRole(BookmarkPageRole);
+
+        m_bookmarks.insert(absoluteFilePath, model);
     }
 
-    m_bookmarks.insert(absoluteFilePath, model);
-
-    m_bookmarksMenuIsDirty = true;
+    appendBookmark(model, page, label);
 }
 
 void MainWindow::on_saveDatabase_timeout()
@@ -2185,7 +2188,7 @@ QStandardItem* MainWindow::bookmarksItemForCurrentTab(int page)
     {
         QStandardItem* item = model->item(row);
 
-        if(item->data(Qt::UserRole + 1).toInt() == page)
+        if(item->data(BookmarkPageRole).toInt() == page)
         {
             return item;
         }
@@ -2202,7 +2205,7 @@ void MainWindow::prepareDatabase()
     }
 
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
-    connect(s_database, SIGNAL(bookmarkRestored(QString,JumpList)), SLOT(on_database_bookmarkRestored(QString,JumpList)));
+    connect(s_database, SIGNAL(bookmarkRestored(QString,int,QString)), SLOT(on_database_bookmarkRestored(QString,int,QString)));
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
@@ -2905,7 +2908,7 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
 
         if(!itemList.isEmpty())
         {
-            mainWindow()->currentTab()->jumpToPage(itemList.first()->data(Qt::UserRole + 1).toInt());
+            mainWindow()->currentTab()->jumpToPage(itemList.first()->data(BookmarkPageRole).toInt());
 
             return true;
         }

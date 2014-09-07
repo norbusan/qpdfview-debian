@@ -23,10 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include <QHash>
-#include <QPair>
-
-class QStandardItemModel;
+#include <Qt>
 
 namespace qpdfview
 {
@@ -116,10 +113,12 @@ enum ScaleMode
     NumberOfScaleModes = 3
 };
 
-typedef QPair< int, QString > Jump;
-typedef QList< Jump > JumpList;
-
-typedef QHash< QString, QStandardItemModel* > Bookmarks;
+enum BookmarkRoles
+{
+    BookmarkPageRole = Qt::UserRole + 1,
+    BookmarkLabelRole = Qt::UserRole + 2,
+    BookmarkCommentRole = Qt::UserRole + 3
+};
 
 } // qpdfview
 
