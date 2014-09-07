@@ -65,7 +65,7 @@ public:
 
 signals:
     void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label);
+    void bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified);
 
 private:
     Q_DISABLE_COPY(Database)
@@ -78,12 +78,13 @@ private:
 #ifdef WITH_SQL
 
     bool prepareTabs_v3();
-    bool prepareBookmarks_v2();
+    bool prepareBookmarks_v3();
     bool preparePerFileSettings_v2();
 
     void migrateTabs_v2_v3();
     void migrateTabs_v1_v3();
-    void migrateBookmarks_v1_v2();
+    void migrateBookmarks_v2_v3();
+    void migrateBookmarks_v1_v3();
     void migratePerFileSettings_v1_v2();
 
     QSqlDatabase m_database;

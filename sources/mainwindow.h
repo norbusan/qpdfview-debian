@@ -222,7 +222,7 @@ protected slots:
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label);
+    void on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified);
 
     void on_saveDatabase_timeout();
 

@@ -117,7 +117,8 @@ enum BookmarkRoles
 {
     BookmarkPageRole = Qt::UserRole + 1,
     BookmarkLabelRole = Qt::UserRole + 2,
-    BookmarkCommentRole = Qt::UserRole + 3
+    BookmarkCommentRole = Qt::UserRole + 3,
+    BookmarkModifiedRole = Qt::UserRole + 4
 };
 
 } // qpdfview

@@ -272,7 +272,7 @@ void Database::restoreBookmarks()
         Transaction transaction(m_database);
 
         QSqlQuery outerQuery(m_database);
-        outerQuery.exec("SELECT DISTINCT(filePath) FROM bookmarks_v2");
+        outerQuery.exec("SELECT DISTINCT(filePath) FROM bookmarks_v3");
 
         while(outerQuery.next())
         {
@@ -285,7 +285,7 @@ void Database::restoreBookmarks()
             const QString filePath = outerQuery.value(0).toString();
 
             QSqlQuery innerQuery(m_database);
-            innerQuery.prepare("SELECT page,label FROM bookmarks_v2 WHERE filePath==?");
+            innerQuery.prepare("SELECT page,label,comment,modified FROM bookmarks_v3 WHERE filePath==?");
 
             innerQuery.bindValue(0, filePath);
 
@@ -301,8 +301,10 @@ void Database::restoreBookmarks()
 
                 const int page = innerQuery.value(0).toInt();
                 const QString label = innerQuery.value(1).toString();
+                const QString comment = innerQuery.value(2).toString();
+                const QDateTime modified = innerQuery.value(3).toDateTime();
 
-                emit bookmarkRestored(filePath, page, label);
+                emit bookmarkRestored(filePath, page, label, comment, modified);
             }
         }
 
@@ -321,7 +323,7 @@ void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookma
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM bookmarks_v2");
+        query.exec("DELETE FROM bookmarks_v3");
 
         if(!query.isActive())
         {
@@ -331,9 +333,9 @@ void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookma
 
         if(Settings::instance()->mainWindow().restoreBookmarks())
         {
-            query.prepare("INSERT INTO bookmarks_v2 "
-                          "(filePath,page,label)"
-                          " VALUES (?,?,?)");
+            query.prepare("INSERT INTO bookmarks_v3 "
+                          "(filePath,page,label,comment,modified)"
+                          " VALUES (?,?,?,?,?)");
 
             for(QHash< QString, QStandardItemModel* >::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
             {
@@ -346,6 +348,8 @@ void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookma
                     query.bindValue(0, iterator.key());
                     query.bindValue(1, item->data(BookmarkPageRole));
                     query.bindValue(2, item->data(BookmarkLabelRole));
+                    query.bindValue(3, item->data(BookmarkCommentRole));
+                    query.bindValue(4, item->data(BookmarkModifiedRole));
 
                     query.exec();
 
@@ -377,7 +381,7 @@ void Database::clearBookmarks()
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM bookmarks_v2");
+        query.exec("DELETE FROM bookmarks_v3");
 
         if(!query.isActive())
         {
@@ -530,11 +534,18 @@ Database::Database(QObject* parent) : QObject(parent)
 
         // bookmarks
 
-        if(!tables.contains("bookmarks_v2"))
+        if(!tables.contains("bookmarks_v3"))
         {
-            if(prepareBookmarks_v2() && tables.contains("bookmarks_v1"))
+            if(prepareBookmarks_v3())
             {
-                migrateBookmarks_v1_v2();
+                if(tables.contains("bookmarks_v2"))
+                {
+                    migrateBookmarks_v2_v3();
+                }
+                else if(tables.contains("bookmarks_v1"))
+                {
+                    migrateBookmarks_v1_v3();
+                }
             }
         }
 
@@ -589,15 +600,17 @@ bool Database::prepareTabs_v3()
     return true;
 }
 
-bool Database::prepareBookmarks_v2()
+bool Database::prepareBookmarks_v3()
 {
     Transaction transaction(m_database);
 
     QSqlQuery query(m_database);
-    query.exec("CREATE TABLE bookmarks_v2 "
+    query.exec("CREATE TABLE bookmarks_v3 "
                "(filePath TEXT"
                ",page INTEGER"
-               ",label TEXT)");
+               ",label TEXT"
+               ",comment TEXT"
+               ",modified DATETIME)");
 
     if(!query.isActive())
     {
@@ -699,7 +712,30 @@ void Database::migrateTabs_v1_v3()
     transaction.commit();
 }
 
-void Database::migrateBookmarks_v1_v2()
+void Database::migrateBookmarks_v2_v3()
+{
+    Transaction transaction(m_database);
+
+    QSqlQuery query(m_database);
+    query.prepare("INSERT INTO bookmarks_v3 "
+                  "SELECT filePath,page,label,'',datetime('now') "
+                  "FROM bookmarks_v2");
+
+    query.exec();
+
+    if(!query.isActive())
+    {
+        qDebug() << query.lastError();
+        return;
+    }
+
+    qWarning() << "Migrated bookmarks from v2 to v3, dropping v2.";
+    query.exec("DROP TABLE bookmarks_v2");
+
+    transaction.commit();
+}
+
+void Database::migrateBookmarks_v1_v3()
 {
     Transaction transaction(m_database);
 
@@ -715,9 +751,9 @@ void Database::migrateBookmarks_v1_v2()
         }
 
         QSqlQuery innerQuery(m_database);
-        innerQuery.prepare("INSERT INTO bookmarks_v2 "
-                           "(filePath,page,label)"
-                           " VALUES (?,?,?)");
+        innerQuery.prepare("INSERT INTO bookmarks_v3 "
+                           "(filePath,page,label,comment,modified)"
+                           " VALUES (?,?,?,'',datetime('now'))");
 
         innerQuery.bindValue(0, outerQuery.value(0));
 
@@ -742,7 +778,7 @@ void Database::migrateBookmarks_v1_v2()
         return;
     }
 
-    qWarning() << "Migrated bookmarks from v1 to v2, dropping v1.";
+    qWarning() << "Migrated bookmarks from v1 to v3, dropping v1.";
     outerQuery.exec("DROP TABLE bookmarks_v1");
 
     transaction.commit();

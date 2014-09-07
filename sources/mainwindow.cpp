@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
+#include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDockWidget>
@@ -113,13 +114,15 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
-void appendBookmark(QStandardItemModel* model, int page, const QString& label)
+void appendBookmark(QStandardItemModel* model, int page, const QString& label, const QString& comment, const QDateTime& modified)
 {
     QStandardItem* item = new QStandardItem(label);
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
     item->setData(page, BookmarkPageRole);
     item->setData(label, BookmarkLabelRole);
+    item->setData(comment, BookmarkCommentRole);
+    item->setData(modified, BookmarkModifiedRole);
 
     QStandardItem* pageItem = item->clone();
     pageItem->setText(QString::number(page));
@@ -1527,7 +1530,7 @@ void MainWindow::on_addBookmark_triggered()
             m_bookmarksView->setModel(model);
         }
 
-        appendBookmark(model, currentTab()->currentPage(), label);
+        appendBookmark(model, currentTab()->currentPage(), label, QString(), QDateTime()); // TODO
 
         resetBookmarksView();
     }
@@ -1843,10 +1846,11 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
     menu.addSeparator();
     menu.addAction(m_addBookmarkAction);
 
-    QAction* removeBookmarkAction = menu.addAction(m_removeBookmarkAction->icon(), m_removeBookmarkAction->text());
-    removeBookmarkAction->setShortcut(m_removeBookmarkAction->shortcut());
+    QAction* removeBookmarkAction = menu.addAction(tr("&Remove bookmark"));
+    QAction* editBookmarkAction = menu.addAction(tr("&Edit bookmark"));
 
     removeBookmarkAction->setVisible(index.isValid());
+    editBookmarkAction->setVisible(index.isValid());
 
     const QAction* action = menu.exec(m_bookmarksView->mapToGlobal(pos));
 
@@ -1861,6 +1865,10 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
 
         m_bookmarksMenuIsDirty = true;
         scheduleSaveBookmarks();
+    }
+    else if(action == editBookmarkAction)
+    {
+        // TODO
     }
 }
 
@@ -1881,7 +1889,7 @@ void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool c
     }
 }
 
-void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label)
+void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified)
 {
     QStandardItemModel* model = m_bookmarks.value(absoluteFilePath, 0);
 
@@ -1893,7 +1901,7 @@ void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, i
         m_bookmarks.insert(absoluteFilePath, model);
     }
 
-    appendBookmark(model, page, label);
+    appendBookmark(model, page, label, comment, modified);
 }
 
 void MainWindow::on_saveDatabase_timeout()
@@ -2205,7 +2213,7 @@ void MainWindow::prepareDatabase()
     }
 
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
-    connect(s_database, SIGNAL(bookmarkRestored(QString,int,QString)), SLOT(on_database_bookmarkRestored(QString,int,QString)));
+    connect(s_database, SIGNAL(bookmarkRestored(QString,int,QString,QString,QDateTime)), SLOT(on_database_bookmarkRestored(QString,int,QString,QString,QDateTime)));
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
