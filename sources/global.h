@@ -117,7 +117,7 @@ enum BookmarkRoles
 {
     BookmarkPageRole = Qt::UserRole + 1,
     BookmarkLabelRole = Qt::DisplayRole,
-    BookmarkCommentRole = Qt::UserRole + 2,
+    BookmarkCommentRole = Qt::ToolTipRole,
     BookmarkModifiedRole = Qt::UserRole + 3
 };
 
