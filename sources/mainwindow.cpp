@@ -117,7 +117,9 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
 
 void appendBookmark(QStandardItemModel* model, QStandardItem* item)
 {
-    QStandardItem* pageItem = item->clone();
+    QStandardItem* pageItem = new QStandardItem;
+    pageItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
     pageItem->setText(QString::number(item->data(BookmarkPageRole).toInt()));
     pageItem->setTextAlignment(Qt::AlignRight);
 
@@ -631,8 +633,6 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
 void MainWindow::on_currentTab_documentChanged()
 {
-    // tab text and tool tip
-
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         if(sender() == m_tabWidget->widget(index))
@@ -657,10 +657,6 @@ void MainWindow::on_currentTab_documentChanged()
     if(senderIsCurrentTab())
     {
         setWindowTitleForCurrentTab();
-
-        resetOutlineView();
-        resetPropertiesView();
-        resetBookmarksView();
     }
 }
 
@@ -1533,7 +1529,7 @@ void MainWindow::on_addBookmark_triggered()
 
             appendBookmark(model, item.take());
 
-            resetBookmarksView();
+            m_bookmarksView->sortByColumn(0, Qt::AscendingOrder);
 
             m_bookmarksMenuIsDirty = true;
             scheduleSaveBookmarks();
@@ -1793,6 +1789,39 @@ void MainWindow::on_highlightAll_clicked(bool checked)
     currentTab()->setHighlightAll(checked);
 }
 
+void MainWindow::on_outline_sectionCountChanged()
+{
+    if(m_outlineView->header()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_outlineView->header()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_outlineView->header()->setMinimumSectionSize(0);
+    m_outlineView->header()->setStretchLastSection(false);
+    m_outlineView->header()->setVisible(false);
+}
+
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
@@ -1804,6 +1833,40 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
     {
         currentTab()->jumpToPage(page, true, left, top);
     }
+}
+
+void MainWindow::on_properties_sectionCountChanged()
+{
+    if(m_propertiesView->horizontalHeader()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+#else
+
+        m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    m_propertiesView->horizontalHeader()->setVisible(false);
+
+
+    if(m_propertiesView->verticalHeader()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+        m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_propertiesView->verticalHeader()->setVisible(false);
 }
 
 void MainWindow::on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area)
@@ -1830,6 +1893,54 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
             }
         }
     }
+}
+
+void MainWindow::on_bookmarks_sectionCountChanged()
+{
+    if(m_bookmarksView->horizontalHeader()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_bookmarksView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_bookmarksView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_bookmarksView->horizontalHeader()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_bookmarksView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+
+#else
+
+        m_bookmarksView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_bookmarksView->horizontalHeader()->setMinimumSectionSize(0);
+    m_bookmarksView->horizontalHeader()->setStretchLastSection(false);
+    m_bookmarksView->horizontalHeader()->setVisible(false);
+
+    if(m_bookmarksView->verticalHeader()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_bookmarksView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+#else
+
+        m_bookmarksView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+#endif // QT_VERSION
+    }
+
+    m_bookmarksView->verticalHeader()->setVisible(false);
 }
 
 void MainWindow::on_bookmarks_clicked(const QModelIndex &index)
@@ -2538,104 +2649,6 @@ void MainWindow::createToolBars()
     m_focusScaleFactorShortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_L), this, SLOT(on_focusScaleFactor_activated()));
 }
 
-void MainWindow::resetOutlineView()
-{
-    if(m_outlineView->header()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_outlineView->header()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
-
-    m_outlineView->header()->setMinimumSectionSize(0);
-    m_outlineView->header()->setStretchLastSection(false);
-    m_outlineView->header()->setVisible(false);
-}
-
-void MainWindow::resetPropertiesView()
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    m_propertiesView->horizontalHeader()->setVisible(false);
-    m_propertiesView->verticalHeader()->setVisible(false);
-}
-
-void MainWindow::resetBookmarksView()
-{
-    m_bookmarksView->sortByColumn(0, Qt::AscendingOrder);
-
-    if(m_bookmarksView->horizontalHeader()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_bookmarksView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_bookmarksView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_bookmarksView->horizontalHeader()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_bookmarksView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-    m_bookmarksView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    m_bookmarksView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-    m_bookmarksView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-
-    m_bookmarksView->horizontalHeader()->setMinimumSectionSize(0);
-    m_bookmarksView->horizontalHeader()->setStretchLastSection(false);
-    m_bookmarksView->horizontalHeader()->setVisible(false);
-
-    m_bookmarksView->verticalHeader()->setVisible(false);
-}
-
 QDockWidget* MainWindow::createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut)
 {
     QDockWidget* dock = new QDockWidget(text, this);
@@ -2666,6 +2679,7 @@ void MainWindow::createDocks()
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
+    connect(m_outlineView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_outline_sectionCountChanged()));
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
 
     m_outlineDock->setWidget(m_outlineView);
@@ -2678,6 +2692,8 @@ void MainWindow::createDocks()
     m_propertiesView->setAlternatingRowColors(true);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_propertiesView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+
+    connect(m_propertiesView->horizontalHeader(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_properties_sectionCountChanged()));
 
     m_propertiesDock->setWidget(m_propertiesView);
 
@@ -2705,6 +2721,7 @@ void MainWindow::createDocks()
     m_bookmarksView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_bookmarksView->setContextMenuPolicy(Qt::CustomContextMenu);
 
+    connect(m_bookmarksView->horizontalHeader(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_bookmarks_sectionCountChanged()));
     connect(m_bookmarksView, SIGNAL(clicked(QModelIndex)), SLOT(on_bookmarks_clicked(QModelIndex)));
     connect(m_bookmarksView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_bookmarks_contextMenuRequested(QPoint)));
 

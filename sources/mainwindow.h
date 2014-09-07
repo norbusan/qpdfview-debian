@@ -213,11 +213,15 @@ protected slots:
     void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
 
+    void on_outline_sectionCountChanged();
     void on_outline_clicked(const QModelIndex& index);
+
+    void on_properties_sectionCountChanged();
 
     void on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area);
     void on_thumbnails_verticalScrollBar_valueChanged(int value);
 
+    void on_bookmarks_sectionCountChanged();
     void on_bookmarks_clicked(const QModelIndex& index);
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
@@ -386,10 +390,6 @@ private:
 
     QDockWidget* m_bookmarksDock;
     QTableView* m_bookmarksView;
-
-    void resetOutlineView();
-    void resetPropertiesView();
-    void resetBookmarksView();
 
     QDockWidget* m_searchDock;
     QWidget* m_searchWidget;
