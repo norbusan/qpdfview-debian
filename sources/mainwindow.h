@@ -27,6 +27,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMainWindow>
 
+#include <QHash>
+
 #ifdef WITH_DBUS
 
 #include <QDBusAbstractAdaptor>
@@ -34,6 +36,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #endif // WITH_DBUS
 
 class QCheckBox;
+class QDateTime;
 class QGraphicsView;
 class QFileInfo;
 class QModelIndex;
