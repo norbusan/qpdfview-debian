@@ -309,7 +309,7 @@ void RenderTask::start(const RenderParam& renderParam,
 
     resetCancellation(m_wasCanceled);
 
-    QThreadPool::globalInstance()->start(this, prefetch ? 1 : 0);
+    QThreadPool::globalInstance()->start(this, prefetch ? 0 : 1);
 }
 
 void RenderTask::cancel(bool force)
