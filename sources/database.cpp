@@ -180,7 +180,7 @@ void Database::restoreTabs()
 #endif // WITH_SQL
 }
 
-void Database::saveTabs(const QList< const DocumentView* >& tabs)
+void Database::saveTabs(const QList< DocumentView* >& tabs)
 {
 #ifdef WITH_SQL
 
@@ -282,12 +282,14 @@ void Database::restoreBookmarks()
                 return;
             }
 
-            const QString filePath = outerQuery.value(0).toString();
+            const QString absoluteFilePath = outerQuery.value(0).toString();
+
+            BookmarkModel* model = BookmarkModel::fromPath(absoluteFilePath, true);
 
             QSqlQuery innerQuery(m_database);
             innerQuery.prepare("SELECT page,label,comment,modified FROM bookmarks_v3 WHERE filePath==?");
 
-            innerQuery.bindValue(0, filePath);
+            innerQuery.bindValue(0, absoluteFilePath);
 
             innerQuery.exec();
 
@@ -304,7 +306,7 @@ void Database::restoreBookmarks()
                 const QString comment = innerQuery.value(2).toString();
                 const QDateTime modified = innerQuery.value(3).toDateTime();
 
-                emit bookmarkRestored(filePath, page, label, comment, modified);
+                model->addBookmark(BookmarkItem(page, label, comment, modified));
             }
         }
 
@@ -314,7 +316,7 @@ void Database::restoreBookmarks()
 #endif // WITH_SQL
 }
 
-void Database::saveBookmarks(const QHash< QString, BookmarkModel* >& bookmarks)
+void Database::saveBookmarks()
 {
 #ifdef WITH_SQL
 
@@ -337,15 +339,15 @@ void Database::saveBookmarks(const QHash< QString, BookmarkModel* >& bookmarks)
                           "(filePath,page,label,comment,modified)"
                           " VALUES (?,?,?,?,?)");
 
-            for(QHash< QString, BookmarkModel* >::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
+            foreach(const QString& absoluteFilePath, BookmarkModel::knownPaths())
             {
-                const BookmarkModel* model = iterator.value();
+                const BookmarkModel* model = BookmarkModel::fromPath(absoluteFilePath);
 
                 for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
                 {
                     const QModelIndex index = model->index(row);
 
-                    query.bindValue(0, iterator.key());
+                    query.bindValue(0, absoluteFilePath);
                     query.bindValue(1, index.data(BookmarkModel::PageRole));
                     query.bindValue(2, index.data(BookmarkModel::LabelRole));
                     query.bindValue(3, index.data(BookmarkModel::CommentRole));

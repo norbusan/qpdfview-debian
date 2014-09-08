@@ -27,8 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMainWindow>
 
-#include <QHash>
-
 #ifdef WITH_DBUS
 
 #include <QDBusAbstractAdaptor>
@@ -227,7 +225,6 @@ protected slots:
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-    void on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified);
 
     void on_saveDatabase_timeout();
 
@@ -261,16 +258,11 @@ private:
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
-    QHash< QString, BookmarkModel* > m_bookmarks;
-
-    BookmarkModel* bookmarksModelForCurrentTab();
+    BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
 
     QTimer* m_saveDatabaseTimer;
 
     void prepareDatabase();
-
-    void saveTabs() const;
-    void saveBookmarks() const;
 
     void scheduleSaveDatabase();
     void scheduleSaveTabs();

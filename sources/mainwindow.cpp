@@ -422,7 +422,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         m_outlineView->setModel(currentTab()->outlineModel());
         m_propertiesView->setModel(currentTab()->propertiesModel());
-        m_bookmarksView->setModel(bookmarksModelForCurrentTab());
+        m_bookmarksView->setModel(bookmarkModelForCurrentTab());
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
 
         on_currentTab_documentChanged();
@@ -1411,7 +1411,7 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarksModelForCurrentTab();
+    const BookmarkModel* model = bookmarkModelForCurrentTab();
 
     if(model != 0)
     {
@@ -1442,7 +1442,7 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarksModelForCurrentTab();
+    const BookmarkModel* model = bookmarkModelForCurrentTab();
 
     if(model != 0)
     {
@@ -1479,7 +1479,7 @@ void MainWindow::on_addBookmark_triggered()
 
     BookmarkItem bookmark(currentTab()->currentPage(), tr("Jump to page %1").arg(currentPageLabel));
 
-    BookmarkModel* model = bookmarksModelForCurrentTab();
+    BookmarkModel* model = bookmarkModelForCurrentTab(false);
 
     if(model != 0)
     {
@@ -1492,9 +1492,8 @@ void MainWindow::on_addBookmark_triggered()
     {
         if(model == 0)
         {
-            model = new BookmarkModel(this);
+            model = bookmarkModelForCurrentTab(true);
 
-            m_bookmarks.insert(currentTab()->fileInfo().absoluteFilePath(), model);
             m_bookmarksView->setModel(model);
         }
 
@@ -1507,13 +1506,11 @@ void MainWindow::on_addBookmark_triggered()
 
 void MainWindow::on_removeBookmark_triggered()
 {
-    BookmarkItem bookmark(currentTab()->currentPage());
-
-    BookmarkModel* model = bookmarksModelForCurrentTab();
+    BookmarkModel* model = bookmarkModelForCurrentTab();
 
     if(model != 0)
     {
-        model->removeBookmark(bookmark);
+        model->removeBookmark(BookmarkItem(currentTab()->currentPage()));
 
         m_bookmarksMenuIsDirty = true;
         scheduleSaveBookmarks();
@@ -1524,8 +1521,7 @@ void MainWindow::on_removeAllBookmarks_triggered()
 {
     m_bookmarksView->setModel(0);
 
-    qDeleteAll(m_bookmarks);
-    m_bookmarks.clear();
+    BookmarkModel::forgetAllPaths();
 
     m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
@@ -1548,25 +1544,25 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
     m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 
-    for(QHash< QString, BookmarkModel* >::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
+    foreach(const QString& absoluteFilePath, BookmarkModel::knownPaths())
     {
-        const BookmarkModel* model = iterator.value();
+        const BookmarkModel* model = BookmarkModel::fromPath(absoluteFilePath);
 
-        BookmarkMenu* bookmark = new BookmarkMenu(QFileInfo(iterator.key()), m_bookmarksMenu);
+        BookmarkMenu* menu = new BookmarkMenu(QFileInfo(absoluteFilePath), m_bookmarksMenu);
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
             const QModelIndex index = model->index(row);
 
-            bookmark->addJumpToPageAction(index.data(BookmarkModel::PageRole).toInt(), index.data(BookmarkModel::LabelRole).toString());
+            menu->addJumpToPageAction(index.data(BookmarkModel::PageRole).toInt(), index.data(BookmarkModel::LabelRole).toString());
         }
 
-        connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
-        connect(bookmark, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
-        connect(bookmark, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
-        connect(bookmark, SIGNAL(removeBookmarkTriggered(QString)), SLOT(on_bookmark_removeBookmarkTriggered(QString)));
+        connect(menu, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
+        connect(menu, SIGNAL(openInNewTabTriggered(QString)), SLOT(on_bookmark_openInNewTabTriggered(QString)));
+        connect(menu, SIGNAL(jumpToPageTriggered(QString,int)), SLOT(on_bookmark_jumpToPageTriggered(QString,int)));
+        connect(menu, SIGNAL(removeBookmarkTriggered(QString)), SLOT(on_bookmark_removeBookmarkTriggered(QString)));
 
-        m_bookmarksMenu->addMenu(bookmark);
+        m_bookmarksMenu->addMenu(menu);
     }
 }
 
@@ -1594,14 +1590,14 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath
 
 void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFilePath)
 {
-    BookmarkModel* model = m_bookmarks.take(absoluteFilePath);
+    BookmarkModel* model = BookmarkModel::fromPath(absoluteFilePath);
 
     if(model == m_bookmarksView->model())
     {
         m_bookmarksView->setModel(0);
     }
 
-    delete model;
+    BookmarkModel::forgetPath(absoluteFilePath);
 
     m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
@@ -1987,30 +1983,16 @@ void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool c
     }
 }
 
-void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified)
-{
-    BookmarkModel* model = m_bookmarks.value(absoluteFilePath, 0);
-
-    if(model == 0)
-    {
-        model = new BookmarkModel(this);
-
-        m_bookmarks.insert(absoluteFilePath, model);
-    }
-
-    model->addBookmark(BookmarkItem(page, label, comment, modified));
-}
-
 void MainWindow::on_saveDatabase_timeout()
 {
     if(s_settings->mainWindow().restoreTabs())
     {
-        saveTabs();
+        s_database->saveTabs(tabs());
     }
 
     if(s_settings->mainWindow().restoreBookmarks())
     {
-        saveBookmarks();
+        s_database->saveBookmarks();
     }
 
     if(s_settings->mainWindow().restorePerFileSettings())
@@ -2026,7 +2008,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     if(s_settings->mainWindow().restoreTabs())
     {
-        saveTabs();
+        s_database->saveTabs(tabs());
     }
     else
     {
@@ -2035,7 +2017,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     if(s_settings->mainWindow().restoreBookmarks())
     {
-        saveBookmarks();
+        s_database->saveBookmarks();
     }
     else
     {
@@ -2275,9 +2257,9 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
     m_currentPageSpinBox->setSuffix(suffix);
 }
 
-BookmarkModel* MainWindow::bookmarksModelForCurrentTab()
+BookmarkModel* MainWindow::bookmarkModelForCurrentTab(bool create)
 {
-    return m_bookmarks.value(currentTab()->fileInfo().absoluteFilePath(), 0);
+    return BookmarkModel::fromPath(currentTab()->fileInfo().absoluteFilePath(), create);
 }
 
 void MainWindow::prepareDatabase()
@@ -2288,30 +2270,12 @@ void MainWindow::prepareDatabase()
     }
 
     connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
-    connect(s_database, SIGNAL(bookmarkRestored(QString,int,QString,QString,QDateTime)), SLOT(on_database_bookmarkRestored(QString,int,QString,QString,QDateTime)));
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
     m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
-}
-
-void MainWindow::saveTabs() const
-{
-    QList< const DocumentView* > tabs;
-
-    for(int index = 0; index < m_tabWidget->count(); ++index)
-    {
-        tabs.append(tab(index));
-    }
-
-    s_database->saveTabs(tabs);
-}
-
-void MainWindow::saveBookmarks() const
-{
-    s_database->saveBookmarks(m_bookmarks);
 }
 
 void MainWindow::scheduleSaveDatabase()
@@ -2889,7 +2853,7 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
 {
     if(mainWindow()->m_tabWidget->currentIndex() == -1) { return false; }
 
-    const BookmarkModel* model = mainWindow()->bookmarksModelForCurrentTab();
+    const BookmarkModel* model = mainWindow()->bookmarkModelForCurrentTab();
 
     if(model != 0)
     {
@@ -2897,7 +2861,7 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
         {
             const QModelIndex index = model->index(row);
 
-            if(index.data(BookmarkModel::LabelRole).toString() == label)
+            if(label == index.data(BookmarkModel::LabelRole).toString())
             {
                 mainWindow()->currentTab()->jumpToPage(index.data(BookmarkModel::PageRole).toInt());
 

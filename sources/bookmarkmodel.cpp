@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bookmarkmodel.h"
 
+#include <QApplication>
+#include <QHash>
+
 namespace
 {
 
@@ -28,6 +31,8 @@ using namespace qpdfview;
 
 inline bool operator<(int page, const BookmarkItem& bookmark) { return page < bookmark.page; }
 inline bool operator<(const BookmarkItem& bookmark, int page) { return bookmark.page < page; }
+
+QHash< QString, BookmarkModel* > modelsByPath;
 
 }
 
@@ -83,6 +88,43 @@ void BookmarkModel::findBookmark(BookmarkItem& bookmark) const
     {
         bookmark = *at;
     }
+}
+
+BookmarkModel* BookmarkModel::fromPath(const QString& path, bool create)
+{
+    BookmarkModel* model = modelsByPath.value(path, 0);
+
+    if(create && model == 0)
+    {
+        model = new BookmarkModel(qApp);
+
+        modelsByPath.insert(path, model);
+    }
+
+    return model;
+}
+
+QList< QString > BookmarkModel::knownPaths()
+{
+    return modelsByPath.keys();
+}
+
+void BookmarkModel::forgetPath(const QString& path)
+{
+    QHash< QString, BookmarkModel* >::iterator at = modelsByPath.find(path);
+
+    if(at != modelsByPath.end())
+    {
+        delete at.value();
+
+        modelsByPath.erase(at);
+    }
+}
+
+void BookmarkModel::forgetAllPaths()
+{
+    qDeleteAll(modelsByPath);
+    modelsByPath.clear();
 }
 
 Qt::ItemFlags BookmarkModel::flags(const QModelIndex&) const
