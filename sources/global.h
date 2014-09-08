@@ -23,8 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include <Qt>
-
 namespace qpdfview
 {
 
@@ -111,14 +109,6 @@ enum ScaleMode
     FitToPageWidthMode = 1,
     FitToPageSizeMode = 2,
     NumberOfScaleModes = 3
-};
-
-enum BookmarkRoles
-{
-    BookmarkPageRole = Qt::UserRole + 1,
-    BookmarkLabelRole = Qt::DisplayRole,
-    BookmarkCommentRole = Qt::ToolTipRole,
-    BookmarkModifiedRole = Qt::UserRole + 3
 };
 
 } // qpdfview

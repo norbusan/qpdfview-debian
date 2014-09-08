@@ -26,6 +26,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDateTime>
 
+namespace qpdfview
+{
+
 struct BookmarkItem
 {
     int page;
@@ -56,15 +59,15 @@ public:
     enum
     {
         PageRole = Qt::UserRole + 1,
-        LabelRole = Qt::DisplayRole,
-        CommentRole = Qt::ToolTipRole,
-        ModifiedRole = Qt::UserRole + 2
+        LabelRole,
+        CommentRole,
+        ModifiedRole
     };
 
     Qt::ItemFlags flags(const QModelIndex&) const;
 
-    int columnCount(const QModelIndex&) const;
-    int rowCount(const QModelIndex& parent) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
@@ -72,5 +75,7 @@ private:
     QList< BookmarkItem > m_bookmarks;
 
 };
+
+} // qpdfview
 
 #endif // BOOKMARKMODEL_H

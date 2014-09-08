@@ -28,7 +28,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
-#include <QStandardItemModel>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -49,6 +48,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "documentview.h"
+#include "bookmarkmodel.h"
 
 #ifdef WITH_SQL
 
@@ -314,7 +314,7 @@ void Database::restoreBookmarks()
 #endif // WITH_SQL
 }
 
-void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookmarks)
+void Database::saveBookmarks(const QHash< QString, BookmarkModel* >& bookmarks)
 {
 #ifdef WITH_SQL
 
@@ -337,19 +337,19 @@ void Database::saveBookmarks(const QHash< QString, QStandardItemModel* >& bookma
                           "(filePath,page,label,comment,modified)"
                           " VALUES (?,?,?,?,?)");
 
-            for(QHash< QString, QStandardItemModel* >::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
+            for(QHash< QString, BookmarkModel* >::const_iterator iterator = bookmarks.constBegin(); iterator != bookmarks.constEnd(); ++iterator)
             {
-                const QStandardItemModel* model = iterator.value();
+                const BookmarkModel* model = iterator.value();
 
                 for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
                 {
-                    const QStandardItem* item = model->item(row);
+                    const QModelIndex index = model->index(row);
 
                     query.bindValue(0, iterator.key());
-                    query.bindValue(1, item->data(BookmarkPageRole));
-                    query.bindValue(2, item->data(BookmarkLabelRole));
-                    query.bindValue(3, item->data(BookmarkCommentRole));
-                    query.bindValue(4, item->data(BookmarkModifiedRole));
+                    query.bindValue(1, index.data(BookmarkModel::PageRole));
+                    query.bindValue(2, index.data(BookmarkModel::LabelRole));
+                    query.bindValue(3, index.data(BookmarkModel::CommentRole));
+                    query.bindValue(4, index.data(BookmarkModel::ModifiedRole));
 
                     query.exec();
 

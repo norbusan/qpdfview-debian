@@ -24,10 +24,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 inline bool operator<(int page, const BookmarkItem& bookmark) { return page < bookmark.page; }
 inline bool operator<(const BookmarkItem& bookmark, int page) { return bookmark.page < page; }
 
 }
+
+namespace qpdfview
+{
 
 BookmarkModel::BookmarkModel(QObject* parent) : QAbstractListModel(parent),
     m_bookmarks()
@@ -37,24 +42,36 @@ BookmarkModel::BookmarkModel(QObject* parent) : QAbstractListModel(parent),
 void BookmarkModel::addBookmark(const BookmarkItem& bookmark)
 {
     QList< BookmarkItem >::iterator at = qUpperBound(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
+    const int row = at - m_bookmarks.begin();
 
-    if(at != m_bookmarks.end())
+    if(at != m_bookmarks.end() && at->page == bookmark.page)
     {
         *at = bookmark;
+
+        emit dataChanged(createIndex(row, 0), createIndex(row, 1));
     }
     else
     {
+        beginInsertRows(QModelIndex(), row, row);
+
         m_bookmarks.insert(at, bookmark);
+
+        endInsertRows();
     }
 }
 
 void BookmarkModel::removeBookmark(const BookmarkItem& bookmark)
 {
     QList< BookmarkItem >::iterator at = qBinaryFind(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
+    const int row = at - m_bookmarks.begin();
 
     if(at != m_bookmarks.end())
     {
+        beginRemoveRows(QModelIndex(), row, row);
+
         m_bookmarks.erase(at);
+
+        endRemoveRows();
     }
 }
 
@@ -99,8 +116,10 @@ QVariant BookmarkModel::data(const QModelIndex& index, int role) const
     case PageRole:
         return bookmark.page;
     case LabelRole:
-        return bookmark.label;
+    case Qt::DisplayRole:
+        return index.column() == 0 ? bookmark.label : QString::number(bookmark.page);
     case CommentRole:
+    case Qt::ToolTipRole:
         return bookmark.comment;
     case ModifiedRole:
         return bookmark.modified;
@@ -108,3 +127,5 @@ QVariant BookmarkModel::data(const QModelIndex& index, int role) const
         return index.column() == 0 ? Qt::AlignLeft : Qt::AlignRight;
     }
 }
+
+} // qpdfview

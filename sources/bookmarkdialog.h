@@ -26,18 +26,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QDialogButtonBox;
 class QLineEdit;
-class QStandardItem;
 class QTextEdit;
 
 namespace qpdfview
 {
+
+struct BookmarkItem;
 
 class BookmarkDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    BookmarkDialog(QStandardItem* item, QWidget* parent = 0);
+    BookmarkDialog(BookmarkItem& bookmark, QWidget* parent = 0);
 
 public slots:
     void accept();
@@ -45,7 +46,7 @@ public slots:
 private:
     Q_DISABLE_COPY(BookmarkDialog)
 
-    QStandardItem* m_item;
+    BookmarkItem& m_bookmark;
 
     QLineEdit* m_pageEdit;
     QLineEdit* m_labelEdit;

@@ -41,8 +41,6 @@ class QGraphicsView;
 class QFileInfo;
 class QModelIndex;
 class QShortcut;
-class QStandardItem;
-class QStandardItemModel;
 class QTableView;
 class QWidgetAction;
 
@@ -60,7 +58,7 @@ class MappingSpinBox;
 class SearchLineEdit;
 class RecentlyUsedMenu;
 class RecentlyClosedMenu;
-class BookmarkMenu;
+class BookmarkModel;
 class Database;
 
 class MainWindow : public QMainWindow
@@ -263,10 +261,9 @@ private:
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
-    QHash< QString, QStandardItemModel* > m_bookmarks;
+    QHash< QString, BookmarkModel* > m_bookmarks;
 
-    QStandardItemModel* bookmarksModelForCurrentTab();
-    QStandardItem* bookmarksItemForCurrentTab(int page);
+    BookmarkModel* bookmarksModelForCurrentTab();
 
     QTimer* m_saveDatabaseTimer;
 

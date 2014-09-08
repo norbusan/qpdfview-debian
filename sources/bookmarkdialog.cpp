@@ -25,16 +25,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QLineEdit>
-#include <QStandardItem>
 #include <QTextEdit>
 
 #include "global.h"
+#include "bookmarkmodel.h"
 
 namespace qpdfview
 {
 
-BookmarkDialog::BookmarkDialog(QStandardItem* item, QWidget* parent) : QDialog(parent),
-    m_item(item)
+BookmarkDialog::BookmarkDialog(BookmarkItem& bookmark, QWidget* parent) : QDialog(parent),
+    m_bookmark(bookmark)
 {
     setWindowTitle(tr("Bookmark"));
 
@@ -43,23 +43,23 @@ BookmarkDialog::BookmarkDialog(QStandardItem* item, QWidget* parent) : QDialog(p
 
     m_pageEdit = new QLineEdit(this);
     m_pageEdit->setReadOnly(true);
-    m_pageEdit->setText(QString::number(m_item->data(BookmarkPageRole).toInt()));
+    m_pageEdit->setText(QString::number(m_bookmark.page));
 
     formLayout->addRow(tr("Page:"), m_pageEdit);
 
     m_labelEdit = new QLineEdit(this);
-    m_labelEdit->setText(m_item->data(BookmarkLabelRole).toString());
+    m_labelEdit->setText(m_bookmark.label);
 
     formLayout->addRow(tr("Label:"), m_labelEdit);
 
     m_commentEdit = new QTextEdit(this);
-    m_commentEdit->setPlainText(m_item->data(BookmarkCommentRole).toString());
+    m_commentEdit->setPlainText(m_bookmark.comment);
 
     formLayout->addRow(tr("Comment:"), m_commentEdit);
 
     m_modifiedEdit = new QLineEdit(this);
     m_modifiedEdit->setReadOnly(true);
-    m_modifiedEdit->setText(m_item->data(BookmarkModifiedRole).toDateTime().toString(Qt::SystemLocaleLongDate));
+    m_modifiedEdit->setText(m_bookmark.modified.toString(Qt::SystemLocaleLongDate));
 
     formLayout->addRow(tr("Modified:"), m_modifiedEdit);
 
@@ -74,10 +74,10 @@ void BookmarkDialog::accept()
 {
     QDialog::accept();
 
-    m_item->setData(m_labelEdit->text(), BookmarkLabelRole);
-    m_item->setData(m_commentEdit->toPlainText(), BookmarkCommentRole);
+    m_bookmark.label = m_labelEdit->text();
+    m_bookmark.comment = m_commentEdit->toPlainText();
 
-    m_item->setData(QDateTime::currentDateTime(), BookmarkModifiedRole);
+    m_bookmark.modified = QDateTime::currentDateTime();
 }
 
 } // qpdfview

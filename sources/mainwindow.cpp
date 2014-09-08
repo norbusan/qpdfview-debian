@@ -67,6 +67,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "helpdialog.h"
 #include "recentlyusedmenu.h"
 #include "recentlyclosedmenu.h"
+#include "bookmarkmodel.h"
 #include "bookmarkmenu.h"
 #include "bookmarkdialog.h"
 #include "database.h"
@@ -113,30 +114,6 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     {
         toolButton->setMenu(menu);
     }
-}
-
-void appendBookmark(QStandardItemModel* model, QStandardItem* item)
-{
-    QStandardItem* pageItem = new QStandardItem;
-    pageItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-    pageItem->setText(QString::number(item->data(BookmarkPageRole).toInt()));
-    pageItem->setTextAlignment(Qt::AlignRight);
-
-    model->appendRow(QList< QStandardItem* >() << item << pageItem);
-}
-
-void appendBookmark(QStandardItemModel* model, int page, const QString& label, const QString& comment, const QDateTime& modified)
-{
-    QStandardItem* item = new QStandardItem;
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-    item->setData(page, BookmarkPageRole);
-    item->setData(label, BookmarkLabelRole);
-    item->setData(comment, BookmarkCommentRole);
-    item->setData(modified, BookmarkModifiedRole);
-
-    appendBookmark(model, item);
 }
 
 } // anonymous
@@ -1434,7 +1411,7 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    const QStandardItemModel* model = bookmarksModelForCurrentTab();
+    const BookmarkModel* model = bookmarksModelForCurrentTab();
 
     if(model != 0)
     {
@@ -1442,7 +1419,7 @@ void MainWindow::on_previousBookmark_triggered()
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(model->item(row)->data(BookmarkPageRole).toInt());
+            pages.append(model->index(row).data(BookmarkModel::PageRole).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1465,7 +1442,7 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    const QStandardItemModel* model = bookmarksModelForCurrentTab();
+    const BookmarkModel* model = bookmarksModelForCurrentTab();
 
     if(model != 0)
     {
@@ -1473,7 +1450,7 @@ void MainWindow::on_nextBookmark_triggered()
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            pages.append(model->item(row)->data(BookmarkPageRole).toInt());
+            pages.append(model->index(row).data(BookmarkModel::PageRole).toInt());
         }
 
         if(!pages.isEmpty())
@@ -1500,64 +1477,47 @@ void MainWindow::on_addBookmark_triggered()
             ? currentTab()->pageLabelFromNumber(currentTab()->currentPage())
             : currentTab()->defaultPageLabelFromNumber(currentTab()->currentPage());
 
-    QStandardItem* item = bookmarksItemForCurrentTab(currentTab()->currentPage());
+    BookmarkItem bookmark(currentTab()->currentPage(), tr("Jump to page %1").arg(currentPageLabel));
 
-    if(item == 0)
+    BookmarkModel* model = bookmarksModelForCurrentTab();
+
+    if(model != 0)
     {
-        QScopedPointer< QStandardItem > item(new QStandardItem);
-        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-        item->setData(currentTab()->currentPage(), BookmarkPageRole);
-        item->setData(tr("Jump to page %1").arg(currentPageLabel), BookmarkLabelRole);
-        item->setData(QDateTime::currentDateTime(), BookmarkModifiedRole);
-
-        QScopedPointer< BookmarkDialog > dialog(new BookmarkDialog(item.data(), this));
-
-        if(dialog->exec() == QDialog::Accepted)
-        {
-            QStandardItemModel* model = bookmarksModelForCurrentTab();
-
-            if(model == 0)
-            {
-                model = new QStandardItemModel(this);
-                model->setSortRole(BookmarkPageRole);
-
-                m_bookmarks.insert(currentTab()->fileInfo().absoluteFilePath(), model);
-
-                m_bookmarksView->setModel(model);
-            }
-
-            appendBookmark(model, item.take());
-
-            m_bookmarksView->sortByColumn(0, Qt::AscendingOrder);
-
-            m_bookmarksMenuIsDirty = true;
-            scheduleSaveBookmarks();
-        }
+        model->findBookmark(bookmark);
     }
-    else
-    {
-        QScopedPointer< BookmarkDialog > dialog(new BookmarkDialog(item, this));
 
-        if(dialog->exec() == QDialog::Accepted)
+    QScopedPointer< BookmarkDialog > dialog(new BookmarkDialog(bookmark, this));
+
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        if(model == 0)
         {
-            m_bookmarksMenuIsDirty = true;
-            scheduleSaveBookmarks();
+            model = new BookmarkModel(this);
+
+            m_bookmarks.insert(currentTab()->fileInfo().absoluteFilePath(), model);
+            m_bookmarksView->setModel(model);
         }
+
+        model->addBookmark(bookmark);
+
+        m_bookmarksMenuIsDirty = true;
+        scheduleSaveBookmarks();
     }
 }
 
 void MainWindow::on_removeBookmark_triggered()
 {
-    QStandardItem* item = bookmarksItemForCurrentTab(currentTab()->currentPage());
+    BookmarkItem bookmark(currentTab()->currentPage());
 
-    if(item != 0)
+    BookmarkModel* model = bookmarksModelForCurrentTab();
+
+    if(model != 0)
     {
-        item->model()->removeRow(item->row());
-    }
+        model->removeBookmark(bookmark);
 
-    m_bookmarksMenuIsDirty = true;
-    scheduleSaveBookmarks();
+        m_bookmarksMenuIsDirty = true;
+        scheduleSaveBookmarks();
+    }
 }
 
 void MainWindow::on_removeAllBookmarks_triggered()
@@ -1588,17 +1548,17 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
     m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 
-    for(QHash< QString, QStandardItemModel* >::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
+    for(QHash< QString, BookmarkModel* >::const_iterator iterator = m_bookmarks.constBegin(); iterator != m_bookmarks.constEnd(); ++iterator)
     {
-        const QStandardItemModel* model = iterator.value();
+        const BookmarkModel* model = iterator.value();
 
         BookmarkMenu* bookmark = new BookmarkMenu(QFileInfo(iterator.key()), m_bookmarksMenu);
 
         for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            const QStandardItem* item = model->item(row);
+            const QModelIndex index = model->index(row);
 
-            bookmark->addJumpToPageAction(item->data(BookmarkPageRole).toInt(), item->data(BookmarkLabelRole).toString());
+            bookmark->addJumpToPageAction(index.data(BookmarkModel::PageRole).toInt(), index.data(BookmarkModel::LabelRole).toString());
         }
 
         connect(bookmark, SIGNAL(openTriggered(QString)), SLOT(on_bookmark_openTriggered(QString)));
@@ -1634,7 +1594,7 @@ void MainWindow::on_bookmark_jumpToPageTriggered(const QString& absoluteFilePath
 
 void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFilePath)
 {
-    QStandardItemModel* model = m_bookmarks.take(absoluteFilePath);
+    BookmarkModel* model = m_bookmarks.take(absoluteFilePath);
 
     if(model == m_bookmarksView->model())
     {
@@ -1825,9 +1785,9 @@ void MainWindow::on_outline_sectionCountChanged()
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
-    const int page = m_outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
-    const qreal left = m_outlineView->model()->data(index, Qt::UserRole + 2).toReal();
-    const qreal top = m_outlineView->model()->data(index, Qt::UserRole + 3).toReal();
+    const int page = index.data(Qt::UserRole + 1).toInt(&ok);
+    const qreal left = index.data(Qt::UserRole + 2).toReal();
+    const qreal top = index.data(Qt::UserRole + 3).toReal();
 
     if(ok)
     {
@@ -1943,10 +1903,10 @@ void MainWindow::on_bookmarks_sectionCountChanged()
     m_bookmarksView->verticalHeader()->setVisible(false);
 }
 
-void MainWindow::on_bookmarks_clicked(const QModelIndex &index)
+void MainWindow::on_bookmarks_clicked(const QModelIndex& index)
 {
     bool ok = false;
-    const int page = m_bookmarksView->model()->data(index, BookmarkPageRole).toInt(&ok);
+    const int page = index.data(BookmarkModel::PageRole).toInt(&ok);
 
     if(ok)
     {
@@ -1956,8 +1916,6 @@ void MainWindow::on_bookmarks_clicked(const QModelIndex &index)
 
 void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
 {
-    const QModelIndex index = m_bookmarksView->indexAt(pos);
-
     QMenu menu;
 
     menu.addActions(QList< QAction* >() << m_previousBookmarkAction << m_nextBookmarkAction);
@@ -1967,6 +1925,8 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
     QAction* removeBookmarkAction = menu.addAction(tr("&Remove bookmark"));
     QAction* editBookmarkAction = menu.addAction(tr("&Edit bookmark"));
 
+    const QModelIndex index = m_bookmarksView->indexAt(pos);
+
     removeBookmarkAction->setVisible(index.isValid());
     editBookmarkAction->setVisible(index.isValid());
 
@@ -1974,11 +1934,13 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
 
     if(action == removeBookmarkAction)
     {
-        QStandardItemModel* model = qobject_cast< QStandardItemModel* >(m_bookmarksView->model());
+        BookmarkModel* model = qobject_cast< BookmarkModel* >(m_bookmarksView->model());
 
         if(model != 0)
         {
-            model->removeRow(index.row());
+            BookmarkItem bookmark(index.data(BookmarkModel::PageRole).toInt());
+
+            model->removeBookmark(bookmark);
 
             m_bookmarksMenuIsDirty = true;
             scheduleSaveBookmarks();
@@ -1987,14 +1949,20 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
     }
     else if(action == editBookmarkAction)
     {
-        QStandardItemModel* model = qobject_cast< QStandardItemModel* >(m_bookmarksView->model());
+        BookmarkModel* model = qobject_cast< BookmarkModel* >(m_bookmarksView->model());
 
         if(model != 0)
         {
-            QScopedPointer< BookmarkDialog > dialog(new BookmarkDialog(model->itemFromIndex(index), this));
+            BookmarkItem bookmark(index.data(BookmarkModel::PageRole).toInt());
+
+            model->findBookmark(bookmark);
+
+            QScopedPointer< BookmarkDialog > dialog(new BookmarkDialog(bookmark, this));
 
             if(dialog->exec() == QDialog::Accepted)
             {
+                model->addBookmark(bookmark);
+
                 m_bookmarksMenuIsDirty = true;
                 scheduleSaveBookmarks();
             }
@@ -2021,17 +1989,16 @@ void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool c
 
 void MainWindow::on_database_bookmarkRestored(const QString& absoluteFilePath, int page, const QString& label, const QString& comment, const QDateTime& modified)
 {
-    QStandardItemModel* model = m_bookmarks.value(absoluteFilePath, 0);
+    BookmarkModel* model = m_bookmarks.value(absoluteFilePath, 0);
 
     if(model == 0)
     {
-        model = new QStandardItemModel(this);
-        model->setSortRole(BookmarkPageRole);
+        model = new BookmarkModel(this);
 
         m_bookmarks.insert(absoluteFilePath, model);
     }
 
-    appendBookmark(model, page, label, comment, modified);
+    model->addBookmark(BookmarkItem(page, label, comment, modified));
 }
 
 void MainWindow::on_saveDatabase_timeout()
@@ -2308,31 +2275,9 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
     m_currentPageSpinBox->setSuffix(suffix);
 }
 
-QStandardItemModel* MainWindow::bookmarksModelForCurrentTab()
+BookmarkModel* MainWindow::bookmarksModelForCurrentTab()
 {
     return m_bookmarks.value(currentTab()->fileInfo().absoluteFilePath(), 0);
-}
-
-QStandardItem* MainWindow::bookmarksItemForCurrentTab(int page)
-{
-    QStandardItemModel* model = bookmarksModelForCurrentTab();
-
-    if(model == 0)
-    {
-        return 0;
-    }
-
-    for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
-    {
-        QStandardItem* item = model->item(row);
-
-        if(item->data(BookmarkPageRole).toInt() == page)
-        {
-            return item;
-        }
-    }
-
-    return 0;
 }
 
 void MainWindow::prepareDatabase()
@@ -2944,17 +2889,20 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
 {
     if(mainWindow()->m_tabWidget->currentIndex() == -1) { return false; }
 
-    const QStandardItemModel* model = mainWindow()->bookmarksModelForCurrentTab();
+    const BookmarkModel* model = mainWindow()->bookmarksModelForCurrentTab();
 
     if(model != 0)
     {
-        QList< QStandardItem* > itemList = model->findItems(label);
-
-        if(!itemList.isEmpty())
+        for(int row = 0, rowCount = model->rowCount(); row < rowCount; ++row)
         {
-            mainWindow()->currentTab()->jumpToPage(itemList.first()->data(BookmarkPageRole).toInt());
+            const QModelIndex index = model->index(row);
 
-            return true;
+            if(index.data(BookmarkModel::LabelRole).toString() == label)
+            {
+                mainWindow()->currentTab()->jumpToPage(index.data(BookmarkModel::PageRole).toInt());
+
+                return true;
+            }
         }
     }
 

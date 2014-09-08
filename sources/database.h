@@ -42,6 +42,7 @@ namespace qpdfview
 {
 
 class DocumentView;
+class BookmarkModel;
 
 class Database : public QObject
 {
@@ -58,7 +59,7 @@ public:
     void clearTabs();
 
     void restoreBookmarks();
-    void saveBookmarks(const QHash< QString, QStandardItemModel* >& bookmarks);
+    void saveBookmarks(const QHash< QString, BookmarkModel* >& bookmarks);
     void clearBookmarks();
 
     void restorePerFileSettings(DocumentView* tab);
