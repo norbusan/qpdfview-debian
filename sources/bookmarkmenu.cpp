@@ -95,23 +95,6 @@ void BookmarkMenu::removeJumpToPageAction(int page)
     }
 }
 
-QString BookmarkMenu::absoluteFilePath() const
-{
-    return menuAction()->data().toString();
-}
-
-JumpList BookmarkMenu::jumps() const
-{
-    JumpList jumps;
-
-    foreach(const QAction* action, m_jumpToPageActionGroup->actions())
-    {
-        jumps.append(qMakePair(action->data().toInt(), action->text()));
-    }
-
-    return jumps;
-}
-
 void BookmarkMenu::on_open_triggered()
 {
     emit openTriggered(absoluteFilePath());

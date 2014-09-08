@@ -34,9 +34,6 @@ class QFileInfo;
 namespace qpdfview
 {
 
-typedef QPair< int, QString > Jump;
-typedef QList< Jump > JumpList;
-
 class BookmarkMenu : public QMenu
 {
     Q_OBJECT
@@ -44,11 +41,10 @@ class BookmarkMenu : public QMenu
 public:
     BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent = 0);
 
+    inline QString absoluteFilePath() const { return menuAction()->data().toString(); }
+
     void addJumpToPageAction(int page, const QString& label);
     void removeJumpToPageAction(int page);
-
-    QString absoluteFilePath() const;
-    JumpList jumps() const;
 
 signals:
     void openTriggered(const QString& filePath);
