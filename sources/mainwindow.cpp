@@ -790,13 +790,11 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        menu.addAction(m_openContainingFolderAction);
-        menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
         menu.addSeparator();
-        menu.addAction(m_setFirstPageAction);
-        menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
+        menu.addSeparator();
+        menu.addAction(m_setFirstPageAction);
 
         if(m_searchDock->isVisible())
         {
@@ -2381,7 +2379,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
-    m_openContainingFolderAction = createAction(tr("Open containing folder"), QString(), QIcon(), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
+    m_openContainingFolderAction = createAction(tr("Open containing &folder"), QString(), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
@@ -2643,7 +2641,7 @@ void MainWindow::createMenus()
     // file
 
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsed(), s_settings->mainWindow().recentlyUsedCount(), this);
 
