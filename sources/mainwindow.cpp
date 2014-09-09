@@ -354,65 +354,68 @@ void MainWindow::startSearch(const QString& text)
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    if(index != -1)
+    const bool hasCurrent = index != -1;
+
+    m_openContainingFolderAction->setEnabled(hasCurrent);
+    m_refreshAction->setEnabled(hasCurrent);
+    m_printAction->setEnabled(hasCurrent);
+
+    m_previousPageAction->setEnabled(hasCurrent);
+    m_nextPageAction->setEnabled(hasCurrent);
+    m_firstPageAction->setEnabled(hasCurrent);
+    m_lastPageAction->setEnabled(hasCurrent);
+
+    m_setFirstPageAction->setEnabled(hasCurrent);
+
+    m_jumpToPageAction->setEnabled(hasCurrent);
+
+    m_searchAction->setEnabled(hasCurrent);
+
+    m_copyToClipboardModeAction->setEnabled(hasCurrent);
+    m_addAnnotationModeAction->setEnabled(hasCurrent);
+
+    m_continuousModeAction->setEnabled(hasCurrent);
+    m_twoPagesModeAction->setEnabled(hasCurrent);
+    m_twoPagesWithCoverPageModeAction->setEnabled(hasCurrent);
+    m_multiplePagesModeAction->setEnabled(hasCurrent);
+    m_rightToLeftModeAction->setEnabled(hasCurrent);
+
+    m_zoomInAction->setEnabled(hasCurrent);
+    m_zoomOutAction->setEnabled(hasCurrent);
+    m_originalSizeAction->setEnabled(hasCurrent);
+    m_fitToPageWidthModeAction->setEnabled(hasCurrent);
+    m_fitToPageSizeModeAction->setEnabled(hasCurrent);
+
+    m_rotateLeftAction->setEnabled(hasCurrent);
+    m_rotateRightAction->setEnabled(hasCurrent);
+
+    m_invertColorsAction->setEnabled(hasCurrent);
+
+    m_fontsAction->setEnabled(hasCurrent);
+
+    m_presentationAction->setEnabled(hasCurrent);
+
+    m_previousTabAction->setEnabled(hasCurrent);
+    m_nextTabAction->setEnabled(hasCurrent);
+    m_closeTabAction->setEnabled(hasCurrent);
+    m_closeAllTabsAction->setEnabled(hasCurrent);
+    m_closeAllTabsButCurrentTabAction->setEnabled(hasCurrent);
+
+    m_previousBookmarkAction->setEnabled(hasCurrent);
+    m_nextBookmarkAction->setEnabled(hasCurrent);
+    m_addBookmarkAction->setEnabled(hasCurrent);
+    m_removeBookmarkAction->setEnabled(hasCurrent);
+
+    m_currentPageSpinBox->setEnabled(hasCurrent);
+    m_scaleFactorComboBox->setEnabled(hasCurrent);
+    m_searchLineEdit->setEnabled(hasCurrent);
+    m_matchCaseCheckBox->setEnabled(hasCurrent);
+    m_highlightAllCheckBox->setEnabled(hasCurrent);
+
+    if(hasCurrent)
     {
-        m_openContainingFolderAction->setEnabled(true);
-        m_refreshAction->setEnabled(true);
         m_saveCopyAction->setEnabled(currentTab()->canSave());
         m_saveAsAction->setEnabled(currentTab()->canSave());
-        m_printAction->setEnabled(true);
-
-        m_previousPageAction->setEnabled(true);
-        m_nextPageAction->setEnabled(true);
-        m_firstPageAction->setEnabled(true);
-        m_lastPageAction->setEnabled(true);
-
-        m_setFirstPageAction->setEnabled(true);
-
-        m_jumpToPageAction->setEnabled(true);
-
-        m_searchAction->setEnabled(true);
-
-        m_copyToClipboardModeAction->setEnabled(true);
-        m_addAnnotationModeAction->setEnabled(true);
-
-        m_continuousModeAction->setEnabled(true);
-        m_twoPagesModeAction->setEnabled(true);
-        m_twoPagesWithCoverPageModeAction->setEnabled(true);
-        m_multiplePagesModeAction->setEnabled(true);
-        m_rightToLeftModeAction->setEnabled(true);
-
-        m_zoomInAction->setEnabled(true);
-        m_zoomOutAction->setEnabled(true);
-        m_originalSizeAction->setEnabled(true);
-        m_fitToPageWidthModeAction->setEnabled(true);
-        m_fitToPageSizeModeAction->setEnabled(true);
-
-        m_rotateLeftAction->setEnabled(true);
-        m_rotateRightAction->setEnabled(true);
-
-        m_invertColorsAction->setEnabled(true);
-
-        m_fontsAction->setEnabled(true);
-
-        m_presentationAction->setEnabled(true);
-
-        m_previousTabAction->setEnabled(true);
-        m_nextTabAction->setEnabled(true);
-        m_closeTabAction->setEnabled(true);
-        m_closeAllTabsAction->setEnabled(true);
-        m_closeAllTabsButCurrentTabAction->setEnabled(true);
-
-        m_previousBookmarkAction->setEnabled(true);
-        m_nextBookmarkAction->setEnabled(true);
-        m_addBookmarkAction->setEnabled(true);
-        m_removeBookmarkAction->setEnabled(true);
-
-        m_currentPageSpinBox->setEnabled(true);
-        m_scaleFactorComboBox->setEnabled(true);
-        m_searchLineEdit->setEnabled(true);
-        m_matchCaseCheckBox->setEnabled(true);
-        m_highlightAllCheckBox->setEnabled(true);
 
         if(m_searchDock->isVisible())
         {
@@ -446,66 +449,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
     else
     {
-        m_openContainingFolderAction->setEnabled(false);
-        m_refreshAction->setEnabled(false);
         m_saveCopyAction->setEnabled(false);
         m_saveAsAction->setEnabled(false);
-        m_printAction->setEnabled(false);
-
-        m_previousPageAction->setEnabled(false);
-        m_nextPageAction->setEnabled(false);
-        m_firstPageAction->setEnabled(false);
-        m_lastPageAction->setEnabled(false);
-
-        m_setFirstPageAction->setEnabled(false);
-
-        m_jumpToPageAction->setEnabled(false);
-
-        m_jumpBackwardAction->setEnabled(false);
-        m_jumpForwardAction->setEnabled(false);
-
-        m_searchAction->setEnabled(false);
-
-        m_copyToClipboardModeAction->setEnabled(false);
-        m_addAnnotationModeAction->setEnabled(false);
-
-        m_continuousModeAction->setEnabled(false);
-        m_twoPagesModeAction->setEnabled(false);
-        m_twoPagesWithCoverPageModeAction->setEnabled(false);
-        m_multiplePagesModeAction->setEnabled(false);
-        m_rightToLeftModeAction->setEnabled(false);
-
-        m_zoomInAction->setEnabled(false);
-        m_zoomOutAction->setEnabled(false);
-        m_originalSizeAction->setEnabled(false);
-        m_fitToPageWidthModeAction->setEnabled(false);
-        m_fitToPageSizeModeAction->setEnabled(false);
-
-        m_rotateLeftAction->setEnabled(false);
-        m_rotateRightAction->setEnabled(false);
-
-        m_invertColorsAction->setEnabled(false);
-
-        m_fontsAction->setEnabled(false);
-
-        m_presentationAction->setEnabled(false);
-
-        m_previousTabAction->setEnabled(false);
-        m_nextTabAction->setEnabled(false);
-        m_closeTabAction->setEnabled(false);
-        m_closeAllTabsAction->setEnabled(false);
-        m_closeAllTabsButCurrentTabAction->setEnabled(false);
-
-        m_previousBookmarkAction->setEnabled(false);
-        m_nextBookmarkAction->setEnabled(false);
-        m_addBookmarkAction->setEnabled(false);
-        m_removeBookmarkAction->setEnabled(false);
-
-        m_currentPageSpinBox->setEnabled(false);
-        m_scaleFactorComboBox->setEnabled(false);
-        m_searchLineEdit->setEnabled(false);
-        m_matchCaseCheckBox->setEnabled(false);
-        m_highlightAllCheckBox->setEnabled(false);
 
         if(m_searchDock->isVisible())
         {
