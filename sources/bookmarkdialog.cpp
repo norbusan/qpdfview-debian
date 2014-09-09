@@ -80,4 +80,9 @@ void BookmarkDialog::accept()
     m_bookmark.modified = QDateTime::currentDateTime();
 }
 
+void BookmarkDialog::showEvent(QShowEvent*)
+{
+    m_labelEdit->setFocus();
+}
+
 } // qpdfview

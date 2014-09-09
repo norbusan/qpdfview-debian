@@ -43,6 +43,9 @@ public:
 public slots:
     void accept();
 
+protected:
+    void showEvent(QShowEvent*);
+
 private:
     Q_DISABLE_COPY(BookmarkDialog)
 
