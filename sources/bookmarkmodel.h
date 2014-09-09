@@ -52,15 +52,22 @@ class BookmarkModel : public QAbstractListModel
 public:
     explicit BookmarkModel(QObject* parent = 0);
 
+
+    inline bool isEmpty() const { return m_bookmarks.isEmpty(); }
+
     void addBookmark(const BookmarkItem& bookmark);
     void removeBookmark(const BookmarkItem& bookmark);
+
     void findBookmark(BookmarkItem& bookmark) const;
+
 
     static BookmarkModel* fromPath(const QString& path, bool create = false);
 
     static QList< QString > knownPaths();
+
     static void forgetPath(const QString& path);
     static void forgetAllPaths();
+
 
     enum
     {

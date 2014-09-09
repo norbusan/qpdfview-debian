@@ -1512,6 +1512,13 @@ void MainWindow::on_removeBookmark_triggered()
     {
         model->removeBookmark(BookmarkItem(currentTab()->currentPage()));
 
+        if(model->isEmpty())
+        {
+            m_bookmarksView->setModel(0);
+
+            BookmarkModel::forgetPath(currentTab()->fileInfo().absoluteFilePath());
+        }
+
         m_bookmarksMenuIsDirty = true;
         scheduleSaveBookmarks();
     }
@@ -1934,9 +1941,14 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
 
         if(model != 0)
         {
-            BookmarkItem bookmark(index.data(BookmarkModel::PageRole).toInt());
+            model->removeBookmark(BookmarkItem(index.data(BookmarkModel::PageRole).toInt()));
 
-            model->removeBookmark(bookmark);
+            if(model->isEmpty())
+            {
+                m_bookmarksView->setModel(0);
+
+                BookmarkModel::forgetPath(currentTab()->fileInfo().absoluteFilePath());
+            }
 
             m_bookmarksMenuIsDirty = true;
             scheduleSaveBookmarks();
