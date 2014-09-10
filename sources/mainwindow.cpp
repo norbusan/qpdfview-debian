@@ -2582,6 +2582,7 @@ void MainWindow::createDocks()
     m_bookmarksView->setAlternatingRowColors(true);
     m_bookmarksView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_bookmarksView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_bookmarksView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_bookmarksView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_bookmarksView->setContextMenuPolicy(Qt::CustomContextMenu);
 
