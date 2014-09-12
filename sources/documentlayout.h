@@ -27,6 +27,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+class QRectF;
+
 namespace qpdfview
 {
 
@@ -46,6 +48,8 @@ struct DocumentLayout
     virtual int previousPage(int page) const = 0;
     virtual int nextPage(int page, int count) const = 0;
 
+    virtual bool isCurrentPage(PageItem* pageItem, const QRectF &visibleRect) const;
+
     virtual QPair< int, int > prefetchRange(int page, int count) const = 0;
 
     virtual int leftIndex(int index) const = 0;
@@ -55,7 +59,7 @@ struct DocumentLayout
     qreal visibleHeight(int viewportHeight) const;
 
     virtual void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                               QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height) = 0;
+                               qreal& left, qreal& right, qreal& height) = 0;
 
 protected:
     static Settings* s_settings;
@@ -77,8 +81,8 @@ struct SinglePageLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft, qreal& left,
+                       qreal& right, qreal& height);
 
 };
 
@@ -97,8 +101,8 @@ struct TwoPagesLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft, qreal& left,
+                       qreal& right, qreal& height);
 
 };
 
@@ -128,8 +132,8 @@ struct MultiplePagesLayout : public DocumentLayout
 
     qreal visibleWidth(int viewportWidth) const;
 
-    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+    void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft, qreal& left,
+                       qreal& right, qreal& height);
 
 };
 

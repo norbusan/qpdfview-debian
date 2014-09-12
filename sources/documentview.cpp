@@ -238,7 +238,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
     m_thumbnailItems(),
-    m_heightToIndex(),
     m_highlight(0),
     m_thumbnailsOrientation(Qt::Vertical),
     m_thumbnailsScene(0),
@@ -263,7 +262,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged(int)));
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged()));
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -1141,7 +1140,7 @@ void DocumentView::startPresentation()
     }
 }
 
-void DocumentView::on_verticalScrollBar_valueChanged(int value)
+void DocumentView::on_verticalScrollBar_valueChanged()
 {
     if(!m_continuousMode)
     {
@@ -1150,32 +1149,31 @@ void DocumentView::on_verticalScrollBar_valueChanged(int value)
 
     const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
+    int currentPage = -1;
+
     foreach(PageItem* page, m_pageItems)
     {
         if(!page->boundingRect().translated(page->pos()).intersects(visibleRect))
         {
             page->cancelRender();
         }
+        else if (currentPage == -1 && m_layout->isCurrentPage(page, visibleRect))
+        {
+            currentPage = page->index() + 1;
+        }
     }
 
-    const QMap< qreal, int >::iterator lowerBound = m_heightToIndex.lowerBound(-value);
-
-    if(lowerBound != m_heightToIndex.end())
+    if(currentPage != -1 && m_currentPage != currentPage)
     {
-        const int page = lowerBound.value() + 1;
+        m_currentPage = currentPage;
 
-        if(m_currentPage != page)
+        emit currentPageChanged(m_currentPage);
+
+        if(s_settings->documentView().highlightCurrentThumbnail())
         {
-            m_currentPage = page;
-
-            emit currentPageChanged(m_currentPage);
-
-            if(s_settings->documentView().highlightCurrentThumbnail())
+            for(int index = 0; index < m_thumbnailItems.count(); ++index)
             {
-                for(int index = 0; index < m_thumbnailItems.count(); ++index)
-                {
-                    m_thumbnailItems.at(index)->setCurrent(index == m_currentPage - 1);
-                }
+                m_thumbnailItems.at(index)->setCurrent(index == m_currentPage - 1);
             }
         }
     }
@@ -2120,14 +2118,11 @@ void DocumentView::prepareScene()
 
     // prepare layout
 
-    m_heightToIndex.clear();
-
     qreal left = 0.0;
     qreal right = 0.0;
     qreal height = s_settings->documentView().pageSpacing();
 
-    m_layout->prepareLayout(m_pageItems, m_rightToLeftMode,
-                            m_heightToIndex, left, right, height);
+    m_layout->prepareLayout(m_pageItems, m_rightToLeftMode, left, right, height);
 
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
@@ -2275,9 +2270,9 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     m_highlight->setVisible(true);
 
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
     centerOn(m_highlight);
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged(int)));
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 
     viewport()->update();
 }

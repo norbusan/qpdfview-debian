@@ -49,6 +49,24 @@ DocumentLayout* DocumentLayout::fromLayoutMode(LayoutMode layoutMode)
     }
 }
 
+bool DocumentLayout::isCurrentPage(PageItem *pageItem, const QRectF &visibleRect) const
+{
+    // works with vertical scrollbar layouts (i.e.: all current implemented layouts)
+    const qreal pageVisibleHeight = pageItem->boundingRect().translated(pageItem->pos()).intersected(visibleRect).height();
+    const qreal pageTopOffset = pageItem->boundingRect().translated(pageItem->pos()).top() - visibleRect.top();
+    const qreal testHeight = qMin(pageItem->boundingRect().height() / 2, visibleRect.height() / 2);
+
+    bool shouldBeCurrent = pageVisibleHeight >= (visibleRect.height() / 2);
+
+    // more than two page is visible
+    if (visibleRect.height() > 2 * pageItem->boundingRect().height())
+    {
+        shouldBeCurrent = pageVisibleHeight >= testHeight && pageTopOffset < testHeight && pageTopOffset >= -testHeight;
+    }
+
+    return shouldBeCurrent && (currentPage(pageItem->index() + 1) == (pageItem->index() + 1));
+}
+
 qreal DocumentLayout::visibleHeight(int viewportHeight) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
@@ -99,8 +117,7 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
     return viewportWidth - 6.0 - 2.0 * pageSpacing;
 }
 
-void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool /* rightToLeft */,
-                                     QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool /* rightToLeft */, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -111,8 +128,6 @@ void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool 
         const QRectF boundingRect = page->boundingRect();
 
         page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
-
-        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
         pageHeight = boundingRect.height();
 
@@ -163,8 +178,7 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
 }
 
-void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool rightToLeft,
-                                   QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool rightToLeft, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -180,8 +194,6 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool ri
         if(index == leftIndex(index))
         {
             page->setPos(rightToLeft ? rightPos : leftPos, height - boundingRect.top());
-
-            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
             pageHeight = boundingRect.height();
 
@@ -289,8 +301,7 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
 }
 
-void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                                        QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft, qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -314,11 +325,6 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, b
         else
         {
             left += boundingRect.width() + pageSpacing;
-        }
-
-        if(index == leftIndex(index))
-        {
-            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
         }
 
         if(index == rightIndex(index, pageItems.count()))
