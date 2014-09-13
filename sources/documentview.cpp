@@ -1177,7 +1177,7 @@ void DocumentView::on_verticalScrollBar_valueChanged()
         {
             for(int index = 0; index < m_thumbnailItems.count(); ++index)
             {
-                m_thumbnailItems.at(index)->setCurrent(index == m_currentPage - 1);
+                m_thumbnailItems.at(index)->setHighlighted(index == m_currentPage - 1);
             }
         }
     }
@@ -2186,7 +2186,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             page->stackBefore(m_highlight);
         }
 
-        m_thumbnailItems.at(index)->setCurrent(highlightCurrentThumbnail && (index == m_currentPage - 1));
+        m_thumbnailItems.at(index)->setHighlighted(highlightCurrentThumbnail && (index == m_currentPage - 1));
     }
 
     setSceneRect(left, top, width, height);

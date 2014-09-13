@@ -31,7 +31,7 @@ namespace qpdfview
 
 ThumbnailItem::ThumbnailItem(Model::Page* page, const QString& text, int index, QGraphicsItem* parent) : PageItem(page, index, false, parent),
     m_text(text),
-    m_current(false)
+    m_isHighlighted(false)
 {
     setAcceptHoverEvents(false);
 }
@@ -86,7 +86,7 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 
 #endif // QT_VERSION
 
-    if(m_current)
+    if(m_isHighlighted)
     {
         painter->save();
 
@@ -97,11 +97,11 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     }
 }
 
-void ThumbnailItem::setCurrent(bool current)
+void ThumbnailItem::setHighlighted(bool highlighted)
 {
-    if(m_current != current)
+    if(m_isHighlighted != highlighted)
     {
-        m_current = current;
+        m_isHighlighted = highlighted;
 
         update();
     }

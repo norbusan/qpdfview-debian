@@ -50,8 +50,8 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
-    inline bool isCurrent() const { return m_current; }
-    void setCurrent(bool current);
+    inline bool isHighlighted() const { return m_isHighlighted; }
+    void setHighlighted(bool highlighted);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
@@ -77,7 +77,7 @@ private:
 
 #endif // QT_VERSION
 
-    bool m_current;
+    bool m_isHighlighted;
 
 };
 
