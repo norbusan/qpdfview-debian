@@ -1,6 +1,7 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013-2014 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -27,6 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "global.h"
 
+class QRectF;
+
 namespace qpdfview
 {
 
@@ -46,6 +49,8 @@ struct DocumentLayout
     virtual int previousPage(int page) const = 0;
     virtual int nextPage(int page, int count) const = 0;
 
+    bool isCurrentPage(const QRectF& visibleRect, const QRectF& pageRect) const;
+
     virtual QPair< int, int > prefetchRange(int page, int count) const = 0;
 
     virtual int leftIndex(int index) const = 0;
@@ -55,7 +60,7 @@ struct DocumentLayout
     qreal visibleHeight(int viewportHeight) const;
 
     virtual void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                               QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height) = 0;
+                               qreal& left, qreal& right, qreal& height) = 0;
 
 protected:
     static Settings* s_settings;
@@ -78,7 +83,7 @@ struct SinglePageLayout : public DocumentLayout
     qreal visibleWidth(int viewportWidth) const;
 
     void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+                       qreal& left, qreal& right, qreal& height);
 
 };
 
@@ -98,7 +103,7 @@ struct TwoPagesLayout : public DocumentLayout
     qreal visibleWidth(int viewportWidth) const;
 
     void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+                       qreal& left, qreal& right, qreal& height);
 
 };
 
@@ -129,7 +134,7 @@ struct MultiplePagesLayout : public DocumentLayout
     qreal visibleWidth(int viewportWidth) const;
 
     void prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                       QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height);
+                       qreal& left, qreal& right, qreal& height);
 
 };
 

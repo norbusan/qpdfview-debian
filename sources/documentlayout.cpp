@@ -1,6 +1,7 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013-2014 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -46,6 +47,24 @@ DocumentLayout* DocumentLayout::fromLayoutMode(LayoutMode layoutMode)
     case TwoPagesMode: return new TwoPagesLayout;
     case TwoPagesWithCoverPageMode: return new TwoPagesWithCoverPageLayout;
     case MultiplePagesMode: return new MultiplePagesLayout;
+    }
+}
+
+bool DocumentLayout::isCurrentPage(const QRectF& visibleRect, const QRectF& pageRect) const
+{
+    // Works with vertically scrolling layouts, i.e. all currently implemented layouts.
+    const qreal pageVisibleHeight = pageRect.intersected(visibleRect).height();
+    const qreal pageTopOffset = pageRect.top() - visibleRect.top();
+
+    if(visibleRect.height() > 2.0 * pageRect.height()) // Are more than two pages visible?
+    {
+        const qreal halfPageHeight = pageRect.height() / 2.0;
+
+        return pageVisibleHeight >= halfPageHeight && pageTopOffset < halfPageHeight && pageTopOffset >= -halfPageHeight;
+    }
+    else
+    {
+        return pageVisibleHeight >= visibleRect.height() / 2.0;
     }
 }
 
@@ -99,8 +118,8 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
     return viewportWidth - 6.0 - 2.0 * pageSpacing;
 }
 
-void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool /* rightToLeft */,
-                                     QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+void SinglePageLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool /* rightToLeft */,
+                                     qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -111,8 +130,6 @@ void SinglePageLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool 
         const QRectF boundingRect = page->boundingRect();
 
         page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
-
-        heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
         pageHeight = boundingRect.height();
 
@@ -163,8 +180,8 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
     return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
 }
 
-void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool rightToLeft,
-                                   QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+void TwoPagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
+                                   qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -180,8 +197,6 @@ void TwoPagesLayout::prepareLayout(const QVector<PageItem *>& pageItems, bool ri
         if(index == leftIndex(index))
         {
             page->setPos(rightToLeft ? rightPos : leftPos, height - boundingRect.top());
-
-            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
 
             pageHeight = boundingRect.height();
 
@@ -290,7 +305,7 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
 }
 
 void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
-                                        QMap< qreal, int >& heightToIndex, qreal& left, qreal& right, qreal& height)
+                                        qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     qreal pageHeight = 0.0;
@@ -314,11 +329,6 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, b
         else
         {
             left += boundingRect.width() + pageSpacing;
-        }
-
-        if(index == leftIndex(index))
-        {
-            heightToIndex.insert(-height + pageSpacing + 0.3 * pageHeight, index);
         }
 
         if(index == rightIndex(index, pageItems.count()))

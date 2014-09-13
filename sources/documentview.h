@@ -188,7 +188,7 @@ public slots:
     void startPresentation();
 
 protected slots:
-    void on_verticalScrollBar_valueChanged(int value);
+    void on_verticalScrollBar_valueChanged();
 
     void on_autoRefresh_timeout();
     void on_prefetch_timeout();
@@ -276,8 +276,6 @@ private:
 
     QVector< PageItem* > m_pageItems;
     QVector< ThumbnailItem* > m_thumbnailItems;
-
-    QMap< qreal, int > m_heightToIndex;
 
     QGraphicsRectItem* m_highlight;
 
