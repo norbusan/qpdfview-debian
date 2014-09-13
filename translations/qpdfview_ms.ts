@@ -235,47 +235,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="467"/>
+        <location filename="../sources/documentview.cpp" line="466"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Format disokong (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Information</source>
         <translation type="unfinished">Maklumat</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Membuka URL dilumpuhkan dalam tetapan.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>Warning</source>
         <translation type="unfinished">Amaran</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Data SyncTeX untuk &apos;%1&apos; tidak ditemui.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1806"/>
+        <location filename="../sources/documentview.cpp" line="1808"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Mencetak &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Buka %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Password:</source>
         <translation type="unfinished">Kata Laluan:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1897"/>
+        <location filename="../sources/documentview.cpp" line="1899"/>
         <source>Page %1</source>
         <translation type="unfinished">Halaman %1</translation>
     </message>
@@ -788,19 +788,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2503"/>
-        <location filename="../sources/mainwindow.cpp" line="2643"/>
+        <location filename="../sources/mainwindow.cpp" line="2644"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fail</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2665"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Sunting</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2509"/>
-        <location filename="../sources/mainwindow.cpp" line="2677"/>
+        <location filename="../sources/mainwindow.cpp" line="2678"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Lihat</translation>
     </message>
@@ -820,33 +820,33 @@
         <translation type="unfinished">&amp;Thumbnail</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2596"/>
+        <location filename="../sources/mainwindow.cpp" line="2597"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Gelintar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2689"/>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Palang ala&amp;t</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2692"/>
+        <location filename="../sources/mainwindow.cpp" line="2693"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">La&amp;buh</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2701"/>
+        <location filename="../sources/mainwindow.cpp" line="2702"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Tab</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2578"/>
-        <location filename="../sources/mainwindow.cpp" line="2719"/>
+        <location filename="../sources/mainwindow.cpp" line="2720"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Tanda &amp;Buku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2727"/>
+        <location filename="../sources/mainwindow.cpp" line="2728"/>
         <source>&amp;Help</source>
         <translation type="unfinished">Ban&amp;tuan</translation>
     </message>

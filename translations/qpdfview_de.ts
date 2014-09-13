@@ -183,7 +183,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lesezeichen</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -193,17 +193,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beschriftung:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kommentar:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geändert:</translation>
     </message>
 </context>
 <context>
@@ -235,47 +235,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="467"/>
+        <location filename="../sources/documentview.cpp" line="466"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Unterstützte Formate (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Information</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Das Öffnen von URL ist in den Einstellungen deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>Warning</source>
         <translation type="unfinished">Warnung</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1806"/>
+        <location filename="../sources/documentview.cpp" line="1808"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke »%1« …</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1897"/>
+        <location filename="../sources/documentview.cpp" line="1899"/>
         <source>Page %1</source>
         <translation type="unfinished">Seite %1</translation>
     </message>
@@ -319,7 +319,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="35"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Schriften</translation>
     </message>
 </context>
 <context>
@@ -438,12 +438,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erste Seite setzen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Select the first page of the body matter:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wählen Sie die erste Seite des Hauptteils:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1040"/>
@@ -501,9 +501,15 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Siehe &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; für weitere Informationen.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Die qpdfview-Entwickler&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1871"/>
+        <location filename="../sources/mainwindow.cpp" line="2461"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1872"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lesezeichen &amp;bearbeiten</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2133"/>
@@ -539,6 +545,11 @@
         <location filename="../sources/mainwindow.cpp" line="2381"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">In neuem Rei&amp;ter öffnen …</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2382"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished">Öffne beinhaltendes &amp;Verzeichnis</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2383"/>
@@ -588,7 +599,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2396"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erste Seite &amp;setzen ...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2398"/>
@@ -761,17 +772,6 @@
         <translation type="unfinished">Lesezeichen &amp;hinzufügen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1871"/>
-        <location filename="../sources/mainwindow.cpp" line="2461"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Lesezeichen &amp;entfernen</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2382"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2462"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Alle Lesezeichen entfernen</translation>
@@ -788,19 +788,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2503"/>
-        <location filename="../sources/mainwindow.cpp" line="2643"/>
+        <location filename="../sources/mainwindow.cpp" line="2644"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Datei</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2665"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2509"/>
-        <location filename="../sources/mainwindow.cpp" line="2677"/>
+        <location filename="../sources/mainwindow.cpp" line="2678"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Ansicht</translation>
     </message>
@@ -820,33 +820,33 @@
         <translation type="unfinished">&amp;Vorschaubilder</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2596"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">S&amp;uchen</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2689"/>
-        <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Werkzeugleisten</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2692"/>
-        <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Paletten</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2701"/>
-        <source>&amp;Tabs</source>
-        <translation type="unfinished">&amp;Reiter</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2578"/>
-        <location filename="../sources/mainwindow.cpp" line="2719"/>
+        <location filename="../sources/mainwindow.cpp" line="2720"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2727"/>
+        <location filename="../sources/mainwindow.cpp" line="2597"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">S&amp;uchen</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
+        <source>&amp;Tool bars</source>
+        <translation type="unfinished">&amp;Werkzeugleisten</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2693"/>
+        <source>&amp;Docks</source>
+        <translation type="unfinished">&amp;Paletten</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2702"/>
+        <source>&amp;Tabs</source>
+        <translation type="unfinished">&amp;Reiter</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2728"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hilfe</translation>
     </message>
@@ -1168,7 +1168,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
@@ -1181,7 +1181,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste &amp;leeren</translation>
     </message>
 </context>
 <context>
@@ -1538,7 +1538,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seitenbeschriftung verwenden:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="749"/>

@@ -183,7 +183,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bookmark</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -193,17 +193,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Label:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Comment:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modified:</translation>
     </message>
 </context>
 <context>
@@ -235,47 +235,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="467"/>
+        <location filename="../sources/documentview.cpp" line="466"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Supported formats (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1312"/>
+        <location filename="../sources/documentview.cpp" line="1314"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Opening URL is disabled in the settings.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>Warning</source>
         <translation type="unfinished">Warning</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1362"/>
+        <location filename="../sources/documentview.cpp" line="1364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1806"/>
+        <location filename="../sources/documentview.cpp" line="1808"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1875"/>
+        <location filename="../sources/documentview.cpp" line="1877"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1897"/>
+        <location filename="../sources/documentview.cpp" line="1899"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>
@@ -319,7 +319,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="35"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fonts</translation>
     </message>
 </context>
 <context>
@@ -438,12 +438,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Set first page</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Select the first page of the body matter:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Select the first page of the body matter:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1040"/>
@@ -501,9 +501,15 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1871"/>
+        <location filename="../sources/mainwindow.cpp" line="2461"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">&amp;Remove bookmark</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1872"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Edit bookmark</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2133"/>
@@ -539,6 +545,11 @@
         <location filename="../sources/mainwindow.cpp" line="2381"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Open in new &amp;tab...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2382"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished">Open containing &amp;folder</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2383"/>
@@ -588,7 +599,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2396"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Set first page...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2398"/>
@@ -761,17 +772,6 @@
         <translation type="unfinished">&amp;Add bookmark</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1871"/>
-        <location filename="../sources/mainwindow.cpp" line="2461"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Remove bookmark</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2382"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2462"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Remove all bookmarks</translation>
@@ -788,19 +788,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2503"/>
-        <location filename="../sources/mainwindow.cpp" line="2643"/>
+        <location filename="../sources/mainwindow.cpp" line="2644"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;File</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2665"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Edit</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2509"/>
-        <location filename="../sources/mainwindow.cpp" line="2677"/>
+        <location filename="../sources/mainwindow.cpp" line="2678"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;View</translation>
     </message>
@@ -820,33 +820,33 @@
         <translation type="unfinished">&amp;Thumbnails</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2596"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Search</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2689"/>
-        <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Toolbars</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2692"/>
-        <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Docks</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2701"/>
-        <source>&amp;Tabs</source>
-        <translation type="unfinished">&amp;Tabs</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2578"/>
-        <location filename="../sources/mainwindow.cpp" line="2719"/>
+        <location filename="../sources/mainwindow.cpp" line="2720"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bookmarks</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2727"/>
+        <location filename="../sources/mainwindow.cpp" line="2597"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Search</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
+        <source>&amp;Tool bars</source>
+        <translation type="unfinished">&amp;Toolbars</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2693"/>
+        <source>&amp;Docks</source>
+        <translation type="unfinished">&amp;Docks</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2702"/>
+        <source>&amp;Tabs</source>
+        <translation type="unfinished">&amp;Tabs</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2728"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Help</translation>
     </message>
@@ -1538,7 +1538,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Use page label:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="749"/>
