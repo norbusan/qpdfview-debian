@@ -2,7 +2,7 @@
 Type=Application
 Terminal=false
 Name=qpdfview
-Icon=DATA_INSTALL_PATH/qpdfview.svg
+Icon=qpdfview
 GenericName=tabbed document viewer
 Comment=A tabbed document viewer using Qt and the Poppler library.
 Categories=Viewer;Office;

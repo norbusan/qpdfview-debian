@@ -228,8 +228,14 @@ system("sed -e \"s:DATA_INSTALL_PATH:$${DATA_INSTALL_PATH}:\" -e \"s:MIME_TYPES:
 
 target.path = $${TARGET_INSTALL_PATH}
 
-data.files = icons/qpdfview.svg translations/*.qm help/help*.html
+data.files = translations/*.qm help/help*.html
 data.path = $${DATA_INSTALL_PATH}
+
+manual.files = miscellaneous/qpdfview.1
+manual.path = $${MANUAL_INSTALL_PATH}
+
+icon.files = icons/qpdfview.svg
+icon.path = $${ICON_INSTALL_PATH}
 
 launcher.files = $${DESKTOP_FILE}
 launcher.path = $${LAUNCHER_INSTALL_PATH}
@@ -237,10 +243,7 @@ launcher.path = $${LAUNCHER_INSTALL_PATH}
 appdata.files = $${APPDATA_FILE}
 appdata.path = $${APPDATA_INSTALL_PATH}
 
-manual.files = miscellaneous/qpdfview.1
-manual.path = $${MANUAL_INSTALL_PATH}
-
-INSTALLS += target data launcher appdata manual
+INSTALLS += target data manual icon launcher appdata
 
 INCLUDEPATH += icons
 win32:RC_FILE = icons/qpdfview_win32.rc
