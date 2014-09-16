@@ -48,6 +48,11 @@ using namespace qpdfview;
 
 const qreal proxyPadding = 2.0;
 
+bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+{
+    return ((settings->pageItem().copyToClipboardModifiers() | settings->pageItem().addAnnotationModifiers()) & mouseButton) != 0;
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -462,21 +467,25 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent*)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    const Qt::KeyboardModifiers copyToClipboardModifiers = s_settings->pageItem().copyToClipboardModifiers();
+    const Qt::KeyboardModifiers addAnnotationModifiers = s_settings->pageItem().addAnnotationModifiers();
+
+    const bool copyToClipboardModifiersActive = event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0);
+    const bool addAnnotationModifiersActive = event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0);
+
     // rubber band
 
     if(m_rubberBandMode == ModifiersMode && !m_presentationMode
-            && (event->modifiers() == Qt::NoModifier
-                || event->modifiers() == s_settings->pageItem().copyToClipboardModifiers()
-                || event->modifiers() == s_settings->pageItem().addAnnotationModifiers())
+            && (event->modifiers() == Qt::NoModifier || copyToClipboardModifiersActive || addAnnotationModifiersActive)
             && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
     {
         setCursor(Qt::CrossCursor);
 
-        if(event->modifiers() == s_settings->pageItem().copyToClipboardModifiers() && event->button() == Qt::LeftButton)
+        if(copyToClipboardModifiersActive && event->button() == Qt::LeftButton)
         {
             m_rubberBandMode = CopyToClipboardMode;
         }
-        else if(event->modifiers() == s_settings->pageItem().addAnnotationModifiers() && event->button() == Qt::LeftButton)
+        else if(addAnnotationModifiersActive && event->button() == Qt::LeftButton)
         {
             m_rubberBandMode = AddAnnotationMode;
         }
@@ -639,6 +648,12 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
+    if(event->reason() == QGraphicsSceneContextMenuEvent::Mouse && modifiersUseMouseButton(s_settings, Qt::RightButton))
+    {
+        event->accept();
+        return;
+    }
+
     if(m_presentationMode)
     {
         event->ignore();

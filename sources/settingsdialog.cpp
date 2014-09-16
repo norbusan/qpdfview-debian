@@ -922,6 +922,7 @@ void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::Key
     comboBox->addItem(QShortcut::tr("Shift and Ctrl"), static_cast< int >(Qt::ShiftModifier | Qt::ControlModifier));
     comboBox->addItem(QShortcut::tr("Shift and Alt"), static_cast< int >(Qt::ShiftModifier | Qt::AltModifier));
     comboBox->addItem(QShortcut::tr("Ctrl and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
+    comboBox->addItem(QShortcut::tr("Right mouse button"), static_cast< int >(Qt::RightButton));
 
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
 }

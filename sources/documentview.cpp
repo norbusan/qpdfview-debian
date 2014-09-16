@@ -208,6 +208,11 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
 #endif // WITH_CUPS
 
+bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+{
+    return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -1513,7 +1518,11 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
-    if(event->modifiers() == s_settings->documentView().zoomModifiers())
+    const Qt::KeyboardModifiers zoomModifiers = s_settings->documentView().zoomModifiers();
+    const Qt::KeyboardModifiers rotateModifiers = s_settings->documentView().rotateModifiers();
+    const Qt::KeyboardModifiers scrollModifiers = s_settings->documentView().scrollModifiers();
+
+    if(event->modifiers() == zoomModifiers || event->buttons() == zoomModifiers)
     {
         if(event->delta() > 0)
         {
@@ -1527,7 +1536,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == s_settings->documentView().rotateModifiers())
+    else if(event->modifiers() == rotateModifiers || event->buttons() == rotateModifiers)
     {
         if(event->delta() > 0)
         {
@@ -1541,7 +1550,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == s_settings->documentView().scrollModifiers())
+    else if(event->modifiers() == scrollModifiers || event->buttons() == scrollModifiers)
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
         QGraphicsView::wheelEvent(&wheelEvent);
@@ -1579,6 +1588,12 @@ void DocumentView::wheelEvent(QWheelEvent* event)
 
 void DocumentView::contextMenuEvent(QContextMenuEvent* event)
 {
+    if(event->reason() == QContextMenuEvent::Mouse && modifiersUseMouseButton(s_settings, Qt::RightButton))
+    {
+        event->accept();
+        return;
+    }
+
     event->setAccepted(false);
 
     QGraphicsView::contextMenuEvent(event);
