@@ -519,6 +519,8 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     QRectF rect;
     int index = 0;
 
+    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+
     while(!words.isEmpty())
     {
         miniexp_t textExp = words.takeFirst();
@@ -546,7 +548,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
                     if (!word.at(index).isLetter())
                     {
-                        results.append(rect);
+                        results.append(transform.mapRect(rect));
 
                         rect = QRectF();
                         index = 0;
@@ -569,13 +571,6 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     }
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
-
-    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
-
-    for(int index = 0; index < results.size(); ++index)
-    {
-        results[index] = transform.mapRect(results[index]);
-    }
 
     return results;
 }
