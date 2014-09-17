@@ -910,7 +910,7 @@ void MainWindow::on_openInNewTab_triggered()
 
 void MainWindow::on_openContainingFolder_triggered()
 {
-    QDesktopServices::openUrl(currentTab()->fileInfo().absolutePath());
+    QDesktopServices::openUrl(QUrl::fromLocalFile(currentTab()->fileInfo().absolutePath()));
 }
 
 void MainWindow::on_refresh_triggered()
