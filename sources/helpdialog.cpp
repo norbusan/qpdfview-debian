@@ -40,11 +40,11 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
     m_textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH);
 
     //: Please replace by file name of localized help if available, e.g. "help_fr.html".
-    m_textBrowser->setSource(QUrl(tr("help.html")));
+    m_textBrowser->setSource(QUrl::fromLocalFile(tr("help.html")));
 
     if(m_textBrowser->document()->isEmpty())
     {
-        m_textBrowser->setSource(QUrl("help.html"));
+        m_textBrowser->setSource(QUrl::fromLocalFile("help.html"));
     }
 
     m_dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Close, Qt::Horizontal, this);
