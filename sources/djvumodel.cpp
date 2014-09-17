@@ -531,7 +531,9 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
             {
                 const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
 
-                if(text.indexOf(word, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive) == index)
+                index = word.indexOf(text, index, (matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive));
+
+                if (index != -1)
                 {
                     const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
                     const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
@@ -540,14 +542,9 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
                     rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                    index += word.length();
+                    index += text.length();
 
-                    while(text.length() > index && text.at(index).isSpace())
-                    {
-                        ++index;
-                    }
-
-                    if(text.length() == index)
+                    if (!word.at(index).isLetter())
                     {
                         results.append(rect);
 
