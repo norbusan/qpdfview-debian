@@ -756,29 +756,27 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
 {
     QMenu menu;
 
-    const QAction* copyTextAction = menu.addAction(tr("Copy &text"));
+    QAction* copyTextAction = menu.addAction(tr("Copy &text"));
     QAction* selectTextAction = menu.addAction(tr("&Select text"));
     const QAction* copyImageAction = menu.addAction(tr("Copy &image"));
     const QAction* saveImageToFileAction = menu.addAction(tr("Save image to &file..."));
 
-    selectTextAction->setVisible(QApplication::clipboard()->supportsSelection());
+    const QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
+
+    copyTextAction->setVisible(!text.isEmpty());
+    selectTextAction->setVisible(!text.isEmpty() && QApplication::clipboard()->supportsSelection());
 
     const QAction* action = menu.exec(screenPos);
 
     if(action == copyTextAction || action == selectTextAction)
     {
-        const QString text = m_page->text(m_transform.inverted().mapRect(m_rubberBand));
-
-        if(!text.isEmpty())
+        if(action == copyTextAction)
         {
-            if(action == copyTextAction)
-            {
-                QApplication::clipboard()->setText(text);
-            }
-            else
-            {
-                QApplication::clipboard()->setText(text, QClipboard::Selection);
-            }
+            QApplication::clipboard()->setText(text);
+        }
+        else
+        {
+            QApplication::clipboard()->setText(text, QClipboard::Selection);
         }
     }
     else if(action == copyImageAction || action == saveImageToFileAction)

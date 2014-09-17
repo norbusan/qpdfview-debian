@@ -519,6 +519,8 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     QRectF rect;
     int index = 0;
 
+    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+
     while(!words.isEmpty())
     {
         miniexp_t textExp = words.takeFirst();
@@ -531,25 +533,21 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
             {
                 const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
 
-                if(text.indexOf(word, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive) == index)
+                index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+                if(index != -1)
                 {
                     const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
                     const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
                     const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
                     const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
 
+                    index += text.length();
                     rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                    index += word.length();
-
-                    while(text.length() > index && text.at(index).isSpace())
+                    if(!word.at(index).isLetter())
                     {
-                        ++index;
-                    }
-
-                    if(text.length() == index)
-                    {
-                        results.append(rect);
+                        results.append(transform.mapRect(rect));
 
                         rect = QRectF();
                         index = 0;
@@ -572,13 +570,6 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     }
 
     ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
-
-    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
-
-    for(int index = 0; index < results.size(); ++index)
-    {
-        results[index] = transform.mapRect(results[index]);
-    }
 
     return results;
 }

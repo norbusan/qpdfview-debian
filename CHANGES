@@ -8,6 +8,7 @@ Release 0.4.12:
   * Improved caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
   * Improved rendering by giving a higher priority to rendering visible pages compared to prefetching. Thanks to S. Razi Alavizadeh.
   * Improved computation of current page for continuous layouts. Thanks to S. Razi Alavizadeh.
+  * Improved searching of DjVu documents. Thanks to S. Razi Alavizadeh.
   * Extended the D-Bus interface to support more IPC scenarios.
   * Updated Italian translations. Thanks to Claudio Arseni.
   * Updated British English translations. Thanks to Anthony Harrington.
