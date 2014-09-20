@@ -124,7 +124,8 @@ namespace qpdfview
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
+    m_helpDialog(0)
 {
     if(s_settings == 0)
     {
@@ -1555,11 +1556,15 @@ void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFile
 
 void MainWindow::on_contents_triggered()
 {
-    QScopedPointer< HelpDialog > dialog(new HelpDialog(this));
+    if (m_helpDialog == 0)
+    {
+        m_helpDialog = new HelpDialog(this);
 
-    dialog->resize(s_settings->mainWindow().contentsDialogSize(dialog->sizeHint()));
-    dialog->exec();
-    s_settings->mainWindow().setContentsDialogSize(dialog->size());
+        m_helpDialog->resize(s_settings->mainWindow().contentsDialogSize(m_helpDialog->sizeHint()));
+        connect(m_helpDialog, SIGNAL(finished(int)), this, SLOT(on_helpDialog_finished()));
+    }
+
+    m_helpDialog->show();
 }
 
 void MainWindow::on_about_triggered()
@@ -1957,6 +1962,14 @@ void MainWindow::on_saveDatabase_timeout()
             s_database->savePerFileSettings(tab);
         }
     }
+}
+
+void MainWindow::on_helpDialog_finished()
+{
+    s_settings->mainWindow().setContentsDialogSize(m_helpDialog->size());
+
+    m_helpDialog->deleteLater();
+    m_helpDialog = 0;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)

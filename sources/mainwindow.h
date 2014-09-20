@@ -58,6 +58,7 @@ class RecentlyUsedMenu;
 class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
+class HelpDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -227,6 +228,8 @@ protected slots:
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
 
     void on_saveDatabase_timeout();
+
+    void on_helpDialog_finished();
 
 protected:
     void closeEvent(QCloseEvent* event);
@@ -411,6 +414,8 @@ private:
 
     QAction* m_toggleToolBarsAction;
     QAction* m_toggleMenuBarAction;
+
+    HelpDialog* m_helpDialog;
 
 };
 
