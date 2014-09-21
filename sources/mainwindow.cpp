@@ -1747,11 +1747,24 @@ void MainWindow::on_properties_sectionCountChanged()
     {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
-        m_propertiesView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        m_propertiesView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 
 #else
 
-        m_propertiesView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+        m_propertiesView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    if(m_propertiesView->horizontalHeader()->count() > 1)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_propertiesView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+
+#else
+
+        m_propertiesView->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
 
 #endif // QT_VERSION
     }
