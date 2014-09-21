@@ -1,6 +1,7 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2014 S. Razi Alavizadeh
+Copyright 2013-2014 Adam Reichold
 Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
