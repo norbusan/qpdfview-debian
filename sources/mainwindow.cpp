@@ -1555,6 +1555,8 @@ void MainWindow::on_contents_triggered()
 
         m_helpDialog->show();
         m_helpDialog->setAttribute(Qt::WA_DeleteOnClose);
+
+        connect(this, SIGNAL(destroyed()), m_helpDialog, SLOT(close()));
     }
 
     m_helpDialog->raise();
