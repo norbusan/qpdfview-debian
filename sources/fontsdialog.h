@@ -37,6 +37,7 @@ class FontsDialog : public QDialog
 
 public:
     FontsDialog(QStandardItemModel* model, QWidget* parent = 0);
+    ~FontsDialog();
 
 private:
     Q_DISABLE_COPY(FontsDialog)

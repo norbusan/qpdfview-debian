@@ -27,12 +27,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTableView>
 #include <QVBoxLayout>
 
+#include "settings.h"
+
 namespace qpdfview
 {
 
 FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(parent)
 {
-    setWindowTitle(tr("Fonts"));
+    setWindowTitle(tr("Fonts") + QLatin1String(" - qpdfview"));
 
     m_tableView = new QTableView(this);
     m_tableView->setModel(model);
@@ -63,6 +65,13 @@ FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(p
     setLayout(new QVBoxLayout(this));
     layout()->addWidget(m_tableView);
     layout()->addWidget(m_dialogButtonBox);
+
+    resize(Settings::instance()->mainWindow().fontsDialogSize(sizeHint()));
+}
+
+FontsDialog::~FontsDialog()
+{
+    Settings::instance()->mainWindow().setFontsDialogSize(size());
 }
 
 } // qpdfview

@@ -38,6 +38,7 @@ class HelpDialog : public QDialog
 
 public:
     explicit HelpDialog(QWidget* parent = 0);
+    ~HelpDialog();
 
 protected slots:
     void on_findPrevious_triggered();

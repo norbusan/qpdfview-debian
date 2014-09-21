@@ -1109,8 +1109,6 @@ void MainWindow::on_settings_triggered()
 {
     QScopedPointer< SettingsDialog > settingsDialog(new SettingsDialog(this));
 
-    settingsDialog->resize(s_settings->mainWindow().settingsDialogSize(settingsDialog->sizeHint()));
-
     if(settingsDialog->exec() == QDialog::Accepted)
     {
         s_settings->sync();
@@ -1129,8 +1127,6 @@ void MainWindow::on_settings_triggered()
             }
         }
     }
-
-    s_settings->mainWindow().setSettingsDialogSize(settingsDialog->size());
 }
 
 void MainWindow::on_continuousMode_triggered(bool checked)
@@ -1203,9 +1199,7 @@ void MainWindow::on_fonts_triggered()
     QScopedPointer< QStandardItemModel > fontsModel(currentTab()->fontsModel());
     QScopedPointer< FontsDialog > dialog(new FontsDialog(fontsModel.data(), this));
 
-    dialog->resize(s_settings->mainWindow().fontsDialogSize(dialog->sizeHint()));
     dialog->exec();
-    s_settings->mainWindow().setFontsDialogSize(dialog->size());
 }
 
 void MainWindow::on_fullscreen_triggered(bool checked)
@@ -1555,11 +1549,16 @@ void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFile
 
 void MainWindow::on_contents_triggered()
 {
-    QScopedPointer< HelpDialog > dialog(new HelpDialog(this));
+    if(m_helpDialog.isNull())
+    {
+        m_helpDialog = new HelpDialog();
 
-    dialog->resize(s_settings->mainWindow().contentsDialogSize(dialog->sizeHint()));
-    dialog->exec();
-    s_settings->mainWindow().setContentsDialogSize(dialog->size());
+        m_helpDialog->show();
+        m_helpDialog->setAttribute(Qt::WA_DeleteOnClose);
+    }
+
+    m_helpDialog->raise();
+    m_helpDialog->activateWindow();
 }
 
 void MainWindow::on_about_triggered()

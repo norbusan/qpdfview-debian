@@ -30,11 +30,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
+#include "settings.h"
+
 namespace qpdfview
 {
 
 HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 {
+    setWindowTitle(tr("Help") + QLatin1String(" - qpdfview"));
+
     m_textBrowser = new QTextBrowser(this);
     m_textBrowser->setTextInteractionFlags(Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard);
     m_textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH);
@@ -80,7 +84,14 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
     layout()->addWidget(m_searchLineEdit);
     layout()->addWidget(m_dialogButtonBox);
 
+    resize(Settings::instance()->mainWindow().contentsDialogSize(sizeHint()));
+
     m_searchLineEdit->setFocus();
+}
+
+HelpDialog::~HelpDialog()
+{
+    Settings::instance()->mainWindow().setContentsDialogSize(size());
 }
 
 void HelpDialog::on_findPrevious_triggered()

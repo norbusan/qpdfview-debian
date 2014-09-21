@@ -27,6 +27,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QMainWindow>
 
+#include <QPointer>
+
 #ifdef WITH_DBUS
 
 #include <QDBusAbstractAdaptor>
@@ -58,6 +60,7 @@ class RecentlyUsedMenu;
 class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
+class HelpDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -411,6 +414,8 @@ private:
 
     QAction* m_toggleToolBarsAction;
     QAction* m_toggleMenuBarAction;
+
+    QPointer< HelpDialog > m_helpDialog;
 
 };
 

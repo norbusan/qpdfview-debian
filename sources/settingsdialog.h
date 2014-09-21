@@ -47,6 +47,7 @@ class SettingsDialog : public QDialog
 
 public:
     SettingsDialog(QWidget* parent = 0);
+    ~SettingsDialog();
 
 public slots:
     void accept();

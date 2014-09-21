@@ -90,6 +90,8 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
         s_settings = Settings::instance();
     }
 
+    setWindowTitle(tr("Settings") + QLatin1String(" - qpdfview"));
+
     m_graphicsTabWidget = new QTabWidget(this);
     m_graphicsTabWidget->addTab(new QWidget(this), tr("General"));
 
@@ -148,10 +150,17 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
     layout()->addWidget(m_tabWidget);
     layout()->addWidget(m_dialogButtonBox);
 
+    resize(s_settings->mainWindow().settingsDialogSize(sizeHint()));
+
     createBehaviorTab();
     createGraphicsTab();
     createInterfaceTab();
     createModifiersTab();
+}
+
+SettingsDialog::~SettingsDialog()
+{
+    s_settings->mainWindow().setSettingsDialogSize(size());
 }
 
 void SettingsDialog::accept()
