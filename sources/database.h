@@ -76,13 +76,16 @@ private:
 
     bool prepareTabs_v3();
     bool prepareBookmarks_v3();
-    bool preparePerFileSettings_v2();
+    bool preparePerFileSettings_v3();
 
     void migrateTabs_v2_v3();
     void migrateTabs_v1_v3();
     void migrateBookmarks_v2_v3();
     void migrateBookmarks_v1_v3();
-    void migratePerFileSettings_v1_v2();
+    void migratePerFileSettings_v2_v3();
+    void migratePerFileSettings_v1_v3();
+
+    void limitPerFileSettings();
 
     QSqlDatabase m_database;
 
