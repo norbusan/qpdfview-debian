@@ -16,6 +16,8 @@ Release 0.4.12:
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Slovak translations. Thanks to DAG Software.
   * Updated Thai translations. Thanks to Rockworld.
+  * Updated Russian translations. Thanks to Oleg Koptev.
+  * Updated Malay translations. Thanks to abuyop.
 
 Release 0.4.11.1:
   * Fix progress and error icons and obsolete pixmaps not working without tiling.
