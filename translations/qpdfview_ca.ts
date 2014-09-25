@@ -180,7 +180,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="934"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Botó dret del ratolí</translation>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adreça d&apos;interès</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -198,17 +198,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Comentari:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificat:</translation>
     </message>
 </context>
 <context>
@@ -324,7 +324,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tipus de lletra</translation>
     </message>
 </context>
 <context>
@@ -332,7 +332,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajuda</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -448,12 +448,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posa com a primera pàgina</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Select the first page of the body matter:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tria la primera pàgina de l&apos;assumpte principal:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1040"/>
@@ -511,9 +511,15 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Veieu &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per a més informació.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="2475"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">Elimina ma&amp;rcador</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1886"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Edita marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2147"/>
@@ -549,6 +555,11 @@
         <location filename="../sources/mainwindow.cpp" line="2395"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Obre en una nova pes&amp;tanya...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2396"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished">Obre carpeta del contingut (&amp;F)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2397"/>
@@ -598,7 +609,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2410"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Po&amp;sa primera pàgina...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2412"/>
@@ -771,17 +782,6 @@
         <translation type="unfinished">&amp;Afegix marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
-        <location filename="../sources/mainwindow.cpp" line="2475"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Elimina ma&amp;rcador</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2396"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2476"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Elimina tots els marcadors</translation>
@@ -830,6 +830,12 @@
         <translation type="unfinished">&amp;Miniatures</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2592"/>
+        <location filename="../sources/mainwindow.cpp" line="2734"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Marcadors</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2611"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Cerca</translation>
@@ -848,12 +854,6 @@
         <location filename="../sources/mainwindow.cpp" line="2716"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Pes&amp;tanyes</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2734"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Marcadors</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2742"/>
@@ -891,7 +891,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="760"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tria text (&amp;S)</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="761"/>
@@ -931,12 +931,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="854"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Còpia direcció de l&apos;enllaç</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="855"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tria direcció de l&apos;enllaç (&amp;S)</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="878"/>
@@ -1199,7 +1199,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paràmetres</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
@@ -1381,7 +1381,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
         <source>Trim margins:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marges de retallada:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="448"/>
@@ -1553,7 +1553,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="751"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usa etiqueta de pàgina:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="758"/>

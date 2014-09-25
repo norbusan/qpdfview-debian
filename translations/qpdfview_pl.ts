@@ -180,7 +180,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="934"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation>Prawy przycisk myszy</translation>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zakładka</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -198,17 +198,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etykieta:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Komentarz:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zmodyfikowano:</translation>
     </message>
 </context>
 <context>
@@ -324,7 +324,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Czcionki</translation>
     </message>
 </context>
 <context>
@@ -332,7 +332,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pomoc</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -448,12 +448,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ustaw pierwszą stronę</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Select the first page of the body matter:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ustaw pierwszą stronę głównego dokumentu:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1040"/>
@@ -511,9 +511,15 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; celem uzyskania więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Programiści qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="2475"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">&amp;Usuń zakładkę</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1886"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Edytuj zakładkę</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2147"/>
@@ -549,6 +555,11 @@
         <location filename="../sources/mainwindow.cpp" line="2395"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Otwórz w nowej &amp;karcie...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2396"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished">Otwórz zawierający &amp;folder</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2397"/>
@@ -598,7 +609,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2410"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%Ustaw pierszą stronę...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2412"/>
@@ -771,17 +782,6 @@
         <translation type="unfinished">&amp;Dodaj zakładkę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
-        <location filename="../sources/mainwindow.cpp" line="2475"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Usuń zakładkę</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2396"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2476"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Usuń wszystkie zakładki</translation>
@@ -830,6 +830,12 @@
         <translation type="unfinished">&amp;Miniatury</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2592"/>
+        <location filename="../sources/mainwindow.cpp" line="2734"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Zakładki</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2611"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Wyszukaj</translation>
@@ -848,12 +854,6 @@
         <location filename="../sources/mainwindow.cpp" line="2716"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Karty</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2734"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Zakładki</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2742"/>
@@ -891,7 +891,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="760"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zaznacz tekst</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="761"/>
@@ -931,12 +931,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="854"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%Skopiuj adres odnośnika</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="855"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zaznacz adres odnośnika</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="878"/>
@@ -1199,7 +1199,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ustawiania</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
@@ -1381,7 +1381,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
         <source>Trim margins:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przytnij marginesy:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="448"/>
@@ -1553,7 +1553,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="751"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Użyj etykietę strony:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="758"/>

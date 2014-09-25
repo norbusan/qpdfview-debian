@@ -180,7 +180,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="934"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Botón dereito do rato</translation>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marcador</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -198,17 +198,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etiqueta:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Comentario:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificado:</translation>
     </message>
 </context>
 <context>
@@ -324,7 +324,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tipos de letra</translation>
     </message>
 </context>
 <context>
@@ -332,7 +332,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Axuda</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -448,7 +448,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Estabelecer a primeira páxina</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1027"/>
@@ -511,9 +511,15 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para máis información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 Os desenvolvedores de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="2475"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">&amp;Retirar marcador</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1886"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Editar o marcador</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2147"/>
@@ -549,6 +555,11 @@
         <location filename="../sources/mainwindow.cpp" line="2395"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir nunha nova &amp;lapela...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2396"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2397"/>
@@ -771,17 +782,6 @@
         <translation type="unfinished">&amp;Engadir marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
-        <location filename="../sources/mainwindow.cpp" line="2475"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">&amp;Retirar marcador</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2396"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2476"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Retirar todos os marcadores</translation>
@@ -830,6 +830,12 @@
         <translation type="unfinished">&amp;Miniaturas</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2592"/>
+        <location filename="../sources/mainwindow.cpp" line="2734"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Marcadores</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2611"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Buscar</translation>
@@ -848,12 +854,6 @@
         <location filename="../sources/mainwindow.cpp" line="2716"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Lapelas</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2734"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Marcadores</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2742"/>
@@ -1199,7 +1199,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Axustes</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
