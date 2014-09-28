@@ -198,7 +198,13 @@ QList< Link* > FitzPage::links() const
     {
         const QRectF boundary = QRectF(link->rect.x0 / width, link->rect.y0 / height, (link->rect.x1 - link->rect.x0) / width, (link->rect.y1 - link->rect.y0) / height).normalized();
 
-        if(link->dest.kind == FZ_LINK_GOTO || link->dest.kind == FZ_LINK_GOTOR)
+        if(link->dest.kind == FZ_LINK_GOTO)
+        {
+            const int page = link->dest.ld.gotor.page + 1;
+
+            links.append(new Link(boundary, page));
+        }
+        else if(link->dest.kind == FZ_LINK_GOTOR)
         {
             const int page = link->dest.ld.gotor.page + 1;
 
