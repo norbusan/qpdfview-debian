@@ -217,6 +217,11 @@ private:
 
 };
 
+int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                    QWidget* parent, const QString& title, const QString& caption,
+                    int value = 0, int min = -2147483647, int max = 2147483647,
+                    bool* ok = 0, Qt::WindowFlags flags = 0);
+
 // progress line edit
 
 class ProgressLineEdit : public QLineEdit
@@ -268,11 +273,6 @@ private:
     QTimer* m_timer;
 
 };
-
-int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
-                    QWidget* parent, const QString& title, const QString& caption,
-                    int value = 0, int min = -2147483647, int max = 2147483647,
-                    bool* ok = 0, Qt::WindowFlags flags = 0);
 
 } // qpdfview
 

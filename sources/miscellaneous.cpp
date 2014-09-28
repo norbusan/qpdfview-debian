@@ -372,6 +372,44 @@ QValidator::State MappingSpinBox::validate(QString& input, int& pos) const
     return QValidator::Acceptable;
 }
 
+int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+                    QWidget* parent, const QString& title, const QString& caption,
+                    int value, int min, int max, bool* ok, Qt::WindowFlags flags)
+{
+    QDialog* dialog = new QDialog(parent, flags | Qt::MSWindowsFixedSizeDialogHint);
+    dialog->setWindowTitle(title);
+
+    QLabel* label = new QLabel(dialog);
+    label->setText(caption);
+
+    MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, textFromValue, valueFromText, dialog);
+    mappingSpinBox->setRange(min, max);
+    mappingSpinBox->setValue(value);
+
+    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
+    QObject::connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
+    QObject::connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+
+    dialog->setLayout(new QVBoxLayout(dialog));
+    dialog->layout()->addWidget(label);
+    dialog->layout()->addWidget(mappingSpinBox);
+    dialog->layout()->addWidget(dialogButtonBox);
+
+    dialog->setFocusProxy(mappingSpinBox);
+
+    const int dialogResult = dialog->exec();
+    const int number = mappingSpinBox->value();
+
+    delete dialog;
+
+    if(ok)
+    {
+        *ok = dialogResult == QDialog::Accepted;
+    }
+
+    return number;
+}
+
 ProgressLineEdit::ProgressLineEdit(QWidget* parent) : QLineEdit(parent),
     m_progress(0)
 {    
@@ -444,44 +482,6 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
-}
-
-int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
-                    QWidget* parent, const QString& title, const QString& caption,
-                    int value, int min, int max, bool* ok, Qt::WindowFlags flags)
-{
-    QDialog* dialog = new QDialog(parent, flags | Qt::MSWindowsFixedSizeDialogHint);
-    dialog->setWindowTitle(title);
-
-    QLabel* label = new QLabel(dialog);
-    label->setText(caption);
-
-    MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, textFromValue, valueFromText, dialog);
-    mappingSpinBox->setRange(min, max);
-    mappingSpinBox->setValue(value);
-
-    QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
-    QObject::connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
-    QObject::connect(dialogButtonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
-
-    dialog->setLayout(new QVBoxLayout(dialog));
-    dialog->layout()->addWidget(label);
-    dialog->layout()->addWidget(mappingSpinBox);
-    dialog->layout()->addWidget(dialogButtonBox);
-
-    dialog->setFocusProxy(mappingSpinBox);
-
-    const int dialogResult = dialog->exec();
-    const int number = mappingSpinBox->value();
-
-    delete dialog;
-
-    if(ok)
-    {
-        *ok = dialogResult == QDialog::Accepted;
-    }
-
-    return number;
 }
 
 } // qpdfview
