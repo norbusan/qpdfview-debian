@@ -786,7 +786,21 @@ DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent)
 Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
 {
     ddjvu_context_t* context = ddjvu_context_create("qpdfview");
+
+    if(context == 0)
+    {
+        return 0;
+    }
+
+#if DDJVUAPI_VERSION >= 19
+
+    ddjvu_document_t* document = ddjvu_document_create_by_filename_utf8(context, filePath.toUtf8(), FALSE);
+
+#else
+
     ddjvu_document_t* document = ddjvu_document_create_by_filename(context, QFile::encodeName(filePath), FALSE);
+
+#endif // DDJVUAPI_VERSION
 
     if(document == 0)
     {
