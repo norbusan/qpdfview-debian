@@ -317,7 +317,21 @@ FitzPlugin::~FitzPlugin()
 Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
 {
     fz_context* context = fz_clone_context(m_context);
+
+    if(context == 0)
+    {
+        return 0;
+    }
+
+#ifdef _MSC_VER
+
+    fz_document* document = fz_open_document(context, filePath.toUtf8());
+
+#else
+
     fz_document* document = fz_open_document(context, QFile::encodeName(filePath));
+
+#endif // _MSC_VER
 
     if(document == 0)
     {
