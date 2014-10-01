@@ -464,7 +464,11 @@ QList< Link* > DjVuPage::links() const
 
     QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
 
-    ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
+    {
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+
+        ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
+    }
 
     return links;
 }
@@ -495,7 +499,11 @@ QString DjVuPage::text(const QRectF& rect) const
 
     const QString text = loadText(pageTextExp, QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).mapRect(rect).toRect(), m_size.height());
 
-    ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+    {
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+
+        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+    }
 
     return text.trimmed();
 }
@@ -582,7 +590,11 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
         }
     }
 
-    ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+    {
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+
+        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+    }
 
     return results;
 }
@@ -725,7 +737,11 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
     }
 
-    ddjvu_miniexp_release(m_document, outlineExp);
+    {
+        QMutexLocker globalMutexLocker(m_globalMutex);
+
+        ddjvu_miniexp_release(m_document, outlineExp);
+    }
 }
 
 void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
@@ -787,7 +803,11 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
         }
     }
 
-    ddjvu_miniexp_release(m_document, annoExp);
+    {
+        QMutexLocker globalMutexLocker(m_globalMutex);
+
+        ddjvu_miniexp_release(m_document, annoExp);
+    }
 }
 
 } // Model
