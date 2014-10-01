@@ -180,7 +180,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="934"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pravé tlačítko myši</translation>
     </message>
 </context>
 <context>
@@ -332,7 +332,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nápověda</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -1199,7 +1199,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavení</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
