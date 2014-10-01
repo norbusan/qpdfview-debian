@@ -444,17 +444,21 @@ QList< Link* > DjVuPage::links() const
 
     miniexp_t pageAnnoExp;
 
-    while(true)
     {
-        pageAnnoExp = ddjvu_document_get_pageanno(m_parent->m_document, m_index);
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
 
-        if(pageAnnoExp == miniexp_dummy)
+        while(true)
         {
-            clearMessageQueue(m_parent->m_context, true);
-        }
-        else
-        {
-            break;
+            pageAnnoExp = ddjvu_document_get_pageanno(m_parent->m_document, m_index);
+
+            if(pageAnnoExp == miniexp_dummy)
+            {
+                clearMessageQueue(m_parent->m_context, true);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -471,17 +475,21 @@ QString DjVuPage::text(const QRectF& rect) const
 
     miniexp_t pageTextExp;
 
-    while(true)
     {
-        pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
 
-        if(pageTextExp == miniexp_dummy)
+        while(true)
         {
-            clearMessageQueue(m_parent->m_context, true);
-        }
-        else
-        {
-            break;
+            pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+
+            if(pageTextExp == miniexp_dummy)
+            {
+                clearMessageQueue(m_parent->m_context, true);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -498,17 +506,21 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
     miniexp_t pageTextExp;
 
-    while(true)
     {
-        pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
 
-        if(pageTextExp == miniexp_dummy)
+        while(true)
         {
-            clearMessageQueue(m_parent->m_context, true);
-        }
-        else
-        {
-            break;
+            pageTextExp = ddjvu_document_get_pagetext(m_parent->m_document, m_index, "word");
+
+            if(pageTextExp == miniexp_dummy)
+            {
+                clearMessageQueue(m_parent->m_context, true);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -546,7 +558,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
                     index += text.length();
                     rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                    if(!word.at(index).isLetter())
+                    if(index == word.length() || !word.at(index).isLetter())
                     {
                         results.append(transform.mapRect(rect));
 
@@ -575,8 +587,9 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     return results;
 }
 
-DjVuDocument::DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document) :
+DjVuDocument::DjVuDocument(QMutex* globalMutex, ddjvu_context_t* context, ddjvu_document_t* document) :
     m_mutex(),
+    m_globalMutex(globalMutex),
     m_context(context),
     m_document(document),
     m_format(0),
@@ -689,31 +702,28 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     miniexp_t outlineExp;
 
-    while(true)
     {
-        outlineExp = ddjvu_document_get_outline(m_document);
+        QMutexLocker globalMutexLocker(m_globalMutex);
 
-        if(outlineExp == miniexp_dummy)
+        while(true)
         {
-            clearMessageQueue(m_context, true);
+            outlineExp = ddjvu_document_get_outline(m_document);
+
+            if(outlineExp == miniexp_dummy)
+            {
+                clearMessageQueue(m_context, true);
+            }
+            else
+            {
+                break;
+            }
         }
-        else
-        {
-            break;
-        }
     }
 
-    if(miniexp_length(outlineExp) <= 1)
+    if(miniexp_length(outlineExp) > 1 && qstrncmp(miniexp_to_name(miniexp_nth(0, outlineExp)), "bookmarks", 9) == 0)
     {
-        return;
+        ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
     }
-
-    if(qstrncmp(miniexp_to_name(miniexp_nth(0, outlineExp)), "bookmarks", 9) != 0)
-    {
-        return;
-    }
-
-    ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
 
     ddjvu_miniexp_release(m_document, outlineExp);
 }
@@ -728,17 +738,21 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
     miniexp_t annoExp;
 
-    while(true)
     {
-        annoExp = ddjvu_document_get_anno(m_document, TRUE);
+        QMutexLocker globalMutexLocker(m_globalMutex);
 
-        if(annoExp == miniexp_dummy)
+        while(true)
         {
-            clearMessageQueue(m_context, true);
-        }
-        else
-        {
-            break;
+            annoExp = ddjvu_document_get_anno(m_document, TRUE);
+
+            if(annoExp == miniexp_dummy)
+            {
+                clearMessageQueue(m_context, true);
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -778,7 +792,8 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
 } // Model
 
-DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent)
+DjVuPlugin::DjVuPlugin(QObject* parent) : QObject(parent),
+    m_globalMutex()
 {
     setObjectName("DjVuPlugin");
 }
@@ -819,7 +834,7 @@ Model::Document* DjVuPlugin::loadDocument(const QString& filePath) const
         return 0;
     }
 
-    return new Model::DjVuDocument(context, document);
+    return new Model::DjVuDocument(&m_globalMutex, context, document);
 }
 
 } // qpdfview

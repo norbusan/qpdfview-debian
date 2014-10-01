@@ -94,9 +94,11 @@ namespace Model
     private:
         Q_DISABLE_COPY(DjVuDocument)
 
-        DjVuDocument(ddjvu_context_t* context, ddjvu_document_t* document);
+        DjVuDocument(QMutex* globalMutex, ddjvu_context_t* context, ddjvu_document_t* document);
 
         mutable QMutex m_mutex;
+        mutable QMutex* m_globalMutex;
+
         ddjvu_context_t* m_context;
         ddjvu_document_t* m_document;
         ddjvu_format_t* m_format;
@@ -121,6 +123,9 @@ public:
     DjVuPlugin(QObject* parent = 0);
 
     Model::Document* loadDocument(const QString& filePath) const;
+
+private:
+    mutable QMutex m_globalMutex;
 
 };
 
