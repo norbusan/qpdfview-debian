@@ -1,6 +1,7 @@
 Release 0.4.12:
   * Fixed loading document-supplied view mode defaults.
   * Fixed installation location of application icon to use hicolor icon theme.
+  * Fixed an instability of DjVu meta-data extraction.
   * Added function to automatically trim empty page margins.
   * Added dock to improved access to bookmarks. Thanks to S. Razi Alavizadeh.
   * Added support for document-supplied page label. Thanks to S. Razi Alavizadeh.
