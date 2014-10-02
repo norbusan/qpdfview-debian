@@ -1587,7 +1587,7 @@ void MainWindow::on_about_triggered()
                                                            "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2014 The qpdfview developers</p>")));
 }
 
-QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
+QString MainWindow::currentPage_textFromValue(int value, bool* ok) const
 {
     if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()))
     {
@@ -1596,7 +1596,7 @@ QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
     }
 
     *ok = true;
-    return currentTab()->pageLabelFromNumber(val);
+    return currentTab()->pageLabelFromNumber(value);
 }
 
 int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
@@ -2209,13 +2209,15 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
         const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
 
+        const QString& lastDefaultPageLabel = currentTab()->defaultPageLabelFromNumber(numberOfPages);
+
         if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) && defaultPageLabel != pageLabel)
         {
-            suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
+            suffix = QString(" (%1 / %2)").arg(defaultPageLabel).arg(lastDefaultPageLabel);
         }
         else
         {
-            suffix = QString(" / %1").arg(numberOfPages);
+            suffix = QString(" / %1").arg(lastDefaultPageLabel);
         }
     }
     else

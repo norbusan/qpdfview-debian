@@ -203,7 +203,7 @@ protected slots:
     void on_contents_triggered();
     void on_about_triggered();
 
-    QString currentPage_textFromValue(int val, bool* ok) const;
+    QString currentPage_textFromValue(int value, bool* ok) const;
     int currentPage_valueFromText(QString text, bool* ok) const;
 
     void on_focusCurrentPage_activated();

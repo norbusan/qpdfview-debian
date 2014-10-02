@@ -392,7 +392,12 @@ QString DocumentView::pageLabelFromNumber(int number) const
     }
     else if(number >= 1 && number <= m_pages.count())
     {
-        label = m_pages.at(number - 1)->label();
+        const QString& pageLabel = m_pages.at(number - 1)->label();
+
+        if(number != pageLabel.toInt())
+        {
+            label = pageLabel;
+        }
     }
 
     if(label.isEmpty())
