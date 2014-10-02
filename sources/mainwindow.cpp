@@ -2209,7 +2209,8 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
         const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
 
-        if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) && defaultPageLabel != pageLabel)
+        if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) &&
+                (defaultPageLabel != pageLabel && pageLabel.toInt() != currentPage))
         {
             suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
         }
