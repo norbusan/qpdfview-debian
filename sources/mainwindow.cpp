@@ -1596,7 +1596,18 @@ QString MainWindow::currentPage_textFromValue(int val, bool* ok) const
     }
 
     *ok = true;
-    return currentTab()->pageLabelFromNumber(val);
+
+    const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(val);
+    const QString& pageLabel = currentTab()->pageLabelFromNumber(val);
+
+    if(defaultPageLabel != pageLabel && pageLabel.toInt() != val)
+    {
+        return pageLabel;
+    }
+    else
+    {
+        return defaultPageLabel;
+    }
 }
 
 int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
@@ -2204,7 +2215,7 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
     if(m_tabWidget->currentIndex() != -1)
     {
         const int currentPage = currentTab()->currentPage();
-        const int numberOfPages = currentTab()->numberOfPages();
+        const QString& numberOfPagesAsString = currentTab()->defaultPageLabelFromNumber(currentTab()->numberOfPages());
 
         const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
         const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
@@ -2212,11 +2223,11 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
         if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) &&
                 (defaultPageLabel != pageLabel && pageLabel.toInt() != currentPage))
         {
-            suffix = QString(" (%1 / %2)").arg(currentPage).arg(numberOfPages);
+            suffix = QString(" (%1 / %2)").arg(defaultPageLabel).arg(numberOfPagesAsString);
         }
         else
         {
-            suffix = QString(" / %1").arg(numberOfPages);
+            suffix = QString(" / %1").arg(numberOfPagesAsString);
         }
     }
     else
