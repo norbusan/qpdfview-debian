@@ -518,68 +518,68 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
         }
     }
 
+    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+
     QList< miniexp_t > words;
     QList< QRectF > results;
 
-    words.append(pageTextExp);
-
-    QRectF rect;
     int index = 0;
+    QRectF rect;
 
-    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+    words.append(pageTextExp);
 
     while(!words.isEmpty())
     {
         miniexp_t textExp = words.takeFirst();
 
-        const int textLength = miniexp_length(textExp);
-
-        if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+        if(miniexp_length(textExp) < 6 || !miniexp_symbolp(miniexp_car(textExp)))
         {
-            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
+            continue;
+        }
+
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(textExp)));
+
+        if(type == QLatin1String("word"))
+        {
+            const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+
+            index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+            if(index != -1)
             {
-                const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+                const int xmin = miniexp_to_int(miniexp_cadr(textExp));
+                const int ymin = miniexp_to_int(miniexp_caddr(textExp));
+                const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+                const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
 
-                index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+                index += text.length();
+                rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                if(index != -1)
+                if(index == word.length() || !word.at(index).isLetter())
                 {
-                    const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
-                    const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
-                    const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-                    const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+                    results.append(transform.mapRect(rect));
 
-                    index += text.length();
-                    rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
-
-                    if(index == word.length() || !word.at(index).isLetter())
-                    {
-                        results.append(transform.mapRect(rect));
-
-                        rect = QRectF();
-                        index = 0;
-                    }
-                }
-                else
-                {
-                    rect = QRectF();
                     index = 0;
+                    rect = QRectF();
                 }
             }
             else
             {
-                for(int textN = 5; textN < textLength; ++textN)
-                {
-                    words.append(miniexp_nth(textN, textExp));
-                }
+                index = 0;
+                rect = QRectF();
             }
         }
-    }
+        else
+        {
+            textExp = miniexp_cdr(miniexp_cddr(miniexp_cddr(textExp)));
 
-    {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+            for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
+            {
+                textItem = miniexp_car(textExp);
 
-        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+                words.append(textItem);
+            }
+        }
     }
 
     return results;
