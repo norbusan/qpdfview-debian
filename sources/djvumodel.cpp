@@ -256,20 +256,22 @@ QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
 
 void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
 {
-    const int outlineLength = miniexp_length(outlineExp);
-
-    for(int outlineN = qMax(0, offset); outlineN < outlineLength; ++outlineN)
+    while(offset-- > 0)
     {
-        miniexp_t bookmarkExp = miniexp_nth(outlineN, outlineExp);
-        const int bookmarkLength = miniexp_length(bookmarkExp);
+        outlineExp = miniexp_cdr(outlineExp);
+    }
 
-        if(bookmarkLength <= 1 || !miniexp_stringp(miniexp_nth(0, bookmarkExp)) || !miniexp_stringp(miniexp_nth(1, bookmarkExp)))
+    for(miniexp_t outlineItem = miniexp_nil; miniexp_consp(outlineExp); outlineExp = miniexp_cdr(outlineExp))
+    {
+        outlineItem = miniexp_car(outlineExp);
+
+        if(miniexp_length(outlineItem) < 2 || !miniexp_stringp(miniexp_car(outlineItem)) || !miniexp_stringp(miniexp_cadr(outlineItem)))
         {
             continue;
         }
 
-        const QString title = QString::fromUtf8(miniexp_to_str(miniexp_nth(0, bookmarkExp)));
-        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, bookmarkExp)));
+        const QString title = QString::fromUtf8(miniexp_to_str(miniexp_car(outlineItem)));
+        QString destination = QString::fromUtf8(miniexp_to_str(miniexp_cadr(outlineItem)));
 
         if(!title.isEmpty() && !destination.isEmpty())
         {
@@ -303,9 +305,9 @@ void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const 
 
                 parent->appendRow(QList< QStandardItem* >() << item << pageItem);
 
-                if(bookmarkLength >= 3)
+                if(miniexp_length(outlineItem) > 2)
                 {
-                    loadOutline(bookmarkExp, 2, item, indexByName);
+                    loadOutline(outlineItem, 2, item, indexByName);
                 }
             }
         }
@@ -712,7 +714,7 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     QMutexLocker mutexLocker(&m_mutex);
 
-    miniexp_t outlineExp;
+    miniexp_t outlineExp = miniexp_nil;
 
     {
         QMutexLocker globalMutexLocker(m_globalMutex);
@@ -732,16 +734,12 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         }
     }
 
-    if(miniexp_length(outlineExp) > 1 && qstrncmp(miniexp_to_name(miniexp_nth(0, outlineExp)), "bookmarks", 9) == 0)
+    if(miniexp_length(outlineExp) < 2 || qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") != 0)
     {
-        ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
+        return;
     }
 
-    {
-        QMutexLocker globalMutexLocker(m_globalMutex);
-
-        ddjvu_miniexp_release(m_document, outlineExp);
-    }
+    ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
 }
 
 void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
