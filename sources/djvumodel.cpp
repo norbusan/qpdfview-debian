@@ -750,9 +750,7 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
     QMutexLocker mutexLocker(&m_mutex);
 
-    propertiesModel->setColumnCount(2);
-
-    miniexp_t annoExp;
+    miniexp_t annoExp = miniexp_nil;
 
     {
         QMutexLocker globalMutexLocker(m_globalMutex);
@@ -772,41 +770,34 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
         }
     }
 
-    const int annoLength = miniexp_length(annoExp);
-
-    for(int annoN = 0; annoN < annoLength; ++annoN)
+    for(miniexp_t annoItem = miniexp_nil; miniexp_consp(annoExp); annoExp = miniexp_cdr(annoExp))
     {
-        miniexp_t listExp = miniexp_nth(annoN, annoExp);
-        const int listLength = miniexp_length(listExp);
+        annoItem = miniexp_car(annoExp);
 
-        if(listLength <= 1 || qstrncmp(miniexp_to_name(miniexp_nth(0, listExp)), "metadata", 8) != 0)
+        if(miniexp_length(annoItem) < 2 || qstrcmp(miniexp_to_name(miniexp_car(annoItem)), "metadata") != 0)
         {
             continue;
         }
 
-        for(int listN = 1; listN < listLength; ++listN)
-        {
-            miniexp_t keyValueExp = miniexp_nth(listN, listExp);
+        annoItem = miniexp_cdr(annoItem);
 
-            if(miniexp_length(keyValueExp) != 2)
+        for(miniexp_t keyValueItem = miniexp_nil; miniexp_consp(annoItem); annoItem = miniexp_cdr(annoItem))
+        {
+            keyValueItem = miniexp_car(annoItem);
+
+            if(miniexp_length(keyValueItem) != 2)
             {
                 continue;
             }
 
-            const QString key = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, keyValueExp)));
-            const QString value = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, keyValueExp)));
+            const QString key = QString::fromUtf8(miniexp_to_name(miniexp_car(keyValueItem)));
+            const QString value = QString::fromUtf8(miniexp_to_str(miniexp_cadr(keyValueItem)));
 
             if(!key.isEmpty() && !value.isEmpty())
             {
                 propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
             }
         }
-    }
-
-    {
-        QMutexLocker globalMutexLocker(m_globalMutex);
-
-        ddjvu_miniexp_release(m_document, annoExp);
     }
 }
 
