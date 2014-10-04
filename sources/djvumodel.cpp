@@ -185,7 +185,7 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int inde
         {
             if(target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-'))
             {
-                targetPage = index + targetPage;
+                targetPage += index + 1;
             }
         }
 
