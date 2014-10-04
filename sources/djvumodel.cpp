@@ -38,6 +38,16 @@ namespace
 
 using namespace qpdfview::Model;
 
+inline miniexp_t miniexp_cadddr(miniexp_t exp)
+{
+    return miniexp_cadr(miniexp_cddr(exp));
+}
+
+inline miniexp_t miniexp_caddddr(miniexp_t exp)
+{
+    return miniexp_caddr(miniexp_cddr(exp));
+}
+
 inline miniexp_t skip(miniexp_t exp, int offset)
 {
     while(offset-- > 0)
@@ -101,7 +111,7 @@ QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, const 
     if(count == 4 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
     {
         QPoint p(miniexp_to_int(miniexp_car(boundaryExp)), miniexp_to_int(miniexp_cadr(boundaryExp)));
-        QSize s(miniexp_to_int(miniexp_caddr(boundaryExp)), miniexp_to_int(miniexp_nth(3, boundaryExp)));
+        QSize s(miniexp_to_int(miniexp_caddr(boundaryExp)), miniexp_to_int(miniexp_cadddr(boundaryExp)));
 
         p.setY(size.height() - s.height() - p.y());
 
@@ -195,20 +205,28 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     {
         linkItem = miniexp_car(linkExp);
 
-        if(miniexp_length(linkItem) < 4 || qstrcmp(miniexp_to_name(miniexp_car(linkItem)), "maparea") != 0 || !miniexp_symbolp(miniexp_car(miniexp_nth(3, linkItem))))
+        if(miniexp_length(linkItem) < 4 || qstrcmp(miniexp_to_name(miniexp_car(linkItem)), "maparea") != 0)
         {
             continue;
         }
 
-        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(miniexp_nth(3, linkItem))));
+        miniexp_t targetExp = miniexp_cadr(linkItem);
+        miniexp_t boundaryExp = miniexp_cadddr(linkItem);
+
+        if(!miniexp_symbolp(miniexp_car(boundaryExp)))
+        {
+            continue;
+        }
+
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(boundaryExp)));
 
         if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
         {
-            QPainterPath boundary = loadLinkBoundary(type, miniexp_cdr(miniexp_nth(3, linkItem)), size);
+            QPainterPath boundary = loadLinkBoundary(type, miniexp_cdr(boundaryExp), size);
 
             if(!boundary.isEmpty())
             {
-                Link* link = loadLinkTarget(boundary, miniexp_cadr(linkItem), index, indexByName);
+                Link* link = loadLinkTarget(boundary, targetExp, index, indexByName);
 
                 if(link != 0)
                 {
@@ -230,8 +248,8 @@ QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
 
     const int xmin = miniexp_to_int(miniexp_cadr(textExp));
     const int ymin = miniexp_to_int(miniexp_caddr(textExp));
-    const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-    const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+    const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
+    const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
 
     if(rect.intersects(QRect(xmin, size.height() - ymax, xmax - xmin, ymax - ymin)))
     {
@@ -554,8 +572,8 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
             {
                 const int xmin = miniexp_to_int(miniexp_cadr(textExp));
                 const int ymin = miniexp_to_int(miniexp_caddr(textExp));
-                const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-                const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+                const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
+                const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
 
                 index += text.length();
                 rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
