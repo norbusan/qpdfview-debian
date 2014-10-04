@@ -38,6 +38,16 @@ namespace
 
 using namespace qpdfview::Model;
 
+inline miniexp_t skip(miniexp_t exp, int offset)
+{
+    while(offset-- > 0)
+    {
+        exp = miniexp_cdr(exp);
+    }
+
+    return exp;
+}
+
 void clearMessageQueue(ddjvu_context_t* context, bool wait)
 {
     if(wait)
@@ -235,7 +245,7 @@ QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
         {
             QStringList text;
 
-            textExp = miniexp_cdr(miniexp_cddr(miniexp_cddr(textExp)));
+            textExp = skip(textExp, 5);
 
             for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
             {
@@ -251,13 +261,8 @@ QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
     return QString();
 }
 
-void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const QHash< QString, int >& indexByName)
+void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QString, int >& indexByName)
 {
-    while(offset-- > 0)
-    {
-        outlineExp = miniexp_cdr(outlineExp);
-    }
-
     for(miniexp_t outlineItem = miniexp_nil; miniexp_consp(outlineExp); outlineExp = miniexp_cdr(outlineExp))
     {
         outlineItem = miniexp_car(outlineExp);
@@ -304,7 +309,7 @@ void loadOutline(miniexp_t outlineExp, int offset, QStandardItem* parent, const 
 
                 if(miniexp_length(outlineItem) > 2)
                 {
-                    loadOutline(outlineItem, 2, item, indexByName);
+                    loadOutline(skip(outlineItem, 2), item, indexByName);
                 }
             }
         }
@@ -571,7 +576,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
         }
         else
         {
-            textExp = miniexp_cdr(miniexp_cddr(miniexp_cddr(textExp)));
+            textExp = skip(textExp, 5);
 
             for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
             {
@@ -719,7 +724,7 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         return;
     }
 
-    ::loadOutline(outlineExp, 1, outlineModel->invisibleRootItem(), m_indexByName);
+    ::loadOutline(skip(outlineExp, 1), outlineModel->invisibleRootItem(), m_indexByName);
 }
 
 void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
