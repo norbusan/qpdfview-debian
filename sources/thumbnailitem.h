@@ -50,6 +50,18 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
+    inline QString text() const { return m_text.text(); }
+    void setText(const QString& text) { m_text.setText(text); }
+
+#else
+
+    inline QString text() const { return m_text; }
+    void setText(const QString& text) { m_text = text; }
+
+#endif // QT_VERSION
+
     inline bool isHighlighted() const { return m_isHighlighted; }
     void setHighlighted(bool highlighted);
 

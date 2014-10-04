@@ -350,9 +350,11 @@ void DocumentView::setFirstPage(int firstPage)
     {
         m_firstPage = firstPage;
 
-        qDeleteAll(m_thumbnailItems);
+        for(int index = 0; index < m_thumbnailItems.count(); ++index)
+        {
+            m_thumbnailItems.at(index)->setText(pageLabelFromNumber(index + 1));
+        }
 
-        prepareThumbnails();
         prepareThumbnailsScene();
 
         m_document->loadOutline(m_outlineModel);
@@ -618,7 +620,7 @@ void DocumentView::setInvertColors(bool invertColors)
             page->setInvertColors(m_invertColors);
         }
 
-        foreach(PageItem* page, m_thumbnailItems)
+        foreach(ThumbnailItem* page, m_thumbnailItems)
         {
             page->setInvertColors(m_invertColors);
         }
@@ -966,7 +968,7 @@ void DocumentView::cancelSearch()
         page->setHighlights(QList< QRectF >());
     }
 
-    foreach(PageItem* page, m_thumbnailItems)
+    foreach(ThumbnailItem* page, m_thumbnailItems)
     {
         page->setHighlights(QList< QRectF >());
     }
@@ -2230,7 +2232,7 @@ void DocumentView::prepareThumbnailsScene()
 
     for(int index = 0; index < m_thumbnailItems.count(); ++index)
     {
-        PageItem* page = m_thumbnailItems.at(index);
+        ThumbnailItem* page = m_thumbnailItems.at(index);
 
         if(limitThumbnailsToResults && !m_results.isEmpty() && !m_results.contains(index))
         {
