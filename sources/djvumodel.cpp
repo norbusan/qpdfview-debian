@@ -492,7 +492,7 @@ QString DjVuPage::text(const QRectF& rect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
-    miniexp_t pageTextExp;
+    miniexp_t pageTextExp = miniexp_nil;
 
     {
         QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
@@ -521,7 +521,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
-    miniexp_t pageTextExp;
+    miniexp_t pageTextExp = miniexp_nil;
 
     {
         QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
