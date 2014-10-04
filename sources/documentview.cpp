@@ -357,9 +357,7 @@ void DocumentView::setFirstPage(int firstPage)
 
         prepareThumbnailsScene();
 
-        m_document->loadOutline(m_outlineModel);
-
-        if(m_outlineModel->rowCount() == 0)
+        if(m_outlineModel->invisibleRootItem()->data().toBool())
         {
             loadFallbackOutline();
         }
@@ -973,7 +971,10 @@ void DocumentView::cancelSearch()
         page->setHighlights(QList< QRectF >());
     }
 
-    prepareThumbnailsScene();
+    if(s_settings->documentView().limitThumbnailsToResults())
+    {
+        prepareThumbnailsScene();
+    }
 
     m_highlight->setVisible(false);
 }
@@ -1916,6 +1917,8 @@ bool DocumentView::checkDocument(const QString& filePath, Model::Document* docum
 
 void DocumentView::loadFallbackOutline()
 {
+    m_outlineModel->clear();
+
     for(int page = 1; page <= m_pages.count(); ++page)
     {
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
@@ -1929,6 +1932,8 @@ void DocumentView::loadFallbackOutline()
 
         m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
     }
+
+    m_outlineModel->invisibleRootItem()->setData(true); // Flags this as a fallback outline.
 }
 
 void DocumentView::loadDocumentDefaults()
