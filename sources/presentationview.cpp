@@ -541,7 +541,7 @@ void PresentationView::preparePages()
 {
     for(int index = 0; index < m_pages.count(); ++index)
     {
-        PageItem* page = new PageItem(m_pages.at(index), index, true);
+        PageItem* page = new PageItem(m_pages.at(index), index, PageItem::PresentationMode);
 
         page->setInvertColors(m_invertColors);
 

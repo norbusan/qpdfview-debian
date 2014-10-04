@@ -60,12 +60,12 @@ namespace qpdfview
 
 Settings* PageItem::s_settings = 0;
 
-PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphicsItem* parent) : QGraphicsObject(parent),
+PageItem::PageItem(Model::Page* page, int index, DrawMode drawMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
     m_cropRect(),
     m_index(index),
-    m_presentationMode(presentationMode),
+    m_drawMode(drawMode),
     m_highlights(),
     m_links(),
     m_annotations(),
@@ -87,10 +87,10 @@ PageItem::PageItem(Model::Page* page, int index, bool presentationMode, QGraphic
 
     setAcceptHoverEvents(true);
 
-    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling());
+    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling() && !thumbnailMode());
     setFlag(QGraphicsItem::ItemClipsToShape, s_settings->pageItem().trimMargins());
 
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         TileItem* tile = new TileItem(this);
 
@@ -274,7 +274,7 @@ void PageItem::setInvertColors(bool invertColors)
 
 void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         m_tileItems.first()->refresh(keepObsoletePixmaps);
     }
@@ -303,7 +303,7 @@ int PageItem::startRender(bool prefetch)
 {
     int cost = 0;
 
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         cost += m_tileItems.first()->startRender(prefetch);
     }
@@ -320,7 +320,7 @@ int PageItem::startRender(bool prefetch)
 
 void PageItem::cancelRender()
 {
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         m_tileItems.first()->cancelRender();
     }
@@ -397,7 +397,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
         {
             if(m_normalizedTransform.map(link->boundary).contains(event->pos()))
             {
-                if(link->page != -1 && (link->urlOrFileName.isNull() || !m_presentationMode))
+                if(link->page != -1 && (link->urlOrFileName.isNull() || !presentationMode()))
                 {
                     setCursor(Qt::PointingHandCursor);
 
@@ -412,7 +412,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 
                     return;
                 }
-                else if(!link->urlOrFileName.isNull() && !m_presentationMode)
+                else if(!link->urlOrFileName.isNull() && !presentationMode())
                 {
                     setCursor(Qt::PointingHandCursor);
                     QToolTip::showText(event->screenPos(), tr("Open '%1'.").arg(link->urlOrFileName));
@@ -422,7 +422,7 @@ void PageItem::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
             }
         }
 
-        if(m_presentationMode)
+        if(presentationMode())
         {
             unsetCursor();
             QToolTip::hideText();
@@ -475,7 +475,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && !m_presentationMode
+    if(m_rubberBandMode == ModifiersMode && !presentationMode()
             && (event->modifiers() == Qt::NoModifier || copyToClipboardModifiersActive || addAnnotationModifiersActive)
             && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
     {
@@ -518,7 +518,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             {
                 unsetCursor();
 
-                if(link->page != -1 && (link->urlOrFileName.isNull() || !m_presentationMode))
+                if(link->page != -1 && (link->urlOrFileName.isNull() || !presentationMode()))
                 {
                     if(link->urlOrFileName.isNull())
                     {
@@ -532,7 +532,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     event->accept();
                     return;
                 }
-                else if(!link->urlOrFileName.isNull() && !m_presentationMode)
+                else if(!link->urlOrFileName.isNull() && !presentationMode())
                 {
                     emit linkClicked(link->urlOrFileName);
 
@@ -542,7 +542,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
         }
 
-        if(event->button() == Qt::MidButton || m_presentationMode)
+        if(event->button() == Qt::MidButton || presentationMode())
         {
             event->ignore();
             return;
@@ -654,7 +654,7 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
         return;
     }
 
-    if(m_presentationMode)
+    if(presentationMode())
     {
         event->ignore();
         return;
@@ -693,7 +693,7 @@ void PageItem::loadInteractiveElements()
 {
     m_links = m_page->links();
 
-    if(!m_presentationMode)
+    if(!presentationMode())
     {
         m_annotations = m_page->annotations();
 
@@ -717,7 +717,7 @@ void PageItem::updateCropRect()
 {
     QRectF cropRect;
 
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         cropRect = m_tileItems.first()->cropRect();
     }
@@ -1071,7 +1071,7 @@ void PageItem::prepareGeometry()
 
 void PageItem::prepareTiling()
 {
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         m_tileItems.first()->setRect(QRect(0, 0, m_boundingRect.width(), m_boundingRect.height()));
 
@@ -1135,7 +1135,7 @@ void PageItem::prepareTiling()
 
 void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 {
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
+    if(s_settings->pageItem().decoratePages() && !presentationMode())
     {
         // background
 
@@ -1151,7 +1151,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
     // tiles
 
-    if(!s_settings->pageItem().useTiling())
+    if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
         m_tileItems.first()->paint(painter, m_boundingRect.topLeft());
     }
@@ -1172,7 +1172,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
         }
     }
 
-    if(s_settings->pageItem().decoratePages() && !m_presentationMode)
+    if(s_settings->pageItem().decoratePages() && !presentationMode())
     {
         // border
 
@@ -1195,7 +1195,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 
 void PageItem::paintLinks(QPainter* painter) const
 {
-    if(s_settings->pageItem().decorateLinks() && !m_presentationMode && !m_links.isEmpty())
+    if(s_settings->pageItem().decorateLinks() && !presentationMode() && !m_links.isEmpty())
     {
         painter->save();
 
@@ -1213,7 +1213,7 @@ void PageItem::paintLinks(QPainter* painter) const
 
 void PageItem::paintFormFields(QPainter* painter) const
 {
-    if(s_settings->pageItem().decorateFormFields() && !m_presentationMode && !m_formFields.isEmpty())
+    if(s_settings->pageItem().decorateFormFields() && !presentationMode() && !m_formFields.isEmpty())
     {
         painter->save();
 
