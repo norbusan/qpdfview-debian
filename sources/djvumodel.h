@@ -105,6 +105,8 @@ namespace Model
 
         QHash< QString, int > m_indexByName;
 
+        void prepareIndexByName();
+
     };
 }
 

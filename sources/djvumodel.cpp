@@ -615,19 +615,7 @@ DjVuDocument::DjVuDocument(QMutex* globalMutex, ddjvu_context_t* context, ddjvu_
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
 
-    const int fileNum = ddjvu_document_get_filenum(m_document);
-
-    for(int index = 0; index < fileNum; ++index)
-    {
-        ddjvu_fileinfo_t fileinfo;
-
-        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK || fileinfo.type != 'P')
-        {
-            continue;
-        }
-
-        m_indexByName[QString::fromUtf8(fileinfo.id)] = m_indexByName[QString::fromUtf8(fileinfo.name)] = m_indexByName[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno;
-    }
+    prepareIndexByName();
 }
 
 DjVuDocument::~DjVuDocument()
@@ -675,7 +663,7 @@ Page* DjVuDocument::page(int index) const
 
 QStringList DjVuDocument::saveFilter() const
 {
-    return QStringList() << "DjVu (*.djvu *.djv)";
+    return QStringList() << QLatin1String("DjVu (*.djvu *.djv)");
 }
 
 bool DjVuDocument::canSave() const
@@ -689,7 +677,15 @@ bool DjVuDocument::save(const QString& filePath, bool withChanges) const
 
     QMutexLocker mutexLocker(&m_mutex);
 
+#ifdef _MSC_VER
+
+    FILE* file = _wfopen(filePath.toUtf8(), L"w+");
+
+#else
+
     FILE* file = fopen(QFile::encodeName(filePath), "w+");
+
+#endif // _MSC_VER
 
     if(file == 0)
     {
@@ -796,6 +792,21 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
                 propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
             }
         }
+    }
+}
+
+void DjVuDocument::prepareIndexByName()
+{
+    for(int index = 0, count = ddjvu_document_get_filenum(m_document); index < count; ++index)
+    {
+        ddjvu_fileinfo_t fileinfo;
+
+        if(ddjvu_document_get_fileinfo(m_document, index, &fileinfo) != DDJVU_JOB_OK || fileinfo.type != 'P')
+        {
+            continue;
+        }
+
+        m_indexByName[QString::fromUtf8(fileinfo.id)] = m_indexByName[QString::fromUtf8(fileinfo.name)] = m_indexByName[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno;
     }
 }
 
