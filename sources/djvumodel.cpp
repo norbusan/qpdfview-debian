@@ -82,17 +82,16 @@ void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
     }
 }
 
-QPainterPath loadLinkBoundary(const QString& type, miniexp_t linkExp, const QSizeF& size)
+QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, const QSizeF& size)
 {
     QPainterPath boundary;
 
-    miniexp_t areaExp = miniexp_nth(3, linkExp);
-    const int areaLength = miniexp_length(areaExp);
+    const int count = miniexp_length(boundaryExp);
 
-    if(areaLength == 5 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
+    if(count == 4 && (type == QLatin1String("rect") || type == QLatin1String("oval")))
     {
-        QPoint p(miniexp_to_int(miniexp_nth(1, areaExp)), miniexp_to_int(miniexp_nth(2, areaExp)));
-        QSize s(miniexp_to_int(miniexp_nth(3, areaExp)), miniexp_to_int(miniexp_nth(4, areaExp)));
+        QPoint p(miniexp_to_int(miniexp_car(boundaryExp)), miniexp_to_int(miniexp_cadr(boundaryExp)));
+        QSize s(miniexp_to_int(miniexp_caddr(boundaryExp)), miniexp_to_int(miniexp_nth(3, boundaryExp)));
 
         p.setY(size.height() - s.height() - p.y());
 
@@ -107,13 +106,13 @@ QPainterPath loadLinkBoundary(const QString& type, miniexp_t linkExp, const QSiz
             boundary.addEllipse(r);
         }
     }
-    else if(areaLength > 0 && areaLength % 2 == 1 && type == QLatin1String("poly"))
+    else if(count > 0 && count % 2 == 0 && type == QLatin1String("poly"))
     {
         QPolygon polygon;
 
-        for(int areaExpN = 1; areaExpN < areaLength; areaExpN += 2)
+        for(int index = 0; index < count; index += 2)
         {
-            QPoint p(miniexp_to_int(miniexp_nth(areaExpN, areaExp)), miniexp_to_int(miniexp_nth(areaExpN + 1, areaExp)));
+            QPoint p(miniexp_to_int(miniexp_nth(index, boundaryExp)), miniexp_to_int(miniexp_nth(index + 1, boundaryExp)));
 
             p.setY(size.height() - p.y());
 
@@ -126,19 +125,17 @@ QPainterPath loadLinkBoundary(const QString& type, miniexp_t linkExp, const QSiz
     return QTransform::fromScale(1.0 / size.width(), 1.0 / size.height()).map(boundary);
 }
 
-Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t linkExp, int index, const QHash< QString, int >& indexByName)
+Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int index, const QHash< QString, int >& indexByName)
 {
     QString target;
 
-    miniexp_t targetExp = miniexp_nth(1, linkExp);
-
     if(miniexp_stringp(targetExp))
     {
-        target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, linkExp)));
+        target = QString::fromUtf8(miniexp_to_str(targetExp));
     }
-    else if(miniexp_length(targetExp) == 3 && qstrncmp(miniexp_to_name(miniexp_nth(0, targetExp)), "url", 3) == 0)
+    else if(miniexp_length(targetExp) == 3 && qstrcmp(miniexp_to_name(miniexp_car(targetExp)), "url") == 0)
     {
-        target = QString::fromUtf8(miniexp_to_str(miniexp_nth(1, targetExp)));
+        target = QString::fromUtf8(miniexp_to_str(miniexp_cadr(targetExp)));
     }
 
     if(target.isEmpty())
@@ -166,7 +163,10 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t linkExp, int index,
         }
         else
         {
-            targetPage = (target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-')) ? index + targetPage : targetPage;
+            if(target.at(0) == QLatin1Char('+') || target.at(0) == QLatin1Char('-'))
+            {
+                targetPage = index + targetPage;
+            }
         }
 
         return new Link(boundary, targetPage);
@@ -177,30 +177,28 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t linkExp, int index,
     }
 }
 
-QList< Link* > loadLinks(miniexp_t pageAnnoExp, const QSizeF& size, int index, const QHash< QString, int >& indexByName)
+QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const QHash< QString, int >& indexByName)
 {
     QList< Link* > links;
 
-    const int pageAnnoLength = miniexp_length(pageAnnoExp);
-
-    for(int pageAnnoN = 0; pageAnnoN < pageAnnoLength; ++pageAnnoN)
+    for(miniexp_t linkItem = miniexp_nil; miniexp_consp(linkExp); linkExp = miniexp_cdr(linkExp))
     {
-        miniexp_t linkExp = miniexp_nth(pageAnnoN, pageAnnoExp);
+        linkItem = miniexp_car(linkExp);
 
-        if(miniexp_length(linkExp) <= 3 || qstrncmp(miniexp_to_name(miniexp_nth(0, linkExp)), "maparea", 7 ) != 0 || !miniexp_symbolp(miniexp_nth(0, miniexp_nth(3, linkExp))))
+        if(miniexp_length(linkItem) < 4 || qstrcmp(miniexp_to_name(miniexp_car(linkItem)), "maparea") != 0 || !miniexp_symbolp(miniexp_car(miniexp_nth(3, linkItem))))
         {
             continue;
         }
 
-        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_nth(0, miniexp_nth(3, linkExp))));
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(miniexp_nth(3, linkItem))));
 
         if(type == QLatin1String("rect") || type == QLatin1String("oval") || type == QLatin1String("poly"))
         {
-            QPainterPath boundary = loadLinkBoundary(type, linkExp, size);
+            QPainterPath boundary = loadLinkBoundary(type, miniexp_cdr(miniexp_nth(3, linkItem)), size);
 
             if(!boundary.isEmpty())
             {
-                Link* link = loadLinkTarget(boundary, linkExp, index, indexByName);
+                Link* link = loadLinkTarget(boundary, miniexp_cadr(linkItem), index, indexByName);
 
                 if(link != 0)
                 {
@@ -343,13 +341,14 @@ QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
-    ddjvu_status_t status;
     ddjvu_page_t* page = ddjvu_page_create_by_pageno(m_parent->m_document, m_index);
 
     if(page == 0)
     {
         return QImage();
     }
+
+    ddjvu_status_t status;
 
     while(true)
     {
@@ -444,7 +443,7 @@ QList< Link* > DjVuPage::links() const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
-    miniexp_t pageAnnoExp;
+    miniexp_t pageAnnoExp = miniexp_nil;
 
     {
         QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
@@ -464,15 +463,7 @@ QList< Link* > DjVuPage::links() const
         }
     }
 
-    QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
-
-    {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
-
-        ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
-    }
-
-    return links;
+    return loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
 }
 
 QString DjVuPage::text(const QRectF& rect) const
