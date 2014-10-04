@@ -211,41 +211,40 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     return links;
 }
 
-QString loadText(miniexp_t textExp, const QRect& rect, int pageHeight)
+QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
 {
-    const int textLength = miniexp_length(textExp);
-
-    if(textLength >= 6 && miniexp_symbolp(miniexp_nth(0, textExp)))
+    if(miniexp_length(textExp) < 6 && !miniexp_symbolp(miniexp_car(textExp)))
     {
-        const int xmin = miniexp_to_int(miniexp_nth(1, textExp));
-        const int ymin = miniexp_to_int(miniexp_nth(2, textExp));
-        const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
-        const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+        return QString();
+    }
 
-        if(rect.intersects(QRect(xmin, pageHeight - ymax, xmax - xmin, ymax - ymin)))
+    const int xmin = miniexp_to_int(miniexp_cadr(textExp));
+    const int ymin = miniexp_to_int(miniexp_caddr(textExp));
+    const int xmax = miniexp_to_int(miniexp_nth(3, textExp));
+    const int ymax = miniexp_to_int(miniexp_nth(4, textExp));
+
+    if(rect.intersects(QRect(xmin, size.height() - ymax, xmax - xmin, ymax - ymin)))
+    {
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(textExp)));
+
+        if(type == QLatin1String("word"))
         {
-            if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "word", 4) == 0)
-            {
-                return QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
-            }
-            else
-            {
-                QStringList text;
+            return QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+        }
+        else
+        {
+            QStringList text;
 
-                for(int textN = 5; textN < textLength; ++textN)
-                {
-                    text.append(loadText(miniexp_nth(textN, textExp), rect, pageHeight));
-                }
+            textExp = miniexp_cdr(miniexp_cddr(miniexp_cddr(textExp)));
 
-                if(qstrncmp(miniexp_to_name(miniexp_nth(0, textExp)), "line", 4) == 0)
-                {
-                    return text.join(" ");
-                }
-                else
-                {
-                    return text.join("\n");
-                }
+            for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
+            {
+                textItem = miniexp_car(textExp);
+
+                text.append(loadText(rect, textItem, size));
             }
+
+            return type == QLatin1String("line") ? text.join(" ") : text.join("\n");
         }
     }
 
@@ -490,15 +489,9 @@ QString DjVuPage::text(const QRectF& rect) const
         }
     }
 
-    const QString text = loadText(pageTextExp, QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0).mapRect(rect).toRect(), m_size.height());
+    const QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0);
 
-    {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
-
-        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
-    }
-
-    return text.trimmed();
+    return loadText(transform.mapRect(rect), pageTextExp, m_size).trimmed();
 }
 
 QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
