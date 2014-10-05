@@ -686,7 +686,7 @@ bool DjVuDocument::save(const QString& filePath, bool withChanges) const
 
 #ifdef _MSC_VER
 
-    FILE* file = _wfopen(filePath.toUtf8(), L"w+");
+    FILE* file = _wfopen(reinterpret_cast< const wchar_t* >(filePath.utf16()), L"w+");
 
 #else
 
