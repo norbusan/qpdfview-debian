@@ -90,6 +90,18 @@ QModelIndex SearchModel::parent(const QModelIndex& child) const
     return m_topLevelIndices.value(static_cast< DocumentView* >(child.internalPointer()), QModelIndex());
 }
 
+int SearchModel::rowCount(DocumentView* document) const
+{
+    const Results* results = m_results.value(document, 0);
+
+    if(results != 0)
+    {
+        return results->count();
+    }
+
+    return 0;
+}
+
 int SearchModel::rowCount(const QModelIndex& parent) const
 {
     if(!parent.isValid())
@@ -98,12 +110,7 @@ int SearchModel::rowCount(const QModelIndex& parent) const
     }
     else
     {
-        const Results* results = m_results.value(m_topLevelIndices.key(parent, 0), 0);
-
-        if(results != 0)
-        {
-            return results->count();
-        }
+        return rowCount(m_topLevelIndices.key(parent, 0));
     }
 
     return 0;
@@ -170,6 +177,18 @@ void SearchModel::clearResultOf(DocumentView* document)
     m_topLevelIndices.remove(document);
 
     endRemoveRows();
+}
+
+bool SearchModel::isOccurrenceOnPage(DocumentView* document, int page) const
+{
+    const Results* results = m_results.value(document, 0);
+
+    if(results != 0)
+    {
+        return qBinaryFind(results->begin(), results->end(), page) != results->end();
+    }
+
+    return false;
 }
 
 } // qpdfview

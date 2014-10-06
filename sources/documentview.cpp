@@ -2162,8 +2162,7 @@ void DocumentView::prepareThumbnailsScene()
     {
         ThumbnailItem* page = m_thumbnailItems.at(index);
 
-        // TODO: render pages just if they contain results
-        if(limitThumbnailsToResults && false)
+        if(limitThumbnailsToResults && s_searchModel->rowCount(this) > 0 && !s_searchModel->isOccurrenceOnPage(this, index + 1))
         {
             page->setVisible(false);
 

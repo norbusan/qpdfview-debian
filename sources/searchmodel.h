@@ -46,6 +46,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex& child) const;
 
+    int rowCount(DocumentView* document) const;
     int rowCount(const QModelIndex& parent = QModelIndex()) const;
     int columnCount(const QModelIndex& parent = QModelIndex()) const;
 
@@ -53,6 +54,8 @@ public:
 
     void prependResults(DocumentView* document, int page, const QList< QRectF >& resultsOnPage);
     void clearResultOf(DocumentView* document);
+
+    bool isOccurrenceOnPage(DocumentView* document, int page) const;
 
 private:
     static SearchModel* s_instance;
