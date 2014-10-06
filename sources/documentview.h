@@ -52,6 +52,7 @@ class ThumbnailItem;
 class SearchTask;
 class PresentationView;
 class ShortcutHandler;
+class SearchModel;
 struct DocumentLayout;
 
 class DocumentView : public QGraphicsView
@@ -173,7 +174,7 @@ public slots:
     void temporaryHighlight(int page, const QRectF& highlight);
 
     void startSearch(const QString& text, bool matchCase = true);
-    void cancelSearch();
+    void cancelSearch(bool updateView = true);
 
     void zoomIn();
     void zoomOut();
@@ -304,6 +305,7 @@ private:
     // search
 
     SearchTask* m_searchTask;
+    static SearchModel* s_searchModel;
 
 };
 

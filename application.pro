@@ -32,7 +32,8 @@ HEADERS += \
     sources/bookmarkmenu.h \
     sources/bookmarkdialog.h \
     sources/database.h \
-    sources/mainwindow.h
+    sources/mainwindow.h \
+    sources/searchmodel.h
 
 SOURCES += \
     sources/settings.cpp \
@@ -59,6 +60,7 @@ SOURCES += \
     sources/database.cpp \
     sources/mainwindow.cpp \
     sources/main.cpp \
+    sources/searchmodel.cpp
 
 DEFINES += APPLICATION_VERSION=\\\"$${APPLICATION_VERSION}\\\"
 

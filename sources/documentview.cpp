@@ -66,6 +66,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchtask.h"
 #include "miscellaneous.h"
 #include "documentlayout.h"
+#include "searchmodel.h"
 
 namespace
 {
@@ -220,6 +221,7 @@ namespace qpdfview
 
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
+SearchModel* DocumentView::s_searchModel = 0;
 
 DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_autoRefreshWatcher(0),
@@ -258,6 +260,11 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     if(s_shortcutHandler == 0)
     {
         s_shortcutHandler = ShortcutHandler::instance();
+    }
+
+    if(s_searchModel == 0)
+    {
+        s_searchModel = SearchModel::instance();
     }
 
     setScene(new QGraphicsScene(this));
@@ -332,8 +339,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
 DocumentView::~DocumentView()
 {
-    m_searchTask->cancel();
-    m_searchTask->wait();
+    cancelSearch(false);
 
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
@@ -943,10 +949,17 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
     m_searchTask->start(m_pages, text, matchCase, m_currentPage);
 }
 
-void DocumentView::cancelSearch()
+void DocumentView::cancelSearch(bool updateView)
 {
     m_searchTask->cancel();
     m_searchTask->wait();
+
+    s_searchModel->clearResultOf(this);
+
+    if(!updateView)
+    {
+        return;
+    }
 
     foreach(PageItem* page, m_pageItems)
     {
@@ -1167,7 +1180,7 @@ void DocumentView::on_searchTask_resultsReady(int index, const QList< QRectF >& 
         return;
     }
 
-    // TODO: store results to a central model
+    s_searchModel->prependResults(this, index + 1, results);
 
     if(m_highlightAll)
     {
