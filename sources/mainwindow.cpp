@@ -1066,18 +1066,12 @@ void MainWindow::on_search_triggered()
 
 void MainWindow::on_findPrevious_triggered()
 {
-    if(!m_searchLineEdit->text().isEmpty())
-    {
-        currentTab()->findPrevious();
-    }
+    // TODO
 }
 
 void MainWindow::on_findNext_triggered()
 {
-    if(!m_searchLineEdit->text().isEmpty())
-    {
-        currentTab()->findNext();
-    }
+    // TODO
 }
 
 void MainWindow::on_cancelSearch_triggered()

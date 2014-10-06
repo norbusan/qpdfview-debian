@@ -248,8 +248,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
-    m_results(),
-    m_currentResult(m_results.end()),
     m_searchTask(0)
 {
     if(s_settings == 0)
@@ -381,7 +379,7 @@ QString DocumentView::pageLabelFromNumber(int number) const
 
     if(hasFrontMatter())
     {
-        if (number < m_firstPage)
+        if(number < m_firstPage)
         {
             label = number < 4000 ? intToRoman(number) : defaultPageLabelFromNumber(-number);
         }
@@ -637,15 +635,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        for(int index = 0; index < m_pageItems.count(); ++index)
-        {
-            m_pageItems.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
-        }
-
-        for(int index = 0; index < m_thumbnailItems.count(); ++index)
-        {
-            m_thumbnailItems.at(index)->setHighlights(m_highlightAll ? m_results.values(index) : QList< QRectF >());
-        }
+        // TODO: apply new highlightAll state to m_pageItems and m_thumbnailItems
 
         emit highlightAllChanged(m_highlightAll);
 
@@ -958,9 +948,6 @@ void DocumentView::cancelSearch()
     m_searchTask->cancel();
     m_searchTask->wait();
 
-    m_results.clear();
-    m_currentResult = m_results.end();
-
     foreach(PageItem* page, m_pageItems)
     {
         page->setHighlights(QList< QRectF >());
@@ -977,76 +964,6 @@ void DocumentView::cancelSearch()
     }
 
     m_highlight->setVisible(false);
-}
-
-void DocumentView::findPrevious()
-{
-    if(m_currentResult != m_results.end())
-    {
-        if(m_layout->leftIndex(m_currentResult.key()) == m_currentPage - 1)
-        {
-            m_currentResult = previousResult(m_currentResult);
-        }
-        else
-        {
-            m_currentResult = previousResult(m_results.upperBound(m_currentPage - 1));
-        }
-    }
-    else
-    {
-        m_currentResult = previousResult(m_results.upperBound(m_currentPage - 1));
-    }
-
-    if(m_currentResult == m_results.end())
-    {
-        m_currentResult = previousResult(m_results.end());
-    }
-
-    if(m_currentResult != m_results.end())
-    {
-        jumpToPage(m_currentResult.key() + 1);
-
-        prepareHighlight(m_currentResult.key(), m_currentResult.value());
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
-}
-
-void DocumentView::findNext()
-{
-    if(m_currentResult != m_results.end())
-    {
-        if(m_layout->leftIndex(m_currentResult.key()) == m_currentPage - 1)
-        {
-            ++m_currentResult;
-        }
-        else
-        {
-            m_currentResult = m_results.lowerBound(m_currentPage - 1);
-        }
-    }
-    else
-    {
-        m_currentResult = m_results.lowerBound(m_currentPage - 1);
-    }
-
-    if(m_currentResult == m_results.end())
-    {
-        m_currentResult = m_results.begin();
-    }
-
-    if(m_currentResult != m_results.end())
-    {
-        jumpToPage(m_currentResult.key() + 1);
-
-        prepareHighlight(m_currentResult.key(), m_currentResult.value());
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
 }
 
 void DocumentView::zoomIn()
@@ -1243,22 +1160,19 @@ void DocumentView::on_temporaryHighlight_timeout()
     m_highlight->setVisible(false);
 }
 
-void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results)
+void DocumentView::on_searchTask_resultsReady(int index, const QList< QRectF >& results)
 {
     if(m_searchTask->wasCanceled())
     {
         return;
     }
 
-    while(!results.isEmpty())
-    {
-        m_results.insertMulti(index, results.takeLast());
-    }
+    // TODO: store results to a central model
 
     if(m_highlightAll)
     {
-        m_pageItems.at(index)->setHighlights(m_results.values(index));
-        m_thumbnailItems.at(index)->setHighlights(m_results.values(index));
+        m_pageItems.at(index)->setHighlights(results);
+        m_thumbnailItems.at(index)->setHighlights(results);
     }
 
     if(s_settings->documentView().limitThumbnailsToResults())
@@ -1266,12 +1180,7 @@ void DocumentView::on_searchTask_resultsReady(int index, QList< QRectF > results
         prepareThumbnailsScene();
     }
 
-    if(m_results.contains(index) && m_currentResult == m_results.end())
-    {
-        setFocus();
-
-        findNext();
-    }
+    // TODO: set current result, if it's not set
 }
 
 void DocumentView::on_pages_cropRectChanged()
@@ -2205,7 +2114,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
         }
 
-        if(m_currentResult != m_results.end() && m_currentResult.key() == index)
+        // TODO: highlight current search result
+        if(false)
         {
             m_highlight->setPos(page->pos());
             m_highlight->setTransform(page->transform());
@@ -2239,7 +2149,8 @@ void DocumentView::prepareThumbnailsScene()
     {
         ThumbnailItem* page = m_thumbnailItems.at(index);
 
-        if(limitThumbnailsToResults && !m_results.isEmpty() && !m_results.contains(index))
+        // TODO: render pages just if they contain results
+        if(limitThumbnailsToResults && false)
         {
             page->setVisible(false);
 
@@ -2307,11 +2218,6 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
     connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 
     viewport()->update();
-}
-
-DocumentView::Results::iterator DocumentView::previousResult(const Results::iterator& result)
-{
-    return result != m_results.begin() ? result - 1 : m_results.end();
 }
 
 } // qpdfview

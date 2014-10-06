@@ -175,9 +175,6 @@ public slots:
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
-    void findPrevious();
-    void findNext();
-
     void zoomIn();
     void zoomOut();
     void originalSize();
@@ -195,7 +192,7 @@ protected slots:
 
     void on_temporaryHighlight_timeout();
 
-    void on_searchTask_resultsReady(int index, QList< QRectF > results);
+    void on_searchTask_resultsReady(int index, const QList< QRectF >& results);
 
     void on_pages_cropRectChanged();
     void on_thumbnails_cropRectChanged();
@@ -305,13 +302,6 @@ private:
     void prepareHighlight(int index, const QRectF& highlight);
 
     // search
-
-    typedef QMultiMap< int, QRectF > Results;
-
-    Results m_results;
-    Results::iterator m_currentResult;
-
-    Results::iterator previousResult(const Results::iterator& result);
 
     SearchTask* m_searchTask;
 
