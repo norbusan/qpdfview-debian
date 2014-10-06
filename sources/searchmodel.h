@@ -56,6 +56,7 @@ public:
     void clearResultOf(DocumentView* document);
 
     bool isOccurrenceOnPage(DocumentView* document, int page) const;
+    QList< QRectF > resultsRecsOf(DocumentView* document, int page) const;
 
 private:
     static SearchModel* s_instance;

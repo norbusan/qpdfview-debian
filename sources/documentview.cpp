@@ -641,7 +641,36 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        // TODO: apply new highlightAll state to m_pageItems and m_thumbnailItems
+        if (m_highlightAll)
+        {
+            QList< QList< QRectF > > rectsList;
+            rectsList.reserve(m_pageItems.count());
+
+            for(int index = 0; index < m_pageItems.count(); ++index)
+            {
+                const QList< QRectF >& rects = s_searchModel->resultsRecsOf(this, index + 1);
+                rectsList << rects;
+
+                m_pageItems.at(index)->setHighlights(rects);
+            }
+
+            for(int index = 0; index < m_thumbnailItems.count(); ++index)
+            {
+                m_thumbnailItems.at(index)->setHighlights(rectsList.at(index));
+            }
+        }
+        else
+        {
+            for(int index = 0; index < m_pageItems.count(); ++index)
+            {
+                m_pageItems.at(index)->setHighlights(QList< QRectF >());
+            }
+
+            for(int index = 0; index < m_thumbnailItems.count(); ++index)
+            {
+                m_thumbnailItems.at(index)->setHighlights(QList< QRectF >());
+            }
+        }
 
         emit highlightAllChanged(m_highlightAll);
 

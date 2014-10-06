@@ -191,4 +191,27 @@ bool SearchModel::isOccurrenceOnPage(DocumentView* document, int page) const
     return false;
 }
 
+QList< QRectF > SearchModel::resultsRecsOf(DocumentView* document, int page) const
+{
+    QList< QRectF > list;
+    Results* documentResults = m_results.value(document, 0);
+
+    if (documentResults != 0)
+    {
+        Results::iterator i = qLowerBound(documentResults->begin(), documentResults->end(), page);
+        Results::iterator end = qUpperBound(i, documentResults->end(), page);
+
+        list.reserve(end - i);
+
+        while (i != end)
+        {
+            list << (*i).second;
+
+            ++i;
+        }
+    }
+
+    return list;
+}
+
 } // qpdfview
