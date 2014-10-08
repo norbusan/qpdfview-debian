@@ -1973,7 +1973,7 @@ void DocumentView::prepareDocument(Model::Document* document)
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
 
-    cancelSearch();
+    cancelSearch(false);
 
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
