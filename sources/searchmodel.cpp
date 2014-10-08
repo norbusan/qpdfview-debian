@@ -123,8 +123,33 @@ int SearchModel::columnCount(const QModelIndex&) const
 
 QVariant SearchModel::data(const QModelIndex& index, int role) const
 {
-    Q_UNUSED(index);
-    Q_UNUSED(role);
+    if(!index.isValid() || index.model() != this || !hasIndex(index.row(), index.column(), parent(index)))
+    {
+        return QVariant();
+    }
+
+    DocumentView* document = static_cast< DocumentView* >(index.internalPointer());
+    Results* results = m_results.value(document, 0);
+
+    if(results == 0)
+    {
+        return QVariant();
+    }
+
+    const Result& result = results->at(index.row());
+
+    if(!hasChildren(index))
+    {
+        switch (role)
+        {
+        default:
+            return QVariant();
+        case PageRole:
+            return result.first;
+        case RectRole:
+            return result.second;
+        }
+    }
 
     return QVariant();
 }
@@ -150,7 +175,7 @@ void SearchModel::prependResults(DocumentView* document, int page, const QList< 
 
     Results::iterator at = qLowerBound(documentResults->begin(), documentResults->end(), page);
 
-    int row = at - documentResults->begin();
+    const int row = at - documentResults->begin();
 
     beginInsertRows(m_topLevelIndices.value(document), row, row + results.size() - 1);
 
@@ -196,7 +221,7 @@ QList< QRectF > SearchModel::resultsRecsOf(DocumentView* document, int page) con
     QList< QRectF > list;
     Results* documentResults = m_results.value(document, 0);
 
-    if (documentResults != 0)
+    if(documentResults != 0)
     {
         Results::iterator i = qLowerBound(documentResults->begin(), documentResults->end(), page);
         Results::iterator end = qUpperBound(i, documentResults->end(), page);
@@ -212,6 +237,52 @@ QList< QRectF > SearchModel::resultsRecsOf(DocumentView* document, int page) con
     }
 
     return list;
+}
+
+QModelIndex SearchModel::findResult(DocumentView* document, const QModelIndex& current, int currentPage, bool backward) const
+{
+    QModelIndex found;
+
+    const QModelIndex parent = m_topLevelIndices.value(document, QModelIndex());
+
+    if(parent.isValid())
+    {
+        int row = -1;
+        const int parentRowCount = rowCount(parent);
+
+        if(current.isValid())
+        {
+            row = current.row() + (!backward ? 1 : parentRowCount - 1);
+        }
+        else
+        {
+            Results* documentResults = m_results.value(document, 0);
+
+            if(documentResults != 0)
+            {
+                const Results::iterator begin = documentResults->begin();
+                Results::iterator i = documentResults->end();
+
+                if(!backward)
+                {
+                    row = qLowerBound(begin, i, currentPage) - begin;
+                }
+                else
+                {
+
+                    i = currentPage > 0 ? qUpperBound(begin, i, currentPage - 1) : i;
+
+                    row = (i - begin) + parentRowCount - 1;
+                }
+            }
+        }
+
+        row = row % parentRowCount;
+
+        found = index(row, 0, parent);
+    }
+
+    return found;
 }
 
 } // qpdfview

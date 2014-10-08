@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileInfo>
 #include <QGraphicsView>
 #include <QMap>
+#include <QPersistentModelIndex>
 
 class QDomNode;
 class QFileSystemWatcher;
@@ -176,6 +177,8 @@ public slots:
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch(bool updateView = true);
 
+    void find(bool backward = false);
+
     void zoomIn();
     void zoomOut();
     void originalSize();
@@ -306,6 +309,8 @@ private:
 
     SearchTask* m_searchTask;
     static SearchModel* s_searchModel;
+
+    QPersistentModelIndex m_currentResult;
 
 };
 

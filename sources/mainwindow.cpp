@@ -1066,12 +1066,18 @@ void MainWindow::on_search_triggered()
 
 void MainWindow::on_findPrevious_triggered()
 {
-    // TODO
+    if(currentTab())
+    {
+        currentTab()->find(true);
+    }
 }
 
 void MainWindow::on_findNext_triggered()
 {
-    // TODO
+    if(currentTab())
+    {
+        currentTab()->find();
+    }
 }
 
 void MainWindow::on_cancelSearch_triggered()

@@ -641,7 +641,7 @@ void DocumentView::setHighlightAll(bool highlightAll)
     {
         m_highlightAll = highlightAll;
 
-        if (m_highlightAll)
+        if(m_highlightAll)
         {
             QList< QList< QRectF > > rectsList;
             rectsList.reserve(m_pageItems.count());
@@ -983,6 +983,8 @@ void DocumentView::cancelSearch(bool updateView)
     m_searchTask->cancel();
     m_searchTask->wait();
 
+    m_currentResult = QModelIndex();
+
     s_searchModel->clearResultOf(this);
 
     if(!updateView)
@@ -1006,6 +1008,29 @@ void DocumentView::cancelSearch(bool updateView)
     }
 
     m_highlight->setVisible(false);
+}
+
+void DocumentView::find(bool backward)
+{
+    if(s_searchModel->rowCount(this) == 0)
+    {
+        return;
+    }
+
+    m_currentResult = s_searchModel->findResult(this, m_currentResult, m_currentPage, backward);
+
+    if(m_currentResult.isValid())
+    {
+        const int page = m_currentResult.data(SearchModel::PageRole).toInt();
+
+        jumpToPage(page);
+
+        prepareHighlight(page - 1, m_currentResult.data(SearchModel::RectRole).toRectF());
+    }
+    else
+    {
+        m_highlight->setVisible(false);
+    }
 }
 
 void DocumentView::zoomIn()
@@ -1143,6 +1168,11 @@ void DocumentView::on_verticalScrollBar_valueChanged()
     {
         m_currentPage = currentPage;
 
+        if(m_currentResult.isValid() && m_currentResult.data(SearchModel::PageRole).toInt() != m_currentPage)
+        {
+            m_currentResult = QModelIndex();
+        }
+
         emit currentPageChanged(m_currentPage);
 
         if(s_settings->documentView().highlightCurrentThumbnail())
@@ -1222,7 +1252,12 @@ void DocumentView::on_searchTask_resultsReady(int index, const QList< QRectF >& 
         prepareThumbnailsScene();
     }
 
-    // TODO: set current result, if it's not set
+    if(!m_currentResult.isValid() && !results.isEmpty())
+    {
+        setFocus();
+
+        find();
+    }
 }
 
 void DocumentView::on_pages_cropRectChanged()
@@ -2156,8 +2191,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
         }
 
-        // TODO: highlight current search result
-        if(false)
+        if(m_currentResult.isValid() && m_currentResult.data(SearchModel::PageRole).toInt() == index + 1)
         {
             m_highlight->setPos(page->pos());
             m_highlight->setTransform(page->transform());

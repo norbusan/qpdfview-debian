@@ -39,6 +39,12 @@ public:
     explicit SearchModel(QObject* parent = 0);
     ~SearchModel();
 
+    enum
+    {
+        PageRole = Qt::UserRole + 1,
+        RectRole
+    };
+
     static SearchModel* instance();
 
     void clear();
@@ -57,6 +63,8 @@ public:
 
     bool isOccurrenceOnPage(DocumentView* document, int page) const;
     QList< QRectF > resultsRecsOf(DocumentView* document, int page) const;
+
+    QModelIndex findResult(DocumentView* document, const QModelIndex& current, int currentPage, bool backward) const;
 
 private:
     static SearchModel* s_instance;
