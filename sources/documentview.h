@@ -317,6 +317,9 @@ private:
     int pageOfCurrentResult() const;
     QRectF rectOfCurrentResult() const;
 
+    void checkResult();
+    void applyResult();
+
     void clearResults();
 
 };

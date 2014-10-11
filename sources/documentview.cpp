@@ -991,50 +991,20 @@ void DocumentView::cancelSearch()
 
 void DocumentView::findPrevious()
 {
-    if(m_currentResult.isValid() && m_layout->currentPage(pageOfCurrentResult()) != m_currentPage)
-    {
-        m_currentResult = QModelIndex();
-    }
+    checkResult();
 
     m_currentResult = s_searchModel->findResult(this, m_currentResult, m_currentPage, SearchModel::FindPrevious);
 
-    if(m_currentResult.isValid())
-    {
-        const int page = pageOfCurrentResult();
-        const QRectF rect = rectOfCurrentResult();
-
-        jumpToPage(page);
-
-        prepareHighlight(page - 1, rect);
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
+    applyResult();
 }
 
 void DocumentView::findNext()
 {
-    if(m_currentResult.isValid() && m_layout->currentPage(pageOfCurrentResult()) != m_currentPage)
-    {
-        m_currentResult = QModelIndex();
-    }
+    checkResult();
 
     m_currentResult = s_searchModel->findResult(this, m_currentResult, m_currentPage, SearchModel::FindNext);
 
-    if(m_currentResult.isValid())
-    {
-        const int page = pageOfCurrentResult();
-        const QRectF rect = rectOfCurrentResult();
-
-        jumpToPage(page);
-
-        prepareHighlight(page - 1, rect);
-    }
-    else
-    {
-        m_highlight->setVisible(false);
-    }
+    applyResult();
 }
 
 void DocumentView::zoomIn()
@@ -2303,6 +2273,31 @@ int DocumentView::pageOfCurrentResult() const
 QRectF DocumentView::rectOfCurrentResult() const
 {
     return m_currentResult.data(SearchModel::RectRole).toRectF();
+}
+
+void DocumentView::checkResult()
+{
+    if(m_currentResult.isValid() && m_layout->currentPage(pageOfCurrentResult()) != m_currentPage)
+    {
+        m_currentResult = QModelIndex();
+    }
+}
+
+void DocumentView::applyResult()
+{
+    if(m_currentResult.isValid())
+    {
+        const int page = pageOfCurrentResult();
+        const QRectF rect = rectOfCurrentResult();
+
+        jumpToPage(page);
+
+        prepareHighlight(page - 1, rect);
+    }
+    else
+    {
+        m_highlight->setVisible(false);
+    }
 }
 
 void DocumentView::clearResults()
