@@ -712,6 +712,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Recently closed count:"), m_recentlyClosedCountSpinBox);
 
+    // extended search dock
+
+    m_extendedSearchDock = new QCheckBox(this);
+    m_extendedSearchDock->setChecked(s_settings->mainWindow().extendedSearchDock());
+
+    m_interfaceLayout->addRow(tr("Extended search dock:"), m_extendedSearchDock);
+
     // toggle tool and menu bars with fullscreen
 
     m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
@@ -811,6 +818,8 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
     s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
 
+    s_settings->mainWindow().setExtendedSearchDock(m_extendedSearchDock->isChecked());
+
     s_settings->mainWindow().setToggleToolAndMenuBarsWithFullscreen(m_toggleToolAndMenuBarsWithFullscreenCheckBox->isChecked());
 
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
@@ -839,6 +848,9 @@ void SettingsDialog::resetInterfaceTab()
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
 
     m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
+    m_recentlyClosedCountSpinBox->setValue(Defaults::MainWindow::recentlyClosedCount());
+
+    m_extendedSearchDock->setChecked(Defaults::MainWindow::extendedSearchDock());
 
     m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen());
 

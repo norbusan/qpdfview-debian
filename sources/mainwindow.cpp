@@ -1117,6 +1117,17 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
+        if(s_settings->mainWindow().extendedSearchDock())
+        {
+            m_searchView->setModel(SearchModel::instance());
+            m_searchView->setVisible(true);
+        }
+        else
+        {
+            m_searchView->setModel(0);
+            m_searchView->setVisible(false);
+        }
+
         m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
@@ -2666,8 +2677,14 @@ void MainWindow::createDocks()
     connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
     connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
 
-    // TODO: Add extended search dock setting controlling model connection and visibilty...
-    m_searchView->setModel(SearchModel::instance());
+    if(s_settings->mainWindow().extendedSearchDock())
+    {
+        m_searchView->setModel(SearchModel::instance());
+    }
+    else
+    {
+        m_searchView->setVisible(false);
+    }
 
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);

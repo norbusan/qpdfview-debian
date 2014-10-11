@@ -738,6 +738,16 @@ void Settings::MainWindow::setInstanceNameInWindowTitle(bool instanceNameInWindo
     m_settings->setValue("mainWindow/instanceNameInWindowTitle", instanceNameInWindowTitle);
 }
 
+bool Settings::MainWindow::extendedSearchDock() const
+{
+    return m_settings->value("mainWindow/extendedSearchDock", Defaults::MainWindow::extendedSearchDock()).toBool();
+}
+
+void Settings::MainWindow::setExtendedSearchDock(bool extendedSearchDock)
+{
+    return m_settings->setValue("mainWindow/extendedSearchDock", extendedSearchDock);
+}
+
 bool Settings::MainWindow::usePageLabel() const
 {
     return m_settings->value("mainWindow/usePageLabel", Defaults::MainWindow::usePageLabel()).toBool();

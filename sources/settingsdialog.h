@@ -155,6 +155,8 @@ private:
     QSpinBox* m_recentlyUsedCountSpinBox;
     QSpinBox* m_recentlyClosedCountSpinBox;
 
+    QCheckBox* m_extendedSearchDock;
+
     QCheckBox* m_toggleToolAndMenuBarsWithFullscreenCheckBox;
 
     QLineEdit* m_fileToolBarLineEdit;

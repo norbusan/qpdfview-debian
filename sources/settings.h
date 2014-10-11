@@ -322,6 +322,9 @@ public:
         bool instanceNameInWindowTitle() const;
         void setInstanceNameInWindowTitle(bool instanceNameInWindowTitle);
 
+        bool extendedSearchDock() const;
+        void setExtendedSearchDock(bool extendedSearchDock);
+
         bool usePageLabel() const;
         void setUsePageLabel(bool usePageLabel);
 
@@ -582,6 +585,8 @@ public:
 
         static inline bool currentPageInWindowTitle() { return false; }
         static inline bool instanceNameInWindowTitle() { return false; }
+
+        static inline bool extendedSearchDock() { return false; }
 
         static inline bool usePageLabel() { return true; }
 
