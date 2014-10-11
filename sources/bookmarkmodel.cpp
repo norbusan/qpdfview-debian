@@ -147,7 +147,7 @@ int BookmarkModel::rowCount(const QModelIndex& parent) const
 
 QVariant BookmarkModel::data(const QModelIndex& index, int role) const
 {
-    if(!index.isValid() || index.row() < 0 || index.row() >= m_bookmarks.count())
+    if(!index.isValid() || index.row() >= m_bookmarks.count())
     {
         return QVariant();
     }

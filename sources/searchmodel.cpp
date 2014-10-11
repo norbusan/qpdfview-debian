@@ -119,15 +119,20 @@ int SearchModel::columnCount(const QModelIndex&) const
 
 QVariant SearchModel::data(const QModelIndex& index, int role) const
 {
-    if(!index.isValid() || !hasIndex(index.row(), index.column(), index.parent()))
+    if(!index.isValid())
     {
         return QVariant();
     }
 
     if(index.internalPointer() == 0)
     {
-        DocumentView* view = m_views.value(index.row());
-        const Results* results = m_results.value(view);
+        DocumentView* view = m_views.value(index.row(), 0);
+        const Results* results = m_results.value(view, 0);
+
+        if(results == 0)
+        {
+            return QVariant();
+        }
 
         switch(role)
         {
@@ -140,8 +145,14 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
     else
     {
         DocumentView* view = reinterpret_cast< DocumentView* >(index.internalPointer());
-        const Results* results = m_results.value(view);
-        const Result& result = results->value(index.row());
+        const Results* results = m_results.value(view, 0);
+
+        if(results == 0 || index.row() >= results->count())
+        {
+            return QVariant();
+        }
+
+        const Result& result = results->at(index.row());
 
         switch(role)
         {
