@@ -26,6 +26,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QVector>
 #include <QRectF>
 
+#include "documentview.h"
+
 namespace
 {
 
@@ -140,6 +142,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return QVariant();
         case CountRole:
             return results->count();
+        case Qt::DisplayRole:
+            return view->fileInfo().completeBaseName(); // TODO: Move title property into document view...
         }
     }
     else
@@ -162,6 +166,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return result.first;
         case RectRole:
             return result.second;
+        case Qt::DisplayRole:
+            return QString::number(index.row()); // TODO: Extract surrounding text...
         }
     }
 
@@ -315,11 +321,14 @@ QModelIndex SearchModel::findView(DocumentView *view) const
 
 QModelIndex SearchModel::findOrInsertView(DocumentView* view)
 {
-    const QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
-    const int row = at - m_views.begin();
+    QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
+    int row = at - m_views.begin();
 
     if(at == m_views.end())
     {
+        at = qUpperBound(m_views.begin(), m_views.end(), view);
+        row = at - m_views.begin();
+
         beginInsertRows(QModelIndex(), row, row);
 
         m_views.insert(at, view);

@@ -57,8 +57,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "shortcuthandler.h"
-#include "pageitem.h"
 #include "thumbnailitem.h"
+#include "searchmodel.h"
 #include "documentview.h"
 #include "miscellaneous.h"
 #include "printdialog.h"
@@ -1935,6 +1935,31 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
     }
 }
 
+void MainWindow::on_search_sectionCountChanged()
+{
+    if(m_searchView->header()->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        m_searchView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+#else
+
+        m_searchView->header()->setResizeMode(0, QHeaderView::Stretch);
+
+#endif // QT_VERSION
+    }
+
+    m_searchView->header()->setMinimumSectionSize(0);
+    m_searchView->header()->setStretchLastSection(false);
+    m_searchView->header()->setVisible(false);
+}
+
+void MainWindow::on_search_clicked(const QModelIndex& index)
+{
+    // TODO: Make correct tab current and jump to result...
+}
+
 void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
     if(openInNewTab(absoluteFilePath))
@@ -2630,6 +2655,20 @@ void MainWindow::createDocks()
     cancelSearchButton->setAutoRaise(true);
     cancelSearchButton->setDefaultAction(m_cancelSearchAction);
 
+    m_searchView = new QTreeView(m_searchWidget);
+    m_searchView->setAlternatingRowColors(true);
+    m_searchView->setUniformRowHeights(true);
+    m_searchView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
+    connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
+
+    // TODO: Add extended search dock setting controlling model connection and visibilty...
+    m_searchView->setModel(SearchModel::instance());
+
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);
     searchLayout->setColumnStretch(2, 1);
@@ -2639,6 +2678,7 @@ void MainWindow::createDocks()
     searchLayout->addWidget(findPreviousButton, 1, 3);
     searchLayout->addWidget(findNextButton, 1, 4);
     searchLayout->addWidget(cancelSearchButton, 1, 5);
+    searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
 
     m_searchDock->setWidget(m_searchWidget);
 

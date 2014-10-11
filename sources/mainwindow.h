@@ -42,6 +42,7 @@ class QFileInfo;
 class QModelIndex;
 class QShortcut;
 class QTableView;
+class QTreeView;
 class QWidgetAction;
 
 #include "global.h"
@@ -227,6 +228,9 @@ protected slots:
     void on_bookmarks_clicked(const QModelIndex& index);
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
+    void on_search_sectionCountChanged();
+    void on_search_clicked(const QModelIndex& index);
+
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
 
     void on_saveDatabase_timeout();
@@ -387,6 +391,7 @@ private:
     QTableView* m_bookmarksView;
 
     QDockWidget* m_searchDock;
+    QTreeView* m_searchView;
     QWidget* m_searchWidget;
 
     QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
