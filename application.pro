@@ -18,6 +18,7 @@ HEADERS += \
     sources/pageitem.h \
     sources/thumbnailitem.h \
     sources/presentationview.h \
+    sources/searchmodel.h \
     sources/searchtask.h \
     sources/miscellaneous.h \
     sources/documentlayout.h \
@@ -43,6 +44,7 @@ SOURCES += \
     sources/pageitem.cpp \
     sources/thumbnailitem.cpp \
     sources/presentationview.cpp \
+    sources/searchmodel.cpp \
     sources/searchtask.cpp \
     sources/miscellaneous.cpp \
     sources/documentlayout.cpp \
@@ -58,7 +60,7 @@ SOURCES += \
     sources/bookmarkmodel.cpp \
     sources/database.cpp \
     sources/mainwindow.cpp \
-    sources/main.cpp \
+    sources/main.cpp
 
 DEFINES += APPLICATION_VERSION=\\\"$${APPLICATION_VERSION}\\\"
 

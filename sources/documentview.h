@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileInfo>
 #include <QGraphicsView>
 #include <QMap>
+#include <QPersistentModelIndex>
 
 class QDomNode;
 class QFileSystemWatcher;
@@ -49,6 +50,7 @@ class Document;
 class Settings;
 class PageItem;
 class ThumbnailItem;
+class SearchModel;
 class SearchTask;
 class PresentationView;
 class ShortcutHandler;
@@ -195,7 +197,7 @@ protected slots:
 
     void on_temporaryHighlight_timeout();
 
-    void on_searchTask_resultsReady(int index, QList< QRectF > results);
+    void on_searchTask_resultsReady(int index, const QList< QRectF >& results);
 
     void on_pages_cropRectChanged();
     void on_thumbnails_cropRectChanged();
@@ -306,14 +308,16 @@ private:
 
     // search
 
-    typedef QMultiMap< int, QRectF > Results;
-
-    Results m_results;
-    Results::iterator m_currentResult;
-
-    Results::iterator previousResult(const Results::iterator& result);
+    static SearchModel* s_searchModel;
 
     SearchTask* m_searchTask;
+
+    QPersistentModelIndex m_currentResult;
+
+    int pageOfCurrentResult() const;
+    QRectF rectOfCurrentResult() const;
+
+    void clearResults();
 
 };
 
