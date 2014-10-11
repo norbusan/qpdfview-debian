@@ -212,7 +212,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
 
     if(fileType == Unknown)
     {
-        QMessageBox::warning(0, tr("Warning"), tr("Could not match file type of '%1'!").arg(filePath));
+        qWarning() << tr("Could not match file type of '%1'!").arg(filePath);
 
         return 0;
     }

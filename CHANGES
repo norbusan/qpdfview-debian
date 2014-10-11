@@ -1,3 +1,6 @@
+Release 0.4.13:
+  * Remove the dialog warning about unknown file type to fix the '--quiet' option.
+
 Release 0.4.12:
   * Fixed loading document-supplied view mode defaults.
   * Fixed installation location of application icon to use hicolor icon theme.
