@@ -206,7 +206,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             s_settings->mainWindow().setOpenPath(currentTab()->fileInfo().absolutePath());
             m_recentlyUsedMenu->addOpenAction(currentTab()->fileInfo());
 
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), tabTitle(currentTab()));
+            m_tabWidget->setTabText(m_tabWidget->currentIndex(), currentTab()->title());
             m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(currentTab());
@@ -559,7 +559,7 @@ void MainWindow::on_currentTab_documentChanged()
     {
         if(sender() == m_tabWidget->widget(index))
         {
-            m_tabWidget->setTabText(index, tabTitle(tab(index)));
+            m_tabWidget->setTabText(index, tab(index)->title());
             m_tabWidget->setTabToolTip(index, tab(index)->fileInfo().absoluteFilePath());
 
             foreach(QAction* tabAction, m_tabsMenu->actions())
@@ -2109,8 +2109,8 @@ bool MainWindow::senderIsCurrentTab() const
 int MainWindow::addTab(DocumentView* tab)
 {
     const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
-                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tabTitle(tab)) :
-                m_tabWidget->addTab(tab, tabTitle(tab));
+                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tab->title()) :
+                m_tabWidget->addTab(tab, tab->title());
 
     m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
     m_tabWidget->setCurrentIndex(index);
@@ -2142,28 +2142,6 @@ void MainWindow::closeTab(DocumentView* tab)
     {
         delete tab;
     }
-}
-
-QString MainWindow::tabTitle(const DocumentView *tab) const
-{
-    QString title;
-
-    if(s_settings->mainWindow().documentTitleAsTabTitle())
-    {
-        const QList< QStandardItem* > matches = tab->propertiesModel()->findItems(QLatin1String("Title"), Qt::MatchFixedString);
-
-        if(!matches.isEmpty())
-        {
-            title = tab->propertiesModel()->item(matches.first()->row(), 1)->text();
-        }
-    }
-
-    if(title.isEmpty())
-    {
-        title = tab->fileInfo().completeBaseName();
-    }
-
-    return title;
 }
 
 bool MainWindow::saveModifications(DocumentView* tab)

@@ -460,6 +460,28 @@ int DocumentView::pageNumberFromLabel(const QString& label) const
     return locale().toInt(label);
 }
 
+QString DocumentView::title() const
+{
+    QString title;
+
+    if(s_settings->mainWindow().documentTitleAsTabTitle())
+    {
+        const QList< QStandardItem* > matches = m_propertiesModel->findItems(QLatin1String("Title"), Qt::MatchFixedString);
+
+        if(!matches.isEmpty())
+        {
+            title = m_propertiesModel->item(matches.first()->row(), 1)->text();
+        }
+    }
+
+    if(title.isEmpty())
+    {
+        title = m_fileInfo.completeBaseName();
+    }
+
+    return title;
+}
+
 QStringList DocumentView::openFilter()
 {
     QStringList openFilter;

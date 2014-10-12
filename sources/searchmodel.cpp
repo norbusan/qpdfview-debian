@@ -143,7 +143,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case CountRole:
             return results->count();
         case Qt::DisplayRole:
-            return view->fileInfo().completeBaseName(); // TODO: Move title property into document view...
+            return view->title();
         }
     }
     else

@@ -79,6 +79,8 @@ public:
     QString pageLabelFromNumber(int number) const;
     int pageNumberFromLabel(const QString& label) const;
 
+    QString title() const;
+
     static QStringList openFilter();
     QStringList saveFilter() const;
 
