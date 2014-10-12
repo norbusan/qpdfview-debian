@@ -56,6 +56,9 @@ public:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
 
+    DocumentView* viewForIndex(const QModelIndex& index) const;
+
+
     bool hasResults(DocumentView* view) const;
     bool hasResultsOnPage(DocumentView* view, int page) const;
     QList< QRectF > resultsOnPage(DocumentView* view, int page) const;

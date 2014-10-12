@@ -174,6 +174,18 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
+DocumentView* SearchModel::viewForIndex(const QModelIndex& index) const
+{
+    if(index.internalPointer() == 0)
+    {
+        return m_views.value(index.row(), 0);
+    }
+    else
+    {
+        return reinterpret_cast< DocumentView* >(index.internalPointer());
+    }
+}
+
 bool SearchModel::hasResults(DocumentView* view) const
 {
     const Results* results = m_results.value(view, 0);
