@@ -179,6 +179,7 @@ public slots:
 
     void findPrevious();
     void findNext();
+    void findResult(const QModelIndex& index);
 
     void zoomIn();
     void zoomOut();
@@ -313,9 +314,6 @@ private:
     SearchTask* m_searchTask;
 
     QPersistentModelIndex m_currentResult;
-
-    int pageOfCurrentResult() const;
-    QRectF rectOfCurrentResult() const;
 
     void checkResult();
     void applyResult();

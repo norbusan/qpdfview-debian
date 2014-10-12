@@ -1957,7 +1957,11 @@ void MainWindow::on_search_sectionCountChanged()
 
 void MainWindow::on_search_clicked(const QModelIndex& index)
 {
-    // TODO: Make correct tab current and jump to result...
+    DocumentView* tab = SearchModel::instance()->viewForIndex(index);
+
+    m_tabWidget->setCurrentWidget(tab);
+
+    tab->findResult(index);
 }
 
 void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)

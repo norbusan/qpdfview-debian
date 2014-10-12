@@ -214,6 +214,16 @@ bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
     return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
 }
 
+inline int pageOfResult(const QModelIndex& index)
+{
+    return index.data(SearchModel::PageRole).toInt();
+}
+
+inline QRectF rectOfResult(const QModelIndex& index)
+{
+    return index.data(SearchModel::RectRole).toRectF();
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -1005,6 +1015,19 @@ void DocumentView::findNext()
     m_currentResult = s_searchModel->findResult(this, m_currentResult, m_currentPage, SearchModel::FindNext);
 
     applyResult();
+}
+
+void DocumentView::findResult(const QModelIndex& index)
+{
+    const int page = pageOfResult(index);
+    const QRectF rect = rectOfResult(index);
+
+    if(page >= 1 && page <= m_pages.count() && !rect.isEmpty())
+    {
+        m_currentResult = index;
+
+        applyResult();
+    }
 }
 
 void DocumentView::zoomIn()
@@ -2126,7 +2149,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
 
     visiblePage = visiblePage == 0 ? m_currentPage : visiblePage;
 
-    const int highlightIsOnPage = m_currentResult.isValid() ? pageOfCurrentResult() : 0;
+    const int highlightIsOnPage = m_currentResult.isValid() ? pageOfResult(m_currentResult) : 0;
     const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
 
     for(int index = 0; index < m_pageItems.count(); ++index)
@@ -2265,19 +2288,9 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
     viewport()->update();
 }
 
-int DocumentView::pageOfCurrentResult() const
-{
-    return m_currentResult.data(SearchModel::PageRole).toInt();
-}
-
-QRectF DocumentView::rectOfCurrentResult() const
-{
-    return m_currentResult.data(SearchModel::RectRole).toRectF();
-}
-
 void DocumentView::checkResult()
 {
-    if(m_currentResult.isValid() && m_layout->currentPage(pageOfCurrentResult()) != m_currentPage)
+    if(m_currentResult.isValid() && m_layout->currentPage(pageOfResult(m_currentResult)) != m_currentPage)
     {
         m_currentResult = QModelIndex();
     }
@@ -2287,8 +2300,8 @@ void DocumentView::applyResult()
 {
     if(m_currentResult.isValid())
     {
-        const int page = pageOfCurrentResult();
-        const QRectF rect = rectOfCurrentResult();
+        const int page = pageOfResult(m_currentResult);
+        const QRectF rect = rectOfResult(m_currentResult);
 
         jumpToPage(page);
 
