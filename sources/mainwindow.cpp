@@ -1117,17 +1117,6 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
-        if(s_settings->mainWindow().extendedSearchDock())
-        {
-            m_searchView->setModel(SearchModel::instance());
-            m_searchView->setVisible(true);
-        }
-        else
-        {
-            m_searchView->setModel(0);
-            m_searchView->setVisible(false);
-        }
-
         m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
@@ -2666,26 +2655,6 @@ void MainWindow::createDocks()
     cancelSearchButton->setAutoRaise(true);
     cancelSearchButton->setDefaultAction(m_cancelSearchAction);
 
-    m_searchView = new QTreeView(m_searchWidget);
-    m_searchView->setAlternatingRowColors(true);
-    m_searchView->setUniformRowHeights(true);
-    m_searchView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
-    connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
-
-    if(s_settings->mainWindow().extendedSearchDock())
-    {
-        m_searchView->setModel(SearchModel::instance());
-    }
-    else
-    {
-        m_searchView->setVisible(false);
-    }
-
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);
     searchLayout->setColumnStretch(2, 1);
@@ -2695,7 +2664,28 @@ void MainWindow::createDocks()
     searchLayout->addWidget(findPreviousButton, 1, 3);
     searchLayout->addWidget(findNextButton, 1, 4);
     searchLayout->addWidget(cancelSearchButton, 1, 5);
-    searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
+
+    if(s_settings->mainWindow().extendedSearchDock())
+    {
+        m_searchView = new QTreeView(m_searchWidget);
+        m_searchView->setAlternatingRowColors(true);
+        m_searchView->setUniformRowHeights(true);
+        m_searchView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+        m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
+        m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+        connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
+        connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
+
+        searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
+
+        m_searchView->setModel(SearchModel::instance());
+    }
+    else
+    {
+        m_searchView = 0;
+    }
 
     m_searchDock->setWidget(m_searchWidget);
 

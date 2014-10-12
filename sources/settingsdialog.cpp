@@ -716,6 +716,7 @@ void SettingsDialog::createInterfaceTab()
 
     m_extendedSearchDock = new QCheckBox(this);
     m_extendedSearchDock->setChecked(s_settings->mainWindow().extendedSearchDock());
+    m_extendedSearchDock->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("Extended search dock:"), m_extendedSearchDock);
 
