@@ -254,7 +254,7 @@ QPersistentModelIndex SearchModel::findResult(DocumentView* view, const QPersist
         {
             Results::const_iterator lowerBound = qLowerBound(results->constBegin(), results->constEnd(), currentPage);
 
-            row = lowerBound - results->constBegin();
+            row = (lowerBound - results->constBegin()) % rows;
             break;
         }
         case FindPrevious:
