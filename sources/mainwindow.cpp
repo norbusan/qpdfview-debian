@@ -1703,6 +1703,29 @@ void MainWindow::on_highlightAll_clicked(bool checked)
     currentTab()->setHighlightAll(checked);
 }
 
+void MainWindow::on_dock_dockLocationChanged(Qt::DockWidgetArea area)
+{
+    QDockWidget* dock = qobject_cast< QDockWidget* >(sender());
+
+    if(dock == 0)
+    {
+        return;
+    }
+
+    QDockWidget::DockWidgetFeatures features = dock->features();
+
+    if(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea)
+    {
+        features |= QDockWidget::DockWidgetVerticalTitleBar;
+    }
+    else
+    {
+        features &= ~QDockWidget::DockWidgetVerticalTitleBar;
+    }
+
+    dock->setFeatures(features);
+}
+
 void MainWindow::on_outline_sectionCountChanged()
 {
     if(m_outlineView->header()->count() > 0)
@@ -2551,6 +2574,8 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
 
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
+    connect(dock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
+
     dock->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     dock->toggleViewAction()->setShortcut(toggleViewShortcut);
 
@@ -2629,6 +2654,8 @@ void MainWindow::createDocks()
     m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetVerticalTitleBar);
 
     addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
+
+    connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
 
     m_searchWidget = new QWidget(this);
 

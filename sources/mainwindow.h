@@ -216,6 +216,8 @@ protected slots:
     void on_searchInitiated(const QString& text, bool allTabs);
     void on_highlightAll_clicked(bool checked);
 
+    void on_dock_dockLocationChanged(Qt::DockWidgetArea area);
+
     void on_outline_sectionCountChanged();
     void on_outline_clicked(const QModelIndex& index);
 
