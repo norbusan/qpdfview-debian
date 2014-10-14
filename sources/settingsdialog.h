@@ -187,6 +187,7 @@ private:
 
     QComboBox* m_copyToClipboardModifiersComboBox;
     QComboBox* m_addAnnotationModifiersComboBox;
+    QComboBox* m_zoomToSelectionModifiersComboBox;
 
     void createModifiersTab();
     void acceptModifiersTab();

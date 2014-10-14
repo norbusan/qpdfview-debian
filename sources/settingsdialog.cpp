@@ -903,6 +903,12 @@ void SettingsDialog::createModifiersTab()
     createModifiersComboBox(m_addAnnotationModifiersComboBox, s_settings->pageItem().addAnnotationModifiers());
 
     m_modifiersLayout->addRow(tr("Add annotation:"), m_addAnnotationModifiersComboBox);
+
+    // zoom to selection modifiers
+
+    createModifiersComboBox(m_zoomToSelectionModifiersComboBox, s_settings->pageItem().zoomToSelectionModifiers());
+
+    m_modifiersLayout->addRow(tr("Zoom to selection:"), m_zoomToSelectionModifiersComboBox);
 }
 
 void SettingsDialog::acceptModifiersTab()
@@ -913,6 +919,7 @@ void SettingsDialog::acceptModifiersTab()
 
     s_settings->pageItem().setCopyToClipboardModifiers(getKeyboardModifierFromItemData(m_copyToClipboardModifiersComboBox));
     s_settings->pageItem().setAddAnnotationModifiers(getKeyboardModifierFromItemData(m_addAnnotationModifiersComboBox));
+    s_settings->pageItem().setZoomToSelectionModifiers(getKeyboardModifierFromItemData(m_zoomToSelectionModifiersComboBox));
 }
 
 void SettingsDialog::resetModifiersTab()
@@ -923,6 +930,7 @@ void SettingsDialog::resetModifiersTab()
 
     setCurrentIndexFromKeyboardModifiers(m_copyToClipboardModifiersComboBox, Defaults::PageItem::copyToClipboardModifiers());
     setCurrentIndexFromKeyboardModifiers(m_addAnnotationModifiersComboBox, Defaults::PageItem::addAnnotationModifiers());
+    setCurrentIndexFromKeyboardModifiers(m_zoomToSelectionModifiersComboBox, Defaults::PageItem::zoomToSelectionModifiers());
 }
 
 void SettingsDialog::createColorComboBox(QComboBox*& comboBox, const QColor& color)
