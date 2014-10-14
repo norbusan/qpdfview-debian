@@ -103,7 +103,7 @@ protected slots:
     void on_currentTab_rotationChanged(Rotation rotation);
 
     void on_currentTab_linkClicked(int page);
-    void on_currentTab_linkClicked(const QString& filePath, int page);
+    void on_currentTab_linkClicked(bool newTab, const QString& filePath, int page);
 
     void on_currentTab_invertColorsChanged(bool invertColors);
     void on_currentTab_highlightAllChanged(bool highlightAll);

@@ -144,7 +144,7 @@ signals:
     void rotationChanged(Rotation rotation);
 
     void linkClicked(int page);
-    void linkClicked(const QString& filePath, int page);
+    void linkClicked(bool newTab, const QString& filePath, int page);
 
     void invertColorsChanged(bool invertColors);
     void highlightAllChanged(bool highlightAll);
@@ -206,8 +206,8 @@ protected slots:
     void on_thumbnails_cropRectChanged();
 
     void on_pages_linkClicked(bool newTab, int page, qreal left, qreal top);
+    void on_pages_linkClicked(bool newTab, const QString& fileName, int page);
     void on_pages_linkClicked(const QString& url);
-    void on_pages_linkClicked(const QString& fileName, int page);
 
     void on_pages_rubberBandFinished();
 

@@ -528,7 +528,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     }
                     else
                     {
-                        emit linkClicked(link->urlOrFileName, link->page);
+                        emit linkClicked(event->button() == Qt::MidButton, link->urlOrFileName, link->page);
                     }
 
                     event->accept();

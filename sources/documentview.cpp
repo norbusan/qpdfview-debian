@@ -1309,6 +1309,13 @@ void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal
     }
 }
 
+void DocumentView::on_pages_linkClicked(bool newTab, const QString& fileName, int page)
+{
+    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : m_fileInfo.dir().filePath(fileName);
+
+    emit linkClicked(newTab, filePath, page);
+}
+
 void DocumentView::on_pages_linkClicked(const QString& url)
 {
     if(s_settings->documentView().openUrl())
@@ -1326,13 +1333,6 @@ void DocumentView::on_pages_linkClicked(const QString& url)
     {
         QMessageBox::information(this, tr("Information"), tr("Opening URL is disabled in the settings."));
     }
-}
-
-void DocumentView::on_pages_linkClicked(const QString& fileName, int page)
-{
-    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : m_fileInfo.dir().filePath(fileName);
-
-    emit linkClicked(filePath, page);
 }
 
 void DocumentView::on_pages_rubberBandFinished()
@@ -2056,8 +2056,8 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(cropRectChanged()), SLOT(on_pages_cropRectChanged()));
 
         connect(page, SIGNAL(linkClicked(bool,int,qreal,qreal)), SLOT(on_pages_linkClicked(bool,int,qreal,qreal)));
+        connect(page, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_pages_linkClicked(bool,QString,int)));
         connect(page, SIGNAL(linkClicked(QString)), SLOT(on_pages_linkClicked(QString)));
-        connect(page, SIGNAL(linkClicked(QString,int)), SLOT(on_pages_linkClicked(QString,int)));
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 

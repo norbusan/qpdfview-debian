@@ -267,7 +267,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
 
         connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
-        connect(newTab, SIGNAL(linkClicked(QString,int)), SLOT(on_currentTab_linkClicked(QString,int)));
+        connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
 
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
@@ -738,9 +738,16 @@ void MainWindow::on_currentTab_linkClicked(int page)
     openInNewTab(currentTab()->fileInfo().filePath(), page);
 }
 
-void MainWindow::on_currentTab_linkClicked(const QString& filePath, int page)
+void MainWindow::on_currentTab_linkClicked(bool newTab, const QString& filePath, int page)
 {
-    jumpToPageOrOpenInNewTab(filePath, page, true);
+    if(newTab)
+    {
+        jumpToPageOrOpenInNewTab(filePath, page, true);
+    }
+    else
+    {
+        openInNewTab(filePath, page);
+    }
 }
 
 void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
