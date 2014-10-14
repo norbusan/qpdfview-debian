@@ -200,6 +200,16 @@ void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& 
     m_settings->setValue("pageItem/addAnnotationModifiers", static_cast< int >(modifiers));
 }
 
+Qt::KeyboardModifiers Settings::PageItem::zoomToSelectionModifiers() const
+{
+    return static_cast< Qt::KeyboardModifiers>(m_settings->value("pageItem/zoomToSelectionModifiers", static_cast< int >(Defaults::PageItem::zoomToSelectionModifiers())).toInt());
+}
+
+void Settings::PageItem::setZoomToSelectionModifiers(const Qt::KeyboardModifiers& modifiers)
+{
+    m_settings->setValue("pageItem/zoomToSelectionModifiers", static_cast< int >(modifiers));
+}
+
 bool Settings::PageItem::annotationOverlay() const
 {
     return m_settings->value("pageItem/annotationOverlay", Defaults::PageItem::annotationOverlay()).toBool();

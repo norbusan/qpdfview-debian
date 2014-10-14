@@ -469,27 +469,29 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     const Qt::KeyboardModifiers copyToClipboardModifiers = s_settings->pageItem().copyToClipboardModifiers();
     const Qt::KeyboardModifiers addAnnotationModifiers = s_settings->pageItem().addAnnotationModifiers();
+    const Qt::KeyboardModifiers zoomToSelectionModifiers = s_settings->pageItem().zoomToSelectionModifiers();
 
     const bool copyToClipboardModifiersActive = event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0);
     const bool addAnnotationModifiersActive = event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0);
+    const bool zoomToSelectionModifiersActive = event->modifiers() == zoomToSelectionModifiers || ((event->buttons() & zoomToSelectionModifiers) != 0);
 
     // rubber band
 
     if(m_rubberBandMode == ModifiersMode && !presentationMode()
-            && (event->modifiers() == Qt::NoModifier || copyToClipboardModifiersActive || addAnnotationModifiersActive)
-            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
+            && (copyToClipboardModifiersActive || addAnnotationModifiersActive || zoomToSelectionModifiersActive)
+            && event->button() == Qt::LeftButton)
     {
         setCursor(Qt::CrossCursor);
 
-        if(copyToClipboardModifiersActive && event->button() == Qt::LeftButton)
+        if(copyToClipboardModifiersActive)
         {
             m_rubberBandMode = CopyToClipboardMode;
         }
-        else if(addAnnotationModifiersActive && event->button() == Qt::LeftButton)
+        else if(addAnnotationModifiersActive)
         {
             m_rubberBandMode = AddAnnotationMode;
         }
-        else if(event->modifiers() == Qt::NoModifier && event->button() == Qt::MidButton)
+        else if(zoomToSelectionModifiersActive)
         {
             m_rubberBandMode = ZoomToSelectionMode;
         }
