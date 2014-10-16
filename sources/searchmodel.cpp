@@ -168,6 +168,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return result.second;
         case Qt::DisplayRole:
             return fetchSurroundingText(view, result);
+        case PhraseRole:
+            return view->searchPhrase();
         }
     }
 

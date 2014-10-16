@@ -1015,6 +1015,8 @@ void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
 
+    m_searchPhrase = text;
+
     m_searchTask->start(m_pages, text, matchCase, m_currentPage);
 }
 
@@ -2362,6 +2364,8 @@ void DocumentView::clearResults()
     s_searchModel->clearResults(this);
 
     m_currentResult = QModelIndex();
+
+    m_searchPhrase.clear();
 }
 
 } // qpdfview

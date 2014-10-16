@@ -128,6 +128,7 @@ public:
     QStandardItemModel* fontsModel() const;
 
     QString surroundingText(int index, const QRectF& rect) const;
+    inline QString searchPhrase() const { return m_searchPhrase; }
 
 signals:
     void documentChanged();
@@ -323,6 +324,8 @@ private:
     void applyResult();
 
     void clearResults();
+
+    QString m_searchPhrase;
 
 };
 
