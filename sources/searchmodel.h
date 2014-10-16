@@ -90,6 +90,8 @@ private:
 
     QHash< const DocumentView*, Results* > m_results;
 
+    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+
 };
 
 } // qpdfview

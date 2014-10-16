@@ -167,7 +167,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case RectRole:
             return result.second;
         case Qt::DisplayRole:
-            return QString::number(index.row()); // TODO: Extract surrounding text...
+            return fetchSurroundingText(view, result);
         }
     }
 
@@ -350,6 +350,19 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     }
 
     return createIndex(row, 0);
+}
+
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+{
+    if (view == 0)
+    {
+        return QString();
+    }
+
+    // TODO: cache fetched surrounding text
+    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
+
+    return surroundingText;
 }
 
 } // qpdfview

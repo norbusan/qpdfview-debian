@@ -743,6 +743,25 @@ QStandardItemModel* DocumentView::fontsModel() const
     return fontsModel;
 }
 
+QString DocumentView::surroundingText(int index, const QRectF& rect) const
+{
+    if (index >= m_pages.size() || index < 0 || rect.isEmpty())
+    {
+        return QString();
+    }
+
+    const Model::Page* page = m_pages.at(index);
+
+    // fetch at most half of a line offsetted 1/4 before of given rect
+    const int width = qMax(int(rect.width()), int(page->size().width() / 2));
+    const int x = qMax(0, int(rect.x()) - width / 4);
+
+    const QRect lineRect(x, int(rect.top()), width, int(rect.height()));
+    const int maxCharactersPerLine = 65;
+
+    return page->text(lineRect).simplified().left(maxCharactersPerLine);
+}
+
 void DocumentView::show()
 {
     QGraphicsView::show();
