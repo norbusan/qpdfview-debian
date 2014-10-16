@@ -24,6 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define SEARCHMODEL_H
 
 #include <QAbstractItemModel>
+#include <QCache>
+
 
 namespace qpdfview
 {
@@ -91,6 +93,12 @@ private:
     QHash< const DocumentView*, Results* > m_results;
 
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+
+    typedef QPair< DocumentView*, QByteArray > CacheKey;
+
+    mutable QCache< CacheKey, QString > m_surroundingTextCache;
+
+    CacheKey cacheKey(DocumentView* view, const Result& result) const;
 
 };
 

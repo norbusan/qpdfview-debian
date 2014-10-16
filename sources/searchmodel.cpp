@@ -316,6 +316,8 @@ SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results()
 {
+    // cache ~1000 results
+    m_surroundingTextCache.setMaxCost(1000 * 65);
 }
 
 QModelIndex SearchModel::findView(DocumentView *view) const
@@ -359,10 +361,28 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return QString();
     }
 
-    // TODO: cache fetched surrounding text
-    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
+    const CacheKey key = cacheKey(view, result);
+    QString* line = m_surroundingTextCache.object(key);
 
-    return surroundingText;
+    if (line == 0)
+    {
+        line = new QString(view->surroundingText(result.first - 1, result.second));
+
+        m_surroundingTextCache.insert(key, line, line->size());
+    }
+
+    return *line;
+}
+
+SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Result& result) const
+{
+    QByteArray key;
+
+    QDataStream(&key, QIODevice::WriteOnly)
+            << result.first
+            << result.second;
+
+    return qMakePair(view, key);
 }
 
 } // qpdfview
