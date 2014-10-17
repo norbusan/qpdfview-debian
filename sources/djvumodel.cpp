@@ -239,7 +239,7 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     return links;
 }
 
-QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
+QString loadText(miniexp_t textExp, const QSizeF& size, QRectF rect)
 {
     if(miniexp_length(textExp) < 6 && !miniexp_symbolp(miniexp_car(textExp)))
     {
@@ -269,7 +269,7 @@ QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
             {
                 textItem = miniexp_car(textExp);
 
-                text.append(loadText(rect, textItem, size));
+                text.append(loadText(textItem, size, rect));
             }
 
             return type == QLatin1String("line") ? text.join(" ") : text.join("\n");
@@ -277,6 +277,73 @@ QString loadText(const QRectF& rect, miniexp_t textExp, const QSizeF& size)
     }
 
     return QString();
+}
+
+QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QString& text, bool matchCase)
+{
+    QList< miniexp_t > words;
+    QList< QRectF > results;
+
+    int index = 0;
+    QRectF rect;
+
+    words.append(pageTextExp);
+
+    while(!words.isEmpty())
+    {
+        miniexp_t textExp = words.takeFirst();
+
+        if(miniexp_length(textExp) < 6 || !miniexp_symbolp(miniexp_car(textExp)))
+        {
+            continue;
+        }
+
+        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(textExp)));
+
+        if(type == QLatin1String("word"))
+        {
+            const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+
+            index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+            if(index != -1)
+            {
+                const int xmin = miniexp_to_int(miniexp_cadr(textExp));
+                const int ymin = miniexp_to_int(miniexp_caddr(textExp));
+                const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
+                const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
+
+                index += text.length();
+                rect = rect.united(QRectF(xmin, size.height() - ymax, xmax - xmin, ymax - ymin));
+
+                if(index == word.length() || !word.at(index).isLetter())
+                {
+                    results.append(transform.mapRect(rect));
+
+                    index = 0;
+                    rect = QRectF();
+                }
+            }
+            else
+            {
+                index = 0;
+                rect = QRectF();
+            }
+        }
+        else
+        {
+            textExp = skip(textExp, 5);
+
+            for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
+            {
+                textItem = miniexp_car(textExp);
+
+                words.append(textItem);
+            }
+        }
+    }
+
+    return results;
 }
 
 void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QString, int >& indexByName)
@@ -329,6 +396,39 @@ void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QStri
                 {
                     loadOutline(skip(outlineItem, 2), item, indexByName);
                 }
+            }
+        }
+    }
+}
+
+void loadProperties(miniexp_t annoExp, QStandardItemModel* model)
+{
+    for(miniexp_t annoItem = miniexp_nil; miniexp_consp(annoExp); annoExp = miniexp_cdr(annoExp))
+    {
+        annoItem = miniexp_car(annoExp);
+
+        if(miniexp_length(annoItem) < 2 || qstrcmp(miniexp_to_name(miniexp_car(annoItem)), "metadata") != 0)
+        {
+            continue;
+        }
+
+        annoItem = miniexp_cdr(annoItem);
+
+        for(miniexp_t keyValueItem = miniexp_nil; miniexp_consp(annoItem); annoItem = miniexp_cdr(annoItem))
+        {
+            keyValueItem = miniexp_car(annoItem);
+
+            if(miniexp_length(keyValueItem) != 2)
+            {
+                continue;
+            }
+
+            const QString key = QString::fromUtf8(miniexp_to_name(miniexp_car(keyValueItem)));
+            const QString value = QString::fromUtf8(miniexp_to_str(miniexp_cadr(keyValueItem)));
+
+            if(!key.isEmpty() && !value.isEmpty())
+            {
+                model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
             }
         }
     }
@@ -485,7 +585,15 @@ QList< Link* > DjVuPage::links() const
         }
     }
 
-    return loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
+    const QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
+
+    {
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+
+        ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
+    }
+
+    return links;
 }
 
 QString DjVuPage::text(const QRectF& rect) const
@@ -512,9 +620,17 @@ QString DjVuPage::text(const QRectF& rect) const
         }
     }
 
-    const QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0);
+    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
-    return loadText(transform.mapRect(rect), pageTextExp, m_size).trimmed();
+    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).trimmed();
+
+    {
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+
+        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
+    }
+
+    return text;
 }
 
 QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
@@ -543,66 +659,12 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
     const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
-    QList< miniexp_t > words;
-    QList< QRectF > results;
+    const QList< QRectF > results = findText(pageTextExp, m_size, transform, text, matchCase);
 
-    int index = 0;
-    QRectF rect;
-
-    words.append(pageTextExp);
-
-    while(!words.isEmpty())
     {
-        miniexp_t textExp = words.takeFirst();
+        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
 
-        if(miniexp_length(textExp) < 6 || !miniexp_symbolp(miniexp_car(textExp)))
-        {
-            continue;
-        }
-
-        const QString type = QString::fromUtf8(miniexp_to_name(miniexp_car(textExp)));
-
-        if(type == QLatin1String("word"))
-        {
-            const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
-
-            index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-
-            if(index != -1)
-            {
-                const int xmin = miniexp_to_int(miniexp_cadr(textExp));
-                const int ymin = miniexp_to_int(miniexp_caddr(textExp));
-                const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
-                const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
-
-                index += text.length();
-                rect = rect.united(QRectF(xmin, m_size.height() - ymax, xmax - xmin, ymax - ymin));
-
-                if(index == word.length() || !word.at(index).isLetter())
-                {
-                    results.append(transform.mapRect(rect));
-
-                    index = 0;
-                    rect = QRectF();
-                }
-            }
-            else
-            {
-                index = 0;
-                rect = QRectF();
-            }
-        }
-        else
-        {
-            textExp = skip(textExp, 5);
-
-            for(miniexp_t textItem = miniexp_nil; miniexp_consp(textExp); textExp = miniexp_cdr(textExp))
-            {
-                textItem = miniexp_car(textExp);
-
-                words.append(textItem);
-            }
-        }
+        ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
     }
 
     return results;
@@ -743,6 +805,12 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     }
 
     ::loadOutline(skip(outlineExp, 1), outlineModel->invisibleRootItem(), m_indexByName);
+
+    {
+        QMutexLocker globalMutexLocker(m_globalMutex);
+
+        ddjvu_miniexp_release(m_document, outlineExp);
+    }
 }
 
 void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
@@ -771,34 +839,12 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
         }
     }
 
-    for(miniexp_t annoItem = miniexp_nil; miniexp_consp(annoExp); annoExp = miniexp_cdr(annoExp))
+    ::loadProperties(annoExp, propertiesModel);
+
     {
-        annoItem = miniexp_car(annoExp);
+        QMutexLocker globalMutexLocker(m_globalMutex);
 
-        if(miniexp_length(annoItem) < 2 || qstrcmp(miniexp_to_name(miniexp_car(annoItem)), "metadata") != 0)
-        {
-            continue;
-        }
-
-        annoItem = miniexp_cdr(annoItem);
-
-        for(miniexp_t keyValueItem = miniexp_nil; miniexp_consp(annoItem); annoItem = miniexp_cdr(annoItem))
-        {
-            keyValueItem = miniexp_car(annoItem);
-
-            if(miniexp_length(keyValueItem) != 2)
-            {
-                continue;
-            }
-
-            const QString key = QString::fromUtf8(miniexp_to_name(miniexp_car(keyValueItem)));
-            const QString value = QString::fromUtf8(miniexp_to_str(miniexp_cadr(keyValueItem)));
-
-            if(!key.isEmpty() && !value.isEmpty())
-            {
-                propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
-            }
-        }
+        ddjvu_miniexp_release(m_document, annoExp);
     }
 }
 

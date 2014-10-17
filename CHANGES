@@ -1,4 +1,5 @@
 Release 0.4.13:
+  * Fix a memory leak when processing meta-data in the DjVu plug-in.
   * Remove the dialog warning about unknown file type to fix the '--quiet' option.
 
 Release 0.4.12:
