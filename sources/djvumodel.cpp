@@ -33,6 +33,18 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
 
+#if DDJVUAPI_VERSION < 23
+
+#define GLOBALLY_LOCK_PAGE QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+#define GLOBALLY_LOCK_DOCUMENT QMutexLocker globalMutexLocker(m_globalMutex);
+
+#else
+
+#define GLOBALLY_LOCK_PAGE
+#define GLOBALLY_LOCK_DOCUMENT
+
+#endif // DDJVUAPI_VERSION
+
 namespace
 {
 
@@ -568,7 +580,7 @@ QList< Link* > DjVuPage::links() const
     miniexp_t pageAnnoExp = miniexp_nil;
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         while(true)
         {
@@ -588,7 +600,7 @@ QList< Link* > DjVuPage::links() const
     const QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         ddjvu_miniexp_release(m_parent->m_document, pageAnnoExp);
     }
@@ -603,7 +615,7 @@ QString DjVuPage::text(const QRectF& rect) const
     miniexp_t pageTextExp = miniexp_nil;
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         while(true)
         {
@@ -625,7 +637,7 @@ QString DjVuPage::text(const QRectF& rect) const
     const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).trimmed();
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
     }
@@ -640,7 +652,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     miniexp_t pageTextExp = miniexp_nil;
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         while(true)
         {
@@ -662,7 +674,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
     const QList< QRectF > results = findText(pageTextExp, m_size, transform, text, matchCase);
 
     {
-        QMutexLocker globalMutexLocker(m_parent->m_globalMutex);
+        GLOBALLY_LOCK_PAGE
 
         ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
     }
@@ -782,7 +794,7 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     miniexp_t outlineExp = miniexp_nil;
 
     {
-        QMutexLocker globalMutexLocker(m_globalMutex);
+        GLOBALLY_LOCK_DOCUMENT
 
         while(true)
         {
@@ -807,7 +819,7 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
     ::loadOutline(skip(outlineExp, 1), outlineModel->invisibleRootItem(), m_indexByName);
 
     {
-        QMutexLocker globalMutexLocker(m_globalMutex);
+        GLOBALLY_LOCK_DOCUMENT
 
         ddjvu_miniexp_release(m_document, outlineExp);
     }
@@ -822,7 +834,7 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
     miniexp_t annoExp = miniexp_nil;
 
     {
-        QMutexLocker globalMutexLocker(m_globalMutex);
+        GLOBALLY_LOCK_DOCUMENT
 
         while(true)
         {
@@ -842,7 +854,7 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
     ::loadProperties(annoExp, propertiesModel);
 
     {
-        QMutexLocker globalMutexLocker(m_globalMutex);
+        GLOBALLY_LOCK_DOCUMENT
 
         ddjvu_miniexp_release(m_document, annoExp);
     }
