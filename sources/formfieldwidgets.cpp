@@ -307,27 +307,23 @@ void RadioChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 
 void RadioChoiceFieldWidget::on_toggled(bool checked)
 {
-#ifndef HAS_POPPLER_24
-
-    m_mutex->lock();
-
-#endif // HAS_POPPLER_24
-
-    const QList< int > siblings = m_formField->siblings();
+    LOCK_FORM_FIELD
 
     m_formField->setState(checked);
 
+    if(checked)
+    {
+        const QList< int > siblings = m_formField->siblings();
+
 #ifndef HAS_POPPLER_24
 
-    m_mutex->unlock();
+        mutexLocker.unlock();
 
 #endif // HAS_POPPLER_24
 
-    if(checked)
-    {
         foreach(int id, siblings)
         {
-            QPair< QMutex*, int > key = qMakePair(m_mutex, id);
+            const QPair< QMutex*, int > key = qMakePair(m_mutex, id);
 
             if(s_siblings.contains(key))
             {
