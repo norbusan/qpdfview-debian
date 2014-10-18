@@ -53,7 +53,8 @@ public:
         CountRole = Qt::UserRole + 1,
         PageRole,
         RectRole,
-        PhraseRole
+        PhraseRole,
+        SurroundingTextRole
     };
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;

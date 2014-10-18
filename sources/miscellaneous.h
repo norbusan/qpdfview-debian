@@ -30,6 +30,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMetaMethod>
 #include <QPainter>
 #include <QSpinBox>
+#include <QStyledItemDelegate>
 #include <QTreeView>
 
 namespace qpdfview
@@ -271,6 +272,22 @@ private:
     Q_DISABLE_COPY(SearchLineEdit)
 
     QTimer* m_timer;
+
+};
+
+// search delegate
+
+class SearchDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
+
+public:
+    explicit SearchDelegate(QObject* parent = 0);
+
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+
+private:
+    void emphasizePhrase(const QString& phrase, QTextLayout& textLayout) const;
 
 };
 

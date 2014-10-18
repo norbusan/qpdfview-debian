@@ -30,8 +30,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QTextLayout>
 #include <QTimer>
 #include <QVBoxLayout>
+
+#include <qmath.h>
+
+#include "searchmodel.h"
 
 namespace
 {
@@ -482,6 +487,94 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
+}
+
+SearchDelegate::SearchDelegate(QObject* parent) : QStyledItemDelegate(parent)
+{
+}
+
+void SearchDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QStyledItemDelegate::paint(painter, option, index);
+
+    const QString text = index.data(SearchModel::SurroundingTextRole).toString();
+
+    if(text.isEmpty())
+    {
+        return;
+    }
+
+    const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
+    const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
+    const QString elidedText = option.fontMetrics.elidedText(text, option.textElideMode, textRect.width());
+
+    QTextOption textOption;
+    textOption.setWrapMode(QTextOption::NoWrap);
+    textOption.setTextDirection(text.isRightToLeft() ? Qt::RightToLeft : Qt::LeftToRight);
+    textOption.setAlignment(QStyle::visualAlignment(textOption.textDirection(), option.displayAlignment));
+
+    QTextLayout textLayout;
+    textLayout.setTextOption(textOption);
+    textLayout.setText(elidedText);
+    textLayout.setFont(option.font);
+
+    emphasizePhrase(index.data(SearchModel::PhraseRole).toString(), textLayout);
+
+    textLayout.beginLayout();
+
+    QTextLine textLine = textLayout.createLine();
+
+    if(!textLine.isValid())
+    {
+        return;
+    }
+
+    textLine.setLineWidth(textRect.width());
+
+    textLayout.endLayout();
+
+    const QSize layoutSize(textRect.width(), qFloor(textLine.height()));
+    const QRect layoutRect = QStyle::alignedRect(option.direction, option.displayAlignment, layoutSize, textRect);
+
+    painter->save();
+
+    painter->setClipping(true);
+    painter->setClipRect(layoutRect);
+
+    textLine.draw(painter, layoutRect.topLeft());
+
+    painter->restore();
+}
+
+void SearchDelegate::emphasizePhrase(const QString& phrase, QTextLayout& textLayout) const
+{
+    if(phrase.isEmpty())
+    {
+        return;
+    }
+
+    QFont font = textLayout.font();
+    font.setWeight(QFont::Light);
+    textLayout.setFont(font);
+
+    QList< QTextLayout::FormatRange > additionalFormats;
+
+    const QString text = textLayout.text();
+    int position = 0;
+
+    while((position = text.indexOf(phrase, position, Qt::CaseInsensitive)) != -1)
+    {
+        QTextLayout::FormatRange formatRange;
+        formatRange.start = position;
+        formatRange.length = phrase.length();
+        formatRange.format.setFontWeight(QFont::Bold);
+
+        additionalFormats.append(formatRange);
+
+        position += phrase.length();
+    }
+
+    textLayout.setAdditionalFormats(additionalFormats);
 }
 
 } // qpdfview
