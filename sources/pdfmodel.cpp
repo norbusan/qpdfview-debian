@@ -41,6 +41,22 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "annotationwidgets.h"
 #include "formfieldwidgets.h"
 
+#ifndef HAS_POPPLER_24
+
+#define LOCK_ANNOTATION QMutexLocker mutexLocker(m_mutex);
+#define LOCK_FORM_FIELD QMutexLocker mutexLocker(m_mutex);
+#define LOCK_PAGE QMutexLocker mutexLocker(m_mutex);
+#define LOCK_DOCUMENT QMutexLocker mutexLocker(&m_mutex);
+
+#else
+
+#define LOCK_ANNOTATION
+#define LOCK_FORM_FIELD
+#define LOCK_PAGE
+#define LOCK_DOCUMENT
+
+#endif // HAS_POPPLER_24
+
 namespace
 {
 
@@ -138,22 +154,14 @@ PdfAnnotation::~PdfAnnotation()
 
 QRectF PdfAnnotation::boundary() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_ANNOTATION
 
     return m_annotation->boundary().normalized();
 }
 
 QString PdfAnnotation::contents() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_ANNOTATION
 
     return m_annotation->contents();
 }
@@ -191,22 +199,14 @@ PdfFormField::~PdfFormField()
 
 QRectF PdfFormField::boundary() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     return m_formField->rect().normalized();
 }
 
 QString PdfFormField::name() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     return m_formField->name();
 }
@@ -273,22 +273,14 @@ PdfPage::~PdfPage()
 
 QSizeF PdfPage::size() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     return m_page->pageSizeF();
 }
 
 QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     Poppler::Page::Rotation rotate;
 
@@ -327,22 +319,14 @@ QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rot
 
 QString PdfPage::label() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     return m_page->label();
 }
 
 QList< Link* > PdfPage::links() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     QList< Link* > links;
 
@@ -397,22 +381,14 @@ QList< Link* > PdfPage::links() const
 
 QString PdfPage::text(const QRectF& rect) const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     return m_page->text(rect);
 }
 
 QList< QRectF > PdfPage::search(const QString& text, bool matchCase) const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     QList< QRectF > results;
 
@@ -451,11 +427,7 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase) const
 
 QList< Annotation* > PdfPage::annotations() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     QList< Annotation* > annotations;
 
@@ -490,11 +462,7 @@ bool PdfPage::canAddAndRemoveAnnotations() const
 
 Annotation* PdfPage::addTextAnnotation(const QRectF& boundary, const QColor& color)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
 #ifdef HAS_POPPLER_20
 
@@ -526,11 +494,7 @@ Annotation* PdfPage::addTextAnnotation(const QRectF& boundary, const QColor& col
 
 Annotation* PdfPage::addHighlightAnnotation(const QRectF& boundary, const QColor& color)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
 #ifdef HAS_POPPLER_20
 
@@ -571,11 +535,7 @@ Annotation* PdfPage::addHighlightAnnotation(const QRectF& boundary, const QColor
 
 void PdfPage::removeAnnotation(Annotation* annotation)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
 #ifdef HAS_POPPLER_20
 
@@ -593,11 +553,7 @@ void PdfPage::removeAnnotation(Annotation* annotation)
 
 QList< FormField* > PdfPage::formFields() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_PAGE
 
     QList< FormField* > formFields;
 
@@ -659,22 +615,14 @@ PdfDocument::~PdfDocument()
 
 int PdfDocument::numberOfPages() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     return m_document->numPages();
 }
 
 Page* PdfDocument::page(int index) const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     Poppler::Page* page = m_document->page(index);
 
@@ -683,22 +631,14 @@ Page* PdfDocument::page(int index) const
 
 bool PdfDocument::isLocked() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     return m_document->isLocked();
 }
 
 bool PdfDocument::unlock(const QString& password)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     return m_document->unlock(password.toLatin1(), password.toLatin1());
 }
@@ -715,11 +655,7 @@ bool PdfDocument::canSave() const
 
 bool PdfDocument::save(const QString& filePath, bool withChanges) const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     QScopedPointer< Poppler::PDFConverter > pdfConverter(m_document->pdfConverter());
 
@@ -740,11 +676,7 @@ bool PdfDocument::canBePrintedUsingCUPS() const
 
 void PdfDocument::setPaperColor(const QColor& paperColor)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     m_document->setPaperColor(paperColor);
 }
@@ -753,11 +685,7 @@ void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     QDomDocument* toc = m_document->toc();
 
@@ -773,11 +701,7 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
 
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     QStringList keys = m_document->infoKeys();
 
@@ -803,11 +727,7 @@ void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 {
     Document::loadFonts(fontsModel);
 
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     const QList< Poppler::FontInfo > fonts = m_document->fonts();
 
@@ -830,11 +750,7 @@ void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
 
 bool PdfDocument::wantsContinuousMode() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
 
@@ -845,11 +761,7 @@ bool PdfDocument::wantsContinuousMode() const
 
 bool PdfDocument::wantsSinglePageMode() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
 
@@ -859,11 +771,7 @@ bool PdfDocument::wantsSinglePageMode() const
 
 bool PdfDocument::wantsTwoPagesMode() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
 
@@ -873,11 +781,7 @@ bool PdfDocument::wantsTwoPagesMode() const
 
 bool PdfDocument::wantsTwoPagesWithCoverPageMode() const
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(&m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_DOCUMENT
 
     const Poppler::Document::PageLayout pageLayout = m_document->pageLayout();
 

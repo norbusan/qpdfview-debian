@@ -42,6 +42,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-annotation.h>
 
+#ifndef HAS_POPPLER_24
+
+#define LOCK_ANNOTATION QMutexLocker mutexLocker(m_mutex);
+
+#else
+
+#define LOCK_ANNOTATION
+
+#endif // HAS_POPPLER_24
+
 namespace
 {
 
@@ -67,11 +77,7 @@ AnnotationWidget::AnnotationWidget(QMutex* mutex, Poppler::Annotation* annotatio
     m_mutex(mutex),
     m_annotation(annotation)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_ANNOTATION
 
     setTabChangesFocus(true);
     setPlainText(m_annotation->contents());
@@ -92,11 +98,7 @@ void AnnotationWidget::keyPressEvent(QKeyEvent* event)
 
 void AnnotationWidget::on_textChanged()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_ANNOTATION
 
     m_annotation->setContents(toPlainText());
 }
@@ -151,11 +153,7 @@ void FileAttachmentAnnotationWidget::on_saveAndOpen_triggered()
 
 void FileAttachmentAnnotationWidget::save(bool open)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_ANNOTATION
 
     Poppler::EmbeddedFile* embeddedFile = m_annotation->embeddedFile();
 

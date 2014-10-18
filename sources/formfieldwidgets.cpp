@@ -26,6 +26,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <poppler-form.h>
 
+#ifndef HAS_POPPLER_24
+
+#define LOCK_FORM_FIELD QMutexLocker mutexLocker(m_mutex);
+
+#else
+
+#define LOCK_FORM_FIELD
+
+#endif // HAS_POPPLER_24
+
 namespace
 {
 
@@ -51,11 +61,7 @@ NormalTextFieldWidget::NormalTextFieldWidget(QMutex* mutex, Poppler::FormFieldTe
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     setText(m_formField->text());
     setMaxLength(m_formField->maximumLength());
@@ -78,11 +84,7 @@ void NormalTextFieldWidget::keyPressEvent(QKeyEvent* event)
 
 void NormalTextFieldWidget::on_textChanged(const QString& text)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     m_formField->setText(text);
 }
@@ -91,11 +93,7 @@ MultilineTextFieldWidget::MultilineTextFieldWidget(QMutex* mutex, Poppler::FormF
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     setPlainText(m_formField->text());
 
@@ -115,11 +113,7 @@ void MultilineTextFieldWidget::keyPressEvent(QKeyEvent* event)
 
 void MultilineTextFieldWidget::on_textChanged()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     m_formField->setText(toPlainText());
 }
@@ -128,11 +122,7 @@ ComboBoxChoiceFieldWidget::ComboBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     addItems(m_formField->choices());
 
@@ -194,22 +184,14 @@ void ComboBoxChoiceFieldWidget::hidePopup()
 
 void ComboBoxChoiceFieldWidget::on_currentIndexChanged(int index)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     m_formField->setCurrentChoices(QList< int >() << index);
 }
 
 void ComboBoxChoiceFieldWidget::on_currentTextChanged(const QString& text)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
 #ifdef HAS_POPPLER_22
 
@@ -222,11 +204,7 @@ ListBoxChoiceFieldWidget::ListBoxChoiceFieldWidget(QMutex* mutex, Poppler::FormF
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     addItems(m_formField->choices());
     setSelectionMode(m_formField->multiSelect() ? QAbstractItemView::MultiSelection : QAbstractItemView::SingleSelection);
@@ -253,11 +231,7 @@ void ListBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 
 void ListBoxChoiceFieldWidget::on_itemSelectionChanged()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     QList< int > currentChoices;
 
@@ -276,11 +250,7 @@ CheckBoxChoiceFieldWidget::CheckBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     setChecked(m_formField->state());
 
@@ -298,11 +268,7 @@ void CheckBoxChoiceFieldWidget::keyPressEvent(QKeyEvent* event)
 
 void CheckBoxChoiceFieldWidget::on_toggled(bool checked)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     m_formField->setState(checked);
 }
@@ -313,11 +279,7 @@ RadioChoiceFieldWidget::RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormField
     m_mutex(mutex),
     m_formField(formField)
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     s_siblings.insert(qMakePair(m_mutex, m_formField->id()), this);
 
@@ -330,11 +292,7 @@ RadioChoiceFieldWidget::RadioChoiceFieldWidget(QMutex* mutex, Poppler::FormField
 
 RadioChoiceFieldWidget::~RadioChoiceFieldWidget()
 {
-#ifndef HAS_POPPLER_24
-
-    QMutexLocker mutexLocker(m_mutex);
-
-#endif // HAS_POPPLER_24
+    LOCK_FORM_FIELD
 
     s_siblings.remove(qMakePair(m_mutex, m_formField->id()));
 }
