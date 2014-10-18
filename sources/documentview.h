@@ -179,7 +179,7 @@ public slots:
 
     void temporaryHighlight(int page, const QRectF& highlight);
 
-    void startSearch(const QString& surroundingText, bool matchCase = true);
+    void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
     void findPrevious();
