@@ -102,6 +102,8 @@ private:
 
     CacheKey cacheKey(DocumentView* view, const Result& result) const;
 
+    int occurrencesCount(DocumentView* view, int page) const;
+
 };
 
 } // qpdfview

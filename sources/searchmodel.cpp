@@ -144,6 +144,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return results->count();
         case Qt::DisplayRole:
             return view->title();
+        case Qt::ToolTipRole:
+            return tr("<b>%1</b> occurences").arg(results->count());
         }
     }
     else
@@ -170,6 +172,9 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return fetchSurroundingText(view, result);
         case PhraseRole:
             return view->searchPhrase();
+        case Qt::ToolTipRole:
+            return tr("<b>%1</b> occurences on page <b>%2</b> of <br /><b>%3</b>")
+                    .arg(occurrencesCount(view, result.first)).arg(result.first).arg(view->title());
         }
     }
 
@@ -385,6 +390,23 @@ SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Result& re
             << result.second;
 
     return qMakePair(view, key);
+}
+
+int SearchModel::occurrencesCount(DocumentView* view, int page) const
+{
+    int count = 0;
+
+    const Results* results = m_results.value(view, 0);
+
+    if(results != 0)
+    {
+        const Results::const_iterator pageBegin = qLowerBound(results->constBegin(), results->constEnd(), page);
+        const Results::const_iterator pageEnd = qUpperBound(pageBegin, results->constEnd(), page);
+
+        count = pageEnd - pageBegin;
+    }
+
+    return count;
 }
 
 } // qpdfview
