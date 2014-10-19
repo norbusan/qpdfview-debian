@@ -44,6 +44,9 @@ public:
     bool wasCanceled() const;
     int progress() const;
 
+    inline QString text() const { return m_text; }
+    inline bool matchCase() const { return m_matchCase; }
+
     void run();
 
 signals:

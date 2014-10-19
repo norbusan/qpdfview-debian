@@ -743,6 +743,35 @@ QStandardItemModel* DocumentView::fontsModel() const
     return fontsModel;
 }
 
+QString DocumentView::searchText() const
+{
+    return m_searchTask->text();
+}
+
+bool DocumentView::searchMatchCase() const
+{
+    return m_searchTask->matchCase();
+}
+
+QString DocumentView::surroundingText(int index, const QRectF& rect) const
+{
+    if(index < 0 || index >= m_pages.size() || rect.isEmpty())
+    {
+        return QString();
+    }
+
+    const Model::Page* page = m_pages.at(index);
+
+    // Fetch at most half of a line as centered on the given rectangle as possible.
+    const qreal pageWidth = page->size().width();
+    const qreal width = qMax(rect.width(), pageWidth / 2.0);
+    const qreal x = qBound(0.0, rect.x() + rect.width() / 2.0 - width / 2.0, pageWidth - width);
+
+    const QRectF surroundingRect(x, rect.top(), width, rect.height());
+
+    return page->text(surroundingRect).simplified();
+}
+
 void DocumentView::show()
 {
     QGraphicsView::show();

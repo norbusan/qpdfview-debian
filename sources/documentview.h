@@ -127,6 +127,11 @@ public:
 
     QStandardItemModel* fontsModel() const;
 
+    QString searchText() const;
+    bool searchMatchCase() const;
+
+    QString surroundingText(int index, const QRectF& rect) const;
+
 signals:
     void documentChanged();
     void documentModified();

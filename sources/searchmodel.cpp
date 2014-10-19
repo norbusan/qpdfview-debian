@@ -144,6 +144,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return results->count();
         case Qt::DisplayRole:
             return view->title();
+        case Qt::ToolTipRole:
+            return tr("<b>%1</b> occurences").arg(results->count());
         }
     }
     else
@@ -166,8 +168,14 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return result.first;
         case RectRole:
             return result.second;
-        case Qt::DisplayRole:
-            return QString::number(index.row()); // TODO: Extract surrounding text...
+        case TextRole:
+            return view->searchText();
+        case MatchCaseRole:
+            return view->searchMatchCase();
+        case SurroundingTextRole:
+            return fetchSurroundingText(view, result);
+        case Qt::ToolTipRole:
+            return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
     }
 
@@ -198,6 +206,21 @@ bool SearchModel::hasResultsOnPage(DocumentView* view, int page) const
     const Results* results = m_results.value(view, 0);
 
     return results != 0 && qBinaryFind(results->begin(), results->end(), page) != results->end();
+}
+
+int SearchModel::numberOfResultsOnPage(DocumentView* view, int page) const
+{
+    const Results* results = m_results.value(view, 0);
+
+    if(results == 0)
+    {
+        return 0;
+    }
+
+    const Results::const_iterator pageBegin = qLowerBound(results->constBegin(), results->constEnd(), page);
+    const Results::const_iterator pageEnd = qUpperBound(pageBegin, results->constEnd(), page);
+
+    return pageEnd - pageBegin;
 }
 
 QList< QRectF > SearchModel::resultsOnPage(DocumentView* view, int page) const
@@ -314,7 +337,8 @@ void SearchModel::clearResults(DocumentView* view)
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
-    m_results()
+    m_results(),
+    m_surroundingTextCache(65536)
 {
 }
 
@@ -350,6 +374,39 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     }
 
     return createIndex(row, 0);
+}
+
+inline SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Result& result) const
+{
+    QByteArray key;
+
+    QDataStream(&key, QIODevice::WriteOnly)
+            << result.first
+            << result.second;
+
+    return qMakePair(view, key);
+}
+
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+{
+    if(view == 0)
+    {
+        return QString();
+    }
+
+    const CacheKey key = cacheKey(view, result);
+    const CacheObject* object = m_surroundingTextCache.object(key);
+
+    if(object != 0)
+    {
+        return *object;
+    }
+
+    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
+
+    m_surroundingTextCache.insert(key, new CacheObject(surroundingText), surroundingText.length());
+
+    return surroundingText;
 }
 
 } // qpdfview

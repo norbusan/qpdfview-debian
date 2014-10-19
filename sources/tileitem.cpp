@@ -227,12 +227,12 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     }
 }
 
-PageItem* TileItem::parentPage() const
+inline PageItem* TileItem::parentPage() const
 {
     return qobject_cast< PageItem* >(parent());
 }
 
-TileItem::CacheKey TileItem::cacheKey() const
+inline TileItem::CacheKey TileItem::cacheKey() const
 {
     PageItem* page = parentPage();
     QByteArray key;
@@ -250,7 +250,8 @@ TileItem::CacheKey TileItem::cacheKey() const
 
 QPixmap TileItem::takePixmap()
 {
-    CacheObject* object = s_cache.object(cacheKey());
+    const CacheKey key = cacheKey();
+    const CacheObject* object = s_cache.object(key);
 
     if(object != 0)
     {
@@ -265,7 +266,7 @@ QPixmap TileItem::takePixmap()
     if(!m_pixmap.isNull())
     {
         int cost = m_pixmap.width() * m_pixmap.height() * m_pixmap.depth() / 8;
-        s_cache.insert(cacheKey(), new CacheObject(m_pixmap, m_cropRect), cost);
+        s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cost);
 
         pixmap = m_pixmap;
         m_pixmap = QPixmap();

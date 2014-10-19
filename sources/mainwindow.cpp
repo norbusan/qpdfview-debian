@@ -2696,6 +2696,7 @@ void MainWindow::createDocks()
 
         searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
 
+        m_searchView->setItemDelegate(new SearchDelegate(m_searchView));
         m_searchView->setModel(SearchModel::instance());
     }
     else

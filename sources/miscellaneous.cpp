@@ -28,10 +28,14 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QLabel>
+#include <qmath.h>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QTextLayout>
 #include <QTimer>
 #include <QVBoxLayout>
+
+#include "searchmodel.h"
 
 namespace
 {
@@ -482,6 +486,95 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
+}
+
+SearchDelegate::SearchDelegate(QObject* parent) : QStyledItemDelegate(parent)
+{
+}
+
+void SearchDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QStyledItemDelegate::paint(painter, option, index);
+
+
+    const QString text = index.data(SearchModel::TextRole).toString();
+    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
+    const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
+
+    if(text.isEmpty() || surroundingText.isEmpty())
+    {
+        return;
+    }
+
+
+    const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
+    const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
+    const QString elidedText = option.fontMetrics.elidedText(surroundingText, option.textElideMode, textRect.width());
+
+    QTextOption textOption;
+    textOption.setWrapMode(QTextOption::NoWrap);
+    textOption.setTextDirection(surroundingText.isRightToLeft() ? Qt::RightToLeft : Qt::LeftToRight);
+    textOption.setAlignment(QStyle::visualAlignment(textOption.textDirection(), option.displayAlignment));
+
+    QTextLayout textLayout;
+    textLayout.setTextOption(textOption);
+    textLayout.setText(elidedText);
+    textLayout.setFont(option.font);
+
+    emphasizeText(text, matchCase, surroundingText, textLayout);
+
+
+    textLayout.beginLayout();
+
+    QTextLine textLine = textLayout.createLine();
+
+    if(!textLine.isValid())
+    {
+        return;
+    }
+
+    textLine.setLineWidth(textRect.width());
+
+    textLayout.endLayout();
+
+
+    const QSize layoutSize(textRect.width(), qFloor(textLine.height()));
+    const QRect layoutRect = QStyle::alignedRect(option.direction, option.displayAlignment, layoutSize, textRect);
+
+    painter->save();
+
+    painter->setClipping(true);
+    painter->setClipRect(layoutRect);
+
+    textLine.draw(painter, layoutRect.topLeft());
+
+    painter->restore();
+}
+
+inline void SearchDelegate::emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout) const
+{
+    QFont font = textLayout.font();
+    font.setWeight(QFont::Light);
+    textLayout.setFont(font);
+
+
+    QList< QTextLayout::FormatRange > additionalFormats;
+
+    int position = 0;
+
+    while((position = surroundingText.indexOf(text, position, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive)) != -1)
+    {
+        QTextLayout::FormatRange formatRange;
+        formatRange.start = position;
+        formatRange.length = text.length();
+        formatRange.format.setFontWeight(QFont::Bold);
+
+        additionalFormats.append(formatRange);
+
+        position += text.length();
+    }
+
+    textLayout.setAdditionalFormats(additionalFormats);
 }
 
 } // qpdfview

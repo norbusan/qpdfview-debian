@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define SEARCHMODEL_H
 
 #include <QAbstractItemModel>
+#include <QCache>
 
 namespace qpdfview
 {
@@ -51,6 +52,9 @@ public:
         CountRole = Qt::UserRole + 1,
         PageRole,
         RectRole,
+        TextRole,
+        MatchCaseRole,
+        SurroundingTextRole
     };
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
@@ -61,6 +65,7 @@ public:
 
     bool hasResults(DocumentView* view) const;
     bool hasResultsOnPage(DocumentView* view, int page) const;
+    int numberOfResultsOnPage(DocumentView* view, int page) const;
     QList< QRectF > resultsOnPage(DocumentView* view, int page) const;
 
     enum FindDirection
@@ -85,10 +90,21 @@ private:
     QModelIndex findView(DocumentView* view) const;
     QModelIndex findOrInsertView(DocumentView* view);
 
+
     typedef QPair< int, QRectF > Result;
     typedef QVector< Result > Results;
 
     QHash< const DocumentView*, Results* > m_results;
+
+
+    typedef QPair< DocumentView*, QByteArray > CacheKey;
+    typedef QString CacheObject;
+
+    mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
+
+    CacheKey cacheKey(DocumentView* view, const Result& result) const;
+
+    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
 
 };
 

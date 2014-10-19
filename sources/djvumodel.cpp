@@ -634,7 +634,7 @@ QString DjVuPage::text(const QRectF& rect) const
 
     const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
-    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).trimmed();
+    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).simplified();
 
     {
         GLOBALLY_LOCK_PAGE
