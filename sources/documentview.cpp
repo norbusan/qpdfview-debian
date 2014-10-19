@@ -756,9 +756,13 @@ bool DocumentView::open(const QString& filePath)
 
     if(document != 0)
     {
-        if(!checkDocument(filePath, document))
+        QVector< Model::Page* > pages;
+
+        if(!checkDocument(filePath, document, pages))
         {
             delete document;
+            qDeleteAll(pages);
+
             return false;
         }
 
@@ -770,7 +774,7 @@ bool DocumentView::open(const QString& filePath)
         m_past.clear();
         m_future.clear();
 
-        prepareDocument(document);
+        prepareDocument(document, pages);
 
         loadDocumentDefaults();
 
@@ -802,9 +806,13 @@ bool DocumentView::refresh()
 
     if(document != 0)
     {
-        if(!checkDocument(m_fileInfo.filePath(), document))
+        QVector< Model::Page* > pages;
+
+        if(!checkDocument(m_fileInfo.filePath(), document, pages))
         {
             delete document;
+            qDeleteAll(pages);
+
             return false;
         }
 
@@ -815,7 +823,7 @@ bool DocumentView::refresh()
 
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
-        prepareDocument(document);
+        prepareDocument(document, pages);
 
         prepareScene();
         prepareView(left, top);
@@ -1893,7 +1901,7 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
-bool DocumentView::checkDocument(const QString& filePath, Model::Document* document)
+bool DocumentView::checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages)
 {
     if(document->isLocked())
     {
@@ -1905,11 +1913,29 @@ bool DocumentView::checkDocument(const QString& filePath, Model::Document* docum
         }
     }
 
-    if(document->numberOfPages() == 0)
+    const int numberOfPages = document->numberOfPages();
+
+    if(numberOfPages == 0)
     {
         qWarning() << "No pages were found in document at" << filePath;
 
         return false;
+    }
+
+    pages.reserve(numberOfPages);
+
+    for(int index = 0; index < numberOfPages; ++index)
+    {
+        Model::Page* page = document->page(index);
+
+        if(page == 0)
+        {
+            qWarning() << "No page" << index << "was found in document at" << filePath;
+
+            return false;
+        }
+
+        pages.append(page);
     }
 
     return true;
@@ -1982,7 +2008,7 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::prepareDocument(Model::Document* document)
+void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
 {
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
@@ -1992,20 +2018,11 @@ void DocumentView::prepareDocument(Model::Document* document)
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
 
-    qDeleteAll(m_pages);
-
     delete m_document;
     m_document = document;
 
-    const int numberOfPages = m_document->numberOfPages();
-
-    m_pages.clear();
-    m_pages.reserve(numberOfPages);
-
-    for(int index = 0; index < numberOfPages; ++index)
-    {
-        m_pages.append(m_document->page(index));
-    }
+    qDeleteAll(m_pages);
+    m_pages = pages;
 
     if(!m_autoRefreshWatcher->files().isEmpty())
     {

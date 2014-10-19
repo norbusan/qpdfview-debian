@@ -290,14 +290,14 @@ private:
     QStandardItemModel* m_outlineModel;
     QStandardItemModel* m_propertiesModel;
 
-    bool checkDocument(const QString& filePath, Model::Document* document);
+    bool checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages);
 
     void loadFallbackOutline();
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();
 
-    void prepareDocument(Model::Document* document);
+    void prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages);
     void preparePages();
     void prepareThumbnails();
     void prepareBackground();
