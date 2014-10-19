@@ -251,7 +251,7 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     return links;
 }
 
-QString loadText(miniexp_t textExp, const QSizeF& size, QRectF rect)
+QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
 {
     if(miniexp_length(textExp) < 6 && !miniexp_symbolp(miniexp_car(textExp)))
     {
@@ -632,9 +632,9 @@ QString DjVuPage::text(const QRectF& rect) const
         }
     }
 
-    const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+    const QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0);
 
-    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).simplified();
+    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect));
 
     {
         GLOBALLY_LOCK_PAGE
