@@ -102,7 +102,7 @@ private:
 
     mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
 
-    CacheKey cacheKey(DocumentView* view, const Result& result) const;
+    static CacheKey surroundingTextCacheKey(DocumentView* view, const Result& result);
 
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
 

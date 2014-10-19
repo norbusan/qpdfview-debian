@@ -376,7 +376,7 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-inline SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Result& result) const
+inline SearchModel::CacheKey SearchModel::surroundingTextCacheKey(DocumentView* view, const Result& result)
 {
     QByteArray key;
 
@@ -394,7 +394,7 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return QString();
     }
 
-    const CacheKey key = cacheKey(view, result);
+    const CacheKey key = surroundingTextCacheKey(view, result);
     const CacheObject* object = m_surroundingTextCache.object(key);
 
     if(object != 0)
