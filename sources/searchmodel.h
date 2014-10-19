@@ -25,6 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QAbstractItemModel>
 #include <QCache>
+#include <QFutureWatcher>
+#include <QRectF>
 
 namespace qpdfview
 {
@@ -79,6 +81,9 @@ public:
     void insertResults(DocumentView* view, int page, const QList< QRectF >& resultsOnPage);
     void clearResults(DocumentView* view);
 
+protected slots:
+    void on_fetchSurroundingText_finished();
+
 private:
     Q_DISABLE_COPY(SearchModel)
 
@@ -102,9 +107,25 @@ private:
 
     mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
 
+    struct SurroundingText
+    {
+        DocumentView* view;
+        Result result;
+
+        QPersistentModelIndex index;
+
+        QString text;
+
+    };
+
+    typedef QFutureWatcher< SurroundingText > SurroundingTextWatcher;
+
+    mutable QSet< SurroundingTextWatcher* > m_surroundingTextWatchers;
+
     CacheKey cacheKey(DocumentView* view, const Result& result) const;
 
-    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+    static SurroundingText runFetchSurroundingText(DocumentView* view, const Result& result, const QPersistentModelIndex& index);
+    QString fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const;
 
 };
 

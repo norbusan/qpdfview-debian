@@ -23,8 +23,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchmodel.h"
 
 #include <QApplication>
+#include <QtConcurrentRun>
 #include <QVector>
-#include <QRectF>
 
 #include "documentview.h"
 
@@ -55,6 +55,11 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
+    foreach(SurroundingTextWatcher* watcher, m_surroundingTextWatchers)
+    {
+        watcher->waitForFinished();
+    }
+
     qDeleteAll(m_results);
 
     s_instance = 0;
@@ -173,7 +178,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case MatchCaseRole:
             return view->searchMatchCase();
         case SurroundingTextRole:
-            return fetchSurroundingText(view, result);
+            return fetchSurroundingText(view, result, index);
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
@@ -319,6 +324,11 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
 void SearchModel::clearResults(DocumentView* view)
 {
+    foreach(SurroundingTextWatcher* watcher, m_surroundingTextWatchers)
+    {
+        watcher->waitForFinished();
+    }
+
     const QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
     const int row = at - m_views.begin();
 
@@ -333,6 +343,25 @@ void SearchModel::clearResults(DocumentView* view)
     delete m_results.take(view);
 
     endRemoveRows();
+}
+
+void SearchModel::on_fetchSurroundingText_finished()
+{
+    SurroundingTextWatcher* watcher = dynamic_cast< SurroundingTextWatcher* >(sender());
+
+    if(watcher == 0)
+    {
+        return;
+    }
+
+    SurroundingText text = watcher->result();
+
+    m_surroundingTextWatchers.remove(watcher);
+    watcher->deleteLater();
+
+    m_surroundingTextCache.insert(cacheKey(text.view, text.result), new CacheObject(text.text), text.text.length());
+
+    emit dataChanged(text.index, text.index, QVector< int >() << SurroundingTextRole);
 }
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
@@ -387,7 +416,21 @@ inline SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Res
     return qMakePair(view, key);
 }
 
-QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+SearchModel::SurroundingText SearchModel::runFetchSurroundingText(DocumentView *view, const SearchModel::Result& result, const QPersistentModelIndex& index)
+{
+    SurroundingText text;
+
+    text.view = view;
+    text.result = result;
+
+    text.index = index;
+
+    text.text = view->surroundingText(result.first - 1, result.second);
+
+    return text;
+}
+
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const
 {
     if(view == 0)
     {
@@ -402,11 +445,14 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return *object;
     }
 
-    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
+    SurroundingTextWatcher* watcher = new SurroundingTextWatcher();
+    m_surroundingTextWatchers.insert(watcher);
 
-    m_surroundingTextCache.insert(key, new CacheObject(surroundingText), surroundingText.length());
+    connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
 
-    return surroundingText;
+    watcher->setFuture(QtConcurrent::run(runFetchSurroundingText, view, result, index));
+
+    return QString(); // TODO: Better placeholder for incomplete result...
 }
 
 } // qpdfview
