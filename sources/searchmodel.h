@@ -102,28 +102,31 @@ private:
     QHash< DocumentView*, Results* > m_results;
 
 
-    typedef QPair< DocumentView*, QByteArray > CacheKey;
-    typedef QString CacheObject;
+    typedef QPair< DocumentView*, QByteArray > TextCacheKey;
+    typedef QString TextCacheObject;
 
-    mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
-
-    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
-
-
-    struct SurroundingText
+    struct TextJob
     {
         DocumentView* view;
         Result result;
 
         QString text;
 
+        TextJob() : view(0), result(), text() {}
+        TextJob(DocumentView* view, const Result& result, const QString& text) : view(view), result(result), text(text) {}
+
     };
 
-    typedef QFutureWatcher< SurroundingText > SurroundingTextWatcher;
+    typedef QFutureWatcher< TextJob > TextWatcher;
 
-    mutable QHash< CacheKey, SurroundingTextWatcher* > m_surroundingTextWatchers;
+    mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
+    mutable QHash< TextCacheKey, TextWatcher* > m_textWatchers;
 
-    static SurroundingText runFetchSurroundingText(DocumentView* view, const Result& result);
+    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+    void runFetchSurroundingText(DocumentView* view, const Result& result, const TextCacheKey& key) const;
+
+    static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
+    static TextJob textJob(DocumentView* view, const Result& result);
 
 };
 
