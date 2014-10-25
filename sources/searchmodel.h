@@ -97,15 +97,18 @@ private:
 
 
     typedef QPair< int, QRectF > Result;
-    typedef QVector< Result > Results;
+    typedef QList< Result > Results;
 
-    QHash< const DocumentView*, Results* > m_results;
+    QHash< DocumentView*, Results* > m_results;
 
 
     typedef QPair< DocumentView*, QByteArray > CacheKey;
     typedef QString CacheObject;
 
     mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
+
+    QString fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const;
+
 
     struct SurroundingText
     {
@@ -122,10 +125,7 @@ private:
 
     mutable QSet< SurroundingTextWatcher* > m_surroundingTextWatchers;
 
-    CacheKey cacheKey(DocumentView* view, const Result& result) const;
-
     static SurroundingText runFetchSurroundingText(DocumentView* view, const Result& result, const QPersistentModelIndex& index);
-    QString fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const;
 
 };
 

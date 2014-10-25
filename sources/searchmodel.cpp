@@ -36,6 +36,17 @@ using namespace qpdfview;
 inline bool operator<(int page, const QPair< int, QRectF >& result) { return page < result.first; }
 inline bool operator<(const QPair< int, QRectF >& result, int page) { return result.first < page; }
 
+inline QPair< DocumentView*, QByteArray > surroundingTextCacheKey(DocumentView* view, const QPair< int, QRectF >& result)
+{
+    QByteArray key;
+
+    QDataStream(&key, QIODevice::WriteOnly)
+            << result.first
+            << result.second;
+
+    return qMakePair(view, key);
+}
+
 }
 
 namespace qpdfview
@@ -359,7 +370,7 @@ void SearchModel::on_fetchSurroundingText_finished()
     m_surroundingTextWatchers.remove(watcher);
     watcher->deleteLater();
 
-    m_surroundingTextCache.insert(cacheKey(text.view, text.result), new CacheObject(text.text), text.text.length());
+    m_surroundingTextCache.insert(surroundingTextCacheKey(text.view, text.result), new CacheObject(text.text), text.text.length());
 
     emit dataChanged(text.index, text.index, QVector< int >() << SurroundingTextRole);
 }
@@ -405,17 +416,6 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-inline SearchModel::CacheKey SearchModel::cacheKey(DocumentView* view, const Result& result) const
-{
-    QByteArray key;
-
-    QDataStream(&key, QIODevice::WriteOnly)
-            << result.first
-            << result.second;
-
-    return qMakePair(view, key);
-}
-
 SearchModel::SurroundingText SearchModel::runFetchSurroundingText(DocumentView *view, const SearchModel::Result& result, const QPersistentModelIndex& index)
 {
     SurroundingText text;
@@ -437,7 +437,7 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return QString();
     }
 
-    const CacheKey key = cacheKey(view, result);
+    const CacheKey key = surroundingTextCacheKey(view, result);
     const CacheObject* object = m_surroundingTextCache.object(key);
 
     if(object != 0)
