@@ -189,7 +189,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case MatchCaseRole:
             return view->searchMatchCase();
         case SurroundingTextRole:
-            return fetchSurroundingText(view, result, index);
+            return fetchSurroundingText(view, result);
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
@@ -367,18 +367,28 @@ void SearchModel::on_fetchSurroundingText_finished()
 
     SurroundingText text = watcher->result();
 
-    m_surroundingTextWatchers.remove(watcher);
+    const CacheKey key = surroundingTextCacheKey(text.view, text.result);
+
+    m_surroundingTextWatchers.remove(key);
     watcher->deleteLater();
 
-    m_surroundingTextCache.insert(surroundingTextCacheKey(text.view, text.result), new CacheObject(text.text), text.text.length());
+    const Results* results = m_results.value(text.view, 0);
 
-    emit dataChanged(text.index, text.index, QVector< int >() << SurroundingTextRole);
+    if(results == 0)
+    {
+        return;
+    }
+
+    m_surroundingTextCache.insert(key, new CacheObject(text.text), text.text.length());
+
+    emit dataChanged(createIndex(0, 0, text.view), createIndex(results->count() - 1, 0, text.view));
 }
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
-    m_surroundingTextCache(65536)
+    m_surroundingTextCache(65536),
+    m_surroundingTextWatchers()
 {
 }
 
@@ -416,21 +426,19 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-SearchModel::SurroundingText SearchModel::runFetchSurroundingText(DocumentView *view, const SearchModel::Result& result, const QPersistentModelIndex& index)
+SearchModel::SurroundingText SearchModel::runFetchSurroundingText(DocumentView *view, const SearchModel::Result& result)
 {
     SurroundingText text;
 
     text.view = view;
     text.result = result;
 
-    text.index = index;
-
     text.text = view->surroundingText(result.first - 1, result.second);
 
     return text;
 }
 
-QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
 {
     if(view == 0)
     {
@@ -445,12 +453,15 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return *object;
     }
 
-    SurroundingTextWatcher* watcher = new SurroundingTextWatcher();
-    m_surroundingTextWatchers.insert(watcher);
+    if(!m_surroundingTextWatchers.contains(key))
+    {
+        SurroundingTextWatcher* watcher = new SurroundingTextWatcher();
+        m_surroundingTextWatchers.insert(key, watcher);
 
-    connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
+        connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
 
-    watcher->setFuture(QtConcurrent::run(runFetchSurroundingText, view, result, index));
+        watcher->setFuture(QtConcurrent::run(runFetchSurroundingText, view, result));
+    }
 
     return QString(); // TODO: Better placeholder for incomplete result...
 }

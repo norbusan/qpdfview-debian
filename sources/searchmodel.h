@@ -107,7 +107,7 @@ private:
 
     mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
 
-    QString fetchSurroundingText(DocumentView* view, const Result& result, const QModelIndex& index) const;
+    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
 
 
     struct SurroundingText
@@ -115,17 +115,15 @@ private:
         DocumentView* view;
         Result result;
 
-        QPersistentModelIndex index;
-
         QString text;
 
     };
 
     typedef QFutureWatcher< SurroundingText > SurroundingTextWatcher;
 
-    mutable QSet< SurroundingTextWatcher* > m_surroundingTextWatchers;
+    mutable QHash< CacheKey, SurroundingTextWatcher* > m_surroundingTextWatchers;
 
-    static SurroundingText runFetchSurroundingText(DocumentView* view, const Result& result, const QPersistentModelIndex& index);
+    static SurroundingText runFetchSurroundingText(DocumentView* view, const Result& result);
 
 };
 
