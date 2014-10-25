@@ -335,6 +335,14 @@ void SearchModel::clearResults(DocumentView* view)
         watcher->waitForFinished();
     }
 
+    foreach(const TextCacheKey& key, m_textCache.keys())
+    {
+        if(key.first == view)
+        {
+            m_textCache.remove(key);
+        }
+    }
+
     const QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
     const int row = at - m_views.begin();
 
