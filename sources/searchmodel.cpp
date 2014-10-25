@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QtConcurrentRun>
-#include <QVector>
 
 #include "documentview.h"
 
