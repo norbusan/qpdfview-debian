@@ -130,7 +130,7 @@ public:
     QString searchText() const;
     bool searchMatchCase() const;
 
-    QString surroundingText(int index, const QRectF& rect) const;
+    QString surroundingText(int page, const QRectF& rect) const;
 
 signals:
     void documentChanged();

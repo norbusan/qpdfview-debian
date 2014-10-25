@@ -474,7 +474,7 @@ inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, c
 
 SearchModel::TextJob SearchModel::textJob(DocumentView *view, const Result& result)
 {
-    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
+    const QString surroundingText = view->surroundingText(result.first, result.second);
 
     return TextJob(view, result, surroundingText);
 }
