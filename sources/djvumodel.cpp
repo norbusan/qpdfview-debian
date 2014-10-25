@@ -637,7 +637,7 @@ QString DjVuPage::text(const QRectF& rect) const
 
     const QTransform transform = QTransform::fromScale(m_resolution / 72.0, m_resolution / 72.0);
 
-    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect));
+    const QString text = loadText(pageTextExp, m_size, transform.mapRect(rect)).simplified();
 
     {
         LOCK_PAGE_GLOBAL
