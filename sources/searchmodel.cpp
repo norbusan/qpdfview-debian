@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchmodel.h"
 
 #include <QApplication>
-#include <QVector>
 #include <QRectF>
 
 #include "documentview.h"

@@ -92,9 +92,9 @@ private:
 
 
     typedef QPair< int, QRectF > Result;
-    typedef QVector< Result > Results;
+    typedef QList< Result > Results;
 
-    QHash< const DocumentView*, Results* > m_results;
+    QHash< DocumentView*, Results* > m_results;
 
 
     typedef QPair< DocumentView*, QByteArray > CacheKey;
