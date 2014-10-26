@@ -120,10 +120,9 @@ private:
     typedef QFutureWatcher< TextJob > TextWatcher;
 
     mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
-    mutable QHash< TextCacheKey, TextWatcher* > m_textWatchers;
+    mutable TextWatcher* m_textWatcher;
 
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
-    void runFetchSurroundingText(DocumentView* view, const Result& result, const TextCacheKey& key) const;
 
     static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
     static TextJob textJob(DocumentView* view, const Result& result);

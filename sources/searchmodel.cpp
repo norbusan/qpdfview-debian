@@ -54,12 +54,8 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
-    foreach(TextWatcher* watcher, m_textWatchers)
-    {
-        watcher->waitForFinished();
-    }
-
-    qDeleteAll(m_textWatchers);
+    m_textWatcher->waitForFinished();
+    m_textWatcher->deleteLater();
 
     qDeleteAll(m_results);
 
@@ -325,11 +321,6 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
 void SearchModel::clearResults(DocumentView* view)
 {
-    foreach(TextWatcher* watcher, m_textWatchers)
-    {
-        watcher->waitForFinished();
-    }
-
     foreach(const TextCacheKey& key, m_textCache.keys())
     {
         if(key.first == view)
@@ -356,18 +347,8 @@ void SearchModel::clearResults(DocumentView* view)
 
 void SearchModel::on_fetchSurroundingText_finished()
 {
-    TextWatcher* watcher = dynamic_cast< TextWatcher* >(sender());
-
-    if(watcher == 0)
-    {
-        return;
-    }
-
-    const TextJob job = watcher->result();
+    const TextJob job = m_textWatcher->result();
     const TextCacheKey key = textCacheKey(job.view, job.result);
-
-    m_textWatchers.remove(key);
-    watcher->deleteLater();
 
     const Results* results = m_results.value(job.view, 0);
 
@@ -385,8 +366,9 @@ SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
     m_textCache(65536),
-    m_textWatchers()
+    m_textWatcher(new TextWatcher())
 {
+    connect(m_textWatcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
 }
 
 QModelIndex SearchModel::findView(DocumentView *view) const
@@ -438,22 +420,12 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return *object;
     }
 
-    runFetchSurroundingText(view, result, key);
+    if(!m_textWatcher->isRunning())
+    {
+        m_textWatcher->setFuture(QtConcurrent::run(textJob, view, result));
+    }
 
     return QLatin1String("...");
-}
-
-void SearchModel::runFetchSurroundingText(DocumentView *view, const Result& result, const TextCacheKey& key) const
-{
-    if(!m_textWatchers.contains(key))
-    {
-        TextWatcher* watcher = new TextWatcher();
-        m_textWatchers.insert(key, watcher);
-
-        connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
-
-        watcher->setFuture(QtConcurrent::run(textJob, view, result));
-    }
 }
 
 inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, const Result& result)
