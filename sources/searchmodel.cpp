@@ -23,7 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchmodel.h"
 
 #include <QApplication>
-#include <QtConcurrentRun>
 
 #include "documentview.h"
 
@@ -54,8 +53,7 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
-    m_textWatcher->waitForFinished();
-    m_textWatcher->deleteLater();
+    m_textThread.wait();
 
     qDeleteAll(m_results);
 
@@ -175,7 +173,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case MatchCaseRole:
             return view->searchMatchCase();
         case SurroundingTextRole:
-            return fetchSurroundingText(view, result);
+            return surroundingText(view, result);
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
@@ -345,30 +343,34 @@ void SearchModel::clearResults(DocumentView* view)
     endRemoveRows();
 }
 
-void SearchModel::on_fetchSurroundingText_finished()
+void SearchModel::on_textThread_finished()
 {
-    const TextJob job = m_textWatcher->result();
-    const TextCacheKey key = textCacheKey(job.view, job.result);
+    DocumentView* view = m_textThread.view;
+    const Result& result = m_textThread.result;
+    const QString& text = m_textThread.text;
 
-    const Results* results = m_results.value(job.view, 0);
+    const Results* results = m_results.value(view, 0);
 
     if(results == 0)
     {
         return;
     }
 
-    m_textCache.insert(key, new TextCacheObject(job.text), job.text.length());
+    const TextCacheKey key = surroundingTextCacheKey(view, result);
+    TextCacheObject* object = new TextCacheObject(text);
 
-    emit dataChanged(createIndex(0, 0, job.view), createIndex(results->count() - 1, 0, job.view));
+    m_textCache.insert(key, object, object->size());
+
+    emit dataChanged(createIndex(0, 0, view), createIndex(results->count() - 1, 0, view));
 }
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
     m_textCache(65536),
-    m_textWatcher(new TextWatcher())
+    m_textThread()
 {
-    connect(m_textWatcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
+    connect(&m_textThread, SIGNAL(finished()), SLOT(on_textThread_finished()));
 }
 
 QModelIndex SearchModel::findView(DocumentView *view) const
@@ -405,30 +407,33 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+QString SearchModel::surroundingText(DocumentView* view, const Result& result) const
 {
     if(view == 0)
     {
         return QString();
     }
 
-    const TextCacheKey key = textCacheKey(view, result);
-    const TextCacheObject* object = m_textCache.object(key);
+    const TextCacheKey key = surroundingTextCacheKey(view, result);
+    TextCacheObject* object = m_textCache.object(key);
 
     if(object != 0)
     {
         return *object;
     }
 
-    if(!m_textWatcher->isRunning())
+    if(!m_textThread.isRunning())
     {
-        m_textWatcher->setFuture(QtConcurrent::run(textJob, view, result));
+        m_textThread.view = view;
+        m_textThread.result = result;
+
+        m_textThread.start();
     }
 
     return QLatin1String("...");
 }
 
-inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, const Result& result)
+inline SearchModel::TextCacheKey SearchModel::surroundingTextCacheKey(DocumentView* view, const Result& result)
 {
     QByteArray key;
 
@@ -439,11 +444,9 @@ inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, c
     return qMakePair(view, key);
 }
 
-SearchModel::TextJob SearchModel::textJob(DocumentView *view, const Result& result)
+void SearchModel::TextThread::run()
 {
-    const QString surroundingText = view->surroundingText(result.first, result.second);
-
-    return TextJob(view, result, surroundingText);
+    text = view->surroundingText(result.first, result.second);
 }
 
 } // qpdfview
