@@ -348,7 +348,6 @@ void SearchModel::clearResults(DocumentView* view)
 void SearchModel::on_fetchSurroundingText_finished()
 {
     const TextJob job = m_textWatcher->result();
-    const TextCacheKey key = textCacheKey(job.view, job.result);
 
     const Results* results = m_results.value(job.view, 0);
 
@@ -357,7 +356,10 @@ void SearchModel::on_fetchSurroundingText_finished()
         return;
     }
 
-    m_textCache.insert(key, new TextCacheObject(job.text), job.text.length());
+    const TextCacheKey key = textCacheKey(job.view, job.result);
+    TextCacheObject* object = new TextCacheObject(job.text);
+
+    m_textCache.insert(key, object, object->length());
 
     emit dataChanged(createIndex(0, 0, job.view), createIndex(results->count() - 1, 0, job.view));
 }
