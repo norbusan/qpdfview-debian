@@ -25,7 +25,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 #include <QtConcurrentRun>
 
-#include "settings.h"
 #include "documentview.h"
 
 namespace
@@ -307,8 +306,6 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
         return;
     }
 
-    const bool extendedSearchDock = Settings::instance()->mainWindow().extendedSearchDock();
-
     const QModelIndex parent = findOrInsertView(view);
 
     Results* results = m_results.value(view);
@@ -320,14 +317,7 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
     for(int index = resultsOnPage.size() - 1; index >= 0; --index)
     {
-        const Result result = qMakePair(page, resultsOnPage.at(index));
-
-        at = results->insert(at, result);
-
-        if(extendedSearchDock)
-        {
-            runFetchSurroundingText(view, result, textCacheKey(view, result));
-        }
+        at = results->insert(at, qMakePair(page, resultsOnPage.at(index)));
     }
 
     endInsertRows();
