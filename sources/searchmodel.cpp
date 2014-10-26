@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchmodel.h"
 
 #include <QApplication>
+#include <QtConcurrentRun>
 
 #include "documentview.h"
 
@@ -53,7 +54,8 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
-    m_textThread.wait();
+    m_textWatcher->waitForFinished();
+    m_textWatcher->deleteLater();
 
     qDeleteAll(m_results);
 
@@ -173,7 +175,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case MatchCaseRole:
             return view->searchMatchCase();
         case SurroundingTextRole:
-            return surroundingText(view, result);
+            return fetchSurroundingText(view, result);
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
@@ -343,34 +345,30 @@ void SearchModel::clearResults(DocumentView* view)
     endRemoveRows();
 }
 
-void SearchModel::on_textThread_finished()
+void SearchModel::on_fetchSurroundingText_finished()
 {
-    DocumentView* view = m_textThread.view;
-    const Result& result = m_textThread.result;
-    const QString& text = m_textThread.text;
+    const TextJob job = m_textWatcher->result();
+    const TextCacheKey key = textCacheKey(job.view, job.result);
 
-    const Results* results = m_results.value(view, 0);
+    const Results* results = m_results.value(job.view, 0);
 
     if(results == 0)
     {
         return;
     }
 
-    const TextCacheKey key = surroundingTextCacheKey(view, result);
-    TextCacheObject* object = new TextCacheObject(text);
+    m_textCache.insert(key, new TextCacheObject(job.text), job.text.length());
 
-    m_textCache.insert(key, object, object->size());
-
-    emit dataChanged(createIndex(0, 0, view), createIndex(results->count() - 1, 0, view));
+    emit dataChanged(createIndex(0, 0, job.view), createIndex(results->count() - 1, 0, job.view));
 }
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
     m_textCache(65536),
-    m_textThread()
+    m_textWatcher(new TextWatcher())
 {
-    connect(&m_textThread, SIGNAL(finished()), SLOT(on_textThread_finished()));
+    connect(m_textWatcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
 }
 
 QModelIndex SearchModel::findView(DocumentView *view) const
@@ -407,33 +405,30 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-QString SearchModel::surroundingText(DocumentView* view, const Result& result) const
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
 {
     if(view == 0)
     {
         return QString();
     }
 
-    const TextCacheKey key = surroundingTextCacheKey(view, result);
-    TextCacheObject* object = m_textCache.object(key);
+    const TextCacheKey key = textCacheKey(view, result);
+    const TextCacheObject* object = m_textCache.object(key);
 
     if(object != 0)
     {
         return *object;
     }
 
-    if(!m_textThread.isRunning())
+    if(!m_textWatcher->isRunning())
     {
-        m_textThread.view = view;
-        m_textThread.result = result;
-
-        m_textThread.start();
+        m_textWatcher->setFuture(QtConcurrent::run(textJob, view, result));
     }
 
     return QLatin1String("...");
 }
 
-inline SearchModel::TextCacheKey SearchModel::surroundingTextCacheKey(DocumentView* view, const Result& result)
+inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, const Result& result)
 {
     QByteArray key;
 
@@ -444,9 +439,11 @@ inline SearchModel::TextCacheKey SearchModel::surroundingTextCacheKey(DocumentVi
     return qMakePair(view, key);
 }
 
-void SearchModel::TextThread::run()
+SearchModel::TextJob SearchModel::textJob(DocumentView *view, const Result& result)
 {
-    text = view->surroundingText(result.first, result.second);
+    const QString surroundingText = view->surroundingText(result.first, result.second);
+
+    return TextJob(view, result, surroundingText);
 }
 
 } // qpdfview

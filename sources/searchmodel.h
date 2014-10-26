@@ -25,8 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QAbstractItemModel>
 #include <QCache>
+#include <QFutureWatcher>
 #include <QRectF>
-#include <QThread>
 
 namespace qpdfview
 {
@@ -82,7 +82,7 @@ public:
     void clearResults(DocumentView* view);
 
 protected slots:
-    void on_textThread_finished();
+    void on_fetchSurroundingText_finished();
 
 private:
     Q_DISABLE_COPY(SearchModel)
@@ -105,22 +105,27 @@ private:
     typedef QPair< DocumentView*, QByteArray > TextCacheKey;
     typedef QString TextCacheObject;
 
-    struct TextThread : public QThread
+    struct TextJob
     {
         DocumentView* view;
         Result result;
 
         QString text;
 
-        void run();
+        TextJob() : view(0), result(), text() {}
+        TextJob(DocumentView* view, const Result& result, const QString& text) : view(view), result(result), text(text) {}
 
     };
 
-    mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
-    mutable TextThread m_textThread;
+    typedef QFutureWatcher< TextJob > TextWatcher;
 
-    static TextCacheKey surroundingTextCacheKey(DocumentView* view, const Result& result);
-    QString surroundingText(DocumentView* view, const Result& result) const;
+    mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
+    mutable TextWatcher* m_textWatcher;
+
+    QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+
+    static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
+    static TextJob textJob(DocumentView* view, const Result& result);
 
 };
 
