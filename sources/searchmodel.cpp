@@ -23,9 +23,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchmodel.h"
 
 #include <QApplication>
-#include <QVector>
-#include <QRectF>
+#include <QtConcurrentRun>
 
+#include "settings.h"
 #include "documentview.h"
 
 namespace
@@ -55,6 +55,13 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
+    foreach(TextWatcher* watcher, m_textWatchers)
+    {
+        watcher->waitForFinished();
+    }
+
+    qDeleteAll(m_textWatchers);
+
     qDeleteAll(m_results);
 
     s_instance = 0;
@@ -300,6 +307,8 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
         return;
     }
 
+    const bool extendedSearchDock = Settings::instance()->mainWindow().extendedSearchDock();
+
     const QModelIndex parent = findOrInsertView(view);
 
     Results* results = m_results.value(view);
@@ -311,7 +320,14 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
     for(int index = resultsOnPage.size() - 1; index >= 0; --index)
     {
-        at = results->insert(at, qMakePair(page, resultsOnPage.at(index)));
+        const Result result = qMakePair(page, resultsOnPage.at(index));
+
+        at = results->insert(at, result);
+
+        if(extendedSearchDock)
+        {
+            runFetchSurroundingText(view, result, textCacheKey(view, result));
+        }
     }
 
     endInsertRows();
@@ -319,6 +335,19 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
 void SearchModel::clearResults(DocumentView* view)
 {
+    foreach(TextWatcher* watcher, m_textWatchers)
+    {
+        watcher->waitForFinished();
+    }
+
+    foreach(const TextCacheKey& key, m_textCache.keys())
+    {
+        if(key.first == view)
+        {
+            m_textCache.remove(key);
+        }
+    }
+
     const QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
     const int row = at - m_views.begin();
 
@@ -335,10 +364,38 @@ void SearchModel::clearResults(DocumentView* view)
     endRemoveRows();
 }
 
+void SearchModel::on_fetchSurroundingText_finished()
+{
+    TextWatcher* watcher = dynamic_cast< TextWatcher* >(sender());
+
+    if(watcher == 0)
+    {
+        return;
+    }
+
+    const TextJob job = watcher->result();
+    const TextCacheKey key = textCacheKey(job.view, job.result);
+
+    m_textWatchers.remove(key);
+    watcher->deleteLater();
+
+    const Results* results = m_results.value(job.view, 0);
+
+    if(results == 0)
+    {
+        return;
+    }
+
+    m_textCache.insert(key, new TextCacheObject(job.text), job.text.length());
+
+    emit dataChanged(createIndex(0, 0, job.view), createIndex(results->count() - 1, 0, job.view));
+}
+
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
-    m_surroundingTextCache(65536)
+    m_textCache(65536),
+    m_textWatchers()
 {
 }
 
@@ -376,7 +433,40 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
-inline SearchModel::CacheKey SearchModel::surroundingTextCacheKey(DocumentView* view, const Result& result)
+QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+{
+    if(view == 0)
+    {
+        return QString();
+    }
+
+    const TextCacheKey key = textCacheKey(view, result);
+    const TextCacheObject* object = m_textCache.object(key);
+
+    if(object != 0)
+    {
+        return *object;
+    }
+
+    runFetchSurroundingText(view, result, key);
+
+    return QLatin1String("...");
+}
+
+void SearchModel::runFetchSurroundingText(DocumentView *view, const Result& result, const TextCacheKey& key) const
+{
+    if(!m_textWatchers.contains(key))
+    {
+        TextWatcher* watcher = new TextWatcher();
+        m_textWatchers.insert(key, watcher);
+
+        connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
+
+        watcher->setFuture(QtConcurrent::run(textJob, view, result));
+    }
+}
+
+inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, const Result& result)
 {
     QByteArray key;
 
@@ -387,26 +477,11 @@ inline SearchModel::CacheKey SearchModel::surroundingTextCacheKey(DocumentView* 
     return qMakePair(view, key);
 }
 
-QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
+SearchModel::TextJob SearchModel::textJob(DocumentView *view, const Result& result)
 {
-    if(view == 0)
-    {
-        return QString();
-    }
+    const QString surroundingText = view->surroundingText(result.first, result.second);
 
-    const CacheKey key = surroundingTextCacheKey(view, result);
-    const CacheObject* object = m_surroundingTextCache.object(key);
-
-    if(object != 0)
-    {
-        return *object;
-    }
-
-    const QString surroundingText = view->surroundingText(result.first - 1, result.second);
-
-    m_surroundingTextCache.insert(key, new CacheObject(surroundingText), surroundingText.length());
-
-    return surroundingText;
+    return TextJob(view, result, surroundingText);
 }
 
 } // qpdfview

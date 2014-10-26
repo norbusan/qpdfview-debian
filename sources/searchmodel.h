@@ -25,6 +25,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QAbstractItemModel>
 #include <QCache>
+#include <QFutureWatcher>
+#include <QRectF>
 
 namespace qpdfview
 {
@@ -79,6 +81,9 @@ public:
     void insertResults(DocumentView* view, int page, const QList< QRectF >& resultsOnPage);
     void clearResults(DocumentView* view);
 
+protected slots:
+    void on_fetchSurroundingText_finished();
+
 private:
     Q_DISABLE_COPY(SearchModel)
 
@@ -92,19 +97,36 @@ private:
 
 
     typedef QPair< int, QRectF > Result;
-    typedef QVector< Result > Results;
+    typedef QList< Result > Results;
 
-    QHash< const DocumentView*, Results* > m_results;
+    QHash< DocumentView*, Results* > m_results;
 
 
-    typedef QPair< DocumentView*, QByteArray > CacheKey;
-    typedef QString CacheObject;
+    typedef QPair< DocumentView*, QByteArray > TextCacheKey;
+    typedef QString TextCacheObject;
 
-    mutable QCache< CacheKey, CacheObject > m_surroundingTextCache;
+    struct TextJob
+    {
+        DocumentView* view;
+        Result result;
 
-    static CacheKey surroundingTextCacheKey(DocumentView* view, const Result& result);
+        QString text;
+
+        TextJob() : view(0), result(), text() {}
+        TextJob(DocumentView* view, const Result& result, const QString& text) : view(view), result(result), text(text) {}
+
+    };
+
+    typedef QFutureWatcher< TextJob > TextWatcher;
+
+    mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
+    mutable QHash< TextCacheKey, TextWatcher* > m_textWatchers;
 
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+    void runFetchSurroundingText(DocumentView* view, const Result& result, const TextCacheKey& key) const;
+
+    static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
+    static TextJob textJob(DocumentView* view, const Result& result);
 
 };
 
