@@ -753,23 +753,21 @@ bool DocumentView::searchMatchCase() const
     return m_searchTask->matchCase();
 }
 
-QString DocumentView::surroundingText(int index, const QRectF& rect) const
+QString DocumentView::surroundingText(int page, const QRectF& rect) const
 {
-    if(index < 0 || index >= m_pages.size() || rect.isEmpty())
+    if(page < 1 || page > m_pages.size() || rect.isEmpty())
     {
         return QString();
     }
 
-    const Model::Page* page = m_pages.at(index);
-
     // Fetch at most half of a line as centered on the given rectangle as possible.
-    const qreal pageWidth = page->size().width();
+    const qreal pageWidth = m_pages.at(page - 1)->size().width();
     const qreal width = qMax(rect.width(), pageWidth / 2.0);
     const qreal x = qBound(0.0, rect.x() + rect.width() / 2.0 - width / 2.0, pageWidth - width);
 
     const QRectF surroundingRect(x, rect.top(), width, rect.height());
 
-    return page->text(surroundingRect).simplified();
+    return m_pages.at(page - 1)->text(surroundingRect).simplified();
 }
 
 void DocumentView::show()
