@@ -150,7 +150,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case Qt::DisplayRole:
             return view->title();
         case Qt::ToolTipRole:
-            return tr("<b>%1</b> occurences").arg(results->count());
+            return tr("<b>%1</b> occurrences").arg(results->count());
         }
     }
     else
@@ -180,7 +180,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case SurroundingTextRole:
             return fetchSurroundingText(view, result);
         case Qt::ToolTipRole:
-            return tr("<b>%1</b> occurences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
+            return tr("<b>%1</b> occurrences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
     }
 

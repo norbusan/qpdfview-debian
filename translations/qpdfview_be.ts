@@ -1198,12 +1198,12 @@
     <name>qpdfview::SearchModel</name>
     <message>
         <location filename="../sources/searchmodel.cpp" line="153"/>
-        <source>&lt;b&gt;%1&lt;/b&gt; occurences</source>
+        <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/searchmodel.cpp" line="183"/>
-        <source>&lt;b&gt;%1&lt;/b&gt; occurences on page &lt;b&gt;%2&lt;/b&gt;</source>
+        <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
