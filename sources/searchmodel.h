@@ -107,13 +107,11 @@ private:
 
     struct TextJob
     {
-        DocumentView* view;
-        Result result;
+        TextCacheKey key;
+        TextCacheObject* object;
 
-        QString text;
-
-        TextJob() : view(0), result(), text() {}
-        TextJob(DocumentView* view, const Result& result, const QString& text) : view(view), result(result), text(text) {}
+        TextJob() : key(), object(0) {}
+        TextJob(const TextCacheKey& key, TextCacheObject* object) : key(key), object(object) {}
 
     };
 
@@ -125,7 +123,7 @@ private:
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
 
     static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
-    static TextJob textJob(DocumentView* view, const Result& result);
+    static TextJob textJob(const TextCacheKey& key, const Result& result);
 
 };
 

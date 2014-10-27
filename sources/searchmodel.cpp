@@ -349,19 +349,17 @@ void SearchModel::on_fetchSurroundingText_finished()
 {
     const TextJob job = m_textWatcher->result();
 
-    const Results* results = m_results.value(job.view, 0);
+    DocumentView* view = job.key.first;
+    const Results* results = m_results.value(view, 0);
 
     if(results == 0)
     {
         return;
     }
 
-    const TextCacheKey key = textCacheKey(job.view, job.result);
-    TextCacheObject* object = new TextCacheObject(job.text);
+    m_textCache.insert(job.key, job.object, job.object->length());
 
-    m_textCache.insert(key, object, object->length());
-
-    emit dataChanged(createIndex(0, 0, job.view), createIndex(results->count() - 1, 0, job.view));
+    emit dataChanged(createIndex(0, 0, view), createIndex(results->count() - 1, 0, view));
 }
 
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
@@ -424,7 +422,7 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
 
     if(!m_textWatcher->isRunning())
     {
-        m_textWatcher->setFuture(QtConcurrent::run(textJob, view, result));
+        m_textWatcher->setFuture(QtConcurrent::run(textJob, key, result));
     }
 
     return QLatin1String("...");
@@ -441,11 +439,11 @@ inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, c
     return qMakePair(view, key);
 }
 
-SearchModel::TextJob SearchModel::textJob(DocumentView *view, const Result& result)
+SearchModel::TextJob SearchModel::textJob(const TextCacheKey& key, const Result& result)
 {
-    const QString surroundingText = view->surroundingText(result.first, result.second);
+    const QString surroundingText = key.first->surroundingText(result.first, result.second);
 
-    return TextJob(view, result, surroundingText);
+    return TextJob(key, new QString(surroundingText));
 }
 
 } // qpdfview
