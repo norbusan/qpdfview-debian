@@ -54,8 +54,11 @@ SearchModel* SearchModel::instance()
 
 SearchModel::~SearchModel()
 {
-    m_textWatcher->waitForFinished();
-    m_textWatcher->deleteLater();
+    foreach(TextWatcher* watcher, m_textWatchers)
+    {
+        watcher->waitForFinished();
+        watcher->deleteLater();
+    }
 
     qDeleteAll(m_results);
 
@@ -347,7 +350,17 @@ void SearchModel::clearResults(DocumentView* view)
 
 void SearchModel::on_fetchSurroundingText_finished()
 {
-    const TextJob job = m_textWatcher->result();
+    TextWatcher* watcher = dynamic_cast< TextWatcher* >(sender());
+
+    if(watcher == 0)
+    {
+        return;
+    }
+
+    const TextJob job = watcher->result();
+
+    m_textWatchers.remove(job.key);
+    delete watcher;
 
     DocumentView* view = job.key.first;
     const Results* results = m_results.value(view, 0);
@@ -366,9 +379,8 @@ SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
     m_textCache(65536),
-    m_textWatcher(new TextWatcher())
+    m_textWatchers()
 {
-    connect(m_textWatcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
 }
 
 QModelIndex SearchModel::findView(DocumentView *view) const
@@ -420,9 +432,14 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         return *object;
     }
 
-    if(!m_textWatcher->isRunning())
+    if(m_textWatchers.size() < 20 && !m_textWatchers.contains(key))
     {
-        m_textWatcher->setFuture(QtConcurrent::run(textJob, key, result));
+        TextWatcher* watcher = new TextWatcher();
+        m_textWatchers.insert(key, watcher);
+
+        connect(watcher, SIGNAL(finished()), SLOT(on_fetchSurroundingText_finished()));
+
+        watcher->setFuture(QtConcurrent::run(textJob, key, result));
     }
 
     return QLatin1String("...");

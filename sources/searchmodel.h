@@ -118,7 +118,7 @@ private:
     typedef QFutureWatcher< TextJob > TextWatcher;
 
     mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
-    mutable TextWatcher* m_textWatcher;
+    mutable QHash< TextCacheKey, TextWatcher* > m_textWatchers;
 
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
 
