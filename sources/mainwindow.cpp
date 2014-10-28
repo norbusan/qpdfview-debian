@@ -1066,6 +1066,7 @@ void MainWindow::on_jumpForward_triggered()
 void MainWindow::on_search_triggered()
 {
     m_searchDock->setVisible(true);
+    m_searchDock->raise();
 
     m_searchLineEdit->selectAll();
     m_searchLineEdit->setFocus();
