@@ -213,7 +213,7 @@ protected slots:
     void on_toggleToolBars_triggered(bool checked);
     void on_toggleMenuBar_triggered(bool checked);
 
-    void on_searchInitiated(const QString& text, bool allTabs);
+    void on_searchInitiated(const QString& text, bool modified);
     void on_highlightAll_clicked(bool checked);
 
     void on_dock_dockLocationChanged(Qt::DockWidgetArea area);

@@ -264,7 +264,7 @@ public:
     void stopTimer();
 
 signals:
-    void searchInitiated(const QString& text, bool allTabs = false);
+    void searchInitiated(const QString& text, bool modified = false);
 
 protected slots:
     void on_timeout();

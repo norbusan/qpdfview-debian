@@ -1681,10 +1681,12 @@ void MainWindow::on_toggleMenuBar_triggered(bool checked)
     menuBar()->setVisible(checked);
 }
 
-void MainWindow::on_searchInitiated(const QString& text, bool allTabs)
+void MainWindow::on_searchInitiated(const QString& text, bool modified)
 {
     if(!text.isEmpty())
     {
+        const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
+
         if(allTabs)
         {
             for(int index = 0; index < m_tabWidget->count(); ++index)
