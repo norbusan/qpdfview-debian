@@ -2601,6 +2601,7 @@ void MainWindow::createDocks()
 
     connect(m_outlineView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_outline_sectionCountChanged()));
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
+    connect(m_outlineView, SIGNAL(activated(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
 
     m_outlineDock->setWidget(m_outlineView);
 
@@ -2644,6 +2645,7 @@ void MainWindow::createDocks()
 
     connect(m_bookmarksView->horizontalHeader(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_bookmarks_sectionCountChanged()));
     connect(m_bookmarksView, SIGNAL(clicked(QModelIndex)), SLOT(on_bookmarks_clicked(QModelIndex)));
+    connect(m_bookmarksView, SIGNAL(activated(QModelIndex)), SLOT(on_bookmarks_clicked(QModelIndex)));
     connect(m_bookmarksView, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_bookmarks_contextMenuRequested(QPoint)));
 
     m_bookmarksDock->setWidget(m_bookmarksView);
@@ -2694,6 +2696,7 @@ void MainWindow::createDocks()
 
         connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
         connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
+        connect(m_searchView, SIGNAL(activated(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
 
         searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
 
