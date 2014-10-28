@@ -79,7 +79,7 @@ using namespace qpdfview;
 
 QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
 {
-    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
+    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
     {
         const QModelIndex index = outlineView->model()->index(row, 0, parent);
 
@@ -92,7 +92,7 @@ QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const
         }
     }
 
-    for(int row = 0; row < outlineView->model()->rowCount(parent); ++row)
+    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
     {
         const QModelIndex index = outlineView->model()->index(row, 0, parent);
         const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
