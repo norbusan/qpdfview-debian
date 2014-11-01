@@ -2175,6 +2175,11 @@ void MainWindow::closeTab(DocumentView* tab)
     {
         delete tab;
     }
+
+    if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
+    {
+        close();
+    }
 }
 
 bool MainWindow::saveModifications(DocumentView* tab)

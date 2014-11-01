@@ -694,6 +694,13 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("New tab next to current tab:"), m_newTabNextToCurrentTabCheckBox);
 
+    // exit after last tab
+
+    m_exitAfterLastTabCheckBox = new QCheckBox(this);
+    m_exitAfterLastTabCheckBox->setChecked(s_settings->mainWindow().exitAfterLastTab());
+
+    m_interfaceLayout->addRow(tr("Exit after last tab:"), m_exitAfterLastTabCheckBox);
+
     // recently used count
 
     m_recentlyUsedCountSpinBox = new QSpinBox(this);
@@ -815,6 +822,7 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setSpreadTabs(m_spreadTabsCheckBox->isChecked());
 
     s_settings->mainWindow().setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
+    s_settings->mainWindow().setExitAfterLastTab(m_exitAfterLastTabCheckBox->isChecked());
 
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
     s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
@@ -847,6 +855,7 @@ void SettingsDialog::resetInterfaceTab()
     m_spreadTabsCheckBox->setChecked(Defaults::MainWindow::spreadTabs());
 
     m_newTabNextToCurrentTabCheckBox->setChecked(Defaults::MainWindow::newTabNextToCurrentTab());
+    m_exitAfterLastTabCheckBox->setChecked(Defaults::MainWindow::exitAfterLastTab());
 
     m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
     m_recentlyClosedCountSpinBox->setValue(Defaults::MainWindow::recentlyClosedCount());

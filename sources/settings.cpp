@@ -718,6 +718,16 @@ void Settings::MainWindow::setNewTabNextToCurrentTab(bool newTabNextToCurrentTab
     m_settings->setValue("mainWindow/newTabNextToCurrentTab", newTabNextToCurrentTab);
 }
 
+bool Settings::MainWindow::exitAfterLastTab() const
+{
+    return m_settings->value("mainWindow/exitAfterLastTab", Defaults::MainWindow::exitAfterLastTab()).toBool();
+}
+
+void Settings::MainWindow::setExitAfterLastTab(bool exitAfterLastTab)
+{
+    m_settings->setValue("mainWindow/exitAfterLastTab", exitAfterLastTab);
+}
+
 bool Settings::MainWindow::documentTitleAsTabTitle() const
 {
     return m_settings->value("mainWindow/documentAsTabTitle", Defaults::MainWindow::documentTitleAsTabTitle()).toBool();

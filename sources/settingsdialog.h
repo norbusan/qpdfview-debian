@@ -151,6 +151,7 @@ private:
     QCheckBox* m_spreadTabsCheckBox;
 
     QCheckBox* m_newTabNextToCurrentTabCheckBox;
+    QCheckBox* m_exitAfterLastTabCheckBox;
 
     QSpinBox* m_recentlyUsedCountSpinBox;
     QSpinBox* m_recentlyClosedCountSpinBox;

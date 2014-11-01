@@ -316,6 +316,9 @@ public:
         bool newTabNextToCurrentTab() const;
         void setNewTabNextToCurrentTab(bool newTabNextToCurrentTab);
 
+        bool exitAfterLastTab() const;
+        void setExitAfterLastTab(bool exitAfterLastTab);
+
         bool documentTitleAsTabTitle() const;
         void setDocumentTitleAsTabTitle(bool documentTitleAsTabTitle);
 
@@ -584,6 +587,7 @@ public:
         static inline bool spreadTabs() { return false; }
 
         static inline bool newTabNextToCurrentTab() { return true; }
+        static inline bool exitAfterLastTab() { return false; }
 
         static inline bool documentTitleAsTabTitle() { return true; }
 
