@@ -471,6 +471,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_currentPageSpinBox->setValue(1);
         m_scaleFactorComboBox->setCurrentIndex(4);
 
+        m_jumpBackwardAction->setEnabled(false);
+        m_jumpForwardAction->setEnabled(false);
+
         m_copyToClipboardModeAction->setChecked(false);
         m_addAnnotationModeAction->setChecked(false);
 
