@@ -525,7 +525,7 @@ public:
         static inline bool limitThumbnailsToResults() { return false; }
 
         static inline qreal minimumScaleFactor() { return 0.1; }
-        static inline qreal maximumScaleFactor() { return 10.0; }
+        static inline qreal maximumScaleFactor() { return 50.0; }
 
         static inline qreal zoomFactor() { return 1.1; }
 

@@ -2379,7 +2379,9 @@ void MainWindow::createWidgets()
     m_scaleFactorComboBox->addItem("125 %", 1.25);
     m_scaleFactorComboBox->addItem("150 %", 1.5);
     m_scaleFactorComboBox->addItem("200 %", 2.0);
+    m_scaleFactorComboBox->addItem("300 %", 3.0);
     m_scaleFactorComboBox->addItem("400 %", 4.0);
+    m_scaleFactorComboBox->addItem("500 %", 5.0);
 
     connect(m_scaleFactorComboBox, SIGNAL(activated(int)), SLOT(on_scaleFactor_activated(int)));
     connect(m_scaleFactorComboBox->lineEdit(), SIGNAL(editingFinished()), SLOT(on_scaleFactor_editingFinished()));
