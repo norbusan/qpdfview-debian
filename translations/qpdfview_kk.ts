@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="kk_KZ">
+<TS version="2.1">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -112,7 +112,7 @@
     <message>
         <location filename="../sources/main.cpp" line="219"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Белгісіз &apos;%1&apos; командалық жол опциясы.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="250"/>
@@ -148,44 +148,44 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="949"/>
+        <location filename="../sources/settingsdialog.cpp" line="958"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="950"/>
+        <location filename="../sources/settingsdialog.cpp" line="959"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="951"/>
+        <location filename="../sources/settingsdialog.cpp" line="960"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="952"/>
+        <location filename="../sources/settingsdialog.cpp" line="961"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift және Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="953"/>
+        <location filename="../sources/settingsdialog.cpp" line="962"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift және Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="954"/>
+        <location filename="../sources/settingsdialog.cpp" line="963"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl және Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="955"/>
+        <location filename="../sources/settingsdialog.cpp" line="964"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Тышқанның оң жақ батырмасы</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="956"/>
+        <location filename="../sources/settingsdialog.cpp" line="965"/>
         <source>Middle mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Тышқанның орта батырмасы</translation>
     </message>
 </context>
 <context>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бетбелгі</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -203,17 +203,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Белгі:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Түсіндірме:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Түзетілген:</translation>
     </message>
 </context>
 <context>
@@ -329,7 +329,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Қаріптер</translation>
     </message>
 </context>
 <context>
@@ -337,7 +337,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Көмек</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -361,23 +361,23 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="154"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Саймандар панельдерін көрсету/жасыру</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="155"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Мәзір жолағын көрсету/жасыру</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="229"/>
         <location filename="../sources/mainwindow.cpp" line="302"/>
-        <location filename="../sources/mainwindow.cpp" line="927"/>
-        <location filename="../sources/mainwindow.cpp" line="944"/>
-        <location filename="../sources/mainwindow.cpp" line="961"/>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
-        <location filename="../sources/mainwindow.cpp" line="1133"/>
-        <location filename="../sources/mainwindow.cpp" line="2184"/>
-        <location filename="../sources/mainwindow.cpp" line="2198"/>
+        <location filename="../sources/mainwindow.cpp" line="930"/>
+        <location filename="../sources/mainwindow.cpp" line="947"/>
+        <location filename="../sources/mainwindow.cpp" line="964"/>
+        <location filename="../sources/mainwindow.cpp" line="1000"/>
+        <location filename="../sources/mainwindow.cpp" line="1137"/>
+        <location filename="../sources/mainwindow.cpp" line="2195"/>
+        <location filename="../sources/mainwindow.cpp" line="2209"/>
         <source>Warning</source>
         <translation type="unfinished">Ескерту</translation>
     </message>
@@ -388,480 +388,480 @@
         <translation type="unfinished">&apos;%1&apos; ашу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="501"/>
+        <location filename="../sources/mainwindow.cpp" line="504"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Барлық беттерді жабу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="502"/>
+        <location filename="../sources/mainwindow.cpp" line="505"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Осыдан басқа барлық бетті жабу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="503"/>
+        <location filename="../sources/mainwindow.cpp" line="506"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Сол жақта барлық бетті жабу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="504"/>
+        <location filename="../sources/mainwindow.cpp" line="507"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Оң жақта барлық бетті жабу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="885"/>
+        <location filename="../sources/mainwindow.cpp" line="888"/>
         <source>Open</source>
         <translation type="unfinished">Ашу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="901"/>
+        <location filename="../sources/mainwindow.cpp" line="904"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Жаңа бетте ашу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="927"/>
-        <location filename="../sources/mainwindow.cpp" line="1133"/>
+        <location filename="../sources/mainwindow.cpp" line="930"/>
+        <location filename="../sources/mainwindow.cpp" line="1137"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; жаңарту мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="934"/>
+        <location filename="../sources/mainwindow.cpp" line="937"/>
         <source>Save copy</source>
         <translation type="unfinished">Көшірмесін сақтау</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="944"/>
+        <location filename="../sources/mainwindow.cpp" line="947"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Көшірмені &apos;%1&apos; жерінде сақтау мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="951"/>
-        <location filename="../sources/mainwindow.cpp" line="2188"/>
+        <location filename="../sources/mainwindow.cpp" line="954"/>
+        <location filename="../sources/mainwindow.cpp" line="2199"/>
         <source>Save as</source>
         <translation type="unfinished">Қалайша сақтау</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="961"/>
-        <location filename="../sources/mainwindow.cpp" line="2198"/>
+        <location filename="../sources/mainwindow.cpp" line="964"/>
+        <location filename="../sources/mainwindow.cpp" line="2209"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; ретінде сақтау мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="997"/>
+        <location filename="../sources/mainwindow.cpp" line="1000"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1034"/>
+        <location filename="../sources/mainwindow.cpp" line="1037"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Бірінші бетті орнату</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1034"/>
+        <location filename="../sources/mainwindow.cpp" line="1037"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1047"/>
+        <location filename="../sources/mainwindow.cpp" line="1050"/>
         <source>Jump to page</source>
         <translation type="unfinished">Бетке өту</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1047"/>
+        <location filename="../sources/mainwindow.cpp" line="1050"/>
         <source>Page:</source>
         <translation type="unfinished">Бет:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1424"/>
+        <location filename="../sources/mainwindow.cpp" line="1428"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">%1 бетіне өту</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1575"/>
+        <location filename="../sources/mainwindow.cpp" line="1579"/>
         <source>About qpdfview</source>
         <translation type="unfinished">qpdfview туралы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1575"/>
+        <location filename="../sources/mainwindow.cpp" line="1579"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview - құжаттарды көрсетушісі, Qt қолданады.&lt;/p&gt;&lt;p&gt;Бұл нұсқада бар:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1579"/>
+        <location filename="../sources/mainwindow.cpp" line="1583"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF қолдауы Poppler %1 негізінде&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1582"/>
+        <location filename="../sources/mainwindow.cpp" line="1586"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PS қолдауы libspectre %1 негізінде&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1585"/>
+        <location filename="../sources/mainwindow.cpp" line="1589"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;DjVu қолдауы DjVuLibre %1 негізінде&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1588"/>
+        <location filename="../sources/mainwindow.cpp" line="1592"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF қолдауы Fitz %1 негізінде&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1591"/>
+        <location filename="../sources/mainwindow.cpp" line="1595"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;Баспаға шығару CUPS %1 негізінде&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1593"/>
+        <location filename="../sources/mainwindow.cpp" line="1597"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Көбірек білу үшін &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; қараңыз.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 qpdfview өндірушілері&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1916"/>
-        <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2184"/>
-        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">&apos;%1&apos; құжаты өзгертілген. Өзгерістерді сақтау керек пе?</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2363"/>
-        <source>Page width</source>
-        <translation type="unfinished">Бет ені</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2364"/>
-        <source>Page size</source>
-        <translation type="unfinished">Бет өлшемдері</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2385"/>
-        <source>Match &amp;case</source>
-        <translation type="unfinished">Ре&amp;гистрін ескеру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2386"/>
-        <source>Highlight &amp;all</source>
-        <translation type="unfinished">Б&amp;арлығын түспен ерекшелеу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2433"/>
-        <source>&amp;Open...</source>
-        <translation type="unfinished">А&amp;шу...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2434"/>
-        <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">Жаңа бе&amp;тте ашу...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2436"/>
-        <source>&amp;Refresh</source>
-        <translation type="unfinished">Жаңа&amp;рту</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2437"/>
-        <source>&amp;Save copy...</source>
-        <translation type="unfinished">Көшірмесін &amp;сақтау...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2438"/>
-        <source>Save &amp;as...</source>
-        <translation type="unfinished">Қала&amp;йша сақтау...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2439"/>
-        <source>&amp;Print...</source>
-        <translation type="unfinished">Бас&amp;паға шығару...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2440"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished">&amp;Шығу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2444"/>
-        <source>&amp;Previous page</source>
-        <translation type="unfinished">А&amp;лдыңғы бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2445"/>
-        <source>&amp;Next page</source>
-        <translation type="unfinished">К&amp;елесі бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2446"/>
-        <source>&amp;First page</source>
-        <translation type="unfinished">&amp;Бірінші бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2447"/>
-        <source>&amp;Last page</source>
-        <translation type="unfinished">С&amp;оңғы бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2449"/>
-        <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2451"/>
-        <source>&amp;Jump to page...</source>
-        <translation type="unfinished">Б&amp;етке өту...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2453"/>
-        <source>Jump &amp;backward</source>
-        <translation type="unfinished">Ар&amp;тқа секіру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2454"/>
-        <source>Jump for&amp;ward</source>
-        <translation type="unfinished">А&amp;лға секіру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2456"/>
-        <source>&amp;Search...</source>
-        <translation type="unfinished">І&amp;здеу...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2457"/>
-        <source>Find previous</source>
-        <translation type="unfinished">Алдыңғысын табу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2458"/>
-        <source>Find next</source>
-        <translation type="unfinished">Келесісін табу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2459"/>
-        <source>Cancel search</source>
-        <translation type="unfinished">Іздеуден бас тарту</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2461"/>
-        <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">Алмасу буферіне &amp;көшіру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2462"/>
-        <source>&amp;Add annotation</source>
-        <translation type="unfinished">Аңдатпаны қ&amp;осу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2464"/>
-        <source>Settings...</source>
-        <translation type="unfinished">Баптаулар...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2468"/>
-        <source>&amp;Continuous</source>
-        <translation type="unfinished">Ү&amp;зіліссіз</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2469"/>
-        <source>&amp;Two pages</source>
-        <translation type="unfinished">&amp;Екі бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2470"/>
-        <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished">Екі бет, мұқабамен &amp;бірге</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2471"/>
-        <source>&amp;Multiple pages</source>
-        <translation type="unfinished">Бірн&amp;еше бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2473"/>
-        <source>Right to left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2475"/>
-        <source>Zoom &amp;in</source>
-        <translation type="unfinished">Үлке&amp;йту</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2476"/>
-        <source>Zoom &amp;out</source>
-        <translation type="unfinished">Кі&amp;шірейту</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2477"/>
-        <source>Original &amp;size</source>
-        <translation type="unfinished">Бастапқы ө&amp;лшемі</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2479"/>
-        <source>Fit to page width</source>
-        <translation type="unfinished">Бет енімен сыйдыру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2480"/>
-        <source>Fit to page size</source>
-        <translation type="unfinished">Бет өлшемімен сыйдыру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2482"/>
-        <source>Rotate &amp;left</source>
-        <translation type="unfinished">&amp;Солға бұру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2483"/>
-        <source>Rotate &amp;right</source>
-        <translation type="unfinished">&amp;Оңға бұру</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2485"/>
-        <source>Invert colors</source>
-        <translation type="unfinished">Түстерді терістеу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2487"/>
-        <source>Fonts...</source>
-        <translation type="unfinished">Қаріптер...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2489"/>
-        <source>&amp;Fullscreen</source>
-        <translation type="unfinished">Толық &amp;экранға</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2490"/>
-        <source>&amp;Presentation...</source>
-        <translation type="unfinished">&amp;Презентация...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2494"/>
-        <source>&amp;Previous tab</source>
-        <translation type="unfinished">А&amp;лдыңғы бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2495"/>
-        <source>&amp;Next tab</source>
-        <translation type="unfinished">К&amp;елесі бет</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2497"/>
-        <source>&amp;Close tab</source>
-        <translation type="unfinished">Бетті жа&amp;бу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2498"/>
-        <source>Close &amp;all tabs</source>
-        <translation type="unfinished">Б&amp;арлық беттерді жабу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2499"/>
-        <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished">Ағ&amp;ымдағы беттен барлық басқа беттерді жабу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2510"/>
-        <source>&amp;Previous bookmark</source>
-        <translation type="unfinished">Ал&amp;дыңғы бетбелгі</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2511"/>
-        <source>&amp;Next bookmark</source>
-        <translation type="unfinished">Ке&amp;лесі бетбелгі</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2513"/>
-        <source>&amp;Add bookmark</source>
-        <translation type="unfinished">Бе&amp;тбелгіні қосу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1915"/>
-        <location filename="../sources/mainwindow.cpp" line="2514"/>
+        <location filename="../sources/mainwindow.cpp" line="1921"/>
+        <location filename="../sources/mainwindow.cpp" line="2525"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Бетбелгіні ө&amp;шіру</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2435"/>
+        <location filename="../sources/mainwindow.cpp" line="1922"/>
+        <source>&amp;Edit bookmark</source>
+        <translation type="unfinished">Бетбелгіні түз&amp;ету</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2195"/>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <translation type="unfinished">&apos;%1&apos; құжаты өзгертілген. Өзгерістерді сақтау керек пе?</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2374"/>
+        <source>Page width</source>
+        <translation type="unfinished">Бет ені</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2375"/>
+        <source>Page size</source>
+        <translation type="unfinished">Бет өлшемдері</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2396"/>
+        <source>Match &amp;case</source>
+        <translation type="unfinished">Ре&amp;гистрін ескеру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2397"/>
+        <source>Highlight &amp;all</source>
+        <translation type="unfinished">Б&amp;арлығын түспен ерекшелеу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2444"/>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">А&amp;шу...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2445"/>
+        <source>Open in new &amp;tab...</source>
+        <translation type="unfinished">Жаңа бе&amp;тте ашу...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2446"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2515"/>
+        <location filename="../sources/mainwindow.cpp" line="2447"/>
+        <source>&amp;Refresh</source>
+        <translation type="unfinished">Жаңа&amp;рту</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2448"/>
+        <source>&amp;Save copy...</source>
+        <translation type="unfinished">Көшірмесін &amp;сақтау...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2449"/>
+        <source>Save &amp;as...</source>
+        <translation type="unfinished">Қала&amp;йша сақтау...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2450"/>
+        <source>&amp;Print...</source>
+        <translation type="unfinished">Бас&amp;паға шығару...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2451"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">&amp;Шығу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2455"/>
+        <source>&amp;Previous page</source>
+        <translation type="unfinished">А&amp;лдыңғы бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2456"/>
+        <source>&amp;Next page</source>
+        <translation type="unfinished">К&amp;елесі бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2457"/>
+        <source>&amp;First page</source>
+        <translation type="unfinished">&amp;Бірінші бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2458"/>
+        <source>&amp;Last page</source>
+        <translation type="unfinished">С&amp;оңғы бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2460"/>
+        <source>&amp;Set first page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2462"/>
+        <source>&amp;Jump to page...</source>
+        <translation type="unfinished">Б&amp;етке өту...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2464"/>
+        <source>Jump &amp;backward</source>
+        <translation type="unfinished">Ар&amp;тқа секіру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2465"/>
+        <source>Jump for&amp;ward</source>
+        <translation type="unfinished">А&amp;лға секіру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2467"/>
+        <source>&amp;Search...</source>
+        <translation type="unfinished">І&amp;здеу...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2468"/>
+        <source>Find previous</source>
+        <translation type="unfinished">Алдыңғысын табу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2469"/>
+        <source>Find next</source>
+        <translation type="unfinished">Келесісін табу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2470"/>
+        <source>Cancel search</source>
+        <translation type="unfinished">Іздеуден бас тарту</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2472"/>
+        <source>&amp;Copy to clipboard</source>
+        <translation type="unfinished">Алмасу буферіне &amp;көшіру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2473"/>
+        <source>&amp;Add annotation</source>
+        <translation type="unfinished">Аңдатпаны қ&amp;осу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2475"/>
+        <source>Settings...</source>
+        <translation type="unfinished">Баптаулар...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2479"/>
+        <source>&amp;Continuous</source>
+        <translation type="unfinished">Ү&amp;зіліссіз</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2480"/>
+        <source>&amp;Two pages</source>
+        <translation type="unfinished">&amp;Екі бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2481"/>
+        <source>Two pages &amp;with cover page</source>
+        <translation type="unfinished">Екі бет, мұқабамен &amp;бірге</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2482"/>
+        <source>&amp;Multiple pages</source>
+        <translation type="unfinished">Бірн&amp;еше бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2484"/>
+        <source>Right to left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2486"/>
+        <source>Zoom &amp;in</source>
+        <translation type="unfinished">Үлке&amp;йту</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2487"/>
+        <source>Zoom &amp;out</source>
+        <translation type="unfinished">Кі&amp;шірейту</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2488"/>
+        <source>Original &amp;size</source>
+        <translation type="unfinished">Бастапқы ө&amp;лшемі</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2490"/>
+        <source>Fit to page width</source>
+        <translation type="unfinished">Бет енімен сыйдыру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2491"/>
+        <source>Fit to page size</source>
+        <translation type="unfinished">Бет өлшемімен сыйдыру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2493"/>
+        <source>Rotate &amp;left</source>
+        <translation type="unfinished">&amp;Солға бұру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2494"/>
+        <source>Rotate &amp;right</source>
+        <translation type="unfinished">&amp;Оңға бұру</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2496"/>
+        <source>Invert colors</source>
+        <translation type="unfinished">Түстерді терістеу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2498"/>
+        <source>Fonts...</source>
+        <translation type="unfinished">Қаріптер...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2500"/>
+        <source>&amp;Fullscreen</source>
+        <translation type="unfinished">Толық &amp;экранға</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2501"/>
+        <source>&amp;Presentation...</source>
+        <translation type="unfinished">&amp;Презентация...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2505"/>
+        <source>&amp;Previous tab</source>
+        <translation type="unfinished">А&amp;лдыңғы бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <source>&amp;Next tab</source>
+        <translation type="unfinished">К&amp;елесі бет</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2508"/>
+        <source>&amp;Close tab</source>
+        <translation type="unfinished">Бетті жа&amp;бу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2509"/>
+        <source>Close &amp;all tabs</source>
+        <translation type="unfinished">Б&amp;арлық беттерді жабу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2510"/>
+        <source>Close all tabs &amp;but current tab</source>
+        <translation type="unfinished">Ағ&amp;ымдағы беттен барлық басқа беттерді жабу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2521"/>
+        <source>&amp;Previous bookmark</source>
+        <translation type="unfinished">Ал&amp;дыңғы бетбелгі</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2522"/>
+        <source>&amp;Next bookmark</source>
+        <translation type="unfinished">Ке&amp;лесі бетбелгі</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2524"/>
+        <source>&amp;Add bookmark</source>
+        <translation type="unfinished">Бе&amp;тбелгіні қосу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2526"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Барлық бетбелгілерді өшіру</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2519"/>
+        <location filename="../sources/mainwindow.cpp" line="2530"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">Құра&amp;масы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2520"/>
+        <location filename="../sources/mainwindow.cpp" line="2531"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Осы туралы</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2556"/>
-        <location filename="../sources/mainwindow.cpp" line="2724"/>
+        <location filename="../sources/mainwindow.cpp" line="2567"/>
+        <location filename="../sources/mainwindow.cpp" line="2738"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2559"/>
-        <location filename="../sources/mainwindow.cpp" line="2745"/>
+        <location filename="../sources/mainwindow.cpp" line="2570"/>
+        <location filename="../sources/mainwindow.cpp" line="2759"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Түзету</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2562"/>
-        <location filename="../sources/mainwindow.cpp" line="2758"/>
+        <location filename="../sources/mainwindow.cpp" line="2573"/>
+        <location filename="../sources/mainwindow.cpp" line="2772"/>
         <source>&amp;View</source>
         <translation type="unfinished">Тү&amp;рі</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2593"/>
+        <location filename="../sources/mainwindow.cpp" line="2604"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Мазмұны</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2608"/>
+        <location filename="../sources/mainwindow.cpp" line="2620"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">Қас&amp;иеттері</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2621"/>
+        <location filename="../sources/mainwindow.cpp" line="2633"/>
         <source>&amp;Thumbnails</source>
         <translation type="unfinished">Үл&amp;гілер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">І&amp;здеу</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2770"/>
-        <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Саймандар панельдері</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2773"/>
-        <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Бекіткіштер</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2782"/>
-        <source>&amp;Tabs</source>
-        <translation type="unfinished">Б&amp;еттер</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2633"/>
-        <location filename="../sources/mainwindow.cpp" line="2800"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
+        <location filename="../sources/mainwindow.cpp" line="2814"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Бетбелгілер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="2665"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">І&amp;здеу</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
+        <source>&amp;Tool bars</source>
+        <translation type="unfinished">&amp;Саймандар панельдері</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2787"/>
+        <source>&amp;Docks</source>
+        <translation type="unfinished">&amp;Бекіткіштер</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2796"/>
+        <source>&amp;Tabs</source>
+        <translation type="unfinished">Б&amp;еттер</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Көмек</translation>
     </message>
@@ -1210,6 +1210,11 @@
 <context>
     <name>qpdfview::SettingsDialog</name>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="93"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>General</source>
         <translation type="unfinished">Жалпы</translation>
@@ -1262,12 +1267,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="237"/>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
-        <location filename="../sources/settingsdialog.cpp" line="702"/>
-        <location filename="../sources/settingsdialog.cpp" line="711"/>
-        <location filename="../sources/settingsdialog.cpp" line="719"/>
-        <location filename="../sources/settingsdialog.cpp" line="734"/>
-        <location filename="../sources/settingsdialog.cpp" line="742"/>
-        <location filename="../sources/settingsdialog.cpp" line="750"/>
+        <location filename="../sources/settingsdialog.cpp" line="709"/>
+        <location filename="../sources/settingsdialog.cpp" line="718"/>
+        <location filename="../sources/settingsdialog.cpp" line="726"/>
+        <location filename="../sources/settingsdialog.cpp" line="741"/>
+        <location filename="../sources/settingsdialog.cpp" line="749"/>
+        <location filename="../sources/settingsdialog.cpp" line="757"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Қайта қосудан кейін іске асады.</translation>
     </message>
@@ -1302,6 +1307,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="275"/>
+        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <source>Never</source>
+        <translation type="unfinished">Ешқашан</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
         <source>Save database interval:</source>
         <translation type="unfinished"></translation>
@@ -1320,6 +1331,11 @@
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Презентация экраны</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="319"/>
@@ -1504,22 +1520,6 @@
         <translation type="unfinished">Әрқашан</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="911"/>
-        <source>Zoom to selection:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="275"/>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
-        <source>Never</source>
-        <translation type="unfinished">Ешқашан</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="93"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="681"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Бет көрінуі:</translation>
@@ -1535,109 +1535,114 @@
         <translation type="unfinished">Жаңа бетті ағымдағы беттен кейін ашу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="704"/>
+        <location filename="../sources/settingsdialog.cpp" line="702"/>
+        <source>Exit after last tab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="711"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Жақында қолданылған құжаттар саны:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="713"/>
+        <location filename="../sources/settingsdialog.cpp" line="720"/>
         <source>Recently closed count:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="721"/>
+        <location filename="../sources/settingsdialog.cpp" line="728"/>
         <source>Extended search dock:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="728"/>
+        <location filename="../sources/settingsdialog.cpp" line="735"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="736"/>
+        <location filename="../sources/settingsdialog.cpp" line="743"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Файл саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="744"/>
+        <location filename="../sources/settingsdialog.cpp" line="751"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Түзету саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="752"/>
+        <location filename="../sources/settingsdialog.cpp" line="759"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Түрі саймандар панелі:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="759"/>
+        <location filename="../sources/settingsdialog.cpp" line="766"/>
         <source>Use page label:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="766"/>
+        <location filename="../sources/settingsdialog.cpp" line="773"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="773"/>
+        <location filename="../sources/settingsdialog.cpp" line="780"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Терезе атауында ағымдағы бет:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="780"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="787"/>
+        <location filename="../sources/settingsdialog.cpp" line="794"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Ағымдағы үлгіні түспен ерекшелеу:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="794"/>
+        <location filename="../sources/settingsdialog.cpp" line="801"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="801"/>
+        <location filename="../sources/settingsdialog.cpp" line="808"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="808"/>
+        <location filename="../sources/settingsdialog.cpp" line="815"/>
         <source>Form field overlay:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="881"/>
+        <location filename="../sources/settingsdialog.cpp" line="890"/>
         <source>Zoom:</source>
         <translation type="unfinished">Масштаб:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="887"/>
+        <location filename="../sources/settingsdialog.cpp" line="896"/>
         <source>Rotate:</source>
         <translation type="unfinished">Бұру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="893"/>
+        <location filename="../sources/settingsdialog.cpp" line="902"/>
         <source>Scroll:</source>
         <translation type="unfinished">Айналдыру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="899"/>
+        <location filename="../sources/settingsdialog.cpp" line="908"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Алмасу буферіне көшіру:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="905"/>
+        <location filename="../sources/settingsdialog.cpp" line="914"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Аңдатпаны қосу:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="920"/>
+        <source>Zoom to selection:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

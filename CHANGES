@@ -3,6 +3,13 @@ Release 0.4.13:
   * Fix a crash when loading corrupted DjVu documents.
   * Remove the dialog warning about unknown file type to fix the '--quiet' option.
   * Add optional extended search dock displaying results from all open tabs. Thanks to S. Razi Alavizadeh.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Portuguese translations. Thanks to Sérgio Marques.
 
 Release 0.4.12:
   * Fixed loading document-supplied view mode defaults.
