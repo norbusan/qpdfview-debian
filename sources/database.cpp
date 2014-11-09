@@ -367,10 +367,6 @@ void Database::saveBookmarks()
         transaction.commit();
     }
 
-#else
-
-    Q_UNUSED(bookmarks);
-
 #endif // WITH_SQL
 }
 
