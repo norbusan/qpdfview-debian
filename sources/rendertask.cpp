@@ -266,18 +266,18 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_renderParam.invertColors)
-    {
-        CANCELLATION_POINT
-
-        image.invertPixels();
-    }
-
     if(m_trimMargins)
     {
         CANCELLATION_POINT
 
         cropRect = trimMargins(m_paperColor.rgb(), image);
+    }
+
+    if(m_renderParam.invertColors)
+    {
+        CANCELLATION_POINT
+
+        image.invertPixels();
     }
 
     CANCELLATION_POINT
