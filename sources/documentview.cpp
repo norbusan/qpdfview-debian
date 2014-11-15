@@ -1585,13 +1585,13 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
 
 void DocumentView::mousePressEvent(QMouseEvent* event)
 {
-    if(event->button() == Qt::BackButton)
+    if(event->button() == Qt::XButton1)
     {
         event->accept();
 
         jumpBackward();
     }
-    else if(event->button() == Qt::ForwardButton)
+    else if(event->button() == Qt::XButton2)
     {
         event->accept();
 
