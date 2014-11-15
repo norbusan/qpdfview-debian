@@ -346,7 +346,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_rotation = s_settings->documentView().rotation();
 
     m_invertColors = s_settings->documentView().invertColors();
-    // TODO: m_convertToGrayscale
+    m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
     m_highlightAll = s_settings->documentView().highlightAll();
 }
 
@@ -688,7 +688,7 @@ void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
 
         emit convertToGrayscaleChanged(m_convertToGrayscale);
 
-        // TODO: s_settings
+        s_settings->documentView().setConvertToGrayscale(m_convertToGrayscale);
     }
 }
 

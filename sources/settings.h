@@ -248,6 +248,9 @@ public:
         bool invertColors() const;
         void setInvertColors(bool invertColors);
 
+        bool convertToGrayscale() const;
+        void setConvertToGrayscale(bool convertToGrayscale);
+
         bool highlightAll() const;
         void setHighlightAll(bool highlightAll);
 
@@ -558,6 +561,7 @@ public:
         static inline Rotation rotation() { return RotateBy0; }
 
         static inline bool invertColors() { return false; }
+        static inline bool convertToGrayscale() { return false; }
 
         static inline bool highlightAll() { return false; }
 
