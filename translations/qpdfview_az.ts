@@ -781,6 +781,16 @@
         <translation type="unfinished">Əlfəcin əlavə et</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1937"/>
         <location filename="../sources/mainwindow.cpp" line="2544"/>
         <source>&amp;Remove bookmark</source>
@@ -835,11 +845,6 @@
         <translation type="unfinished">Xüsusiyyətlər</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>&amp;Thumbnails</source>
-        <translation type="unfinished">Mİnatur görüntü</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2684"/>
         <source>&amp;Search</source>
         <translation type="unfinished">A&amp;xtar</translation>
@@ -860,7 +865,6 @@
         <translation type="unfinished">Səkmələr</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
         <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Əlfəcinlər</translation>

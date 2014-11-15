@@ -835,12 +835,6 @@
         <translation type="unfinished">&amp;Właściwości</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>&amp;Thumbnails</source>
-        <translation type="unfinished">&amp;Miniatury</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
         <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Zakładki</translation>
@@ -849,6 +843,16 @@
         <location filename="../sources/mainwindow.cpp" line="2684"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Wyszukaj</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2803"/>

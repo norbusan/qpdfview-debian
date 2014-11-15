@@ -781,6 +781,16 @@
         <translation type="unfinished">添加书签(&amp;A)</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="1937"/>
         <location filename="../sources/mainwindow.cpp" line="2544"/>
         <source>&amp;Remove bookmark</source>
@@ -835,11 +845,6 @@
         <translation type="unfinished">属性(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>&amp;Thumbnails</source>
-        <translation type="unfinished">缩略图(&amp;T)</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2684"/>
         <source>&amp;Search</source>
         <translation type="unfinished">搜索(&amp;S)</translation>
@@ -860,7 +865,6 @@
         <translation type="unfinished">标签(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
         <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">书签(&amp;B)</translation>

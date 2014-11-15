@@ -2649,7 +2649,7 @@ void MainWindow::createDocks()
 
     // thumbnails
 
-    m_thumbnailsDock = createDock(tr("&Thumbnails"), QLatin1String("thumbnailsDock"), QKeySequence(Qt::Key_F8));
+    m_thumbnailsDock = createDock(tr("Thumb&nails"), QLatin1String("thumbnailsDock"), QKeySequence(Qt::Key_F8));
 
     connect(m_thumbnailsDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_thumbnails_dockLocationChanged(Qt::DockWidgetArea)));
 
@@ -2661,7 +2661,7 @@ void MainWindow::createDocks()
 
     // bookmarks
 
-    m_bookmarksDock = createDock(tr("&Bookmarks"), QLatin1String("bookmarksDock"), QKeySequence(Qt::Key_F9));
+    m_bookmarksDock = createDock(tr("Book&marks"), QLatin1String("bookmarksDock"), QKeySequence(Qt::Key_F9));
 
     m_bookmarksView = new QTableView(this);
     m_bookmarksView->setShowGrid(false);
