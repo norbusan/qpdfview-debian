@@ -50,8 +50,8 @@ struct RenderResolution
     bool operator==(const RenderResolution& other) const
     {
         return resolutionX == other.resolutionX
-                && resolutionY == other.resolutionY
-                && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
+            && resolutionY == other.resolutionY
+            && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
     }
 
     bool operator!=(const RenderResolution& other) const { return !operator==(other); }
@@ -64,21 +64,26 @@ struct RenderParam
 
     qreal scaleFactor;
     Rotation rotation;
+
     bool invertColors;
+    bool convertToGrayscale;
 
     RenderParam(const RenderResolution& resolution = RenderResolution(),
-                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0, bool invertColors = false) :
+                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
+                bool invertColors = false, bool convertToGrayscale = false) :
         resolution(resolution),
         scaleFactor(scaleFactor),
         rotation(rotation),
-        invertColors(invertColors) {}
+        invertColors(invertColors),
+        convertToGrayscale(convertToGrayscale) {}
 
     bool operator==(const RenderParam& other) const
     {
         return resolution == other.resolution
-                && qFuzzyCompare(scaleFactor, other.scaleFactor)
-                && rotation == other.rotation
-                && invertColors == other.invertColors;
+            && qFuzzyCompare(scaleFactor, other.scaleFactor)
+            && rotation == other.rotation
+            && invertColors == other.invertColors
+            && convertToGrayscale == other.convertToGrayscale;
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }

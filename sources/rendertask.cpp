@@ -198,6 +198,20 @@ QRectF trimMargins(QRgb paperColor, const QImage& image)
                   static_cast< qreal >(bottom - top) / height);
 }
 
+void convertToGrayscale(QImage& image)
+{
+    QRgb* begin = reinterpret_cast< QRgb* >(image.bits());
+    QRgb* end = reinterpret_cast< QRgb* >(image.bits() + image.byteCount());
+
+    for(QRgb* pointer = begin; pointer != end; ++pointer)
+    {
+        const int gray = qGray(*pointer);
+        const int alpha = qAlpha(*pointer);
+
+        *pointer = qRgba(gray, gray, gray, alpha);
+    }
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -271,6 +285,13 @@ void RenderTask::run()
         CANCELLATION_POINT
 
         cropRect = trimMargins(m_paperColor.rgb(), image);
+    }
+
+    if(m_renderParam.convertToGrayscale)
+    {
+        CANCELLATION_POINT
+
+        convertToGrayscale(image);
     }
 
     if(m_renderParam.invertColors)
