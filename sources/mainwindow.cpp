@@ -270,6 +270,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
 
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
+        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscale(bool)));
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
@@ -390,6 +391,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_rotateRightAction->setEnabled(hasCurrent);
 
     m_invertColorsAction->setEnabled(hasCurrent);
+    m_convertToGrayscaleAction->setEnabled(hasCurrent);
 
     m_fontsAction->setEnabled(hasCurrent);
 
@@ -442,6 +444,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
 
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
+        on_currentTab_convertToGrayscale(currentTab()->convertToGrayscale());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
 
@@ -758,6 +761,14 @@ void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
     if(senderIsCurrentTab())
     {
         m_invertColorsAction->setChecked(invertColors);
+    }
+}
+
+void MainWindow::on_currentTab_convertToGrayscale(bool convertToGrayscale)
+{
+    if(senderIsCurrentTab())
+    {
+        m_convertToGrayscaleAction->setChecked(convertToGrayscale);
     }
 }
 
@@ -1203,6 +1214,11 @@ void MainWindow::on_rotateRight_triggered()
 void MainWindow::on_invertColors_triggered(bool checked)
 {
     currentTab()->setInvertColors(checked);
+}
+
+void MainWindow::on_convertToGrayscale_triggered(bool checked)
+{
+    currentTab()->setConvertToGrayscale(checked);
 }
 
 void MainWindow::on_fonts_triggered()
@@ -2496,6 +2512,8 @@ void MainWindow::createActions()
     m_rotateRightAction = createAction(tr("Rotate &right"), QLatin1String("rotateRight"), QLatin1String("object-rotate-right"), QKeySequence(Qt::CTRL + Qt::Key_Right), SLOT(on_rotateRight_triggered()));
 
     m_invertColorsAction = createAction(tr("Invert colors"), QLatin1String("invertColors"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_I), SLOT(on_invertColors_triggered(bool)), true);
+    m_convertToGrayscaleAction = createAction(tr("Convert to grayscale"), QLatin1String("convertToGrayscale"), QIcon(), QKeySequence(), SLOT(on_convertToGrayscale_triggered(bool)), true);
+    // TODO: Mnemonic and shortcut?
 
     m_fontsAction = createAction(tr("Fonts..."), QString(), QIcon(), QKeySequence(), SLOT(on_fonts_triggered()));
 
@@ -2780,7 +2798,7 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_rotateLeftAction << m_rotateRightAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_invertColorsAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction);
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));

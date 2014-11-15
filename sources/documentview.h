@@ -107,6 +107,9 @@ public:
     inline bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);
 
+    inline bool convertToGrayscale() const { return m_convertToGrayscale; }
+    void setConvertToGrayscale(bool convertToGrayscale);
+
     inline bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
 
@@ -152,6 +155,7 @@ signals:
     void linkClicked(bool newTab, const QString& filePath, int page);
 
     void invertColorsChanged(bool invertColors);
+    void convertToGrayscaleChanged(bool convertToGrayscale);
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -281,6 +285,7 @@ private:
     Rotation m_rotation;
 
     bool m_invertColors;
+    bool m_convertToGrayscale;
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 

@@ -97,6 +97,9 @@ public:
     inline bool invertColors() { return m_renderParam.invertColors; }
     void setInvertColors(bool invertColors);
 
+    inline bool convertToGrayscale() { return m_renderParam.convertToGrayscale; }
+    void setConvertToGrayscale(bool convertToGrayscale);
+
     inline const QTransform& transform() const { return m_transform; }
     inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 

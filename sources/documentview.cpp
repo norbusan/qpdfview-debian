@@ -251,6 +251,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
     m_invertColors(false),
+    m_convertToGrayscale(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -345,6 +346,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_rotation = s_settings->documentView().rotation();
 
     m_invertColors = s_settings->documentView().invertColors();
+    // TODO: m_convertToGrayscale
     m_highlightAll = s_settings->documentView().highlightAll();
 }
 
@@ -665,6 +667,28 @@ void DocumentView::setInvertColors(bool invertColors)
         emit invertColorsChanged(m_invertColors);
 
         s_settings->documentView().setInvertColors(m_invertColors);
+    }
+}
+
+void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
+{
+    if(m_convertToGrayscale != convertToGrayscale)
+    {
+        m_convertToGrayscale = convertToGrayscale;
+
+        foreach(PageItem* page, m_pageItems)
+        {
+            page->setConvertToGrayscale(m_convertToGrayscale);
+        }
+
+        foreach(ThumbnailItem* page, m_thumbnailItems)
+        {
+            page->setConvertToGrayscale(m_convertToGrayscale);
+        }
+
+        emit convertToGrayscaleChanged(m_convertToGrayscale);
+
+        // TODO: s_settings
     }
 }
 

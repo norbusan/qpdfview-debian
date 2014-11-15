@@ -200,8 +200,8 @@ QRectF trimMargins(QRgb paperColor, const QImage& image)
 
 void convertToGrayscale(QImage& image)
 {
-    QRgb* begin = reinterpret_cast< QRgb* >(image.bits());
-    QRgb* end = reinterpret_cast< QRgb* >(image.bits() + image.byteCount());
+    QRgb* const begin = reinterpret_cast< QRgb* >(image.bits());
+    QRgb* const end = reinterpret_cast< QRgb* >(image.bits() + image.byteCount());
 
     for(QRgb* pointer = begin; pointer != end; ++pointer)
     {

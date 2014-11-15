@@ -271,6 +271,16 @@ void PageItem::setInvertColors(bool invertColors)
     }
 }
 
+void PageItem::setConvertToGrayscale(bool convertToGrayscale)
+{
+    if(m_renderParam.convertToGrayscale != convertToGrayscale)
+    {
+        refresh(false);
+
+        m_renderParam.convertToGrayscale = convertToGrayscale;
+    }
+}
+
 
 void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {

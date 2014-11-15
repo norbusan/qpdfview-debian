@@ -214,7 +214,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
 
     if(prefetch && !m_renderTask->wasCanceledForcibly())
     {
-        int cost = image.width() * image.height() * image.depth() / 8;
+        const int cost = image.width() * image.height() * image.depth() / 8;
         s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
 
         setCropRect(cropRect);
@@ -243,6 +243,7 @@ inline TileItem::CacheKey TileItem::cacheKey() const
             << page->m_renderParam.scaleFactor
             << page->m_renderParam.rotation
             << page->m_renderParam.invertColors
+            << page->m_renderParam.convertToGrayscale
             << m_rect;
 
     return qMakePair(page, key);
