@@ -77,8 +77,8 @@ konfigurasinya.</p>
 semasa. Jika tiada tab, Fail akan dibuka pada tab baru.</li>
 	<li><b>Buka dalam tab baru...</b> Buka dialog untuk memilih fail yang hendak
 dibuka dalam tab baru.</li>
-    <li><b>Open containing folder</b> Opens the folder containing the file displayed
-in the current tab.</li>
+    <li><b>Buka folder yang dikandungi</b> Buka folder yang mengandungi fail
+terpapar dalam tab semasa.</li>
 	<li><b>Diguna baru-baru ini</b> Mengandungi senarai fail yang baru diguna (jika
 dibenarkan dalam tetapan).</li>
 	<li><b>Segar semula</b> Muat semula fail yang dipaparkan dalam tab semasa.</li>
@@ -135,8 +135,10 @@ gunakan dua lajur dengan hentian selepas muka hadapan.</li>
 berbilang. Bilangan lajur boleh diubah dalam dialog tetapan.</li>
     <li><b>Kanan ke kiri</b> Tentukan bagaimana halaman disusun dalam bentangan
 dengan halaman berbilang per baris.</li>
-	<li><b>Zum masuk</b> Tingkatkan faktor skala sebanyak 10 peratus.</li>
-	<li><b>Zum keluar</b> Kurangkan faktor skala sebanyak 10 peratus.</li>
+	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
+factor is 5000 percent.</li>
+	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
+factor is 10 percent.</li>
 	<li><b>Saiz asal</b> Tetap semula faktor skala ke 100 peratus.</li>
     <li><b>Muat dengan lebar halaman</b> Tentukan faktor skala supaya semua halaman
 sepenuhnya muat ke dalam paparan utama secara mengufuk.</li>
@@ -245,12 +247,15 @@ is released, a pop-up menu is displayed to select whether to copy texts or
 images into the clipboard.</p>
 
 <p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
-button to drag a frame around the region of interest. Once the mouse button
+button to drag a frame around the region to annotate. Once the mouse button
 is released, a pop-up menu is displayed to select whether to add text or
 highlight annotations. Left-click to <em>edit annotations</em>. Right-click
 to <em>remove annotations</em>. (Adding and removing annotations requires
 version 0.20.1 or higher of the Poppler library.) Hovering over an
 annotation displays its contents as a tool tip.</p>
+
+<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
+and hold the left mouse button to drag a frame around region to zoom into.</p>
 
 <p><em>Ketampakan palang alat dan menu</em> boleh ditogol menggunakan pintasan
 papan kekunci boleh dikonfigur yang mana nilai lalai adalah "Shift+Alt+T"
@@ -382,6 +387,8 @@ dua dokumen dibuka.</li>
 keseluruhan palang tab.</li>
     <li><b>Tab baharu disebelah tab semasa</b> Jika dibenarkan, tab baharu dibuka
 disebelah kanan tab aktif.</li>
+    <li><b>Exit after last tab</b> If enabled, the application exits after the last
+tab is closed.</li>
     <li><b>Recently used count</b> Sets the number of files that are listed in the
 recently used menu, if "Track recently used" is enabled. (Effective after
 restart.)</li>
@@ -444,6 +451,8 @@ menggunakan roda tetikus dalam paparan utama.</li>
 atau imej ke papan keratan.</li>
     <li><b>Tambah catatan</b> Pengubahsuai papan kekunci untuk tambah catatan ke
 dalam halaman.</li>
+    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
+page.</li>
 </ul>
 
 </body>

@@ -139,8 +139,10 @@ due colonne con una interruzione dopo la copertina.</li>
 numero di colonne può essere modificato nelle impostazioni.</li>
     <li><b>Da destra a sinistra</b> indica come posizionare le pagine nei layout con
 più pagine per riga.</li>
-	<li><b>Aumenta</b> aumenta il fattore di scala del 10%.</li>
-	<li><b>Riduci</b> riduce il fattore di scala del 10%.</li>
+	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
+factor is 5000 percent.</li>
+	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
+factor is 10 percent.</li>
 	<li><b>Dimensione originale</b> ripristina il fattore di scala al 100%.</li>
     <li><b>Adatta alla larghezza della pagina</b> indica il fattore di scala
 consentendo la visualizzazione di tutte le pagine adattate alla dimensione
@@ -255,12 +257,15 @@ is released, a pop-up menu is displayed to select whether to copy texts or
 images into the clipboard.</p>
 
 <p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
-button to drag a frame around the region of interest. Once the mouse button
+button to drag a frame around the region to annotate. Once the mouse button
 is released, a pop-up menu is displayed to select whether to add text or
 highlight annotations. Left-click to <em>edit annotations</em>. Right-click
 to <em>remove annotations</em>. (Adding and removing annotations requires
 version 0.20.1 or higher of the Poppler library.) Hovering over an
 annotation displays its contents as a tool tip.</p>
+
+<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
+and hold the left mouse button to drag a frame around region to zoom into.</p>
 
 <p>The <em>visibility of the tool and menu bars</em> can be toggled using
 configurable keyboard shortcuts whose default values are "Shift+Alt+T" and
@@ -398,6 +403,8 @@ due documenti.</li>
 whole tab bar.</li>
     <li><b>Nuova scheda dopo quella attuale</b>se abilitato, le nuovo schede
 verranno aperte alla destra di quella attiva.</li>
+    <li><b>Exit after last tab</b> If enabled, the application exits after the last
+tab is closed.</li>
     <li><b>Conteggio usati di recente</b> imposta il numero di file che vengono
 elencati nel relativo menù se «Memorizzare usati di recente» è
 abilitato. (Le modifiche hanno effetto dopo il riavvio.)</li>
@@ -463,6 +470,8 @@ orizzontalmente la vista principale.</li>
     <li><b>Copia negli appunti</b> il tasto da usare per copiare testi e immagini da
 una pagina agli appunti.</li>
     <li><b>Aggiungi nota</b> il tasto per aggiungere note nella pagina.</li>
+    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
+page.</li>
 </ul>
 
 </body>

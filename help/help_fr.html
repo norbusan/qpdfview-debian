@@ -140,8 +140,10 @@ un saut de page pour la page de couverture.</li>
 de colonnes se règle dans le menu paramètres.</li>
     <li><b>Droite vers la gauche</b> Indique comment les pages sont présentées
 lorsque la mise en page multiple comporte plusieurs pages par ligne.</li>
-	<li><b>Zoomer</b> Augmente le facteur d'échelle de 10 pourcent.</li>
-	<li><b>Dé-zoomer</b> Diminue le facteur d'échelle de 10 pourcent.</li>
+	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
+factor is 5000 percent.</li>
+	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
+factor is 10 percent.</li>
 	<li><b>Taille originale</b> Rétablit le facteur d'échelle à 100 pourcent.</li>
     <li><b>Ajuster à la largeur de la page</b> Ajuste le facteur d'échelle de façon
 à ce que la page occupe toute la largeur de la fenêtre principale.</li>
@@ -256,15 +258,16 @@ dessiner un cadre autour de la zone à copier. Une fois le bouton de la
 souris relâché, une boîte de dialogue s'affiche, permettant de choisir de
 copier le texte ou l'image dans le presse-papiers.</p>
 
-<p>Pour <em>ajouter une annotation</em>, maintenir la touche <b>Ctrl</b>
-enfoncée, cliquer et maintenir le bouton gauche de la souris pour dessiner
-un cadre autour de la zone visée. Une fois le bouton de la souris relâché,
-une boîte de dialogue s'affiche, permettant de choisir d'ajouter du texte ou
-de surligner la zone. Un clic gauche permet d'<em>éditer l'annotation</em>,
-un clic droit permet de <em>supprimer l'annotation</em>. (L'ajout et la
-suppression des annotations nécessite une version de la librairie Poppler au
-moins égale à la 0.20.1.) Le survol d'une annotation affiche son contenu
-sous forme d'une bulle d'aide.</p>
+<p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
+button to drag a frame around the region to annotate. Once the mouse button
+is released, a pop-up menu is displayed to select whether to add text or
+highlight annotations. Left-click to <em>edit annotations</em>. Right-click
+to <em>remove annotations</em>. (Adding and removing annotations requires
+version 0.20.1 or higher of the Poppler library.) Hovering over an
+annotation displays its contents as a tool tip.</p>
+
+<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
+and hold the left mouse button to drag a frame around region to zoom into.</p>
 
 <p>La <em>visibilité des barres d’outils et de menu</em> peut être alternée en
 utilisant les raccourcis clavier configurables dont les valeurs par défaut
@@ -406,6 +409,8 @@ moins de deux documents ouverts.</li>
 au-delà de la barre des onglets.</li>
     <li><b>Nouvel onglet à côté de l'onglet courant</b> Si l'item est validé, les
 nouveaux onglets sont ouverts à droite de l'onglet courant.</li>
+    <li><b>Exit after last tab</b> If enabled, the application exits after the last
+tab is closed.</li>
     <li><b>Compteur des fichiers récemments ouverts</b> Précise le nombre de
 fichiers qui sont listés dans le menu des fichiers récemments ouverts, si
 l'item « Suivre les fichiers récemment ouverts » est validé (option
@@ -472,6 +477,8 @@ principale à l'aide de la molette de la souris.</li>
 et images dans le presse-papiers.</li>
     <li><b>Ajouter une annotation</b> La touche spéciale pour ajouter une annotation
 dans une page.</li>
+    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
+page.</li>
 </ul>
 
 </body>

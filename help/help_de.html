@@ -142,8 +142,10 @@ Anzahl der Spalten für diese Anzeigeart kann im Einstellungsdialog geändert
 werden.</li>
     <li><b>Rechts nach links</b> Bestimmt wie die Seiten in Darstellungen mit
 mehreren Seiten pro Reihe angeordnet werden.</li>
-	<li><b>Vergrößern</b> Vergrößert den Skalenfaktor um 10 Prozent.</li>
-	<li><b>Verkleinern</b> Verkleinert den Skalenfaktor um 10 Prozent.</li>
+	<li><b>Vergrößern</b> Vergrößert den Skalenfaktor um 10 Prozent. Der Maximalwert
+beträgt 5000 Prozent.</li>
+	<li><b>Verkleinern</b> Verkleinert den Skalenfaktor um 10 Prozent. Der
+Minimalwert beträgt 10 Prozent.</li>
 	<li><b>Ursprüngliche Größe</b> Setzt den Skalenfaktor auf 100 Prozent zurück.</li>
     <li><b>An Seitenbreite anpassen</b> Bestimmt den Skalenfaktor so dass eine Zeile
 von Seiten die Hauptansicht horizontal ausfüllt.</li>
@@ -272,6 +274,9 @@ Rechtsklick werden vorhandene <em>Anmerkungen entfernt</em>. (Das Hinzufügen
 und Entfernen von Anmerkungen setzt Version 0.20.1 oder höher der
 Poppler-Bibliothek voraus.) Wird der Mauszeiger ohne Tastendruck auf einer
 Anmerkung platziert, wird deren Inhalt als Tooltip angezeigt.</p>
+
+<p><em>Auswahl vergrößern:</em> Die Tasten <b>SHIFT</b> and <b>STRG</b>
+gedrückt halten und einen Rahmen um den zu vergrößernden Bereich ziehen.</p>
 
 <p>Die <em>Sichtbarkeit der Werkzeug- und Menüleisten</em> kann mittels
 einstellbarer Tastaturkürzel mit den Standardwerten "Umschalt+Alt+T" und
@@ -418,6 +423,8 @@ als zwei Dokumente geöffnet sind.</li>
 gesamten Reiterbereich ausgebreitet werden.</li>
     <li><b>Neuer Reiter neben aktuellem Reiter</b> Falls aktiviert werden neue
 Reiter rechts neben dem aktuellen Reiter eingefügt.</li>
+    <li><b>Nach letztem Reiter beenden</b> Bewirkt, dass die Anwendung nach dem
+Schließen des letzten Reiters beendet wird.</li>
     <li><b>Anzahl verwendeter Dateien</b> Legt die Azahl der Dateien fest, die im
 Menü für zuletzt verwendete Dateien aufgeführt werden, falls "Verwendete
 Dateien merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
@@ -495,6 +502,8 @@ Hauptansicht mittels des Mausrads horizontal zu verschieben.</li>
 Bilder von einer Seite in die Zwischenablage zu kopieren.</li>
     <li><b>Anmerkungen hinzufügen</b> Die Tastaturmodifikatoren, um einer Seite
 Anmerkungen hinzu zufügen.</li>
+    <li><b>Auswahl vergrößern</b> Die Tastaturmodifikatoren, um die einen zu
+vergrößernden Bereich mit der Maus auszuwählen.</li>
 </ul>
 
 </body>

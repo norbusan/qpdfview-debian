@@ -136,8 +136,10 @@ columns with a break after the cover page.</li>
 columns. The number of columns can be changed in the settings dialog.</li>
     <li><b>Right to left</b> Determines how pages are arranged in layouts with
 multiple pages per row.</li>
-	<li><b>Zoom in</b> Increases the scale factor by 10 percent.</li>
-	<li><b>Zoom out</b> Decreases the scale factor by 10 percent.</li>
+	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
+factor is 5000 percent.</li>
+	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
+factor is 10 percent.</li>
 	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
     <li><b>Fit to page width</b> Determines the scale factor such that all pages
 fully fit into the main view horizontally.</li>
@@ -242,12 +244,15 @@ is released, a pop-up menu is displayed to select whether to copy texts or
 images into the clipboard.</p>
 
 <p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
-button to drag a frame around the region of interest. Once the mouse button
+button to drag a frame around the region to annotate. Once the mouse button
 is released, a pop-up menu is displayed to select whether to add text or
 highlight annotations. Left-click to <em>edit annotations</em>. Right-click
 to <em>remove annotations</em>. (Adding and removing annotations requires
 version 0.20.1 or higher of the Poppler library.) Hovering over an
 annotation displays its contents as a tool tip.</p>
+
+<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
+and hold the left mouse button to drag a frame around region to zoom into.</p>
 
 <p>The <em>visibility of the tool and menu bars</em> can be toggled using
 configurable keyboard shortcuts whose default values are "Shift+Alt+T" and
@@ -377,6 +382,8 @@ two documents are opened.</li>
 whole tab bar.</li>
     <li><b>New tab next to current tab</b> If enabled, new tabs are opened to the
 right of the active tab.</li>
+    <li><b>Exit after last tab</b> If enabled, the application exits after the last
+tab is closed.</li>
     <li><b>Recently used count</b> Sets the number of files that are listed in the
 recently used menu, if "Track recently used" is enabled. (Effective after
 restart.)</li>
@@ -437,6 +444,8 @@ wheel in the main view.</li>
     <li><b>Copy to clipboard</b> The keyboard modifiers to copy texts or images from
 a page to the clipboard.</li>
     <li><b>Add annotation</b> The keyboard modifiers to add annotations to a page.</li>
+    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
+page.</li>
 </ul>
 
 </body>
