@@ -1583,6 +1583,24 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
 }
 
+void DocumentView::mousePressEvent(QMouseEvent* event)
+{
+    if(event->button() == Qt::BackButton)
+    {
+        event->accept();
+
+        jumpBackward();
+    }
+    else if(event->button() == Qt::ForwardButton)
+    {
+        event->accept();
+
+        jumpForward();
+    }
+
+    QGraphicsView::mousePressEvent(event);
+}
+
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
     const Qt::KeyboardModifiers zoomModifiers = s_settings->documentView().zoomModifiers();
