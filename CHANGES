@@ -3,6 +3,7 @@ Release 0.4.13:
   * Fix a crash when loading corrupted DjVu documents.
   * Remove the dialog warning about unknown file type to fix the '--quiet' option.
   * Add optional extended search dock displaying results from all open tabs. Thanks to S. Razi Alavizadeh.
+  * Add per-tab setting to convert pages to grayscale after rendering.
   * Updated British English translations. Thanks to Anthony Harrington.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Malay translations. Thanks to abuyop.

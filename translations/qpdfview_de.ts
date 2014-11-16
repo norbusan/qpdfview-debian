@@ -847,12 +847,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2652"/>
         <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Vorschaubilder</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2664"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lese&amp;zeichen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2803"/>
