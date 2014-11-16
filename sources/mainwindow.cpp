@@ -2602,6 +2602,12 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     dock->setObjectName(objectName);
     dock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
 
+#ifdef Q_OS_WIN
+
+    dock->setWindowTitle(dock->windowTitle().remove(QLatin1Char('&')));
+
+#endif // Q_OS_WIN
+
     addDockWidget(Qt::LeftDockWidgetArea, dock);
 
     connect(dock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
