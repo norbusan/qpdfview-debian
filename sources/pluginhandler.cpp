@@ -244,11 +244,11 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #endif // WITH_FITZ
 
 #ifdef WITH_PDF
-    #ifdef STATIC_PDF_PLUGIN
-        m_objectNames.insertMulti(PDF, QLatin1String("PdfPlugin"));
-    #else
-        m_fileNames.insertMulti(PDF, PDF_PLUGIN_NAME);
-    #endif // STATIC_PDF_PLUGIN
+#ifdef STATIC_PDF_PLUGIN
+    m_objectNames.insertMulti(PDF, QLatin1String("PdfPlugin"));
+#else
+    m_fileNames.insertMulti(PDF, PDF_PLUGIN_NAME);
+#endif // STATIC_PDF_PLUGIN
 #endif // WITH_PDF
 
 #ifdef WITH_PS
