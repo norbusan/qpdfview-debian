@@ -270,22 +270,22 @@
         <translation type="unfinished">&apos;%1&apos; үшін SyncTeX мәліметін табу мүмкін емес.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; баспаға шығару...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 босату</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">Бет %1</translation>
     </message>
@@ -808,69 +808,69 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Түзету</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">Тү&amp;рі</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Мазмұны</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">Қас&amp;иеттері</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Бетбелгілер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">І&amp;здеу</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Саймандар панельдері</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Бекіткіштер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Б&amp;еттер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Көмек</translation>
     </message>

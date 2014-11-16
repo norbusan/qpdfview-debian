@@ -270,22 +270,22 @@
         <translation type="unfinished">Не знайдено даних SyncTeX для &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Друк &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Розблокувати %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">Сторінка %1</translation>
     </message>
@@ -734,7 +734,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2515"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Перетворити на відтінки сірого</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2517"/>
@@ -808,69 +808,69 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">З&amp;міни</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">П&amp;ерегляд</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Зміст</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Властивості</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Закладки</translation>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished">&amp;Мініатюри</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished">З&amp;акладки</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
-        <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Па&amp;нелі інструментів</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Бічні панелі</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">В&amp;кладки</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Закладки</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Довідка</translation>
     </message>

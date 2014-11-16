@@ -270,22 +270,22 @@
         <translation type="unfinished">SyncTex-data för &apos;%1&apos; kunde inte hittas</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Skriver ut &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Lås upp %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">Lösenord:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">Sida %1</translation>
     </message>
@@ -781,12 +781,12 @@
         <translation type="unfinished">&amp;Lägg till bokmärke</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -818,59 +818,59 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Arkiv</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Redigera</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Visa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Öve&amp;rsikt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Egenskaper</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Sök</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Verktygsrader</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Paneler</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">F&amp;likar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Bokmärken</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hjälp</translation>
     </message>

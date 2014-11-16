@@ -270,22 +270,22 @@
         <translation type="unfinished">Keine SyncTeX-Daten für »%1« gefunden.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drucke »%1« …</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 entsperren</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">Kennwort:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">Seite %1</translation>
     </message>
@@ -808,69 +808,69 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Datei</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Gliederung</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">S&amp;uchen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished">&amp;Vorschaubilder</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">Lese&amp;zeichen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Werkzeugleisten</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Paletten</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Reiter</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hilfe</translation>
     </message>

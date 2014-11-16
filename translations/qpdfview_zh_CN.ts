@@ -270,22 +270,22 @@
         <translation type="unfinished">无法找到“%1”的 SyncTex 数据。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">正在打印“%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">解锁 %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">密码：</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">第 %1 页</translation>
     </message>
@@ -781,12 +781,12 @@
         <translation type="unfinished">添加书签(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -818,59 +818,59 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">编辑(&amp;E)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">大纲(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">属性(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">搜索(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">工具栏(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Docks</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">标签(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">书签(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">帮助(&amp;H)</translation>
     </message>

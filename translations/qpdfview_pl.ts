@@ -185,7 +185,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="965"/>
         <source>Middle mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation>Środkowy przycisk myszy</translation>
     </message>
 </context>
 <context>
@@ -270,22 +270,22 @@
         <translation type="unfinished">Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1890"/>
+        <location filename="../sources/documentview.cpp" line="1908"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1959"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Password:</source>
         <translation type="unfinished">Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2001"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Page %1</source>
         <translation type="unfinished">Strona %1</translation>
     </message>
@@ -529,7 +529,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2211"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">The document &apos;%1&apos; has been modified. Do you want to save your changes?</translation>
+        <translation type="unfinished">Dokument &apos;%1&apos; został zmieniony. Czy chcesz zapisać swoje zmiany?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2390"/>
@@ -564,7 +564,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2464"/>
         <source>Open containing &amp;folder</source>
-        <translation type="unfinished">Otwórz zawierający &amp;folder</translation>
+        <translation type="unfinished">Otwórz zawierający &amp;katalog</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2465"/>
@@ -614,7 +614,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2478"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished">%Ustaw pierszą stronę...</translation>
+        <translation type="unfinished">%Ustaw pierwszą stronę...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2480"/>
@@ -734,7 +734,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2515"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przekształć na skalę szarości</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2517"/>
@@ -808,69 +808,69 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2586"/>
-        <location filename="../sources/mainwindow.cpp" line="2757"/>
+        <location filename="../sources/mainwindow.cpp" line="2763"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Plik</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <location filename="../sources/mainwindow.cpp" line="2778"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Edycja</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Widok</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Konspekt</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2639"/>
+        <location filename="../sources/mainwindow.cpp" line="2645"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Właściwości</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Zakładki</translation>
+        <location filename="../sources/mainwindow.cpp" line="2658"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished">Mi&amp;niaturki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished">Zakła&amp;dki</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2690"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Wyszukaj</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
-        <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2664"/>
-        <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Paski &amp;narzędzi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Widoki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Zakładki</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Help</source>
         <translation type="unfinished">P&amp;omoc</translation>
     </message>
@@ -1208,12 +1208,12 @@
     <message>
         <location filename="../sources/searchmodel.cpp" line="153"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; występowań</translation>
     </message>
     <message>
         <location filename="../sources/searchmodel.cpp" line="183"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; występowań na stronie &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1221,7 +1221,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished">Ustawiania</translation>
+        <translation type="unfinished">Ustawienia</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
@@ -1536,17 +1536,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="688"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished">Rozciągnięcie zakładek:</translation>
+        <translation type="unfinished">Rozciągnięcie kart:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="695"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished">Nowa zakładka obok bieżącej zakładki:</translation>
+        <translation type="unfinished">Nowa karta obok bieżącej karty:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="702"/>
         <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wyjdź po ostatniej karcie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="711"/>
@@ -1561,7 +1561,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="728"/>
         <source>Extended search dock:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozszerzony dok wyszukiwania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="735"/>
@@ -1591,7 +1591,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="773"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished">Tytuł dokumentu jako tytuł zakładki:</translation>
+        <translation type="unfinished">Tytuł dokumentu jako tytuł karty:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="780"/>
@@ -1651,7 +1651,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="920"/>
         <source>Zoom to selection:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Powiększenie przy zaznaczeniu:</translation>
     </message>
 </context>
 <context>
