@@ -118,20 +118,20 @@ QString intToRoman(int number)
 
     static const romandata_t romandata[] =
     {
-        1000, "m",
-        900, "cm",
-        500, "d",
-        400, "cd",
-        100, "c",
-        90, "xc",
-        50, "l",
-        40, "xl",
-        10, "x",
-        9, "ix",
-        5, "v",
-        4, "iv",
-        1, "i",
-        0, NULL
+        { 1000, "m" },
+        { 900, "cm" },
+        { 500, "d" },
+        { 400, "cd" },
+        { 100, "c" },
+        { 90, "xc" },
+        { 50, "l" },
+        { 40, "xl" },
+        { 10, "x" },
+        { 9, "ix" },
+        { 5, "v" },
+        { 4, "iv" },
+        { 1, "i" },
+        { 0, NULL }
     };
 
     if(number >= 4000)
@@ -786,8 +786,8 @@ QString DocumentView::surroundingText(int page, const QRectF& rect) const
 
     // Fetch at most half of a line as centered on the given rectangle as possible.
     const qreal pageWidth = m_pages.at(page - 1)->size().width();
-    const qreal width = qMax(rect.width(), pageWidth / 2.0);
-    const qreal x = qBound(0.0, rect.x() + rect.width() / 2.0 - width / 2.0, pageWidth - width);
+    const qreal width = qMax(rect.width(), pageWidth / qreal(2));
+    const qreal x = qBound(qreal(0), rect.x() + rect.width() / qreal(2) - width / qreal(2), pageWidth - width);
 
     const QRectF surroundingRect(x, rect.top(), width, rect.height());
 
