@@ -147,6 +147,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return QVariant();
         case CountRole:
             return results->count();
+        case ProgressRole:
+            return view->searchProgress();
         case Qt::DisplayRole:
             return view->title();
         case Qt::ToolTipRole:

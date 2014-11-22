@@ -52,6 +52,7 @@ public:
     enum
     {
         CountRole = Qt::UserRole + 1,
+        ProgressRole,
         PageRole,
         RectRole,
         TextRole,

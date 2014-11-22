@@ -261,8 +261,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
-    m_searchTask(0),
-    m_currentResult()
+    m_currentResult(),
+    m_searchTask(0)
 {
     if(s_settings == 0)
     {
