@@ -82,6 +82,8 @@ public:
     void insertResults(DocumentView* view, int page, const QList< QRectF >& resultsOnPage);
     void clearResults(DocumentView* view);
 
+    void updateProgress(DocumentView* view);
+
 protected slots:
     void on_fetchSurroundingText_finished();
 

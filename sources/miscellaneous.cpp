@@ -496,16 +496,44 @@ void SearchDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
 {
     QStyledItemDelegate::paint(painter, option, index);
 
+    const int progress = index.data(SearchModel::ProgressRole).toInt();
 
-    const QString text = index.data(SearchModel::TextRole).toString();
-    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
-    const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
-
-    if(text.isEmpty() || surroundingText.isEmpty())
+    if(progress != 0)
     {
+        paintProgress(painter, option, index, progress);
         return;
     }
 
+    const QString text = index.data(SearchModel::TextRole).toString();
+    const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
+
+    if(!text.isEmpty() && !surroundingText.isEmpty())
+    {
+        paintSurroundingText(painter, option, index, text, surroundingText);
+        return;
+    }
+}
+
+void SearchDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+                                   int progress) const
+{
+    Q_UNUSED(index);
+
+    QRect rect = option.rect;
+    rect.setWidth(progress * rect.width() / 100);
+
+    painter->save();
+
+    painter->setCompositionMode(QPainter::CompositionMode_Multiply);
+    painter->fillRect(rect, option.palette.highlight());
+
+    painter->restore();
+}
+
+void SearchDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+                                          const QString& text, const QString& surroundingText) const
+{
+    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
 
     const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
     const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);

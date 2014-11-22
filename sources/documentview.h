@@ -211,6 +211,7 @@ protected slots:
 
     void on_temporaryHighlight_timeout();
 
+    void on_searchTask_progressChanged(int progress);
     void on_searchTask_resultsReady(int index, const QList< QRectF >& results);
 
     void on_pages_cropRectChanged();

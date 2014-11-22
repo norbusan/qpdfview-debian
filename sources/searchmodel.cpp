@@ -350,6 +350,16 @@ void SearchModel::clearResults(DocumentView* view)
     endRemoveRows();
 }
 
+void SearchModel::updateProgress(DocumentView* view)
+{
+    QModelIndex index = findView(view);
+
+    if(index.isValid())
+    {
+        emit dataChanged(index, index);
+    }
+}
+
 void SearchModel::on_fetchSurroundingText_finished()
 {
     TextWatcher* watcher = dynamic_cast< TextWatcher* >(sender());

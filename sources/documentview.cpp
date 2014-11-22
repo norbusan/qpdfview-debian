@@ -304,8 +304,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_searchTask = new SearchTask(this);
 
     connect(m_searchTask, SIGNAL(finished()), SIGNAL(searchFinished()));
-    connect(m_searchTask, SIGNAL(progressChanged(int)), SIGNAL(searchProgressChanged(int)));
 
+    connect(m_searchTask, SIGNAL(progressChanged(int)), SLOT(on_searchTask_progressChanged(int)));
     connect(m_searchTask, SIGNAL(resultsReady(int,QList<QRectF>)), SLOT(on_searchTask_resultsReady(int,QList<QRectF>)));
 
     // auto-refresh
@@ -1315,6 +1315,13 @@ void DocumentView::on_prefetch_timeout()
 void DocumentView::on_temporaryHighlight_timeout()
 {
     m_highlight->setVisible(false);
+}
+
+void DocumentView::on_searchTask_progressChanged(int progress)
+{
+    s_searchModel->updateProgress(this);
+
+    emit searchProgressChanged(progress);
 }
 
 void DocumentView::on_searchTask_resultsReady(int index, const QList< QRectF >& results)
