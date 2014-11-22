@@ -2077,6 +2077,19 @@ void MainWindow::on_saveDatabase_timeout()
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+    m_searchDock->setVisible(false);
+
+    for(int index = 0; index < m_tabWidget->count(); ++index)
+    {
+        if(!saveModifications(tab(index)))
+        {
+            m_tabWidget->setCurrentIndex(index);
+
+            event->setAccepted(false);
+            return;
+        }
+    }
+
     if(s_settings->mainWindow().restoreTabs())
     {
         s_database->saveTabs(tabs());
@@ -2101,19 +2114,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     s_settings->mainWindow().setGeometry(m_fullscreenAction->isChecked() ? m_fullscreenAction->data().toByteArray() : saveGeometry());
     s_settings->mainWindow().setState(saveState());
-
-    for(int index = 0; index < m_tabWidget->count(); ++index)
-    {
-        if(!saveModifications(tab(index)))
-        {
-            m_tabWidget->setCurrentIndex(index);
-
-            event->setAccepted(false);
-            return;
-        }
-    }
-
-    m_searchDock->setVisible(false);
 
     QMainWindow::closeEvent(event);
 }
