@@ -440,8 +440,11 @@ void ProgressLineEdit::paintEvent(QPaintEvent* event)
 
     QPainter painter(this);
 
+    QRect highlightedRect = rect();
+    highlightedRect.setWidth(m_progress * highlightedRect.width() / 100);
+
     painter.setCompositionMode(QPainter::CompositionMode_Multiply);
-    painter.fillRect(0, 0, m_progress * width() / 100, height(), palette().highlight());
+    painter.fillRect(highlightedRect, palette().highlight());
 }
 
 void ProgressLineEdit::keyPressEvent(QKeyEvent* event)
@@ -519,13 +522,13 @@ void SearchDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem
 {
     Q_UNUSED(index);
 
-    QRect rect = option.rect;
-    rect.setWidth(progress * rect.width() / 100);
+    QRect highlightedRect = option.rect;
+    highlightedRect.setWidth(progress * highlightedRect.width() / 100);
 
     painter->save();
 
     painter->setCompositionMode(QPainter::CompositionMode_Multiply);
-    painter->fillRect(rect, option.palette.highlight());
+    painter->fillRect(highlightedRect, option.palette.highlight());
 
     painter->restore();
 }
