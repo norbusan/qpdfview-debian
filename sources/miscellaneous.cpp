@@ -491,11 +491,11 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
-SearchDelegate::SearchDelegate(QObject* parent) : QStyledItemDelegate(parent)
+SearchItemDelegate::SearchItemDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {
 }
 
-void SearchDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QStyledItemDelegate::paint(painter, option, index);
 
@@ -517,8 +517,8 @@ void SearchDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     }
 }
 
-void SearchDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
-                                   int progress) const
+void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+                                       int progress) const
 {
     Q_UNUSED(index);
 
@@ -533,8 +533,8 @@ void SearchDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem
     painter->restore();
 }
 
-void SearchDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
-                                          const QString& text, const QString& surroundingText) const
+void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+                                              const QString& text, const QString& surroundingText) const
 {
     const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
 
@@ -582,7 +582,7 @@ void SearchDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionV
     painter->restore();
 }
 
-inline void SearchDelegate::emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout) const
+inline void SearchItemDelegate::emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout) const
 {
     QFont font = textLayout.font();
     font.setWeight(QFont::Light);

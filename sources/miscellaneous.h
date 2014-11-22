@@ -277,14 +277,14 @@ private:
 
 };
 
-// search delegate
+// search item delegate
 
-class SearchDelegate : public QStyledItemDelegate
+class SearchItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
-    explicit SearchDelegate(QObject* parent = 0);
+    explicit SearchItemDelegate(QObject* parent = 0);
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
