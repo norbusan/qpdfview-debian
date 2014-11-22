@@ -233,6 +233,7 @@ protected slots:
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
     void on_search_sectionCountChanged();
+    void on_search_visibilityChanged(bool visible);
     void on_search_clicked(const QModelIndex& index);
 
     void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);

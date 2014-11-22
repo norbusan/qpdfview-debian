@@ -459,9 +459,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         {
             m_searchLineEdit->stopTimer();
             m_searchLineEdit->setProgress(0);
-        }
 
-        m_searchDock->setVisible(false);
+            m_searchDock->setVisible(false);
+        }
 
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
@@ -1107,15 +1107,15 @@ void MainWindow::on_cancelSearch_triggered()
     m_searchLineEdit->stopTimer();
     m_searchLineEdit->setProgress(0);
 
-    m_searchDock->setVisible(false);
-
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         tab(index)->cancelSearch();
-        tab(index)->clearResults();
     }
 
-    currentTab()->setFocus();
+    if(!s_settings->mainWindow().extendedSearchDock())
+    {
+        m_searchDock->setVisible(false);
+    }
 }
 
 void MainWindow::on_copyToClipboardMode_triggered(bool checked)
@@ -2008,6 +2008,26 @@ void MainWindow::on_search_sectionCountChanged()
     m_searchView->header()->setVisible(false);
 }
 
+void MainWindow::on_search_visibilityChanged(bool visible)
+{
+    if(!visible)
+    {
+        m_searchLineEdit->stopTimer();
+        m_searchLineEdit->setProgress(0);
+
+        for(int index = 0; index < m_tabWidget->count(); ++index)
+        {
+            tab(index)->cancelSearch();
+            tab(index)->clearResults();
+        }
+
+        if(m_tabWidget->currentWidget() != 0)
+        {
+            m_tabWidget->currentWidget()->setFocus();
+        }
+    }
+}
+
 void MainWindow::on_search_clicked(const QModelIndex& index)
 {
     DocumentView* tab = SearchModel::instance()->viewForIndex(index);
@@ -2695,6 +2715,7 @@ void MainWindow::createDocks()
     addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
 
     connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), SLOT(on_search_visibilityChanged(bool)));
 
     m_searchWidget = new QWidget(this);
 
@@ -2722,6 +2743,8 @@ void MainWindow::createDocks()
 
     if(s_settings->mainWindow().extendedSearchDock())
     {
+        m_searchDock->setFeatures(m_searchDock->features() | QDockWidget::DockWidgetClosable);
+
         m_searchView = new QTreeView(m_searchWidget);
         m_searchView->setAlternatingRowColors(true);
         m_searchView->setUniformRowHeights(true);
