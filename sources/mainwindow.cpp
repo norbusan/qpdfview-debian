@@ -1112,6 +1112,7 @@ void MainWindow::on_cancelSearch_triggered()
     for(int index = 0; index < m_tabWidget->count(); ++index)
     {
         tab(index)->cancelSearch();
+        tab(index)->clearResults();
     }
 
     currentTab()->setFocus();

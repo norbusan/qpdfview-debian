@@ -188,6 +188,8 @@ public slots:
     void startSearch(const QString& text, bool matchCase = true);
     void cancelSearch();
 
+    void clearResults();
+
     void findPrevious();
     void findNext();
     void findResult(const QModelIndex& index);
@@ -324,14 +326,12 @@ private:
 
     static SearchModel* s_searchModel;
 
-    SearchTask* m_searchTask;
-
     QPersistentModelIndex m_currentResult;
+
+    SearchTask* m_searchTask;
 
     void checkResult();
     void applyResult();
-
-    void clearResults();
 
 };
 

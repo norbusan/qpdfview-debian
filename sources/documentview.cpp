@@ -352,7 +352,10 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
 DocumentView::~DocumentView()
 {
-    clearResults();
+    m_searchTask->cancel();
+    m_searchTask->wait();
+
+    s_searchModel->clearResults(this);
 
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
@@ -1054,13 +1057,24 @@ void DocumentView::temporaryHighlight(int page, const QRectF& highlight)
 void DocumentView::startSearch(const QString& text, bool matchCase)
 {
     cancelSearch();
+    clearResults();
 
     m_searchTask->start(m_pages, text, matchCase, m_currentPage);
 }
 
 void DocumentView::cancelSearch()
 {
-    clearResults();
+    m_searchTask->cancel();
+    m_searchTask->wait();
+}
+
+void DocumentView::clearResults()
+{
+    s_searchModel->clearResults(this);
+
+    m_currentResult = QModelIndex();
+
+    m_highlight->setVisible(false);
 
     foreach(PageItem* page, m_pageItems)
     {
@@ -1076,8 +1090,6 @@ void DocumentView::cancelSearch()
     {
         prepareThumbnailsScene();
     }
-
-    m_highlight->setVisible(false);
 }
 
 void DocumentView::findPrevious()
@@ -2082,6 +2094,7 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     m_prefetchTimer->blockSignals(true);
     m_prefetchTimer->stop();
 
+    cancelSearch();
     clearResults();
 
     qDeleteAll(m_pageItems);
@@ -2419,16 +2432,6 @@ void DocumentView::applyResult()
     {
         m_highlight->setVisible(false);
     }
-}
-
-void DocumentView::clearResults()
-{
-    m_searchTask->cancel();
-    m_searchTask->wait();
-
-    s_searchModel->clearResults(this);
-
-    m_currentResult = QModelIndex();
 }
 
 } // qpdfview
