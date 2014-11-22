@@ -25,6 +25,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "pageitem.h"
 
+namespace
+{
+
+using namespace qpdfview;
+
+const qreal viewportPadding = 6.0f;
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -56,15 +65,15 @@ bool DocumentLayout::isCurrentPage(const QRectF& visibleRect, const QRectF& page
     const qreal pageVisibleHeight = pageRect.intersected(visibleRect).height();
     const qreal pageTopOffset = pageRect.top() - visibleRect.top();
 
-    if(visibleRect.height() > 2.0 * pageRect.height()) // Are more than two pages visible?
+    if(visibleRect.height() > 2.0f * pageRect.height()) // Are more than two pages visible?
     {
-        const qreal halfPageHeight = pageRect.height() / 2.0;
+        const qreal halfPageHeight = 0.5f * pageRect.height();
 
         return pageVisibleHeight >= halfPageHeight && pageTopOffset < halfPageHeight && pageTopOffset >= -halfPageHeight;
     }
     else
     {
-        return pageVisibleHeight >= visibleRect.height() / 2.0;
+        return pageVisibleHeight >= 0.5f * visibleRect.height();
     }
 }
 
@@ -72,7 +81,7 @@ qreal DocumentLayout::visibleHeight(int viewportHeight) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
-    return viewportHeight - 2.0 * pageSpacing;
+    return viewportHeight - 2.0f * pageSpacing;
 }
 
 
@@ -115,21 +124,21 @@ qreal SinglePageLayout::visibleWidth(int viewportWidth) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
-    return viewportWidth - 6.0 - 2.0 * pageSpacing;
+    return viewportWidth - viewportPadding - 2.0f * pageSpacing;
 }
 
 void SinglePageLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool /* rightToLeft */,
                                      qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
-    qreal pageHeight = 0.0;
+    qreal pageHeight = 0.0f;
 
     for(int index = 0; index < pageItems.count(); ++index)
     {
         PageItem* page = pageItems.at(index);
         const QRectF boundingRect = page->boundingRect();
 
-        page->setPos(-boundingRect.left() - 0.5 * boundingRect.width(), height - boundingRect.top());
+        page->setPos(-boundingRect.left() - 0.5f * boundingRect.width(), height - boundingRect.top());
 
         pageHeight = boundingRect.height();
 
@@ -177,22 +186,22 @@ qreal TwoPagesLayout::visibleWidth(int viewportWidth) const
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
 
-    return (viewportWidth - 6.0 - 3 * pageSpacing) / 2;
+    return (viewportWidth - viewportPadding - 3.0f * pageSpacing) / 2.0f;
 }
 
 void TwoPagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
                                    qreal& left, qreal& right, qreal& height)
 {
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
-    qreal pageHeight = 0.0;
+    qreal pageHeight = 0.0f;
 
     for(int index = 0; index < pageItems.count(); ++index)
     {
         PageItem* page = pageItems.at(index);
         const QRectF boundingRect = page->boundingRect();
 
-        const qreal leftPos = -boundingRect.left() - boundingRect.width() - 0.5 * pageSpacing;
-        const qreal rightPos = -boundingRect.left() + 0.5 * pageSpacing;
+        const qreal leftPos = -boundingRect.left() - boundingRect.width() - 0.5f * pageSpacing;
+        const qreal rightPos = -boundingRect.left() + 0.5f * pageSpacing;
 
         if(index == leftIndex(index))
         {
@@ -301,7 +310,7 @@ qreal MultiplePagesLayout::visibleWidth(int viewportWidth) const
     const qreal pageSpacing = s_settings->documentView().pageSpacing();
     const int pagesPerRow = s_settings->documentView().pagesPerRow();
 
-    return (viewportWidth - 6.0 - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
+    return (viewportWidth - viewportPadding - (pagesPerRow + 1) * pageSpacing) / pagesPerRow;
 }
 
 void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, bool rightToLeft,
@@ -334,17 +343,17 @@ void MultiplePagesLayout::prepareLayout(const QVector< PageItem* >& pageItems, b
         if(index == rightIndex(index, pageItems.count()))
         {
             height += pageHeight + pageSpacing;
-            pageHeight = 0.0;
+            pageHeight = 0.0f;
 
             if(rightToLeft)
             {
                 left = qMin(left, right - pageSpacing);
-                right = 0.0;
+                right = 0.0f;
             }
             else
             {
                 right = qMax(right, left + pageSpacing);
-                left = 0.0;
+                left = 0.0f;
             }
         }
     }
