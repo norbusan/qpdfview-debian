@@ -659,6 +659,28 @@ void SettingsDialog::resetGraphicsTab()
 
 void SettingsDialog::createInterfaceTab()
 {
+    // extended search dock
+
+    m_extendedSearchDock = new QCheckBox(this);
+    m_extendedSearchDock->setChecked(s_settings->mainWindow().extendedSearchDock());
+    m_extendedSearchDock->setToolTip(tr("Effective after restart."));
+
+    m_interfaceLayout->addRow(tr("Extended search dock:"), m_extendedSearchDock);
+
+    // annotation overlay
+
+    m_annotationOverlayCheckBox = new QCheckBox(this);
+    m_annotationOverlayCheckBox->setChecked(s_settings->pageItem().annotationOverlay());
+
+    m_interfaceLayout->addRow(tr("Annotation overlay:"), m_annotationOverlayCheckBox);
+
+    // form field overlay
+
+    m_formFieldOverlayCheckBox = new QCheckBox(this);
+    m_formFieldOverlayCheckBox->setChecked(s_settings->pageItem().formFieldOverlay());
+
+    m_interfaceLayout->addRow(tr("Form field overlay:"), m_formFieldOverlayCheckBox);
+
     // tab position
 
     m_tabPositionComboBox = new QComboBox(this);
@@ -719,21 +741,6 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("Recently closed count:"), m_recentlyClosedCountSpinBox);
 
-    // extended search dock
-
-    m_extendedSearchDock = new QCheckBox(this);
-    m_extendedSearchDock->setChecked(s_settings->mainWindow().extendedSearchDock());
-    m_extendedSearchDock->setToolTip(tr("Effective after restart."));
-
-    m_interfaceLayout->addRow(tr("Extended search dock:"), m_extendedSearchDock);
-
-    // toggle tool and menu bars with fullscreen
-
-    m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
-    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen());
-
-    m_interfaceLayout->addRow(tr("Toggle tool and menu bars with fullscreen:"), m_toggleToolAndMenuBarsWithFullscreenCheckBox);
-
     // file tool bar
 
     m_fileToolBarLineEdit = new QLineEdit(this);
@@ -757,6 +764,13 @@ void SettingsDialog::createInterfaceTab()
     m_viewToolBarLineEdit->setToolTip(tr("Effective after restart."));
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
+
+    // toggle tool and menu bars with fullscreen
+
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen());
+
+    m_interfaceLayout->addRow(tr("Toggle tool and menu bars with fullscreen:"), m_toggleToolAndMenuBarsWithFullscreenCheckBox);
 
     // use page label
 
@@ -799,24 +813,15 @@ void SettingsDialog::createInterfaceTab()
     m_limitThumbnailsToResultsCheckBox->setChecked(s_settings->documentView().limitThumbnailsToResults());
 
     m_interfaceLayout->addRow(tr("Limit thumbnails to results:"), m_limitThumbnailsToResultsCheckBox);
-
-    // annotation overlay
-
-    m_annotationOverlayCheckBox = new QCheckBox(this);
-    m_annotationOverlayCheckBox->setChecked(s_settings->pageItem().annotationOverlay());
-
-    m_interfaceLayout->addRow(tr("Annotation overlay:"), m_annotationOverlayCheckBox);
-
-    // form field overlay
-
-    m_formFieldOverlayCheckBox = new QCheckBox(this);
-    m_formFieldOverlayCheckBox->setChecked(s_settings->pageItem().formFieldOverlay());
-
-    m_interfaceLayout->addRow(tr("Form field overlay:"), m_formFieldOverlayCheckBox);
 }
 
 void SettingsDialog::acceptInterfaceTab()
 {
+    s_settings->mainWindow().setExtendedSearchDock(m_extendedSearchDock->isChecked());
+
+    s_settings->pageItem().setAnnotationOverlay(m_annotationOverlayCheckBox->isChecked());
+    s_settings->pageItem().setFormFieldOverlay(m_formFieldOverlayCheckBox);
+
     s_settings->mainWindow().setTabPosition(m_tabPositionComboBox->itemData(m_tabPositionComboBox->currentIndex()).toInt());
     s_settings->mainWindow().setTabVisibility(m_tabVisibilityComboBox->itemData(m_tabVisibilityComboBox->currentIndex()).toInt());
     s_settings->mainWindow().setSpreadTabs(m_spreadTabsCheckBox->isChecked());
@@ -827,13 +832,11 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
     s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
 
-    s_settings->mainWindow().setExtendedSearchDock(m_extendedSearchDock->isChecked());
-
-    s_settings->mainWindow().setToggleToolAndMenuBarsWithFullscreen(m_toggleToolAndMenuBarsWithFullscreenCheckBox->isChecked());
-
     s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+
+    s_settings->mainWindow().setToggleToolAndMenuBarsWithFullscreen(m_toggleToolAndMenuBarsWithFullscreenCheckBox->isChecked());
 
     s_settings->mainWindow().setUsePageLabel(m_usePageLabelCheckBox->isChecked());
     s_settings->mainWindow().setDocumentTitleAsTabTitle(m_documentTitleAsTabTitleCheckBox->isChecked());
@@ -843,13 +846,15 @@ void SettingsDialog::acceptInterfaceTab()
 
     s_settings->documentView().setHighlightCurrentThumbnail(m_highlightCurrentThumbnailCheckBox->isChecked());
     s_settings->documentView().setLimitThumbnailsToResults(m_limitThumbnailsToResultsCheckBox->isChecked());
-
-    s_settings->pageItem().setAnnotationOverlay(m_annotationOverlayCheckBox->isChecked());
-    s_settings->pageItem().setFormFieldOverlay(m_formFieldOverlayCheckBox);
 }
 
 void SettingsDialog::resetInterfaceTab()
 {
+    m_extendedSearchDock->setChecked(Defaults::MainWindow::extendedSearchDock());
+
+    m_annotationOverlayCheckBox->setChecked(Defaults::PageItem::annotationOverlay());
+    m_formFieldOverlayCheckBox->setChecked(Defaults::PageItem::formFieldOverlay());
+
     m_tabPositionComboBox->setCurrentIndex(m_tabPositionComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabPosition())));
     m_tabVisibilityComboBox->setCurrentIndex(m_tabVisibilityComboBox->findData(static_cast< uint >(Defaults::MainWindow::tabVisibility())));
     m_spreadTabsCheckBox->setChecked(Defaults::MainWindow::spreadTabs());
@@ -860,13 +865,11 @@ void SettingsDialog::resetInterfaceTab()
     m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
     m_recentlyClosedCountSpinBox->setValue(Defaults::MainWindow::recentlyClosedCount());
 
-    m_extendedSearchDock->setChecked(Defaults::MainWindow::extendedSearchDock());
-
-    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen());
-
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen());
 
     m_usePageLabelCheckBox->setChecked(Defaults::MainWindow::usePageLabel());
     m_documentTitleAsTabTitleCheckBox->setChecked(Defaults::MainWindow::documentTitleAsTabTitle());
@@ -876,9 +879,6 @@ void SettingsDialog::resetInterfaceTab()
 
     m_highlightCurrentThumbnailCheckBox->setChecked(Defaults::DocumentView::highlightCurrentThumbnail());
     m_limitThumbnailsToResultsCheckBox->setChecked(Defaults::DocumentView::limitThumbnailsToResults());
-
-    m_annotationOverlayCheckBox->setChecked(Defaults::PageItem::annotationOverlay());
-    m_formFieldOverlayCheckBox->setChecked(Defaults::PageItem::formFieldOverlay());
 }
 
 void SettingsDialog::createModifiersTab()

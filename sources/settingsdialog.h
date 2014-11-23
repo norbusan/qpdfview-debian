@@ -146,6 +146,11 @@ private:
 
     // interface
 
+    QCheckBox* m_extendedSearchDock;
+
+    QCheckBox* m_annotationOverlayCheckBox;
+    QCheckBox* m_formFieldOverlayCheckBox;
+
     QComboBox* m_tabPositionComboBox;
     QComboBox* m_tabVisibilityComboBox;
     QCheckBox* m_spreadTabsCheckBox;
@@ -156,13 +161,11 @@ private:
     QSpinBox* m_recentlyUsedCountSpinBox;
     QSpinBox* m_recentlyClosedCountSpinBox;
 
-    QCheckBox* m_extendedSearchDock;
-
-    QCheckBox* m_toggleToolAndMenuBarsWithFullscreenCheckBox;
-
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
+
+    QCheckBox* m_toggleToolAndMenuBarsWithFullscreenCheckBox;
 
     QCheckBox* m_usePageLabelCheckBox;
     QCheckBox* m_documentTitleAsTabTitleCheckBox;
@@ -172,9 +175,6 @@ private:
 
     QCheckBox* m_highlightCurrentThumbnailCheckBox;
     QCheckBox* m_limitThumbnailsToResultsCheckBox;
-
-    QCheckBox* m_annotationOverlayCheckBox;
-    QCheckBox* m_formFieldOverlayCheckBox;
 
     void createInterfaceTab();
     void acceptInterfaceTab();
