@@ -400,6 +400,8 @@ private:
 
     QDockWidget* createDock(const QString& text, const QString& objectName, const QKeySequence& toggleViewShortcut);
 
+    void createSearchDock();
+
     void createDocks();
 
     QMenu* m_fileMenu;

@@ -414,6 +414,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_matchCaseCheckBox->setEnabled(hasCurrent);
     m_highlightAllCheckBox->setEnabled(hasCurrent);
 
+    m_searchDock->toggleViewAction()->setEnabled(hasCurrent);
+
     if(hasCurrent)
     {
         m_saveCopyAction->setEnabled(currentTab()->canSave());
@@ -2643,6 +2645,91 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     return dock;
 }
 
+void MainWindow::createSearchDock()
+{
+    m_searchDock = new QDockWidget(tr("&Search"), this);
+    m_searchDock->setObjectName(QLatin1String("searchDock"));
+    m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetVerticalTitleBar);
+
+#ifdef Q_OS_WIN
+
+    m_searchDock->setWindowTitle(m_searchDock->windowTitle().remove(QLatin1Char('&')));
+
+#endif // Q_OS_WIN
+
+    addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
+
+    connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), SLOT(on_search_visibilityChanged(bool)));
+
+    m_searchWidget = new QWidget(this);
+
+    QToolButton* findPreviousButton = new QToolButton(m_searchWidget);
+    findPreviousButton->setAutoRaise(true);
+    findPreviousButton->setDefaultAction(m_findPreviousAction);
+
+    QToolButton* findNextButton = new QToolButton(m_searchWidget);
+    findNextButton->setAutoRaise(true);
+    findNextButton->setDefaultAction(m_findNextAction);
+
+    QToolButton* cancelSearchButton = new QToolButton(m_searchWidget);
+    cancelSearchButton->setAutoRaise(true);
+    cancelSearchButton->setDefaultAction(m_cancelSearchAction);
+
+    QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
+    searchLayout->setRowStretch(2, 1);
+    searchLayout->setColumnStretch(2, 1);
+    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 6);
+    searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
+    searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
+    searchLayout->addWidget(findPreviousButton, 1, 3);
+    searchLayout->addWidget(findNextButton, 1, 4);
+    searchLayout->addWidget(cancelSearchButton, 1, 5);
+
+    m_searchDock->setWidget(m_searchWidget);
+
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
+    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
+
+    m_searchDock->setVisible(false);
+
+    m_findPreviousAction->setEnabled(false);
+    m_findNextAction->setEnabled(false);
+    m_cancelSearchAction->setEnabled(false);
+
+    if(s_settings->mainWindow().extendedSearchDock())
+    {
+        m_searchDock->setFeatures(m_searchDock->features() | QDockWidget::DockWidgetClosable);
+
+        m_searchDock->toggleViewAction()->setObjectName(QLatin1String("searchDockToggleView"));
+        m_searchDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F10));
+
+        ShortcutHandler::instance()->registerAction(m_searchDock->toggleViewAction());
+
+        m_searchView = new QTreeView(m_searchWidget);
+        m_searchView->setAlternatingRowColors(true);
+        m_searchView->setUniformRowHeights(true);
+        m_searchView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+        m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
+        m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+        connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
+        connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
+        connect(m_searchView, SIGNAL(activated(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
+
+        m_searchView->setItemDelegate(new SearchItemDelegate(m_searchView));
+        m_searchView->setModel(SearchModel::instance());
+
+        searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
+    }
+    else
+    {
+        m_searchView = 0;
+    }
+}
+
 void MainWindow::createDocks()
 {
     // outline
@@ -2708,76 +2795,7 @@ void MainWindow::createDocks()
 
     // search
 
-    m_searchDock = new QDockWidget(tr("&Search"), this);
-    m_searchDock->setObjectName(QLatin1String("searchDock"));
-    m_searchDock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetVerticalTitleBar);
-
-    addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
-
-    connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
-    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), SLOT(on_search_visibilityChanged(bool)));
-
-    m_searchWidget = new QWidget(this);
-
-    QToolButton* findPreviousButton = new QToolButton(m_searchWidget);
-    findPreviousButton->setAutoRaise(true);
-    findPreviousButton->setDefaultAction(m_findPreviousAction);
-
-    QToolButton* findNextButton = new QToolButton(m_searchWidget);
-    findNextButton->setAutoRaise(true);
-    findNextButton->setDefaultAction(m_findNextAction);
-
-    QToolButton* cancelSearchButton = new QToolButton(m_searchWidget);
-    cancelSearchButton->setAutoRaise(true);
-    cancelSearchButton->setDefaultAction(m_cancelSearchAction);
-
-    QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
-    searchLayout->setRowStretch(2, 1);
-    searchLayout->setColumnStretch(2, 1);
-    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 6);
-    searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
-    searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
-    searchLayout->addWidget(findPreviousButton, 1, 3);
-    searchLayout->addWidget(findNextButton, 1, 4);
-    searchLayout->addWidget(cancelSearchButton, 1, 5);
-
-    if(s_settings->mainWindow().extendedSearchDock())
-    {
-        m_searchDock->setFeatures(m_searchDock->features() | QDockWidget::DockWidgetClosable);
-
-        m_searchView = new QTreeView(m_searchWidget);
-        m_searchView->setAlternatingRowColors(true);
-        m_searchView->setUniformRowHeights(true);
-        m_searchView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-        m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
-        m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-        connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
-        connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
-        connect(m_searchView, SIGNAL(activated(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
-
-        searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
-
-        m_searchView->setItemDelegate(new SearchItemDelegate(m_searchView));
-        m_searchView->setModel(SearchModel::instance());
-    }
-    else
-    {
-        m_searchView = 0;
-    }
-
-    m_searchDock->setWidget(m_searchWidget);
-
-    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
-    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
-    connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_cancelSearchAction, SLOT(setEnabled(bool)));
-
-    m_searchDock->setVisible(false);
-
-    m_findPreviousAction->setEnabled(false);
-    m_findNextAction->setEnabled(false);
-    m_cancelSearchAction->setEnabled(false);
+    createSearchDock();
 }
 
 void MainWindow::createMenus()
@@ -2835,6 +2853,11 @@ void MainWindow::createMenus()
 
     QMenu* docksMenu = m_viewMenu->addMenu(tr("&Docks"));
     docksMenu->addActions(QList< QAction* >() << m_outlineDock->toggleViewAction() << m_propertiesDock->toggleViewAction() << m_thumbnailsDock->toggleViewAction() << m_bookmarksDock->toggleViewAction());
+
+    if(s_settings->mainWindow().extendedSearchDock())
+    {
+        docksMenu->addAction(m_searchDock->toggleViewAction());
+    }
 
     m_viewMenu->addAction(m_fontsAction);
     m_viewMenu->addSeparator();
