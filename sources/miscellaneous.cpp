@@ -54,6 +54,28 @@ QMetaMethod slotToMethod(const QMetaObject* metaObject, const char* slot)
     return metaObject->method(index);
 }
 
+void emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout)
+{
+    QFont font = textLayout.font();
+    font.setWeight(QFont::Light);
+    textLayout.setFont(font);
+
+
+    QList< QTextLayout::FormatRange > additionalFormats;
+
+    for(int position = 0; (position = surroundingText.indexOf(text, position, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive)) != -1; position += text.length())
+    {
+        QTextLayout::FormatRange formatRange;
+        formatRange.start = position;
+        formatRange.length = text.length();
+        formatRange.format.setFontWeight(QFont::Bold);
+
+        additionalFormats.append(formatRange);
+    }
+
+    textLayout.setAdditionalFormats(additionalFormats);
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -503,25 +525,24 @@ void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
 
     if(progress != 0)
     {
-        paintProgress(painter, option, index, progress);
+        paintProgress(painter, option, progress);
         return;
     }
 
     const QString text = index.data(SearchModel::TextRole).toString();
     const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
+    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
 
     if(!text.isEmpty() && !surroundingText.isEmpty())
     {
-        paintSurroundingText(painter, option, index, text, surroundingText);
+        paintSurroundingText(painter, option, text, surroundingText, matchCase);
         return;
     }
 }
 
-void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option,
                                        int progress) const
 {
-    Q_UNUSED(index);
-
     QRect highlightedRect = option.rect;
     highlightedRect.setWidth(progress * highlightedRect.width() / 100);
 
@@ -533,11 +554,9 @@ void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionView
     painter->restore();
 }
 
-void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
-                                              const QString& text, const QString& surroundingText) const
+void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
+                                              const QString& text, const QString& surroundingText, bool matchCase) const
 {
-    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
-
     const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
     const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
     const QString elidedText = option.fontMetrics.elidedText(surroundingText, option.textElideMode, textRect.width());
@@ -580,32 +599,6 @@ void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOpt
     textLine.draw(painter, layoutRect.topLeft());
 
     painter->restore();
-}
-
-inline void SearchItemDelegate::emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout) const
-{
-    QFont font = textLayout.font();
-    font.setWeight(QFont::Light);
-    textLayout.setFont(font);
-
-
-    QList< QTextLayout::FormatRange > additionalFormats;
-
-    int position = 0;
-
-    while((position = surroundingText.indexOf(text, position, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive)) != -1)
-    {
-        QTextLayout::FormatRange formatRange;
-        formatRange.start = position;
-        formatRange.length = text.length();
-        formatRange.format.setFontWeight(QFont::Bold);
-
-        additionalFormats.append(formatRange);
-
-        position += text.length();
-    }
-
-    textLayout.setAdditionalFormats(additionalFormats);
 }
 
 } // qpdfview

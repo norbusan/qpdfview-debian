@@ -289,12 +289,10 @@ public:
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
 private:
-    void paintProgress(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
+    void paintProgress(QPainter* painter, const QStyleOptionViewItem& option,
                        int progress) const;
-    void paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index,
-                              const QString& text, const QString& surroundingText) const;
-
-    void emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout) const;
+    void paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
+                              const QString& text, const QString& surroundingText, bool matchCase) const;
 
 };
 
