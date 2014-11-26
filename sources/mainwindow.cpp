@@ -357,6 +357,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     const bool hasCurrent = index != -1;
 
+    m_openCopyInNewTabAction->setEnabled(hasCurrent);
     m_openContainingFolderAction->setEnabled(hasCurrent);
     m_refreshAction->setEnabled(hasCurrent);
     m_printAction->setEnabled(hasCurrent);
@@ -813,6 +814,8 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
+        menu.addAction(m_openCopyInNewTabAction);
+        menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
         menu.addSeparator();
         menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
@@ -929,6 +932,11 @@ void MainWindow::on_openInNewTab_triggered()
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
+}
+
+void MainWindow::on_openCopyInNewTab_triggered()
+{
+    openInNewTab(currentTab()->fileInfo().filePath(), currentTab()->currentPage());
 }
 
 void MainWindow::on_openContainingFolder_triggered()
@@ -2484,6 +2492,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
+    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QIcon(), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));

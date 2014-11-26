@@ -124,6 +124,7 @@ protected slots:
 
     void on_open_triggered();
     void on_openInNewTab_triggered();
+    void on_openCopyInNewTab_triggered();
     void on_openContainingFolder_triggered();
     void on_refresh_triggered();
     void on_saveCopy_triggered();
@@ -293,6 +294,7 @@ private:
 
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
+    QAction* m_openCopyInNewTabAction;
     QAction* m_openContainingFolderAction;
     QAction* m_refreshAction;
     QAction* m_saveCopyAction;
