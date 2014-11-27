@@ -2168,6 +2168,8 @@ void MainWindow::prepareStyle()
 
     ProxyStyle* style = new ProxyStyle();
 
+    style->setScrollableMenus(s_settings->mainWindow().scrollableMenus());
+
     qApp->setStyle(style);
 }
 

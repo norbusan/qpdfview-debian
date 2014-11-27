@@ -349,6 +349,9 @@ public:
         QStringList viewToolBar() const;
         void setViewToolBar(const QStringList& viewToolBar);
 
+        bool scrollableMenus() const;
+        void setScrollableMenus(bool scrollableMenus);
+
         bool toggleToolAndMenuBarsWithFullscreen() const;
         void setToggleToolAndMenuBarsWithFullscreen(bool toggleToolAndMenuBarsWithFullscreen) const;
 
@@ -608,6 +611,7 @@ public:
         static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
+        static inline bool scrollableMenus() { return false; }
         static inline bool toggleToolAndMenuBarsWithFullscreen() { return false; }
 
         static QString path();

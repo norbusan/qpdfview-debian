@@ -828,6 +828,16 @@ void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
 }
 
+bool Settings::MainWindow::scrollableMenus() const
+{
+    return m_settings->value("mainWindow/scrollableMenus", Defaults::MainWindow::scrollableMenus()).toBool();
+}
+
+void Settings::MainWindow::setScrollableMenus(bool scrollableMenus)
+{
+    m_settings->setValue("mainWindow/scrollableMenus", scrollableMenus);
+}
+
 bool Settings::MainWindow::toggleToolAndMenuBarsWithFullscreen() const
 {
     return m_settings->value("mainWindow/toggleToolAndMenuBarsWithFullscreen", Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen()).toBool();
