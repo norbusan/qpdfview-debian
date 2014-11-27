@@ -765,6 +765,14 @@ void SettingsDialog::createInterfaceTab()
 
     m_interfaceLayout->addRow(tr("View tool bar:"), m_viewToolBarLineEdit);
 
+    // scrollable menus
+
+    m_scrollableMenusCheckBox = new QCheckBox(this);
+    m_scrollableMenusCheckBox->setChecked(s_settings->mainWindow().scrollableMenus());
+    m_scrollableMenusCheckBox->setToolTip(tr("Effective after restart."));
+
+    m_interfaceLayout->addRow(tr("Scrollable menus:"), m_scrollableMenusCheckBox);
+
     // toggle tool and menu bars with fullscreen
 
     m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
@@ -836,6 +844,7 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
+    s_settings->mainWindow().setScrollableMenus(m_scrollableMenusCheckBox->isChecked());
     s_settings->mainWindow().setToggleToolAndMenuBarsWithFullscreen(m_toggleToolAndMenuBarsWithFullscreenCheckBox->isChecked());
 
     s_settings->mainWindow().setUsePageLabel(m_usePageLabelCheckBox->isChecked());
@@ -869,6 +878,7 @@ void SettingsDialog::resetInterfaceTab()
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
 
+    m_scrollableMenusCheckBox->setChecked(Defaults::MainWindow::scrollableMenus());
     m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen());
 
     m_usePageLabelCheckBox->setChecked(Defaults::MainWindow::usePageLabel());
