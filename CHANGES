@@ -1,3 +1,7 @@
+Release 0.4.14:
+  * Improves user interaction of the extended search dock.
+  * Adds various smaller user interface enhancements.
+
 Release 0.4.13:
   * Fix a memory leak when processing meta-data in the DjVu plug-in.
   * Fix a crash when loading corrupted DjVu documents.
