@@ -29,6 +29,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLineEdit>
 #include <QMetaMethod>
 #include <QPainter>
+#include <QProxyStyle>
 #include <QSpinBox>
 #include <QStyledItemDelegate>
 #include <QTreeView>
@@ -52,6 +53,27 @@ protected:
 
 private:
     QPainter::CompositionMode m_compositionMode;
+
+};
+
+// proxy style
+
+class ProxyStyle : public QProxyStyle
+{
+    Q_OBJECT
+
+public:
+    ProxyStyle();
+
+    bool scrollableMenus();
+    void setScrollableMenus(bool scrollableMenus);
+
+    int styleHint(StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const;
+
+private:
+    Q_DISABLE_COPY(ProxyStyle)
+
+    bool m_scrollableMenus;
 
 };
 

@@ -253,6 +253,8 @@ private:
     static Settings* s_settings;
     static Database* s_database;
 
+    void prepareStyle();
+
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;

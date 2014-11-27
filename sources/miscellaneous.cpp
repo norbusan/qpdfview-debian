@@ -97,6 +97,31 @@ void GraphicsCompositionModeEffect::draw(QPainter* painter)
     painter->restore();
 }
 
+ProxyStyle::ProxyStyle() : QProxyStyle(),
+    m_scrollableMenus(false)
+{
+}
+
+bool ProxyStyle::scrollableMenus()
+{
+    return m_scrollableMenus;
+}
+
+void ProxyStyle::setScrollableMenus(bool scrollableMenus)
+{
+    m_scrollableMenus = scrollableMenus;
+}
+
+int ProxyStyle::styleHint(StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const
+{
+    if(m_scrollableMenus && hint == QStyle::SH_Menu_Scrollable)
+    {
+        return 1;
+    }
+
+    return QProxyStyle::styleHint(hint, option, widget, returnData);
+}
+
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)
 {
 }

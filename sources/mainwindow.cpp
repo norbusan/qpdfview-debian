@@ -133,15 +133,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
     s_settings->sync();
 
-    if(s_settings->mainWindow().hasIconTheme())
-    {
-        QIcon::setThemeName(s_settings->mainWindow().iconTheme());
-    }
-
-    if(s_settings->mainWindow().hasStyleSheet())
-    {
-        qApp->setStyleSheet(s_settings->mainWindow().styleSheet());
-    }
+    prepareStyle();
 
     setAcceptDrops(true);
 
@@ -2160,6 +2152,23 @@ void MainWindow::dropEvent(QDropEvent* event)
 
         on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
+}
+
+void MainWindow::prepareStyle()
+{
+    if(s_settings->mainWindow().hasIconTheme())
+    {
+        QIcon::setThemeName(s_settings->mainWindow().iconTheme());
+    }
+
+    if(s_settings->mainWindow().hasStyleSheet())
+    {
+        qApp->setStyleSheet(s_settings->mainWindow().styleSheet());
+    }
+
+    ProxyStyle* style = new ProxyStyle();
+
+    qApp->setStyle(style);
 }
 
 DocumentView* MainWindow::currentTab() const
