@@ -148,42 +148,42 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="958"/>
+        <location filename="../sources/settingsdialog.cpp" line="968"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="959"/>
+        <location filename="../sources/settingsdialog.cpp" line="969"/>
         <source>Ctrl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="960"/>
+        <location filename="../sources/settingsdialog.cpp" line="970"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="961"/>
+        <location filename="../sources/settingsdialog.cpp" line="971"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="962"/>
+        <location filename="../sources/settingsdialog.cpp" line="972"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift ۋە Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="963"/>
+        <location filename="../sources/settingsdialog.cpp" line="973"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="964"/>
+        <location filename="../sources/settingsdialog.cpp" line="974"/>
         <source>Right mouse button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="965"/>
+        <location filename="../sources/settingsdialog.cpp" line="975"/>
         <source>Middle mouse button</source>
         <translation type="unfinished"></translation>
     </message>
@@ -359,518 +359,523 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="154"/>
+        <location filename="../sources/mainwindow.cpp" line="146"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="155"/>
+        <location filename="../sources/mainwindow.cpp" line="147"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="229"/>
-        <location filename="../sources/mainwindow.cpp" line="303"/>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
-        <location filename="../sources/mainwindow.cpp" line="958"/>
-        <location filename="../sources/mainwindow.cpp" line="975"/>
-        <location filename="../sources/mainwindow.cpp" line="1011"/>
-        <location filename="../sources/mainwindow.cpp" line="1149"/>
-        <location filename="../sources/mainwindow.cpp" line="2232"/>
-        <location filename="../sources/mainwindow.cpp" line="2246"/>
+        <location filename="../sources/mainwindow.cpp" line="221"/>
+        <location filename="../sources/mainwindow.cpp" line="295"/>
+        <location filename="../sources/mainwindow.cpp" line="943"/>
+        <location filename="../sources/mainwindow.cpp" line="960"/>
+        <location filename="../sources/mainwindow.cpp" line="977"/>
+        <location filename="../sources/mainwindow.cpp" line="1013"/>
+        <location filename="../sources/mainwindow.cpp" line="1151"/>
+        <location filename="../sources/mainwindow.cpp" line="2253"/>
+        <location filename="../sources/mainwindow.cpp" line="2267"/>
         <source>Warning</source>
         <translation type="unfinished">ئاگاھلاندۇرۇش</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="229"/>
-        <location filename="../sources/mainwindow.cpp" line="303"/>
+        <location filename="../sources/mainwindow.cpp" line="221"/>
+        <location filename="../sources/mainwindow.cpp" line="295"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">‹%1› نى ئاچالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="507"/>
+        <location filename="../sources/mainwindow.cpp" line="502"/>
         <source>Close all tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="508"/>
+        <location filename="../sources/mainwindow.cpp" line="503"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="509"/>
+        <location filename="../sources/mainwindow.cpp" line="504"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="510"/>
+        <location filename="../sources/mainwindow.cpp" line="505"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="899"/>
+        <location filename="../sources/mainwindow.cpp" line="896"/>
         <source>Open</source>
         <translation type="unfinished">ئاچ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="915"/>
+        <location filename="../sources/mainwindow.cpp" line="912"/>
         <source>Open in new tab</source>
         <translation type="unfinished">يېڭى بەتكۈچتە ئاچ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="941"/>
-        <location filename="../sources/mainwindow.cpp" line="1149"/>
+        <location filename="../sources/mainwindow.cpp" line="943"/>
+        <location filename="../sources/mainwindow.cpp" line="1151"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">‹%1› نى يېڭىلىيالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="948"/>
+        <location filename="../sources/mainwindow.cpp" line="950"/>
         <source>Save copy</source>
         <translation type="unfinished">كۆچۈرمىسىنى ساقلا</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="958"/>
+        <location filename="../sources/mainwindow.cpp" line="960"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">كۆچۈرمىسىنى ‹%1› غا ساقلىيالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="965"/>
-        <location filename="../sources/mainwindow.cpp" line="2236"/>
+        <location filename="../sources/mainwindow.cpp" line="967"/>
+        <location filename="../sources/mainwindow.cpp" line="2257"/>
         <source>Save as</source>
         <translation type="unfinished">باشقا ئاتتا ساقلا</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="975"/>
-        <location filename="../sources/mainwindow.cpp" line="2246"/>
+        <location filename="../sources/mainwindow.cpp" line="977"/>
+        <location filename="../sources/mainwindow.cpp" line="2267"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; سۈپىتىدە ساقلىيالمايدۇ.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1011"/>
+        <location filename="../sources/mainwindow.cpp" line="1013"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">‹%1› نى ساقلىيالمىدى.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1048"/>
+        <location filename="../sources/mainwindow.cpp" line="1050"/>
         <source>Set first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1048"/>
+        <location filename="../sources/mainwindow.cpp" line="1050"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1061"/>
+        <location filename="../sources/mainwindow.cpp" line="1063"/>
         <source>Jump to page</source>
         <translation type="unfinished">بەتكە يۆتكەل</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1061"/>
+        <location filename="../sources/mainwindow.cpp" line="1063"/>
         <source>Page:</source>
         <translation type="unfinished">بەت:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1445"/>
+        <location filename="../sources/mainwindow.cpp" line="1447"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">بەت %1 غا يۆتكەل</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1596"/>
+        <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>About qpdfview</source>
         <translation type="unfinished">qpdfview ھەققىدە</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1596"/>
+        <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1600"/>
+        <location filename="../sources/mainwindow.cpp" line="1602"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1603"/>
+        <location filename="../sources/mainwindow.cpp" line="1605"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1606"/>
+        <location filename="../sources/mainwindow.cpp" line="1608"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1609"/>
+        <location filename="../sources/mainwindow.cpp" line="1611"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1612"/>
+        <location filename="../sources/mainwindow.cpp" line="1614"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1614"/>
+        <location filename="../sources/mainwindow.cpp" line="1616"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1939"/>
+        <location filename="../sources/mainwindow.cpp" line="1941"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2232"/>
+        <location filename="../sources/mainwindow.cpp" line="2253"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2411"/>
+        <location filename="../sources/mainwindow.cpp" line="2432"/>
         <source>Page width</source>
         <translation type="unfinished">بەت كەڭلىكى</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2412"/>
+        <location filename="../sources/mainwindow.cpp" line="2433"/>
         <source>Page size</source>
         <translation type="unfinished">بەت چوڭلۇقى</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2435"/>
+        <location filename="../sources/mainwindow.cpp" line="2456"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">چوڭ كىچىك ھەرپنى پەرقلەندۈر(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2436"/>
+        <location filename="../sources/mainwindow.cpp" line="2457"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">ھەممىنى يورۇت(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2483"/>
+        <location filename="../sources/mainwindow.cpp" line="2504"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">ئاچ(&amp;O)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2484"/>
+        <location filename="../sources/mainwindow.cpp" line="2505"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">يېڭى بەتكۈچتە ئاچ(&amp;T)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2486"/>
+        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <source>Open &amp;copy in new tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2508"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">يېڭىلا(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2487"/>
+        <location filename="../sources/mainwindow.cpp" line="2509"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">كۆچۈرمىسىنى ساقلا(&amp;S)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2488"/>
+        <location filename="../sources/mainwindow.cpp" line="2510"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">باشقا ئاتتا ساقلا(&amp;A)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2489"/>
+        <location filename="../sources/mainwindow.cpp" line="2511"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">باس(&amp;P)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2490"/>
+        <location filename="../sources/mainwindow.cpp" line="2512"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2494"/>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">ئالدىنقى بەت(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2495"/>
+        <location filename="../sources/mainwindow.cpp" line="2517"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">كېيىنكى بەت(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2496"/>
+        <location filename="../sources/mainwindow.cpp" line="2518"/>
         <source>&amp;First page</source>
         <translation type="unfinished">بىرىنچى بەت(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2497"/>
+        <location filename="../sources/mainwindow.cpp" line="2519"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">ئاخىرقى بەت(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2499"/>
+        <location filename="../sources/mainwindow.cpp" line="2521"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2501"/>
+        <location filename="../sources/mainwindow.cpp" line="2523"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">بەتكە يۆتكەل(&amp;J)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2503"/>
+        <location filename="../sources/mainwindow.cpp" line="2525"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2504"/>
+        <location filename="../sources/mainwindow.cpp" line="2526"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="2528"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">ئىزدە(&amp;S)…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2507"/>
+        <location filename="../sources/mainwindow.cpp" line="2529"/>
         <source>Find previous</source>
         <translation type="unfinished">كېيىنكىنى ئىزدە</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2508"/>
+        <location filename="../sources/mainwindow.cpp" line="2530"/>
         <source>Find next</source>
         <translation type="unfinished">كېيىنكىنى ئىزدە</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2509"/>
+        <location filename="../sources/mainwindow.cpp" line="2531"/>
         <source>Cancel search</source>
         <translation type="unfinished">ئىزدەشتىن ۋاز كەچ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2511"/>
+        <location filename="../sources/mainwindow.cpp" line="2533"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">چاپلاش تاختىسىغا كۆچۈر(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2512"/>
+        <location filename="../sources/mainwindow.cpp" line="2534"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">ئىزاھات قوش(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2514"/>
+        <location filename="../sources/mainwindow.cpp" line="2536"/>
         <source>Settings...</source>
         <translation type="unfinished">تەڭشەكلەر…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2518"/>
+        <location filename="../sources/mainwindow.cpp" line="2540"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">ئۈزلۈكسىز(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2519"/>
+        <location filename="../sources/mainwindow.cpp" line="2541"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">ئىككى بەت(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2520"/>
+        <location filename="../sources/mainwindow.cpp" line="2542"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">مۇقاۋىسى بار ئىككى بەت(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2521"/>
+        <location filename="../sources/mainwindow.cpp" line="2543"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">كۆپ بەت(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2523"/>
+        <location filename="../sources/mainwindow.cpp" line="2545"/>
         <source>Right to left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2525"/>
+        <location filename="../sources/mainwindow.cpp" line="2547"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">چوڭايت(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2526"/>
+        <location filename="../sources/mainwindow.cpp" line="2548"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">كىچىكلەت(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2527"/>
+        <location filename="../sources/mainwindow.cpp" line="2549"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">ئەسلى چوڭلۇقى(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2529"/>
+        <location filename="../sources/mainwindow.cpp" line="2551"/>
         <source>Fit to page width</source>
         <translation type="unfinished">بەت كەڭلىكىگە ماسلاشتۇر</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2530"/>
+        <location filename="../sources/mainwindow.cpp" line="2552"/>
         <source>Fit to page size</source>
         <translation type="unfinished">بەت چوڭلۇقىغا ماسلاشتۇر</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2532"/>
+        <location filename="../sources/mainwindow.cpp" line="2554"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">سولغا چۆرگىلەت(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2533"/>
+        <location filename="../sources/mainwindow.cpp" line="2555"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">ئوڭغا چۆرگىلەت(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2535"/>
+        <location filename="../sources/mainwindow.cpp" line="2557"/>
         <source>Invert colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2536"/>
+        <location filename="../sources/mainwindow.cpp" line="2558"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2538"/>
+        <location filename="../sources/mainwindow.cpp" line="2560"/>
         <source>Fonts...</source>
         <translation type="unfinished">خەت نۇسخىلىرى …</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2540"/>
+        <location filename="../sources/mainwindow.cpp" line="2562"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">پۈتۈن ئېكران(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2541"/>
+        <location filename="../sources/mainwindow.cpp" line="2563"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">سۇنۇلما(&amp;P) …</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2545"/>
+        <location filename="../sources/mainwindow.cpp" line="2567"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">ئالدىنقى بەتكۈچ(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2546"/>
+        <location filename="../sources/mainwindow.cpp" line="2568"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">كېيىنكى بەتكۈچ(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2548"/>
+        <location filename="../sources/mainwindow.cpp" line="2570"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">بەتكۈچنى ياپ(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2549"/>
+        <location filename="../sources/mainwindow.cpp" line="2571"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">بارلىق بەتكۈچلەرنى ياپ(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2550"/>
+        <location filename="../sources/mainwindow.cpp" line="2572"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">نۆۋەتتىكى بەتكۈچتىن باشقا ھەممە بەتكۈچنى تاقا(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2561"/>
+        <location filename="../sources/mainwindow.cpp" line="2583"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">ئالدىنقى خەتكۈش(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2562"/>
+        <location filename="../sources/mainwindow.cpp" line="2584"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">كېيىنكى خەتكۈش(N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2564"/>
+        <location filename="../sources/mainwindow.cpp" line="2586"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">خەتكۈش قوش(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2679"/>
+        <location filename="../sources/mainwindow.cpp" line="2786"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2691"/>
+        <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1938"/>
-        <location filename="../sources/mainwindow.cpp" line="2565"/>
+        <location filename="../sources/mainwindow.cpp" line="1940"/>
+        <location filename="../sources/mainwindow.cpp" line="2587"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">خەتكۈشنى چىقىۋەت(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2485"/>
+        <location filename="../sources/mainwindow.cpp" line="2507"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2566"/>
+        <location filename="../sources/mainwindow.cpp" line="2588"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">ھەممە خەتكۈشنى چىقىرىۋەت</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2570"/>
+        <location filename="../sources/mainwindow.cpp" line="2592"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">مەزمۇنلار(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2571"/>
+        <location filename="../sources/mainwindow.cpp" line="2593"/>
         <source>&amp;About</source>
         <translation type="unfinished">ھەققىدە(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2607"/>
-        <location filename="../sources/mainwindow.cpp" line="2787"/>
+        <location filename="../sources/mainwindow.cpp" line="2629"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>&amp;File</source>
         <translation type="unfinished">ھۆججەت(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2610"/>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="2632"/>
+        <location filename="../sources/mainwindow.cpp" line="2846"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">تەھرىر(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2613"/>
-        <location filename="../sources/mainwindow.cpp" line="2821"/>
+        <location filename="../sources/mainwindow.cpp" line="2635"/>
+        <location filename="../sources/mainwindow.cpp" line="2859"/>
         <source>&amp;View</source>
         <translation type="unfinished">كۆرۈنۈش(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2650"/>
+        <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">تېزىس(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2666"/>
+        <location filename="../sources/mainwindow.cpp" line="2773"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">خاسلىق(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2711"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>&amp;Search</source>
         <translation type="unfinished">ئىزدە(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2871"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">قورال بالداقلار(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="2874"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">قونداقلار(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2845"/>
+        <location filename="../sources/mainwindow.cpp" line="2888"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">بەتكۈچلەر(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2863"/>
+        <location filename="../sources/mainwindow.cpp" line="2906"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">خەتكۈچلەر(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2871"/>
+        <location filename="../sources/mainwindow.cpp" line="2914"/>
         <source>&amp;Help</source>
         <translation type="unfinished">ياردەم(&amp;H)</translation>
     </message>
@@ -1271,12 +1276,13 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="237"/>
         <location filename="../sources/settingsdialog.cpp" line="245"/>
-        <location filename="../sources/settingsdialog.cpp" line="709"/>
-        <location filename="../sources/settingsdialog.cpp" line="718"/>
-        <location filename="../sources/settingsdialog.cpp" line="726"/>
-        <location filename="../sources/settingsdialog.cpp" line="741"/>
-        <location filename="../sources/settingsdialog.cpp" line="749"/>
-        <location filename="../sources/settingsdialog.cpp" line="757"/>
+        <location filename="../sources/settingsdialog.cpp" line="666"/>
+        <location filename="../sources/settingsdialog.cpp" line="731"/>
+        <location filename="../sources/settingsdialog.cpp" line="740"/>
+        <location filename="../sources/settingsdialog.cpp" line="748"/>
+        <location filename="../sources/settingsdialog.cpp" line="756"/>
+        <location filename="../sources/settingsdialog.cpp" line="764"/>
+        <location filename="../sources/settingsdialog.cpp" line="772"/>
         <source>Effective after restart.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1478,53 +1484,58 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="665"/>
+        <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">ئۈستى</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="666"/>
+        <location filename="../sources/settingsdialog.cpp" line="688"/>
         <source>Bottom</source>
         <translation type="unfinished">ئاستى</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="667"/>
+        <location filename="../sources/settingsdialog.cpp" line="689"/>
         <source>Left</source>
         <translation type="unfinished">سول</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <location filename="../sources/settingsdialog.cpp" line="690"/>
         <source>Right</source>
         <translation type="unfinished">ئوڭ</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="671"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Tab position:</source>
         <translation type="unfinished">بەتكۈچ ئورنى:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="676"/>
+        <location filename="../sources/settingsdialog.cpp" line="698"/>
         <source>As needed</source>
         <translation type="unfinished">زۆرۈر بولغاندا</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="677"/>
+        <location filename="../sources/settingsdialog.cpp" line="699"/>
         <source>Always</source>
         <translation type="unfinished">ھەمىشە</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="702"/>
+        <location filename="../sources/settingsdialog.cpp" line="724"/>
         <source>Exit after last tab:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="920"/>
+        <location filename="../sources/settingsdialog.cpp" line="774"/>
+        <source>Scrollable menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="930"/>
         <source>Zoom to selection:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="275"/>
-        <location filename="../sources/settingsdialog.cpp" line="678"/>
+        <location filename="../sources/settingsdialog.cpp" line="700"/>
         <source>Never</source>
         <translation type="unfinished">ھەرگىز</translation>
     </message>
@@ -1534,72 +1545,72 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="681"/>
+        <location filename="../sources/settingsdialog.cpp" line="703"/>
         <source>Tab visibility:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="688"/>
+        <location filename="../sources/settingsdialog.cpp" line="710"/>
         <source>Spread tabs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="695"/>
+        <location filename="../sources/settingsdialog.cpp" line="717"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="711"/>
+        <location filename="../sources/settingsdialog.cpp" line="733"/>
         <source>Recently used count:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="720"/>
+        <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Recently closed count:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="728"/>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
         <source>Extended search dock:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="735"/>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="743"/>
+        <location filename="../sources/settingsdialog.cpp" line="750"/>
         <source>File tool bar:</source>
         <translation type="unfinished">ھۆججەت قورال  بالدىقى:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="751"/>
+        <location filename="../sources/settingsdialog.cpp" line="758"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">تەھرىر قورال بالدىقى:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="759"/>
+        <location filename="../sources/settingsdialog.cpp" line="766"/>
         <source>View tool bar:</source>
         <translation type="unfinished">كۆرۈنۈش قورال بالدىقى:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="766"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
         <source>Use page label:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="773"/>
+        <location filename="../sources/settingsdialog.cpp" line="795"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="780"/>
+        <location filename="../sources/settingsdialog.cpp" line="802"/>
         <source>Current page in window title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="787"/>
+        <location filename="../sources/settingsdialog.cpp" line="809"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1609,47 +1620,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="794"/>
+        <location filename="../sources/settingsdialog.cpp" line="816"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="801"/>
+        <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="808"/>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="815"/>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
         <source>Form field overlay:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="890"/>
+        <location filename="../sources/settingsdialog.cpp" line="900"/>
         <source>Zoom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="896"/>
+        <location filename="../sources/settingsdialog.cpp" line="906"/>
         <source>Rotate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="902"/>
+        <location filename="../sources/settingsdialog.cpp" line="912"/>
         <source>Scroll:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="908"/>
+        <location filename="../sources/settingsdialog.cpp" line="918"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="914"/>
+        <location filename="../sources/settingsdialog.cpp" line="924"/>
         <source>Add annotation:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1700,12 +1711,12 @@
 <context>
     <name>qpdfview::TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="273"/>
+        <location filename="../sources/miscellaneous.cpp" line="320"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="274"/>
+        <location filename="../sources/miscellaneous.cpp" line="321"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished"></translation>
     </message>
