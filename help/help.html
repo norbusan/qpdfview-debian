@@ -85,9 +85,9 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last page of the document.</li>
     <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the current tab.</li>
     <li><b>Jump backward/forward</b> Jumps backward/forward in the history of displayed page.</li>
-	<li><b>Search...</b> Opens the search tool bar below the main view. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. If the Shift modifier is held when the return key is pressed, the search starts in all tabs instead of just the current tab.</li>
+	<li><b>Search...</b> Opens the search dock below the main view. The search automatically starts two seconds after the last change of the search term or is manually started by pressing the return key. If the Shift modifier is held when the return key is pressed, the search starts in all tabs instead of just the current tab. (This effect is reversed if the extended search dock is enabled in the settings.)</li>
 	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the search term in the document.</li>
-	<li><b>Cancel search</b> Cancels the currently running search and closes the search tool bar.</li>
+	<li><b>Cancel search</b> Cancels the currently running search and closes the search dock.</li>
 	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be dragged to copy texts or images.</li>
 	<li><b>Add annotation</b> If checked, the program will wait for a frame to be dragged to add annotations.</li>
 	<li><b>Settings...</b> Opens the settings dialog. The button labeled 'Defaults' will revert all settings on all tabs to their default values. The button labeled 'Defaults on current tab' will revert only the settings on the current tab to their default values.</li>
@@ -181,6 +181,10 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <p>The <em>thumbnails</em> view displays smaller versions of the pages of the document. A left click on an entry jumps to the respective page in the main view.</p>
 
+<p>The <em>bookmarks</em> view shows the bookmarks related to the document displayed in the current tab. The context menu contains entries to jump to the previous/next boookmark or to add bookmarks. The context menu of each entry also contains entries to edit and delete bookmarks.</p>
+
+<p>If enabled in the settings, the extended <em>search</em> dock shows an overview which contains the results of all searches being performed in all tabs. It shows the text surrounding a result with the search term being emphasized. Clicking on a result opens the corresponding tab and jumps to corresponding position.</p>
+
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Behavior settings</a> <a href="#top">&uarr;</a></h4>
@@ -207,7 +211,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="graphicssettings">Graphics settings</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Use tiling</b> TODO</li>
+    <li><b>Use tiling</b> Pages will be divided into tiles before rendering and caching to reduce memory usage.</li>
     <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom factor, cached pixmaps will be used to draw approximations of final pixmaps until these are available at the cost of increased memory usage.</li>
     <li><b>Use device pixel ratio</b> If enabled, the highest available device pixel ratio is used to render at physical and display at logical resolution.</li>
     <li><b>Trim margins</b> Activates the automatic removal of empty page margins after rendering.</li>
@@ -245,9 +249,9 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <h4><a name="interfacesettings">Interface settings</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Extended search dock:</b> TODO (Effective after restart.)</li>
-    <li><b>Annotation overlay:</b> TODO</li>
-    <li><b>Form field overlay:</b> TODO</li>
+    <li><b>Extended search dock:</b> If enabled, the default search dock is extended by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Annotation overlay:</b> If enabled, all annotations on a page will be displayed as an interactive overlay. Otherwise each annotation will be handled as a separate pop-up window.</li>
+    <li><b>Form field overlay:</b> If enabled, all form fields on a page will be displayed as an interactive overlay. Otherwise each form field will be handled as a separate pop-up window.</li>
     <li><b>Tab position</b> Defines at which edge of the main view tabs will be displayed.</li>
     <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than two documents are opened.</li>
     <li><b>Spread tabs</b> Determines if tabs will be spread out evenly over the whole tab bar.</li>
@@ -258,7 +262,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><b>File tool bar</b> Defines which actions are visible in the file tool bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs, print and separator. (Effective after restart.)</li>
     <li><b>Edit tool bar</b> Defines which actions are visible in the edit tool bar. Available actions are currentPage, previousPage, nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward, search, copyToClipboardMode, addAnnotationMode and separator. (Effective after restart.)</li>
     <li><b>View tool bar</b> Defines which actions are visible in the view tool bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode, twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize, fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen, presentation and separator. (Effective after restart.)</li>
-    <li><b>Scrollable menus</b> TODO (Effective after restart.)</b>
+    <li><b>Scrollable menus</b> Will override the default style so that pop-up menus scroll instead being laid-out in mutliple columns if they are larger than the available screen space. (Effective after restart.)</b>
     <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the visibility of the tool and menu bars when toggling fullscreen mode.</li>
     <li><b>Use page label</b> Determines if document-supplied page label will be used instead of page numbers when available.</li>
     <li><b>Document title as tab title</b> Determines if the tab title as derived from the meta-data instead of the file name.</li>
