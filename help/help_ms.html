@@ -100,15 +100,16 @@ berikut/terdahulu/pertama/terakhir.</li>
 pada tab semasa.</li>
     <li><b>Lompat undur/maju</b> Lompat undur/maju dalam sejarah halaman yang
 dipaparkan.</li>
-	<li><b>Gelintar...</b> Buka palang alat gelintar dibawah paparan utama. Gelintar
-akan bermula secara automatik dua saat selepas perubahan terakhir pada terma
-gelintar atau dimulakan secara manual selepas menekan kekunci return. Jika
-pengubahsuai Shift ditahan bila kekunci return ditekan, gelintar akan mula
-dalam semua tab bukan tab semasa sahaja.</li>
+	<li><b>Search...</b> Opens the search dock below the main view. The search
+automatically starts two seconds after the last change of the search term or
+is manually started by pressing the return key. If the Shift modifier is
+held when the return key is pressed, the search starts in all tabs instead
+of just the current tab. (This effect is reversed if the extended search
+dock is enabled in the settings.)</li>
 	<li><b>Cari terdahulu/berikut</b> Lompat ke kemunculan terma gelintar
 terdahulu/berikut didalam dokumen.</li>
-	<li><b>Batal gelintar</b> Batalkan gelintar yang kini berjalan dan tutup palang
-alat gelintar.</li>
+	<li><b>Cancel search</b> Cancels the currently running search and closes the
+search dock.</li>
 	<li><b>Salin ke papan keratan</b> Jika ditanda, program akan tunggu bingkai
 diseret untuk salin teks atau imej.</li>
 	<li><b>Tambah anotasi</b> Jika ditanda, program akan tunggu bingkai diseret
@@ -277,6 +278,17 @@ dokumen.</p>
 dokumen. Klik kiri pada masukan akan lompat ke halaman yang dikehendaki di
 paparan utama.</p>
 
+<p>The <em>bookmarks</em> view shows the bookmarks related to the document
+displayed in the current tab. The context menu contains entries to jump to
+the previous/next boookmark or to add bookmarks. The context menu of each
+entry also contains entries to edit and delete bookmarks.</p>
+
+<p>If enabled in the settings, the extended <em>search</em> dock shows an
+overview which contains the results of all searches being performed in all
+tabs. It shows the text surrounding a result with the search term being
+emphasized. Clicking on a result opens the corresponding tab and jumps to
+corresponding position.</p>
+
 <h3><a name="settings">Tetapan</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Tetapan kelakuan</a> <a href="#top">&uarr;</a></h4>
@@ -321,6 +333,8 @@ dengan nombor lajur wakil baris.</li>
 <h4><a name="graphicssettings">Tetapan grafik</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Use tiling</b> Pages will be divided into tiles before rendering and
+caching to reduce memory usage.</li>
     <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
 factor, cached pixmaps will be used to draw approximations of final pixmaps
 until these are available at the cost of increased memory usage.</li>
@@ -357,13 +371,13 @@ meningkat.</li>
 ganda bilangan baris sebelum baris semasa yang telah di prefetch.</li>
     <li><b>Tetapan PDF</b>
     <ul>
-        <li><b>Pratonton lebih-cetak</b> Jika dibenarkan, satu pratonton percetakan satu
-lapisan dakwat diatas yang lain dipaparkan.</li>
         <li><b>Antialias</b> Pertingkatkan kualiti paparan dengan kos terhadap prestasi</li>
         <li><b>Antialias teks</b> Mepertingkatkan kualiti teks tetapi menjejaskan
 prestasi</li>
         <li><b>Bayangan teks</b> Dapat mempertingkatkan kualitit paparan teks bagi fon
 tertentu.</li>
+        <li><b>Pratonton lebih-cetak</b> Jika dibenarkan, satu pratonton percetakan satu
+lapisan dakwat diatas yang lain dipaparkan.</li>
         <li><b>Mod garis nipis</b> Pilih pengoptimuman yang digunakan untuk melukis
 garis nipis.</li>
         <li><b>Bahagian belakang</b> Pilih bahagian belakang yang digunakan untuk
@@ -381,6 +395,14 @@ menerap halaman.</li>
 <h4><a name="interfacesettings">Tetapan antaramuka</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Extended search dock</b> If enabled, the default search dock is extended
+by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Annotation overlay</b> If enabled, all annotations on a page will be
+displayed as an interactive overlay. Otherwise each annotation will be
+handled as a separate pop-up window.</li>
+    <li><b>Form field overlay</b> If enabled, all form fields on a page will be
+displayed as an interactive overlay. Otherwise each form field will be
+handled as a separate pop-up window.</li>
     <li><b>Kedudukan tab</b> Takrifkan bucu tab paparan utama yang manakah akan
 dipapar.</li>
     <li><b>Ketampakan tab</b> Tentukan sama ada tab akan dipapar jika kurang dari
@@ -397,8 +419,6 @@ restart.)</li>
     <li><b>Recently closed count</b> Sets the number of tabs that are listed in the
 recently closed menu, if "Keep recently closed" is enabled. (Effective after
 restart.)</li>
-    <li><b>Togol palang alat dan menu dengan skrin penuh</b> Sentiasa togol
-ketampakan palang alat dan menu bila menogol ke mod skrrin penuh.</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool
 bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
 print and separator. (Effective after restart.)</li>
@@ -412,6 +432,11 @@ bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
 twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
+    <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
+scroll instead being laid-out in mutliple columns if they are larger than
+the available screen space. (Effective after restart.)</li>
+    <li><b>Togol palang alat dan menu dengan skrin penuh</b> Sentiasa togol
+ketampakan palang alat dan menu bila menogol ke mod skrrin penuh.</li>
     <li><b>Use page label</b> Determines if document-supplied page label will be
 used instead of page numbers when available.</li>
     <li><b>Document title as tab title</b> Determines if the tab title as derived

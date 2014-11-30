@@ -99,15 +99,16 @@ další/předchozí/první/poslední stranu dokumentu.</li>
     <li><b>Přejít na stranu...</b> Otevře dialog pro vstoupení na stranu zobrazenou
 v nynější kartě.</li>
     <li><b>Skočit zpět/vpřed</b> Skočí zpět/vpřed v historii zobrazené strany.</li>
-	<li><b>Hledat...</b> Otevře pod hlavním pohledem vyhledávací řádek. Hledání
-začne automaticky dvě sekundy po poslední změně hledaného pojmu nebo je
-spuštěno ručně stisknutím klávesy Enter. Pokud je podržen modifikátor Shift,
-když je stisknuta klávesa Enter, hledání začne ve všech kartách a ne jen v
-nynější kartě.</li>
+	<li><b>Hledat...</b> Otevře panel pro hledání pod hlavním pohledem. Hledání
+začne automaticky dvě sekundy po poslední změně v hledaném výrazu nebo je
+spuštěno ručně stisknutím klávesy Enter. Pokud je podržen modifikátor Shift
+když je stisknuta klávesa Enter, prohledávání začne ve všech kartách místo
+pouze v nynější kartě. (Tento účinek je zrušen, pokud je v nastavení povolen
+panel pro rozšířené hledání.)</li>
 	<li><b>Najít předchozí/další</b> Skočí v dokumentu na předchozí/další výskyt
 hledaného pojmu.</li>
-	<li><b>Zrušit hledání</b> Zruší nyní probíhající hledání a zavře vyhledávací
-řádek.</li>
+	<li><b>Zrušit hledání</b> Zruší nyní probíhající hledání a zavře panel pro
+hledání.</li>
 	<li><b>Kopírovat do schránky</b> Je-li zaškrtnuto, program počká na vytvoření
 rámečku pro zkopírování textu nebo obrázků tažením.</li>
 	<li><b>Přidat poznámku</b> Je-li zaškrtnuto, program počká na vytvoření rámečku
@@ -148,8 +149,8 @@ stupňů.</li>
 	<li><b>Otočit vpravo</b> Otočí strany doprava/po směru hodinových ručiček o 90
 stupňů.</li>
     <li><b>Obrátit barvy</b> Určuje, zda jsou strany kresleny s obrácenými barvami.</li>
-    <li><b>Convert to grayscale</b> Determines whether pages are converted to
-grayscale after rendering.</li>
+    <li><b>Převést na odstíny šedi</b> Určuje, zda jsou strany po vykreslení
+převedeny na odstíny šedi.</li>
 	<li><b>Nástrojové panely</b> Tato nabídka obsahuje seznam dostupných
 nástrojových panelů pro přístup k často používaným činnostem.</li>
 	<li><b>Postranní panely</b> Tato nabídka obsahuje seznam dostupných postranních
@@ -277,6 +278,17 @@ dokumentu.</p>
 levým tlačítkem myši na položku se skočí na příslušnou stranu v hlavním
 pohledu.</p>
 
+<p>Pohled na <em>záložky</em> ukáže záložky vztahující se k dokumentu
+zobrazenému v nynější kartě. Související nabídka obsahuje položky pro skok
+na předchozí/další záložku nebo pro přidání záložek. Související nabídka
+každé položky rovněž obsahuje položky pro úpravy a mazání záložek.</p>
+
+<p>If enabled in the settings, the extended <em>search</em> dock shows an
+overview which contains the results of all searches being performed in all
+tabs. It shows the text surrounding a result with the search term being
+emphasized. Clicking on a result opens the corresponding tab and jumps to
+corresponding position.</p>
+
 <h3><a name="settings">Nastavení</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Nastavení chování</a> <a href="#top">&uarr;</a></h4>
@@ -324,6 +336,8 @@ nahrazeno číslem řádku popřípadě sloupce.</li>
 <h4><a name="graphicssettings">Nastavení grafiky</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Použít dláždění</b> Strany budou před vykreslením rozděleny do dlaždic a
+uloženy do vyrovnávací paměti, aby se zmenšila míra využití paměti.</li>
     <li><b>Zachovat zastaralé pixmapy</b> Je-li povoleno, potom se po změně násobku
 zvětšení pixmapy uložené ve vyrovnávací paměti použijí na kreslení
 přibližných pixmap konečných pixmap, dokud tyto nebudou dostupné za cenu
@@ -361,12 +375,12 @@ využití paměti.</li>
 tolik řádků před nynějším řádkem, které jsou přednataženy.</li>
     <li><b>Nastavení PDF</b>
     <ul>
-        <li><b>Náhled přetisku</b> Je-li povoleno, je zobrazen náhled tisku jedné vrstvy
-černě na vrchu jiné.</li>
         <li><b>Vyhlazování</b> Zlepšuje jakost zobrazení za cenu výkonu.</li>
         <li><b>Vyhlazování textu</b> Zlepšuje jakost zobrazení textu za cenu výkonu.</li>
         <li><b>Instruování textu</b> U některých písem může zlepšit jakost zobrazení
 textu.</li>
+        <li><b>Náhled přetisku</b> Je-li povoleno, je zobrazen náhled tisku jedné vrstvy
+černě na vrchu jiné.</li>
         <li><b>Režim tenkého řádku</b> Vybere optimalizaci používanou ke kreslení
 tenkých řádků.</li>
         <li><b>Jádro</b> Vybere jádro používané ke kreslení stran.</li>
@@ -383,6 +397,15 @@ tenkých řádků.</li>
 <h4><a name="interfacesettings">Nastavení rozhraní</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Panel pro rozšířené hledání</b> Je-li povoleno, výchozí panel pro hledání
+je rozšířen o přehled ukazující výsledky všech karet. (Účinné po opětovném
+spuštění.)</li>
+    <li><b>Vložené poznámky</b> Je-li povoleno, všechny poznámky na straně budou
+zobrazeny jako interaktivní překrytí. V opačném případě bude s každou
+poznámkou zacházeno jako se samostatným oknem.</li>
+    <li><b>Vložené formulářové pole</b> Je-li povoleno, všechna formulářová pole na
+straně budou zobrazena jako interaktivní překrytí. V opačném případě bude s
+každým formulářovým polem zacházeno jako se samostatným oknem.</li>
     <li><b>Umístění karet</b> Stanovuje, při kterém okraji hlavního pohledu budou
 karty zobrazeny.</li>
     <li><b>Viditelnost karet</b> Určuje, zda budou karty zobrazeny, v případě že
@@ -399,9 +422,6 @@ použité. (Začne účinkovat po opětovném spuštění programu.)</li>
     <li><b>Počet nedávno zavřených</b> Nastavuje počet karet, jež jsou uváděny v
 nabídce nedávno zavřených, pokud je povoleno Uchovat nedávno zavřené. (Začne
 účinkovat po opětovném spuštění programu.)</li>
-    <li><b>Přepnout nástrojové pruhy a pruh s hlavní nabídkou při zobrazení na celou
-obrazovku</b> Viditelnost nástrojových pruhů a pruhu s hlavní nabídkou je
-přepnuta vždy, když dojde k přepnutí do režimu na celou obrazovku.</li>
     <li><b>Panel nástrojů pro soubor</b> Stanovuje, které činnosti jsou viditelné v
 panelu nástrojů pro soubor. Dostupné činnosti jsou Otevřít v nové kartě,
 Otevřít, Uložit kopii, Uložit jako, Tisk a oddělovač. (Nabude účinnosti po
@@ -417,6 +437,13 @@ Přiblížit, Oddálit, Průběžně, Dvě strany, Dvě strany s titulní strano
 stran, Původní velikost, Přizpůsobit šířce strany, Přizpůsobit velikosti
 strany, Otočit vlevo, Otočit vpravo, Celá obrazovka, Promítání a
 oddělovač. (Nabude účinnosti po opětovném spuštění programu.)</li>
+    <li><b>Ubíhající nabídky</b> Přepíše výchozí styl, takže položky v nabídkách při
+projíždění ubíhají, místo toho aby byly zobrazeny ve více sloupcích, v
+případě že zabírají více místa, než je dostupný prostor na
+obrazovce. (Účinné po opětovném spuštění.)</li>
+    <li><b>Přepnout nástrojové pruhy a pruh s hlavní nabídkou při zobrazení na celou
+obrazovku</b> Viditelnost nástrojových pruhů a pruhu s hlavní nabídkou je
+přepnuta vždy, když dojde k přepnutí do režimu na celou obrazovku.</li>
     <li><b>Použít popis strany</b> Stanoví, zda se použije popis strany poskytnutý
 dokumentem místo čísel stran.</li>
     <li><b>Název dokumentu jako název karty</b> Určí, zda je název karty odvozen z

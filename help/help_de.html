@@ -104,15 +104,16 @@ vorigen/nächsten/ersten/letzten Seite des Dokuments.</li>
 Anzeige im aktuellen Reiter.</li>
     <li><b>Springe rückwärts/vorwärts</b> Springt rückwärts/vorwärts in der Chronik
 der angezeigten Seiten.</li>
-	<li><b>Suchen...</b> Öffnet die Suchwerkzeugleiste unter der Hauptansicht. Die
-Suche beginnt automatisch zwei Sekunden nach der letzten Änderung des
-Suchbegriffs oder wird manuell mit der Eingabetaste gestartet. Falls die
-Umschalttaste gehalten wird, während die Eingabetaste gedrückt wird, startet
-die Suche in allen Reitern anstatt nur dem aktuellen Reiter.</li>
+	<li><b>Suchen...</b> Öffnet die Suchansicht unter der Hauptansicht. Die Suche
+beginnt automatisch zwei Sekunden nach der letzten Änderung des Suchbegriffs
+oder wird manuell mit der Eingabetaste gestartet. Falls die Umschalttaste
+gehalten wird, während die Eingabetaste gedrückt wird, startet die Suche in
+allen Reitern anstatt nur dem aktuellen Reiter. (Dieser Effekt wird
+umgekehrt falls die erweiterte Suchansicht verwendet wird.)</li>
 	<li><b>Rückwärts/Vorwärts suchen</b> Springt zur vorigen/nächsten Fundstelle des
 Suchbegriffs im Dokument.</li>
 	<li><b>Suche abbrechen</b> Bricht die aktuelle laufende Suche ab und schließt
-die Suchwerkzeugleiste.</li>
+die Suchansicht.</li>
 	<li><b>In Zwischenablage kopieren</b> Wenn aktiviert, wird das Programm darauf
 warten, dass zum Kopieren ein Rahmen um Text oder Bilder gezogen wird.</li>
 	<li><b>Anmerkung hinzufügen</b> Wenn aktiviert, wird das Programm darauf warten,
@@ -298,6 +299,19 @@ Informationen an.</p>
 Dokumentes. Durch einen Linksclick auf einen Eintrag springt die
 Hauptansicht zur entsprechenden Seite.</p>
 
+<p>The <em>Lesezeichenansicht</em> zeigt die zum im aktuellen Reiter
+dargestellten Dokument gehörenden Lesezeichen. Das Kontextmenü erlaubt es
+zum vorigen/nächsten Lesezeichen zu springen oder Lesezeichen
+hinzuzufügen. Das Kontextmenü jedes Eintrags erlaubt es außerdem den Eintrag
+zu bearbeiten und zu löschen.</p>
+
+<p>Falls es in den Einstellungen aktiviert wurde, stellt die erweiterte
+<em>Suchansicht</em> eine Übersicht aller Suchergebnisse aller in den
+verschiedenen Reitern durchgeführten Suchvorgänge dar. Es stellt außerdem
+den die Ergebnisse umgebenden Text dar wobei der Suchbegriff hervorgehoben
+wird. Durch Mausklick auf einen Eintrag wechselt die Hauptansicht zum
+entsprechenden Reiter und springt zur zugehörigen Position.</p>
+
 <h3><a name="settings">Einstellungen</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Einstellungen zum Verhalten</a> <a
@@ -351,6 +365,9 @@ Zeilen- bzw. Spaltennummer ersetzt.</li>
 href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Kachelung verwenden</b> Die Seiten werden vor Darstellung und
+Zwischenspeicherung in Kacheln unterteilt, um den Speicherverbrauch zu
+reduzieren.</li>
     <li><b>Veraltete Grafiken aufheben</b> Falls eingeschaltet, werden bei
 Veränderung der Vergrößerung (auf Kosten zusätzlichen
 Arbeitsspeicherverbrauchs) bereits erstellte Grafiken der alten Auflösung
@@ -390,14 +407,14 @@ Zeilen über die aktuelle Zeile hinaus und halb so viele Zeilen vor der
 aktuellen Zeile voraus.</li>
     <li><b>PDF-Einstellungen</b>
     <ul>
-        <li><b>Überdruckvorschau</b> Falls eingeschaltet, wird eine Vorschau des
-Überdruckens einer Tintenlage über eine andere angezeigt.</li>
         <li><b>Kantenglättung</b> Verbessert die Anzeigequalität auf Kosten der
 Geschwindigkeit.</li>
         <li><b>Text-Kantenglättung</b> Verbessert die Anzeigequalität von Text auf
 Kosten der Geschwindigkeit.</li>
         <li><b>Text-Hinting</b> Kann die Anzeigequalität von Text für bestimmte
 Schriftarten verbessern.</li>
+        <li><b>Überdruckvorschau</b> Falls eingeschaltet, wird eine Vorschau des
+Überdruckens einer Tintenlage über eine andere angezeigt.</li>
         <li><b>Modus für dünne Linien</b> Wählt das Optimierungsverfahren für das
 Zeichnen dünner Linien aus.</li>
         <li><b>Unterbau</b> Wählt den Unterbau zum Zeichnen von Seiten aus.</li>
@@ -417,6 +434,15 @@ geglättet werden.</li>
 href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Erweiterte Suchansicht</b> Erweitert die Standardsuchansicht um eine
+Übersicht der Suchergebnisse aller Reiter. (Nach Neustart wirksam.)</li>
+    <li><b>Eingebettet dargestellte Anmerkungen</b> Ist diese Option aktiviert,
+werden alle Anmerkungen einer Seite als interaktive Überlagerung
+dargestellt. Ansonsten wird jede Anmerkung als separates Fenster behandelt.</li>
+    <li><b>Eingebettet dargestellte Formularfelder</b> Ist diese Option aktiviert,
+werden alle Formularfelder einer Seite als interaktive Überlagerung
+dargestellt. Ansonsten wird jedes Formularfeld als separates Fenster
+behandelt.</li>
     <li><b>Reiterposition</b> Legt fest an welcher Kante der Hauptansicht die Reiter
 angezeigt werden.</li>
     <li><b>Reitersichtbarkeit</b> Legt fest ob Reiter angezeigt werden falls weniger
@@ -433,9 +459,6 @@ Dateien merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li
     <li><b>Anzahl geschlossener Reiter</b> Legt die Azahl der Reiter fest, die im
 Menü für zuletzt geschlossene Reiter aufgeführt werden, falls "Geschlossene
 Reiter merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
-    <li><b>Werkzeug- und Menüleisten bei Vollbild umschalten</b> Die Sichtbarkeit
-von Werkzeug- und Menüleisten wird immer dann umgeschalten wenn der
-Vollbildmouds umgeschalten wird.</li>
     <li><b>Datei-Werkzeugleiste</b> Legt fest, welche Aktionen in welcher
 Reihenfolge in der Datei-Werkzeugleiste angezeigt werden. Verfügbare
 Aktionen sind "openInNewTab" (In neuem Reiter öffnen), "open" (Öffnen),
@@ -460,6 +483,12 @@ Aktionen sind "scaleFactor" (Skalenfaktor), "zoomIn" (Vergrößern), "zoomOut"
 "rotateLeft" (Nach links drehen), "rotateRight" (Nach rechts drehen),
 "fullscreen" (Vollbild), "presentation" (Präsentation) und "separator"
 (Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Laufende Menüs</b> Überschreibt die Vorgabe des Standardstils, so dass
+Menüs laufen anstatt in mehreren Spalten dargestellt zu werden, falls sie
+größer sind als die verfügbare Bildschirmfläche. (Nach Neustart wirksam.)</li>
+    <li><b>Werkzeug- und Menüleisten bei Vollbild umschalten</b> Die Sichtbarkeit
+von Werkzeug- und Menüleisten wird immer dann umgeschalten wenn der
+Vollbildmouds umgeschalten wird.</li>
     <li><b>Seitenbeschriftung verwenden</b> Legt fest, ob vom Dokument vergebene
 Seitenbeschriftungen anstatt von Seitenzahlen verwendet werden.</li>
     <li><b>Dokumententitel als Reitertitel</b> Legt fest ob der Reitertitel anhand

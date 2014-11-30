@@ -102,16 +102,16 @@ spostamento attraverso le pagine del documento.</li>
 visualizzare nella scheda corrente.</li>
     <li><b>Va indietro/avanti</b> si sposta indietro e avanti nella cronologia della
 pagina visualizzata.</li>
-	<li><b>Cerca...</b> apre la barra di ricerca sotto la visualizzazione
-principale. La ricerca automatica si avvia due secondi dopo l'ultima
-modifica del termine da ricercare. Per avviare la ricerca manualmente
-premere il tasto «Invio». Se il modificatore «Shift» è premuto quando si
-preme invio, la ricerca verrà avviata in tutte le schede e non solo in
-quella corrente.</li>
+	<li><b>Search...</b> Opens the search dock below the main view. The search
+automatically starts two seconds after the last change of the search term or
+is manually started by pressing the return key. If the Shift modifier is
+held when the return key is pressed, the search starts in all tabs instead
+of just the current tab. (This effect is reversed if the extended search
+dock is enabled in the settings.)</li>
 	<li><b>Trova precedente/successivo</b> va al risultato precedente/successivo del
 termine ricercato nel documento.</li>
-	<li><b>Annulla ricerca</b> annulla la ricerca attualmente in esecuzione e chiude
-la barra di ricerca.</li>
+	<li><b>Cancel search</b> Cancels the currently running search and closes the
+search dock.</li>
 	<li><b>Copia negli appunti</b> se selezionato, il programma attenderà la
 selezione di una parte del documenti per copiare testi o immagini.</li>
 	<li><b>Aggiungi nota</b> se selezionato, il programma attenderà la selezione di
@@ -287,6 +287,17 @@ the document.</p>
 documento. Un clic con il pulsante sinistro su una miniatura porta alla
 rispettiva pagine nella vista principale.</p>
 
+<p>The <em>bookmarks</em> view shows the bookmarks related to the document
+displayed in the current tab. The context menu contains entries to jump to
+the previous/next boookmark or to add bookmarks. The context menu of each
+entry also contains entries to edit and delete bookmarks.</p>
+
+<p>If enabled in the settings, the extended <em>search</em> dock shows an
+overview which contains the results of all searches being performed in all
+tabs. It shows the text surrounding a result with the search term being
+emphasized. Clicking on a result opens the corresponding tab and jumps to
+corresponding position.</p>
+
 <h3><a name="settings">Impostazioni</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Impostazioni del comportamento</a> <a
@@ -336,6 +347,8 @@ resp. column number.</li>
 href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Use tiling</b> Pages will be divided into tiles before rendering and
+caching to reduce memory usage.</li>
     <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
 factor, cached pixmaps will be used to draw approximations of final pixmaps
 until these are available at the cost of increased memory usage.</li>
@@ -371,14 +384,14 @@ visible increasing rendering speed at the cost of increased cache usage.</li>
 the number of rows before the current row that are prefetched.</li>
     <li><b>Impostazioni PDF</b>
     <ul>
-        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
-on top of another is displayed.</li>
         <li><b>Antialiasing</b> migliora la qualità di visualizzazione a scapito delle
 prestazioni.</li>
         <li><b>Antialiasing del testo</b> migliora la qualità del testo mostrato a
 scapito delle prestazioni.</li>
         <li><b>Approssimazione del testo</b> può migliorare la qualità del testo
 mostrato per alcuni tipi di carattere.</li>
+        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
+on top of another is displayed.</li>
         <li><b>Thin line mode</b> Chooses the optimization used to draw thin lines.</li>
         <li><b>Backend</b> seleziona il backend usanto per il render delle pagine.</li>
     </ul>
@@ -397,6 +410,14 @@ testo.</li>
 href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Extended search dock</b> If enabled, the default search dock is extended
+by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Annotation overlay</b> If enabled, all annotations on a page will be
+displayed as an interactive overlay. Otherwise each annotation will be
+handled as a separate pop-up window.</li>
+    <li><b>Form field overlay</b> If enabled, all form fields on a page will be
+displayed as an interactive overlay. Otherwise each form field will be
+handled as a separate pop-up window.</li>
     <li><b>Posizione scheda</b> indica su quale lato della vista principale verranno
 mostrate le schede.</li>
     <li><b>Visibilità scheda</b> indica se mostrare le schede se sono aperti meno di
@@ -413,8 +434,6 @@ abilitato. (Le modifiche hanno effetto dopo il riavvio.)</li>
     <li><b>Conteggio chiusi di recente</b> imposta il numero di schede elencate nel
 relativo menù, se «Mantenere chiuse di recente» è abilitato. (Le modifiche
 hanno effetto dopo il riavvio.)</li>
-    <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the
-visibility of the tool and menu bars when toggling fullscreen mode.</li>
     <li><b>Barra degli strumenti «File»</b> indica quali azioni sono disponibili
 nella barre degli strumenti File. Le azioni disponibili sono openInNewTab,
 open, refresh, saveCopy, saveAs, print e separator. (Le modifiche hanno
@@ -430,6 +449,11 @@ scaleFactor, zoomIn, zoomOut, continuousMode, twoPagesMode,
 twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation e separator. (Le modifiche hanno effetto dopo il riavvio.)</li>
+    <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
+scroll instead being laid-out in mutliple columns if they are larger than
+the available screen space. (Effective after restart.)</li>
+    <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the
+visibility of the tool and menu bars when toggling fullscreen mode.</li>
     <li><b>Use page label</b> Determines if document-supplied page label will be
 used instead of page numbers when available.</li>
     <li><b>Titolo del documento come titolo della scheda</b> indica se il titolo

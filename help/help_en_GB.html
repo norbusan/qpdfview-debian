@@ -100,15 +100,16 @@ page of the document.</li>
 current tab.</li>
     <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
 displayed page.</li>
-	<li><b>Search...</b> Opens the search tool bar below the main view. The search
+	<li><b>Search...</b> Opens the search dock below the main view. The search
 automatically starts two seconds after the last change of the search term or
 is manually started by pressing the return key. If the Shift modifier is
 held when the return key is pressed, the search starts in all tabs instead
-of just the current tab.</li>
+of just the current tab. (This effect is reversed if the extended search
+dock is enabled in the settings.)</li>
 	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the
 search term in the document.</li>
 	<li><b>Cancel search</b> Cancels the currently running search and closes the
-search tool bar.</li>
+search dock.</li>
 	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be
 dragged to copy texts or images.</li>
 	<li><b>Add annotation</b> If checked, the program will wait for a frame to be
@@ -148,8 +149,8 @@ fully fit into the main view horizontally and vertically.</li>
 	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
     <li><b>Invert colours</b> Determines whether pages are rendered with inverted
 colours.</li>
-    <li><b>Convert to grayscale</b> Determines whether pages are converted to
-grayscale after rendering.</li>
+    <li><b>Convert to greyscale</b> Determines whether pages are converted to
+greyscale after rendering.</li>
 	<li><b>Tool bars</b> This menu contains a list of available tool bars for
 accessing frequently used actions.</li>
 	<li><b>Docks</b> This menu contains a list of available docks for displaying
@@ -273,6 +274,17 @@ the document.</p>
 document. A left click on an entry jumps to the respective page in the main
 view.</p>
 
+<p>The <em>bookmarks</em> view shows the bookmarks related to the document
+displayed in the current tab. The context menu contains entries to jump to
+the previous/next boookmark or to add bookmarks. The context menu of each
+entry also contains entries to edit and delete bookmarks.</p>
+
+<p>If enabled in the settings, the extended <em>search</em> dock shows an
+overview which contains the results of all searches being performed in all
+tabs. It shows the text surrounding a result with the search term being
+emphasized. Clicking on a result opens the corresponding tab and jumps to
+corresponding position.</p>
+
 <h3><a name="settings">Settings</a> <a href="#top">&uarr;</a></h3>
 
 <h4><a name="behaviorsettings">Behaviour settings</a> <a href="#top">&uarr;</a></h4>
@@ -318,6 +330,8 @@ resp. column number.</li>
 <h4><a name="graphicssettings">Graphics settings</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Use tiling</b> Pages will be divided into tiles before rendering and
+caching to reduce memory usage.</li>
     <li><b>Keep obsolete pixmaps</b> If enabled, then upon change of the zoom
 factor, cached pixmaps will be used to draw approximations of final pixmaps
 until these are available at the cost of increased memory usage.</li>
@@ -353,12 +367,12 @@ visible increasing rendering speed at the cost of increased cache usage.</li>
 the number of rows before the current row that are prefetched.</li>
     <li><b>PDF settings</b>
     <ul>
-        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
-on top of another is displayed.</li>
         <li><b>Antialiasing</b> Improves display quality at the cost of performance</li>
         <li><b>Text antialiasing</b> Improves text display quality at the cost of
 performance</li>
         <li><b>Text hinting</b> May improve text display quality for certain fonts.</li>
+        <li><b>Overprint preview</b> If enabled, a preview of printing one layer of ink
+on top of another is displayed.</li>
         <li><b>Thin line mode</b> Chooses the optimisation used to draw thin lines.</li>
         <li><b>Backend</b> Chooses the backend used to render pages.</li>
     </ul>
@@ -375,6 +389,14 @@ graphics.</li>
 <h4><a name="interfacesettings">Interface settings</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
+    <li><b>Extended search dock</b> If enabled, the default search dock is extended
+by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Annotation overlay</b> If enabled, all annotations on a page will be
+displayed as an interactive overlay. Otherwise each annotation will be
+handled as a separate pop-up window.</li>
+    <li><b>Form field overlay</b> If enabled, all form fields on a page will be
+displayed as an interactive overlay. Otherwise each form field will be
+handled as a separate pop-up window.</li>
     <li><b>Tab position</b> Defines at which edge of the main view tabs will be
 displayed.</li>
     <li><b>Tab visibility</b> Determines whether tabs will be displayed if less than
@@ -391,8 +413,6 @@ restart.)</li>
     <li><b>Recently closed count</b> Sets the number of tabs that are listed in the
 recently closed menu, if "Keep recently closed" is enabled. (Effective after
 restart.)</li>
-    <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the
-visibility of the tool and menu bars when toggling fullscreen mode.</li>
     <li><b>File tool bar</b> Defines which actions are visible in the file tool
 bar. Available actions are openInNewTab, open, refresh, saveCopy, saveAs,
 print and separator. (Effective after restart.)</li>
@@ -406,6 +426,11 @@ bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
 twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
+    <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
+scroll instead being laid-out in mutliple columns if they are larger than
+the available screen space. (Effective after restart.)</li>
+    <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the
+visibility of the tool and menu bars when toggling fullscreen mode.</li>
     <li><b>Use page label</b> Determines if document-supplied page label will be
 used instead of page numbers when available.</li>
     <li><b>Document title as tab title</b> Determines if the tab title as derived
