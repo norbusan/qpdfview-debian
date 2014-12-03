@@ -564,7 +564,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otevřít &amp;kopii v nové kartě</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2507"/>
@@ -739,7 +739,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2558"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Převést na odstíny šedi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2560"/>
@@ -830,6 +830,11 @@
         <translation type="unfinished">&amp;Pohled</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Hledání</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Osnova</translation>
@@ -840,24 +845,14 @@
         <translation type="unfinished">&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2906"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Záložky</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2670"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Hledání</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2786"/>
         <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Náhledy</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Záložky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2871"/>
@@ -873,6 +868,11 @@
         <location filename="../sources/mainwindow.cpp" line="2888"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Karty</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2906"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Záložky</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2914"/>
@@ -1500,6 +1500,21 @@
         <translation type="unfinished">Vzdálenost přednatažení:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">Panel pro rozšířené hledání:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Vložené poznámky:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Vložené formulářové pole:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">Nahoře</translation>
@@ -1565,16 +1580,6 @@
         <translation type="unfinished">Počet nedávno zavřených:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished">Panel pro rozšířené hledání</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Přepnout nástrojové pruhy a pruh s nabídkou při zobrazení na celou obrazovkou</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Panel nástrojů pro soubor:</translation>
@@ -1592,7 +1597,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ubíhající nabídky:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Přepnout nástrojové pruhy a pruh s nabídkou při zobrazení na celou obrazovkou</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1623,16 +1633,6 @@
         <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Omezit náhledy na výsledky:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Překrytí poznámky:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Překrytí formulářového pole:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="900"/>

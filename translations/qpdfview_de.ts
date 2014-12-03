@@ -564,7 +564,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Kopie in neuem Reiter öffnen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2507"/>
@@ -830,6 +830,11 @@
         <translation type="unfinished">&amp;Ansicht</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">S&amp;uchen</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Gliederung</translation>
@@ -838,16 +843,6 @@
         <location filename="../sources/mainwindow.cpp" line="2773"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Eigenschaften</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2906"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Lesezeichen</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2670"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">S&amp;uchen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2786"/>
@@ -873,6 +868,11 @@
         <location filename="../sources/mainwindow.cpp" line="2888"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Reiter</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2906"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Lesezeichen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2914"/>
@@ -1500,6 +1500,21 @@
         <translation type="unfinished">Reichweite des Vorausladens:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">Erweiterte Suchansicht:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Eingebettet dargestellte Anmerkungen:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Eingebettet dargestellte Formularfelder:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">Oben</translation>
@@ -1565,16 +1580,6 @@
         <translation type="unfinished">Anzahl geschlossener Reiter:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished">Erweitertes Suchen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Werkzeug- und Menüleisten bei Vollbild umschalten:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Datei-Werkzeugleiste:</translation>
@@ -1592,7 +1597,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Laufende Menüs:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Werkzeug- und Menüleisten bei Vollbild umschalten:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1623,16 +1633,6 @@
         <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Vorschaubilder auf Ergebnisse beschränken:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Eingebettet dargestellte Anmerkungen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Eingebettet dargestellte Formularfelder:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="900"/>

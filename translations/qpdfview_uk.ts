@@ -564,7 +564,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Відкрити &amp;копію у новій вкладці</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2507"/>
@@ -830,6 +830,11 @@
         <translation type="unfinished">П&amp;ерегляд</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Пошук</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Зміст</translation>
@@ -848,11 +853,6 @@
         <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">З&amp;акладки</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2670"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2871"/>
@@ -1500,6 +1500,21 @@
         <translation type="unfinished">Довжина передзавантаження:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">Розширена панель пошуку:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Накладка анотації:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Накладка поля форми:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">Вгорі</translation>
@@ -1565,16 +1580,6 @@
         <translation type="unfinished">Кількість записів останніх закритих документів:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished">Розширена панель пошуку:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Вимкнути панелі у повноекранному режимі:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Панель «Файл»:</translation>
@@ -1592,7 +1597,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Меню з гортанням:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Вимкнути панелі у повноекранному режимі:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1623,16 +1633,6 @@
         <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Обмежити мініатюри результатами:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Накладка анотації:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Накладка поля форми:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="900"/>
