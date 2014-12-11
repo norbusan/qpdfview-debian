@@ -1,4 +1,5 @@
 Release 0.4.14:
+  * Fixed keyboard movement not working in annotations and form fields.
   * Improved user interaction of the extended search dock.
   * Added various smaller user interface enhancements.
   * Updated settings section of the online help.

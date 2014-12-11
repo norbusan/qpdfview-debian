@@ -1554,6 +1554,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
         {
             if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
             {
+                QGraphicsView::keyPressEvent(event);
                 return;
             }
         }
