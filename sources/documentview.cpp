@@ -1508,6 +1508,15 @@ void DocumentView::resizeEvent(QResizeEvent* event)
 
 void DocumentView::keyPressEvent(QKeyEvent* event)
 {
+    foreach(const PageItem* page, m_pageItems)
+    {
+        if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
+        {
+            QGraphicsView::keyPressEvent(event);
+            return;
+        }
+    }
+
     const QKeySequence keySequence(event->modifiers() + event->key());
 
     int maskedKey = -1;
@@ -1550,15 +1559,6 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     }
     else
     {
-        foreach(const PageItem* page, m_pageItems)
-        {
-            if(page->showsAnnotationOverlay() || page->showsFormFieldOverlay())
-            {
-                QGraphicsView::keyPressEvent(event);
-                return;
-            }
-        }
-
         if(!m_continuousMode)
         {
             if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
