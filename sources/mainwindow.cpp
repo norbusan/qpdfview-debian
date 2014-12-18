@@ -442,8 +442,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_convertToGrayscale(currentTab()->convertToGrayscale());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
-
-        m_outlineView->restoreExpansion();
     }
     else
     {
@@ -579,6 +577,8 @@ void MainWindow::on_currentTab_documentChanged()
 
     if(senderIsCurrentTab())
     {
+        m_outlineView->restoreExpansion();
+
         setWindowTitleForCurrentTab();
     }
 }
@@ -2756,7 +2756,7 @@ void MainWindow::createDocks()
 
     m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
-    m_outlineView = new TreeView(Qt::UserRole + 4, this);
+    m_outlineView = new TreeView(ExpansionRole, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);

@@ -260,7 +260,7 @@ void TreeView::expandAll(const QModelIndex& index)
             expand(index);
         }
 
-        for(int row = 0; row < model()->rowCount(index); ++row)
+        for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
         {
             expandAll(index.child(row, 0));
         }
@@ -280,7 +280,7 @@ void TreeView::collapseAll(const QModelIndex& index)
             collapse(index);
         }
 
-        for(int row = 0; row < model()->rowCount(index); ++row)
+        for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
         {
             collapseAll(index.child(row, 0));
         }
@@ -303,7 +303,7 @@ void TreeView::restoreExpansion(const QModelIndex& index)
         }
     }
 
-    for(int row = 0; row < model()->rowCount(index); ++row)
+    for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
     {
         restoreExpansion(model()->index(row, 0, index));
     }
