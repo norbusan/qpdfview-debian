@@ -270,22 +270,22 @@
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1927"/>
+        <location filename="../sources/documentview.cpp" line="1928"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Deblocare %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2038"/>
+        <location filename="../sources/documentview.cpp" line="2039"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>

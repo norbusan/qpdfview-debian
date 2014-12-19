@@ -270,22 +270,22 @@
         <translation type="unfinished">&apos;%1&apos; belgesi için SyncTeX verisi bulunamadı.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1927"/>
+        <location filename="../sources/documentview.cpp" line="1928"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; dosyası yazdırılıyor...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 dosyasının kilidini aç</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Password:</source>
         <translation type="unfinished">Açarsöz:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2038"/>
+        <location filename="../sources/documentview.cpp" line="2039"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>

@@ -270,22 +270,22 @@
         <translation type="unfinished">SyncTex-data för &apos;%1&apos; kunde inte hittas</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1927"/>
+        <location filename="../sources/documentview.cpp" line="1928"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Skriver ut &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Lås upp %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Password:</source>
         <translation type="unfinished">Lösenord:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2038"/>
+        <location filename="../sources/documentview.cpp" line="2039"/>
         <source>Page %1</source>
         <translation type="unfinished">Sida %1</translation>
     </message>

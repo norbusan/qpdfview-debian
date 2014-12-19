@@ -270,22 +270,22 @@
         <translation type="unfinished">无法找到“%1”的 SyncTex 数据。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1927"/>
+        <location filename="../sources/documentview.cpp" line="1928"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">正在打印“%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Unlock %1</source>
         <translation type="unfinished">解锁 %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Password:</source>
         <translation type="unfinished">密码：</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2038"/>
+        <location filename="../sources/documentview.cpp" line="2039"/>
         <source>Page %1</source>
         <translation type="unfinished">第 %1 页</translation>
     </message>

@@ -270,22 +270,22 @@
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1927"/>
+        <location filename="../sources/documentview.cpp" line="1928"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Printing &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1996"/>
+        <location filename="../sources/documentview.cpp" line="1997"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2038"/>
+        <location filename="../sources/documentview.cpp" line="2039"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>
@@ -564,7 +564,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Open &amp;copy in new tab</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2507"/>
@@ -830,6 +830,11 @@
         <translation type="unfinished">&amp;View</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Search</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Outline</translation>
@@ -848,11 +853,6 @@
         <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">Book&amp;marks</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2670"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Search</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2871"/>
@@ -1500,6 +1500,21 @@
         <translation type="unfinished">Prefetch distance:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">Extended search dock:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Annotation overlay:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Form field overlay:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">Top</translation>
@@ -1565,16 +1580,6 @@
         <translation type="unfinished">Recently closed count:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished">Extended search dock:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Toggle tool and menu bars with fullscreen:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
         <source>File tool bar:</source>
         <translation type="unfinished">File toolbar:</translation>
@@ -1592,7 +1597,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scrollable menus:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Toggle tool and menu bars with fullscreen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1623,16 +1633,6 @@
         <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Limit thumbnails to results:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Annotation overlay:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Form field overlay:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="900"/>
