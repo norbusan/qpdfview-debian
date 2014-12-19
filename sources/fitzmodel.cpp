@@ -51,7 +51,7 @@ void loadOutline(fz_outline* outline, QStandardItem* parent)
     {
         const int page = outline->dest.ld.gotor.page + 1;
 
-        item->setData(page, PageRole);
+        item->setData(page, Document::PageRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));

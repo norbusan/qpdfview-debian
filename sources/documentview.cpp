@@ -228,7 +228,7 @@ void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, 
 {
     path += index.data(Qt::DisplayRole).toString();
 
-    if(index.data(ExpansionRole).toBool())
+    if(index.data(Model::Document::ExpansionRole).toBool())
     {
         paths.insert(path);
     }
@@ -245,7 +245,7 @@ void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& path
 
     if(paths.contains(path))
     {
-        model->setData(index, true, ExpansionRole);
+        model->setData(index, true, Model::Document::ExpansionRole);
     }
 
     for(int row = 0, rowCount = model->rowCount(index); row < rowCount; ++row)

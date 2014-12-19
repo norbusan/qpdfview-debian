@@ -55,6 +55,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+#include "model.h"
 #include "settings.h"
 #include "shortcuthandler.h"
 #include "thumbnailitem.h"
@@ -2756,7 +2757,7 @@ void MainWindow::createDocks()
 
     m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
-    m_outlineView = new TreeView(ExpansionRole, this);
+    m_outlineView = new TreeView(Model::Document::ExpansionRole, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);

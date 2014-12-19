@@ -108,9 +108,9 @@ void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardIte
 
         delete linkDestination;
 
-        item->setData(page, PageRole);
-        item->setData(left, LeftRole);
-        item->setData(top, TopRole);
+        item->setData(page, Document::PageRole);
+        item->setData(left, Document::LeftRole);
+        item->setData(top, Document::TopRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));

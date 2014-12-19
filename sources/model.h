@@ -149,6 +149,14 @@ namespace Model
 
         virtual void setPaperColor(const QColor& paperColor) { Q_UNUSED(paperColor); }
 
+        enum
+        {
+            PageRole = Qt::UserRole + 1,
+            LeftRole,
+            TopRole,
+            ExpansionRole
+        };
+
         virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
         virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); }
 
