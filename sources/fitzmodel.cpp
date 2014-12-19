@@ -39,6 +39,9 @@ pdf_document* pdf_specifics(fz_document*);
 namespace
 {
 
+using namespace qpdfview;
+using namespace qpdfview::Model;
+
 void loadOutline(fz_outline* outline, QStandardItem* parent)
 {
     QStandardItem* item = new QStandardItem(QString::fromUtf8(outline->title));
@@ -48,7 +51,7 @@ void loadOutline(fz_outline* outline, QStandardItem* parent)
     {
         const int page = outline->dest.ld.gotor.page + 1;
 
-        item->setData(page, Qt::UserRole + 1);
+        item->setData(page, PageRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
