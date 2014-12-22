@@ -471,11 +471,16 @@ QString DocumentView::title() const
 
     if(s_settings->mainWindow().documentTitleAsTabTitle())
     {
-        const QList< QStandardItem* > matches = m_propertiesModel->findItems(QLatin1String("Title"), Qt::MatchFixedString);
-
-        if(!matches.isEmpty())
+        for(int row = 0, rowCount = m_propertiesModel->rowCount(); row < rowCount; ++row)
         {
-            title = m_propertiesModel->item(matches.first()->row(), 1)->text();
+            const QStandardItem* keyItem = m_propertiesModel->item(row, 0);
+            const QStandardItem* valueItem = m_propertiesModel->item(row, 1);
+
+            if(keyItem != 0 && valueItem != 0 && QLatin1String("Title") == keyItem->text())
+            {
+                title = valueItem->text();
+                break;
+            }
         }
     }
 
