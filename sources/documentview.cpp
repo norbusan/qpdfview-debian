@@ -284,7 +284,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_verticalScrollBar_valueChanged()));
+    connectVerticalScrollBar();
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -1499,13 +1499,15 @@ void DocumentView::on_pages_wasModified()
 
 void DocumentView::resizeEvent(QResizeEvent* event)
 {
+    qreal left = 0.0, top = 0.0;
+    saveLeftAndTop(left, top);
+
+    disconnectVerticalScrollBar();
     QGraphicsView::resizeEvent(event);
+    connectVerticalScrollBar();
 
     if(m_scaleMode != ScaleFactorMode)
     {
-        qreal left = 0.0, top = 0.0;
-        saveLeftAndTop(left, top);
-
         prepareScene();
         prepareView(left, top);
     }
@@ -1989,10 +1991,12 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
 
     const QRectF boundingRect = page->boundingRect().translated(page->pos());
-    const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
-    left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
-    top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
+    const int horizontalValue = horizontalScrollBar()->value();
+    const int verticalValue = verticalScrollBar()->value();
+
+    left = (horizontalValue - boundingRect.left()) / boundingRect.width();
+    top = (verticalValue - boundingRect.top()) / boundingRect.height();
 }
 
 bool DocumentView::checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages)
@@ -2100,6 +2104,16 @@ void DocumentView::adjustScrollBarPolicy()
         setVerticalScrollBarPolicy(m_continuousMode ? Qt::ScrollBarAsNeeded : Qt::ScrollBarAlwaysOff);
         break;
     }
+}
+
+void DocumentView::connectVerticalScrollBar()
+{
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
+}
+
+void DocumentView::disconnectVerticalScrollBar()
+{
+    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 }
 
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
@@ -2415,9 +2429,9 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     m_highlight->setVisible(true);
 
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
+    disconnectVerticalScrollBar();
     centerOn(m_highlight);
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
+    connectVerticalScrollBar();
 
     viewport()->update();
 }
