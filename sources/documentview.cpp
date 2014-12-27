@@ -1502,9 +1502,7 @@ void DocumentView::resizeEvent(QResizeEvent* event)
     qreal left = 0.0, top = 0.0;
     saveLeftAndTop(left, top);
 
-    disconnectVerticalScrollBar();
     QGraphicsView::resizeEvent(event);
-    connectVerticalScrollBar();
 
     if(m_scaleMode != ScaleFactorMode)
     {
@@ -1989,7 +1987,6 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
-
     const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
     const int horizontalValue = horizontalScrollBar()->value();
