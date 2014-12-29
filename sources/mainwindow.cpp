@@ -78,14 +78,14 @@ namespace
 
 using namespace qpdfview;
 
-QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
+QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* model, const QModelIndex& parent)
 {
-    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
+    for(int row = 0, rowCount = model->rowCount(parent); row < rowCount; ++row)
     {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
+        const QModelIndex index = model->index(row, 0, parent);
 
         bool ok = false;
-        const int page = outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+        const int page = model->data(index, Model::Document::PageRole).toInt(&ok);
 
         if(ok && page == currentPage)
         {
@@ -93,10 +93,10 @@ QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const
         }
     }
 
-    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
+    for(int row = 0, rowCount = model->rowCount(parent); row < rowCount; ++row)
     {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
-        const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
+        const QModelIndex index = model->index(row, 0, parent);
+        const QModelIndex match = synchronizeOutlineView(currentPage, model, index);
 
         if(match.isValid())
         {
@@ -603,7 +603,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
-            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
+            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView->model(), QModelIndex());
 
             if(match.isValid())
             {
