@@ -305,7 +305,7 @@ void TreeView::restoreExpansion(const QModelIndex& index)
 
     for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
     {
-        restoreExpansion(index.child(row, 0));
+        restoreExpansion(model()->index(row, 0, index));
     }
 }
 
