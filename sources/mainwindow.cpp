@@ -154,16 +154,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 
     prepareDatabase();
 
-    if(s_settings->mainWindow().restoreTabs())
-    {
-        s_database->restoreTabs();
-    }
-
-    if(s_settings->mainWindow().restoreBookmarks())
-    {
-        s_database->restoreBookmarks();
-    }
-
     on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
@@ -186,6 +176,21 @@ QMenu* MainWindow::createPopupMenu()
     menu->addAction(m_bookmarksDock->toggleViewAction());
 
     return menu;
+}
+
+void MainWindow::show()
+{
+    QMainWindow::show();
+
+    if(s_settings->mainWindow().restoreTabs())
+    {
+        s_database->restoreTabs();
+    }
+
+    if(s_settings->mainWindow().restoreBookmarks())
+    {
+        s_database->restoreBookmarks();
+    }
 }
 
 bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)

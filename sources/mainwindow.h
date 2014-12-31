@@ -76,6 +76,8 @@ public:
     QMenu* createPopupMenu();
 
 public slots:
+    void show();
+
     bool open(const QString& filePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
     bool openInNewTab(const QString& filePath, int page = -1, const QRectF& highlight = QRectF(), bool quiet = false);
 
