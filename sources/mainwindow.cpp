@@ -55,6 +55,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+#include "model.h"
 #include "settings.h"
 #include "shortcuthandler.h"
 #include "thumbnailitem.h"
@@ -77,14 +78,14 @@ namespace
 
 using namespace qpdfview;
 
-QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const QModelIndex& parent)
+QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* model, const QModelIndex& parent)
 {
-    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
+    for(int row = 0, rowCount = model->rowCount(parent); row < rowCount; ++row)
     {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
+        const QModelIndex index = model->index(row, 0, parent);
 
         bool ok = false;
-        const int page = outlineView->model()->data(index, Qt::UserRole + 1).toInt(&ok);
+        const int page = model->data(index, Model::Document::PageRole).toInt(&ok);
 
         if(ok && page == currentPage)
         {
@@ -92,10 +93,10 @@ QModelIndex synchronizeOutlineView(int currentPage, TreeView* outlineView, const
         }
     }
 
-    for(int row = 0, rowCount = outlineView->model()->rowCount(parent); row < rowCount; ++row)
+    for(int row = 0, rowCount = model->rowCount(parent); row < rowCount; ++row)
     {
-        const QModelIndex index = outlineView->model()->index(row, 0, parent);
-        const QModelIndex match = synchronizeOutlineView(currentPage, outlineView, index);
+        const QModelIndex index = model->index(row, 0, parent);
+        const QModelIndex match = synchronizeOutlineView(currentPage, model, index);
 
         if(match.isValid())
         {
@@ -447,8 +448,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_convertToGrayscale(currentTab()->convertToGrayscale());
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
-
-        m_outlineView->restoreExpansion();
     }
     else
     {
@@ -584,6 +583,8 @@ void MainWindow::on_currentTab_documentChanged()
 
     if(senderIsCurrentTab())
     {
+        m_outlineView->restoreExpansion();
+
         setWindowTitleForCurrentTab();
     }
 }
@@ -607,7 +608,7 @@ void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 
         if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
         {
-            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView, QModelIndex());
+            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView->model(), QModelIndex());
 
             if(match.isValid())
             {
@@ -2761,7 +2762,7 @@ void MainWindow::createDocks()
 
     m_outlineDock = createDock(tr("&Outline"), QLatin1String("outlineDock"), QKeySequence(Qt::Key_F6));
 
-    m_outlineView = new TreeView(Qt::UserRole + 4, this);
+    m_outlineView = new TreeView(Model::Document::ExpansionRole, this);
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);

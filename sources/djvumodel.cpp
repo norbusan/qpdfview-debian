@@ -51,6 +51,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
 using namespace qpdfview::Model;
 
 inline miniexp_t miniexp_cadddr(miniexp_t exp)
@@ -399,7 +400,7 @@ void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QStri
                 QStandardItem* item = new QStandardItem(title);
                 item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-                item->setData(destinationPage, Qt::UserRole + 1);
+                item->setData(destinationPage, Document::PageRole);
 
                 QStandardItem* pageItem = item->clone();
                 pageItem->setText(QString::number(destinationPage));

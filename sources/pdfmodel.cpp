@@ -60,6 +60,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+using namespace qpdfview::Model;
+
 void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
 {
     const QDomElement element = node.toElement();
@@ -105,9 +108,9 @@ void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardIte
 
         delete linkDestination;
 
-        item->setData(page, Qt::UserRole + 1);
-        item->setData(left, Qt::UserRole + 2);
-        item->setData(top, Qt::UserRole + 3);
+        item->setData(page, Document::PageRole);
+        item->setData(left, Document::LeftRole);
+        item->setData(top, Document::TopRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
