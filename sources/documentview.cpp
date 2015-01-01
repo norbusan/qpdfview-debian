@@ -1989,11 +1989,10 @@ void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
     const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
-    const int horizontalValue = horizontalScrollBar()->value();
-    const int verticalValue = verticalScrollBar()->value();
+    const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
-    left = (horizontalValue - boundingRect.left()) / boundingRect.width();
-    top = (verticalValue - boundingRect.top()) / boundingRect.height();
+    left = (topLeft.x() - boundingRect.x()) / boundingRect.width();
+    top = (topLeft.y() - boundingRect.y()) / boundingRect.height();
 }
 
 bool DocumentView::checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages)
