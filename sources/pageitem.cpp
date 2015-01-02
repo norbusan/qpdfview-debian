@@ -532,13 +532,15 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
                 if(link->page != -1 && (link->urlOrFileName.isNull() || !presentationMode()))
                 {
+                    const bool newTab = event->button() == Qt::MidButton;
+
                     if(link->urlOrFileName.isNull())
                     {
-                        emit linkClicked(event->button() == Qt::MidButton, link->page, link->left, link->top);
+                        emit linkClicked(newTab, link->page, link->left, link->top);
                     }
                     else
                     {
-                        emit linkClicked(event->button() == Qt::MidButton, link->urlOrFileName, link->page);
+                        emit linkClicked(newTab, link->urlOrFileName, link->page);
                     }
 
                     event->accept();

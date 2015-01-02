@@ -749,11 +749,11 @@ void MainWindow::on_currentTab_linkClicked(bool newTab, const QString& filePath,
 {
     if(newTab)
     {
-        jumpToPageOrOpenInNewTab(filePath, page, true);
+        openInNewTab(filePath, page);
     }
     else
     {
-        openInNewTab(filePath, page);
+        jumpToPageOrOpenInNewTab(filePath, page, true);
     }
 }
 
