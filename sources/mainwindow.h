@@ -68,7 +68,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
     friend class MainWindowAdaptor;
-    
+
 public:
     explicit MainWindow(QWidget* parent = 0);
 
@@ -239,8 +239,6 @@ protected slots:
     void on_search_visibilityChanged(bool visible);
     void on_search_clicked(const QModelIndex& index);
 
-    void on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
-
     void on_saveDatabase_timeout();
 
 protected:
@@ -274,6 +272,8 @@ private:
     void setCurrentPageSuffixForCurrentTab();
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
+
+    class RestoreTab;
 
     QTimer* m_saveDatabaseTimer;
 

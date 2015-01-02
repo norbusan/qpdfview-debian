@@ -141,7 +141,7 @@ QStringList Database::loadInstanceNames()
     return instanceNames;
 }
 
-void Database::restoreTabs()
+void Database::restoreTabs(const RestoreTab& restoreTab)
 {
 #ifdef WITH_SQL
 
@@ -164,14 +164,21 @@ void Database::restoreTabs()
                 return;
             }
 
-            emit tabRestored(query.value(0).toString(),
-                             static_cast< bool >(query.value(2).toUInt()),
-                             static_cast< LayoutMode >(query.value(3).toUInt()),
-                             query.value(4).toBool(),
-                             static_cast< ScaleMode >(query.value(5).toUInt()),
-                             query.value(6).toReal(),
-                             static_cast< Rotation >(query.value(7).toUInt()),
-                             query.value(1).toInt());
+            DocumentView* newTab = restoreTab(query.value(0).toString());
+
+            if(newTab != 0)
+            {
+                newTab->setContinuousMode(query.value(2).toBool());
+                newTab->setLayoutMode(static_cast< LayoutMode >(query.value(3).toUInt()));
+                newTab->setRightToLeftMode(query.value(4).toBool());
+
+                newTab->setScaleMode(static_cast< ScaleMode >(query.value(5).toUInt()));
+                newTab->setScaleFactor(query.value(6).toReal());
+
+                newTab->setRotation(static_cast< Rotation >(query.value(7).toUInt()));
+
+                newTab->jumpToPage(query.value(1).toInt());
+            }
         }
 
         transaction.commit();
@@ -212,9 +219,9 @@ void Database::saveTabs(const QList< DocumentView* >& tabs)
             query.bindValue(1, instanceName());
             query.bindValue(2, tab->currentPage());
 
-            query.bindValue(3, static_cast< uint >(tab->continuousMode()));
+            query.bindValue(3, tab->continuousMode());
             query.bindValue(4, static_cast< uint >(tab->layoutMode()));
-            query.bindValue(5, static_cast< uint >(tab->rightToLeftMode()));
+            query.bindValue(5, tab->rightToLeftMode());
 
             query.bindValue(6, static_cast< uint >(tab->scaleMode()));
             query.bindValue(7, tab->scaleFactor());
@@ -458,9 +465,9 @@ void Database::savePerFileSettings(const DocumentView* tab)
         query.bindValue(1, QCryptographicHash::hash(tab->fileInfo().absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
         query.bindValue(2, tab->currentPage());
 
-        query.bindValue(3, static_cast< uint >(tab->continuousMode()));
+        query.bindValue(3, tab->continuousMode());
         query.bindValue(4, static_cast< uint >(tab->layoutMode()));
-        query.bindValue(5, static_cast< uint >(tab->rightToLeftMode()));
+        query.bindValue(5, tab->rightToLeftMode());
 
         query.bindValue(6, static_cast< uint >(tab->scaleMode()));
         query.bindValue(7, tab->scaleFactor());

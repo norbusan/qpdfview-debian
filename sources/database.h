@@ -50,7 +50,12 @@ public:
 
     QStringList loadInstanceNames();
 
-    void restoreTabs();
+    struct RestoreTab
+    {
+        virtual DocumentView* operator()(const QString& absoluteFilePath) const = 0;
+    };
+
+    void restoreTabs(const RestoreTab& restoreTab);
     void saveTabs(const QList< DocumentView* >& tabs);
     void clearTabs();
 
@@ -60,9 +65,6 @@ public:
 
     void restorePerFileSettings(DocumentView* tab);
     void savePerFileSettings(const DocumentView* tab);
-
-signals:
-    void tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage);
 
 private:
     Q_DISABLE_COPY(Database)

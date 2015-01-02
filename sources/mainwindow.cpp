@@ -122,6 +122,25 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
 namespace qpdfview
 {
 
+class MainWindow::RestoreTab : public Database::RestoreTab
+{
+    MainWindow* m_mainWindow;
+
+public:
+    RestoreTab(MainWindow* mainWindow) : m_mainWindow(mainWindow) {}
+
+    DocumentView* operator()(const QString& absoluteFilePath) const
+    {
+        if(m_mainWindow->openInNewTab(absoluteFilePath, -1, QRectF(), true))
+        {
+            return m_mainWindow->currentTab();
+        }
+
+        return 0;
+    }
+
+};
+
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 
@@ -184,7 +203,7 @@ void MainWindow::show()
 
     if(s_settings->mainWindow().restoreTabs())
     {
-        s_database->restoreTabs();
+        s_database->restoreTabs(RestoreTab(this));
     }
 
     if(s_settings->mainWindow().restoreBookmarks())
@@ -2045,23 +2064,6 @@ void MainWindow::on_search_clicked(const QModelIndex& index)
     tab->findResult(index);
 }
 
-void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
-{
-    if(openInNewTab(absoluteFilePath, -1, QRectF(), true))
-    {
-        currentTab()->setContinuousMode(continuousMode);
-        currentTab()->setLayoutMode(layoutMode);
-        currentTab()->setRightToLeftMode(rightToLeftMode);
-
-        currentTab()->setScaleMode(scaleMode);
-        currentTab()->setScaleFactor(scaleFactor);
-
-        currentTab()->setRotation(rotation);
-
-        currentTab()->jumpToPage(currentPage);
-    }
-}
-
 void MainWindow::on_saveDatabase_timeout()
 {
     if(s_settings->mainWindow().restoreTabs())
@@ -2351,8 +2353,6 @@ void MainWindow::prepareDatabase()
     {
         s_database = Database::instance();
     }
-
-    connect(s_database, SIGNAL(tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)), SLOT(on_database_tabRestored(QString,bool,LayoutMode,bool,ScaleMode,qreal,Rotation,int)));
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
