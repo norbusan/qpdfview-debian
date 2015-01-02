@@ -2047,7 +2047,7 @@ void MainWindow::on_search_clicked(const QModelIndex& index)
 
 void MainWindow::on_database_tabRestored(const QString& absoluteFilePath, bool continuousMode, LayoutMode layoutMode, bool rightToLeftMode, ScaleMode scaleMode, qreal scaleFactor, Rotation rotation, int currentPage)
 {
-    if(openInNewTab(absoluteFilePath))
+    if(openInNewTab(absoluteFilePath, -1, QRectF(), true))
     {
         currentTab()->setContinuousMode(continuousMode);
         currentTab()->setLayoutMode(layoutMode);
