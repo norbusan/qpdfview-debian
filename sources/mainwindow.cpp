@@ -124,6 +124,7 @@ namespace qpdfview
 
 class MainWindow::RestoreTab : public Database::RestoreTab
 {
+private:
     MainWindow* m_mainWindow;
 
 public:
@@ -135,8 +136,10 @@ public:
         {
             return m_mainWindow->currentTab();
         }
-
-        return 0;
+        else
+        {
+            return 0;
+        }
     }
 
 };

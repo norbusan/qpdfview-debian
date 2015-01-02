@@ -1,6 +1,8 @@
 Release 0.4.14:
   * Fixed keyboard movement not working in annotations and form fields.
+  * Fixed display of warning dialog upon restoring tabs.
   * Improved user interaction of the extended search dock.
+  * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
   * Updated settings section of the online help.
   * Updated Czech translations. Thanks to Pavel Fric.
@@ -12,7 +14,7 @@ Release 0.4.14:
 Release 0.4.13:
   * Fixed a memory leak when processing meta-data in the DjVu plug-in.
   * Fixed a crash when loading corrupted DjVu documents.
-  * Removed the dialog warning about unknown file type to fix the '--quiet' option.
+  * Removed the warning dialog about unknown file type to fix the '--quiet' option.
   * Added optional extended search dock displaying results from all open tabs. Thanks to S. Razi Alavizadeh.
   * Added per-tab setting to convert pages to grayscale after rendering.
   * Updated British English translations. Thanks to Anthony Harrington.

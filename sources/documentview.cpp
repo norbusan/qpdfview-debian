@@ -224,6 +224,36 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
+{
+    path += index.data(Qt::DisplayRole).toString();
+
+    if(model->data(index, Model::Document::ExpansionRole).toBool())
+    {
+        paths.insert(path);
+    }
+
+    for(int row = 0, rowCount = model->rowCount(index); row < rowCount; ++row)
+    {
+        saveExpandedPaths(model, paths, model->index(row, 0, index), path);
+    }
+}
+
+void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& paths, const QModelIndex& index, QString path)
+{
+    path += index.data(Qt::DisplayRole).toString();
+
+    if(paths.contains(path))
+    {
+        model->setData(index, true, Model::Document::ExpansionRole);
+    }
+
+    for(int row = 0, rowCount = model->rowCount(index); row < rowCount; ++row)
+    {
+        restoreExpandedPaths(model, paths, model->index(row, 0, index), path);
+    }
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -882,7 +912,12 @@ bool DocumentView::refresh()
 
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
+        QSet< QString > expandedPaths;
+        saveExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
+
         prepareDocument(document, pages);
+
+        restoreExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
 
         prepareScene();
         prepareView(left, top);
