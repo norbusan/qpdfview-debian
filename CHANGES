@@ -1,6 +1,7 @@
 Release 0.4.14:
   * Fixed keyboard movement not working in annotations and form fields.
   * Fixed display of warning dialog upon restoring tabs.
+  * Fixed compilation using LLVM Clang. Thanks to Franz Fellner.
   * Improved user interaction of the extended search dock.
   * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
