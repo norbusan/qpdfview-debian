@@ -22,26 +22,50 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "bookmarkmodel.h"
 
 #include <QApplication>
-#include <QHash>
-
-namespace
-{
-
-using namespace qpdfview;
-
-inline bool operator<(int page, const BookmarkItem& bookmark) { return page < bookmark.page; }
-inline bool operator<(const BookmarkItem& bookmark, int page) { return bookmark.page < page; }
-
-QHash< QString, BookmarkModel* > modelsByPath;
-
-}
 
 namespace qpdfview
 {
 
-BookmarkModel::BookmarkModel(QObject* parent) : QAbstractListModel(parent),
-    m_bookmarks()
+static inline bool operator<(int page, const BookmarkItem& bookmark) { return page < bookmark.page; }
+static inline bool operator<(const BookmarkItem& bookmark, int page) { return bookmark.page < page; }
+
+QHash< QString, BookmarkModel* > BookmarkModel::s_instances;
+
+BookmarkModel* BookmarkModel::fromPath(const QString& path, bool create)
 {
+    BookmarkModel* model = s_instances.value(path, 0);
+
+    if(create && model == 0)
+    {
+        model = new BookmarkModel(qApp);
+
+        s_instances.insert(path, model);
+    }
+
+    return model;
+}
+
+QList< QString > BookmarkModel::knownPaths()
+{
+    return s_instances.keys();
+}
+
+void BookmarkModel::forgetPath(const QString& path)
+{
+    QHash< QString, BookmarkModel* >::iterator at = s_instances.find(path);
+
+    if(at != s_instances.end())
+    {
+        delete at.value();
+
+        s_instances.erase(at);
+    }
+}
+
+void BookmarkModel::forgetAllPaths()
+{
+    qDeleteAll(s_instances);
+    s_instances.clear();
 }
 
 void BookmarkModel::addBookmark(const BookmarkItem& bookmark)
@@ -93,43 +117,6 @@ void BookmarkModel::findBookmark(BookmarkItem& bookmark) const
     }
 }
 
-BookmarkModel* BookmarkModel::fromPath(const QString& path, bool create)
-{
-    BookmarkModel* model = modelsByPath.value(path, 0);
-
-    if(create && model == 0)
-    {
-        model = new BookmarkModel(qApp);
-
-        modelsByPath.insert(path, model);
-    }
-
-    return model;
-}
-
-QList< QString > BookmarkModel::knownPaths()
-{
-    return modelsByPath.keys();
-}
-
-void BookmarkModel::forgetPath(const QString& path)
-{
-    QHash< QString, BookmarkModel* >::iterator at = modelsByPath.find(path);
-
-    if(at != modelsByPath.end())
-    {
-        delete at.value();
-
-        modelsByPath.erase(at);
-    }
-}
-
-void BookmarkModel::forgetAllPaths()
-{
-    qDeleteAll(modelsByPath);
-    modelsByPath.clear();
-}
-
 Qt::ItemFlags BookmarkModel::flags(const QModelIndex&) const
 {
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
@@ -171,6 +158,11 @@ QVariant BookmarkModel::data(const QModelIndex& index, int role) const
     case Qt::TextAlignmentRole:
         return index.column() == 0 ? Qt::AlignLeft : Qt::AlignRight;
     }
+}
+
+BookmarkModel::BookmarkModel(QObject* parent) : QAbstractListModel(parent),
+    m_bookmarks()
+{
 }
 
 } // qpdfview

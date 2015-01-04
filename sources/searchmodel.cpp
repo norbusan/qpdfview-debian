@@ -27,15 +27,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "documentview.h"
 
-namespace
-{
-
-using namespace qpdfview;
-
-inline bool operator<(int page, const QPair< int, QRectF >& result) { return page < result.first; }
-inline bool operator<(const QPair< int, QRectF >& result, int page) { return result.first < page; }
-
-}
+static inline bool operator<(int page, const QPair< int, QRectF >& result) { return page < result.first; }
+static inline bool operator<(const QPair< int, QRectF >& result, int page) { return result.first < page; }
 
 namespace qpdfview
 {

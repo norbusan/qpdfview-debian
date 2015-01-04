@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QAbstractListModel>
 
 #include <QDateTime>
+#include <QHash>
 
 namespace qpdfview
 {
@@ -50,7 +51,12 @@ class BookmarkModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    explicit BookmarkModel(QObject* parent = 0);
+    static BookmarkModel* fromPath(const QString& path, bool create = false);
+
+    static QList< QString > knownPaths();
+
+    static void forgetPath(const QString& path);
+    static void forgetAllPaths();
 
 
     inline bool isEmpty() const { return m_bookmarks.isEmpty(); }
@@ -59,14 +65,6 @@ public:
     void removeBookmark(const BookmarkItem& bookmark);
 
     void findBookmark(BookmarkItem& bookmark) const;
-
-
-    static BookmarkModel* fromPath(const QString& path, bool create = false);
-
-    static QList< QString > knownPaths();
-
-    static void forgetPath(const QString& path);
-    static void forgetAllPaths();
 
 
     enum
@@ -85,6 +83,11 @@ public:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
 private:
+    Q_DISABLE_COPY(BookmarkModel)
+
+    static QHash< QString, BookmarkModel* > s_instances;
+    BookmarkModel(QObject* parent = 0);
+
     QList< BookmarkItem > m_bookmarks;
 
 };
