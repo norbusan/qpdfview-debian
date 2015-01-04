@@ -75,7 +75,7 @@ void SignalHandler::on_socketNotifier_activated()
 {
     m_socketNotifier->setEnabled(false);
 
-    int sigNumber;
+    int sigNumber = 0;
     Q_UNUSED(read(s_sockets[1], &sigNumber, sizeof(int)));
 
     switch(sigNumber)
