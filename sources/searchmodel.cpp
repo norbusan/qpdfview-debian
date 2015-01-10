@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2014 Adam Reichold
+Copyright 2014-2015 Adam Reichold
 
 This file is part of qpdfview.
 
