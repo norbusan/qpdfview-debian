@@ -11,6 +11,8 @@ Release 0.4.14:
   * Updated Polish translations. Thanks to Piotr Strębski.
   * Updated British English translations. Thanks to Anthony Harrington.
   * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Spanish translations. Thanks to Adolfo Jayme.
+  * Updated Simplified Chinese translations. Thanks to electricface.
 
 Release 0.4.13:
   * Fixed a memory leak when processing meta-data in the DjVu plug-in.

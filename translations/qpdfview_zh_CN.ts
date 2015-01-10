@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de_DE">
 <context>
     <name>Model::PdfDocument</name>
     <message>
@@ -64,7 +64,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="223"/>
         <source>Created for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">创建</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="224"/>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="227"/>
         <source>Language level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">语言水平</translation>
     </message>
 </context>
 <context>
@@ -92,47 +92,47 @@
     <message>
         <location filename="../sources/main.cpp" line="151"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">实例名不许为空</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="162"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">搜索词不许为空</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">实例选择</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="190"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">实例：</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="219"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未知命令行选项 &apos;%1&apos;。</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="250"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用 &apos;--instance&apos; 需要一个实例名。</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="256"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用了 &apos;--instance&apos; 不运行不用 &apos;--unique&apos;。</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="262"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">一个实例名必须只包含字符 &quot;[A-Z][a-z][0-9]_&quot;，并且不能以数字开头。</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="268"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用 &apos;--search&apos; 需要一个搜索词。</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="346"/>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../sources/main.cpp" line="445"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">无法准备信号处理器。</translation>
     </message>
 </context>
 <context>
@@ -180,12 +180,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="974"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">鼠标右键</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="975"/>
         <source>Middle mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">鼠标中键</translation>
     </message>
 </context>
 <context>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">书签</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -203,17 +203,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">标签：</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">备注:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">修改：</translation>
     </message>
 </context>
 <context>
@@ -237,7 +237,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="760"/>
+        <location filename="../sources/database.cpp" line="767"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">跳到第%1页</translation>
     </message>
@@ -245,47 +245,47 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="523"/>
+        <location filename="../sources/documentview.cpp" line="553"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">支持的格式(%1)</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1417"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
         <source>Information</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1417"/>
+        <location filename="../sources/documentview.cpp" line="1452"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">在设置中已经禁用打开 URL。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1460"/>
+        <location filename="../sources/documentview.cpp" line="1495"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1460"/>
+        <location filename="../sources/documentview.cpp" line="1495"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">无法找到“%1”的 SyncTex 数据。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1933"/>
+        <location filename="../sources/documentview.cpp" line="1968"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">正在打印“%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2003"/>
+        <location filename="../sources/documentview.cpp" line="2037"/>
         <source>Unlock %1</source>
         <translation type="unfinished">解锁 %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2003"/>
+        <location filename="../sources/documentview.cpp" line="2037"/>
         <source>Password:</source>
         <translation type="unfinished">密码：</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2045"/>
+        <location filename="../sources/documentview.cpp" line="2079"/>
         <source>Page %1</source>
         <translation type="unfinished">第 %1 页</translation>
     </message>
@@ -316,7 +316,7 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开文件附件不能保存到 &apos;%1&apos;。</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
@@ -329,7 +329,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">字体</translation>
     </message>
 </context>
 <context>
@@ -337,13 +337,13 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帮助</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">help_zh_CN.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="62"/>
@@ -359,523 +359,523 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="147"/>
+        <location filename="../sources/mainwindow.cpp" line="169"/>
         <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示/隐藏工具条</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="148"/>
+        <location filename="../sources/mainwindow.cpp" line="170"/>
         <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示/隐藏菜单条</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="227"/>
-        <location filename="../sources/mainwindow.cpp" line="301"/>
-        <location filename="../sources/mainwindow.cpp" line="949"/>
-        <location filename="../sources/mainwindow.cpp" line="966"/>
-        <location filename="../sources/mainwindow.cpp" line="983"/>
-        <location filename="../sources/mainwindow.cpp" line="1019"/>
-        <location filename="../sources/mainwindow.cpp" line="1157"/>
-        <location filename="../sources/mainwindow.cpp" line="2259"/>
-        <location filename="../sources/mainwindow.cpp" line="2273"/>
+        <location filename="../sources/mainwindow.cpp" line="249"/>
+        <location filename="../sources/mainwindow.cpp" line="323"/>
+        <location filename="../sources/mainwindow.cpp" line="971"/>
+        <location filename="../sources/mainwindow.cpp" line="988"/>
+        <location filename="../sources/mainwindow.cpp" line="1005"/>
+        <location filename="../sources/mainwindow.cpp" line="1041"/>
+        <location filename="../sources/mainwindow.cpp" line="1179"/>
+        <location filename="../sources/mainwindow.cpp" line="2264"/>
+        <location filename="../sources/mainwindow.cpp" line="2278"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="227"/>
-        <location filename="../sources/mainwindow.cpp" line="301"/>
+        <location filename="../sources/mainwindow.cpp" line="249"/>
+        <location filename="../sources/mainwindow.cpp" line="323"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">无法打开“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="506"/>
+        <location filename="../sources/mainwindow.cpp" line="528"/>
         <source>Close all tabs</source>
         <translation type="unfinished">关闭全部标签页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="507"/>
+        <location filename="../sources/mainwindow.cpp" line="529"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">关闭当前标签外的所有标签</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="508"/>
+        <location filename="../sources/mainwindow.cpp" line="530"/>
         <source>Close all tabs to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭左侧的标签页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="509"/>
+        <location filename="../sources/mainwindow.cpp" line="531"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭右侧的标签页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="902"/>
+        <location filename="../sources/mainwindow.cpp" line="924"/>
         <source>Open</source>
         <translation type="unfinished">打开</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="918"/>
+        <location filename="../sources/mainwindow.cpp" line="940"/>
         <source>Open in new tab</source>
         <translation type="unfinished">在新标签页中打开</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="949"/>
-        <location filename="../sources/mainwindow.cpp" line="1157"/>
+        <location filename="../sources/mainwindow.cpp" line="971"/>
+        <location filename="../sources/mainwindow.cpp" line="1179"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">无法刷新“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="956"/>
+        <location filename="../sources/mainwindow.cpp" line="978"/>
         <source>Save copy</source>
         <translation type="unfinished">保存副本</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="966"/>
+        <location filename="../sources/mainwindow.cpp" line="988"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">无法在“%1”保存副本。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="973"/>
-        <location filename="../sources/mainwindow.cpp" line="2263"/>
+        <location filename="../sources/mainwindow.cpp" line="995"/>
+        <location filename="../sources/mainwindow.cpp" line="2268"/>
         <source>Save as</source>
         <translation type="unfinished">另存为</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="983"/>
-        <location filename="../sources/mainwindow.cpp" line="2273"/>
+        <location filename="../sources/mainwindow.cpp" line="1005"/>
+        <location filename="../sources/mainwindow.cpp" line="2278"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">无法保存为“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1019"/>
+        <location filename="../sources/mainwindow.cpp" line="1041"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">无法打印“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1056"/>
+        <location filename="../sources/mainwindow.cpp" line="1078"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">设置首页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1056"/>
+        <location filename="../sources/mainwindow.cpp" line="1078"/>
         <source>Select the first page of the body matter:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">选择版面的首页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1069"/>
+        <location filename="../sources/mainwindow.cpp" line="1091"/>
         <source>Jump to page</source>
         <translation type="unfinished">跳到页面</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1069"/>
+        <location filename="../sources/mainwindow.cpp" line="1091"/>
         <source>Page:</source>
         <translation type="unfinished">页：</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1453"/>
+        <location filename="../sources/mainwindow.cpp" line="1475"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">跳到第%1页</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1604"/>
+        <location filename="../sources/mainwindow.cpp" line="1626"/>
         <source>About qpdfview</source>
         <translation type="unfinished">关于 qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1604"/>
+        <location filename="../sources/mainwindow.cpp" line="1626"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview 是一款使用 Qt 的标签式文档查看器。&lt;/p&gt;&lt;p&gt;该版本包括：&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1608"/>
+        <location filename="../sources/mainwindow.cpp" line="1630"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt; PDF 由 Poppler %1 支持&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1611"/>
+        <location filename="../sources/mainwindow.cpp" line="1633"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt; PS 由 libspectre %1 支持&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1614"/>
+        <location filename="../sources/mainwindow.cpp" line="1636"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;DjVu 由 DjVuLibre %1 支持&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1617"/>
+        <location filename="../sources/mainwindow.cpp" line="1639"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;PDF 由 Fitz %1 支持&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1620"/>
+        <location filename="../sources/mainwindow.cpp" line="1642"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;li&gt;打印由 CUPS %1 支持&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1622"/>
+        <location filename="../sources/mainwindow.cpp" line="1644"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;转到 &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; 获取更多信息。&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 qpdfview 开发者&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1947"/>
-        <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2259"/>
-        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">文件 %1 已被修改，你想要保存你的修改吗？</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2438"/>
-        <source>Page width</source>
-        <translation type="unfinished">页面宽度</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2439"/>
-        <source>Page size</source>
-        <translation type="unfinished">页面大小</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2462"/>
-        <source>Match &amp;case</source>
-        <translation type="unfinished">匹配大小写(&amp;C)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2463"/>
-        <source>Highlight &amp;all</source>
-        <translation type="unfinished">全部高亮(&amp;A)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2510"/>
-        <source>&amp;Open...</source>
-        <translation type="unfinished">打开(&amp;O)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2511"/>
-        <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">在新标签中打开(&amp;T)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2512"/>
-        <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2514"/>
-        <source>&amp;Refresh</source>
-        <translation type="unfinished">刷新(&amp;R)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2515"/>
-        <source>&amp;Save copy...</source>
-        <translation type="unfinished">保存副本(&amp;S)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2516"/>
-        <source>Save &amp;as...</source>
-        <translation type="unfinished">另存为(&amp;A)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2517"/>
-        <source>&amp;Print...</source>
-        <translation type="unfinished">打印(&amp;P)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2518"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished">退出(&amp;X)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2522"/>
-        <source>&amp;Previous page</source>
-        <translation type="unfinished">上一页(&amp;P)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2523"/>
-        <source>&amp;Next page</source>
-        <translation type="unfinished">下一页(&amp;N)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2524"/>
-        <source>&amp;First page</source>
-        <translation type="unfinished">第一页(&amp;F)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2525"/>
-        <source>&amp;Last page</source>
-        <translation type="unfinished">最后一页(&amp;L)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2527"/>
-        <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2529"/>
-        <source>&amp;Jump to page...</source>
-        <translation type="unfinished">跳到页面(&amp;J)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2531"/>
-        <source>Jump &amp;backward</source>
-        <translation type="unfinished">向后跳至(&amp;B)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2532"/>
-        <source>Jump for&amp;ward</source>
-        <translation type="unfinished">向前跳至(&amp;W)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2534"/>
-        <source>&amp;Search...</source>
-        <translation type="unfinished">搜索(&amp;S)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2535"/>
-        <source>Find previous</source>
-        <translation type="unfinished">查找上一个</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2536"/>
-        <source>Find next</source>
-        <translation type="unfinished">查找下一个</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2537"/>
-        <source>Cancel search</source>
-        <translation type="unfinished">取消搜索</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2539"/>
-        <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">复制到剪贴板(&amp;C)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2540"/>
-        <source>&amp;Add annotation</source>
-        <translation type="unfinished">添加注释</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2542"/>
-        <source>Settings...</source>
-        <translation type="unfinished">设置...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2546"/>
-        <source>&amp;Continuous</source>
-        <translation type="unfinished">连续(&amp;C)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2547"/>
-        <source>&amp;Two pages</source>
-        <translation type="unfinished">2 页(&amp;T)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2548"/>
-        <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished">双页带有封面(&amp;W)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2549"/>
-        <source>&amp;Multiple pages</source>
-        <translation type="unfinished">多页(&amp;M)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2551"/>
-        <source>Right to left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2553"/>
-        <source>Zoom &amp;in</source>
-        <translation type="unfinished">放大(&amp;I)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2554"/>
-        <source>Zoom &amp;out</source>
-        <translation type="unfinished">缩小(&amp;O)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2555"/>
-        <source>Original &amp;size</source>
-        <translation type="unfinished">原始尺寸(&amp;S)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2557"/>
-        <source>Fit to page width</source>
-        <translation type="unfinished">适合页宽</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2558"/>
-        <source>Fit to page size</source>
-        <translation type="unfinished">适合页面大小</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2560"/>
-        <source>Rotate &amp;left</source>
-        <translation type="unfinished">左旋转(&amp;L)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2561"/>
-        <source>Rotate &amp;right</source>
-        <translation type="unfinished">右旋转(&amp;R)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2563"/>
-        <source>Invert colors</source>
-        <translation type="unfinished">反色</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2564"/>
-        <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2566"/>
-        <source>Fonts...</source>
-        <translation type="unfinished">字体...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2568"/>
-        <source>&amp;Fullscreen</source>
-        <translation type="unfinished">全屏(&amp;F)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2569"/>
-        <source>&amp;Presentation...</source>
-        <translation type="unfinished">幻灯(&amp;P)...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2573"/>
-        <source>&amp;Previous tab</source>
-        <translation type="unfinished">上一标签(&amp;P)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2574"/>
-        <source>&amp;Next tab</source>
-        <translation type="unfinished">下一标签(&amp;N)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2576"/>
-        <source>&amp;Close tab</source>
-        <translation type="unfinished">关闭标签(&amp;C)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2577"/>
-        <source>Close &amp;all tabs</source>
-        <translation type="unfinished">关闭全部标签(&amp;A)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2578"/>
-        <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished">关闭当前标签外的全部标签(&amp;B)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2589"/>
-        <source>&amp;Previous bookmark</source>
-        <translation type="unfinished">上一书签(&amp;P)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2590"/>
-        <source>&amp;Next bookmark</source>
-        <translation type="unfinished">下一书签(&amp;N)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2592"/>
-        <source>&amp;Add bookmark</source>
-        <translation type="unfinished">添加书签(&amp;A)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2792"/>
-        <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2804"/>
-        <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1946"/>
-        <location filename="../sources/mainwindow.cpp" line="2593"/>
+        <location filename="../sources/mainwindow.cpp" line="1968"/>
+        <location filename="../sources/mainwindow.cpp" line="2596"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">移除书签(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2513"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
+        <location filename="../sources/mainwindow.cpp" line="1969"/>
+        <source>&amp;Edit bookmark</source>
+        <translation type="unfinished">编辑书签(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2594"/>
+        <location filename="../sources/mainwindow.cpp" line="2264"/>
+        <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
+        <translation type="unfinished">文件 %1 已被修改，你想要保存你的修改吗？</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2441"/>
+        <source>Page width</source>
+        <translation type="unfinished">页面宽度</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2442"/>
+        <source>Page size</source>
+        <translation type="unfinished">页面大小</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2465"/>
+        <source>Match &amp;case</source>
+        <translation type="unfinished">匹配大小写(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2466"/>
+        <source>Highlight &amp;all</source>
+        <translation type="unfinished">全部高亮(&amp;A)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2513"/>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">打开(&amp;O)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2514"/>
+        <source>Open in new &amp;tab...</source>
+        <translation type="unfinished">在新标签中打开(&amp;T)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2515"/>
+        <source>Open &amp;copy in new tab</source>
+        <translation type="unfinished">在新标签页打开副本(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished">打开文档所在目录</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2517"/>
+        <source>&amp;Refresh</source>
+        <translation type="unfinished">刷新(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2518"/>
+        <source>&amp;Save copy...</source>
+        <translation type="unfinished">保存副本(&amp;S)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2519"/>
+        <source>Save &amp;as...</source>
+        <translation type="unfinished">另存为(&amp;A)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2520"/>
+        <source>&amp;Print...</source>
+        <translation type="unfinished">打印(&amp;P)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2521"/>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">退出(&amp;X)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2525"/>
+        <source>&amp;Previous page</source>
+        <translation type="unfinished">上一页(&amp;P)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2526"/>
+        <source>&amp;Next page</source>
+        <translation type="unfinished">下一页(&amp;N)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2527"/>
+        <source>&amp;First page</source>
+        <translation type="unfinished">第一页(&amp;F)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2528"/>
+        <source>&amp;Last page</source>
+        <translation type="unfinished">最后一页(&amp;L)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2530"/>
+        <source>&amp;Set first page...</source>
+        <translation type="unfinished">设置首页(S)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2532"/>
+        <source>&amp;Jump to page...</source>
+        <translation type="unfinished">跳到页面(&amp;J)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2534"/>
+        <source>Jump &amp;backward</source>
+        <translation type="unfinished">向后跳至(&amp;B)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2535"/>
+        <source>Jump for&amp;ward</source>
+        <translation type="unfinished">向前跳至(&amp;W)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2537"/>
+        <source>&amp;Search...</source>
+        <translation type="unfinished">搜索(&amp;S)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2538"/>
+        <source>Find previous</source>
+        <translation type="unfinished">查找上一个</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2539"/>
+        <source>Find next</source>
+        <translation type="unfinished">查找下一个</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2540"/>
+        <source>Cancel search</source>
+        <translation type="unfinished">取消搜索</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2542"/>
+        <source>&amp;Copy to clipboard</source>
+        <translation type="unfinished">复制到剪贴板(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2543"/>
+        <source>&amp;Add annotation</source>
+        <translation type="unfinished">添加注释</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2545"/>
+        <source>Settings...</source>
+        <translation type="unfinished">设置...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2549"/>
+        <source>&amp;Continuous</source>
+        <translation type="unfinished">连续(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2550"/>
+        <source>&amp;Two pages</source>
+        <translation type="unfinished">2 页(&amp;T)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2551"/>
+        <source>Two pages &amp;with cover page</source>
+        <translation type="unfinished">双页带有封面(&amp;W)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2552"/>
+        <source>&amp;Multiple pages</source>
+        <translation type="unfinished">多页(&amp;M)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2554"/>
+        <source>Right to left</source>
+        <translation type="unfinished">从右到左</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2556"/>
+        <source>Zoom &amp;in</source>
+        <translation type="unfinished">放大(&amp;I)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2557"/>
+        <source>Zoom &amp;out</source>
+        <translation type="unfinished">缩小(&amp;O)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2558"/>
+        <source>Original &amp;size</source>
+        <translation type="unfinished">原始尺寸(&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2560"/>
+        <source>Fit to page width</source>
+        <translation type="unfinished">适合页宽</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2561"/>
+        <source>Fit to page size</source>
+        <translation type="unfinished">适合页面大小</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2563"/>
+        <source>Rotate &amp;left</source>
+        <translation type="unfinished">左旋转(&amp;L)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2564"/>
+        <source>Rotate &amp;right</source>
+        <translation type="unfinished">右旋转(&amp;R)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2566"/>
+        <source>Invert colors</source>
+        <translation type="unfinished">反色</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2567"/>
+        <source>Convert to grayscale</source>
+        <translation type="unfinished">转换为灰度</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2569"/>
+        <source>Fonts...</source>
+        <translation type="unfinished">字体...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2571"/>
+        <source>&amp;Fullscreen</source>
+        <translation type="unfinished">全屏(&amp;F)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2572"/>
+        <source>&amp;Presentation...</source>
+        <translation type="unfinished">幻灯(&amp;P)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2576"/>
+        <source>&amp;Previous tab</source>
+        <translation type="unfinished">上一标签(&amp;P)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2577"/>
+        <source>&amp;Next tab</source>
+        <translation type="unfinished">下一标签(&amp;N)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2579"/>
+        <source>&amp;Close tab</source>
+        <translation type="unfinished">关闭标签(&amp;C)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2580"/>
+        <source>Close &amp;all tabs</source>
+        <translation type="unfinished">关闭全部标签(&amp;A)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2581"/>
+        <source>Close all tabs &amp;but current tab</source>
+        <translation type="unfinished">关闭当前标签外的全部标签(&amp;B)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2592"/>
+        <source>&amp;Previous bookmark</source>
+        <translation type="unfinished">上一书签(&amp;P)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2593"/>
+        <source>&amp;Next bookmark</source>
+        <translation type="unfinished">下一书签(&amp;N)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2595"/>
+        <source>&amp;Add bookmark</source>
+        <translation type="unfinished">添加书签(&amp;A)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2597"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">移除全部书签</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2598"/>
+        <location filename="../sources/mainwindow.cpp" line="2601"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">内容(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2599"/>
+        <location filename="../sources/mainwindow.cpp" line="2602"/>
         <source>&amp;About</source>
         <translation type="unfinished">关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2635"/>
-        <location filename="../sources/mainwindow.cpp" line="2831"/>
+        <location filename="../sources/mainwindow.cpp" line="2638"/>
+        <location filename="../sources/mainwindow.cpp" line="2834"/>
         <source>&amp;File</source>
         <translation type="unfinished">文件(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2638"/>
-        <location filename="../sources/mainwindow.cpp" line="2852"/>
+        <location filename="../sources/mainwindow.cpp" line="2641"/>
+        <location filename="../sources/mainwindow.cpp" line="2855"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">编辑(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2641"/>
-        <location filename="../sources/mainwindow.cpp" line="2865"/>
+        <location filename="../sources/mainwindow.cpp" line="2644"/>
+        <location filename="../sources/mainwindow.cpp" line="2868"/>
         <source>&amp;View</source>
         <translation type="unfinished">查看(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2763"/>
-        <source>&amp;Outline</source>
-        <translation type="unfinished">大纲(&amp;O)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2779"/>
-        <source>&amp;Properties</source>
-        <translation type="unfinished">属性(&amp;P)</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2676"/>
+        <location filename="../sources/mainwindow.cpp" line="2679"/>
         <source>&amp;Search</source>
         <translation type="unfinished">搜索(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2877"/>
+        <location filename="../sources/mainwindow.cpp" line="2766"/>
+        <source>&amp;Outline</source>
+        <translation type="unfinished">大纲(&amp;O)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2782"/>
+        <source>&amp;Properties</source>
+        <translation type="unfinished">属性(&amp;P)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2795"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished">缩略图(&amp;N)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2807"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished">书签(&amp;M)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2880"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">工具栏(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2880"/>
+        <location filename="../sources/mainwindow.cpp" line="2883"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Docks</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2894"/>
+        <location filename="../sources/mainwindow.cpp" line="2897"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">标签(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2912"/>
+        <location filename="../sources/mainwindow.cpp" line="2915"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">书签(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2920"/>
+        <location filename="../sources/mainwindow.cpp" line="2923"/>
         <source>&amp;Help</source>
         <translation type="unfinished">帮助(&amp;H)</translation>
     </message>
@@ -903,62 +903,62 @@
         <translation type="unfinished">编辑表格字段“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="771"/>
+        <location filename="../sources/pageitem.cpp" line="773"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">复制文本(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="772"/>
+        <location filename="../sources/pageitem.cpp" line="774"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">选择文本(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="775"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">复制图像(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="774"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">保存图像到文件(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="809"/>
+        <location filename="../sources/pageitem.cpp" line="811"/>
         <source>Save image to file</source>
         <translation type="unfinished">保存图像到文件</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="813"/>
+        <location filename="../sources/pageitem.cpp" line="815"/>
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="813"/>
+        <location filename="../sources/pageitem.cpp" line="815"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">无法保存图像到文件“%1”。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="826"/>
+        <location filename="../sources/pageitem.cpp" line="828"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">添加文本(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="827"/>
+        <location filename="../sources/pageitem.cpp" line="829"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">添加高亮(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="866"/>
+        <location filename="../sources/pageitem.cpp" line="868"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">复制链接地址(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="867"/>
+        <location filename="../sources/pageitem.cpp" line="869"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">选择链接地址(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="890"/>
+        <location filename="../sources/pageitem.cpp" line="892"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">移除注释(&amp;R)</translation>
     </message>
@@ -989,13 +989,13 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="836"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">减少</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="839"/>
         <location filename="../sources/pdfmodel.cpp" line="846"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文字提示:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="857"/>
@@ -1005,22 +1005,22 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="865"/>
         <source>Solid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">实体</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="866"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">形状</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="869"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">细线模式：</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="874"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">闪屏</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="875"/>
@@ -1030,7 +1030,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="878"/>
         <source>Backend:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">后端：</translation>
     </message>
 </context>
 <context>
@@ -1038,17 +1038,17 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="215"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不能匹配 &apos;%1&apos; 的文件类型！</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="225"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">严重</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="225"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不能为文件类型 &apos;%1&apos;加载插件！</translation>
     </message>
 </context>
 <context>
@@ -1116,52 +1116,52 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">数字式：</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="92"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下到上，左到右</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下到上，右到左</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">左到右，下到上</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">左到右，上到下</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右到左，下到上</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右到左，上到小</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">上到下，左到右</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">上到下，右到左</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">数字式布局：</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="106"/>
@@ -1174,12 +1174,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">图像反锯齿位：</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="251"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文本反锯齿位：</translation>
     </message>
 </context>
 <context>
@@ -1187,12 +1187,12 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近关闭(&amp;R)</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">清理列表(&amp;C)</translation>
+        <translation type="unfinished">清空列表(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -1211,18 +1211,23 @@
 <context>
     <name>qpdfview::SearchModel</name>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="155"/>
+        <location filename="../sources/searchmodel.cpp" line="148"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; 发生</translation>
     </message>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="185"/>
+        <location filename="../sources/searchmodel.cpp" line="178"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; 发生在页面 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
     <name>qpdfview::SettingsDialog</name>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="93"/>
+        <source>Settings</source>
+        <translation type="unfinished">设置</translation>
+    </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
         <source>General</source>
@@ -1261,7 +1266,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="142"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在当前选项卡的默认值</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="224"/>
@@ -1294,7 +1299,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="247"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">记录最近关闭的：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
@@ -1314,17 +1319,23 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="273"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> 分</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="275"/>
+        <location filename="../sources/settingsdialog.cpp" line="700"/>
+        <source>Never</source>
+        <translation type="unfinished">从不</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="278"/>
         <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存数据库的时间间隔：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">同步演示：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="300"/>
@@ -1334,17 +1345,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="303"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">演示画面：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="310"/>
+        <source>Synchronize outline view:</source>
+        <translation type="unfinished">同步大纲视图：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="319"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">缩放系数：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="324"/>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> 毫秒</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="327"/>
@@ -1359,7 +1375,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="336"/>
         <source>Highlight color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">高亮颜色：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="342"/>
@@ -1379,22 +1395,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="416"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用平铺：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保持过时像素图：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="432"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用设备像素比：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="441"/>
         <source>Trim margins:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">修剪边距：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="448"/>
@@ -1424,19 +1440,19 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="480"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">演示背景色：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="488"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">每行页数：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="493"/>
         <location filename="../sources/settingsdialog.cpp" line="503"/>
         <location filename="../sources/settingsdialog.cpp" line="513"/>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> 像素</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="498"/>
@@ -1481,12 +1497,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="561"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">预取距离：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">高级搜索条</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">注释叠加：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">表单字段叠加：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">顶部</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="688"/>
@@ -1519,32 +1550,6 @@
         <translation type="unfinished">总是</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="724"/>
-        <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="774"/>
-        <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="930"/>
-        <source>Zoom to selection:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="275"/>
-        <location filename="../sources/settingsdialog.cpp" line="700"/>
-        <source>Never</source>
-        <translation type="unfinished">从不</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="93"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="703"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">标签可视：</translation>
@@ -1552,7 +1557,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="710"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">扩展标签</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="717"/>
@@ -1560,24 +1565,19 @@
         <translation type="unfinished">新建与当前标签相邻的标签：</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="724"/>
+        <source>Exit after last tab:</source>
+        <translation type="unfinished">关闭最后一个标签后退出：</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="733"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近使用数：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近关闭数：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
@@ -1595,49 +1595,44 @@
         <translation type="unfinished">查看工具栏：</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="774"/>
+        <source>Scrollable menus:</source>
+        <translation type="unfinished">滚动菜单：</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">全屏时显示/隐藏工具条和菜单条</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用页面标签：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="795"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文档标题作为分页标题：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="802"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在窗口标题显示当前页数</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="809"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="310"/>
-        <source>Synchronize outline view:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在窗口标题显示实例名</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="816"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">高亮当前缩略图：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="823"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">限制缩略图的结果：</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="900"/>
@@ -1664,18 +1659,23 @@
         <source>Add annotation:</source>
         <translation type="unfinished">添加注释：</translation>
     </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="930"/>
+        <source>Zoom to selection:</source>
+        <translation type="unfinished">缩放到选择：</translation>
+    </message>
 </context>
 <context>
     <name>qpdfview::ShortcutHandler</name>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="148"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">动作</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="151"/>
         <source>Key sequence</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">按钮顺序</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="269"/>
@@ -1685,27 +1685,27 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="276"/>
         <source>Skip forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">快进</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="283"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">上移</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="290"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下移</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="297"/>
         <source>Move left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">左移</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="304"/>
         <source>Move right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右移</translation>
     </message>
 </context>
 <context>
@@ -1713,12 +1713,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="320"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">展开全部(&amp;E)</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="321"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭全部(&amp;C)</translation>
     </message>
 </context>
 </TS>
