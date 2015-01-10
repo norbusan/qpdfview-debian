@@ -227,6 +227,8 @@ class MappingSpinBox : public SpinBox
 public:
     struct TextValueMapper
     {
+        virtual ~TextValueMapper() {}
+
         virtual QString textFromValue(int val, bool& ok) const = 0;
         virtual int valueFromText(const QString& text, bool& ok) const = 0;
     };
